@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 12.595 | Maturity: production-ready
+- Score: 12.586 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
@@ -33,14 +33,14 @@ Focus: AI Platform Engineering
 ## 5. Release 2.65.0 corresponding to NGC container 26.01
 - Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.65.0
-- Score: 8.682 | Maturity: production-ready
+- Score: 8.677 | Maturity: production-ready
 - Tags: inference, agent, triton, vllm
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
 ## 6. Release 2.64.0 corresponding to NGC container 25.12
 - Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.64.0
-- Score: 8.682 | Maturity: production-ready
+- Score: 8.676 | Maturity: production-ready
 - Tags: inference, agent, triton, vllm
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
@@ -54,7 +54,7 @@ Focus: AI Platform Engineering
 ## 8. Release 2.63.0 corresponding to NGC container 25.11
 - Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.63.0
-- Score: 8.307 | Maturity: production-ready
+- Score: 8.306 | Maturity: production-ready
 - Tags: inference, agent, triton, vllm
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
