@@ -22,9 +22,11 @@ jobs:
         run: |
           python pipeline/auto_tune.py report || true
           python pipeline/auto_tune.py apply || true
-      - name: Collect + build digest
+      - name: Collect + health + build digest
         run: |
           python collectors/collect.py
+          python pipeline/source_health.py update
+          python pipeline/source_health.py report
           python pipeline/build_digest.py
       - name: Commit digest
         run: |

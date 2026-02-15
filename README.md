@@ -9,6 +9,7 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
 - Supports lightweight feedback capture for relevance tuning
 - Auto-tunes source weights from accumulated feedback
+- Tracks source reliability/health and incorporates it into ranking
 - Builds a Markdown digest
 - Publishes digest as:
   - versioned file in `data/digest/`
@@ -43,6 +44,12 @@ python pipeline/feedback.py summary
 ```bash
 python pipeline/auto_tune.py report
 python pipeline/auto_tune.py apply
+```
+
+## Source health (v1.4)
+```bash
+python pipeline/source_health.py update
+python pipeline/source_health.py report
 ```
 
 ## Config

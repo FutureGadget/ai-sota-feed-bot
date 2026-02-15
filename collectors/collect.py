@@ -20,6 +20,15 @@ def item_id(url: str, title: str) -> str:
     return hashlib.sha256(f"{url}|{title}".encode("utf-8")).hexdigest()[:16]
 
 
+def append_ingest_run(stats: list[dict]) -> None:
+    health_dir = ROOT / "data" / "health"
+    health_dir.mkdir(parents=True, exist_ok=True)
+    run_file = health_dir / "ingest_runs.jsonl"
+    with open(run_file, "a", encoding="utf-8") as f:
+        for row in stats:
+            f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
 def run():
     now = datetime.now(timezone.utc)
     day = now.strftime("%Y-%m-%d")
@@ -27,33 +36,63 @@ def run():
     out_dir.mkdir(parents=True, exist_ok=True)
 
     all_items = []
+    source_stats = []
+
     for source in load_sources():
         if source.get("type") != "rss":
             continue
 
-        parsed = feedparser.parse(source["url"])
-        for e in parsed.entries[:40]:
-            title = getattr(e, "title", "").strip()
-            link = getattr(e, "link", "").strip()
-            summary = getattr(e, "summary", "")
-            published = (
-                getattr(e, "published", None)
-                or getattr(e, "updated", None)
-                or now.isoformat()
-            )
-            if not title or not link:
-                continue
+        src_name = source["name"]
+        src_url = source["url"]
+        src_weight = float(source.get("weight", 1.0))
 
-            all_items.append(
+        try:
+            parsed = feedparser.parse(src_url)
+            entries = parsed.entries[:40]
+            count = 0
+            for e in entries:
+                title = getattr(e, "title", "").strip()
+                link = getattr(e, "link", "").strip()
+                summary = getattr(e, "summary", "")
+                published = (
+                    getattr(e, "published", None)
+                    or getattr(e, "updated", None)
+                    or now.isoformat()
+                )
+                if not title or not link:
+                    continue
+                count += 1
+                all_items.append(
+                    {
+                        "id": item_id(link, title),
+                        "source": src_name,
+                        "source_weight": src_weight,
+                        "title": title,
+                        "url": link,
+                        "summary": summary,
+                        "published": published,
+                        "collected_at": now.isoformat(),
+                    }
+                )
+
+            source_stats.append(
                 {
-                    "id": item_id(link, title),
-                    "source": source["name"],
-                    "source_weight": float(source.get("weight", 1.0)),
-                    "title": title,
-                    "url": link,
-                    "summary": summary,
-                    "published": published,
-                    "collected_at": now.isoformat(),
+                    "ts": now.isoformat(),
+                    "source": src_name,
+                    "url": src_url,
+                    "status": "ok",
+                    "items": count,
+                }
+            )
+        except Exception as e:
+            source_stats.append(
+                {
+                    "ts": now.isoformat(),
+                    "source": src_name,
+                    "url": src_url,
+                    "status": "error",
+                    "items": 0,
+                    "error": str(e),
                 }
             )
 
@@ -61,7 +100,11 @@ def run():
     with open(path, "w", encoding="utf-8") as f:
         json.dump(all_items, f, ensure_ascii=False, indent=2)
 
+    append_ingest_run(source_stats)
+
     print(f"collected={len(all_items)} file={path}")
+    ok = sum(1 for s in source_stats if s["status"] == "ok")
+    print(f"sources_ok={ok} sources_total={len(source_stats)}")
 
 
 if __name__ == "__main__":

@@ -8,3 +8,4 @@
 ## Operational checks
 - Monitor workflow runs daily
 - Keep ingest and publish steps independently retryable
+- Track per-source success/failure and stale-source risk via `data/health/source_health.json`

@@ -33,6 +33,20 @@ def latest_raw_file() -> Path:
     return fp
 
 
+def load_source_health() -> dict[str, float]:
+    p = ROOT / "data" / "health" / "source_health.json"
+    if not p.exists():
+        return {}
+    try:
+        payload = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for src, row in payload.get("sources", {}).items():
+        out[src] = float(row.get("reliability", 1.0))
+    return out
+
+
 def canonical_url(u: str) -> str:
     return u.split("?")[0].strip().lower()
 
@@ -182,6 +196,7 @@ def run():
     hkw = profile.get("hype_keywords", [])
     w = profile.get("weights", {})
     decay = float(w.get("freshness_hours_decay", 72))
+    source_health = load_source_health()
 
     scored = []
     for it in items:
@@ -190,11 +205,13 @@ def run():
         hype_hits = keyword_hits(text, hkw)
         fresh = freshness_score(it.get("published", ""), decay)
 
+        src_rel = float(source_health.get(it.get("source", ""), 1.0))
         score = (
             float(it.get("source_weight", 1.0)) * float(w.get("source_weight", 1.0))
             + fresh
             + platform_hits * float(w.get("platform_relevance", 1.8))
             - hype_hits * float(w.get("hype_penalty", 0.8))
+            + src_rel * float(w.get("source_reliability", 1.0))
         )
 
         tags = [k for k in pkw if re.search(rf"\b{re.escape(k)}\b", text.lower())][:5]
@@ -205,6 +222,7 @@ def run():
                 **it,
                 "type": item_type,
                 "score": round(score, 3),
+                "source_reliability": round(src_rel, 3),
                 "freshness": round(fresh, 3),
                 "platform_hits": platform_hits,
                 "hype_hits": hype_hits,
@@ -239,7 +257,7 @@ def run():
             f"## {i}. {it['title']}",
             f"- Type: {it['type']} | Source: {it['source']}",
             f"- URL: {it['url']}",
-            f"- Score: {it['score']} | Maturity: {it['maturity']}",
+            f"- Score: {it['score']} | Reliability: {it['source_reliability']} | Maturity: {it['maturity']}",
             f"- Tags: {', '.join(it['tags']) if it['tags'] else 'n/a'}",
             f"- Why it matters: {it['why_it_matters']}",
             "",
