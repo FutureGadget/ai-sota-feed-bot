@@ -123,19 +123,25 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
 
     items = json.loads(processed_file.read_text(encoding="utf-8"))[:max_items]
     today = datetime.now().strftime("%Y-%m-%d")
-    top = items[:top_n]
-    rest = items[top_n:]
+
+    # Category-first display: keep releases out of the very top flow.
+    platform_items = [x for x in items if x.get("type") != "release"]
+    release_items = [x for x in items if x.get("type") == "release"]
+    research_items = [x for x in platform_items if x.get("type") == "paper"]
+    platform_news_items = [x for x in platform_items if x.get("type") != "paper"]
 
     src_ok, src_total = load_source_stats()
     llm_target = load_llm_label_target()
     model = os.getenv("LLM_MODEL_NAME", "claude-haiku-4-5")
 
-    top_lines = [
+    msg1 = [
         f"<b>📰 AI Feed ({today}) · {len(items)} picks</b>",
         "",
-        f"<b>🔥 Top {top_n}</b>",
+        f"<b>🤖 Agent & Platform ({min(len(platform_news_items), top_n)})</b>",
     ]
-    for i, it in enumerate(top, start=1):
+
+    idx = 1
+    for it in platform_news_items[:top_n]:
         title = esc(it.get("title", ""), 88)
         source = esc(it.get("source", "unknown"), 32)
         url = it.get("url", "")
@@ -144,25 +150,38 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
         why = esc(short_why(it.get("why_it_matters") or it.get("llm_why_1line") or ""), 76)
         action = esc(action_line(it), 56)
 
-        top_lines.append(f"<b>{i}) {type_emoji(it.get('type'))}{topic_emoji(it)} <a href=\"{html.escape(url)}\">{title}</a></b>")
-        top_lines.append(f"<i>{signal} · {conf}</i>")
+        msg1.append(f"<b>{idx}) {type_emoji(it.get('type'))}{topic_emoji(it)} <a href=\"{html.escape(url)}\">{title}</a></b>")
+        msg1.append(f"<i>{signal} · {conf}</i>")
         if why:
-            top_lines.append(f"• Why: {why}")
-        top_lines.append(f"• Action: {action}")
-        top_lines.append(f"<code>[{source}]</code>")
-        top_lines.append("")
+            msg1.append(f"• Why: {why}")
+        msg1.append(f"• Action: {action}")
+        msg1.append(f"<code>[{source}]</code>")
+        msg1.append("")
+        idx += 1
 
-    more_lines = ["<b>🧩 More</b>"]
-    for i, it in enumerate(rest, start=top_n + 1):
-        title = esc(it.get("title", ""), 70)
-        source = esc(it.get("source", "unknown"), 32)
-        url = it.get("url", "")
-        more_lines.append(f"{i}) {type_emoji(it.get('type'))} <a href=\"{html.escape(url)}\">{title}</a> <code>[{source}]</code>")
+    msg2 = []
 
-    more_lines.append("")
-    more_lines.append(f"<b>📊</b> LLM labels: <b>{llm_target} candidates</b> · Sources: <b>{src_ok}/{src_total}</b> · {esc(model,40)}")
+    if release_items:
+        msg2.append(f"<b>🛠️ Releases ({len(release_items)})</b>")
+        for i, it in enumerate(release_items, start=1):
+            title = esc(it.get("title", ""), 70)
+            source = esc(it.get("source", "unknown"), 32)
+            url = it.get("url", "")
+            msg2.append(f"R{i}) {type_emoji(it.get('type'))} <a href=\"{html.escape(url)}\">{title}</a> <code>[{source}]</code>")
+        msg2.append("")
 
-    return ["\n".join(top_lines)[:3900], "\n".join(more_lines)[:3900]]
+    if research_items:
+        msg2.append(f"<b>📄 Research Watch ({len(research_items)})</b>")
+        for i, it in enumerate(research_items, start=1):
+            title = esc(it.get("title", ""), 70)
+            source = esc(it.get("source", "unknown"), 32)
+            url = it.get("url", "")
+            msg2.append(f"P{i}) {type_emoji(it.get('type'))} <a href=\"{html.escape(url)}\">{title}</a> <code>[{source}]</code>")
+        msg2.append("")
+
+    msg2.append(f"<b>📊</b> LLM labels: <b>{llm_target} candidates</b> · Sources: <b>{src_ok}/{src_total}</b> · {esc(model,40)}")
+
+    return ["\n".join(msg1)[:3900], "\n".join(msg2)[:3900]]
 
 
 def send_message(token: str, chat_id: str, text: str) -> None:
