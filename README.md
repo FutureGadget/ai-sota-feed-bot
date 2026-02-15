@@ -64,6 +64,8 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
 - `config/llm.yaml`: LLM label + rerank configuration (disabled by default)
+- `config/user_preferences.yaml`: preference profile injected into LLM prompts
+- `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates
 
 ## GitHub Actions
 - Hourly collect + score commit
