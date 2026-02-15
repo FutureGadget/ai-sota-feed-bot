@@ -416,6 +416,15 @@ def run():
         max_items=max_items,
     )
 
+    # hard floor for frontier labs' blog/news posts (Anthropic/OpenAI)
+    top = apply_preferred_source_slots(
+        top,
+        eligible,
+        preferred_sources=list(sel_cfg.get("frontier_blog_sources", [])),
+        min_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
+        max_items=max_items,
+    )
+
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
     with open(processed_dir / "latest.json", "w", encoding="utf-8") as f:
