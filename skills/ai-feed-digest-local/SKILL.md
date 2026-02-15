@@ -7,7 +7,7 @@ Run local pipeline from repository root using bundled scripts.
 
 ## Quick Commands
 
-- Run full local pipeline (includes Telegram publish if secrets/env exist):
+- Run full local pipeline (includes GitHub issue + Telegram publish):
   - `skills/ai-feed-digest-local/scripts/run_full.sh`
 - Run dev pipeline without Telegram publish:
   - `skills/ai-feed-digest-local/scripts/run_dev.sh`
@@ -21,6 +21,10 @@ Run local pipeline from repository root using bundled scripts.
 
 ## Notes
 
+- `run_full.sh` auto-loads `.env` from repo root if present.
+- Required for Telegram publish:
+  - `TELEGRAM_BOT_TOKEN`
+  - `TELEGRAM_CHAT_ID`
 - Prefer local manual runs during development (no schedule required).
 - Keep preferences prompt-driven via:
   - `config/user_preferences.yaml`
