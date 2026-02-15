@@ -2,86 +2,86 @@
 
 Focus: AI Platform Engineering
 
-## 1. v2.1.41
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 3.916 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
-
-## 2. 0.101.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.101.0
-- Score: 3.881 | Reliability: 1.0 | Maturity: production-ready
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 3. GPT-5.2 derives a new result in theoretical physics
+## 1. GPT-5.2 derives a new result in theoretical physics
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/new-result-theoretical-physics
-- Score: 3.741 | Reliability: 1.0 | Maturity: research
+- Score: 3.739 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 4. Show HN: I built a leaderboard ranking AI products by Stripe payment traffic
+## 2. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
+- Score: 3.733 | Reliability: 1.0 | Maturity: production-ready
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 3. Beyond rate limits: scaling access to Codex and Sora
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/beyond-rate-limits
+- Score: 3.728 | Reliability: 1.0 | Maturity: research
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 4. Scaling social science research
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/scaling-social-science-research
+- Score: 3.728 | Reliability: 1.0 | Maturity: production-ready
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 5. Sammy Jankis – an autonomous agent by Jason Rohrer
 - Type: news | Source: hackernews_ai
-- URL: https://aiboom.tools/ranking
-- Score: 3.687 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 5. How Generative and Agentic AI Shift Concern from Technical Debt to Cognitive Debt
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Feb/15/cognitive-debt/#atom-everything
-- Score: 3.675 | Reliability: 1.0 | Maturity: production-ready
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 6. Building C Compiler
-- Type: news | Source: anthropic_engineering
-- URL: https://www.anthropic.com/engineering/building-c-compiler
-- Score: 3.6 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 7. Chris Liddell Appointed Anthropic Board
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 3.577 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 8. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
-- Score: 3.533 | Reliability: 1.0 | Maturity: research
+- URL: https://sammyjankis.com/
+- Score: 3.694 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
-## 9. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.151 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+## 6. Show HN: Claude Extender – Autonomous Agent Management for Claude Code
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/wbnns/cx
+- Score: 3.691 | Reliability: 1.0 | Maturity: research
+- Tags: agent
+- Why it matters: Likely impact on agent workflows and platform decisions.
 
-## 10. [AINews] Why OpenAI Should Build Slack
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-why-openai-should-build-slack
-- Score: 3.137 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+## 7. v2.1.41
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
+- Score: 3.914 | Reliability: 1.0 | Maturity: research
+- Tags: agent
+- Why it matters: Likely impact on agent workflows and platform decisions.
 
-## 11. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
+## 8. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12281v1
-- Score: 2.523 | Reliability: 1.0 | Maturity: production-ready
+- Score: 2.521 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, benchmark
 - Why it matters: Likely impact on inference, benchmark workflows and platform decisions.
 
-## 12. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 3.736 | Reliability: 1.0 | Maturity: production-ready
+## 9. UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12279v1
+- Score: 2.521 | Reliability: 1.0 | Maturity: research
+- Tags: inference
+- Why it matters: Likely impact on inference workflows and platform decisions.
+
+## 10. 0.101.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.101.0
+- Score: 3.88 | Reliability: 1.0 | Maturity: production-ready
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 11. 0.101.0-alpha.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.101.0-alpha.1
+- Score: 3.872 | Reliability: 1.0 | Maturity: production-ready
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 12. AI CMO
+- Type: news | Source: hackernews_ai
+- URL: https://ai-cmo.net/
+- Score: 3.689 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.

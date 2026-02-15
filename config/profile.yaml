@@ -83,6 +83,20 @@ selection:
     - openai_codex_releases
     - claude_code_releases
   min_agent_app_release_slots: 1
+  category_allocation:
+    enabled: true
+    order:
+      - platform
+      - release
+      - research
+    min:
+      platform: 6
+      release: 1
+      research: 2
+    max:
+      platform: 9
+      release: 3
+      research: 4
   exclude_title_regex:
     - "(?i)amazon bedrock"
     - "(?i)customer"

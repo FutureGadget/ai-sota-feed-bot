@@ -495,6 +495,70 @@ def apply_topk_source_mix(
     return top + tail
 
 
+def apply_category_allocation(
+    selected: list[dict[str, Any]],
+    pool: list[dict[str, Any]],
+    max_items: int,
+    alloc_cfg: dict[str, Any],
+) -> list[dict[str, Any]]:
+    if not alloc_cfg.get("enabled", False):
+        return selected[:max_items]
+
+    order = alloc_cfg.get("order", ["platform", "release", "research"])
+    min_q = alloc_cfg.get("min", {})
+    max_q = alloc_cfg.get("max", {})
+
+    def cat(it: dict[str, Any]) -> str:
+        t = it.get("type", "news")
+        if t == "release":
+            return "release"
+        if t == "paper":
+            return "research"
+        return "platform"
+
+    ranked = []
+    for x in (selected + pool):
+        if x not in ranked:
+            ranked.append(x)
+    ranked.sort(key=lambda x: x.get("score", 0), reverse=True)
+
+    by_cat = {"platform": [], "release": [], "research": []}
+    for it in ranked:
+        by_cat.setdefault(cat(it), []).append(it)
+
+    out: list[dict[str, Any]] = []
+    counts = {"platform": 0, "release": 0, "research": 0}
+
+    # satisfy minimums first
+    for c in order:
+        need = int(min_q.get(c, 0))
+        cap = int(max_q.get(c, max_items))
+        target = min(need, cap)
+        while counts.get(c, 0) < target and by_cat.get(c):
+            it = by_cat[c].pop(0)
+            if it in out:
+                continue
+            out.append(it)
+            counts[c] = counts.get(c, 0) + 1
+            if len(out) >= max_items:
+                return out[:max_items]
+
+    # fill remaining respecting max caps
+    for it in ranked:
+        if len(out) >= max_items:
+            break
+        if it in out:
+            continue
+        c = cat(it)
+        cap = int(max_q.get(c, max_items))
+        if counts.get(c, 0) >= cap:
+            continue
+        out.append(it)
+        counts[c] = counts.get(c, 0) + 1
+
+    return out[:max_items]
+
+
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -646,6 +710,13 @@ def run():
         eligible,
         set(sel_cfg.get("anthropic_sources", [])),
         int(sel_cfg.get("min_anthropic_slots", 0)),
+    )
+
+    top = apply_category_allocation(
+        top,
+        eligible,
+        max_items=max_items,
+        alloc_cfg=sel_cfg.get("category_allocation", {}),
     )
 
     processed_dir = ROOT / "data" / "processed"
