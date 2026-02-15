@@ -559,67 +559,6 @@ def apply_category_allocation(
     return out[:max_items]
 
 
-def apply_provider_caps(
-    selected: list[dict[str, Any]],
-    pool: list[dict[str, Any]],
-    max_items: int,
-    caps: dict[str, Any],
-    max_per_source: int = 0,
-) -> list[dict[str, Any]]:
-    if not caps:
-        return selected[:max_items]
-
-    def provider_of(it: dict[str, Any]) -> str:
-        s = (it.get("source") or "").lower()
-        if s.startswith("openai") or "codex" in s:
-            return "openai"
-        if s.startswith("anthropic") or "claude_code" in s:
-            return "anthropic"
-        return "other"
-
-    out: list[dict[str, Any]] = []
-    prov_counts: dict[str, int] = {}
-    src_counts: dict[str, int] = {}
-
-    def can_add(it: dict[str, Any]) -> bool:
-        p = provider_of(it)
-        s = it.get("source") or "unknown"
-        cap = int(caps.get(p, max_items))
-        if prov_counts.get(p, 0) >= cap:
-            return False
-        if max_per_source > 0 and src_counts.get(s, 0) >= max_per_source:
-            return False
-        return True
-
-    def add(it: dict[str, Any]) -> None:
-        p = provider_of(it)
-        s = it.get("source") or "unknown"
-        out.append(it)
-        prov_counts[p] = prov_counts.get(p, 0) + 1
-        src_counts[s] = src_counts.get(s, 0) + 1
-
-    # keep selected order as much as possible
-    for it in selected:
-        if len(out) >= max_items:
-            break
-        if it in out:
-            continue
-        if can_add(it):
-            add(it)
-
-    # fill gaps from pool
-    ranked_pool = sorted(pool, key=lambda x: x.get("score", 0), reverse=True)
-    for it in ranked_pool:
-        if len(out) >= max_items:
-            break
-        if it in out:
-            continue
-        if can_add(it):
-            add(it)
-
-    return out[:max_items]
-
-
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -780,13 +719,8 @@ def run():
         alloc_cfg=sel_cfg.get("category_allocation", {}),
     )
 
-    top = apply_provider_caps(
-        top,
-        eligible,
-        max_items=max_items,
-        caps=sel_cfg.get("provider_caps", {}),
-        max_per_source=max_per_source,
-    )
+    # Re-apply source cap after category allocation to avoid same-source pileups.
+    top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
 
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
