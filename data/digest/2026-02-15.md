@@ -19,7 +19,7 @@ Focus: AI Platform Engineering
 ## 3. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 7.84 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.839 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, cost, agent
 - Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
 
@@ -40,7 +40,7 @@ Focus: AI Platform Engineering
 ## 6. Customize AI agent browsing with proxies, profiles, and extensions in Amazon Bedrock AgentCore Browser
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/customize-ai-agent-browsing-with-proxies-profiles-and-extensions-in-amazon-bedrock-agentcore-browser/
-- Score: 4.476 | Reliability: 1.0 | Maturity: research
+- Score: 4.474 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
@@ -54,28 +54,28 @@ Focus: AI Platform Engineering
 ## 8. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/harness-engineering
-- Score: 4.286 | Reliability: 1.0 | Maturity: research
+- Score: 4.285 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 9. Release 2.65.0 corresponding to NGC container 26.01
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.65.0
-- Score: 9.644 | Reliability: 1.0 | Maturity: production-ready
+- Score: 9.643 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, agent, triton, vllm
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
 ## 10. How LinqAlpha assesses investment theses using Devil’s Advocate on Amazon Bedrock
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/how-linqalpha-assesses-investment-theses-using-devils-advocate-on-amazon-bedrock/
-- Score: 4.114 | Reliability: 1.0 | Maturity: research
+- Score: 4.113 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 11. Release 2.64.0 corresponding to NGC container 25.12
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.64.0
-- Score: 9.644 | Reliability: 1.0 | Maturity: production-ready
+- Score: 9.643 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, agent, triton, vllm
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
