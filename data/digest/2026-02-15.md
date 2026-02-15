@@ -5,28 +5,28 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 12.552 | Maturity: production-ready
+- Score: 12.549 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
-## 2. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 6.853 | Maturity: production-ready
-- Tags: inference, cost, agent
-- Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
-
-## 3. v0.15.0
+## 2. v0.15.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.15.0
 - Score: 12.004 | Maturity: production-ready
 - Tags: inference, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on inference, throughput, optimization workflows and platform decisions.
 
+## 3. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
+- Score: 6.851 | Maturity: production-ready
+- Tags: inference, cost, agent
+- Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
+
 ## 4. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/harness-engineering
-- Score: 3.294 | Maturity: research
+- Score: 3.293 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 

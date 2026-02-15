@@ -18,6 +18,10 @@ jobs:
           python-version: "3.11"
       - name: Install deps
         run: pip install -r requirements.txt
+      - name: Auto-tune source weights (from feedback)
+        run: |
+          python pipeline/auto_tune.py report || true
+          python pipeline/auto_tune.py apply || true
       - name: Collect + build digest
         run: |
           python collectors/collect.py
@@ -26,7 +30,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add data/ config/sources.yaml
           git diff --cached --quiet || git commit -m "chore: daily digest"
           git push
       - name: Publish issue

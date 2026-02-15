@@ -6,8 +6,9 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Collects fresh items from high-signal RSS feeds
 - Normalizes and de-duplicates (URL + near-title similarity)
 - Scores/ranks items for AI platform relevance
-- Applies diversity-aware ranking (paper/news/release balance)
+- Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
 - Supports lightweight feedback capture for relevance tuning
+- Auto-tunes source weights from accumulated feedback
 - Builds a Markdown digest
 - Publishes digest as:
   - versioned file in `data/digest/`
@@ -36,6 +37,12 @@ python publish/publish_telegram.py
 ```bash
 python pipeline/feedback.py add --url "https://example.com/item" --signal useful --source arxiv_cs_ai
 python pipeline/feedback.py summary
+```
+
+## Auto-tuning (v1.3)
+```bash
+python pipeline/auto_tune.py report
+python pipeline/auto_tune.py apply
 ```
 
 ## Config

@@ -111,6 +111,7 @@ def balanced_select(items: list[dict[str, Any]], max_items: int, diversity: dict
     if not diversity.get("enabled", False):
         return items[:max_items]
 
+    min_per_type = diversity.get("min_per_type", {})
     max_per_type = diversity.get("max_per_type", {})
     target_mix = diversity.get("target_mix", {"paper": 0.33, "news": 0.33, "release": 0.34})
 
@@ -125,7 +126,16 @@ def balanced_select(items: list[dict[str, Any]], max_items: int, diversity: dict
     if not type_order:
         type_order = ["paper", "news", "release"]
 
-    # Round-robin by target mix order while respecting per-type caps.
+    # Phase 1: enforce minimum per type (when enough candidates exist)
+    for t in type_order:
+        required = int(min_per_type.get(t, 0))
+        cap = int(max_per_type.get(t, max_items))
+        target = min(required, cap)
+        while len(selected) < max_items and counts[t] < target and by_type.get(t):
+            selected.append(by_type[t].pop(0))
+            counts[t] += 1
+
+    # Phase 2: round-robin by target mix while respecting caps
     while len(selected) < max_items:
         progressed = False
         for t in type_order:
@@ -141,6 +151,7 @@ def balanced_select(items: list[dict[str, Any]], max_items: int, diversity: dict
         if not progressed:
             break
 
+    # Phase 3: fill by absolute top leftovers under caps
     if len(selected) < max_items:
         leftovers = []
         for t_items in by_type.values():
