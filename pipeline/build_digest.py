@@ -11,7 +11,8 @@ from typing import Any
 import yaml
 from dateutil import parser as dt_parser
 
-from llm_label import label_items
+from llm_label import label_items, load_cfg as load_llm_cfg
+from llm_rerank import rerank_candidates
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -316,7 +317,16 @@ def run():
         if x["score"] >= min_score and (x.get("llm_platform_relevant", True) or x["score"] >= (min_score + 1.5))
     ]
     diversity_cfg = profile.get("diversity", {})
-    top = balanced_select(eligible, max_items, diversity_cfg)
+    llm_cfg = load_llm_cfg()
+    quotas = {
+        "min": diversity_cfg.get("min_per_type", {}),
+        "max": diversity_cfg.get("max_per_type", {}),
+    }
+
+    top = rerank_candidates(eligible, llm_cfg, max_items, quotas)
+    if not top:
+        top = balanced_select(eligible, max_items, diversity_cfg)
+
     max_per_source = int(profile.get("selection", {}).get("max_per_source", 0))
     top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
 
