@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import re
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -47,7 +48,6 @@ def jaccard(a: set[str], b: set[str]) -> float:
 
 
 def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    # Step 1: exact URL dedupe
     by_url: dict[str, dict[str, Any]] = {}
     for it in items:
         key = canonical_url(it["url"])
@@ -55,19 +55,14 @@ def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if prev is None or float(it.get("source_weight", 1.0)) > float(prev.get("source_weight", 1.0)):
             by_url[key] = it
 
-    # Step 2: near-title dedupe (semantic-lite) using token Jaccard
     out: list[dict[str, Any]] = []
-    signatures: list[tuple[set[str], int]] = []
+    signatures: list[set[str]] = []
     for it in sorted(by_url.values(), key=lambda x: float(x.get("source_weight", 1.0)), reverse=True):
         toks = title_tokens(it.get("title", ""))
-        is_dup = False
-        for prev_toks, _ in signatures:
-            if jaccard(toks, prev_toks) >= 0.85:
-                is_dup = True
-                break
-        if not is_dup:
-            signatures.append((toks, len(out)))
-            out.append(it)
+        if any(jaccard(toks, prev_toks) >= 0.85 for prev_toks in signatures):
+            continue
+        signatures.append(toks)
+        out.append(it)
     return out
 
 
@@ -99,7 +94,7 @@ def maturity_label(text: str) -> str:
 def signal_type(item: dict[str, Any]) -> str:
     s = item.get("source", "").lower()
     t = item.get("title", "").lower()
-    if "arxiv" in s or "paper" in s:
+    if "arxiv" in s or "paper" in s or "paperswithcode" in s:
         return "paper"
     if "release" in s or "release" in t:
         return "release"
@@ -110,6 +105,57 @@ def why_it_matters(tags: list[str]) -> str:
     if not tags:
         return "Potential relevance to AI platform stack; review for downstream impact."
     return f"Likely impact on {', '.join(tags[:3])} workflows and platform decisions."
+
+
+def balanced_select(items: list[dict[str, Any]], max_items: int, diversity: dict[str, Any]) -> list[dict[str, Any]]:
+    if not diversity.get("enabled", False):
+        return items[:max_items]
+
+    max_per_type = diversity.get("max_per_type", {})
+    target_mix = diversity.get("target_mix", {"paper": 0.33, "news": 0.33, "release": 0.34})
+
+    by_type: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for it in items:
+        by_type[it.get("type", "news")].append(it)
+
+    selected: list[dict[str, Any]] = []
+    counts = defaultdict(int)
+
+    type_order = [k for k, _ in sorted(target_mix.items(), key=lambda kv: kv[1], reverse=True)]
+    if not type_order:
+        type_order = ["paper", "news", "release"]
+
+    # Round-robin by target mix order while respecting per-type caps.
+    while len(selected) < max_items:
+        progressed = False
+        for t in type_order:
+            if len(selected) >= max_items:
+                break
+            cap = int(max_per_type.get(t, max_items))
+            if counts[t] >= cap:
+                continue
+            if by_type.get(t):
+                selected.append(by_type[t].pop(0))
+                counts[t] += 1
+                progressed = True
+        if not progressed:
+            break
+
+    if len(selected) < max_items:
+        leftovers = []
+        for t_items in by_type.values():
+            leftovers.extend(t_items)
+        leftovers.sort(key=lambda x: x["score"], reverse=True)
+        for it in leftovers:
+            if len(selected) >= max_items:
+                break
+            t = it.get("type", "news")
+            cap = int(max_per_type.get(t, max_items))
+            if counts[t] < cap:
+                selected.append(it)
+                counts[t] += 1
+
+    return selected
 
 
 def run():
@@ -141,11 +187,12 @@ def run():
         )
 
         tags = [k for k in pkw if re.search(rf"\b{re.escape(k)}\b", text.lower())][:5]
+        item_type = signal_type(it)
 
         scored.append(
             {
                 **it,
-                "type": signal_type(it),
+                "type": item_type,
                 "score": round(score, 3),
                 "freshness": round(fresh, 3),
                 "platform_hits": platform_hits,
@@ -160,7 +207,8 @@ def run():
 
     max_items = int(profile.get("max_digest_items", 10))
     min_score = float(profile.get("min_score", 1.0))
-    top = [x for x in scored if x["score"] >= min_score][:max_items]
+    eligible = [x for x in scored if x["score"] >= min_score]
+    top = balanced_select(eligible, max_items, profile.get("diversity", {}))
 
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)

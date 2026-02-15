@@ -17,6 +17,7 @@ def main():
         raise RuntimeError("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID")
 
     text = Path(digest_file).read_text(encoding="utf-8")
+    text += "\n\nFeedback format (manual):\npython pipeline/feedback.py add --url <item_url> --signal useful|irrelevant|hype"
     text = text[:3900]
 
     url = f"https://api.telegram.org/bot{token}/sendMessage"
