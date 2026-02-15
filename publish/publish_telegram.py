@@ -115,7 +115,7 @@ def load_llm_label_target() -> int:
         return 0
 
 
-def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
+def build_messages(max_items: int = 12) -> list[str]:
     processed_file = ROOT / "data" / "processed" / "latest.json"
     if not processed_file.exists():
         digest_file = ROOT / "data" / "digest" / "latest.md"
@@ -147,11 +147,12 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
     msg1 = [
         f"<b>📰 AI Feed ({today}) · {len(items)} picks</b>",
         "",
-        f"<b>🤖 Agent & Platform ({min(len(platform_news_items), top_n)})</b>",
     ]
 
-    idx = 1
-    for it in platform_news_items[:top_n]:
+    # Auto-fit detailed platform blocks into message 1 by character budget
+    # (removes hardcoded top-N display setting).
+    platform_blocks: list[list[str]] = []
+    for i, it in enumerate(platform_news_items, start=1):
         title = esc(it.get("title", ""), 88)
         source = esc(it.get("source", "unknown"), 32)
         url = it.get("url", "")
@@ -160,18 +161,30 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
         why = esc(short_why(it.get("why_it_matters") or it.get("llm_why_1line") or ""), 76)
         action = esc(action_line(it), 56)
 
-        msg1.append(f"<b>{idx}) {type_emoji(it.get('type'))}{topic_emoji(it)} <a href=\"{html.escape(url)}\">{title}</a></b>")
-        msg1.append(f"<i>{signal} · {conf}</i>")
+        block = [
+            f"<b>{i}) {type_emoji(it.get('type'))}{topic_emoji(it)} <a href=\"{html.escape(url)}\">{title}</a></b>",
+            f"<i>{signal} · {conf}</i>",
+        ]
         if why:
-            msg1.append(f"• Why: {why}")
-        msg1.append(f"• Action: {action}")
-        msg1.append(f"<code>[{source}]</code>")
-        msg1.append("")
-        idx += 1
+            block.append(f"• Why: {why}")
+        block.append(f"• Action: {action}")
+        block.append(f"<code>[{source}]</code>")
+        block.append("")
+        platform_blocks.append(block)
+
+    shown_platform = 0
+    for block in platform_blocks:
+        trial = msg1 + block
+        if len("\n".join(trial)) > 3200:
+            break
+        msg1 = trial
+        shown_platform += 1
+
+    msg1.insert(2, f"<b>🤖 Agent & Platform ({shown_platform})</b>")
 
     msg2 = []
 
-    remaining_platform = platform_news_items[top_n:]
+    remaining_platform = platform_news_items[shown_platform:]
     if remaining_platform:
         msg2.append(f"<b>🧩 More Platform ({len(remaining_platform)})</b>")
         for i, it in enumerate(remaining_platform, start=1):
@@ -220,12 +233,11 @@ def main():
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
     max_items = int(os.getenv("TELEGRAM_MAX_ITEMS", "20"))
-    top_n = int(os.getenv("TELEGRAM_TOP_WHY", "10"))
 
     if not token or not chat_id:
         raise RuntimeError("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID")
 
-    messages = build_messages(max_items=max_items, top_n=top_n)
+    messages = build_messages(max_items=max_items)
     for msg in messages:
         send_message(token, chat_id, msg)
 
