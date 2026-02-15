@@ -17,11 +17,27 @@ slots:
     blend: {alpha: 0.80, beta: 0.20}
 
   agent_tooling_releases:
-    sources: [openai_codex_releases, claude_code_releases]
+    sources: [openai_codex_releases, claude_code_releases, langgraph_releases, llamaindex_releases]
     min_items: 1
     max_items: 3
     max_per_source: 1
     freshness_hours: 168
+    blend: {alpha: 0.70, beta: 0.30}
+
+  infra_runtime_releases:
+    sources: [vllm_releases, triton_releases]
+    min_items: 0
+    max_items: 1
+    max_per_source: 1
+    freshness_hours: 240
+    blend: {alpha: 0.70, beta: 0.30}
+
+  vendor_general_updates:
+    sources: [google_ai_blog, aws_ml_blog, nvidia_blog]
+    min_items: 0
+    max_items: 1
+    max_per_source: 1
+    freshness_hours: 96
     blend: {alpha: 0.70, beta: 0.30}
 
   practitioner_analysis:
@@ -68,6 +84,8 @@ dynamic_slot_rerank:
     practitioner_analysis: 0.12
     community_signal: 0.00
     agent_tooling_releases: 0.05
+    infra_runtime_releases: -0.10
+    vendor_general_updates: -0.22
     research_watch: -0.25
     overflow: -0.20
 
@@ -92,6 +110,13 @@ source_bias:
   anthropic_engineering: 0.12
   simon_willison: 0.08
   infoq_ai_ml: 0.08
+  google_ai_blog: -0.10
+  aws_ml_blog: -0.20
+  nvidia_blog: -0.18
+  vllm_releases: -0.08
+  triton_releases: -0.08
+  langgraph_releases: 0.06
+  llamaindex_releases: 0.05
 
 # Optional topical bias to prioritize agent-harness/coding updates from frontier vendors.
 topical_bias:
