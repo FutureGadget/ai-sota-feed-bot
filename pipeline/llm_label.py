@@ -17,6 +17,7 @@ CFG_FILE = ROOT / "config" / "llm.yaml"
 PREF_FILE = ROOT / "config" / "user_preferences.yaml"
 PROMPT_FILE = ROOT / "config" / "prompts" / "label_system.txt"
 CACHE_FILE = ROOT / "data" / "llm" / "labels.json"
+SOURCES_FILE = ROOT / "config" / "sources.yaml"
 
 
 def load_cfg() -> dict[str, Any]:
@@ -52,6 +53,13 @@ def load_cache() -> dict[str, Any]:
 def save_cache(cache: dict[str, Any]) -> None:
     CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
     CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def sources_fingerprint() -> str:
+    if not SOURCES_FILE.exists():
+        return "none"
+    raw = SOURCES_FILE.read_text(encoding="utf-8")
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:10]
 
 
 def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
@@ -137,6 +145,7 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             "prompt": prompt_text,
             "prefs": prefs,
             "cache_version": cfg.get("cache_version", 1),
+            "sources_fingerprint": sources_fingerprint(),
         },
         ensure_ascii=False,
         sort_keys=True,
