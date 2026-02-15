@@ -4,13 +4,13 @@ model_provider: anthropic
 model: claude-haiku-4-5
 bridge_command: node scripts/llm_bridge.mjs
 api_key_env: ANTHROPIC_API_KEY
-label_top_n: 12
-rerank_top_n: 100
-timeout_seconds: 20
+label_top_n: 8
+rerank_top_n: 20
+timeout_seconds: 15
 max_retries: 1
-cache_version: 9
-content_fetch_enabled: true
-content_fetch_top_n: 12
+cache_version: 11
+content_fetch_enabled: false
+content_fetch_top_n: 8
 content_excerpt_chars: 500
 content_fetch_timeout_seconds: 5
-content_fetch_time_budget_seconds: 25
+content_fetch_time_budget_seconds: 15
