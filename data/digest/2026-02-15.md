@@ -26,7 +26,7 @@ Focus: AI Platform Engineering
 ## 4. Show HN: Agent Lens – Code assistant observability in VSCode
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/23min/agent-lens
-- Score: 7.283 | Reliability: 1.0 | Maturity: research
+- Score: 7.282 | Reliability: 1.0 | Maturity: research
 - Tags: observability, agent
 - Why it matters: Likely impact on observability, agent workflows and platform decisions.
 
