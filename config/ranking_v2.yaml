@@ -3,7 +3,7 @@ shadow_mode: false
 
 candidate_pool_cap: 120
 llm_budget: 8
-max_items: 20
+max_items: 24
 # Merge strategy: fixed slot floors + dynamic headroom fill
 slot_merge_strategy: floor_then_dynamic
 
@@ -11,7 +11,7 @@ slots:
   frontier_official:
     sources: [openai_blog, anthropic_engineering, anthropic_newsroom]
     min_items: 4
-    max_items: 6
+    max_items: 7
     max_per_source: 2
     freshness_hours: 72
     blend: {alpha: 0.80, beta: 0.20}
@@ -19,7 +19,7 @@ slots:
   agent_tooling_releases:
     sources: [openai_codex_releases, claude_code_releases, langgraph_releases, llamaindex_releases]
     min_items: 1
-    max_items: 3
+    max_items: 4
     max_per_source: 1
     freshness_hours: 168
     blend: {alpha: 0.70, beta: 0.30}
@@ -43,7 +43,7 @@ slots:
   practitioner_analysis:
     sources: [simon_willison, latent_space, infoq_ai_ml]
     min_items: 2
-    max_items: 4
+    max_items: 5
     max_per_source: 2
     freshness_hours: 120
     blend: {alpha: 0.85, beta: 0.15}
@@ -51,7 +51,7 @@ slots:
   community_signal:
     sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news]
     min_items: 1
-    max_items: 3
+    max_items: 4
     max_per_source: 1
     freshness_hours: 48
     blend: {alpha: 0.75, beta: 0.25}
@@ -59,7 +59,7 @@ slots:
   research_watch:
     sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, paperswithcode_latest, huggingface_blog, anthropic_research]
     min_items: 2
-    max_items: 4
+    max_items: 5
     max_per_source: 1
     freshness_hours: 336
     blend: {alpha: 0.85, beta: 0.15}
