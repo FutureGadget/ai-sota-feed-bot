@@ -272,6 +272,55 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
     return out[:max_items], slot_priority
 
 
+def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> list[dict[str, Any]]:
+    cfg = (v2_cfg.get("top_band_constraints", {}) or {})
+    if not cfg.get("enabled", False):
+        return items
+    top_n = max(1, int(cfg.get("top_n", 10)))
+    min_frontier = int(cfg.get("min_frontier_official", 0))
+    min_anthropic = int(cfg.get("min_anthropic_frontier", 0))
+
+    out = list(items)
+    top = out[:top_n]
+
+    def is_frontier(x: dict[str, Any]) -> bool:
+        return x.get("v2_slot") == "frontier_official"
+
+    def is_anth_frontier(x: dict[str, Any]) -> bool:
+        s = (x.get("source") or "")
+        return is_frontier(x) and s.startswith("anthropic")
+
+    def promote(predicate, needed: int):
+        nonlocal out, top
+        have = sum(1 for x in top if predicate(x))
+        if have >= needed:
+            return
+        candidates = [x for x in out[top_n:] if predicate(x)]
+        candidates.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        while have < needed and candidates:
+            cand = candidates.pop(0)
+            replace_idx = None
+            for i in range(top_n - 1, -1, -1):
+                if not predicate(top[i]):
+                    replace_idx = i
+                    break
+            if replace_idx is None:
+                break
+            old = top[replace_idx]
+            top[replace_idx] = cand
+            out.remove(cand)
+            out.append(old)
+            have += 1
+        top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        tail = [x for x in out if x not in top]
+        tail.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        out = top + tail
+
+    promote(is_frontier, min_frontier)
+    promote(is_anth_frontier, min_anthropic)
+    return out
+
+
 def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     v2_cfg = load_v2_config()
     candidates, diag_a = stage_a_prefilter(items, v2_cfg, profile, source_health)
@@ -279,6 +328,7 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
     llm_budget = int(v2_cfg.get("llm_budget", 40))
     selected_by_slot, diag_c = stage_c_score_and_select(slotted, v2_cfg, llm_budget)
     top, slot_priority = global_merge(selected_by_slot, v2_cfg)
+    top = enforce_top_band_constraints(top, v2_cfg)
 
     diag = {**diag_a, **diag_c, "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()}}
     slot_bits = []

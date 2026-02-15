@@ -64,12 +64,19 @@ dynamic_slot_rerank:
   quality_weight: 0.10
   freshness_weight: 0.25
   base_bias:
-    frontier_official: 0.25
-    practitioner_analysis: 0.15
-    community_signal: 0.05
-    agent_tooling_releases: 0.00
-    research_watch: -0.20
-    overflow: -0.15
+    frontier_official: 0.40
+    practitioner_analysis: 0.12
+    community_signal: 0.00
+    agent_tooling_releases: 0.05
+    research_watch: -0.25
+    overflow: -0.20
+
+# Keep core frontier representation in visible top band.
+top_band_constraints:
+  enabled: true
+  top_n: 10
+  min_frontier_official: 3
+  min_anthropic_frontier: 1
 
 # Optional source-level bias for practical ordering within/across slots.
 # Negative values push sources lower; positive values lift them.
