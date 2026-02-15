@@ -36,15 +36,38 @@ def canonical_url(u: str) -> str:
     return u.split("?")[0].strip().lower()
 
 
+def title_tokens(t: str) -> set[str]:
+    return set(re.findall(r"[a-z0-9]+", t.lower()))
+
+
+def jaccard(a: set[str], b: set[str]) -> float:
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
 def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    seen = set()
-    out = []
+    # Step 1: exact URL dedupe
+    by_url: dict[str, dict[str, Any]] = {}
     for it in items:
         key = canonical_url(it["url"])
-        if key in seen:
-            continue
-        seen.add(key)
-        out.append(it)
+        prev = by_url.get(key)
+        if prev is None or float(it.get("source_weight", 1.0)) > float(prev.get("source_weight", 1.0)):
+            by_url[key] = it
+
+    # Step 2: near-title dedupe (semantic-lite) using token Jaccard
+    out: list[dict[str, Any]] = []
+    signatures: list[tuple[set[str], int]] = []
+    for it in sorted(by_url.values(), key=lambda x: float(x.get("source_weight", 1.0)), reverse=True):
+        toks = title_tokens(it.get("title", ""))
+        is_dup = False
+        for prev_toks, _ in signatures:
+            if jaccard(toks, prev_toks) >= 0.85:
+                is_dup = True
+                break
+        if not is_dup:
+            signatures.append((toks, len(out)))
+            out.append(it)
     return out
 
 
@@ -73,7 +96,17 @@ def maturity_label(text: str) -> str:
     return "research"
 
 
-def why_it_matters(item: dict[str, Any], tags: list[str]) -> str:
+def signal_type(item: dict[str, Any]) -> str:
+    s = item.get("source", "").lower()
+    t = item.get("title", "").lower()
+    if "arxiv" in s or "paper" in s:
+        return "paper"
+    if "release" in s or "release" in t:
+        return "release"
+    return "news"
+
+
+def why_it_matters(tags: list[str]) -> str:
     if not tags:
         return "Potential relevance to AI platform stack; review for downstream impact."
     return f"Likely impact on {', '.join(tags[:3])} workflows and platform decisions."
@@ -112,13 +145,14 @@ def run():
         scored.append(
             {
                 **it,
+                "type": signal_type(it),
                 "score": round(score, 3),
                 "freshness": round(fresh, 3),
                 "platform_hits": platform_hits,
                 "hype_hits": hype_hits,
                 "maturity": maturity_label(text),
                 "tags": tags,
-                "why_it_matters": why_it_matters(it, tags),
+                "why_it_matters": why_it_matters(tags),
             }
         )
 
@@ -144,7 +178,7 @@ def run():
     for i, it in enumerate(top, start=1):
         lines += [
             f"## {i}. {it['title']}",
-            f"- Source: {it['source']}",
+            f"- Type: {it['type']} | Source: {it['source']}",
             f"- URL: {it['url']}",
             f"- Score: {it['score']} | Maturity: {it['maturity']}",
             f"- Tags: {', '.join(it['tags']) if it['tags'] else 'n/a'}",

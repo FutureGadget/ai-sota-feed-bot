@@ -33,3 +33,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python publish/publish_issue.py --repo ${{ github.repository }}
+
+      - name: Publish Telegram (optional)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            python publish/publish_telegram.py
+          else
+            echo "Telegram secrets not set; skipping"
+          fi
