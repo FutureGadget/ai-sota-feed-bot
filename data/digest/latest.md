@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.538 | Reliability: 1.0 | Maturity: production-ready
+- Score: 13.537 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
@@ -19,7 +19,7 @@ Focus: AI Platform Engineering
 ## 3. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 7.842 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.841 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, cost, agent
 - Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
 
