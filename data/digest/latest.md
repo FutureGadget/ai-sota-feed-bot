@@ -26,14 +26,14 @@ Focus: AI Platform Engineering
 ## 4. Show HN: I built a leaderboard ranking AI products by Stripe payment traffic
 - Type: news | Source: hackernews_ai
 - URL: https://aiboom.tools/ranking
-- Score: 3.697 | Reliability: 1.0 | Maturity: research
+- Score: 3.695 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 5. How Generative and Agentic AI Shift Concern from Technical Debt to Cognitive Debt
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/cognitive-debt/#atom-everything
-- Score: 3.684 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.682 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
@@ -47,14 +47,14 @@ Focus: AI Platform Engineering
 ## 7. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 3.579 | Reliability: 1.0 | Maturity: research
+- Score: 3.578 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 8. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.155 | Reliability: 1.0 | Maturity: research
+- Score: 3.154 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
