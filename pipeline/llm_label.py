@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 import os
 import re
+import shlex
+import subprocess
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -67,6 +69,21 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     return {"platform_relevant": relevance, "novelty": novelty, "practicality": practicality, "hype": hype, "why_1line": why}
 
 
+def call_bridge(payload: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+    cmd = cfg.get("bridge_command", "node scripts/llm_bridge.mjs")
+    p = subprocess.run(
+        shlex.split(cmd),
+        input=json.dumps(payload, ensure_ascii=False),
+        text=True,
+        capture_output=True,
+        timeout=int(cfg.get("timeout_seconds", 30)),
+        cwd=str(ROOT),
+    )
+    if p.returncode != 0:
+        raise RuntimeError((p.stderr or p.stdout or "bridge_failed").strip())
+    return json.loads((p.stdout or "{}").strip())
+
+
 def call_openai_compatible(item: dict[str, Any], cfg: dict[str, Any], preferences: dict[str, Any], prompt_text: str) -> dict[str, Any]:
     api_key = os.getenv(cfg.get("api_key_env", "OPENAI_API_KEY"), "")
     if not api_key:
@@ -119,9 +136,27 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             continue
 
         label = None
-        if enabled and cfg.get("provider") == "openai_compatible":
+        if enabled:
             try:
-                label = call_openai_compatible(it, cfg, prefs, prompt_text)
+                if cfg.get("provider") == "openai_compatible":
+                    label = call_openai_compatible(it, cfg, prefs, prompt_text)
+                elif cfg.get("provider") == "pi_oauth":
+                    label = call_bridge(
+                        {
+                            "cfg": cfg,
+                            "system": prompt_text,
+                            "payload": {
+                                "preferences": prefs,
+                                "item": {
+                                    "title": it.get("title", ""),
+                                    "summary": it.get("summary", ""),
+                                    "source": it.get("source", ""),
+                                    "url": it.get("url", ""),
+                                },
+                            },
+                        },
+                        cfg,
+                    )
             except Exception:
                 label = None
 

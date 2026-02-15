@@ -1,9 +1,11 @@
-enabled: false
-provider: openai_compatible
+enabled: true
+provider: pi_oauth
 model: gpt-4o-mini
 endpoint: https://api.openai.com/v1/chat/completions
-api_key_env: OPENAI_API_KEY
+bridge_command: node scripts/llm_bridge.mjs
+oauth_provider: openai-codex
+oauth_auth_file: data/llm/auth.json
 label_top_n: 40
 rerank_top_n: 40
-timeout_seconds: 20
+timeout_seconds: 30
 max_retries: 1

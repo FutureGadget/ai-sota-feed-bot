@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import os
+import shlex
+import subprocess
 import urllib.request
 from pathlib import Path
 from typing import Any
@@ -63,6 +65,21 @@ def enforce_quotas(items: list[dict[str, Any]], max_items: int, quotas: dict[str
     return selected[:max_items]
 
 
+def call_bridge(payload: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
+    cmd = cfg.get("bridge_command", "node scripts/llm_bridge.mjs")
+    p = subprocess.run(
+        shlex.split(cmd),
+        input=json.dumps(payload, ensure_ascii=False),
+        text=True,
+        capture_output=True,
+        timeout=int(cfg.get("timeout_seconds", 30)),
+        cwd=str(ROOT),
+    )
+    if p.returncode != 0:
+        raise RuntimeError((p.stderr or p.stdout or "bridge_failed").strip())
+    return json.loads((p.stdout or "{}").strip())
+
+
 def call_openai_compatible(candidates: list[dict[str, Any]], cfg: dict[str, Any], max_items: int) -> list[str]:
     api_key = os.getenv(cfg.get("api_key_env", "OPENAI_API_KEY"), "")
     if not api_key:
@@ -117,7 +134,36 @@ def rerank_candidates(candidates: list[dict[str, Any]], cfg: dict[str, Any], max
 
     ordered = []
     try:
-        ordered_ids = call_openai_compatible(base[: int(cfg.get("rerank_top_n", 40))], cfg, max_items)
+        top_candidates = base[: int(cfg.get("rerank_top_n", 40))]
+        if cfg.get("provider") == "openai_compatible":
+            ordered_ids = call_openai_compatible(top_candidates, cfg, max_items)
+        elif cfg.get("provider") == "pi_oauth":
+            parsed = call_bridge(
+                {
+                    "cfg": cfg,
+                    "system": load_prompt_text(),
+                    "payload": {
+                        "preferences": load_preferences(),
+                        "max_items": max_items,
+                        "candidates": [
+                            {
+                                "id": c.get("id"),
+                                "title": c.get("title"),
+                                "type": c.get("type"),
+                                "source": c.get("source"),
+                                "score": c.get("score"),
+                                "why": c.get("why_it_matters", ""),
+                            }
+                            for c in top_candidates
+                        ],
+                    },
+                },
+                cfg,
+            )
+            ordered_ids = parsed.get("ordered_ids", [])
+        else:
+            ordered_ids = []
+
         by_id = {c.get("id"): c for c in base}
         for oid in ordered_ids:
             if oid in by_id and by_id[oid] not in ordered:

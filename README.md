@@ -44,6 +44,13 @@ python pipeline/feedback.py add --url "https://example.com/item" --signal useful
 python pipeline/feedback.py summary
 ```
 
+## OAuth LLM mode (local, no API key)
+```bash
+npm install
+./scripts/oauth_login.sh      # one-time OpenAI Codex OAuth login
+# ensure config/llm.yaml has: provider: pi_oauth, enabled: true
+```
+
 ## Auto-tuning (v1.3)
 ```bash
 python pipeline/auto_tune.py report
@@ -63,9 +70,10 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 ## Config
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
-- `config/llm.yaml`: LLM label + rerank configuration (disabled by default)
+- `config/llm.yaml`: LLM label + rerank configuration (supports `pi_oauth` bridge mode)
 - `config/user_preferences.yaml`: preference profile injected into LLM prompts
 - `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates
+- `scripts/oauth_login.sh`: OAuth login helper (stores creds in `data/llm/auth.json`)
 
 ## GitHub Actions
 - Hourly collect + score commit
