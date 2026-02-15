@@ -275,6 +275,55 @@ def apply_preferred_source_slots(
     return out[:max_items]
 
 
+def apply_top_guardrails(
+    selected: list[dict[str, Any]],
+    eligible: list[dict[str, Any]],
+    top_k: int,
+    max_release_in_top_k: int,
+    max_same_source_in_top_k: int,
+) -> list[dict[str, Any]]:
+    if top_k <= 0:
+        return selected
+
+    # Candidate pool by score (selected first preference, then eligible)
+    pool = []
+    for x in (selected + eligible):
+        if x not in pool:
+            pool.append(x)
+    pool.sort(key=lambda x: x.get("score", 0), reverse=True)
+
+    top = []
+    rel_count = 0
+    src_count = defaultdict(int)
+
+    for cand in pool:
+        if len(top) >= top_k:
+            break
+        src = cand.get("source", "")
+        typ = cand.get("type", "news")
+        if src_count[src] >= max_same_source_in_top_k:
+            continue
+        if typ == "release" and rel_count >= max_release_in_top_k:
+            continue
+        top.append(cand)
+        src_count[src] += 1
+        if typ == "release":
+            rel_count += 1
+
+    # Fill any remaining top slots without constraints to avoid gaps
+    if len(top) < top_k:
+        for cand in pool:
+            if len(top) >= top_k:
+                break
+            if cand in top:
+                continue
+            top.append(cand)
+
+    # Rebuild remainder preserving selected order as much as possible
+    remainder = [x for x in selected if x not in top]
+    return top + remainder
+
+
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -423,6 +472,14 @@ def run():
         preferred_sources=list(sel_cfg.get("frontier_blog_sources", [])),
         min_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
         max_items=max_items,
+    )
+
+    top = apply_top_guardrails(
+        top,
+        eligible,
+        top_k=int(sel_cfg.get("top_k_guardrail", 5)),
+        max_release_in_top_k=int(sel_cfg.get("max_release_in_top_k", 1)),
+        max_same_source_in_top_k=int(sel_cfg.get("max_same_source_in_top_k", 1)),
     )
 
     processed_dir = ROOT / "data" / "processed"
