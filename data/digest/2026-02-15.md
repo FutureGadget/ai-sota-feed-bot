@@ -5,83 +5,83 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 14.695 | Reliability: 1.0 | Maturity: production-ready
+- Score: 14.268 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
-- Why it matters: Major LLM serving infra release: 30.8% throughput gains, async+PP, realtime API, RLHF workflow improvements for production deployment
+- Why it matters: Production LLM serving infra: async+pipeline parallelism, speculative decode, RLHF tooling, and multi-hardware optimization directly impact coding-agent deployment.
 
 ## 2. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12241v1
-- Score: 8.27 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.922 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, cost
 - Why it matters: Likely impact on inference, latency, cost workflows and platform decisions.
 
-## 3. Running Pydantic's Monty Rust sandboxed Python subset in WebAssembly
+## 3. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
+- Score: 7.466 | Reliability: 1.0 | Maturity: production-ready
+- Tags: inference, cost, agent
+- Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
+
+## 4. Running Pydantic's Monty Rust sandboxed Python subset in WebAssembly
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/6/pydantic-monty/#atom-everything
-- Score: 7.51 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.45 | Reliability: 1.0 | Maturity: production-ready
 - Tags: latency, cost, agent
 - Why it matters: Likely impact on latency, cost, agent workflows and platform decisions.
 
-## 4. Show HN: Agent Lens – Code assistant observability in VSCode
+## 5. Show HN: Agent Lens – Code assistant observability in VSCode
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/23min/agent-lens
-- Score: 7.282 | Reliability: 1.0 | Maturity: research
+- Score: 7.225 | Reliability: 1.0 | Maturity: research
 - Tags: observability, agent
 - Why it matters: Likely impact on observability, agent workflows and platform decisions.
-
-## 5. Presentation: Building Embedding Models for Large-Scale Real-World Applications
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 6.916 | Reliability: 1.0 | Maturity: production-ready
-- Tags: latency, rag
-- Why it matters: Likely impact on latency, rag workflows and platform decisions.
 
 ## 6. v0.15.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.15.0
-- Score: 14.604 | Reliability: 1.0 | Maturity: production-ready
+- Score: 14.15 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, throughput, optimization, quantization, triton
-- Why it matters: vLLM v0.15.0 delivers production-critical infra: async+pipeline parallelism, Mamba prefix caching (~2x speedup), session-based streaming, multi-hardware perf gains (65% FP4 faster on Blackwell)—directly enables reliable coding-agent serving at scale.
+- Why it matters: vLLM v0.15.0 delivers production-critical inference optimizations (2x Mamba speedup, 65% FP4 kernel gains) and async streaming for agentic workflows, directly improving deployment reliability and latency.
 
 ## 7. Release 2.59.0 corresponding to NGC container 25.06
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.59.0
-- Score: 10.9 | Reliability: 1.0 | Maturity: production-ready
+- Score: 10.5 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, throughput, agent, triton
-- Why it matters: Generic inference server release notes; lacks agentic coding, automation, or delivery pipeline relevance.
+- Why it matters: Inference server release notes lack coding-agent automation, agentic harness, or software delivery pipeline relevance.
 
-## 8. Inference Providers Cut AI Costs by 10x with Open Source Models on Blackwell
-- Type: news | Source: hackernews_ai
-- URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 7.189 | Reliability: 1.0 | Maturity: research
-- Tags: inference, cost
-- Why it matters: Likely impact on inference, cost workflows and platform decisions.
+## 8. 0.100.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
+- Score: 7.473 | Reliability: 1.0 | Maturity: production-ready
+- Tags: throughput, agent
+- Why it matters: Likely impact on throughput, agent workflows and platform decisions.
 
 ## 9. Covering electricity price increases from our data centers
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/12/covering-electricity-price-increases/#atom-everything
-- Score: 6.88 | Reliability: 1.0 | Maturity: research
+- Score: 6.527 | Reliability: 1.0 | Maturity: research
 - Tags: inference, cost
 - Why it matters: Likely impact on inference, cost workflows and platform decisions.
 
-## 10. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12281v1
-- Score: 6.474 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, benchmark
-- Why it matters: Likely impact on inference, benchmark workflows and platform decisions.
-
-## 11. Harness engineering: leveraging Codex in an agent-first world
+## 10. Introducing GPT-5.3-Codex
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/harness-engineering
-- Score: 5.264 | Reliability: 1.0 | Maturity: research
+- URL: https://openai.com/index/introducing-gpt-5-3-codex
+- Score: 5.4 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
+
+## 11. GPT-5 lowers the cost of cell-free protein synthesis
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/gpt-5-lowers-protein-synthesis-cost
+- Score: 5.4 | Reliability: 1.0 | Maturity: research
+- Tags: cost
+- Why it matters: Likely impact on cost workflows and platform decisions.
 
 ## 12. Multi Agent Research System
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/multi-agent-research-system
-- Score: 5.2 | Reliability: 1.0 | Maturity: research
+- Score: 5.4 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.

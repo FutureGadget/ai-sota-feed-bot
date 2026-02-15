@@ -324,6 +324,40 @@ def apply_top_guardrails(
     return top + remainder
 
 
+def enforce_source_floor(
+    selected: list[dict[str, Any]],
+    pool: list[dict[str, Any]],
+    source_set: set[str],
+    min_slots: int,
+) -> list[dict[str, Any]]:
+    if not source_set or min_slots <= 0:
+        return selected
+
+    out = list(selected)
+    have = sum(1 for it in out if it.get("source") in source_set)
+    if have >= min_slots:
+        return out
+
+    candidates = [x for x in pool if x.get("source") in source_set and x not in out]
+    candidates.sort(key=lambda x: x.get("score", 0), reverse=True)
+
+    for cand in candidates:
+        if have >= min_slots:
+            break
+        # replace lowest-scored non-target
+        replace_idx = None
+        for i in range(len(out) - 1, -1, -1):
+            if out[i].get("source") not in source_set:
+                replace_idx = i
+                break
+        if replace_idx is None:
+            break
+        out[replace_idx] = cand
+        have += 1
+
+    return out
+
+
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -459,7 +493,7 @@ def run():
 
     top = apply_preferred_source_slots(
         top,
-        eligible,
+        scored,
         preferred_sources=list(sel_cfg.get("preferred_sources", [])),
         min_slots=int(sel_cfg.get("min_preferred_slots", 0)),
         max_items=max_items,
@@ -468,9 +502,17 @@ def run():
     # hard floor for frontier labs' blog/news posts (Anthropic/OpenAI)
     top = apply_preferred_source_slots(
         top,
-        eligible,
+        scored,
         preferred_sources=list(sel_cfg.get("frontier_blog_sources", [])),
         min_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
+        max_items=max_items,
+    )
+
+    top = apply_preferred_source_slots(
+        top,
+        scored,
+        preferred_sources=list(sel_cfg.get("agent_app_release_sources", [])),
+        min_slots=int(sel_cfg.get("min_agent_app_release_slots", 0)),
         max_items=max_items,
     )
 
@@ -480,6 +522,20 @@ def run():
         top_k=int(sel_cfg.get("top_k_guardrail", 5)),
         max_release_in_top_k=int(sel_cfg.get("max_release_in_top_k", 1)),
         max_same_source_in_top_k=int(sel_cfg.get("max_same_source_in_top_k", 1)),
+    )
+
+    top = enforce_source_floor(
+        top,
+        scored,
+        set(sel_cfg.get("frontier_blog_sources", [])),
+        int(sel_cfg.get("min_frontier_blog_slots", 0)),
+    )
+
+    top = enforce_source_floor(
+        top,
+        scored,
+        set(sel_cfg.get("anthropic_sources", [])),
+        int(sel_cfg.get("min_anthropic_slots", 0)),
     )
 
     processed_dir = ROOT / "data" / "processed"
