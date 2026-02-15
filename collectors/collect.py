@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
+import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
@@ -86,6 +87,36 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
     return out
 
 
+def collect_from_arxiv_api(source: dict, now: datetime) -> list[dict]:
+    category = source.get("category")
+    if not category:
+        raise ValueError("arxiv_api source requires category")
+    max_results = int(source.get("max_results", 40))
+    q = urllib.parse.quote(f"cat:{category}")
+    url = (
+        "http://export.arxiv.org/api/query?"
+        f"search_query={q}&start=0&max_results={max_results}&sortBy=submittedDate&sortOrder=descending"
+    )
+    parsed = feedparser.parse(url)
+    out = []
+    for e in parsed.entries:
+        title = getattr(e, "title", "").strip().replace("\n", " ")
+        link = getattr(e, "id", "").strip() or getattr(e, "link", "").strip()
+        summary = getattr(e, "summary", "")
+        published = getattr(e, "published", None) or getattr(e, "updated", None) or now.isoformat()
+        if not title or not link:
+            continue
+        out.append(
+            {
+                "title": title,
+                "url": link,
+                "summary": summary,
+                "published": published,
+            }
+        )
+    return out
+
+
 def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     req = urllib.request.Request(source["url"], headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -134,9 +165,9 @@ def run():
 
     for source in load_sources():
         src_name = source["name"]
-        src_url = source["url"]
-        src_weight = float(source.get("weight", 1.0))
         src_type = source.get("type", "rss")
+        src_url = source.get("url") or f"arxiv://{source.get('category','unknown')}"
+        src_weight = float(source.get("weight", 1.0))
 
         blocked, open_until = is_open_circuit(circuit, src_name, now)
         if blocked:
@@ -155,6 +186,8 @@ def run():
         try:
             if src_type == "rss":
                 entries = collect_from_rss(source, now)
+            elif src_type == "arxiv_api":
+                entries = collect_from_arxiv_api(source, now)
             elif src_type == "sitemap":
                 entries = collect_from_sitemap(source, now)
             else:
