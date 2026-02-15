@@ -570,6 +570,7 @@ def run():
         items = json.load(f)
 
     items = dedupe(items)
+    items_deduped = list(items)
 
     pkw = profile.get("platform_keywords", [])
     hkw = profile.get("hype_keywords", [])
@@ -731,6 +732,33 @@ def run():
     # Re-apply source cap after category allocation to avoid same-source pileups.
     top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
 
+    # v2 ranking path (feature-flagged). Shadow mode writes v2 artifacts without replacing publish path.
+    v2_items = None
+    v2_shadow_mode = True
+    try:
+        from ranking_v2 import load_v2_config, run_v2
+
+        v2_cfg = load_v2_config()
+        if bool(v2_cfg.get("enabled", False)):
+            v2_shadow_mode = bool(v2_cfg.get("shadow_mode", True))
+            v2_items, v2_diag = run_v2(items_deduped, profile, llm_cfg, source_health)
+
+            processed_dir_v2 = ROOT / "data" / "processed"
+            processed_dir_v2.mkdir(parents=True, exist_ok=True)
+            with open(processed_dir_v2 / "latest_v2.json", "w", encoding="utf-8") as f:
+                json.dump(v2_items, f, ensure_ascii=False, indent=2)
+
+            date_str_v2 = datetime.now().strftime("%Y-%m-%d")
+            diag_dir = ROOT / "data" / "diagnostics"
+            diag_dir.mkdir(parents=True, exist_ok=True)
+            with open(diag_dir / f"{date_str_v2}_v2.json", "w", encoding="utf-8") as f:
+                json.dump(v2_diag, f, ensure_ascii=False, indent=2)
+
+            if not bool(v2_cfg.get("shadow_mode", True)):
+                top = v2_items
+    except Exception as e:
+        print(f"ranking_v2_error err={e}")
+
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
     with open(processed_dir / "latest.json", "w", encoding="utf-8") as f:
@@ -762,6 +790,27 @@ def run():
         f.write("\n".join(lines).strip() + "\n")
     with open(digest_dir / "latest.md", "w", encoding="utf-8") as f:
         f.write("\n".join(lines).strip() + "\n")
+
+    if v2_items is not None and v2_shadow_mode:
+        lines_v2 = [
+            f"# Daily AI SOTA Digest (v2-shadow) - {date_str}",
+            "",
+            "Focus: AI Platform Engineering",
+            "",
+        ]
+        for i, it in enumerate(v2_items, start=1):
+            lines_v2 += [
+                f"## {i}. {it.get('title','')}",
+                f"- Type: {it.get('type','news')} | Source: {it.get('source','unknown')}",
+                f"- URL: {it.get('url','')}",
+                f"- Score: {it.get('v2_final_score', it.get('score', 0))} | Reliability: {it.get('source_reliability', 1.0)}",
+                f"- Why it matters: {it.get('why_it_matters', '')}",
+                "",
+            ]
+        with open(digest_dir / f"{date_str}_v2.md", "w", encoding="utf-8") as f:
+            f.write("\n".join(lines_v2).strip() + "\n")
+        with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
+            f.write("\n".join(lines_v2).strip() + "\n")
 
     print(f"digest_items={len(top)} file={out}")
 
