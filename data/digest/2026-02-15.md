@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.536 | Reliability: 1.0 | Maturity: production-ready
+- Score: 13.535 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
