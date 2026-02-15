@@ -9,6 +9,7 @@ Build and operate an AI Platform Engineer-focused news intelligence bot (collect
 - Never commit secrets or tokens.
 - Add/update docs with every meaningful feature change.
 - If you add a new feature or a new document category, update docs index/links in the same PR.
+- Follow git hygiene: commit code/config/docs separately from generated runtime data.
 
 ## Repository Structure Index
 - `collectors/` — ingestion jobs (RSS/sitemap/arXiv, normalization entry points)
