@@ -11,6 +11,8 @@ from typing import Any
 import yaml
 from dateutil import parser as dt_parser
 
+from llm_label import label_items
+
 ROOT = Path(__file__).resolve().parents[1]
 
 
@@ -283,11 +285,36 @@ def run():
             }
         )
 
+    labels = label_items(scored)
+    for it in scored:
+        key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+        lb = labels.get(key, {})
+        it["llm_platform_relevant"] = bool(lb.get("platform_relevant", True))
+        it["llm_novelty"] = int(lb.get("novelty", 3))
+        it["llm_practicality"] = int(lb.get("practicality", 3))
+        it["llm_hype"] = int(lb.get("hype", 2))
+        it["llm_why_1line"] = lb.get("why_1line", "")
+
+        it["score"] = round(
+            float(it["score"])
+            + (0.6 if it["llm_platform_relevant"] else -0.6)
+            + (it["llm_practicality"] - 3) * 0.4
+            + (it["llm_novelty"] - 3) * 0.2
+            - max(0, it["llm_hype"] - 3) * 0.4,
+            3,
+        )
+        if it["llm_why_1line"]:
+            it["why_it_matters"] = it["llm_why_1line"]
+
     scored.sort(key=lambda x: x["score"], reverse=True)
 
     max_items = int(profile.get("max_digest_items", 10))
     min_score = float(profile.get("min_score", 1.0))
-    eligible = [x for x in scored if x["score"] >= min_score]
+    eligible = [
+        x
+        for x in scored
+        if x["score"] >= min_score and (x.get("llm_platform_relevant", True) or x["score"] >= (min_score + 1.5))
+    ]
     diversity_cfg = profile.get("diversity", {})
     top = balanced_select(eligible, max_items, diversity_cfg)
     max_per_source = int(profile.get("selection", {}).get("max_per_source", 0))
