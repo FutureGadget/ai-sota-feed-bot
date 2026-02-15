@@ -27,6 +27,16 @@ jobs:
         run: |
           python pipeline/source_health.py update
           python pipeline/source_health.py report
+      - name: Source degradation alerts (optional Telegram)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
+            python pipeline/source_alerts.py --send-telegram
+          else
+            python pipeline/source_alerts.py
+          fi
       - name: Build ranked snapshot
         run: python pipeline/build_digest.py
       - name: Commit data

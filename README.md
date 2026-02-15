@@ -11,6 +11,7 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Auto-tunes source weights from accumulated feedback
 - Tracks source reliability/health and incorporates it into ranking
 - Applies source circuit breaker on repeated failures with cooldown auto-recovery
+- Sends low-noise degradation alerts on circuit open/prolonged-open events
 - Builds a Markdown digest
 - Publishes digest as:
   - versioned file in `data/digest/`
@@ -47,11 +48,14 @@ python pipeline/auto_tune.py report
 python pipeline/auto_tune.py apply
 ```
 
-## Source health + circuit breaker (v1.4/v1.5)
+## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
 ```bash
 python pipeline/source_health.py update
 python pipeline/source_health.py report
-# circuit state file: data/health/circuit_breaker.json
+python pipeline/source_alerts.py
+# optional telegram push
+python pipeline/source_alerts.py --send-telegram
+# state files: data/health/circuit_breaker.json, data/health/alerts_state.json
 ```
 
 ## Config

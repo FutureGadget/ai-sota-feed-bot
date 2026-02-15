@@ -10,3 +10,4 @@
 - Keep ingest and publish steps independently retryable
 - Track per-source success/failure and stale-source risk via `data/health/source_health.json`
 - Use circuit breaker state (`data/health/circuit_breaker.json`) to suppress repeatedly failing sources during cooldown
+- Emit low-noise degradation alerts (`data/health/latest_alerts.json`) for state transitions and prolonged instability
