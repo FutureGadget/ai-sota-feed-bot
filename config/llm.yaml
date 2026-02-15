@@ -1,10 +1,9 @@
 enabled: true
 provider: pi_oauth
-model_provider: openai-codex
-model: gpt-5.3-codex
+model_provider: openai
+model: gpt-4.1-mini
 bridge_command: node scripts/llm_bridge.mjs
-oauth_provider: openai-codex
-oauth_auth_file: data/llm/auth.json
+api_key_env: OPENAI_API_KEY
 label_top_n: 20
 rerank_top_n: 20
 timeout_seconds: 30
