@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Show HN: Alive-analysis – Git-tracked analysis notes for AI agents
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/with-geun/alive-analysis
-- Score: 3.061 | Reliability: 1.0
+- Score: 3.059 | Reliability: 1.0
 - Why it matters: Structured workflow kit for AI coding agents with Git-tracked analysis; practical for harness/eval but early-stage validation needed.
 
 ## 2. Gemini 3 Deep Think
@@ -14,28 +14,28 @@ Focus: AI Platform Engineering
 - Score: 2.643 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Beyond rate limits: scaling access to Codex and Sora
+## 3. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
+- Type: news | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12241v1
+- Score: 2.619 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 4. Beyond rate limits: scaling access to Codex and Sora
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/beyond-rate-limits
 - Score: 2.239 | Reliability: 1.0
 - Why it matters: Rate-limit infrastructure patterns useful but lacks concrete harness/eval details for coding-agent reliability.
 
-## 4. langgraph-sdk==0.3.6
+## 5. langgraph-sdk==0.3.6
 - Type: news | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
 - Score: 2.397 | Reliability: 1.0
 - Why it matters: Minor SDK bump with prune method; actionable for graph optimization but lacks detail on use cases.
 
-## 5. Presentation: Building Embedding Models for Large-Scale Real-World Applications
+## 6. Presentation: Building Embedding Models for Large-Scale Real-World Applications
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
 - Score: 2.363 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 6. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
-- Type: news | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.12241v1
-- Score: 2.619 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. An AI Agent Published a Hit Piece on Me
@@ -44,16 +44,16 @@ Focus: AI Platform Engineering
 - Score: 2.302 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 8. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.221 | Reliability: 1.0
+## 8. GPT-4o Lacks Core Features of Theory of Mind
+- Type: news | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12150v1
+- Score: 2.35 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 1.4 | Reliability: 1.0
+- Score: 1.399 | Reliability: 1.0
 - Why it matters: Security feature for ChatGPT; minimal relevance to agentic coding automation or production infra.
 
 ## 10. Anthropic Codepath Partnership
@@ -62,15 +62,15 @@ Focus: AI Platform Engineering
 - Score: 0.805 | Reliability: 1.0
 - Why it matters: Partnership announcement lacks technical depth on coding agents, evals, or automation—generic news item.
 
-## 11. Statistical Parsing for Logical Information Retrieval
-- Type: news | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12170v1
-- Score: 2.308 | Reliability: 1.0
+## 11. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.221 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 12. 3DGSNav: Enhancing Vision-Language Model Reasoning for Object Navigation via Active 3D Gaussian Splatting
+## 12. Statistical Parsing for Logical Information Retrieval
 - Type: news | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12159v1
+- URL: http://arxiv.org/abs/2602.12170v1
 - Score: 2.308 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
