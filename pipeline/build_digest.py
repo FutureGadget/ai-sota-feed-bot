@@ -232,6 +232,49 @@ def apply_source_cap(
     return out[:max_items]
 
 
+def apply_preferred_source_slots(
+    selected: list[dict[str, Any]],
+    eligible: list[dict[str, Any]],
+    preferred_sources: list[str],
+    min_slots: int,
+    max_items: int,
+) -> list[dict[str, Any]]:
+    if not preferred_sources or min_slots <= 0:
+        return selected[:max_items]
+
+    preferred_set = set(preferred_sources)
+    out = list(selected[:max_items])
+    have = sum(1 for it in out if it.get("source") in preferred_set)
+    if have >= min_slots:
+        return out
+
+    candidates = [it for it in eligible if it.get("source") in preferred_set and it not in out]
+    candidates.sort(key=lambda x: x.get("score", 0), reverse=True)
+
+    for cand in candidates:
+        if have >= min_slots:
+            break
+        if len(out) < max_items:
+            out.append(cand)
+            have += 1
+            continue
+
+        # Replace lowest-ranked non-preferred item
+        replace_idx = None
+        for i in range(len(out) - 1, -1, -1):
+            if out[i].get("source") not in preferred_set:
+                replace_idx = i
+                break
+        if replace_idx is None:
+            break
+        out[replace_idx] = cand
+        have += 1
+
+    # keep deterministic order by score after injection
+    out.sort(key=lambda x: x.get("score", 0), reverse=True)
+    return out[:max_items]
+
+
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -361,8 +404,17 @@ def run():
     if not top:
         top = balanced_select(eligible, max_items, diversity_cfg)
 
-    max_per_source = int(profile.get("selection", {}).get("max_per_source", 0))
+    sel_cfg = profile.get("selection", {})
+    max_per_source = int(sel_cfg.get("max_per_source", 0))
     top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
+
+    top = apply_preferred_source_slots(
+        top,
+        eligible,
+        preferred_sources=list(sel_cfg.get("preferred_sources", [])),
+        min_slots=int(sel_cfg.get("min_preferred_slots", 0)),
+        max_items=max_items,
+    )
 
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
