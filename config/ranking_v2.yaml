@@ -1,7 +1,7 @@
 enabled: true
 shadow_mode: false
 
-candidate_pool_cap: 100
+candidate_pool_cap: 120
 llm_budget: 8
 max_items: 20
 # Merge strategy: fixed slot floors + dynamic headroom fill
@@ -11,7 +11,7 @@ slots:
   frontier_official:
     sources: [openai_blog, anthropic_engineering, anthropic_newsroom, anthropic_research]
     min_items: 3
-    max_items: 5
+    max_items: 6
     max_per_source: 2
     freshness_hours: 72
     blend: {alpha: 0.80, beta: 0.20}
@@ -78,7 +78,8 @@ source_bias:
   arxiv_cs_lg: -0.35
   arxiv_cs_cl: -0.30
   paperswithcode_latest: -0.25
-  anthropic_research: -0.15
+  anthropic_research: -0.05
+  anthropic_newsroom: 0.06
   openai_blog: 0.10
   anthropic_engineering: 0.12
   simon_willison: 0.08
