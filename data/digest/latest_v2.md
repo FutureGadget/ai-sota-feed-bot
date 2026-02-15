@@ -1,11 +1,11 @@
-# Daily AI SOTA Digest - 2026-02-16
+# Daily AI SOTA Digest - 2026-02-15
 
 Focus: AI Platform Engineering
 
 ## 1. Show HN: Alive-analysis – Git-tracked analysis notes for AI agents
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/with-geun/alive-analysis
-- Score: 3.066 | Reliability: 1.0
+- Score: 3.063 | Reliability: 1.0
 - Why it matters: Structured workflow kit for AI coding agents with Git-tracked analysis; practical for harness/eval but early-stage validation needed.
 
 ## 2. Gemini 3 Deep Think
@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. An AI Agent Published a Hit Piece on Me
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/12/an-ai-agent-published-a-hit-piece-on-me/#atom-everything
-- Score: 2.303 | Reliability: 1.0
+- Score: 2.302 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
@@ -65,25 +65,25 @@ Focus: AI Platform Engineering
 ## 11. Statistical Parsing for Logical Information Retrieval
 - Type: news | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12170v1
-- Score: 2.309 | Reliability: 1.0
+- Score: 2.308 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
 - Type: news | Source: huggingface_blog
 - URL: https://huggingface.co/blog/openenv-turing
-- Score: 2.308 | Reliability: 1.0
+- Score: 2.307 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
-- Score: 1.969 | Reliability: 1.0
+- Score: 1.968 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. 0.100.0
 - Type: news | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 1.93 | Reliability: 1.0
+- Score: 1.929 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. v2.1.41
