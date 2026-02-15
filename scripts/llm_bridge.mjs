@@ -15,6 +15,29 @@ function extractAssistantText(message) {
   return texts.join('\n').trim();
 }
 
+function normalizeJsonText(text) {
+  const t = (text || '').trim();
+
+  const tries = [];
+  tries.push(t);
+
+  const fenced = t.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenced?.[1]) tries.push(fenced[1].trim());
+
+  const firstBrace = t.indexOf('{');
+  const lastBrace = t.lastIndexOf('}');
+  if (firstBrace >= 0 && lastBrace > firstBrace) {
+    tries.push(t.slice(firstBrace, lastBrace + 1));
+  }
+
+  for (const c of tries) {
+    try {
+      return JSON.stringify(JSON.parse(c));
+    } catch {}
+  }
+  throw new Error('invalid_json_from_model');
+}
+
 async function resolveApiKey(cfg) {
   if (cfg.oauth_provider) {
     const authFile = cfg.oauth_auth_file || 'data/llm/auth.json';
@@ -57,7 +80,7 @@ async function main() {
 
   const text = extractAssistantText(result);
   if (!text) throw new Error('empty_llm_response');
-  process.stdout.write(text);
+  process.stdout.write(normalizeJsonText(text));
 }
 
 main().catch((e) => {

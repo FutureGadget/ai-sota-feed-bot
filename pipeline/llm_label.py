@@ -142,6 +142,8 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
     enabled = bool(cfg.get("enabled", False))
+    debug = bool(cfg.get("debug", False))
+    debug_errors = 0
     for it in items:
         base_key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
         key = f"{base_key}::v:{version}"
@@ -174,7 +176,10 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                         cfg,
                     )
                     label_source = "llm"
-            except Exception:
+            except Exception as e:
+                if debug and debug_errors < 5:
+                    print(f"llm_label_error source={it.get('source','')} err={e}")
+                    debug_errors += 1
                 label = None
 
         if label is None:
