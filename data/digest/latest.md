@@ -19,7 +19,7 @@ Focus: AI Platform Engineering
 ## 3. Agentic Test-Time Scaling for WebAgents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12276v1
-- Score: 7.652 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.651 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, agent
 - Why it matters: Relevant to AI platform engineering workflows.
 
@@ -68,7 +68,7 @@ Focus: AI Platform Engineering
 ## 10. WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2602.12135v1
-- Score: 5.336 | Reliability: 1.0 | Maturity: production-ready
+- Score: 5.335 | Reliability: 1.0 | Maturity: production-ready
 - Tags: benchmark
 - Why it matters: Relevant to AI platform engineering workflows.
 

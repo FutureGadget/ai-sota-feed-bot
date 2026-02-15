@@ -16,7 +16,7 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Publishes digest as:
   - versioned file in `data/digest/`
   - GitHub Issue (`Daily AI Digest - YYYY-MM-DD`)
-  - optional Telegram push
+  - Telegram mobile-friendly digest (top-5 with why + compact remainder)
 
 ## Quick start
 ```bash
@@ -33,7 +33,8 @@ python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date $(da
 ```bash
 export TELEGRAM_BOT_TOKEN=xxx
 export TELEGRAM_CHAT_ID=xxx
-export TELEGRAM_MAX_ITEMS=18   # optional
+export TELEGRAM_MAX_ITEMS=12    # optional
+export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
