@@ -142,20 +142,23 @@ def compute_llm_score(lb: dict[str, Any]) -> float:
     return 0.40 * fit + 0.25 * act + 0.20 * nov + 0.15 * evq - 0.25 * max(0.0, hype - 3.0)
 
 
-def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, Any]) -> list[dict[str, Any]]:
+def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
     max_items = int(scfg.get("max_items", len(items)))
     max_per_source = int(scfg.get("max_per_source", max_items))
     src_counts = defaultdict(int)
     out: list[dict[str, Any]] = []
+    reject = {"source_cap": 0, "slot_cap": 0}
     for it in items:
         if len(out) >= max_items:
-            break
+            reject["slot_cap"] += 1
+            continue
         src = it.get("source", "unknown")
         if src_counts[src] >= max_per_source:
+            reject["source_cap"] += 1
             continue
         out.append(it)
         src_counts[src] += 1
-    return out
+    return out, reject
 
 
 def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
@@ -205,7 +208,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             scored.append(item)
 
         scored.sort(key=lambda x: x.get("v2_final_score", 0), reverse=True)
-        picked = _select_slot_items(slot, scored, scfg)
+        picked, reject = _select_slot_items(slot, scored, scfg)
         selected_by_slot[slot] = picked
         diag_slots[slot] = {
             "candidates": len(candidates),
@@ -213,12 +216,14 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             "cache_hits": int(meta.get("cache_hits", 0)),
             "llm_called": int(meta.get("llm_called", 0)),
             "selected": len(picked),
+            "reject_source_cap": int(reject.get("source_cap", 0)),
+            "reject_slot_cap": int(reject.get("slot_cap", 0)),
         }
 
     return selected_by_slot, {"slots": diag_slots, "llm_budget_total": llm_budget, "llm_budget_used": budget_used}
 
 
-def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float]]:
+def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float], dict[str, int]]:
     max_items = int(v2_cfg.get("max_items", 20))
     slots_cfg = v2_cfg.get("slots", {}) or {}
 
@@ -257,6 +262,7 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
     out: list[dict[str, Any]] = []
     used = set()
     slot_counts = defaultdict(int)
+    merge_diag = {"floor_selected": 0, "headroom_selected": 0, "skip_duplicate": 0, "skip_slot_max": 0}
 
     # Phase 1: reserve minimum floors.
     for slot, scored in by_slot_scored.items():
@@ -270,6 +276,7 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
             out.append(it)
             used.add(key)
             slot_counts[slot] += 1
+            merge_diag["floor_selected"] += 1
 
     # Phase 2: fill remaining capacity dynamically by best global score,
     # while respecting each slot's max_items.
@@ -285,19 +292,24 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
         max_slot = int((slots_cfg.get(slot, {}) or {}).get("max_items", max_items))
         key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
         if key in used:
+            merge_diag["skip_duplicate"] += 1
             continue
         if slot_counts[slot] >= max_slot:
+            merge_diag["skip_slot_max"] += 1
             continue
         out.append(it)
         used.add(key)
         slot_counts[slot] += 1
+        merge_diag["headroom_selected"] += 1
 
     out.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
-    return out[:max_items], slot_priority
+    return out[:max_items], slot_priority, merge_diag
 
 
-def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> list[dict[str, Any]]:
+def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
     cfg = (v2_cfg.get("top_band_constraints", {}) or {})
+
+    band_diag = {"dedup_removed": 0, "promoted_frontier": 0, "promoted_anthropic_frontier": 0, "research_demoted": 0}
 
     # Always dedupe final list by canonical key to prevent visible duplicates.
     deduped: list[dict[str, Any]] = []
@@ -305,12 +317,13 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     for it in items:
         key = (it.get("url") or "").split("#")[0].strip().lower() or f"{it.get('source')}::{it.get('title')}"
         if key in seen:
+            band_diag["dedup_removed"] += 1
             continue
         seen.add(key)
         deduped.append(it)
 
     if not cfg.get("enabled", False):
-        return deduped
+        return deduped, band_diag
     top_n = max(1, int(cfg.get("top_n", 10)))
     min_frontier = int(cfg.get("min_frontier_official", 0))
     min_anthropic = int(cfg.get("min_anthropic_frontier", 0))
@@ -327,7 +340,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
         return is_frontier(x) and s.startswith("anthropic")
 
 
-    def promote(predicate, needed: int):
+    def promote(predicate, needed: int, counter_key: str):
         nonlocal out, top
         have = sum(1 for x in top if predicate(x))
         if have >= needed:
@@ -348,13 +361,14 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
             out.remove(cand)
             out.append(old)
             have += 1
+            band_diag[counter_key] += 1
         top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
         tail = [x for x in out if x not in top]
         tail.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
         out = top + tail
 
-    promote(is_frontier, min_frontier)
-    promote(is_anth_frontier, min_anthropic)
+    promote(is_frontier, min_frontier, "promoted_frontier")
+    promote(is_anth_frontier, min_anthropic, "promoted_anthropic_frontier")
 
     # Cap research-heavy items in visible top band.
     def is_research(x: dict[str, Any]) -> bool:
@@ -373,6 +387,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
                 out.remove(repl)
                 out.append(old)
                 research_count -= 1
+                band_diag["research_demoted"] += 1
             i -= 1
         top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
         tail = [x for x in out if x not in top]
@@ -384,10 +399,11 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     for it in out:
         key = (it.get("url") or "").split("#")[0].strip().lower() or f"{it.get('source')}::{it.get('title')}"
         if key in seen3:
+            band_diag["dedup_removed"] += 1
             continue
         seen3.add(key)
         final.append(it)
-    return final
+    return final, band_diag
 
 
 def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -396,21 +412,31 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
     slotted = assign_slots(candidates, v2_cfg)
     llm_budget = int(v2_cfg.get("llm_budget", 40))
     selected_by_slot, diag_c = stage_c_score_and_select(slotted, v2_cfg, llm_budget)
-    top, slot_priority = global_merge(selected_by_slot, v2_cfg)
-    top = enforce_top_band_constraints(top, v2_cfg)
+    top, slot_priority, merge_diag = global_merge(selected_by_slot, v2_cfg)
+    top, band_diag = enforce_top_band_constraints(top, v2_cfg)
 
-    diag = {**diag_a, **diag_c, "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()}}
+    diag = {
+        **diag_a,
+        **diag_c,
+        "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()},
+        "merge": merge_diag,
+        "top_band": band_diag,
+    }
     slot_bits = []
     for k, v in (diag.get("slots", {}) or {}).items():
         slot_bits.append(f"{k}:{v.get('selected',0)}")
     sp_bits = []
     for k, v in (diag.get("slot_priority", {}) or {}).items():
         sp_bits.append(f"{k}:{v:.2f}")
+    m = diag.get("merge", {}) or {}
+    tb = diag.get("top_band", {}) or {}
     print(
         "v2_stats "
         f"prefilter={diag.get('prefilter_in',0)}->{diag.get('prefilter_out',0)} "
         f"llm_used={diag.get('llm_budget_used',0)}/{diag.get('llm_budget_total',0)} "
         f"slots={'/'.join(slot_bits)} "
-        f"slot_priority={'/'.join(sp_bits)} total={len(top)}"
+        f"slot_priority={'/'.join(sp_bits)} "
+        f"merge=floor{m.get('floor_selected',0)}/headroom{m.get('headroom_selected',0)}/dupSkip{m.get('skip_duplicate',0)}/slotMaxSkip{m.get('skip_slot_max',0)} "
+        f"top_band=promoteF{tb.get('promoted_frontier',0)}/promoteA{tb.get('promoted_anthropic_frontier',0)}/researchDemote{tb.get('research_demoted',0)} total={len(top)}"
     )
     return top, diag
