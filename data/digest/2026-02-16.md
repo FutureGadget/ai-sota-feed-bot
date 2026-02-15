@@ -5,14 +5,14 @@ Focus: AI Platform Engineering
 ## 1. Quoting Eric Meyer
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/eric-meyer/#atom-everything
-- Score: 3.779 | Reliability: 1.0 | Maturity: research
+- Score: 3.774 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 2. GPT-5.2 derives a new result in theoretical physics
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/new-result-theoretical-physics
-- Score: 3.713 | Reliability: 1.0 | Maturity: research
+- Score: 3.712 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
@@ -23,17 +23,17 @@ Focus: AI Platform Engineering
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 4. Clawdrey Hepburn – an AI agent researching identity infrastructure
+## 4. AI is going to kill app subscriptions
 - Type: news | Source: hackernews_ai
-- URL: https://twitter.com/clawdreyhepburn/status/2022771820659622022
-- Score: 3.67 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
+- URL: https://nichehunt.app/blog/ai-going-to-kill-app-subscriptions
+- Score: 3.694 | Reliability: 1.0 | Maturity: research
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 5. 0.100.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 3.857 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.856 | Reliability: 1.0 | Maturity: production-ready
 - Tags: throughput, agent
 - Why it matters: Likely impact on throughput, agent workflows and platform decisions.
 
@@ -51,12 +51,12 @@ Focus: AI Platform Engineering
 - Tags: inference
 - Why it matters: Likely impact on inference workflows and platform decisions.
 
-## 8. AI is slowly munching away my passion
+## 8. Show HN: ClawHQ – Fleet management dashboard and skill marketplace for AI agents
 - Type: news | Source: hackernews_ai
-- URL: https://whynot.fail/human/ai-is-slowly-munching-away-my-passion/
-- Score: 3.668 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+- URL: https://app.clawhq.co
+- Score: 3.688 | Reliability: 1.0 | Maturity: production-ready
+- Tags: agent
+- Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 9. v2.1.33
 - Type: release | Source: claude_code_releases
@@ -96,7 +96,7 @@ Focus: AI Platform Engineering
 ## 14. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 3.541 | Reliability: 1.0 | Maturity: research
+- Score: 3.54 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
