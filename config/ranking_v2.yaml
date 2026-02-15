@@ -55,4 +55,18 @@ slots:
     blend: {alpha: 0.75, beta: 0.25}
 
 fallback: deterministic
+
+dynamic_slot_rerank:
+  enabled: true
+  # Slot priority = base_bias + quality_weight*avg_llm_score + freshness_weight*avg_freshness
+  quality_weight: 0.10
+  freshness_weight: 0.25
+  base_bias:
+    frontier_official: 0.20
+    practitioner_analysis: 0.10
+    community_signal: 0.05
+    agent_tooling_releases: 0.00
+    research_watch: -0.05
+    overflow: -0.10
+
 diagnostics_verbosity: full

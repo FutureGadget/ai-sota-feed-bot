@@ -179,17 +179,38 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
     return selected_by_slot, {"slots": diag_slots, "llm_budget_total": llm_budget, "llm_budget_used": budget_used}
 
 
-def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any]) -> list[dict[str, Any]]:
+def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float]]:
     max_items = int(v2_cfg.get("max_items", 20))
     slots_cfg = v2_cfg.get("slots", {}) or {}
 
+    dyn = (v2_cfg.get("dynamic_slot_rerank", {}) or {})
+    dyn_enabled = bool(dyn.get("enabled", False))
+    q_w = float(dyn.get("quality_weight", 0.0))
+    f_w = float(dyn.get("freshness_weight", 0.0))
+    base_bias = dyn.get("base_bias", {}) or {}
+
+    slot_priority: dict[str, float] = {}
+    if dyn_enabled:
+        for slot, arr in slot_selections.items():
+            if not arr:
+                slot_priority[slot] = float(base_bias.get(slot, 0.0))
+                continue
+            avg_llm = sum(float(x.get("v2_llm_score", 0.0)) for x in arr) / max(1, len(arr))
+            avg_fresh = sum(float(x.get("freshness", 0.0)) for x in arr) / max(1, len(arr))
+            slot_priority[slot] = float(base_bias.get(slot, 0.0)) + q_w * avg_llm + f_w * avg_fresh
+
     all_items: list[dict[str, Any]] = []
     for _, arr in slot_selections.items():
-        all_items.extend(arr)
+        for it in arr:
+            item = dict(it)
+            sp = float(slot_priority.get(item.get("v2_slot", "overflow"), 0.0)) if dyn_enabled else 0.0
+            item["v2_slot_priority"] = round(sp, 3)
+            item["v2_global_score"] = round(float(item.get("v2_final_score", 0.0)) + sp, 3)
+            all_items.append(item)
 
-    all_items.sort(key=lambda x: x.get("v2_final_score", 0), reverse=True)
+    all_items.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
     if len(all_items) <= max_items:
-        return all_items
+        return all_items, slot_priority
 
     min_by_slot = {k: int((slots_cfg.get(k, {}) or {}).get("min_items", 0)) for k in slot_selections.keys()}
     counts = defaultdict(int)
@@ -204,7 +225,7 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
             counts[slot] -= 1
             out.pop(i)
         i -= 1
-    return out[:max_items]
+    return out[:max_items], slot_priority
 
 
 def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
@@ -213,16 +234,20 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
     slotted = assign_slots(candidates, v2_cfg)
     llm_budget = int(v2_cfg.get("llm_budget", 40))
     selected_by_slot, diag_c = stage_c_score_and_select(slotted, v2_cfg, llm_budget)
-    top = global_merge(selected_by_slot, v2_cfg)
+    top, slot_priority = global_merge(selected_by_slot, v2_cfg)
 
-    diag = {**diag_a, **diag_c}
+    diag = {**diag_a, **diag_c, "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()}}
     slot_bits = []
     for k, v in (diag.get("slots", {}) or {}).items():
         slot_bits.append(f"{k}:{v.get('selected',0)}")
+    sp_bits = []
+    for k, v in (diag.get("slot_priority", {}) or {}).items():
+        sp_bits.append(f"{k}:{v:.2f}")
     print(
         "v2_stats "
         f"prefilter={diag.get('prefilter_in',0)}->{diag.get('prefilter_out',0)} "
         f"llm_used={diag.get('llm_budget_used',0)}/{diag.get('llm_budget_total',0)} "
-        f"slots={'/'.join(slot_bits)} total={len(top)}"
+        f"slots={'/'.join(slot_bits)} "
+        f"slot_priority={'/'.join(sp_bits)} total={len(top)}"
     )
     return top, diag

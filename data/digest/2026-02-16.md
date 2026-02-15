@@ -23,7 +23,7 @@ Focus: AI Platform Engineering
 ## 4. CM2: Reinforcement Learning with Checklist Rewards for Multi-Turn and Multi-Step Agentic Tool Use
 - Type: news | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12268v1
-- Score: 2.249 | Reliability: 1.0
+- Score: 2.248 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. ExtractBench: A Benchmark and Evaluation Methodology for Complex Structured Extraction
@@ -41,19 +41,19 @@ Focus: AI Platform Engineering
 ## 7. An AI Agent Published a Hit Piece on Me
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/12/an-ai-agent-published-a-hit-piece-on-me/#atom-everything
-- Score: 2.024 | Reliability: 1.0
+- Score: 2.023 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. Show HN: Turn LinkedIn profiles into Markdown for LLM use [open source]
 - Type: news | Source: hackernews_ai
 - URL: https://chromewebstore.google.com/detail/linkedmd/ollpmcehgnalfeephmjlohapgjcagoch
-- Score: 1.966 | Reliability: 1.0
+- Score: 1.962 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 1.945 | Reliability: 1.0
+- Score: 1.944 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Beyond rate limits: scaling access to Codex and Sora
@@ -65,7 +65,7 @@ Focus: AI Platform Engineering
 ## 11. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
-- Score: 1.782 | Reliability: 1.0
+- Score: 1.779 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. 0.100.0
@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. v2.1.42
 - Type: news | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.42
-- Score: 1.537 | Reliability: 1.0
+- Score: 1.536 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
@@ -89,11 +89,11 @@ Focus: AI Platform Engineering
 ## 15. Anthropic Codepath Partnership
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-codepath-partnership
-- Score: 0.948 | Reliability: 1.0
+- Score: 0.947 | Reliability: 1.0
 - Why it matters: Partnership announcement lacks technical depth on coding agents, evals, or automation—generic news item.
 
 ## 16. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 0.788 | Reliability: 1.0
+- Score: 0.787 | Reliability: 1.0
 - Why it matters: Board appointment announcement; zero technical relevance to agentic coding, evals, or production infra.
