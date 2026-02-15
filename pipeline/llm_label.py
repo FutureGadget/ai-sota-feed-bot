@@ -17,6 +17,8 @@ CFG_FILE = ROOT / "config" / "llm.yaml"
 PREF_FILE = ROOT / "config" / "user_preferences.yaml"
 PROMPT_FILE = ROOT / "config" / "prompts" / "label_system.txt"
 CACHE_FILE = ROOT / "data" / "llm" / "labels.json"
+# v2 ranking rubric will use a separate cache namespace to avoid schema collisions.
+CACHE_FILE_V2 = ROOT / "data" / "llm" / "labels_v2.json"
 SOURCES_FILE = ROOT / "config" / "sources.yaml"
 
 

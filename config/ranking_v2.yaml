@@ -1,0 +1,58 @@
+enabled: false
+shadow_mode: true
+
+candidate_pool_cap: 100
+llm_budget: 40
+max_items: 20
+
+slots:
+  frontier_official:
+    sources: [openai_blog, anthropic_engineering, anthropic_newsroom, anthropic_research]
+    min_items: 3
+    max_items: 5
+    max_per_source: 2
+    freshness_hours: 72
+    blend: {alpha: 0.80, beta: 0.20}
+
+  agent_tooling_releases:
+    sources: [openai_codex_releases, claude_code_releases]
+    min_items: 1
+    max_items: 3
+    max_per_source: 1
+    freshness_hours: 168
+    blend: {alpha: 0.70, beta: 0.30}
+
+  practitioner_analysis:
+    sources: [simon_willison, latent_space, infoq_ai_ml]
+    min_items: 2
+    max_items: 4
+    max_per_source: 2
+    freshness_hours: 120
+    blend: {alpha: 0.85, beta: 0.15}
+
+  community_signal:
+    sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news]
+    min_items: 1
+    max_items: 3
+    max_per_source: 1
+    freshness_hours: 48
+    blend: {alpha: 0.75, beta: 0.25}
+
+  research_watch:
+    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, paperswithcode_latest, huggingface_blog]
+    min_items: 2
+    max_items: 4
+    max_per_source: 2
+    freshness_hours: 336
+    blend: {alpha: 0.85, beta: 0.15}
+
+  overflow:
+    sources: []
+    min_items: 0
+    max_items: 3
+    max_per_source: 1
+    freshness_hours: 72
+    blend: {alpha: 0.75, beta: 0.25}
+
+fallback: deterministic
+diagnostics_verbosity: full
