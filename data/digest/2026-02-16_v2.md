@@ -17,7 +17,7 @@ Focus: AI Platform Engineering
 ## 3. Presentation: Building Embedding Models for Large-Scale Real-World Applications
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.165 | Reliability: 1.0
+- Score: 2.164 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. An AI Agent Published a Hit Piece on Me
@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.024 | Reliability: 1.0
+- Score: 2.023 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Beyond rate limits: scaling access to Codex and Sora
@@ -41,7 +41,7 @@ Focus: AI Platform Engineering
 ## 7. Show HN: Turn LinkedIn profiles into Markdown for LLM use [open source]
 - Type: news | Source: hackernews_ai
 - URL: https://chromewebstore.google.com/detail/linkedmd/ollpmcehgnalfeephmjlohapgjcagoch
-- Score: 1.957 | Reliability: 1.0
+- Score: 1.956 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. v2.1.42
 - Type: news | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.42
-- Score: 1.536 | Reliability: 1.0
+- Score: 1.535 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT

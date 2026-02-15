@@ -193,41 +193,70 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
     base_bias = dyn.get("base_bias", {}) or {}
 
     slot_priority: dict[str, float] = {}
-    if dyn_enabled:
-        for slot, arr in slot_selections.items():
-            if not arr:
-                slot_priority[slot] = float(base_bias.get(slot, 0.0))
-                continue
-            avg_llm = sum(float(x.get("v2_llm_score", 0.0)) for x in arr) / max(1, len(arr))
-            avg_fresh = sum(float(x.get("freshness", 0.0)) for x in arr) / max(1, len(arr))
-            slot_priority[slot] = float(base_bias.get(slot, 0.0)) + q_w * avg_llm + f_w * avg_fresh
+    for slot, arr in slot_selections.items():
+        if not dyn_enabled:
+            slot_priority[slot] = 0.0
+            continue
+        if not arr:
+            slot_priority[slot] = float(base_bias.get(slot, 0.0))
+            continue
+        avg_llm = sum(float(x.get("v2_llm_score", 0.0)) for x in arr) / max(1, len(arr))
+        avg_fresh = sum(float(x.get("freshness", 0.0)) for x in arr) / max(1, len(arr))
+        slot_priority[slot] = float(base_bias.get(slot, 0.0)) + q_w * avg_llm + f_w * avg_fresh
 
-    all_items: list[dict[str, Any]] = []
-    for _, arr in slot_selections.items():
+    # Build scored candidates with slot priority applied.
+    by_slot_scored: dict[str, list[dict[str, Any]]] = {}
+    for slot, arr in slot_selections.items():
+        scored: list[dict[str, Any]] = []
         for it in arr:
             item = dict(it)
-            sp = float(slot_priority.get(item.get("v2_slot", "overflow"), 0.0)) if dyn_enabled else 0.0
+            sp = float(slot_priority.get(slot, 0.0))
             item["v2_slot_priority"] = round(sp, 3)
             item["v2_global_score"] = round(float(item.get("v2_final_score", 0.0)) + sp, 3)
-            all_items.append(item)
+            scored.append(item)
+        scored.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
+        by_slot_scored[slot] = scored
 
-    all_items.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
-    if len(all_items) <= max_items:
-        return all_items, slot_priority
+    # Strategy: fixed slot floors first, then dynamic headroom fill.
+    out: list[dict[str, Any]] = []
+    used = set()
+    slot_counts = defaultdict(int)
 
-    min_by_slot = {k: int((slots_cfg.get(k, {}) or {}).get("min_items", 0)) for k in slot_selections.keys()}
-    counts = defaultdict(int)
-    for it in all_items:
-        counts[it.get("v2_slot", "overflow")] += 1
+    # Phase 1: reserve minimum floors.
+    for slot, scored in by_slot_scored.items():
+        min_items = int((slots_cfg.get(slot, {}) or {}).get("min_items", 0))
+        for it in scored:
+            if slot_counts[slot] >= min_items or len(out) >= max_items:
+                break
+            key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+            if key in used:
+                continue
+            out.append(it)
+            used.add(key)
+            slot_counts[slot] += 1
 
-    out = list(all_items)
-    i = len(out) - 1
-    while len(out) > max_items and i >= 0:
-        slot = out[i].get("v2_slot", "overflow")
-        if counts[slot] > min_by_slot.get(slot, 0):
-            counts[slot] -= 1
-            out.pop(i)
-        i -= 1
+    # Phase 2: fill remaining capacity dynamically by best global score,
+    # while respecting each slot's max_items.
+    remainder: list[dict[str, Any]] = []
+    for slot, scored in by_slot_scored.items():
+        remainder.extend(scored)
+    remainder.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
+
+    for it in remainder:
+        if len(out) >= max_items:
+            break
+        slot = it.get("v2_slot", "overflow")
+        max_slot = int((slots_cfg.get(slot, {}) or {}).get("max_items", max_items))
+        key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+        if key in used:
+            continue
+        if slot_counts[slot] >= max_slot:
+            continue
+        out.append(it)
+        used.add(key)
+        slot_counts[slot] += 1
+
+    out.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
     return out[:max_items], slot_priority
 
 
