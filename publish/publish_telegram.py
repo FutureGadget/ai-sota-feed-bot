@@ -47,6 +47,42 @@ def topic_emoji(it: dict) -> str:
     return "💡"
 
 
+def signal_label(it: dict) -> str:
+    t = (it.get("type") or "news").lower()
+    src = (it.get("source") or "").lower()
+    if t == "release":
+        return "Tooling Release"
+    if "hackernews" in src or "show hn" in (it.get("title", "").lower()):
+        return "Field Report"
+    if t == "paper":
+        return "Research"
+    return "Platform News"
+
+
+def confidence_label(it: dict) -> str:
+    score = float(it.get("score", 0) or 0)
+    rel = float(it.get("source_reliability", 1.0) or 1.0)
+    val = score + rel
+    if val >= 8.0:
+        return "High"
+    if val >= 6.0:
+        return "Medium"
+    return "Low"
+
+
+def action_line(it: dict) -> str:
+    text = f"{it.get('title','')} {it.get('why_it_matters','')}".lower()
+    if "release" in text or (it.get("type") == "release"):
+        return "Action: Check changelog + impact on current stack."
+    if "benchmark" in text or "eval" in text:
+        return "Action: Add to eval watchlist and compare baselines."
+    if "agent" in text:
+        return "Action: Assess fit for agent harness / workflow automation."
+    if "inference" in text or "latency" in text:
+        return "Action: Review serving cost-latency implications."
+    return "Action: Keep in watchlist for next digest iteration."
+
+
 def load_source_stats() -> tuple[int, int]:
     p = ROOT / "data" / "health" / "ingest_runs.jsonl"
     if not p.exists():
@@ -96,9 +132,11 @@ def build_mobile_message(max_items: int = 12, top_n: int = 5) -> str:
         url = it.get("url", "")
         why = short_why(it.get("why_it_matters") or it.get("llm_why_1line") or "")
         lines.append(f"{i}) {type_emoji(it.get('type'))}{topic_emoji(it)} {title}")
-        lines.append(f"   [{source}] {url}")
+        lines.append(f"   Signal: {signal_label(it)} · Confidence: {confidence_label(it)}")
         if why:
-            lines.append(f"   ↳ {why}")
+            lines.append(f"   Why: {why}")
+        lines.append(f"   {action_line(it)}")
+        lines.append(f"   [{source}] {url}")
 
     if rest:
         lines.append("")

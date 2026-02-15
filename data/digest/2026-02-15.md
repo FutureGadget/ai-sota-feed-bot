@@ -12,14 +12,14 @@ Focus: AI Platform Engineering
 ## 2. Agentic Test-Time Scaling for WebAgents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12276v1
-- Score: 7.84 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.839 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, agent
 - Why it matters: Likely impact on inference, agent workflows and platform decisions.
 
 ## 3. Improving HPC Code Generation Capability of LLMs via Online Reinforcement Learning with Real-Machine Benchmark Rewards
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12049v1
-- Score: 7.818 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.817 | Reliability: 1.0 | Maturity: production-ready
 - Tags: optimization, benchmark
 - Why it matters: Likely impact on optimization, benchmark workflows and platform decisions.
 
@@ -33,21 +33,21 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Remote-OpenCode – Run your AI coding agent from your phone via Discord
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/RoundTable02/remote-opencode
-- Score: 5.495 | Reliability: 1.0 | Maturity: research
+- Score: 5.493 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 6. Show HN: Nucleus MCP – Forensic deep-dive into agent resource locking
 - Type: news | Source: hackernews_ai
 - URL: https://www.loom.com/share/843a719cbcc2419b8e483784ffd1e8c8
-- Score: 5.489 | Reliability: 1.0 | Maturity: research
+- Score: 5.488 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 7. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 14.315 | Reliability: 1.0 | Maturity: production-ready
+- Score: 14.314 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Async+pipeline parallelism (30.8% throughput), speculative decoding structured outputs, RLHF infra improvements critical for production coding-agent serving at scale.
 
@@ -68,7 +68,7 @@ Focus: AI Platform Engineering
 ## 10. Detecting Overflow in Compressed Token Representations for Retrieval-Augmented Generation
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2602.12235v1
-- Score: 5.936 | Reliability: 1.0 | Maturity: production-ready
+- Score: 5.935 | Reliability: 1.0 | Maturity: production-ready
 - Tags: cost
 - Why it matters: Likely impact on cost workflows and platform decisions.
 
@@ -82,6 +82,6 @@ Focus: AI Platform Engineering
 ## 12. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/harness-engineering
-- Score: 5.075 | Reliability: 1.0 | Maturity: research
+- Score: 5.074 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
