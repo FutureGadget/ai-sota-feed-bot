@@ -171,6 +171,16 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
 
     msg2 = []
 
+    remaining_platform = platform_news_items[top_n:]
+    if remaining_platform:
+        msg2.append(f"<b>🧩 More Platform ({len(remaining_platform)})</b>")
+        for i, it in enumerate(remaining_platform, start=1):
+            title = esc(it.get("title", ""), 70)
+            source = esc(it.get("source", "unknown"), 32)
+            url = it.get("url", "")
+            msg2.append(f"M{i}) {type_emoji(it.get('type'))} <a href=\"{html.escape(url)}\">{title}</a> <code>[{source}]</code>")
+        msg2.append("")
+
     if release_items:
         msg2.append(f"<b>🛠️ Releases ({len(release_items)})</b>")
         for i, it in enumerate(release_items, start=1):
