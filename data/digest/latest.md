@@ -1,108 +1,99 @@
-# Daily AI SOTA Digest - 2026-02-15
+# Daily AI SOTA Digest - 2026-02-16
 
 Focus: AI Platform Engineering
 
-## 1. Quoting Eric Meyer
+## 1. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
+- Type: news | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12241v1
+- Score: 2.971 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 2. Gemini 3 Deep Think
 - Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Feb/15/eric-meyer/#atom-everything
-- Score: 3.77 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+- URL: https://simonwillison.net/2026/Feb/12/gemini-3-deep-think/#atom-everything
+- Score: 2.364 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. GPT-5.2 derives a new result in theoretical physics
+## 3. Community Concealment from Unsupervised Graph Learning-Based Clustering
+- Type: news | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12250v1
+- Score: 2.333 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 4. CM2: Reinforcement Learning with Checklist Rewards for Multi-Turn and Multi-Step Agentic Tool Use
+- Type: news | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12268v1
+- Score: 2.249 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 5. ExtractBench: A Benchmark and Evaluation Methodology for Complex Structured Extraction
+- Type: news | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12247v1
+- Score: 2.248 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 6. Presentation: Building Embedding Models for Large-Scale Real-World Applications
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.085 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 7. An AI Agent Published a Hit Piece on Me
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Feb/12/an-ai-agent-published-a-hit-piece-on-me/#atom-everything
+- Score: 2.024 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 8. Show HN: Turn LinkedIn profiles into Markdown for LLM use [open source]
+- Type: news | Source: hackernews_ai
+- URL: https://chromewebstore.google.com/detail/linkedmd/ollpmcehgnalfeephmjlohapgjcagoch
+- Score: 1.966 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 9. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 1.945 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 10. Beyond rate limits: scaling access to Codex and Sora
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/new-result-theoretical-physics
-- Score: 3.712 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+- URL: https://openai.com/index/beyond-rate-limits
+- Score: 1.94 | Reliability: 1.0
+- Why it matters: Rate-limit infrastructure patterns useful but lacks concrete harness/eval details for coding-agent reliability.
 
-## 3. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
+## 11. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
+- Type: news | Source: search_agent_engineering_news
+- URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
+- Score: 1.782 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 12. 0.100.0
+- Type: news | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
+- Score: 1.732 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 13. v2.1.42
+- Type: news | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.42
+- Score: 1.537 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 14. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 3.707 | Reliability: 1.0 | Maturity: production-ready
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+- Score: 1.301 | Reliability: 1.0
+- Why it matters: Security feature for ChatGPT; minimal relevance to agentic coding automation or production infra.
 
-## 4. OMLX – Ollama for MLX (LLM Inference Server for Apple Silicon)
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/jundot/omlx
-- Score: 3.698 | Reliability: 1.0 | Maturity: research
-- Tags: inference
-- Why it matters: Likely impact on inference workflows and platform decisions.
+## 15. Anthropic Codepath Partnership
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/anthropic-codepath-partnership
+- Score: 0.948 | Reliability: 1.0
+- Why it matters: Partnership announcement lacks technical depth on coding agents, evals, or automation—generic news item.
 
-## 5. 0.100.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 3.856 | Reliability: 1.0 | Maturity: production-ready
-- Tags: throughput, agent
-- Why it matters: Likely impact on throughput, agent workflows and platform decisions.
-
-## 6. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12281v1
-- Score: 2.507 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, benchmark
-- Why it matters: Likely impact on inference, benchmark workflows and platform decisions.
-
-## 7. UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12279v1
-- Score: 2.507 | Reliability: 1.0 | Maturity: research
-- Tags: inference
-- Why it matters: Likely impact on inference workflows and platform decisions.
-
-## 8. Did My AI Copy Itself? How My Agents and I Answered This as a Family
-- Type: news | Source: hackernews_ai
-- URL: https://seksbot.pages.dev/blog/did-my-ai-copy-itself/
-- Score: 3.696 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 9. v2.1.33
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.33
-- Score: 3.4 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
-
-## 10. Function-Space Decoupled Diffusion for Forward and Inverse Modeling in Carbon Capture and Storage
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.12274v1
-- Score: 2.507 | Reliability: 1.0 | Maturity: production-ready
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 11. Learning to Control: The iUzawa-Net for Nonsmooth Optimal Control of Linear PDEs
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.12273v1
-- Score: 2.507 | Reliability: 1.0 | Maturity: research
-- Tags: optimization
-- Why it matters: Likely impact on optimization workflows and platform decisions.
-
-## 12. Building C Compiler
-- Type: news | Source: anthropic_engineering
-- URL: https://www.anthropic.com/engineering/building-c-compiler
-- Score: 3.6 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 13. Infrastructure Noise
-- Type: news | Source: anthropic_engineering
-- URL: https://www.anthropic.com/engineering/infrastructure-noise
-- Score: 3.6 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 14. Chris Liddell Appointed Anthropic Board
+## 16. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 3.54 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
-
-## 15. v2.1.41
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 3.291 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
+- Score: 0.788 | Reliability: 1.0
+- Why it matters: Board appointment announcement; zero technical relevance to agentic coding, evals, or production infra.

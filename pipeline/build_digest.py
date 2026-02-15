@@ -578,6 +578,61 @@ def run():
     decay = float(w.get("freshness_hours_decay", 72))
     source_health = load_source_health()
 
+    # v2 full switch path
+    try:
+        from ranking_v2 import load_v2_config, run_v2
+
+        v2_cfg = load_v2_config()
+        if bool(v2_cfg.get("enabled", False)):
+            v2_items, v2_diag = run_v2(items_deduped, profile, load_llm_cfg(), source_health)
+
+            processed_dir = ROOT / "data" / "processed"
+            processed_dir.mkdir(parents=True, exist_ok=True)
+            with open(processed_dir / "latest.json", "w", encoding="utf-8") as f:
+                json.dump(v2_items, f, ensure_ascii=False, indent=2)
+
+            with open(processed_dir / "latest_v2.json", "w", encoding="utf-8") as f:
+                json.dump(v2_items, f, ensure_ascii=False, indent=2)
+
+            date_str = datetime.now().strftime("%Y-%m-%d")
+            diag_dir = ROOT / "data" / "diagnostics"
+            diag_dir.mkdir(parents=True, exist_ok=True)
+            with open(diag_dir / f"{date_str}_v2.json", "w", encoding="utf-8") as f:
+                json.dump(v2_diag, f, ensure_ascii=False, indent=2)
+
+            lines = [
+                f"# Daily AI SOTA Digest - {date_str}",
+                "",
+                "Focus: AI Platform Engineering",
+                "",
+            ]
+            for i, it in enumerate(v2_items, start=1):
+                lines += [
+                    f"## {i}. {it.get('title','')}",
+                    f"- Type: {it.get('type','news')} | Source: {it.get('source','unknown')}",
+                    f"- URL: {it.get('url','')}",
+                    f"- Score: {it.get('v2_final_score', it.get('score', 0))} | Reliability: {it.get('source_reliability', 1.0)}",
+                    f"- Why it matters: {it.get('why_it_matters', '')}",
+                    "",
+                ]
+
+            digest_dir = ROOT / "data" / "digest"
+            digest_dir.mkdir(parents=True, exist_ok=True)
+            out = digest_dir / f"{date_str}.md"
+            with open(out, "w", encoding="utf-8") as f:
+                f.write("\n".join(lines).strip() + "\n")
+            with open(digest_dir / "latest.md", "w", encoding="utf-8") as f:
+                f.write("\n".join(lines).strip() + "\n")
+            with open(digest_dir / f"{date_str}_v2.md", "w", encoding="utf-8") as f:
+                f.write("\n".join(lines).strip() + "\n")
+            with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
+                f.write("\n".join(lines).strip() + "\n")
+
+            print(f"digest_items={len(v2_items)} file={out}")
+            return
+    except Exception as e:
+        print(f"ranking_v2_switch_error err={e}")
+
     scored = []
     exclude_title_regex = profile.get("selection", {}).get("exclude_title_regex", [])
     type_bonus_cfg = profile.get("type_bonus", {})

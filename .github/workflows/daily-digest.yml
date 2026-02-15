@@ -30,13 +30,6 @@ jobs:
           python pipeline/source_health.py update
           python pipeline/source_health.py report
           python pipeline/build_digest.py
-      - name: Compare v1 vs v2 (shadow)
-        run: |
-          if [ -f data/processed/latest_v2.json ]; then
-            python scripts/compare_v1_v2.py || true
-          else
-            echo "latest_v2.json not found; skipping"
-          fi
       - name: Source degradation alerts (optional Telegram)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
