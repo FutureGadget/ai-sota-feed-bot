@@ -1,9 +1,10 @@
 enabled: true
 provider: pi_oauth
-model_provider: openai
-model: gpt-4.1-mini
+model_provider: anthropic
+model: claude-3-5-haiku-latest
 bridge_command: node scripts/llm_bridge.mjs
-api_key_env: OPENAI_API_KEY
+oauth_provider: anthropic
+oauth_auth_file: data/llm/auth.json
 label_top_n: 20
 rerank_top_n: 20
 timeout_seconds: 30
