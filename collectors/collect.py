@@ -20,6 +20,17 @@ def item_id(url: str, title: str) -> str:
     return hashlib.sha256(f"{url}|{title}".encode("utf-8")).hexdigest()[:16]
 
 
+def load_circuit_state() -> dict:
+    p = ROOT / "data" / "health" / "circuit_breaker.json"
+    if not p.exists():
+        return {}
+    try:
+        payload = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return payload.get("sources", {})
+
+
 def append_ingest_run(stats: list[dict]) -> None:
     health_dir = ROOT / "data" / "health"
     health_dir.mkdir(parents=True, exist_ok=True)
@@ -37,6 +48,7 @@ def run():
 
     all_items = []
     source_stats = []
+    circuit = load_circuit_state()
 
     for source in load_sources():
         if source.get("type") != "rss":
@@ -45,6 +57,27 @@ def run():
         src_name = source["name"]
         src_url = source["url"]
         src_weight = float(source.get("weight", 1.0))
+
+        c = circuit.get(src_name, {})
+        if c.get("state") == "open" and c.get("open_until"):
+            try:
+                open_until = datetime.fromisoformat(c["open_until"].replace("Z", "+00:00"))
+                if open_until.tzinfo is None:
+                    open_until = open_until.replace(tzinfo=timezone.utc)
+            except Exception:
+                open_until = now
+            if open_until > now:
+                source_stats.append(
+                    {
+                        "ts": now.isoformat(),
+                        "source": src_name,
+                        "url": src_url,
+                        "status": "skipped_open_circuit",
+                        "items": 0,
+                        "open_until": c.get("open_until"),
+                    }
+                )
+                continue
 
         try:
             parsed = feedparser.parse(src_url)
@@ -104,7 +137,8 @@ def run():
 
     print(f"collected={len(all_items)} file={path}")
     ok = sum(1 for s in source_stats if s["status"] == "ok")
-    print(f"sources_ok={ok} sources_total={len(source_stats)}")
+    skipped = sum(1 for s in source_stats if s["status"] == "skipped_open_circuit")
+    print(f"sources_ok={ok} sources_skipped={skipped} sources_total={len(source_stats)}")
 
 
 if __name__ == "__main__":

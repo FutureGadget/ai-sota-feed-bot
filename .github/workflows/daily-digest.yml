@@ -24,6 +24,8 @@ jobs:
           python pipeline/auto_tune.py apply || true
       - name: Collect + health + build digest
         run: |
+          python pipeline/source_health.py update || true
+          python pipeline/source_health.py report || true
           python collectors/collect.py
           python pipeline/source_health.py update
           python pipeline/source_health.py report

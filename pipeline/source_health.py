@@ -3,13 +3,17 @@ from __future__ import annotations
 import argparse
 import json
 from collections import defaultdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 RUNS_FILE = ROOT / "data" / "health" / "ingest_runs.jsonl"
 HEALTH_FILE = ROOT / "data" / "health" / "source_health.json"
+CIRCUIT_FILE = ROOT / "data" / "health" / "circuit_breaker.json"
+
+FAIL_STREAK_OPEN = 3
+OPEN_HOURS = 6
 
 
 def parse_ts(ts: str) -> datetime:
@@ -35,6 +39,20 @@ def load_runs(limit: int = 1000) -> list[dict[str, Any]]:
     return out
 
 
+def load_circuit() -> dict[str, Any]:
+    if not CIRCUIT_FILE.exists():
+        return {"generated_at": None, "sources": {}}
+    try:
+        return json.loads(CIRCUIT_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {"generated_at": None, "sources": {}}
+
+
+def save_circuit(data: dict[str, Any]) -> None:
+    CIRCUIT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    CIRCUIT_FILE.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
 def staleness_penalty(last_success_ts: str | None) -> float:
     if not last_success_ts:
         return 0.5
@@ -51,7 +69,10 @@ def staleness_penalty(last_success_ts: str | None) -> float:
 def build_health(runs: list[dict[str, Any]]) -> dict[str, Any]:
     by_source: dict[str, list[dict[str, Any]]] = defaultdict(list)
     for r in runs:
-        by_source[r.get("source", "unknown")].append(r)
+        src = r.get("source", "unknown")
+        if r.get("status") == "skipped_open_circuit":
+            continue
+        by_source[src].append(r)
 
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -65,7 +86,6 @@ def build_health(runs: list[dict[str, Any]]) -> dict[str, Any]:
         ok = len(ok_rows)
         success_rate = ok / total if total else 0.0
 
-        # consecutive failure streak from latest backwards
         fail_streak = 0
         for r in reversed(rows):
             if r.get("status") == "ok":
@@ -95,12 +115,50 @@ def build_health(runs: list[dict[str, Any]]) -> dict[str, Any]:
     return out
 
 
+def update_circuit(health: dict[str, Any]) -> dict[str, Any]:
+    now = datetime.now(timezone.utc)
+    state = load_circuit()
+    src_state = state.get("sources", {})
+
+    for src, h in health.get("sources", {}).items():
+        ent = src_state.get(src, {"state": "closed", "open_until": None, "reason": None})
+        fail_streak = int(h.get("consecutive_failures", 0))
+
+        open_until = ent.get("open_until")
+        is_open = ent.get("state") == "open" and open_until and parse_ts(open_until) > now
+
+        if fail_streak >= FAIL_STREAK_OPEN and not is_open:
+            ent["state"] = "open"
+            ent["open_until"] = (now + timedelta(hours=OPEN_HOURS)).isoformat()
+            ent["reason"] = f"fail_streak_{fail_streak}"
+        elif ent.get("state") == "open":
+            if open_until and parse_ts(open_until) <= now:
+                ent["state"] = "closed"
+                ent["open_until"] = None
+                ent["reason"] = "cooldown_elapsed"
+
+        # close immediately after successful recovery
+        if fail_streak == 0 and ent.get("state") == "open":
+            ent["state"] = "closed"
+            ent["open_until"] = None
+            ent["reason"] = "recovered"
+
+        src_state[src] = ent
+
+    state["generated_at"] = now.isoformat()
+    state["sources"] = src_state
+    save_circuit(state)
+    return state
+
+
 def cmd_update() -> None:
     runs = load_runs()
     health = build_health(runs)
     HEALTH_FILE.parent.mkdir(parents=True, exist_ok=True)
     HEALTH_FILE.write_text(json.dumps(health, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"source_health_updated=true sources={len(health.get('sources', {}))}")
+    circuit = update_circuit(health)
+    open_count = sum(1 for s in circuit.get("sources", {}).values() if s.get("state") == "open")
+    print(f"source_health_updated=true sources={len(health.get('sources', {}))} open_circuits={open_count}")
 
 
 def cmd_report() -> None:
@@ -108,10 +166,16 @@ def cmd_report() -> None:
         print("no_source_health")
         return
     health = json.loads(HEALTH_FILE.read_text(encoding="utf-8"))
+    circuit = load_circuit()
     print("source_health_report")
     for src, h in sorted(health.get("sources", {}).items(), key=lambda kv: kv[1].get("reliability", 0), reverse=True):
+        c = circuit.get("sources", {}).get(src, {})
+        state = c.get("state", "closed")
+        suffix = f" circuit={state}"
+        if c.get("open_until"):
+            suffix += f" open_until={c.get('open_until')}"
         print(
-            f"- {src}: rel={h.get('reliability')} success={h.get('success_rate')} runs={h.get('total_runs')} fail_streak={h.get('consecutive_failures')}"
+            f"- {src}: rel={h.get('reliability')} success={h.get('success_rate')} runs={h.get('total_runs')} fail_streak={h.get('consecutive_failures')}{suffix}"
         )
 
 
