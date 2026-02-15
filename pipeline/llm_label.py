@@ -133,8 +133,10 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         {
             "provider": cfg.get("provider"),
             "model": cfg.get("model"),
+            "model_provider": cfg.get("model_provider"),
             "prompt": prompt_text,
             "prefs": prefs,
+            "cache_version": cfg.get("cache_version", 1),
         },
         ensure_ascii=False,
         sort_keys=True,
