@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12241v1
-- Score: 9.648 | Reliability: 1.0 | Maturity: production-ready
+- Score: 9.647 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, cost
 - Why it matters: Relevant to AI platform engineering workflows.
 
@@ -61,7 +61,7 @@ Focus: AI Platform Engineering
 ## 9. Few-Shot Design Optimization by Exploiting Auxiliary Information
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12112v1
-- Score: 7.434 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.433 | Reliability: 1.0 | Maturity: production-ready
 - Tags: optimization, benchmark
 - Why it matters: Relevant to AI platform engineering workflows.
 
