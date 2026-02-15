@@ -1,4 +1,4 @@
-# Daily AI SOTA Digest - 2026-02-16
+# Daily AI SOTA Digest - 2026-02-15
 
 Focus: AI Platform Engineering
 
@@ -14,35 +14,35 @@ Focus: AI Platform Engineering
 - Score: 2.62 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Presentation: Building Embedding Models for Large-Scale Real-World Applications
+## 3. AGentShield – Open benchmark of 6 AI agent security tools (537 test cases)
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/doronp/agentshield-benchmark
+- Score: 2.311 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 4. Presentation: Building Embedding Models for Large-Scale Real-World Applications
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
 - Score: 2.164 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. An AI Agent Published a Hit Piece on Me
+## 5. An AI Agent Published a Hit Piece on Me
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/12/an-ai-agent-published-a-hit-piece-on-me/#atom-everything
 - Score: 2.103 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
+## 6. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
 - Score: 2.023 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 6. Beyond rate limits: scaling access to Codex and Sora
+## 7. Beyond rate limits: scaling access to Codex and Sora
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/beyond-rate-limits
 - Score: 2.04 | Reliability: 1.0
 - Why it matters: Rate-limit infrastructure patterns useful but lacks concrete harness/eval details for coding-agent reliability.
-
-## 7. Show HN: Turn LinkedIn profiles into Markdown for LLM use [open source]
-- Type: news | Source: hackernews_ai
-- URL: https://chromewebstore.google.com/detail/linkedmd/ollpmcehgnalfeephmjlohapgjcagoch
-- Score: 1.956 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
 - Type: news | Source: huggingface_blog
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
-- Score: 1.776 | Reliability: 1.0
+- Score: 1.774 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Community Concealment from Unsupervised Graph Learning-Based Clustering
@@ -71,7 +71,7 @@ Focus: AI Platform Engineering
 ## 12. 0.100.0
 - Type: news | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 1.731 | Reliability: 1.0
+- Score: 1.73 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. v2.1.42
@@ -83,7 +83,7 @@ Focus: AI Platform Engineering
 ## 14. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 1.401 | Reliability: 1.0
+- Score: 1.4 | Reliability: 1.0
 - Why it matters: Security feature for ChatGPT; minimal relevance to agentic coding automation or production infra.
 
 ## 15. Anthropic Codepath Partnership
