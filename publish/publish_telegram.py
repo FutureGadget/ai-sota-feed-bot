@@ -161,7 +161,6 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
 
     more_lines.append("")
     more_lines.append(f"<b>📊</b> LLM labels: <b>{llm_target} candidates</b> · Sources: <b>{src_ok}/{src_total}</b> · {esc(model,40)}")
-    more_lines.append("Feedback: useful / irrelevant / hype")
 
     return ["\n".join(top_lines)[:3900], "\n".join(more_lines)[:3900]]
 

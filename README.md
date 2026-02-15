@@ -7,8 +7,6 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Normalizes and de-duplicates (URL + near-title similarity)
 - Scores/ranks items for AI platform relevance
 - Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
-- Supports lightweight feedback capture for relevance tuning
-- Auto-tunes source weights from accumulated feedback
 - Tracks source reliability/health and incorporates it into ranking
 - Applies source circuit breaker on repeated failures with cooldown auto-recovery
 - Sends low-noise degradation alerts; Telegram delivery is critical-only by default
@@ -16,7 +14,7 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Publishes digest as:
   - versioned file in `data/digest/`
   - GitHub Issue (`Daily AI Digest - YYYY-MM-DD`)
-  - Telegram mobile-friendly digest (top-5 with why + compact remainder)
+  - Telegram mobile-friendly digest (top list + compact remainder)
 
 ## Quick start
 ```bash
@@ -38,23 +36,11 @@ export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
-## Feedback capture (v1.2)
-```bash
-python pipeline/feedback.py add --url "https://example.com/item" --signal useful --source arxiv_cs_ai
-python pipeline/feedback.py summary
-```
-
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install
 ./scripts/oauth_login.sh      # one-time OpenAI Codex OAuth login
 # ensure config/llm.yaml has: provider: pi_oauth, enabled: true
-```
-
-## Auto-tuning (v1.3)
-```bash
-python pipeline/auto_tune.py report
-python pipeline/auto_tune.py apply
 ```
 
 ## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
