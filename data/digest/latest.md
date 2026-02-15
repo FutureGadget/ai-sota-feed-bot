@@ -1,11 +1,11 @@
-# Daily AI SOTA Digest - 2026-02-16
+# Daily AI SOTA Digest - 2026-02-15
 
 Focus: AI Platform Engineering
 
 ## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.759 | Reliability: 1.0
+- Score: 2.758 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Gemini 3 Deep Think
