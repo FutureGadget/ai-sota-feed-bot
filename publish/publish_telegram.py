@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 import requests
+import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -103,6 +104,17 @@ def load_source_stats() -> tuple[int, int]:
     return sum(1 for r in batch if r.get("status") == "ok"), len(batch)
 
 
+def load_llm_label_target() -> int:
+    p = ROOT / "config" / "llm.yaml"
+    if not p.exists():
+        return 0
+    try:
+        cfg = yaml.safe_load(p.read_text(encoding="utf-8")) or {}
+        return int(cfg.get("label_top_n", 0))
+    except Exception:
+        return 0
+
+
 def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
     processed_file = ROOT / "data" / "processed" / "latest.json"
     if not processed_file.exists():
@@ -115,7 +127,7 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
     rest = items[top_n:]
 
     src_ok, src_total = load_source_stats()
-    llm_used = sum(1 for x in items if x.get("llm_label_source") == "llm")
+    llm_target = load_llm_label_target()
     model = os.getenv("LLM_MODEL_NAME", "claude-haiku-4-5")
 
     top_lines = [
@@ -148,7 +160,7 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
         more_lines.append(f"{i}) {type_emoji(it.get('type'))} <a href=\"{html.escape(url)}\">{title}</a> <code>[{source}]</code>")
 
     more_lines.append("")
-    more_lines.append(f"<b>📊</b> LLM labels: <b>{llm_used}/{len(items)}</b> · Sources: <b>{src_ok}/{src_total}</b> · {esc(model,40)}")
+    more_lines.append(f"<b>📊</b> LLM labels: <b>{llm_target} candidates</b> · Sources: <b>{src_ok}/{src_total}</b> · {esc(model,40)}")
     more_lines.append("Feedback: useful / irrelevant / hype")
 
     return ["\n".join(top_lines)[:3900], "\n".join(more_lines)[:3900]]
