@@ -1,11 +1,11 @@
-# Daily AI SOTA Digest - 2026-02-16
+# Daily AI SOTA Digest - 2026-02-15
 
 Focus: AI Platform Engineering
 
 ## 1. Quoting Eric Meyer
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/eric-meyer/#atom-everything
-- Score: 3.771 | Reliability: 1.0 | Maturity: research
+- Score: 3.77 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
@@ -23,12 +23,12 @@ Focus: AI Platform Engineering
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 4. AI is going to kill app subscriptions
+## 4. OMLX – Ollama for MLX (LLM Inference Server for Apple Silicon)
 - Type: news | Source: hackernews_ai
-- URL: https://nichehunt.app/blog/ai-going-to-kill-app-subscriptions
-- Score: 3.69 | Reliability: 1.0 | Maturity: research
-- Tags: n/a
-- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+- URL: https://github.com/jundot/omlx
+- Score: 3.698 | Reliability: 1.0 | Maturity: research
+- Tags: inference
+- Why it matters: Likely impact on inference workflows and platform decisions.
 
 ## 5. 0.100.0
 - Type: release | Source: openai_codex_releases
@@ -51,12 +51,12 @@ Focus: AI Platform Engineering
 - Tags: inference
 - Why it matters: Likely impact on inference workflows and platform decisions.
 
-## 8. Show HN: ClawHQ – Fleet management dashboard and skill marketplace for AI agents
+## 8. Did My AI Copy Itself? How My Agents and I Answered This as a Family
 - Type: news | Source: hackernews_ai
-- URL: https://app.clawhq.co
-- Score: 3.685 | Reliability: 1.0 | Maturity: production-ready
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
+- URL: https://seksbot.pages.dev/blog/did-my-ai-copy-itself/
+- Score: 3.696 | Reliability: 1.0 | Maturity: research
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 9. v2.1.33
 - Type: release | Source: claude_code_releases
