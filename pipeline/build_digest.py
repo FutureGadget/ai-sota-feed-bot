@@ -183,6 +183,51 @@ def balanced_select(items: list[dict[str, Any]], max_items: int, diversity: dict
     return selected
 
 
+def apply_source_cap(
+    selected: list[dict[str, Any]],
+    eligible: list[dict[str, Any]],
+    max_items: int,
+    max_per_source: int,
+    max_per_type: dict[str, int] | None = None,
+) -> list[dict[str, Any]]:
+    if max_per_source <= 0:
+        return selected[:max_items]
+
+    out = []
+    source_counts = defaultdict(int)
+    type_counts = defaultdict(int)
+    max_per_type = max_per_type or {}
+
+    for it in selected:
+        src = it.get("source", "")
+        typ = it.get("type", "news")
+        if source_counts[src] >= max_per_source:
+            continue
+        if max_per_type and type_counts[typ] >= int(max_per_type.get(typ, max_items)):
+            continue
+        out.append(it)
+        source_counts[src] += 1
+        type_counts[typ] += 1
+
+    if len(out) < max_items:
+        for it in eligible:
+            if len(out) >= max_items:
+                break
+            if it in out:
+                continue
+            src = it.get("source", "")
+            typ = it.get("type", "news")
+            if source_counts[src] >= max_per_source:
+                continue
+            if max_per_type and type_counts[typ] >= int(max_per_type.get(typ, max_items)):
+                continue
+            out.append(it)
+            source_counts[src] += 1
+            type_counts[typ] += 1
+
+    return out[:max_items]
+
+
 def run():
     profile = load_profile()
     raw_file = latest_raw_file()
@@ -199,12 +244,18 @@ def run():
     source_health = load_source_health()
 
     scored = []
+    exclude_title_regex = profile.get("selection", {}).get("exclude_title_regex", [])
+    type_bonus_cfg = profile.get("type_bonus", {})
     for it in items:
-        text = f"{it.get('title', '')} {it.get('summary', '')}"
+        title = it.get('title', '')
+        if any(re.search(pat, title) for pat in exclude_title_regex):
+            continue
+        text = f"{title} {it.get('summary', '')}"
         platform_hits = keyword_hits(text, pkw)
         hype_hits = keyword_hits(text, hkw)
         fresh = freshness_score(it.get("published", ""), decay)
 
+        item_type = signal_type(it)
         src_rel = float(source_health.get(it.get("source", ""), 1.0))
         score = (
             float(it.get("source_weight", 1.0)) * float(w.get("source_weight", 1.0))
@@ -212,10 +263,10 @@ def run():
             + platform_hits * float(w.get("platform_relevance", 1.8))
             - hype_hits * float(w.get("hype_penalty", 0.8))
             + src_rel * float(w.get("source_reliability", 1.0))
+            + float(type_bonus_cfg.get(item_type, 0.0))
         )
 
         tags = [k for k in pkw if re.search(rf"\b{re.escape(k)}\b", text.lower())][:5]
-        item_type = signal_type(it)
 
         scored.append(
             {
@@ -237,7 +288,10 @@ def run():
     max_items = int(profile.get("max_digest_items", 10))
     min_score = float(profile.get("min_score", 1.0))
     eligible = [x for x in scored if x["score"] >= min_score]
-    top = balanced_select(eligible, max_items, profile.get("diversity", {}))
+    diversity_cfg = profile.get("diversity", {})
+    top = balanced_select(eligible, max_items, diversity_cfg)
+    max_per_source = int(profile.get("selection", {}).get("max_per_source", 0))
+    top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
 
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)

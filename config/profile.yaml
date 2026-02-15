@@ -1,5 +1,5 @@
 role: ai_platform_engineer
-max_digest_items: 18
+max_digest_items: 12
 min_score: 1.0
 weights:
   freshness_hours_decay: 72
@@ -32,17 +32,33 @@ hype_keywords:
   - revolutionary
   - hype
   - AGI soon
+  - case study
+  - customer story
+  - provides
+  - using amazon bedrock
+  - customer success
+
+selection:
+  max_per_source: 2
+  exclude_title_regex:
+    - "(?i)amazon bedrock"
+    - "(?i)customer"
+
+type_bonus:
+  paper: 1.2
+  news: 0.2
+  release: -0.8
 
 diversity:
   enabled: true
   min_per_type:
-    release: 2
-    paper: 2
-    news: 2
+    release: 1
+    paper: 3
+    news: 3
   max_per_type:
-    release: 8
-    paper: 8
-    news: 8
+    release: 2
+    paper: 6
+    news: 6
   target_mix:
     release: 0.35
     paper: 0.35
