@@ -33,7 +33,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ -n "$TELEGRAM_BOT_TOKEN" ] && [ -n "$TELEGRAM_CHAT_ID" ]; then
-            python pipeline/source_alerts.py --send-telegram
+            python pipeline/source_alerts.py --send-telegram --telegram-min-severity critical
           else
             python pipeline/source_alerts.py
           fi

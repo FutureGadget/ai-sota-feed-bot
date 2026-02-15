@@ -15,6 +15,7 @@ ALERTS_OUT_FILE = ROOT / "data" / "health" / "latest_alerts.json"
 
 OPEN_TOO_LONG_HOURS = 12
 REPEAT_ALERT_COOLDOWN_HOURS = 12
+SEVERITY_ORDER = {"info": 0, "warning": 1, "critical": 2}
 
 
 def parse_ts(ts: str | None) -> datetime | None:
@@ -68,11 +69,11 @@ def build_alerts() -> tuple[list[dict], dict]:
             "last_alerted_at": prev.get("last_alerted_at"),
         }
 
-        # Transition alert: closed -> open
         if cur_state == "open" and prev_state != "open":
             alerts.append(
                 {
                     "kind": "opened_now",
+                    "severity": "critical",
                     "source": src,
                     "open_until": row.get("open_until"),
                     "reason": row.get("reason"),
@@ -80,10 +81,7 @@ def build_alerts() -> tuple[list[dict], dict]:
             )
             source_entry["last_alerted_at"] = tnow.isoformat()
 
-        # Prolonged open alert
         elif cur_state == "open" and open_until is not None:
-            # heuristic: if circuit still open and now is within 1h of expiry repeatedly,
-            # treat prolonged instability if we already alerted recently and it re-opened.
             long_open = (open_until - tnow).total_seconds() / 3600.0 > OPEN_TOO_LONG_HOURS
             cooldown_ok = (
                 last_alerted is None
@@ -93,6 +91,7 @@ def build_alerts() -> tuple[list[dict], dict]:
                 alerts.append(
                     {
                         "kind": "still_open_too_long",
+                        "severity": "warning",
                         "source": src,
                         "open_until": row.get("open_until"),
                         "reason": row.get("reason"),
@@ -105,11 +104,16 @@ def build_alerts() -> tuple[list[dict], dict]:
     return alerts, next_state
 
 
+def filter_alerts_by_min_severity(alerts: list[dict], min_severity: str) -> list[dict]:
+    threshold = SEVERITY_ORDER.get(min_severity, SEVERITY_ORDER["critical"])
+    return [a for a in alerts if SEVERITY_ORDER.get(a.get("severity", "info"), 0) >= threshold]
+
+
 def format_alert_text(alerts: list[dict]) -> str:
     lines = ["⚠️ AI Feed Source Alert"]
     for a in alerts:
         lines.append(
-            f"- [{a['kind']}] {a['source']} (reason={a.get('reason')}, open_until={a.get('open_until')})"
+            f"- [{a.get('severity','info')}/{a['kind']}] {a['source']} (reason={a.get('reason')}, open_until={a.get('open_until')})"
         )
     return "\n".join(lines)
 
@@ -130,6 +134,7 @@ def send_telegram(text: str) -> None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--send-telegram", action="store_true")
+    ap.add_argument("--telegram-min-severity", default="critical", choices=["info", "warning", "critical"])
     args = ap.parse_args()
 
     alerts, next_state = build_alerts()
@@ -143,8 +148,12 @@ def main() -> None:
     if alerts:
         text = format_alert_text(alerts)
         print(text)
-        if args.send_telegram:
-            send_telegram(text)
+
+    if args.send_telegram:
+        to_send = filter_alerts_by_min_severity(alerts, args.telegram_min_severity)
+        print(f"alerts_telegram_candidate_count={len(to_send)} min_severity={args.telegram_min_severity}")
+        if to_send:
+            send_telegram(format_alert_text(to_send))
 
 
 if __name__ == "__main__":
