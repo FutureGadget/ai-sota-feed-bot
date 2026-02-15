@@ -20,6 +20,7 @@ Build and operate an AI Platform Engineer-focused news intelligence bot (collect
 - `data/` — generated runtime artifacts (raw, processed, digest, health, llm cache, diagnostics)
 - `docs/` — living documentation
   - `docs/status/` — current operational snapshots
+  - `docs/how-to/` — operational playbooks and debugging guides
   - `docs/product-specs/` — behavior specs
   - `docs/design-docs/` — design rationale/decisions
   - `docs/exec-plans/` — execution plans and tracking
