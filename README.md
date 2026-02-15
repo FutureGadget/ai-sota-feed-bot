@@ -33,6 +33,7 @@ python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date $(da
 ```bash
 export TELEGRAM_BOT_TOKEN=xxx
 export TELEGRAM_CHAT_ID=xxx
+export TELEGRAM_MAX_ITEMS=18   # optional
 python publish/publish_telegram.py
 ```
 
