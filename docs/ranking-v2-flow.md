@@ -1,6 +1,6 @@
 # Ranking v2 Flow (Current Production Path)
 
-This is the active pipeline after v1 removal.
+This is the active production pipeline after v1 removal.
 
 ## Quick answer: does `prefilter ... -> 100` mean 100 LLM calls?
 No.
@@ -49,6 +49,7 @@ Stage C: in-slot scoring + selection (ranking_v2.stage_c_score_and_select)
       |
       v
 Global merge (ranking_v2.global_merge)
+  - dynamic slot meta-rerank (slot priority) when enabled
   - merge slot picks
   - trim to max_items
   - respect slot minimum floors when trimming
