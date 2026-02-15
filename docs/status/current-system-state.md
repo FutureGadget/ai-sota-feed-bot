@@ -7,6 +7,7 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 - `config/ranking_v2.yaml`:
   - `enabled: true`
   - `shadow_mode: false` (v2 is production path)
+  - `preset: balanced` (loaded from `config/presets/balanced.yaml`, then local overrides applied)
   - `candidate_pool_cap: 100`
   - `llm_budget: 8`
   - `max_items: 20`

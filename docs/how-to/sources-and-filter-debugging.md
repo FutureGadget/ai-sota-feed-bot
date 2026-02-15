@@ -39,9 +39,19 @@ Example (arXiv API):
 
 ---
 
-## 2) Map source to a v2 slot
+## 2) Presets and overrides
 
-Edit: `config/ranking_v2.yaml` under `slots.*.sources`.
+- Base preset files live in `config/presets/*.yaml` (e.g., `balanced.yaml`).
+- Active config is `config/ranking_v2.yaml`.
+- Loader behavior:
+  1. load preset from `preset: <name>`
+  2. apply local overrides from `config/ranking_v2.yaml`
+
+Use this pattern to avoid one giant config drift over time.
+
+## 3) Map source to a v2 slot
+
+Edit: preset or `config/ranking_v2.yaml` under `slots.*.sources`.
 
 If a source is not mapped, it falls into `overflow` behavior.
 Always map intentionally to avoid accidental ranking behavior.

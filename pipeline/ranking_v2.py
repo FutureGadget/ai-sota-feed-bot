@@ -18,12 +18,36 @@ except Exception:
 
 ROOT = Path(__file__).resolve().parents[1]
 V2_CFG_FILE = ROOT / "config" / "ranking_v2.yaml"
+PRESETS_DIR = ROOT / "config" / "presets"
+
+
+def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
+    out = dict(base)
+    for k, v in (override or {}).items():
+        if isinstance(v, dict) and isinstance(out.get(k), dict):
+            out[k] = _deep_merge(out[k], v)
+        else:
+            out[k] = v
+    return out
 
 
 def load_v2_config() -> dict[str, Any]:
     if not V2_CFG_FILE.exists():
         return {"enabled": False}
-    return yaml.safe_load(V2_CFG_FILE.read_text(encoding="utf-8")) or {"enabled": False}
+    raw = yaml.safe_load(V2_CFG_FILE.read_text(encoding="utf-8")) or {"enabled": False}
+
+    preset_name = raw.get("preset")
+    if not preset_name:
+        return raw
+
+    preset_file = PRESETS_DIR / f"{preset_name}.yaml"
+    if not preset_file.exists():
+        print(f"ranking_v2_preset_missing name={preset_name}")
+        return raw
+
+    preset_cfg = yaml.safe_load(preset_file.read_text(encoding="utf-8")) or {}
+    merged = _deep_merge(preset_cfg, raw)
+    return merged
 
 
 def _age_hours(published_str: str) -> float:
