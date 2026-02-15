@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Quoting Eric Meyer
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/eric-meyer/#atom-everything
-- Score: 3.774 | Reliability: 1.0 | Maturity: research
+- Score: 3.771 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
@@ -19,14 +19,14 @@ Focus: AI Platform Engineering
 ## 3. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 3.708 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.707 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 4. AI is going to kill app subscriptions
 - Type: news | Source: hackernews_ai
 - URL: https://nichehunt.app/blog/ai-going-to-kill-app-subscriptions
-- Score: 3.694 | Reliability: 1.0 | Maturity: research
+- Score: 3.69 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
@@ -40,21 +40,21 @@ Focus: AI Platform Engineering
 ## 6. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12281v1
-- Score: 2.508 | Reliability: 1.0 | Maturity: production-ready
+- Score: 2.507 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, benchmark
 - Why it matters: Likely impact on inference, benchmark workflows and platform decisions.
 
 ## 7. UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12279v1
-- Score: 2.508 | Reliability: 1.0 | Maturity: research
+- Score: 2.507 | Reliability: 1.0 | Maturity: research
 - Tags: inference
 - Why it matters: Likely impact on inference workflows and platform decisions.
 
 ## 8. Show HN: ClawHQ – Fleet management dashboard and skill marketplace for AI agents
 - Type: news | Source: hackernews_ai
 - URL: https://app.clawhq.co
-- Score: 3.688 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.685 | Reliability: 1.0 | Maturity: production-ready
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
@@ -68,14 +68,14 @@ Focus: AI Platform Engineering
 ## 10. Function-Space Decoupled Diffusion for Forward and Inverse Modeling in Carbon Capture and Storage
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12274v1
-- Score: 2.508 | Reliability: 1.0 | Maturity: production-ready
+- Score: 2.507 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 11. Learning to Control: The iUzawa-Net for Nonsmooth Optimal Control of Linear PDEs
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12273v1
-- Score: 2.508 | Reliability: 1.0 | Maturity: research
+- Score: 2.507 | Reliability: 1.0 | Maturity: research
 - Tags: optimization
 - Why it matters: Likely impact on optimization workflows and platform decisions.
 
@@ -103,6 +103,6 @@ Focus: AI Platform Engineering
 ## 15. v2.1.41
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 3.292 | Reliability: 1.0 | Maturity: research
+- Score: 3.291 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.

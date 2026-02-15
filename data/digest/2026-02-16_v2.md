@@ -17,7 +17,7 @@ Focus: AI Platform Engineering
 ## 3. Community Concealment from Unsupervised Graph Learning-Based Clustering
 - Type: news | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12250v1
-- Score: 2.334 | Reliability: 1.0
+- Score: 2.333 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. CM2: Reinforcement Learning with Checklist Rewards for Multi-Turn and Multi-Step Agentic Tool Use
@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. Presentation: Building Embedding Models for Large-Scale Real-World Applications
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/llm-large-scale-applications/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.086 | Reliability: 1.0
+- Score: 2.085 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. An AI Agent Published a Hit Piece on Me
@@ -47,7 +47,7 @@ Focus: AI Platform Engineering
 ## 8. Show HN: Turn LinkedIn profiles into Markdown for LLM use [open source]
 - Type: news | Source: hackernews_ai
 - URL: https://chromewebstore.google.com/detail/linkedmd/ollpmcehgnalfeephmjlohapgjcagoch
-- Score: 1.969 | Reliability: 1.0
+- Score: 1.968 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. Claude Code vs ChatGPT Codex: Which AI coding agent is actually better? - Tom's Guide
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMinwFBVV95cUxOX3k2SkVENHhlc1A3Wkp6OFZHaVRDbHhqN2k5cTZUaV8wamNGOGdfV0ZCMm0xTmlNTFdnRTRPT242LU5YcmhxVkNIeHczOWtQeUdfUVRxSGF2T0JUbi1RaG43a0VmMlJSVXpTQ1VLekxzTUN5UUY1UzE5NVBCVlZFUmJHWW5hdV9OVXFVdGNhLTE0RGhVUHBibGtPTTdHbG8?oc=5
-- Score: 1.784 | Reliability: 1.0
+- Score: 1.783 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. GPT-5.2 derives a new result in theoretical physics
@@ -71,13 +71,13 @@ Focus: AI Platform Engineering
 ## 12. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 1.782 | Reliability: 1.0
+- Score: 1.781 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. 0.100.0
 - Type: news | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 1.733 | Reliability: 1.0
+- Score: 1.732 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. Chris Liddell Appointed Anthropic Board
@@ -95,7 +95,7 @@ Focus: AI Platform Engineering
 ## 16. langgraph-sdk==0.3.6
 - Type: news | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 1.61 | Reliability: 1.0
+- Score: 1.609 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. v2.1.42
