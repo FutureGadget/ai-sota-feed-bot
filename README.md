@@ -58,6 +58,7 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 - Reason: reliability and cost control. Full-list LLM ranking is still expensive and occasionally unstable for daily runs.
 - Source/slot/category/provider constraints are explicit in config so we can tune behavior quickly without rewriting pipeline logic.
 - If LLM pricing/reliability improves, we can later move to broader LLM-first ranking and relax hard constraints.
+- Current production flow diagram and knob guide: `docs/ranking-v2-flow.md`
 
 ## Config
 - `config/sources.yaml`: feed list + source weights
