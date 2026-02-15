@@ -199,7 +199,7 @@ def send_message(token: str, chat_id: str, text: str) -> None:
 def main():
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
-    max_items = int(os.getenv("TELEGRAM_MAX_ITEMS", "12"))
+    max_items = int(os.getenv("TELEGRAM_MAX_ITEMS", "20"))
     top_n = int(os.getenv("TELEGRAM_TOP_WHY", "10"))
 
     if not token or not chat_id:

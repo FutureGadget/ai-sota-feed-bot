@@ -65,23 +65,44 @@ Focus: AI Platform Engineering
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 10. How Generative and Agentic AI Shift Concern from Technical Debt to Cognitive Debt
+## 10. Function-Space Decoupled Diffusion for Forward and Inverse Modeling in Carbon Capture and Storage
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12274v1
+- Score: 2.52 | Reliability: 1.0 | Maturity: production-ready
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 11. How Generative and Agentic AI Shift Concern from Technical Debt to Cognitive Debt
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/cognitive-debt/#atom-everything
 - Score: 3.649 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 11. Launching Interop 2026
+## 12. Launching Interop 2026
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/interop-2026/#atom-everything
 - Score: 3.623 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
-## 12. Building C Compiler
+## 13. Building C Compiler
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/building-c-compiler
 - Score: 3.6 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 14. Infrastructure Noise
+- Type: news | Source: anthropic_engineering
+- URL: https://www.anthropic.com/engineering/infrastructure-noise
+- Score: 3.6 | Reliability: 1.0 | Maturity: research
+- Tags: n/a
+- Why it matters: Potential relevance to AI platform stack; review for downstream impact.
+
+## 15. Learning to Control: The iUzawa-Net for Nonsmooth Optimal Control of Linear PDEs
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12273v1
+- Score: 2.52 | Reliability: 1.0 | Maturity: research
+- Tags: optimization
+- Why it matters: Likely impact on optimization workflows and platform decisions.
