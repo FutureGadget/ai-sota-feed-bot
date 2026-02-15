@@ -524,13 +524,11 @@ def run():
 
         item_type = signal_type(it)
         src_rel = float(source_health.get(it.get("source", ""), 1.0))
+        # Heuristic keyword/type boosting removed; keep baseline score simple.
         score = (
             float(it.get("source_weight", 1.0)) * float(w.get("source_weight", 1.0))
             + fresh
-            + platform_hits * float(w.get("platform_relevance", 1.8))
-            - hype_hits * float(w.get("hype_penalty", 0.8))
             + src_rel * float(w.get("source_reliability", 1.0))
-            + float(type_bonus_cfg.get(item_type, 0.0))
         )
 
         tags = [k for k in pkw if re.search(rf"\b{re.escape(k)}\b", text.lower())][:5]
@@ -630,7 +628,7 @@ def run():
 
     top = apply_constrained_topk(
         top,
-        scored,
+        eligible,
         max_items=max_items,
         top_k=int(sel_cfg.get("top_k_guardrail", 5)),
         max_release_in_top_k=int(sel_cfg.get("max_release_in_top_k", 1)),
@@ -645,7 +643,7 @@ def run():
 
     top = enforce_source_floor(
         top,
-        scored,
+        eligible,
         set(sel_cfg.get("anthropic_sources", [])),
         int(sel_cfg.get("min_anthropic_slots", 0)),
     )

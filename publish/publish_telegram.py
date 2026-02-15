@@ -121,7 +121,7 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
     top_lines = [
         f"<b>📰 AI Feed ({today}) · {len(items)} picks</b>",
         "",
-        "<b>🔥 Top 5</b>",
+        f"<b>🔥 Top {top_n}</b>",
     ]
     for i, it in enumerate(top, start=1):
         title = esc(it.get("title", ""), 88)
@@ -170,7 +170,7 @@ def main():
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
     max_items = int(os.getenv("TELEGRAM_MAX_ITEMS", "12"))
-    top_n = int(os.getenv("TELEGRAM_TOP_WHY", "5"))
+    top_n = int(os.getenv("TELEGRAM_TOP_WHY", "10"))
 
     if not token or not chat_id:
         raise RuntimeError("Missing TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID")
