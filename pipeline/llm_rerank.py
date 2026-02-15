@@ -94,6 +94,8 @@ def call_openai_compatible(candidates: list[dict[str, Any]], cfg: dict[str, Any]
             "type": c.get("type"),
             "source": c.get("source"),
             "score": c.get("score"),
+            "summary": c.get("summary", ""),
+            "content_excerpt": c.get("content_excerpt", ""),
             "why": c.get("why_it_matters", ""),
         }
         for c in candidates
@@ -152,6 +154,8 @@ def rerank_candidates(candidates: list[dict[str, Any]], cfg: dict[str, Any], max
                                 "type": c.get("type"),
                                 "source": c.get("source"),
                                 "score": c.get("score"),
+                                "summary": c.get("summary", ""),
+                                "content_excerpt": c.get("content_excerpt", ""),
                                 "why": c.get("why_it_matters", ""),
                             }
                             for c in top_candidates

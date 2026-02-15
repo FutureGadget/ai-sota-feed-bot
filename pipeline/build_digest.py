@@ -11,6 +11,7 @@ from typing import Any
 import yaml
 from dateutil import parser as dt_parser
 
+from content_fetch import build_content_map
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
 
@@ -289,6 +290,24 @@ def run():
     llm_cfg = load_llm_cfg()
     label_top_n = int(llm_cfg.get("label_top_n", 20))
     pre_sorted = sorted(scored, key=lambda x: x["score"], reverse=True)
+
+    if bool(llm_cfg.get("content_fetch_enabled", True)):
+        fetch_n = int(llm_cfg.get("content_fetch_top_n", max(label_top_n, int(llm_cfg.get("rerank_top_n", 40)))))
+        excerpt_chars = int(llm_cfg.get("content_excerpt_chars", 1200))
+        fetch_timeout = int(llm_cfg.get("content_fetch_timeout_seconds", 10))
+        fetch_budget = int(llm_cfg.get("content_fetch_time_budget_seconds", 25))
+        content_map = build_content_map(
+            pre_sorted,
+            top_n=fetch_n,
+            excerpt_chars=excerpt_chars,
+            timeout=fetch_timeout,
+            time_budget_seconds=fetch_budget,
+        )
+        for it in pre_sorted:
+            u = (it.get("url", "") or "").split("#")[0].strip()
+            if u in content_map:
+                it["content_excerpt"] = content_map[u]
+
     labels = label_items(pre_sorted[:label_top_n])
 
     llm_used = 0

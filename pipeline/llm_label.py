@@ -170,6 +170,7 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                                 "item": {
                                     "title": it.get("title", ""),
                                     "summary": it.get("summary", ""),
+                                    "content_excerpt": it.get("content_excerpt", ""),
                                     "source": it.get("source", ""),
                                     "url": it.get("url", ""),
                                 },
