@@ -5,9 +5,9 @@ Focus: AI Platform Engineering
 ## 1. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12241v1
-- Score: 9.639 | Reliability: 1.0 | Maturity: production-ready
+- Score: 8.039 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, cost
-- Why it matters: Likely impact on inference, latency, cost workflows and platform decisions.
+- Why it matters: Speech ASR optimization valuable for voice agents but orthogonal to core coding-automation & feature-delivery-loop priorities.
 
 ## 2. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
 - Type: paper | Source: arxiv_cs_ai
@@ -44,24 +44,24 @@ Focus: AI Platform Engineering
 - Tags: cost
 - Why it matters: Likely impact on cost workflows and platform decisions.
 
-## 7. v0.15.0
+## 7. v0.16.0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
+- Score: 14.317 | Reliability: 1.0 | Maturity: production-ready
+- Tags: serving, throughput, optimization, quantization, triton
+- Why it matters: Async scheduling + pipeline parallelism (30.8% throughput gain), speculative decoding + structured outputs, RLHF engine pause/resume—critical for production inference serving at scale.
+
+## 8. v0.15.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.15.0
 - Score: 13.804 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, throughput, optimization, quantization, triton
-- Why it matters: vLLM v0.15.0 delivers production-critical inference optimizations (async+pipeline parallelism, Mamba prefix caching ~2x speedup, FP4 65% faster on Blackwell) directly applicable to scaling coding-agent serving infrastructure.
-
-## 8. v0.16.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.718 | Reliability: 1.0 | Maturity: production-ready
-- Tags: serving, throughput, optimization, quantization, triton
-- Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
+- Why it matters: Production inference infra: Mamba prefix caching 2x speedup, async+pipeline parallelism, streaming inputs for ASR, MoE/quantization perf gains directly impact serving latency/cost.
 
 ## 9. MonarchRT: Efficient Attention for Real-Time Video Generation
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12271v1
-- Score: 7.843 | Reliability: 1.0 | Maturity: research
+- Score: 7.842 | Reliability: 1.0 | Maturity: research
 - Tags: cost, triton
 - Why it matters: Likely impact on cost, triton workflows and platform decisions.
 
