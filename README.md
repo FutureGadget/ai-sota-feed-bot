@@ -53,6 +53,12 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 # state files: data/health/circuit_breaker.json, data/health/alerts_state.json
 ```
 
+## Architecture notes (why this design for now)
+- We use a **deterministic + configurable ranking core** first, then selective LLM steps.
+- Reason: reliability and cost control. Full-list LLM ranking is still expensive and occasionally unstable for daily runs.
+- Source/slot/category/provider constraints are explicit in config so we can tune behavior quickly without rewriting pipeline logic.
+- If LLM pricing/reliability improves, we can later move to broader LLM-first ranking and relax hard constraints.
+
 ## Config
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
