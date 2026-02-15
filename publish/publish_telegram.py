@@ -16,11 +16,15 @@ def clean(s: str, n: int = 120) -> str:
 
 
 def short_why(s: str) -> str:
-    s = clean(s or "", 90)
-    s = s.replace("Likely impact on ", "")
-    s = s.replace(" workflows and platform decisions.", "")
-    s = s.replace(" and platform decisions.", "")
-    return clean(s, 78)
+    s = clean(s or "", 120)
+    low = s.lower()
+    if low.startswith("likely impact on ") and "platform decisions" in low:
+        core = s[len("Likely impact on ") :]
+        core = core.replace("workflows and platform decisions.", "").replace("and platform decisions.", "")
+        core = core.strip(" .")
+        if core:
+            return clean(f"Impact: {core}.", 88)
+    return clean(s, 88)
 
 
 def type_emoji(t: str) -> str:
@@ -47,14 +51,25 @@ def load_source_stats() -> tuple[int, int]:
     p = ROOT / "data" / "health" / "ingest_runs.jsonl"
     if not p.exists():
         return 0, 0
-    lines = [x for x in p.read_text(encoding="utf-8").splitlines() if x.strip()]
-    if not lines:
+    rows = []
+    for ln in p.read_text(encoding="utf-8").splitlines():
+        ln = ln.strip()
+        if not ln:
+            continue
+        try:
+            rows.append(json.loads(ln))
+        except Exception:
+            continue
+    if not rows:
         return 0, 0
-    try:
-        last = json.loads(lines[-1])
-        return int(last.get("sources_ok", 0)), int(last.get("sources_total", 0))
-    except Exception:
+
+    latest_ts = rows[-1].get("ts")
+    if not latest_ts:
         return 0, 0
+    batch = [r for r in rows if r.get("ts") == latest_ts]
+    total = len(batch)
+    ok = sum(1 for r in batch if r.get("status") == "ok")
+    return ok, total
 
 
 def build_mobile_message(max_items: int = 12, top_n: int = 5) -> str:
@@ -91,7 +106,10 @@ def build_mobile_message(max_items: int = 12, top_n: int = 5) -> str:
         for i, it in enumerate(rest, start=top_n + 1):
             title = clean(it.get("title", ""), 72)
             source = it.get("source", "unknown")
+            url = it.get("url", "")
             lines.append(f"{i}) {type_emoji(it.get('type'))} {title} [{source}]")
+            if url:
+                lines.append(f"   {url}")
 
     lines.append("")
     lines.append(f"📊 LLM labels: {llm_used}/{len(items)} · Sources: {src_ok}/{src_total} · {model}")
