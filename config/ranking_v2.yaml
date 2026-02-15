@@ -62,11 +62,24 @@ dynamic_slot_rerank:
   quality_weight: 0.10
   freshness_weight: 0.25
   base_bias:
-    frontier_official: 0.20
-    practitioner_analysis: 0.10
+    frontier_official: 0.25
+    practitioner_analysis: 0.15
     community_signal: 0.05
     agent_tooling_releases: 0.00
-    research_watch: -0.05
-    overflow: -0.10
+    research_watch: -0.20
+    overflow: -0.15
+
+# Optional source-level bias for practical ordering within/across slots.
+# Negative values push sources lower; positive values lift them.
+source_bias:
+  arxiv_cs_ai: -0.35
+  arxiv_cs_lg: -0.35
+  arxiv_cs_cl: -0.30
+  paperswithcode_latest: -0.25
+  anthropic_research: -0.15
+  openai_blog: 0.10
+  anthropic_engineering: 0.12
+  simon_willison: 0.08
+  infoq_ai_ml: 0.08
 
 diagnostics_verbosity: full

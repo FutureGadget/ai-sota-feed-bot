@@ -136,6 +136,7 @@ def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, A
 
 def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
     slots_cfg = v2_cfg.get("slots", {}) or {}
+    source_bias_cfg = v2_cfg.get("source_bias", {}) or {}
     selected_by_slot: dict[str, list[dict[str, Any]]] = {}
     diag_slots: dict[str, Any] = {}
     budget_used = 0
@@ -154,12 +155,14 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
             lb = labels.get(key, {})
             llm_s = compute_llm_score(lb)
-            fs = alpha * llm_s + beta * float(it.get("freshness", 0))
+            src_bias = float(source_bias_cfg.get(it.get("source", ""), 0.0))
+            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias
             item = dict(it)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
             item["llm_category"] = lb.get("category", "platform")
             item["llm_why_1line"] = lb.get("why_1line", "")
             item["v2_llm_score"] = round(llm_s, 3)
+            item["v2_source_bias"] = round(src_bias, 3)
             item["v2_final_score"] = round(fs, 3)
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
