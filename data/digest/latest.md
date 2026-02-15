@@ -26,7 +26,7 @@ Focus: AI Platform Engineering
 ## 4. Swann provides Generative AI to millions of IoT Devices using Amazon Bedrock
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/swann-provides-generative-ai-to-millions-of-iot-devices-using-amazon-bedrock/
-- Score: 5.915 | Reliability: 1.0 | Maturity: research
+- Score: 5.914 | Reliability: 1.0 | Maturity: research
 - Tags: cost, optimization
 - Why it matters: Likely impact on cost, optimization workflows and platform decisions.
 
@@ -40,7 +40,7 @@ Focus: AI Platform Engineering
 ## 6. Customize AI agent browsing with proxies, profiles, and extensions in Amazon Bedrock AgentCore Browser
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/customize-ai-agent-browsing-with-proxies-profiles-and-extensions-in-amazon-bedrock-agentcore-browser/
-- Score: 4.477 | Reliability: 1.0 | Maturity: research
+- Score: 4.476 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
