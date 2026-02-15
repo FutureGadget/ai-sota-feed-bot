@@ -12,21 +12,21 @@ Focus: AI Platform Engineering
 ## 2. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 3.732 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.731 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 3. AI to stay in Flow – a personal decision on how I chose to (not) use AI
 - Type: news | Source: hackernews_ai
 - URL: https://www.dev-log.me/ai_to_stay_in_flow/
-- Score: 3.697 | Reliability: 1.0 | Maturity: research
+- Score: 3.694 | Reliability: 1.0 | Maturity: research
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 4. AI Agent Lands PRs in Major OSS Projects, Targets Maintainers via Cold Outreach
 - Type: news | Source: hackernews_ai
 - URL: https://socket.dev/blog/ai-agent-lands-prs-in-major-oss-projects-targets-maintainers-via-cold-outreach
-- Score: 3.696 | Reliability: 1.0 | Maturity: research
+- Score: 3.693 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.
 
@@ -40,14 +40,14 @@ Focus: AI Platform Engineering
 ## 6. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12281v1
-- Score: 2.521 | Reliability: 1.0 | Maturity: production-ready
+- Score: 2.52 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, benchmark
 - Why it matters: Likely impact on inference, benchmark workflows and platform decisions.
 
 ## 7. UniT: Unified Multimodal Chain-of-Thought Test-time Scaling
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.12279v1
-- Score: 2.521 | Reliability: 1.0 | Maturity: research
+- Score: 2.52 | Reliability: 1.0 | Maturity: research
 - Tags: inference
 - Why it matters: Likely impact on inference workflows and platform decisions.
 
@@ -68,14 +68,14 @@ Focus: AI Platform Engineering
 ## 10. How Generative and Agentic AI Shift Concern from Technical Debt to Cognitive Debt
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/cognitive-debt/#atom-everything
-- Score: 3.651 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.649 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
 ## 11. Launching Interop 2026
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/interop-2026/#atom-everything
-- Score: 3.626 | Reliability: 1.0 | Maturity: production-ready
+- Score: 3.623 | Reliability: 1.0 | Maturity: production-ready
 - Tags: n/a
 - Why it matters: Potential relevance to AI platform stack; review for downstream impact.
 
