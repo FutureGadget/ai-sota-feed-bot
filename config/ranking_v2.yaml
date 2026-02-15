@@ -60,7 +60,7 @@ slots:
     sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, paperswithcode_latest, huggingface_blog, anthropic_research]
     min_items: 2
     max_items: 4
-    max_per_source: 2
+    max_per_source: 1
     freshness_hours: 336
     blend: {alpha: 0.85, beta: 0.15}
 
@@ -95,6 +95,7 @@ top_band_constraints:
   top_n: 10
   min_frontier_official: 3
   min_anthropic_frontier: 1
+  min_anthropic_research_in_top_n: 1
   max_research_in_top_n: 3
 
 # Optional source-level bias for practical ordering within/across slots.
@@ -104,7 +105,7 @@ source_bias:
   arxiv_cs_lg: -0.35
   arxiv_cs_cl: -0.30
   paperswithcode_latest: -0.25
-  anthropic_research: 0.15
+  anthropic_research: 0.40
   anthropic_newsroom: 0.06
   openai_blog: 0.10
   anthropic_engineering: 0.12

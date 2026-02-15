@@ -290,6 +290,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     top_n = max(1, int(cfg.get("top_n", 10)))
     min_frontier = int(cfg.get("min_frontier_official", 0))
     min_anthropic = int(cfg.get("min_anthropic_frontier", 0))
+    min_anthropic_research = int(cfg.get("min_anthropic_research_in_top_n", 0))
     max_research = int(cfg.get("max_research_in_top_n", 99))
 
     out = list(deduped)
@@ -301,6 +302,11 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     def is_anth_frontier(x: dict[str, Any]) -> bool:
         s = (x.get("source") or "")
         return is_frontier(x) and s.startswith("anthropic")
+
+    def is_anth_research(x: dict[str, Any]) -> bool:
+        return (x.get("source") == "anthropic_research") or (
+            str(x.get("source", "")).startswith("anthropic") and ((x.get("v2_slot") == "research_watch") or ((x.get("llm_category") or "") == "research"))
+        )
 
     def promote(predicate, needed: int):
         nonlocal out, top
@@ -330,6 +336,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
 
     promote(is_frontier, min_frontier)
     promote(is_anth_frontier, min_anthropic)
+    promote(is_anth_research, min_anthropic_research)
 
     # Cap research-heavy items in visible top band.
     def is_research(x: dict[str, Any]) -> bool:
