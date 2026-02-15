@@ -3,17 +3,17 @@ sources:
     type: arxiv_api
     category: cs.AI
     max_results: 40
-    weight: 1.0
+    weight: 0.85
   - name: arxiv_cs_lg
     type: arxiv_api
     category: cs.LG
     max_results: 40
-    weight: 1.0
+    weight: 0.85
   - name: arxiv_cs_cl
     type: arxiv_api
     category: cs.CL
     max_results: 30
-    weight: 0.9
+    weight: 0.8
   - name: paperswithcode_latest
     type: rss
     url: "https://paperswithcode.com/rss/latest"
@@ -21,19 +21,19 @@ sources:
   - name: openai_blog
     type: rss
     url: "https://openai.com/news/rss.xml"
-    weight: 1.2
+    weight: 1.6
   - name: anthropic_newsroom
     type: sitemap
     url: "https://www.anthropic.com/sitemap.xml"
     include_prefixes:
       - "https://www.anthropic.com/news/"
-    weight: 1.2
+    weight: 1.5
   - name: anthropic_engineering
     type: sitemap
     url: "https://www.anthropic.com/sitemap.xml"
     include_prefixes:
       - "https://www.anthropic.com/engineering/"
-    weight: 1.2
+    weight: 1.8
   - name: huggingface_blog
     type: rss
     url: "https://huggingface.co/blog/feed.xml"
@@ -41,15 +41,15 @@ sources:
   - name: nvidia_blog
     type: rss
     url: "https://blogs.nvidia.com/feed/"
-    weight: 1.0
+    weight: 0.6
   - name: google_ai_blog
     type: rss
     url: "https://blog.google/technology/ai/rss/"
-    weight: 1.0
+    weight: 0.7
   - name: aws_ml_blog
     type: rss
     url: "https://aws.amazon.com/blogs/machine-learning/feed/"
-    weight: 1.0
+    weight: 0.6
   - name: vllm_releases
     type: rss
     url: "https://github.com/vllm-project/vllm/releases.atom"
@@ -69,4 +69,16 @@ sources:
   - name: hackernews_ai
     type: rss
     url: "https://hnrss.org/newest?q=(AI%20OR%20LLM%20OR%20agent%20OR%20inference)&count=30"
-    weight: 0.9
+    weight: 1.1
+  - name: infoq_ai_ml
+    type: rss
+    url: "https://feed.infoq.com/ai-ml-data-eng/"
+    weight: 1.15
+  - name: simon_willison
+    type: rss
+    url: "https://simonwillison.net/atom/everything/"
+    weight: 1.25
+  - name: latent_space
+    type: rss
+    url: "https://www.latent.space/feed"
+    weight: 1.2
