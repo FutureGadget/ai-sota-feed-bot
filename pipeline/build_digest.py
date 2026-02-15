@@ -275,6 +275,87 @@ def apply_preferred_source_slots(
     return out[:max_items]
 
 
+def apply_constrained_topk(
+    selected: list[dict[str, Any]],
+    eligible: list[dict[str, Any]],
+    max_items: int,
+    top_k: int,
+    max_release_in_top_k: int,
+    max_same_source_in_top_k: int,
+    frontier_sources: list[str],
+    min_frontier_slots: int,
+    agent_release_sources: list[str],
+    min_agent_release_slots: int,
+    deprioritized_sources: list[str],
+    max_deprioritized_slots: int,
+) -> list[dict[str, Any]]:
+    top_k = max(0, min(top_k, max_items))
+    if top_k == 0:
+        return selected[:max_items]
+
+    pool = []
+    for x in (selected + eligible):
+        if x not in pool:
+            pool.append(x)
+    pool.sort(key=lambda x: x.get("score", 0), reverse=True)
+
+    frontier = set(frontier_sources or [])
+    agent_rel = set(agent_release_sources or [])
+    depr = set(deprioritized_sources or [])
+
+    top = []
+    rel_count = 0
+    src_count = defaultdict(int)
+
+    def count(rows, src_set):
+        return sum(1 for r in rows if r.get("source") in src_set)
+
+    for cand in pool:
+        if len(top) >= top_k:
+            break
+        src = cand.get("source", "")
+        typ = cand.get("type", "news")
+        if src_count[src] >= max_same_source_in_top_k:
+            continue
+        if typ == "release" and rel_count >= max_release_in_top_k:
+            continue
+        if src in depr and count(top, depr) >= max_deprioritized_slots:
+            continue
+        top.append(cand)
+        src_count[src] += 1
+        if typ == "release":
+            rel_count += 1
+
+    def enforce_floor(src_set: set[str], minimum: int):
+        nonlocal top
+        if minimum <= 0 or not src_set:
+            return
+        while count(top, src_set) < minimum:
+            cand = next((x for x in pool if x.get("source") in src_set and x not in top), None)
+            if cand is None:
+                break
+            idx = next((i for i in range(len(top)-1, -1, -1) if top[i].get("source") not in src_set), None)
+            if idx is None:
+                break
+            top[idx] = cand
+
+    enforce_floor(frontier, int(min_frontier_slots))
+    enforce_floor(agent_rel, int(min_agent_release_slots))
+
+    out = list(top)
+    for x in selected:
+        if len(out) >= max_items:
+            break
+        if x not in out:
+            out.append(x)
+    for x in pool:
+        if len(out) >= max_items:
+            break
+        if x not in out:
+            out.append(x)
+    return out[:max_items]
+
+
 def apply_top_guardrails(
     selected: list[dict[str, Any]],
     eligible: list[dict[str, Any]],
@@ -319,9 +400,15 @@ def apply_top_guardrails(
                 continue
             top.append(cand)
 
-    # Rebuild remainder preserving selected order as much as possible
-    remainder = [x for x in selected if x not in top]
-    return top + remainder
+    # Rebuild remainder preserving selected order as much as possible, keep original length
+    target_len = len(selected)
+    merged = []
+    for x in top + selected:
+        if x not in merged:
+            merged.append(x)
+        if len(merged) >= target_len:
+            break
+    return merged
 
 
 def enforce_source_floor(
@@ -356,6 +443,56 @@ def enforce_source_floor(
         have += 1
 
     return out
+
+
+def apply_topk_source_mix(
+    selected: list[dict[str, Any]],
+    pool: list[dict[str, Any]],
+    top_k: int,
+    priority_sources: list[str],
+    min_priority_slots: int,
+    deprioritized_sources: list[str],
+    max_deprioritized_slots: int,
+) -> list[dict[str, Any]]:
+    if top_k <= 0:
+        return selected
+
+    out = list(selected)
+    top = out[:top_k]
+    tail = out[top_k:]
+
+    pri = set(priority_sources or [])
+    dep = set(deprioritized_sources or [])
+
+    def count_priority(rows):
+        return sum(1 for x in rows if x.get("source") in pri)
+
+    def count_deprioritized(rows):
+        return sum(1 for x in rows if x.get("source") in dep)
+
+    ranked_pool = sorted(pool, key=lambda x: x.get("score", 0), reverse=True)
+
+    # enforce minimum priority slots in top-k
+    while count_priority(top) < int(min_priority_slots):
+        cand = next((x for x in ranked_pool if x.get("source") in pri and x not in top), None)
+        if cand is None:
+            break
+        idx = next((i for i in range(len(top) - 1, -1, -1) if top[i].get("source") not in pri), None)
+        if idx is None:
+            break
+        top[idx] = cand
+
+    # cap deprioritized slots in top-k
+    while count_deprioritized(top) > int(max_deprioritized_slots):
+        idx = next((i for i in range(len(top) - 1, -1, -1) if top[i].get("source") in dep), None)
+        if idx is None:
+            break
+        cand = next((x for x in ranked_pool if x.get("source") not in dep and x not in top), None)
+        if cand is None:
+            break
+        top[idx] = cand
+
+    return top + tail
 
 
 def run():
@@ -491,44 +628,19 @@ def run():
     max_per_source = int(sel_cfg.get("max_per_source", 0))
     top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
 
-    top = apply_preferred_source_slots(
+    top = apply_constrained_topk(
         top,
         scored,
-        preferred_sources=list(sel_cfg.get("preferred_sources", [])),
-        min_slots=int(sel_cfg.get("min_preferred_slots", 0)),
         max_items=max_items,
-    )
-
-    # hard floor for frontier labs' blog/news posts (Anthropic/OpenAI)
-    top = apply_preferred_source_slots(
-        top,
-        scored,
-        preferred_sources=list(sel_cfg.get("frontier_blog_sources", [])),
-        min_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
-        max_items=max_items,
-    )
-
-    top = apply_preferred_source_slots(
-        top,
-        scored,
-        preferred_sources=list(sel_cfg.get("agent_app_release_sources", [])),
-        min_slots=int(sel_cfg.get("min_agent_app_release_slots", 0)),
-        max_items=max_items,
-    )
-
-    top = apply_top_guardrails(
-        top,
-        eligible,
         top_k=int(sel_cfg.get("top_k_guardrail", 5)),
         max_release_in_top_k=int(sel_cfg.get("max_release_in_top_k", 1)),
         max_same_source_in_top_k=int(sel_cfg.get("max_same_source_in_top_k", 1)),
-    )
-
-    top = enforce_source_floor(
-        top,
-        scored,
-        set(sel_cfg.get("frontier_blog_sources", [])),
-        int(sel_cfg.get("min_frontier_blog_slots", 0)),
+        frontier_sources=list(sel_cfg.get("frontier_blog_sources", [])),
+        min_frontier_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
+        agent_release_sources=list(sel_cfg.get("agent_app_release_sources", [])),
+        min_agent_release_slots=int(sel_cfg.get("min_agent_app_release_slots", 0)),
+        deprioritized_sources=list(sel_cfg.get("top_k_deprioritized_sources", [])),
+        max_deprioritized_slots=int(sel_cfg.get("max_top_k_deprioritized_slots", 99)),
     )
 
     top = enforce_source_floor(

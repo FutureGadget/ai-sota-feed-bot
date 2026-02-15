@@ -43,6 +43,22 @@ selection:
   top_k_guardrail: 5
   max_release_in_top_k: 1
   max_same_source_in_top_k: 1
+  top_k_priority_sources:
+    - anthropic_engineering
+    - anthropic_newsroom
+    - anthropic_research
+    - openai_blog
+    - openai_codex_releases
+    - claude_code_releases
+    - simon_willison
+    - infoq_ai_ml
+    - hackernews_ai
+  min_top_k_priority_slots: 4
+  top_k_deprioritized_sources:
+    - nvidia_blog
+    - vllm_releases
+    - triton_releases
+  max_top_k_deprioritized_slots: 0
   min_preferred_slots: 3
   preferred_sources:
     - anthropic_engineering
@@ -66,7 +82,7 @@ selection:
   agent_app_release_sources:
     - openai_codex_releases
     - claude_code_releases
-  min_agent_app_release_slots: 2
+  min_agent_app_release_slots: 1
   exclude_title_regex:
     - "(?i)amazon bedrock"
     - "(?i)customer"
