@@ -137,6 +137,11 @@ def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, A
 def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
     slots_cfg = v2_cfg.get("slots", {}) or {}
     source_bias_cfg = v2_cfg.get("source_bias", {}) or {}
+    topical_cfg = v2_cfg.get("topical_bias", {}) or {}
+    pos_kw = [str(x).lower() for x in (topical_cfg.get("positive_keywords", []) or [])]
+    neg_kw = [str(x).lower() for x in (topical_cfg.get("negative_keywords", []) or [])]
+    pos_w = float(topical_cfg.get("positive_weight", 0.0))
+    neg_w = float(topical_cfg.get("negative_weight", 0.0))
     selected_by_slot: dict[str, list[dict[str, Any]]] = {}
     diag_slots: dict[str, Any] = {}
     budget_used = 0
@@ -156,13 +161,20 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             lb = labels.get(key, {})
             llm_s = compute_llm_score(lb)
             src_bias = float(source_bias_cfg.get(it.get("source", ""), 0.0))
-            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias
+            text = f"{it.get('title','')} {it.get('summary','')}".lower()
+            topical = 0.0
+            if any(k in text for k in pos_kw):
+                topical += pos_w
+            if any(k in text for k in neg_kw):
+                topical += neg_w
+            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + topical
             item = dict(it)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
             item["llm_category"] = lb.get("category", "platform")
             item["llm_why_1line"] = lb.get("why_1line", "")
             item["v2_llm_score"] = round(llm_s, 3)
             item["v2_source_bias"] = round(src_bias, 3)
+            item["v2_topical_bias"] = round(topical, 3)
             item["v2_final_score"] = round(fs, 3)
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]

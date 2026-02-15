@@ -10,7 +10,7 @@ slot_merge_strategy: floor_then_dynamic
 slots:
   frontier_official:
     sources: [openai_blog, anthropic_engineering, anthropic_newsroom, anthropic_research]
-    min_items: 3
+    min_items: 4
     max_items: 6
     max_per_source: 2
     freshness_hours: 72
@@ -84,5 +84,24 @@ source_bias:
   anthropic_engineering: 0.12
   simon_willison: 0.08
   infoq_ai_ml: 0.08
+
+# Optional topical bias to prioritize agent-harness/coding updates from frontier vendors.
+topical_bias:
+  positive_keywords:
+    - "agent"
+    - "agentic"
+    - "harness"
+    - "eval"
+    - "evaluation"
+    - "codex"
+    - "claude code"
+    - "software delivery"
+  positive_weight: 0.20
+  negative_keywords:
+    - "board"
+    - "funding"
+    - "partnership"
+    - "appointed"
+  negative_weight: -0.20
 
 diagnostics_verbosity: full
