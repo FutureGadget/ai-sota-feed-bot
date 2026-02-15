@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import re
@@ -128,18 +129,33 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     cache = load_cache()
     out = {}
 
+    version_blob = json.dumps(
+        {
+            "provider": cfg.get("provider"),
+            "model": cfg.get("model"),
+            "prompt": prompt_text,
+            "prefs": prefs,
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    )
+    version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
+
     enabled = bool(cfg.get("enabled", False))
     for it in items:
-        key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+        base_key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+        key = f"{base_key}::v:{version}"
         if key in cache:
-            out[key] = cache[key]
+            out[base_key] = cache[key]
             continue
 
         label = None
+        label_source = "heuristic"
         if enabled:
             try:
                 if cfg.get("provider") == "openai_compatible":
                     label = call_openai_compatible(it, cfg, prefs, prompt_text)
+                    label_source = "llm"
                 elif cfg.get("provider") == "pi_oauth":
                     label = call_bridge(
                         {
@@ -157,14 +173,17 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
                         },
                         cfg,
                     )
+                    label_source = "llm"
             except Exception:
                 label = None
 
         if label is None:
             label = heuristic_label(it)
+            label_source = "heuristic"
 
+        label["__label_source"] = label_source
         cache[key] = label
-        out[key] = label
+        out[base_key] = label
 
     save_cache(cache)
     return out

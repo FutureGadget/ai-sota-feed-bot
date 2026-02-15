@@ -286,15 +286,29 @@ def run():
             }
         )
 
-    labels = label_items(scored)
+    llm_cfg = load_llm_cfg()
+    label_top_n = int(llm_cfg.get("label_top_n", 20))
+    pre_sorted = sorted(scored, key=lambda x: x["score"], reverse=True)
+    labels = label_items(pre_sorted[:label_top_n])
+
+    llm_used = 0
+    heuristic_used = 0
+
     for it in scored:
         key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
         lb = labels.get(key, {})
+        src = lb.get("__label_source", "heuristic")
+        if src == "llm":
+            llm_used += 1
+        else:
+            heuristic_used += 1
+
         it["llm_platform_relevant"] = bool(lb.get("platform_relevant", True))
         it["llm_novelty"] = int(lb.get("novelty", 3))
         it["llm_practicality"] = int(lb.get("practicality", 3))
         it["llm_hype"] = int(lb.get("hype", 2))
         it["llm_why_1line"] = lb.get("why_1line", "")
+        it["llm_label_source"] = src
 
         it["score"] = round(
             float(it["score"])
@@ -304,10 +318,11 @@ def run():
             - max(0, it["llm_hype"] - 3) * 0.4,
             3,
         )
-        if it["llm_why_1line"]:
+        if it["llm_why_1line"] and src == "llm":
             it["why_it_matters"] = it["llm_why_1line"]
 
     scored.sort(key=lambda x: x["score"], reverse=True)
+    print(f"label_stats llm={llm_used} heuristic={heuristic_used} label_top_n={label_top_n}")
 
     max_items = int(profile.get("max_digest_items", 10))
     min_score = float(profile.get("min_score", 1.0))

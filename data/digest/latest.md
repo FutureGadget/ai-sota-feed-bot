@@ -5,83 +5,83 @@ Focus: AI Platform Engineering
 ## 1. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12241v1
-- Score: 9.643 | Reliability: 1.0 | Maturity: production-ready
+- Score: 9.642 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, cost
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on inference, latency, cost workflows and platform decisions.
 
-## 2. Scaling Verification Can Be More Effective than Scaling Policy Learning for Vision-Language-Action Alignment
+## 2. SAGEO Arena: A Realistic Environment for Evaluating Search-Augmented Generative Engine Optimization
 - Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12281v1
-- Score: 7.647 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, benchmark
-- Why it matters: Relevant to AI platform engineering workflows.
+- URL: http://arxiv.org/abs/2602.12187v1
+- Score: 7.836 | Reliability: 1.0 | Maturity: production-ready
+- Tags: optimization, benchmark
+- Why it matters: Likely impact on optimization, benchmark workflows and platform decisions.
 
-## 3. Agentic Test-Time Scaling for WebAgents
+## 3. Statistical Parsing for Logical Information Retrieval
 - Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12276v1
-- Score: 7.647 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, agent
-- Why it matters: Relevant to AI platform engineering workflows.
+- URL: http://arxiv.org/abs/2602.12170v1
+- Score: 7.834 | Reliability: 1.0 | Maturity: production-ready
+- Tags: inference, serving
+- Why it matters: Likely impact on inference, serving workflows and platform decisions.
 
 ## 4. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 8.429 | Reliability: 1.0 | Maturity: production-ready
+- Score: 8.428 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, cost, agent
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
 
 ## 5. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/harness-engineering
-- Score: 4.479 | Reliability: 1.0 | Maturity: research
+- Score: 5.078 | Reliability: 1.0 | Maturity: research
 - Tags: agent
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on agent workflows and platform decisions.
 
-## 6. Introducing GPT-5.3-Codex
+## 6. GPT-5 lowers the cost of cell-free protein synthesis
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-gpt-5-3-codex
-- Score: 4.433 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Relevant to AI platform engineering workflows.
+- URL: https://openai.com/index/gpt-5-lowers-protein-synthesis-cost
+- Score: 4.839 | Reliability: 1.0 | Maturity: research
+- Tags: cost
+- Why it matters: Likely impact on cost workflows and platform decisions.
 
 ## 7. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.723 | Reliability: 1.0 | Maturity: production-ready
+- Score: 13.721 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
 ## 8. v0.15.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.15.0
 - Score: 13.204 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, throughput, optimization, quantization, triton
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on inference, throughput, optimization workflows and platform decisions.
 
-## 9. Few-Shot Design Optimization by Exploiting Auxiliary Information
+## 9. Amortized Molecular Optimization via Group Relative Policy Optimization
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.12112v1
-- Score: 7.429 | Reliability: 1.0 | Maturity: production-ready
-- Tags: optimization, benchmark
-- Why it matters: Relevant to AI platform engineering workflows.
+- URL: http://arxiv.org/abs/2602.12162v1
+- Score: 7.832 | Reliability: 1.0 | Maturity: production-ready
+- Tags: inference, optimization
+- Why it matters: Likely impact on inference, optimization workflows and platform decisions.
 
-## 10. WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models
+## 10. Detecting Overflow in Compressed Token Representations for Retrieval-Augmented Generation
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2602.12235v1
+- Score: 5.942 | Reliability: 1.0 | Maturity: production-ready
+- Tags: cost
+- Why it matters: Likely impact on cost workflows and platform decisions.
+
+## 11. WavBench: Benchmarking Reasoning, Colloquialism, and Paralinguistics for End-to-End Spoken Dialogue Models
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2602.12135v1
-- Score: 5.331 | Reliability: 1.0 | Maturity: production-ready
+- Score: 5.93 | Reliability: 1.0 | Maturity: production-ready
 - Tags: benchmark
-- Why it matters: Relevant to AI platform engineering workflows.
-
-## 11. ExStrucTiny: A Benchmark for Schema-Variable Structured Information Extraction from Document Images
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2602.12203v1
-- Score: 4.739 | Reliability: 1.0 | Maturity: production-ready
-- Tags: benchmark
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on benchmark workflows and platform decisions.
 
 ## 12. Apple Xcode Claude Agent Sdk
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/apple-xcode-claude-agent-sdk
-- Score: 4.222 | Reliability: 1.0 | Maturity: research
+- Score: 4.822 | Reliability: 1.0 | Maturity: research
 - Tags: agent
-- Why it matters: Relevant to AI platform engineering workflows.
+- Why it matters: Likely impact on agent workflows and platform decisions.
