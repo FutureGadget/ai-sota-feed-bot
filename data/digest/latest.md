@@ -2,33 +2,33 @@
 
 Focus: AI Platform Engineering
 
-## 1. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
+## 1. Agentic Test-Time Scaling for WebAgents
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12276v1
+- Score: 8.845 | Reliability: 1.0 | Maturity: production-ready
+- Tags: inference, agent
+- Why it matters: Dynamic uncertainty-based compute allocation for web agents boosts success while cutting tokens; directly useful for serving/cost.
+
+## 2. Moonshine v2: Ergodic Streaming Encoder ASR for Latency-Critical Speech Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.12241v1
-- Score: 9.642 | Reliability: 1.0 | Maturity: production-ready
+- Score: 10.242 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, latency, cost
-- Why it matters: Likely impact on inference, latency, cost workflows and platform decisions.
+- Why it matters: Streaming ASR with bounded-latency local attention is deployable infra-relevant for low-TTFT edge serving.
 
-## 2. SAGEO Arena: A Realistic Environment for Evaluating Search-Augmented Generative Engine Optimization
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12187v1
-- Score: 7.836 | Reliability: 1.0 | Maturity: production-ready
-- Tags: optimization, benchmark
-- Why it matters: Likely impact on optimization, benchmark workflows and platform decisions.
-
-## 3. Statistical Parsing for Logical Information Retrieval
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2602.12170v1
-- Score: 7.834 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, serving
-- Why it matters: Likely impact on inference, serving workflows and platform decisions.
+## 3. T3D: Few-Step Diffusion Language Models via Trajectory Self-Distillation with Direct Discriminative Optimization
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.12262v1
+- Score: 8.045 | Reliability: 1.0 | Maturity: production-ready
+- Tags: inference, optimization
+- Why it matters: Promising few-step DLLM speed/quality gains for serving, but limited immediate coding-agent workflow impact.
 
 ## 4. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 8.428 | Reliability: 1.0 | Maturity: production-ready
+- Score: 8.027 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, cost, agent
-- Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
+- Why it matters: Inference cost/latency is platform-relevant, but this reads like vendor marketing with limited deployable depth.
 
 ## 5. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
@@ -47,28 +47,28 @@ Focus: AI Platform Engineering
 ## 7. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.721 | Reliability: 1.0 | Maturity: production-ready
+- Score: 14.321 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
-- Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
+- Why it matters: Major serving upgrade: big throughput gains, breaking deps, reliability fixes, and broad infra/kernel changes.
 
 ## 8. v0.15.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.15.0
-- Score: 13.204 | Reliability: 1.0 | Maturity: production-ready
+- Score: 13.804 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, throughput, optimization, quantization, triton
-- Why it matters: Likely impact on inference, throughput, optimization workflows and platform decisions.
+- Why it matters: High-impact serving release: scheduler/cache/kernel/API upgrades with clear latency, throughput, reliability gains.
 
-## 9. Amortized Molecular Optimization via Group Relative Policy Optimization
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.12162v1
-- Score: 7.832 | Reliability: 1.0 | Maturity: production-ready
-- Tags: inference, optimization
-- Why it matters: Likely impact on inference, optimization workflows and platform decisions.
+## 9. SAGEO Arena: A Realistic Environment for Evaluating Search-Augmented Generative Engine Optimization
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.12187v1
+- Score: 7.835 | Reliability: 1.0 | Maturity: production-ready
+- Tags: optimization, benchmark
+- Why it matters: Likely impact on optimization, benchmark workflows and platform decisions.
 
 ## 10. Detecting Overflow in Compressed Token Representations for Retrieval-Augmented Generation
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2602.12235v1
-- Score: 5.942 | Reliability: 1.0 | Maturity: production-ready
+- Score: 5.941 | Reliability: 1.0 | Maturity: production-ready
 - Tags: cost
 - Why it matters: Likely impact on cost workflows and platform decisions.
 
