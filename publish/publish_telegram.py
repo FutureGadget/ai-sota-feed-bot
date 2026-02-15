@@ -124,11 +124,21 @@ def build_messages(max_items: int = 12, top_n: int = 5) -> list[str]:
     items = json.loads(processed_file.read_text(encoding="utf-8"))[:max_items]
     today = datetime.now().strftime("%Y-%m-%d")
 
-    # Category-first display: keep releases out of the very top flow.
-    platform_items = [x for x in items if x.get("type") != "release"]
-    release_items = [x for x in items if x.get("type") == "release"]
-    research_items = [x for x in platform_items if x.get("type") == "paper"]
-    platform_news_items = [x for x in platform_items if x.get("type") != "paper"]
+    # Category-first display: use LLM category when available.
+    def cat(x: dict) -> str:
+        c = (x.get("llm_category") or "").lower().strip()
+        if c in {"platform", "release", "research"}:
+            return c
+        t = (x.get("type") or "news").lower()
+        if t == "release":
+            return "release"
+        if t == "paper":
+            return "research"
+        return "platform"
+
+    platform_news_items = [x for x in items if cat(x) == "platform"]
+    release_items = [x for x in items if cat(x) == "release"]
+    research_items = [x for x in items if cat(x) == "research"]
 
     src_ok, src_total = load_source_stats()
     llm_target = load_llm_label_target()

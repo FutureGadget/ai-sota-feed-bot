@@ -509,6 +509,9 @@ def apply_category_allocation(
     max_q = alloc_cfg.get("max", {})
 
     def cat(it: dict[str, Any]) -> str:
+        c = (it.get("llm_category") or "").lower().strip()
+        if c in {"platform", "release", "research"}:
+            return c
         t = it.get("type", "news")
         if t == "release":
             return "release"
@@ -633,7 +636,8 @@ def run():
             if u in content_map:
                 it["content_excerpt"] = content_map[u]
 
-    labels = label_items(pre_sorted[:label_top_n])
+    label_budget = min(len(pre_sorted), max(label_top_n, int(profile.get("max_digest_items", 10))))
+    labels = label_items(pre_sorted[:label_budget])
 
     llm_used = 0
     heuristic_used = 0
@@ -651,6 +655,11 @@ def run():
         it["llm_novelty"] = int(lb.get("novelty", 3))
         it["llm_practicality"] = int(lb.get("practicality", 3))
         it["llm_hype"] = int(lb.get("hype", 2))
+        llm_cat = str(lb.get("category", "")).strip().lower()
+        if llm_cat not in {"platform", "release", "research"}:
+            typ = (it.get("type") or "news").lower()
+            llm_cat = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
+        it["llm_category"] = llm_cat
         it["llm_why_1line"] = lb.get("why_1line", "")
         it["llm_label_source"] = src
 
@@ -666,7 +675,7 @@ def run():
             it["why_it_matters"] = it["llm_why_1line"]
 
     scored.sort(key=lambda x: x["score"], reverse=True)
-    print(f"label_stats llm={llm_used} heuristic={heuristic_used} label_top_n={label_top_n}")
+    print(f"label_stats llm={llm_used} heuristic={heuristic_used} label_top_n={label_top_n} label_budget={label_budget}")
 
     max_items = int(profile.get("max_digest_items", 10))
     min_score = float(profile.get("min_score", 1.0))

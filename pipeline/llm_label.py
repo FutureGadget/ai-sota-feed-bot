@@ -75,7 +75,9 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     practicality = min(5, 1 + p)
     hype = min(5, 1 + h)
     why = "Relevant to AI platform engineering workflows." if relevance else "Potentially relevant; low direct platform signal."
-    return {"platform_relevant": relevance, "novelty": novelty, "practicality": practicality, "hype": hype, "why_1line": why}
+    typ = (item.get("type") or "news").lower()
+    category = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
+    return {"platform_relevant": relevance, "novelty": novelty, "practicality": practicality, "hype": hype, "category": category, "why_1line": why}
 
 
 def call_bridge(payload: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
