@@ -274,13 +274,25 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
 
 def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> list[dict[str, Any]]:
     cfg = (v2_cfg.get("top_band_constraints", {}) or {})
+
+    # Always dedupe final list by canonical key to prevent visible duplicates.
+    deduped: list[dict[str, Any]] = []
+    seen = set()
+    for it in items:
+        key = (it.get("url") or "").split("#")[0].strip().lower() or f"{it.get('source')}::{it.get('title')}"
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(it)
+
     if not cfg.get("enabled", False):
-        return items
+        return deduped
     top_n = max(1, int(cfg.get("top_n", 10)))
     min_frontier = int(cfg.get("min_frontier_official", 0))
     min_anthropic = int(cfg.get("min_anthropic_frontier", 0))
+    max_research = int(cfg.get("max_research_in_top_n", 99))
 
-    out = list(items)
+    out = list(deduped)
     top = out[:top_n]
 
     def is_frontier(x: dict[str, Any]) -> bool:
@@ -318,7 +330,39 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
 
     promote(is_frontier, min_frontier)
     promote(is_anth_frontier, min_anthropic)
-    return out
+
+    # Cap research-heavy items in visible top band.
+    def is_research(x: dict[str, Any]) -> bool:
+        return (x.get("v2_slot") == "research_watch") or ((x.get("llm_category") or "") == "research")
+
+    research_count = sum(1 for x in top if is_research(x))
+    if research_count > max_research:
+        tail_candidates = [x for x in out[top_n:] if not is_research(x)]
+        tail_candidates.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        i = top_n - 1
+        while research_count > max_research and i >= 0 and tail_candidates:
+            if is_research(top[i]):
+                repl = tail_candidates.pop(0)
+                old = top[i]
+                top[i] = repl
+                out.remove(repl)
+                out.append(old)
+                research_count -= 1
+            i -= 1
+        top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        tail = [x for x in out if x not in top]
+        tail.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        out = top + tail
+
+    final: list[dict[str, Any]] = []
+    seen3 = set()
+    for it in out:
+        key = (it.get("url") or "").split("#")[0].strip().lower() or f"{it.get('source')}::{it.get('title')}"
+        if key in seen3:
+            continue
+        seen3.add(key)
+        final.append(it)
+    return final
 
 
 def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
