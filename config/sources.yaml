@@ -19,9 +19,17 @@ sources:
     type: rss
     url: "https://openai.com/news/rss.xml"
     weight: 1.2
-  - name: anthropic_news
-    type: rss
-    url: "https://www.anthropic.com/news/rss.xml"
+  - name: anthropic_newsroom
+    type: sitemap
+    url: "https://www.anthropic.com/sitemap.xml"
+    include_prefixes:
+      - "https://www.anthropic.com/news/"
+    weight: 1.2
+  - name: anthropic_engineering
+    type: sitemap
+    url: "https://www.anthropic.com/sitemap.xml"
+    include_prefixes:
+      - "https://www.anthropic.com/engineering/"
     weight: 1.2
   - name: huggingface_blog
     type: rss
@@ -31,9 +39,13 @@ sources:
     type: rss
     url: "https://blogs.nvidia.com/feed/"
     weight: 1.0
-  - name: databricks_ai
+  - name: google_ai_blog
     type: rss
-    url: "https://www.databricks.com/blog/category/ai/feed"
+    url: "https://blog.google/technology/ai/rss/"
+    weight: 1.0
+  - name: aws_ml_blog
+    type: rss
+    url: "https://aws.amazon.com/blogs/machine-learning/feed/"
     weight: 1.0
   - name: vllm_releases
     type: rss

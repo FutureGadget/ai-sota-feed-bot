@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. v0.16.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.16.0
-- Score: 13.537 | Reliability: 1.0 | Maturity: production-ready
+- Score: 13.536 | Reliability: 1.0 | Maturity: production-ready
 - Tags: serving, throughput, optimization, quantization, triton
 - Why it matters: Likely impact on serving, throughput, optimization workflows and platform decisions.
 
@@ -19,16 +19,16 @@ Focus: AI Platform Engineering
 ## 3. Leading Inference Providers Cut AI Costs by up to 10x With Open Source Models on NVIDIA Blackwell
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/inference-open-source-models-blackwell-reduce-cost-per-token/
-- Score: 7.841 | Reliability: 1.0 | Maturity: production-ready
+- Score: 7.84 | Reliability: 1.0 | Maturity: production-ready
 - Tags: inference, cost, agent
 - Why it matters: Likely impact on inference, cost, agent workflows and platform decisions.
 
-## 4. Harness engineering: leveraging Codex in an agent-first world
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/harness-engineering
-- Score: 4.287 | Reliability: 1.0 | Maturity: research
-- Tags: agent
-- Why it matters: Likely impact on agent workflows and platform decisions.
+## 4. Swann provides Generative AI to millions of IoT Devices using Amazon Bedrock
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/swann-provides-generative-ai-to-millions-of-iot-devices-using-amazon-bedrock/
+- Score: 5.915 | Reliability: 1.0 | Maturity: research
+- Tags: cost, optimization
+- Why it matters: Likely impact on cost, optimization workflows and platform decisions.
 
 ## 5. Release 2.59.0 corresponding to NGC container 25.06
 - Type: release | Source: triton_releases
@@ -37,12 +37,12 @@ Focus: AI Platform Engineering
 - Tags: inference, latency, throughput, agent, triton
 - Why it matters: Likely impact on inference, latency, throughput workflows and platform decisions.
 
-## 6. GPT-5 lowers the cost of cell-free protein synthesis
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/gpt-5-lowers-protein-synthesis-cost
-- Score: 4.04 | Reliability: 1.0 | Maturity: research
-- Tags: cost
-- Why it matters: Likely impact on cost workflows and platform decisions.
+## 6. Customize AI agent browsing with proxies, profiles, and extensions in Amazon Bedrock AgentCore Browser
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/customize-ai-agent-browsing-with-proxies-profiles-and-extensions-in-amazon-bedrock-agentcore-browser/
+- Score: 4.477 | Reliability: 1.0 | Maturity: research
+- Tags: agent
+- Why it matters: Likely impact on agent workflows and platform decisions.
 
 ## 7. Release 2.57.0 corresponding to NGC container 25.04
 - Type: release | Source: triton_releases
@@ -51,9 +51,9 @@ Focus: AI Platform Engineering
 - Tags: inference, agent, triton, vllm, tgi
 - Why it matters: Likely impact on inference, agent, triton workflows and platform decisions.
 
-## 8. Introducing GPT-5.3-Codex
+## 8. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-gpt-5-3-codex
-- Score: 4.034 | Reliability: 1.0 | Maturity: research
+- URL: https://openai.com/index/harness-engineering
+- Score: 4.286 | Reliability: 1.0 | Maturity: research
 - Tags: agent
 - Why it matters: Likely impact on agent workflows and platform decisions.

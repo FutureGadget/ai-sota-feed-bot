@@ -2,8 +2,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
+import urllib.request
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import unquote
 
 import feedparser
 import yaml
@@ -40,6 +44,84 @@ def append_ingest_run(stats: list[dict]) -> None:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
 
 
+def is_open_circuit(circuit: dict, src_name: str, now: datetime) -> tuple[bool, str | None]:
+    c = circuit.get(src_name, {})
+    if c.get("state") == "open" and c.get("open_until"):
+        try:
+            open_until = datetime.fromisoformat(c["open_until"].replace("Z", "+00:00"))
+            if open_until.tzinfo is None:
+                open_until = open_until.replace(tzinfo=timezone.utc)
+        except Exception:
+            open_until = now
+        if open_until > now:
+            return True, c.get("open_until")
+    return False, None
+
+
+def prettify_slug(url: str) -> str:
+    slug = url.rstrip("/").split("/")[-1]
+    slug = unquote(slug)
+    slug = re.sub(r"[-_]+", " ", slug)
+    return slug.strip().title() or url
+
+
+def collect_from_rss(source: dict, now: datetime) -> list[dict]:
+    parsed = feedparser.parse(source["url"])
+    out = []
+    for e in parsed.entries[:40]:
+        title = getattr(e, "title", "").strip()
+        link = getattr(e, "link", "").strip()
+        summary = getattr(e, "summary", "")
+        published = getattr(e, "published", None) or getattr(e, "updated", None) or now.isoformat()
+        if not title or not link:
+            continue
+        out.append(
+            {
+                "title": title,
+                "url": link,
+                "summary": summary,
+                "published": published,
+            }
+        )
+    return out
+
+
+def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
+    req = urllib.request.Request(source["url"], headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        xml_bytes = r.read()
+
+    root = ET.fromstring(xml_bytes)
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
+    include_prefixes = source.get("include_prefixes", [])
+    rows = []
+    for u in root.findall("sm:url", ns):
+        loc_el = u.find("sm:loc", ns)
+        mod_el = u.find("sm:lastmod", ns)
+        if loc_el is None or not (loc_el.text or "").strip():
+            continue
+        loc = (loc_el.text or "").strip()
+        if include_prefixes and not any(loc.startswith(p) for p in include_prefixes):
+            continue
+        lastmod = (mod_el.text or "").strip() if mod_el is not None else now.isoformat()
+        rows.append((loc, lastmod))
+
+    rows.sort(key=lambda x: x[1], reverse=True)
+
+    out = []
+    for loc, lastmod in rows[:60]:
+        out.append(
+            {
+                "title": prettify_slug(loc),
+                "url": loc,
+                "summary": "",
+                "published": lastmod or now.isoformat(),
+            }
+        )
+    return out
+
+
 def run():
     now = datetime.now(timezone.utc)
     day = now.strftime("%Y-%m-%d")
@@ -51,47 +133,37 @@ def run():
     circuit = load_circuit_state()
 
     for source in load_sources():
-        if source.get("type") != "rss":
-            continue
-
         src_name = source["name"]
         src_url = source["url"]
         src_weight = float(source.get("weight", 1.0))
+        src_type = source.get("type", "rss")
 
-        c = circuit.get(src_name, {})
-        if c.get("state") == "open" and c.get("open_until"):
-            try:
-                open_until = datetime.fromisoformat(c["open_until"].replace("Z", "+00:00"))
-                if open_until.tzinfo is None:
-                    open_until = open_until.replace(tzinfo=timezone.utc)
-            except Exception:
-                open_until = now
-            if open_until > now:
-                source_stats.append(
-                    {
-                        "ts": now.isoformat(),
-                        "source": src_name,
-                        "url": src_url,
-                        "status": "skipped_open_circuit",
-                        "items": 0,
-                        "open_until": c.get("open_until"),
-                    }
-                )
-                continue
+        blocked, open_until = is_open_circuit(circuit, src_name, now)
+        if blocked:
+            source_stats.append(
+                {
+                    "ts": now.isoformat(),
+                    "source": src_name,
+                    "url": src_url,
+                    "status": "skipped_open_circuit",
+                    "items": 0,
+                    "open_until": open_until,
+                }
+            )
+            continue
 
         try:
-            parsed = feedparser.parse(src_url)
-            entries = parsed.entries[:40]
+            if src_type == "rss":
+                entries = collect_from_rss(source, now)
+            elif src_type == "sitemap":
+                entries = collect_from_sitemap(source, now)
+            else:
+                raise ValueError(f"unsupported_source_type:{src_type}")
+
             count = 0
-            for e in entries:
-                title = getattr(e, "title", "").strip()
-                link = getattr(e, "link", "").strip()
-                summary = getattr(e, "summary", "")
-                published = (
-                    getattr(e, "published", None)
-                    or getattr(e, "updated", None)
-                    or now.isoformat()
-                )
+            for ent in entries:
+                title = ent["title"].strip()
+                link = ent["url"].strip()
                 if not title or not link:
                     continue
                 count += 1
@@ -102,8 +174,8 @@ def run():
                         "source_weight": src_weight,
                         "title": title,
                         "url": link,
-                        "summary": summary,
-                        "published": published,
+                        "summary": ent.get("summary", ""),
+                        "published": ent.get("published", now.isoformat()),
                         "collected_at": now.isoformat(),
                     }
                 )
@@ -138,7 +210,8 @@ def run():
     print(f"collected={len(all_items)} file={path}")
     ok = sum(1 for s in source_stats if s["status"] == "ok")
     skipped = sum(1 for s in source_stats if s["status"] == "skipped_open_circuit")
-    print(f"sources_ok={ok} sources_skipped={skipped} sources_total={len(source_stats)}")
+    errors = sum(1 for s in source_stats if s["status"] == "error")
+    print(f"sources_ok={ok} sources_error={errors} sources_skipped={skipped} sources_total={len(source_stats)}")
 
 
 if __name__ == "__main__":
