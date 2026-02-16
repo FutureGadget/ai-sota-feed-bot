@@ -2,26 +2,26 @@
 
 Focus: AI Platform Engineering
 
-## 1. Deep Blue
+## 1. Ask HN: Do LLM agents need a separate safety layer?
+- Type: news | Source: hackernews_ai
+- URL: https://news.ycombinator.com/item?id=47032312
+- Score: 2.887 | Reliability: 1.0
+- Why it matters: Addresses real agent reliability gap (knowing when to stop); concrete deployment metrics; early-stage project needs broader validation.
+
+## 2. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.732 | Reliability: 1.0
+- Score: 2.731 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
-- Type: news | Source: arxiv_cs_ai
+## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
+- Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.13165v1
 - Score: 2.699 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Show HN: Gulama – Security-first open-source AI agent (OpenClaw alternative)
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/san-techie21/gulama-bot
-- Score: 2.504 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
 ## 4. Quantization-Aware Collaborative Inference for Large Embodied AI Models
-- Type: news | Source: arxiv_cs_lg
+- Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.13052v1
 - Score: 2.527 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. Three months of OpenClaw
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/openclaw/#atom-everything
-- Score: 2.254 | Reliability: 1.0
+- Score: 2.253 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
@@ -45,7 +45,7 @@ Focus: AI Platform Engineering
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
-- Type: news | Source: huggingface_blog
+- Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/openenv-turing
 - Score: 2.299 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
@@ -63,7 +63,7 @@ Focus: AI Platform Engineering
 - Why it matters: Generic vertical positioning; lacks technical depth on agentic coding, evals, or production automation patterns.
 
 ## 11. India Brief Economic Index
-- Type: news | Source: anthropic_research
+- Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/india-brief-economic-index
 - Score: 2.249 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
@@ -81,21 +81,21 @@ Focus: AI Platform Engineering
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. 0.100.0
-- Type: news | Source: openai_codex_releases
+- Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
 - Score: 1.91 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. v2.1.41
-- Type: news | Source: claude_code_releases
+- Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
 - Score: 1.68 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. langgraph-sdk==0.3.6
-- Type: news | Source: langgraph_releases
+- Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 1.617 | Reliability: 1.0
+- Score: 1.616 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. Anthropic Codepath Partnership
