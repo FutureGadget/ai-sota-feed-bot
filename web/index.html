@@ -48,10 +48,28 @@
       border-radius: 10px;
       background: var(--card, #fff);
     }
-    .src {
-      opacity: 0.75;
-      font-size: 0.92rem;
-      margin: 0.35rem 0;
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.45rem 0;
+    }
+    .badge {
+      display: inline-block;
+      border: 1px solid var(--border, #d9d9d9);
+      border-radius: 999px;
+      padding: 0.1rem 0.5rem;
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+    .why {
+      margin: 0.25rem 0 0;
+    }
+    .state {
+      border: 1px dashed var(--border, #d9d9d9);
+      border-radius: 10px;
+      padding: 1rem;
+      opacity: 0.85;
     }
   </style>
 </head>
@@ -92,23 +110,36 @@
     }
 
     async function run() {
+      const list = document.getElementById('list');
       const res = await fetch('/api/feed');
+      if (!res.ok) throw new Error(`feed_http_${res.status}`);
+
       const data = await res.json();
       const items = data.items || [];
       document.getElementById('meta').textContent = `${data.date || ''} · ${items.length} items`;
-      const list = document.getElementById('list');
+
+      if (!items.length) {
+        list.innerHTML = `<div class="state">No items yet. Try again after the next pipeline run.</div>`;
+        return;
+      }
+
       list.innerHTML = items.map((it, i) => `
         <article>
-          <h3>${i + 1}. <a href="${it.url}" target="_blank" rel="noopener">${it.title || 'Untitled'}</a></h3>
-          <p class="src">${it.source || 'unknown'} · ${it.type || 'news'}</p>
-          <p>${it.why_it_matters || ''}</p>
+          <h3>${i + 1}. <a href="${it.url || '#'}" target="_blank" rel="noopener">${it.title || 'Untitled'}</a></h3>
+          <div class="meta-row">
+            <span class="badge">${it.source || 'unknown'}</span>
+            <span class="badge">${it.type || 'news'}</span>
+            ${it.maturity ? `<span class="badge">${it.maturity}</span>` : ''}
+          </div>
+          <p class="why">${it.why_it_matters || ''}</p>
         </article>
       `).join('');
     }
 
     initThemeToggle();
     run().catch(err => {
-      document.getElementById('meta').textContent = 'Failed to load feed';
+      document.getElementById('meta').textContent = 'Feed unavailable';
+      document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
       console.error(err);
     });
   </script>
