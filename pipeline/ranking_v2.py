@@ -159,6 +159,26 @@ def _summary_is_noisy(s: str) -> bool:
     return any(x in t for x in ["href=", "class=", "style=", "js-"])
 
 
+def _infer_item_type(item: dict[str, Any], slot: str) -> str:
+    src = str(item.get("source", "")).lower()
+    title = str(item.get("title", "")).lower()
+    url = str(item.get("url", "")).lower()
+
+    if slot in {"agent_tooling_releases", "infra_runtime_releases"}:
+        return "release"
+    if slot == "research_watch":
+        return "paper" if (src.startswith("arxiv_") or "paperswithcode" in src or "arxiv.org" in url) else "research"
+
+    if "release" in src or src.endswith("_releases"):
+        return "release"
+    if any(k in title for k in ["release", "changelog", "what's changed", "version", "sdk==", " v2.", " v1."]):
+        return "release"
+    if src.startswith("arxiv_") or "arxiv.org" in url or "paperswithcode" in src:
+        return "paper"
+
+    return "news"
+
+
 def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
     max_items = int(scfg.get("max_items", len(items)))
     max_per_source = int(scfg.get("max_per_source", max_items))
@@ -213,6 +233,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
                 topical += neg_w
             fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + topical
             item = dict(it)
+            item["type"] = _infer_item_type(item, slot)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
             item["llm_category"] = lb.get("category", "platform")
             item["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
