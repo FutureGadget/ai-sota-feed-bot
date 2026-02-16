@@ -295,12 +295,6 @@
       return '#';
     }
 
-    function translateUrl(articleUrl) {
-      const u = safeUrl(articleUrl);
-      if (u === '#') return '#';
-      const lang = (navigator.language || 'en').split('-')[0] || 'en';
-      return `https://translate.google.com/translate?sl=auto&tl=${encodeURIComponent(lang)}&u=${encodeURIComponent(u)}`;
-    }
 
     async function run() {
       const list = document.getElementById('list');
@@ -328,7 +322,6 @@
         const seenText = seen ? esc(seen) : '';
         const href = safeUrl(it.url);
         const image = safeUrl(it.image_url || '');
-        const translated = translateUrl(it.url);
 
         return `
         <article>
@@ -339,7 +332,6 @@
             <span class="badge">${type}</span>
             ${maturity ? `<span class="badge">${maturity}</span>` : ''}
             ${seenText ? `<span class="badge">Last seen: ${seenText}</span>` : ''}
-            ${translated !== '#' ? `<a class="badge" href="${translated}" target="_blank" rel="noopener">Translate</a>` : ''}
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
         </article>`;
