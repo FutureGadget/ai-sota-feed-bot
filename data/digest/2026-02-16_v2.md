@@ -2,22 +2,22 @@
 
 Focus: AI Platform Engineering
 
-## 1. Ask HN: Do LLM agents need a separate safety layer?
-- Type: news | Source: hackernews_ai
-- URL: https://news.ycombinator.com/item?id=47032312
-- Score: 2.887 | Reliability: 1.0
-- Why it matters: Addresses real agent reliability gap (knowing when to stop); concrete deployment metrics; early-stage project needs broader validation.
-
-## 2. Deep Blue
+## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
 - Score: 2.731 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
+## 2. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.13165v1
 - Score: 2.699 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 3. Show HN: Gulama – Security-first open-source AI agent (OpenClaw alternative)
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/san-techie21/gulama-bot
+- Score: 2.499 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -26,41 +26,41 @@ Focus: AI Platform Engineering
 - Score: 2.527 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Beyond rate limits: scaling access to Codex and Sora
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/beyond-rate-limits
-- Score: 2.23 | Reliability: 1.0
-- Why it matters: Relevant to production inference infra but lacks technical depth on harness integration or agent eval patterns
-
-## 6. Three months of OpenClaw
+## 5. Three months of OpenClaw
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/openclaw/#atom-everything
 - Score: 2.253 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
+## 6. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
 - Score: 2.2 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
+## 7. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/openenv-turing
 - Score: 2.299 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 9. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
+## 8. Beyond rate limits: scaling access to Codex and Sora
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-lockdown-mode-and-elevated-risk-labels-in-chatgpt
-- Score: 1.391 | Reliability: 1.0
-- Why it matters: Security feature for ChatGPT users; minimal relevance to coding agents, harness patterns, or delivery automation.
+- URL: https://openai.com/index/beyond-rate-limits
+- Score: 1.91 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 9. GPT-5.2 derives a new result in theoretical physics
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/new-result-theoretical-physics
+- Score: 1.871 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Claude For Financial Services
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-for-financial-services
-- Score: 0.994 | Reliability: 1.0
-- Why it matters: Generic vertical positioning; lacks technical depth on agentic coding, evals, or production automation patterns.
+- Score: 1.673 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. India Brief Economic Index
 - Type: research | Source: anthropic_research
@@ -80,26 +80,26 @@ Focus: AI Platform Engineering
 - Score: 1.915 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. 0.100.0
+## 14. Bengaluru Office Partnerships Across India
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/bengaluru-office-partnerships-across-india
+- Score: 1.658 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 15. 0.100.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
 - Score: 1.91 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 15. v2.1.41
+## 16. v2.1.41
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
 - Score: 1.68 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 16. langgraph-sdk==0.3.6
+## 17. langgraph-sdk==0.3.6
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
 - Score: 1.616 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 17. Anthropic Codepath Partnership
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/anthropic-codepath-partnership
-- Score: 0.954 | Reliability: 1.0
-- Why it matters: Partnership announcement lacks concrete harness, eval, or delivery automation insights for engineers.
