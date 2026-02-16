@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.747 | Reliability: 1.0
+- Score: 2.746 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. langgraph-sdk==0.3.6
 - Type: news | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 2.367 | Reliability: 1.0
+- Score: 2.366 | Reliability: 1.0
 - Why it matters: Minor SDK bump with prune method; actionable for graph optimization but lacks detail on use cases.
 
 ## 6. Ai Assistance Coding Skills
@@ -47,7 +47,7 @@ Focus: AI Platform Engineering
 ## 8. Sixteen Claude Agents Built a C Compiler Without Human Intervention... Almost
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/claude-built-c-compiler/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.207 | Reliability: 1.0
+- Score: 2.206 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Introducing Lockdown Mode and Elevated Risk labels in ChatGPT
@@ -71,7 +71,7 @@ Focus: AI Platform Engineering
 ## 12. Show HN: SkillForge – Turn Screen Recordings into Agent-Ready Skills
 - Type: news | Source: hackernews_ai
 - URL: https://skillforge.expert
-- Score: 2.077 | Reliability: 1.0
+- Score: 2.073 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. From Paging to Postmortem: Google Cloud SREs on Using Gemini CLI for Outage Response
@@ -95,7 +95,7 @@ Focus: AI Platform Engineering
 ## 16. v2.1.41
 - Type: news | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 1.688 | Reliability: 1.0
+- Score: 1.687 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. Chris Liddell Appointed Anthropic Board
