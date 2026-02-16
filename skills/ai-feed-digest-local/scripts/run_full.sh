@@ -24,6 +24,11 @@ if [ -f .env ]; then
   set +a
 fi
 
+# Sync first while worktree is still clean to avoid data-file rebase conflicts later.
+if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ] && [ "$PREEXISTING_DIRTY" = "0" ]; then
+  git pull --rebase
+fi
+
 python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
@@ -48,7 +53,6 @@ if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
       echo "runtime_push_skipped=true reason=no_runtime_changes"
     else
       git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
-      git pull --rebase
       git push
       echo "runtime_commit_done=true"
     fi
