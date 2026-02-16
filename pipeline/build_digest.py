@@ -18,6 +18,45 @@ from llm_rerank import rerank_candidates
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = None) -> tuple[str, str]:
+    """Persist per-run snapshot so web/API can accumulate historical runs.
+
+    Returns: (iso_timestamp, filename)
+    """
+    ts = run_at or datetime.now(timezone.utc)
+    run_at_iso = ts.isoformat()
+    run_id = ts.strftime("%Y%m%d-%H%M%S")
+
+    processed_dir = ROOT / "data" / "processed"
+    runs_dir = processed_dir / "runs"
+    runs_dir.mkdir(parents=True, exist_ok=True)
+
+    run_payload = {
+        "run_at": run_at_iso,
+        "item_count": len(items),
+        "items": items,
+    }
+
+    run_file = runs_dir / f"{run_id}.json"
+    with open(run_file, "w", encoding="utf-8") as f:
+        json.dump(run_payload, f, ensure_ascii=False, indent=2)
+
+    index_file = processed_dir / "runs_index.json"
+    try:
+        index = json.loads(index_file.read_text(encoding="utf-8")) if index_file.exists() else []
+        if not isinstance(index, list):
+            index = []
+    except Exception:
+        index = []
+
+    index.append({"run_at": run_at_iso, "file": run_file.name, "item_count": len(items)})
+    index = sorted(index, key=lambda x: x.get("run_at", ""), reverse=True)[:500]
+    with open(index_file, "w", encoding="utf-8") as f:
+        json.dump(index, f, ensure_ascii=False, indent=2)
+
+    return run_at_iso, run_file.name
+
+
 def load_profile() -> dict[str, Any]:
     with open(ROOT / "config" / "profile.yaml", "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
@@ -628,7 +667,8 @@ def run():
             with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
                 f.write("\n".join(lines).strip() + "\n")
 
-            print(f"digest_items={len(v2_items)} file={out}")
+            run_at_iso, run_file = write_run_snapshot(v2_items)
+            print(f"digest_items={len(v2_items)} file={out} run_at={run_at_iso} run_file={run_file}")
             return
     except Exception as e:
         print(f"ranking_v2_switch_error err={e}")
@@ -867,7 +907,8 @@ def run():
         with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
             f.write("\n".join(lines_v2).strip() + "\n")
 
-    print(f"digest_items={len(top)} file={out}")
+    run_at_iso, run_file = write_run_snapshot(top)
+    print(f"digest_items={len(top)} file={out} run_at={run_at_iso} run_file={run_file}")
 
 
 if __name__ == "__main__":

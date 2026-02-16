@@ -37,6 +37,24 @@
       padding: 0;
       margin: 0.75rem 0 0;
     }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+      align-items: end;
+    }
+    .filters label {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      display: block;
+      margin-bottom: 0.2rem;
+    }
+    .filters .actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
     #list {
       display: grid;
       gap: 0.75rem;
@@ -85,6 +103,25 @@
         <a href="/api/rss" role="button">RSS feed</a>
         <a href="/api/feed" role="button">JSON feed</a>
       </menu>
+
+      <form id="filters" class="filters">
+        <div>
+          <label for="fromDt">From</label>
+          <input id="fromDt" name="from" type="datetime-local" />
+        </div>
+        <div>
+          <label for="toDt">To</label>
+          <input id="toDt" name="to" type="datetime-local" />
+        </div>
+        <div>
+          <label for="limit">Max items</label>
+          <input id="limit" name="limit" type="number" min="1" max="500" value="200" />
+        </div>
+        <div class="actions">
+          <button type="submit">Apply</button>
+          <button id="clearFilters" type="button">Clear</button>
+        </div>
+      </form>
     </header>
 
     <section id="list" aria-live="polite"></section>
@@ -109,34 +146,104 @@
       });
     }
 
+    function fmtDateTime(v) {
+      if (!v) return null;
+      const d = new Date(v);
+      if (Number.isNaN(d.getTime())) return null;
+      return d.toLocaleString();
+    }
+
+    function toIsoFromLocal(v) {
+      if (!v) return null;
+      const d = new Date(v);
+      return Number.isNaN(d.getTime()) ? null : d.toISOString();
+    }
+
+    function setDefaultFilterWindow() {
+      const fromEl = document.getElementById('fromDt');
+      const toEl = document.getElementById('toDt');
+      if (!fromEl || !toEl) return;
+
+      const now = new Date();
+      const before = new Date(now.getTime() - 48 * 60 * 60 * 1000);
+      const toLocalInput = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+
+      fromEl.value = toLocalInput(before);
+      toEl.value = toLocalInput(now);
+    }
+
+    function buildFeedUrl() {
+      const from = toIsoFromLocal(document.getElementById('fromDt')?.value || '');
+      const to = toIsoFromLocal(document.getElementById('toDt')?.value || '');
+      const limit = document.getElementById('limit')?.value || '200';
+      const u = new URL('/api/feed', window.location.origin);
+      if (from) u.searchParams.set('from', from);
+      if (to) u.searchParams.set('to', to);
+      if (limit) u.searchParams.set('limit', limit);
+      return u.pathname + u.search;
+    }
+
     async function run() {
       const list = document.getElementById('list');
-      const res = await fetch('/api/feed');
+      const res = await fetch(buildFeedUrl());
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
 
       const data = await res.json();
       const items = data.items || [];
-      document.getElementById('meta').textContent = `${data.date || ''} · ${items.length} items`;
+      const runs = data.runs || [];
+      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range`;
 
       if (!items.length) {
-        list.innerHTML = `<div class="state">No items yet. Try again after the next pipeline run.</div>`;
+        list.innerHTML = `<div class="state">No items for that date/time range. Try widening the window.</div>`;
         return;
       }
 
-      list.innerHTML = items.map((it, i) => `
+      list.innerHTML = items.map((it, i) => {
+        const seen = fmtDateTime(it.last_seen) || fmtDateTime(it.first_seen);
+        return `
         <article>
           <h3>${i + 1}. <a href="${it.url || '#'}" target="_blank" rel="noopener">${it.title || 'Untitled'}</a></h3>
           <div class="meta-row">
             <span class="badge">${it.source || 'unknown'}</span>
             <span class="badge">${it.type || 'news'}</span>
             ${it.maturity ? `<span class="badge">${it.maturity}</span>` : ''}
+            ${seen ? `<span class="badge">Last seen: ${seen}</span>` : ''}
+            ${it.seen_count ? `<span class="badge">Seen ${it.seen_count}x</span>` : ''}
           </div>
           <p class="why">${it.why_it_matters || ''}</p>
-        </article>
-      `).join('');
+        </article>`;
+      }).join('');
+    }
+
+    function initFilters() {
+      const form = document.getElementById('filters');
+      const clearBtn = document.getElementById('clearFilters');
+      if (!form) return;
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
+      clearBtn?.addEventListener('click', () => {
+        document.getElementById('fromDt').value = '';
+        document.getElementById('toDt').value = '';
+        document.getElementById('limit').value = '200';
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
     }
 
     initThemeToggle();
+    setDefaultFilterWindow();
+    initFilters();
     run().catch(err => {
       document.getElementById('meta').textContent = 'Feed unavailable';
       document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
