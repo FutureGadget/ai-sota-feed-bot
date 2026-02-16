@@ -160,7 +160,7 @@ def signal_type(item: dict[str, Any]) -> str:
 
 def why_it_matters(tags: list[str]) -> str:
     if not tags:
-        return "Potential relevance to AI platform stack; review for downstream impact."
+        return ""
     return f"Likely impact on {', '.join(tags[:3])} workflows and platform decisions."
 
 

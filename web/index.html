@@ -209,7 +209,7 @@
             ${it.maturity ? `<span class="badge">${it.maturity}</span>` : ''}
             ${seen ? `<span class="badge">Last seen: ${seen}</span>` : ''}
           </div>
-          <p class="why">${it.why_it_matters || ''}</p>
+          ${it.why_it_matters && !String(it.why_it_matters).toLowerCase().startsWith('potential relevance') ? `<p class="why">${it.why_it_matters}</p>` : ''}
         </article>`;
       }).join('');
     }
