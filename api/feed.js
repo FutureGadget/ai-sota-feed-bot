@@ -85,10 +85,11 @@ function filterRunsByDate(runs, fromIso, toIso) {
 function accumulateItems(runs) {
   const byKey = new Map();
 
-  for (const run of runs) {
+  runs.forEach((run, runIdx) => {
     const runAt = run?.run_at || null;
-    for (const it of run.items || []) {
+    (run.items || []).forEach((it, idx) => {
       const key = `${it.url || ''}::${it.title || ''}`;
+      const rank = idx + 1; // preserve per-run ranking order from digest output
       const prev = byKey.get(key);
 
       if (!prev) {
@@ -97,13 +98,22 @@ function accumulateItems(runs) {
           first_seen: runAt,
           last_seen: runAt,
           seen_count: 1,
+          last_seen_run_order: runIdx,
+          rank_at_last_seen: rank,
+          score_at_last_seen: Number(it.v2_final_score ?? it.score ?? 0),
         });
       } else {
         prev.seen_count += 1;
         if (runAt && (!prev.first_seen || runAt < prev.first_seen)) prev.first_seen = runAt;
-        if (runAt && (!prev.last_seen || runAt > prev.last_seen)) {
+
+        const isNewer = runAt && (!prev.last_seen || runAt > prev.last_seen);
+        if (isNewer) {
           prev.last_seen = runAt;
+          prev.last_seen_run_order = runIdx;
+          prev.rank_at_last_seen = rank;
+          prev.score_at_last_seen = Number(it.v2_final_score ?? it.score ?? prev.score_at_last_seen ?? 0);
           prev.why_it_matters = it.why_it_matters || prev.why_it_matters;
+          prev.summary_1line = it.summary_1line || prev.summary_1line;
           prev.score = it.score ?? prev.score;
           prev.v2_final_score = it.v2_final_score ?? prev.v2_final_score;
           prev.type = it.type || prev.type;
@@ -111,10 +121,19 @@ function accumulateItems(runs) {
           prev.maturity = it.maturity || prev.maturity;
         }
       }
-    }
-  }
+    });
+  });
 
-  return [...byKey.values()].sort((a, b) => String(b.last_seen || '').localeCompare(String(a.last_seen || '')));
+  return [...byKey.values()].sort((a, b) => {
+    const ro = Number(a.last_seen_run_order ?? 9999) - Number(b.last_seen_run_order ?? 9999);
+    if (ro !== 0) return ro; // newer run first
+
+    const ra = Number(a.rank_at_last_seen ?? 9999);
+    const rb = Number(b.rank_at_last_seen ?? 9999);
+    if (ra !== rb) return ra - rb; // within run, preserve ranking order
+
+    return Number(b.score_at_last_seen ?? 0) - Number(a.score_at_last_seen ?? 0);
+  });
 }
 
 export default function handler(req, res) {
