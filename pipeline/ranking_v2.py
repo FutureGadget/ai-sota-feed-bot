@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import re
+import html
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -142,6 +143,22 @@ def compute_llm_score(lb: dict[str, Any]) -> float:
     return 0.40 * fit + 0.25 * act + 0.20 * nov + 0.15 * evq - 0.25 * max(0.0, hype - 3.0)
 
 
+def _to_clean_oneline(text: str, max_chars: int = 140) -> str:
+    s = html.unescape(str(text or ""))
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = re.sub(r"<[^\s]*", " ", s)  # strip dangling/incomplete HTML tags
+    s = s.replace("<", " ").replace(">", " ")
+    s = re.sub(r"\s+", " ", s).strip()
+    if len(s) > max_chars:
+        s = s[: max_chars - 3].rstrip() + "..."
+    return s
+
+
+def _summary_is_noisy(s: str) -> bool:
+    t = (s or "").lower()
+    return any(x in t for x in ["href=", "class=", "style=", "js-"])
+
+
 def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
     max_items = int(scfg.get("max_items", len(items)))
     max_per_source = int(scfg.get("max_per_source", max_items))
@@ -205,10 +222,12 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             item["v2_topical_bias"] = round(topical, 3)
             item["v2_final_score"] = round(fs, 3)
             if item["llm_summary_1line"]:
-                item["summary_1line"] = item["llm_summary_1line"]
+                summary = _to_clean_oneline(item["llm_summary_1line"], 140)
             else:
-                s = str(item.get("summary", "") or "").strip()
-                item["summary_1line"] = (s[:137].rstrip() + "...") if len(s) > 140 else s
+                summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 140)
+            if _summary_is_noisy(summary):
+                summary = _to_clean_oneline(item.get("title", ""), 140)
+            item["summary_1line"] = summary
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
             scored.append(item)
@@ -421,12 +440,35 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
     top, slot_priority, merge_diag = global_merge(selected_by_slot, v2_cfg)
     top, band_diag = enforce_top_band_constraints(top, v2_cfg)
 
+    # Final summary enrichment for ALL presented items (~20):
+    # run label pass again only on final top list so summary_1line is consistently LLM-generated.
+    final_labels, final_meta = label_items_v2(top, budget=len(top), rubric_version="v2-final-summary")
+    for it in top:
+      key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
+      lb = final_labels.get(key, {})
+      llm_sum = str(lb.get("summary_1line", "")).strip()
+      if llm_sum:
+          summary = _to_clean_oneline(llm_sum, 140)
+      elif not it.get("summary_1line"):
+          summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 140)
+      else:
+          summary = _to_clean_oneline(it.get("summary_1line", ""), 140)
+
+      if _summary_is_noisy(summary):
+          summary = _to_clean_oneline(it.get("title", ""), 140)
+      it["summary_1line"] = summary
+
     diag = {
         **diag_a,
         **diag_c,
         "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()},
         "merge": merge_diag,
         "top_band": band_diag,
+        "final_summary_pass": {
+            "llm_called": int(final_meta.get("llm_called", 0)),
+            "cache_hits": int(final_meta.get("cache_hits", 0)),
+            "items": len(top),
+        },
     }
     slot_bits = []
     for k, v in (diag.get("slots", {}) or {}).items():
