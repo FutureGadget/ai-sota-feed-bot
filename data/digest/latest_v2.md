@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.48 | Reliability: 1.0
+- Score: 2.479 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -65,7 +65,7 @@ Focus: AI Platform Engineering
 ## 11. India Brief Economic Index
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/india-brief-economic-index
-- Score: 2.25 | Reliability: 1.0
+- Score: 2.249 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. [AINews] Why OpenAI Should Build Slack
@@ -89,5 +89,5 @@ Focus: AI Platform Engineering
 ## 15. langgraph-sdk==0.3.6
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 1.608 | Reliability: 1.0
+- Score: 1.607 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
