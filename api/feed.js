@@ -32,23 +32,28 @@ function readRuns() {
   const indexPath = path.join(base, 'runs_index.json');
 
   const index = readJsonSafe(indexPath, []);
-  const runs = [];
+  const runsByFile = new Map();
 
   if (Array.isArray(index) && index.length > 0) {
     for (const row of index) {
       const file = row?.file;
       if (!file) continue;
       const run = readJsonSafe(path.join(runsDir, file), null);
-      if (run && Array.isArray(run.items)) runs.push(run);
-    }
-  } else if (fs.existsSync(runsDir)) {
-    const files = fs.readdirSync(runsDir).filter((f) => f.endsWith('.json')).sort().reverse();
-    for (const file of files) {
-      const run = readJsonSafe(path.join(runsDir, file), null);
-      if (run && Array.isArray(run.items)) runs.push(run);
+      if (run && Array.isArray(run.items)) runsByFile.set(file, run);
     }
   }
 
+  // Always backfill from runs dir in case index was truncated.
+  if (fs.existsSync(runsDir)) {
+    const files = fs.readdirSync(runsDir).filter((f) => f.endsWith('.json')).sort().reverse();
+    for (const file of files) {
+      if (runsByFile.has(file)) continue;
+      const run = readJsonSafe(path.join(runsDir, file), null);
+      if (run && Array.isArray(run.items)) runsByFile.set(file, run);
+    }
+  }
+
+  const runs = [...runsByFile.values()];
   return runs.sort((a, b) => String(b.run_at || '').localeCompare(String(a.run_at || '')));
 }
 

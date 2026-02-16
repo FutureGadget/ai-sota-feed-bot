@@ -84,9 +84,29 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
     except Exception:
         index = []
 
-    index.append({"run_at": run_at_iso, "file": run_file.name, "item_count": len(items)})
-    index = sorted(index, key=lambda x: x.get("run_at", ""), reverse=True)[:500]
-    atomic_write_json(index_file, index)
+    by_file: dict[str, dict[str, Any]] = {}
+    for row in index:
+        file = row.get("file") if isinstance(row, dict) else None
+        if file:
+            by_file[file] = row
+
+    # Backfill from runs directory so index self-heals if it was truncated/corrupted.
+    for p in sorted(runs_dir.glob("*.json")):
+        if p.name in by_file:
+            continue
+        try:
+            payload = json.loads(p.read_text(encoding="utf-8"))
+            by_file[p.name] = {
+                "run_at": payload.get("run_at") or "",
+                "file": p.name,
+                "item_count": int(payload.get("item_count", len(payload.get("items", []) or []))),
+            }
+        except Exception:
+            continue
+
+    by_file[run_file.name] = {"run_at": run_at_iso, "file": run_file.name, "item_count": len(items)}
+    merged_index = sorted(by_file.values(), key=lambda x: x.get("run_at", ""), reverse=True)[:500]
+    atomic_write_json(index_file, merged_index)
 
     return run_at_iso, run_file.name
 
