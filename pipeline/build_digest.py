@@ -62,9 +62,11 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
     ts = run_at or datetime.now(timezone.utc)
     run_at_iso = ts.isoformat()
     run_id = ts.strftime("%Y%m%d-%H%M%S")
+    year = ts.strftime("%Y")
+    month = ts.strftime("%m")
 
     processed_dir = ROOT / "data" / "processed"
-    runs_dir = processed_dir / "runs"
+    runs_dir = processed_dir / "runs" / year / month
     runs_dir.mkdir(parents=True, exist_ok=True)
 
     run_payload = {
@@ -74,6 +76,7 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
     }
 
     run_file = runs_dir / f"{run_id}.json"
+    run_rel_path = f"{year}/{month}/{run_file.name}"
     atomic_write_json(run_file, run_payload)
 
     index_file = processed_dir / "runs_index.json"
@@ -84,31 +87,35 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
     except Exception:
         index = []
 
-    by_file: dict[str, dict[str, Any]] = {}
+    by_path: dict[str, dict[str, Any]] = {}
     for row in index:
-        file = row.get("file") if isinstance(row, dict) else None
-        if file:
-            by_file[file] = row
+        if not isinstance(row, dict):
+            continue
+        rel_path = row.get("path") or row.get("file")
+        if rel_path:
+            row["path"] = rel_path
+            by_path[rel_path] = row
 
-    # Backfill from runs directory so index self-heals if it was truncated/corrupted.
-    for p in sorted(runs_dir.glob("*.json")):
-        if p.name in by_file:
+    # Backfill from runs directory recursively so index self-heals if truncated/corrupted.
+    for p in sorted((processed_dir / "runs").glob("**/*.json")):
+        rel_path = str(p.relative_to(processed_dir / "runs"))
+        if rel_path in by_path:
             continue
         try:
             payload = json.loads(p.read_text(encoding="utf-8"))
-            by_file[p.name] = {
+            by_path[rel_path] = {
                 "run_at": payload.get("run_at") or "",
-                "file": p.name,
+                "path": rel_path,
                 "item_count": int(payload.get("item_count", len(payload.get("items", []) or []))),
             }
         except Exception:
             continue
 
-    by_file[run_file.name] = {"run_at": run_at_iso, "file": run_file.name, "item_count": len(items)}
-    merged_index = sorted(by_file.values(), key=lambda x: x.get("run_at", ""), reverse=True)[:500]
+    by_path[run_rel_path] = {"run_at": run_at_iso, "path": run_rel_path, "item_count": len(items)}
+    merged_index = sorted(by_path.values(), key=lambda x: x.get("run_at", ""), reverse=True)[:500]
     atomic_write_json(index_file, merged_index)
 
-    return run_at_iso, run_file.name
+    return run_at_iso, run_rel_path
 
 
 def load_profile() -> dict[str, Any]:

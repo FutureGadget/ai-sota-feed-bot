@@ -36,20 +36,32 @@ function readRuns() {
 
   if (Array.isArray(index) && index.length > 0) {
     for (const row of index) {
-      const file = row?.file;
-      if (!file) continue;
-      const run = readJsonSafe(path.join(runsDir, file), null);
-      if (run && Array.isArray(run.items)) runsByFile.set(file, run);
+      const relPath = row?.path || row?.file;
+      if (!relPath) continue;
+      const run = readJsonSafe(path.join(runsDir, relPath), null);
+      if (run && Array.isArray(run.items)) runsByFile.set(relPath, run);
     }
   }
 
-  // Always backfill from runs dir in case index was truncated.
+  // Always backfill from runs dir recursively in case index was truncated.
   if (fs.existsSync(runsDir)) {
-    const files = fs.readdirSync(runsDir).filter((f) => f.endsWith('.json')).sort().reverse();
-    for (const file of files) {
-      if (runsByFile.has(file)) continue;
-      const run = readJsonSafe(path.join(runsDir, file), null);
-      if (run && Array.isArray(run.items)) runsByFile.set(file, run);
+    const stack = [''];
+    const relFiles = [];
+    while (stack.length) {
+      const rel = stack.pop();
+      const abs = path.join(runsDir, rel);
+      for (const ent of fs.readdirSync(abs, { withFileTypes: true })) {
+        const childRel = rel ? path.join(rel, ent.name) : ent.name;
+        if (ent.isDirectory()) stack.push(childRel);
+        else if (ent.isFile() && childRel.endsWith('.json')) relFiles.push(childRel);
+      }
+    }
+
+    relFiles.sort().reverse();
+    for (const relPath of relFiles) {
+      if (runsByFile.has(relPath)) continue;
+      const run = readJsonSafe(path.join(runsDir, relPath), null);
+      if (run && Array.isArray(run.items)) runsByFile.set(relPath, run);
     }
   }
 
