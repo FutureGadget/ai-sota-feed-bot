@@ -198,11 +198,17 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             item = dict(it)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
             item["llm_category"] = lb.get("category", "platform")
+            item["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
             item["llm_why_1line"] = lb.get("why_1line", "")
             item["v2_llm_score"] = round(llm_s, 3)
             item["v2_source_bias"] = round(src_bias, 3)
             item["v2_topical_bias"] = round(topical, 3)
             item["v2_final_score"] = round(fs, 3)
+            if item["llm_summary_1line"]:
+                item["summary_1line"] = item["llm_summary_1line"]
+            else:
+                s = str(item.get("summary", "") or "").strip()
+                item["summary_1line"] = (s[:137].rstrip() + "...") if len(s) > 140 else s
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
             scored.append(item)

@@ -756,6 +756,7 @@ def run():
             typ = (it.get("type") or "news").lower()
             llm_cat = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
         it["llm_category"] = llm_cat
+        it["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
         it["llm_why_1line"] = lb.get("why_1line", "")
         it["llm_label_source"] = src
 
@@ -767,6 +768,12 @@ def run():
             - max(0, it["llm_hype"] - 3) * 0.4,
             3,
         )
+        if it["llm_summary_1line"]:
+            it["summary_1line"] = it["llm_summary_1line"]
+        else:
+            s = str(it.get("summary", "") or "").strip()
+            it["summary_1line"] = (s[:137].rstrip() + "...") if len(s) > 140 else s
+
         if it["llm_why_1line"] and src == "llm":
             it["why_it_matters"] = it["llm_why_1line"]
 

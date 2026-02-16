@@ -5,6 +5,7 @@ Return STRICT JSON only with keys:
 - practicality (1-5)
 - hype (1-5)
 - category (one of: platform, release, research)
+- summary_1line (plain summary for users, string <=140 chars)
 - why_1line (string <=120 chars)
 
 Input includes title, summary, and optional content_excerpt from the article body.
@@ -14,3 +15,5 @@ Scoring intent:
 - prioritize deployability, infra impact, latency/cost/reliability implications
 - prioritize agent engineering, coding-agent harness/evals, and software delivery automation
 - penalize generic marketing and low-technical-depth content
+
+Also write summary_1line as a neutral, factual user-facing summary (not advice), <=140 chars.

@@ -38,7 +38,7 @@ def load_prompt_text() -> str:
     if not PROMPT_FILE.exists():
         return (
             "You label AI content for an AI platform engineer digest. "
-            "Return strict JSON with keys: platform_relevant(bool), novelty(1-5), practicality(1-5), hype(1-5), why_1line(string<=120)."
+            "Return strict JSON with keys: platform_relevant(bool), novelty(1-5), practicality(1-5), hype(1-5), summary_1line(string<=140), why_1line(string<=120)."
         )
     return PROMPT_FILE.read_text(encoding="utf-8").strip()
 
@@ -79,7 +79,18 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     why = "Relevant to AI platform engineering workflows." if relevance else "Potentially relevant; low direct platform signal."
     typ = (item.get("type") or "news").lower()
     category = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
-    return {"platform_relevant": relevance, "novelty": novelty, "practicality": practicality, "hype": hype, "category": category, "why_1line": why}
+    summary = (item.get("summary", "") or item.get("title", "")).strip()
+    if len(summary) > 140:
+        summary = summary[:137].rstrip() + "..."
+    return {
+        "platform_relevant": relevance,
+        "novelty": novelty,
+        "practicality": practicality,
+        "hype": hype,
+        "category": category,
+        "summary_1line": summary,
+        "why_1line": why,
+    }
 
 
 def call_bridge(payload: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
@@ -255,6 +266,7 @@ def heuristic_label_v2(item: dict[str, Any]) -> dict[str, Any]:
         "evidence_quality": max(1, min(5, 2 + e // 2)),
         "hype_risk": max(1, min(5, 1 + h)),
         "category": category,
+        "summary_1line": ((item.get("summary", "") or item.get("title", "")).strip()[:140]),
         "why_1line": "Potential relevance to AI platform engineering; verify practical impact.",
     }
 
