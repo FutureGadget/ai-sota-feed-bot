@@ -216,7 +216,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
         beta = float((scfg.get("blend", {}) or {}).get("beta", 0.2))
 
         remaining = max(0, int(llm_budget) - budget_used)
-        labels, meta = label_items_v2(candidates, budget=remaining)
+        labels, meta = label_items_v2(candidates, budget=remaining, rubric_version="v2.1")
         budget_used += int(meta.get("llm_called", 0))
 
         scored = []
@@ -463,7 +463,7 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
 
     # Final summary enrichment for ALL presented items (~20):
     # run label pass again only on final top list so summary_1line is consistently LLM-generated.
-    final_labels, final_meta = label_items_v2(top, budget=len(top), rubric_version="v2-final-summary")
+    final_labels, final_meta = label_items_v2(top, budget=len(top), rubric_version="v2.1-final-summary")
     for it in top:
       key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
       lb = final_labels.get(key, {})

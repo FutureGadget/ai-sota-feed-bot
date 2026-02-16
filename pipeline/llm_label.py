@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import os
 import re
@@ -64,6 +65,15 @@ def sources_fingerprint() -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:10]
 
 
+def _clean_text_oneline(text: str, max_chars: int = 140) -> str:
+    s = html.unescape(str(text or ""))
+    s = re.sub(r"<[^>]+>", " ", s)
+    s = re.sub(r"\s+", " ", s).strip()
+    if len(s) > max_chars:
+        s = s[: max_chars - 3].rstrip() + "..."
+    return s
+
+
 def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     t = (item.get("title", "") + " " + item.get("summary", "")).lower()
     platform_tokens = ["inference", "latency", "throughput", "quantization", "rag", "eval", "agent", "benchmark", "serving"]
@@ -79,9 +89,7 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     why = "Relevant to AI platform engineering workflows." if relevance else "Potentially relevant; low direct platform signal."
     typ = (item.get("type") or "news").lower()
     category = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
-    summary = (item.get("summary", "") or item.get("title", "")).strip()
-    if len(summary) > 140:
-        summary = summary[:137].rstrip() + "..."
+    summary = _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 140)
     return {
         "platform_relevant": relevance,
         "novelty": novelty,
@@ -266,7 +274,7 @@ def heuristic_label_v2(item: dict[str, Any]) -> dict[str, Any]:
         "evidence_quality": max(1, min(5, 2 + e // 2)),
         "hype_risk": max(1, min(5, 1 + h)),
         "category": category,
-        "summary_1line": ((item.get("summary", "") or item.get("title", "")).strip()[:140]),
+        "summary_1line": _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 140),
         "why_1line": "Potential relevance to AI platform engineering; verify practical impact.",
     }
 
