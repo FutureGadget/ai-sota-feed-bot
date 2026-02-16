@@ -21,11 +21,21 @@
     header {
       margin-bottom: 1rem;
     }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .topbar h1 {
+      margin: 0;
+    }
     menu {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.75rem;
       padding: 0;
-      margin: 0.5rem 0 0;
+      margin: 0.75rem 0 0;
     }
     #list {
       display: grid;
@@ -48,7 +58,10 @@
 <body>
   <main>
     <header>
-      <h1>📰 AI Feed</h1>
+      <div class="topbar">
+        <h1>📰 AI Feed</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
       <p id="meta">Loading...</p>
       <menu>
         <a href="/api/rss" role="button">RSS feed</a>
@@ -60,6 +73,24 @@
   </main>
 
   <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
+
+    function initThemeToggle() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current);
+      btn.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
     async function run() {
       const res = await fetch('/api/feed');
       const data = await res.json();
@@ -74,6 +105,8 @@
         </article>
       `).join('');
     }
+
+    initThemeToggle();
     run().catch(err => {
       document.getElementById('meta').textContent = 'Failed to load feed';
       console.error(err);
