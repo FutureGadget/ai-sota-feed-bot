@@ -55,11 +55,21 @@
       padding: 0;
       margin: 0.75rem 0 0;
     }
+    .presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.9rem;
+    }
+    .presets button {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.55rem;
+    }
     .filters {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 0.6rem;
-      margin-top: 0.9rem;
+      margin-top: 0.8rem;
       align-items: end;
     }
     .filters label {
@@ -152,14 +162,22 @@
         <a href="/api/feed" role="button">JSON feed</a>
       </menu>
 
+      <div class="presets" id="presets">
+        <button type="button" data-days="0">Today</button>
+        <button type="button" data-days="3">Last 3d</button>
+        <button type="button" data-days="7">Last 7d</button>
+        <button type="button" data-days="30">Last 30d</button>
+        <button type="button" data-days="all">All</button>
+      </div>
+
       <form id="filters" class="filters">
         <div>
-          <label for="fromDt">From</label>
-          <input id="fromDt" name="from" type="datetime-local" />
+          <label for="fromDate">From date</label>
+          <input id="fromDate" name="from" type="date" />
         </div>
         <div>
-          <label for="toDt">To</label>
-          <input id="toDt" name="to" type="datetime-local" />
+          <label for="toDate">To date</label>
+          <input id="toDate" name="to" type="date" />
         </div>
         <div>
           <label for="limit">Max items</label>
@@ -201,28 +219,48 @@
       return d.toLocaleString();
     }
 
-    function toIsoFromLocal(v) {
-      if (!v) return null;
-      const d = new Date(v);
-      return Number.isNaN(d.getTime()) ? null : d.toISOString();
+    function toIsoDateStart(dateStr) {
+      if (!dateStr) return null;
+      return `${dateStr}T00:00:00`;
+    }
+
+    function toIsoDateEnd(dateStr) {
+      if (!dateStr) return null;
+      return `${dateStr}T23:59:59`;
+    }
+
+    function toDateInput(d) {
+      const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+      return local.toISOString().slice(0, 10);
+    }
+
+    function setDateRangeDays(days) {
+      const fromEl = document.getElementById('fromDate');
+      const toEl = document.getElementById('toDate');
+      if (!fromEl || !toEl) return;
+
+      if (days === 'all') {
+        fromEl.value = '';
+        toEl.value = '';
+        return;
+      }
+
+      const n = Number(days);
+      const now = new Date();
+      const from = new Date(now.getTime() - n * 24 * 60 * 60 * 1000);
+      fromEl.value = toDateInput(from);
+      toEl.value = toDateInput(now);
     }
 
     function setDefaultFilterWindow() {
-      const fromEl = document.getElementById('fromDt');
-      const toEl = document.getElementById('toDt');
-      if (!fromEl || !toEl) return;
-
-      const now = new Date();
-      const before = new Date(now.getTime() - 48 * 60 * 60 * 1000);
-      const toLocalInput = (d) => new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
-
-      fromEl.value = toLocalInput(before);
-      toEl.value = toLocalInput(now);
+      setDateRangeDays(7);
     }
 
     function buildFeedUrl() {
-      const from = toIsoFromLocal(document.getElementById('fromDt')?.value || '');
-      const to = toIsoFromLocal(document.getElementById('toDt')?.value || '');
+      const fromDate = document.getElementById('fromDate')?.value || '';
+      const toDate = document.getElementById('toDate')?.value || '';
+      const from = toIsoDateStart(fromDate);
+      const to = toIsoDateEnd(toDate);
       const limit = document.getElementById('limit')?.value || '200';
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
@@ -291,6 +329,7 @@
     function initFilters() {
       const form = document.getElementById('filters');
       const clearBtn = document.getElementById('clearFilters');
+      const presets = document.getElementById('presets');
       if (!form) return;
 
       form.addEventListener('submit', (e) => {
@@ -302,9 +341,20 @@
         });
       });
 
+      presets?.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-days]');
+        if (!btn) return;
+        setDateRangeDays(btn.dataset.days);
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
       clearBtn?.addEventListener('click', () => {
-        document.getElementById('fromDt').value = '';
-        document.getElementById('toDt').value = '';
+        document.getElementById('fromDate').value = '';
+        document.getElementById('toDate').value = '';
         document.getElementById('limit').value = '200';
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
