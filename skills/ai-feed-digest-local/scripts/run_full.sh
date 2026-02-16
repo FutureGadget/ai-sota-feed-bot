@@ -24,10 +24,23 @@ python pipeline/source_health.py update
 python pipeline/source_alerts.py
 python pipeline/build_digest.py
 
+# Sanity check: latest.json must be valid JSON before publishing.
+python3 - <<'PY'
+import json
+from pathlib import Path
+p = Path('data/processed/latest.json')
+json.loads(p.read_text(encoding='utf-8'))
+print('latest_json_valid=true')
+PY
+
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
-  git pull --rebase --autostash
-  ./scripts/git_commit_runtime.sh "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+  if ! git diff --quiet || ! git diff --cached --quiet; then
+    echo "runtime_push_skipped=true reason=dirty_worktree"
+  else
+    git pull --rebase
+    ./scripts/git_commit_runtime.sh "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+  fi
 fi
 
 python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date "$(date +%F)"
