@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import urllib.parse
@@ -66,6 +67,37 @@ def prettify_slug(url: str) -> str:
     return slug.strip().title() or url
 
 
+def extract_image_url(entry, summary_html: str = "") -> str:
+    # 1) RSS enclosure
+    encs = getattr(entry, "enclosures", []) or []
+    for e in encs:
+        href = (e.get("href") or e.get("url") or "").strip() if isinstance(e, dict) else ""
+        etype = (e.get("type") or "").lower() if isinstance(e, dict) else ""
+        if href and (etype.startswith("image/") or re.search(r"\.(png|jpe?g|gif|webp|avif)(\?|$)", href, re.I)):
+            return href
+
+    # 2) media RSS
+    media = getattr(entry, "media_content", []) or []
+    for m in media:
+        href = (m.get("url") or "").strip() if isinstance(m, dict) else ""
+        if href:
+            return href
+
+    thumbs = getattr(entry, "media_thumbnail", []) or []
+    for m in thumbs:
+        href = (m.get("url") or "").strip() if isinstance(m, dict) else ""
+        if href:
+            return href
+
+    # 3) first image in summary/content
+    body = html.unescape(summary_html or "")
+    m = re.search(r"<img[^>]+src=[\"']([^\"']+)[\"']", body, re.I)
+    if m:
+        return m.group(1).strip()
+
+    return ""
+
+
 def collect_from_rss(source: dict, now: datetime) -> list[dict]:
     parsed = feedparser.parse(source["url"])
     out = []
@@ -82,6 +114,7 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
                 "url": link,
                 "summary": summary,
                 "published": published,
+                "image_url": extract_image_url(e, summary),
             }
         )
     return out
@@ -208,6 +241,7 @@ def run():
                         "title": title,
                         "url": link,
                         "summary": ent.get("summary", ""),
+                        "image_url": ent.get("image_url", ""),
                         "published": ent.get("published", now.isoformat()),
                         "collected_at": now.isoformat(),
                     }

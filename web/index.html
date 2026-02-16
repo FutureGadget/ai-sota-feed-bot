@@ -94,6 +94,14 @@
       border-radius: 10px;
       background: var(--card, #fff);
     }
+    .thumb {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 0.6rem;
+      border: 1px solid var(--border, #e5e5e5);
+    }
     article h3 {
       margin: 0 0 0.35rem;
       font-size: 1.15rem;
@@ -311,9 +319,11 @@
         const summary = esc(summaryRaw);
         const seenText = seen ? esc(seen) : '';
         const href = safeUrl(it.url);
+        const image = safeUrl(it.image_url || '');
 
         return `
         <article>
+          ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" />` : ''}
           <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
           <div class="meta-row">
             <span class="badge">${source}</span>
