@@ -15,6 +15,13 @@ python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
 python pipeline/build_digest.py
+
+# Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
+if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
+  git pull --rebase --autostash
+  ./scripts/git_commit_runtime.sh "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+fi
+
 python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date "$(date +%F)"
 
 if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
