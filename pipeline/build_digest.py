@@ -772,7 +772,7 @@ def run():
             it["summary_1line"] = it["llm_summary_1line"]
         else:
             s = str(it.get("summary", "") or "").strip()
-            it["summary_1line"] = (s[:137].rstrip() + "...") if len(s) > 140 else s
+            it["summary_1line"] = (s[:297].rstrip() + "...") if len(s) > 300 else s
 
         if it["llm_why_1line"] and src == "llm":
             it["why_it_matters"] = it["llm_why_1line"]
