@@ -143,7 +143,7 @@ def compute_llm_score(lb: dict[str, Any]) -> float:
     return 0.40 * fit + 0.25 * act + 0.20 * nov + 0.15 * evq - 0.25 * max(0.0, hype - 3.0)
 
 
-def _to_clean_oneline(text: str, max_chars: int = 300) -> str:
+def _to_clean_oneline(text: str, max_chars: int = 220) -> str:
     s = html.unescape(str(text or ""))
     s = re.sub(r"<[^>]+>", " ", s)
     s = re.sub(r"<[^\s]*", " ", s)  # strip dangling/incomplete HTML tags
@@ -243,11 +243,11 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             item["v2_topical_bias"] = round(topical, 3)
             item["v2_final_score"] = round(fs, 3)
             if item["llm_summary_1line"]:
-                summary = _to_clean_oneline(item["llm_summary_1line"], 300)
+                summary = _to_clean_oneline(item["llm_summary_1line"], 220)
             else:
-                summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 300)
+                summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
             if _summary_is_noisy(summary):
-                summary = _to_clean_oneline(item.get("title", ""), 300)
+                summary = _to_clean_oneline(item.get("title", ""), 220)
             item["summary_1line"] = summary
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
@@ -469,14 +469,14 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
       lb = final_labels.get(key, {})
       llm_sum = str(lb.get("summary_1line", "")).strip()
       if llm_sum:
-          summary = _to_clean_oneline(llm_sum, 300)
+          summary = _to_clean_oneline(llm_sum, 220)
       elif not it.get("summary_1line"):
-          summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 300)
+          summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 220)
       else:
-          summary = _to_clean_oneline(it.get("summary_1line", ""), 300)
+          summary = _to_clean_oneline(it.get("summary_1line", ""), 220)
 
       if _summary_is_noisy(summary):
-          summary = _to_clean_oneline(it.get("title", ""), 300)
+          summary = _to_clean_oneline(it.get("title", ""), 220)
       it["summary_1line"] = summary
 
     diag = {

@@ -39,7 +39,7 @@ def load_prompt_text() -> str:
     if not PROMPT_FILE.exists():
         return (
             "You label AI content for an AI platform engineer digest. "
-            "Return strict JSON with keys: platform_relevant(bool), novelty(1-5), practicality(1-5), hype(1-5), summary_1line(string<=300), why_1line(string<=120)."
+            "Return strict JSON with keys: platform_relevant(bool), novelty(1-5), practicality(1-5), hype(1-5), summary_1line(string<=220), why_1line(string<=120)."
         )
     return PROMPT_FILE.read_text(encoding="utf-8").strip()
 
@@ -65,7 +65,7 @@ def sources_fingerprint() -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:10]
 
 
-def _clean_text_oneline(text: str, max_chars: int = 300) -> str:
+def _clean_text_oneline(text: str, max_chars: int = 220) -> str:
     s = html.unescape(str(text or ""))
     s = re.sub(r"<[^>]+>", " ", s)
     s = re.sub(r"\s+", " ", s).strip()
@@ -89,7 +89,7 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     why = "Relevant to AI platform engineering workflows." if relevance else "Potentially relevant; low direct platform signal."
     typ = (item.get("type") or "news").lower()
     category = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
-    summary = _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 300)
+    summary = _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 220)
     return {
         "platform_relevant": relevance,
         "novelty": novelty,
@@ -274,7 +274,7 @@ def heuristic_label_v2(item: dict[str, Any]) -> dict[str, Any]:
         "evidence_quality": max(1, min(5, 2 + e // 2)),
         "hype_risk": max(1, min(5, 1 + h)),
         "category": category,
-        "summary_1line": _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 300),
+        "summary_1line": _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 220),
         "why_1line": "Potential relevance to AI platform engineering; verify practical impact.",
     }
 
