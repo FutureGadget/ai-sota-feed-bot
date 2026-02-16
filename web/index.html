@@ -183,6 +183,23 @@
       return u.pathname + u.search;
     }
 
+    function esc(v) {
+      return String(v ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function safeUrl(v) {
+      try {
+        const u = new URL(String(v || ''), window.location.origin);
+        if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+      } catch {}
+      return '#';
+    }
+
     async function run() {
       const list = document.getElementById('list');
       const res = await fetch(buildFeedUrl());
@@ -200,16 +217,25 @@
 
       list.innerHTML = items.map((it, i) => {
         const seen = fmtDateTime(it.last_seen) || fmtDateTime(it.first_seen);
+        const title = esc(it.title || 'Untitled');
+        const source = esc(it.source || 'unknown');
+        const type = esc(it.type || 'news');
+        const maturity = esc(it.maturity || '');
+        const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        const summary = esc(summaryRaw);
+        const seenText = seen ? esc(seen) : '';
+        const href = safeUrl(it.url);
+
         return `
         <article>
-          <h3>${i + 1}. <a href="${it.url || '#'}" target="_blank" rel="noopener">${it.title || 'Untitled'}</a></h3>
+          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
           <div class="meta-row">
-            <span class="badge">${it.source || 'unknown'}</span>
-            <span class="badge">${it.type || 'news'}</span>
-            ${it.maturity ? `<span class="badge">${it.maturity}</span>` : ''}
-            ${seen ? `<span class="badge">Last seen: ${seen}</span>` : ''}
+            <span class="badge">${source}</span>
+            <span class="badge">${type}</span>
+            ${maturity ? `<span class="badge">${maturity}</span>` : ''}
+            ${seenText ? `<span class="badge">Last seen: ${seenText}</span>` : ''}
           </div>
-          ${it.summary_1line ? `<p class="why">${it.summary_1line}</p>` : ''}
+          ${summary ? `<p class="why">${summary}</p>` : ''}
         </article>`;
       }).join('');
     }
