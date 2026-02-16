@@ -3,6 +3,14 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../../.."
 
+LOCK_DIR=".run_full.lock"
+if ! mkdir "$LOCK_DIR" 2>/dev/null; then
+  echo "FULL_RUN_SKIPPED: another run_full.sh execution is already in progress"
+  exit 0
+fi
+cleanup() { rmdir "$LOCK_DIR" 2>/dev/null || true; }
+trap cleanup EXIT
+
 source .venv/bin/activate
 
 if [ -f .env ]; then

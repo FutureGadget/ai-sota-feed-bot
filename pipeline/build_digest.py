@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import math
+import os
 import re
+import tempfile
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,6 +18,40 @@ from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def atomic_write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    finally:
+        try:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        except Exception:
+            pass
+
+
+def atomic_write_text(path: Path, text: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    fd, tmp = tempfile.mkstemp(prefix=f".{path.name}.", suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(text)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    finally:
+        try:
+            if os.path.exists(tmp):
+                os.remove(tmp)
+        except Exception:
+            pass
 
 
 def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = None) -> tuple[str, str]:
@@ -38,8 +74,7 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
     }
 
     run_file = runs_dir / f"{run_id}.json"
-    with open(run_file, "w", encoding="utf-8") as f:
-        json.dump(run_payload, f, ensure_ascii=False, indent=2)
+    atomic_write_json(run_file, run_payload)
 
     index_file = processed_dir / "runs_index.json"
     try:
@@ -51,8 +86,7 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
 
     index.append({"run_at": run_at_iso, "file": run_file.name, "item_count": len(items)})
     index = sorted(index, key=lambda x: x.get("run_at", ""), reverse=True)[:500]
-    with open(index_file, "w", encoding="utf-8") as f:
-        json.dump(index, f, ensure_ascii=False, indent=2)
+    atomic_write_json(index_file, index)
 
     return run_at_iso, run_file.name
 
@@ -627,11 +661,8 @@ def run():
 
             processed_dir = ROOT / "data" / "processed"
             processed_dir.mkdir(parents=True, exist_ok=True)
-            with open(processed_dir / "latest.json", "w", encoding="utf-8") as f:
-                json.dump(v2_items, f, ensure_ascii=False, indent=2)
-
-            with open(processed_dir / "latest_v2.json", "w", encoding="utf-8") as f:
-                json.dump(v2_items, f, ensure_ascii=False, indent=2)
+            atomic_write_json(processed_dir / "latest.json", v2_items)
+            atomic_write_json(processed_dir / "latest_v2.json", v2_items)
 
             date_str = datetime.now().strftime("%Y-%m-%d")
             diag_dir = ROOT / "data" / "diagnostics"
@@ -847,8 +878,7 @@ def run():
 
             processed_dir_v2 = ROOT / "data" / "processed"
             processed_dir_v2.mkdir(parents=True, exist_ok=True)
-            with open(processed_dir_v2 / "latest_v2.json", "w", encoding="utf-8") as f:
-                json.dump(v2_items, f, ensure_ascii=False, indent=2)
+            atomic_write_json(processed_dir_v2 / "latest_v2.json", v2_items)
 
             date_str_v2 = datetime.now().strftime("%Y-%m-%d")
             diag_dir = ROOT / "data" / "diagnostics"
@@ -863,8 +893,7 @@ def run():
 
     processed_dir = ROOT / "data" / "processed"
     processed_dir.mkdir(parents=True, exist_ok=True)
-    with open(processed_dir / "latest.json", "w", encoding="utf-8") as f:
-        json.dump(top, f, ensure_ascii=False, indent=2)
+    atomic_write_json(processed_dir / "latest.json", top)
 
     date_str = datetime.now().strftime("%Y-%m-%d")
     lines = [

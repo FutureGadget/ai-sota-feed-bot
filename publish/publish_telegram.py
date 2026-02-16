@@ -3,6 +3,7 @@ from __future__ import annotations
 import html
 import json
 import os
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -115,13 +116,25 @@ def load_llm_label_target() -> int:
         return 0
 
 
+def load_latest_with_retry(processed_file: Path, retries: int = 3, sleep_s: float = 0.25) -> list[dict]:
+    last_err = None
+    for i in range(retries + 1):
+        try:
+            return json.loads(processed_file.read_text(encoding="utf-8"))
+        except Exception as e:
+            last_err = e
+            if i < retries:
+                time.sleep(sleep_s)
+    raise RuntimeError(f"latest_json_read_failed: {last_err}")
+
+
 def build_messages(max_items: int = 12) -> list[str]:
     processed_file = ROOT / "data" / "processed" / "latest.json"
     if not processed_file.exists():
         digest_file = ROOT / "data" / "digest" / "latest.md"
         return [digest_file.read_text(encoding="utf-8")[:3800]]
 
-    items = json.loads(processed_file.read_text(encoding="utf-8"))[:max_items]
+    items = load_latest_with_retry(processed_file)[:max_items]
     today = datetime.now().strftime("%Y-%m-%d")
 
     # Category-first display: use LLM category when available.
