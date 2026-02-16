@@ -17,7 +17,7 @@ Focus: AI Platform Engineering
 ## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.13165v1
-- Score: 2.697 | Reliability: 1.0
+- Score: 2.696 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.484 | Reliability: 1.0
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -71,7 +71,7 @@ Focus: AI Platform Engineering
 ## 12. [AINews] Why OpenAI Should Build Slack
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-why-openai-should-build-slack
-- Score: 1.912 | Reliability: 1.0
+- Score: 1.911 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. 0.100.0
