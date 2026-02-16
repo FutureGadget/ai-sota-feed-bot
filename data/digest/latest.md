@@ -5,13 +5,13 @@ Focus: AI Platform Engineering
 ## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.723 | Reliability: 1.0
+- Score: 2.722 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Google Explores Scaling Principles for Multi-agent Coordination
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/google-agent-scaling-principles/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.632 | Reliability: 1.0
+- Score: 2.631 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
@@ -23,13 +23,13 @@ Focus: AI Platform Engineering
 ## 4. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/architecting-agentic-mlops-a2a-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.462 | Reliability: 1.0
+- Score: 2.461 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.483 | Reliability: 1.0
+- Score: 2.48 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -41,13 +41,13 @@ Focus: AI Platform Engineering
 ## 7. Three months of OpenClaw
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/openclaw/#atom-everything
-- Score: 2.246 | Reliability: 1.0
+- Score: 2.245 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/openenv-turing
-- Score: 2.298 | Reliability: 1.0
+- Score: 2.297 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Anthropic Codepath Partnership
@@ -83,7 +83,7 @@ Focus: AI Platform Engineering
 ## 14. v2.1.41
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 1.676 | Reliability: 1.0
+- Score: 1.675 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. langgraph-sdk==0.3.6
