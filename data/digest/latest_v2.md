@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.493 | Reliability: 1.0
+- Score: 2.492 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -41,7 +41,7 @@ Focus: AI Platform Engineering
 ## 7. Three months of OpenClaw
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/openclaw/#atom-everything
-- Score: 2.248 | Reliability: 1.0
+- Score: 2.247 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. GPT-5.2 derives a new result in theoretical physics
