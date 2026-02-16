@@ -11,7 +11,7 @@ Focus: AI Platform Engineering
 ## 2. Google Explores Scaling Principles for Multi-agent Coordination
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/google-agent-scaling-principles/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.633 | Reliability: 1.0
+- Score: 2.632 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
@@ -23,13 +23,13 @@ Focus: AI Platform Engineering
 ## 4. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/architecting-agentic-mlops-a2a-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.463 | Reliability: 1.0
+- Score: 2.462 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.486 | Reliability: 1.0
+- Score: 2.484 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -65,7 +65,7 @@ Focus: AI Platform Engineering
 ## 11. India Brief Economic Index
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/india-brief-economic-index
-- Score: 2.245 | Reliability: 1.0
+- Score: 2.25 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. [AINews] Why OpenAI Should Build Slack
@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. 0.100.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 1.907 | Reliability: 1.0
+- Score: 1.906 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. v2.1.41
@@ -89,5 +89,5 @@ Focus: AI Platform Engineering
 ## 15. langgraph-sdk==0.3.6
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 1.609 | Reliability: 1.0
+- Score: 1.608 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
