@@ -13,6 +13,11 @@ trap cleanup EXIT
 
 source .venv/bin/activate
 
+PREEXISTING_DIRTY=0
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  PREEXISTING_DIRTY=1
+fi
+
 if [ -f .env ]; then
   set -a
   source .env
@@ -35,8 +40,8 @@ PY
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
-  if ! git diff --quiet || ! git diff --cached --quiet; then
-    echo "runtime_push_skipped=true reason=dirty_worktree"
+  if [ "$PREEXISTING_DIRTY" = "1" ]; then
+    echo "runtime_push_skipped=true reason=preexisting_dirty_worktree"
   else
     git pull --rebase
     ./scripts/git_commit_runtime.sh "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
