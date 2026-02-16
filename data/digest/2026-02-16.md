@@ -5,89 +5,89 @@ Focus: AI Platform Engineering
 ## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.721 | Reliability: 1.0
+- Score: 2.717 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. Gemini 3 Deep Think
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Feb/12/gemini-3-deep-think/#atom-everything
-- Score: 2.633 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 3. Google Explores Scaling Principles for Multi-agent Coordination
+## 2. Google Explores Scaling Principles for Multi-agent Coordination
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/google-agent-scaling-principles/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.63 | Reliability: 1.0
+- Score: 2.624 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 3. Asynchronous Verified Semantic Caching for Tiered LLM Architectures
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2602.13165v1
+- Score: 2.695 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/architecting-agentic-mlops-a2a-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.46 | Reliability: 1.0
+- Score: 2.454 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Show HN: Train AI Agents to Write Better Playwright Tests
+## 5. Show HN: InitRunner – YAML to AI Agent with RAG, Memory, and an API
 - Type: news | Source: hackernews_ai
-- URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.476 | Reliability: 1.0
+- URL: https://github.com/vladkesler/initrunner
+- Score: 2.392 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.13052v1
-- Score: 2.524 | Reliability: 1.0
+- Score: 2.523 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. OpenLID-v3: Improving the Precision of Closely Related Language Identification -- An Experience Report
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2602.13139v1
-- Score: 2.321 | Reliability: 1.0
+## 7. Three months of OpenClaw
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Feb/15/openclaw/#atom-everything
+- Score: 2.24 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 8. [AINews] new Gemini 3 Deep Think, Anthropic $30B @ $380B, GPT-5.3-Codex Spark, MiniMax M2.5
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-new-gemini-3-deep-think-anthropic
-- Score: 2.093 | Reliability: 1.0
+## 8. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/openenv-turing
+- Score: 2.296 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Anthropic Codepath Partnership
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-codepath-partnership
-- Score: 0.952 | Reliability: 1.0
+- Score: 0.951 | Reliability: 1.0
 - Why it matters: Partnership announcement lacks technical depth, concrete tooling, or actionable platform integration for engineering workflows.
 
 ## 10. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 0.632 | Reliability: 1.0
+- Score: 0.631 | Reliability: 1.0
 - Why it matters: Corporate governance announcement; zero relevance to coding agents, infra, evals, or delivery automation.
 
-## 11. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/openenv-turing
-- Score: 2.297 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 12. India Brief Economic Index
+## 11. India Brief Economic Index
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/india-brief-economic-index
-- Score: 2.249 | Reliability: 1.0
+- Score: 2.247 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 12. [AINews] Why OpenAI Should Build Slack
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-why-openai-should-build-slack
+- Score: 1.909 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. 0.100.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.100.0
-- Score: 1.906 | Reliability: 1.0
+- Score: 1.904 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. v2.1.41
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
-- Score: 1.675 | Reliability: 1.0
+- Score: 1.673 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. langgraph-sdk==0.3.6
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.6
-- Score: 1.607 | Reliability: 1.0
+- Score: 1.602 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
