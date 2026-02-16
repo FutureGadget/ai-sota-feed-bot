@@ -6,7 +6,18 @@ Return STRICT JSON only with keys:
 - hype (1-5)
 - category (one of: platform, release, research)
 - summary_1line (catchy, factual summary for users, 1-2 concise sentences, string <=220 chars)
-- why_1line (string <=120 chars)
+- why_1line (grading rationale only, string <=120 chars)
+
+Output example:
+{
+  "platform_relevant": true,
+  "novelty": 3,
+  "practicality": 4,
+  "hype": 2,
+  "category": "platform",
+  "summary_1line": "Google reports multi-agent scaling results from 180 configurations, showing coordination can hurt performance without careful design.",
+  "why_1line": "Strong eval signal for agent-system architecture decisions."
+}
 
 Input includes title, summary, and optional content_excerpt from the article body.
 Use content_excerpt when available to judge real engineering signal.
@@ -17,3 +28,4 @@ Scoring intent:
 - penalize generic marketing and low-technical-depth content
 
 Also write summary_1line as catchy but factual user-facing text (not advice), 1-2 concise sentences, <=220 chars.
+CRITICAL: summary_1line must NOT contain grading/ranking commentary. Put evaluation tone only in why_1line.

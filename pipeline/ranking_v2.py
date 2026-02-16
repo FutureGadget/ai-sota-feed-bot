@@ -159,6 +159,22 @@ def _summary_is_noisy(s: str) -> bool:
     return any(x in t for x in ["href=", "class=", "style=", "js-"])
 
 
+def _summary_has_eval_tone(s: str) -> bool:
+    t = (s or "").lower()
+    markers = [
+        "limited technical depth",
+        "limited depth",
+        "low signal",
+        "high signal",
+        "high relevance",
+        "low relevance",
+        "lacks",
+        "not actionable",
+        "weak evidence",
+    ]
+    return any(m in t for m in markers)
+
+
 def _infer_item_type(item: dict[str, Any], slot: str) -> str:
     src = str(item.get("source", "")).lower()
     title = str(item.get("title", "")).lower()
@@ -246,8 +262,8 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
                 summary = _to_clean_oneline(item["llm_summary_1line"], 220)
             else:
                 summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
-            if _summary_is_noisy(summary):
-                summary = _to_clean_oneline(item.get("title", ""), 220)
+            if _summary_is_noisy(summary) or _summary_has_eval_tone(summary):
+                summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
             item["summary_1line"] = summary
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
@@ -475,8 +491,8 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
       else:
           summary = _to_clean_oneline(it.get("summary_1line", ""), 220)
 
-      if _summary_is_noisy(summary):
-          summary = _to_clean_oneline(it.get("title", ""), 220)
+      if _summary_is_noisy(summary) or _summary_has_eval_tone(summary):
+          summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 220)
       it["summary_1line"] = summary
 
     diag = {
