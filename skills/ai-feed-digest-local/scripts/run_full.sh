@@ -43,8 +43,15 @@ if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
   if [ "$PREEXISTING_DIRTY" = "1" ]; then
     echo "runtime_push_skipped=true reason=preexisting_dirty_worktree"
   else
-    git pull --rebase
-    ./scripts/git_commit_runtime.sh "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+    git add data || true
+    if git diff --cached --quiet; then
+      echo "runtime_push_skipped=true reason=no_runtime_changes"
+    else
+      git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+      git pull --rebase
+      git push
+      echo "runtime_commit_done=true"
+    fi
   fi
 fi
 
