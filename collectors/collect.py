@@ -67,33 +67,50 @@ def prettify_slug(url: str) -> str:
     return slug.strip().title() or url
 
 
+def _is_bad_image_url(url: str) -> bool:
+    u = (url or "").lower()
+    # common avatar/profile images that look wrong in article cards
+    bad_markers = [
+        "avatars.githubusercontent.com",
+        "gravatar.com/avatar",
+        "/avatar/",
+        "profile_images",
+    ]
+    return any(m in u for m in bad_markers)
+
+
 def extract_image_url(entry, summary_html: str = "") -> str:
+    def ok(href: str) -> bool:
+        return bool(href) and not _is_bad_image_url(href)
+
     # 1) RSS enclosure
     encs = getattr(entry, "enclosures", []) or []
     for e in encs:
         href = (e.get("href") or e.get("url") or "").strip() if isinstance(e, dict) else ""
         etype = (e.get("type") or "").lower() if isinstance(e, dict) else ""
-        if href and (etype.startswith("image/") or re.search(r"\.(png|jpe?g|gif|webp|avif)(\?|$)", href, re.I)):
+        if ok(href) and (etype.startswith("image/") or re.search(r"\.(png|jpe?g|gif|webp|avif)(\?|$)", href, re.I)):
             return href
 
     # 2) media RSS
     media = getattr(entry, "media_content", []) or []
     for m in media:
         href = (m.get("url") or "").strip() if isinstance(m, dict) else ""
-        if href:
+        if ok(href):
             return href
 
     thumbs = getattr(entry, "media_thumbnail", []) or []
     for m in thumbs:
         href = (m.get("url") or "").strip() if isinstance(m, dict) else ""
-        if href:
+        if ok(href):
             return href
 
     # 3) first image in summary/content
     body = html.unescape(summary_html or "")
     m = re.search(r"<img[^>]+src=[\"']([^\"']+)[\"']", body, re.I)
     if m:
-        return m.group(1).strip()
+        href = m.group(1).strip()
+        if ok(href):
+            return href
 
     return ""
 
