@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Train AI Agents to Write Better Playwright Tests
 - Type: news | Source: hackernews_ai
 - URL: https://testdino.com/blog/playwright-skill/
-- Score: 2.49 | Reliability: 1.0
+- Score: 2.489 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Quantization-Aware Collaborative Inference for Large Embodied AI Models
@@ -53,13 +53,13 @@ Focus: AI Platform Engineering
 ## 9. Anthropic Codepath Partnership
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-codepath-partnership
-- Score: 0.793 | Reliability: 1.0
+- Score: 0.792 | Reliability: 1.0
 - Why it matters: Partnership announcements typically lack concrete harness patterns, eval strategies, or automation architecture relevant to platform engineers.
 
 ## 10. Chris Liddell Appointed Anthropic Board
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/chris-liddell-appointed-anthropic-board
-- Score: 0.633 | Reliability: 1.0
+- Score: 0.632 | Reliability: 1.0
 - Why it matters: Board appointments are org-level news; no engineering deliverables, tooling, or research applicable to coding automation.
 
 ## 11. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
