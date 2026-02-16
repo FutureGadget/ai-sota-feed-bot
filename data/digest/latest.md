@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Deep Blue
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/15/deep-blue/#atom-everything
-- Score: 2.725 | Reliability: 1.0
+- Score: 2.724 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Google Explores Scaling Principles for Multi-agent Coordination
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. Bengaluru Office Partnerships Across India
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/bengaluru-office-partnerships-across-india
-- Score: 1.641 | Reliability: 1.0
+- Score: 1.659 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. OpenEnv in Practice: Evaluating Tool-Using Agents in Real-World Environments
