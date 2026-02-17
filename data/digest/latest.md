@@ -2,46 +2,46 @@
 
 Focus: AI Platform Engineering
 
-## 1. Automate Security Reviews With Claude Code
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/automate-security-reviews-with-claude-code
-- Score: 2.92 | Reliability: 1.0
-- Why it matters: Relevant to coding-agent automation but needs concrete harness patterns, CI/CD integration examples, and eval metrics to be actionable.
-
-## 2. Qwen3.5: Towards Native Multimodal Agents
+## 1. Qwen3.5: Towards Native Multimodal Agents
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/qwen35/#atom-everything
 - Score: 2.793 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Two new Showboat tools: Chartroom and datasette-showboat
+## 2. Two new Showboat tools: Chartroom and datasette-showboat
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/chartroom-and-datasette-showboat/#atom-everything
-- Score: 2.739 | Reliability: 1.0
+- Score: 2.738 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. Claude Code And New Admin Controls For Business Plans
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-code-and-new-admin-controls-for-business-plans
-- Score: 2.24 | Reliability: 1.0
+## 3. Google Explores Scaling Principles for Multi-agent Coordination
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/02/google-agent-scaling-principles/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.571 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 4. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/articles/architecting-agentic-mlops-a2a-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.401 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Show HN: Agent Forge – Persistent memory and desktop automation for Claude Code
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/WeberG619/agent-forge
-- Score: 2.469 | Reliability: 1.0
+- Score: 2.468 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 6. Agoda’s API Agent Converts Any API to MCP with Zero Code and Deployments
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/02/agoda-api-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.245 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 7. Hunt Globally: Deep Research AI Agents for Drug Asset Scouting in Investing, Business Development, and Search & Evaluation
+## 6. Hunt Globally: Deep Research AI Agents for Drug Asset Scouting in Investing, Business Development, and Search & Evaluation
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.15019v1
-- Score: 2.405 | Reliability: 1.0
+- Score: 2.404 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 7. Anthropic Infosys
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/anthropic-infosys
+- Score: 1.838 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. India Brief Economic Index
@@ -50,22 +50,22 @@ Focus: AI Platform Engineering
 - Score: 2.237 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 9. [AINews] Qwen3.5-397B-A17B: the smallest Open-Opus class, very efficient model
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-qwen35-397b-a17b-the-smallest
-- Score: 2.003 | Reliability: 1.0
+## 9. Use What You Know: Causal Foundation Models with Partial Graphs
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.14972v1
+- Score: 2.191 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 10. Anthropic Infosys
+## 10. Bengaluru Office Partnerships Across India
 - Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/anthropic-infosys
-- Score: 0.639 | Reliability: 1.0
-- Why it matters: Generic partnership PR; no technical depth, engineering details, or concrete deliverables for coding automation.
+- URL: https://www.anthropic.com/news/bengaluru-office-partnerships-across-india
+- Score: 1.582 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 11. Distributed Quantum Gaussian Processes for Multi-Agent Systems
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.15006v1
-- Score: 2.022 | Reliability: 1.0
+## 11. [AINews] Qwen3.5-397B-A17B: the smallest Open-Opus class, very efficient model
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-qwen35-397b-a17b-the-smallest
+- Score: 2.002 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. v0.1.37
@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. rust-v0.102.0-alpha.10
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.102.0-alpha.10
-- Score: 1.689 | Reliability: 1.0
+- Score: 1.688 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. v2.1.41
@@ -85,9 +85,3 @@ Focus: AI Platform Engineering
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.41
 - Score: 1.651 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 15. Bengaluru Office Partnerships Across India
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/bengaluru-office-partnerships-across-india
-- Score: 0.382 | Reliability: 1.0
-- Why it matters: Pure corporate/operational news; zero relevance to agentic coding, eval frameworks, or production LLM infra.
