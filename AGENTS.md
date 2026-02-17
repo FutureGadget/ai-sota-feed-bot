@@ -40,6 +40,11 @@ When implementing a feature:
 3. If data model changes, update `docs/generated/db-schema.md`.
 4. If you add a new documentation category (new subdirectory under `docs/`), add it to the Repository Structure Index in this file and link it from README where relevant.
 
+## Project Memory Rule (Working Directory Scope)
+- While working in this repository, treat this `AGENTS.md` as mandatory context before making changes.
+- Keep a running decision log in `docs/design-docs/decision-log.md` for architecture/ranking/publishing choices.
+- For each non-trivial change, write a short ADR-style entry: date, decision, rationale, impact, rollback plan.
+
 ## Engineering Guardrails
 - Keep workflows idempotent and observable.
 - Fail gracefully when optional integrations are missing (e.g., Telegram secrets).
