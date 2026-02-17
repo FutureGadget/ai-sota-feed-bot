@@ -5,13 +5,13 @@ Focus: AI Platform Engineering
 ## 1. Two new Showboat tools: Chartroom and datasette-showboat
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/chartroom-and-datasette-showboat/#atom-everything
-- Score: 4.502 | Reliability: 1.0
+- Score: 4.501 | Reliability: 1.0
 - Why it matters: Direct harness for coding agent output visibility; proven patterns for agent-driven documentation, charting, and feedback loops.
 
 ## 2. Agent-evals: Overlap, boundary, and metacognitive scoring for coding agents
 - Type: news | Source: hackernews_ai
 - URL: https://thinkwright.ai/agent-evals
-- Score: 3.335 | Reliability: 1.0
+- Score: 3.332 | Reliability: 1.0
 - Why it matters: Core eval methodology for agents; limited concrete evidence without excerpt; needs reproducible benchmarks and code samples.
 
 ## 3. Rodney and Claude Code for Desktop
@@ -23,7 +23,7 @@ Focus: AI Platform Engineering
 ## 4. Google Explores Scaling Principles for Multi-agent Coordination
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/google-agent-scaling-principles/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.586 | Reliability: 1.0
+- Score: 2.585 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Neuromem: A Granular Decomposition of the Streaming Lifecycle in External Memory for LLMs
@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. Article: Architecting Agentic MLOps: A Layered Protocol Strategy with A2A and MCP
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/architecting-agentic-mlops-a2a-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.416 | Reliability: 1.0
+- Score: 2.415 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. When Benchmarks Lie: Evaluating Malicious Prompt Classifiers Under True Distribution Shift
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Bengaluru Office Partnerships Across India
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/bengaluru-office-partnerships-across-india
-- Score: 0.419 | Reliability: 1.0
+- Score: 0.418 | Reliability: 1.0
 - Why it matters: Office/partnership announcement; zero relevance to agentic coding, evals, inference, or platform delivery automation.
 
 ## 10. India Brief Economic Index
@@ -71,7 +71,7 @@ Focus: AI Platform Engineering
 ## 12. v2.1.44
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.44
-- Score: 1.672 | Reliability: 1.0
+- Score: 1.671 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. Index Light, Reason Deep: Deferred Visual Ingestion for Visual-Dense Document Question Answering
