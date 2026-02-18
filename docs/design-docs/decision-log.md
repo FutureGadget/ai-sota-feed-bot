@@ -39,3 +39,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Anonymous stable device ID (`anon_user_id`) + per-tab session ID enables usable behavioral signals without user friction.
 - **Impact:** Feed render now posts batched impressions; item link clicks emit click events to `/api/events`.
 - **Rollback / Alternative:** Disable client tracking calls and keep static ranking only.
+
+## 2026-02-18
+- **Decision:** Deduplicate impressions by run scope in event ID generation.
+- **Context / Problem:** Re-renders were emitting repeated impressions for the same user/item/run and inflating counts.
+- **Rationale:** For feed ranking signals, one impression per user-item-run is usually the right granularity.
+- **Impact:** Impression `event_id` now ignores per-render timestamp and keys on `anon_user_id + item_id + run_id` (day fallback if run_id absent).
+- **Rollback / Alternative:** Keep timestamp-sensitive IDs and handle dedupe only in analytics query layer.

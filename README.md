@@ -43,6 +43,7 @@ Set Vercel env vars:
 
 Then send telemetry events to `POST /api/events` with either a single event object or `{ "events": [...] }`.
 Supported `event_type`: `impression`, `click`, `open`, `dismiss`, `save`.
+Impression dedupe: same `anon_user_id + item_id + run_id` (or same day fallback when `run_id` missing) is stored once.
 
 Current web app behavior:
 - Generates anonymous `anon_user_id` in localStorage (no login)

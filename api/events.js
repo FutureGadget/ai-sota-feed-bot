@@ -27,6 +27,21 @@ function asInt(v) {
 }
 
 function deriveEventId(e) {
+  // Dedup impressions aggressively within the same run (or same day fallback)
+  // to avoid repeated UI re-render floods.
+  if (e.event_type === 'impression') {
+    const scope = e.run_id || String(e.ts || '').slice(0, 10);
+    const base = [
+      e.anon_user_id || '',
+      e.event_type || '',
+      e.item_id || '',
+      e.url || '',
+      scope,
+    ].join('::');
+    return crypto.createHash('sha256').update(base).digest('hex').slice(0, 24);
+  }
+
+  // Keep click/open-like events time-sensitive so repeated explicit actions are preserved.
   const base = [
     e.anon_user_id || '',
     e.session_id || '',
