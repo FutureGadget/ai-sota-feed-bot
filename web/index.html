@@ -388,16 +388,32 @@
         const ph = cfg?.posthog || {};
         if (!ph.enabled || !ph.project_api_key) return;
 
-        await new Promise((resolve, reject) => {
-          const s = document.createElement('script');
-          s.src = 'https://unpkg.com/posthog-js@1/dist/module.no-external.js';
-          s.async = true;
-          s.onload = resolve;
-          s.onerror = reject;
-          document.head.appendChild(s);
-        });
+        (function(document, posthog){
+          if (posthog.__SV) return;
+          window.posthog = posthog;
+          posthog._i = posthog._i || [];
+          posthog.__SV = 1;
+          posthog.init = function(apiKey, options, name){
+            const target = name ? (posthog[name] = []) : posthog;
+            target.people = target.people || [];
+            const methods = ['capture','identify','alias','people.set','people.set_once','register','register_once','unregister','reset','isFeatureEnabled'];
+            const factory = function(method){
+              return function(){
+                target.push([method].concat(Array.prototype.slice.call(arguments, 0)));
+              };
+            };
+            for (const m of methods) {
+              const parts = m.split('.');
+              if (parts.length === 2) {
+                target[parts[0]][parts[1]] = factory(m);
+              } else {
+                target[m] = factory(m);
+              }
+            }
+            posthog._i.push([apiKey, options, name]);
+          };
+        })(document, window.posthog || []);
 
-        if (!window.posthog) return;
         window.posthog.init(ph.project_api_key, {
           api_host: ph.host || 'https://us.i.posthog.com',
           person_profiles: 'identified_only',
@@ -405,16 +421,26 @@
           capture_pageview: false,
           capture_pageleave: true,
           persistence: 'localStorage+cookie',
-          loaded: (posthog) => {
+          loaded: (sdk) => {
             const anon = getAnonUserId();
-            posthog.identify(anon);
-            posthog.capture('page_view', {
+            sdk.identify(anon);
+            sdk.capture('page_view', {
               path: window.location.pathname,
               referrer: document.referrer || null,
             });
+            window.__posthogEnabled = true;
           },
         });
-        window.__posthogEnabled = true;
+
+        if (!document.getElementById('posthog-array-js')) {
+          const s = document.createElement('script');
+          s.id = 'posthog-array-js';
+          s.async = true;
+          s.crossOrigin = 'anonymous';
+          s.src = (ph.host || 'https://us.i.posthog.com').replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js';
+          s.onerror = () => console.debug('posthog_loader_failed');
+          document.head.appendChild(s);
+        }
       } catch (e) {
         console.debug('posthog_init_failed', e);
       }
