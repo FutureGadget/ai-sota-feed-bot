@@ -2,98 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: Agent Audit Kit v0.1 – deterministic replay + stress for LLM agents
+## 1. Show HN: GhostTrace – See rejected decisions in AI agents
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/helpfuldolphin/AgentAuditKit/releases/tag/aak-v0.1.0-e3
-- Score: 3.53 | Reliability: 1.0
-- Why it matters: Directly addresses agent harness/eval gap; deterministic replay + stress testing are core reliability patterns. Low HN signal (0 comments) limits evidence depth.
+- URL: https://github.com/AhmedAllam0/ghosttrace
+- Score: 3.237 | Reliability: 1.0
+- Why it matters: Directly addresses agent harness/eval gap (decision visibility); framework-agnostic, pip-installable; limited production validation yet.
 
 ## 2. Introducing Claude Sonnet 4.6
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/claude-sonnet-46/#atom-everything
-- Score: 2.984 | Reliability: 1.0
+- Score: 2.979 | Reliability: 1.0
 - Why it matters: Pricing parity with stronger model is actionable for cost optimization, but limited agentic-specific improvements documented; primarily an economics play.
 
 ## 3. Qwen3.5: Towards Native Multimodal Agents
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/qwen35/#atom-everything
-- Score: 2.729 | Reliability: 1.0
+- Score: 2.726 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Moonshot AI Releases Open-Weight Kimi K2.5 Model with Vision and Agent Swarm Capabilities
 - Type: release | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/kimi-k25-swarm/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.577 | Reliability: 1.0
+- Score: 2.573 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Learning to Retrieve Navigable Candidates for Efficient Vision-and-Language Navigation
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.15724v1
-- Score: 2.697 | Reliability: 1.0
+- Score: 2.695 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Does AI Make the Agile Manifesto Obsolete?
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/ai-agile-manifesto-debate/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.23 | Reliability: 1.0
+- Score: 2.226 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. India Brief Economic Index
+## 7. Under-resourced studies of under-resourced languages: lemmatization and POS-tagging with LLM annotators for historical Armenian, Georgian, Greek and Syriac
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2602.15753v1
+- Score: 2.278 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 8. India Brief Economic Index
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/india-brief-economic-index
-- Score: 2.23 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 8. Neural Network-Based Parameter Estimation of a Labour Market Agent-Based Model
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2602.15572v1
-- Score: 2.225 | Reliability: 1.0
+- Score: 2.228 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Claude Sonnet 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-sonnet-4-6
-- Score: 1.754 | Reliability: 1.0
+- Score: 1.747 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Claude Opus 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-opus-4-6
-- Score: 1.754 | Reliability: 1.0
+- Score: 1.747 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 11. 0.103.0
+## 11. Neural Network-Based Parameter Estimation of a Labour Market Agent-Based Model
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2602.15572v1
+- Score: 2.223 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 12. 0.103.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.103.0
-- Score: 2.083 | Reliability: 1.0
+- Score: 2.076 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 12. [AINews] Qwen3.5-397B-A17B: the smallest Open-Opus class, very efficient model
+## 13. [AINews] Qwen3.5-397B-A17B: the smallest Open-Opus class, very efficient model
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-qwen35-397b-a17b-the-smallest
-- Score: 1.938 | Reliability: 1.0
+- Score: 1.935 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 13. v2.1.45
+## 14. v2.1.45
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.45
-- Score: 1.927 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 14. v0.1.37
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.37
-- Score: 1.752 | Reliability: 1.0
+- Score: 1.919 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. NVIDIA Nemotron 2 Nano 9B Japanese: 日本のソブリンAIを支える最先端小規模言語モデル
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/nemotron-nano-9b-v2-japanese-ja
-- Score: 1.834 | Reliability: 1.0
+- Score: 1.832 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 16. *-PLUIE: Personalisable metric with Llm Used for Improved Evaluation
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2602.15778v1
-- Score: 1.728 | Reliability: 1.0
+## 16. v0.1.37
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.37
+- Score: 1.747 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
