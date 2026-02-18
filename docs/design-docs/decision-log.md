@@ -60,3 +60,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** A dedicated skill/script makes future boost testing fast and consistent.
 - **Impact:** Added `skills/personalization-boost-testing/` with a smoke script that sets envs, deploys, verifies debug feed output, and checks Turso event totals.
 - **Rollback / Alternative:** Keep manual ad-hoc testing commands only.
+
+## 2026-02-18
+- **Decision:** Introduce Tier-1 fast data lane as Phase-1 migration step (without changing Tier-0 publish flow yet).
+- **Context / Problem:** Full runs are too slow/costly for higher freshness cadence; we need faster updates without LLM/publish overhead.
+- **Rationale:** Separate cheap, frequent ingest+quick-score artifacts from slower decorated Tier-0 processing.
+- **Impact:** Added `pipeline/build_tier1.py` and `run_tier1_fast.sh` to produce `data/tier1/latest.json` plus run snapshots/index.
+- **Rollback / Alternative:** Keep single-lane pipeline and adjust cron frequency only.

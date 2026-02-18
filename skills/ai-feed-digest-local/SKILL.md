@@ -11,12 +11,15 @@ Run local pipeline from repository root using bundled scripts.
   - `skills/ai-feed-digest-local/scripts/run_full.sh`
 - Run dev pipeline without Telegram publish:
   - `skills/ai-feed-digest-local/scripts/run_dev.sh`
+- Run fast Tier-1 pipeline (ingest + health + quick scoring, no LLM/publish):
+  - `skills/ai-feed-digest-local/scripts/run_tier1_fast.sh`
 
 ## Workflow
 
-1. Run `run_dev.sh` while iterating on scoring/prompts/preferences.
-2. Run `run_full.sh` for end-to-end verification.
-3. Commit and push all relevant changes after successful local validation:
+1. Run `run_tier1_fast.sh` for fast freshness updates and lightweight sanity checks.
+2. Run `run_dev.sh` while iterating on scoring/prompts/preferences.
+3. Run `run_full.sh` for end-to-end verification.
+4. Commit and push all relevant changes after successful local validation:
    - `git add ... && git commit -m "..." && git push`
 
 ## Notes
