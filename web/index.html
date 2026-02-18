@@ -198,6 +198,10 @@
           <label for="limit">Max items</label>
           <input id="limit" name="limit" type="number" min="1" max="500" value="200" />
         </div>
+        <div>
+          <label for="labelFilter">Labels</label>
+          <select id="labelFilter" name="label" multiple size="4"></select>
+        </div>
         <div class="actions">
           <button type="submit">Apply</button>
           <button id="clearFilters" type="button">Clear</button>
@@ -271,6 +275,28 @@
       setDateRangeDays(7);
     }
 
+    function getSelectedLabels() {
+      const sel = document.getElementById('labelFilter');
+      if (!sel) return [];
+      return [...sel.selectedOptions].map(o => o.value).filter(Boolean);
+    }
+
+    function syncLabelOptions(available) {
+      const sel = document.getElementById('labelFilter');
+      if (!sel) return;
+      const selected = new Set(getSelectedLabels());
+      const labels = Array.isArray(available) ? available : [];
+
+      sel.innerHTML = labels.map((x) => {
+        const v = String(x?.label || '').trim();
+        const c = Number(x?.count || 0);
+        if (!v) return '';
+        const safe = esc(v);
+        const mark = selected.has(v) ? ' selected' : '';
+        return `<option value="${safe}"${mark}>${safe} (${c})</option>`;
+      }).join('');
+    }
+
     function buildFeedUrl() {
       const fromDate = document.getElementById('fromDate')?.value || '';
       const toDate = document.getElementById('toDate')?.value || '';
@@ -278,10 +304,12 @@
       const to = toIsoDateEnd(toDate);
       const limit = document.getElementById('limit')?.value || '200';
       const anon = getAnonUserId();
+      const labels = getSelectedLabels();
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
       if (to) u.searchParams.set('to', to);
       if (limit) u.searchParams.set('limit', limit);
+      for (const l of labels) u.searchParams.append('label', l);
       if (anon) u.searchParams.set('anon_user_id', anon);
       return u.pathname + u.search;
     }
@@ -351,13 +379,18 @@
       const items = data.items || [];
       const runs = data.runs || [];
       const tier1Blend = data.tier1_blend || null;
+      const availableLabels = data.available_labels || [];
+      const selectedLabels = getSelectedLabels();
       const anonUserId = getAnonUserId();
       const sessionId = getSessionId();
       const runId = runs?.[0]?.run_at || null;
 
+      syncLabelOptions(availableLabels);
+
       const freshAdded = Number(tier1Blend?.fresh_added || 0);
       const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
-      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}`;
+      const labelNote = selectedLabels.length ? ` · labels: ${selectedLabels.join(', ')}` : '';
+      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}${labelNote}`;
 
       if (!items.length) {
         list.innerHTML = `<div class="state">No items for that date/time range. Try widening the window.</div>`;
@@ -378,6 +411,7 @@
         const image = safeUrl(it.image_url || '');
         const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
         const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
+        const labels = Array.isArray(it.labels) ? it.labels.slice(0, 3).map(v => esc(v)) : [];
 
         return `
         <article>
@@ -388,6 +422,7 @@
             <span class="badge">${type}</span>
             ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh (awaiting deep rank)</span>` : ''}
             ${maturity ? `<span class="badge">${maturity}</span>` : ''}
+            ${labels.map(l => `<span class="badge">#${l}</span>`).join('')}
             ${seenText ? `<span class="badge">Last seen: ${seenText}</span>` : ''}
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
@@ -437,6 +472,7 @@
       const form = document.getElementById('filters');
       const clearBtn = document.getElementById('clearFilters');
       const presets = document.getElementById('presets');
+      const labelSel = document.getElementById('labelFilter');
       if (!form) return;
 
       form.addEventListener('submit', (e) => {
@@ -459,10 +495,20 @@
         });
       });
 
+      labelSel?.addEventListener('change', () => {
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
       clearBtn?.addEventListener('click', () => {
         document.getElementById('fromDate').value = '';
         document.getElementById('toDate').value = '';
         document.getElementById('limit').value = '200';
+        const labelSel = document.getElementById('labelFilter');
+        if (labelSel) [...labelSel.options].forEach(o => { o.selected = false; });
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
           document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;

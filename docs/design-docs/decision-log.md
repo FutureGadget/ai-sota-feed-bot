@@ -151,3 +151,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** A structured summary improves day-to-day operations and helps tune skip/cooldown behavior safely.
 - **Impact:** Added `pipeline/ops_daily_summary.py` and `skills/ops-daily-summary/` with a one-command runbook.
 - **Rollback / Alternative:** Continue ad-hoc checks from raw files and cron transcripts.
+
+## 2026-02-18
+- **Decision:** Add label-queryable feed API and web label selector for agent/human exploration.
+- **Context / Problem:** Needed better feed queryability without forcing users/agents to parse full payloads manually.
+- **Rationale:** Label-based filtering is simple, explainable, and useful across both API consumers and UI users.
+- **Impact:** `/api/feed` now supports `label` query filters (multi-select via repeated params or CSV), returns `available_labels` counts, and enriches items with derived `labels`; web UI now exposes multi-select label filter and renders label badges.
+- **Rollback / Alternative:** Remove label filter path and rely on date/range-only filtering.

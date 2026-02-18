@@ -145,6 +145,47 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   return { items: merged, added: picked.length };
 }
 
+function labelsFromItem(it) {
+  const labels = new Set();
+
+  const add = (v) => {
+    const s = String(v || '').trim().toLowerCase();
+    if (!s) return;
+    labels.add(s);
+  };
+
+  add(it?.llm_category);
+  add(it?.v2_slot);
+  add(it?.type);
+
+  return [...labels];
+}
+
+function parseLabelFilters(query) {
+  const raw = query?.label ?? query?.labels ?? '';
+  const arr = Array.isArray(raw) ? raw : String(raw).split(',');
+  return [...new Set(arr.map((s) => String(s || '').trim().toLowerCase()).filter(Boolean))];
+}
+
+function applyLabelFilter(items, selectedLabels) {
+  if (!selectedLabels?.length) return items;
+  const selected = new Set(selectedLabels);
+  return items.filter((it) => labelsFromItem(it).some((l) => selected.has(l)));
+}
+
+function summarizeLabels(items, max = 30) {
+  const counts = new Map();
+  for (const it of items) {
+    for (const l of labelsFromItem(it)) {
+      counts.set(l, Number(counts.get(l) || 0) + 1);
+    }
+  }
+  return [...counts.entries()]
+    .sort((a, b) => (b[1] - a[1]) || a[0].localeCompare(b[0]))
+    .slice(0, Math.max(1, max))
+    .map(([label, count]) => ({ label, count }));
+}
+
 function accumulateItems(runs) {
   const byKey = new Map();
 
@@ -206,6 +247,7 @@ export default async function handler(req, res) {
     const from = toIso(req.query?.from);
     const to = toIso(req.query?.to);
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(req.query?.limit || '200'), 10) || 200));
+    const selectedLabels = parseLabelFilters(req.query);
     const anonUserId = String(req.headers['x-anon-user-id'] || req.query?.anon_user_id || '').trim();
     const debugPersonalization = String(req.query?.debug_personalization || '') === '1';
     const blendTier1 = String(req.query?.blend_tier1 ?? '1') !== '0';
@@ -218,14 +260,17 @@ export default async function handler(req, res) {
 
     // Backward-compatible latest view when no historical runs are available.
     if (!runs.length) {
-      const baseItems = readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1 }));
-      const pz = await personalizeItems(baseItems, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
+      const allItems = readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }));
+      const availableLabels = summarizeLabels(allItems);
+      const filteredBase = applyLabelFilter(allItems, selectedLabels);
+      const pz = await personalizeItems(filteredBase, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
       return res.status(200).json({
         mode: 'latest',
         date: new Date().toISOString(),
-        filters: { from, to, limit },
+        filters: { from, to, limit, labels: selectedLabels },
         runs: [],
         items: pz.items,
+        available_labels: availableLabels,
         personalization: pz.diagnostics,
       });
     }
@@ -248,14 +293,19 @@ export default async function handler(req, res) {
         })
       : { items: baseItems, added: 0 };
 
-    const pz = await personalizeItems(merged.items, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
+    const mergedWithLabels = merged.items.map((it) => ({ ...it, labels: labelsFromItem(it) }));
+    const availableLabels = summarizeLabels(mergedWithLabels);
+    const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
+
+    const pz = await personalizeItems(filteredMerged, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
 
     return res.status(200).json({
       mode: 'history',
       date: new Date().toISOString(),
-      filters: { from, to, limit },
+      filters: { from, to, limit, labels: selectedLabels },
       runs: runSummaries,
       items: pz.items,
+      available_labels: availableLabels,
       personalization: pz.diagnostics,
       tier1_blend: {
         enabled: blendTier1,
