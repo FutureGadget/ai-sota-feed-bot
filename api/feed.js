@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { personalizeItems } from '../lib/personalization.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -136,23 +137,27 @@ function accumulateItems(runs) {
   });
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   try {
     const from = toIso(req.query?.from);
     const to = toIso(req.query?.to);
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(req.query?.limit || '200'), 10) || 200));
+    const anonUserId = String(req.headers['x-anon-user-id'] || req.query?.anon_user_id || '').trim();
+    const debugPersonalization = String(req.query?.debug_personalization || '') === '1';
 
     const runs = readRuns();
 
     // Backward-compatible latest view when no historical runs are available.
     if (!runs.length) {
-      const items = readLatest().slice(0, limit).map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1 }));
+      const baseItems = readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1 }));
+      const pz = await personalizeItems(baseItems, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
       return res.status(200).json({
         mode: 'latest',
         date: new Date().toISOString(),
         filters: { from, to, limit },
         runs: [],
-        items,
+        items: pz.items,
+        personalization: pz.diagnostics,
       });
     }
 
@@ -162,14 +167,16 @@ export default function handler(req, res) {
       item_count: r.item_count ?? (r.items || []).length,
     }));
 
-    const items = accumulateItems(filteredRuns).slice(0, limit);
+    const baseItems = accumulateItems(filteredRuns);
+    const pz = await personalizeItems(baseItems, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
 
     return res.status(200).json({
       mode: 'history',
       date: new Date().toISOString(),
       filters: { from, to, limit },
       runs: runSummaries,
-      items,
+      items: pz.items,
+      personalization: pz.diagnostics,
     });
   } catch (e) {
     res.status(500).json({ error: 'feed_read_failed', detail: String(e) });

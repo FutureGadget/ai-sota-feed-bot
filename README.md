@@ -51,6 +51,12 @@ Current web app behavior:
 - Sends batched `impression` events on feed render
 - Sends `click` events when opening an item link
 
+Personalized feed API (v1):
+- Send `X-Anon-User-Id` header (or `anon_user_id` query) to `/api/feed`
+- Optional debug: `debug_personalization=1`
+- Modes via env: `PERSONALIZATION_MODE=off|shadow|active` (default `shadow`)
+- Useful knobs: `PERSONALIZATION_DAYS`, `PERSONALIZATION_W_SOURCE`, `PERSONALIZATION_W_TOPIC`, `PERSONALIZATION_CAP`, `PERSONALIZATION_MIN_IMPRESSIONS`, `PERSONALIZATION_MIN_CLICKS`, `PERSONALIZATION_EXPLORATION`
+
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install

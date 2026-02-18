@@ -46,3 +46,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** For feed ranking signals, one impression per user-item-run is usually the right granularity.
 - **Impact:** Impression `event_id` now ignores per-render timestamp and keys on `anon_user_id + item_id + run_id` (day fallback if run_id absent).
 - **Rollback / Alternative:** Keep timestamp-sensitive IDs and handle dedupe only in analytics query layer.
+
+## 2026-02-18
+- **Decision:** Add feed API personalization layer with source-first + topic-second boost in shadow mode by default.
+- **Context / Problem:** Need click-based personalization without changing offline digest generation immediately.
+- **Rationale:** Applying personalization in `/api/feed` allows fast iteration, safe rollback, and per-user behavior without affecting publishing pipeline.
+- **Impact:** `/api/feed` now accepts `X-Anon-User-Id` (or `anon_user_id`) and returns personalization diagnostics; order changes only when `PERSONALIZATION_MODE=active`.
+- **Rollback / Alternative:** Set `PERSONALIZATION_MODE=off` and feed reverts to baseline ranking.

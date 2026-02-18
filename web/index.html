@@ -271,10 +271,12 @@
       const from = toIsoDateStart(fromDate);
       const to = toIsoDateEnd(toDate);
       const limit = document.getElementById('limit')?.value || '200';
+      const anon = getAnonUserId();
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
       if (to) u.searchParams.set('to', to);
       if (limit) u.searchParams.set('limit', limit);
+      if (anon) u.searchParams.set('anon_user_id', anon);
       return u.pathname + u.search;
     }
 
