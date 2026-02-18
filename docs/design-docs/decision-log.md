@@ -53,3 +53,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Applying personalization in `/api/feed` allows fast iteration, safe rollback, and per-user behavior without affecting publishing pipeline.
 - **Impact:** `/api/feed` now accepts `X-Anon-User-Id` (or `anon_user_id`) and returns personalization diagnostics; order changes only when `PERSONALIZATION_MODE=active`.
 - **Rollback / Alternative:** Set `PERSONALIZATION_MODE=off` and feed reverts to baseline ranking.
+
+## 2026-02-18
+- **Decision:** Standardize a reusable personalization QA skill and use low-threshold active mode for test cycles.
+- **Context / Problem:** Repeated manual env toggling and verification was error-prone and slow.
+- **Rationale:** A dedicated skill/script makes future boost testing fast and consistent.
+- **Impact:** Added `skills/personalization-boost-testing/` with a smoke script that sets envs, deploys, verifies debug feed output, and checks Turso event totals.
+- **Rollback / Alternative:** Keep manual ad-hoc testing commands only.
