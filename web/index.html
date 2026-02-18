@@ -295,6 +295,44 @@
       return '#';
     }
 
+    function randomId(prefix = 'id') {
+      if (window.crypto?.randomUUID) return `${prefix}_${window.crypto.randomUUID()}`;
+      return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now()}`;
+    }
+
+    function getAnonUserId() {
+      const key = 'ai_feed_anon_user_id';
+      let v = localStorage.getItem(key);
+      if (!v) {
+        v = randomId('anon');
+        localStorage.setItem(key, v);
+      }
+      return v;
+    }
+
+    function getSessionId() {
+      const key = 'ai_feed_session_id';
+      let v = sessionStorage.getItem(key);
+      if (!v) {
+        v = randomId('sess');
+        sessionStorage.setItem(key, v);
+      }
+      return v;
+    }
+
+    async function sendEvents(events) {
+      if (!events?.length) return;
+      try {
+        await fetch('/api/events', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ events }),
+          keepalive: true,
+        });
+      } catch (e) {
+        console.debug('event_send_failed', e);
+      }
+    }
 
     async function run() {
       const list = document.getElementById('list');
@@ -304,6 +342,10 @@
       const data = await res.json();
       const items = data.items || [];
       const runs = data.runs || [];
+      const anonUserId = getAnonUserId();
+      const sessionId = getSessionId();
+      const runId = runs?.[0]?.run_at || null;
+
       document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range`;
 
       if (!items.length) {
@@ -322,11 +364,12 @@
         const seenText = seen ? esc(seen) : '';
         const href = safeUrl(it.url);
         const image = safeUrl(it.image_url || '');
+        const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
 
         return `
         <article>
           ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
-          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
+          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${i + 1}" data-run-id="${esc(runId || '')}" data-title="${title}">${title}</a></h3>
           <div class="meta-row">
             <span class="badge">${source}</span>
             <span class="badge">${type}</span>
@@ -336,6 +379,44 @@
           ${summary ? `<p class="why">${summary}</p>` : ''}
         </article>`;
       }).join('');
+
+      const impressions = items.slice(0, 200).map((it, i) => ({
+        anon_user_id: anonUserId,
+        session_id: sessionId,
+        event_type: 'impression',
+        item_id: it.id || `${it.url || ''}::${it.title || ''}`,
+        title: it.title || '',
+        url: it.url || '',
+        source: it.source || '',
+        rank_position: i + 1,
+        run_id: runId,
+        ts: new Date().toISOString(),
+      }));
+      sendEvents(impressions);
+    }
+
+    function initClickTracking() {
+      const list = document.getElementById('list');
+      if (!list) return;
+
+      list.addEventListener('click', (e) => {
+        const a = e.target.closest('a[data-track="item-link"]');
+        if (!a) return;
+
+        const event = {
+          anon_user_id: getAnonUserId(),
+          session_id: getSessionId(),
+          event_type: 'click',
+          item_id: a.dataset.itemId || null,
+          title: a.dataset.title || null,
+          url: a.getAttribute('href') || null,
+          source: a.dataset.source || null,
+          rank_position: Number(a.dataset.rank || 0) || null,
+          run_id: a.dataset.runId || null,
+          ts: new Date().toISOString(),
+        };
+        sendEvents([event]);
+      });
     }
 
     function initFilters() {
@@ -379,6 +460,7 @@
     initThemeToggle();
     setDefaultFilterWindow();
     initFilters();
+    initClickTracking();
     run().catch(err => {
       document.getElementById('meta').textContent = 'Feed unavailable';
       document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;

@@ -44,6 +44,12 @@ Set Vercel env vars:
 Then send telemetry events to `POST /api/events` with either a single event object or `{ "events": [...] }`.
 Supported `event_type`: `impression`, `click`, `open`, `dismiss`, `save`.
 
+Current web app behavior:
+- Generates anonymous `anon_user_id` in localStorage (no login)
+- Generates per-tab `session_id` in sessionStorage
+- Sends batched `impression` events on feed render
+- Sends `click` events when opening an item link
+
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install
