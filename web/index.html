@@ -199,8 +199,22 @@
           <input id="limit" name="limit" type="number" min="1" max="500" value="200" />
         </div>
         <div>
-          <label for="labelFilter">Labels</label>
-          <select id="labelFilter" name="label" multiple size="4"></select>
+          <label>Labels</label>
+          <ot-dropdown>
+            <button type="button" id="labelPickerBtn" popovertarget="labelPicker" class="outline">Choose labels</button>
+            <article class="card" id="labelPicker" popover style="min-width: 280px; max-width: 420px; max-height: 320px; overflow:auto; padding: 0.75rem;">
+              <div data-field>
+                <label for="labelSearch">Search labels</label>
+                <input id="labelSearch" type="text" placeholder="Type to filter labels" />
+              </div>
+              <div id="labelOptions" style="display:grid; gap:0.35rem; margin-top:0.5rem;"></div>
+              <footer style="display:flex; justify-content:space-between; margin-top:0.75rem;">
+                <button type="button" id="clearLabelsBtn" class="outline small">Clear all</button>
+                <button type="button" id="closeLabelPickerBtn" popovertarget="labelPicker" class="small">Done</button>
+              </footer>
+            </article>
+          </ot-dropdown>
+          <div id="selectedLabels" class="meta-row" style="margin-top:0.5rem;"></div>
         </div>
         <div class="actions">
           <button type="submit">Apply</button>
@@ -275,25 +289,53 @@
       setDateRangeDays(7);
     }
 
+    let selectedLabelsState = new Set();
+
     function getSelectedLabels() {
-      const sel = document.getElementById('labelFilter');
-      if (!sel) return [];
-      return [...sel.selectedOptions].map(o => o.value).filter(Boolean);
+      return [...selectedLabelsState];
+    }
+
+    function setSelectedLabels(values) {
+      selectedLabelsState = new Set((Array.isArray(values) ? values : []).map(v => String(v || '').trim()).filter(Boolean));
+      renderSelectedLabelsChips();
+      updateLabelPickerButton();
+    }
+
+    function updateLabelPickerButton() {
+      const btn = document.getElementById('labelPickerBtn');
+      if (!btn) return;
+      const n = selectedLabelsState.size;
+      btn.textContent = n > 0 ? `Labels (${n})` : 'Choose labels';
+    }
+
+    function renderSelectedLabelsChips() {
+      const box = document.getElementById('selectedLabels');
+      if (!box) return;
+      const labels = getSelectedLabels();
+      if (!labels.length) {
+        box.innerHTML = '';
+        return;
+      }
+      box.innerHTML = labels.map((l) => `<button type="button" class="badge" data-chip-remove="${esc(l)}">#${esc(l)} ×</button>`).join('');
     }
 
     function syncLabelOptions(available) {
-      const sel = document.getElementById('labelFilter');
-      if (!sel) return;
+      const box = document.getElementById('labelOptions');
+      if (!box) return;
       const selected = new Set(getSelectedLabels());
-      const labels = Array.isArray(available) ? available : [];
+      const q = String(document.getElementById('labelSearch')?.value || '').trim().toLowerCase();
+      const labels = (Array.isArray(available) ? available : []).filter((x) => {
+        const v = String(x?.label || '').trim().toLowerCase();
+        return !q || v.includes(q);
+      });
 
-      sel.innerHTML = labels.map((x) => {
+      box.innerHTML = labels.map((x) => {
         const v = String(x?.label || '').trim();
         const c = Number(x?.count || 0);
         if (!v) return '';
         const safe = esc(v);
-        const mark = selected.has(v) ? ' selected' : '';
-        return `<option value="${safe}"${mark}>${safe} (${c})</option>`;
+        const checked = selected.has(v) ? ' checked' : '';
+        return `<label><input type="checkbox" data-label-opt="${safe}" value="${safe}"${checked} /> ${safe} (${c})</label>`;
       }).join('');
     }
 
@@ -380,6 +422,7 @@
       const runs = data.runs || [];
       const tier1Blend = data.tier1_blend || null;
       const availableLabels = data.available_labels || [];
+      window.__availableLabels = availableLabels;
       const selectedLabels = getSelectedLabels();
       const anonUserId = getAnonUserId();
       const sessionId = getSessionId();
@@ -472,7 +515,10 @@
       const form = document.getElementById('filters');
       const clearBtn = document.getElementById('clearFilters');
       const presets = document.getElementById('presets');
-      const labelSel = document.getElementById('labelFilter');
+      const labelOptions = document.getElementById('labelOptions');
+      const labelSearch = document.getElementById('labelSearch');
+      const clearLabelsBtn = document.getElementById('clearLabelsBtn');
+      const selectedLabelsBox = document.getElementById('selectedLabels');
       if (!form) return;
 
       form.addEventListener('submit', (e) => {
@@ -495,7 +541,44 @@
         });
       });
 
-      labelSel?.addEventListener('change', () => {
+      labelSearch?.addEventListener('input', () => {
+        syncLabelOptions(window.__availableLabels || []);
+      });
+
+      labelOptions?.addEventListener('change', (e) => {
+        const input = e.target.closest('input[data-label-opt]');
+        if (!input) return;
+        const next = new Set(getSelectedLabels());
+        const v = String(input.value || '').trim();
+        if (!v) return;
+        if (input.checked) next.add(v);
+        else next.delete(v);
+        setSelectedLabels([...next]);
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
+      clearLabelsBtn?.addEventListener('click', () => {
+        setSelectedLabels([]);
+        syncLabelOptions(window.__availableLabels || []);
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
+      selectedLabelsBox?.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-chip-remove]');
+        if (!btn) return;
+        const v = btn.getAttribute('data-chip-remove') || '';
+        const next = new Set(getSelectedLabels());
+        next.delete(v);
+        setSelectedLabels([...next]);
+        syncLabelOptions(window.__availableLabels || []);
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
           document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
@@ -507,8 +590,9 @@
         document.getElementById('fromDate').value = '';
         document.getElementById('toDate').value = '';
         document.getElementById('limit').value = '200';
-        const labelSel = document.getElementById('labelFilter');
-        if (labelSel) [...labelSel.options].forEach(o => { o.selected = false; });
+        setSelectedLabels([]);
+        document.getElementById('labelSearch').value = '';
+        syncLabelOptions(window.__availableLabels || []);
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
           document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
@@ -519,6 +603,7 @@
 
     initThemeToggle();
     setDefaultFilterWindow();
+    setSelectedLabels([]);
     initFilters();
     initClickTracking();
     run().catch(err => {
