@@ -53,3 +53,6 @@ Run local pipeline from repository root using bundled scripts.
   - `updated_issue=#...`
   - `telegram_sent=true`
   - `FULL_RUN_OK`
+- Incremental no-delta behavior:
+  - `run_full.sh` defaults to `TIER0_INCREMENTAL=1` and `TIER0_INCREMENTAL_SKIP_NO_DELTA=1`.
+  - If no Tier-0 delta is detected, it exits early with `FULL_RUN_NO_DELTA_SKIP=true` and skips publish steps.

@@ -116,3 +116,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Measure delta size every run and enable safe skip behavior behind explicit flag.
 - **Impact:** `build_digest.py` now logs previous processed run time and `delta_items`; optional `TIER0_INCREMENTAL_SKIP_NO_DELTA=1` can skip no-delta rebuilds.
 - **Rollback / Alternative:** Set `TIER0_INCREMENTAL=0` and always run full Tier-0.
+
+## 2026-02-18
+- **Decision:** Enable no-delta skip behavior by default for scheduled full runs.
+- **Context / Problem:** Running publish pipeline with unchanged Tier-0 data wastes compute and causes redundant publishes.
+- **Rationale:** If Tier-0 has no delta, skip publish actions safely and keep schedule for eventual deltas.
+- **Impact:** `run_full.sh` now defaults `TIER0_INCREMENTAL=1` and `TIER0_INCREMENTAL_SKIP_NO_DELTA=1`; when no delta is detected it exits with `FULL_RUN_NO_DELTA_SKIP=true` before issue/telegram publish.
+- **Rollback / Alternative:** Set `TIER0_INCREMENTAL_SKIP_NO_DELTA=0` when invoking `run_full.sh`.
