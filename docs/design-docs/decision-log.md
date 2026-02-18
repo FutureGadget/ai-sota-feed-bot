@@ -144,3 +144,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Keep recent high-resolution history while compacting older runs to one snapshot per day.
 - **Impact:** Added `pipeline/prune_runtime_data.py`; `run_full.sh` now prunes processed/tier1 run snapshots before runtime commit using configurable retention windows.
 - **Rollback / Alternative:** Disable prune step and retain all run snapshots.
+
+## 2026-02-18
+- **Decision:** Add daily ops summary utility + reusable skill for ongoing validation.
+- **Context / Problem:** Needed quick visibility into run cadence, cooldown effects, and lane health without manual log digging.
+- **Rationale:** A structured summary improves day-to-day operations and helps tune skip/cooldown behavior safely.
+- **Impact:** Added `pipeline/ops_daily_summary.py` and `skills/ops-daily-summary/` with a one-command runbook.
+- **Rollback / Alternative:** Continue ad-hoc checks from raw files and cron transcripts.
