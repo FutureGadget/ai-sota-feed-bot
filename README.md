@@ -36,6 +36,14 @@ export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
+## Optional personalization event store (Turso)
+Set Vercel env vars:
+- `TURSO_DATABASE_URL`
+- `TURSO_AUTH_TOKEN`
+
+Then send telemetry events to `POST /api/events` with either a single event object or `{ "events": [...] }`.
+Supported `event_type`: `impression`, `click`, `open`, `dismiss`, `save`.
+
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install

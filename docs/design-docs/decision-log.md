@@ -25,3 +25,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Preserve commit hygiene and prevent accidental blending of manual changes with runtime artifacts.
 - **Impact:** Some runs finish without pushing unless repo is clean first.
 - **Rollback / Alternative:** Remove guard (higher risk), or enforce pre-run clean check.
+
+## 2026-02-18
+- **Decision:** Introduce Turso as persistent event store for no-login personalization telemetry on Vercel.
+- **Context / Problem:** Vercel serverless filesystem is ephemeral, so local SQLite cannot reliably persist click/impression events.
+- **Rationale:** Turso provides SQLite-compatible SQL with persistent remote storage and minimal ops overhead.
+- **Impact:** Added `/api/events` write endpoint with idempotent `event_id` dedupe and schema auto-bootstrap (`feed_events` table + indexes).
+- **Rollback / Alternative:** Move to Vercel Postgres/Neon and port schema/query layer.
