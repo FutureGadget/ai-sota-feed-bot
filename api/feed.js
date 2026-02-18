@@ -88,7 +88,14 @@ function filterRunsByDate(runs, fromIso, toIso) {
   });
 }
 
-function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, freshCap = 8) {
+function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
+  const {
+    freshCap = 4,
+    insertAfter = 3,
+    minQuickScore = 2.6,
+    maxPerSource = 1,
+  } = opts;
+
   if (!Array.isArray(tier1Items) || !tier1Items.length || !deepRunAtIso) {
     return { items: baseItems, added: 0 };
   }
@@ -97,13 +104,15 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, freshCap = 8) {
   if (!deepRunAt) return { items: baseItems, added: 0 };
 
   const byKey = new Set(baseItems.map((it) => `${it.url || ''}::${it.title || ''}`));
+  const sourceCounts = new Map();
 
   const fresh = tier1Items
     .filter((it) => {
       const collected = parseDateMaybe(it?.collected_at);
       const published = parseDateMaybe(it?.published);
       const d = collected || published;
-      return !!d && d > deepRunAt;
+      const quick = Number(it?.tier1_quick_score || 0);
+      return !!d && d > deepRunAt && quick >= minQuickScore;
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
 
@@ -112,7 +121,13 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, freshCap = 8) {
     if (picked.length >= Math.max(0, freshCap)) break;
     const k = `${it.url || ''}::${it.title || ''}`;
     if (!k || byKey.has(k)) continue;
+
+    const src = String(it?.source || 'unknown');
+    const cur = Number(sourceCounts.get(src) || 0);
+    if (cur >= Math.max(1, maxPerSource)) continue;
+
     byKey.add(k);
+    sourceCounts.set(src, cur + 1);
     picked.push({
       ...it,
       first_seen: it.collected_at || it.published || null,
@@ -125,7 +140,9 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, freshCap = 8) {
     });
   }
 
-  return { items: [...picked, ...baseItems], added: picked.length };
+  const at = Math.max(0, Math.min(baseItems.length, Number(insertAfter || 0)));
+  const merged = [...baseItems.slice(0, at), ...picked, ...baseItems.slice(at)];
+  return { items: merged, added: picked.length };
 }
 
 function accumulateItems(runs) {
@@ -190,7 +207,10 @@ export default async function handler(req, res) {
     const anonUserId = String(req.headers['x-anon-user-id'] || req.query?.anon_user_id || '').trim();
     const debugPersonalization = String(req.query?.debug_personalization || '') === '1';
     const blendTier1 = String(req.query?.blend_tier1 ?? '1') !== '0';
-    const tier1FreshCap = Math.max(0, Math.min(50, Number.parseInt(String(req.query?.tier1_fresh_cap || process.env.TIER1_FRESH_CAP || '8'), 10) || 8));
+    const tier1FreshCap = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_fresh_cap || process.env.TIER1_FRESH_CAP || '4'), 10) || 4));
+    const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_insert_after || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
+    const tier1MinQuickScore = Number.parseFloat(String(req.query?.tier1_min_quick_score || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
+    const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(req.query?.tier1_max_per_source || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
 
     const runs = readRuns();
 
@@ -217,7 +237,14 @@ export default async function handler(req, res) {
     const baseItems = accumulateItems(filteredRuns);
     const deepRunAt = filteredRuns?.[0]?.run_at || null;
     const tier1Latest = blendTier1 ? readTier1Latest() : [];
-    const merged = blendTier1 ? mergeTier1Fresh(baseItems, tier1Latest, deepRunAt, tier1FreshCap) : { items: baseItems, added: 0 };
+    const merged = blendTier1
+      ? mergeTier1Fresh(baseItems, tier1Latest, deepRunAt, {
+          freshCap: tier1FreshCap,
+          insertAfter: tier1InsertAfter,
+          minQuickScore: tier1MinQuickScore,
+          maxPerSource: tier1MaxPerSource,
+        })
+      : { items: baseItems, added: 0 };
 
     const pz = await personalizeItems(merged.items, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
 
@@ -232,6 +259,12 @@ export default async function handler(req, res) {
         enabled: blendTier1,
         fresh_added: merged.added,
         deep_run_at: deepRunAt,
+        config: {
+          fresh_cap: tier1FreshCap,
+          insert_after: tier1InsertAfter,
+          min_quick_score: tier1MinQuickScore,
+          max_per_source: tier1MaxPerSource,
+        },
       },
     });
   } catch (e) {

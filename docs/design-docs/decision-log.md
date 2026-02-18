@@ -95,3 +95,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Respect source cadence and reduce unnecessary fetches/cost without sacrificing full-run quality.
 - **Impact:** `collect.py` now supports per-source/global poll interval (`poll_interval_minutes` / `COLLECT_DEFAULT_POLL_MINUTES`) and emits `skipped_cooldown`; `run_tier1_fast.sh` uses default 30m cooldown, `run_full.sh` and `run_dev.sh` bypass via `COLLECT_BYPASS_COOLDOWN=1`.
 - **Rollback / Alternative:** Set cooldown minutes to 0 or always bypass cooldown.
+
+## 2026-02-18
+- **Decision:** Tone down Tier-1 fresh dominance with insertion and quality guardrails.
+- **Context / Problem:** Fresh lane was overly dominant when prepended at top with high cap.
+- **Rationale:** Keep freshness visible without destabilizing overall quality ranking.
+- **Impact:** Tier-1 blend now defaults to cap=4, inserts after top-3, enforces minimum quick score, and limits one fresh item per source.
+- **Rollback / Alternative:** Disable blend (`blend_tier1=0`) or restore previous prepend behavior.

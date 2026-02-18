@@ -56,7 +56,8 @@ Personalized feed API (v1):
 - Optional debug: `debug_personalization=1`
 - Modes via env: `PERSONALIZATION_MODE=off|shadow|active` (default `shadow`)
 - Useful knobs: `PERSONALIZATION_DAYS`, `PERSONALIZATION_W_SOURCE`, `PERSONALIZATION_W_TOPIC`, `PERSONALIZATION_CAP`, `PERSONALIZATION_MIN_IMPRESSIONS`, `PERSONALIZATION_MIN_CLICKS`, `PERSONALIZATION_EXPLORATION`
-- Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 8)
+- Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
+- Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
 
 Tier-0 input source toggle:
 - `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
