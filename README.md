@@ -66,6 +66,10 @@ Personalized feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
 
+LLM discovery endpoints:
+- `/llms.txt` (LLM-oriented site map + API usage notes)
+- `/llm-guide.txt` (deeper instructions for feed navigation/debugging)
+
 Tier-0 input source toggle:
 - `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
 - Incremental diagnostics toggle: `TIER0_INCREMENTAL=1` (default on)
