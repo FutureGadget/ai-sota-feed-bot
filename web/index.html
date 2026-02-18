@@ -83,19 +83,29 @@
       gap: 0.5rem;
       flex-wrap: wrap;
     }
+    .filter-control {
+      width: 100%;
+      min-height: 56px;
+    }
     .label-filter {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
+    }
+    #labelPickerWrap {
+      display: block;
+      width: 100%;
     }
     .label-filter #labelPickerBtn {
       width: 100%;
-      min-height: 52px;
+      min-height: 56px;
       padding: 0.65rem 0.9rem;
       text-align: left;
       display: inline-flex;
       align-items: center;
       justify-content: flex-start;
+      margin: 0;
+      line-height: 1.2;
+      font-size: 16px;
     }
     #list {
       display: grid;
@@ -202,20 +212,20 @@
       <form id="filters" class="filters">
         <div>
           <label for="fromDate">From date</label>
-          <input id="fromDate" name="from" type="date" />
+          <input id="fromDate" name="from" type="date" class="filter-control" />
         </div>
         <div>
           <label for="toDate">To date</label>
-          <input id="toDate" name="to" type="date" />
+          <input id="toDate" name="to" type="date" class="filter-control" />
         </div>
         <div>
           <label for="limit">Max items</label>
-          <input id="limit" name="limit" type="number" min="1" max="500" value="200" />
+          <input id="limit" name="limit" type="number" min="1" max="500" value="200" class="filter-control" />
         </div>
         <div class="label-filter">
           <label>Labels</label>
           <ot-dropdown id="labelPickerWrap" style="position:relative; display:block;">
-            <button type="button" id="labelPickerBtn" class="outline">Choose labels</button>
+            <button type="button" id="labelPickerBtn" class="outline filter-control">Choose labels</button>
             <article class="card" id="labelPicker" hidden style="position:absolute; z-index:50; top:calc(100% + 6px); right:0; left:auto; width:min(420px, calc(100vw - 1.5rem)); max-height:320px; overflow:auto; padding:0.75rem; box-shadow:0 10px 30px rgba(0,0,0,0.12);">
               <div data-field>
                 <label for="labelSearch">Search labels</label>
