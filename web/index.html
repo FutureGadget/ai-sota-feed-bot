@@ -222,24 +222,6 @@
           <label for="limit">Max items</label>
           <input id="limit" name="limit" type="number" min="1" max="500" value="200" class="filter-control" />
         </div>
-        <div class="label-filter">
-          <label>Labels</label>
-          <ot-dropdown id="labelPickerWrap" style="position:relative; display:block;">
-            <button type="button" id="labelPickerBtn" class="outline filter-control">Choose labels</button>
-            <article class="card" id="labelPicker" hidden style="position:absolute; z-index:50; top:calc(100% + 6px); right:0; left:auto; width:min(420px, calc(100vw - 1.5rem)); max-height:320px; overflow:auto; padding:0.75rem; box-shadow:0 10px 30px rgba(0,0,0,0.12);">
-              <div data-field>
-                <label for="labelSearch">Search labels</label>
-                <input id="labelSearch" type="text" placeholder="Type to filter labels" />
-              </div>
-              <div id="labelOptions" style="display:grid; gap:0.35rem; margin-top:0.5rem;"></div>
-              <footer style="display:flex; justify-content:space-between; margin-top:0.75rem;">
-                <button type="button" id="clearLabelsBtn" class="outline small">Clear all</button>
-                <button type="button" id="closeLabelPickerBtn" class="small">Done</button>
-              </footer>
-            </article>
-          </ot-dropdown>
-          <div id="selectedLabels" class="meta-row" style="margin-top:0.5rem;"></div>
-        </div>
         <div class="actions">
           <button type="submit">Apply</button>
           <button id="clearFilters" type="button">Clear</button>
@@ -641,7 +623,6 @@
         document.getElementById('toDate').value = '';
         document.getElementById('limit').value = '200';
         setSelectedLabels([]);
-        document.getElementById('labelSearch').value = '';
         syncLabelOptions(window.__availableLabels || []);
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
