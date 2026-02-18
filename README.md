@@ -62,6 +62,8 @@ Personalized feed API (v1):
 
 Tier-0 input source toggle:
 - `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
+- Incremental diagnostics toggle: `TIER0_INCREMENTAL=1` (default on)
+- Optional no-delta short-circuit: `TIER0_INCREMENTAL_SKIP_NO_DELTA=1` (default off)
 
 Collector crawl cooldown controls:
 - `COLLECT_DEFAULT_POLL_MINUTES` (default for sources without explicit `poll_interval_minutes`)

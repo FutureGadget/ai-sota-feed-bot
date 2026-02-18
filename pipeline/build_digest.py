@@ -160,6 +160,43 @@ def load_items_for_tier0() -> tuple[list[dict[str, Any]], str, Path]:
         return json.loads(fp.read_text(encoding="utf-8")), "raw_fallback", fp
 
 
+def load_latest_processed_run_at() -> datetime | None:
+    idx_file = ROOT / "data" / "processed" / "runs_index.json"
+    if not idx_file.exists():
+        return None
+    try:
+        idx = json.loads(idx_file.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    if not isinstance(idx, list) or not idx:
+        return None
+    run_at = idx[0].get("run_at")
+    if not run_at:
+        return None
+    try:
+        d = datetime.fromisoformat(str(run_at).replace("Z", "+00:00"))
+        if d.tzinfo is None:
+            d = d.replace(tzinfo=timezone.utc)
+        return d
+    except Exception:
+        return None
+
+
+def parse_item_ts(it: dict[str, Any]) -> datetime | None:
+    for k in ("collected_at", "published"):
+        v = it.get(k)
+        if not v:
+            continue
+        try:
+            d = dt_parser.parse(str(v))
+            if d.tzinfo is None:
+                d = d.replace(tzinfo=timezone.utc)
+            return d
+        except Exception:
+            continue
+    return None
+
+
 def load_source_health() -> dict[str, float]:
     p = ROOT / "data" / "health" / "source_health.json"
     if not p.exists():
@@ -689,6 +726,23 @@ def run():
     profile = load_profile()
     items, input_mode, input_file = load_items_for_tier0()
     print(f"tier0_input_mode={input_mode} file={input_file}")
+
+    incr_enabled = str(os.getenv("TIER0_INCREMENTAL", "1")).strip().lower() in {"1", "true", "yes"}
+    skip_no_delta = str(os.getenv("TIER0_INCREMENTAL_SKIP_NO_DELTA", "0")).strip().lower() in {"1", "true", "yes"}
+    if incr_enabled:
+        prev_run_at = load_latest_processed_run_at()
+        if prev_run_at is None:
+            print("tier0_incremental prev_run_at=none delta_items=unknown")
+        else:
+            delta_count = 0
+            for it in items:
+                d = parse_item_ts(it)
+                if d is not None and d > prev_run_at:
+                    delta_count += 1
+            print(f"tier0_incremental prev_run_at={prev_run_at.isoformat()} delta_items={delta_count} total_items={len(items)}")
+            if skip_no_delta and delta_count == 0:
+                print("tier0_incremental_skip=true reason=no_delta")
+                return
 
     items = dedupe(items)
     items_deduped = list(items)

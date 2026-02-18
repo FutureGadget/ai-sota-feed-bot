@@ -109,3 +109,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Per-item ingest batch identity preserves event lineage under high-frequency ingestion.
 - **Impact:** Collector writes `ingest_batch_id`; feed API carries per-item `run_id`; web impression/click telemetry uses item-level batch/run context.
 - **Rollback / Alternative:** Keep deep-run-only IDs and infer batch lineage heuristically.
+
+## 2026-02-18
+- **Decision:** Add Tier-0 incremental delta diagnostics with optional no-delta short-circuit.
+- **Context / Problem:** Tier-0 still runs full heavy path even when Tier-1 introduces little or no new data.
+- **Rationale:** Measure delta size every run and enable safe skip behavior behind explicit flag.
+- **Impact:** `build_digest.py` now logs previous processed run time and `delta_items`; optional `TIER0_INCREMENTAL_SKIP_NO_DELTA=1` can skip no-delta rebuilds.
+- **Rollback / Alternative:** Set `TIER0_INCREMENTAL=0` and always run full Tier-0.
