@@ -1,0 +1,52 @@
+AI SOTA Feed Bot — LLM Navigation Guide
+
+Purpose
+- This guide explains how an LLM should reliably extract, filter, and summarize content from this site.
+
+1) Entry points
+- Start at: https://ai-sota-feed-bot.vercel.app/api/feed?limit=200
+- Optional RSS fallback: /api/rss
+
+2) Reading strategy
+- Always inspect `runs[0].run_at` first to confirm freshness.
+- Use API fields over HTML scraping whenever possible.
+- Prefer `items[].summary_1line` and `why_it_matters` for concise summaries.
+
+3) Filtering strategy
+A. By label
+- Use `label` repeatedly or `labels` CSV.
+- Useful labels include: platform, release, research, frontier_official, practitioner_analysis, community_signal, research_watch.
+
+B. By source
+- Filter items by `source` field client-side.
+- Common frontier sources:
+  - openai_blog
+  - anthropic_newsroom
+  - anthropic_engineering
+  - claude_blog
+
+C. By time
+- Use `from`/`to` query params in ISO format.
+- If user says "missing", first widen to all-time window and higher limit.
+
+4) Diagnosing "missing item" cases
+Checklist:
+1. Confirm item exists in raw/Tier-1 path (if you have backend access).
+2. Check if homepage preset window excludes it.
+3. Check if Tier-0 ranked output excludes it due to slot caps/diversity constraints.
+4. Confirm production deployment is on latest run (`runs[0].run_at`).
+
+5) Interpreting key fields
+- `tier`: origin lane (often tier1 in merged output)
+- `v2_slot`: slot chosen by ranker (frontier_official, etc.)
+- `v2_final_score`: final ranking score
+- `labels`: derived labels for quick filtering
+- `first_seen` / `last_seen`: recency and persistence across runs
+
+6) Safe output format for end users
+- Prefer short, factual summaries.
+- Include why an item may not be visible (time window vs ranking vs deployment lag).
+- Avoid exposing internal-only debugging details unless requested.
+
+7) Suggested prompt template for downstream LLM tools
+"Fetch /api/feed with a wide window and summarize top items by `v2_final_score`. Group by `v2_slot`, and highlight frontier_official updates. If a requested URL is missing, diagnose by checking date window, slot caps, and production run freshness."

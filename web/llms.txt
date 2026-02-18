@@ -1,0 +1,61 @@
+# ai-sota-feed-bot — llms.txt
+
+This file helps LLM agents understand and navigate this site.
+
+## What this site is
+- AI SOTA feed focused on agent engineering, LLM platform updates, releases, and selected research.
+- The homepage is a reader UI backed by JSON APIs.
+- Primary production URL: https://ai-sota-feed-bot.vercel.app/
+
+## Fast navigation map
+- Home UI: /
+- JSON feed (main): /api/feed
+- RSS feed: /api/rss
+- Telemetry ingest: /api/events (POST)
+- Client runtime config: /api/client-config
+
+## Recommended access path for LLMs
+1) Fetch `/api/feed?limit=200` to get current merged feed items.
+2) Read `runs` metadata to understand recency and run history.
+3) Use item fields (`source`, `published`, `v2_slot`, `llm_category`, `v2_final_score`, `labels`) for filtering/summarization.
+4) If asking for older content, set explicit date range or use larger window:
+   - `/api/feed?from=<ISO>&to=<ISO>&limit=500`
+5) If you need strict source/topic slices, use labels:
+   - `/api/feed?label=frontier_official`
+   - `/api/feed?label=platform&label=frontier_official`
+
+## Feed API quick reference
+Endpoint: `GET /api/feed`
+
+Query params:
+- `from` (ISO datetime, optional)
+- `to` (ISO datetime, optional)
+- `limit` (1..500, default 200)
+- `label` (repeatable)
+- `labels` (CSV alternative)
+- `blend_tier1` (`1` default, `0` to disable)
+- Tier-1 blend knobs (optional):
+  - `tier1_fresh_cap`
+  - `tier1_insert_after`
+  - `tier1_min_quick_score`
+  - `tier1_max_per_source`
+
+Response highlights:
+- `mode`: `history` or `latest`
+- `runs[]`: run timestamps and item counts
+- `items[]`: feed entries with ranking and metadata
+- `available_labels[]`: label counts
+- `tier1_blend`: blend diagnostics
+- `personalization`: optional ranking adjustments by anon user id
+
+## Common LLM tasks
+- "Top frontier lab updates today": `/api/feed?label=frontier_official&from=<today-start-ISO>&limit=100`
+- "Only platform items": `/api/feed?label=platform&limit=200`
+- "Recent OpenAI/Anthropic coverage": fetch `/api/feed`, then filter `source` in `{openai_blog, anthropic_newsroom, anthropic_engineering, claude_blog}`.
+
+## Caveats
+- Homepage defaults to a recent time window preset. Older items may exist in API but not be visible until window is widened.
+- Ranking is slot-constrained for diversity; not every valid source item appears in final Tier-0 output.
+
+## For deeper instructions
+- See: `/llm-guide.txt`
