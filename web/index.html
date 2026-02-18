@@ -284,12 +284,24 @@
 
     let selectedLabelsState = new Set();
 
+    function normalizeLabel(v) {
+      return String(v || '')
+        .trim()
+        .toLowerCase()
+        .replace(/^#+/, '')
+        .replace(/\s+/g, '_');
+    }
+
     function getSelectedLabels() {
       return [...selectedLabelsState];
     }
 
     function setSelectedLabels(values) {
-      selectedLabelsState = new Set((Array.isArray(values) ? values : []).map(v => String(v || '').trim()).filter(Boolean));
+      selectedLabelsState = new Set(
+        (Array.isArray(values) ? values : [])
+          .map((v) => normalizeLabel(v))
+          .filter(Boolean)
+      );
       renderSelectedLabelsChips();
       updateLabelPickerButton();
     }
@@ -317,13 +329,20 @@
       if (!box) return;
       const selected = new Set(getSelectedLabels());
       const q = String(document.getElementById('labelSearch')?.value || '').trim().toLowerCase();
-      const labels = (Array.isArray(available) ? available : []).filter((x) => {
-        const v = String(x?.label || '').trim().toLowerCase();
-        return !q || v.includes(q);
-      });
+      const dedup = new Map();
+      for (const x of (Array.isArray(available) ? available : [])) {
+        const v = normalizeLabel(x?.label);
+        if (!v) continue;
+        const c = Number(x?.count || 0);
+        dedup.set(v, Number(dedup.get(v) || 0) + c);
+      }
+
+      const labels = [...dedup.entries()]
+        .map(([label, count]) => ({ label, count }))
+        .filter((x) => !q || x.label.includes(q));
 
       box.innerHTML = labels.map((x) => {
-        const v = String(x?.label || '').trim();
+        const v = x.label;
         const c = Number(x?.count || 0);
         if (!v) return '';
         const safe = esc(v);
@@ -557,7 +576,21 @@
         const image = safeUrl(it.image_url || '');
         const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
         const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
-        const labels = Array.isArray(it.labels) ? it.labels.slice(0, 3).map(v => esc(v)) : [];
+        const labels = (() => {
+          const seen = new Set();
+          const typeNorm = normalizeLabel(it.type || '');
+          const out = [];
+          for (const raw of (Array.isArray(it.labels) ? it.labels : [])) {
+            const v = normalizeLabel(raw);
+            if (!v) continue;
+            if (v === typeNorm) continue; // avoid duplicate with explicit type badge
+            if (seen.has(v)) continue;
+            seen.add(v);
+            out.push(esc(v));
+            if (out.length >= 3) break;
+          }
+          return out;
+        })();
 
         return `
         <article>
