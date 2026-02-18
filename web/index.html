@@ -256,7 +256,11 @@
       return local.toISOString().slice(0, 10);
     }
 
+    let presetDaysState = '7';
+
     function setDateRangeDays(days) {
+      presetDaysState = String(days);
+
       const fromEl = document.getElementById('fromDate');
       const toEl = document.getElementById('toDate');
       if (!fromEl || !toEl) return;
@@ -331,8 +335,17 @@
     function buildFeedUrl() {
       const fromDate = document.getElementById('fromDate')?.value || '';
       const toDate = document.getElementById('toDate')?.value || '';
-      const from = toIsoDateStart(fromDate);
-      const to = toIsoDateEnd(toDate);
+
+      let from = toIsoDateStart(fromDate);
+      let to = toIsoDateEnd(toDate);
+      if (!from && !to && presetDaysState !== 'all') {
+        const n = Number(presetDaysState || 7);
+        const now = new Date();
+        const fromD = new Date(now.getTime() - n * 24 * 60 * 60 * 1000);
+        from = toIsoDateStart(toDateInput(fromD));
+        to = toIsoDateEnd(toDateInput(now));
+      }
+
       const limit = document.getElementById('limit')?.value || '200';
       const anon = getAnonUserId();
       const labels = getSelectedLabels();
@@ -512,9 +525,8 @@
       const labelSearch = document.getElementById('labelSearch');
       const clearLabelsBtn = document.getElementById('clearLabelsBtn');
       const selectedLabelsBox = document.getElementById('selectedLabels');
-      if (!form) return;
 
-      form.addEventListener('submit', (e) => {
+      form?.addEventListener('submit', (e) => {
         e.preventDefault();
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
