@@ -32,6 +32,40 @@ function readTier1Latest() {
   return readJsonSafe(p, []);
 }
 
+function readTier1Recent({ lookbackHours = 24, maxRuns = 12 } = {}) {
+  const base = path.join(process.cwd(), 'data', 'tier1');
+  const runsDir = path.join(base, 'runs');
+  const indexPath = path.join(base, 'runs_index.json');
+  const index = readJsonSafe(indexPath, []);
+
+  const now = Date.now();
+  const lookbackMs = Math.max(1, Number(lookbackHours || 24)) * 60 * 60 * 1000;
+  const selected = (Array.isArray(index) ? index : [])
+    .filter((row) => {
+      const d = parseDateMaybe(row?.run_at);
+      return !!d && (now - d.getTime()) <= lookbackMs;
+    })
+    .sort((a, b) => String(b?.run_at || '').localeCompare(String(a?.run_at || '')))
+    .slice(0, Math.max(1, Number(maxRuns || 12)));
+
+  const byKey = new Map();
+  for (const row of selected) {
+    const rel = row?.path || row?.file;
+    if (!rel) continue;
+    const run = readJsonSafe(path.join(runsDir, rel), null);
+    if (!run || !Array.isArray(run.items)) continue;
+
+    for (const it of run.items) {
+      const key = `${it.url || ''}::${it.title || ''}`;
+      if (!key || byKey.has(key)) continue;
+      byKey.set(key, { ...it, run_at: run?.run_at || null });
+    }
+  }
+
+  if (byKey.size > 0) return [...byKey.values()];
+  return readTier1Latest();
+}
+
 function readRuns() {
   const base = path.join(process.cwd(), 'data', 'processed');
   const runsDir = path.join(base, 'runs');
@@ -313,7 +347,9 @@ export default async function handler(req, res) {
 
     const baseItems = accumulateItems(filteredRuns);
     const deepRunAt = filteredRuns?.[0]?.run_at || null;
-    const tier1Latest = blendTier1 ? readTier1Latest() : [];
+    const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(req.query?.tier1_lookback_hours || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
+    const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(req.query?.tier1_max_runs || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
+    const tier1Latest = blendTier1 ? readTier1Recent({ lookbackHours: tier1LookbackHours, maxRuns: tier1MaxRuns }) : [];
     const merged = blendTier1
       ? mergeTier1Fresh(baseItems, tier1Latest, deepRunAt, {
           freshCap: tier1FreshCap,
@@ -350,6 +386,8 @@ export default async function handler(req, res) {
           max_per_source: tier1MaxPerSource,
           priority_min: tier1PriorityMin,
           priority_sources: tier1PrioritySources,
+          lookback_hours: tier1LookbackHours,
+          max_runs: tier1MaxRuns,
         },
       },
     });
