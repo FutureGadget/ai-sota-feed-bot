@@ -109,6 +109,7 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 - Tuning governance playbook: `docs/status/tuning-governance.md`
 - Git hygiene guide: `docs/status/git-hygiene.md`
 - Source onboarding + filtering debug guide: `docs/how-to/sources-and-filter-debugging.md`
+- PostHog setup + dashboard runbook: `docs/how-to/posthog-setup-and-dashboard.md`
 
 ## Config
 - `config/sources.yaml`: feed list + source weights
