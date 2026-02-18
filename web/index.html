@@ -200,9 +200,9 @@
         </div>
         <div>
           <label>Labels</label>
-          <ot-dropdown>
-            <button type="button" id="labelPickerBtn" popovertarget="labelPicker" class="outline">Choose labels</button>
-            <article class="card" id="labelPicker" popover style="min-width: 280px; max-width: 420px; max-height: 320px; overflow:auto; padding: 0.75rem;">
+          <ot-dropdown id="labelPickerWrap" style="position:relative; display:block;">
+            <button type="button" id="labelPickerBtn" class="outline">Choose labels</button>
+            <article class="card" id="labelPicker" hidden style="position:absolute; z-index:50; top:calc(100% + 6px); left:0; min-width: 280px; max-width: 420px; max-height: 320px; overflow:auto; padding: 0.75rem; box-shadow: 0 10px 30px rgba(0,0,0,0.12);">
               <div data-field>
                 <label for="labelSearch">Search labels</label>
                 <input id="labelSearch" type="text" placeholder="Type to filter labels" />
@@ -210,7 +210,7 @@
               <div id="labelOptions" style="display:grid; gap:0.35rem; margin-top:0.5rem;"></div>
               <footer style="display:flex; justify-content:space-between; margin-top:0.75rem;">
                 <button type="button" id="clearLabelsBtn" class="outline small">Clear all</button>
-                <button type="button" id="closeLabelPickerBtn" popovertarget="labelPicker" class="small">Done</button>
+                <button type="button" id="closeLabelPickerBtn" class="small">Done</button>
               </footer>
             </article>
           </ot-dropdown>
@@ -515,6 +515,10 @@
       const form = document.getElementById('filters');
       const clearBtn = document.getElementById('clearFilters');
       const presets = document.getElementById('presets');
+      const labelPickerWrap = document.getElementById('labelPickerWrap');
+      const labelPickerBtn = document.getElementById('labelPickerBtn');
+      const labelPicker = document.getElementById('labelPicker');
+      const closeLabelPickerBtn = document.getElementById('closeLabelPickerBtn');
       const labelOptions = document.getElementById('labelOptions');
       const labelSearch = document.getElementById('labelSearch');
       const clearLabelsBtn = document.getElementById('clearLabelsBtn');
@@ -528,6 +532,28 @@
           document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
           console.error(err);
         });
+      });
+
+      labelPickerBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (!labelPicker) return;
+        const willOpen = labelPicker.hasAttribute('hidden');
+        if (willOpen) {
+          labelPicker.removeAttribute('hidden');
+          setTimeout(() => labelSearch?.focus(), 0);
+        } else {
+          labelPicker.setAttribute('hidden', '');
+        }
+      });
+
+      closeLabelPickerBtn?.addEventListener('click', () => {
+        labelPicker?.setAttribute('hidden', '');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!labelPickerWrap || !labelPicker || labelPicker.hasAttribute('hidden')) return;
+        if (labelPickerWrap.contains(e.target)) return;
+        labelPicker.setAttribute('hidden', '');
       });
 
       presets?.addEventListener('click', (e) => {
