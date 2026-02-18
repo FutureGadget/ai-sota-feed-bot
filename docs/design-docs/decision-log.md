@@ -102,3 +102,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Keep freshness visible without destabilizing overall quality ranking.
 - **Impact:** Tier-1 blend now defaults to cap=4, inserts after top-3, enforces minimum quick score, and limits one fresh item per source.
 - **Rollback / Alternative:** Disable blend (`blend_tier1=0`) or restore previous prepend behavior.
+
+## 2026-02-18
+- **Decision:** Split batch identity from deep-run identity in telemetry context (`ingest_batch_id` first).
+- **Context / Problem:** Frequent Tier-1 runs make a single deep `run_id` insufficient for precise behavior analysis.
+- **Rationale:** Per-item ingest batch identity preserves event lineage under high-frequency ingestion.
+- **Impact:** Collector writes `ingest_batch_id`; feed API carries per-item `run_id`; web impression/click telemetry uses item-level batch/run context.
+- **Rollback / Alternative:** Keep deep-run-only IDs and infer batch lineage heuristically.

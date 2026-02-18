@@ -330,6 +330,7 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
 def run():
     now = datetime.now(timezone.utc)
     day = now.strftime("%Y-%m-%d")
+    ingest_batch_id = now.strftime("%Y%m%d-%H%M%S")
     out_dir = ROOT / "data" / "raw" / day
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -408,6 +409,7 @@ def run():
                         "image_url": ent.get("image_url", ""),
                         "published": ent.get("published", now.isoformat()),
                         "collected_at": now.isoformat(),
+                        "ingest_batch_id": ingest_batch_id,
                     }
                 )
 

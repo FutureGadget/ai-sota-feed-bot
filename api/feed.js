@@ -164,6 +164,7 @@ function accumulateItems(runs) {
           last_seen_run_order: runIdx,
           rank_at_last_seen: rank,
           score_at_last_seen: Number(it.v2_final_score ?? it.score ?? 0),
+          run_id: it.run_id || it.ingest_batch_id || runAt,
         });
       } else {
         prev.seen_count += 1;
@@ -182,6 +183,7 @@ function accumulateItems(runs) {
           prev.type = it.type || prev.type;
           prev.source = it.source || prev.source;
           prev.maturity = it.maturity || prev.maturity;
+          prev.run_id = it.run_id || it.ingest_batch_id || runAt || prev.run_id;
         }
       }
     });

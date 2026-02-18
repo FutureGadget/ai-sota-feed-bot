@@ -377,11 +377,12 @@
         const href = safeUrl(it.url);
         const image = safeUrl(it.image_url || '');
         const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
+        const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
 
         return `
         <article>
           ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
-          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${i + 1}" data-run-id="${esc(runId || '')}" data-title="${title}">${title}</a></h3>
+          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${i + 1}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
           <div class="meta-row">
             <span class="badge">${source}</span>
             <span class="badge">${type}</span>
@@ -402,7 +403,7 @@
         url: it.url || '',
         source: it.source || '',
         rank_position: i + 1,
-        run_id: runId,
+        run_id: it.ingest_batch_id || it.run_id || runId,
         ts: new Date().toISOString(),
       }));
       sendEvents(impressions);

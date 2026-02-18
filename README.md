@@ -50,6 +50,7 @@ Current web app behavior:
 - Generates per-tab `session_id` in sessionStorage
 - Sends batched `impression` events on feed render
 - Sends `click` events when opening an item link
+- Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
 
 Personalized feed API (v1):
 - Send `X-Anon-User-Id` header (or `anon_user_id` query) to `/api/feed`
