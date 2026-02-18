@@ -27,6 +27,8 @@ Run quick personalization QA safely and repeatedly.
 ## Commands
 - Run scripted QA:
   - `bash skills/personalization-boost-testing/scripts/run_personalization_smoke.sh <anon_user_id>`
+- If you need to force a fresh full ingest during QA (cooldown bypass):
+  - `FULL_RUN_BYPASS_COOLDOWN=1 bash skills/ai-feed-digest-local/scripts/run_full.sh`
 - Manual feed debug:
   - `curl -sS 'https://ai-sota-feed-bot.vercel.app/api/feed?limit=10&anon_user_id=<id>&debug_personalization=1' | jq '.personalization, .items[0]'`
 - Manual DB check:

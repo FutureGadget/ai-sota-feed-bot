@@ -26,7 +26,9 @@ Run local pipeline from repository root using bundled scripts.
 
 - `run_full.sh` auto-loads `.env` from repo root if present.
 - Source crawl cooldown is enabled for fast Tier-1 runs (`COLLECT_DEFAULT_POLL_MINUTES`, default 30).
-- `run_full.sh` / `run_dev.sh` bypass cooldown to guarantee fresh full-candidate collection (`COLLECT_BYPASS_COOLDOWN=1`).
+- `run_full.sh` now respects cooldown by default (`FULL_RUN_BYPASS_COOLDOWN=0`).
+- For forced refresh, run full with `FULL_RUN_BYPASS_COOLDOWN=1`.
+- `run_dev.sh` still bypasses cooldown for iteration speed.
 - Required for Telegram publish:
   - `TELEGRAM_BOT_TOKEN`
   - `TELEGRAM_CHAT_ID`

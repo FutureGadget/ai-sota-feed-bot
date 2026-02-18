@@ -123,3 +123,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** If Tier-0 has no delta, skip publish actions safely and keep schedule for eventual deltas.
 - **Impact:** `run_full.sh` now defaults `TIER0_INCREMENTAL=1` and `TIER0_INCREMENTAL_SKIP_NO_DELTA=1`; when no delta is detected it exits with `FULL_RUN_NO_DELTA_SKIP=true` before issue/telegram publish.
 - **Rollback / Alternative:** Set `TIER0_INCREMENTAL_SKIP_NO_DELTA=0` when invoking `run_full.sh`.
+
+## 2026-02-18
+- **Decision:** Make full runs respect crawl cooldown by default, with explicit force-bypass switch.
+- **Context / Problem:** Full runs were still always fetching all sources before discovering no Tier-0 delta.
+- **Rationale:** Respecting cooldown lowers crawl pressure and compute while preserving an explicit emergency refresh path.
+- **Impact:** `run_full.sh` now uses `FULL_RUN_BYPASS_COOLDOWN` (default `0`); set `FULL_RUN_BYPASS_COOLDOWN=1` for forced full fetch.
+- **Rollback / Alternative:** Revert to unconditional collector bypass in full runs.
