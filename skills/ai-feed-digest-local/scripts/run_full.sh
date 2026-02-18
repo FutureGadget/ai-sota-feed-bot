@@ -32,13 +32,19 @@ fi
 COLLECT_BYPASS_COOLDOWN=${FULL_RUN_BYPASS_COOLDOWN:-0} python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
+python pipeline/build_tier1.py
+
+if [ ! -f data/tier1/latest.json ]; then
+  echo "FULL_RUN_FAILURE: missing data/tier1/latest.json"
+  exit 1
+fi
 
 # Tier-0 incremental mode defaults for scheduled runs.
 : "${TIER0_INCREMENTAL:=1}"
 : "${TIER0_INCREMENTAL_SKIP_NO_DELTA:=1}"
 
 DIGEST_LOG="$(mktemp -t build_digest.XXXXXX.log)"
-TIER0_INCREMENTAL="$TIER0_INCREMENTAL" TIER0_INCREMENTAL_SKIP_NO_DELTA="$TIER0_INCREMENTAL_SKIP_NO_DELTA" \
+TIER0_INPUT=tier1 TIER0_INCREMENTAL="$TIER0_INCREMENTAL" TIER0_INCREMENTAL_SKIP_NO_DELTA="$TIER0_INCREMENTAL_SKIP_NO_DELTA" \
   python pipeline/build_digest.py | tee "$DIGEST_LOG"
 
 if grep -q "tier0_incremental_skip=true" "$DIGEST_LOG"; then

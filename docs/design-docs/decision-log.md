@@ -130,3 +130,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Respecting cooldown lowers crawl pressure and compute while preserving an explicit emergency refresh path.
 - **Impact:** `run_full.sh` now uses `FULL_RUN_BYPASS_COOLDOWN` (default `0`); set `FULL_RUN_BYPASS_COOLDOWN=1` for forced full fetch.
 - **Rollback / Alternative:** Revert to unconditional collector bypass in full runs.
+
+## 2026-02-18
+- **Decision:** Force full-run pipeline to produce Tier-1 first and feed Tier-0 from Tier-1 explicitly.
+- **Context / Problem:** Full runs occasionally fell back to raw input when Tier-1 artifact was absent locally, weakening lane separation.
+- **Rationale:** A deterministic lane order (`collect -> tier1 -> tier0`) guarantees consistent source-of-truth and simpler ops reasoning.
+- **Impact:** `run_full.sh` now runs `build_tier1.py`, checks `data/tier1/latest.json`, and invokes `build_digest.py` with `TIER0_INPUT=tier1`.
+- **Rollback / Alternative:** Remove forced Tier-1 pre-step and rely on Tier-0 raw fallback.
