@@ -132,6 +132,12 @@
       overflow-wrap: anywhere;
       word-break: break-word;
     }
+    .badge-fresh {
+      border-color: #16a34a;
+      color: #166534;
+      background: #ecfdf3;
+      font-weight: 600;
+    }
     .why {
       margin: 0.35rem 0 0;
       font-size: 1rem;
@@ -344,11 +350,14 @@
       const data = await res.json();
       const items = data.items || [];
       const runs = data.runs || [];
+      const tier1Blend = data.tier1_blend || null;
       const anonUserId = getAnonUserId();
       const sessionId = getSessionId();
       const runId = runs?.[0]?.run_at || null;
 
-      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range`;
+      const freshAdded = Number(tier1Blend?.fresh_added || 0);
+      const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
+      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}`;
 
       if (!items.length) {
         list.innerHTML = `<div class="state">No items for that date/time range. Try widening the window.</div>`;
@@ -361,6 +370,7 @@
         const source = esc(it.source || 'unknown');
         const type = esc(it.type || 'news');
         const maturity = esc(it.maturity || '');
+        const tierHint = String(it.tier_hint || '');
         const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
         const summary = esc(summaryRaw);
         const seenText = seen ? esc(seen) : '';
@@ -375,6 +385,7 @@
           <div class="meta-row">
             <span class="badge">${source}</span>
             <span class="badge">${type}</span>
+            ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh (awaiting deep rank)</span>` : ''}
             ${maturity ? `<span class="badge">${maturity}</span>` : ''}
             ${seenText ? `<span class="badge">Last seen: ${seenText}</span>` : ''}
           </div>

@@ -81,3 +81,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Tier-1 should be ingestion source-of-truth; Tier-0 should focus on decoration/reranking/publishing.
 - **Impact:** `build_digest.py` now loads Tier-1 by default with automatic raw fallback and logs selected input mode.
 - **Rollback / Alternative:** Set `TIER0_INPUT=raw`.
+
+## 2026-02-18
+- **Decision:** Surface Tier-1 freshness explicitly in UI with metadata note and per-item badge.
+- **Context / Problem:** Users need visible confirmation that feed freshness improved before deep ranking finishes.
+- **Rationale:** Explicit UX cues reduce confusion and make two-tier data model understandable.
+- **Impact:** Header now shows fresh count when Tier-1 blend adds items; blended items show `⚡ Fresh (awaiting deep rank)` badge.
+- **Rollback / Alternative:** Hide tier hints and rely on silent ordering only.
