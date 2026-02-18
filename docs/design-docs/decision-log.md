@@ -74,3 +74,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Frequent cheap updates improve perceived freshness while preserving slower high-quality curation path.
 - **Impact:** Added cron job `AI Feed Tier1 Fast 30m`; `/api/feed` now returns `tier1_blend` diagnostics and prepends fresh Tier-1 non-duplicate items.
 - **Rollback / Alternative:** Disable Tier-1 cron and call `/api/feed?blend_tier1=0`.
+
+## 2026-02-18
+- **Decision:** Make Tier-0 digest pipeline consume Tier-1 as default input (`TIER0_INPUT=tier1`).
+- **Context / Problem:** Tier-0 still depended directly on raw ingest artifacts, limiting separation between fast and decorated lanes.
+- **Rationale:** Tier-1 should be ingestion source-of-truth; Tier-0 should focus on decoration/reranking/publishing.
+- **Impact:** `build_digest.py` now loads Tier-1 by default with automatic raw fallback and logs selected input mode.
+- **Rollback / Alternative:** Set `TIER0_INPUT=raw`.

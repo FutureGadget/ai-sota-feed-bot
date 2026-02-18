@@ -137,6 +137,29 @@ def latest_raw_file() -> Path:
     return fp
 
 
+def latest_tier1_file() -> Path:
+    fp = ROOT / "data" / "tier1" / "latest.json"
+    if not fp.exists():
+        raise FileNotFoundError(f"Missing {fp}")
+    return fp
+
+
+def load_items_for_tier0() -> tuple[list[dict[str, Any]], str, Path]:
+    pref = (os.getenv("TIER0_INPUT", "tier1") or "tier1").strip().lower()
+
+    if pref == "raw":
+        fp = latest_raw_file()
+        return json.loads(fp.read_text(encoding="utf-8")), "raw", fp
+
+    # default: tier1 with automatic fallback to raw
+    try:
+        fp = latest_tier1_file()
+        return json.loads(fp.read_text(encoding="utf-8")), "tier1", fp
+    except Exception:
+        fp = latest_raw_file()
+        return json.loads(fp.read_text(encoding="utf-8")), "raw_fallback", fp
+
+
 def load_source_health() -> dict[str, float]:
     p = ROOT / "data" / "health" / "source_health.json"
     if not p.exists():
@@ -664,10 +687,8 @@ def apply_category_allocation(
 
 def run():
     profile = load_profile()
-    raw_file = latest_raw_file()
-
-    with open(raw_file, "r", encoding="utf-8") as f:
-        items = json.load(f)
+    items, input_mode, input_file = load_items_for_tier0()
+    print(f"tier0_input_mode={input_mode} file={input_file}")
 
     items = dedupe(items)
     items_deduped = list(items)

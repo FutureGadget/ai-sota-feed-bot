@@ -58,6 +58,9 @@ Personalized feed API (v1):
 - Useful knobs: `PERSONALIZATION_DAYS`, `PERSONALIZATION_W_SOURCE`, `PERSONALIZATION_W_TOPIC`, `PERSONALIZATION_CAP`, `PERSONALIZATION_MIN_IMPRESSIONS`, `PERSONALIZATION_MIN_CLICKS`, `PERSONALIZATION_EXPLORATION`
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 8)
 
+Tier-0 input source toggle:
+- `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
+
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install
