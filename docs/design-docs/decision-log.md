@@ -165,3 +165,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Keep enough recent high-res data for analysis, then downsample long-tail history to bound repository growth.
 - **Impact:** Defaults changed to `TIER1_RUN_RETENTION_DAYS=14`, `PROCESSED_RUN_RETENTION_DAYS=45`; prune now compacts older history to daily snapshots, and snapshots older than `WEEKLY_ARCHIVE_AFTER_DAYS=365` to weekly snapshots.
 - **Rollback / Alternative:** Revert retention defaults and prune logic to prior daily-only compaction.
+
+## 2026-02-18
+- **Decision:** Add optional PostHog dual-tracking on web client while keeping Turso telemetry as source-of-truth.
+- **Context / Problem:** Needed page-view/dashboard visibility without replacing existing recommendation feedback pipeline.
+- **Rationale:** Parallel tracking enables fast dashboard rollout with low migration risk.
+- **Impact:** Added `/api/client-config` for public PostHog runtime config and web events (`page_view`, `feed_view`, `impression_batch`, `click`) behind env toggle.
+- **Rollback / Alternative:** Disable via `POSTHOG_ENABLED=0` and continue Turso-only telemetry.

@@ -51,6 +51,12 @@ Current web app behavior:
 - Sends batched `impression` events on feed render
 - Sends `click` events when opening an item link
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
+- Optional PostHog dual-tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`)
+
+PostHog env vars (optional):
+- `POSTHOG_ENABLED=1`
+- `POSTHOG_PROJECT_API_KEY=<project key>`
+- `POSTHOG_HOST=https://us.i.posthog.com` (or EU host)
 
 Personalized feed API (v1):
 - Send `X-Anon-User-Id` header (or `anon_user_id` query) to `/api/feed`
