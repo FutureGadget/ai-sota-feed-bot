@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Show HN: Agent Audit Kit v0.1 – deterministic replay + stress for LLM agents
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/helpfuldolphin/AgentAuditKit/releases/tag/aak-v0.1.0-e3
-- Score: 3.6 | Reliability: 1.0
+- Score: 3.599 | Reliability: 1.0
 - Why it matters: Directly addresses agent harness/eval gap; deterministic replay + stress testing are core reliability patterns. Low HN signal (0 comments) limits evidence depth.
 
 ## 2. Introducing Claude Sonnet 4.6
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Claude Opus 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-opus-4-6
-- Score: 1.783 | Reliability: 1.0
+- Score: 1.782 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Claude Sonnet 4 6
@@ -65,7 +65,7 @@ Focus: AI Platform Engineering
 ## 11. CAMEL: An ECG Language Model for Forecasting Cardiac Events
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.15677v1
-- Score: 2.121 | Reliability: 1.0
+- Score: 2.12 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. [AINews] Qwen3.5-397B-A17B: the smallest Open-Opus class, very efficient model
