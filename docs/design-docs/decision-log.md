@@ -137,3 +137,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** A deterministic lane order (`collect -> tier1 -> tier0`) guarantees consistent source-of-truth and simpler ops reasoning.
 - **Impact:** `run_full.sh` now runs `build_tier1.py`, checks `data/tier1/latest.json`, and invokes `build_digest.py` with `TIER0_INPUT=tier1`.
 - **Rollback / Alternative:** Remove forced Tier-1 pre-step and rely on Tier-0 raw fallback.
+
+## 2026-02-18
+- **Decision:** Add retention/compaction policy for runtime run snapshots and enforce it in full runs.
+- **Context / Problem:** Increased run frequency grows `data/processed/runs/*` and `data/tier1/runs/*` rapidly, bloating repo history.
+- **Rationale:** Keep recent high-resolution history while compacting older runs to one snapshot per day.
+- **Impact:** Added `pipeline/prune_runtime_data.py`; `run_full.sh` now prunes processed/tier1 run snapshots before runtime commit using configurable retention windows.
+- **Rollback / Alternative:** Disable prune step and retain all run snapshots.

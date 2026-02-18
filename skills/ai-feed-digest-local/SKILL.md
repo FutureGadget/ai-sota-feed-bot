@@ -30,6 +30,9 @@ Run local pipeline from repository root using bundled scripts.
 - `run_full.sh` always builds Tier-1 first and runs Tier-0 with `TIER0_INPUT=tier1`.
 - For forced refresh, run full with `FULL_RUN_BYPASS_COOLDOWN=1`.
 - `run_dev.sh` still bypasses cooldown for iteration speed.
+- `run_full.sh` prunes runtime snapshot history before commit:
+  - `PROCESSED_RUN_RETENTION_DAYS` (default 7)
+  - `TIER1_RUN_RETENTION_DAYS` (default 3)
 - Required for Telegram publish:
   - `TELEGRAM_BOT_TOKEN`
   - `TELEGRAM_CHAT_ID`

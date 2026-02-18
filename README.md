@@ -67,8 +67,13 @@ Tier-0 input source toggle:
 
 Collector crawl cooldown controls:
 - `COLLECT_DEFAULT_POLL_MINUTES` (default for sources without explicit `poll_interval_minutes`)
-- `COLLECT_BYPASS_COOLDOWN=1` to force fetch (used by full/dev runs)
+- `COLLECT_BYPASS_COOLDOWN=1` to force fetch
 - Cooldown-only cycles no longer overwrite raw items; they reuse previous snapshot.
+
+Runtime snapshot retention controls:
+- `PROCESSED_RUN_RETENTION_DAYS` (default 7)
+- `TIER1_RUN_RETENTION_DAYS` (default 3)
+- Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N]`
 
 ## OAuth LLM mode (local, no API key)
 ```bash
