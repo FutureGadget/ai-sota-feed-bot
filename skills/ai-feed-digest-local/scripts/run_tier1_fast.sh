@@ -13,7 +13,7 @@ trap cleanup EXIT
 
 source .venv/bin/activate
 
-python collectors/collect.py
+COLLECT_DEFAULT_POLL_MINUTES=${COLLECT_DEFAULT_POLL_MINUTES:-30} python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/build_tier1.py
 

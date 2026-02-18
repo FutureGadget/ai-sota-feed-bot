@@ -29,7 +29,7 @@ if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ] && [ "$PREEXISTING_DIRTY" = "0" ]; then
   git pull --rebase
 fi
 
-python collectors/collect.py
+COLLECT_BYPASS_COOLDOWN=1 python collectors/collect.py
 python pipeline/source_health.py update
 python pipeline/source_alerts.py
 python pipeline/build_digest.py

@@ -88,3 +88,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Explicit UX cues reduce confusion and make two-tier data model understandable.
 - **Impact:** Header now shows fresh count when Tier-1 blend adds items; blended items show `⚡ Fresh (awaiting deep rank)` badge.
 - **Rollback / Alternative:** Hide tier hints and rely on silent ordering only.
+
+## 2026-02-18
+- **Decision:** Add source crawl cooldown for frequent Tier-1 runs, with explicit bypass for full/dev runs.
+- **Context / Problem:** 30-minute ingest cadence risks over-crawling sources and wasting quota while data is unchanged.
+- **Rationale:** Respect source cadence and reduce unnecessary fetches/cost without sacrificing full-run quality.
+- **Impact:** `collect.py` now supports per-source/global poll interval (`poll_interval_minutes` / `COLLECT_DEFAULT_POLL_MINUTES`) and emits `skipped_cooldown`; `run_tier1_fast.sh` uses default 30m cooldown, `run_full.sh` and `run_dev.sh` bypass via `COLLECT_BYPASS_COOLDOWN=1`.
+- **Rollback / Alternative:** Set cooldown minutes to 0 or always bypass cooldown.

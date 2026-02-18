@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import html
 import json
+import os
 import re
 import urllib.parse
 import urllib.request
@@ -45,6 +46,38 @@ def append_ingest_run(stats: list[dict]) -> None:
     with open(run_file, "a", encoding="utf-8") as f:
         for row in stats:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
+
+
+def load_last_success_ts_by_source() -> dict[str, datetime]:
+    p = ROOT / "data" / "health" / "ingest_runs.jsonl"
+    out: dict[str, datetime] = {}
+    if not p.exists():
+        return out
+    try:
+        lines = p.read_text(encoding="utf-8").splitlines()
+    except Exception:
+        return out
+    for ln in lines:
+        try:
+            row = json.loads(ln)
+        except Exception:
+            continue
+        if row.get("status") != "ok":
+            continue
+        src = row.get("source")
+        ts = row.get("ts")
+        if not src or not ts:
+            continue
+        try:
+            dt = datetime.fromisoformat(str(ts).replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+        except Exception:
+            continue
+        prev = out.get(src)
+        if prev is None or dt > prev:
+            out[src] = dt
+    return out
 
 
 def is_open_circuit(circuit: dict, src_name: str, now: datetime) -> tuple[bool, str | None]:
@@ -303,12 +336,35 @@ def run():
     all_items = []
     source_stats = []
     circuit = load_circuit_state()
+    last_success = load_last_success_ts_by_source()
+    bypass_cooldown = str(os.getenv("COLLECT_BYPASS_COOLDOWN", "0")).strip() in {"1", "true", "yes"}
 
     for source in load_sources():
         src_name = source["name"]
         src_type = source.get("type", "rss")
         src_url = source.get("url") or f"arxiv://{source.get('category','unknown')}"
         src_weight = float(source.get("weight", 1.0))
+
+        if not bypass_cooldown:
+            default_poll_mins = int(os.getenv("COLLECT_DEFAULT_POLL_MINUTES", "0") or 0)
+            poll_mins = int(source.get("poll_interval_minutes", default_poll_mins) or 0)
+            if poll_mins > 0:
+                last_dt = last_success.get(src_name)
+                if last_dt is not None:
+                    age_mins = (now - last_dt).total_seconds() / 60.0
+                    if age_mins < poll_mins:
+                        source_stats.append(
+                            {
+                                "ts": now.isoformat(),
+                                "source": src_name,
+                                "url": src_url,
+                                "status": "skipped_cooldown",
+                                "items": 0,
+                                "cooldown_minutes": poll_mins,
+                                "last_success_ts": last_dt.isoformat(),
+                            }
+                        )
+                        continue
 
         blocked, open_until = is_open_circuit(circuit, src_name, now)
         if blocked:
@@ -377,14 +433,29 @@ def run():
             )
 
     path = out_dir / "items.json"
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(all_items, f, ensure_ascii=False, indent=2)
+    wrote_new = True
+    if all_items:
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(all_items, f, ensure_ascii=False, indent=2)
+    else:
+        wrote_new = False
+        if not path.exists():
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump([], f, ensure_ascii=False, indent=2)
 
     append_ingest_run(source_stats)
 
-    print(f"collected={len(all_items)} file={path}")
+    if wrote_new:
+        print(f"collected={len(all_items)} file={path}")
+    else:
+        prev_count = 0
+        try:
+            prev_count = len(json.loads(path.read_text(encoding='utf-8')))
+        except Exception:
+            prev_count = 0
+        print(f"collected=0 file={path} reuse_previous=true previous_items={prev_count}")
     ok = sum(1 for s in source_stats if s["status"] == "ok")
-    skipped = sum(1 for s in source_stats if s["status"] == "skipped_open_circuit")
+    skipped = sum(1 for s in source_stats if str(s.get("status", "")).startswith("skipped_"))
     errors = sum(1 for s in source_stats if s["status"] == "error")
     print(f"sources_ok={ok} sources_error={errors} sources_skipped={skipped} sources_total={len(source_stats)}")
 

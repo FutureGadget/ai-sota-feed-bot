@@ -61,6 +61,11 @@ Personalized feed API (v1):
 Tier-0 input source toggle:
 - `TIER0_INPUT=tier1|raw` (default `tier1`, with automatic raw fallback)
 
+Collector crawl cooldown controls:
+- `COLLECT_DEFAULT_POLL_MINUTES` (default for sources without explicit `poll_interval_minutes`)
+- `COLLECT_BYPASS_COOLDOWN=1` to force fetch (used by full/dev runs)
+- Cooldown-only cycles no longer overwrite raw items; they reuse previous snapshot.
+
 ## OAuth LLM mode (local, no API key)
 ```bash
 npm install
