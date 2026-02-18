@@ -94,6 +94,8 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
     insertAfter = 3,
     minQuickScore = 2.6,
     maxPerSource = 1,
+    prioritySources = ['openai_blog', 'anthropic_newsroom', 'anthropic_engineering', 'anthropic_research', 'claude_blog'],
+    priorityMin = 1,
   } = opts;
 
   if (!Array.isArray(tier1Items) || !tier1Items.length || !deepRunAtIso) {
@@ -116,7 +118,39 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
 
+  const toFreshItem = (it) => ({
+    ...it,
+    first_seen: it.collected_at || it.published || null,
+    last_seen: it.collected_at || it.published || null,
+    seen_count: 1,
+    last_seen_run_order: -1,
+    rank_at_last_seen: null,
+    score_at_last_seen: Number(it.tier1_quick_score ?? it.score ?? 0),
+    tier_hint: 'tier1_fresh',
+  });
+
   const picked = [];
+  const prioritySet = new Set((Array.isArray(prioritySources) ? prioritySources : []).map((s) => String(s || '').trim()).filter(Boolean));
+
+  // Pass 1: keep a small guaranteed lane for priority sources.
+  for (const it of fresh) {
+    if (picked.length >= Math.max(0, freshCap)) break;
+    if (picked.length >= Math.max(0, priorityMin)) break;
+
+    const src = String(it?.source || 'unknown');
+    if (!prioritySet.has(src)) continue;
+
+    const k = `${it.url || ''}::${it.title || ''}`;
+    if (!k || byKey.has(k)) continue;
+    const cur = Number(sourceCounts.get(src) || 0);
+    if (cur >= Math.max(1, maxPerSource)) continue;
+
+    byKey.add(k);
+    sourceCounts.set(src, cur + 1);
+    picked.push(toFreshItem(it));
+  }
+
+  // Pass 2: normal best-score fill.
   for (const it of fresh) {
     if (picked.length >= Math.max(0, freshCap)) break;
     const k = `${it.url || ''}::${it.title || ''}`;
@@ -128,16 +162,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
 
     byKey.add(k);
     sourceCounts.set(src, cur + 1);
-    picked.push({
-      ...it,
-      first_seen: it.collected_at || it.published || null,
-      last_seen: it.collected_at || it.published || null,
-      seen_count: 1,
-      last_seen_run_order: -1,
-      rank_at_last_seen: null,
-      score_at_last_seen: Number(it.tier1_quick_score ?? it.score ?? 0),
-      tier_hint: 'tier1_fresh',
-    });
+    picked.push(toFreshItem(it));
   }
 
   const at = Math.max(0, Math.min(baseItems.length, Number(insertAfter || 0)));
@@ -255,6 +280,11 @@ export default async function handler(req, res) {
     const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_insert_after || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
     const tier1MinQuickScore = Number.parseFloat(String(req.query?.tier1_min_quick_score || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
     const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(req.query?.tier1_max_per_source || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
+    const tier1PriorityMin = Math.max(0, Math.min(4, Number.parseInt(String(req.query?.tier1_priority_min || process.env.TIER1_PRIORITY_MIN || '1'), 10) || 1));
+    const tier1PrioritySources = String(req.query?.tier1_priority_sources || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_newsroom,anthropic_engineering,anthropic_research,claude_blog')
+      .split(',')
+      .map((s) => String(s || '').trim())
+      .filter(Boolean);
 
     const runs = readRuns();
 
@@ -290,6 +320,8 @@ export default async function handler(req, res) {
           insertAfter: tier1InsertAfter,
           minQuickScore: tier1MinQuickScore,
           maxPerSource: tier1MaxPerSource,
+          prioritySources: tier1PrioritySources,
+          priorityMin: tier1PriorityMin,
         })
       : { items: baseItems, added: 0 };
 
@@ -316,6 +348,8 @@ export default async function handler(req, res) {
           insert_after: tier1InsertAfter,
           min_quick_score: tier1MinQuickScore,
           max_per_source: tier1MaxPerSource,
+          priority_min: tier1PriorityMin,
+          priority_sources: tier1PrioritySources,
         },
       },
     });
