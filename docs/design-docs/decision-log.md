@@ -67,3 +67,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Separate cheap, frequent ingest+quick-score artifacts from slower decorated Tier-0 processing.
 - **Impact:** Added `pipeline/build_tier1.py` and `run_tier1_fast.sh` to produce `data/tier1/latest.json` plus run snapshots/index.
 - **Rollback / Alternative:** Keep single-lane pipeline and adjust cron frequency only.
+
+## 2026-02-18
+- **Decision:** Schedule Tier-1 fast lane every 30 minutes and blend Tier-1 fresh items into `/api/feed` ahead of deep-ranked items.
+- **Context / Problem:** Needed quicker UX freshness between 3x/day Tier-0 publish runs.
+- **Rationale:** Frequent cheap updates improve perceived freshness while preserving slower high-quality curation path.
+- **Impact:** Added cron job `AI Feed Tier1 Fast 30m`; `/api/feed` now returns `tier1_blend` diagnostics and prepends fresh Tier-1 non-duplicate items.
+- **Rollback / Alternative:** Disable Tier-1 cron and call `/api/feed?blend_tier1=0`.
