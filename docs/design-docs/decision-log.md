@@ -158,3 +158,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Label-based filtering is simple, explainable, and useful across both API consumers and UI users.
 - **Impact:** `/api/feed` now supports `label` query filters (multi-select via repeated params or CSV), returns `available_labels` counts, and enriches items with derived `labels`; web UI now exposes multi-select label filter and renders label badges.
 - **Rollback / Alternative:** Remove label filter path and rely on date/range-only filtering.
+
+## 2026-02-18
+- **Decision:** Expand retention policy for recap readiness (weekly/monthly/yearly) with tiered compaction.
+- **Context / Problem:** Previous 3/7 high-resolution window was too short to support recap generation without losing temporal detail.
+- **Rationale:** Keep enough recent high-res data for analysis, then downsample long-tail history to bound repository growth.
+- **Impact:** Defaults changed to `TIER1_RUN_RETENTION_DAYS=14`, `PROCESSED_RUN_RETENTION_DAYS=45`; prune now compacts older history to daily snapshots, and snapshots older than `WEEKLY_ARCHIVE_AFTER_DAYS=365` to weekly snapshots.
+- **Rollback / Alternative:** Revert retention defaults and prune logic to prior daily-only compaction.

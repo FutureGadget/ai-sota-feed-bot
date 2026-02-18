@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import argparse
 import json
-from collections import defaultdict
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -32,11 +31,22 @@ def load_index(index_file: Path) -> list[dict[str, Any]]:
         return []
 
 
-def compact_entries(entries: list[dict[str, Any]], retain_days: int) -> tuple[list[dict[str, Any]], set[str]]:
+def compact_entries(
+    entries: list[dict[str, Any]],
+    retain_days: int,
+    weekly_archive_after_days: int,
+) -> tuple[list[dict[str, Any]], set[str]]:
+    """
+    Retention policy:
+    - Newer than retain_days: keep all (high-res)
+    - Older than retain_days and newer than weekly_archive_after_days: keep 1 per day
+    - Older than weekly_archive_after_days: keep 1 per ISO week
+    """
     now = datetime.now(timezone.utc)
-    cutoff = now - timedelta(days=max(0, retain_days))
+    high_res_cutoff = now - timedelta(days=max(0, retain_days))
+    weekly_cutoff = now - timedelta(days=max(0, weekly_archive_after_days))
 
-    normalized = []
+    normalized: list[tuple[datetime | None, str, dict[str, Any]]] = []
     for e in entries:
         run_at = parse_ts(e.get("run_at"))
         path = e.get("path") or e.get("file")
@@ -48,37 +58,54 @@ def compact_entries(entries: list[dict[str, Any]], retain_days: int) -> tuple[li
 
     kept: list[dict[str, Any]] = []
     kept_paths: set[str] = set()
-    older_kept_by_day: set[str] = set()
+    kept_daily_keys: set[str] = set()
+    kept_weekly_keys: set[str] = set()
 
     for run_at, rel_path, e in normalized:
         if run_at is None:
-            # keep unknown timestamps conservatively
+            # Keep unknown timestamps conservatively.
             if rel_path not in kept_paths:
                 kept.append(e)
                 kept_paths.add(rel_path)
             continue
 
-        if run_at >= cutoff:
+        if run_at >= high_res_cutoff:
             kept.append(e)
             kept_paths.add(rel_path)
             continue
 
-        day = run_at.strftime("%Y-%m-%d")
-        if day not in older_kept_by_day:
+        if run_at >= weekly_cutoff:
+            day_key = run_at.strftime("%Y-%m-%d")
+            if day_key in kept_daily_keys:
+                continue
+            kept_daily_keys.add(day_key)
             kept.append(e)
             kept_paths.add(rel_path)
-            older_kept_by_day.add(day)
+            continue
+
+        iso = run_at.isocalendar()
+        week_key = f"{iso.year}-W{iso.week:02d}"
+        if week_key in kept_weekly_keys:
+            continue
+        kept_weekly_keys.add(week_key)
+        kept.append(e)
+        kept_paths.add(rel_path)
 
     kept.sort(key=lambda x: str(x.get("run_at") or ""), reverse=True)
     return kept, kept_paths
 
 
-def prune_family(base_dir: Path, retain_days: int, dry_run: bool = False) -> dict[str, Any]:
+def prune_family(
+    base_dir: Path,
+    retain_days: int,
+    weekly_archive_after_days: int,
+    dry_run: bool = False,
+) -> dict[str, Any]:
     runs_dir = base_dir / "runs"
     index_file = base_dir / "runs_index.json"
 
     entries = load_index(index_file)
-    kept_entries, kept_paths = compact_entries(entries, retain_days)
+    kept_entries, kept_paths = compact_entries(entries, retain_days, weekly_archive_after_days)
 
     all_files: set[str] = set()
     if runs_dir.exists():
@@ -108,6 +135,7 @@ def prune_family(base_dir: Path, retain_days: int, dry_run: bool = False) -> dic
     return {
         "base": str(base_dir.relative_to(ROOT)),
         "retain_days": retain_days,
+        "weekly_archive_after_days": weekly_archive_after_days,
         "index_before": len(entries),
         "index_after": len(kept_entries),
         "files_before": len(all_files),
@@ -117,18 +145,30 @@ def prune_family(base_dir: Path, retain_days: int, dry_run: bool = False) -> dic
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--processed-days", type=int, default=7)
-    ap.add_argument("--tier1-days", type=int, default=3)
+    ap.add_argument("--processed-days", type=int, default=45)
+    ap.add_argument("--tier1-days", type=int, default=14)
+    ap.add_argument("--weekly-archive-after-days", type=int, default=365)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    processed = prune_family(ROOT / "data" / "processed", retain_days=args.processed_days, dry_run=args.dry_run)
-    tier1 = prune_family(ROOT / "data" / "tier1", retain_days=args.tier1_days, dry_run=args.dry_run)
+    processed = prune_family(
+        ROOT / "data" / "processed",
+        retain_days=args.processed_days,
+        weekly_archive_after_days=args.weekly_archive_after_days,
+        dry_run=args.dry_run,
+    )
+    tier1 = prune_family(
+        ROOT / "data" / "tier1",
+        retain_days=args.tier1_days,
+        weekly_archive_after_days=args.weekly_archive_after_days,
+        dry_run=args.dry_run,
+    )
 
     print(
         "runtime_prune "
-        f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}) "
-        f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}) "
+        f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
+        f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}, keep={tier1['retain_days']}d) "
+        f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
     )
 

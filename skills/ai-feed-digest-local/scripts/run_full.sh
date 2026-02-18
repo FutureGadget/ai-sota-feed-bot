@@ -62,9 +62,13 @@ print('latest_json_valid=true')
 PY
 
 # Prune runtime snapshot history before commit/publish to keep repo growth bounded.
-: "${PROCESSED_RUN_RETENTION_DAYS:=7}"
-: "${TIER1_RUN_RETENTION_DAYS:=3}"
-python pipeline/prune_runtime_data.py --processed-days "$PROCESSED_RUN_RETENTION_DAYS" --tier1-days "$TIER1_RUN_RETENTION_DAYS"
+: "${PROCESSED_RUN_RETENTION_DAYS:=45}"
+: "${TIER1_RUN_RETENTION_DAYS:=14}"
+: "${WEEKLY_ARCHIVE_AFTER_DAYS:=365}"
+python pipeline/prune_runtime_data.py \
+  --processed-days "$PROCESSED_RUN_RETENTION_DAYS" \
+  --tier1-days "$TIER1_RUN_RETENTION_DAYS" \
+  --weekly-archive-after-days "$WEEKLY_ARCHIVE_AFTER_DAYS"
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then

@@ -31,8 +31,9 @@ Run local pipeline from repository root using bundled scripts.
 - For forced refresh, run full with `FULL_RUN_BYPASS_COOLDOWN=1`.
 - `run_dev.sh` still bypasses cooldown for iteration speed.
 - `run_full.sh` prunes runtime snapshot history before commit:
-  - `PROCESSED_RUN_RETENTION_DAYS` (default 7)
-  - `TIER1_RUN_RETENTION_DAYS` (default 3)
+  - `PROCESSED_RUN_RETENTION_DAYS` (default 45)
+  - `TIER1_RUN_RETENTION_DAYS` (default 14)
+  - `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older history compacted weekly)
 - Required for Telegram publish:
   - `TELEGRAM_BOT_TOKEN`
   - `TELEGRAM_CHAT_ID`

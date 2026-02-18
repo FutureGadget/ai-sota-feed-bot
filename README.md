@@ -71,9 +71,10 @@ Collector crawl cooldown controls:
 - Cooldown-only cycles no longer overwrite raw items; they reuse previous snapshot.
 
 Runtime snapshot retention controls:
-- `PROCESSED_RUN_RETENTION_DAYS` (default 7)
-- `TIER1_RUN_RETENTION_DAYS` (default 3)
-- Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N]`
+- `PROCESSED_RUN_RETENTION_DAYS` (default 45)
+- `TIER1_RUN_RETENTION_DAYS` (default 14)
+- `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older snapshots compact to weekly)
+- Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N] [--weekly-archive-after-days N]`
 
 ## OAuth LLM mode (local, no API key)
 ```bash
