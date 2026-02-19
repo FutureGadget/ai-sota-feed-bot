@@ -146,7 +146,7 @@ export default function handler(req, res) {
       return `\n<item>\n  <title>${esc(it.title || 'Untitled')}</title>\n  <link>${esc(it.url || site)}</link>\n  <guid>${esc(it.url || `${site}/#${it.id || it.title || ''}`)}</guid>\n  <description>${esc(it.summary_1line || it.why_it_matters || '')}</description>${pubDateStr}${source}${enclosure}\n</item>`;
     }).join('');
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n  <title>AI Feed</title>\n  <link>${site}</link>\n  <description>AI platform engineering feed — rolling 7-day window</description>\n  <lastBuildDate>${now}</lastBuildDate>${xmlItems}\n</channel>\n</rss>`;
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n  <title>AI Feed</title>\n  <link>${site}</link>\n  <atom:link href="${site}/api/rss" rel="self" type="application/rss+xml"/>\n  <description>AI platform engineering feed — rolling 7-day window</description>\n  <lastBuildDate>${now}</lastBuildDate>\n  <ttl>30</ttl>${xmlItems}\n</channel>\n</rss>`;
 
     res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
