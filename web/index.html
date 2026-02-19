@@ -202,7 +202,7 @@
       </menu>
 
       <div class="presets" id="presets">
-        <button type="button" data-days="0">Today</button>
+        <button type="button" data-days="1">Today</button>
         <button type="button" data-days="3">Last 3d</button>
         <button type="button" data-days="7">Last 7d</button>
         <button type="button" data-days="30">Last 30d</button>
@@ -358,7 +358,7 @@
       let from = toIsoDateStart(fromDate);
       let to = toIsoDateEnd(toDate);
       if (!from && !to && presetDaysState !== 'all') {
-        const n = Number(presetDaysState || 7);
+        const n = Math.max(1, Number(presetDaysState || 7));
         const now = new Date();
         const fromD = new Date(now.getTime() - n * 24 * 60 * 60 * 1000);
         from = toIsoDateStart(toDateInput(fromD));
