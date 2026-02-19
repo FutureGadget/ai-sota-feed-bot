@@ -59,10 +59,10 @@ function loadTier1Recent({ lookbackMs, maxRuns = 12 } = {}) {
   return [...byKey.values()];
 }
 
-function getTodayItems() {
+function getRecentItems() {
   const now = Date.now();
-  const oneDayMs = 24 * 60 * 60 * 1000;
-  const fromMs = now - oneDayMs;
+  const windowMs = 7 * 24 * 60 * 60 * 1000;
+  const fromMs = now - windowMs;
 
   // 1. Collect processed items from recent runs
   const runsIndex = loadRunsIndex();
@@ -98,8 +98,8 @@ function getTodayItems() {
     byUrl.set(key, it);
   }
 
-  // 2. Blend tier1 fresh items
-  const tier1Items = loadTier1Recent({ lookbackMs: oneDayMs, maxRuns: 12 });
+  // 2. Blend tier1 fresh items (24h lookback for fresh blend)
+  const tier1Items = loadTier1Recent({ lookbackMs: 24 * 60 * 60 * 1000, maxRuns: 12 });
   const prioritySources = new Set(['openai_blog', 'anthropic_newsroom', 'anthropic_engineering', 'anthropic_research', 'claude_blog']);
 
   const tier1Fresh = tier1Items
@@ -132,7 +132,7 @@ function getTodayItems() {
 
 export default function handler(req, res) {
   try {
-    const items = getTodayItems();
+    const items = getRecentItems();
     const now = new Date().toUTCString();
     const site = 'https://ai-sota-feed-bot.vercel.app';
 
@@ -146,7 +146,7 @@ export default function handler(req, res) {
       return `\n<item>\n  <title>${esc(it.title || 'Untitled')}</title>\n  <link>${esc(it.url || site)}</link>\n  <guid>${esc(it.url || `${site}/#${it.id || it.title || ''}`)}</guid>\n  <description>${esc(it.summary_1line || it.why_it_matters || '')}</description>${pubDateStr}${source}${enclosure}\n</item>`;
     }).join('');
 
-    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n  <title>AI Feed — Today</title>\n  <link>${site}</link>\n  <description>AI platform engineering feed — today's items</description>\n  <lastBuildDate>${now}</lastBuildDate>${xmlItems}\n</channel>\n</rss>`;
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0">\n<channel>\n  <title>AI Feed</title>\n  <link>${site}</link>\n  <description>AI platform engineering feed — rolling 7-day window</description>\n  <lastBuildDate>${now}</lastBuildDate>${xmlItems}\n</channel>\n</rss>`;
 
     res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
