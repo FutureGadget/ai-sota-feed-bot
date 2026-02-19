@@ -142,7 +142,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   const byKey = new Set(baseItems.map((it) => `${it.url || ''}::${it.title || ''}`));
   const sourceCounts = new Map();
 
-  const maxFreshAgeMs = 48 * 60 * 60 * 1000; // items older than 48h by publish date are not "fresh"
+  const maxFreshAgeMs = 24 * 60 * 60 * 1000; // items older than 24h by publish date are not "fresh"
   const nowMs = Date.now();
 
   const fresh = tier1Items
@@ -154,6 +154,9 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
       if (!d || d <= deepRunAt || quick < minQuickScore) return false;
       // Reject items with old publish dates — they aren't truly fresh
       if (published && (nowMs - published.getTime()) > maxFreshAgeMs) return false;
+      // Skip minor version releases (e.g. v2.1.39, 0.105.0-alpha.4) — low signal
+      const title = String(it?.title || '');
+      if (/^\d+\.\d+\.\d+/.test(title) || /^v\d+\.\d+/.test(title)) return false;
       return true;
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
