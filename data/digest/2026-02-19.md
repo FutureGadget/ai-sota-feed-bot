@@ -5,55 +5,55 @@ Focus: AI Platform Engineering
 ## 1. SWE-bench February 2026 leaderboard update
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/19/swe-bench/#atom-everything
-- Score: 3.201 | Reliability: 0.823
+- Score: 3.198 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Claude Sonnet 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-sonnet-4-6
-- Score: 2.607 | Reliability: 0.823
+- Score: 2.606 | Reliability: 0.823
 - Why it matters: Model release relevant to agent platform, but newsroom source lacks technical depth; need detailed benchmarks and capability breakdowns.
 
 ## 3. The A.I. Disruption We’ve Been Waiting for Has Arrived
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/18/the-ai-disruption/#atom-everything
-- Score: 2.567 | Reliability: 0.823
+- Score: 2.565 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Hugging Face Introduces Community Evals for Transparent Model Benchmarking
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/hugging-face-evals/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.538 | Reliability: 0.823
+- Score: 2.535 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Presentation: DevOps Modernization: AI Agents, Intelligent Observability and Automation
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/devops-modernization-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.447 | Reliability: 0.823
+- Score: 2.444 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. [AINews] Anthropic's Agent Autonomy study
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-anthropics-agent-autonomy
-- Score: 2.181 | Reliability: 0.823
+- Score: 2.179 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. Introducing GPT-5.3-Codex-Spark
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-gpt-5-3-codex-spark
-- Score: 2.082 | Reliability: 0.823
+- Score: 2.081 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. Measuring Agent Autonomy
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/measuring-agent-autonomy
-- Score: 2.416 | Reliability: 0.823
+- Score: 2.415 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. v2.1.47
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.47
-- Score: 2.222 | Reliability: 0.823
+- Score: 2.218 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Beyond rate limits: scaling access to Codex and Sora
@@ -65,49 +65,49 @@ Focus: AI Platform Engineering
 ## 11. 0.104.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.104.0
-- Score: 2.176 | Reliability: 0.823
+- Score: 2.173 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 12. Goosetown: Parallel AI agent flocks that research, build, and review code
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/block/goosetown
-- Score: 2.163 | Reliability: 0.823
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 13. Harness engineering: leveraging Codex in an agent-first world
+## 12. Harness engineering: leveraging Codex in an agent-first world
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/harness-engineering
 - Score: 1.916 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
+## 13. Goosetown: Parallel AI agent flocks that research, build, and review code
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/block/goosetown
+- Score: 2.151 | Reliability: 0.823
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
 ## 14. Towards a Science of AI Agent Reliability
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.16666v1
-- Score: 2.222 | Reliability: 0.823
+- Score: 2.221 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. A Scalable Approach to Solving Simulation-Based Network Security Games
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.16564v1
-- Score: 2.22 | Reliability: 0.823
+- Score: 2.219 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. v0.1.38
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.38
-- Score: 1.978 | Reliability: 0.823
+- Score: 1.974 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 17. IBM and UC Berkeley Diagnose Why Enterprise Agents Fail Using IT-Bench and MAST
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/itbenchandmast
-- Score: 2.017 | Reliability: 0.823
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 18. Donate Public First Action
+## 17. Donate Public First Action
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/donate-public-first-action
 - Score: 1.682 | Reliability: 0.823
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 18. IBM and UC Berkeley Diagnose Why Enterprise Agents Fail Using IT-Bench and MAST
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/ibm-research/itbenchandmast
+- Score: 2.016 | Reliability: 0.823
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. Covering Electricity Price Increases
