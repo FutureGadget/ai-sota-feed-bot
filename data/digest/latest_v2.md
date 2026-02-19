@@ -5,49 +5,49 @@ Focus: AI Platform Engineering
 ## 1. Introducing Claude Sonnet 4.6
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/17/claude-sonnet-46/#atom-everything
-- Score: 2.944 | Reliability: 1.0
+- Score: 2.941 | Reliability: 1.0
 - Why it matters: Pricing parity with stronger model is actionable for cost optimization, but limited agentic-specific improvements documented; primarily an economics play.
 
 ## 2. The A.I. Disruption We’ve Been Waiting for Has Arrived
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/18/the-ai-disruption/#atom-everything
-- Score: 2.6 | Reliability: 1.0
+- Score: 2.595 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. GitHub Agentic Workflows Unleash AI-Driven Repository Automation
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/github-agentic-workflows/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.587 | Reliability: 1.0
+- Score: 2.583 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. v0.14.15
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.15
-- Score: 2.599 | Reliability: 1.0
+- Score: 2.591 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Learning to Retrieve Navigable Candidates for Efficient Vision-and-Language Navigation
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2602.15724v1
-- Score: 2.678 | Reliability: 1.0
+- Score: 2.677 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Show HN: NSED is public – Mixture-of-Models to Hit SOTA using self-hosted AI
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/peeramid-labs/nsed
-- Score: 2.507 | Reliability: 1.0
+- Score: 2.49 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. GLM-5: from Vibe Coding to Agentic Engineering
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.15763v1
-- Score: 2.509 | Reliability: 1.0
+- Score: 2.507 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. Introducing GPT-5.3-Codex-Spark
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-gpt-5-3-codex-spark
-- Score: 2.086 | Reliability: 1.0
+- Score: 2.085 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Beyond rate limits: scaling access to Codex and Sora
@@ -59,37 +59,37 @@ Focus: AI Platform Engineering
 ## 10. Claude Opus 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-opus-4-6
-- Score: 1.788 | Reliability: 1.0
+- Score: 1.785 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. monday Service + LangSmith: Building a Code-First Evaluation Strategy from Day 1
 - Type: news | Source: langchain_blog
 - URL: https://blog.langchain.com/customers-monday/
-- Score: 2.328 | Reliability: 1.0
+- Score: 2.324 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. Measuring Agent Autonomy
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/measuring-agent-autonomy
-- Score: 2.438 | Reliability: 1.0
+- Score: 2.436 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. v2.1.47
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.47
-- Score: 2.28 | Reliability: 1.0
+- Score: 2.273 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. How Dropbox Built a Scalable Context Engine for Enterprise Knowledge Search
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/dropbox-context-engine/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.236 | Reliability: 1.0
+- Score: 2.233 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. 0.104.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.104.0
-- Score: 2.221 | Reliability: 1.0
+- Score: 2.215 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. Harness engineering: leveraging Codex in an agent-first world
@@ -107,23 +107,23 @@ Focus: AI Platform Engineering
 ## 18. v0.1.38
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.38
-- Score: 2.037 | Reliability: 1.0
+- Score: 2.029 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. Claude Sonnet 4 6
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-sonnet-4-6
-- Score: 1.788 | Reliability: 1.0
+- Score: 1.785 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 20. Improved Web Search With Dynamic Filtering
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/improved-web-search-with-dynamic-filtering
-- Score: 1.782 | Reliability: 1.0
+- Score: 1.78 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 21. IBM and UC Berkeley Diagnose Why Enterprise Agents Fail Using IT-Bench and MAST
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/itbenchandmast
-- Score: 2.033 | Reliability: 1.0
+- Score: 2.031 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
