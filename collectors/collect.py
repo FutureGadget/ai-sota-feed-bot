@@ -221,6 +221,7 @@ def _save_sitemap_meta_cache(cache: dict[str, dict]) -> None:
 def _extract_published_from_html(html_text: str) -> str | None:
     patterns = [
         r'"datePublished"\s*:\s*"([^"]+)"',
+        r'publishedOn\\*"\\*:\\*\\*"(\d{4}-\d{2}-\d{2}(?:T[\d:.]+Z?)?)',
         r'<meta[^>]+property=["\']article:published_time["\'][^>]+content=["\']([^"\']+)["\']',
         r'<meta[^>]+name=["\']article:published_time["\'][^>]+content=["\']([^"\']+)["\']',
         r'<meta[^>]+property=["\']og:published_time["\'][^>]+content=["\']([^"\']+)["\']',
