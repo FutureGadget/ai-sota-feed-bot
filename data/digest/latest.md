@@ -11,7 +11,7 @@ Focus: AI Platform Engineering
 ## 2. The A.I. Disruption We’ve Been Waiting for Has Arrived
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/18/the-ai-disruption/#atom-everything
-- Score: 2.617 | Reliability: 1.0
+- Score: 2.616 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. v0.14.15
@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Show HN: NSED is public – Mixture-of-Models to Hit SOTA using self-hosted AI
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/peeramid-labs/nsed
-- Score: 2.579 | Reliability: 1.0
+- Score: 2.578 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Learning to Retrieve Navigable Candidates for Efficient Vision-and-Language Navigation
@@ -89,7 +89,7 @@ Focus: AI Platform Engineering
 ## 15. 0.104.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.104.0
-- Score: 2.243 | Reliability: 1.0
+- Score: 2.242 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. Harness engineering: leveraging Codex in an agent-first world
@@ -101,7 +101,7 @@ Focus: AI Platform Engineering
 ## 17. v0.1.38
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.38
-- Score: 2.065 | Reliability: 1.0
+- Score: 2.064 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 18. GPT-5.2 derives a new result in theoretical physics
