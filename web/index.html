@@ -598,11 +598,8 @@
           <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${i + 1}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
           <div class="meta-row">
             <span class="badge">${source}</span>
-            <span class="badge">${type}</span>
-            ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh (awaiting deep rank)</span>` : ''}
-            ${maturity ? `<span class="badge">${maturity}</span>` : ''}
-            ${labels.map(l => `<span class="badge">#${l}</span>`).join('')}
-            ${seenText ? `<span class="badge">Last seen: ${seenText}</span>` : ''}
+            ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
+            ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
         </article>`;
