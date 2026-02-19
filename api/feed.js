@@ -142,13 +142,19 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   const byKey = new Set(baseItems.map((it) => `${it.url || ''}::${it.title || ''}`));
   const sourceCounts = new Map();
 
+  const maxFreshAgeMs = 48 * 60 * 60 * 1000; // items older than 48h by publish date are not "fresh"
+  const nowMs = Date.now();
+
   const fresh = tier1Items
     .filter((it) => {
       const collected = parseDateMaybe(it?.collected_at);
       const published = parseDateMaybe(it?.published);
       const d = collected || published;
       const quick = Number(it?.tier1_quick_score || 0);
-      return !!d && d > deepRunAt && quick >= minQuickScore;
+      if (!d || d <= deepRunAt || quick < minQuickScore) return false;
+      // Reject items with old publish dates — they aren't truly fresh
+      if (published && (nowMs - published.getTime()) > maxFreshAgeMs) return false;
+      return true;
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
 
