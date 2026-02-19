@@ -17,4 +17,18 @@ COLLECT_DEFAULT_POLL_MINUTES=${COLLECT_DEFAULT_POLL_MINUTES:-30} python collecto
 python pipeline/source_health.py update
 python pipeline/build_tier1.py
 
+# Commit and push runtime data so Vercel serves fresh content
+if git diff --quiet && git diff --cached --quiet; then
+  echo "runtime_push_skipped=true reason=no_changes"
+else
+  git add data/ || true
+  if git diff --cached --quiet; then
+    echo "runtime_push_skipped=true reason=no_staged_changes"
+  else
+    git commit -m "chore(data): tier1 fast refresh $(date +%F\ %H:%M)" || true
+    git pull --rebase origin main 2>/dev/null || true
+    git push origin main 2>/dev/null && echo "runtime_commit_done=true" || echo "runtime_push_failed=true"
+  fi
+fi
+
 echo "TIER1_RUN_OK"

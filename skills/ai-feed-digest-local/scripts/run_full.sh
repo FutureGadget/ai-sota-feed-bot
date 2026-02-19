@@ -72,17 +72,13 @@ python pipeline/prune_runtime_data.py \
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
-  if [ "$PREEXISTING_DIRTY" = "1" ]; then
-    echo "runtime_push_skipped=true reason=preexisting_dirty_worktree"
+  git add data/ || true
+  if git diff --cached --quiet; then
+    echo "runtime_push_skipped=true reason=no_runtime_changes"
   else
-    git add data || true
-    if git diff --cached --quiet; then
-      echo "runtime_push_skipped=true reason=no_runtime_changes"
-    else
-      git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
-      git push
-      echo "runtime_commit_done=true"
-    fi
+    git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)" || true
+    git pull --rebase origin main 2>/dev/null || true
+    git push origin main 2>/dev/null && echo "runtime_commit_done=true" || echo "runtime_push_failed=true"
   fi
 fi
 
