@@ -157,6 +157,11 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
       // Skip minor version releases (e.g. v2.1.39, 0.105.0-alpha.4) — low signal
       const title = String(it?.title || '');
       if (/^\d+\.\d+\.\d+/.test(title) || /^v\d+\.\d+/.test(title)) return false;
+      // Sitemap-sourced items use lastmod as published date, which is unreliable
+      // (page edits update lastmod without being new content). Exclude from fresh blend.
+      const sitemapSources = new Set(['anthropic_newsroom', 'anthropic_engineering', 'anthropic_research', 'claude_blog']);
+      const src = String(it?.source || '');
+      if (sitemapSources.has(src)) return false;
       return true;
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
