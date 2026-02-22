@@ -5,37 +5,37 @@ Focus: AI Platform Engineering
 ## 1. Show HN: OpenBrowser MCP: Give your AI agent a real efficient browser
 - Type: news | Source: hackernews_ai
 - URL: https://openbrowser.me/
-- Score: 3.163 | Reliability: 0.973
+- Score: 3.158 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Andrej Karpathy talks about "Claws"
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/21/claws/#atom-everything
-- Score: 3.019 | Reliability: 0.973
+- Score: 3.017 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Adding TILs, releases, museums, tools and research to my blog
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Feb/20/beats/#atom-everything
-- Score: 3.018 | Reliability: 0.973
+- Score: 3.016 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Agent Observability Powers Agent Evaluation
 - Type: news | Source: langchain_blog
 - URL: https://blog.langchain.com/agent-observability-powers-agent-evaluation/
-- Score: 2.822 | Reliability: 0.973
+- Score: 2.82 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. OpenAI Introduces Harness Engineering: Codex Agents Power Large‑Scale Software Development
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/openai-harness-engineering-codex/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.703 | Reliability: 0.973
+- Score: 2.701 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. OpenAI Launches Frontier, a Platform to Build, Deploy, and Manage AI Agents Across the Enterprise
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/openai-frontier-agent-platform/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.67 | Reliability: 0.973
+- Score: 2.669 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. Claude Code Security
@@ -83,7 +83,7 @@ Focus: AI Platform Engineering
 ## 14. v2.1.47
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.47
-- Score: 2.488 | Reliability: 0.973
+- Score: 2.487 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. Anthropic Rwanda Mou
@@ -101,19 +101,19 @@ Focus: AI Platform Engineering
 ## 17. Revisiting Weight Regularization for Low-Rank Continual Learning
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2602.17559v1
-- Score: 2.325 | Reliability: 0.973
+- Score: 2.324 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 18. v0.1.39
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.39
-- Score: 2.278 | Reliability: 0.973
+- Score: 2.276 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. 0.105.0-alpha.13
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.105.0-alpha.13
-- Score: 2.271 | Reliability: 0.973
+- Score: 2.269 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 20. IBM and UC Berkeley Diagnose Why Enterprise Agents Fail Using IT-Bench and MAST

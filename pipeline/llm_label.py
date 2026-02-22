@@ -320,36 +320,55 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
         label_source = "heuristic"
 
         if enabled and llm_called < max(0, int(budget)):
-            try:
-                if cfg.get("provider") == "openai_compatible":
-                    label = call_openai_compatible(it, cfg, prefs, prompt_text)
-                    label_source = "llm"
-                    llm_called += 1
-                elif cfg.get("provider") == "pi_oauth":
-                    label = call_bridge(
-                        {
-                            "cfg": cfg,
-                            "system": prompt_text,
-                            "payload": {
-                                "preferences": prefs,
-                                "item": {
-                                    "title": it.get("title", ""),
-                                    "summary": it.get("summary", ""),
-                                    "content_excerpt": it.get("content_excerpt", ""),
-                                    "source": it.get("source", ""),
-                                    "url": it.get("url", ""),
+            fb = cfg.get("fallback") or {}
+            attempts = [dict(cfg)]
+            if isinstance(fb, dict) and fb.get("enabled", False):
+                cfg_fb = dict(cfg)
+                cfg_fb.update({k: v for k, v in fb.items() if k != "enabled"})
+                attempts.append(cfg_fb)
+            for fb2 in (cfg.get("fallback_chain") or []):
+                if not isinstance(fb2, dict) or not fb2.get("enabled", False):
+                    continue
+                cfg_fb2 = dict(cfg)
+                cfg_fb2.update({k: v for k, v in fb2.items() if k != "enabled"})
+                attempts.append(cfg_fb2)
+
+            last_err = None
+            for cfg_try in attempts:
+                try:
+                    if cfg_try.get("provider") == "openai_compatible":
+                        label = call_openai_compatible(it, cfg_try, prefs, prompt_text)
+                        label_source = "llm"
+                        llm_called += 1
+                        break
+                    elif cfg_try.get("provider") == "pi_oauth":
+                        label = call_bridge(
+                            {
+                                "cfg": cfg_try,
+                                "system": prompt_text,
+                                "payload": {
+                                    "preferences": prefs,
+                                    "item": {
+                                        "title": it.get("title", ""),
+                                        "summary": it.get("summary", ""),
+                                        "content_excerpt": it.get("content_excerpt", ""),
+                                        "source": it.get("source", ""),
+                                        "url": it.get("url", ""),
+                                    },
                                 },
                             },
-                        },
-                        cfg,
-                    )
-                    label_source = "llm"
-                    llm_called += 1
-            except Exception as e:
-                if debug and debug_errors < 5:
-                    print(f"llm_label_error source={it.get('source','')} err={e}")
-                    debug_errors += 1
-                label = None
+                            cfg_try,
+                        )
+                        label_source = "llm"
+                        llm_called += 1
+                        break
+                except Exception as e:
+                    last_err = e
+                    continue
+
+            if label is None and last_err is not None and debug and debug_errors < 5:
+                print(f"llm_label_error source={it.get('source','')} err={last_err}")
+                debug_errors += 1
 
         if label is None:
             label = heuristic_label(it)

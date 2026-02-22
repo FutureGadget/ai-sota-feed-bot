@@ -472,65 +472,100 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any
     return final, band_diag
 
 
+def _llm_attempt_cfgs(llm_cfg: dict[str, Any]) -> list[dict[str, Any]]:
+    attempts = [dict(llm_cfg)]
+
+    fb = llm_cfg.get("fallback") or {}
+    if isinstance(fb, dict) and fb.get("enabled", False):
+        merged = dict(llm_cfg)
+        merged.update({k: v for k, v in fb.items() if k != "enabled"})
+        attempts.append(merged)
+
+    for fb2 in (llm_cfg.get("fallback_chain") or []):
+        if not isinstance(fb2, dict) or not fb2.get("enabled", False):
+            continue
+        merged = dict(llm_cfg)
+        merged.update({k: v for k, v in fb2.items() if k != "enabled"})
+        attempts.append(merged)
+
+    return attempts
+
+
 def apply_final_prompt_rerank(items: list[dict[str, Any]], llm_cfg: dict[str, Any], top_n: int = 12) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     if not items:
         return items, {"applied": False, "reason": "no_items"}
+    if not bool(llm_cfg.get("enabled", False)):
+        return items, {"applied": False, "reason": "llm_disabled"}
 
     n = max(1, min(int(top_n), len(items)))
     head = list(items[:n])
     tail = list(items[n:])
+    max_items = n
 
-    try:
-        provider = str(llm_cfg.get("provider", "pi_oauth"))
-        max_items = n
-        if provider == "openai_compatible":
-            ordered_ids = call_openai_compatible(head, llm_cfg, max_items)
-        elif provider == "pi_oauth":
-            parsed = call_bridge(
-                {
-                    "cfg": llm_cfg,
-                    "system": load_prompt_text(),
-                    "payload": {
-                        "preferences": load_preferences(),
-                        "max_items": max_items,
-                        "candidates": [
-                            {
-                                "id": c.get("id"),
-                                "title": c.get("title"),
-                                "type": c.get("type"),
-                                "source": c.get("source"),
-                                "score": c.get("global_score", c.get("final_score", c.get("score", 0))),
-                                "summary": c.get("summary_1line", c.get("summary", "")),
-                                "content_excerpt": c.get("content_excerpt", ""),
-                                "why": c.get("why_it_matters", ""),
-                            }
-                            for c in head
-                        ],
+    last_err = None
+    used_cfg = None
+    used_attempt_idx = -1
+    ordered_ids: list[str] = []
+    for idx, cfg_try in enumerate(_llm_attempt_cfgs(llm_cfg)):
+        try:
+            provider = str(cfg_try.get("provider", "pi_oauth"))
+            if provider == "openai_compatible":
+                ordered_ids = call_openai_compatible(head, cfg_try, max_items)
+            elif provider == "pi_oauth":
+                parsed = call_bridge(
+                    {
+                        "cfg": cfg_try,
+                        "system": load_prompt_text(),
+                        "payload": {
+                            "preferences": load_preferences(),
+                            "max_items": max_items,
+                            "candidates": [
+                                {
+                                    "id": c.get("id"),
+                                    "title": c.get("title"),
+                                    "type": c.get("type"),
+                                    "source": c.get("source"),
+                                    "score": c.get("global_score", c.get("final_score", c.get("score", 0))),
+                                    "summary": c.get("summary_1line", c.get("summary", "")),
+                                    "content_excerpt": c.get("content_excerpt", ""),
+                                    "why": c.get("why_it_matters", ""),
+                                }
+                                for c in head
+                            ],
+                        },
                     },
-                },
-                llm_cfg,
-            )
-            ordered_ids = parsed.get("ordered_ids", [])
-        else:
-            ordered_ids = []
+                    cfg_try,
+                )
+                ordered_ids = parsed.get("ordered_ids", [])
+            else:
+                ordered_ids = []
+            used_cfg = cfg_try
+            used_attempt_idx = idx
+            break
+        except Exception as e:
+            last_err = str(e)
+            continue
 
-        by_id = {c.get("id"): c for c in head if c.get("id")}
-        reordered: list[dict[str, Any]] = []
-        for oid in ordered_ids:
-            if oid in by_id and by_id[oid] not in reordered:
-                reordered.append(by_id[oid])
-        for c in head:
-            if c not in reordered:
-                reordered.append(c)
+    if used_cfg is None:
+        return items, {"applied": False, "reason": "error", "error": str(last_err or "rerank_failed")}
 
-        return reordered + tail, {
-            "applied": True,
-            "provider": provider,
-            "top_n": n,
-            "reordered": sum(1 for i, c in enumerate(reordered) if i < len(head) and c != head[i]),
-        }
-    except Exception as e:
-        return items, {"applied": False, "reason": "error", "error": str(e)}
+    by_id = {c.get("id"): c for c in head if c.get("id")}
+    reordered: list[dict[str, Any]] = []
+    for oid in ordered_ids:
+        if oid in by_id and by_id[oid] not in reordered:
+            reordered.append(by_id[oid])
+    for c in head:
+        if c not in reordered:
+            reordered.append(c)
+
+    return reordered + tail, {
+        "applied": True,
+        "provider": str(used_cfg.get("provider", "unknown")),
+        "model": str(used_cfg.get("model", "")),
+        "fallback_used": used_attempt_idx > 0,
+        "top_n": n,
+        "reordered": sum(1 for i, c in enumerate(reordered) if i < len(head) and c != head[i]),
+    }
 
 
 def run_ranking(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:

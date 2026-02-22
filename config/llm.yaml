@@ -1,4 +1,6 @@
-enabled: true
+enabled: false
+# LLM integration is intentionally disabled for now.
+# The ranking pipeline runs in no-op/heuristic mode until auth is reintroduced.
 provider: pi_oauth
 model_provider: anthropic
 model: claude-haiku-4-5
@@ -8,7 +10,7 @@ label_top_n: 8
 rerank_top_n: 20
 timeout_seconds: 15
 max_retries: 1
-cache_version: 13
+cache_version: 14
 content_fetch_enabled: true
 content_fetch_top_n: 24
 content_excerpt_chars: 2000

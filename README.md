@@ -86,12 +86,10 @@ Runtime snapshot retention controls:
 - `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older snapshots compact to weekly)
 - Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N] [--weekly-archive-after-days N]`
 
-## OAuth LLM mode (local, no API key)
-```bash
-npm install
-./scripts/oauth_login.sh      # one-time OpenAI Codex OAuth login
-# ensure config/llm.yaml has: provider: pi_oauth, enabled: true
-```
+## LLM integration status
+LLM labeling/reranking is currently disabled (`config/llm.yaml -> enabled: false`).
+
+The pipeline runs in deterministic/heuristic mode (no external LLM calls) until auth/model integration is reintroduced.
 
 ## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
 ```bash
@@ -118,10 +116,10 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 ## Config
 - `config/sources.yaml`: feed list + source weights
 - `config/profile.yaml`: platform relevance weights and keywords
-- `config/llm.yaml`: LLM label + rerank configuration (supports `pi_oauth` bridge mode)
-- `config/user_preferences.yaml`: preference profile injected into LLM prompts
-- `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates
-- `scripts/oauth_login.sh`: OAuth login helper (stores creds in `data/llm/auth.json`)
+- `config/llm.yaml`: LLM config (currently disabled/no-op; keep for future re-enable)
+- `config/user_preferences.yaml`: preference profile used by prompts when LLM mode is enabled
+- `config/prompts/label_system.txt`, `config/prompts/rerank_system.txt`: prompt templates (inactive while LLM is disabled)
+- `scripts/oauth_login.sh`: legacy OAuth helper for future re-enable
 
 ## GitHub Actions
 - Hourly collect + score commit
