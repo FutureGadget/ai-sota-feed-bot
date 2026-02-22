@@ -89,7 +89,7 @@ Runtime snapshot retention controls:
 ## LLM integration status
 LLM labeling/reranking is currently disabled (`config/llm.yaml -> enabled: false`).
 
-The pipeline runs in deterministic/heuristic mode (no external LLM calls) until auth/model integration is reintroduced.
+The pipeline runs in deterministic/heuristic mode (no external LLM calls). LLM interfaces are kept in code as explicit no-op placeholders for future reimplementation.
 
 ## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
 ```bash

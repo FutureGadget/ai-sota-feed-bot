@@ -17,10 +17,6 @@ try:
 except Exception:
     from pipeline.llm_label import label_items
 
-try:
-    from llm_rerank import load_preferences, load_prompt_text, call_bridge, call_openai_compatible
-except Exception:
-    from pipeline.llm_rerank import load_preferences, load_prompt_text, call_bridge, call_openai_compatible
 ROOT = Path(__file__).resolve().parents[1]
 RANKING_CFG_FILE = ROOT / "config" / "ranking.yaml"
 PRESETS_DIR = ROOT / "config" / "presets"
@@ -494,8 +490,8 @@ def _llm_attempt_cfgs(llm_cfg: dict[str, Any]) -> list[dict[str, Any]]:
 def apply_final_prompt_rerank(items: list[dict[str, Any]], llm_cfg: dict[str, Any], top_n: int = 12) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     if not items:
         return items, {"applied": False, "reason": "no_items"}
-    if not bool(llm_cfg.get("enabled", False)):
-        return items, {"applied": False, "reason": "llm_disabled"}
+    # Hard-disabled by design: keep interface/diagnostics intact, but no external LLM rerank calls.
+    return items, {"applied": False, "reason": "llm_disabled_hard"}
 
     n = max(1, min(int(top_n), len(items)))
     head = list(items[:n])

@@ -175,7 +175,8 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    enabled = bool(cfg.get("enabled", False))
+    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
+    enabled = False
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     for it in items:
@@ -302,7 +303,8 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    enabled = bool(cfg.get("enabled", False))
+    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
+    enabled = False
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     llm_called = 0

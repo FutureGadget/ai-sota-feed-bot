@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Show HN: OpenBrowser MCP: Give your AI agent a real efficient browser
 - Type: news | Source: hackernews_ai
 - URL: https://openbrowser.me/
-- Score: 3.158 | Reliability: 0.973
+- Score: 3.156 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Andrej Karpathy talks about "Claws"
@@ -47,7 +47,7 @@ Focus: AI Platform Engineering
 ## 8. Measuring Agent Autonomy
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/measuring-agent-autonomy
-- Score: 2.621 | Reliability: 0.973
+- Score: 2.62 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Introducing OpenAI for India
