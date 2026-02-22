@@ -19,7 +19,7 @@ PREF_FILE = ROOT / "config" / "user_preferences.yaml"
 PROMPT_FILE = ROOT / "config" / "prompts" / "label_system.txt"
 CACHE_FILE = ROOT / "data" / "llm" / "labels.json"
 # v2 ranking rubric will use a separate cache namespace to avoid schema collisions.
-CACHE_FILE_V2 = ROOT / "data" / "llm" / "labels_v2.json"
+CACHE_FILE_V2 = ROOT / "data" / "llm" / "labels.json"
 SOURCES_FILE = ROOT / "config" / "sources.yaml"
 
 
@@ -228,10 +228,10 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     save_cache(cache)
     return out
 
-PROMPT_FILE_V2 = ROOT / "config" / "prompts" / "label_v2_system.txt"
+PROMPT_FILE_V2 = ROOT / "config" / "prompts" / "label_system.txt"
 
 
-def load_prompt_text_v2() -> str:
+def load_prompt_text() -> str:
     if not PROMPT_FILE_V2.exists():
         return (
             "You score AI content for an AI platform engineer daily digest. "
@@ -254,7 +254,7 @@ def save_cache_file(path: Path, cache: dict[str, Any]) -> None:
     path.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def heuristic_label_v2(item: dict[str, Any]) -> dict[str, Any]:
+def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     t = (item.get("title", "") + " " + item.get("summary", "")).lower()
     platform_tokens = ["agent", "eval", "benchmark", "inference", "latency", "serving", "orchestration", "automation"]
     evidence_tokens = ["benchmark", "code", "github", "dataset", "ablation", "reproduc"]
@@ -279,10 +279,10 @@ def heuristic_label_v2(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def label_items_v2(items: list[dict[str, Any]], budget: int = 40, rubric_version: str = "v2") -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
+def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: str = "default") -> tuple[dict[str, dict[str, Any]], dict[str, int]]:
     cfg = load_cfg()
     prefs = load_preferences()
-    prompt_text = load_prompt_text_v2()
+    prompt_text = load_prompt_text()
     cache = load_cache_file(CACHE_FILE_V2)
     out: dict[str, dict[str, Any]] = {}
 
@@ -347,12 +347,12 @@ def label_items_v2(items: list[dict[str, Any]], budget: int = 40, rubric_version
                     llm_called += 1
             except Exception as e:
                 if debug and debug_errors < 5:
-                    print(f"llm_label_v2_error source={it.get('source','')} err={e}")
+                    print(f"llm_label_error source={it.get('source','')} err={e}")
                     debug_errors += 1
                 label = None
 
         if label is None:
-            label = heuristic_label_v2(it)
+            label = heuristic_label(it)
             label_source = "heuristic"
 
         label["__label_source"] = label_source
@@ -361,3 +361,5 @@ def label_items_v2(items: list[dict[str, Any]], budget: int = 40, rubric_version
 
     save_cache_file(CACHE_FILE_V2, cache)
     return out, {"llm_called": llm_called, "cache_hits": cache_hits}
+
+

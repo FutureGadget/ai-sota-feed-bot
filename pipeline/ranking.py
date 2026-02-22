@@ -13,12 +13,16 @@ import yaml
 from dateutil import parser as dt_parser
 
 try:
-    from llm_label import label_items_v2
+    from llm_label import label_items
 except Exception:
-    from pipeline.llm_label import label_items_v2
+    from pipeline.llm_label import label_items
 
+try:
+    from llm_rerank import load_preferences, load_prompt_text, call_bridge, call_openai_compatible
+except Exception:
+    from pipeline.llm_rerank import load_preferences, load_prompt_text, call_bridge, call_openai_compatible
 ROOT = Path(__file__).resolve().parents[1]
-V2_CFG_FILE = ROOT / "config" / "ranking_v2.yaml"
+RANKING_CFG_FILE = ROOT / "config" / "ranking.yaml"
 PRESETS_DIR = ROOT / "config" / "presets"
 
 
@@ -32,10 +36,10 @@ def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any
     return out
 
 
-def load_v2_config() -> dict[str, Any]:
-    if not V2_CFG_FILE.exists():
+def load_ranking_config() -> dict[str, Any]:
+    if not RANKING_CFG_FILE.exists():
         return {"enabled": False}
-    raw = yaml.safe_load(V2_CFG_FILE.read_text(encoding="utf-8")) or {"enabled": False}
+    raw = yaml.safe_load(RANKING_CFG_FILE.read_text(encoding="utf-8")) or {"enabled": False}
 
     preset_name = raw.get("preset")
     if not preset_name:
@@ -43,7 +47,7 @@ def load_v2_config() -> dict[str, Any]:
 
     preset_file = PRESETS_DIR / f"{preset_name}.yaml"
     if not preset_file.exists():
-        print(f"ranking_v2_preset_missing name={preset_name}")
+        print(f"ranking_preset_missing name={preset_name}")
         return raw
 
     preset_cfg = yaml.safe_load(preset_file.read_text(encoding="utf-8")) or {}
@@ -66,19 +70,19 @@ def _freshness_score(published_str: str, decay_hours: float = 24.0) -> float:
     return math.exp(-age / max(1.0, decay_hours))
 
 
-def _build_source_slot_map(v2_cfg: dict[str, Any]) -> dict[str, str]:
+def _build_source_slot_map(cfg: dict[str, Any]) -> dict[str, str]:
     out: dict[str, str] = {}
-    for slot, scfg in (v2_cfg.get("slots", {}) or {}).items():
+    for slot, scfg in (cfg.get("slots", {}) or {}).items():
         for s in scfg.get("sources", []) or []:
             out[s] = slot
     return out
 
 
-def stage_a_prefilter(items: list[dict[str, Any]], v2_cfg: dict[str, Any], profile: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    src_to_slot = _build_source_slot_map(v2_cfg)
-    slots = v2_cfg.get("slots", {}) or {}
+def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    src_to_slot = _build_source_slot_map(cfg)
+    slots = cfg.get("slots", {}) or {}
     exclude_title_regex = profile.get("selection", {}).get("exclude_title_regex", [])
-    cap = int(v2_cfg.get("candidate_pool_cap", 100))
+    cap = int(cfg.get("candidate_pool_cap", 100))
 
     out: list[dict[str, Any]] = []
     reasons = defaultdict(int)
@@ -103,13 +107,13 @@ def stage_a_prefilter(items: list[dict[str, Any]], v2_cfg: dict[str, Any], profi
             continue
 
         item = dict(it)
-        item["v2_slot"] = slot
+        item["slot"] = slot
         item["freshness"] = round(_freshness_score(it.get("published", ""), decay_hours=max(12.0, fresh_h / 3)), 3)
         item["source_reliability"] = round(rel, 3)
-        item["v2_prefilter_score"] = round(float(it.get("source_weight", 1.0)) + item["freshness"] + rel, 3)
+        item["prefilter_score"] = round(float(it.get("source_weight", 1.0)) + item["freshness"] + rel, 3)
         out.append(item)
 
-    out.sort(key=lambda x: x.get("v2_prefilter_score", 0), reverse=True)
+    out.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
     if len(out) > cap:
         reasons["pool_cap"] += len(out) - cap
         out = out[:cap]
@@ -122,15 +126,15 @@ def stage_a_prefilter(items: list[dict[str, Any]], v2_cfg: dict[str, Any], profi
     return out, diag
 
 
-def assign_slots(candidates: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
-    slots = {k: [] for k in (v2_cfg.get("slots", {}) or {}).keys()}
+def assign_slots(candidates: list[dict[str, Any]], cfg: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    slots = {k: [] for k in (cfg.get("slots", {}) or {}).keys()}
     slots.setdefault("overflow", [])
     for it in candidates:
-        slot = it.get("v2_slot", "overflow")
+        slot = it.get("slot", "overflow")
         slots.setdefault(slot, []).append(it)
 
     for slot, arr in slots.items():
-        arr.sort(key=lambda x: x.get("v2_prefilter_score", 0), reverse=True)
+        arr.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
     return slots
 
 
@@ -214,10 +218,10 @@ def _select_slot_items(slot: str, items: list[dict[str, Any]], scfg: dict[str, A
     return out, reject
 
 
-def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
-    slots_cfg = v2_cfg.get("slots", {}) or {}
-    source_bias_cfg = v2_cfg.get("source_bias", {}) or {}
-    topical_cfg = v2_cfg.get("topical_bias", {}) or {}
+def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict[str, Any], llm_budget: int) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
+    slots_cfg = cfg.get("slots", {}) or {}
+    source_bias_cfg = cfg.get("source_bias", {}) or {}
+    topical_cfg = cfg.get("topical_bias", {}) or {}
     pos_kw = [str(x).lower() for x in (topical_cfg.get("positive_keywords", []) or [])]
     neg_kw = [str(x).lower() for x in (topical_cfg.get("negative_keywords", []) or [])]
     pos_w = float(topical_cfg.get("positive_weight", 0.0))
@@ -232,7 +236,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
         beta = float((scfg.get("blend", {}) or {}).get("beta", 0.2))
 
         remaining = max(0, int(llm_budget) - budget_used)
-        labels, meta = label_items_v2(candidates, budget=remaining, rubric_version="v2.1")
+        labels, meta = label_items(candidates, budget=remaining, rubric_version="v2.1")
         budget_used += int(meta.get("llm_called", 0))
 
         scored = []
@@ -254,10 +258,10 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
             item["llm_category"] = lb.get("category", "platform")
             item["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
             item["llm_why_1line"] = lb.get("why_1line", "")
-            item["v2_llm_score"] = round(llm_s, 3)
-            item["v2_source_bias"] = round(src_bias, 3)
-            item["v2_topical_bias"] = round(topical, 3)
-            item["v2_final_score"] = round(fs, 3)
+            item["llm_score"] = round(llm_s, 3)
+            item["source_bias"] = round(src_bias, 3)
+            item["topical_bias"] = round(topical, 3)
+            item["final_score"] = round(fs, 3)
             if item["llm_summary_1line"]:
                 summary = _to_clean_oneline(item["llm_summary_1line"], 220)
             else:
@@ -269,7 +273,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
                 item["why_it_matters"] = item["llm_why_1line"]
             scored.append(item)
 
-        scored.sort(key=lambda x: x.get("v2_final_score", 0), reverse=True)
+        scored.sort(key=lambda x: x.get("final_score", 0), reverse=True)
         picked, reject = _select_slot_items(slot, scored, scfg)
         selected_by_slot[slot] = picked
         diag_slots[slot] = {
@@ -285,11 +289,11 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], v2_cfg: d
     return selected_by_slot, {"slots": diag_slots, "llm_budget_total": llm_budget, "llm_budget_used": budget_used}
 
 
-def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float], dict[str, int]]:
-    max_items = int(v2_cfg.get("max_items", 20))
-    slots_cfg = v2_cfg.get("slots", {}) or {}
+def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, float], dict[str, int]]:
+    max_items = int(cfg.get("max_items", 20))
+    slots_cfg = cfg.get("slots", {}) or {}
 
-    dyn = (v2_cfg.get("dynamic_slot_rerank", {}) or {})
+    dyn = (cfg.get("dynamic_slot_rerank", {}) or {})
     dyn_enabled = bool(dyn.get("enabled", False))
     q_w = float(dyn.get("quality_weight", 0.0))
     f_w = float(dyn.get("freshness_weight", 0.0))
@@ -303,7 +307,7 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
         if not arr:
             slot_priority[slot] = float(base_bias.get(slot, 0.0))
             continue
-        avg_llm = sum(float(x.get("v2_llm_score", 0.0)) for x in arr) / max(1, len(arr))
+        avg_llm = sum(float(x.get("llm_score", 0.0)) for x in arr) / max(1, len(arr))
         avg_fresh = sum(float(x.get("freshness", 0.0)) for x in arr) / max(1, len(arr))
         slot_priority[slot] = float(base_bias.get(slot, 0.0)) + q_w * avg_llm + f_w * avg_fresh
 
@@ -314,10 +318,10 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
         for it in arr:
             item = dict(it)
             sp = float(slot_priority.get(slot, 0.0))
-            item["v2_slot_priority"] = round(sp, 3)
-            item["v2_global_score"] = round(float(item.get("v2_final_score", 0.0)) + sp, 3)
+            item["slot_priority"] = round(sp, 3)
+            item["global_score"] = round(float(item.get("final_score", 0.0)) + sp, 3)
             scored.append(item)
-        scored.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
+        scored.sort(key=lambda x: x.get("global_score", x.get("final_score", 0)), reverse=True)
         by_slot_scored[slot] = scored
 
     # Strategy: fixed slot floors first, then dynamic headroom fill.
@@ -345,12 +349,12 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
     remainder: list[dict[str, Any]] = []
     for slot, scored in by_slot_scored.items():
         remainder.extend(scored)
-    remainder.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
+    remainder.sort(key=lambda x: x.get("global_score", x.get("final_score", 0)), reverse=True)
 
     for it in remainder:
         if len(out) >= max_items:
             break
-        slot = it.get("v2_slot", "overflow")
+        slot = it.get("slot", "overflow")
         max_slot = int((slots_cfg.get(slot, {}) or {}).get("max_items", max_items))
         key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
         if key in used:
@@ -364,12 +368,12 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], v2_cfg: dict[
         slot_counts[slot] += 1
         merge_diag["headroom_selected"] += 1
 
-    out.sort(key=lambda x: x.get("v2_global_score", x.get("v2_final_score", 0)), reverse=True)
+    out.sort(key=lambda x: x.get("global_score", x.get("final_score", 0)), reverse=True)
     return out[:max_items], slot_priority, merge_diag
 
 
-def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
-    cfg = (v2_cfg.get("top_band_constraints", {}) or {})
+def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
+    cfg = (cfg.get("top_band_constraints", {}) or {})
 
     band_diag = {"dedup_removed": 0, "promoted_frontier": 0, "promoted_anthropic_frontier": 0, "research_demoted": 0}
 
@@ -395,7 +399,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     top = out[:top_n]
 
     def is_frontier(x: dict[str, Any]) -> bool:
-        return x.get("v2_slot") == "frontier_official"
+        return x.get("slot") == "frontier_official"
 
     def is_anth_frontier(x: dict[str, Any]) -> bool:
         s = (x.get("source") or "")
@@ -408,7 +412,7 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
         if have >= needed:
             return
         candidates = [x for x in out[top_n:] if predicate(x)]
-        candidates.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        candidates.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         while have < needed and candidates:
             cand = candidates.pop(0)
             replace_idx = None
@@ -424,9 +428,9 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
             out.append(old)
             have += 1
             band_diag[counter_key] += 1
-        top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        top.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         tail = [x for x in out if x not in top]
-        tail.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        tail.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         out = top + tail
 
     promote(is_frontier, min_frontier, "promoted_frontier")
@@ -434,12 +438,12 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
 
     # Cap research-heavy items in visible top band.
     def is_research(x: dict[str, Any]) -> bool:
-        return (x.get("v2_slot") == "research_watch") or ((x.get("llm_category") or "") == "research")
+        return (x.get("slot") == "research_watch") or ((x.get("llm_category") or "") == "research")
 
     research_count = sum(1 for x in top if is_research(x))
     if research_count > max_research:
         tail_candidates = [x for x in out[top_n:] if not is_research(x)]
-        tail_candidates.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        tail_candidates.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         i = top_n - 1
         while research_count > max_research and i >= 0 and tail_candidates:
             if is_research(top[i]):
@@ -451,9 +455,9 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
                 research_count -= 1
                 band_diag["research_demoted"] += 1
             i -= 1
-        top.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        top.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         tail = [x for x in out if x not in top]
-        tail.sort(key=lambda x: x.get("v2_global_score", 0), reverse=True)
+        tail.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         out = top + tail
 
     final: list[dict[str, Any]] = []
@@ -468,18 +472,80 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], v2_cfg: dict[str, 
     return final, band_diag
 
 
-def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    v2_cfg = load_v2_config()
-    candidates, diag_a = stage_a_prefilter(items, v2_cfg, profile, source_health)
-    slotted = assign_slots(candidates, v2_cfg)
-    llm_budget = int(v2_cfg.get("llm_budget", 40))
-    selected_by_slot, diag_c = stage_c_score_and_select(slotted, v2_cfg, llm_budget)
-    top, slot_priority, merge_diag = global_merge(selected_by_slot, v2_cfg)
-    top, band_diag = enforce_top_band_constraints(top, v2_cfg)
+def apply_final_prompt_rerank(items: list[dict[str, Any]], llm_cfg: dict[str, Any], top_n: int = 12) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    if not items:
+        return items, {"applied": False, "reason": "no_items"}
+
+    n = max(1, min(int(top_n), len(items)))
+    head = list(items[:n])
+    tail = list(items[n:])
+
+    try:
+        provider = str(llm_cfg.get("provider", "pi_oauth"))
+        max_items = n
+        if provider == "openai_compatible":
+            ordered_ids = call_openai_compatible(head, llm_cfg, max_items)
+        elif provider == "pi_oauth":
+            parsed = call_bridge(
+                {
+                    "cfg": llm_cfg,
+                    "system": load_prompt_text(),
+                    "payload": {
+                        "preferences": load_preferences(),
+                        "max_items": max_items,
+                        "candidates": [
+                            {
+                                "id": c.get("id"),
+                                "title": c.get("title"),
+                                "type": c.get("type"),
+                                "source": c.get("source"),
+                                "score": c.get("global_score", c.get("final_score", c.get("score", 0))),
+                                "summary": c.get("summary_1line", c.get("summary", "")),
+                                "content_excerpt": c.get("content_excerpt", ""),
+                                "why": c.get("why_it_matters", ""),
+                            }
+                            for c in head
+                        ],
+                    },
+                },
+                llm_cfg,
+            )
+            ordered_ids = parsed.get("ordered_ids", [])
+        else:
+            ordered_ids = []
+
+        by_id = {c.get("id"): c for c in head if c.get("id")}
+        reordered: list[dict[str, Any]] = []
+        for oid in ordered_ids:
+            if oid in by_id and by_id[oid] not in reordered:
+                reordered.append(by_id[oid])
+        for c in head:
+            if c not in reordered:
+                reordered.append(c)
+
+        return reordered + tail, {
+            "applied": True,
+            "provider": provider,
+            "top_n": n,
+            "reordered": sum(1 for i, c in enumerate(reordered) if i < len(head) and c != head[i]),
+        }
+    except Exception as e:
+        return items, {"applied": False, "reason": "error", "error": str(e)}
+
+
+def run_ranking(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[str, Any], source_health: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    cfg = load_ranking_config()
+    candidates, diag_a = stage_a_prefilter(items, cfg, profile, source_health)
+    slotted = assign_slots(candidates, cfg)
+    llm_budget = int(cfg.get("llm_budget", 40))
+    selected_by_slot, diag_c = stage_c_score_and_select(slotted, cfg, llm_budget)
+    top, slot_priority, merge_diag = global_merge(selected_by_slot, cfg)
+    top, band_diag = enforce_top_band_constraints(top, cfg)
+    top, prompt_rerank_diag = apply_final_prompt_rerank(top, llm_cfg, top_n=12)
 
     # Final summary enrichment for ALL presented items (~20):
     # run label pass again only on final top list so summary_1line is consistently LLM-generated.
-    final_labels, final_meta = label_items_v2(top, budget=len(top), rubric_version="v2.1-final-summary")
+    final_labels, final_meta = label_items(top, budget=len(top), rubric_version="v2.1-final-summary")
     for it in top:
       key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
       lb = final_labels.get(key, {})
@@ -501,6 +567,7 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
         "slot_priority": {k: round(v, 3) for k, v in slot_priority.items()},
         "merge": merge_diag,
         "top_band": band_diag,
+        "final_prompt_rerank": prompt_rerank_diag,
         "final_summary_pass": {
             "llm_called": int(final_meta.get("llm_called", 0)),
             "cache_hits": int(final_meta.get("cache_hits", 0)),
@@ -516,7 +583,7 @@ def run_v2(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: dict[s
     m = diag.get("merge", {}) or {}
     tb = diag.get("top_band", {}) or {}
     print(
-        "v2_stats "
+        "ranking_stats "
         f"prefilter={diag.get('prefilter_in',0)}->{diag.get('prefilter_out',0)} "
         f"llm_used={diag.get('llm_budget_used',0)}/{diag.get('llm_budget_total',0)} "
         f"slots={'/'.join(slot_bits)} "

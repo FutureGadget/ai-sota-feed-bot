@@ -753,300 +753,52 @@ def run():
     decay = float(w.get("freshness_hours_decay", 72))
     source_health = load_source_health()
 
-    # v2 full switch path
+    # Unified ranking pipeline (single canonical path).
     try:
-        from ranking_v2 import load_v2_config, run_v2
+        from ranking import run_ranking
 
-        v2_cfg = load_v2_config()
-        if bool(v2_cfg.get("enabled", False)):
-            v2_items, v2_diag = run_v2(items_deduped, profile, load_llm_cfg(), source_health)
+        ranked_items, ranking_diag = run_ranking(items_deduped, profile, load_llm_cfg(), source_health)
 
-            processed_dir = ROOT / "data" / "processed"
-            processed_dir.mkdir(parents=True, exist_ok=True)
-            atomic_write_json(processed_dir / "latest.json", v2_items)
-            atomic_write_json(processed_dir / "latest_v2.json", v2_items)
+        processed_dir = ROOT / "data" / "processed"
+        processed_dir.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(processed_dir / "latest.json", ranked_items)
 
-            date_str = datetime.now().strftime("%Y-%m-%d")
-            diag_dir = ROOT / "data" / "diagnostics"
-            diag_dir.mkdir(parents=True, exist_ok=True)
-            with open(diag_dir / f"{date_str}_v2.json", "w", encoding="utf-8") as f:
-                json.dump(v2_diag, f, ensure_ascii=False, indent=2)
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        diag_dir = ROOT / "data" / "diagnostics"
+        diag_dir.mkdir(parents=True, exist_ok=True)
+        with open(diag_dir / f"{date_str}_ranking.json", "w", encoding="utf-8") as f:
+            json.dump(ranking_diag, f, ensure_ascii=False, indent=2)
 
-            lines = [
-                f"# Daily AI SOTA Digest - {date_str}",
-                "",
-                "Focus: AI Platform Engineering",
-                "",
-            ]
-            for i, it in enumerate(v2_items, start=1):
-                lines += [
-                    f"## {i}. {it.get('title','')}",
-                    f"- Type: {it.get('type','news')} | Source: {it.get('source','unknown')}",
-                    f"- URL: {it.get('url','')}",
-                    f"- Score: {it.get('v2_final_score', it.get('score', 0))} | Reliability: {it.get('source_reliability', 1.0)}",
-                    f"- Why it matters: {it.get('why_it_matters', '')}",
-                    "",
-                ]
-
-            digest_dir = ROOT / "data" / "digest"
-            digest_dir.mkdir(parents=True, exist_ok=True)
-            out = digest_dir / f"{date_str}.md"
-            with open(out, "w", encoding="utf-8") as f:
-                f.write("\n".join(lines).strip() + "\n")
-            with open(digest_dir / "latest.md", "w", encoding="utf-8") as f:
-                f.write("\n".join(lines).strip() + "\n")
-            with open(digest_dir / f"{date_str}_v2.md", "w", encoding="utf-8") as f:
-                f.write("\n".join(lines).strip() + "\n")
-            with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
-                f.write("\n".join(lines).strip() + "\n")
-
-            run_at_iso, run_file = write_run_snapshot(v2_items)
-            print(f"digest_items={len(v2_items)} file={out} run_at={run_at_iso} run_file={run_file}")
-            return
-    except Exception as e:
-        print(f"ranking_v2_switch_error err={e}")
-
-    scored = []
-    exclude_title_regex = profile.get("selection", {}).get("exclude_title_regex", [])
-    type_bonus_cfg = profile.get("type_bonus", {})
-    for it in items:
-        title = it.get('title', '')
-        if any(re.search(pat, title) for pat in exclude_title_regex):
-            continue
-        text = f"{title} {it.get('summary', '')}"
-        platform_hits = keyword_hits(text, pkw)
-        hype_hits = keyword_hits(text, hkw)
-        fresh = freshness_score(it.get("published", ""), decay)
-
-        item_type = signal_type(it)
-        src_rel = float(source_health.get(it.get("source", ""), 1.0))
-        # Heuristic keyword/type boosting removed; keep baseline score simple.
-        score = (
-            float(it.get("source_weight", 1.0)) * float(w.get("source_weight", 1.0))
-            + fresh
-            + src_rel * float(w.get("source_reliability", 1.0))
-        )
-
-        tags = [k for k in pkw if re.search(rf"\b{re.escape(k)}\b", text.lower())][:5]
-
-        scored.append(
-            {
-                **it,
-                "type": item_type,
-                "score": round(score, 3),
-                "source_reliability": round(src_rel, 3),
-                "freshness": round(fresh, 3),
-                "platform_hits": platform_hits,
-                "hype_hits": hype_hits,
-                "maturity": maturity_label(text),
-                "tags": tags,
-                "why_it_matters": why_it_matters(tags),
-            }
-        )
-
-    llm_cfg = load_llm_cfg()
-    label_top_n = int(llm_cfg.get("label_top_n", 20))
-    pre_sorted = sorted(scored, key=lambda x: x["score"], reverse=True)
-
-    if bool(llm_cfg.get("content_fetch_enabled", True)):
-        fetch_n = int(llm_cfg.get("content_fetch_top_n", max(label_top_n, int(llm_cfg.get("rerank_top_n", 40)))))
-        excerpt_chars = int(llm_cfg.get("content_excerpt_chars", 1200))
-        fetch_timeout = int(llm_cfg.get("content_fetch_timeout_seconds", 10))
-        fetch_budget = int(llm_cfg.get("content_fetch_time_budget_seconds", 25))
-        content_map = build_content_map(
-            pre_sorted,
-            top_n=fetch_n,
-            excerpt_chars=excerpt_chars,
-            timeout=fetch_timeout,
-            time_budget_seconds=fetch_budget,
-        )
-        for it in pre_sorted:
-            u = (it.get("url", "") or "").split("#")[0].strip()
-            if u in content_map:
-                it["content_excerpt"] = content_map[u]
-
-    label_budget = min(len(pre_sorted), max(label_top_n, int(profile.get("max_digest_items", 10))))
-    labels = label_items(pre_sorted[:label_budget])
-
-    llm_used = 0
-    heuristic_used = 0
-
-    for it in scored:
-        key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
-        lb = labels.get(key, {})
-        src = lb.get("__label_source", "heuristic")
-        if src == "llm":
-            llm_used += 1
-        else:
-            heuristic_used += 1
-
-        it["llm_platform_relevant"] = bool(lb.get("platform_relevant", True))
-        it["llm_novelty"] = int(lb.get("novelty", 3))
-        it["llm_practicality"] = int(lb.get("practicality", 3))
-        it["llm_hype"] = int(lb.get("hype", 2))
-        llm_cat = str(lb.get("category", "")).strip().lower()
-        if llm_cat not in {"platform", "release", "research"}:
-            typ = (it.get("type") or "news").lower()
-            llm_cat = "release" if typ == "release" else ("research" if typ == "paper" else "platform")
-        it["llm_category"] = llm_cat
-        it["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
-        it["llm_why_1line"] = lb.get("why_1line", "")
-        it["llm_label_source"] = src
-
-        it["score"] = round(
-            float(it["score"])
-            + (0.6 if it["llm_platform_relevant"] else -0.6)
-            + (it["llm_practicality"] - 3) * 0.4
-            + (it["llm_novelty"] - 3) * 0.2
-            - max(0, it["llm_hype"] - 3) * 0.4,
-            3,
-        )
-        if it["llm_summary_1line"]:
-            it["summary_1line"] = it["llm_summary_1line"]
-        else:
-            s = str(it.get("summary", "") or "").strip()
-            it["summary_1line"] = (s[:217].rstrip() + "...") if len(s) > 220 else s
-
-        if it["llm_why_1line"] and src == "llm":
-            it["why_it_matters"] = it["llm_why_1line"]
-
-    scored.sort(key=lambda x: x["score"], reverse=True)
-    print(f"label_stats llm={llm_used} heuristic={heuristic_used} label_top_n={label_top_n} label_budget={label_budget}")
-
-    max_items = int(profile.get("max_digest_items", 10))
-    min_score = float(profile.get("min_score", 1.0))
-    eligible = [
-        x
-        for x in scored
-        if x["score"] >= min_score and (x.get("llm_platform_relevant", True) or x["score"] >= (min_score + 1.5))
-    ]
-    diversity_cfg = profile.get("diversity", {})
-    llm_cfg = load_llm_cfg()
-    quotas = {
-        "min": diversity_cfg.get("min_per_type", {}),
-        "max": diversity_cfg.get("max_per_type", {}),
-    }
-
-    top = rerank_candidates(eligible, llm_cfg, max_items, quotas)
-    if not top:
-        top = balanced_select(eligible, max_items, diversity_cfg)
-
-    sel_cfg = profile.get("selection", {})
-    max_per_source = int(sel_cfg.get("max_per_source", 0))
-    top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
-
-    top = apply_constrained_topk(
-        top,
-        eligible,
-        max_items=max_items,
-        top_k=int(sel_cfg.get("top_k_guardrail", 5)),
-        max_release_in_top_k=int(sel_cfg.get("max_release_in_top_k", 1)),
-        max_same_source_in_top_k=int(sel_cfg.get("max_same_source_in_top_k", 1)),
-        frontier_sources=list(sel_cfg.get("frontier_blog_sources", [])),
-        min_frontier_slots=int(sel_cfg.get("min_frontier_blog_slots", 0)),
-        agent_release_sources=list(sel_cfg.get("agent_app_release_sources", [])),
-        min_agent_release_slots=int(sel_cfg.get("min_agent_app_release_slots", 0)),
-        deprioritized_sources=list(sel_cfg.get("top_k_deprioritized_sources", [])),
-        max_deprioritized_slots=int(sel_cfg.get("max_top_k_deprioritized_slots", 99)),
-    )
-
-    top = enforce_source_floor(
-        top,
-        eligible,
-        set(sel_cfg.get("anthropic_sources", [])),
-        int(sel_cfg.get("min_anthropic_slots", 0)),
-    )
-
-    top = apply_category_allocation(
-        top,
-        eligible,
-        max_items=max_items,
-        alloc_cfg=sel_cfg.get("category_allocation", {}),
-    )
-
-    # Re-apply source cap after category allocation to avoid same-source pileups.
-    top = apply_source_cap(top, eligible, max_items, max_per_source, diversity_cfg.get("max_per_type", {}))
-
-    # v2 ranking path (feature-flagged). Shadow mode writes v2 artifacts without replacing publish path.
-    v2_items = None
-    v2_shadow_mode = True
-    try:
-        from ranking_v2 import load_v2_config, run_v2
-
-        v2_cfg = load_v2_config()
-        if bool(v2_cfg.get("enabled", False)):
-            v2_shadow_mode = bool(v2_cfg.get("shadow_mode", True))
-            v2_items, v2_diag = run_v2(items_deduped, profile, llm_cfg, source_health)
-
-            processed_dir_v2 = ROOT / "data" / "processed"
-            processed_dir_v2.mkdir(parents=True, exist_ok=True)
-            atomic_write_json(processed_dir_v2 / "latest_v2.json", v2_items)
-
-            date_str_v2 = datetime.now().strftime("%Y-%m-%d")
-            diag_dir = ROOT / "data" / "diagnostics"
-            diag_dir.mkdir(parents=True, exist_ok=True)
-            with open(diag_dir / f"{date_str_v2}_v2.json", "w", encoding="utf-8") as f:
-                json.dump(v2_diag, f, ensure_ascii=False, indent=2)
-
-            if not bool(v2_cfg.get("shadow_mode", True)):
-                top = v2_items
-    except Exception as e:
-        print(f"ranking_v2_error err={e}")
-
-    processed_dir = ROOT / "data" / "processed"
-    processed_dir.mkdir(parents=True, exist_ok=True)
-    atomic_write_json(processed_dir / "latest.json", top)
-
-    date_str = datetime.now().strftime("%Y-%m-%d")
-    lines = [
-        f"# Daily AI SOTA Digest - {date_str}",
-        "",
-        "Focus: AI Platform Engineering",
-        "",
-    ]
-
-    for i, it in enumerate(top, start=1):
-        lines += [
-            f"## {i}. {it['title']}",
-            f"- Type: {it['type']} | Source: {it['source']}",
-            f"- URL: {it['url']}",
-            f"- Score: {it['score']} | Reliability: {it['source_reliability']} | Maturity: {it['maturity']}",
-            f"- Tags: {', '.join(it['tags']) if it['tags'] else 'n/a'}",
-            f"- Why it matters: {it['why_it_matters']}",
-            "",
-        ]
-
-    digest_dir = ROOT / "data" / "digest"
-    digest_dir.mkdir(parents=True, exist_ok=True)
-    out = digest_dir / f"{date_str}.md"
-    with open(out, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines).strip() + "\n")
-    with open(digest_dir / "latest.md", "w", encoding="utf-8") as f:
-        f.write("\n".join(lines).strip() + "\n")
-
-    if v2_items is not None and v2_shadow_mode:
-        lines_v2 = [
-            f"# Daily AI SOTA Digest (v2-shadow) - {date_str}",
+        lines = [
+            f"# Daily AI SOTA Digest - {date_str}",
             "",
             "Focus: AI Platform Engineering",
             "",
         ]
-        for i, it in enumerate(v2_items, start=1):
-            lines_v2 += [
+        for i, it in enumerate(ranked_items, start=1):
+            lines += [
                 f"## {i}. {it.get('title','')}",
                 f"- Type: {it.get('type','news')} | Source: {it.get('source','unknown')}",
                 f"- URL: {it.get('url','')}",
-                f"- Score: {it.get('v2_final_score', it.get('score', 0))} | Reliability: {it.get('source_reliability', 1.0)}",
+                f"- Score: {it.get('global_score', it.get('final_score', it.get('score', 0)))} | Reliability: {it.get('source_reliability', 1.0)}",
                 f"- Why it matters: {it.get('why_it_matters', '')}",
                 "",
             ]
-        with open(digest_dir / f"{date_str}_v2.md", "w", encoding="utf-8") as f:
-            f.write("\n".join(lines_v2).strip() + "\n")
-        with open(digest_dir / "latest_v2.md", "w", encoding="utf-8") as f:
-            f.write("\n".join(lines_v2).strip() + "\n")
 
-    run_at_iso, run_file = write_run_snapshot(top)
-    print(f"digest_items={len(top)} file={out} run_at={run_at_iso} run_file={run_file}")
+        digest_dir = ROOT / "data" / "digest"
+        digest_dir.mkdir(parents=True, exist_ok=True)
+        out = digest_dir / f"{date_str}.md"
+        with open(out, "w", encoding="utf-8") as f:
+            f.write("\n".join(lines).strip() + "\n")
+        with open(digest_dir / "latest.md", "w", encoding="utf-8") as f:
+            f.write("\n".join(lines).strip() + "\n")
+
+        run_at_iso, run_file = write_run_snapshot(ranked_items)
+        print(f"digest_items={len(ranked_items)} file={out} run_at={run_at_iso} run_file={run_file}")
+        return
+    except Exception as e:
+        print(f"ranking_pipeline_error err={e}")
+        raise RuntimeError(f"ranking_pipeline_error err={e}")
 
 
 if __name__ == "__main__":
