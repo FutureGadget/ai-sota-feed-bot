@@ -14,9 +14,9 @@ Focus: AI Platform Engineering
 - Score: 3.04 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. Show HN: HashTrade – Open-source LLM trading agent with episodic memory
+## 3. Show HN: Can you beat an AI at "being human" using one word?
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/mertozbas/hashtrade
+- URL: https://turingduel.com/
 - Score: 2.902 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. OpenAI Introduces Harness Engineering: Codex Agents Power Large‑Scale Software Development
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/02/openai-harness-engineering-codex/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.729 | Reliability: 0.973
+- Score: 2.728 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. OpenAI Launches Frontier, a Platform to Build, Deploy, and Manage AI Agents Across the Enterprise
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Introducing OpenAI for India
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-for-india
-- Score: 2.594 | Reliability: 0.973
+- Score: 2.593 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Beyond rate limits: scaling access to Codex and Sora
@@ -107,7 +107,7 @@ Focus: AI Platform Engineering
 ## 18. v0.1.39
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.39
-- Score: 2.285 | Reliability: 0.973
+- Score: 2.284 | Reliability: 0.973
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. 0.105.0-alpha.12
