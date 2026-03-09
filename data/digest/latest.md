@@ -5,119 +5,119 @@ Focus: AI Platform Engineering
 ## 1. Agentic manual testing
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/guides/agentic-engineering-patterns/agentic-manual-testing/#atom-everything
-- Score: 3.305 | Reliability: 0.929
+- Score: 3.29 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. Show HN: I built AgentSafety, an open benchmark for coding-agent safety
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/serkanaltuntas/AgentSafety
-- Score: 3.204 | Reliability: 0.929
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 3. How Balyasny Asset Management built an AI research engine for investing
+## 2. How Balyasny Asset Management built an AI research engine for investing
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/balyasny-asset-management
-- Score: 3.03 | Reliability: 0.926
+- Score: 3.015 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. Clinejection — Compromising Cline's Production Releases just by Prompting an Issue Triager
+## 3. Clinejection — Compromising Cline's Production Releases just by Prompting an Issue Triager
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Mar/6/clinejection/#atom-everything
-- Score: 2.963 | Reliability: 0.929
+- Score: 2.948 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Eval Awareness Browsecomp
+## 4. Efficient, Property-Aligned Fan-Out Retrieval via RL-Compiled Diffusion
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2603.06397v1
+- Score: 2.941 | Reliability: 0.926
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 5. The EpisTwin: A Knowledge Graph-Grounded Neuro-Symbolic Architecture for Personal AI
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2603.06290v1
+- Score: 2.812 | Reliability: 0.926
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 6. Eval Awareness Browsecomp
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/eval-awareness-browsecomp
-- Score: 2.745 | Reliability: 0.926
+- Score: 2.73 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 6. 0.112.0
+## 7. 0.112.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.112.0
-- Score: 2.744 | Reliability: 0.929
+- Score: 2.701 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. Codex Security: now in research preview
+## 8. Codex Security: now in research preview
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/codex-security-now-in-research-preview
-- Score: 2.714 | Reliability: 0.926
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 8. Judge Reliability Harness: Stress Testing the Reliability of LLM Judges
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2603.05399v1
-- Score: 2.697 | Reliability: 0.926
+- Score: 2.699 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Scaling Human Judgment: How Dropbox Uses LLMs to Improve Labeling for RAG Systems
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/03/dropbox-scaling-human-judgement/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.67 | Reliability: 0.929
+- Score: 2.649 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Common Workflow Patterns For Ai Agents And When To Use Them
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/common-workflow-patterns-for-ai-agents-and-when-to-use-them
-- Score: 2.661 | Reliability: 0.929
+- Score: 2.648 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. Introducing GPT-5.4
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-gpt-5-4
-- Score: 2.649 | Reliability: 0.926
+- Score: 2.636 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. Ensuring AI use in education leads to opportunity
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/ai-education-opportunity
-- Score: 2.648 | Reliability: 0.926
+- Score: 2.635 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. New Research Reassesses the Value of AGENTS.md Files for AI Coding
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/03/agents-context-file-value-review/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.637 | Reliability: 0.929
+- Score: 2.62 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. v0.1.46
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.46
-- Score: 2.503 | Reliability: 0.929
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 15. v2.1.69
+## 14. v2.1.69
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.69
-- Score: 2.502 | Reliability: 0.929
+- Score: 2.485 | Reliability: 0.929
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 15. v0.1.46
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.46
+- Score: 2.485 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. Mozilla Firefox Security
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/mozilla-firefox-security
-- Score: 2.474 | Reliability: 0.926
+- Score: 2.459 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. Labor Market Impacts
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/labor-market-impacts
-- Score: 2.441 | Reliability: 0.926
+- Score: 2.457 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 18. [AINews] AI Engineer will be the LAST job
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-ai-engineer-will-be-the-last
-- Score: 2.375 | Reliability: 0.929
+- Score: 2.355 | Reliability: 0.929
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 19. Kraus Constrained Sequence Learning For Quantum Trajectories from Continuous Measurement
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2603.05468v1
-- Score: 2.23 | Reliability: 0.926
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 20. Introducing Modular Diffusers - Composable Building Blocks for Diffusion Pipelines
+## 19. Introducing Modular Diffusers - Composable Building Blocks for Diffusion Pipelines
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/modular-diffusers
-- Score: 2.198 | Reliability: 0.926
+- Score: 2.215 | Reliability: 0.926
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 20. KCLarity at SemEval-2026 Task 6: Encoder and Zero-Shot Approaches to Political Evasion Detection
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2603.06552v1
+- Score: 1.974 | Reliability: 0.926
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
