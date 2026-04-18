@@ -6,6 +6,10 @@ on:
     - cron: "0 3 * * *"    # 12:00 KST
   workflow_dispatch:
 
+concurrency:
+  group: feed-pipeline
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -43,4 +47,5 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           AUTO_PUSH_RUNTIME: "1"
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash skills/ai-feed-digest-local/scripts/run_full.sh

@@ -5,6 +5,10 @@ on:
     - cron: "0 */2 * * *"  # every 2 hours
   workflow_dispatch:
 
+concurrency:
+  group: feed-pipeline
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
