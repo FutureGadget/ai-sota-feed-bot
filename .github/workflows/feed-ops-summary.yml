@@ -1,0 +1,40 @@
+name: AI Feed Ops Daily Summary
+
+on:
+  schedule:
+    - cron: "30 12 * * *"  # 21:30 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ops-summary:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run ops daily summary
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AUTO_PUSH_RUNTIME: "1"
+        run: bash skills/ops-daily-summary/scripts/run_ops_daily_summary.sh
