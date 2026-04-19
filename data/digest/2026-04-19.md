@@ -125,7 +125,7 @@ Focus: AI Platform Engineering
 ## 21. 0.122.0-alpha.10
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.122.0-alpha.10
-- Score: 2.248 | Reliability: 1.0
+- Score: 2.247 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 22. Ecom-RLVE: Adaptive Verifiable Environments for E-Commerce Conversational Agents
