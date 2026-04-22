@@ -5,119 +5,119 @@ Focus: AI Platform Engineering
 ## 1. Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything
-- Score: 3.306 | Reliability: 1.0
+- Score: 3.289 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. Speeding up agentic workflows with WebSockets in the Responses API
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/speeding-up-agentic-workflows-with-websockets
-- Score: 3.171 | Reliability: 1.0
+- Score: 3.162 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Anthropic Introduces Managed Agents to Simplify AI Agent Deployment
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/04/anthropic-managed-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.108 | Reliability: 1.0
+- Score: 3.096 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Introducing workspace agents in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-workspace-agents-in-chatgpt
-- Score: 3.011 | Reliability: 1.0
+- Score: 3.002 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. Changes to GitHub Copilot Individual plans
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything
-- Score: 2.925 | Reliability: 1.0
+- Score: 2.91 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Workspace agents
 - Type: news | Source: openai_blog
 - URL: https://openai.com/academy/workspace-agents
-- Score: 2.851 | Reliability: 1.0
+- Score: 2.842 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. SafetyALFRED: Evaluating Safety-Conscious Planning of Multimodal Large Language Models
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2604.19638v1
-- Score: 2.844 | Reliability: 1.0
+- Score: 2.838 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. Cloudflare Sandboxes Reach General Availability, Giving AI Agents Persistent Isolated Environments
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/04/cloudflare-sandboxes-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.816 | Reliability: 1.0
+- Score: 2.8 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Introducing OpenAI Privacy Filter
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-openai-privacy-filter
-- Score: 2.79 | Reliability: 1.0
+- Score: 2.781 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Anthropic Amazon Compute
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-amazon-compute
-- Score: 2.543 | Reliability: 1.0
+- Score: 2.536 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. Safe Continual Reinforcement Learning in Non-stationary Environments
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2604.19737v1
-- Score: 2.76 | Reliability: 1.0
+- Score: 2.754 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. v2.1.117
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.117
-- Score: 2.718 | Reliability: 1.0
+- Score: 2.725 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 13. Economic Index Survey Announcement
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/economic-index-survey-announcement
-- Score: 2.612 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 14. v0.1.64
+## 13. v0.1.64
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.64
-- Score: 2.604 | Reliability: 1.0
+- Score: 2.614 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 14. Economic Index Survey Announcement
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/economic-index-survey-announcement
+- Score: 2.606 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 15. 0.122.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.122.0
-- Score: 2.595 | Reliability: 1.0
+- Score: 2.605 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 16. Show HN: Dead Simple Email – Email API for AI Agents
-- Type: news | Source: hackernews_ai
-- URL: https://deadsimple.email/
-- Score: 2.562 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 17. [AINews] OpenAI launches GPT-Image-2
+## 16. [AINews] OpenAI launches GPT-Image-2
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-openai-launches-gpt-image
-- Score: 2.509 | Reliability: 1.0
+- Score: 2.495 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 18. Claude Design Anthropic Labs
+## 17. Claude Design Anthropic Labs
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-design-anthropic-labs
-- Score: 2.473 | Reliability: 1.0
+- Score: 2.468 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 19. Claude Opus 4 7
+## 18. Claude Opus 4 7
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-opus-4-7
-- Score: 2.462 | Reliability: 1.0
+- Score: 2.457 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 19. langgraph-cli==0.4.24
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.24
+- Score: 2.389 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 20. Gemma 4 VLA Demo on Jetson Orin Nano Super
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/gemma4
-- Score: 2.214 | Reliability: 1.0
+- Score: 2.207 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
