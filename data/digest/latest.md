@@ -5,115 +5,115 @@ Focus: AI Platform Engineering
 ## 1. Codex CLI 0.128.0 adds /goal
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Apr/30/codex-goals/#atom-everything
-- Score: 2.947 | Reliability: 1.0
+- Score: 2.94 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. An open-source spec for orchestration: Symphony
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/open-source-codex-orchestration-symphony
-- Score: 2.928 | Reliability: 1.0
+- Score: 2.926 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Sightings
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/May/2/sightings/#atom-everything
-- Score: 2.848 | Reliability: 1.0
+- Score: 2.837 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. Strait: Perceiving Priority and Interference in ML Inference Serving
+## 4. How to Test AI Agents When They Never Give the Same Answer Twice
+- Type: news | Source: hackernews_ai
+- URL: https://adlrocha.substack.com/p/adlrocha-the-eval-problem-how-to
+- Score: 2.822 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 5. Strait: Perceiving Priority and Interference in ML Inference Serving
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2604.28175v1
-- Score: 2.824 | Reliability: 1.0
+- Score: 2.82 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Claw-Eval-Live: A Live Agent Benchmark for Evolving Real-World Workflows
+## 6. Claw-Eval-Live: A Live Agent Benchmark for Evolving Real-World Workflows
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2604.28139v1
-- Score: 2.751 | Reliability: 1.0
+- Score: 2.747 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 6. Evaluating Claude For Bioinformatics With Biomysterybench
+## 7. Evaluating Claude For Bioinformatics With Biomysterybench
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/Evaluating-Claude-For-Bioinformatics-With-BioMysteryBench
-- Score: 2.666 | Reliability: 1.0
+- Score: 2.662 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. Meta Deploys Unified AI Agents to Automate Performance Optimization at Hyperscale
+## 8. Meta Deploys Unified AI Agents to Automate Performance Optimization at Hyperscale
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/meta-ai-agents-hyperscale/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.664 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 8. Article: Securing Autonomous AI Agents on Kubernetes: Trust Boundaries, Secrets, and Observability for a New Category of Cloud Workload
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.66 | Reliability: 1.0
+- Score: 2.656 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Building Ai Agents For The Enterprise
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/building-ai-agents-for-the-enterprise
-- Score: 2.632 | Reliability: 1.0
+- Score: 2.629 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Theo Hourmouzis General Manager Australia New Zealand
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/theo-hourmouzis-general-manager-australia-new-zealand
-- Score: 2.537 | Reliability: 1.0
+- Score: 2.535 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 11. OpenAI models, Codex, and Managed Agents come to AWS
+## 11. Article: Securing Autonomous AI Agents on Kubernetes: Trust Boundaries, Secrets, and Observability for a New Category of Cloud Workload
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/articles/securing-autonomous-ai-agents-kubernetes/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.652 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 12. OpenAI models, Codex, and Managed Agents come to AWS
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-on-aws
-- Score: 2.618 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 12. [AINews] AI Engineer World's Fair — Autoresearch, Memory, World Models, Tokenmaxxing, Agentic Commerce, and Vertical AI Call for Speakers
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-ai-engineer-worlds-fair-autoresearch
 - Score: 2.616 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. Introducing Advanced Account Security
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/advanced-account-security
-- Score: 2.612 | Reliability: 1.0
+- Score: 2.609 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. Choco automates food distribution with AI agents
+## 14. [AINews] AI Engineer World's Fair — Autoresearch, Memory, World Models, Tokenmaxxing, Agentic Commerce, and Vertical AI Call for Speakers
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-ai-engineer-worlds-fair-autoresearch
+- Score: 2.607 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 15. Choco automates food distribution with AI agents
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/choco
-- Score: 2.608 | Reliability: 1.0
+- Score: 2.606 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 15. 0.128.0
+## 16. 0.128.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.128.0
-- Score: 2.588 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 16. Redesigning Agent Skills – two missing parts
-- Type: news | Source: hackernews_ai
-- URL: https://simianwords.bearblog.dev/what-agent-skills-misses-now/
-- Score: 2.495 | Reliability: 1.0
+- Score: 2.582 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. v0.1.71
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.71
-- Score: 2.46 | Reliability: 1.0
+- Score: 2.455 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 18. AI evals are becoming the new compute bottleneck
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/evaleval/eval-costs-bottleneck
-- Score: 2.434 | Reliability: 1.0
+- Score: 2.43 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. Claude Security Public Beta
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/claude-security-public-beta
-- Score: 2.432 | Reliability: 1.0
+- Score: 2.429 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 20. OpenAI added virtual pets to its Codex coding agent and the design choice reveals more than it was meant to - Startup Fortune
@@ -125,11 +125,11 @@ Focus: AI Platform Engineering
 ## 21. langgraph-prebuilt==1.1.0a2
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/prebuilt%3D%3D1.1.0a2
-- Score: 2.285 | Reliability: 1.0
+- Score: 2.277 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 22. v2.1.121
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.121
-- Score: 2.275 | Reliability: 1.0
+- Score: 2.271 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
