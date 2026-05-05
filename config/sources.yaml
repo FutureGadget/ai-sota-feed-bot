@@ -112,8 +112,12 @@ sources:
     url: "https://www.latent.space/feed"
     weight: 1.2
   - name: langchain_blog
-    type: rss
-    url: "https://blog.langchain.com/rss/"
+    type: sitemap
+    url: "https://www.langchain.com/sitemap.xml"
+    include_prefixes:
+      - "https://www.langchain.com/blog/"
+    extract_published_from_page: true
+    page_meta_cache_ttl_hours: 24
     weight: 1.05
   - name: search_agent_engineering_news
     type: rss
