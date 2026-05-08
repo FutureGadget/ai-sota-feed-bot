@@ -22,10 +22,18 @@
   ],
   "functions": {
     "api/feed.js": {
-      "includeFiles": "data/{processed/**,tier1/{latest,runs_index}.json}"
+      "includeFiles": "data/{processed/**,tier1/{latest,runs_index}.json}",
+      "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/**,analysis/**,tier1/runs/**}"
     },
     "api/rss.js": {
-      "includeFiles": "data/{processed/**,tier1/{latest,runs_index}.json}"
+      "includeFiles": "data/{processed/**,tier1/{latest,runs_index}.json}",
+      "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/**,analysis/**,tier1/runs/**}"
+    },
+    "api/events.js": {
+      "excludeFiles": "data/**"
+    },
+    "api/client-config.js": {
+      "excludeFiles": "data/**"
     }
   }
 }
