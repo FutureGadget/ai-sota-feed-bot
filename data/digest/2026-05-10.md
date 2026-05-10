@@ -5,119 +5,113 @@ Focus: AI Platform Engineering
 ## 1. Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2605.06647v1
-- Score: 2.978 | Reliability: 1.0
+- Score: 2.97 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. Simpler Agent Orchestration WTF
-- Type: news | Source: hackernews_ai
-- URL: https://alokit.substack.com/p/the-number-nobody-runs-before-building
-- Score: 2.796 | Reliability: 1.0
+## 2. GitHub Repo Stats
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/May/7/github-repo-stats/#atom-everything
+- Score: 2.723 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. Running Codex safely at OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/running-codex-safely
-- Score: 2.684 | Reliability: 1.0
+- Score: 2.68 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Cloudflare Ships Dynamic Workflows, Bringing Durable Execution to Per-Tenant and Per-Agent Code
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/cloudflare-dynamic-workflows/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.649 | Reliability: 1.0
+- Score: 2.647 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. "OncoAgent: A Dual-Tier Multi-Agent Framework for Privacy-Preserving Oncology Clinical Decision Support"
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/lablab-ai-amd-developer-hackathon/oncoagent-official-paper
-- Score: 2.649 | Reliability: 1.0
+- Score: 2.642 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Simplex rethinks software development with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/simplex
-- Score: 2.644 | Reliability: 1.0
+- Score: 2.641 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. v2.1.129
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.129
-- Score: 2.629 | Reliability: 1.0
+- Score: 2.626 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. How frontier firms are pulling ahead
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-b2b-signals
-- Score: 2.626 | Reliability: 1.0
+- Score: 2.624 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. Singular Bank helps bankers move fast with ChatGPT and Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/singular-bank
-- Score: 2.626 | Reliability: 1.0
+- Score: 2.624 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Finance Agents
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/finance-agents
-- Score: 2.581 | Reliability: 1.0
+- Score: 2.579 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. How GitHub Is Securing Agentic Workflows in Modern CI CD Systems
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/github-agentic-workflows/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.621 | Reliability: 1.0
+- Score: 2.62 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. Evaluating Claude For Bioinformatics With Biomysterybench
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/Evaluating-Claude-For-Bioinformatics-With-BioMysteryBench
-- Score: 2.598 | Reliability: 1.0
+- Score: 2.592 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. Using Claude Code: The Unreasonable Effectiveness of HTML
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/May/8/unreasonable-effectiveness-of-html/#atom-everything
-- Score: 2.586 | Reliability: 1.0
+- Score: 2.585 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. 0.130.0
+## 14. AI Agent Passport – an open identity standard for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/StacyStarchum/Ai-agent-passport-
+- Score: 2.56 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 15. 0.130.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.130.0
-- Score: 2.562 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 15. llm-gemini 0.31
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/May/7/llm-gemini/#atom-everything
-- Score: 2.531 | Reliability: 1.0
+- Score: 2.555 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. v0.1.76
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.1.76
-- Score: 2.474 | Reliability: 1.0
+- Score: 2.47 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. Higher Limits Spacex
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/higher-limits-spacex
-- Score: 2.396 | Reliability: 1.0
+- Score: 2.394 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 18. Edge-specific signal propagation on mature chromophore-region 3D mechanism graphs for fluorescent protein quantum-yield prediction
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2605.06644v1
-- Score: 2.383 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 19. Building A Company Due Diligence Agent With Deep Agents Langsmith And Parallel
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/building-a-company-due-diligence-agent-with-deep-agents-langsmith-and-parallel
-- Score: 2.376 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 20. Enterprise Ai Services Company
+## 18. Enterprise Ai Services Company
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/enterprise-ai-services-company
-- Score: 2.369 | Reliability: 1.0
+- Score: 2.367 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 19. [AINews] Anthropic growing 10x/year while everyone else is laying off >10% of their workforce
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-anthropic-growing-10xyear
+- Score: 2.353 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
