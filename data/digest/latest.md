@@ -5,125 +5,125 @@ Focus: AI Platform Engineering
 ## 1. Databricks brings GPT-5.5 to enterprise agent workflows
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/databricks
-- Score: 3.08 | Reliability: 1.0
+- Score: 3.078 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 2. DeltaBox: Scaling Stateful AI Agents with Millisecond-Level Sandbox Checkpoint/Rollback
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2605.22781v1
-- Score: 3.02 | Reliability: 1.0
+- Score: 2.993 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 3. InfoQ Launches Online AI Engineering Cohort and Certification for Senior Software Practitioners
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/ai-engineering-certification-pro/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.987 | Reliability: 1.0
+- Score: 2.98 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 4. Giving Agents Computers — Ivan Burazin, Daytona
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/daytona
-- Score: 2.89 | Reliability: 1.0
+- Score: 2.883 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 5. v2.1.147
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.147
-- Score: 2.832 | Reliability: 1.0
+- Score: 2.823 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 6. Cloudflare Completes Its Agent Infrastructure Stack with Browser Run Rebuild and Six-Layer Platform
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/cloudflare-agent-platform-stack/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.813 | Reliability: 1.0
+- Score: 2.805 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 7. Lumberjack: Better Differentially Private Random Forests through Heavy Hitter Detection in Trees
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2605.22756v1
-- Score: 2.807 | Reliability: 1.0
+- Score: 2.781 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 8. 0.132.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.132.0
-- Score: 2.77 | Reliability: 1.0
+- Score: 2.764 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 9. How Virgin Atlantic ships faster with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/virgin-atlantic
-- Score: 2.688 | Reliability: 1.0
+- Score: 2.684 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Widening Conversation Ai
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/widening-conversation-ai
-- Score: 2.402 | Reliability: 1.0
+- Score: 2.398 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. Datasette Agent
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/May/21/datasette-agent/#atom-everything
-- Score: 2.757 | Reliability: 1.0
+- Score: 2.75 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. OpenAI named a Leader in enterprise coding agents by Gartner
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/gartner-2026-agentic-coding-leader
-- Score: 2.688 | Reliability: 1.0
+- Score: 2.684 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 13. How Ramp engineers accelerate code review with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/ramp
-- Score: 2.643 | Reliability: 1.0
+- Score: 2.64 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 14. [AINews] All Model Labs are now Agent Labs
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-all-model-labs-are-now-agent
-- Score: 2.592 | Reliability: 1.0
+- Score: 2.583 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 15. Turned ArXiv into an AI-Agent-Friendly Interface (No Browser Vision Needed)
+## 15. A maintainability ratchet for AI-assisted Python
 - Type: news | Source: hackernews_ai
-- URL: https://mediause.dev/skills/arxiv
-- Score: 2.554 | Reliability: 1.0
+- URL: https://kayhan.dev/posts/014-letting-agents-write-code-without-ratcheting-up-risk/
+- Score: 2.539 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. Glasswing Initial Update
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/glasswing-initial-update
-- Score: 2.529 | Reliability: 1.0
+- Score: 2.501 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 17. Compliance Api Security Partners
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/compliance-api-security-partners
-- Score: 2.442 | Reliability: 1.0
+- Score: 2.438 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 18. Anthropic Kpmg
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-kpmg
-- Score: 2.396 | Reliability: 1.0
+- Score: 2.392 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 19. v0.2.87
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.87
-- Score: 2.381 | Reliability: 1.0
+- Score: 2.369 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 20. langgraph-sdk==0.3.15
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.3.15
-- Score: 2.312 | Reliability: 1.0
+- Score: 2.302 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 21. Towards Speed-of-Light Text Generation with Nemotron-Labs Diffusion Language Models
+## 21. Introducing the Ettin Reranker Family
 - Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/nvidia/nemotron-labs-diffusion
-- Score: 2.135 | Reliability: 1.0
+- URL: https://huggingface.co/blog/ettin-reranker
+- Score: 2.213 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
