@@ -5,107 +5,113 @@ Focus: AI Platform Engineering
 ## 1. Claude Opus 4.8: "a modest but tangible improvement"
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything
-- Score: 3.446 | Reliability: 1.0
+- Score: 3.442 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. MarginGate: Sparse Margin-Triggered Verification for Batch-Invariant LLM Inference
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2605.30218v1
-- Score: 3.064 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 3. I Am Retiring from Tech to Live Offline
+## 2. I Am Retiring from Tech to Live Offline
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything
-- Score: 3.036 | Reliability: 1.0
+- Score: 3.029 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. 0.134.0
+## 3. 0.134.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.134.0
-- Score: 2.916 | Reliability: 1.0
+- Score: 2.913 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. Automating Low-Risk Code Review at Meta: RADAR, Risk Calibration, and Review Efficiency
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2605.30208v1
-- Score: 2.808 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 6. Arm Open-Sources Metis, an AI Security Framework Outperforming Traditional SAST Tools
+## 4. Arm Open-Sources Metis, an AI Security Framework Outperforming Traditional SAST Tools
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/05/arm-metis-agentic-security/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.694 | Reliability: 1.0
+- Score: 2.688 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. v2.1.154
+## 5. v2.1.154
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.154
-- Score: 2.683 | Reliability: 1.0
+- Score: 2.679 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 8. A shared playbook for trustworthy third party evaluations
+## 6. A shared playbook for trustworthy third party evaluations
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/trustworthy-third-party-evaluations-foundations
-- Score: 2.681 | Reliability: 1.0
+- Score: 2.678 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 9. How Endava builds an agentic organization with Codex
+## 7. How Endava builds an agentic organization with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/endava
-- Score: 2.668 | Reliability: 1.0
+- Score: 2.666 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 8. Boston Children’s uses AI to unlock new diagnoses
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/boston-childrens-hospital
+- Score: 2.652 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 9. Cisco and OpenAI redefine enterprise engineering with Codex
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/cisco
+- Score: 2.646 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. How We Contain Claude
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/how-we-contain-claude
-- Score: 2.439 | Reliability: 1.0
+- Score: 2.438 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 11. Boston Children’s uses AI to unlock new diagnoses
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/boston-childrens-hospital
-- Score: 2.655 | Reliability: 1.0
+## 11. GitHub Slashes Agent Workflow Token Spend up to 62% with Daily Audits and MCP Pruning
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/05/github-agentic-token-savings/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.641 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 12. Coding Agents Social Sciences
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/coding-agents-social-sciences
-- Score: 2.652 | Reliability: 1.0
+- Score: 2.63 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 13. Cisco and OpenAI redefine enterprise engineering with Codex
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/cisco
-- Score: 2.648 | Reliability: 1.0
+## 13. Show HN: Agents, run any coding agent on your subscription not API costs
+- Type: news | Source: hackernews_ai
+- URL: https://agents-cli.sh
+- Score: 2.604 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. GitHub Slashes Agent Workflow Token Spend up to 62% with Daily Audits and MCP Pruning
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/05/github-agentic-token-savings/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.646 | Reliability: 1.0
+## 14. RoboWits: Unexpected Challenges for Robotic Creative Problem Solving
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2605.30326v1
+- Score: 2.575 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 15. ITBench-AA: Frontier Models Score Below 50% on the First Benchmark for Agentic Enterprise IT Tasks — by Artificial Analysis and IBM
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/itbench-aa
-- Score: 2.591 | Reliability: 1.0
+## 15. Statistical Embeddings for Similarity, Retrieval, and Interpretable Alignment of Numeric Tabular Datasets
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2605.30289v1
+- Score: 2.575 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 16. [AINews] Anthropic raises $965B Series H, releases Opus 4.8 and Dynamic Workflows/ultracode
 - Type: release | Source: latent_space
 - URL: https://www.latent.space/p/ainews-anthropic-raises-965b-series
-- Score: 2.573 | Reliability: 1.0
+- Score: 2.569 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 17. Series H
+## 17. ITBench-AA: Frontier Models Score Below 50% on the First Benchmark for Agentic Enterprise IT Tasks — by Artificial Analysis and IBM
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/ibm-research/itbench-aa
+- Score: 2.569 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 18. Series H
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/series-h
-- Score: 2.434 | Reliability: 1.0
+- Score: 2.431 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 18. Claude Opus 4 8
+## 19. Claude Opus 4 8
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-opus-4-8
-- Score: 2.433 | Reliability: 1.0
+- Score: 2.431 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
