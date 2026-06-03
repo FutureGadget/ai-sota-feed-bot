@@ -253,16 +253,48 @@ def _fetch_page_published(url: str) -> str | None:
     return _extract_published_from_html(html_text)
 
 
-def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
-    req = urllib.request.Request(source["url"], headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(req, timeout=30) as r:
-        xml_bytes = r.read()
+def _local_name(tag: str) -> str:
+    return tag.rsplit("}", 1)[-1] if "}" in tag else tag
 
-    root = ET.fromstring(xml_bytes)
-    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 
-    include_prefixes = source.get("include_prefixes", [])
-    rows = []
+def _collect_sitemap_rows(
+    url: str,
+    ns: dict,
+    include_prefixes: list[str],
+    exclude_substrings: list[str],
+    depth: int = 0,
+    max_subsitemaps: int = 20,
+) -> list[tuple[str, str]]:
+    """Fetch a sitemap and return (loc, lastmod) rows.
+
+    Transparently follows a <sitemapindex> by recursing into each referenced
+    sub-sitemap (bounded by depth and max_subsitemaps), so both flat urlsets and
+    sitemap indexes are supported.
+    """
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            xml_bytes = r.read()
+        root = ET.fromstring(xml_bytes)
+    except Exception:
+        return []
+
+    rows: list[tuple[str, str]] = []
+
+    if _local_name(root.tag) == "sitemapindex":
+        if depth >= 2:
+            return rows
+        sub_locs = []
+        for sm in root.findall("sm:sitemap", ns):
+            loc_el = sm.find("sm:loc", ns)
+            if loc_el is not None and (loc_el.text or "").strip():
+                sub_locs.append((loc_el.text or "").strip())
+        for sub in sub_locs[:max_subsitemaps]:
+            rows.extend(
+                _collect_sitemap_rows(sub, ns, include_prefixes, exclude_substrings, depth + 1, max_subsitemaps)
+            )
+        return rows
+
     for u in root.findall("sm:url", ns):
         loc_el = u.find("sm:loc", ns)
         mod_el = u.find("sm:lastmod", ns)
@@ -271,8 +303,19 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
         loc = (loc_el.text or "").strip()
         if include_prefixes and not any(loc.startswith(p) for p in include_prefixes):
             continue
+        if exclude_substrings and any(sub in loc for sub in exclude_substrings):
+            continue
         lastmod = (mod_el.text or "").strip() if mod_el is not None else ""
         rows.append((loc, lastmod))
+    return rows
+
+
+def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
+    ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+
+    include_prefixes = source.get("include_prefixes", [])
+    exclude_substrings = source.get("exclude_substrings", [])
+    rows = _collect_sitemap_rows(source["url"], ns, include_prefixes, exclude_substrings)
 
     rows.sort(key=lambda x: x[1], reverse=True)
 
