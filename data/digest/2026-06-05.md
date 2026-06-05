@@ -2,116 +2,92 @@
 
 Focus: AI Platform Engineering
 
-## 1. Audio Interaction Model
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2606.05121v1
-- Score: 2.904 | Reliability: 1.0
+## 1. BrowseComp-Plus: A More Fair and Transparent Benchmark of Deep-Research Agent
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/texttron/BrowseComp-Plus
+- Score: 3.004 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 2. Codex for every role, tool, and workflow
+## 2. Symmetric Divergence and Normalized Similarity: A Unified Topological Framework for Representation Analysis
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.06342v1
+- Score: 2.956 | Reliability: 1.0
+- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
+
+## 3. Codex for every role, tool, and workflow
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/codex-for-every-role-tool-workflow
-- Score: 2.903 | Reliability: 1.0
+- Score: 2.886 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 3. OpenAI frontier models and Codex are now available on AWS
+## 4. OpenAI frontier models and Codex are now available on AWS
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-frontier-models-and-codex-are-now-available-on-aws
-- Score: 2.881 | Reliability: 1.0
+- Score: 2.865 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 4. How Endava is redesigning software delivery around AI agents
+## 5. How Endava is redesigning software delivery around AI agents
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/endava-frontiers
-- Score: 2.825 | Reliability: 1.0
+- Score: 2.802 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 5. v2.1.163
+## 6. v2.1.163
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.163
-- Score: 2.806 | Reliability: 1.0
+- Score: 2.762 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 6. How Wasmer used Codex to build a Node.js runtime for the edge
+## 7. How Wasmer used Codex to build a Node.js runtime for the edge
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/wasmer
-- Score: 2.78 | Reliability: 1.0
+- Score: 2.76 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 7. 0.137.0
+## 8. 0.137.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.137.0
-- Score: 2.744 | Reliability: 1.0
+- Score: 2.707 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 8. AI enthusiasts are in a race against time, AI skeptics are in a race against entropy
+## 9. AI enthusiasts are in a race against time, AI skeptics are in a race against entropy
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/4/ai-enthusiasts-ai-skeptics/#atom-everything
-- Score: 2.667 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 9. Librecode (Yet Another Agent Harness)
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/omarluq/librecode
-- Score: 2.659 | Reliability: 1.0
+- Score: 2.639 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 10. Services Track Partner Hub
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/services-track-partner-hub
-- Score: 2.542 | Reliability: 1.0
+- Score: 2.522 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
 ## 11. Quoting Emanuel Maiberg, 404 Media
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/4/a-slightly-different-version/#atom-everything
-- Score: 2.612 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 12. v0.2.90
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.90
 - Score: 2.587 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 13. Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs
+## 12. Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/andon
-- Score: 2.575 | Reliability: 1.0
+- Score: 2.548 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 14. Best Practices For Getting Started With Claude Cowork
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/best-practices-for-getting-started-with-claude-cowork
-- Score: 2.542 | Reliability: 1.0
+## 13. v0.2.90
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.90
+- Score: 2.543 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 15. Ai Enabled Cyber Threats Mitre Attack
+## 14. Ai Enabled Cyber Threats Mitre Attack
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/AI-enabled-cyber-threats-mitre-attack
-- Score: 2.538 | Reliability: 1.0
+- Score: 2.519 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
 
-## 16. Kurrent Launches Capacitor, a First-of-Its-Kind Solution for Humans and Coding Agents Building Software Together - Business Wire
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMi_AFBVV95cUxOM1J1d3dTZ3BmaF9PUzN2Sm5oTjRnQW5WcXNlSkVTUXl0ME5FUjlYZDdGQkt1eTFxWDlNREdLYm9HTktNOUxlNmczSS0zOEJCWEtKa1F0YkJpNHduNXAwMnJYN0FTTGs5UUU2Ymh1QkJrTnRhUC10SkVlLTByVjJQdWQzRHZ0bmFFQVBBNmJXc1dSd21mUHhoX3N6OXBXVnhWMll2VGRDbXkzZ0E2SDlOQTVOMXNoSWY5WFJnNVRQUVNud3FaX0pfYlJCSUhNbHVfZS1tZi1UNzBiMl91Skl4SlNUOWl3cU1CeThOLXNwWGFJRDI4Z3BhaEJiWUw?oc=5
-- Score: 2.524 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 17. [AINews] Reve 2 and Ideogram 4: Layouts in Imagegen
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-reve-2-and-ideogram-4-layouts
-- Score: 2.497 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 18. Designing the hf CLI as an agent-optimized way to work with the Hub
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/hf-cli-for-agents
-- Score: 2.369 | Reliability: 1.0
-- Why it matters: Potential relevance to AI platform engineering; verify practical impact.
-
-## 19. Reliable LLM Inference at Scale - Databricks
-- Type: news | Source: search_llm_ops_news
-- URL: https://news.google.com/rss/articles/CBMibEFVX3lxTE4tQU5RNkdheXNGM05RRVVXQXlSY2t1dXNoVTZrVk93dC1udkY2VVJSd0xaVV90dkdlNDExSW9pTEQ1cUR0TTNTTlg5RlpDN3VZLVVMV0dPV3lPMXNqZWNTZFBjb3JHZmpVUjdxbg?oc=5
-- Score: 2.342 | Reliability: 1.0
+## 15. Expanding Project Glasswing
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/expanding-project-glasswing
+- Score: 2.488 | Reliability: 1.0
 - Why it matters: Potential relevance to AI platform engineering; verify practical impact.
