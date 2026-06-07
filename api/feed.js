@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { personalizeItems } from '../lib/personalization.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -316,8 +315,6 @@ export default async function handler(req, res) {
     const to = toIso(req.query?.to);
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(req.query?.limit || '200'), 10) || 200));
     const selectedLabels = parseLabelFilters(req.query);
-    const anonUserId = String(req.headers['x-anon-user-id'] || req.query?.anon_user_id || '').trim();
-    const debugPersonalization = String(req.query?.debug_personalization || '') === '1';
     const blendTier1 = String(req.query?.blend_tier1 ?? '1') !== '0';
     const tier1FreshCap = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_fresh_cap || process.env.TIER1_FRESH_CAP || '4'), 10) || 4));
     const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_insert_after || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
@@ -336,15 +333,13 @@ export default async function handler(req, res) {
       const allItems = readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }));
       const availableLabels = summarizeLabels(allItems);
       const filteredBase = applyLabelFilter(allItems, selectedLabels);
-      const pz = await personalizeItems(filteredBase, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
       return res.status(200).json({
         mode: 'latest',
         date: new Date().toISOString(),
         filters: { from, to, limit, labels: selectedLabels },
         runs: [],
-        items: pz.items,
+        items: filteredBase.slice(0, limit),
         available_labels: availableLabels,
-        personalization: pz.diagnostics,
       });
     }
 
@@ -374,16 +369,13 @@ export default async function handler(req, res) {
     const availableLabels = summarizeLabels(mergedWithLabels);
     const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
 
-    const pz = await personalizeItems(filteredMerged, { anonUserId, mode: process.env.PERSONALIZATION_MODE || 'shadow', debug: debugPersonalization, maxItems: limit });
-
     return res.status(200).json({
       mode: 'history',
       date: new Date().toISOString(),
       filters: { from, to, limit, labels: selectedLabels },
       runs: runSummaries,
-      items: pz.items,
+      items: filteredMerged.slice(0, limit),
       available_labels: availableLabels,
-      personalization: pz.diagnostics,
       tier1_blend: {
         enabled: blendTier1,
         fresh_added: merged.added,

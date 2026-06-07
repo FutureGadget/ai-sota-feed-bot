@@ -36,33 +36,18 @@ export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
-## Optional personalization event store (Turso)
-Set Vercel env vars:
-- `TURSO_DATABASE_URL`
-- `TURSO_AUTH_TOKEN`
-
-Then send telemetry events to `POST /api/events` with either a single event object or `{ "events": [...] }`.
-Supported `event_type`: `impression`, `click`, `open`, `dismiss`, `save`.
-Impression dedupe: same `anon_user_id + item_id + run_id` (or same day fallback when `run_id` missing) is stored once.
-
 Current web app behavior:
-- Generates anonymous `anon_user_id` in localStorage (no login)
-- Generates per-tab `session_id` in sessionStorage
-- Sends batched `impression` events on feed render
-- Sends `click` events when opening an item link
+- Sends batched `impression` events to PostHog on feed render
+- Sends `click` events to PostHog when opening an item link
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
-- Optional PostHog dual-tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`)
+- PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`)
 
 PostHog env vars (optional):
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<project key>`
 - `POSTHOG_HOST=https://us.i.posthog.com` (or EU host)
 
-Personalized feed API (v1):
-- Send `X-Anon-User-Id` header (or `anon_user_id` query) to `/api/feed`
-- Optional debug: `debug_personalization=1`
-- Modes via env: `PERSONALIZATION_MODE=off|shadow|active` (default `shadow`)
-- Useful knobs: `PERSONALIZATION_DAYS`, `PERSONALIZATION_W_SOURCE`, `PERSONALIZATION_W_TOPIC`, `PERSONALIZATION_CAP`, `PERSONALIZATION_MIN_IMPRESSIONS`, `PERSONALIZATION_MIN_CLICKS`, `PERSONALIZATION_EXPLORATION`
+Feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
 
