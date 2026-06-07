@@ -20,9 +20,25 @@ python .agents/skills/weekly-summary/scripts/build_weekly_input.py
 #   --week 2026-W23           (a specific ISO week, Mon–Sun)
 #   --end 2026-06-07 --days 7 (a trailing window ending on a date)
 #   --types news,release      (default: news only; use 'all' for everything)
+#   --keep-carryover          (include articles published in an earlier week
+#                              but still in the feed; OFF by default)
+#   --no-prior-dedup          (don't exclude articles already in an earlier
+#                              week's recap; dedup is ON by default)
 ```
 This writes `data/weekly/input/latest.json` (and `input/<week>.json`) — the
 week's unique, deduped articles. **This is your reading material.**
+
+Because articles linger in the live feed for several days, the bundle is
+filtered so a recap only covers what is genuinely new *this* week and never
+repeats a prior week:
+
+- **Published-this-week** — an article is included only if its own `published`
+  date falls inside the week window, not merely because it was still being
+  collected this week (`published_window` in the bundle).
+- **Cross-week dedup** — any article URL already published in an earlier week's
+  recap is dropped (`prior_recap_dedup` / `prior_recap_urls` in the bundle).
+
+(Override either with the flags above only if you deliberately want carryover.)
 
 By default only `news`-type items are bundled (papers/releases are better
 served by the live feed and add little to a weekly narrative). The bundle's

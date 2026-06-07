@@ -16,12 +16,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 
-from weekly_common import WEEKLY_DIR, load_json, validate_recap, write_json
-
-WEEK_FILE_RE = re.compile(r"^\d{4}-W\d{2}\.json$")
+from weekly_common import WEEK_FILE_RE, WEEKLY_DIR, load_json, validate_recap, write_json
 
 
 def main() -> None:
