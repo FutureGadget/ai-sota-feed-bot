@@ -747,10 +747,6 @@ def run():
     items = dedupe(items)
     items_deduped = list(items)
 
-    pkw = profile.get("platform_keywords", [])
-    hkw = profile.get("hype_keywords", [])
-    w = profile.get("weights", {})
-    decay = float(w.get("freshness_hours_decay", 72))
     source_health = load_source_health()
 
     # Unified ranking pipeline (single canonical path).
