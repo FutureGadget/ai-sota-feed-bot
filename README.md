@@ -26,7 +26,8 @@ to the repo is how it gets "posted".
 Pipeline:
 ```bash
 S=.agents/skills/weekly-summary/scripts
-python $S/build_weekly_input.py     # 1. bundle the week's unique articles -> data/weekly/input/
+python $S/build_weekly_input.py     # 1. bundle the week's unique news items -> data/weekly/input/
+#                                      (news-only by default; --types all to include papers/releases)
 #                                     2. agent reads the bundle, writes data/weekly/<week>.json
 python $S/build_weekly_index.py     # 3. validate + rebuild data/weekly/{index,latest}.json
 # 4. git add data/weekly/ && git commit && git push

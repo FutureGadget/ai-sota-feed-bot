@@ -34,7 +34,16 @@ def main() -> None:
     ap.add_argument("--week", help="ISO week id, e.g. 2026-W23 (default: week containing --end/today)")
     ap.add_argument("--end", help="End date YYYY-MM-DD (used when --week is omitted)")
     ap.add_argument("--days", type=int, default=7, help="Lookback window in days when using --end (default 7)")
+    ap.add_argument(
+        "--types",
+        default="news",
+        help="Comma-separated item types to include, or 'all' (default: news). "
+        "Other types (paper/release/research) are better served by the live feed.",
+    )
     args = ap.parse_args()
+
+    types_raw = args.types.strip().lower()
+    include_types = None if types_raw in ("", "all", "*") else {t.strip() for t in types_raw.split(",") if t.strip()}
 
     if args.week:
         week = args.week
@@ -48,6 +57,8 @@ def main() -> None:
     end_dt = datetime.combine(end_d, time.max, tzinfo=timezone.utc)
 
     articles = collect_week_articles(start_dt, end_dt)
+    if include_types is not None:
+        articles = [a for a in articles if a.get("type") in include_types]
 
     # Pre-group by deterministic category so the agent has a starting structure.
     grouped: dict[str, list] = {}
@@ -65,6 +76,7 @@ def main() -> None:
         "end": end_d.isoformat(),
         "range_label": fmt_range(start_d, end_d),
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        "included_types": sorted(include_types) if include_types is not None else "all",
         "article_count": len(articles),
         "category_hint": category_hint,
         "articles": articles,
@@ -78,6 +90,7 @@ def main() -> None:
             {
                 "week": week,
                 "range": bundle["range_label"],
+                "included_types": bundle["included_types"],
                 "article_count": len(articles),
                 "categories": category_hint,
                 "input_path": f"data/weekly/input/{week}.json",

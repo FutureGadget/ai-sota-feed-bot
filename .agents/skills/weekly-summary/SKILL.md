@@ -19,9 +19,14 @@ python .agents/skills/weekly-summary/scripts/build_weekly_input.py
 # Targets the ISO week containing today. Override with:
 #   --week 2026-W23           (a specific ISO week, Mon–Sun)
 #   --end 2026-06-07 --days 7 (a trailing window ending on a date)
+#   --types news,release      (default: news only; use 'all' for everything)
 ```
 This writes `data/weekly/input/latest.json` (and `input/<week>.json`) — the
 week's unique, deduped articles. **This is your reading material.**
+
+By default only `news`-type items are bundled (papers/releases are better
+served by the live feed and add little to a weekly narrative). The bundle's
+`included_types` field records what was included.
 
 ### 2. Write the recap (your editorial work — only an agent can do this)
 Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
@@ -61,9 +66,10 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 **Editorial guidance**
 - **Preserve `url` exactly** from the bundle — it's the reader's link back to
   the source. Never invent, shorten, or guess links.
-- Group thematically into 3–6 categories. Keep the defaults (Releases /
-  Research Papers / Research & Techniques / Industry News) or craft better ones
-  (e.g. "Agents & Tooling", "Open Models", "Safety & Policy").
+- Group thematically into 3–6 categories. The bundle is news-only and lands in
+  a single "Industry News" bucket, so **you** define the themes — e.g. "Agents
+  & Tooling", "Open Models", "Funding & Business", "Safety & Policy", "Research
+  Highlights". Don't just echo "Industry News".
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest ~5–10 articles. You need not include every article.
 - `intro` is the headline experience — tell the reader what actually happened
