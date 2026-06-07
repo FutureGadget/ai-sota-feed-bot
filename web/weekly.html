@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Weekly Recap</title>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="https://oat.ink/oat.min.js" defer></script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; border: 1px solid var(--border);
+      border-radius: 999px; color: var(--muted); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>🗓️ AI Weekly Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">Loading…</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a id="jsonLink" href="/api/weekly" role="button">JSON</a>
+        <label class="archive muted">Week
+          <select id="archive" aria-label="Choose week"></select>
+        </label>
+      </menu>
+    </header>
+
+    <section id="recap" aria-live="polite">
+      <div class="state">Loading the weekly recap…</div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source.
+    </footer>
+  </main>
+
+  <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
+    function initThemeToggle() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+      btn.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function safeUrl(u) {
+      if (!u) return '#';
+      try {
+        const url = new URL(u, window.location.origin);
+        return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : '#';
+      } catch { return '#'; }
+    }
+
+    function fmtDate(v) {
+      if (!v) return '';
+      const d = new Date(v);
+      return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+    }
+
+    // ?week= or /weekly/<week> path segment.
+    function weekFromLocation() {
+      const q = new URLSearchParams(window.location.search).get('week');
+      if (q) return q;
+      const m = window.location.pathname.match(/\/weekly\/([0-9]{4}-W[0-9]{2})/i);
+      return m ? m[1] : null;
+    }
+
+    function renderRecap(recap) {
+      document.title = `AI Weekly Recap — ${recap.title || recap.week}`;
+      document.getElementById('jsonLink').href = `/api/weekly?week=${encodeURIComponent(recap.week)}`;
+      const cats = Array.isArray(recap.categories) ? recap.categories : [];
+      const totalArticles = cats.reduce((n, c) => n + (c.articles?.length || 0), 0);
+      document.getElementById('meta').textContent =
+        `${recap.article_count ?? totalArticles} articles · ${cats.length} categories`;
+
+      const toc = cats.length > 1
+        ? `<nav class="toc">${cats.map((c) =>
+            `<a href="#${esc(c.slug || c.name)}">${esc(c.name)} (${c.articles?.length || 0})</a>`).join('')}</nav>`
+        : '';
+
+      const sections = cats.map((c) => {
+        const arts = (c.articles || []).map((a) => {
+          const href = safeUrl(a.url);
+          const date = fmtDate(a.published);
+          return `
+            <article>
+              <h3><a href="${href}" target="_blank" rel="noopener" data-track="weekly-link">${esc(a.title || 'Untitled')}</a></h3>
+              <div class="art-meta">
+                ${a.source ? `<span class="badge">${esc(a.source)}</span>` : ''}
+                ${date ? `<span class="badge">${esc(date)}</span>` : ''}
+              </div>
+              ${a.summary ? `<p class="art-summary">${esc(a.summary)}</p>` : ''}
+            </article>`;
+        }).join('');
+        return `
+          <section class="cat" id="${esc(c.slug || c.name)}">
+            <h2>${esc(c.name)} <span class="count">${c.articles?.length || 0} item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
+            ${c.summary ? `<p class="cat-summary">${esc(c.summary)}</p>` : ''}
+            <div class="articles">${arts}</div>
+          </section>`;
+      }).join('');
+
+      document.getElementById('recap').innerHTML = `
+        <h2 class="recap-title">${esc(recap.title || recap.week)}</h2>
+        <p class="recap-range">${esc(recap.start || '')} – ${esc(recap.end || '')} · ${esc(recap.week || '')}</p>
+        ${recap.intro ? `<div class="intro">${esc(recap.intro)}</div>` : ''}
+        ${toc}
+        ${sections || '<div class="state">No categories in this recap yet.</div>'}`;
+    }
+
+    async function loadArchive(currentWeek) {
+      const sel = document.getElementById('archive');
+      try {
+        const res = await fetch('/api/weekly?list=1');
+        if (!res.ok) throw new Error('list_http_' + res.status);
+        const { weeks = [] } = await res.json();
+        if (!weeks.length) { sel.innerHTML = '<option>—</option>'; return; }
+        sel.innerHTML = weeks.map((w) =>
+          `<option value="${esc(w.week)}" ${w.week === currentWeek ? 'selected' : ''}>${esc(w.week)} · ${esc(w.title || '')}</option>`).join('');
+        sel.addEventListener('change', () => {
+          window.location.search = `?week=${encodeURIComponent(sel.value)}`;
+        });
+      } catch {
+        sel.innerHTML = '<option>—</option>';
+      }
+    }
+
+    async function run() {
+      const week = weekFromLocation();
+      const url = week ? `/api/weekly?week=${encodeURIComponent(week)}` : '/api/weekly';
+      try {
+        const res = await fetch(url);
+        if (res.status === 404) {
+          document.getElementById('meta').textContent = 'No recap yet';
+          document.getElementById('recap').innerHTML =
+            '<div class="state">No weekly recap has been published yet. Check back soon.</div>';
+          return;
+        }
+        if (!res.ok) throw new Error('weekly_http_' + res.status);
+        const recap = await res.json();
+        renderRecap(recap);
+        loadArchive(recap.week);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('meta').textContent = 'Recap unavailable';
+        document.getElementById('recap').innerHTML =
+          '<div class="state">Could not load the weekly recap right now. Please refresh in a moment.</div>';
+      }
+    }
+
+    initThemeToggle();
+    run();
+  </script>
+</body>
+</html>

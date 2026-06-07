@@ -15,6 +15,26 @@ GitHub-first prototype for AI platform engineering news intelligence.
   - versioned file in `data/digest/`
   - GitHub Issue (`Daily AI Digest - YYYY-MM-DD`)
   - Telegram mobile-friendly digest (top list + compact remainder)
+- Publishes a weekly "What happened in AI this week" recap at `/weekly` (see below)
+
+## Weekly recap (`/weekly`)
+A reader-facing weekly summary page rendered from `data/weekly/<week>.json`.
+The recap content is produced by an agent (a Claude Code routine) using the
+`weekly-summary` skill in `.agents/skills/weekly-summary/` — committing the JSON
+to the repo is how it gets "posted".
+
+Pipeline:
+```bash
+S=.agents/skills/weekly-summary/scripts
+python $S/build_weekly_input.py     # 1. bundle the week's unique news items -> data/weekly/input/
+#                                      (news-only by default; --types all to include papers/releases)
+#                                     2. agent reads the bundle, writes data/weekly/<week>.json
+python $S/build_weekly_index.py     # 3. validate + rebuild data/weekly/{index,latest}.json
+# 4. git add data/weekly/ && git commit && git push
+```
+- Page: `/weekly` (latest), `/weekly/<week>` (archive). API: `/api/weekly[?week=|?list=1]`.
+- Smoke-test the UI with a placeholder recap: `bash $S/run_weekly.sh --seed`
+- Agent contract + schema: `.agents/skills/weekly-summary/SKILL.md`
 
 ## Quick start
 ```bash
