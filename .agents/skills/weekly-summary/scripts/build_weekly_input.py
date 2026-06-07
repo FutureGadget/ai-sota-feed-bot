@@ -25,6 +25,7 @@ from weekly_common import (
     collect_week_articles,
     fmt_range,
     iso_week_id,
+    recap_article_urls,
     week_bounds,
     write_json,
 )
@@ -40,6 +41,19 @@ def main() -> None:
         default="news",
         help="Comma-separated item types to include, or 'all' (default: news). "
         "Other types (paper/release/research) are better served by the live feed.",
+    )
+    ap.add_argument(
+        "--keep-carryover",
+        action="store_true",
+        help="Keep articles still in the feed this week but published in an "
+        "earlier week (default: drop them — only include articles published "
+        "within the window).",
+    )
+    ap.add_argument(
+        "--no-prior-dedup",
+        action="store_true",
+        help="Do not exclude articles already published in an earlier week's "
+        "recap (default: exclude them to avoid cross-week duplicates).",
     )
     args = ap.parse_args()
 
@@ -57,7 +71,15 @@ def main() -> None:
     start_dt = datetime.combine(start_d, time.min, tzinfo=timezone.utc)
     end_dt = datetime.combine(end_d, time.max, tzinfo=timezone.utc)
 
-    articles = collect_week_articles(start_dt, end_dt)
+    # #2: don't re-surface articles a prior week's recap already covered.
+    exclude_urls = set() if args.no_prior_dedup else recap_article_urls(exclude_week=week)
+
+    articles = collect_week_articles(
+        start_dt,
+        end_dt,
+        require_published_in_window=not args.keep_carryover,  # #1
+        exclude_urls=exclude_urls,
+    )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
 
@@ -78,6 +100,9 @@ def main() -> None:
         "range_label": fmt_range(start_d, end_d),
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "included_types": sorted(include_types) if include_types is not None else "all",
+        "published_window": not args.keep_carryover,
+        "prior_recap_dedup": not args.no_prior_dedup,
+        "prior_recap_urls": len(exclude_urls),
         "article_count": len(articles),
         "category_hint": category_hint,
         "articles": articles,
@@ -96,6 +121,9 @@ def main() -> None:
                 "week": week,
                 "range": bundle["range_label"],
                 "included_types": bundle["included_types"],
+                "published_window": bundle["published_window"],
+                "prior_recap_dedup": bundle["prior_recap_dedup"],
+                "prior_recap_urls": bundle["prior_recap_urls"],
                 "article_count": len(articles),
                 "categories": category_hint,
                 "input_path": f"data/weekly/input/{week}.json",

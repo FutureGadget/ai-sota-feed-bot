@@ -25,7 +25,9 @@ The weekly recap pipeline has three artifacts under ``data/weekly/``:
 from __future__ import annotations
 
 import json
+import re
 from datetime import date, datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
 
@@ -44,6 +46,10 @@ WEEKLY_INPUT_DIR = WEEKLY_DIR / "input"
 PROCESSED_RUNS_DIR = ROOT / "data" / "processed" / "runs"
 PROCESSED_RUNS_INDEX = ROOT / "data" / "processed" / "runs_index.json"
 
+# Matches a published-recap filename, e.g. ``2026-W23.json`` (excludes
+# index.json / latest.json so they are never treated as recaps).
+WEEK_FILE_RE = re.compile(r"^\d{4}-W\d{2}\.json$")
+
 # Friendly category names keyed by the item ``type`` field, in display order.
 # The agent is free to introduce richer thematic categories; these are the
 # deterministic fallback used by the input bundle and the seed sample.
@@ -58,15 +64,28 @@ DEFAULT_CATEGORY = "Industry News"
 
 
 def parse_ts(v: Any) -> datetime | None:
+    """Parse a timestamp into an aware UTC datetime.
+
+    Feed ``published`` values arrive in two shapes: ISO-8601
+    (``2026-06-02T11:00:00+00:00``) and RFC-822 (``Mon, 01 Jun 2026 10:00:00
+    GMT``). Try ISO first, then fall back to the email/RFC-822 parser so that
+    neither sort order nor the published-date window silently drops articles.
+    """
     if not v:
         return None
+    s = str(v).strip()
     try:
-        d = datetime.fromisoformat(str(v).replace("Z", "+00:00"))
-        if d.tzinfo is None:
-            d = d.replace(tzinfo=timezone.utc)
-        return d
+        d = datetime.fromisoformat(s.replace("Z", "+00:00"))
     except Exception:
+        try:
+            d = parsedate_to_datetime(s)
+        except Exception:
+            return None
+    if d is None:
         return None
+    if d.tzinfo is None:
+        d = d.replace(tzinfo=timezone.utc)
+    return d
 
 
 def load_json(path: Path, fallback: Any) -> Any:
@@ -116,16 +135,67 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def collect_week_articles(start: datetime, end: datetime) -> list[dict[str, Any]]:
-    """Deduped list of unique articles that appeared in the feed in [start, end].
+def norm_url(value: Any) -> str:
+    """Normalize a URL for dedup comparison (strip + drop a trailing slash)."""
+    s = str(value or "").strip()
+    return s[:-1] if s.endswith("/") and len(s) > 1 else s
+
+
+def recap_article_urls(exclude_week: str | None = None) -> set[str]:
+    """Collect every article URL from already-published recaps.
+
+    Scans ``data/weekly/<week>.json`` recap files (skipping ``exclude_week``)
+    and returns the set of normalized article URLs they contain. Used to keep
+    an article that lingers in the feed across a week boundary from being
+    re-published in a later week's recap.
+    """
+    urls: set[str] = set()
+    if not WEEKLY_DIR.is_dir():
+        return urls
+    for path in WEEKLY_DIR.glob("*.json"):
+        if not WEEK_FILE_RE.match(path.name):
+            continue
+        data = load_json(path, None)
+        if not isinstance(data, dict):
+            continue
+        if exclude_week and data.get("week") == exclude_week:
+            continue
+        for cat in data.get("categories", []) or []:
+            if not isinstance(cat, dict):
+                continue
+            for art in cat.get("articles", []) or []:
+                if isinstance(art, dict) and art.get("url"):
+                    urls.add(norm_url(art["url"]))
+    return urls
+
+
+def collect_week_articles(
+    start: datetime,
+    end: datetime,
+    *,
+    require_published_in_window: bool = True,
+    exclude_urls: set[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Deduped list of unique articles that *happened* in [start, end].
 
     Walks the processed run snapshots, dedupes by URL (falling back to id), and
     keeps the richest copy seen. Sorted newest-first by published date.
+
+    Two filters guard against re-publishing stale articles that linger in the
+    feed across a week boundary (an article can persist in the live feed for
+    several days, so its run timestamps straddle two ISO weeks):
+
+    - ``require_published_in_window``: keep an article only if its own
+      ``published`` date falls within [start, end] — i.e. it was actually
+      published this week, not merely still being collected this week.
+    - ``exclude_urls``: drop any article whose URL already appeared in a
+      previously published recap (see :func:`recap_article_urls`).
     """
     index = load_json(PROCESSED_RUNS_INDEX, [])
     if not isinstance(index, list):
         return []
 
+    exclude_urls = exclude_urls or set()
     by_key: dict[str, dict[str, Any]] = {}
     for row in index:
         run_at = parse_ts(row.get("run_at"))
@@ -144,6 +214,14 @@ def collect_week_articles(start: datetime, end: datetime) -> list[dict[str, Any]
             cleaned = clean_article(it)
             key = cleaned["url"] or cleaned["id"] or cleaned["title"]
             if not key:
+                continue
+            # #1: only articles actually published within the week window.
+            if require_published_in_window:
+                pub = parse_ts(cleaned.get("published"))
+                if pub is None or pub < start or pub > end:
+                    continue
+            # #2: skip anything already covered by an earlier week's recap.
+            if exclude_urls and norm_url(cleaned["url"]) in exclude_urls:
                 continue
             # Prefer the copy with the longer summary (more informative).
             prev = by_key.get(key)
