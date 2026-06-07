@@ -230,12 +230,12 @@ def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     for it in items:
         key = canonical_url(it["url"])
         prev = by_url.get(key)
-        if prev is None or float(it.get("source_weight", 1.0)) > float(prev.get("source_weight", 1.0)):
+        if prev is None or freshness_score(it.get("published", "")) > freshness_score(prev.get("published", "")):
             by_url[key] = it
 
     out: list[dict[str, Any]] = []
     signatures: list[set[str]] = []
-    for it in sorted(by_url.values(), key=lambda x: float(x.get("source_weight", 1.0)), reverse=True):
+    for it in sorted(by_url.values(), key=lambda x: freshness_score(x.get("published", "")), reverse=True):
         toks = title_tokens(it.get("title", ""))
         if any(jaccard(toks, prev_toks) >= 0.85 for prev_toks in signatures):
             continue

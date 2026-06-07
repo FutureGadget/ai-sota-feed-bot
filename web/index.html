@@ -18,13 +18,40 @@
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
     }
+    :root,
+    html[data-theme="light"] {
+      --bg: #ffffff;
+      --fg: #1a1a1a;
+      --card: #ffffff;
+      --border: #e5e5e5;
+      --accent: #2563eb;
+      --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c;
+      --fg: #e8e8ea;
+      --card: #1e2128;
+      --border: #34373f;
+      --accent: #5b8def;
+      --muted: #9aa0aa;
+    }
     body {
       margin: 0;
       line-height: 1.5;
       overflow-x: hidden;
+      background: var(--bg);
+      color: var(--fg);
     }
     *, *::before, *::after {
       box-sizing: border-box;
+    }
+    button, input, select, textarea {
+      color: inherit;
+      background: var(--card);
+      border-color: var(--border);
+    }
+    a {
+      color: var(--accent);
     }
     main {
       width: 100%;
@@ -64,6 +91,32 @@
     .presets button {
       font-size: 0.9rem;
       padding: 0.3rem 0.55rem;
+    }
+    .sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+      border-bottom: 1px solid var(--border, #e5e5e5);
+      padding-bottom: 0.5rem;
+    }
+    .sections button {
+      font-size: 0.92rem;
+      padding: 0.35rem 0.7rem;
+      border: 1px solid var(--border, #e5e5e5);
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      color: inherit;
+    }
+    .sections button:hover {
+      border-color: var(--accent, #2563eb);
+    }
+    .sections button.active {
+      background: var(--accent, #2563eb);
+      border-color: var(--accent, #2563eb);
+      color: #fff;
+      font-weight: 600;
     }
     .filters {
       display: grid;
@@ -162,6 +215,11 @@
       background: #ecfdf3;
       font-weight: 600;
     }
+    html[data-theme="dark"] .badge-fresh {
+      border-color: #22c55e;
+      color: #bbf7d0;
+      background: #14532d;
+    }
     .why {
       margin: 0.35rem 0 0;
       font-size: 1rem;
@@ -208,6 +266,15 @@
         <button type="button" data-days="30">Last 30d</button>
         <button type="button" data-days="all">All</button>
       </div>
+
+      <nav class="sections" id="sections" aria-label="Sections">
+        <button type="button" data-section="" class="active">All</button>
+        <button type="button" data-section="platform">Platform</button>
+        <button type="button" data-section="release">Releases</button>
+        <button type="button" data-section="research">Research</button>
+        <button type="button" data-section="paper">Papers</button>
+        <button type="button" data-section="news">News</button>
+      </nav>
 
 
     </header>
@@ -284,6 +351,26 @@
 
     let selectedLabelsState = new Set();
 
+    // Section tabs are a quick-select over the existing label filter.
+    // Each maps to a single llm_category/type label value.
+    const SECTION_VALUES = new Set(['platform', 'release', 'research', 'paper', 'news']);
+
+    function activeSection() {
+      const labels = getSelectedLabels();
+      if (labels.length === 0) return '';
+      if (labels.length === 1 && SECTION_VALUES.has(labels[0])) return labels[0];
+      return null; // advanced/multi-label selection: no single section is active
+    }
+
+    function syncSectionTabs() {
+      const current = activeSection();
+      const buttons = document.querySelectorAll('#sections button[data-section]');
+      buttons.forEach((b) => {
+        const matches = current !== null && (b.dataset.section || '') === current;
+        b.classList.toggle('active', matches);
+      });
+    }
+
     function normalizeLabel(v) {
       return String(v || '')
         .trim()
@@ -304,6 +391,7 @@
       );
       renderSelectedLabelsChips();
       updateLabelPickerButton();
+      syncSectionTabs();
     }
 
     function updateLabelPickerButton() {
@@ -366,14 +454,12 @@
       }
 
       const limit = document.getElementById('limit')?.value || '200';
-      const anon = getAnonUserId();
       const labels = getSelectedLabels();
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
       if (to) u.searchParams.set('to', to);
       if (limit) u.searchParams.set('limit', limit);
       for (const l of labels) u.searchParams.append('label', l);
-      if (anon) u.searchParams.set('anon_user_id', anon);
       return u.pathname + u.search;
     }
 
@@ -484,46 +570,25 @@
       return v;
     }
 
-    function getSessionId() {
-      const key = 'ai_feed_session_id';
-      let v = sessionStorage.getItem(key);
-      if (!v) {
-        v = randomId('sess');
-        sessionStorage.setItem(key, v);
-      }
-      return v;
-    }
-
-    async function sendEvents(events) {
+    function captureEvents(events) {
       if (!events?.length) return;
-      try {
-        await fetch('/api/events', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ events }),
-          keepalive: true,
+      const allImpression = events.every((e) => e.event_type === 'impression');
+      if (allImpression) {
+        posthogCapture('impression_batch', {
+          count: events.length,
+          run_id: events[0]?.run_id || null,
         });
-
-        const allImpression = events.every((e) => e.event_type === 'impression');
-        if (allImpression) {
-          posthogCapture('impression_batch', {
-            count: events.length,
-            run_id: events[0]?.run_id || null,
+      } else {
+        for (const ev of events) {
+          if (ev.event_type !== 'click') continue;
+          posthogCapture('click', {
+            item_id: ev.item_id || null,
+            source: ev.source || null,
+            rank_position: ev.rank_position || null,
+            run_id: ev.run_id || null,
+            url: ev.url || null,
           });
-        } else {
-          for (const ev of events) {
-            if (ev.event_type !== 'click') continue;
-            posthogCapture('click', {
-              item_id: ev.item_id || null,
-              source: ev.source || null,
-              rank_position: ev.rank_position || null,
-              run_id: ev.run_id || null,
-              url: ev.url || null,
-            });
-          }
         }
-      } catch (e) {
-        console.debug('event_send_failed', e);
       }
     }
 
@@ -539,8 +604,6 @@
       const availableLabels = data.available_labels || [];
       window.__availableLabels = availableLabels;
       const selectedLabels = getSelectedLabels();
-      const anonUserId = getAnonUserId();
-      const sessionId = getSessionId();
       const runId = runs?.[0]?.run_at || null;
 
       syncLabelOptions(availableLabels);
@@ -606,8 +669,6 @@
       }).join('');
 
       const impressions = items.slice(0, 200).map((it, i) => ({
-        anon_user_id: anonUserId,
-        session_id: sessionId,
         event_type: 'impression',
         item_id: it.id || `${it.url || ''}::${it.title || ''}`,
         title: it.title || '',
@@ -617,7 +678,7 @@
         run_id: it.ingest_batch_id || it.run_id || runId,
         ts: new Date().toISOString(),
       }));
-      sendEvents(impressions);
+      captureEvents(impressions);
     }
 
     function initClickTracking() {
@@ -629,8 +690,6 @@
         if (!a) return;
 
         const event = {
-          anon_user_id: getAnonUserId(),
-          session_id: getSessionId(),
           event_type: 'click',
           item_id: a.dataset.itemId || null,
           title: a.dataset.title || null,
@@ -640,7 +699,7 @@
           run_id: a.dataset.runId || null,
           ts: new Date().toISOString(),
         };
-        sendEvents([event]);
+        captureEvents([event]);
       });
     }
 
@@ -692,6 +751,20 @@
         const btn = e.target.closest('button[data-days]');
         if (!btn) return;
         setDateRangeDays(btn.dataset.days);
+        run().catch(err => {
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+          console.error(err);
+        });
+      });
+
+      const sections = document.getElementById('sections');
+      sections?.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-section]');
+        if (!btn) return;
+        const section = btn.dataset.section || '';
+        // "All" clears the filter; any other tab selects exactly that section.
+        setSelectedLabels(section ? [section] : []);
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
           document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;

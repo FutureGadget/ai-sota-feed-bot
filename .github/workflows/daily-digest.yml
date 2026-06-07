@@ -16,10 +16,6 @@ jobs:
           python-version: "3.11"
       - name: Install deps
         run: pip install -r requirements.txt
-      - name: Auto-tune source weights (from feedback)
-        run: |
-          python pipeline/auto_tune.py report || true
-          python pipeline/auto_tune.py apply || true
       - name: Collect + health + build digest
         run: |
           python pipeline/source_health.py update || true

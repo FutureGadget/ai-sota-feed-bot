@@ -3,8 +3,7 @@
 This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify ingestion, build a practical dashboard, and safely roll back.
 
 ## Scope
-- Keep Turso `/api/events` as source-of-truth.
-- Enable PostHog as parallel analytics/dashboard layer.
+- PostHog is the analytics/dashboard layer for web feed telemetry.
 - Current captured web events:
   - `page_view`
   - `feed_view`
@@ -91,9 +90,7 @@ Create a dashboard with these insights:
 ---
 
 ## 4) Operational notes
-- PostHog is for product analytics visibility.
-- Turso remains canonical for ranking/personalization feedback loops.
-- Use both during validation period; avoid replacing Turso pipeline prematurely.
+- PostHog is the source of truth for product analytics visibility.
 
 ---
 
@@ -104,5 +101,4 @@ To disable PostHog quickly:
 
 Result:
 - UI remains functional
-- Turso telemetry continues
 - PostHog captures stop
