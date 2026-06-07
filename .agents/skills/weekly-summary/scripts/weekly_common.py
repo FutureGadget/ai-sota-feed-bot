@@ -171,7 +171,8 @@ WEEKLY_SCHEMA = {
     "end": "YYYY-MM-DD (Sunday)",
     "title": "string headline, e.g. 'What happened in AI — Jun 1–7, 2026'",
     "generated_at": "ISO-8601 timestamp",
-    "intro": "1-3 paragraph narrative overview of the week",
+    "intro": "narrative overview: array of paragraph strings (a plain string also works)",
+    "highlights": "optional: array of 3-6 scannable one-line takeaways (rendered as an 'In 30 seconds' list)",
     "article_count": "int, number of source articles considered",
     "categories": [
         {

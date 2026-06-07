@@ -34,6 +34,13 @@
     .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
     .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
       border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
     .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
     .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
       border-radius: 999px; text-decoration: none; }
@@ -124,6 +131,27 @@
       return m ? m[1] : null;
     }
 
+    // intro may be a single string (optionally with blank-line paragraph breaks)
+    // or an array of paragraph strings. Normalize to a list of paragraphs.
+    function introParagraphs(intro) {
+      if (Array.isArray(intro)) return intro.map((p) => String(p).trim()).filter(Boolean);
+      return String(intro || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+    }
+
+    function renderIntro(recap) {
+      const paras = introParagraphs(recap.intro);
+      const highlights = Array.isArray(recap.highlights) ? recap.highlights.filter(Boolean) : [];
+      if (!paras.length && !highlights.length) return '';
+      const tldr = highlights.length
+        ? `<div class="tldr">
+             <p class="tldr-label">In 30 seconds</p>
+             <ul>${highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
+           </div>`
+        : '';
+      const body = paras.map((p) => `<p>${esc(p)}</p>`).join('');
+      return `<div class="intro">${tldr}${body}</div>`;
+    }
+
     function renderRecap(recap) {
       document.title = `AI Weekly Recap — ${recap.title || recap.week}`;
       document.getElementById('jsonLink').href = `/api/weekly?week=${encodeURIComponent(recap.week)}`;
@@ -162,7 +190,7 @@
       document.getElementById('recap').innerHTML = `
         <h2 class="recap-title">${esc(recap.title || recap.week)}</h2>
         <p class="recap-range">${esc(recap.start || '')} – ${esc(recap.end || '')} · ${esc(recap.week || '')}</p>
-        ${recap.intro ? `<div class="intro">${esc(recap.intro)}</div>` : ''}
+        ${renderIntro(recap)}
         ${toc}
         ${sections || '<div class="state">No categories in this recap yet.</div>'}`;
     }

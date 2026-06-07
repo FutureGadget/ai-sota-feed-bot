@@ -118,13 +118,22 @@ def build_sample(bundle: dict) -> dict:
         )
 
     total = bundle.get("article_count", len(bundle.get("articles", [])))
-    intro = (
+    # `intro` is an array of paragraph strings and `highlights` a scannable
+    # bullet list — the same shape a real recap emits, so the sample exercises
+    # the live /weekly layout.
+    intro = [
         f"This week ({range_label}) the feed surfaced {total} unique articles across "
         f"{len(categories)} categories. The biggest threads ran through "
         + ", ".join(c["name"] for c in categories)
-        + ". This is placeholder narrative text — a Claude Code routine will replace it "
-        "with a real “what happened in AI this week” overview drawn from the article summaries below."
-    )
+        + ".",
+        "This is placeholder narrative text — a Claude Code routine will replace it "
+        "with a real “what happened in AI this week” overview drawn from the article summaries below.",
+    ]
+    highlights = [
+        f"{c['name']}: {c['articles'][0]['title']}"
+        for c in categories[:5]
+        if c.get("articles")
+    ] or ["Placeholder highlight — the agent replaces these with real one-line takeaways."]
 
     return {
         "week": week,
@@ -134,6 +143,7 @@ def build_sample(bundle: dict) -> dict:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "generator": "seed_weekly_sample (placeholder)",
         "intro": intro,
+        "highlights": highlights,
         "article_count": total,
         "categories": categories,
     }

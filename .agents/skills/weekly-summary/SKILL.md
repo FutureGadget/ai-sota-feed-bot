@@ -55,7 +55,15 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
   "end": "2026-06-07",
   "title": "What happened in AI — Jun 1–7, 2026",
   "generated_at": "<ISO-8601 now>",
-  "intro": "1–3 paragraph narrative: the through-lines of the week.",
+  "intro": [
+    "Paragraph 1: the headline through-line of the week.",
+    "Paragraph 2: the next thread.",
+    "Paragraph 3 (optional): the kicker."
+  ],
+  "highlights": [
+    "Scannable one-line takeaway (3–6 of these).",
+    "Each is a standalone bullet — no need to read the intro to get the gist."
+  ],
   "article_count": 144,
   "categories": [
     {
@@ -86,7 +94,12 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest ~5–10 articles. You need not include every article.
 - `intro` is the headline experience — tell the reader what actually happened
-  this week, newsletter-opener style.
+  this week, newsletter-opener style. Use the array form (one string per
+  paragraph) so the page renders it as readable paragraphs; a plain string still
+  works and is split on blank lines. Keep it to 2–4 short paragraphs.
+- `highlights` (optional but recommended) is a "In 30 seconds" bullet list the
+  page renders above the intro — 3–6 scannable one-liners so a reader gets the
+  gist without reading the full narrative. Cover the week's biggest threads.
 
 ### 4. Validate + rebuild the index (what the site serves)
 ```bash

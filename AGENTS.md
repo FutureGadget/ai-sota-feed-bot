@@ -54,3 +54,11 @@ When implementing a feature:
 - `main` always runnable.
 - Daily digest workflow must remain green.
 - New features should include a validation path (local run or workflow run).
+
+## Deployment (Vercel)
+- The site (`web/` pages + `api/` serverless functions, e.g. `/weekly` and
+  `/api/weekly`) is auto-deployed to Vercel. Config lives in `vercel.json`.
+- Every PR gets an automatic **Vercel preview deployment** — push to a branch /
+  open a PR and the changes are viewable on the preview URL Vercel posts on the
+  PR. Use the preview to eyeball UI changes (like the `/weekly` page) before merge.
+- Merging to `main` triggers the production deploy.
