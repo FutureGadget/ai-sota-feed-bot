@@ -47,12 +47,10 @@ selection:
     - anthropic_newsroom
     - anthropic_research
     - openai_blog
-    - openai_codex_releases
-    - claude_code_releases
     - simon_willison
     - infoq_ai_ml
     - hackernews_ai
-  min_top_k_priority_slots: 7
+  min_top_k_priority_slots: 6
   top_k_deprioritized_sources:
     - nvidia_blog
     - vllm_releases
@@ -63,8 +61,6 @@ selection:
     - anthropic_engineering
     - anthropic_newsroom
     - openai_blog
-    - openai_codex_releases
-    - claude_code_releases
     - simon_willison
     - latent_space
     - infoq_ai_ml
@@ -78,10 +74,6 @@ selection:
     - anthropic_newsroom
     - anthropic_research
   min_anthropic_slots: 2
-  agent_app_release_sources:
-    - openai_codex_releases
-    - claude_code_releases
-  min_agent_app_release_slots: 1
   # Deterministic allocation keeps output stable while LLM is used selectively
   # (cost + reliability tradeoff). Tune these before changing code.
   category_allocation:
