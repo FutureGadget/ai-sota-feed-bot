@@ -106,7 +106,7 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
         item["slot"] = slot
         item["freshness"] = round(_freshness_score(it.get("published", ""), decay_hours=max(12.0, fresh_h / 3)), 3)
         item["source_reliability"] = round(rel, 3)
-        item["prefilter_score"] = round(float(it.get("source_weight", 1.0)) + item["freshness"] + rel, 3)
+        item["prefilter_score"] = round(item["freshness"] + rel, 3)
         out.append(item)
 
     out.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)

@@ -345,7 +345,6 @@ def run():
         src_name = source["name"]
         src_type = source.get("type", "rss")
         src_url = source.get("url") or f"arxiv://{source.get('category','unknown')}"
-        src_weight = float(source.get("weight", 1.0))
 
         if not bypass_cooldown:
             default_poll_mins = int(os.getenv("COLLECT_DEFAULT_POLL_MINUTES", "0") or 0)
@@ -403,7 +402,6 @@ def run():
                     {
                         "id": item_id(link, title),
                         "source": src_name,
-                        "source_weight": src_weight,
                         "title": title,
                         "url": link,
                         "summary": ent.get("summary", ""),

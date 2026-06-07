@@ -3,90 +3,71 @@ sources:
     type: arxiv_api
     category: cs.AI
     max_results: 40
-    weight: 0.85
   - name: arxiv_cs_lg
     type: arxiv_api
     category: cs.LG
     max_results: 40
-    weight: 0.85
   - name: arxiv_cs_cl
     type: arxiv_api
     category: cs.CL
     max_results: 30
-    weight: 0.8
   - name: paperswithcode_latest
     type: rss
     url: "https://paperswithcode.com/rss/latest"
-    weight: 1.0
   - name: openai_blog
     type: rss
     url: "https://openai.com/news/rss.xml"
-    weight: 2.0
   - name: anthropic_newsroom
     type: sitemap
     url: "https://www.anthropic.com/sitemap.xml"
     include_prefixes:
       - "https://www.anthropic.com/news/"
     extract_published_from_page: true
-    weight: 1.8
   - name: anthropic_engineering
     type: sitemap
     url: "https://www.anthropic.com/sitemap.xml"
     include_prefixes:
       - "https://www.anthropic.com/engineering/"
     extract_published_from_page: true
-    weight: 2.0
   - name: anthropic_research
     type: sitemap
     url: "https://www.anthropic.com/sitemap.xml"
     extract_published_from_page: true
     include_prefixes:
       - "https://www.anthropic.com/research/"
-    weight: 1.4
   - name: huggingface_blog
     type: rss
     url: "https://huggingface.co/blog/feed.xml"
-    weight: 1.1
   - name: nvidia_blog
     type: rss
     url: "https://blogs.nvidia.com/feed/"
-    weight: 0.15
   - name: google_ai_blog
     type: rss
     url: "https://blog.google/technology/ai/rss/"
-    weight: 0.7
   - name: aws_ml_blog
     type: rss
     url: "https://aws.amazon.com/blogs/machine-learning/feed/"
-    weight: 0.6
   - name: vllm_releases
     type: rss
     url: "https://github.com/vllm-project/vllm/releases.atom"
-    weight: 0.25
   - name: triton_releases
     type: rss
     url: "https://github.com/triton-inference-server/server/releases.atom"
-    weight: 0.25
   - name: llamaindex_releases
     type: rss
     url: "https://github.com/run-llama/llama_index/releases.atom"
-    weight: 0.95
   - name: langgraph_releases
     type: rss
     url: "https://github.com/langchain-ai/langgraph/releases.atom"
-    weight: 0.95
   - name: openai_codex_releases
     type: rss
     url: "https://github.com/openai/codex/releases.atom"
-    weight: 2.2
   - name: claude_code_releases
     type: rss
     url: "https://github.com/anthropics/claude-code/releases.atom"
-    weight: 2.2
   - name: claude_agent_sdk_python_releases
     type: rss
     url: "https://github.com/anthropics/claude-agent-sdk-python/releases.atom"
-    weight: 1.3
   - name: claude_blog
     type: sitemap
     url: "https://claude.com/sitemap.xml"
@@ -94,23 +75,18 @@ sources:
       - "https://claude.com/blog/"
     extract_published_from_page: true
     page_meta_cache_ttl_hours: 24
-    weight: 1.15
   - name: hackernews_ai
     type: rss
     url: "https://hnrss.org/newest?q=(AI%20OR%20LLM%20OR%20agent%20OR%20inference)&count=30"
-    weight: 1.1
   - name: infoq_ai_ml
     type: rss
     url: "https://feed.infoq.com/ai-ml-data-eng/"
-    weight: 1.15
   - name: simon_willison
     type: rss
     url: "https://simonwillison.net/atom/everything/"
-    weight: 1.25
   - name: latent_space
     type: rss
     url: "https://www.latent.space/feed"
-    weight: 1.2
   - name: langchain_blog
     type: sitemap
     url: "https://www.langchain.com/sitemap.xml"
@@ -118,12 +94,9 @@ sources:
       - "https://www.langchain.com/blog/"
     extract_published_from_page: true
     page_meta_cache_ttl_hours: 24
-    weight: 1.05
   - name: search_agent_engineering_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28agentic+coding+OR+coding+agent+OR+agent+harness+OR+claude+code+OR+openai+codex%29&hl=en-US&gl=US&ceid=US:en"
-    weight: 1.1
   - name: search_llm_ops_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28LLM+inference+optimization+OR+serving+latency+OR+vLLM+OR+Triton%29&hl=en-US&gl=US&ceid=US:en"
-    weight: 0.8
