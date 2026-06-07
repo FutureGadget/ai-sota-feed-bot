@@ -12,6 +12,29 @@ from dateutil import parser as dt_parser
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Retain only enough recent tier1 run snapshots to cover the fresh-blend window
+# the API can request (max 48 runs / 168h), with margin. These files are bundled
+# into the serverless functions, so an unbounded directory would bloat the
+# deploy; older snapshots are pruned from disk to match the capped index.
+TIER1_RUNS_KEEP = 96
+
+
+def prune_orphan_runs(runs_dir: Path, kept_rel_paths: set[str]) -> int:
+    """Delete run snapshot files under runs_dir not present in kept_rel_paths."""
+    if not runs_dir.exists():
+        return 0
+    removed = 0
+    for p in runs_dir.glob("**/*.json"):
+        rel = str(p.relative_to(runs_dir))
+        if rel in kept_rel_paths:
+            continue
+        try:
+            p.unlink()
+            removed += 1
+        except OSError:
+            pass
+    return removed
+
 
 def latest_raw_file() -> Path:
     raw_root = ROOT / "data" / "raw"
@@ -114,9 +137,10 @@ def write_tier1_snapshot(items: list[dict[str, Any]], run_at: datetime | None = 
         except Exception:
             idx = []
     idx = [{"run_at": run_at_iso, "path": rel_path, "item_count": len(items)}] + [x for x in idx if x.get("path") != rel_path]
-    idx = idx[:2000]
+    idx = idx[:TIER1_RUNS_KEEP]
     index_file.parent.mkdir(parents=True, exist_ok=True)
     index_file.write_text(json.dumps(idx, ensure_ascii=False, indent=2), encoding="utf-8")
+    prune_orphan_runs(ROOT / "data" / "tier1" / "runs", {x.get("path") for x in idx if x.get("path")})
     return run_at_iso, rel_path
 
 
