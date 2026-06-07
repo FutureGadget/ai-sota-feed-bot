@@ -19,6 +19,28 @@ from llm_rerank import rerank_candidates
 
 ROOT = Path(__file__).resolve().parents[1]
 
+# Keep the on-disk run snapshots bounded to the same window the index retains.
+# The index was already capped, but the snapshot files themselves used to
+# accumulate forever, bloating the repo and the deployed function bundle.
+PROCESSED_RUNS_KEEP = 500
+
+
+def prune_orphan_runs(runs_dir: Path, kept_rel_paths: set[str]) -> int:
+    """Delete run snapshot files under runs_dir not present in kept_rel_paths."""
+    if not runs_dir.exists():
+        return 0
+    removed = 0
+    for p in runs_dir.glob("**/*.json"):
+        rel = str(p.relative_to(runs_dir))
+        if rel in kept_rel_paths:
+            continue
+        try:
+            p.unlink()
+            removed += 1
+        except OSError:
+            pass
+    return removed
+
 
 def atomic_write_json(path: Path, payload: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -112,8 +134,9 @@ def write_run_snapshot(items: list[dict[str, Any]], run_at: datetime | None = No
             continue
 
     by_path[run_rel_path] = {"run_at": run_at_iso, "path": run_rel_path, "item_count": len(items)}
-    merged_index = sorted(by_path.values(), key=lambda x: x.get("run_at", ""), reverse=True)[:500]
+    merged_index = sorted(by_path.values(), key=lambda x: x.get("run_at", ""), reverse=True)[:PROCESSED_RUNS_KEEP]
     atomic_write_json(index_file, merged_index)
+    prune_orphan_runs(processed_dir / "runs", {row["path"] for row in merged_index if row.get("path")})
 
     return run_at_iso, run_rel_path
 
