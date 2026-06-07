@@ -20,6 +20,7 @@ from datetime import date, datetime, time, timedelta, timezone
 
 from weekly_common import (
     CATEGORY_ORDER,
+    WEEKLY_DIR,
     WEEKLY_INPUT_DIR,
     collect_week_articles,
     fmt_range,
@@ -85,6 +86,10 @@ def main() -> None:
     write_json(WEEKLY_INPUT_DIR / f"{week}.json", bundle)
     write_json(WEEKLY_INPUT_DIR / "latest.json", bundle)
 
+    # Dedup signal: a recap for this week is keyed by its ISO week id (the
+    # filename below). If it already exists, the routine should NOT re-write it.
+    already_published = (WEEKLY_DIR / f"{week}.json").exists()
+
     print(
         json.dumps(
             {
@@ -94,6 +99,8 @@ def main() -> None:
                 "article_count": len(articles),
                 "categories": category_hint,
                 "input_path": f"data/weekly/input/{week}.json",
+                "recap_path": f"data/weekly/{week}.json",
+                "already_published": already_published,
             },
             ensure_ascii=False,
             indent=2,

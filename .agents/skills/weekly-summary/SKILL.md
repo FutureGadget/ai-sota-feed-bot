@@ -28,7 +28,20 @@ By default only `news`-type items are bundled (papers/releases are better
 served by the live feed and add little to a weekly narrative). The bundle's
 `included_types` field records what was included.
 
-### 2. Write the recap (your editorial work — only an agent can do this)
+### 2. Check the week isn't already published (dedup)
+The **unique key for a week is its ISO week id** (`YYYY-Www`, e.g. `2026-W23`) —
+the same value used as the `week` field, the filename `data/weekly/<week>.json`,
+and the index key. Read the `week` field from `data/weekly/input/latest.json`,
+then check whether `data/weekly/<week>.json` already exists:
+
+- **If it exists**, a recap for this week was already published. **Stop here** —
+  do not overwrite or create a duplicate. Report that `<week>` is already done.
+- **Only continue if it does not exist.**
+
+(To intentionally regenerate a week, delete or explicitly overwrite that one
+file — the index is keyed by week id, so there is always exactly one per week.)
+
+### 3. Write the recap (your editorial work — only an agent can do this)
 Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
 `title`, `url` (original source link), `source`, `type`, `category`,
 `summary`, `published`. The bundle also carries `week`, `start`, `end`,
@@ -75,7 +88,7 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 - `intro` is the headline experience — tell the reader what actually happened
   this week, newsletter-opener style.
 
-### 3. Validate + rebuild the index (what the site serves)
+### 4. Validate + rebuild the index (what the site serves)
 ```bash
 python .agents/skills/weekly-summary/scripts/build_weekly_index.py
 ```
@@ -83,7 +96,7 @@ Validates every recap against the schema and rebuilds
 `data/weekly/index.json` + `data/weekly/latest.json`. It exits non-zero on a
 malformed recap — fix and re-run until clean. (`--check` validates without writing.)
 
-### 4. Post it (commit + push)
+### 5. Post it (commit + push)
 ```bash
 git add data/weekly/
 git commit -m "weekly recap: <week>"
@@ -92,7 +105,7 @@ git push
 
 ## Helpers
 - `scripts/run_weekly.sh` — runs step 1 + (optionally) the placeholder seed +
-  step 3 in one go, for smoke-testing the UI.
+  step 4 in one go, for smoke-testing the UI.
 - `scripts/seed_weekly_sample.py` — deterministic **placeholder** recap from the
   input bundle. NOT a real summary; use it only as a schema example or to test
   the `/weekly` page rendering.
