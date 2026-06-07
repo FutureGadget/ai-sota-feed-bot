@@ -9,6 +9,8 @@
   ],
   "rewrites": [
     { "source": "/", "destination": "/web/index.html" },
+    { "source": "/weekly", "destination": "/web/weekly.html" },
+    { "source": "/weekly/:week", "destination": "/web/weekly.html" },
     { "source": "/llms.txt", "destination": "/web/llms.txt" },
     { "source": "/llm-guide.txt", "destination": "/web/llm-guide.txt" }
   ],
@@ -28,6 +30,10 @@
     "api/rss.js": {
       "includeFiles": "data/{processed/**,tier1/{latest,runs_index}.json}",
       "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/**,analysis/**,tier1/runs/**}"
+    },
+    "api/weekly.js": {
+      "includeFiles": "data/weekly/{index,latest}.json data/weekly/*-W*.json",
+      "excludeFiles": "data/weekly/input/**"
     },
     "api/client-config.js": {
       "excludeFiles": "data/**"
