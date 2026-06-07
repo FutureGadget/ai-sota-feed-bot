@@ -16,7 +16,6 @@ import argparse
 from datetime import datetime, timezone
 
 from weekly_common import (
-    CATEGORY_ORDER,
     WEEKLY_DIR,
     WEEKLY_INPUT_DIR,
     fmt_range,
@@ -28,6 +27,49 @@ from weekly_common import (
 
 # Per-article cap so the sample page stays readable.
 MAX_PER_CATEGORY = 8
+
+# Rough keyword-based themes, in display order. The placeholder generator
+# assigns each article to the FIRST theme whose keywords match its title/summary,
+# so the sample page resembles the thematic split a real recap would have.
+# The live agent decides the real themes; this is only an approximation.
+THEMES: list[tuple[str, list[str]]] = [
+    ("Models & Releases", [
+        "release", "launch", "announc", "unveil", "model", "gpt", "claude",
+        "gemini", "llama", "mistral", "qwen", "open-source", "open source",
+        "weights", "fine-tun", "version", "preview", "ships",
+    ]),
+    ("Agents & Tooling", [
+        "agent", "mcp", "copilot", "ide", " sdk", "framework", "orchestrat",
+        "workflow", "tool", "plugin", "assistant", "coding", "automation",
+    ]),
+    ("Research & Techniques", [
+        "paper", "benchmark", "research", "training", "reasoning", "reinforcement",
+        "architecture", "scaling", "evaluation", "study", "technique", "method",
+        "fine-tuning", "distill", "rag", "retrieval",
+    ]),
+    ("Infrastructure & Compute", [
+        "gpu", "nvidia", "chip", "datacenter", "data center", "compute",
+        "inference", "cluster", "hardware", "cloud", "tpu", "serving", "latency",
+    ]),
+    ("Funding & Business", [
+        "funding", "raise", "raised", "valuation", "acqui", "ipo", "revenue",
+        "startup", "billion", "million", "investment", "deal", "partnership",
+        "hire", "layoff", "ceo",
+    ]),
+    ("Safety & Policy", [
+        "safety", "regulat", "policy", "govern", "ai act", "lawsuit", "copyright",
+        "privacy", "security", "risk", "alignment", "ban", "court", "ethic",
+    ]),
+]
+FALLBACK_THEME = "More in AI"
+
+
+def classify_theme(article: dict) -> str:
+    text = f"{article.get('title', '')} {article.get('summary', '')}".lower()
+    for name, keywords in THEMES:
+        if any(kw in text for kw in keywords):
+            return name
+    return FALLBACK_THEME
 
 
 def category_blurb(name: str, count: int, top_titles: list[str]) -> str:
@@ -46,10 +88,13 @@ def build_sample(bundle: dict) -> dict:
 
     grouped: dict[str, list] = {}
     for a in bundle.get("articles", []):
-        grouped.setdefault(a["category"], []).append(a)
+        grouped.setdefault(classify_theme(a), []).append(a)
+
+    # Display order: defined themes first, then the fallback bucket last.
+    theme_order = [name for name, _ in THEMES] + [FALLBACK_THEME]
 
     categories = []
-    for _, name in CATEGORY_ORDER:
+    for name in theme_order:
         arts = grouped.get(name) or []
         if not arts:
             continue
