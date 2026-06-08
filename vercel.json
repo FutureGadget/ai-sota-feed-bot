@@ -11,6 +11,8 @@
     { "source": "/", "destination": "/web/index.html" },
     { "source": "/weekly", "destination": "/web/weekly.html" },
     { "source": "/weekly/:week", "destination": "/web/weekly.html" },
+    { "source": "/daily", "destination": "/web/daily.html" },
+    { "source": "/daily/:date", "destination": "/web/daily.html" },
     { "source": "/llms.txt", "destination": "/web/llms.txt" },
     { "source": "/llm-guide.txt", "destination": "/web/llm-guide.txt" }
   ],
@@ -34,6 +36,10 @@
     "api/weekly.js": {
       "includeFiles": "data/weekly/{index,latest}.json data/weekly/*-W*.json",
       "excludeFiles": "data/weekly/input/**"
+    },
+    "api/daily.js": {
+      "includeFiles": "data/daily/{index,latest}.json data/daily/*-*-*.json",
+      "excludeFiles": "data/daily/input/**"
     },
     "api/client-config.js": {
       "excludeFiles": "data/**"
