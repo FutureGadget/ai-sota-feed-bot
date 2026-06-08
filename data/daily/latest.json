@@ -1,0 +1,139 @@
+{
+  "date": "2026-06-05",
+  "title": "What happened in AI — Jun 5, 2026",
+  "generated_at": "2026-06-08T00:10:00+00:00",
+  "intro": [
+    "A quiet-on-the-frontier Friday — even Latent Space's daily dispatch shrugged with \"not much happened today\" — but a busy one for the people building around the models. The through-line was coding agents and the scaffolding they need: a wave of Show HN harnesses for running agents locally, in parallel, and over long-horizon tasks, plus a look at how Dropbox and LinkedIn are operationalizing them in-house.",
+    "Underneath the tooling, two quieter threads mattered. On the research side, the conversation turned to evaluation hygiene — why sloppy RL environments quietly degrade models, and a push for fairer deep-research benchmarks. On infrastructure, Google and Databricks both leaned on making inference faster and more reliable rather than bigger.",
+    "And a sharp note on trust: as AI-generated pull requests flood open source, maintainers like SerenityOS's Andreas Kling are rethinking whether a substantial patch still signals good faith."
+  ],
+  "highlights": [
+    "Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0).",
+    "Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at engineering scale.",
+    "Latent Space argued broken RL environments are actively making models worse — fix the harness before the model.",
+    "Google's LiteRT-LM hit up to 2.2x faster local inference via Gemma 4 multi-token prediction.",
+    "SerenityOS's Andreas Kling will no longer accept public PRs as AI-generated patches erode the effort-as-good-faith signal."
+  ],
+  "article_count": 13,
+  "categories": [
+    {
+      "name": "Coding Agents & Tooling",
+      "slug": "coding-agents-tooling",
+      "summary": "The day's loudest thread: harnesses to run coding agents locally and in parallel, agents aimed at long-horizon work, and platforms to operationalize them inside engineering orgs.",
+      "articles": [
+        {
+          "title": "Dropbox Introduces Nova, an Internal Platform for Running AI Coding Agents at Scale",
+          "summary": "Dropbox's Nova orchestrates and operationalizes AI coding agents across the company's engineering workflows — a look at what running agents at scale takes in practice.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/06/dropbox-nova-ai-coding-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-06-05T12:00:00+00:00"
+        },
+        {
+          "title": "Show HN: Lazarus, a coding agent for long-horizon tasks",
+          "summary": "A coding agent built for long-horizon work, where even Codex and Claude Code struggle on benchmarks like FrontierSWE.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/ExpressGradient/lazarus",
+          "published": "2026-06-05T18:37:18+00:00"
+        },
+        {
+          "title": "Show HN: Jeju – a local-first agent harness with inspectable runs",
+          "summary": "A local-first harness that makes agent runs inspectable — part of the day's push toward auditable, self-hosted agent infrastructure.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/cosmtrek/jeju",
+          "published": "2026-06-05T22:59:46+00:00"
+        },
+        {
+          "title": "Show HN: Lich, start a dev stack per coding agent in parallel",
+          "summary": "A worktree-aware dev-stack orchestrator that runs multiple copies of your stack in parallel, one per coding agent, without conflicts.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/RPate97/lich",
+          "published": "2026-06-05T15:30:27+00:00"
+        },
+        {
+          "title": "Show HN: Gito v4.1.0 – AI code reviewer now runs on Claude Code / Gemini CLI",
+          "summary": "The Gito AI code reviewer adds backends for Claude Code and the Gemini CLI in its v4.1.0 release.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Nayjest/Gito/releases/tag/v4.1.0",
+          "published": "2026-06-05T16:51:44+00:00"
+        },
+        {
+          "title": "Platform Teams Enabling AI — MCP/Multi-Agentic Tools Across LinkedIn",
+          "summary": "LinkedIn's Karthik Ramgopal and Prince Valluri on treating AI as a new execution model, using platform abstractions and MCP to move past fragmented implementations.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/ai-multi-agentic-tools/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-06-05T12:23:00+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Research & Evaluation",
+      "slug": "research-evaluation",
+      "summary": "A focus on measurement quality — getting RL environments and agent benchmarks right so the numbers mean something.",
+      "articles": [
+        {
+          "title": "How to Stop Shipping Low-Quality RL Environments (with Examples)",
+          "summary": "Latent Space argues a broken harness is actively making your model worse, with patterns from years of eyeballing trajectories and concrete fixes.",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/bad-envs",
+          "published": "2026-06-05T18:49:40+00:00"
+        },
+        {
+          "title": "BrowseComp-Plus: A More Fair and Transparent Benchmark of Deep-Research Agents",
+          "summary": "An open benchmark aiming for fairer, more transparent evaluation of deep-research agents.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/texttron/BrowseComp-Plus",
+          "published": "2026-06-05T04:09:27+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Inference & Infrastructure",
+      "slug": "inference-infrastructure",
+      "summary": "The day's infra story was about doing more with the compute you have — faster on-device inference and more reliable serving at scale.",
+      "articles": [
+        {
+          "title": "Google LiteRT-LM Speeds Up Local Inference Up to 2.2x With Gemma 4 Multi-Token Prediction",
+          "summary": "LiteRT-LM adds native Gemma 4 multi-token-prediction drafters for up to 2.2x faster local inference, and expands to Swift and JavaScript APIs.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/06/google-litertlm-gemma4/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-06-05T09:00:00+00:00"
+        },
+        {
+          "title": "Reliable LLM Inference at Scale — Databricks",
+          "summary": "Databricks on the engineering behind keeping LLM inference reliable at production scale.",
+          "source": "search_llm_ops_news",
+          "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4tQU5RNkdheXNGM05RRVVXQXlSY2t1dXNoVTZrVk93dC1udkY2VVJSd0xaVV90dkdlNDExSW9pTEQ1cUR0TTNTTlg5RlpDN3VZLVVMV0dPV3lPMXNqZWNTZFBjb3JHZmpVUjdxbg?oc=5",
+          "published": "2026-06-05T08:56:29+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Industry & Commentary",
+      "slug": "industry-commentary",
+      "summary": "Recaps and reflections — Google's monthly roundup, a maintainer's stand on AI-generated PRs, and a notably slow news day.",
+      "articles": [
+        {
+          "title": "Quoting Andreas Kling (on AI-generated pull requests)",
+          "summary": "Kling will no longer accept public PRs: a substantial patch used to imply substantial effort and good faith — an assumption AI-generated code no longer supports.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Jun/5/andreas-kling/#atom-everything",
+          "published": "2026-06-05T11:10:05+00:00"
+        },
+        {
+          "title": "The latest AI news we announced in May 2026",
+          "summary": "Google's monthly recap of its AI announcements across May 2026.",
+          "source": "google_ai_blog",
+          "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-may-2026/",
+          "published": "2026-06-05T14:45:00+00:00"
+        },
+        {
+          "title": "[AINews] not much happened today",
+          "summary": "Latent Space's daily AI News dispatch calls it a quiet day — a useful signal that the week's big moves landed earlier.",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-not-much-happened-today-7a8",
+          "published": "2026-06-05T06:44:49+00:00"
+        }
+      ]
+    }
+  ]
+}
