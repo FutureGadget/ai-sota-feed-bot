@@ -118,72 +118,15 @@
       color: #fff;
       font-weight: 600;
     }
-    .filters {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 0.6rem;
+    .searchbar {
+      width: 100%;
       margin-top: 0.8rem;
-      align-items: end;
-    }
-    .filters label {
-      font-size: 0.92rem;
-      opacity: 0.9;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-    .filters .actions {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .filter-control {
-      width: 100%;
-      min-height: 56px;
-    }
-    .label-filter {
-      display: flex;
-      flex-direction: column;
-    }
-    #labelPickerWrap {
-      display: block;
-      width: 100%;
-      position: relative;
-    }
-    #labelPicker {
-      position: absolute;
-      z-index: 20;
-      top: calc(100% + 4px);
-      left: 0;
-      width: min(320px, 90vw);
-      background: var(--card);
+      padding: 0.6rem 0.9rem;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 0.6rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-    #labelSearch {
-      width: 100%;
-      margin-bottom: 0.5rem;
-    }
-    #labelOptions {
-      max-height: 240px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-    #labelOptions label {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin: 0;
-      font-size: 0.92rem;
-    }
-    .picker-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
+      background: var(--card);
+      color: inherit;
+      font-size: 16px;
     }
     .selected-labels {
       display: flex;
@@ -193,18 +136,6 @@
     }
     .selected-labels .badge {
       cursor: pointer;
-    }
-    .label-filter #labelPickerBtn {
-      width: 100%;
-      min-height: 56px;
-      padding: 0.65rem 0.9rem;
-      text-align: left;
-      display: inline-flex;
-      align-items: center;
-      justify-content: flex-start;
-      margin: 0;
-      line-height: 1.2;
-      font-size: 16px;
     }
     #list {
       display: grid;
@@ -368,38 +299,7 @@
         <button type="button" id="savedTab">⭐ Saved</button>
       </nav>
 
-      <form id="filters" class="filters">
-        <div>
-          <label for="fromDate">From</label>
-          <input type="date" id="fromDate" class="filter-control" />
-        </div>
-        <div>
-          <label for="toDate">To</label>
-          <input type="date" id="toDate" class="filter-control" />
-        </div>
-        <div>
-          <label for="limit">Max items</label>
-          <input type="number" id="limit" class="filter-control" value="200" min="1" max="500" step="10" />
-        </div>
-        <div class="label-filter">
-          <label for="labelPickerBtn">Labels</label>
-          <div id="labelPickerWrap">
-            <button type="button" id="labelPickerBtn">Choose labels</button>
-            <div id="labelPicker" hidden>
-              <input type="search" id="labelSearch" placeholder="Search labels…" aria-label="Search labels" />
-              <div id="labelOptions"></div>
-              <div class="picker-actions">
-                <button type="button" id="clearLabelsBtn">Clear</button>
-                <button type="button" id="closeLabelPickerBtn">Done</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="actions">
-          <button type="submit">Apply</button>
-          <button type="button" id="clearFilters">Reset</button>
-        </div>
-      </form>
+      <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" />
       <div id="selectedLabels" class="selected-labels"></div>
     </header>
 
@@ -451,25 +351,14 @@
     }
 
     let presetDaysState = '7';
+    // Explicit ?from/?to dates from a shared URL (no UI for these); presets clear it.
+    let customRangeState = { from: '', to: '' };
+    let limitState = '200';
+    let searchQueryState = '';
 
     function setDateRangeDays(days) {
       presetDaysState = String(days);
-
-      const fromEl = document.getElementById('fromDate');
-      const toEl = document.getElementById('toDate');
-      if (!fromEl || !toEl) return;
-
-      if (days === 'all') {
-        fromEl.value = '';
-        toEl.value = '';
-        return;
-      }
-
-      const n = Number(days);
-      const now = new Date();
-      const from = new Date(now.getTime() - n * 24 * 60 * 60 * 1000);
-      fromEl.value = toDateInput(from);
-      toEl.value = toDateInput(now);
+      customRangeState = { from: '', to: '' };
     }
 
     // 'feed' renders the API feed; 'saved' renders locally saved items.
@@ -575,28 +464,21 @@
       btn.classList.toggle('active', viewState === 'saved');
     }
 
-    // 'preset' keeps the URL on a relative window (?days=N) so shared links stay
-    // fresh; 'custom' pins explicit ?from/?to dates the user picked.
-    let dateModeState = 'preset';
-
     function readFiltersFromUrl() {
       const p = new URLSearchParams(window.location.search);
 
       viewState = p.get('view') === 'saved' ? 'saved' : 'feed';
+      limitState = p.get('limit') || '200';
 
-      const limit = p.get('limit');
-      const limitEl = document.getElementById('limit');
-      if (limit && limitEl) limitEl.value = limit;
+      searchQueryState = p.get('q') || '';
+      const searchEl = document.getElementById('searchBox');
+      if (searchEl) searchEl.value = searchQueryState;
 
       const from = p.get('from');
       const to = p.get('to');
       if (from || to) {
-        dateModeState = 'custom';
+        customRangeState = { from: from || '', to: to || '' };
         presetDaysState = 'all'; // explicit range wins; disable preset fallback
-        const fromEl = document.getElementById('fromDate');
-        const toEl = document.getElementById('toDate');
-        if (fromEl) fromEl.value = from || '';
-        if (toEl) toEl.value = to || '';
       } else {
         const days = p.get('days');
         const valid = days === 'all' || (Number(days) > 0);
@@ -610,19 +492,17 @@
     function syncUrlFromFilters() {
       const p = new URLSearchParams();
       if (viewState === 'saved') p.set('view', 'saved');
+      if (searchQueryState.trim()) p.set('q', searchQueryState.trim());
       for (const l of getSelectedLabels()) p.append('label', l);
 
-      if (dateModeState === 'custom') {
-        const from = document.getElementById('fromDate')?.value || '';
-        const to = document.getElementById('toDate')?.value || '';
-        if (from) p.set('from', from);
-        if (to) p.set('to', to);
+      if (customRangeState.from || customRangeState.to) {
+        if (customRangeState.from) p.set('from', customRangeState.from);
+        if (customRangeState.to) p.set('to', customRangeState.to);
       } else if (presetDaysState !== '7') {
         p.set('days', presetDaysState);
       }
 
-      const limit = document.getElementById('limit')?.value || '200';
-      if (limit !== '200') p.set('limit', limit);
+      if (limitState !== '200') p.set('limit', limitState);
 
       const qs = p.toString();
       history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
@@ -670,15 +550,7 @@
           .filter(Boolean)
       );
       renderSelectedLabelsChips();
-      updateLabelPickerButton();
       syncSectionTabs();
-    }
-
-    function updateLabelPickerButton() {
-      const btn = document.getElementById('labelPickerBtn');
-      if (!btn) return;
-      const n = selectedLabelsState.size;
-      btn.textContent = n > 0 ? `Labels (${n})` : 'Choose labels';
     }
 
     function renderSelectedLabelsChips() {
@@ -692,39 +564,9 @@
       box.innerHTML = labels.map((l) => `<button type="button" class="badge" data-chip-remove="${esc(l)}">#${esc(l)} ×</button>`).join('');
     }
 
-    function syncLabelOptions(available) {
-      const box = document.getElementById('labelOptions');
-      if (!box) return;
-      const selected = new Set(getSelectedLabels());
-      const q = String(document.getElementById('labelSearch')?.value || '').trim().toLowerCase();
-      const dedup = new Map();
-      for (const x of (Array.isArray(available) ? available : [])) {
-        const v = normalizeLabel(x?.label);
-        if (!v) continue;
-        const c = Number(x?.count || 0);
-        dedup.set(v, Number(dedup.get(v) || 0) + c);
-      }
-
-      const labels = [...dedup.entries()]
-        .map(([label, count]) => ({ label, count }))
-        .filter((x) => !q || x.label.includes(q));
-
-      box.innerHTML = labels.map((x) => {
-        const v = x.label;
-        const c = Number(x?.count || 0);
-        if (!v) return '';
-        const safe = esc(v);
-        const checked = selected.has(v) ? ' checked' : '';
-        return `<label><input type="checkbox" data-label-opt="${safe}" value="${safe}"${checked} /> ${safe} (${c})</label>`;
-      }).join('');
-    }
-
     function buildFeedUrl() {
-      const fromDate = document.getElementById('fromDate')?.value || '';
-      const toDate = document.getElementById('toDate')?.value || '';
-
-      let from = toIsoDateStart(fromDate);
-      let to = toIsoDateEnd(toDate);
+      let from = toIsoDateStart(customRangeState.from);
+      let to = toIsoDateEnd(customRangeState.to);
       if (!from && !to && presetDaysState !== 'all') {
         const n = Math.max(1, Number(presetDaysState || 7));
         const now = new Date();
@@ -733,13 +575,11 @@
         to = toIsoDateEnd(toDateInput(now));
       }
 
-      const limit = document.getElementById('limit')?.value || '200';
-      const labels = getSelectedLabels();
       const u = new URL('/api/feed', window.location.origin);
       if (from) u.searchParams.set('from', from);
       if (to) u.searchParams.set('to', to);
-      if (limit) u.searchParams.set('limit', limit);
-      for (const l of labels) u.searchParams.append('label', l);
+      u.searchParams.set('limit', limitState);
+      for (const l of getSelectedLabels()) u.searchParams.append('label', l);
       return u.pathname + u.search;
     }
 
@@ -911,22 +751,61 @@
         </article>`;
     }
 
+    function matchesQuery(it, q) {
+      if (!q) return true;
+      const hay = `${it.title || ''} ${it.summary_1line || ''} ${it.why_it_matters || ''} ${it.source || ''}`.toLowerCase();
+      return q.split(/\s+/).every((w) => hay.includes(w));
+    }
+
     function renderSavedView() {
       const list = document.getElementById('list');
-      const saved = Object.values(savedItemsState)
+      const q = searchQueryState.trim().toLowerCase();
+      const all = Object.values(savedItemsState)
         .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
-      document.getElementById('meta').textContent = `${saved.length} saved item${saved.length === 1 ? '' : 's'}`;
+      const saved = all.filter((it) => matchesQuery(it, q));
+      document.getElementById('meta').textContent = q
+        ? `${saved.length} of ${all.length} saved items`
+        : `${all.length} saved item${all.length === 1 ? '' : 's'}`;
       syncSectionTabs();
       if (!saved.length) {
-        list.innerHTML = `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
+        list.innerHTML = q
+          ? `<div class="state">No saved items match “${esc(q)}”.</div>`
+          : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
         return;
       }
       list.innerHTML = saved.map((it) => cardHtml(it)).join('');
     }
 
+    // Last fetched feed payload; search re-renders from here without refetching.
+    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null };
+
+    function renderFeedList() {
+      const list = document.getElementById('list');
+      const { items, runs, freshAdded, runId } = feedCache;
+      const q = searchQueryState.trim().toLowerCase();
+      const visible = items.filter((it) => matchesQuery(it, q));
+
+      const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
+      const newSince = visible.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
+      const newNote = newSince > 0 ? ` · ${newSince} new since last visit` : '';
+      const selectedLabels = getSelectedLabels();
+      const labelNote = selectedLabels.length ? ` · labels: ${selectedLabels.join(', ')}` : '';
+      const countText = q ? `${visible.length} of ${items.length} items` : `${items.length} items`;
+      document.getElementById('meta').textContent = `${countText} · ${runs.length} runs in range${freshnessNote}${newNote}${labelNote}`;
+      syncSectionTabs();
+
+      if (!visible.length) {
+        list.innerHTML = q
+          ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
+          : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
+        return;
+      }
+
+      list.innerHTML = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
+    }
+
     async function run() {
       syncUrlFromFilters();
-      const list = document.getElementById('list');
       if (viewState === 'saved') {
         renderSavedView();
         return;
@@ -937,36 +816,23 @@
       const data = await res.json();
       const items = data.items || [];
       const runs = data.runs || [];
-      const tier1Blend = data.tier1_blend || null;
-      const availableLabels = data.available_labels || [];
-      window.__availableLabels = availableLabels;
-      const selectedLabels = getSelectedLabels();
       const runId = runs?.[0]?.run_at || null;
 
-      syncLabelOptions(availableLabels);
-
-      const freshAdded = Number(tier1Blend?.fresh_added || 0);
-      const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
-      const newSince = items.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
-      const newNote = newSince > 0 ? ` · ${newSince} new since last visit` : '';
-      const labelNote = selectedLabels.length ? ` · labels: ${selectedLabels.join(', ')}` : '';
-      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}${newNote}${labelNote}`;
-      syncSectionTabs();
+      feedCache = {
+        items,
+        runs,
+        freshAdded: Number(data.tier1_blend?.fresh_added || 0),
+        runId,
+      };
+      itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
+      renderFeedList();
 
       posthogCapture('feed_view', {
         items_count: items.length,
         runs_count: runs.length,
-        fresh_added: freshAdded,
-        selected_labels: selectedLabels,
+        fresh_added: feedCache.freshAdded,
+        selected_labels: getSelectedLabels(),
       });
-
-      if (!items.length) {
-        list.innerHTML = `<div class="state">No items for that date/time range. Try widening the window.</div>`;
-        return;
-      }
-
-      itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
-      list.innerHTML = items.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
 
       const impressions = items.slice(0, 200).map((it, i) => ({
         event_type: 'impression',
@@ -1030,52 +896,22 @@
     }
 
     function initFilters() {
-      const form = document.getElementById('filters');
-      const clearBtn = document.getElementById('clearFilters');
-      const presets = document.getElementById('presets');
-      const labelPickerWrap = document.getElementById('labelPickerWrap');
-      const labelPickerBtn = document.getElementById('labelPickerBtn');
-      const labelPicker = document.getElementById('labelPicker');
-      const closeLabelPickerBtn = document.getElementById('closeLabelPickerBtn');
-      const labelOptions = document.getElementById('labelOptions');
-      const labelSearch = document.getElementById('labelSearch');
-      const clearLabelsBtn = document.getElementById('clearLabelsBtn');
-      const selectedLabelsBox = document.getElementById('selectedLabels');
-
-      form?.addEventListener('submit', (e) => {
-        e.preventDefault();
-        refreshFeed({ exitSaved: true });
+      const searchEl = document.getElementById('searchBox');
+      let searchDebounce = null;
+      searchEl?.addEventListener('input', () => {
+        searchQueryState = searchEl.value;
+        clearTimeout(searchDebounce);
+        // Search filters the already-fetched items client-side: no refetch needed.
+        searchDebounce = setTimeout(() => {
+          syncUrlFromFilters();
+          if (viewState === 'saved') renderSavedView();
+          else renderFeedList();
+        }, 200);
       });
 
-      labelPickerBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        if (!labelPicker) return;
-        const willOpen = labelPicker.hasAttribute('hidden');
-        if (willOpen) {
-          labelPicker.removeAttribute('hidden');
-          setTimeout(() => labelSearch?.focus(), 0);
-        } else {
-          labelPicker.setAttribute('hidden', '');
-        }
-      });
-
-      closeLabelPickerBtn?.addEventListener('click', () => {
-        labelPicker?.setAttribute('hidden', '');
-      });
-
-      document.addEventListener('click', (e) => {
-        if (!labelPickerWrap || !labelPicker || labelPicker.hasAttribute('hidden')) return;
-        if (labelPickerWrap.contains(e.target)) return;
-        labelPicker.setAttribute('hidden', '');
-      });
-
-      document.getElementById('fromDate')?.addEventListener('change', () => { dateModeState = 'custom'; });
-      document.getElementById('toDate')?.addEventListener('change', () => { dateModeState = 'custom'; });
-
-      presets?.addEventListener('click', (e) => {
+      document.getElementById('presets')?.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-days]');
         if (!btn) return;
-        dateModeState = 'preset';
         setDateRangeDays(btn.dataset.days);
         refreshFeed({ exitSaved: true });
       });
@@ -1085,8 +921,7 @@
         refreshFeed();
       });
 
-      const sections = document.getElementById('sections');
-      sections?.addEventListener('click', (e) => {
+      document.getElementById('sections')?.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-section]');
         if (!btn) return;
         const section = btn.dataset.section || '';
@@ -1095,45 +930,12 @@
         refreshFeed({ exitSaved: true });
       });
 
-      labelSearch?.addEventListener('input', () => {
-        syncLabelOptions(window.__availableLabels || []);
-      });
-
-      labelOptions?.addEventListener('change', (e) => {
-        const input = e.target.closest('input[data-label-opt]');
-        if (!input) return;
-        const next = new Set(getSelectedLabels());
-        const v = String(input.value || '').trim();
-        if (!v) return;
-        if (input.checked) next.add(v);
-        else next.delete(v);
-        setSelectedLabels([...next]);
-        refreshFeed({ exitSaved: true });
-      });
-
-      clearLabelsBtn?.addEventListener('click', () => {
-        setSelectedLabels([]);
-        syncLabelOptions(window.__availableLabels || []);
-        refreshFeed({ exitSaved: true });
-      });
-
-      selectedLabelsBox?.addEventListener('click', (e) => {
+      document.getElementById('selectedLabels')?.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-chip-remove]');
         if (!btn) return;
-        const v = btn.getAttribute('data-chip-remove') || '';
         const next = new Set(getSelectedLabels());
-        next.delete(v);
+        next.delete(btn.getAttribute('data-chip-remove') || '');
         setSelectedLabels([...next]);
-        syncLabelOptions(window.__availableLabels || []);
-        refreshFeed({ exitSaved: true });
-      });
-
-      clearBtn?.addEventListener('click', () => {
-        dateModeState = 'preset';
-        setDateRangeDays(7);
-        document.getElementById('limit').value = '200';
-        setSelectedLabels([]);
-        syncLabelOptions(window.__availableLabels || []);
         refreshFeed({ exitSaved: true });
       });
     }
