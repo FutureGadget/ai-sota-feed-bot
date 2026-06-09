@@ -147,6 +147,52 @@
     #labelPickerWrap {
       display: block;
       width: 100%;
+      position: relative;
+    }
+    #labelPicker {
+      position: absolute;
+      z-index: 20;
+      top: calc(100% + 4px);
+      left: 0;
+      width: min(320px, 90vw);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.6rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    #labelSearch {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    #labelOptions {
+      max-height: 240px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    #labelOptions label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+      font-size: 0.92rem;
+    }
+    .picker-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    .selected-labels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.5rem;
+    }
+    .selected-labels .badge {
+      cursor: pointer;
     }
     .label-filter #labelPickerBtn {
       width: 100%;
@@ -229,6 +275,22 @@
       overflow-wrap: anywhere;
       word-break: break-word;
     }
+    .matters {
+      margin: 0.45rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--muted);
+      border-left: 3px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      padding-left: 0.55rem;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+    .when {
+      align-self: center;
+      color: var(--muted);
+      font-size: 0.86rem;
+      white-space: nowrap;
+    }
     .state {
       border: 1px dashed var(--border, #d9d9d9);
       border-radius: 10px;
@@ -280,7 +342,39 @@
         <button type="button" data-section="news">News</button>
       </nav>
 
-
+      <form id="filters" class="filters">
+        <div>
+          <label for="fromDate">From</label>
+          <input type="date" id="fromDate" class="filter-control" />
+        </div>
+        <div>
+          <label for="toDate">To</label>
+          <input type="date" id="toDate" class="filter-control" />
+        </div>
+        <div>
+          <label for="limit">Max items</label>
+          <input type="number" id="limit" class="filter-control" value="200" min="1" max="500" step="10" />
+        </div>
+        <div class="label-filter">
+          <label for="labelPickerBtn">Labels</label>
+          <div id="labelPickerWrap">
+            <button type="button" id="labelPickerBtn">Choose labels</button>
+            <div id="labelPicker" hidden>
+              <input type="search" id="labelSearch" placeholder="Search labels…" aria-label="Search labels" />
+              <div id="labelOptions"></div>
+              <div class="picker-actions">
+                <button type="button" id="clearLabelsBtn">Clear</button>
+                <button type="button" id="closeLabelPickerBtn">Done</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="actions">
+          <button type="submit">Apply</button>
+          <button type="button" id="clearFilters">Reset</button>
+        </div>
+      </form>
+      <div id="selectedLabels" class="selected-labels"></div>
     </header>
 
     <section id="list" aria-live="polite"></section>
@@ -305,11 +399,14 @@
       });
     }
 
-    function fmtDateTime(v) {
-      if (!v) return null;
+    function fmtCompactDate(v) {
+      if (!v) return '';
       const d = new Date(v);
-      if (Number.isNaN(d.getTime())) return null;
-      return d.toLocaleString();
+      if (Number.isNaN(d.getTime())) return '';
+      const sameYear = d.getFullYear() === new Date().getFullYear();
+      return d.toLocaleDateString(undefined, sameYear
+        ? { month: 'short', day: 'numeric' }
+        : { year: 'numeric', month: 'short', day: 'numeric' });
     }
 
     function toIsoDateStart(dateStr) {
@@ -349,8 +446,54 @@
       toEl.value = toDateInput(now);
     }
 
-    function setDefaultFilterWindow() {
-      setDateRangeDays(7);
+    // 'preset' keeps the URL on a relative window (?days=N) so shared links stay
+    // fresh; 'custom' pins explicit ?from/?to dates the user picked.
+    let dateModeState = 'preset';
+
+    function readFiltersFromUrl() {
+      const p = new URLSearchParams(window.location.search);
+
+      const limit = p.get('limit');
+      const limitEl = document.getElementById('limit');
+      if (limit && limitEl) limitEl.value = limit;
+
+      const from = p.get('from');
+      const to = p.get('to');
+      if (from || to) {
+        dateModeState = 'custom';
+        presetDaysState = 'all'; // explicit range wins; disable preset fallback
+        const fromEl = document.getElementById('fromDate');
+        const toEl = document.getElementById('toDate');
+        if (fromEl) fromEl.value = from || '';
+        if (toEl) toEl.value = to || '';
+      } else {
+        const days = p.get('days');
+        const valid = days === 'all' || (Number(days) > 0);
+        setDateRangeDays(valid ? days : 7);
+      }
+
+      const labels = p.getAll('label').flatMap((v) => String(v).split(','));
+      setSelectedLabels(labels);
+    }
+
+    function syncUrlFromFilters() {
+      const p = new URLSearchParams();
+      for (const l of getSelectedLabels()) p.append('label', l);
+
+      if (dateModeState === 'custom') {
+        const from = document.getElementById('fromDate')?.value || '';
+        const to = document.getElementById('toDate')?.value || '';
+        if (from) p.set('from', from);
+        if (to) p.set('to', to);
+      } else if (presetDaysState !== '7') {
+        p.set('days', presetDaysState);
+      }
+
+      const limit = document.getElementById('limit')?.value || '200';
+      if (limit !== '200') p.set('limit', limit);
+
+      const qs = p.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     }
 
     let selectedLabelsState = new Set();
@@ -597,6 +740,7 @@
     }
 
     async function run() {
+      syncUrlFromFilters();
       const list = document.getElementById('list');
       const res = await fetch(buildFeedUrl());
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
@@ -630,15 +774,19 @@
       }
 
       list.innerHTML = items.map((it, i) => {
-        const seen = fmtDateTime(it.last_seen) || fmtDateTime(it.first_seen);
         const title = esc(it.title || 'Untitled');
         const source = esc(it.source || 'unknown');
         const type = esc(it.type || 'news');
-        const maturity = esc(it.maturity || '');
         const tierHint = String(it.tier_hint || '');
         const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
         const summary = esc(summaryRaw);
-        const seenText = seen ? esc(seen) : '';
+        const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
+        const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        // Heuristic labeling emits one generic placeholder for every item — only
+        // LLM-written "why it matters" text adds signal beyond the summary.
+        const why = (whyRaw && whyRaw !== summaryRaw && String(it.llm_label_source || '') !== 'heuristic')
+          ? esc(whyRaw)
+          : '';
         const href = safeUrl(it.url);
         const image = safeUrl(it.image_url || '');
         const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
@@ -667,8 +815,10 @@
             <span class="badge">${source}</span>
             ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
             ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+            ${published ? `<span class="when">${esc(published)}</span>` : ''}
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
+          ${why ? `<p class="matters">💡 ${why}</p>` : ''}
         </article>`;
       }).join('');
 
@@ -751,9 +901,13 @@
         labelPicker.setAttribute('hidden', '');
       });
 
+      document.getElementById('fromDate')?.addEventListener('change', () => { dateModeState = 'custom'; });
+      document.getElementById('toDate')?.addEventListener('change', () => { dateModeState = 'custom'; });
+
       presets?.addEventListener('click', (e) => {
         const btn = e.target.closest('button[data-days]');
         if (!btn) return;
+        dateModeState = 'preset';
         setDateRangeDays(btn.dataset.days);
         run().catch(err => {
           document.getElementById('meta').textContent = 'Feed unavailable';
@@ -822,8 +976,8 @@
       });
 
       clearBtn?.addEventListener('click', () => {
-        document.getElementById('fromDate').value = '';
-        document.getElementById('toDate').value = '';
+        dateModeState = 'preset';
+        setDateRangeDays(7);
         document.getElementById('limit').value = '200';
         setSelectedLabels([]);
         syncLabelOptions(window.__availableLabels || []);
@@ -836,8 +990,7 @@
     }
 
     initThemeToggle();
-    setDefaultFilterWindow();
-    setSelectedLabels([]);
+    readFiltersFromUrl();
     initFilters();
     initClickTracking();
     initPosthog();
