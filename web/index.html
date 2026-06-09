@@ -268,6 +268,31 @@
       color: #bbf7d0;
       background: #14532d;
     }
+    .badge-new {
+      border-color: #d97706;
+      color: #92400e;
+      background: #fef3c7;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .badge-new {
+      border-color: #f59e0b;
+      color: #fde68a;
+      background: #78350f;
+    }
+    .save-btn {
+      margin-left: auto;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.15rem;
+      line-height: 1;
+      padding: 0 0.2rem;
+      color: var(--muted);
+    }
+    .save-btn:hover,
+    .save-btn[aria-pressed="true"] {
+      color: #f59e0b;
+    }
     .why {
       margin: 0.35rem 0 0;
       font-size: 1rem;
@@ -340,6 +365,7 @@
         <button type="button" data-section="research">Research</button>
         <button type="button" data-section="paper">Papers</button>
         <button type="button" data-section="news">News</button>
+        <button type="button" id="savedTab">⭐ Saved</button>
       </nav>
 
       <form id="filters" class="filters">
@@ -446,12 +472,117 @@
       toEl.value = toDateInput(now);
     }
 
+    // 'feed' renders the API feed; 'saved' renders locally saved items.
+    let viewState = 'feed';
+
+    // Items from the last feed render, keyed by itemKey, so saves can snapshot
+    // the full item even after the DOM only holds rendered HTML.
+    let itemsByKey = new Map();
+
+    const VISIT_LAST_KEY = 'ai_feed_last_visit_at';
+    const VISIT_SESSION_KEY = 'ai_feed_visit_session_at';
+    const VISIT_SESSION_GAP_MS = 30 * 60 * 1000;
+
+    // Returns when the previous visit session started (0 = first visit).
+    // Reloads within VISIT_SESSION_GAP_MS keep the same baseline so "New"
+    // markers don't vanish on refresh.
+    function initVisitTracking() {
+      try {
+        const now = Date.now();
+        const sessionStart = Number(localStorage.getItem(VISIT_SESSION_KEY) || 0);
+        if (sessionStart && now - sessionStart <= VISIT_SESSION_GAP_MS) {
+          return Number(localStorage.getItem(VISIT_LAST_KEY) || 0);
+        }
+        if (sessionStart) localStorage.setItem(VISIT_LAST_KEY, String(sessionStart));
+        localStorage.setItem(VISIT_SESSION_KEY, String(now));
+        return sessionStart || 0;
+      } catch {
+        return 0;
+      }
+    }
+
+    const visitLastMs = initVisitTracking();
+
+    function isNewSinceLastVisit(it) {
+      if (!(visitLastMs > 0)) return false;
+      const t = Date.parse(it.first_seen || it.collected_at || it.published || '');
+      return Number.isFinite(t) && t > visitLastMs;
+    }
+
+    const SAVED_ITEMS_KEY = 'ai_feed_saved_items_v1';
+
+    function loadSavedItems() {
+      try {
+        const v = JSON.parse(localStorage.getItem(SAVED_ITEMS_KEY) || '{}');
+        return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+      } catch {
+        return {};
+      }
+    }
+
+    let savedItemsState = loadSavedItems();
+
+    function persistSavedItems() {
+      try {
+        localStorage.setItem(SAVED_ITEMS_KEY, JSON.stringify(savedItemsState));
+      } catch {}
+    }
+
+    function itemKey(it) {
+      return String(it.id || `${it.url || ''}::${it.title || ''}`);
+    }
+
+    function isItemSaved(key) {
+      return Object.prototype.hasOwnProperty.call(savedItemsState, key);
+    }
+
+    function snapshotForSave(it) {
+      return {
+        id: it.id || null,
+        title: it.title || '',
+        url: it.url || '',
+        source: it.source || '',
+        type: it.type || 'news',
+        summary_1line: it.summary_1line || '',
+        why_it_matters: it.why_it_matters || '',
+        llm_label_source: it.llm_label_source || '',
+        image_url: it.image_url || '',
+        published: it.published || it.first_seen || it.last_seen || null,
+        saved_at: new Date().toISOString(),
+      };
+    }
+
+    function toggleSaved(key) {
+      if (isItemSaved(key)) {
+        delete savedItemsState[key];
+        persistSavedItems();
+        posthogCapture('item_save', { item_id: key, action: 'unsave' });
+        return false;
+      }
+      const it = itemsByKey.get(key);
+      if (!it) return false;
+      savedItemsState[key] = snapshotForSave(it);
+      persistSavedItems();
+      posthogCapture('item_save', { item_id: key, action: 'save', source: it.source || null });
+      return true;
+    }
+
+    function updateSavedTab() {
+      const btn = document.getElementById('savedTab');
+      if (!btn) return;
+      const n = Object.keys(savedItemsState).length;
+      btn.textContent = n > 0 ? `⭐ Saved (${n})` : '⭐ Saved';
+      btn.classList.toggle('active', viewState === 'saved');
+    }
+
     // 'preset' keeps the URL on a relative window (?days=N) so shared links stay
     // fresh; 'custom' pins explicit ?from/?to dates the user picked.
     let dateModeState = 'preset';
 
     function readFiltersFromUrl() {
       const p = new URLSearchParams(window.location.search);
+
+      viewState = p.get('view') === 'saved' ? 'saved' : 'feed';
 
       const limit = p.get('limit');
       const limitEl = document.getElementById('limit');
@@ -478,6 +609,7 @@
 
     function syncUrlFromFilters() {
       const p = new URLSearchParams();
+      if (viewState === 'saved') p.set('view', 'saved');
       for (const l of getSelectedLabels()) p.append('label', l);
 
       if (dateModeState === 'custom') {
@@ -510,12 +642,13 @@
     }
 
     function syncSectionTabs() {
-      const current = activeSection();
+      const current = viewState === 'saved' ? null : activeSection();
       const buttons = document.querySelectorAll('#sections button[data-section]');
       buttons.forEach((b) => {
         const matches = current !== null && (b.dataset.section || '') === current;
         b.classList.toggle('active', matches);
       });
+      updateSavedTab();
     }
 
     function normalizeLabel(v) {
@@ -739,9 +872,65 @@
       }
     }
 
+    function cardHtml(it, { rank = null, runId = '' } = {}) {
+      const key = itemKey(it);
+      const title = esc(it.title || 'Untitled');
+      const source = esc(it.source || 'unknown');
+      const type = esc(it.type || 'news');
+      const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const summary = esc(summaryRaw);
+      const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
+      const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      // Heuristic labeling emits one generic placeholder for every item — only
+      // LLM-written "why it matters" text adds signal beyond the summary.
+      const why = (whyRaw && whyRaw !== summaryRaw && String(it.llm_label_source || '') !== 'heuristic')
+        ? esc(whyRaw)
+        : '';
+      const href = safeUrl(it.url);
+      const image = safeUrl(it.image_url || '');
+      const itemId = esc(key);
+      const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
+      const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
+      const isNew = rank !== null && !isFresh && isNewSinceLastVisit(it);
+      const saved = isItemSaved(key);
+
+      return `
+        <article>
+          ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
+          <h3>${rank !== null ? `${rank}. ` : ''}<a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
+          <div class="meta-row">
+            <span class="badge">${source}</span>
+            ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
+            ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+            ${isNew ? `<span class="badge badge-new">New</span>` : ''}
+            ${published ? `<span class="when">${esc(published)}</span>` : ''}
+            <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
+          </div>
+          ${summary ? `<p class="why">${summary}</p>` : ''}
+          ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+        </article>`;
+    }
+
+    function renderSavedView() {
+      const list = document.getElementById('list');
+      const saved = Object.values(savedItemsState)
+        .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
+      document.getElementById('meta').textContent = `${saved.length} saved item${saved.length === 1 ? '' : 's'}`;
+      syncSectionTabs();
+      if (!saved.length) {
+        list.innerHTML = `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
+        return;
+      }
+      list.innerHTML = saved.map((it) => cardHtml(it)).join('');
+    }
+
     async function run() {
       syncUrlFromFilters();
       const list = document.getElementById('list');
+      if (viewState === 'saved') {
+        renderSavedView();
+        return;
+      }
       const res = await fetch(buildFeedUrl());
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
 
@@ -758,8 +947,11 @@
 
       const freshAdded = Number(tier1Blend?.fresh_added || 0);
       const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
+      const newSince = items.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
+      const newNote = newSince > 0 ? ` · ${newSince} new since last visit` : '';
       const labelNote = selectedLabels.length ? ` · labels: ${selectedLabels.join(', ')}` : '';
-      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}${labelNote}`;
+      document.getElementById('meta').textContent = `${items.length} items · ${runs.length} runs in range${freshnessNote}${newNote}${labelNote}`;
+      syncSectionTabs();
 
       posthogCapture('feed_view', {
         items_count: items.length,
@@ -773,54 +965,8 @@
         return;
       }
 
-      list.innerHTML = items.map((it, i) => {
-        const title = esc(it.title || 'Untitled');
-        const source = esc(it.source || 'unknown');
-        const type = esc(it.type || 'news');
-        const tierHint = String(it.tier_hint || '');
-        const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-        const summary = esc(summaryRaw);
-        const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
-        const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-        // Heuristic labeling emits one generic placeholder for every item — only
-        // LLM-written "why it matters" text adds signal beyond the summary.
-        const why = (whyRaw && whyRaw !== summaryRaw && String(it.llm_label_source || '') !== 'heuristic')
-          ? esc(whyRaw)
-          : '';
-        const href = safeUrl(it.url);
-        const image = safeUrl(it.image_url || '');
-        const itemId = esc(it.id || `${it.url || ''}::${it.title || ''}`);
-        const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
-        const labels = (() => {
-          const seen = new Set();
-          const typeNorm = normalizeLabel(it.type || '');
-          const out = [];
-          for (const raw of (Array.isArray(it.labels) ? it.labels : [])) {
-            const v = normalizeLabel(raw);
-            if (!v) continue;
-            if (v === typeNorm) continue; // avoid duplicate with explicit type badge
-            if (seen.has(v)) continue;
-            seen.add(v);
-            out.push(esc(v));
-            if (out.length >= 3) break;
-          }
-          return out;
-        })();
-
-        return `
-        <article>
-          ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
-          <h3>${i + 1}. <a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${i + 1}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
-          <div class="meta-row">
-            <span class="badge">${source}</span>
-            ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
-            ${tierHint === 'tier1_fresh' ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
-            ${published ? `<span class="when">${esc(published)}</span>` : ''}
-          </div>
-          ${summary ? `<p class="why">${summary}</p>` : ''}
-          ${why ? `<p class="matters">💡 ${why}</p>` : ''}
-        </article>`;
-      }).join('');
+      itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
+      list.innerHTML = items.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
 
       const impressions = items.slice(0, 200).map((it, i) => ({
         event_type: 'impression',
@@ -835,11 +981,37 @@
       captureEvents(impressions);
     }
 
+    // exitSaved: filter interactions leave the saved view and go back to the feed.
+    function refreshFeed({ exitSaved = false } = {}) {
+      if (exitSaved) viewState = 'feed';
+      run().catch(err => {
+        document.getElementById('meta').textContent = 'Feed unavailable';
+        document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
+        console.error(err);
+      });
+    }
+
     function initClickTracking() {
       const list = document.getElementById('list');
       if (!list) return;
 
       list.addEventListener('click', (e) => {
+        const saveBtn = e.target.closest('button[data-save-id]');
+        if (saveBtn) {
+          const nowSaved = toggleSaved(saveBtn.dataset.saveId || '');
+          if (viewState === 'saved') {
+            renderSavedView();
+          } else {
+            saveBtn.textContent = nowSaved ? '★' : '☆';
+            saveBtn.setAttribute('aria-pressed', nowSaved ? 'true' : 'false');
+            const label = nowSaved ? 'Remove from saved' : 'Save for later';
+            saveBtn.setAttribute('aria-label', label);
+            saveBtn.title = label;
+            updateSavedTab();
+          }
+          return;
+        }
+
         const a = e.target.closest('a[data-track="item-link"]');
         if (!a) return;
 
@@ -872,11 +1044,7 @@
 
       form?.addEventListener('submit', (e) => {
         e.preventDefault();
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
 
       labelPickerBtn?.addEventListener('click', (e) => {
@@ -909,11 +1077,12 @@
         if (!btn) return;
         dateModeState = 'preset';
         setDateRangeDays(btn.dataset.days);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
+      });
+
+      document.getElementById('savedTab')?.addEventListener('click', () => {
+        viewState = viewState === 'saved' ? 'feed' : 'saved';
+        refreshFeed();
       });
 
       const sections = document.getElementById('sections');
@@ -923,11 +1092,7 @@
         const section = btn.dataset.section || '';
         // "All" clears the filter; any other tab selects exactly that section.
         setSelectedLabels(section ? [section] : []);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
 
       labelSearch?.addEventListener('input', () => {
@@ -943,21 +1108,13 @@
         if (input.checked) next.add(v);
         else next.delete(v);
         setSelectedLabels([...next]);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
 
       clearLabelsBtn?.addEventListener('click', () => {
         setSelectedLabels([]);
         syncLabelOptions(window.__availableLabels || []);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
 
       selectedLabelsBox?.addEventListener('click', (e) => {
@@ -968,11 +1125,7 @@
         next.delete(v);
         setSelectedLabels([...next]);
         syncLabelOptions(window.__availableLabels || []);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
 
       clearBtn?.addEventListener('click', () => {
@@ -981,11 +1134,7 @@
         document.getElementById('limit').value = '200';
         setSelectedLabels([]);
         syncLabelOptions(window.__availableLabels || []);
-        run().catch(err => {
-          document.getElementById('meta').textContent = 'Feed unavailable';
-          document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-          console.error(err);
-        });
+        refreshFeed({ exitSaved: true });
       });
     }
 
@@ -994,11 +1143,7 @@
     initFilters();
     initClickTracking();
     initPosthog();
-    run().catch(err => {
-      document.getElementById('meta').textContent = 'Feed unavailable';
-      document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
-      console.error(err);
-    });
+    refreshFeed();
   </script>
 </body>
 </html>
