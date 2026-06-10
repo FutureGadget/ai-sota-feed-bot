@@ -258,7 +258,11 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item["source_bias"] = round(src_bias, 3)
             item["topical_bias"] = round(topical, 3)
             item["final_score"] = round(fs, 3)
-            if item["llm_summary_1line"]:
+            # Changelog bullets beat both the LLM line and the raw release
+            # notes blob ("What's changed Added ...") for release items.
+            if item.get("release_highlights"):
+                summary = _to_clean_oneline(" · ".join(item["release_highlights"]), 220)
+            elif item["llm_summary_1line"]:
                 summary = _to_clean_oneline(item["llm_summary_1line"], 220)
             else:
                 summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
@@ -581,7 +585,9 @@ def run_ranking(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: d
       key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
       lb = final_labels.get(key, {})
       llm_sum = str(lb.get("summary_1line", "")).strip()
-      if llm_sum:
+      if it.get("release_highlights"):
+          summary = _to_clean_oneline(" · ".join(it["release_highlights"]), 220)
+      elif llm_sum:
           summary = _to_clean_oneline(llm_sum, 220)
       elif not it.get("summary_1line"):
           summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 220)
