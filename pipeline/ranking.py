@@ -242,8 +242,11 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             llm_s = compute_llm_score(lb)
             src_bias = float(source_bias_cfg.get(it.get("source", ""), 0.0))
             text = f"{it.get('title','')} {it.get('summary','')}".lower()
+            matched = [k for k in pos_kw if k in text]
+            # collapse substring overlaps ("agent" vs "agentic") for display
+            matched = [k for k in matched if not any(k != o and k in o for o in matched)]
             topical = 0.0
-            if any(k in text for k in pos_kw):
+            if matched:
                 topical += pos_w
             if any(k in text for k in neg_kw):
                 topical += neg_w
@@ -258,15 +261,22 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item["source_bias"] = round(src_bias, 3)
             item["topical_bias"] = round(topical, 3)
             item["final_score"] = round(fs, 3)
-            if item["llm_summary_1line"]:
+            # Changelog bullets beat both the LLM line and the raw release
+            # notes blob ("What's changed Added ...") for release items.
+            if item.get("release_highlights"):
+                summary = _to_clean_oneline(" · ".join(item["release_highlights"]), 220)
+            elif item["llm_summary_1line"]:
                 summary = _to_clean_oneline(item["llm_summary_1line"], 220)
             else:
                 summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
             if _summary_is_noisy(summary) or _summary_has_eval_tone(summary):
                 summary = _to_clean_oneline(item.get("summary", "") or item.get("title", ""), 220)
             item["summary_1line"] = summary
+            item["matched_topics"] = matched[:4]
             if item["llm_why_1line"]:
                 item["why_it_matters"] = item["llm_why_1line"]
+            elif matched:
+                item["why_it_matters"] = "Matches feed focus: " + ", ".join(matched[:3]) + "."
             scored.append(item)
 
         scored.sort(key=lambda x: x.get("final_score", 0), reverse=True)
@@ -581,7 +591,9 @@ def run_ranking(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: d
       key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
       lb = final_labels.get(key, {})
       llm_sum = str(lb.get("summary_1line", "")).strip()
-      if llm_sum:
+      if it.get("release_highlights"):
+          summary = _to_clean_oneline(" · ".join(it["release_highlights"]), 220)
+      elif llm_sum:
           summary = _to_clean_oneline(llm_sum, 220)
       elif not it.get("summary_1line"):
           summary = _to_clean_oneline(it.get("summary", "") or it.get("title", ""), 220)

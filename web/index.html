@@ -241,6 +241,15 @@
       overflow-wrap: anywhere;
       word-break: break-word;
     }
+    .also {
+      margin: 0.35rem 0 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .also a {
+      color: inherit;
+      text-decoration: underline dotted;
+    }
     .when {
       align-self: center;
       color: var(--muted);
@@ -721,13 +730,21 @@
       const summary = esc(summaryRaw);
       const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-      // Heuristic labeling emits one generic placeholder for every item — only
-      // LLM-written "why it matters" text adds signal beyond the summary.
-      const why = (whyRaw && whyRaw !== summaryRaw && String(it.llm_label_source || '') !== 'heuristic')
+      // Older run snapshots still carry the generic heuristic placeholder;
+      // newer pipeline output is either LLM-written or an honest
+      // matched-topics line, both worth showing.
+      const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
+      const why = (whyRaw && whyRaw !== summaryRaw && whyRaw !== LEGACY_PLACEHOLDER_WHY)
         ? esc(whyRaw)
         : '';
       const href = safeUrl(it.url);
       const image = safeUrl(it.image_url || '');
+      const alsoCovered = (Array.isArray(it.also_covered) ? it.also_covered : [])
+        .filter((e) => e && e.source && safeUrl(e.url) !== '#')
+        .slice(0, 4);
+      const alsoHtml = alsoCovered
+        .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(e.source)}</a>`)
+        .join(', ');
       const itemId = esc(key);
       const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
       const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
@@ -748,6 +765,7 @@
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
           ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+          ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
         </article>`;
     }
 

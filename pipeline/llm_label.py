@@ -276,7 +276,10 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
         "hype_risk": max(1, min(5, 1 + h)),
         "category": category,
         "summary_1line": _clean_text_oneline(item.get("summary", "") or item.get("title", ""), 220),
-        "why_1line": "Potential relevance to AI platform engineering; verify practical impact.",
+        # No fabricated "why it matters": a generic placeholder on every item
+        # trains readers to ignore the field. Leave it empty so downstream can
+        # fall back to honest deterministic signals (matched topics).
+        "why_1line": "",
     }
 
 

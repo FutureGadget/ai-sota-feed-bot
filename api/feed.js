@@ -21,6 +21,12 @@ function toIso(v) {
   return d ? d.toISOString() : null;
 }
 
+// URL-first identity: titles can be rewritten by pipeline enrichment between
+// runs (e.g. release titles gaining a repo prefix), but the URL is stable.
+function itemKey(it) {
+  return String(it?.url || it?.title || '');
+}
+
 function readLatest() {
   const p = path.join(process.cwd(), 'data', 'processed', 'latest.json');
   return readJsonSafe(p, []);
@@ -55,7 +61,7 @@ function readTier1Recent({ lookbackHours = 24, maxRuns = 12 } = {}) {
     if (!run || !Array.isArray(run.items)) continue;
 
     for (const it of run.items) {
-      const key = `${it.url || ''}::${it.title || ''}`;
+      const key = itemKey(it);
       if (!key || byKey.has(key)) continue;
       byKey.set(key, { ...it, run_at: run?.run_at || null });
     }
@@ -138,7 +144,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   const deepRunAt = parseDateMaybe(deepRunAtIso);
   if (!deepRunAt) return { items: baseItems, added: 0 };
 
-  const byKey = new Set(baseItems.map((it) => `${it.url || ''}::${it.title || ''}`));
+  const byKey = new Set(baseItems.map((it) => itemKey(it)));
   const sourceCounts = new Map();
 
   const maxFreshAgeMs = 24 * 60 * 60 * 1000; // items older than 24h by publish date are not "fresh"
@@ -153,9 +159,14 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
       if (!d || d <= deepRunAt || quick < minQuickScore) return false;
       // Reject items with old publish dates — they aren't truly fresh
       if (published && (nowMs - published.getTime()) > maxFreshAgeMs) return false;
-      // Skip minor version releases (e.g. v2.1.39, 0.105.0-alpha.4) — low signal
+      // Skip routine version releases (e.g. "v2.1.39", "vllm 0.105.0") — low
+      // signal for the fresh lane. Titles may carry a repo-name prefix added
+      // by pipeline enrichment, so match on the release-tag URL + a version
+      // pattern rather than the title starting with a version.
       const title = String(it?.title || '');
+      const isReleaseTag = /\/releases\/tag\//i.test(String(it?.url || ''));
       if (/^\d+\.\d+\.\d+/.test(title) || /^v\d+\.\d+/.test(title)) return false;
+      if (isReleaseTag && /(?:^|\s)v?\d+\.\d+/.test(title)) return false;
       return true;
     })
     .sort((a, b) => Number(b?.tier1_quick_score || 0) - Number(a?.tier1_quick_score || 0));
@@ -182,7 +193,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
     const src = String(it?.source || 'unknown');
     if (!prioritySet.has(src)) continue;
 
-    const k = `${it.url || ''}::${it.title || ''}`;
+    const k = itemKey(it);
     if (!k || byKey.has(k)) continue;
     const cur = Number(sourceCounts.get(src) || 0);
     if (cur >= Math.max(1, maxPerSource)) continue;
@@ -195,7 +206,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   // Pass 2: normal best-score fill.
   for (const it of fresh) {
     if (picked.length >= Math.max(0, freshCap)) break;
-    const k = `${it.url || ''}::${it.title || ''}`;
+    const k = itemKey(it);
     if (!k || byKey.has(k)) continue;
 
     const src = String(it?.source || 'unknown');
@@ -259,7 +270,7 @@ function accumulateItems(runs) {
   runs.forEach((run, runIdx) => {
     const runAt = run?.run_at || null;
     (run.items || []).forEach((it, idx) => {
-      const key = `${it.url || ''}::${it.title || ''}`;
+      const key = itemKey(it);
       const rank = idx + 1; // preserve per-run ranking order from digest output
       const prev = byKey.get(key);
 
@@ -286,6 +297,7 @@ function accumulateItems(runs) {
           prev.score_at_last_seen = Number(it.v2_final_score ?? it.score ?? prev.score_at_last_seen ?? 0);
           prev.why_it_matters = it.why_it_matters || prev.why_it_matters;
           prev.summary_1line = it.summary_1line || prev.summary_1line;
+          prev.also_covered = it.also_covered || prev.also_covered;
           prev.score = it.score ?? prev.score;
           prev.v2_final_score = it.v2_final_score ?? prev.v2_final_score;
           prev.type = it.type || prev.type;

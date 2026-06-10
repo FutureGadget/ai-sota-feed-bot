@@ -10,6 +10,11 @@ from typing import Any
 
 from dateutil import parser as dt_parser
 
+try:
+    from enrich import enrich_items, record_duplicate, summary_one_line
+except Exception:
+    from pipeline.enrich import enrich_items, record_duplicate, summary_one_line
+
 ROOT = Path(__file__).resolve().parents[1]
 
 # Retain only enough recent tier1 run snapshots to cover the fresh-blend window
@@ -84,14 +89,21 @@ def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if not key:
             continue
         prev = by_url.get(key)
-        if prev is None or freshness_score(it.get("published", "")) > freshness_score(prev.get("published", "")):
+        if prev is None:
             by_url[key] = it
+        elif freshness_score(it.get("published", "")) > freshness_score(prev.get("published", "")):
+            record_duplicate(it, prev)
+            by_url[key] = it
+        else:
+            record_duplicate(prev, it)
 
     out: list[dict[str, Any]] = []
     signatures: list[set[str]] = []
     for it in sorted(by_url.values(), key=lambda x: freshness_score(x.get("published", "")), reverse=True):
         toks = title_tokens(it.get("title", ""))
-        if any(jaccard(toks, prev_toks) >= 0.85 for prev_toks in signatures):
+        match_idx = next((i for i, prev_toks in enumerate(signatures) if jaccard(toks, prev_toks) >= 0.85), None)
+        if match_idx is not None:
+            record_duplicate(out[match_idx], it)
             continue
         signatures.append(toks)
         out.append(it)
@@ -149,6 +161,7 @@ def run() -> None:
     items = json.loads(raw_file.read_text(encoding="utf-8"))
     src_health = load_source_health()
 
+    items = enrich_items(items)
     deduped = dedupe(items)
 
     out = []
@@ -161,6 +174,7 @@ def run() -> None:
                 **it,
                 "tier": "tier1",
                 "type": signal_type(it),
+                "summary_1line": summary_one_line(it),
                 "source_reliability": round(rel, 3),
                 "freshness": round(fresh, 3),
                 "tier1_quick_score": round(quick, 3),
