@@ -721,9 +721,11 @@
       const summary = esc(summaryRaw);
       const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-      // Heuristic labeling emits one generic placeholder for every item — only
-      // LLM-written "why it matters" text adds signal beyond the summary.
-      const why = (whyRaw && whyRaw !== summaryRaw && String(it.llm_label_source || '') !== 'heuristic')
+      // Older run snapshots still carry the generic heuristic placeholder;
+      // newer pipeline output is either LLM-written or an honest
+      // matched-topics line, both worth showing.
+      const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
+      const why = (whyRaw && whyRaw !== summaryRaw && whyRaw !== LEGACY_PLACEHOLDER_WHY)
         ? esc(whyRaw)
         : '';
       const href = safeUrl(it.url);
