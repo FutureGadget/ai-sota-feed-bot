@@ -297,6 +297,7 @@ function accumulateItems(runs) {
           prev.score_at_last_seen = Number(it.v2_final_score ?? it.score ?? prev.score_at_last_seen ?? 0);
           prev.why_it_matters = it.why_it_matters || prev.why_it_matters;
           prev.summary_1line = it.summary_1line || prev.summary_1line;
+          prev.also_covered = it.also_covered || prev.also_covered;
           prev.score = it.score ?? prev.score;
           prev.v2_final_score = it.v2_final_score ?? prev.v2_final_score;
           prev.type = it.type || prev.type;

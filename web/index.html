@@ -241,6 +241,15 @@
       overflow-wrap: anywhere;
       word-break: break-word;
     }
+    .also {
+      margin: 0.35rem 0 0;
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+    .also a {
+      color: inherit;
+      text-decoration: underline dotted;
+    }
     .when {
       align-self: center;
       color: var(--muted);
@@ -730,6 +739,12 @@
         : '';
       const href = safeUrl(it.url);
       const image = safeUrl(it.image_url || '');
+      const alsoCovered = (Array.isArray(it.also_covered) ? it.also_covered : [])
+        .filter((e) => e && e.source && safeUrl(e.url) !== '#')
+        .slice(0, 4);
+      const alsoHtml = alsoCovered
+        .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(e.source)}</a>`)
+        .join(', ');
       const itemId = esc(key);
       const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
       const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
@@ -750,6 +765,7 @@
           </div>
           ${summary ? `<p class="why">${summary}</p>` : ''}
           ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+          ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
         </article>`;
     }
 

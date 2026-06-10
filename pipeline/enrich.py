@@ -69,6 +69,41 @@ def summary_one_line(item: dict[str, Any], max_chars: int = 220) -> str:
     return clean_oneline(item.get("summary", "") or item.get("title", ""), max_chars)
 
 
+def _canon_url(u: str) -> str:
+    return (u or "").split("?")[0].strip().lower()
+
+
+def record_duplicate(survivor: dict[str, Any], dup: dict[str, Any], max_entries: int = 4) -> None:
+    """Track a deduped duplicate on the surviving item so the feed can show
+    "also covered by" instead of silently dropping the extra coverage."""
+    src = dup.get("source") or ""
+    url = dup.get("url") or ""
+    # Only cross-source duplicates count as coverage; same-source near-dups
+    # are reposts, and arXiv cross-listings (same paper in cs.AI/cs.LG/cs.CL)
+    # are category echoes.
+    if src == survivor.get("source"):
+        return
+    if src.startswith("arxiv_") and str(survivor.get("source", "")).startswith("arxiv_"):
+        return
+    entries = survivor.setdefault("also_covered", [])
+    candidates = [{"source": src, "url": url, "title": dup.get("title") or ""}]
+    candidates += [e for e in (dup.get("also_covered") or []) if isinstance(e, dict)]
+    seen = {(e.get("source"), _canon_url(e.get("url", ""))) for e in entries}
+    seen.add((survivor.get("source"), _canon_url(survivor.get("url", ""))))
+    for e in candidates:
+        k = (e.get("source"), _canon_url(e.get("url", "")))
+        if k in seen or e.get("source") == survivor.get("source") or len(entries) >= max_entries:
+            continue
+        seen.add(k)
+        entries.append(
+            {
+                "source": str(e.get("source") or ""),
+                "url": str(e.get("url") or ""),
+                "title": str(e.get("title") or "")[:160],
+            }
+        )
+
+
 def _looks_like_github_release(item: dict[str, Any]) -> bool:
     src = str(item.get("source", "")).lower()
     url = str(item.get("url", "")).lower()

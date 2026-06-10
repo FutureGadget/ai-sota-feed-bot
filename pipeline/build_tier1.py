@@ -11,9 +11,9 @@ from typing import Any
 from dateutil import parser as dt_parser
 
 try:
-    from enrich import enrich_items, summary_one_line
+    from enrich import enrich_items, record_duplicate, summary_one_line
 except Exception:
-    from pipeline.enrich import enrich_items, summary_one_line
+    from pipeline.enrich import enrich_items, record_duplicate, summary_one_line
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -89,14 +89,21 @@ def dedupe(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
         if not key:
             continue
         prev = by_url.get(key)
-        if prev is None or freshness_score(it.get("published", "")) > freshness_score(prev.get("published", "")):
+        if prev is None:
             by_url[key] = it
+        elif freshness_score(it.get("published", "")) > freshness_score(prev.get("published", "")):
+            record_duplicate(it, prev)
+            by_url[key] = it
+        else:
+            record_duplicate(prev, it)
 
     out: list[dict[str, Any]] = []
     signatures: list[set[str]] = []
     for it in sorted(by_url.values(), key=lambda x: freshness_score(x.get("published", "")), reverse=True):
         toks = title_tokens(it.get("title", ""))
-        if any(jaccard(toks, prev_toks) >= 0.85 for prev_toks in signatures):
+        match_idx = next((i for i, prev_toks in enumerate(signatures) if jaccard(toks, prev_toks) >= 0.85), None)
+        if match_idx is not None:
+            record_duplicate(out[match_idx], it)
             continue
         signatures.append(toks)
         out.append(it)
