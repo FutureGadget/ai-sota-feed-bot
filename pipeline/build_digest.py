@@ -14,6 +14,7 @@ import yaml
 from dateutil import parser as dt_parser
 
 from content_fetch import build_content_map
+from enrich import enrich_items
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
 
@@ -767,6 +768,7 @@ def run():
                 print("tier0_incremental_skip=true reason=no_delta")
                 return
 
+    items = enrich_items(items)
     items = dedupe(items)
     items_deduped = list(items)
 
