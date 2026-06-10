@@ -11,6 +11,9 @@ Purpose
 - Always inspect `runs[0].run_at` first to confirm freshness.
 - Use API fields over HTML scraping whenever possible.
 - Prefer `items[].summary_1line` and `why_it_matters` for concise summaries.
+- `why_it_matters` is empty when there is no real signal; do not expect it on every item.
+- Release items may carry `release_highlights` (changelog bullets) and `matched_topics` (ranking keywords that matched).
+- `also_covered` lists other sources that carried the same story — a useful importance signal.
 
 3) Filtering strategy
 A. By label

@@ -5,6 +5,13 @@ GitHub-first prototype for AI platform engineering news intelligence.
 ## What it does
 - Collects fresh items from high-signal RSS feeds
 - Normalizes and de-duplicates (URL + near-title similarity)
+- Mechanical (no-LLM) enrichment (`pipeline/enrich.py`):
+  - Release titles get a repo prefix (`0.139.0` → `codex 0.139.0`)
+  - Release summaries use extracted changelog bullets (`release_highlights`)
+  - `why_it_matters` is only set from real signal (LLM text or matched
+    `matched_topics` keywords) — no generic placeholder
+  - Cross-source duplicates surface as `also_covered` ("Also covered by …")
+    instead of being dropped silently
 - Scores/ranks items for AI platform relevance
 - Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
 - Tracks source reliability/health and incorporates it into ranking
