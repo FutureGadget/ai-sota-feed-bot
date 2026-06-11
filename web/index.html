@@ -370,6 +370,22 @@
       font-size: 0.86rem;
       white-space: nowrap;
     }
+    .saved-tools {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .saved-tools button {
+      font-size: 0.86rem;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      cursor: pointer;
+    }
+    .saved-tools button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
     .catchup {
       border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
       background: color-mix(in srgb, var(--accent) 8%, var(--card));
@@ -1144,7 +1160,8 @@
           : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
         return;
       }
-      list.innerHTML = saved.map((it) => cardHtml(it)).join('');
+      const tools = `<div class="saved-tools"><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
+      list.innerHTML = tools + saved.map((it) => cardHtml(it)).join('');
     }
 
     // "Catch me up": a dismissable brief of the most important stories that
@@ -1208,6 +1225,31 @@
           </div>
           <ul>${bullets}</ul>
         </section>`;
+    }
+
+    // Saved items live only in localStorage; Markdown export is the escape
+    // hatch so a cleared browser doesn't mean a lost reading list.
+    function exportSavedMarkdown() {
+      const all = Object.values(savedItemsState)
+        .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
+      if (!all.length) return;
+      const lines = ['# Saved stories — AI Feed (llm-digest.com)', ''];
+      for (const it of all) {
+        const title = String(it.title || 'Untitled').replace(/[\[\]]/g, '');
+        const date = fmtCompactDate(it.published || it.saved_at);
+        lines.push(`- [${title}](${it.url || ''})${it.source ? ` — ${it.source}` : ''}${date ? `, ${date}` : ''}`);
+        const summary = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        if (summary) lines.push(`  ${summary}`);
+      }
+      const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `ai-feed-saved-${toDateInput(new Date())}.md`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+      posthogCapture('saved_export', { count: all.length });
     }
 
     // Last fetched feed payload; search re-renders from here without refetching.
@@ -1304,6 +1346,11 @@
       if (!list) return;
 
       list.addEventListener('click', (e) => {
+        if (e.target.closest('button[data-export-saved]')) {
+          exportSavedMarkdown();
+          return;
+        }
+
         if (e.target.closest('button[data-catchup-dismiss]')) {
           dismissCatchup();
           posthogCapture('catchup_dismiss', {});
