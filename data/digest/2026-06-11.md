@@ -2,134 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. Presentation: Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/context-engineering-data/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.194 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 2. Mind the Gap: Can Frontier LLMs Pass a Standardized Office Proficiency Exam?
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2606.10956v1
-- Score: 3.068 | Reliability: 1.0
+## 1. Intelligent Automation for Embodied Benchmark Construction: Pipelines, Embodiments, Simulators, and Trends
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2606.12207v1
+- Score: 3.124 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 3. codex 0.139.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.139.0
-- Score: 2.997 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex.
+## 2. Context-Driven Incremental Compression for Multi-Turn Dialogue Generation
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2606.12411v1
+- Score: 3.05 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 4. datasette-agent 0.2a0
+## 3. datasette-agent 0.2a0
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything
-- Score: 2.977 | Reliability: 1.0
+- Score: 2.968 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. How engineers at Nextdoor use Codex to build without limits
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/nextdoor
-- Score: 2.955 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 6. How an astrophysicist uses Codex to help simulate black holes
+## 4. How an astrophysicist uses Codex to help simulate black holes
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/using-codex-to-simulate-black-holes
-- Score: 2.907 | Reliability: 1.0
+- Score: 2.913 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 7. Access OpenAI models and Codex through your Oracle cloud commitment
+## 5. Access OpenAI models and Codex through your Oracle cloud commitment
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-on-oracle-cloud
-- Score: 2.898 | Reliability: 1.0
+- Score: 2.903 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 8. ABC-Bench: An Agentic Bio-Capabilities Benchmark for Biosecurity
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2606.11150v1
-- Score: 2.851 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 9. PRC-linked influence operations are targeting AI debates in the US
+## 6. PRC-linked influence operations are targeting AI debates in the US
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/prc-linked-influence-operations-ai-debates
-- Score: 2.84 | Reliability: 1.0
+- Score: 2.846 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Claude Fable 5 Mythos 5
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/claude-fable-5-mythos-5
-- Score: 2.603 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Building With Claude Managed Agents
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/building-with-claude-managed-agents
-- Score: 2.836 | Reliability: 1.0
+## 7. [AINews] Open Models, Model Labs vs Agent Labs, and What's Untrainable — Sarah Guo
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-open-models-model-labs-vs
+- Score: 2.772 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. Azure API Management Ships Unified Model API and MCP Content Safety at Build 2026
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/azure-apim-ai-gateway-build/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.805 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. DiffusionGemma
+## 8. DiffusionGemma
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/10/diffusiongemma/#atom-everything
-- Score: 2.764 | Reliability: 1.0
+- Score: 2.756 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Agents In Biology
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/agents-in-biology
-- Score: 2.726 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 9. Implicit Neural Representations of Individual Behavior
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.12200v1
+- Score: 2.742 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 15. claude-code v2.1.172
+## 10. claude-code v2.1.172
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.172
-- Score: 2.712 | Reliability: 1.0
+- Score: 2.677 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. claude-agent-sdk-python v0.2.96
+## 11. claude-agent-sdk-python v0.2.96
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.96
-- Score: 2.679 | Reliability: 1.0
+- Score: 2.644 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. CIAware-Bench: Benchmarking Control Intervention Awareness Across Frontier LLMs
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2606.11063v1
-- Score: 2.637 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 12. I made an agent skill for making HTML slides with consultant style
+- Type: news | Source: hackernews_ai
+- URL: https://news.ycombinator.com/item?id=48485885
+- Score: 2.638 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex, claude code.
 
-## 18. [AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-anthropic-claude-fable-5-mythos
-- Score: 2.511 | Reliability: 1.0
+## 13. Microsoft Open-Sources PostgreSQL Extension for In-Database Durable Execution
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/postgresql-pg-durable/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.628 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Xcode 27 expands agentic coding toolset with Gemini integration - 9to5Mac
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMimwFBVV95cUxNRFpZaWZaRVFVRkxkYkV2b1dMOW5xU0NYMjA0aWJtbTI2NDJyM3k5MnlyYndZX1BHMnVGV0JCZDFFRHNheVR1NTVTM0tfaHpVdklNM3lQbjU2a0hJTmt6cXBDVmZaczFLVThEbzItZmNOSzRpUHloc1BULTBNSGItTXpuemwwdzFna3lwT3kzcVFmN3hleUZMQks4dw?oc=5
-- Score: 2.442 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 14. codex rust-v0.140.0-alpha.8
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.8
+- Score: 2.578 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
-## 20. langgraph-cli==0.4.28
+## 15. langgraph-cli==0.4.28
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.28
-- Score: 2.42 | Reliability: 1.0
+- Score: 2.386 | Reliability: 1.0
 - Why it matters: 
 
-## 21. How an Agent Built a 3D Paris Gallery by Chaining Two Hugging Face Spaces
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/mishig/spaces-agents-md
-- Score: 2.344 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 22. Stop hand-tuning kernels: How Neuron Agentic Development accelerates AWS Trainium optimizations
+## 16. How frontier teams are reinventing AI-native development
 - Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/stop-hand-tuning-kernels-how-neuron-agentic-development-accelerates-aws-trainium-optimizations/
-- Score: 1.798 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+- URL: https://aws.amazon.com/blogs/machine-learning/how-frontier-teams-are-reinventing-ai-native-development/
+- Score: 1.657 | Reliability: 1.0
+- Why it matters:
