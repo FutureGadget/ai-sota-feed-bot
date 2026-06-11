@@ -172,3 +172,24 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Parallel tracking enables fast dashboard rollout with low migration risk.
 - **Impact:** Added `/api/client-config` for public PostHog runtime config and web events (`page_view`, `feed_view`, `impression_batch`, `click`) behind env toggle.
 - **Rollback / Alternative:** Disable via `POSTHOG_ENABLED=0` and continue Turso-only telemetry.
+
+## 2026-06-11
+- **Decision:** Ship one-tap reader feedback on feed cards, transported via PostHog and synced back into `data/feedback/events.jsonl`.
+- **Context / Problem:** The feedback-loop spec and `data/feedback/events.jsonl` existed, but the only input path was a CLI nobody runs; ranking had zero human signal.
+- **Rationale:** Reuse the already-deployed PostHog client as the event transport instead of adding a database or a git-writing endpoint — a daily workflow pulls `item_feedback` events into the repo, matching the existing git-as-database pattern. Feedback compounds: it feeds the v1.3 auto-tuning plan.
+- **Impact:** Feed cards show `👍 Useful / 👎 Not relevant / 🫧 Hype` (choice persisted in localStorage, retractable); new `pipeline/feedback.py` (`add` / `summary` / `sync-posthog`); new `.github/workflows/feedback-sync.yml` daily sync that no-ops without PostHog credentials.
+- **Rollback / Alternative:** Remove the feedback row from `web/index.html` and disable the sync workflow; events already in `events.jsonl` remain usable.
+
+## 2026-06-11
+- **Decision:** Surface trending signals already computed by the feed API as card badges: `🔥 N sources` (cross-source coverage) and `📈 Climbing` (rank improvement).
+- **Context / Problem:** `also_covered`, `seen_count`, and `rank_at_last_seen` existed in the API payload but nothing told readers "is this actually important?" at a glance; the API also lacked a previous-rank baseline to derive a trend from.
+- **Rationale:** Zero new pipeline work — `accumulateItems` already walks runs newest-first, so the second sighting of an item yields the previous rank (`rank_prev_seen`). Badges keep positive signals only (no "falling" noise) with a ≥2-position climb threshold to avoid jitter.
+- **Impact:** `api/feed.js` adds `rank_prev_seen` per item; `web/index.html` renders the two badges in the card meta row with tooltips.
+- **Rollback / Alternative:** Remove the badge markup from `cardHtml`; `rank_prev_seen` is additive and harmless to leave in the API.
+
+## 2026-06-11
+- **Decision:** Add pinned "my topics" — readers can save the current label selection as a localStorage default that auto-applies when the URL carries no `label` params.
+- **Context / Problem:** Label chips existed but reset every visit; returning readers re-built the same filter each time.
+- **Rationale:** Defaults belong client-side (no accounts); explicit URL labels must keep winning so shared links render identically for everyone.
+- **Impact:** `web/index.html` adds a pin toggle in the chips row (`📌 Pin as default` / `📌 Pinned ✓`), a one-tap `📌 My topics` re-apply chip when filters are cleared, and a `labels_pin` PostHog event (pin/unpin/apply).
+- **Rollback / Alternative:** Remove the pin buttons and the pinned-fallback branch in `readFiltersFromUrl`; stored localStorage keys are inert.

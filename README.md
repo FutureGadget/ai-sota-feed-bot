@@ -66,17 +66,38 @@ python publish/publish_telegram.py
 Current web app behavior:
 - Sends batched `impression` events to PostHog on feed render
 - Sends `click` events to PostHog when opening an item link
+- One-tap reader feedback on every feed card (`👍 Useful / 👎 Not relevant / 🫧 Hype`),
+  persisted in localStorage and sent to PostHog as `item_feedback`
+- Trending badges on feed cards: `🔥 N sources` (cross-source coverage from
+  `also_covered`) and `📈 Climbing` (rank improved ≥2 positions between the two
+  most recent runs, via `rank_at_last_seen` vs `rank_prev_seen`)
+- Pinned "my topics": readers can pin the current label selection as their
+  default (localStorage); it auto-applies on visits without `?label=` in the
+  URL, with a one-tap re-apply chip after clearing filters (`labels_pin` event)
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
-- PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`)
+- PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
 PostHog env vars (optional):
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<project key>`
 - `POSTHOG_HOST=https://us.i.posthog.com` (or EU host)
 
+## Reader feedback loop (v1.3)
+Reader taps land in `data/feedback/events.jsonl` via a daily PostHog sync
+(`.github/workflows/feedback-sync.yml`); future tuning consumes the aggregates.
+```bash
+python pipeline/feedback.py add --url <item_url> --signal useful|irrelevant|hype  # manual entry
+python pipeline/feedback.py summary [--days N]      # net counts by signal/source
+python pipeline/feedback.py sync-posthog            # pull web events (needs env below)
+```
+Sync env vars: `POSTHOG_PERSONAL_API_KEY`, `POSTHOG_PROJECT_ID`, optional
+`POSTHOG_API_HOST` (query API host, default `https://us.posthog.com`).
+Spec: `docs/product-specs/feedback-loop.md`.
+
 Feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
+- Per-item rank trajectory: `rank_at_last_seen` (newest run) and `rank_prev_seen` (previous run that included the item)
 
 LLM discovery endpoints:
 - `/llms.txt` (LLM-oriented site map + API usage notes)
@@ -136,7 +157,10 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 ## GitHub Actions
 - Hourly collect + score commit
 - Daily digest + issue publish (+ optional Telegram if secrets are set)
+- Daily reader feedback sync from PostHog (no-op if secrets are missing)
 
 ### Repository secrets (optional)
 - `TELEGRAM_BOT_TOKEN`
 - `TELEGRAM_CHAT_ID`
+- `POSTHOG_PERSONAL_API_KEY` (feedback sync)
+- `POSTHOG_PROJECT_ID` (feedback sync)
