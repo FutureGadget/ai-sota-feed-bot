@@ -193,3 +193,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Defaults belong client-side (no accounts); explicit URL labels must keep winning so shared links render identically for everyone.
 - **Impact:** `web/index.html` adds a pin toggle in the chips row (`📌 Pin as default` / `📌 Pinned ✓`), a one-tap `📌 My topics` re-apply chip when filters are cleared, and a `labels_pin` PostHog event (pin/unpin/apply).
 - **Rollback / Alternative:** Remove the pin buttons and the pinned-fallback branch in `readFiltersFromUrl`; stored localStorage keys are inert.
+
+## 2026-06-11
+- **Decision:** Implement v1.3 source-weight auto-tuning as an additive learned layer (`source_tune`) blending explicit reader feedback with click-through rate.
+- **Context / Problem:** Feedback collection shipped but nothing consumed it; explicit taps alone are too low-volume to tune from on day one.
+- **Rationale:** Keep hand-tuned `source_bias` (config, committed) separate from learned adjustments (`data/feedback/source_adjustments.json`, runtime artifact) — rollback is deleting a file. CTR blend solves cold start: clicks come from PostHog, but the web client only reports batched impression counts, so exposure is computed locally from `data/processed/runs` snapshots with DCG-style 1/log2(rank+1) weighting. Guardrails: min sample sizes, empirical-Bayes CTR smoothing, hard cap ±0.15 (below hand-tuned bias magnitudes), rolling-window decay, and a ranking-side staleness cutoff (`max_age_days`).
+- **Impact:** New `pipeline/auto_tune.py` (`report`/`apply`/`sync-ctr`); `pipeline/ranking.py` stage C adds `source_tune` to slot scores; `config/ranking.yaml` gains an `auto_tune:` section; feedback-sync workflow now also syncs CTR and applies tuning daily; ops daily summary reports top deltas.
+- **Rollback / Alternative:** Set `auto_tune.enabled: false` in `config/ranking.yaml` (or delete the adjustments artifact); tuner and data remain inert.

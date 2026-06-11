@@ -51,6 +51,39 @@ def load_ranking_config() -> dict[str, Any]:
     return merged
 
 
+SOURCE_ADJUSTMENTS_FILE = ROOT / "data" / "feedback" / "source_adjustments.json"
+
+
+def load_source_tune_adjustments(cfg: dict[str, Any]) -> dict[str, float]:
+    """Learned per-source deltas from pipeline/auto_tune.py, layered on top of
+    the hand-tuned source_bias. Gated by auto_tune.enabled and ignored once
+    the artifact is older than max_age_days so stale data stops steering."""
+    tcfg = cfg.get("auto_tune", {}) or {}
+    if not tcfg.get("enabled", False):
+        return {}
+    try:
+        data = json.loads(SOURCE_ADJUSTMENTS_FILE.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    try:
+        generated = dt_parser.parse(str(data.get("generated_at")))
+        if generated.tzinfo is None:
+            generated = generated.replace(tzinfo=timezone.utc)
+    except (ValueError, TypeError):
+        return {}
+    max_age_days = float(tcfg.get("max_age_days", 14))
+    if (datetime.now(timezone.utc) - generated).total_seconds() > max_age_days * 86400:
+        print("source_tune_skipped reason=stale")
+        return {}
+    out = {}
+    for src, delta in (data.get("adjustments") or {}).items():
+        try:
+            out[str(src)] = float(delta)
+        except (ValueError, TypeError):
+            continue
+    return out
+
+
 def _age_hours(published_str: str) -> float:
     try:
         dt = dt_parser.parse(published_str)
@@ -222,6 +255,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
     neg_kw = [str(x).lower() for x in (topical_cfg.get("negative_keywords", []) or [])]
     pos_w = float(topical_cfg.get("positive_weight", 0.0))
     neg_w = float(topical_cfg.get("negative_weight", 0.0))
+    tune_adjustments = load_source_tune_adjustments(cfg)
     selected_by_slot: dict[str, list[dict[str, Any]]] = {}
     diag_slots: dict[str, Any] = {}
     budget_used = 0
@@ -241,6 +275,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             lb = labels.get(key, {})
             llm_s = compute_llm_score(lb)
             src_bias = float(source_bias_cfg.get(it.get("source", ""), 0.0))
+            src_tune = float(tune_adjustments.get(it.get("source", ""), 0.0))
             text = f"{it.get('title','')} {it.get('summary','')}".lower()
             matched = [k for k in pos_kw if k in text]
             # collapse substring overlaps ("agent" vs "agentic") for display
@@ -250,7 +285,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
                 topical += pos_w
             if any(k in text for k in neg_kw):
                 topical += neg_w
-            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + topical
+            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + src_tune + topical
             item = dict(it)
             item["type"] = _infer_item_type(item, slot)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
@@ -259,6 +294,7 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item["llm_why_1line"] = lb.get("why_1line", "")
             item["llm_score"] = round(llm_s, 3)
             item["source_bias"] = round(src_bias, 3)
+            item["source_tune"] = round(src_tune, 3)
             item["topical_bias"] = round(topical, 3)
             item["final_score"] = round(fs, 3)
             # Changelog bullets beat both the LLM line and the raw release

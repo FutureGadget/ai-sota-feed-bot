@@ -45,6 +45,10 @@ Stage C: in-slot scoring + selection (ranking_v2.stage_c_score_and_select)
   - LLM labeling v2 with llm_budget cap
   - fallback heuristic when no LLM / budget exhausted
   - final slot score = alpha*llm_score + beta*freshness
+                       + source_bias + source_tune + topical_bias
+    (source_tune = learned feedback/CTR adjustment from
+     data/feedback/source_adjustments.json via pipeline/auto_tune.py,
+     gated by auto_tune.enabled + max_age_days staleness cutoff)
   - enforce slot max_items and max_per_source
       |
       v
