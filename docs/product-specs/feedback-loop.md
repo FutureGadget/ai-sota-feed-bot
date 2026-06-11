@@ -56,4 +56,28 @@ Every feed card on `/` shows a one-tap feedback row:
 
 - Reduces raw events to net state (latest set/unset per reader+item; manual
   events count individually) and reports counts by signal and by item source.
-- Future tuning consumes these aggregates for source/ranking weight updates.
+
+## Consumption: source weight auto-tuning (v1.3)
+`pipeline/auto_tune.py` turns accumulated signal into per-source score
+adjustments applied by the ranking pipeline:
+
+- **Explicit signal:** net feedback per source within the rolling window;
+  score = (useful − irrelevant − hype) / n, scaled by `explicit_weight`.
+  Requires `min_explicit_events` before a source moves.
+- **Implicit signal (CTR blend):** per-source clicks pulled from PostHog
+  (`auto_tune.py sync-ctr` → `data/feedback/ctr_clicks.json`) divided by
+  rank-weighted exposure (1/log2(rank+1)) computed from
+  `data/processed/runs/` snapshots — the web client only reports batched
+  impression counts, so the denominator is derived locally. Empirical-Bayes
+  smoothing pulls low-sample CTRs toward the global rate; `ctr_weight` is the
+  delta per doubling/halving vs global CTR; requires `min_exposure`.
+- **Guardrails:** combined delta hard-capped at `±max_abs_adjustment`
+  (default 0.15, below the hand-tuned `source_bias` magnitudes); the rolling
+  `window_days` acts as decay; ranking ignores artifacts older than
+  `max_age_days`. Knobs live in `config/ranking.yaml` under `auto_tune:`.
+- **Flow:** `auto_tune.py report` (dry-run table) / `apply` (writes
+  `data/feedback/source_adjustments.json`). The daily feedback-sync workflow
+  runs sync → sync-ctr → apply → commit. `pipeline/ranking.py` adds the
+  per-item `source_tune` delta into the slot score next to `source_bias`,
+  and the daily ops summary reports `source_tuning` (top deltas) for
+  observability.

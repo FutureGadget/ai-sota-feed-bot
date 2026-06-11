@@ -94,6 +94,15 @@ Sync env vars: `POSTHOG_PERSONAL_API_KEY`, `POSTHOG_PROJECT_ID`, optional
 `POSTHOG_API_HOST` (query API host, default `https://us.posthog.com`).
 Spec: `docs/product-specs/feedback-loop.md`.
 
+Source weight auto-tuning (v1.3) consumes the feedback plus click-through
+signal and writes capped per-source score adjustments the ranking pipeline
+applies next to `source_bias` (knobs: `config/ranking.yaml` → `auto_tune:`):
+```bash
+python pipeline/auto_tune.py sync-ctr   # pull per-source clicks from PostHog
+python pipeline/auto_tune.py report     # dry-run: proposed adjustments + inputs
+python pipeline/auto_tune.py apply      # write data/feedback/source_adjustments.json
+```
+
 Feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)

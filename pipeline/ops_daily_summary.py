@@ -96,6 +96,18 @@ def main() -> None:
         "ingest_status_counts_24h": ingest_statuses_last_24h(ingest_rows),
     }
 
+    tune = load_json(ROOT / "data" / "feedback" / "source_adjustments.json", None)
+    if isinstance(tune, dict):
+        adjustments = tune.get("adjustments") or {}
+        top = sorted(adjustments.items(), key=lambda kv: -abs(kv[1]))[:5]
+        summary["source_tuning"] = {
+            "generated_at": tune.get("generated_at"),
+            "adjusted_sources": len(adjustments),
+            "top_adjustments": dict(top),
+        }
+    else:
+        summary["source_tuning"] = None
+
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     print(
         "ops_summary "

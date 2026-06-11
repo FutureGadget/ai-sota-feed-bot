@@ -120,6 +120,19 @@ source_bias:
   langgraph_releases: 0.06
   llamaindex_releases: 0.05
 
+# Feedback/CTR auto-tuning (pipeline/auto_tune.py). Learned per-source deltas
+# from data/feedback/source_adjustments.json are added on top of source_bias.
+auto_tune:
+  enabled: true
+  window_days: 30            # rolling window; doubles as signal decay
+  max_abs_adjustment: 0.15   # hard cap, keeps learned layer below hand-tuned bias
+  explicit_weight: 0.10      # delta for a source with unanimously useful feedback
+  ctr_weight: 0.08           # delta per doubling/halving of CTR vs global CTR
+  min_explicit_events: 3     # feedback events needed before a source moves
+  min_exposure: 25           # rank-weighted appearances needed for CTR signal
+  ctr_smoothing_exposure: 20 # empirical-Bayes prior mass pulling CTR to global
+  max_age_days: 14           # ranking ignores adjustments older than this
+
 # Optional topical bias to prioritize agent-harness/coding updates from frontier vendors.
 topical_bias:
   positive_keywords:

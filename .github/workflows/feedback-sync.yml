@@ -32,7 +32,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Skips cleanly when PostHog credentials are not configured.
+      # PostHog steps skip cleanly when credentials are not configured.
       - name: Sync reader feedback from PostHog
         env:
           POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
@@ -40,6 +40,16 @@ jobs:
           POSTHOG_API_HOST: ${{ vars.POSTHOG_API_HOST }}
         run: .venv/bin/python pipeline/feedback.py sync-posthog
 
-      - name: Commit synced feedback
+      - name: Sync per-source clicks from PostHog
+        env:
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          POSTHOG_API_HOST: ${{ vars.POSTHOG_API_HOST }}
+        run: .venv/bin/python pipeline/auto_tune.py sync-ctr
+
+      - name: Recompute source weight adjustments
+        run: .venv/bin/python pipeline/auto_tune.py apply
+
+      - name: Commit synced feedback and tuning
         run: |
-          bash scripts/git_commit_runtime.sh "chore(data): sync reader feedback $(date -u +%F)"
+          bash scripts/git_commit_runtime.sh "chore(data): sync reader feedback + source tuning $(date -u +%F)"
