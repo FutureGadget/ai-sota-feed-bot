@@ -361,6 +361,51 @@
       font-size: 0.86rem;
       white-space: nowrap;
     }
+    .catchup {
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--border));
+      background: color-mix(in srgb, var(--accent) 8%, var(--card));
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+    }
+    .catchup-head {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .catchup-sub {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+    .catchup-dismiss {
+      margin-left: auto;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 0.2rem;
+    }
+    .catchup ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.1rem;
+    }
+    .catchup li {
+      margin-top: 0.3rem;
+      font-size: 0.95rem;
+      overflow-wrap: anywhere;
+    }
+    .catchup li a {
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .catchup li a:hover {
+      text-decoration: underline;
+    }
+    .catchup .catchup-summary {
+      color: var(--muted);
+    }
     .state {
       border: 1px dashed var(--border, #d9d9d9);
       border-radius: 10px;
@@ -1046,6 +1091,69 @@
       list.innerHTML = saved.map((it) => cardHtml(it)).join('');
     }
 
+    // "Catch me up": a dismissable brief of the most important stories that
+    // arrived since the reader's previous visit. Importance = cross-source
+    // coverage first, then the feed's own ranking.
+    const CATCHUP_DISMISS_KEY = 'ai_feed_catchup_dismissed';
+    let catchupViewCaptured = false;
+
+    function isCatchupDismissed() {
+      try {
+        return sessionStorage.getItem(CATCHUP_DISMISS_KEY) === '1';
+      } catch {
+        return false;
+      }
+    }
+
+    function dismissCatchup() {
+      try {
+        sessionStorage.setItem(CATCHUP_DISMISS_KEY, '1');
+      } catch {}
+    }
+
+    function lastVisitLabel() {
+      const d = new Date(visitLastMs);
+      if (Number.isNaN(d.getTime())) return '';
+      const today = new Date();
+      if (d.toDateString() === today.toDateString()) return 'earlier today';
+      return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    function catchupHtml(items) {
+      if (!(visitLastMs > 0) || isCatchupDismissed()) return '';
+      const fresh = items.filter((it) => {
+        const t = Date.parse(it.first_seen || it.collected_at || it.published || '');
+        return Number.isFinite(t) && t > visitLastMs;
+      });
+      if (!fresh.length) return '';
+
+      const picks = fresh
+        .map((it, i) => ({ it, i, sources: (Array.isArray(it.also_covered) ? it.also_covered.length : 0) + 1 }))
+        .sort((a, b) => b.sources - a.sources || a.i - b.i)
+        .slice(0, 3);
+
+      const bullets = picks.map(({ it }) => {
+        const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+        const short = summaryRaw.length > 110 ? `${summaryRaw.slice(0, 110).trimEnd()}…` : summaryRaw;
+        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
+      }).join('');
+
+      if (!catchupViewCaptured) {
+        catchupViewCaptured = true;
+        posthogCapture('catchup_view', { new_count: fresh.length, shown: picks.length });
+      }
+
+      return `
+        <section class="catchup" aria-label="Catch up since your last visit">
+          <div class="catchup-head">
+            <strong>⚡ Catch me up</strong>
+            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}</span>
+            <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
+          </div>
+          <ul>${bullets}</ul>
+        </section>`;
+    }
+
     // Last fetched feed payload; search re-renders from here without refetching.
     let feedCache = { items: [], runs: [], freshAdded: 0, runId: null };
 
@@ -1078,7 +1186,8 @@
         return;
       }
 
-      list.innerHTML = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
+      const catchup = q ? '' : catchupHtml(items);
+      list.innerHTML = catchup + visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
     }
 
     async function run() {
@@ -1139,6 +1248,13 @@
       if (!list) return;
 
       list.addEventListener('click', (e) => {
+        if (e.target.closest('button[data-catchup-dismiss]')) {
+          dismissCatchup();
+          posthogCapture('catchup_dismiss', {});
+          renderFeedList();
+          return;
+        }
+
         const fbBtn = e.target.closest('button[data-fb-signal]');
         if (fbBtn) {
           const active = toggleFeedback(fbBtn.dataset.fbId || '', fbBtn.dataset.fbSignal || '', {
