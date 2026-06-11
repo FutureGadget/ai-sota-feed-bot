@@ -285,8 +285,8 @@
       color: #fde68a;
       background: #78350f;
     }
-    .save-btn {
-      margin-left: auto;
+    .save-btn,
+    .share-btn {
       border: none;
       background: transparent;
       cursor: pointer;
@@ -295,9 +295,18 @@
       padding: 0 0.2rem;
       color: var(--muted);
     }
+    .save-btn {
+      margin-left: auto;
+    }
     .save-btn:hover,
     .save-btn[aria-pressed="true"] {
       color: #f59e0b;
+    }
+    .share-btn {
+      font-size: 1rem;
+    }
+    .share-btn:hover {
+      color: var(--accent);
     }
     .fb-row {
       display: flex;
@@ -712,6 +721,52 @@
       return action === 'set' ? signal : null;
     }
 
+    // Share the story link with UTM attribution; native share sheet when
+    // available, clipboard fallback otherwise.
+    function withShareUtm(rawUrl) {
+      const href = safeUrl(rawUrl);
+      if (href === '#') return '';
+      try {
+        const u = new URL(href);
+        u.searchParams.set('utm_source', 'llm-digest.com');
+        u.searchParams.set('utm_medium', 'share');
+        return u.href;
+      } catch {
+        return href;
+      }
+    }
+
+    async function shareItem(btn) {
+      const key = btn.dataset.shareId || '';
+      const it = itemForKey(key);
+      if (!it) return;
+      const url = withShareUtm(it.url || '');
+      if (!url) return;
+      posthogCapture('item_share', {
+        item_id: key,
+        source: it.source || null,
+        url: it.url || null,
+        method: navigator.share ? 'web_share' : 'clipboard',
+      });
+      const text = `${it.title || ''} — via llm-digest.com`;
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: it.title || '', text, url });
+        } catch {}
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(`${text}\n${url}`);
+        const orig = btn.textContent;
+        btn.textContent = '✓';
+        btn.title = 'Link copied';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.title = 'Share';
+        }, 1200);
+      } catch {}
+    }
+
     function updateSavedTab() {
       const btn = document.getElementById('savedTab');
       if (!btn) return;
@@ -1052,6 +1107,7 @@
             ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
             ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">📈 Climbing</span>` : ''}
             <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
+            <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
           </div>
           <div class="card-main">
             <div class="card-text">
@@ -1267,6 +1323,12 @@
           });
           const label = row?.querySelector('.fb-label');
           if (label) label.textContent = active ? FEEDBACK_THANKS : FEEDBACK_PROMPT;
+          return;
+        }
+
+        const shareBtn = e.target.closest('button[data-share-id]');
+        if (shareBtn) {
+          shareItem(shareBtn);
           return;
         }
 
