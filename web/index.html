@@ -431,6 +431,61 @@
     .catchup .catchup-summary {
       color: var(--muted);
     }
+    .onboard {
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+    }
+    .onboard-head {
+      font-size: 0.95rem;
+    }
+    .onboard-head span {
+      color: var(--muted);
+    }
+    .onboard-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .onboard-chips button {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      color: inherit;
+    }
+    .onboard-chips button[aria-pressed="true"] {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+    .onboard-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+    .onboard-actions button {
+      font-size: 0.88rem;
+      padding: 0.32rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      cursor: pointer;
+    }
+    .onboard-actions button[data-onboard-save]:not([disabled]) {
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .onboard-actions button[disabled] {
+      opacity: 0.5;
+      cursor: default;
+    }
     .state {
       border: 1px dashed var(--border, #d9d9d9);
       border-radius: 10px;
@@ -1164,6 +1219,48 @@
       list.innerHTML = tools + saved.map((it) => cardHtml(it)).join('');
     }
 
+    // First-visit onboarding: one-time topic picker that feeds the existing
+    // pinned-labels ("my topics") default, which is otherwise hard to discover.
+    const ONBOARDING_DONE_KEY = 'ai_feed_onboarding_done_v1';
+    const ONBOARD_TOPICS = [
+      { value: 'platform', label: 'Platform' },
+      { value: 'release', label: 'Releases' },
+      { value: 'research', label: 'Research' },
+      { value: 'paper', label: 'Papers' },
+      { value: 'news', label: 'News' },
+    ];
+    let onboardSelection = new Set();
+
+    function isOnboardingDone() {
+      try {
+        return localStorage.getItem(ONBOARDING_DONE_KEY) === '1';
+      } catch {
+        return true;
+      }
+    }
+
+    function markOnboardingDone() {
+      try {
+        localStorage.setItem(ONBOARDING_DONE_KEY, '1');
+      } catch {}
+    }
+
+    function onboardingHtml() {
+      if (isOnboardingDone() || visitLastMs > 0 || pinnedLabelsState.length) return '';
+      const chips = ONBOARD_TOPICS.map(({ value, label }) =>
+        `<button type="button" data-onboard-topic="${value}" aria-pressed="${onboardSelection.has(value) ? 'true' : 'false'}">${label}</button>`
+      ).join('');
+      return `
+        <section class="onboard" aria-label="Personalize your feed">
+          <div class="onboard-head"><strong>👋 New here?</strong> <span>Pick the topics you care about — they'll become your default view on every visit.</span></div>
+          <div class="onboard-chips">${chips}</div>
+          <div class="onboard-actions">
+            <button type="button" data-onboard-save="1"${onboardSelection.size ? '' : ' disabled'}>Save topics</button>
+            <button type="button" data-onboard-skip="1">Skip</button>
+          </div>
+        </section>`;
+    }
+
     // "Catch me up": a dismissable brief of the most important stories that
     // arrived since the reader's previous visit. Importance = cross-source
     // coverage first, then the feed's own ranking.
@@ -1284,8 +1381,8 @@
         return;
       }
 
-      const catchup = q ? '' : catchupHtml(items);
-      list.innerHTML = catchup + visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
+      const pinnedCards = q ? '' : onboardingHtml() + catchupHtml(items);
+      list.innerHTML = pinnedCards + visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
     }
 
     async function run() {
@@ -1348,6 +1445,33 @@
       list.addEventListener('click', (e) => {
         if (e.target.closest('button[data-export-saved]')) {
           exportSavedMarkdown();
+          return;
+        }
+
+        const topicBtn = e.target.closest('button[data-onboard-topic]');
+        if (topicBtn) {
+          const v = topicBtn.dataset.onboardTopic || '';
+          if (onboardSelection.has(v)) onboardSelection.delete(v);
+          else onboardSelection.add(v);
+          renderFeedList();
+          return;
+        }
+
+        if (e.target.closest('button[data-onboard-save]')) {
+          if (!onboardSelection.size) return;
+          pinnedLabelsState = [...onboardSelection];
+          persistPinnedLabels();
+          markOnboardingDone();
+          posthogCapture('onboarding_topics', { action: 'save', labels: pinnedLabelsState });
+          setSelectedLabels(pinnedLabelsState);
+          refreshFeed();
+          return;
+        }
+
+        if (e.target.closest('button[data-onboard-skip]')) {
+          markOnboardingDone();
+          posthogCapture('onboarding_topics', { action: 'skip' });
+          renderFeedList();
           return;
         }
 
