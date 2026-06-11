@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Jun 9, 2026 | LLM Digest</title>
+  <meta name="description" content="Anthropic announced new Claude models, Fable 5 and Mythos 5. OpenAI published two Codex customer stories — Nextdoor (with GPT-5.5) and Notion — on real-world coding-agent workflows. Latent Space launched FrontierCode, a benchmark for code quality…" />
+  <link rel="canonical" href="https://www.llm-digest.com/daily/2026-06-09" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Jun 9, 2026" />
+  <meta property="og:description" content="Anthropic announced new Claude models, Fable 5 and Mythos 5. OpenAI published two Codex customer stories — Nextdoor (with GPT-5.5) and Notion — on real-world coding-agent workflows. Latent Space launched FrontierCode, a benchmark for code quality…" />
+  <meta property="og:url" content="https://www.llm-digest.com/daily/2026-06-09" />
+  <meta property="article:published_time" content="2026-06-10T00:20:00+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What happened in AI — Jun 9, 2026" />
+  <meta name="twitter:description" content="Anthropic announced new Claude models, Fable 5 and Mythos 5. OpenAI published two Codex customer stories — Nextdoor (with GPT-5.5) and Notion — on real-world coding-agent workflows. Latent Space launched FrontierCode, a benchmark for code quality…" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/api/rss" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "What happened in AI — Jun 9, 2026", "description": "Anthropic announced new Claude models, Fable 5 and Mythos 5. OpenAI published two Codex customer stories — Nextdoor (with GPT-5.5) and Notion — on real-world coding-agent workflows. Latent Space launched FrontierCode, a benchmark for code quality…", "datePublished": "2026-06-10T00:20:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-09", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com"}}</script>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 AI Daily Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">9 articles · 4 categories</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/voices" role="button">🗣️ Voices</a>
+        <a href="/api/daily?date=2026-06-09" role="button">JSON</a>
+        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09" selected>2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title">What happened in AI — Jun 9, 2026</h2>
+      <p class="recap-range">Tuesday, Jun 9, 2026</p>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Anthropic announced new Claude models, Fable 5 and Mythos 5.</li><li>OpenAI published two Codex customer stories — Nextdoor (with GPT-5.5) and Notion — on real-world coding-agent workflows.</li><li>Latent Space launched FrontierCode, a benchmark for code quality over &quot;slop.&quot;</li><li>Open-source search agent Harness-1 reportedly outperforms GPT-5.4 on recall.</li><li>Cost control surfaced as a theme: a local TypeScript guardrail for agent cost failures and tooling to track per-model token spend.</li><li>Karpathy on software &quot;on a tap&quot;: as it gets cheaper to produce, demand for it grows (Jevons paradox).</li></ul></div><p>Anthropic set the tone on the frontier, announcing new Claude models — Fable 5 and Mythos 5 — the day&#x27;s headline release. Around it, the story was overwhelmingly about coding agents proving their worth in production: OpenAI published back-to-back customer dispatches on how Nextdoor and Notion are building with Codex, from chasing hard-to-reproduce bugs to one-shotting specs and shipping features across small teams.</p><p>Underneath the productivity gains ran a quieter thread about quality and cost. Latent Space introduced FrontierCode, a benchmark explicitly aimed at &quot;code quality over slop&quot;; a developer shipped a local TypeScript guardrail to cap AI agent cost failures; and an open-source search agent, Harness-1, claimed to beat GPT-5.4 on recall. Andrej Karpathy framed the moment well — as working software &quot;comes out on a tap,&quot; Jevons paradox kicks in and demand for software only grows.</p><p>Tooling rounded out the day: AWS walked through an agentic incident-triage assistant, and Simon Willison shared a workflow for tracking per-model token costs across the coding agents running on his laptop.</p></div>
+      <nav class="toc"><a href="#frontier-models">Frontier Models (1)</a><a href="#coding-agents-at-work">Coding Agents at Work (3)</a><a href="#open-source-agent-tooling">Open Source &amp; Agent Tooling (3)</a><a href="#benchmarks-commentary">Benchmarks &amp; Commentary (2)</a></nav><section class="cat" id="frontier-models"><h2>Frontier Models <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s marquee release from a frontier lab.</p><div class="articles"><article><h3><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener" data-track="daily-link">Claude Fable 5 Mythos 5</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jun 9</span></div><p class="art-summary">Anthropic announces new Claude models, Fable 5 and Mythos 5.</p></article></div></section><section class="cat" id="coding-agents-at-work"><h2>Coding Agents at Work <span class="count">3 items</span></h2><p class="cat-summary">Real-world dispatches on teams putting coding and operations agents into production workflows.</p><div class="articles"><article><h3><a href="https://openai.com/index/nextdoor" target="_blank" rel="noopener" data-track="daily-link">How engineers at Nextdoor use Codex to build without limits</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Jun 9</span></div><p class="art-summary">Nextdoor&#x27;s engineers use Codex with GPT-5.5 to investigate hard-to-reproduce issues, build across platforms, and stay focused on product outcomes.</p></article><article><h3><a href="https://openai.com/index/notion" target="_blank" rel="noopener" data-track="daily-link">What Codex unlocks for Notion</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Jun 9</span></div><p class="art-summary">Notion uses Codex to one-shot specs, build AI Voice Input for the web, and multiply engineering output across small teams.</p></article><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/build-an-agentic-incident-triage-assistant-with-amazon-quick-and-new-relic/" target="_blank" rel="noopener" data-track="daily-link">Build an agentic incident triage assistant with Amazon Quick and New Relic</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 9</span></div><p class="art-summary">An AWS walkthrough for building a custom incident-triage agent with Amazon Quick and New Relic, applied to one of engineering&#x27;s most time-sensitive workflows.</p></article></div></section><section class="cat" id="open-source-agent-tooling"><h2>Open Source &amp; Agent Tooling <span class="count">3 items</span></h2><p class="cat-summary">Open models and the practical scaffolding around agents — recall-focused search, cost guardrails, and usage visibility.</p><div class="articles"><article><h3><a href="https://venturebeat.com/orchestration/researchers-trained-an-open-source-ai-search-agent-harness-1-that-outperforms-gpt-5-4-on-recalling-relevant-information" target="_blank" rel="noopener" data-track="daily-link">Open Source Agent, Harness-1, Outperforms GPT-5.4 on Recall</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 9</span></div><p class="art-summary">Researchers trained an open-source AI search agent, Harness-1, that reportedly beats GPT-5.4 at recalling relevant information.</p></article><article><h3><a href="https://github.com/salimassili62-afk/ai-costguard" target="_blank" rel="noopener" data-track="daily-link">I built a local TypeScript guardrail for AI agent cost failures</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 9</span></div><p class="art-summary">ai-costguard, a local TypeScript guardrail aimed at catching and capping runaway AI agent cost failures.</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/9/agentsview-custom-model-price/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Setting a custom price for a model in AgentsView</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Simon Willison on using AgentsView (by Wes McKinney) to explore token usage across coding agents on his laptop, including setting custom per-model pricing.</p></article></div></section><section class="cat" id="benchmarks-commentary"><h2>Benchmarks &amp; Commentary <span class="count">2 items</span></h2><p class="cat-summary">Measuring code quality rather than volume — and reflecting on what abundant software means.</p><div class="articles"><article><h3><a href="https://www.latent.space/p/ainews-frontiercode-benchmarking" target="_blank" rel="noopener" data-track="daily-link">[AINews] FrontierCode: Benchmarking for Code Quality over Slop</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 9</span></div><p class="art-summary">Latent Space introduces FrontierCode, a benchmark designed to measure code quality rather than reward high-volume &quot;slop.&quot;</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/9/andrej-karpathy/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Quoting Andrej Karpathy</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Karpathy on software increasingly &quot;coming out on a tap&quot;: as it gets cheaper to produce, Jevons paradox kicks in and demand for software grows substantially.</p></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/api/rss">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+</body>
+</html>

@@ -16,9 +16,10 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 
-from daily_common import DATE_FILE_RE, DAILY_DIR, load_json, validate_recap, write_json
+from daily_common import DATE_FILE_RE, DAILY_DIR, ROOT, load_json, validate_recap, write_json
 
 
 def main() -> None:
@@ -69,6 +70,11 @@ def main() -> None:
             write_json(DAILY_DIR / "latest.json", latest)
 
     print(f"index rebuilt: {len(entries)} recap(s)" + (f", {errors_total} skipped (invalid)" if errors_total else ""))
+
+    # Refresh the pre-rendered /daily/<date> pages + sitemap (SEO/link previews).
+    render = ROOT / "pipeline" / "render_static_pages.py"
+    subprocess.run([sys.executable, str(render)], check=True)
+
     if errors_total:
         sys.exit(1)
 

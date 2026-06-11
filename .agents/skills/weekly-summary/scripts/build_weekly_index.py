@@ -16,9 +16,10 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import subprocess
 import sys
 
-from weekly_common import WEEK_FILE_RE, WEEKLY_DIR, load_json, validate_recap, write_json
+from weekly_common import WEEK_FILE_RE, WEEKLY_DIR, ROOT, load_json, validate_recap, write_json
 
 
 def main() -> None:
@@ -71,6 +72,11 @@ def main() -> None:
             write_json(WEEKLY_DIR / "latest.json", latest)
 
     print(f"index rebuilt: {len(entries)} recap(s)" + (f", {errors_total} skipped (invalid)" if errors_total else ""))
+
+    # Refresh the pre-rendered /weekly/<week> pages + sitemap (SEO/link previews).
+    render = ROOT / "pipeline" / "render_static_pages.py"
+    subprocess.run([sys.executable, str(render)], check=True)
+
     if errors_total:
         sys.exit(1)
 

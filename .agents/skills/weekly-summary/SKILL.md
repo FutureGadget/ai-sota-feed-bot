@@ -122,12 +122,14 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 python .agents/skills/weekly-summary/scripts/build_weekly_index.py
 ```
 Validates every recap against the schema and rebuilds
-`data/weekly/index.json` + `data/weekly/latest.json`. It exits non-zero on a
-malformed recap — fix and re-run until clean. (`--check` validates without writing.)
+`data/weekly/index.json` + `data/weekly/latest.json`, then re-renders the
+static `/weekly/<week>` pages + sitemap (`web/weekly/`, `web/sitemap.xml`) via
+`pipeline/render_static_pages.py`. It exits non-zero on a malformed recap —
+fix and re-run until clean. (`--check` validates without writing.)
 
 ### 5. Post it (commit + push)
 ```bash
-git add data/weekly/
+git add data/weekly/ web/weekly/ web/sitemap.xml web/robots.txt
 git commit -m "weekly recap: <week>"
 git push
 ```
