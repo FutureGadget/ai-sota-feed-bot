@@ -344,6 +344,12 @@
       line-height: 1.55;
       overflow-wrap: anywhere;
       word-break: break-word;
+      /* Publisher summaries can run 5-6 lines on mobile; clamp so the first
+         screen fits ~3 stories instead of 1. The headline link has the rest. */
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
     }
     .matters {
       margin: 0.45rem 0 0;
@@ -431,14 +437,29 @@
     .catchup .catchup-summary {
       color: var(--muted);
     }
+    .catchup li .badge {
+      font-size: 0.72rem;
+      padding: 0.05rem 0.4rem;
+      vertical-align: 0.08em;
+    }
+    .catchup-more {
+      margin: 0.55rem 0 0;
+      font-size: 0.88rem;
+    }
+    .catchup-more a {
+      text-decoration: none;
+    }
+    .catchup-more a:hover {
+      text-decoration: underline;
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
       border-radius: 10px;
-      padding: 0.8rem 1rem;
+      padding: 0.65rem 0.9rem;
     }
     .onboard-head {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
     }
     .onboard-head span {
       color: var(--muted);
@@ -446,12 +467,13 @@
     .onboard-chips {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 0.4rem;
-      margin-top: 0.6rem;
+      margin-top: 0.5rem;
     }
     .onboard-chips button {
-      font-size: 0.9rem;
-      padding: 0.3rem 0.7rem;
+      font-size: 0.88rem;
+      padding: 0.28rem 0.65rem;
       border: 1px solid var(--border);
       border-radius: 999px;
       background: transparent;
@@ -464,27 +486,18 @@
       color: #fff;
       font-weight: 600;
     }
-    .onboard-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.7rem;
-    }
-    .onboard-actions button {
-      font-size: 0.88rem;
-      padding: 0.32rem 0.7rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--card);
-      cursor: pointer;
-    }
-    .onboard-actions button[data-onboard-save]:not([disabled]) {
+    .onboard-chips button[data-onboard-save]:not([disabled]) {
       border-color: var(--accent);
       color: var(--accent);
       font-weight: 600;
     }
-    .onboard-actions button[disabled] {
+    .onboard-chips button[data-onboard-save][disabled] {
       opacity: 0.5;
       cursor: default;
+    }
+    .onboard-chips button[data-onboard-skip] {
+      border-color: transparent;
+      color: var(--muted);
     }
     .state {
       border: 1px dashed var(--border, #d9d9d9);
@@ -501,6 +514,10 @@
       }
       .topbar h1 {
         font-size: 1.35rem;
+      }
+      .thumb {
+        width: 64px;
+        height: 64px;
       }
     }
   </style>
@@ -572,14 +589,32 @@
       });
     }
 
+    // Dates are forced to en-US: the UI copy is English, and the device
+    // locale (e.g. ko-KR "6월 10일") next to English chrome reads as a bug.
     function fmtCompactDate(v) {
       if (!v) return '';
       const d = new Date(v);
       if (Number.isNaN(d.getTime())) return '';
       const sameYear = d.getFullYear() === new Date().getFullYear();
-      return d.toLocaleDateString(undefined, sameYear
+      return d.toLocaleDateString('en-US', sameYear
         ? { month: 'short', day: 'numeric' }
         : { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    // Card timestamps: relative within a week ("2h ago", "yesterday") —
+    // easier to scan than absolute dates — then fall back to "Jun 10".
+    function fmtCardDate(v) {
+      const t = Date.parse(v || '');
+      if (!Number.isFinite(t)) return '';
+      const mins = Math.round((Date.now() - t) / 60000);
+      if (mins < 1) return 'just now';
+      if (mins < 60) return `${mins}m ago`;
+      const hours = Math.round(mins / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.round(hours / 24);
+      if (days === 1) return 'yesterday';
+      if (days < 7) return `${days}d ago`;
+      return fmtCompactDate(v);
     }
 
     function fmtRelTime(iso) {
@@ -1020,11 +1055,50 @@
       return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now()}`;
     }
 
-    async function initPosthog() {
+    // Daily digest subscription (growth loop): a public Telegram channel URL
+    // from /api/client-config. CTAs render only when configured, so the UI
+    // carries no dead "subscribe" affordances on unconfigured deploys.
+    let digestTelegramUrl = '';
+
+    function renderDigestCtas() {
+      if (!digestTelegramUrl) return;
+      const nav = document.querySelector('.quicknav');
+      if (nav && !nav.querySelector('[data-digest-cta="quicknav"]')) {
+        const a = document.createElement('a');
+        a.href = digestTelegramUrl;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.dataset.digestCta = 'quicknav';
+        a.textContent = '📬 Daily digest';
+        nav.appendChild(a);
+      }
+      const foot = document.querySelector('.sitefooter');
+      if (foot && !foot.querySelector('[data-digest-cta="footer"]')) {
+        const a = document.createElement('a');
+        a.href = digestTelegramUrl;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.dataset.digestCta = 'footer';
+        a.textContent = '📬 Daily Telegram digest';
+        foot.prepend(a, document.createTextNode(' · '));
+      }
+    }
+
+    async function initClientConfig() {
       try {
         const res = await fetch('/api/client-config');
         if (!res.ok) return;
         const cfg = await res.json();
+
+        const tg = String(cfg?.digest?.telegram_url || '');
+        if (safeUrl(tg) !== '#' && tg) {
+          digestTelegramUrl = tg;
+          renderDigestCtas();
+          // The catch-up brief includes a subscribe link; re-render so it
+          // picks the URL up if the feed finished loading before the config.
+          if (viewState === 'feed' && feedCache.items.length) renderFeedList();
+        }
+
         const ph = cfg?.posthog || {};
         if (!ph.enabled || !ph.project_api_key) return;
 
@@ -1127,22 +1201,75 @@
       }
     }
 
+    // Human display names for source slugs (config/sources.yaml). Raw ids
+    // like "infoq_ai_ml" in the byline read as scraper output, not curation.
+    const SOURCE_NAMES = {
+      arxiv_cs_ai: 'arXiv cs.AI',
+      arxiv_cs_lg: 'arXiv cs.LG',
+      arxiv_cs_cl: 'arXiv cs.CL',
+      paperswithcode_latest: 'Papers with Code',
+      openai_blog: 'OpenAI Blog',
+      anthropic_newsroom: 'Anthropic Newsroom',
+      anthropic_engineering: 'Anthropic Engineering',
+      anthropic_research: 'Anthropic Research',
+      huggingface_blog: 'Hugging Face Blog',
+      nvidia_blog: 'NVIDIA Blog',
+      google_ai_blog: 'Google AI Blog',
+      aws_ml_blog: 'AWS ML Blog',
+      vllm_releases: 'vLLM Releases',
+      triton_releases: 'Triton Releases',
+      llamaindex_releases: 'LlamaIndex Releases',
+      langgraph_releases: 'LangGraph Releases',
+      openai_codex_releases: 'OpenAI Codex Releases',
+      claude_code_releases: 'Claude Code Releases',
+      claude_agent_sdk_python_releases: 'Claude Agent SDK Releases',
+      claude_blog: 'Claude Blog',
+      hackernews_ai: 'Hacker News AI',
+      infoq_ai_ml: 'InfoQ AI/ML',
+      simon_willison: 'Simon Willison',
+      latent_space: 'Latent Space',
+      langchain_blog: 'LangChain Blog',
+      search_agent_engineering_news: 'Agent Engineering News',
+      search_llm_ops_news: 'LLM Ops News',
+    };
+    const SOURCE_ACRONYMS = new Set(['ai', 'ml', 'llm', 'aws', 'api', 'sdk', 'gpu']);
+
+    function sourceDisplayName(slug) {
+      const s = String(slug || '').trim();
+      if (!s) return 'unknown';
+      if (SOURCE_NAMES[s]) return SOURCE_NAMES[s];
+      // Unknown slug: best-effort prettify so new sources degrade gracefully.
+      return s.split(/[_\s]+/)
+        .filter(Boolean)
+        .map((w) => SOURCE_ACRONYMS.has(w.toLowerCase()) ? w.toUpperCase() : w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
+    function cleanText(v) {
+      return String(v || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    // Older run snapshots still carry the generic heuristic placeholder;
+    // newer pipeline output is either LLM-written or an honest
+    // matched-topics line, both worth showing.
+    const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
+
+    function whyItMattersText(it) {
+      const why = cleanText(it.why_it_matters);
+      return why !== LEGACY_PLACEHOLDER_WHY ? why : '';
+    }
+
     function cardHtml(it, { rank = null, runId = '' } = {}) {
       const key = itemKey(it);
       const title = esc(it.title || 'Untitled');
-      const source = esc(it.source || 'unknown');
+      const source = esc(sourceDisplayName(it.source));
+      const sourceSlug = esc(it.source || 'unknown');
       const type = esc(it.type || 'news');
-      const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const summaryRaw = cleanText(it.summary_1line);
       const summary = esc(summaryRaw);
-      const published = fmtCompactDate(it.published || it.first_seen || it.last_seen);
-      const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-      // Older run snapshots still carry the generic heuristic placeholder;
-      // newer pipeline output is either LLM-written or an honest
-      // matched-topics line, both worth showing.
-      const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
-      const why = (whyRaw && whyRaw !== summaryRaw && whyRaw !== LEGACY_PLACEHOLDER_WHY)
-        ? esc(whyRaw)
-        : '';
+      const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
+      const whyRaw = whyItMattersText(it);
+      const why = (whyRaw && whyRaw !== summaryRaw) ? esc(whyRaw) : '';
       const href = safeUrl(it.url);
       const image = safeUrl(it.image_url || '');
       const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
@@ -1155,7 +1282,7 @@
       const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
       const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
       const alsoHtml = alsoCovered
-        .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(e.source)}</a>`)
+        .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(sourceDisplayName(e.source))}</a>`)
         .join(', ');
       const itemId = esc(key);
       const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
@@ -1182,7 +1309,7 @@
           </div>
           <div class="card-main">
             <div class="card-text">
-              <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${source}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
+              <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
               ${summary ? `<p class="why">${summary}</p>` : ''}
             </div>
             ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
@@ -1245,6 +1372,9 @@
       } catch {}
     }
 
+    // Kept compact and rendered a few cards into the feed (not above it):
+    // a first-time visitor should see stories on the first screen, then get
+    // the personalization nudge once the feed has shown its value.
     function onboardingHtml() {
       if (isOnboardingDone() || visitLastMs > 0 || pinnedLabelsState.length) return '';
       const chips = ONBOARD_TOPICS.map(({ value, label }) =>
@@ -1252,9 +1382,9 @@
       ).join('');
       return `
         <section class="onboard" aria-label="Personalize your feed">
-          <div class="onboard-head"><strong>👋 New here?</strong> <span>Pick the topics you care about — they'll become your default view on every visit.</span></div>
-          <div class="onboard-chips">${chips}</div>
-          <div class="onboard-actions">
+          <div class="onboard-head"><strong>👋 Liking this?</strong> <span>Pick your topics — they'll be your default view here.</span></div>
+          <div class="onboard-chips">
+            ${chips}
             <button type="button" data-onboard-save="1"${onboardSelection.size ? '' : ' disabled'}>Save topics</button>
             <button type="button" data-onboard-skip="1">Skip</button>
           </div>
@@ -1286,7 +1416,7 @@
       if (Number.isNaN(d.getTime())) return '';
       const today = new Date();
       if (d.toDateString() === today.toDateString()) return 'earlier today';
-      return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+      return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
     }
 
     function catchupHtml(items) {
@@ -1300,12 +1430,15 @@
       const picks = fresh
         .map((it, i) => ({ it, i, sources: (Array.isArray(it.also_covered) ? it.also_covered.length : 0) + 1 }))
         .sort((a, b) => b.sources - a.sources || a.i - b.i)
-        .slice(0, 3);
+        .slice(0, 5);
 
-      const bullets = picks.map(({ it }) => {
-        const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-        const short = summaryRaw.length > 110 ? `${summaryRaw.slice(0, 110).trimEnd()}…` : summaryRaw;
-        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
+      const bullets = picks.map(({ it, sources }) => {
+        // Lead with why-it-matters when the pipeline has real signal; the
+        // publisher summary is the fallback, not the headline act.
+        const lineRaw = whyItMattersText(it) || cleanText(it.summary_1line);
+        const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
+        const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
+        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
       }).join('');
 
       if (!catchupViewCaptured) {
@@ -1313,14 +1446,16 @@
         posthogCapture('catchup_view', { new_count: fresh.length, shown: picks.length });
       }
 
+      const topicsNote = getSelectedLabels().length ? ' in your topics' : '';
       return `
         <section class="catchup" aria-label="Catch up since your last visit">
           <div class="catchup-head">
             <strong>⚡ Catch me up</strong>
-            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}</span>
+            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}${topicsNote}</span>
             <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
           </div>
           <ul>${bullets}</ul>
+          <p class="catchup-more"><a href="/daily">Read the full daily recap →</a>${digestTelegramUrl ? ` · <a href="${safeUrl(digestTelegramUrl)}" target="_blank" rel="noopener" data-digest-cta="catchup">📬 Get this as a daily Telegram digest</a>` : ''}</p>
         </section>`;
     }
 
@@ -1334,7 +1469,7 @@
       for (const it of all) {
         const title = String(it.title || 'Untitled').replace(/[\[\]]/g, '');
         const date = fmtCompactDate(it.published || it.saved_at);
-        lines.push(`- [${title}](${it.url || ''})${it.source ? ` — ${it.source}` : ''}${date ? `, ${date}` : ''}`);
+        lines.push(`- [${title}](${it.url || ''})${it.source ? ` — ${sourceDisplayName(it.source)}` : ''}${date ? `, ${date}` : ''}`);
         const summary = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
         if (summary) lines.push(`  ${summary}`);
       }
@@ -1368,9 +1503,14 @@
       const newNote = newSince > 0 ? ` · ${newSince} new since your last visit` : '';
       const selectedLabels = getSelectedLabels();
       const labelNote = selectedLabels.length ? ` · topics: ${selectedLabels.join(', ')}` : '';
+      // "159 stories" alone reads as homework; naming the window frames it
+      // as coverage ("everything from the last 7 days") instead of a backlog.
+      const RANGE_LABELS = { 1: 'today', 3: 'last 3 days', 7: 'last 7 days', 30: 'last 30 days' };
+      const rangeLabel = (customRangeState.from || customRangeState.to) ? '' : RANGE_LABELS[presetDaysState] || '';
+      const rangeNote = rangeLabel ? ` ${rangeLabel === 'today' ? 'today' : `from the ${rangeLabel}`}` : '';
       const countText = q
         ? `${visible.length} of ${items.length} stories`
-        : `${items.length} ${items.length === 1 ? 'story' : 'stories'}`;
+        : `${items.length} ${items.length === 1 ? 'story' : 'stories'}${rangeNote}`;
       document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}`;
       syncSectionTabs();
 
@@ -1381,8 +1521,15 @@
         return;
       }
 
-      const pinnedCards = q ? '' : onboardingHtml() + catchupHtml(items);
-      list.innerHTML = pinnedCards + visible.map((it, i) => cardHtml(it, { rank: i + 1, runId })).join('');
+      const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
+      if (!q) {
+        // Onboarding goes after the 3rd story; catch-up (returning visitors,
+        // mutually exclusive with onboarding) stays pinned on top.
+        const onboard = onboardingHtml();
+        if (onboard) cards.splice(Math.min(3, cards.length), 0, onboard);
+        cards.unshift(catchupHtml(items));
+      }
+      list.innerHTML = cards.join('');
     }
 
     async function run() {
@@ -1610,11 +1757,18 @@
       });
     }
 
+    // Subscribe CTAs live in three places (quicknav, catch-up brief, footer);
+    // one document-level listener attributes clicks by placement.
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-digest-cta]');
+      if (a) posthogCapture('digest_subscribe_click', { placement: a.dataset.digestCta });
+    });
+
     initThemeToggle();
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
-    initPosthog();
+    initClientConfig();
     refreshFeed();
   </script>
 </body>
