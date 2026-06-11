@@ -595,7 +595,8 @@
       }
 
       const labels = p.getAll('label').flatMap((v) => String(v).split(','));
-      setSelectedLabels(labels);
+      // No labels in the URL → fall back to the reader's pinned defaults.
+      setSelectedLabels(labels.some((l) => normalizeLabel(l)) ? labels : pinnedLabelsState);
     }
 
     function syncUrlFromFilters() {
@@ -618,6 +619,31 @@
     }
 
     let selectedLabelsState = new Set();
+
+    // Pinned "my topics": label selection saved as the reader's default,
+    // auto-applied on visits that don't specify labels in the URL.
+    const PINNED_LABELS_KEY = 'ai_feed_pinned_labels_v1';
+
+    function loadPinnedLabels() {
+      try {
+        const v = JSON.parse(localStorage.getItem(PINNED_LABELS_KEY) || '[]');
+        return Array.isArray(v) ? v.map((l) => normalizeLabel(l)).filter(Boolean) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    let pinnedLabelsState = loadPinnedLabels();
+
+    function persistPinnedLabels() {
+      try {
+        localStorage.setItem(PINNED_LABELS_KEY, JSON.stringify(pinnedLabelsState));
+      } catch {}
+    }
+
+    function sameLabels(a, b) {
+      return a.length === b.length && [...a].sort().join(',') === [...b].sort().join(',');
+    }
 
     // Section tabs are a quick-select over the existing label filter.
     // Each maps to a single llm_category/type label value.
@@ -666,11 +692,16 @@
       const box = document.getElementById('selectedLabels');
       if (!box) return;
       const labels = getSelectedLabels();
-      if (!labels.length) {
-        box.innerHTML = '';
-        return;
+      const chips = labels.map((l) => `<button type="button" class="badge" data-chip-remove="${esc(l)}">#${esc(l)} ×</button>`);
+
+      if (labels.length) {
+        const isPinned = sameLabels(labels, pinnedLabelsState);
+        chips.push(`<button type="button" class="badge" data-pin-toggle="1" aria-pressed="${isPinned ? 'true' : 'false'}" title="${isPinned ? 'Unpin: stop applying these labels by default' : 'Pin: apply these labels by default on every visit'}">${isPinned ? '📌 Pinned ✓' : '📌 Pin as default'}</button>`);
+      } else if (pinnedLabelsState.length) {
+        chips.push(`<button type="button" class="badge" data-pin-apply="1" title="Apply your pinned labels">📌 My topics: ${pinnedLabelsState.map((l) => `#${esc(l)}`).join(' ')}</button>`);
       }
-      box.innerHTML = labels.map((l) => `<button type="button" class="badge" data-chip-remove="${esc(l)}">#${esc(l)} ×</button>`).join('');
+
+      box.innerHTML = chips.join('');
     }
 
     function buildFeedUrl() {
@@ -1077,6 +1108,23 @@
       });
 
       document.getElementById('selectedLabels')?.addEventListener('click', (e) => {
+        if (e.target.closest('button[data-pin-toggle]')) {
+          const labels = getSelectedLabels();
+          const unpin = sameLabels(labels, pinnedLabelsState);
+          pinnedLabelsState = unpin ? [] : labels;
+          persistPinnedLabels();
+          posthogCapture('labels_pin', { action: unpin ? 'unpin' : 'pin', labels: pinnedLabelsState });
+          renderSelectedLabelsChips();
+          return;
+        }
+
+        if (e.target.closest('button[data-pin-apply]')) {
+          setSelectedLabels(pinnedLabelsState);
+          posthogCapture('labels_pin', { action: 'apply', labels: pinnedLabelsState });
+          refreshFeed({ exitSaved: true });
+          return;
+        }
+
         const btn = e.target.closest('button[data-chip-remove]');
         if (!btn) return;
         const next = new Set(getSelectedLabels());

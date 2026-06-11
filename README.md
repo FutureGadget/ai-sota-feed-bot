@@ -71,6 +71,9 @@ Current web app behavior:
 - Trending badges on feed cards: `🔥 N sources` (cross-source coverage from
   `also_covered`) and `📈 Climbing` (rank improved ≥2 positions between the two
   most recent runs, via `rank_at_last_seen` vs `rank_prev_seen`)
+- Pinned "my topics": readers can pin the current label selection as their
+  default (localStorage); it auto-applies on visits without `?label=` in the
+  URL, with a one-tap re-apply chip after clearing filters (`labels_pin` event)
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
 - PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
