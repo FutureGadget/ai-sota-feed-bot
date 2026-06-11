@@ -437,6 +437,21 @@
     .catchup .catchup-summary {
       color: var(--muted);
     }
+    .catchup li .badge {
+      font-size: 0.72rem;
+      padding: 0.05rem 0.4rem;
+      vertical-align: 0.08em;
+    }
+    .catchup-more {
+      margin: 0.55rem 0 0;
+      font-size: 0.88rem;
+    }
+    .catchup-more a {
+      text-decoration: none;
+    }
+    .catchup-more a:hover {
+      text-decoration: underline;
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -1191,23 +1206,31 @@
         .join(' ');
     }
 
+    function cleanText(v) {
+      return String(v || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    // Older run snapshots still carry the generic heuristic placeholder;
+    // newer pipeline output is either LLM-written or an honest
+    // matched-topics line, both worth showing.
+    const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
+
+    function whyItMattersText(it) {
+      const why = cleanText(it.why_it_matters);
+      return why !== LEGACY_PLACEHOLDER_WHY ? why : '';
+    }
+
     function cardHtml(it, { rank = null, runId = '' } = {}) {
       const key = itemKey(it);
       const title = esc(it.title || 'Untitled');
       const source = esc(sourceDisplayName(it.source));
       const sourceSlug = esc(it.source || 'unknown');
       const type = esc(it.type || 'news');
-      const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+      const summaryRaw = cleanText(it.summary_1line);
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
-      const whyRaw = String(it.why_it_matters || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-      // Older run snapshots still carry the generic heuristic placeholder;
-      // newer pipeline output is either LLM-written or an honest
-      // matched-topics line, both worth showing.
-      const LEGACY_PLACEHOLDER_WHY = 'Potential relevance to AI platform engineering; verify practical impact.';
-      const why = (whyRaw && whyRaw !== summaryRaw && whyRaw !== LEGACY_PLACEHOLDER_WHY)
-        ? esc(whyRaw)
-        : '';
+      const whyRaw = whyItMattersText(it);
+      const why = (whyRaw && whyRaw !== summaryRaw) ? esc(whyRaw) : '';
       const href = safeUrl(it.url);
       const image = safeUrl(it.image_url || '');
       const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
@@ -1368,12 +1391,15 @@
       const picks = fresh
         .map((it, i) => ({ it, i, sources: (Array.isArray(it.also_covered) ? it.also_covered.length : 0) + 1 }))
         .sort((a, b) => b.sources - a.sources || a.i - b.i)
-        .slice(0, 3);
+        .slice(0, 5);
 
-      const bullets = picks.map(({ it }) => {
-        const summaryRaw = String(it.summary_1line || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
-        const short = summaryRaw.length > 110 ? `${summaryRaw.slice(0, 110).trimEnd()}…` : summaryRaw;
-        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
+      const bullets = picks.map(({ it, sources }) => {
+        // Lead with why-it-matters when the pipeline has real signal; the
+        // publisher summary is the fallback, not the headline act.
+        const lineRaw = whyItMattersText(it) || cleanText(it.summary_1line);
+        const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
+        const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
+        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
       }).join('');
 
       if (!catchupViewCaptured) {
@@ -1381,14 +1407,16 @@
         posthogCapture('catchup_view', { new_count: fresh.length, shown: picks.length });
       }
 
+      const topicsNote = getSelectedLabels().length ? ' in your topics' : '';
       return `
         <section class="catchup" aria-label="Catch up since your last visit">
           <div class="catchup-head">
             <strong>⚡ Catch me up</strong>
-            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}</span>
+            <span class="catchup-sub">Since your last visit (${esc(lastVisitLabel())}): ${fresh.length} new ${fresh.length === 1 ? 'story' : 'stories'}${topicsNote}</span>
             <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
           </div>
           <ul>${bullets}</ul>
+          <p class="catchup-more"><a href="/daily">Read the full daily recap →</a></p>
         </section>`;
     }
 
