@@ -299,7 +299,7 @@ def render_head(*, title: str, description: str, canonical: str, published: str 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="{escape(title)}" />
   <meta name="twitter:description" content="{escape(description)}" />
-  <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/api/rss" />
+  <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
   <script type="application/ld+json">{json_ld}</script>
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script>
@@ -353,7 +353,7 @@ def render_page(
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/api/rss">RSS</a>
+      <a href="/rss.xml">RSS</a>
     </footer>
   </main>
   <script>
@@ -400,7 +400,7 @@ def render_daily_pages(base_url: str) -> list[str]:
             published=iso_or_none(recap.get("generated_at")),
             h1="📰 AI Daily Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices")],
+            nav_links=[("/", "← Live feed"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
@@ -435,7 +435,7 @@ def render_weekly_pages(base_url: str) -> list[str]:
             published=iso_or_none(recap.get("generated_at")),
             h1="🗓️ AI Weekly Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices")],
+            nav_links=[("/", "← Live feed"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,

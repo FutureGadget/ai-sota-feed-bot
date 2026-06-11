@@ -11,6 +11,9 @@ export default async function handler(req, res) {
   // Public Telegram channel for the daily digest; subscribe CTAs only render
   // when this is configured (e.g. https://t.me/your_channel).
   const digestTelegram = String(process.env.DIGEST_TELEGRAM_URL || '').trim();
+  // Optional email-digest signup page (e.g. a Buttondown/RSS-to-email form);
+  // the subscribe menu shows an email option only when this is configured.
+  const emailSignup = String(process.env.DIGEST_EMAIL_SIGNUP_URL || '').trim();
 
   return res.status(200).json({
     posthog: {
@@ -20,6 +23,7 @@ export default async function handler(req, res) {
     },
     digest: {
       telegram_url: /^https:\/\//.test(digestTelegram) ? digestTelegram : null,
+      email_signup_url: /^https:\/\//.test(emailSignup) ? emailSignup : null,
     },
   });
 }

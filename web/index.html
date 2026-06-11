@@ -12,7 +12,7 @@
   <meta property="og:description" content="A low-hype AI news feed for platform engineers: model releases, research, and tooling — ranked for what changed and why it matters." />
   <meta property="og:url" content="https://www.llm-digest.com/" />
   <meta name="twitter:card" content="summary" />
-  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/api/rss" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script>
     (function () {
@@ -465,6 +465,42 @@
     .catchup-more a:hover {
       text-decoration: underline;
     }
+    .subscribe-wrap {
+      position: relative;
+    }
+    .subscribe-menu {
+      position: absolute;
+      right: 0;
+      top: calc(100% + 6px);
+      min-width: 240px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.4rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      text-align: left;
+    }
+    .subscribe-menu a {
+      display: block;
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+    .subscribe-menu a:hover {
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+    .subscribe-menu .sub-desc {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -484,7 +520,8 @@
       gap: 0.4rem;
       margin-top: 0.5rem;
     }
-    .onboard-chips button {
+    .onboard-chips button,
+    .onboard-chips a[role="button"] {
       font-size: 0.88rem;
       padding: 0.28rem 0.65rem;
       border: 1px solid var(--border);
@@ -492,6 +529,15 @@
       background: transparent;
       cursor: pointer;
       color: inherit;
+      text-decoration: none;
+    }
+    .onboard-chips a[data-subscribe-channel] {
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      color: var(--accent);
+    }
+    .onboard-chips button[data-subscribe-nudge-skip] {
+      border-color: transparent;
+      color: var(--muted);
     }
     .onboard-chips button[aria-pressed="true"] {
       background: var(--accent);
@@ -541,6 +587,10 @@
       <div class="topbar">
         <h1>📰 AI Feed</h1>
         <div class="topbar-actions">
+          <div class="subscribe-wrap">
+            <button id="subscribeToggle" type="button" aria-label="Subscribe to the feed" aria-haspopup="true" aria-expanded="false">🔔</button>
+            <div id="subscribeMenu" class="subscribe-menu" hidden></div>
+          </div>
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
           <select id="rangeSelect" aria-label="Time range">
             <option value="1">Today</option>
@@ -576,7 +626,7 @@
     <section id="list" aria-live="polite"></section>
 
     <footer class="sitefooter">
-      <a href="/api/rss">RSS feed</a> · <a href="/api/feed">JSON feed</a>
+      <a href="/rss.xml" data-subscribe-channel="rss" data-subscribe-placement="footer">RSS feed</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -1123,9 +1173,53 @@
     }
 
     // Daily digest subscription (growth loop): a public Telegram channel URL
-    // from /api/client-config. CTAs render only when configured, so the UI
-    // carries no dead "subscribe" affordances on unconfigured deploys.
+    // and optional email signup page from /api/client-config. Channel CTAs
+    // render only when configured, so the UI carries no dead "subscribe"
+    // affordances on unconfigured deploys. RSS is always available.
     let digestTelegramUrl = '';
+    let emailSignupUrl = '';
+
+    function subscribeChannels() {
+      const channels = [
+        { channel: 'rss', href: '/rss.xml', label: '📡 RSS feed', desc: 'Every story, in your reader' },
+      ];
+      if (digestTelegramUrl) {
+        channels.push({ channel: 'telegram', href: digestTelegramUrl, label: '📬 Telegram daily digest', desc: 'Top stories, once a day', external: true });
+      }
+      if (emailSignupUrl) {
+        channels.push({ channel: 'email', href: emailSignupUrl, label: '✉️ Email digest', desc: 'The recap, in your inbox', external: true });
+      }
+      return channels;
+    }
+
+    function subscribeLinksHtml(placement) {
+      return subscribeChannels().map((c) =>
+        `<a href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="${esc(placement)}">${c.label}${c.desc ? `<span class="sub-desc">${esc(c.desc)}</span>` : ''}</a>`
+      ).join('');
+    }
+
+    function setSubscribeMenuOpen(open) {
+      const menu = document.getElementById('subscribeMenu');
+      const btn = document.getElementById('subscribeToggle');
+      if (!menu || !btn) return;
+      if (open) menu.innerHTML = subscribeLinksHtml('menu');
+      menu.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) posthogCapture('subscribe_menu_open', { channels: subscribeChannels().map((c) => c.channel) });
+    }
+
+    function initSubscribeMenu() {
+      const btn = document.getElementById('subscribeToggle');
+      const menu = document.getElementById('subscribeMenu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', () => setSubscribeMenuOpen(menu.hidden));
+      document.addEventListener('click', (e) => {
+        if (!menu.hidden && !e.target.closest('.subscribe-wrap')) setSubscribeMenuOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setSubscribeMenuOpen(false);
+      });
+    }
 
     function renderDigestCtas() {
       if (!digestTelegramUrl) return;
@@ -1158,8 +1252,10 @@
         const cfg = await res.json();
 
         const tg = String(cfg?.digest?.telegram_url || '');
-        if (safeUrl(tg) !== '#' && tg) {
-          digestTelegramUrl = tg;
+        if (safeUrl(tg) !== '#' && tg) digestTelegramUrl = tg;
+        const em = String(cfg?.digest?.email_signup_url || '');
+        if (safeUrl(em) !== '#' && em) emailSignupUrl = em;
+        if (digestTelegramUrl) {
           renderDigestCtas();
           // The catch-up brief includes a subscribe link; re-render so it
           // picks the URL up if the feed finished loading before the config.
@@ -1458,6 +1554,41 @@
         </section>`;
     }
 
+    // Subscribe nudge for returning readers: by the second visit the feed has
+    // shown its value, so make the retention ask — once, dismissibly. First
+    // visits get the topic onboarding instead (mutually exclusive via
+    // visitLastMs), and any subscribe click or "Not now" retires the nudge.
+    const SUBSCRIBE_NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
+
+    function isSubscribeNudgeDone() {
+      try {
+        return localStorage.getItem(SUBSCRIBE_NUDGE_DONE_KEY) === '1';
+      } catch {
+        return true;
+      }
+    }
+
+    function markSubscribeNudgeDone() {
+      try {
+        localStorage.setItem(SUBSCRIBE_NUDGE_DONE_KEY, '1');
+      } catch {}
+    }
+
+    function subscribeNudgeHtml() {
+      if (isSubscribeNudgeDone() || !(visitLastMs > 0)) return '';
+      const links = subscribeChannels().map((c) =>
+        `<a role="button" href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="nudge">${c.label}</a>`
+      ).join('');
+      return `
+        <section class="onboard" aria-label="Subscribe to the feed">
+          <div class="onboard-head"><strong>🔔 Good to see you back.</strong> <span>Get tomorrow's stories without having to check in.</span></div>
+          <div class="onboard-chips">
+            ${links}
+            <button type="button" data-subscribe-nudge-skip="1">Not now</button>
+          </div>
+        </section>`;
+    }
+
     // "Catch me up": a dismissable brief of the most important stories that
     // arrived since the reader's previous visit. Importance = cross-source
     // coverage first, then the feed's own ranking.
@@ -1590,10 +1721,10 @@
 
       const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
       if (!q) {
-        // Onboarding goes after the 3rd story; catch-up (returning visitors,
-        // mutually exclusive with onboarding) stays pinned on top.
-        const onboard = onboardingHtml();
-        if (onboard) cards.splice(Math.min(3, cards.length), 0, onboard);
+        // Onboarding (first visit) or subscribe nudge (returning visits) goes
+        // after the 3rd story; catch-up stays pinned on top.
+        const promo = onboardingHtml() || subscribeNudgeHtml();
+        if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
         cards.unshift(catchupHtml(items));
       }
       list.innerHTML = cards.join('');
@@ -1693,6 +1824,13 @@
         if (e.target.closest('button[data-catchup-dismiss]')) {
           dismissCatchup();
           posthogCapture('catchup_dismiss', {});
+          renderFeedList();
+          return;
+        }
+
+        if (e.target.closest('button[data-subscribe-nudge-skip]')) {
+          markSubscribeNudgeDone();
+          posthogCapture('subscribe_nudge_dismiss', {});
           renderFeedList();
           return;
         }
@@ -1825,14 +1963,28 @@
       });
     }
 
-    // Subscribe CTAs live in three places (quicknav, catch-up brief, footer);
-    // one document-level listener attributes clicks by placement.
+    // Subscribe CTAs live in several places (quicknav, catch-up brief, footer,
+    // subscribe menu, returning-visitor nudge); document-level listeners
+    // attribute clicks by placement.
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-digest-cta]');
       if (a) posthogCapture('digest_subscribe_click', { placement: a.dataset.digestCta });
     });
 
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-subscribe-channel]');
+      if (!a) return;
+      posthogCapture('subscribe_click', {
+        channel: a.dataset.subscribeChannel || null,
+        placement: a.dataset.subscribePlacement || null,
+      });
+      // Any channel click retires the returning-visitor nudge.
+      if (a.dataset.subscribePlacement === 'nudge') markSubscribeNudgeDone();
+      setSubscribeMenuOpen(false);
+    });
+
     initThemeToggle();
+    initSubscribeMenu();
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
