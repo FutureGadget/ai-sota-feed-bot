@@ -1055,11 +1055,50 @@
       return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now()}`;
     }
 
-    async function initPosthog() {
+    // Daily digest subscription (growth loop): a public Telegram channel URL
+    // from /api/client-config. CTAs render only when configured, so the UI
+    // carries no dead "subscribe" affordances on unconfigured deploys.
+    let digestTelegramUrl = '';
+
+    function renderDigestCtas() {
+      if (!digestTelegramUrl) return;
+      const nav = document.querySelector('.quicknav');
+      if (nav && !nav.querySelector('[data-digest-cta="quicknav"]')) {
+        const a = document.createElement('a');
+        a.href = digestTelegramUrl;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.dataset.digestCta = 'quicknav';
+        a.textContent = '📬 Daily digest';
+        nav.appendChild(a);
+      }
+      const foot = document.querySelector('.sitefooter');
+      if (foot && !foot.querySelector('[data-digest-cta="footer"]')) {
+        const a = document.createElement('a');
+        a.href = digestTelegramUrl;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.dataset.digestCta = 'footer';
+        a.textContent = '📬 Daily Telegram digest';
+        foot.prepend(a, document.createTextNode(' · '));
+      }
+    }
+
+    async function initClientConfig() {
       try {
         const res = await fetch('/api/client-config');
         if (!res.ok) return;
         const cfg = await res.json();
+
+        const tg = String(cfg?.digest?.telegram_url || '');
+        if (safeUrl(tg) !== '#' && tg) {
+          digestTelegramUrl = tg;
+          renderDigestCtas();
+          // The catch-up brief includes a subscribe link; re-render so it
+          // picks the URL up if the feed finished loading before the config.
+          if (viewState === 'feed' && feedCache.items.length) renderFeedList();
+        }
+
         const ph = cfg?.posthog || {};
         if (!ph.enabled || !ph.project_api_key) return;
 
@@ -1416,7 +1455,7 @@
             <button type="button" class="catchup-dismiss" data-catchup-dismiss="1" aria-label="Dismiss catch-up brief" title="Dismiss">×</button>
           </div>
           <ul>${bullets}</ul>
-          <p class="catchup-more"><a href="/daily">Read the full daily recap →</a></p>
+          <p class="catchup-more"><a href="/daily">Read the full daily recap →</a>${digestTelegramUrl ? ` · <a href="${safeUrl(digestTelegramUrl)}" target="_blank" rel="noopener" data-digest-cta="catchup">📬 Get this as a daily Telegram digest</a>` : ''}</p>
         </section>`;
     }
 
@@ -1718,11 +1757,18 @@
       });
     }
 
+    // Subscribe CTAs live in three places (quicknav, catch-up brief, footer);
+    // one document-level listener attributes clicks by placement.
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-digest-cta]');
+      if (a) posthogCapture('digest_subscribe_click', { placement: a.dataset.digestCta });
+    });
+
     initThemeToggle();
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
-    initPosthog();
+    initClientConfig();
     refreshFeed();
   </script>
 </body>

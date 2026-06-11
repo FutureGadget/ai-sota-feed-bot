@@ -63,6 +63,10 @@ export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
+To surface "subscribe to the daily digest" CTAs on the website, set
+`DIGEST_TELEGRAM_URL` (a public channel link like `https://t.me/your_channel`)
+in the Vercel environment. The CTAs stay hidden when it is unset.
+
 Current web app behavior:
 - Sends batched `impression` events to PostHog on feed render
 - Sends `click` events to PostHog when opening an item link
