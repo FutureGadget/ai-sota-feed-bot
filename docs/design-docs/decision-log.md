@@ -179,3 +179,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Reuse the already-deployed PostHog client as the event transport instead of adding a database or a git-writing endpoint — a daily workflow pulls `item_feedback` events into the repo, matching the existing git-as-database pattern. Feedback compounds: it feeds the v1.3 auto-tuning plan.
 - **Impact:** Feed cards show `👍 Useful / 👎 Not relevant / 🫧 Hype` (choice persisted in localStorage, retractable); new `pipeline/feedback.py` (`add` / `summary` / `sync-posthog`); new `.github/workflows/feedback-sync.yml` daily sync that no-ops without PostHog credentials.
 - **Rollback / Alternative:** Remove the feedback row from `web/index.html` and disable the sync workflow; events already in `events.jsonl` remain usable.
+
+## 2026-06-11
+- **Decision:** Surface trending signals already computed by the feed API as card badges: `🔥 N sources` (cross-source coverage) and `📈 Climbing` (rank improvement).
+- **Context / Problem:** `also_covered`, `seen_count`, and `rank_at_last_seen` existed in the API payload but nothing told readers "is this actually important?" at a glance; the API also lacked a previous-rank baseline to derive a trend from.
+- **Rationale:** Zero new pipeline work — `accumulateItems` already walks runs newest-first, so the second sighting of an item yields the previous rank (`rank_prev_seen`). Badges keep positive signals only (no "falling" noise) with a ≥2-position climb threshold to avoid jitter.
+- **Impact:** `api/feed.js` adds `rank_prev_seen` per item; `web/index.html` renders the two badges in the card meta row with tooltips.
+- **Rollback / Alternative:** Remove the badge markup from `cardHtml`; `rank_prev_seen` is additive and harmless to leave in the API.

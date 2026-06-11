@@ -68,6 +68,9 @@ Current web app behavior:
 - Sends `click` events to PostHog when opening an item link
 - One-tap reader feedback on every feed card (`👍 Useful / 👎 Not relevant / 🫧 Hype`),
   persisted in localStorage and sent to PostHog as `item_feedback`
+- Trending badges on feed cards: `🔥 N sources` (cross-source coverage from
+  `also_covered`) and `📈 Climbing` (rank improved ≥2 positions between the two
+  most recent runs, via `rank_at_last_seen` vs `rank_prev_seen`)
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
 - PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
@@ -91,6 +94,7 @@ Spec: `docs/product-specs/feedback-loop.md`.
 Feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
+- Per-item rank trajectory: `rank_at_last_seen` (newest run) and `rank_prev_seen` (previous run that included the item)
 
 LLM discovery endpoints:
 - `/llms.txt` (LLM-oriented site map + API usage notes)

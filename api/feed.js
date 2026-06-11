@@ -178,6 +178,7 @@ function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
     seen_count: 1,
     last_seen_run_order: -1,
     rank_at_last_seen: null,
+    rank_prev_seen: null,
     score_at_last_seen: Number(it.tier1_quick_score ?? it.score ?? 0),
     tier_hint: 'tier1_fresh',
   });
@@ -282,6 +283,7 @@ function accumulateItems(runs) {
           seen_count: 1,
           last_seen_run_order: runIdx,
           rank_at_last_seen: rank,
+          rank_prev_seen: null,
           score_at_last_seen: Number(it.v2_final_score ?? it.score ?? 0),
           run_id: it.run_id || it.ingest_batch_id || runAt,
         });
@@ -290,9 +292,13 @@ function accumulateItems(runs) {
         if (runAt && (!prev.first_seen || runAt < prev.first_seen)) prev.first_seen = runAt;
 
         const isNewer = runAt && (!prev.last_seen || runAt > prev.last_seen);
+        // Runs iterate newest-first, so the second sighting is the
+        // chronologically previous run — its rank gives the trend baseline.
+        if (!isNewer && prev.rank_prev_seen == null) prev.rank_prev_seen = rank;
         if (isNewer) {
           prev.last_seen = runAt;
           prev.last_seen_run_order = runIdx;
+          prev.rank_prev_seen = prev.rank_at_last_seen;
           prev.rank_at_last_seen = rank;
           prev.score_at_last_seen = Number(it.v2_final_score ?? it.score ?? prev.score_at_last_seen ?? 0);
           prev.why_it_matters = it.why_it_matters || prev.why_it_matters;

@@ -199,6 +199,17 @@
       color: #bbf7d0;
       background: #14532d;
     }
+    .badge-trend {
+      border-color: #dc2626;
+      color: #991b1b;
+      background: #fef2f2;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .badge-trend {
+      border-color: #ef4444;
+      color: #fecaca;
+      background: #7f1d1d;
+    }
     .badge-new {
       border-color: #d97706;
       color: #92400e;
@@ -828,9 +839,15 @@
         : '';
       const href = safeUrl(it.url);
       const image = safeUrl(it.image_url || '');
-      const alsoCovered = (Array.isArray(it.also_covered) ? it.also_covered : [])
-        .filter((e) => e && e.source && safeUrl(e.url) !== '#')
-        .slice(0, 4);
+      const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
+        .filter((e) => e && e.source && safeUrl(e.url) !== '#');
+      const alsoCovered = alsoCoveredAll.slice(0, 4);
+      // Trending hints: cross-source coverage count, and rank improvement
+      // between the two most recent runs that included the item.
+      const sourceCount = alsoCoveredAll.length + 1;
+      const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
+      const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
+      const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
       const alsoHtml = alsoCovered
         .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(e.source)}</a>`)
         .join(', ');
@@ -853,6 +870,8 @@
             ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
             ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
             ${isNew ? `<span class="badge badge-new">New</span>` : ''}
+            ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
+            ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">📈 Climbing</span>` : ''}
             ${published ? `<span class="when">${esc(published)}</span>` : ''}
             <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
           </div>
