@@ -196,6 +196,10 @@
     article.big-story {
       border-left: 4px solid color-mix(in srgb, var(--accent) 75%, transparent);
     }
+    article.shared-highlight {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent);
+    }
     .thumb {
       width: 84px;
       height: 84px;
@@ -836,31 +840,28 @@
       return action === 'set' ? signal : null;
     }
 
-    // Share the story link with UTM attribution; native share sheet when
-    // available, clipboard fallback otherwise.
-    function withShareUtm(rawUrl) {
-      const href = safeUrl(rawUrl);
+    // Share our /s permalink, not the source URL, so shares land readers on
+    // this feed with the story highlighted. The endpoint (api/share.js)
+    // serves item-specific Open Graph tags to unfurlers, then redirects
+    // humans to /?item=<url>. Native share sheet when available, clipboard
+    // fallback otherwise.
+    function sharePermalink(it) {
+      const href = safeUrl(it.url || '');
       if (href === '#') return '';
-      try {
-        const u = new URL(href);
-        u.searchParams.set('utm_source', 'llm-digest.com');
-        u.searchParams.set('utm_medium', 'share');
-        return u.href;
-      } catch {
-        return href;
-      }
+      return `${window.location.origin}/s?u=${encodeURIComponent(href)}`;
     }
 
     async function shareItem(btn) {
       const key = btn.dataset.shareId || '';
       const it = itemForKey(key);
       if (!it) return;
-      const url = withShareUtm(it.url || '');
+      const url = sharePermalink(it);
       if (!url) return;
       posthogCapture('item_share', {
         item_id: key,
         source: it.source || null,
         url: it.url || null,
+        share_url: url,
         method: navigator.share ? 'web_share' : 'clipboard',
       });
       const text = `${it.title || ''} — via llm-digest.com`;
@@ -882,6 +883,55 @@
       } catch {}
     }
 
+    // Share-landing deep link (?item=<url>, set by the /s permalink redirect):
+    // scroll to the shared story and flash it. If it isn't in the current
+    // window (default is 7 days), widen once to 30 days before giving up.
+    let pendingSharedItemUrl = '';
+    let landingUtmSource = '';
+    let sharedItemRetried = false;
+
+    function normShareUrl(v) {
+      const s = String(v || '').trim();
+      return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
+    }
+
+    function maybeHighlightSharedItem() {
+      if (!pendingSharedItemUrl || viewState !== 'feed') return;
+      const target = normShareUrl(pendingSharedItemUrl);
+      const it = feedCache.items.find((x) => normShareUrl(x.url) === target);
+
+      if (!it) {
+        const isDefaultWindow = !customRangeState.from && !customRangeState.to && presetDaysState === '7';
+        if (!sharedItemRetried && isDefaultWindow) {
+          sharedItemRetried = true;
+          setDateRangeDays(30);
+          refreshFeed();
+          return;
+        }
+        pendingSharedItemUrl = '';
+        posthogCapture('share_landing', { found: false, url: target, utm_source: landingUtmSource || null });
+        document.getElementById('list')?.insertAdjacentHTML(
+          'afterbegin',
+          '<div class="state">The shared story has aged out of the live feed — here&#39;s what&#39;s new instead.</div>'
+        );
+        return;
+      }
+
+      pendingSharedItemUrl = '';
+      posthogCapture('share_landing', {
+        found: true,
+        url: target,
+        source: it.source || null,
+        utm_source: landingUtmSource || null,
+      });
+      const btn = document.querySelector(`button[data-share-id="${CSS.escape(itemKey(it))}"]`);
+      const card = btn?.closest('article');
+      if (card) {
+        card.classList.add('shared-highlight');
+        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
     function updateSavedTab() {
       const btn = document.getElementById('savedTab');
       if (!btn) return;
@@ -892,6 +942,11 @@
 
     function readFiltersFromUrl() {
       const p = new URLSearchParams(window.location.search);
+
+      // Share-landing deep link (?item=<url> via the /s permalink). Captured
+      // here because syncUrlFromFilters() rewrites the URL right after boot.
+      pendingSharedItemUrl = p.get('item') || '';
+      landingUtmSource = p.get('utm_source') || '';
 
       viewState = p.get('view') === 'saved' ? 'saved' : 'feed';
       limitState = p.get('limit') || '200';
@@ -914,8 +969,11 @@
       }
 
       const labels = p.getAll('label').flatMap((v) => String(v).split(','));
-      // No labels in the URL → fall back to the reader's pinned defaults.
-      setSelectedLabels(labels.some((l) => normalizeLabel(l)) ? labels : pinnedLabelsState);
+      // No labels in the URL → fall back to the reader's pinned defaults —
+      // unless this is a share landing, where pinned topics could hide the
+      // very story the reader came for.
+      const fallbackLabels = pendingSharedItemUrl ? [] : pinnedLabelsState;
+      setSelectedLabels(labels.some((l) => normalizeLabel(l)) ? labels : fallbackLabels);
     }
 
     function syncUrlFromFilters() {
@@ -1563,6 +1621,7 @@
       };
       itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
       renderFeedList();
+      maybeHighlightSharedItem();
 
       posthogCapture('feed_view', {
         items_count: items.length,

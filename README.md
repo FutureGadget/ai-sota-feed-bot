@@ -79,6 +79,13 @@ Current web app behavior:
 - Pinned "my topics": readers can pin the current label selection as their
   default (localStorage); it auto-applies on visits without `?label=` in the
   URL, with a one-tap re-apply chip after clearing filters (`labels_pin` event)
+- Share permalinks (growth loop): the 📤 button shares `/s?u=<source url>`
+  (`api/share.js`) instead of the source article, so shares land readers on
+  this site. The endpoint serves item-specific OG/Twitter tags to unfurlers
+  and redirects humans to `/?item=<url>&utm_source=share`, where the feed
+  scrolls to and highlights the story (widening the window once to 30 days if
+  needed; pinned topics are suspended so they can't hide it). Events:
+  `item_share`, `share_landing`
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
 - PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
