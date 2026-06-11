@@ -457,6 +457,18 @@
         : { year: 'numeric', month: 'short', day: 'numeric' });
     }
 
+    function fmtRelTime(iso) {
+      const t = Date.parse(iso || '');
+      if (!Number.isFinite(t)) return '';
+      const mins = Math.max(0, Math.round((Date.now() - t) / 60000));
+      if (mins < 1) return 'just now';
+      if (mins < 60) return `${mins}m ago`;
+      const hours = Math.round(mins / 60);
+      if (hours < 24) return `${hours}h ago`;
+      const days = Math.round(hours / 24);
+      return `${days}d ago`;
+    }
+
     function toIsoDateStart(dateStr) {
       if (!dateStr) return null;
       return `${dateStr}T00:00:00`;
@@ -1022,8 +1034,8 @@
         .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
       const saved = all.filter((it) => matchesQuery(it, q));
       document.getElementById('meta').textContent = q
-        ? `${saved.length} of ${all.length} saved items`
-        : `${all.length} saved item${all.length === 1 ? '' : 's'}`;
+        ? `${saved.length} of ${all.length} saved stories`
+        : `${all.length} saved ${all.length === 1 ? 'story' : 'stories'}`;
       syncSectionTabs();
       if (!saved.length) {
         list.innerHTML = q
@@ -1043,13 +1055,20 @@
       const q = searchQueryState.trim().toLowerCase();
       const visible = items.filter((it) => matchesQuery(it, q));
 
-      const freshnessNote = freshAdded > 0 ? ` · ${freshAdded} fresh` : '';
+      // Reader-facing summary line: stories + recency, not pipeline jargon.
+      const latestRunAt = runs.reduce((acc, r) => {
+        const t = Date.parse(r?.run_at || '');
+        return Number.isFinite(t) && t > acc ? t : acc;
+      }, 0);
+      const updatedNote = latestRunAt ? ` · updated ${fmtRelTime(new Date(latestRunAt).toISOString())}` : '';
       const newSince = visible.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
-      const newNote = newSince > 0 ? ` · ${newSince} new since last visit` : '';
+      const newNote = newSince > 0 ? ` · ${newSince} new since your last visit` : '';
       const selectedLabels = getSelectedLabels();
-      const labelNote = selectedLabels.length ? ` · labels: ${selectedLabels.join(', ')}` : '';
-      const countText = q ? `${visible.length} of ${items.length} items` : `${items.length} items`;
-      document.getElementById('meta').textContent = `${countText} · ${runs.length} runs in range${freshnessNote}${newNote}${labelNote}`;
+      const labelNote = selectedLabels.length ? ` · topics: ${selectedLabels.join(', ')}` : '';
+      const countText = q
+        ? `${visible.length} of ${items.length} stories`
+        : `${items.length} ${items.length === 1 ? 'story' : 'stories'}`;
+      document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}`;
       syncSectionTabs();
 
       if (!visible.length) {
