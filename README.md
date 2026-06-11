@@ -37,7 +37,8 @@ python $S/build_weekly_input.py     # 1. bundle the week's unique news items -> 
 #                                      (news-only by default; --types all to include papers/releases)
 #                                     2. agent reads the bundle, writes data/weekly/<week>.json
 python $S/build_weekly_index.py     # 3. validate + rebuild data/weekly/{index,latest}.json
-# 4. git add data/weekly/ && git commit && git push
+#                                      (also re-renders static /weekly pages + sitemap, see below)
+# 4. git add data/weekly/ web/weekly/ web/sitemap.xml && git commit && git push
 ```
 - Page: `/weekly` (latest), `/weekly/<week>` (archive). API: `/api/weekly[?week=|?list=1]`.
 - Smoke-test the UI with a placeholder recap: `bash $S/run_weekly.sh --seed`
@@ -111,6 +112,22 @@ Feed API (v1):
 - Tier-1 freshness blend options: `blend_tier1=0|1` (default 1), `tier1_fresh_cap` (default 4)
 - Additional blend guards: `tier1_insert_after` (default 3), `tier1_min_quick_score` (default 2.6), `tier1_max_per_source` (default 1)
 - Per-item rank trajectory: `rank_at_last_seen` (newest run) and `rank_prev_seen` (previous run that included the item)
+
+## SEO / static recap pages (growth loop)
+The `/daily` and `/weekly` pages are client-rendered shells, invisible to
+crawlers and link unfurlers. `pipeline/render_static_pages.py` therefore
+pre-renders every published recap into fully static, indexable pages:
+- `web/daily/<date>.html` → served at `/daily/<date>`
+- `web/weekly/<week>.html` → served at `/weekly/<week>`
+- `web/sitemap.xml` → `/sitemap.xml`, `web/robots.txt` → `/robots.txt`
+
+Each page carries a real title, meta description, canonical URL, Open
+Graph/Twitter cards, JSON-LD, and RSS autodiscovery, and mirrors the dynamic
+pages' design. The index builders (`build_daily_index.py` /
+`build_weekly_index.py`) invoke the renderer automatically, so publishing a
+recap always refreshes the static pages — commit `web/daily/`, `web/weekly/`,
+and `web/sitemap.xml` alongside `data/`. Base URL override: `--base-url` or
+`SITE_BASE_URL` (default `https://www.llm-digest.com`).
 
 LLM discovery endpoints:
 - `/llms.txt` (LLM-oriented site map + API usage notes)

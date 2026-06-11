@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Jun 10, 2026 | LLM Digest</title>
+  <meta name="description" content="Anthropic published a guide to building with Claude managed agents. A wave of open-source agent infrastructure landed: Interbase (long-running goals), SafeAgentDB (per-branch isolated DBs), and AgentMeter (agent cost tracking). Xcode 27 added…" />
+  <link rel="canonical" href="https://www.llm-digest.com/daily/2026-06-10" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Jun 10, 2026" />
+  <meta property="og:description" content="Anthropic published a guide to building with Claude managed agents. A wave of open-source agent infrastructure landed: Interbase (long-running goals), SafeAgentDB (per-branch isolated DBs), and AgentMeter (agent cost tracking). Xcode 27 added…" />
+  <meta property="og:url" content="https://www.llm-digest.com/daily/2026-06-10" />
+  <meta property="article:published_time" content="2026-06-11T00:30:00+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What happened in AI — Jun 10, 2026" />
+  <meta name="twitter:description" content="Anthropic published a guide to building with Claude managed agents. A wave of open-source agent infrastructure landed: Interbase (long-running goals), SafeAgentDB (per-branch isolated DBs), and AgentMeter (agent cost tracking). Xcode 27 added…" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/api/rss" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "What happened in AI — Jun 10, 2026", "description": "Anthropic published a guide to building with Claude managed agents. A wave of open-source agent infrastructure landed: Interbase (long-running goals), SafeAgentDB (per-branch isolated DBs), and AgentMeter (agent cost tracking). Xcode 27 added…", "datePublished": "2026-06-11T00:30:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-10", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com"}}</script>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 AI Daily Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">14 articles · 5 categories</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/voices" role="button">🗣️ Voices</a>
+        <a href="/api/daily?date=2026-06-10" role="button">JSON</a>
+        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-10" selected>2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title">What happened in AI — Jun 10, 2026</h2>
+      <p class="recap-range">Wednesday, Jun 10, 2026</p>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Anthropic published a guide to building with Claude managed agents.</li><li>A wave of open-source agent infrastructure landed: Interbase (long-running goals), SafeAgentDB (per-branch isolated DBs), and AgentMeter (agent cost tracking).</li><li>Xcode 27 added Gemini to its agentic coding toolset; AWS detailed agents that auto-optimize Trainium/Inferentia kernels.</li><li>Microsoft open-sourced pg_durable for durable workflows inside PostgreSQL; Azure APIM shipped a unified model API with MCP content safety.</li><li>Simon Willison flagged DiffusionGemma, Google&#x27;s renewed push on diffusion language models.</li><li>Jeremy Howard floated a provocative scheme for slowing recursive AI self-improvement at the top lab.</li></ul></div><p>The day&#x27;s center of gravity was the scaffolding around AI agents rather than the models themselves. Anthropic published a guide to building with Claude managed agents, a fresh crop of open-source projects tackled the unglamorous parts of running agents in production — long-running goals (Interbase), isolated per-branch databases (SafeAgentDB), and cost visibility (AgentMeter) — and the tooling story stretched from the IDE, where Xcode 27 folded Gemini into its agentic coding toolset, down to the silicon, where AWS detailed agents that hand-tune Trainium kernels.</p><p>Underneath the agent layer, infrastructure had a busy day. Microsoft open-sourced pg_durable to run durable workflows natively inside PostgreSQL, Azure API Management shipped a unified model API plus content-safety policies that now cover MCP tool calls, and a new Python library, llmbuffer, went after prompt-cache hit rates for big cost savings — a reminder that as agents proliferate, the economics and plumbing get most of the attention.</p><p>Models weren&#x27;t entirely quiet: Simon Willison flagged DiffusionGemma, Google&#x27;s return to diffusion-based language models after last year&#x27;s Gemini Diffusion preview, and Latent Space covered the aftermath of Anthropic&#x27;s Fable 5 launch and its controversial usage terms. Jeremy Howard, meanwhile, offered the day&#x27;s sharpest provocation on how labs might voluntarily slow recursive AI self-improvement.</p></div>
+      <nav class="toc"><a href="#frontier-models-research">Frontier Models &amp; Research (2)</a><a href="#building-orchestrating-agents">Building &amp; Orchestrating Agents (4)</a><a href="#agent-cost-safety-memory">Agent Cost, Safety &amp; Memory (4)</a><a href="#platforms-infrastructure">Platforms &amp; Infrastructure (3)</a><a href="#commentary">Commentary (1)</a></nav><section class="cat" id="frontier-models-research"><h2>Frontier Models &amp; Research <span class="count">2 items</span></h2><p class="cat-summary">A new diffusion language model from Google, and the fallout from Anthropic&#x27;s latest frontier launch.</p><div class="articles"><article><h3><a href="https://simonwillison.net/2026/Jun/10/diffusiongemma/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">DiffusionGemma</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 10</span></div><p class="art-summary">Simon Willison on DiffusionGemma, Google&#x27;s return to diffusion-based language models after last May&#x27;s fast-but-abandoned Gemini Diffusion preview.</p></article><article><h3><a href="https://www.latent.space/p/ainews-anthropic-claude-fable-5-mythos" target="_blank" rel="noopener" data-track="daily-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span></div><p class="art-summary">Latent Space covers the aftermath of Anthropic&#x27;s Mythos-class Fable 5 launch, where the model&#x27;s debut was overshadowed by controversial usage policies.</p></article></div></section><section class="cat" id="building-orchestrating-agents"><h2>Building &amp; Orchestrating Agents <span class="count">4 items</span></h2><p class="cat-summary">From managed-agent guides to long-running orchestration and IDE-to-silicon tooling — the day&#x27;s strongest thread was how to actually build and run agents.</p><div class="articles"><article><h3><a href="https://claude.com/blog/building-with-claude-managed-agents" target="_blank" rel="noopener" data-track="daily-link">Building With Claude Managed Agents</a></h3><div class="art-meta"><span class="badge">claude_blog</span><span class="badge">Jun 10</span></div><p class="art-summary">Anthropic walks through building with Claude managed agents, its framework for standing up agentic workflows.</p></article><article><h3><a href="https://github.com/agentsorchestrationcompany/interbase" target="_blank" rel="noopener" data-track="daily-link">Show HN: Interbase – Long-running AI goals and aliases for any model</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 10</span></div><p class="art-summary">An open-source CLI agent built around long-running agent workflows and model-agnostic aliases for persistent goals.</p></article><article><h3><a href="https://news.google.com/rss/articles/CBMimwFBVV95cUxNRFpZaWZaRVFVRkxkYkV2b1dMOW5xU0NYMjA0aWJtbTI2NDJyM3k5MnlyYndZX1BHMnVGV0JCZDFFRHNheVR1NTVTM0tfaHpVdklNM3lQbjU2a0hJTmt6cXBDVmZaczFLVThEbzItZmNOSzRpUHloc1BULTBNSGItTXpuemwwdzFna3lwT3kzcVFmN3hleUZMQks4dw?oc=5" target="_blank" rel="noopener" data-track="daily-link">Xcode 27 expands agentic coding toolset with Gemini integration</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">Jun 10</span></div><p class="art-summary">Apple&#x27;s Xcode 27 broadens its agentic coding capabilities by integrating Google&#x27;s Gemini models.</p></article><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/stop-hand-tuning-kernels-how-neuron-agentic-development-accelerates-aws-trainium-optimizations/" target="_blank" rel="noopener" data-track="daily-link">Stop hand-tuning kernels: How Neuron Agentic Development accelerates AWS Trainium optimizations</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 10</span></div><p class="art-summary">AWS introduces Neuron Agentic Development — AI agents and skills that automate kernel optimization for Trainium and Inferentia.</p></article></div></section><section class="cat" id="agent-cost-safety-memory"><h2>Agent Cost, Safety &amp; Memory <span class="count">4 items</span></h2><p class="cat-summary">The practical concerns of agents at scale — what they cost, how to isolate them, and how to manage their context.</p><div class="articles"><article><h3><a href="https://github.com/aussiealex/agentmeter" target="_blank" rel="noopener" data-track="daily-link">Show HN: AgentMeter – Know what your AI coding agents cost</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 10</span></div><p class="art-summary">An open-source tool for tracking and surfacing the cost of AI coding agents.</p></article><article><h3><a href="https://github.com/Aidan945/SafeAgentDB" target="_blank" rel="noopener" data-track="daily-link">SafeAgentDB – Isolated databases for every AI agent branch</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 10</span></div><p class="art-summary">A project that gives each AI agent branch its own isolated database, reducing the blast radius of agent actions.</p></article><article><h3><a href="https://github.com/scottpurdy/llmbuffer" target="_blank" rel="noopener" data-track="daily-link">Show HN: Llmbuffer – Python library for cache-optimized LLM conversation history</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 10</span></div><p class="art-summary">A Python library that maximizes LLM prompt-cache hits via dynamic context, compaction, and tool-output truncation — pitched at roughly 10x cost savings.</p></article><article><h3><a href="https://www.infoq.com/presentations/context-engineering-data/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 10</span></div><p class="art-summary">Adi Polak on the architecture needed to move from stateless prompts to state-aware, context-rich AI agents.</p></article></div></section><section class="cat" id="platforms-infrastructure"><h2>Platforms &amp; Infrastructure <span class="count">3 items</span></h2><p class="cat-summary">Durable workflows, model gateways, and enterprise deployments — the plumbing that carries AI into production.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/postgresql-pg-durable/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Microsoft Open-Sources PostgreSQL Extension for In-Database Durable Execution</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 10</span></div><p class="art-summary">Microsoft&#x27;s pg_durable runs durable workflows natively inside PostgreSQL, removing the need for an external orchestration system.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/azure-apim-ai-gateway-build/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Azure API Management Ships Unified Model API and MCP Content Safety at Build 2026</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 10</span></div><p class="art-summary">Azure APIM&#x27;s unified model API lets clients speak one format while it transforms requests to Anthropic, Vertex AI, and other backends, with content-safety policies now covering MCP tool calls.</p></article><article><h3><a href="https://openai.com/index/lseg" target="_blank" rel="noopener" data-track="daily-link">From data to decisions: how LSEG is scaling trusted AI</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Jun 10</span></div><p class="art-summary">OpenAI on how LSEG scales trusted AI across its global business — accelerating insights, shrinking release cycles, and empowering 4,000 employees.</p></article></div></section><section class="cat" id="commentary"><h2>Commentary <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s sharpest take on AI&#x27;s trajectory.</p><div class="articles"><article><h3><a href="https://simonwillison.net/2026/Jun/10/jeremy-howard/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Quoting Jeremy Howard</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 10</span></div><p class="art-summary">Jeremy Howard floats a scheme for slowing recursive AI self-improvement: the lab with the top-ranked model agrees not to use it for frontier AI work, while everyone else gets access.</p></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/api/rss">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+</body>
+</html>

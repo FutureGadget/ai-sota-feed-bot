@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Jun 5, 2026 | LLM Digest</title>
+  <meta name="description" content="Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0). Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at…" />
+  <link rel="canonical" href="https://www.llm-digest.com/daily/2026-06-05" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Jun 5, 2026" />
+  <meta property="og:description" content="Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0). Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at…" />
+  <meta property="og:url" content="https://www.llm-digest.com/daily/2026-06-05" />
+  <meta property="article:published_time" content="2026-06-08T00:10:00+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What happened in AI — Jun 5, 2026" />
+  <meta name="twitter:description" content="Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0). Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at…" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/api/rss" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "What happened in AI — Jun 5, 2026", "description": "Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0). Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at…", "datePublished": "2026-06-08T00:10:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-05", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com"}}</script>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 AI Daily Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">13 articles · 4 categories</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/voices" role="button">🗣️ Voices</a>
+        <a href="/api/daily?date=2026-06-05" role="button">JSON</a>
+        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05" selected>2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title">What happened in AI — Jun 5, 2026</h2>
+      <p class="recap-range">Friday, Jun 5, 2026</p>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Coding agents dominated: new local-first harnesses (Jeju, Lich), a long-horizon agent (Lazarus), and a Claude Code / Gemini CLI–powered reviewer (Gito v4.1.0).</li><li>Dropbox unveiled Nova, an internal platform to orchestrate AI coding agents at engineering scale.</li><li>Latent Space argued broken RL environments are actively making models worse — fix the harness before the model.</li><li>Google&#x27;s LiteRT-LM hit up to 2.2x faster local inference via Gemma 4 multi-token prediction.</li><li>SerenityOS&#x27;s Andreas Kling will no longer accept public PRs as AI-generated patches erode the effort-as-good-faith signal.</li></ul></div><p>A quiet-on-the-frontier Friday — even Latent Space&#x27;s daily dispatch shrugged with &quot;not much happened today&quot; — but a busy one for the people building around the models. The through-line was coding agents and the scaffolding they need: a wave of Show HN harnesses for running agents locally, in parallel, and over long-horizon tasks, plus a look at how Dropbox and LinkedIn are operationalizing them in-house.</p><p>Underneath the tooling, two quieter threads mattered. On the research side, the conversation turned to evaluation hygiene — why sloppy RL environments quietly degrade models, and a push for fairer deep-research benchmarks. On infrastructure, Google and Databricks both leaned on making inference faster and more reliable rather than bigger.</p><p>And a sharp note on trust: as AI-generated pull requests flood open source, maintainers like SerenityOS&#x27;s Andreas Kling are rethinking whether a substantial patch still signals good faith.</p></div>
+      <nav class="toc"><a href="#coding-agents-tooling">Coding Agents &amp; Tooling (6)</a><a href="#research-evaluation">Research &amp; Evaluation (2)</a><a href="#inference-infrastructure">Inference &amp; Infrastructure (2)</a><a href="#industry-commentary">Industry &amp; Commentary (3)</a></nav><section class="cat" id="coding-agents-tooling"><h2>Coding Agents &amp; Tooling <span class="count">6 items</span></h2><p class="cat-summary">The day&#x27;s loudest thread: harnesses to run coding agents locally and in parallel, agents aimed at long-horizon work, and platforms to operationalize them inside engineering orgs.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/dropbox-nova-ai-coding-agents/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Dropbox Introduces Nova, an Internal Platform for Running AI Coding Agents at Scale</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 5</span></div><p class="art-summary">Dropbox&#x27;s Nova orchestrates and operationalizes AI coding agents across the company&#x27;s engineering workflows — a look at what running agents at scale takes in practice.</p></article><article><h3><a href="https://github.com/ExpressGradient/lazarus" target="_blank" rel="noopener" data-track="daily-link">Show HN: Lazarus, a coding agent for long-horizon tasks</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5</span></div><p class="art-summary">A coding agent built for long-horizon work, where even Codex and Claude Code struggle on benchmarks like FrontierSWE.</p></article><article><h3><a href="https://github.com/cosmtrek/jeju" target="_blank" rel="noopener" data-track="daily-link">Show HN: Jeju – a local-first agent harness with inspectable runs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5</span></div><p class="art-summary">A local-first harness that makes agent runs inspectable — part of the day&#x27;s push toward auditable, self-hosted agent infrastructure.</p></article><article><h3><a href="https://github.com/RPate97/lich" target="_blank" rel="noopener" data-track="daily-link">Show HN: Lich, start a dev stack per coding agent in parallel</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5</span></div><p class="art-summary">A worktree-aware dev-stack orchestrator that runs multiple copies of your stack in parallel, one per coding agent, without conflicts.</p></article><article><h3><a href="https://github.com/Nayjest/Gito/releases/tag/v4.1.0" target="_blank" rel="noopener" data-track="daily-link">Show HN: Gito v4.1.0 – AI code reviewer now runs on Claude Code / Gemini CLI</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5</span></div><p class="art-summary">The Gito AI code reviewer adds backends for Claude Code and the Gemini CLI in its v4.1.0 release.</p></article><article><h3><a href="https://www.infoq.com/presentations/ai-multi-agentic-tools/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Platform Teams Enabling AI — MCP/Multi-Agentic Tools Across LinkedIn</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 5</span></div><p class="art-summary">LinkedIn&#x27;s Karthik Ramgopal and Prince Valluri on treating AI as a new execution model, using platform abstractions and MCP to move past fragmented implementations.</p></article></div></section><section class="cat" id="research-evaluation"><h2>Research &amp; Evaluation <span class="count">2 items</span></h2><p class="cat-summary">A focus on measurement quality — getting RL environments and agent benchmarks right so the numbers mean something.</p><div class="articles"><article><h3><a href="https://www.latent.space/p/bad-envs" target="_blank" rel="noopener" data-track="daily-link">How to Stop Shipping Low-Quality RL Environments (with Examples)</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 5</span></div><p class="art-summary">Latent Space argues a broken harness is actively making your model worse, with patterns from years of eyeballing trajectories and concrete fixes.</p></article><article><h3><a href="https://github.com/texttron/BrowseComp-Plus" target="_blank" rel="noopener" data-track="daily-link">BrowseComp-Plus: A More Fair and Transparent Benchmark of Deep-Research Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5</span></div><p class="art-summary">An open benchmark aiming for fairer, more transparent evaluation of deep-research agents.</p></article></div></section><section class="cat" id="inference-infrastructure"><h2>Inference &amp; Infrastructure <span class="count">2 items</span></h2><p class="cat-summary">The day&#x27;s infra story was about doing more with the compute you have — faster on-device inference and more reliable serving at scale.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/google-litertlm-gemma4/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Google LiteRT-LM Speeds Up Local Inference Up to 2.2x With Gemma 4 Multi-Token Prediction</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 5</span></div><p class="art-summary">LiteRT-LM adds native Gemma 4 multi-token-prediction drafters for up to 2.2x faster local inference, and expands to Swift and JavaScript APIs.</p></article><article><h3><a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE4tQU5RNkdheXNGM05RRVVXQXlSY2t1dXNoVTZrVk93dC1udkY2VVJSd0xaVV90dkdlNDExSW9pTEQ1cUR0TTNTTlg5RlpDN3VZLVVMV0dPV3lPMXNqZWNTZFBjb3JHZmpVUjdxbg?oc=5" target="_blank" rel="noopener" data-track="daily-link">Reliable LLM Inference at Scale — Databricks</a></h3><div class="art-meta"><span class="badge">search_llm_ops_news</span><span class="badge">Jun 5</span></div><p class="art-summary">Databricks on the engineering behind keeping LLM inference reliable at production scale.</p></article></div></section><section class="cat" id="industry-commentary"><h2>Industry &amp; Commentary <span class="count">3 items</span></h2><p class="cat-summary">Recaps and reflections — Google&#x27;s monthly roundup, a maintainer&#x27;s stand on AI-generated PRs, and a notably slow news day.</p><div class="articles"><article><h3><a href="https://simonwillison.net/2026/Jun/5/andreas-kling/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Quoting Andreas Kling (on AI-generated pull requests)</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 5</span></div><p class="art-summary">Kling will no longer accept public PRs: a substantial patch used to imply substantial effort and good faith — an assumption AI-generated code no longer supports.</p></article><article><h3><a href="https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-may-2026/" target="_blank" rel="noopener" data-track="daily-link">The latest AI news we announced in May 2026</a></h3><div class="art-meta"><span class="badge">google_ai_blog</span><span class="badge">Jun 5</span></div><p class="art-summary">Google&#x27;s monthly recap of its AI announcements across May 2026.</p></article><article><h3><a href="https://www.latent.space/p/ainews-not-much-happened-today-7a8" target="_blank" rel="noopener" data-track="daily-link">[AINews] not much happened today</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 5</span></div><p class="art-summary">Latent Space&#x27;s daily AI News dispatch calls it a quiet day — a useful signal that the week&#x27;s big moves landed earlier.</p></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/api/rss">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+</body>
+</html>

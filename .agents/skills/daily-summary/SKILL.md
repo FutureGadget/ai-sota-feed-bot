@@ -123,12 +123,14 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 python .agents/skills/daily-summary/scripts/build_daily_index.py
 ```
 Validates every recap against the schema and rebuilds
-`data/daily/index.json` + `data/daily/latest.json`. It exits non-zero on a
-malformed recap — fix and re-run until clean. (`--check` validates without writing.)
+`data/daily/index.json` + `data/daily/latest.json`, then re-renders the static
+`/daily/<date>` pages + sitemap (`web/daily/`, `web/sitemap.xml`) via
+`pipeline/render_static_pages.py`. It exits non-zero on a malformed recap —
+fix and re-run until clean. (`--check` validates without writing.)
 
 ### 5. Post it (commit + push)
 ```bash
-git add data/daily/
+git add data/daily/ web/daily/ web/sitemap.xml web/robots.txt
 git commit -m "daily recap: <date>"
 git push
 ```
