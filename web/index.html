@@ -838,7 +838,7 @@
     // data/feedback/events.jsonl by pipeline/feedback.py.
     const FEEDBACK_KEY = 'ai_feed_feedback_v1';
     const FEEDBACK_PROMPT = 'Was this useful?';
-    const FEEDBACK_THANKS = 'Thanks — feedback tunes the feed.';
+    const FEEDBACK_THANKS = 'Thanks — your feedback tunes tomorrow’s ranking.';
     const FEEDBACK_SIGNALS = [
       { signal: 'useful', label: '👍 Useful' },
       { signal: 'irrelevant', label: '👎 Not relevant' },
@@ -1221,6 +1221,32 @@
       });
     }
 
+    // Reciprocity, stated plainly: when reader clicks/feedback have produced
+    // real ranking adjustments (pipeline/auto_tune.py via the feed API's
+    // reader_tuning block), say so in the footer with honest counts. Renders
+    // nothing while no adjustments exist.
+    function renderReaderTuningNote(rt) {
+      const foot = document.querySelector('.sitefooter');
+      if (!foot || !rt) return;
+      const boosted = Array.isArray(rt.boosted) ? rt.boosted : [];
+      const down = Array.isArray(rt.downweighted) ? rt.downweighted : [];
+      if (!boosted.length && !down.length) return;
+
+      let el = foot.querySelector('[data-reader-tuning]');
+      if (!el) {
+        el = document.createElement('p');
+        el.dataset.readerTuning = '1';
+        foot.appendChild(el);
+      }
+      const updated = rt.updated_at ? `, updated ${fmtCompactDate(rt.updated_at)}` : '';
+      el.textContent = `👍 Reader feedback is tuning this feed: ${boosted.length} source${boosted.length === 1 ? '' : 's'} boosted, ${down.length} downweighted (last ${rt.window_days || 30} days${updated}).`;
+      const names = (list) => list.slice(0, 5).map((b) => sourceDisplayName(b.source)).join(', ');
+      el.title = [
+        boosted.length ? `Boosted: ${names(boosted)}` : '',
+        down.length ? `Downweighted: ${names(down)}` : '',
+      ].filter(Boolean).join(' · ');
+    }
+
     function renderDigestCtas() {
       if (!digestTelegramUrl) return;
       const nav = document.querySelector('.quicknav');
@@ -1444,6 +1470,10 @@
       const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
       const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
       const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
+      // Reciprocity: surface when reader clicks/feedback boosted this source's
+      // ranking (auto-tune adjustment via the feed API). Threshold keeps the
+      // badge meaningful — only clearly boosted sources get it.
+      const isReaderBoosted = Number(it.reader_adjustment || 0) >= 0.05;
       const alsoHtml = alsoCovered
         .map((e) => `<a href="${safeUrl(e.url)}" target="_blank" rel="noopener" title="${esc(e.title || '')}">${esc(sourceDisplayName(e.source))}</a>`)
         .join(', ');
@@ -1467,6 +1497,7 @@
             ${isNew ? `<span class="badge badge-new">New</span>` : ''}
             ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
             ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">📈 Climbing</span>` : ''}
+            ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
             <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
           </div>
@@ -1752,6 +1783,7 @@
       };
       itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
       renderFeedList();
+      renderReaderTuningNote(data.reader_tuning);
       maybeHighlightSharedItem();
 
       posthogCapture('feed_view', {

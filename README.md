@@ -81,6 +81,11 @@ Current web app behavior:
 - Sends `click` events to PostHog when opening an item link
 - One-tap reader feedback on every feed card (`👍 Useful / 👎 Not relevant / 🫧 Hype`),
   persisted in localStorage and sent to PostHog as `item_feedback`
+- Feedback is visibly closed-loop: the feed API exposes the auto-tune output
+  (`reader_tuning` block + per-item `reader_adjustment` from
+  `data/feedback/source_adjustments.json`); clearly boosted sources
+  (adjustment ≥ 0.05) get a `👍 Reader-boosted` badge on their cards, and the
+  footer states how many sources reader feedback boosted/downweighted and when
 - Trending badges on feed cards: `🔥 N sources` (cross-source coverage from
   `also_covered`) and `📈 Climbing` (rank improved ≥2 positions between the two
   most recent runs, via `rank_at_last_seen` vs `rank_prev_seen`)
