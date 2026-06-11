@@ -1,0 +1,45 @@
+name: AI Feed Feedback Sync
+
+on:
+  schedule:
+    - cron: "45 12 * * *"  # 21:45 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  feedback-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # Skips cleanly when PostHog credentials are not configured.
+      - name: Sync reader feedback from PostHog
+        env:
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          POSTHOG_API_HOST: ${{ vars.POSTHOG_API_HOST }}
+        run: .venv/bin/python pipeline/feedback.py sync-posthog
+
+      - name: Commit synced feedback
+        run: |
+          bash scripts/git_commit_runtime.sh "chore(data): sync reader feedback $(date -u +%F)"

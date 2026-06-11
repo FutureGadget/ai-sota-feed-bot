@@ -224,6 +224,36 @@
     .save-btn[aria-pressed="true"] {
       color: #f59e0b;
     }
+    .fb-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.6rem;
+    }
+    .fb-label {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .fb-btn {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.82rem;
+      padding: 0.18rem 0.6rem;
+      cursor: pointer;
+    }
+    .fb-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .fb-btn[aria-pressed="true"] {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card));
+      font-weight: 600;
+    }
     .why {
       margin: 0.35rem 0 0;
       font-size: 1rem;
@@ -464,6 +494,64 @@
       persistSavedItems();
       posthogCapture('item_save', { item_id: key, action: 'save', source: it.source || null });
       return true;
+    }
+
+    // One-tap reader feedback (spec: docs/product-specs/feedback-loop.md).
+    // Choice per item is kept locally so the UI remembers it; the signal is
+    // sent to PostHog as `item_feedback` and synced into
+    // data/feedback/events.jsonl by pipeline/feedback.py.
+    const FEEDBACK_KEY = 'ai_feed_feedback_v1';
+    const FEEDBACK_PROMPT = 'Was this useful?';
+    const FEEDBACK_THANKS = 'Thanks — feedback tunes the feed.';
+    const FEEDBACK_SIGNALS = [
+      { signal: 'useful', label: '👍 Useful' },
+      { signal: 'irrelevant', label: '👎 Not relevant' },
+      { signal: 'hype', label: '🫧 Hype' },
+    ];
+
+    function loadFeedbackState() {
+      try {
+        const v = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || '{}');
+        return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+      } catch {
+        return {};
+      }
+    }
+
+    let feedbackState = loadFeedbackState();
+
+    function persistFeedbackState() {
+      try {
+        localStorage.setItem(FEEDBACK_KEY, JSON.stringify(feedbackState));
+      } catch {}
+    }
+
+    function itemForKey(key) {
+      return itemsByKey.get(key) || savedItemsState[key] || null;
+    }
+
+    // Tap = set signal; tap the same signal again = retract. Returns the
+    // active signal after the toggle (null when retracted).
+    function toggleFeedback(key, signal, { rank = null, runId = null } = {}) {
+      const prev = feedbackState[key]?.signal || null;
+      const action = prev === signal ? 'unset' : 'set';
+      if (action === 'unset') delete feedbackState[key];
+      else feedbackState[key] = { signal, ts: new Date().toISOString() };
+      persistFeedbackState();
+
+      const it = itemForKey(key) || {};
+      posthogCapture('item_feedback', {
+        item_id: key,
+        signal,
+        action,
+        prev_signal: prev,
+        url: it.url || null,
+        source: it.source || null,
+        title: it.title || null,
+        rank_position: rank,
+        run_id: runId,
+      });
+      return action === 'set' ? signal : null;
     }
 
     function updateSavedTab() {
@@ -751,6 +839,10 @@
       const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
       const isNew = rank !== null && !isFresh && isNewSinceLastVisit(it);
       const saved = isItemSaved(key);
+      const fbActive = feedbackState[key]?.signal || '';
+      const fbButtons = FEEDBACK_SIGNALS.map(({ signal, label }) =>
+        `<button type="button" class="fb-btn" data-fb-id="${itemId}" data-fb-signal="${signal}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" aria-pressed="${fbActive === signal ? 'true' : 'false'}">${label}</button>`
+      ).join('');
 
       return `
         <article>
@@ -767,6 +859,7 @@
           ${summary ? `<p class="why">${summary}</p>` : ''}
           ${why ? `<p class="matters">💡 ${why}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
+          <div class="fb-row"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : FEEDBACK_PROMPT}</span>${fbButtons}</div>
         </article>`;
     }
 
@@ -881,6 +974,21 @@
       if (!list) return;
 
       list.addEventListener('click', (e) => {
+        const fbBtn = e.target.closest('button[data-fb-signal]');
+        if (fbBtn) {
+          const active = toggleFeedback(fbBtn.dataset.fbId || '', fbBtn.dataset.fbSignal || '', {
+            rank: Number(fbBtn.dataset.rank || 0) || null,
+            runId: fbBtn.dataset.runId || null,
+          });
+          const row = fbBtn.closest('.fb-row');
+          row?.querySelectorAll('button[data-fb-signal]').forEach((b) => {
+            b.setAttribute('aria-pressed', b.dataset.fbSignal === active ? 'true' : 'false');
+          });
+          const label = row?.querySelector('.fb-label');
+          if (label) label.textContent = active ? FEEDBACK_THANKS : FEEDBACK_PROMPT;
+          return;
+        }
+
         const saveBtn = e.target.closest('button[data-save-id]');
         if (saveBtn) {
           const nowSaved = toggleSaved(saveBtn.dataset.saveId || '');

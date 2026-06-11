@@ -172,3 +172,10 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** Parallel tracking enables fast dashboard rollout with low migration risk.
 - **Impact:** Added `/api/client-config` for public PostHog runtime config and web events (`page_view`, `feed_view`, `impression_batch`, `click`) behind env toggle.
 - **Rollback / Alternative:** Disable via `POSTHOG_ENABLED=0` and continue Turso-only telemetry.
+
+## 2026-06-11
+- **Decision:** Ship one-tap reader feedback on feed cards, transported via PostHog and synced back into `data/feedback/events.jsonl`.
+- **Context / Problem:** The feedback-loop spec and `data/feedback/events.jsonl` existed, but the only input path was a CLI nobody runs; ranking had zero human signal.
+- **Rationale:** Reuse the already-deployed PostHog client as the event transport instead of adding a database or a git-writing endpoint — a daily workflow pulls `item_feedback` events into the repo, matching the existing git-as-database pattern. Feedback compounds: it feeds the v1.3 auto-tuning plan.
+- **Impact:** Feed cards show `👍 Useful / 👎 Not relevant / 🫧 Hype` (choice persisted in localStorage, retractable); new `pipeline/feedback.py` (`add` / `summary` / `sync-posthog`); new `.github/workflows/feedback-sync.yml` daily sync that no-ops without PostHog credentials.
+- **Rollback / Alternative:** Remove the feedback row from `web/index.html` and disable the sync workflow; events already in `events.jsonl` remain usable.
