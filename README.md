@@ -190,9 +190,21 @@ Runtime snapshot retention controls:
 - Prune utility: `python pipeline/prune_runtime_data.py [--processed-days N] [--tier1-days N] [--weekly-archive-after-days N]`
 
 ## LLM integration status
-LLM labeling/reranking is currently disabled (`config/llm.yaml -> enabled: false`).
+LLM labeling is enabled via the Anthropic API (`config/llm.yaml -> provider: anthropic_api`,
+model `claude-haiku-4-5`, structured outputs). Auth is `ANTHROPIC_API_KEY` — a GitHub
+Actions repo secret in CI. Each item is labeled once and cached (`data/llm/labels.json`,
+committed), so cost scales with new items/day (~$5-15/month), not runs.
 
-The pipeline runs in deterministic/heuristic mode (no external LLM calls). LLM interfaces are kept in code as explicit no-op placeholders for future reimplementation.
+When the key is absent (forks, local runs) or the API errors, the pipeline degrades to
+deterministic heuristics — labeling never blocks a publish. The legacy `pi_oauth` local
+bridge and `openai_compatible` providers remain selectable in config.
+
+One-time archive backfill (story permalink pages) via the Message Batches API (50% off):
+```bash
+python scripts/backfill_story_labels.py plan    # candidates + cost estimate
+python scripts/backfill_story_labels.py submit  # then: status, apply
+python pipeline/render_static_pages.py          # re-render /story pages after apply
+```
 
 ## Source health + circuit breaker + alerts (v1.4/v1.5/v1.6)
 ```bash

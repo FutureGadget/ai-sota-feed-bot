@@ -1,7 +1,9 @@
-enabled: false
-# LLM integration is intentionally disabled for now.
-# The ranking pipeline runs in no-op/heuristic mode until auth is reintroduced.
-provider: pi_oauth
+enabled: true
+# Direct Anthropic API via the official Python SDK (pipeline/llm_label.py).
+# Auth: ANTHROPIC_API_KEY (GitHub Actions repo secret in CI). When the key is
+# absent the pipeline degrades to deterministic heuristics — it never fails.
+# Legacy providers (pi_oauth local bridge, openai_compatible) stay selectable.
+provider: anthropic_api
 model_provider: anthropic
 model: claude-haiku-4-5
 bridge_command: node scripts/llm_bridge.mjs

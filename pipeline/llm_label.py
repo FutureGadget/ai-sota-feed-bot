@@ -101,6 +101,90 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+# Structured-output schema mirroring the contract in label_system.txt.
+# Structured outputs don't support minimum/maximum, so 1-5 scores use enum.
+_SCORE = {"type": "integer", "enum": [1, 2, 3, 4, 5]}
+LABEL_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "fit_agentic_platform": _SCORE,
+        "actionability": _SCORE,
+        "novelty": _SCORE,
+        "evidence_quality": _SCORE,
+        "hype_risk": _SCORE,
+        "category": {"type": "string", "enum": ["platform", "release", "research"]},
+        "summary_1line": {"type": "string"},
+        "why_1line": {"type": "string"},
+    },
+    "required": [
+        "fit_agentic_platform",
+        "actionability",
+        "novelty",
+        "evidence_quality",
+        "hype_risk",
+        "category",
+        "summary_1line",
+        "why_1line",
+    ],
+    "additionalProperties": False,
+}
+
+_ANTHROPIC_CLIENTS: dict[tuple, Any] = {}
+
+
+def _llm_enabled(cfg: dict[str, Any]) -> bool:
+    if not cfg.get("enabled", False):
+        return False
+    provider = cfg.get("provider")
+    if provider == "anthropic_api":
+        # Missing secret (forks, local runs) degrades to heuristics, not failure.
+        return bool(os.getenv(cfg.get("api_key_env", "ANTHROPIC_API_KEY"), ""))
+    return provider in ("openai_compatible", "pi_oauth")
+
+
+def label_user_payload(item: dict[str, Any], preferences: dict[str, Any]) -> str:
+    return json.dumps(
+        {
+            "preferences": preferences,
+            "item": {
+                "title": item.get("title", ""),
+                "summary": item.get("summary", ""),
+                "content_excerpt": item.get("content_excerpt", ""),
+                "source": item.get("source", ""),
+                "url": item.get("url", ""),
+            },
+        },
+        ensure_ascii=False,
+    )
+
+
+def _anthropic_client(cfg: dict[str, Any]):
+    import anthropic
+
+    api_key = os.getenv(cfg.get("api_key_env", "ANTHROPIC_API_KEY"), "")
+    if not api_key:
+        raise RuntimeError("missing_api_key")
+    key = (api_key, int(cfg.get("timeout_seconds", 20)), int(cfg.get("max_retries", 1)))
+    client = _ANTHROPIC_CLIENTS.get(key)
+    if client is None:
+        client = anthropic.Anthropic(api_key=key[0], timeout=float(key[1]), max_retries=key[2])
+        _ANTHROPIC_CLIENTS[key] = client
+    return client
+
+
+def call_anthropic(item: dict[str, Any], cfg: dict[str, Any], preferences: dict[str, Any], prompt_text: str) -> dict[str, Any]:
+    client = _anthropic_client(cfg)
+    response = client.messages.create(
+        model=cfg.get("model", "claude-haiku-4-5"),
+        max_tokens=512,
+        system=prompt_text,
+        messages=[{"role": "user", "content": label_user_payload(item, preferences)}],
+        output_config={"format": {"type": "json_schema", "schema": LABEL_SCHEMA}},
+    )
+    text = next((b.text for b in response.content if b.type == "text"), "")
+    return json.loads(text)
+
+
 def call_bridge(payload: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
     cmd = cfg.get("bridge_command", "node scripts/llm_bridge.mjs")
     p = subprocess.run(
@@ -175,8 +259,7 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
-    enabled = False
+    enabled = _llm_enabled(cfg)
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     for it in items:
@@ -190,7 +273,10 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
         label_source = "heuristic"
         if enabled:
             try:
-                if cfg.get("provider") == "openai_compatible":
+                if cfg.get("provider") == "anthropic_api":
+                    label = call_anthropic(it, cfg, prefs, prompt_text)
+                    label_source = "llm"
+                elif cfg.get("provider") == "openai_compatible":
                     label = call_openai_compatible(it, cfg, prefs, prompt_text)
                     label_source = "llm"
                 elif cfg.get("provider") == "pi_oauth":
@@ -306,8 +392,7 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
-    enabled = False
+    enabled = _llm_enabled(cfg)
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     llm_called = 0
@@ -341,7 +426,12 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
             last_err = None
             for cfg_try in attempts:
                 try:
-                    if cfg_try.get("provider") == "openai_compatible":
+                    if cfg_try.get("provider") == "anthropic_api":
+                        label = call_anthropic(it, cfg_try, prefs, prompt_text)
+                        label_source = "llm"
+                        llm_called += 1
+                        break
+                    elif cfg_try.get("provider") == "openai_compatible":
                         label = call_openai_compatible(it, cfg_try, prefs, prompt_text)
                         label_source = "llm"
                         llm_called += 1
