@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Stop Shipping Low-Quality RL Environments (with Examples) | LLM Digest</title>
+  <meta name="description" content="Your broken harness is actively making the model worse. Here&#x27;s what I keep seeing after years of eyeballing trajectories, and what you need to fix." />
+  <link rel="canonical" href="https://www.llm-digest.com/story/f4f3c01802834127" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="How to Stop Shipping Low-Quality RL Environments (with Examples)" />
+  <meta property="og:description" content="Your broken harness is actively making the model worse. Here&#x27;s what I keep seeing after years of eyeballing trajectories, and what you need to fix." />
+  <meta property="og:url" content="https://www.llm-digest.com/story/f4f3c01802834127" />
+  <meta property="article:published_time" content="2026-06-05T18:49:40+00:00" />
+  <meta property="og:image" content="https://substackcdn.com/image/fetch/$s_!NbXz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe58868ac-23a0-453d-81e5-5ca830f7454d_1456x1394.png" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="How to Stop Shipping Low-Quality RL Environments (with Examples)" />
+  <meta name="twitter:description" content="Your broken harness is actively making the model worse. Here&#x27;s what I keep seeing after years of eyeballing trajectories, and what you need to fix." />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "How to Stop Shipping Low-Quality RL Environments (with Examples)", "description": "Your broken harness is actively making the model worse. Here's what I keep seeing after years of eyeballing trajectories, and what you need to fix.", "datePublished": "2026-06-05T18:49:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f4f3c01802834127", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com"}}</script>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
+      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
+    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
+    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
+      border-radius: 10px; text-decoration: none; background: var(--card); }
+    .story-actions a.primary { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover { border-color: var(--accent); }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 Story</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">latent_space · Jun 5, 2026 · news</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/daily" role="button">📰 Daily recap</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/rss.xml" role="button">🔔 RSS</a>
+        
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title story-title"><a href="https://www.latent.space/p/bad-envs" target="_blank" rel="noopener">How to Stop Shipping Low-Quality RL Environments (with Examples)</a></h2>
+      
+      
+      <p class="story-summary"><img class="story-img" src="https://substackcdn.com/image/fetch/$s_!NbXz!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fe58868ac-23a0-453d-81e5-5ca830f7454d_1456x1394.png" alt="" loading="lazy" onerror="this.remove()" />Your broken harness is actively making the model worse. Here&#x27;s what I keep seeing after years of eyeballing trajectories, and what you need to fix.</p><div class="story-actions"><a class="primary" href="https://www.latent.space/p/bad-envs" target="_blank" rel="noopener" data-track="story-source">Read the original at latent.space →</a><a href="/?item=https%3A%2F%2Fwww.latent.space%2Fp%2Fbad-envs&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-05">Daily recap for 2026-06-05</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/bf4522cd63f75ab1" data-track="story-related">[AINews] not much happened today</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/a5c65144aba8b31d" data-track="story-related">Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/29ce4419035044ef" data-track="story-related">[AINews] Reve 2 and Ideogram 4: Layouts in Imagegen</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/485af16b145c3db2" data-track="story-related">🔬Scaling Past Informal AI - Carina Hong, Axiom Math</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 3, 2026</span></div></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/rss.xml">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+</body>
+</html>

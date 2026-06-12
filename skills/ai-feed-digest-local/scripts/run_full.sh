@@ -61,6 +61,11 @@ json.loads(p.read_text(encoding='utf-8'))
 print('latest_json_valid=true')
 PY
 
+# Capture this run's stories into the durable store and refresh static pages
+# (/story/<sid>, recap pages, sitemap) before runtime snapshots get pruned.
+python pipeline/story_store.py sync
+python pipeline/render_static_pages.py
+
 # Prune runtime snapshot history before commit/publish to keep repo growth bounded.
 : "${PROCESSED_RUN_RETENTION_DAYS:=45}"
 : "${TIER1_RUN_RETENTION_DAYS:=14}"
@@ -72,7 +77,7 @@ python pipeline/prune_runtime_data.py \
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
-  git add data/ || true
+  git add data/ web/ || true
   if git diff --cached --quiet; then
     echo "runtime_push_skipped=true reason=no_runtime_changes"
   else
