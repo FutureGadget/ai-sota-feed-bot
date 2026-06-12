@@ -16,6 +16,8 @@
     { "source": "/daily/:date(\\d{4}-\\d{2}-\\d{2})", "destination": "/web/daily/:date.html" },
     { "source": "/daily/:date", "destination": "/web/daily.html" },
     { "source": "/voices", "destination": "/web/voices.html" },
+    { "source": "/storylines", "destination": "/web/storyline.html" },
+    { "source": "/storyline/:slug([a-z0-9-]+)", "destination": "/web/storyline.html" },
     { "source": "/story/:sid([0-9a-f]{16})", "destination": "/web/story/:sid.html" },
     { "source": "/s", "destination": "/api/share" },
     { "source": "/rss.xml", "destination": "/api/rss" },
@@ -52,6 +54,9 @@
     "api/daily.js": {
       "includeFiles": "data/daily/{index,latest}.json data/daily/*-*-*.json",
       "excludeFiles": "data/daily/input/**"
+    },
+    "api/storylines.js": {
+      "includeFiles": "data/storylines/**"
     },
     "api/client-config.js": {
       "excludeFiles": "data/**"
