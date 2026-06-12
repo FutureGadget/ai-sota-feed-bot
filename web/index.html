@@ -468,6 +468,11 @@
     .subscribe-wrap {
       position: relative;
     }
+    /* display:flex would override the UA's [hidden]{display:none} — keep the
+       closed state authoritative or the empty popover renders permanently. */
+    .subscribe-menu[hidden] {
+      display: none;
+    }
     .subscribe-menu {
       position: absolute;
       right: 0;
