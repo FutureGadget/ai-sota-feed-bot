@@ -10,6 +10,11 @@ Sources (RSS/API)
    -> data/processed/latest.json
    -> data/digest/latest.md
    -> publish/publish_issue.py / publish/publish_telegram.py
+
+Reader-facing derivatives (built from the durable story store):
+   pipeline/story_store.py sync      -> data/stories/   (/story/<sid> permalinks)
+   pipeline/build_storylines.py      -> data/storylines/ (/storylines cross-day threads)
+   pipeline/render_static_pages.py   -> web/ static pages + sitemap
 ```
 
 ## Runtime

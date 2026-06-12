@@ -298,6 +298,22 @@
       color: #fde68a;
       background: #78350f;
     }
+    a.badge-storyline {
+      text-decoration: none;
+      cursor: pointer;
+      border-color: #7c3aed;
+      color: #5b21b6;
+      background: #f3e8ff;
+      font-weight: 600;
+    }
+    a.badge-storyline:hover {
+      border-color: #5b21b6;
+    }
+    html[data-theme="dark"] a.badge-storyline {
+      border-color: #8b5cf6;
+      color: #ddd6fe;
+      background: #4c1d95;
+    }
     .save-btn,
     .share-btn {
       border: none;
@@ -611,6 +627,7 @@
       <nav class="quicknav" aria-label="More pages">
         <a href="/daily">📰 Daily recap</a>
         <a href="/weekly">🗓️ Weekly recap</a>
+        <a href="/storylines">📈 Storylines</a>
         <a href="/voices">🗣️ Voices</a>
       </nav>
 
@@ -1428,6 +1445,99 @@
     };
     const SOURCE_ACRONYMS = new Set(['ai', 'ml', 'llm', 'aws', 'api', 'sdk', 'gpu']);
 
+    // Storylines: cross-day threads built by pipeline/build_storylines.py and
+    // served from /api/storylines. Feed cards belonging to one get a badge
+    // linking to its /storyline/<slug> timeline; follows (written by that
+    // page) drive the "storylines you follow have updates" notice here.
+    const STORYLINE_FOLLOWS_KEY = 'ai_feed_storyline_follows_v1';
+    let storylineIndex = [];
+    let storylineByUrl = new Map();
+    let storylinesPromise = null;
+
+    function loadStorylineFollows() {
+      try {
+        const v = JSON.parse(localStorage.getItem(STORYLINE_FOLLOWS_KEY) || '{}');
+        return v && typeof v === 'object' ? v : {};
+      } catch {
+        return {};
+      }
+    }
+    let storylineFollowsState = loadStorylineFollows();
+
+    function persistStorylineFollows() {
+      try {
+        localStorage.setItem(STORYLINE_FOLLOWS_KEY, JSON.stringify(storylineFollowsState));
+      } catch {}
+    }
+
+    // Must match pipeline/story_store.py norm_url(): trim + strip one trailing slash.
+    function normStorylineUrl(u) {
+      const s = String(u || '').trim();
+      return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
+    }
+
+    // Fetched once per page load; a storylines outage must never break the feed.
+    function ensureStorylines() {
+      if (!storylinesPromise) {
+        storylinesPromise = (async () => {
+          try {
+            const res = await fetch('/api/storylines');
+            if (!res.ok) return;
+            const data = await res.json();
+            storylineIndex = Array.isArray(data.storylines) ? data.storylines : [];
+            storylineByUrl = new Map();
+            for (const sl of storylineIndex) {
+              for (const u of sl.member_urls || []) storylineByUrl.set(normStorylineUrl(u), sl);
+            }
+          } catch {}
+        })();
+      }
+      return storylinesPromise;
+    }
+
+    function storylineForItem(it) {
+      return storylineByUrl.get(normStorylineUrl(it.url)) || null;
+    }
+
+    // The item's position in the thread ("day 3 of this story"), not the
+    // thread's total length.
+    function storylineDayNum(sl, it) {
+      const t = new Date(it.published || it.first_seen || '');
+      const day = Number.isNaN(t.getTime()) ? '' : t.toISOString().slice(0, 10);
+      const i = (sl.days || []).indexOf(day);
+      return i >= 0 ? i + 1 : (sl.day_count || (sl.days || []).length || 1);
+    }
+
+    function followedStorylinesWithUpdates() {
+      return storylineIndex.filter((sl) => {
+        const f = storylineFollowsState[sl.slug];
+        return f && String(sl.last_updated || '') > String(f.seen_updated || '');
+      });
+    }
+
+    let storylineNoticeCaptured = false;
+
+    function storylineNoticeHtml() {
+      const updated = followedStorylinesWithUpdates();
+      if (!updated.length) return '';
+      if (!storylineNoticeCaptured) {
+        storylineNoticeCaptured = true;
+        posthogCapture('storyline_notice_view', { count: updated.length });
+      }
+      const bullets = updated.map((sl) =>
+        `<li><a href="/storyline/${esc(sl.slug)}" data-storyline-notice="${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a> <span class="catchup-summary">— ${esc(sl.latest_title || '')} (updated ${esc(fmtRelTime(sl.last_updated))})</span></li>`
+      ).join('');
+      return `
+        <section class="catchup" aria-label="Updates in storylines you follow">
+          <div class="catchup-head">
+            <strong>📈 Your storylines moved</strong>
+            <span class="catchup-sub">${updated.length} ${updated.length === 1 ? 'storyline you follow has' : 'storylines you follow have'} new updates</span>
+            <button type="button" class="catchup-dismiss" data-storyline-notice-dismiss="1" aria-label="Mark storyline updates as seen" title="Mark as seen">×</button>
+          </div>
+          <ul>${bullets}</ul>
+        </section>`;
+    }
+
     function sourceDisplayName(slug) {
       const s = String(slug || '').trim();
       if (!s) return 'unknown';
@@ -1486,6 +1596,10 @@
       const itemRunId = esc(it.ingest_batch_id || it.run_id || runId || '');
       const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
       const isNew = rank !== null && !isFresh && isNewSinceLastVisit(it);
+      const storyline = storylineForItem(it);
+      const storylineBadge = storyline
+        ? `<a class="badge badge-storyline" href="/storyline/${esc(storyline.slug)}" data-storyline-badge="${esc(storyline.slug)}" title="Day ${storylineDayNum(storyline, it)} of a developing storyline: ${esc(storyline.label || '')} — ${storyline.item_count} items from ${storyline.source_count} sources. Tap to see the whole thread.">📈 Developing · day ${storylineDayNum(storyline, it)}</a>`
+        : '';
       const saved = isItemSaved(key);
       const fbActive = feedbackState[key]?.signal || '';
       const fbButtons = FEEDBACK_SIGNALS.map(({ signal, label }) =>
@@ -1501,7 +1615,8 @@
             ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
             ${isNew ? `<span class="badge badge-new">New</span>` : ''}
             ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-            ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">📈 Climbing</span>` : ''}
+            ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">⬆️ Climbing</span>` : ''}
+            ${storylineBadge}
             ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
             <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
@@ -1761,7 +1876,7 @@
         // after the 3rd story; catch-up stays pinned on top.
         const promo = onboardingHtml() || subscribeNudgeHtml();
         if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
-        cards.unshift(catchupHtml(items));
+        cards.unshift(catchupHtml(items), storylineNoticeHtml());
       }
       list.innerHTML = cards.join('');
     }
@@ -1772,7 +1887,7 @@
         renderSavedView();
         return;
       }
-      const res = await fetch(buildFeedUrl());
+      const [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines()]);
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
 
       const data = await res.json();
@@ -1869,6 +1984,25 @@
           markSubscribeNudgeDone();
           posthogCapture('subscribe_nudge_dismiss', {});
           renderFeedList();
+          return;
+        }
+
+        if (e.target.closest('button[data-storyline-notice-dismiss]')) {
+          for (const sl of followedStorylinesWithUpdates()) {
+            storylineFollowsState[sl.slug].seen_updated = sl.last_updated || '';
+          }
+          persistStorylineFollows();
+          posthogCapture('storyline_notice_dismiss', {});
+          renderFeedList();
+          return;
+        }
+
+        const slLink = e.target.closest('a[data-storyline-badge], a[data-storyline-notice]');
+        if (slLink) {
+          posthogCapture('storyline_open', {
+            slug: slLink.dataset.storylineBadge || slLink.dataset.storylineNotice || '',
+            placement: slLink.dataset.storylineBadge ? 'card_badge' : 'follow_notice',
+          });
           return;
         }
 

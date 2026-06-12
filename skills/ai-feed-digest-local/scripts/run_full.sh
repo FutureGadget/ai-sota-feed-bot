@@ -64,6 +64,7 @@ PY
 # Capture this run's stories into the durable store and refresh static pages
 # (/story/<sid>, recap pages, sitemap) before runtime snapshots get pruned.
 python pipeline/story_store.py sync
+python pipeline/build_storylines.py
 python pipeline/render_static_pages.py
 
 # Prune runtime snapshot history before commit/publish to keep repo growth bounded.

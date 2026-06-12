@@ -697,6 +697,7 @@ def write_sitemap(
         (f"{base_url}/", today, "hourly"),
         (f"{base_url}/daily", today, "daily"),
         (f"{base_url}/weekly", today, "weekly"),
+        (f"{base_url}/storylines", today, "daily"),
         (f"{base_url}/voices", None, "monthly"),
     ]
     entries += [(f"{base_url}/daily/{d}", d, None) for d in days]

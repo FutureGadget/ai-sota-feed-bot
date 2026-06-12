@@ -44,6 +44,24 @@ python $S/build_weekly_index.py     # 3. validate + rebuild data/weekly/{index,l
 - Smoke-test the UI with a placeholder recap: `bash $S/run_weekly.sh --seed`
 - Agent contract + schema: `.agents/skills/weekly-summary/SKILL.md`
 
+## Storylines (`/storylines`)
+Cross-day threads of a developing story ("what happened next with that thing
+from Tuesday") — e.g. a model launch followed by hands-on posts and reactions.
+`pipeline/build_storylines.py` clusters the durable story store mechanically
+(no LLM): stories join a thread only when their titles share a rare anchor
+token pair, and a thread only ships when it has ≥3 items across ≥2 days from
+≥2 sources (precision over recall — a junk thread costs reader trust).
+
+- Runs hourly in `run_full.sh` after `story_store.py sync`; writes
+  `data/storylines/index.json` + `data/storylines/<slug>.json`.
+- Pages: `/storylines` (active threads), `/storyline/<slug>` (day-by-day
+  timeline with a Follow button). API: `/api/storylines[?slug=]`.
+- Feed cards that belong to a thread get a `📈 Developing · day N` badge;
+  followed threads (localStorage) surface a "your storylines moved" notice on
+  the feed when they gain items. Slugs are carried over between runs by member
+  overlap so follows and shared links survive recluster jitter, and detail
+  JSONs are never pruned so old `/storyline/<slug>` links keep working.
+
 ## Quick start
 ```bash
 python3 -m venv .venv

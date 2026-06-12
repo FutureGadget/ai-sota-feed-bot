@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Storylines — stories as they develop | LLM Digest</title>
+  <meta name="description" content="Follow AI stories as they develop across days — launches, follow-ups, hands-on posts, and reactions threaded into one timeline." />
+  <link rel="canonical" href="https://www.llm-digest.com/storylines" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="AI Storylines" />
+  <meta property="og:description" content="Follow AI stories as they develop across days — launches, follow-ups, hands-on posts, and reactions threaded into one timeline." />
+  <meta property="og:url" content="https://www.llm-digest.com/storylines" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="https://oat.ink/oat.min.js" defer></script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .sl-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .sl-meta { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; display: flex; flex-wrap: wrap;
+      gap: 0.6rem; align-items: center; }
+    .follow-btn { font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--border);
+      border-radius: 999px; cursor: pointer; }
+    .follow-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .day { margin: 0 0 1.6rem; }
+    .day h2 { font-size: 1.05rem; margin: 0 0 0.6rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .day h2 .daynum { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--accent); }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem;
+      border-left: 2px solid var(--border); padding-left: 0.9rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .matters { margin: 0.4rem 0 0; font-size: 0.9rem; color: var(--muted); }
+    .sl-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem; }
+    .sl-card { border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; background: var(--card); }
+    .sl-card h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
+    .sl-card h2 a { text-decoration: none; }
+    .sl-card h2 a:hover { text-decoration: underline; }
+    .sl-card .latest { margin: 0.35rem 0 0; font-size: 0.95rem; }
+    .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📈 AI Storylines</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">Loading…</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/daily" role="button">📰 Daily recap</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a id="jsonLink" href="/api/storylines" role="button">JSON</a>
+      </menu>
+    </header>
+
+    <section id="content" aria-live="polite">
+      <div class="state">Loading storylines…</div>
+    </section>
+
+    <footer>
+      Storylines are threaded mechanically from the feed: stories that share a
+      distinctive anchor across multiple days and sources. Each item links to
+      its original source.
+    </footer>
+  </main>
+
+  <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
+    function initThemeToggle() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+      btn.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function safeUrl(u) {
+      if (!u) return '#';
+      try {
+        const url = new URL(u, window.location.origin);
+        return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : '#';
+      } catch { return '#'; }
+    }
+
+    function fmtDate(v) {
+      if (!v) return '';
+      const d = new Date(v);
+      return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+    }
+
+    function fmtRelTime(v) {
+      const t = Date.parse(v || '');
+      if (!Number.isFinite(t)) return '';
+      const days = Math.floor((Date.now() - t) / 86400000);
+      if (days <= 0) return 'today';
+      if (days === 1) return 'yesterday';
+      return `${days} days ago`;
+    }
+
+    function posthogCapture(event, properties = {}) {
+      try { window.posthog?.capture?.(event, properties); } catch {}
+    }
+
+    // Follows are shared with the feed page (same key): the feed shows a
+    // "storylines you follow have updates" notice based on seen_updated.
+    const FOLLOWS_KEY = 'ai_feed_storyline_follows_v1';
+    function loadFollows() {
+      try {
+        const v = JSON.parse(localStorage.getItem(FOLLOWS_KEY) || '{}');
+        return v && typeof v === 'object' ? v : {};
+      } catch { return {}; }
+    }
+    function persistFollows(follows) {
+      try { localStorage.setItem(FOLLOWS_KEY, JSON.stringify(follows)); } catch {}
+    }
+    let follows = loadFollows();
+
+    function toggleFollow(slug, lastUpdated) {
+      if (follows[slug]) {
+        delete follows[slug];
+      } else {
+        follows[slug] = { followed_at: new Date().toISOString(), seen_updated: lastUpdated || '' };
+      }
+      persistFollows(follows);
+      posthogCapture('storyline_follow', { slug, action: follows[slug] ? 'follow' : 'unfollow' });
+      return !!follows[slug];
+    }
+
+    function markSeen(slug, lastUpdated) {
+      if (follows[slug] && lastUpdated) {
+        follows[slug].seen_updated = lastUpdated;
+        persistFollows(follows);
+      }
+    }
+
+    function followBtnHtml(slug, lastUpdated) {
+      const on = !!follows[slug];
+      return `<button type="button" class="follow-btn" data-follow-slug="${esc(slug)}" data-last-updated="${esc(lastUpdated || '')}" aria-pressed="${on ? 'true' : 'false'}">${on ? '✓ Following' : '+ Follow this story'}</button>`;
+    }
+
+    function slugFromLocation() {
+      const q = new URLSearchParams(window.location.search).get('slug');
+      if (q) return q;
+      const m = window.location.pathname.match(/\/storyline\/([a-z0-9-]+)/i);
+      return m ? m[1] : null;
+    }
+
+    function articleHtml(it) {
+      const why = String(it.why_it_matters || '').trim();
+      return `
+        <article>
+          <h3><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="storyline-link">${esc(it.title || 'Untitled')}</a></h3>
+          <div class="art-meta">
+            ${it.source ? `<span class="badge">${esc(it.source)}</span>` : ''}
+            ${it.type && it.type !== 'news' ? `<span class="badge">${esc(it.type)}</span>` : ''}
+          </div>
+          ${it.summary_1line ? `<p class="art-summary">${esc(it.summary_1line)}</p>` : ''}
+          ${why ? `<p class="matters">💡 ${esc(why)}</p>` : ''}
+        </article>`;
+    }
+
+    function renderStoryline(sl) {
+      document.title = `${sl.label || sl.slug} — AI Storyline | LLM Digest`;
+      document.getElementById('jsonLink').href = `/api/storylines?slug=${encodeURIComponent(sl.slug)}`;
+      document.getElementById('meta').textContent =
+        `${sl.item_count} items · ${sl.source_count} sources · ${sl.day_count} days`;
+
+      const days = Array.isArray(sl.days) ? sl.days : [];
+      const sections = days.map((d, i) => `
+        <section class="day">
+          <h2><span class="daynum">Day ${i + 1}</span> ${esc(fmtDate(d.date))}</h2>
+          <div class="articles">${(d.items || []).map(articleHtml).join('')}</div>
+        </section>`).join('');
+
+      document.getElementById('content').innerHTML = `
+        <h2 class="sl-title">${esc(sl.label || sl.slug)}</h2>
+        <p class="sl-meta">
+          <span>Started ${esc(fmtDate(sl.first_seen))} · last update ${esc(fmtRelTime(sl.last_updated))}</span>
+          ${followBtnHtml(sl.slug, sl.last_updated)}
+        </p>
+        ${sections || '<div class="state">No items in this storyline yet.</div>'}
+        <p><a href="/storylines">← All storylines</a></p>`;
+
+      markSeen(sl.slug, sl.last_updated);
+      posthogCapture('storyline_view', { slug: sl.slug, items: sl.item_count, following: !!follows[sl.slug] });
+    }
+
+    function renderList(index) {
+      const list = Array.isArray(index.storylines) ? index.storylines : [];
+      document.getElementById('meta').textContent = list.length
+        ? `${list.length} developing ${list.length === 1 ? 'storyline' : 'storylines'} from the last ${index.window_days || 21} days`
+        : 'No developing storylines right now';
+      if (!list.length) {
+        document.getElementById('content').innerHTML =
+          '<div class="state">No storylines are developing right now — check back after the next big story breaks.</div>';
+        return;
+      }
+      document.getElementById('content').innerHTML = `
+        <div class="sl-list">${list.map((sl) => `
+          <div class="sl-card">
+            <h2><a href="/storyline/${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
+            <p class="sl-meta">
+              <span>${sl.item_count} items · ${sl.source_count} sources · day ${sl.day_count} · updated ${esc(fmtRelTime(sl.last_updated))}</span>
+              ${followBtnHtml(sl.slug, sl.last_updated)}
+            </p>
+            <p class="latest">Latest: ${esc(sl.latest_title || '')}</p>
+          </div>`).join('')}
+        </div>`;
+      posthogCapture('storylines_list_view', { count: list.length });
+    }
+
+    document.getElementById('content').addEventListener('click', (e) => {
+      const btn = e.target.closest('button[data-follow-slug]');
+      if (!btn) return;
+      const on = toggleFollow(btn.dataset.followSlug || '', btn.dataset.lastUpdated || '');
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      btn.textContent = on ? '✓ Following' : '+ Follow this story';
+    });
+
+    async function run() {
+      const slug = slugFromLocation();
+      const url = slug ? `/api/storylines?slug=${encodeURIComponent(slug)}` : '/api/storylines';
+      try {
+        const res = await fetch(url);
+        if (res.status === 404) {
+          document.getElementById('meta').textContent = 'Not found';
+          document.getElementById('content').innerHTML =
+            '<div class="state">This storyline doesn\'t exist (or hasn\'t developed yet). <a href="/storylines">See all storylines</a>.</div>';
+          return;
+        }
+        if (!res.ok) throw new Error('storylines_http_' + res.status);
+        const data = await res.json();
+        if (slug) renderStoryline(data);
+        else renderList(data);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('meta').textContent = 'Unavailable';
+        document.getElementById('content').innerHTML =
+          '<div class="state">Could not load storylines right now. Please refresh in a moment.</div>';
+      }
+    }
+
+    initThemeToggle();
+    run();
+  </script>
+</body>
+</html>
