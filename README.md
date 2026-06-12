@@ -66,13 +66,26 @@ python publish/publish_telegram.py
 
 To surface "subscribe to the daily digest" CTAs on the website, set
 `DIGEST_TELEGRAM_URL` (a public channel link like `https://t.me/your_channel`)
-in the Vercel environment. The CTAs stay hidden when it is unset.
+in the Vercel environment. Optionally set `DIGEST_EMAIL_SIGNUP_URL` (e.g. a
+Buttondown/RSS-to-email signup page) to add an email option. The respective
+CTAs stay hidden when unset; RSS is always offered.
 
 Current web app behavior:
+- Subscribe is a first-class action: a 🔔 menu in the feed header offers
+  RSS (`/rss.xml`, always), the Telegram digest, and email signup (when
+  configured). Returning visitors get a one-time dismissible subscribe nudge
+  after the 3rd story (first visits get topic onboarding instead). Events:
+  `subscribe_menu_open`, `subscribe_click` (channel + placement),
+  `subscribe_nudge_dismiss`. All pages carry RSS autodiscovery for `/rss.xml`.
 - Sends batched `impression` events to PostHog on feed render
 - Sends `click` events to PostHog when opening an item link
 - One-tap reader feedback on every feed card (`👍 Useful / 👎 Not relevant / 🫧 Hype`),
   persisted in localStorage and sent to PostHog as `item_feedback`
+- Feedback is visibly closed-loop: the feed API exposes the auto-tune output
+  (`reader_tuning` block + per-item `reader_adjustment` from
+  `data/feedback/source_adjustments.json`); clearly boosted sources
+  (adjustment ≥ 0.05) get a `👍 Reader-boosted` badge on their cards, and the
+  footer states how many sources reader feedback boosted/downweighted and when
 - Trending badges on feed cards: `🔥 N sources` (cross-source coverage from
   `also_covered`) and `📈 Climbing` (rank improved ≥2 positions between the two
   most recent runs, via `rank_at_last_seen` vs `rank_prev_seen`)

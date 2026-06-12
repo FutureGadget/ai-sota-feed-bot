@@ -32,6 +32,46 @@ function readLatest() {
   return readJsonSafe(p, []);
 }
 
+// Reader-driven source tuning (pipeline/auto_tune.py output). Exposed so the
+// UI can show readers that their clicks/feedback actually move the ranking —
+// the reciprocity that keeps the feedback loop fed.
+function readReaderTuning() {
+  const p = path.join(process.cwd(), 'data', 'feedback', 'source_adjustments.json');
+  const data = readJsonSafe(p, null);
+  const adj = data?.adjustments;
+  if (!adj || typeof adj !== 'object') return null;
+
+  const entries = Object.entries(adj)
+    .map(([source, v]) => [String(source), Number(v)])
+    .filter(([source, v]) => source && Number.isFinite(v) && v !== 0);
+  if (!entries.length) return null;
+
+  return {
+    updated_at: data.generated_at || null,
+    window_days: data.window_days ?? null,
+    adjustments: Object.fromEntries(entries),
+    boosted: entries.filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1])
+      .map(([source, adjustment]) => ({ source, adjustment })),
+    downweighted: entries.filter(([, v]) => v < 0).sort((a, b) => a[1] - b[1])
+      .map(([source, adjustment]) => ({ source, adjustment })),
+  };
+}
+
+function readerTuningSummary(tuning) {
+  if (!tuning) return null;
+  return {
+    updated_at: tuning.updated_at,
+    window_days: tuning.window_days,
+    boosted: tuning.boosted,
+    downweighted: tuning.downweighted,
+  };
+}
+
+function withReaderAdjustment(it, tuning) {
+  const adj = tuning?.adjustments[String(it?.source || '')];
+  return adj ? { ...it, reader_adjustment: adj } : it;
+}
+
 function readTier1Latest() {
   const p = path.join(process.cwd(), 'data', 'tier1', 'latest.json');
   return readJsonSafe(p, []);
@@ -345,10 +385,12 @@ export default async function handler(req, res) {
       .filter(Boolean);
 
     const runs = readRuns();
+    const readerTuning = readReaderTuning();
 
     // Backward-compatible latest view when no historical runs are available.
     if (!runs.length) {
-      const allItems = readLatest().map((it) => ({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }));
+      const allItems = readLatest().map((it) =>
+        withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
       const availableLabels = summarizeLabels(allItems);
       const filteredBase = applyLabelFilter(allItems, selectedLabels);
       return res.status(200).json({
@@ -358,6 +400,7 @@ export default async function handler(req, res) {
         runs: [],
         items: filteredBase.slice(0, limit),
         available_labels: availableLabels,
+        reader_tuning: readerTuningSummary(readerTuning),
       });
     }
 
@@ -383,7 +426,8 @@ export default async function handler(req, res) {
         })
       : { items: baseItems, added: 0 };
 
-    const mergedWithLabels = merged.items.map((it) => ({ ...it, labels: labelsFromItem(it) }));
+    const mergedWithLabels = merged.items.map((it) =>
+      withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
     const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
 
@@ -394,6 +438,7 @@ export default async function handler(req, res) {
       runs: runSummaries,
       items: filteredMerged.slice(0, limit),
       available_labels: availableLabels,
+      reader_tuning: readerTuningSummary(readerTuning),
       tier1_blend: {
         enabled: blendTier1,
         fresh_added: merged.added,
