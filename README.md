@@ -94,11 +94,12 @@ Current web app behavior:
   URL, with a one-tap re-apply chip after clearing filters (`labels_pin` event)
 - Share permalinks (growth loop): the 📤 button shares `/s?u=<source url>`
   (`api/share.js`) instead of the source article, so shares land readers on
-  this site. The endpoint serves item-specific OG/Twitter tags to unfurlers
-  and redirects humans to `/?item=<url>&utm_source=share`, where the feed
-  scrolls to and highlights the story (widening the window once to 30 days if
-  needed; pinned topics are suspended so they can't hide it). Events:
-  `item_share`, `share_landing`
+  this site. When the story has a durable `/story/<sid>` page (see below) the
+  endpoint redirects there, so old share links never go dead. Otherwise it
+  serves item-specific OG/Twitter tags to unfurlers and redirects humans to
+  `/?item=<url>&utm_source=share`, where the feed scrolls to and highlights
+  the story (widening the window once to 30 days if needed; pinned topics are
+  suspended so they can't hide it). Events: `item_share`, `share_landing`
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
 - PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
@@ -139,6 +140,7 @@ crawlers and link unfurlers. `pipeline/render_static_pages.py` therefore
 pre-renders every published recap into fully static, indexable pages:
 - `web/daily/<date>.html` → served at `/daily/<date>`
 - `web/weekly/<week>.html` → served at `/weekly/<week>`
+- `web/story/<sid>.html` → served at `/story/<sid>` (story permalinks, below)
 - `web/sitemap.xml` → `/sitemap.xml`, `web/robots.txt` → `/robots.txt`
 
 Each page carries a real title, meta description, canonical URL, Open
@@ -146,8 +148,26 @@ Graph/Twitter cards, JSON-LD, and RSS autodiscovery, and mirrors the dynamic
 pages' design. The index builders (`build_daily_index.py` /
 `build_weekly_index.py`) invoke the renderer automatically, so publishing a
 recap always refreshes the static pages — commit `web/daily/`, `web/weekly/`,
-and `web/sitemap.xml` alongside `data/`. Base URL override: `--base-url` or
-`SITE_BASE_URL` (default `https://www.llm-digest.com`).
+`web/story/`, and `web/sitemap.xml` alongside `data/`. Base URL override:
+`--base-url` or `SITE_BASE_URL` (default `https://www.llm-digest.com`).
+
+### Story permalink pages (growth loop)
+Every story that makes a published feed snapshot gets a durable, indexable
+page at `/story/<sid>` (`sid = sha256(normalized url)[:16]`, derivable from
+the URL alone). Feed snapshots are pruned after ~45 days, so
+`pipeline/story_store.py sync` first captures each story into an append-only
+store (`data/stories/<YYYY-MM>.json` + a compact `index.json` the share
+endpoint bundles), and the static renderer turns the store into pages: title
+(linking out to the source), why-it-matters, summary or release highlights,
+topics, "also covered by", related stories (internal links), and links into
+the live feed and that day's recap. Recap pages link each article's `Details`
+badge to its story page, and `/s` share links redirect there, so shares and
+search hits land on pages that never expire. Both steps run in
+`run_full.sh` every cycle:
+```bash
+python pipeline/story_store.py sync        # upsert stories from processed runs
+python pipeline/render_static_pages.py     # render recap + story pages + sitemap
+```
 
 LLM discovery endpoints:
 - `/llms.txt` (LLM-oriented site map + API usage notes)

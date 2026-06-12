@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Show HN: Agent-browser-shield – free extension to protect AI agents on the web | LLM Digest</title>
+  <meta name="description" content="I&#x27;ve been experimenting with Claude Code, ChatGPT Agent, and OpenClaw to perform more open-ended tasks for me online. A big blocker I&#x27;ve hit on shopping and research tasks is the agent getting a key piece of info wron..." />
+  <link rel="canonical" href="https://www.llm-digest.com/story/53b074bd054943b5" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Show HN: Agent-browser-shield – free extension to protect AI agents on the web" />
+  <meta property="og:description" content="I&#x27;ve been experimenting with Claude Code, ChatGPT Agent, and OpenClaw to perform more open-ended tasks for me online. A big blocker I&#x27;ve hit on shopping and research tasks is the agent getting a key piece of info wron..." />
+  <meta property="og:url" content="https://www.llm-digest.com/story/53b074bd054943b5" />
+  <meta property="article:published_time" content="2026-06-03T16:23:24+00:00" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Show HN: Agent-browser-shield – free extension to protect AI agents on the web" />
+  <meta name="twitter:description" content="I&#x27;ve been experimenting with Claude Code, ChatGPT Agent, and OpenClaw to perform more open-ended tasks for me online. A big blocker I&#x27;ve hit on shopping and research tasks is the agent getting a key piece of info wron..." />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Show HN: Agent-browser-shield – free extension to protect AI agents on the web", "description": "I've been experimenting with Claude Code, ChatGPT Agent, and OpenClaw to perform more open-ended tasks for me online. A big blocker I've hit on shopping and research tasks is the agent getting a key piece of info wron...", "datePublished": "2026-06-03T16:23:24+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/53b074bd054943b5", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com"}}</script>
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
+      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
+    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
+    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
+      border-radius: 10px; text-decoration: none; background: var(--card); }
+    .story-actions a.primary { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover { border-color: var(--accent); }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 Story</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">hackernews_ai · Jun 3, 2026 · news</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/daily" role="button">📰 Daily recap</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/rss.xml" role="button">🔔 RSS</a>
+        
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title story-title"><a href="https://github.com/pixiebrix/agent-browser-shield" target="_blank" rel="noopener">Show HN: Agent-browser-shield – free extension to protect AI agents on the web</a></h2>
+      
+      
+      <p class="story-summary">I&#x27;ve been experimenting with Claude Code, ChatGPT Agent, and OpenClaw to perform more open-ended tasks for me online. A big blocker I&#x27;ve hit on shopping and research tasks is the agent getting a key piece of info wrong. For example, in one case, my agent decided to add a brand I don&#x27;t like to the cart because the site flagged it as almost sold out The HN crowd is probably pretty aware of the threats and can avoid them while browsing. But what about their agents? I tried prompting, but it was ineffective, because once the AI saw the threat, it polluted/distracted its context Looking at the research, I came across a couple of papers, SusBench and Decepticon. The Deception research benchmarks indicate that increased reasoning can perform worse, because the model rationalizes the dark pattern So it seems the best approach has to be removing the information before it can pollute/poison the context In my day job, we have a browser extension that started as a productivity extension. However, contact centers started using us for neutralizing insider, fraud, and social engineering threats. So my team set out to create a browser extension to neutralize all the threats AI agents face We&#x27;re focusing on open-ended tasks, because the best practice for routine tasks is to have the agent script repeat actions It&#x27;s also a tricky area since AI agents view the web in different ways: DOM, a11y tree, and visually. So we needed to account for those differences in how we detect and neutralize threa</p><div class="story-actions"><a class="primary" href="https://github.com/pixiebrix/agent-browser-shield" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fpixiebrix%2Fagent-browser-shield&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/f4ee52a4880e25e4" data-track="story-related">Show HN: Keen Code – a context aware CLI coding agent built by coding agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/7bb42b6438288456" data-track="story-related">Microsoft&#x27;s Project Solara is an OS for AI agent gadgets</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/3ce94b7554d5691a" data-track="story-related">Type-Error Ablation and AI Coding Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/7c4309c3fba29c60" data-track="story-related">Agent-Model Matching Guide</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/rss.xml">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+</body>
+</html>

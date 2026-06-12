@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -5,11 +6,18 @@ import path from 'node:path';
 //
 // The feed's share button used to share the source article URL directly, so
 // every share sent readers to the source site. This endpoint makes shares
-// land on llm-digest.com instead: crawlers/unfurlers get item-specific Open
-// Graph tags (title + why-it-matters), humans get redirected to the live
-// feed with the story highlighted (/?item=<url>&utm_source=share).
+// land on llm-digest.com instead.
 //
-// The item is looked up by URL in the same data the feed serves. If it has
+// Stories that made the published feed have a durable static page at
+// /story/<sid> (see pipeline/story_store.py — sid is sha256(normalized
+// url)[:16], so it's derivable from the shared URL alone). When one exists
+// we redirect there: the story page carries its own OG tags and never
+// expires, so old share links keep working.
+//
+// Otherwise (e.g. tier1-fresh items not yet in a published snapshot) the
+// item is looked up by URL in the same data the feed serves: crawlers get
+// item-specific Open Graph tags, humans get redirected to the live feed
+// with the story highlighted (/?item=<url>&utm_source=share). If it has
 // aged out of retention, the page degrades to a generic site card and still
 // redirects to the feed — never to an unvalidated external URL.
 
@@ -46,6 +54,16 @@ function parseTargetUrl(raw) {
     if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
   } catch {}
   return null;
+}
+
+// Must match pipeline/story_store.py story_sid(): sha256(normalized url)[:16].
+function storySid(url) {
+  return crypto.createHash('sha256').update(normUrl(url), 'utf8').digest('hex').slice(0, 16);
+}
+
+function storyPageExists(sid) {
+  const index = readJsonSafe(path.join(process.cwd(), 'data', 'stories', 'index.json'), null);
+  return Boolean(index && typeof index === 'object' && index[sid]);
 }
 
 function* candidateItemLists() {
@@ -135,6 +153,13 @@ export default async function handler(req, res) {
           redirect: '/?utm_source=share&utm_medium=social',
         })
       );
+      return;
+    }
+
+    const sid = storySid(targetUrl);
+    if (storyPageExists(sid)) {
+      res.status(302).setHeader('Location', `/story/${sid}?utm_source=share&utm_medium=social`);
+      res.end();
       return;
     }
 

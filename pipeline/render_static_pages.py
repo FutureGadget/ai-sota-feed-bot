@@ -1,14 +1,23 @@
-"""Render daily/weekly recaps to static HTML + sitemap for SEO and link previews.
+"""Render recaps + story permalinks to static HTML + sitemap for SEO/previews.
 
 The /daily and /weekly pages are client-rendered JS shells, so crawlers and
 link unfurlers see "Loading…" instead of content. This script turns the recap
 JSON the pipeline already commits (``data/daily/<date>.json``,
-``data/weekly/<week>.json``) into fully static, indexable pages:
+``data/weekly/<week>.json``) and the durable story store
+(``data/stories/<YYYY-MM>.json``, see ``pipeline/story_store.py``) into fully
+static, indexable pages:
 
 - ``web/daily/<date>.html``   served at ``/daily/<date>``
 - ``web/weekly/<week>.html``  served at ``/weekly/<week>``
+- ``web/story/<sid>.html``    served at ``/story/<sid>``
 - ``web/sitemap.xml``         served at ``/sitemap.xml``
 - ``web/robots.txt``          served at ``/robots.txt``
+
+Story pages are the durable landing target for shares (``api/share.js``
+redirects there) and give every story that made the published feed an
+indexable page with internal links (related stories, recap pages), so search
+and share traffic land on llm-digest.com instead of expiring with feed
+retention.
 
 Each page carries a real <title>, meta description, canonical URL, Open
 Graph/Twitter cards, JSON-LD, and RSS autodiscovery — and mirrors the markup
@@ -33,6 +42,10 @@ import sys
 from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
+from urllib.parse import quote, urlsplit
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from story_store import load_store, parse_dt, story_sid  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 DAILY_DIR = ROOT / "data" / "daily"
@@ -46,6 +59,9 @@ DATE_FILE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.json$")
 WEEK_FILE_RE = re.compile(r"^\d{4}-W\d{2}\.json$")
 DATE_HTML_RE = re.compile(r"^\d{4}-\d{2}-\d{2}\.html$")
 WEEK_HTML_RE = re.compile(r"^\d{4}-W\d{2}\.html$")
+SID_HTML_RE = re.compile(r"^[0-9a-f]{16}\.html$")
+
+RELATED_STORIES_MAX = 4
 
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
@@ -99,6 +115,21 @@ PAGE_CSS = """\
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     .archive { margin-left: auto; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
+      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
+    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
+    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
+      border-radius: 10px; text-decoration: none; background: var(--card); }
+    .story-actions a.primary { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover { border-color: var(--accent); }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
 """
 
 THEME_BOOT_JS = """\
@@ -201,7 +232,7 @@ def render_intro(recap: dict) -> str:
     return f'<div class="intro">{tldr}{body}</div>'
 
 
-def render_categories(recap: dict, track: str) -> str:
+def render_categories(recap: dict, track: str, story_sids: set[str] | None = None) -> str:
     cats = [c for c in recap.get("categories") or [] if isinstance(c, dict)]
     toc = ""
     if len(cats) > 1:
@@ -229,6 +260,14 @@ def render_categories(recap: dict, track: str) -> str:
                 if a.get("source")
                 else ""
             )
+            # Internal link to the story permalink page (hub -> spoke), kept
+            # alongside the external title link so titles still go to sources.
+            sid = story_sid(a.get("url")) if href != "#" else ""
+            detail_link = (
+                f'<a class="badge" href="/story/{sid}" data-track="story-link">Details</a>'
+                if story_sids and sid in story_sids
+                else ""
+            )
             summary = (
                 f'<p class="art-summary">{escape(squeeze(a.get("summary")))}</p>'
                 if squeeze(a.get("summary"))
@@ -238,7 +277,7 @@ def render_categories(recap: dict, track: str) -> str:
                 "<article>"
                 f'<h3><a href="{escape(href)}" target="_blank" rel="noopener" data-track="{track}">'
                 f'{escape(squeeze(a.get("title")) or "Untitled")}</a></h3>'
-                f'<div class="art-meta">{src_badge}{pub_badge}</div>'
+                f'<div class="art-meta">{src_badge}{pub_badge}{detail_link}</div>'
                 f"{summary}</article>"
             )
         n = len(arts)
@@ -267,10 +306,17 @@ def render_archive_select(options: list[tuple[str, str]], current: str, label: s
     )
 
 
-def render_head(*, title: str, description: str, canonical: str, published: str | None) -> str:
+def render_head(
+    *, title: str, description: str, canonical: str, published: str | None, image: str = ""
+) -> str:
     og_published = (
         f'\n  <meta property="article:published_time" content="{escape(published)}" />'
         if published
+        else ""
+    )
+    og_image = (
+        f'\n  <meta property="og:image" content="{escape(image)}" />'
+        if image.startswith(("http://", "https://"))
         else ""
     )
     json_ld = json.dumps(
@@ -295,7 +341,7 @@ def render_head(*, title: str, description: str, canonical: str, published: str 
   <meta property="og:site_name" content="{escape(SITE_NAME)}" />
   <meta property="og:title" content="{escape(title)}" />
   <meta property="og:description" content="{escape(description)}" />
-  <meta property="og:url" content="{escape(canonical)}" />{og_published}
+  <meta property="og:url" content="{escape(canonical)}" />{og_published}{og_image}
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="{escape(title)}" />
   <meta name="twitter:description" content="{escape(description)}" />
@@ -323,12 +369,17 @@ def render_page(
     recap_range: str,
     intro_html: str,
     body_html: str,
+    image: str = "",
+    title_html: str = "",
 ) -> str:
     nav = "".join(f'\n        <a href="{escape(h)}" role="button">{escape(t)}</a>' for h, t in nav_links)
+    json_link = f'\n        <a href="{escape(json_href)}" role="button">JSON</a>' if json_href else ""
+    heading = title_html or f'<h2 class="recap-title">{escape(recap_title)}</h2>'
+    range_line = f'<p class="recap-range">{escape(recap_range)}</p>' if recap_range else ""
     return f"""<!doctype html>
 <html lang="en">
 <head>
-{render_head(title=title, description=description, canonical=canonical, published=published)}
+{render_head(title=title, description=description, canonical=canonical, published=published, image=image)}
 </head>
 <body>
   <main>
@@ -338,15 +389,14 @@ def render_page(
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
       <p id="meta" class="muted">{escape(meta_line)}</p>
-      <menu>{nav}
-        <a href="{escape(json_href)}" role="button">JSON</a>
+      <menu>{nav}{json_link}
         {archive}
       </menu>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">{escape(recap_title)}</h2>
-      <p class="recap-range">{escape(recap_range)}</p>
+      {heading}
+      {range_line}
       {intro_html}
       {body_html}
     </section>
@@ -383,7 +433,7 @@ def meta_line_for(recap: dict) -> str:
     return f"{total} articles · {len(cats)} categories"
 
 
-def render_daily_pages(base_url: str) -> list[str]:
+def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
     recaps = load_recaps(DAILY_DIR, DATE_FILE_RE, "date")
     out_dir = WEB_DIR / "daily"
     archive_options = [
@@ -406,7 +456,7 @@ def render_daily_pages(base_url: str) -> list[str]:
             recap_title=squeeze(recap.get("title")) or day,
             recap_range=fmt_long_date(day),
             intro_html=render_intro(recap),
-            body_html=render_categories(recap, "daily-link"),
+            body_html=render_categories(recap, "daily-link", story_sids),
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{day}.html").write_text(html, encoding="utf-8")
@@ -415,7 +465,7 @@ def render_daily_pages(base_url: str) -> list[str]:
     return ids
 
 
-def render_weekly_pages(base_url: str) -> list[str]:
+def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
     recaps = load_recaps(WEEKLY_DIR, WEEK_FILE_RE, "week")
     out_dir = WEB_DIR / "weekly"
     archive_options = [
@@ -441,13 +491,190 @@ def render_weekly_pages(base_url: str) -> list[str]:
             recap_title=squeeze(recap.get("title")) or week,
             recap_range=f"{recap_range} · {week}" if recap_range else week,
             intro_html=render_intro(recap),
-            body_html=render_categories(recap, "weekly-link"),
+            body_html=render_categories(recap, "weekly-link", story_sids),
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{week}.html").write_text(html, encoding="utf-8")
         ids.append(week)
     prune_orphans(out_dir, WEEK_HTML_RE, {f"{i}.html" for i in ids})
     return ids
+
+
+def story_dt(rec: dict) -> datetime:
+    dt = parse_dt(rec.get("published")) or parse_dt(rec.get("first_seen"))
+    return dt or datetime.fromtimestamp(0, tz=timezone.utc)
+
+
+def fmt_story_date(dt: datetime) -> str:
+    return f"{dt.strftime('%b')} {dt.day}, {dt.year}"
+
+
+def source_domain(url: str) -> str:
+    try:
+        host = urlsplit(url).hostname or ""
+    except ValueError:
+        host = ""
+    return host.removeprefix("www.") or "the source"
+
+
+def related_stories(rec: dict, stories: dict[str, dict]) -> list[dict]:
+    """Related = shared topic or same source, published at/before this story.
+
+    Only looking backward keeps rendered pages stable as new stories arrive
+    (no churn re-committing every page each run).
+    """
+    topics = set(rec.get("matched_topics") or [])
+    cutoff = story_dt(rec)
+    scored = []
+    for other in stories.values():
+        if other.get("sid") == rec.get("sid") or story_dt(other) > cutoff:
+            continue
+        shared = len(topics & set(other.get("matched_topics") or []))
+        same_source = other.get("source") == rec.get("source")
+        if shared or same_source:
+            scored.append((2 * shared + int(same_source), story_dt(other), other))
+    scored.sort(key=lambda t: (t[0], t[1]), reverse=True)
+    return [other for _, _, other in scored[:RELATED_STORIES_MAX]]
+
+
+def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
+    parts = []
+    why = squeeze(rec.get("why_it_matters"))
+    if why:
+        parts.append(
+            '<div class="intro"><p class="tldr-label">Why it matters</p>'
+            f"<p>{escape(why)}</p></div>"
+        )
+
+    img = str(rec.get("image_url") or "")
+    img_html = (
+        f'<img class="story-img" src="{escape(img)}" alt="" loading="lazy" '
+        'onerror="this.remove()" />'
+        if img.startswith(("http://", "https://"))
+        else ""
+    )
+    highlights = [squeeze(h) for h in rec.get("release_highlights") or [] if squeeze(h)]
+    # Release summaries are built from the same changelog bullets as the
+    # highlights, so showing both would duplicate the page.
+    summary = "" if highlights else squeeze(rec.get("summary") or rec.get("summary_1line"))
+    if summary:
+        parts.append(f'<p class="story-summary">{img_html}{escape(summary)}</p>')
+    elif img_html:
+        parts.append(f'<p class="story-summary">{img_html}</p>')
+
+    if highlights:
+        items = "".join(f"<li>{escape(h)}</li>" for h in highlights)
+        parts.append(
+            '<div class="tldr"><p class="tldr-label">Release highlights</p>'
+            f"<ul>{items}</ul></div>"
+        )
+
+    topics = [squeeze(t) for t in rec.get("matched_topics") or [] if squeeze(t)]
+    if topics:
+        chips = "".join(f'<span class="badge">{escape(t)}</span>' for t in topics)
+        parts.append(f'<div class="chips">{chips}</div>')
+
+    url = str(rec.get("url") or "")
+    feed_link = f"/?item={quote(url, safe='')}&utm_source=story"
+    actions = [
+        f'<a class="primary" href="{escape(url)}" target="_blank" rel="noopener" '
+        f'data-track="story-source">Read the original at {escape(source_domain(url))} →</a>',
+        f'<a href="{escape(feed_link)}">Open in live feed</a>',
+    ]
+    day = story_dt(rec).date().isoformat()
+    if (DAILY_DIR / f"{day}.json").is_file():
+        actions.append(f'<a href="/daily/{day}">Daily recap for {escape(day)}</a>')
+    parts.append(f'<div class="story-actions">{"".join(actions)}</div>')
+
+    covered = [c for c in rec.get("also_covered") or [] if isinstance(c, dict)]
+    if covered:
+        rows = []
+        for c in covered:
+            href = safe_http_url(c.get("url"))
+            label = squeeze(c.get("title")) or squeeze(c.get("source")) or href
+            src = squeeze(c.get("source"))
+            suffix = f' <span class="muted">({escape(src)})</span>' if src else ""
+            rows.append(
+                f'<li><a href="{escape(href)}" target="_blank" rel="noopener">'
+                f"{escape(label)}</a>{suffix}</li>"
+            )
+        parts.append(
+            '<div class="covered"><p class="tldr-label">Also covered by</p>'
+            f'<ul>{"".join(rows)}</ul></div>'
+        )
+
+    related = related_stories(rec, stories)
+    if related:
+        cards = []
+        for other in related:
+            meta = []
+            if other.get("source"):
+                meta.append(f'<span class="badge">{escape(str(other["source"]))}</span>')
+            meta.append(f'<span class="badge">{escape(fmt_story_date(story_dt(other)))}</span>')
+            cards.append(
+                "<article>"
+                f'<h3><a href="/story/{escape(str(other.get("sid")))}" data-track="story-related">'
+                f'{escape(squeeze(other.get("title")) or "Untitled")}</a></h3>'
+                f'<div class="art-meta">{"".join(meta)}</div></article>'
+            )
+        parts.append(
+            '<section class="cat"><h2>Related stories '
+            f'<span class="count">{len(cards)} item{"" if len(cards) == 1 else "s"}</span></h2>'
+            f'<div class="articles">{"".join(cards)}</div></section>'
+        )
+    return "".join(parts)
+
+
+def render_story_pages(base_url: str, stories: dict[str, dict]) -> list[tuple[str, str | None]]:
+    """Render web/story/<sid>.html for every stored story.
+
+    Returns (sid, lastmod) pairs for the sitemap, newest first.
+    """
+    out_dir = WEB_DIR / "story"
+    rendered: list[tuple[str, str | None]] = []
+    ordered = sorted(stories.values(), key=story_dt, reverse=True)
+    for rec in ordered:
+        sid = str(rec.get("sid") or "")
+        url = str(rec.get("url") or "")
+        title = squeeze(rec.get("title"))
+        if not SID_HTML_RE.match(f"{sid}.html") or not title or not url:
+            continue
+        canonical = f"{base_url}/story/{sid}"
+        published_dt = parse_dt(rec.get("published"))
+        description = clip(
+            squeeze(rec.get("why_it_matters"))
+            or squeeze(rec.get("summary_1line"))
+            or squeeze(rec.get("summary")),
+            250,
+        )
+        source = squeeze(rec.get("source"))
+        kind = squeeze(rec.get("type"))
+        meta_bits = [b for b in (source, fmt_story_date(story_dt(rec)), kind) if b]
+        html = render_page(
+            title=title,
+            description=description,
+            canonical=canonical,
+            published=published_dt.isoformat() if published_dt else None,
+            h1="📰 Story",
+            meta_line=" · ".join(meta_bits),
+            nav_links=[("/", "← Live feed"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/rss.xml", "🔔 RSS")],
+            json_href="",
+            archive="",
+            recap_title="",  # replaced by linked title below
+            recap_range="",
+            intro_html="",
+            body_html=render_story_body(rec, stories),
+            image=str(rec.get("image_url") or ""),
+            title_html=(
+                f'<h2 class="recap-title story-title"><a href="{escape(safe_http_url(url))}" '
+                f'target="_blank" rel="noopener">{escape(title)}</a></h2>'
+            ),
+        )
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{sid}.html").write_text(html, encoding="utf-8")
+        rendered.append((sid, published_dt.date().isoformat() if published_dt else None))
+    prune_orphans(out_dir, SID_HTML_RE, {f"{sid}.html" for sid, _ in rendered})
+    return rendered
 
 
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
@@ -459,7 +686,12 @@ def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
             print(f"pruned stale page: {path.relative_to(ROOT)}")
 
 
-def write_sitemap(base_url: str, days: list[str], weeks: list[str]) -> None:
+def write_sitemap(
+    base_url: str,
+    days: list[str],
+    weeks: list[str],
+    stories: list[tuple[str, str | None]] | None = None,
+) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
     entries: list[tuple[str, str | None, str | None]] = [
         (f"{base_url}/", today, "hourly"),
@@ -471,6 +703,7 @@ def write_sitemap(base_url: str, days: list[str], weeks: list[str]) -> None:
     # Weekly recaps: lastmod = the week's end date when derivable.
     for w in weeks:
         entries.append((f"{base_url}/weekly/{w}", None, None))
+    entries += [(f"{base_url}/story/{sid}", lastmod, None) for sid, lastmod in stories or []]
 
     rows = []
     for loc, lastmod, changefreq in entries:
@@ -501,14 +734,23 @@ def main() -> None:
     args = ap.parse_args()
     base_url = args.base_url.rstrip("/")
 
-    days = render_daily_pages(base_url)
-    weeks = render_weekly_pages(base_url)
-    write_sitemap(base_url, days, weeks)
+    stories = load_store()
+    story_sids = set(stories)
+    days = render_daily_pages(base_url, story_sids)
+    weeks = render_weekly_pages(base_url, story_sids)
+    story_pages = render_story_pages(base_url, stories)
+    write_sitemap(base_url, days, weeks, story_pages)
     write_robots(base_url)
-    print(f"static pages rendered: {len(days)} daily, {len(weeks)} weekly -> web/daily/, web/weekly/")
-    print(f"sitemap: web/sitemap.xml ({4 + len(days) + len(weeks)} urls), robots: web/robots.txt")
-    if not days and not weeks:
-        print("warning: no recaps found; nothing rendered", file=sys.stderr)
+    print(
+        f"static pages rendered: {len(days)} daily, {len(weeks)} weekly, "
+        f"{len(story_pages)} story -> web/daily/, web/weekly/, web/story/"
+    )
+    print(
+        f"sitemap: web/sitemap.xml ({4 + len(days) + len(weeks) + len(story_pages)} urls), "
+        "robots: web/robots.txt"
+    )
+    if not days and not weeks and not story_pages:
+        print("warning: no recaps or stories found; nothing rendered", file=sys.stderr)
 
 
 if __name__ == "__main__":
