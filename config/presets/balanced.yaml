@@ -5,7 +5,7 @@ slot_merge_strategy: floor_then_dynamic
 
 slots:
   frontier_official:
-    sources: [openai_blog, anthropic_engineering, anthropic_newsroom]
+    sources: [openai_blog, anthropic_engineering, anthropic_newsroom, google_deepmind_blog]
     min_items: 4
     max_items: 7
     max_per_source: 2
@@ -100,12 +100,13 @@ source_bias:
   anthropic_newsroom: 0.06
   openai_blog: 0.10
   anthropic_engineering: 0.12
+  google_deepmind_blog: 0.10
   simon_willison: 0.08
   infoq_ai_ml: 0.08
   google_ai_blog: -0.10
   aws_ml_blog: -0.20
   nvidia_blog: -0.18
-  google_cloud_blog: -0.18
+  google_cloud_blog: -0.12  # edge over aws/nvidia: publishes standards/spec posts (OKF, MCP/A2UI, inference gateway)
   vllm_releases: -0.08
   triton_releases: -0.08
   langgraph_releases: 0.06
