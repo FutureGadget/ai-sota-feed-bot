@@ -1342,6 +1342,10 @@
         window.posthog.init(ph.project_api_key, {
           api_host: ph.host || 'https://us.i.posthog.com',
           person_profiles: 'identified_only',
+          // PostHog ingestion (/e/) returns 503 on gzip-compressed bodies for
+          // this project; send uncompressed so captures land. See decision-log
+          // 2026-06-14. Payloads are tiny, so the bandwidth cost is negligible.
+          disable_compression: true,
           autocapture: false,
           capture_pageview: false,
           capture_pageleave: true,
