@@ -33,7 +33,6 @@ Reader feedback loop (daily):
     prune → commit/push → publish issue/Telegram)
   - `feed-ops-summary` (daily): operational health snapshot
   - `feedback-sync` (daily): PostHog feedback/CTR sync + source auto-tuning
-  - `hourly-ingest` / `daily-digest`: legacy, manual dispatch only
 - Storage: Git repository (versioned data artifacts; no database)
 - Delivery: Website on Vercel (https://www.llm-digest.com) + GitHub Issues +
   optional Telegram; Vercel serverless functions in `api/` read committed

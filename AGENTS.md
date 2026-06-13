@@ -40,8 +40,6 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-full-publish.yml` | hourly cron | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
-| `hourly-ingest.yml` | **disabled** (dispatch only) | legacy collect+score |
-| `daily-digest.yml` | dispatch only | legacy manual digest+publish |
 
 No GitHub Actions workflow builds storylines. The hourly feed workflow only
 syncs `data/stories/`; the external Claude Code routine owns
