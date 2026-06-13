@@ -141,8 +141,11 @@ storyline; it only proposes links the floor then judges.
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
   `alerts_state.json`, `ingest_runs.jsonl`
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
-- Retention: processed 45d, tier1 14d (env-tunable) via `prune_runtime_data.py`,
-  run automatically in `run_full.sh`.
+- Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
+  (deleted outright, no archive tail — tier1 snapshots are ~1.5 MB each and
+  bundled into the Vercel feed/rss functions, which only read tier1 for a 24h
+  fresh-blend). Env-tunable via `prune_runtime_data.py`, run automatically in
+  `run_full.sh`.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
