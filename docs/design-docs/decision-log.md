@@ -13,6 +13,13 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 ---
 
 ## 2026-06-13
+- **Decision:** Raise `google_cloud_blog` `source_bias` from `-0.18` to `-0.12`, giving it a modest edge over `nvidia_blog` (-0.18) and `aws_ml_blog` (-0.20) within the `vendor_general_updates` slot.
+- **Context / Problem:** Owner wanted Google Cloud ranked a bit higher than the other cloud vendors because it publishes standards/spec articles (Open Knowledge Format, MCP/A2UI integration, GKE Inference Gateway), which are more platform-engineer-relevant than typical vendor marketing.
+- **Rationale:** Keep Google Cloud in the vendor slot (still capped/soft-penalized as a vendor) but let it tend to win the single vendor spot over AWS/NVIDIA when their items compete. Applied in both `config/ranking.yaml` and `config/presets/balanced.yaml`.
+- **Impact:** When the vendor slot fills, Google Cloud's standards-oriented posts are favored over AWS/NVIDIA marketing. Slot cap (1 item) and `soft_penalize` unchanged, so the brief stays finishable.
+- **Rollback / Alternative:** Restore `google_cloud_blog: -0.18` in both files.
+
+## 2026-06-13
 - **Decision:** Add `google_deepmind_blog` source (`deepmind.google/blog/rss.xml`) to the **`frontier_official`** slot, treating Google as a frontier lab on par with OpenAI/Anthropic — not as a promotional vendor.
 - **Context / Problem:** The only Google feeds we collected (`google_ai_blog`, `google_cloud_blog`) both sit in the penalized `vendor_general_updates` slot (whole slot capped at 1 item, `base_bias -0.22`, `source_bias -0.18`, `soft_penalize`). That meant genuine frontier launches (Gemini 3.5, Gemma 4) were capped/penalized like marketing. But `blog.google/technology/ai` is mostly consumer PR (Google Search/Finance, state investments), so it is *not* a good frontier source — promoting it would inject marketing into the top of the brief.
 - **Rationale:** The clean frontier-lab Google signal lives on the **DeepMind blog** (100 entries: Gemma 4 12B, DiffusionGemma, Gemini 3.5 Live Translate, multi-agent safety research). Wired as a frontier peer: added to `frontier_official` in both `config/ranking.yaml` and `config/presets/balanced.yaml`, with `source_bias 0.10` (matching `openai_blog`) and **no** `soft_penalize`. The slot's `max_per_source` cap (4 canonical / 2 preset) keeps DeepMind's higher post volume from flooding the slot. Existing `google_ai_blog`/`google_cloud_blog` stay in the vendor slot unchanged.
