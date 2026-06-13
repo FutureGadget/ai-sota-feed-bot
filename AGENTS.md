@@ -1,7 +1,143 @@
 # AGENTS.md
 
+Context cache for agents working in this repo. Read this before exploring —
+it should answer most "where does X live / how does Y run" questions without
+trial-and-error.
+
 ## Repo Mission
-Build and operate an AI Platform Engineer-focused news intelligence bot (collect → rank → digest → publish).
+Build and operate an AI Platform Engineer-focused news intelligence bot
+(collect → rank → digest → publish) plus a reader-facing website at
+https://www.llm-digest.com (feed, daily/weekly recaps, story permalinks,
+storylines).
+
+## System At A Glance
+Two-tier deterministic pipeline (LLM currently **disabled** — see Gotchas):
+
+```text
+collectors/collect.py                  -> data/raw/YYYY-MM-DD/items.json
+pipeline/source_health.py update       -> data/health/* (health, circuit breaker)
+pipeline/source_alerts.py              -> degradation alerts (Telegram critical-only)
+pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-score, no LLM)
+pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
+   (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
+pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
+pipeline/build_storylines.py           -> data/storylines/ (cross-day threads, no LLM)
+pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
+publish/publish_issue.py               -> GitHub Issue "Daily AI Digest - YYYY-MM-DD"
+publish/publish_telegram.py            -> Telegram digest (optional, secrets-gated)
+```
+
+Production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
+(runs the whole chain above, prunes old snapshots, commits `data/` + `web/`
+and pushes when `AUTO_PUSH_RUNTIME=1`).
+
+## Automation (what actually runs)
+| Workflow (`.github/workflows/`) | Schedule | Does |
+|---|---|---|
+| `feed-full-publish.yml` | hourly cron | `run_full.sh` — the production pipeline |
+| `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
+| `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
+| `hourly-ingest.yml` | **disabled** (dispatch only) | legacy collect+score |
+| `daily-digest.yml` | dispatch only | legacy manual digest+publish |
+
+Daily/weekly recaps are produced by **agent routines** (Claude Code), not
+workflows: `.agents/skills/daily-summary/` and `.agents/skills/weekly-summary/`
+build an input bundle, the agent writes `data/daily/<date>.json` /
+`data/weekly/<week>.json`, the index builder validates + re-renders static
+pages, and committing the JSON *is* publishing.
+
+## Repository Structure Index
+- `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
+  releases, normalization, dedupe, crawl cooldown per source)
+- `pipeline/` — all processing:
+  - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
+    → stage C scoring → global merge → top-band constraints)
+  - `build_tier1.py` (fast snapshot) / `build_digest.py` (Tier-0 full build)
+  - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
+  - `llm_label.py`, `llm_rerank.py` — no-op placeholders while LLM disabled
+  - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
+    stories, threads, static SEO pages
+  - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
+  - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
+    `prune_runtime_data.py` — ops
+- `publish/` — `publish_issue.py` (GitHub Issue), `publish_telegram.py`
+- `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
+  `daily.js`, `weekly.js`, `storylines.js`, `client-config.js`. They read
+  committed `data/` files bundled via `vercel.json` `includeFiles`.
+- `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
+  `weekly.html`, `storyline.html`, `voices.html`. **Generated, do not hand-edit:**
+  `web/daily/`, `web/weekly/`, `web/story/`, `sitemap.xml` (from
+  `render_static_pages.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
+- `config/` — runtime knobs:
+  - `ranking.yaml` — canonical ranking config; `preset:` key deep-merges
+    `config/presets/<name>.yaml` under local overrides
+  - `sources.yaml` (feeds + weights), `profile.yaml` (relevance keywords),
+    `llm.yaml` (**enabled: false**), `user_preferences.yaml`, `config/prompts/`
+- `scripts/` — `git_commit_runtime.sh` (data-only commits),
+  `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
+  (legacy), `compare_v1_v2.py`
+- `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
+  `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
+- `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`
+  (SKILL.md = agent contract + recap JSON schema)
+- `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
+- `docs/` — living documentation:
+  - `docs/status/` — operational snapshots (`current-system-state.md`,
+    `git-hygiene.md`, `tuning-governance.md`)
+  - `docs/how-to/` — playbooks (source/filter debugging, PostHog setup)
+  - `docs/deploy/` — Vercel deployment notes
+  - `docs/product-specs/` — behavior specs (feedback-loop, llm-ranking, onboarding)
+  - `docs/design-docs/` — `decision-log.md` (ADR log), `core-beliefs.md`
+  - `docs/exec-plans/` — execution plans (`active/`, `completed/`, tech-debt tracker)
+  - `docs/generated/` — derived references (`db-schema.md` = data file layout)
+  - `docs/references/` — vendored third-party LLM-friendly references
+  - root docs — `ranking-v2-flow.md` (production ranking flow), `DESIGN.md`,
+    `FRONTEND.md`, `PRODUCT_SENSE.md`, `QUALITY_SCORE.md`, `RELIABILITY.md`,
+    `SECURITY.md`, `PLANS.md`, scoring-v2 plans (historical)
+- Root: `Makefile` (minimal legacy targets; prefer `skills/` scripts),
+  `vercel.json` (rewrites + function data bundles), `requirements.txt` (Python
+  deps: feedparser/PyYAML/dateutil/requests), `package.json` (LLM bridge dep only)
+
+## Data Artifacts (committed runtime state)
+- `data/raw/<date>/items.json` — collector output
+- `data/tier1/` — `latest.json`, `runs/`, `runs_index.json` (fast tier)
+- `data/processed/` — `latest.json` (the feed), `runs/`, `runs_index.json`
+- `data/digest/<date>.md` — daily digest markdown
+- `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
+- `data/storylines/<slug>.json` + `index.json` — threads
+- `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
+- `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
+- `data/health/` — `source_health.json`, `circuit_breaker.json`,
+  `alerts_state.json`, `ingest_runs.jsonl`
+- `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
+- Retention: processed 45d, tier1 14d (env-tunable) via `prune_runtime_data.py`,
+  run automatically in `run_full.sh`.
+
+## Web Surface (vercel.json rewrites)
+`/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
+`/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/voices` ·
+`/s?u=<url>` share redirect · `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
+APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
+`/api/storylines`, `/api/client-config`.
+
+## Gotchas (cache these, they cost tokens to rediscover)
+- **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs
+  fully deterministic/heuristic; `llm_label.py`/`llm_rerank.py` are kept as
+  explicit no-op interfaces for future re-enable. Don't "fix" missing LLM calls.
+- The ranking engine was renamed from "v2" to the only path: module is
+  `pipeline/ranking.py`, config is `config/ranking.yaml`. Any reference to
+  `ranking_v2.yaml` or `pipeline/ranking_v2.py` is historical.
+- `web/story/`, `web/daily/`, `web/weekly/`, `web/sitemap.xml` are build
+  outputs of `render_static_pages.py` — regenerate, never hand-edit.
+- API functions only see `data/` files listed in `vercel.json` `includeFiles`;
+  a new data dir an API needs requires a `vercel.json` change in the same PR.
+- `run_full.sh` takes a lock dir (`.run_full.lock`), skips push on a dirty
+  worktree, and short-circuits when Tier-0 reports no delta
+  (`FULL_RUN_NO_DELTA_SKIP=true`) — these are intentional safety behaviors.
+- Hourly data commits (`chore(data): refresh feed artifacts …`) are bot
+  traffic on `main`; expect rebases when pushing. Keep code commits separate
+  from runtime-data commits (`scripts/git_commit_code.sh` vs
+  `scripts/git_commit_runtime.sh`; see `docs/status/git-hygiene.md`).
 
 ## Product Positioning (decided 2026-06-13)
 The target audience is **AI platform engineers** — and only them. Danu (the
@@ -38,59 +174,53 @@ Implications for any change in this repo:
 ## Working Rules
 - Keep changes small and shippable.
 - Prefer deterministic ranking logic before LLM layers.
-- Never commit secrets or tokens.
+- Never commit secrets or tokens (Telegram/PostHog config comes from env/secrets).
 - Add/update docs with every meaningful feature change.
-- If you add a new feature or a new document category, update docs index/links in the same PR.
+- If you add a new feature or a new document category, update docs index/links
+  in the same PR.
 - Follow git hygiene: commit code/config/docs separately from generated runtime data.
-
-## Repository Structure Index
-- `collectors/` — ingestion jobs (RSS/sitemap/arXiv, normalization entry points)
-- `pipeline/` — ranking, labeling, health/alerts, digest build
-- `publish/` — output channels (GitHub Issue, Telegram)
-- `config/` — runtime knobs (`sources.yaml`, `profile.yaml`, `llm.yaml`, `ranking_v2.yaml`, prompts)
-- `scripts/` — local utilities and comparison/debug scripts
-- `skills/` — local run helpers (e.g., full/dev scripts)
-- `data/` — generated runtime artifacts (raw, processed, digest, health, llm cache, diagnostics)
-- `docs/` — living documentation
-  - `docs/status/` — current operational snapshots
-  - `docs/how-to/` — operational playbooks and debugging guides
-  - `docs/deploy/` — deployment guides and runtime hosting notes
-  - `docs/product-specs/` — behavior specs
-  - `docs/design-docs/` — design rationale/decisions
-  - `docs/exec-plans/` — execution plans and tracking
-  - `docs/generated/` — derived references (e.g., schema)
-  - root docs (`docs/*.md`) — architecture/flow/quality/reliability summaries
 
 ## Documentation Contract
 When implementing a feature:
-1. Update architecture/flow docs if system flow/components changed (`docs/ranking-v2-flow.md` and related docs).
+1. Update architecture/flow docs if system flow/components changed
+   (`ARCHITECTURE.md`, `docs/ranking-v2-flow.md` and related docs).
 2. Update at least one of:
    - `docs/product-specs/*` for product behavior
    - `docs/design-docs/*` for design decisions
    - `docs/exec-plans/*` for execution tracking
    - `docs/status/*` for current operating state changes
-3. If data model changes, update `docs/generated/db-schema.md`.
-4. If you add a new documentation category (new subdirectory under `docs/`), add it to the Repository Structure Index in this file and link it from README where relevant.
+3. If the data artifact layout changes, update `docs/generated/db-schema.md`.
+4. If you add a new documentation category (new subdirectory under `docs/`),
+   add it to the Repository Structure Index in this file and link it from
+   README where relevant.
 
 ## Project Memory Rule (Working Directory Scope)
-- While working in this repository, treat this `AGENTS.md` as mandatory context before making changes.
-- Keep a running decision log in `docs/design-docs/decision-log.md` for architecture/ranking/publishing choices.
-- For each non-trivial change, write a short ADR-style entry: date, decision, rationale, impact, rollback plan.
+- While working in this repository, treat this `AGENTS.md` as mandatory context
+  before making changes.
+- Keep a running decision log in `docs/design-docs/decision-log.md` for
+  architecture/ranking/publishing choices.
+- For each non-trivial change, write a short ADR-style entry: date, decision,
+  rationale, impact, rollback plan.
 
 ## Engineering Guardrails
-- Keep workflows idempotent and observable.
-- Fail gracefully when optional integrations are missing (e.g., Telegram secrets).
+- Keep workflows idempotent and observable (pipelines log machine-greppable
+  `key=value` signals like `FULL_RUN_OK`, `v2_stats`, `runtime_commit_done`).
+- Fail gracefully when optional integrations are missing (Telegram/PostHog
+  secrets) — every publish/sync step must no-op cleanly without them.
 - Prefer config-driven behavior (`config/*.yaml`) over hardcoding.
 
 ## Release Rhythm
 - `main` always runnable.
-- Daily digest workflow must remain green.
-- New features should include a validation path (local run or workflow run).
+- The hourly `feed-full-publish` workflow must remain green.
+- New features should include a validation path (local run via
+  `skills/ai-feed-digest-local/scripts/run_dev.sh` or a workflow run).
 
 ## Deployment (Vercel)
-- The site (`web/` pages + `api/` serverless functions, e.g. `/weekly` and
-  `/api/weekly`) is auto-deployed to Vercel. Config lives in `vercel.json`.
-- Every PR gets an automatic **Vercel preview deployment** — push to a branch /
-  open a PR and the changes are viewable on the preview URL Vercel posts on the
-  PR. Use the preview to eyeball UI changes (like the `/weekly` page) before merge.
-- Merging to `main` triggers the production deploy.
+- The site (`web/` pages + `api/` serverless functions) auto-deploys to Vercel.
+  Config lives in `vercel.json`. Production domain: `https://www.llm-digest.com`
+  (apex redirects to www).
+- Every PR gets an automatic **Vercel preview deployment** — use the preview
+  URL posted on the PR to eyeball UI changes before merge.
+- Merging to `main` triggers the production deploy. The hourly data commits
+  also trigger deploys — that is how fresh feed data reaches the site (the
+  serverless functions read committed `data/` files; there is no database).
