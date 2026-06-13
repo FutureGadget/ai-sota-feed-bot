@@ -27,7 +27,17 @@ available to each function.
 - `data/stories/<YYYY-MM>.json` — append-only story store keyed by
   `sid = sha256(normalized url)[:16]`; `data/stories/index.json` is the
   compact index bundled into the share endpoint
-- `data/storylines/<slug>.json` + `index.json` — cross-day threads
+- `data/storylines/<slug>.json` + `index.json` — cross-day threads. When an
+  agent-written narrative exists, `build_storylines.py` overlays an `editorial`
+  block (`tldr` / `whats_new` / `why_it_matters` / `stale`) onto the detail file
+  and a `{tldr, stale}` teaser onto the index row, plus a per-item `editor_note`
+- `data/storylines/narratives/<slug>.json` — durable agent-written narrative
+  sidecar (the editorial source of truth; never written by the pipeline, only
+  overlaid). Carries a `covers_last_updated` + `covers_member_sids` staleness
+  snapshot. Written by the `storyline-editor` routine
+- `data/storylines/input/latest.json` — bundle of storylines needing a narrative
+  (new or stale), each with its timeline; what the agent reads (excluded from
+  deploys)
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)

@@ -48,6 +48,10 @@ from story_store import load_store, norm_url, parse_dt
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "storylines"
+# Agent-written editorial narratives (see .agents/skills/storyline-editor). The
+# pipeline only *reads* these and overlays them onto the served files below; it
+# never writes them, so the editorial layer survives every recluster.
+NARRATIVE_DIR = OUT_DIR / "narratives"
 
 WINDOW_DAYS = 21
 MIN_ITEMS = 3
@@ -331,6 +335,46 @@ def timeline_item(node: dict) -> dict:
     return out
 
 
+def apply_narrative(slug: str, detail: dict, entry: dict) -> None:
+    """Overlay an agent-written narrative sidecar onto the served storyline.
+
+    Mutates ``detail`` (the per-slug timeline file) and ``entry`` (the index
+    row) in place. Adds an ``editorial`` block (TL;DR arc / what's-new /
+    why-it-matters) and a per-item ``editor_note``; the index row gets a TL;DR
+    teaser. Deterministic JSON read + merge — no LLM here. A narrative whose
+    snapshot no longer matches the thread is still shown but flagged
+    ``stale: true`` so the page (and the editor routine) can tell it predates
+    the latest update.
+    """
+    narr = load_json(NARRATIVE_DIR / f"{slug}.json", None)
+    tldr = narr.get("tldr") if isinstance(narr, dict) else None
+    if not tldr:
+        return
+
+    current_sids = set(entry.get("member_sids") or [])
+    fresh = (
+        narr.get("covers_last_updated") == entry.get("last_updated")
+        and set(narr.get("covers_member_sids") or []) == current_sids
+    )
+    editorial = {"tldr": tldr, "stale": not fresh}
+    for k in ("whats_new", "why_it_matters"):
+        if narr.get(k):
+            editorial[k] = narr[k]
+    if narr.get("generated_at"):
+        editorial["generated_at"] = narr["generated_at"]
+
+    detail["editorial"] = editorial
+    entry["editorial"] = {"tldr": tldr, "stale": not fresh}
+
+    captions = narr.get("day_captions") or {}
+    if isinstance(captions, dict):
+        for day in detail.get("days") or []:
+            for it in day.get("items") or []:
+                note = captions.get(it.get("sid"))
+                if note:
+                    it["editor_note"] = note
+
+
 def build() -> dict:
     now = datetime.now(timezone.utc)
     recs = load_window(now)
@@ -359,7 +403,7 @@ def build() -> dict:
             "first_seen": items[0]["_dt"].isoformat(),
             "last_updated": latest["_dt"].isoformat(),
         }
-        index_entries.append({
+        entry = {
             **common,
             "latest_title": latest.get("title") or "",
             "days": days,
@@ -367,7 +411,7 @@ def build() -> dict:
             # that belongs to the thread, not just the representative copy.
             "member_sids": [sid for n in items for sid in n["sids"]],
             "member_urls": [u for n in items for u in n["urls"]],
-        })
+        }
 
         by_day: dict[str, list[dict]] = defaultdict(list)
         for n in items:
@@ -378,6 +422,10 @@ def build() -> dict:
             "sources": sources,
             "days": [{"date": d, "items": by_day[d]} for d in days],
         }
+        # Overlay the durable agent-written narrative (if any) onto both the
+        # detail file and its index row, so editorial work survives reclusters.
+        apply_narrative(c["slug"], detail, entry)
+        index_entries.append(entry)
         (OUT_DIR / f"{c['slug']}.json").write_text(
             json.dumps(detail, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
         )

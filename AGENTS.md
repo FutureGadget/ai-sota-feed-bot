@@ -21,7 +21,8 @@ pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-sco
 pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
    (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
-pipeline/build_storylines.py           -> data/storylines/ (cross-day threads, no LLM)
+pipeline/build_storylines.py           -> data/storylines/ (cross-day threads, no LLM;
+                                          overlays agent-written narrative sidecars)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 publish/publish_issue.py               -> GitHub Issue "Daily AI Digest - YYYY-MM-DD"
 publish/publish_telegram.py            -> Telegram digest (optional, secrets-gated)
@@ -45,6 +46,15 @@ workflows: `.agents/skills/daily-summary/` and `.agents/skills/weekly-summary/`
 build an input bundle, the agent writes `data/daily/<date>.json` /
 `data/weekly/<week>.json`, the index builder validates + re-renders static
 pages, and committing the JSON *is* publishing.
+
+Storyline narratives work the same way (`.agents/skills/storyline-editor/`): the
+agent reads the mechanically-built threads and writes a durable **narrative
+sidecar** `data/storylines/narratives/<slug>.json` (TL;DR arc, what's-new,
+why-it-matters, per-item notes). The hourly `build_storylines.py` deterministically
+*overlays* a fresh sidecar onto the served files — so the LLM stays out of the
+pipeline loop, and editorial work survives every recluster instead of being
+clobbered. A `covers_*` snapshot in each sidecar lets the overlay flag a
+narrative stale once the thread moves on.
 
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
@@ -78,7 +88,8 @@ pages, and committing the JSON *is* publishing.
   (legacy), `compare_v1_v2.py`
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
   `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
-- `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`
+- `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
+  `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline overlays)
   (SKILL.md = agent contract + recap JSON schema)
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
@@ -104,7 +115,9 @@ pages, and committing the JSON *is* publishing.
 - `data/processed/` — `latest.json` (the feed), `runs/`, `runs_index.json`
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
-- `data/storylines/<slug>.json` + `index.json` — threads
+- `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`
+  overlay when narrated); `narratives/<slug>.json` agent-written sidecars +
+  `input/` bundles
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,

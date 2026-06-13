@@ -63,6 +63,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     .matters { margin: 0.4rem 0 0; font-size: 0.9rem; color: var(--muted); }
+    .editorial { border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem;
+      background: color-mix(in srgb, var(--accent) 6%, var(--card)); margin: 0.2rem 0 1.4rem; }
+    .editorial .tldr { font-size: 1.08rem; line-height: 1.5; margin: 0; }
+    .editorial .whats-new { margin: 0.7rem 0 0; font-size: 0.97rem; }
+    .editorial .whats-new b { color: var(--accent); }
+    .editorial .why { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--muted); }
+    .editorial .stale { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); font-style: italic; }
+    .editor-note { margin: 0.35rem 0 0; font-size: 0.95rem; font-weight: 500;
+      border-left: 2px solid var(--accent); padding-left: 0.55rem; }
+    .sl-card .teaser { margin: 0.4rem 0 0; font-size: 0.92rem; color: var(--muted); }
     .sl-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem; }
     .sl-card { border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; background: var(--card); }
     .sl-card h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
@@ -96,7 +106,8 @@
     <footer>
       Storylines are threaded mechanically from the feed: stories that share a
       distinctive anchor across multiple days and sources. Each item links to
-      its original source.
+      its original source. Where a thread carries a summary, it was written by
+      an editor to trace what happened across the days.
     </footer>
   </main>
 
@@ -193,6 +204,9 @@
 
     function articleHtml(it) {
       const why = String(it.why_it_matters || '').trim();
+      // The editor's note (what this item added to the arc) is the lead line
+      // when present; the mechanical 1-line blurb drops to secondary.
+      const note = String(it.editor_note || '').trim();
       return `
         <article>
           <h3><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="storyline-link">${esc(it.title || 'Untitled')}</a></h3>
@@ -202,9 +216,23 @@
                 : (it.source ? `<span class="badge">${esc(it.source)}</span>` : ''))}
             ${it.type && it.type !== 'news' ? `<span class="badge">${esc(it.type)}</span>` : ''}
           </div>
+          ${note ? `<p class="editor-note">${esc(note)}</p>` : ''}
           ${it.summary_1line ? `<p class="art-summary">${esc(it.summary_1line)}</p>` : ''}
           ${why ? `<p class="matters">💡 ${esc(why)}</p>` : ''}
         </article>`;
+    }
+
+    function editorialHtml(ed) {
+      if (!ed || !String(ed.tldr || '').trim()) return '';
+      const whatsNew = String(ed.whats_new || '').trim();
+      const why = String(ed.why_it_matters || '').trim();
+      return `
+        <div class="editorial">
+          <p class="tldr">${esc(ed.tldr)}</p>
+          ${whatsNew ? `<p class="whats-new"><b>What's new:</b> ${esc(whatsNew)}</p>` : ''}
+          ${why ? `<p class="why">💡 ${esc(why)}</p>` : ''}
+          ${ed.stale ? `<p class="stale">This summary predates the latest update — refresh pending.</p>` : ''}
+        </div>`;
     }
 
     function renderStoryline(sl) {
@@ -226,6 +254,7 @@
           <span>Started ${esc(fmtDate(sl.first_seen))} · last update ${esc(fmtRelTime(sl.last_updated))}</span>
           ${followBtnHtml(sl.slug, sl.last_updated)}
         </p>
+        ${editorialHtml(sl.editorial)}
         ${sections || '<div class="state">No items in this storyline yet.</div>'}
         <p><a href="/storylines">← All storylines</a></p>`;
 
@@ -251,7 +280,9 @@
               <span>${sl.item_count} items · ${sl.source_count} sources · day ${sl.day_count} · updated ${esc(fmtRelTime(sl.last_updated))}</span>
               ${followBtnHtml(sl.slug, sl.last_updated)}
             </p>
-            <p class="latest">Latest: ${esc(sl.latest_title || '')}</p>
+            ${sl.editorial && String(sl.editorial.tldr || '').trim()
+                ? `<p class="teaser">${esc(sl.editorial.tldr)}</p>`
+                : `<p class="latest">Latest: ${esc(sl.latest_title || '')}</p>`}
           </div>`).join('')}
         </div>`;
       posthogCapture('storylines_list_view', { count: list.length });
