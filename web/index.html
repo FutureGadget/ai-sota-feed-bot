@@ -823,15 +823,17 @@
 
     const visitLastMs = initVisitTracking();
 
-    // When did this item *arrive* for the reader? Prefer first_seen (when the
-    // pipeline first ingested it). Fall back to the article's own published
-    // date — NEVER to collected_at: collected_at is the pipeline build
-    // timestamp, identical for every item on a run and always ≈ now, so using
-    // it would flag every story (even one published days ago) as brand new.
-    // The feed API serves first_seen: null on its no-history "latest" path, so
-    // this fallback has to degrade to a real per-item date, not the run clock.
+    // Is this item genuinely new for "since your last visit"? Key off the
+    // article's *published* time — that's what a reader means by "new" and how
+    // they judge "outdated", and it's present on every item. first_seen (when
+    // the pipeline first ingested it) is only a fallback for the rare item with
+    // no published date: it's unreliable here — null on the feed API's
+    // no-history "latest" path, and it marks an old story resurfacing in the
+    // feed today as "new" even though it was published days ago. NEVER fall
+    // back to collected_at: it's the pipeline build timestamp, identical for
+    // every item on a run and always ≈ now, so it would flag everything new.
     function itemArrivalMs(it) {
-      const t = Date.parse(it.first_seen || it.published || '');
+      const t = Date.parse(it.published || it.first_seen || '');
       return Number.isFinite(t) ? t : NaN;
     }
 
