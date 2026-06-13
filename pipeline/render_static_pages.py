@@ -103,6 +103,7 @@ AI_TERMS = frozenset(
         # config/profile.yaml platform_keywords
         "serving", "latency", "throughput", "quantization", "eval", "evals",
         "observability", "orchestration", "kubernetes", "triton", "tgi", "benchmark",
+        "context", "knowledge", "memory", "retrieval", "interoperab", "tool use",
     }
 )
 ON_TOPIC_TYPES = frozenset({"release", "paper", "research"})
