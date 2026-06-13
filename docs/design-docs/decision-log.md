@@ -12,6 +12,13 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 
 ---
 
+## 2026-06-13
+- **Decision:** Add `google_cloud_blog` source, scoped to the Google Cloud **AI & ML category** RSS feed (`cloudblog.withgoogle.com/products/ai-machine-learning/rss/`), not the general Google Cloud blog.
+- **Context / Problem:** Owner requested adding the Google Cloud blog after the "Open Knowledge Format" announcement (2026-06-12); the full blog mixes heavy database/infra/marketing content that dilutes the platform-engineer lens.
+- **Rationale:** The category feed keeps AI/ML-relevant items (OKF, GKE Inference Gateway, Confidential AI) while filtering out non-AI noise. Wired like the other cloud-vendor blogs: in the `vendor_general_updates` slot, with a `-0.18` `source_bias` (on par with `nvidia_blog`) and `soft_penalize` in `user_preferences.yaml`, since vendor posts skew promotional.
+- **Impact:** New AI items from Google Cloud now enter ranking; capped at 1/slot via `vendor_general_updates` so it can't crowd the brief.
+- **Rollback / Alternative:** Remove the four config entries (`sources.yaml`, `ranking.yaml`, `presets/balanced.yaml`, `user_preferences.yaml`), or switch the URL to the full-blog feed if broader coverage is later wanted.
+
 ## 2026-02-17
 - **Decision:** Parse `claude_blog` publish dates from article pages instead of relying on sitemap `lastmod`.
 - **Context / Problem:** Claude sitemap blog entries often have missing `lastmod`; old posts were being stamped with `now`, causing incorrect freshness and top ranking.
