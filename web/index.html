@@ -823,9 +823,21 @@
 
     const visitLastMs = initVisitTracking();
 
+    // When did this item *arrive* for the reader? Prefer first_seen (when the
+    // pipeline first ingested it). Fall back to the article's own published
+    // date — NEVER to collected_at: collected_at is the pipeline build
+    // timestamp, identical for every item on a run and always ≈ now, so using
+    // it would flag every story (even one published days ago) as brand new.
+    // The feed API serves first_seen: null on its no-history "latest" path, so
+    // this fallback has to degrade to a real per-item date, not the run clock.
+    function itemArrivalMs(it) {
+      const t = Date.parse(it.first_seen || it.published || '');
+      return Number.isFinite(t) ? t : NaN;
+    }
+
     function isNewSinceLastVisit(it) {
       if (!(visitLastMs > 0)) return false;
-      const t = Date.parse(it.first_seen || it.collected_at || it.published || '');
+      const t = itemArrivalMs(it);
       return Number.isFinite(t) && t > visitLastMs;
     }
 
@@ -1804,7 +1816,7 @@
     function catchupHtml(items) {
       if (!(visitLastMs > 0) || isCatchupDismissed()) return '';
       const fresh = items.filter((it) => {
-        const t = Date.parse(it.first_seen || it.collected_at || it.published || '');
+        const t = itemArrivalMs(it);
         return Number.isFinite(t) && t > visitLastMs;
       });
       if (!fresh.length) return '';
