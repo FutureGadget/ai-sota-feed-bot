@@ -35,16 +35,27 @@ def compact_entries(
     entries: list[dict[str, Any]],
     retain_days: int,
     weekly_archive_after_days: int,
+    max_age_days: int | None = None,
 ) -> tuple[list[dict[str, Any]], set[str]]:
     """
     Retention policy:
     - Newer than retain_days: keep all (high-res)
     - Older than retain_days and newer than weekly_archive_after_days: keep 1 per day
     - Older than weekly_archive_after_days: keep 1 per ISO week
+
+    When ``max_age_days`` is set, any entry older than it is dropped outright —
+    a hard cap that overrides the daily/weekly archive tail. Used for tier1,
+    whose snapshots are heavy (~1.5 MB each, bundled into the Vercel feed/rss
+    functions) and which no endpoint reads beyond ~7 days, so an open-ended
+    archive tail is pure deploy-bundle ballast. Entries with an unknown
+    timestamp are kept conservatively regardless.
     """
     now = datetime.now(timezone.utc)
     high_res_cutoff = now - timedelta(days=max(0, retain_days))
     weekly_cutoff = now - timedelta(days=max(0, weekly_archive_after_days))
+    max_age_cutoff = (
+        now - timedelta(days=max(0, max_age_days)) if max_age_days is not None else None
+    )
 
     normalized: list[tuple[datetime | None, str, dict[str, Any]]] = []
     for e in entries:
@@ -67,6 +78,10 @@ def compact_entries(
             if rel_path not in kept_paths:
                 kept.append(e)
                 kept_paths.add(rel_path)
+            continue
+
+        if max_age_cutoff is not None and run_at < max_age_cutoff:
+            # Hard cap: drop outright, no daily/weekly archive.
             continue
 
         if run_at >= high_res_cutoff:
@@ -99,13 +114,16 @@ def prune_family(
     base_dir: Path,
     retain_days: int,
     weekly_archive_after_days: int,
+    max_age_days: int | None = None,
     dry_run: bool = False,
 ) -> dict[str, Any]:
     runs_dir = base_dir / "runs"
     index_file = base_dir / "runs_index.json"
 
     entries = load_index(index_file)
-    kept_entries, kept_paths = compact_entries(entries, retain_days, weekly_archive_after_days)
+    kept_entries, kept_paths = compact_entries(
+        entries, retain_days, weekly_archive_after_days, max_age_days=max_age_days
+    )
 
     all_files: set[str] = set()
     if runs_dir.exists():
@@ -136,6 +154,7 @@ def prune_family(
         "base": str(base_dir.relative_to(ROOT)),
         "retain_days": retain_days,
         "weekly_archive_after_days": weekly_archive_after_days,
+        "max_age_days": max_age_days,
         "index_before": len(entries),
         "index_after": len(kept_entries),
         "files_before": len(all_files),
@@ -146,8 +165,14 @@ def prune_family(
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--processed-days", type=int, default=45)
-    ap.add_argument("--tier1-days", type=int, default=14)
+    ap.add_argument("--tier1-days", type=int, default=3)
     ap.add_argument("--weekly-archive-after-days", type=int, default=365)
+    # Hard delete cutoff for tier1 runs. Both consumers (feed.js + rss.js) read
+    # tier1 only for a 24h "fresh-blend" overlay; RSS's 7-day window is built from
+    # processed/runs, not tier1. So nothing reads a tier1 snapshot older than ~24h.
+    # 3 days = the read window + a generous buffer; keeps the bundled tier1 dir at
+    # ~20-30 MB instead of 100+ MB. 0/negative disables the cap.
+    ap.add_argument("--tier1-max-age-days", type=int, default=3)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -157,17 +182,19 @@ def main() -> None:
         weekly_archive_after_days=args.weekly_archive_after_days,
         dry_run=args.dry_run,
     )
+    tier1_max_age = args.tier1_max_age_days if args.tier1_max_age_days > 0 else None
     tier1 = prune_family(
         ROOT / "data" / "tier1",
         retain_days=args.tier1_days,
         weekly_archive_after_days=args.weekly_archive_after_days,
+        max_age_days=tier1_max_age,
         dry_run=args.dry_run,
     )
 
     print(
         "runtime_prune "
         f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
-        f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}, keep={tier1['retain_days']}d) "
+        f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}, keep={tier1['retain_days']}d, max_age={tier1['max_age_days']}d) "
         f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
     )

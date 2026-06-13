@@ -14,7 +14,9 @@ available to each function.
 ## Ranked snapshots
 - `data/tier1/latest.json` — fast quick-score snapshot (no LLM)
 - `data/tier1/runs/<Y>/<M>/<run_id>.json` + `data/tier1/runs_index.json`
-  — per-run history (retention ~14d, max 96 runs)
+  — per-run history (**3-day hard cap**, no archive tail; these are ~1.5 MB
+  each and bundled into the Vercel feed/rss functions, which only read tier1
+  for a 24h fresh-blend overlay)
 - `data/processed/latest.json` — the production feed (Tier-0 full ranking)
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
