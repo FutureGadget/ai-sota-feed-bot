@@ -41,6 +41,7 @@ Stage B: slot assignment (ranking.assign_slots)
   - agent_tooling_releases
   - infra_runtime_releases
   - vendor_general_updates
+  - cloud_platform_updates
   - practitioner_analysis
   - community_signal
   - research_watch
@@ -83,7 +84,7 @@ Final feed list (data/processed/latest.json)
 File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 
 - `preset`: base preset to layer under local overrides
-- `candidate_pool_cap`: max items after prefilter stage (120)
+- `candidate_pool_cap`: max items after prefilter stage (140)
 - `llm_budget`: max LLM calls for the labeling stage (8; inert while LLM disabled)
 - `max_items`: final feed target size before downstream constraints (24)
 - `slot_merge_strategy`: `floor_then_dynamic`
@@ -93,6 +94,43 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 - `top_band_constraints.*`: composition floors/caps for the top N
 - `source_bias`, `topical_bias`: static score adjustments
 - `auto_tune.*`: gates for the learned `source_tune` adjustment
+
+---
+
+## Why a source may not reach the feed (exposure gates)
+
+A source can be collected fine and still never appear. Every item runs this
+gauntlet, and any gate can silently drop it. Use the `add-source` skill
+(`.agents/skills/add-source/`) and its `validate_source.py` to see exactly
+which gate a source dies at.
+
+1. **Collection / health** — the source must be in `config/sources.yaml`, and
+   its `source_health` reliability must stay ≥ 0.3 (the circuit breaker can
+   disable a flaky source; `prefilter_reasons.health_floor`).
+2. **Slot mapping** — a source not listed in any `slots.*.sources` falls into
+   the `overflow` slot (base_bias −0.20, `max_items` 3, `freshness_hours` 72)
+   and almost never surfaces. **Adding a source to `sources.yaml` is not
+   enough — map it to a slot.**
+3. **Per-slot freshness window** (`freshness_hours`) — items older than the
+   window are dropped (`prefilter_reasons.freshness_window`). Low-volume
+   sources can be perpetually stale against a short window.
+4. **Candidate pool cap** (`candidate_pool_cap`, 140) — global top-N by
+   `freshness + reliability`, where the freshness decay is **slot-scaled**
+   (`freshness_hours/3`). Sources in short-window slots (vendor/cloud, 96h)
+   decay ~2.5× faster than frontier (240h), so fresher short-window posts can
+   be crowded out of the pool by older long-window posts
+   (`prefilter_reasons.pool_cap`). This is what hid the Google Cloud OKF post.
+5. **Slot caps** (`max_items`, `max_per_source`) — the slot may already be full
+   of higher-scored items (`reject_slot_cap` / `reject_source_cap`).
+6. **Global merge** (`max_items` 24) — per-slot `min_items` floors are reserved
+   first, then remaining capacity fills by `global_score`
+   (`final_score + slot_priority`).
+7. **Top-band constraints** — frontier/research promotion/demotion can reorder
+   (but not drop) the visible top N.
+
+When adding a *new slot*, also add a `dynamic_slot_rerank.base_bias.<slot>`
+entry — a missing entry defaults to `0.0`, which is a higher priority than most
+existing slots and will over-expose the source.
 
 ---
 
