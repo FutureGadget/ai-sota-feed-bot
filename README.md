@@ -254,7 +254,6 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 - `feed-ops-summary` (daily): operational health snapshot
 - `feedback-sync` (daily): reader feedback + CTR sync from PostHog and source
   auto-tune apply (no-op if secrets are missing)
-- `hourly-ingest` / `daily-digest`: legacy, manual dispatch only
 
 ### Repository secrets (optional)
 - `TELEGRAM_BOT_TOKEN`
