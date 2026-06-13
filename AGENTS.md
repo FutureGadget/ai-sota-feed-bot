@@ -3,6 +3,38 @@
 ## Repo Mission
 Build and operate an AI Platform Engineer-focused news intelligence bot (collect → rank → digest → publish).
 
+## Product Positioning (decided 2026-06-13)
+The target audience is **AI platform engineers** — and only them. Danu (the
+owner) is one himself and built llm-digest.com from his own need, so "would the
+owner read this every morning and save time" is the primary quality bar.
+
+We deliberately do NOT compete with SNS/X (freshness), Google News (algorithmic
+personalization), or HN/GeekNews (community). The position is built on the jobs
+those products are structurally bad at:
+
+1. **Finishable** — a ranked, deduped daily brief that *ends* ("read 12 items,
+   you're caught up"), vs. infinite engagement-optimized feeds.
+2. **Transparent / anti-hype** — one shared deterministic ranking for everyone,
+   🫧 hype flagging, source reliability tracking, and visible reader-tuning
+   (Reader-boosted badges). Explicitly not a personalized filter bubble; pinned
+   topics are a lens, not a bubble.
+3. **Memory** — storylines ("what happened next with X"), daily/weekly recaps
+   ("what did I miss this week"), and durable `/story/<sid>` permalinks. This
+   continuity layer is the structural moat: timelines and community threads
+   forget; we don't.
+
+Tagline shape: "The finishable AI feed for platform engineers — 10 minutes a
+day, with memory."
+
+Implications for any change in this repo:
+- Site copy, source selection, and ranking tuning (`config/profile.yaml`)
+  optimize for the platform-engineer lens and the catch-up job — never for
+  breadth, engagement, or generic AI news. Niche drift erases the advantage.
+- Storylines and recap pages are the shareable growth artifacts (shared *into*
+  HN/Slack/Reddit); invest there before feed features.
+- Distribution targets places platform engineers already are; we don't build
+  community features.
+
 ## Working Rules
 - Keep changes small and shippable.
 - Prefer deterministic ranking logic before LLM layers.
