@@ -26,8 +26,9 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 4. Tier-0 full build (`pipeline/build_digest.py`, `TIER0_INPUT=tier1`,
    incremental mode on; exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
    nothing changed)
-5. Story store sync + storylines build + static page render
-   (`story_store.py`, `build_storylines.py`, `render_static_pages.py`)
+5. Story store sync + static page render
+   (`story_store.py`, `render_static_pages.py`). Storyline generation is
+   intentionally excluded from GitHub Actions.
 6. Prune runtime snapshots (processed 45d, tier1 14d)
 7. Commit + push `data/` + `web/` (triggers Vercel production deploy)
 8. Publish GitHub issue + Telegram digest
@@ -38,6 +39,10 @@ Daily companions:
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing.
+- Storylines: external Claude Code routine every 5 hours runs
+  `storyline-scout` then `storyline-editor`, validates and rebuilds
+  `data/storylines/`, and commits/pushes the result. The hourly workflow only
+  keeps `data/stories/` current as its input.
 
 ## Ranking stages (active)
 - Stage A: deterministic prefilter (regex excludes, slot freshness windows,

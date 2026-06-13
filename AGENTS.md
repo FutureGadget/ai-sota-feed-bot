@@ -21,15 +21,18 @@ pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-sco
 pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
    (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
-pipeline/build_storylines.py           -> data/storylines/ (cross-day threads, no LLM)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 publish/publish_issue.py               -> GitHub Issue "Daily AI Digest - YYYY-MM-DD"
 publish/publish_telegram.py            -> Telegram digest (optional, secrets-gated)
+
+Claude Code storyline routine (every 5h, outside GitHub Actions):
+pipeline/build_storylines.py           -> data/storylines/ (deterministic threads)
+storyline-scout + storyline-editor      -> links + narratives, validate, rebuild, publish
 ```
 
-Production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
-(runs the whole chain above, prunes old snapshots, commits `data/` + `web/`
-and pushes when `AUTO_PUSH_RUNTIME=1`).
+Feed production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
+(runs the hourly feed chain above, excluding storyline generation; prunes old
+snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 
 ## Automation (what actually runs)
 | Workflow (`.github/workflows/`) | Schedule | Does |
@@ -40,11 +43,33 @@ and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `hourly-ingest.yml` | **disabled** (dispatch only) | legacy collect+score |
 | `daily-digest.yml` | dispatch only | legacy manual digest+publish |
 
+No GitHub Actions workflow builds storylines. The hourly feed workflow only
+syncs `data/stories/`; the external Claude Code routine owns
+`build_storylines.py`, scout/editor work, validation, and publishing every 5h.
+
 Daily/weekly recaps are produced by **agent routines** (Claude Code), not
 workflows: `.agents/skills/daily-summary/` and `.agents/skills/weekly-summary/`
 build an input bundle, the agent writes `data/daily/<date>.json` /
 `data/weekly/<week>.json`, the index builder validates + re-renders static
 pages, and committing the JSON *is* publishing.
+
+Storyline narratives work the same way (`.agents/skills/storyline-editor/`): the
+agent reads the mechanically-built threads and writes a durable **narrative
+sidecar** `data/storylines/narratives/<slug>.json` (TL;DR arc, what's-new,
+why-it-matters, per-item notes). The 5-hour routine runs
+`build_storylines.py`, which deterministically *overlays* a fresh sidecar onto
+the served files. A `covers_*` snapshot in each sidecar lets the routine detect
+and refresh a narrative once the thread moves on.
+
+Storyline **recall** is a second routine (`.agents/skills/storyline-scout/`): the
+precision-first clustering only links stories on a shared *rare anchor word*, so
+it misses real threads (same launch under different wording; near-miss threads
+under the floor). `pipeline/scout_candidates.py` emits candidates; the agent
+(Haiku judges) confirms thread **links** to `data/storylines/scout/links.json`;
+`build_storylines.py` applies each link as a synthetic candidate **through the
+same MIN_ITEMS/DAYS/SOURCES floor** (the deterministic gate — no link bypasses
+it) and badges the result `via_scout`. The agent never decides what becomes a
+storyline; it only proposes links the floor then judges.
 
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
@@ -78,7 +103,10 @@ pages, and committing the JSON *is* publishing.
   (legacy), `compare_v1_v2.py`
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
   `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
-- `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`
+- `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
+  `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
+  overlays), `storyline-scout/` (proposes thread links the clustering missed,
+  applied through the deterministic floor)
   (SKILL.md = agent contract + recap JSON schema)
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
@@ -104,7 +132,10 @@ pages, and committing the JSON *is* publishing.
 - `data/processed/` — `latest.json` (the feed), `runs/`, `runs_index.json`
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
-- `data/storylines/<slug>.json` + `index.json` — threads
+- `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`
+  overlay when narrated, `via_scout` when surfaced by the scout);
+  `narratives/<slug>.json` agent-written sidecars + `input/` bundles;
+  `scout/{candidates,links}.json` recall candidates + confirmed links
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,

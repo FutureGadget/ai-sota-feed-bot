@@ -48,6 +48,18 @@ from story_store import load_store, norm_url, parse_dt
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "data" / "storylines"
+# Agent-written editorial narratives (see .agents/skills/storyline-editor). The
+# pipeline only *reads* these and overlays them onto the served files below; it
+# never writes them, so the editorial layer survives every recluster.
+NARRATIVE_DIR = OUT_DIR / "narratives"
+# Agent-confirmed thread links (see .agents/skills/storyline-scout) — the recall
+# layer. Applied as synthetic candidates through the SAME floor as anchor pairs,
+# so a link only surfaces if its nodes clear MIN_ITEMS/DAYS/SOURCES.
+SCOUT_DIR = OUT_DIR / "scout"
+LINKS_FILE = SCOUT_DIR / "links.json"
+# Sentinel namespace for a scout candidate's key, kept out of the token space so
+# it can never collide with (or be treated as) a real anchor token.
+SCOUT_NS = "\x00scout"
 
 WINDOW_DAYS = 21
 MIN_ITEMS = 3
@@ -222,19 +234,47 @@ def cluster(nodes: list[dict]) -> list[dict]:
         days = {nodes[i]["_dt"].date() for i in idx}
         sources = {s for i in idx for s in nodes[i]["sources"]}
         if len(days) >= MIN_DAYS and len(sources) >= MIN_SOURCES:
-            candidates.append({"key": key, "idx": set(idx)})
+            candidates.append({"key": key, "idx": set(idx), "scout": False})
+
+    # Scout links → floor-gated synthetic candidates (the recall layer). Applied
+    # through the same MIN_ITEMS/DAYS/SOURCES floor, so a link is inert unless its
+    # nodes clear it; no link can bypass the deterministic gate.
+    sid_to_nodes: dict[str, set[int]] = defaultdict(set)
+    for ni, n in enumerate(nodes):
+        for sid in n["sids"]:
+            sid_to_nodes[sid].add(ni)
+    scout_hint: dict[tuple[str, str], str] = {}
+    for li, link in enumerate(load_links()):
+        idx = {ni for sid in (link.get("members") or []) for ni in sid_to_nodes.get(sid, ())}
+        if len(idx) < 2:
+            continue
+        days = {nodes[i]["_dt"].date() for i in idx}
+        sources = {s for i in idx for s in nodes[i]["sources"]}
+        if len(idx) >= MIN_ITEMS and len(days) >= MIN_DAYS and len(sources) >= MIN_SOURCES:
+            key = (SCOUT_NS, str(link.get("id") or f"link-{li}"))
+            candidates.append({"key": key, "idx": idx, "scout": True})
+            scout_hint[key] = str(link.get("label_hint") or "")
 
     find, union = _uf(len(candidates))
-    strong_tok = [{t for t in c["key"] if strong(t)} for c in candidates]
+    strong_tok = [
+        set() if c["scout"] else {t for t in c["key"] if strong(t)} for c in candidates
+    ]
     for i in range(len(candidates)):
         for j in range(i + 1, len(candidates)):
+            ci, cj = candidates[i], candidates[j]
+            if ci["scout"] or cj["scout"]:
+                # An asserted link joins any candidate it shares a node with, so
+                # it extends an existing thread instead of spawning a duplicate.
+                if ci["idx"] & cj["idx"]:
+                    union(i, j)
+                continue
             if strong_tok[i] & strong_tok[j]:
                 union(i, j)
                 continue
-            inter = len(candidates[i]["idx"] & candidates[j]["idx"])
+            inter = len(ci["idx"] & cj["idx"])
             if inter and (
-                inter / len(candidates[i]["idx"]) >= MERGE_OVERLAP
-                or inter / len(candidates[j]["idx"]) >= MERGE_OVERLAP
+                inter / len(ci["idx"]) >= MERGE_OVERLAP
+                or inter / len(cj["idx"]) >= MERGE_OVERLAP
             ):
                 union(i, j)
 
@@ -246,13 +286,29 @@ def cluster(nodes: list[dict]) -> list[dict]:
 
     clusters = []
     for t in threads.values():
-        # Primary key (drives the label) = the anchor pair covering most nodes.
-        keys = sorted(t["keys"], key=lambda k: (-len(pair_items[k]), k))
+        anchor_keys = [k for k in t["keys"] if k[0] != SCOUT_NS]
+        hints = [scout_hint[k] for k in t["keys"] if k[0] == SCOUT_NS]
+        # Primary key (drives the label) = the anchor pair covering most nodes;
+        # a scout-only thread falls back to the link's label hint.
+        keys = sorted(anchor_keys, key=lambda k: (-len(pair_items[k]), k))
         clusters.append({
             "items": sorted((nodes[i] for i in t["idx"]), key=lambda n: n["_dt"]),
             "keys": keys,
+            "via_scout": bool(hints),
+            "scout_hint": next((h for h in hints if h), ""),
         })
     return clusters
+
+
+def load_links() -> list[dict]:
+    """Agent-confirmed scout links. Tolerates a bare list or a {"links": [...]}
+    wrapper; drops anything without a ``members`` list."""
+    data = load_json(LINKS_FILE, [])
+    if isinstance(data, dict):
+        data = data.get("links", [])
+    if not isinstance(data, list):
+        return []
+    return [l for l in data if isinstance(l, dict) and isinstance(l.get("members"), list)]
 
 
 def cluster_label(items: list[dict], keys: list[tuple[str, str]]) -> str:
@@ -331,13 +387,58 @@ def timeline_item(node: dict) -> dict:
     return out
 
 
+def apply_narrative(slug: str, detail: dict, entry: dict) -> None:
+    """Overlay an agent-written narrative sidecar onto the served storyline.
+
+    Mutates ``detail`` (the per-slug timeline file) and ``entry`` (the index
+    row) in place. Adds an ``editorial`` block (TL;DR arc / what's-new /
+    why-it-matters) and a per-item ``editor_note``; the index row gets a TL;DR
+    teaser. Deterministic JSON read + merge — no LLM here. A narrative whose
+    snapshot no longer matches the thread is still shown but flagged
+    ``stale: true`` so the page (and the editor routine) can tell it predates
+    the latest update.
+    """
+    narr = load_json(NARRATIVE_DIR / f"{slug}.json", None)
+    tldr = narr.get("tldr") if isinstance(narr, dict) else None
+    if not tldr:
+        return
+
+    current_sids = set(entry.get("member_sids") or [])
+    fresh = (
+        narr.get("covers_last_updated") == entry.get("last_updated")
+        and set(narr.get("covers_member_sids") or []) == current_sids
+    )
+    editorial = {"tldr": tldr, "stale": not fresh}
+    for k in ("whats_new", "why_it_matters"):
+        if narr.get(k):
+            editorial[k] = narr[k]
+    if narr.get("generated_at"):
+        editorial["generated_at"] = narr["generated_at"]
+
+    detail["editorial"] = editorial
+    entry["editorial"] = {"tldr": tldr, "stale": not fresh}
+
+    captions = narr.get("day_captions") or {}
+    if isinstance(captions, dict):
+        for day in detail.get("days") or []:
+            for it in day.get("items") or []:
+                note = captions.get(it.get("sid"))
+                if note:
+                    it["editor_note"] = note
+
+
 def build() -> dict:
     now = datetime.now(timezone.utc)
     recs = load_window(now)
     nodes = dedup_nodes(recs)
     clusters = cluster(nodes)
     for c in clusters:
-        c["label"] = cluster_label(c["items"], c["keys"])
+        # Anchor pair drives the label; a scout-only thread has no anchor key, so
+        # fall back to the link's label hint (then the latest title).
+        if c["keys"]:
+            c["label"] = cluster_label(c["items"], c["keys"])
+        else:
+            c["label"] = c.get("scout_hint") or (c["items"][-1].get("title") or "Storyline")
     # Most recently updated storylines first; cap to keep the page focused.
     clusters.sort(key=lambda c: c["items"][-1]["_dt"], reverse=True)
     clusters = clusters[:MAX_STORYLINES]
@@ -359,7 +460,9 @@ def build() -> dict:
             "first_seen": items[0]["_dt"].isoformat(),
             "last_updated": latest["_dt"].isoformat(),
         }
-        index_entries.append({
+        if c.get("via_scout"):
+            common["via_scout"] = True
+        entry = {
             **common,
             "latest_title": latest.get("title") or "",
             "days": days,
@@ -367,7 +470,7 @@ def build() -> dict:
             # that belongs to the thread, not just the representative copy.
             "member_sids": [sid for n in items for sid in n["sids"]],
             "member_urls": [u for n in items for u in n["urls"]],
-        })
+        }
 
         by_day: dict[str, list[dict]] = defaultdict(list)
         for n in items:
@@ -378,6 +481,10 @@ def build() -> dict:
             "sources": sources,
             "days": [{"date": d, "items": by_day[d]} for d in days],
         }
+        # Overlay the durable agent-written narrative (if any) onto both the
+        # detail file and its index row, so editorial work survives reclusters.
+        apply_narrative(c["slug"], detail, entry)
+        index_entries.append(entry)
         (OUT_DIR / f"{c['slug']}.json").write_text(
             json.dumps(detail, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
         )
