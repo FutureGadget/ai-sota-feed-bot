@@ -243,9 +243,13 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 - `scripts/oauth_login.sh`: legacy OAuth helper for future re-enable
 
 ## GitHub Actions
-- Hourly collect + score commit
-- Daily digest + issue publish (+ optional Telegram if secrets are set)
-- Daily reader feedback sync from PostHog (no-op if secrets are missing)
+- `feed-full-publish` (hourly): full pipeline via
+  `skills/ai-feed-digest-local/scripts/run_full.sh` — collect, tier1, tier0,
+  story/static pages, prune, data commit + push, issue + optional Telegram
+- `feed-ops-summary` (daily): operational health snapshot
+- `feedback-sync` (daily): reader feedback + CTR sync from PostHog and source
+  auto-tune apply (no-op if secrets are missing)
+- `hourly-ingest` / `daily-digest`: legacy, manual dispatch only
 
 ### Repository secrets (optional)
 - `TELEGRAM_BOT_TOKEN`

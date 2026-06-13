@@ -1,59 +1,71 @@
-# Current System State (as of 2026-02-16 KST)
+# Current System State (as of 2026-06-13 KST)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
 ## Runtime mode
-- Ranking engine: **v2 only** (v1 pipeline bypassed in `pipeline/build_digest.py` when v2 enabled)
-- `config/ranking_v2.yaml`:
+- Ranking engine: unified single path in `pipeline/ranking.py` (the old v1/v2
+  split, `pipeline/ranking_v2.py`, and `config/ranking_v2.yaml` no longer exist)
+- `config/ranking.yaml`:
   - `enabled: true`
-  - `shadow_mode: false` (v2 is production path)
-  - `preset: balanced` (loaded from `config/presets/balanced.yaml`, then local overrides applied)
-  - `candidate_pool_cap: 100`
-  - `llm_budget: 8`
-  - `max_items: 20`
-  - `dynamic_slot_rerank.enabled: true`
+  - `preset: balanced` (loads `config/presets/balanced.yaml`, then local overrides deep-merge on top)
+  - `candidate_pool_cap: 120`
+  - `llm_budget: 8` (inert — see below)
+  - `max_items: 24`
+  - `slot_merge_strategy: floor_then_dynamic`
+  - `dynamic_slot_rerank.enabled: true`, `top_band_constraints.enabled: true`
+- **LLM disabled**: `config/llm.yaml -> enabled: false`. All scoring is
+  heuristic/deterministic; `pipeline/llm_label.py` / `llm_rerank.py` are no-op
+  interfaces kept for future re-enable.
+- Reader auto-tuning active: `data/feedback/source_adjustments.json`
+  (from `pipeline/auto_tune.py`) is applied as `source_tune` in slot scoring.
 
-## End-to-end behavior
-1. Collect raw items (`collectors/collect.py`)
-2. Source health + alerts
-3. Build digest with v2 pipeline (`pipeline/ranking_v2.py` via `build_digest.py`)
-4. Publish GitHub issue + Telegram
+## End-to-end behavior (hourly `feed-full-publish` workflow → `run_full.sh`)
+1. Collect raw items (`collectors/collect.py`, per-source crawl cooldown)
+2. Source health update + degradation alerts (Telegram critical-only)
+3. Tier-1 fast snapshot (`pipeline/build_tier1.py` → `data/tier1/latest.json`)
+4. Tier-0 full build (`pipeline/build_digest.py`, `TIER0_INPUT=tier1`,
+   incremental mode on; exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
+   nothing changed)
+5. Story store sync + storylines build + static page render
+   (`story_store.py`, `build_storylines.py`, `render_static_pages.py`)
+6. Prune runtime snapshots (processed 45d, tier1 14d)
+7. Commit + push `data/` + `web/` (triggers Vercel production deploy)
+8. Publish GitHub issue + Telegram digest
 
-Recent stable run signals:
-- `sources_ok=24/24`
-- `v2_stats prefilter=589->100 ... total=16`
-- `llm_used` varies by cache/budget (e.g., `3/8`)
-- `updated_issue=#3`
-- `telegram_sent=true`
-- `FULL_RUN_OK`
+Daily companions:
+- `feed-ops-summary` (12:30 UTC): ops health snapshot
+- `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
+- Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
+  `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
+  committing is publishing.
 
-## v2 ranking stages (active)
-- Stage A: deterministic prefilter
-  - regex exclusions
-  - slot freshness windows
-  - health floor
-  - cap to 100 candidates
-- Stage B: slot assignment
-  - frontier_official, agent_tooling_releases, practitioner_analysis, community_signal, research_watch, overflow
-- Stage C: slot scoring/selection
-  - v2 label schema (`label_v2_system.txt`)
-  - LLM budgeted calls + heuristic fallback
-  - per-slot max and per-source caps
-- Global merge
-  - item score + **dynamic slot meta-rerank** (slot priority)
-  - trim to output size while preserving slot minimum floors
+## Ranking stages (active)
+- Stage A: deterministic prefilter (regex excludes, slot freshness windows,
+  health floor, cap to 120)
+- Stage B: slot assignment — frontier_official, agent_tooling_releases,
+  infra_runtime_releases, vendor_general_updates, practitioner_analysis,
+  community_signal, research_watch, overflow
+- Stage C: slot scoring/selection — heuristic score (LLM path budgeted but
+  disabled), `alpha*score + beta*freshness + source_bias + source_tune +
+  topical_bias`, per-slot max and per-source caps
+- Global merge: dynamic slot meta-rerank, trim to 24 preserving slot floors
+- Top-band constraints: composition floors/caps inside the top 10
 
-## Key docs
-- Flow: `docs/ranking-v2-flow.md`
-- Plan: `docs/scoring-v2-plan.md`
-- Opus implementation plan: `docs/scoring-v2-opus-plan.md`
+## Run health signals (greppable)
+- `v2_stats prefilter=A->B llm_used=N/8 slots=... total=T`
+- `FULL_RUN_OK` / `FULL_RUN_PARTIAL` / `FULL_RUN_NO_DELTA_SKIP=true`
+- `runtime_commit_done=true` / `runtime_push_skipped=true`
+- `latest_json_valid=true`
 
 ## Operational notes
-- Full runs can occasionally appear stalled after ingest; allow extra time before killing.
-- LLM usage is bounded by `llm_budget`, not by prefilter pool size.
-- Candidate pool cap (`100`) controls breadth before LLM/slot scoring.
+- `run_full.sh` holds a lock (`.run_full.lock`) and skips auto-push when the
+  worktree was already dirty (commit-hygiene guard).
+- Hourly bot commits (`chore(data): refresh feed artifacts …`) land on `main`;
+  expect to rebase local work.
+- LLM usage is bounded by `llm_budget`, but is zero while LLM stays disabled.
 
 ## Next tuning levers
-- Increase `llm_budget` gradually (8 -> 20) after stability checks.
+- Re-enable LLM labeling (`config/llm.yaml -> enabled: true`) once
+  auth/cost/reliability are settled; budget starts at 8.
 - Adjust dynamic slot rerank weights/biases for desired top ordering.
-- Raise `candidate_pool_cap` only if needed for coverage and runtime allows.
+- Tune `auto_tune` caps as reader feedback volume grows.
