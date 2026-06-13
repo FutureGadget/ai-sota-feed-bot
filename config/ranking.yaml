@@ -2,7 +2,13 @@
 enabled: true
 preset: balanced
 
-candidate_pool_cap: 120
+# Global cap on items scored after the per-slot freshness window. Note the
+# prefilter ranks by freshness+reliability with a *slot-scaled* decay
+# (freshness_hours/3), so sources in short-window slots (vendor/cloud, 96h)
+# decay ~2.5x faster than frontier (240h) and can be crowded out of the pool by
+# older frontier posts. 140 (was 120) keeps fresh short-window posts (e.g.
+# google_cloud spec posts) from falling just below the line.
+candidate_pool_cap: 140
 llm_budget: 8
 max_items: 24
 # Merge strategy: fixed slot floors + dynamic headroom fill
@@ -34,7 +40,23 @@ slots:
     blend: {alpha: 0.70, beta: 0.30}
 
   vendor_general_updates:
-    sources: [google_ai_blog, aws_ml_blog, nvidia_blog, google_cloud_blog]
+    # Promotional vendor blogs (model launches, customer stories, marketing).
+    # Capped at 1 — this is the "vendor noise, allow one" bucket.
+    sources: [google_ai_blog, aws_ml_blog, nvidia_blog]
+    min_items: 0
+    max_items: 1
+    max_per_source: 1
+    freshness_hours: 96
+    blend: {alpha: 0.70, beta: 0.30}
+
+  cloud_platform_updates:
+    # google_cloud_blog publishes platform-engineering content (open standards
+    # like OKF, MCP/A2UI, inference-gateway reports) that is structurally
+    # different from the marketing in vendor_general_updates. Given its own
+    # seat so a substantive spec post no longer loses the single vendor slot to
+    # an nvidia/aws benchmark PR piece. min_items: 0 — it earns the seat on
+    # merit (the source also posts marketing), it is not guaranteed.
+    sources: [google_cloud_blog]
     min_items: 0
     max_items: 1
     max_per_source: 1
@@ -87,6 +109,7 @@ dynamic_slot_rerank:
     agent_tooling_releases: 0.05
     infra_runtime_releases: -0.10
     vendor_general_updates: -0.22
+    cloud_platform_updates: -0.10  # less penalized than vendor noise; spec/platform posts compete in headroom
     research_watch: -0.10
     overflow: -0.20
 
@@ -116,7 +139,7 @@ source_bias:
   google_ai_blog: -0.10
   aws_ml_blog: -0.20
   nvidia_blog: -0.18
-  google_cloud_blog: -0.12  # edge over aws/nvidia: publishes standards/spec posts (OKF, MCP/A2UI, inference gateway)
+  google_cloud_blog: -0.12  # own slot (cloud_platform_updates): publishes standards/spec posts (OKF, MCP/A2UI, inference gateway)
   vllm_releases: -0.08
   triton_releases: -0.08
   langgraph_releases: 0.06

@@ -111,8 +111,10 @@ storyline; it only proposes links the floor then judges.
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
   `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
   overlays), `storyline-scout/` (proposes thread links the clustering missed,
-  applied through the deterministic floor)
-  (SKILL.md = agent contract + recap JSON schema)
+  applied through the deterministic floor), `add-source/` (add a feed source
+  end-to-end + `validate_source.py` to prove it clears the ranking exposure
+  gates and reaches the feed)
+  (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,
