@@ -7,12 +7,18 @@ cross-day threads, e.g. a model launch followed by hands-on posts, benchmark
 threads, and pricing analysis.
 
 Clustering is precision-first (a junk storyline costs reader trust, a missed
-one costs nothing): two stories join the same thread only when their titles
-share an anchor pair — two co-occurring tokens of which at least one is
-"strong": rare in the window (document frequency capped) and not a broad
-company/topic word (``WEAK``). A cluster only becomes a storyline when it has
-enough items, spans multiple days, and draws on multiple sources — single-day
-echo bursts and one-source columns ("Quoting …") don't qualify.
+one costs nothing). First, re-syndicated copies of one story — the same
+headline across sources, or the same Google-News article under different
+redirect URLs — are collapsed into a single "node" (``dedup_nodes``) so an echo
+can't inflate the item/day/source counts into a fake thread. Then two nodes
+join the same thread when their titles share an anchor pair — two co-occurring
+tokens of which at least one is "strong": rare in the window (document
+frequency capped) and not a broad company/topic word (``WEAK``). Candidate
+threads are merged when they share a strong anchor token (so "Claude Fable" and
+"Fable Mythos" fold into one Fable 5 thread) or overlap heavily in members. A
+cluster only becomes a storyline when it has enough items, spans multiple days,
+and draws on multiple sources — single-day echo bursts and one-source columns
+("Quoting …") don't qualify.
 
 Outputs (consumed by ``api/storylines.js`` and the /storyline pages):
 
@@ -113,11 +119,92 @@ def load_window(now: datetime) -> list[dict]:
     return recs
 
 
-def cluster(recs: list[dict]) -> list[dict]:
-    """Anchor-pair clustering; returns [{"items": [rec], "keys": [(a, b)]}]."""
-    tokmap = [title_tokens(r.get("title")) for r in recs]
+def _uf(n: int):
+    """Tiny union-find: returns (find, union) over n elements."""
+    parent = list(range(n))
+
+    def find(i: int) -> int:
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+
+    def union(i: int, j: int) -> None:
+        ri, rj = find(i), find(j)
+        if ri != rj:
+            parent[max(ri, rj)] = min(ri, rj)
+
+    return find, union
+
+
+def dedup_nodes(recs: list[dict]) -> list[dict]:
+    """Collapse re-syndications of one story into a single "node".
+
+    The feed routinely carries the same headline from several sources, and the
+    same Google-News article can resurface under different redirect URLs (hence
+    different sids). Counting each copy as its own item silently manufactures
+    multi-source, multi-day "storylines" out of a single event. We fold records
+    that share a significant-title signature — its tokens minus grammar/hype
+    noise (``title_tokens``) — into one node that carries every member's
+    source/url but counts once.
+
+    Two signatures also merge when the smaller (>=2 tokens) is a subset of the
+    larger and the only extra tokens are broad company/topic words (``WEAK``),
+    catching "Coding Agents Social Sciences" vs "... social sciences - Anthropic".
+    Records whose significant title is empty stay singletons — never pool junk.
+    """
+    sig = [frozenset(title_tokens(r.get("title"))) for r in recs]
+    find, union = _uf(len(recs))
+
+    by_sig: dict[frozenset[str], list[int]] = defaultdict(list)
+    for i, s in enumerate(sig):
+        if s:
+            by_sig[s].append(i)
+    for idxs in by_sig.values():
+        for j in idxs[1:]:
+            union(idxs[0], j)
+    for a, b in itertools.permutations(by_sig, 2):
+        if len(a) >= 2 and a < b and (b - a) <= WEAK:
+            union(by_sig[a][0], by_sig[b][0])
+
+    groups: dict[int, list[dict]] = defaultdict(list)
+    for i, rec in enumerate(recs):
+        groups[find(i)].append(rec)
+
+    nodes = []
+    for members in groups.values():
+        rep = max(
+            members,
+            key=lambda r: (len(title_tokens(r.get("title"))), len(str(r.get("title") or ""))),
+        )
+        nodes.append({
+            "items": members,
+            "rep": rep,
+            "title": rep.get("title") or "",
+            "tokens": title_tokens(rep.get("title")),
+            "_dt": min(r["_dt"] for r in members),
+            "sources": sorted({r.get("source") for r in members if r.get("source")}),
+            "sids": [r.get("sid") for r in members if r.get("sid")],
+            "urls": [norm_url(r.get("url")) for r in members if r.get("url")],
+        })
+    nodes.sort(key=lambda n: n["_dt"])
+    return nodes
+
+
+def cluster(nodes: list[dict]) -> list[dict]:
+    """Anchor-pair clustering over deduped nodes, then thread-merge.
+
+    Two nodes join the same thread when their titles share an anchor pair — two
+    co-occurring tokens of which at least one is "strong" (rare in the window
+    and not a broad company/topic word). Candidate pairs that clear the
+    item/day/source floor are then unioned into threads when they either share a
+    strong anchor token — so "Claude Fable", "Fable Mythos" and "Fable access"
+    fold into one Fable 5 thread instead of three — or overlap heavily in
+    members (the fallback for threads bridged only by a weak-weak pair).
+    """
+    tokmap = [n["tokens"] for n in nodes]
     df = Counter(tok for toks in tokmap for tok in toks)
-    rare_cap = max(5, round(len(recs) * 0.02))
+    rare_cap = max(5, round(len(nodes) * 0.02))
 
     def strong(tok: str) -> bool:
         return tok not in WEAK and df[tok] <= rare_cap
@@ -132,26 +219,40 @@ def cluster(recs: list[dict]) -> list[dict]:
     for key, idx in pair_items.items():
         if len(idx) < MIN_ITEMS:
             continue
-        days = {recs[i]["_dt"].date() for i in idx}
-        sources = {recs[i].get("source") for i in idx}
+        days = {nodes[i]["_dt"].date() for i in idx}
+        sources = {s for i in idx for s in nodes[i]["sources"]}
         if len(days) >= MIN_DAYS and len(sources) >= MIN_SOURCES:
-            candidates.append((key, idx))
+            candidates.append({"key": key, "idx": set(idx)})
 
-    clusters: list[dict] = []
-    for key, idx in sorted(candidates, key=lambda kv: (-len(kv[1]), kv[0])):
-        for c in clusters:
-            inter = len(idx & c["idx"])
-            if inter and (inter / len(idx) >= MERGE_OVERLAP or inter / len(c["idx"]) >= MERGE_OVERLAP):
-                c["idx"] |= idx
-                c["keys"].append(key)
-                break
-        else:
-            clusters.append({"idx": set(idx), "keys": [key]})
+    find, union = _uf(len(candidates))
+    strong_tok = [{t for t in c["key"] if strong(t)} for c in candidates]
+    for i in range(len(candidates)):
+        for j in range(i + 1, len(candidates)):
+            if strong_tok[i] & strong_tok[j]:
+                union(i, j)
+                continue
+            inter = len(candidates[i]["idx"] & candidates[j]["idx"])
+            if inter and (
+                inter / len(candidates[i]["idx"]) >= MERGE_OVERLAP
+                or inter / len(candidates[j]["idx"]) >= MERGE_OVERLAP
+            ):
+                union(i, j)
 
-    return [
-        {"items": sorted((recs[i] for i in c["idx"]), key=lambda r: r["_dt"]), "keys": c["keys"]}
-        for c in clusters
-    ]
+    threads: dict[int, dict] = {}
+    for i, c in enumerate(candidates):
+        t = threads.setdefault(find(i), {"idx": set(), "keys": []})
+        t["idx"] |= c["idx"]
+        t["keys"].append(c["key"])
+
+    clusters = []
+    for t in threads.values():
+        # Primary key (drives the label) = the anchor pair covering most nodes.
+        keys = sorted(t["keys"], key=lambda k: (-len(pair_items[k]), k))
+        clusters.append({
+            "items": sorted((nodes[i] for i in t["idx"]), key=lambda n: n["_dt"]),
+            "keys": keys,
+        })
+    return clusters
 
 
 def cluster_label(items: list[dict], keys: list[tuple[str, str]]) -> str:
@@ -195,7 +296,7 @@ def carry_over_slugs(clusters: list[dict]) -> None:
     }
     taken = set()
     for c in clusters:
-        sids = {r.get("sid") for r in c["items"]}
+        sids = {sid for n in c["items"] for sid in n["sids"]}
         best, best_n = None, 0
         for slug, members in prev_members.items():
             n = len(sids & members)
@@ -213,19 +314,28 @@ def carry_over_slugs(clusters: list[dict]) -> None:
             taken.add(slug)
 
 
-ITEM_FIELDS = ("sid", "title", "url", "source", "type", "published", "summary_1line", "why_it_matters")
+ITEM_FIELDS = ("title", "url", "source", "type", "summary_1line", "why_it_matters")
 
 
-def timeline_item(rec: dict) -> dict:
-    out = {k: rec[k] for k in ITEM_FIELDS if rec.get(k)}
-    out["published"] = rec["_dt"].isoformat()
+def timeline_item(node: dict) -> dict:
+    """One timeline card per deduped node. ``sources`` is set only when the
+    story ran in more than one place, so the page can badge "also covered by"
+    instead of repeating the same card per source."""
+    rep = node["rep"]
+    out = {k: rep[k] for k in ITEM_FIELDS if rep.get(k)}
+    out["sid"] = node["sids"][0] if node["sids"] else rep.get("sid")
+    out["url"] = norm_url(rep.get("url"))
+    out["published"] = node["_dt"].isoformat()
+    if len(node["sources"]) > 1:
+        out["sources"] = node["sources"]
     return out
 
 
 def build() -> dict:
     now = datetime.now(timezone.utc)
     recs = load_window(now)
-    clusters = cluster(recs)
+    nodes = dedup_nodes(recs)
+    clusters = cluster(nodes)
     for c in clusters:
         c["label"] = cluster_label(c["items"], c["keys"])
     # Most recently updated storylines first; cap to keep the page focused.
@@ -237,8 +347,8 @@ def build() -> dict:
     index_entries = []
     for c in clusters:
         items = c["items"]
-        days = sorted({r["_dt"].date().isoformat() for r in items})
-        sources = sorted({r.get("source") for r in items if r.get("source")})
+        days = sorted({n["_dt"].date().isoformat() for n in items})
+        sources = sorted({s for n in items for s in n["sources"]})
         latest = items[-1]
         common = {
             "slug": c["slug"],
@@ -253,13 +363,15 @@ def build() -> dict:
             **common,
             "latest_title": latest.get("title") or "",
             "days": days,
-            "member_sids": [r.get("sid") for r in items],
-            "member_urls": [norm_url(r.get("url")) for r in items],
+            # Flattened across deduped members so the feed badges every URL/sid
+            # that belongs to the thread, not just the representative copy.
+            "member_sids": [sid for n in items for sid in n["sids"]],
+            "member_urls": [u for n in items for u in n["urls"]],
         })
 
         by_day: dict[str, list[dict]] = defaultdict(list)
-        for r in items:
-            by_day[r["_dt"].date().isoformat()].append(timeline_item(r))
+        for n in items:
+            by_day[n["_dt"].date().isoformat()].append(timeline_item(n))
         detail = {
             **common,
             "generated_at": now.isoformat(),

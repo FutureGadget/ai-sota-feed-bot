@@ -197,7 +197,9 @@
         <article>
           <h3><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="storyline-link">${esc(it.title || 'Untitled')}</a></h3>
           <div class="art-meta">
-            ${it.source ? `<span class="badge">${esc(it.source)}</span>` : ''}
+            ${(Array.isArray(it.sources) && it.sources.length > 1
+                ? it.sources.map((s) => `<span class="badge">${esc(s)}</span>`).join('')
+                : (it.source ? `<span class="badge">${esc(it.source)}</span>` : ''))}
             ${it.type && it.type !== 'news' ? `<span class="badge">${esc(it.type)}</span>` : ''}
           </div>
           ${it.summary_1line ? `<p class="art-summary">${esc(it.summary_1line)}</p>` : ''}
