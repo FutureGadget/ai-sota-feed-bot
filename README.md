@@ -52,8 +52,10 @@ from Tuesday") — e.g. a model launch followed by hands-on posts and reactions.
 token pair, and a thread only ships when it has ≥3 items across ≥2 days from
 ≥2 sources (precision over recall — a junk thread costs reader trust).
 
-- Runs hourly in `run_full.sh` after `story_store.py sync`; writes
-  `data/storylines/index.json` + `data/storylines/<slug>.json`.
+- Runs in the external Claude Code storyline routine every 5 hours; the hourly
+  `run_full.sh` only syncs the durable story store. The routine writes
+  `data/storylines/index.json` + `data/storylines/<slug>.json`, scouts missed
+  links, refreshes narratives, validates, and publishes.
 - Pages: `/storylines` (active threads), `/storyline/<slug>` (day-by-day
   timeline with a Follow button). API: `/api/storylines[?slug=]`.
 - Feed cards that belong to a thread get a `📈 Developing · day N` badge;
@@ -245,7 +247,10 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 ## GitHub Actions
 - `feed-full-publish` (hourly): full pipeline via
   `skills/ai-feed-digest-local/scripts/run_full.sh` — collect, tier1, tier0,
-  story/static pages, prune, data commit + push, issue + optional Telegram
+  durable story sync/static pages, prune, data commit + push, issue + optional
+  Telegram. It intentionally does **not** build storylines.
+- Storylines: external Claude Code routine every 5 hours; no GitHub Actions
+  workflow generates them.
 - `feed-ops-summary` (daily): operational health snapshot
 - `feedback-sync` (daily): reader feedback + CTR sync from PostHog and source
   auto-tune apply (no-op if secrets are missing)

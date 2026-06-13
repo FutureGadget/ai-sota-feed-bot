@@ -21,16 +21,18 @@ pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-sco
 pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
    (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
-pipeline/build_storylines.py           -> data/storylines/ (cross-day threads, no LLM;
-                                          overlays agent-written narrative sidecars)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
 publish/publish_issue.py               -> GitHub Issue "Daily AI Digest - YYYY-MM-DD"
 publish/publish_telegram.py            -> Telegram digest (optional, secrets-gated)
+
+Claude Code storyline routine (every 5h, outside GitHub Actions):
+pipeline/build_storylines.py           -> data/storylines/ (deterministic threads)
+storyline-scout + storyline-editor      -> links + narratives, validate, rebuild, publish
 ```
 
-Production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
-(runs the whole chain above, prunes old snapshots, commits `data/` + `web/`
-and pushes when `AUTO_PUSH_RUNTIME=1`).
+Feed production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
+(runs the hourly feed chain above, excluding storyline generation; prunes old
+snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 
 ## Automation (what actually runs)
 | Workflow (`.github/workflows/`) | Schedule | Does |
@@ -41,6 +43,10 @@ and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `hourly-ingest.yml` | **disabled** (dispatch only) | legacy collect+score |
 | `daily-digest.yml` | dispatch only | legacy manual digest+publish |
 
+No GitHub Actions workflow builds storylines. The hourly feed workflow only
+syncs `data/stories/`; the external Claude Code routine owns
+`build_storylines.py`, scout/editor work, validation, and publishing every 5h.
+
 Daily/weekly recaps are produced by **agent routines** (Claude Code), not
 workflows: `.agents/skills/daily-summary/` and `.agents/skills/weekly-summary/`
 build an input bundle, the agent writes `data/daily/<date>.json` /
@@ -50,11 +56,10 @@ pages, and committing the JSON *is* publishing.
 Storyline narratives work the same way (`.agents/skills/storyline-editor/`): the
 agent reads the mechanically-built threads and writes a durable **narrative
 sidecar** `data/storylines/narratives/<slug>.json` (TL;DR arc, what's-new,
-why-it-matters, per-item notes). The hourly `build_storylines.py` deterministically
-*overlays* a fresh sidecar onto the served files — so the LLM stays out of the
-pipeline loop, and editorial work survives every recluster instead of being
-clobbered. A `covers_*` snapshot in each sidecar lets the overlay flag a
-narrative stale once the thread moves on.
+why-it-matters, per-item notes). The 5-hour routine runs
+`build_storylines.py`, which deterministically *overlays* a fresh sidecar onto
+the served files. A `covers_*` snapshot in each sidecar lets the routine detect
+and refresh a narrative once the thread moves on.
 
 Storyline **recall** is a second routine (`.agents/skills/storyline-scout/`): the
 precision-first clustering only links stories on a shared *rare anchor word*, so
