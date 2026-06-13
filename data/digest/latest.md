@@ -11,13 +11,13 @@ Focus: AI Platform Engineering
 ## 2. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 3.029 | Reliability: 1.0
+- Score: 3.028 | Reliability: 1.0
 - Why it matters: 
 
 ## 3. New OpenAI Academy courses for the next era of work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/academy-courses-applying-ai-at-work
-- Score: 2.946 | Reliability: 1.0
+- Score: 2.945 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Statement on the US government directive to suspend access to Fable 5 and Mythos 5
@@ -35,19 +35,19 @@ Focus: AI Platform Engineering
 ## 6. Show HN: Omegacode – an agent agnostic version of Claude Workflows
 - Type: release | Source: hackernews_ai
 - URL: https://github.com/SawyerHood/omegacode
-- Score: 2.724 | Reliability: 1.0
+- Score: 2.721 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.13571v1
-- Score: 2.708 | Reliability: 1.0
+- Score: 2.72 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 8. SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.13673v1
-- Score: 2.691 | Reliability: 1.0
+- Score: 2.704 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 9. Fable Mythos Access
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. Anthropic Public Record
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-public-record
-- Score: 2.578 | Reliability: 1.0
+- Score: 2.577 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. [AINews] Fable and Mythos officially too dangerous to release
@@ -68,68 +68,62 @@ Focus: AI Platform Engineering
 - Score: 2.678 | Reliability: 1.0
 - Why it matters: 
 
-## 12. OpenAI WebRTC Audio Session, now with document context
+## 12. Reward Modeling for Multi-Agent Orchestration
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2606.13598v1
+- Score: 2.607 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 13. OpenAI WebRTC Audio Session, now with document context
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything
 - Score: 2.604 | Reliability: 1.0
 - Why it matters: 
 
-## 13. Reward Modeling for Multi-Agent Orchestration
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2606.13598v1
-- Score: 2.595 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 14. claude-code v2.1.174
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.174
+- Score: 2.586 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
-## 14. How Preply combines AI and human tutors to personalize learning
+## 15. How Preply combines AI and human tutors to personalize learning
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/preply
 - Score: 2.57 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Dxc Anthropic Alliance
+## 16. Dxc Anthropic Alliance
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/dxc-anthropic-alliance
-- Score: 2.533 | Reliability: 1.0
+- Score: 2.532 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Claude Corps
+## 17. Claude Corps
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-corps
 - Score: 2.526 | Reliability: 1.0
 - Why it matters: 
 
-## 17. claude-agent-sdk-python v0.2.101
+## 18. claude-agent-sdk-python v0.2.101
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.101
-- Score: 2.441 | Reliability: 1.0
+- Score: 2.434 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. langgraph==1.2.5
+## 19. langgraph==1.2.5
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.5
-- Score: 2.418 | Reliability: 1.0
+- Score: 2.412 | Reliability: 1.0
 - Why it matters: 
 
-## 19. codex 0.140.0-alpha.18
+## 20. codex 0.140.0-alpha.18
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.18
-- Score: 2.395 | Reliability: 1.0
+- Score: 2.388 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 20. olmo-eval: An evaluation workbench for the model development loop
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/allenai/olmo-eval
-- Score: 2.351 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 21. claude-code v2.1.177
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.177
-- Score: 2.19 | Reliability: 1.0
-- Why it matters: 
-
-## 22. NVIDIA Blackwell Leads on First Agentic AI Infrastructure Benchmark
+## 21. NVIDIA Blackwell Leads on First Agentic AI Infrastructure Benchmark
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/nvidia-blackwell-agentperf-artificial-analysis/
-- Score: 1.997 | Reliability: 1.0
+- Score: 1.996 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
