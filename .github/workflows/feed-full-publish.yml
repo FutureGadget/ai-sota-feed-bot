@@ -2,7 +2,7 @@ name: AI Feed Full Publish
 
 on:
   schedule:
-    - cron: "0 * * * *"    # every hour
+    - cron: "37 * * * *"   # every hour at :37 (off the congested top-of-hour slot — schedule events are deprioritized at :00)
   workflow_dispatch:
 
 concurrency:

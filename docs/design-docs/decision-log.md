@@ -1,5 +1,19 @@
 # Decision Log
 
+## 2026-06-14
+- **Decision:** Move the `feed-full-publish.yml` schedule off the top of the hour, from `cron: "0 * * * *"` to `cron: "37 * * * *"`.
+- **Context / Problem:** The hourly feed pipeline was firing only ~6×/day instead of 24×. The Actions run list showed the signature of GitHub's best-effort scheduler under load: runs never landed at `:00` (drifting to :14/:23/:33/:44…) and whole hours were silently dropped. Job duration was not the cause — runs that fired completed in 1–4 min, and missing hours showed no run at all, so the loss was at the *dispatch* layer, before a runner is allocated. `:00` is the most congested cron minute on GitHub's shared infrastructure and the most likely to be deprioritized.
+- **Rationale:** GitHub's own docs recommend scheduling away from the start of the hour to reduce delay. An odd minute (`:37`) dodges the congestion and recovers most missed runs with a one-line, zero-risk change. A true hourly guarantee would require an external trigger (e.g. a Vercel Cron calling `workflow_dispatch`), deferred as a follow-up since this site already runs on Vercel; the GitHub `schedule` stays as the baseline.
+- **Impact:** `.github/workflows/feed-full-publish.yml` cron only. No script, pipeline, or data change. Expected effect: closer-to-hourly cadence; still best-effort, not guaranteed.
+- **Rollback / Alternative:** Revert the cron line to `"0 * * * *"`. Alternative (for hard hourly): add an external Vercel-cron → GitHub `workflow_dispatch` ticker; rejected for now as more than the problem warrants.
+
+## 2026-06-14
+- **Decision:** Add a free external hourly ticker (cron-job.org) that calls the `feed-full-publish.yml` `workflow_dispatch` endpoint on a real `0 * * * *` tick, documented as a runbook. Keep the GitHub `schedule` (`37 * * * *`) as the baseline fallback.
+- **Context / Problem:** The `:37` cron move (entry above) recovers most missed runs but GitHub `schedule` is best-effort by design and still drops hours. We wanted a *guaranteed* hourly trigger at no cost. Vercel Cron was evaluated and rejected: it is free only on the Hobby plan, which caps cron at **once per day** (hourly expressions fail at deploy) and has ±59 min precision; true hourly requires the $20/mo Pro plan.
+- **Rationale:** cron-job.org is free, requires no infrastructure to deploy or maintain, and fires from its own scheduler — independent of GitHub's congested shared schedule queue. It authenticates with a GitHub fine-grained PAT scoped to *Actions: write on this repo only*. Running both triggers is safe: `run_full.sh` takes a lock dir, the workflow has a `concurrency` group (`cancel-in-progress: false`), and Tier-0 short-circuits on no-delta, so an overlapping `schedule` + `workflow_dispatch` run no-ops cleanly. A Cloudflare Worker cron was the considered alternative (also free) but rejected for v1 as more moving parts (code to deploy + secret management) than a no-infra hosted ticker.
+- **Impact:** No code or workflow change — the trigger lives entirely outside the repo (cron-job.org account + a PAT held there). New runbook `docs/how-to/hourly-trigger-cron-job-org.md` (PAT scopes, exact request, verification, rotation, rollback). Docs: `AGENTS.md` automation table. The PAT is a secret held only in cron-job.org; nothing is committed.
+- **Rollback / Alternative:** Delete the cron-job.org job and revoke the PAT — the workflow's own `schedule:` keeps it running best-effort, and there is no in-repo code to revert.
+
 Purpose: preserve key project decisions so we can recover context quickly after resets/new sessions.
 
 ## Entry Template
