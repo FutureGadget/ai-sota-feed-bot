@@ -37,11 +37,18 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 ## Automation (what actually runs)
 | Workflow (`.github/workflows/`) | Schedule | Does |
 |---|---|---|
-| `feed-full-publish.yml` | hourly cron | `run_full.sh` — the production pipeline |
+| `feed-full-publish.yml` | hourly cron (`37 * * * *`) + external ticker | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
 | `hourly-ingest.yml` | **disabled** (dispatch only) | legacy collect+score |
 | `daily-digest.yml` | dispatch only | legacy manual digest+publish |
+
+The GitHub `schedule` is best-effort (deprioritized at `:00`, drops hours), so
+`feed-full-publish.yml` also runs at `37 * * * *` and is triggered for *real*
+hourly cadence by an external cron-job.org ticker hitting the workflow's
+`workflow_dispatch` endpoint — see
+`docs/how-to/hourly-trigger-cron-job-org.md`. Both triggers are safe to overlap
+(lock dir + `concurrency` group + Tier-0 no-delta skip).
 
 No GitHub Actions workflow builds storylines. The hourly feed workflow only
 syncs `data/stories/`; the external Claude Code routine owns
