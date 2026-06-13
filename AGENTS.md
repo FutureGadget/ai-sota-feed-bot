@@ -95,9 +95,12 @@ storyline; it only proposes links the floor then judges.
   `daily.js`, `weekly.js`, `storylines.js`, `client-config.js`. They read
   committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
-  `weekly.html`, `storyline.html`, `voices.html`. **Generated, do not hand-edit:**
-  `web/daily/`, `web/weekly/`, `web/story/`, `sitemap.xml` (from
-  `render_static_pages.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
+  `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
+  `/storyline/<slug>` is served from the static page below), `voices.html`.
+  **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
+  `web/storyline/`, `sitemap.xml` (from `render_static_pages.py`). Brand assets:
+  `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
+  `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
 - `config/` — runtime knobs:
   - `ranking.yaml` — canonical ranking config; `preset:` key deep-merges
     `config/presets/<name>.yaml` under local overrides
@@ -105,7 +108,8 @@ storyline; it only proposes links the floor then judges.
     `llm.yaml` (**enabled: false**), `user_preferences.yaml`, `config/prompts/`
 - `scripts/` — `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
-  (legacy), `compare_v1_v2.py`
+  (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
+  card + logo PNGs; run only when the brand/tagline changes)
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
   `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
