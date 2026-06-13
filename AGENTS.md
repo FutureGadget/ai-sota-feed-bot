@@ -56,6 +56,16 @@ pipeline loop, and editorial work survives every recluster instead of being
 clobbered. A `covers_*` snapshot in each sidecar lets the overlay flag a
 narrative stale once the thread moves on.
 
+Storyline **recall** is a second routine (`.agents/skills/storyline-scout/`): the
+precision-first clustering only links stories on a shared *rare anchor word*, so
+it misses real threads (same launch under different wording; near-miss threads
+under the floor). `pipeline/scout_candidates.py` emits candidates; the agent
+(Haiku judges) confirms thread **links** to `data/storylines/scout/links.json`;
+`build_storylines.py` applies each link as a synthetic candidate **through the
+same MIN_ITEMS/DAYS/SOURCES floor** (the deterministic gate — no link bypasses
+it) and badges the result `via_scout`. The agent never decides what becomes a
+storyline; it only proposes links the floor then judges.
+
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
   releases, normalization, dedupe, crawl cooldown per source)
@@ -89,7 +99,9 @@ narrative stale once the thread moves on.
 - `skills/` — local run helpers: `ai-feed-digest-local/` (`run_full.sh`,
   `run_dev.sh`, `run_tier1_fast.sh`), `ops-daily-summary/`
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
-  `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline overlays)
+  `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
+  overlays), `storyline-scout/` (proposes thread links the clustering missed,
+  applied through the deterministic floor)
   (SKILL.md = agent contract + recap JSON schema)
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
@@ -116,8 +128,9 @@ narrative stale once the thread moves on.
 - `data/digest/<date>.md` — daily digest markdown
 - `data/stories/<YYYY-MM>.json` + `index.json` — durable story store
 - `data/storylines/<slug>.json` + `index.json` — threads (with `editorial`
-  overlay when narrated); `narratives/<slug>.json` agent-written sidecars +
-  `input/` bundles
+  overlay when narrated, `via_scout` when surfaced by the scout);
+  `narratives/<slug>.json` agent-written sidecars + `input/` bundles;
+  `scout/{candidates,links}.json` recall candidates + confirmed links
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,

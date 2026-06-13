@@ -73,6 +73,9 @@
     .editor-note { margin: 0.35rem 0 0; font-size: 0.95rem; font-weight: 500;
       border-left: 2px solid var(--accent); padding-left: 0.55rem; }
     .sl-card .teaser { margin: 0.4rem 0 0; font-size: 0.92rem; color: var(--muted); }
+    .scout-badge { font-size: 0.75rem; padding: 0.12rem 0.55rem; border-radius: 999px;
+      border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 8%, var(--card)); white-space: nowrap; cursor: help; }
     .sl-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem; }
     .sl-card { border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; background: var(--card); }
     .sl-card h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
@@ -195,6 +198,14 @@
       return `<button type="button" class="follow-btn" data-follow-slug="${esc(slug)}" data-last-updated="${esc(lastUpdated || '')}" aria-pressed="${on ? 'true' : 'false'}">${on ? '✓ Following' : '+ Follow this story'}</button>`;
     }
 
+    // Threads surfaced by the scout (a link the deterministic anchor rule
+    // missed) are badged for transparency.
+    function scoutBadgeHtml(viaScout) {
+      return viaScout
+        ? `<span class="scout-badge" title="Surfaced by the storyline scout — a connection the automatic threading missed, confirmed and applied through the same item/day/source floor.">🔍 surfaced by scout</span>`
+        : '';
+    }
+
     function slugFromLocation() {
       const q = new URLSearchParams(window.location.search).get('slug');
       if (q) return q;
@@ -252,6 +263,7 @@
         <h2 class="sl-title">${esc(sl.label || sl.slug)}</h2>
         <p class="sl-meta">
           <span>Started ${esc(fmtDate(sl.first_seen))} · last update ${esc(fmtRelTime(sl.last_updated))}</span>
+          ${scoutBadgeHtml(sl.via_scout)}
           ${followBtnHtml(sl.slug, sl.last_updated)}
         </p>
         ${editorialHtml(sl.editorial)}
@@ -278,6 +290,7 @@
             <h2><a href="/storyline/${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
             <p class="sl-meta">
               <span>${sl.item_count} items · ${sl.source_count} sources · day ${sl.day_count} · updated ${esc(fmtRelTime(sl.last_updated))}</span>
+              ${scoutBadgeHtml(sl.via_scout)}
               ${followBtnHtml(sl.slug, sl.last_updated)}
             </p>
             ${sl.editorial && String(sl.editorial.tldr || '').trim()

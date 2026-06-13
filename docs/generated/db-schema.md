@@ -38,6 +38,14 @@ available to each function.
 - `data/storylines/input/latest.json` — bundle of storylines needing a narrative
   (new or stale), each with its timeline; what the agent reads (excluded from
   deploys)
+- `data/storylines/scout/candidates.json` — machine-built recall candidates
+  (near-miss anchors + co-mention buckets) the `storyline-scout` routine reads;
+  includes a `window_sids` validation allowlist so accepted links remain valid
+  after they stop appearing as candidates
+- `data/storylines/scout/links.json` — agent-confirmed thread links
+  (`members` sids + `label_hint`). `build_storylines.py` applies each as a
+  synthetic candidate through the same MIN_ITEMS/DAYS/SOURCES floor; a surfaced
+  thread is flagged `via_scout`. Both scout files are excluded from deploys
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)
