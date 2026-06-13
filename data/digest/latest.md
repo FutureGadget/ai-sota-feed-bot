@@ -29,7 +29,7 @@ Focus: AI Platform Engineering
 ## 5. Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/terraform-mcp-server-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.836 | Reliability: 1.0
+- Score: 2.835 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 6. Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting
@@ -65,13 +65,13 @@ Focus: AI Platform Engineering
 ## 11. Show HN: Omegacode – an agent agnostic version of Claude Workflows
 - Type: release | Source: hackernews_ai
 - URL: https://github.com/SawyerHood/omegacode
-- Score: 2.672 | Reliability: 1.0
+- Score: 2.668 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 12. OpenAI WebRTC Audio Session, now with document context
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything
-- Score: 2.609 | Reliability: 1.0
+- Score: 2.608 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. Reward Modeling for Multi-Agent Orchestration
@@ -101,7 +101,7 @@ Focus: AI Platform Engineering
 ## 17. claude-agent-sdk-python v0.2.101
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.101
-- Score: 2.426 | Reliability: 1.0
+- Score: 2.425 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. langgraph==1.2.5
@@ -113,7 +113,7 @@ Focus: AI Platform Engineering
 ## 19. codex 0.140.0-alpha.18
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.18
-- Score: 2.378 | Reliability: 1.0
+- Score: 2.377 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 20. olmo-eval: An evaluation workbench for the model development loop
@@ -125,11 +125,11 @@ Focus: AI Platform Engineering
 ## 21. claude-code v2.1.177
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.177
-- Score: 2.175 | Reliability: 1.0
+- Score: 2.174 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. NVIDIA Blackwell Leads on First Agentic AI Infrastructure Benchmark
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/nvidia-blackwell-agentperf-artificial-analysis/
-- Score: 1.981 | Reliability: 1.0
+- Score: 1.98 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
