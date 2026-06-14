@@ -17,31 +17,31 @@ Focus: AI Platform Engineering
 ## 3. Publishing WASM wheels to PyPI for use with Pyodide
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything
-- Score: 2.902 | Reliability: 1.0
+- Score: 2.901 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 4. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.867 | Reliability: 1.0
+- Score: 2.866 | Reliability: 1.0
 - Why it matters: 
 
 ## 5. Mapping SQLite result columns back to their source `table.column`
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/13/sqlite-column-provenance/#atom-everything
-- Score: 2.731 | Reliability: 1.0
+- Score: 2.729 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
 ## 6. Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/terraform-mcp-server-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.715 | Reliability: 1.0
+- Score: 2.713 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. Local .NET multi-agent LLM pipeline AI therapist using a compact wire format
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/paulomac1000/hand-codechttps://github.com/paulomac1000/hybrid-therapist-ai
-- Score: 2.662 | Reliability: 1.0
+- Score: 2.658 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 8. Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Claude Fable 5 and Claude Mythos 5
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-fable-5-mythos-5
-- Score: 2.512 | Reliability: 1.0
+- Score: 2.511 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Results from first Anthropic Public Record
@@ -71,7 +71,7 @@ Focus: AI Platform Engineering
 ## 12. AWS Introduces Durable Storage Option for ElastiCache for Valkey
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/elasticache-valkey-durability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.535 | Reliability: 1.0
+- Score: 2.534 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. Reward Modeling for Multi-Agent Orchestration
@@ -95,7 +95,7 @@ Focus: AI Platform Engineering
 ## 16. claude-agent-sdk-python v0.2.101
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.101
-- Score: 2.288 | Reliability: 1.0
+- Score: 2.287 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 17. codex 0.140.0-alpha.19
