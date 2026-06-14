@@ -11,7 +11,7 @@ Focus: AI Platform Engineering
 ## 2. New OpenAI Academy courses for the next era of work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/academy-courses-applying-ai-at-work
-- Score: 2.898 | Reliability: 1.0
+- Score: 2.896 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. Publishing WASM wheels to PyPI for use with Pyodide
@@ -23,7 +23,7 @@ Focus: AI Platform Engineering
 ## 4. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.889 | Reliability: 1.0
+- Score: 2.888 | Reliability: 1.0
 - Why it matters: 
 
 ## 5. Statement on the US government directive to suspend access to Fable 5 and Mythos 5
@@ -53,13 +53,13 @@ Focus: AI Platform Engineering
 ## 9. Introducing Claude Corps
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-corps
-- Score: 2.626 | Reliability: 1.0
+- Score: 2.625 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. How Preply combines AI and human tutors to personalize learning
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/preply
-- Score: 2.526 | Reliability: 1.0
+- Score: 2.525 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning
@@ -83,19 +83,19 @@ Focus: AI Platform Engineering
 ## 14. Claude Fable 5 and Claude Mythos 5
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-fable-5-mythos-5
-- Score: 2.508 | Reliability: 1.0
+- Score: 2.507 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. Results from first Anthropic Public Record
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-public-record
-- Score: 2.506 | Reliability: 1.0
+- Score: 2.505 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/dxc-anthropic-alliance
-- Score: 2.471 | Reliability: 1.0
+- Score: 2.47 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. olmo-eval: An evaluation workbench for the model development loop
@@ -113,7 +113,7 @@ Focus: AI Platform Engineering
 ## 19. langgraph==1.2.5
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.5
-- Score: 2.296 | Reliability: 1.0
+- Score: 2.295 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. codex 0.140.0-alpha.19
