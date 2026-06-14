@@ -7,6 +7,9 @@
   <meta name="description" content="Hi all, I&#x27;m sure some of the best engineers out here are having a hard time standing out nowadays. It&#x27;s hard to evaluate and improve your skills, when AI is writing the code. Especially when a junior dev is sitting by..." />
   <link rel="canonical" href="https://www.llm-digest.com/story/db76a6d400d11b80" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="Show HN: I Built a Debugging Challenge for the AI Coding Age" />
@@ -143,6 +146,15 @@
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
     })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
   </script>
 </body>
 </html>

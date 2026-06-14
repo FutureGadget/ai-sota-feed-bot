@@ -7,6 +7,9 @@
   <meta name="description" content="Coding agents went from novelty to infrastructure — Codex as a platform, Claude Code&#x27;s dynamic multi-agent workflows, and a flood of community harnesses. Fresh models shipped: Microsoft&#x27;s own MAI family, NVIDIA Nemotron 3 Ultra on SageMaker, and a…" />
   <link rel="canonical" href="https://www.llm-digest.com/weekly/2026-W23" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="What happened in AI — Jun 1–7, 2026" />
@@ -144,6 +147,15 @@
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
     })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
   </script>
 </body>
 </html>

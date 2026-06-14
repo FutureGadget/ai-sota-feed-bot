@@ -7,6 +7,9 @@
   <meta name="description" content="Highlights This release features 8 commits from 6 contributors (1 new)! v0.22.1 is a patch release on top of v0.22.0 with targeted bug fixes plus a couple of additions: new model support for JetBrains&#x27; Mellum v2, zent..." />
   <link rel="canonical" href="https://www.llm-digest.com/story/c7754ef195e8c739" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="v0.22.1" />
@@ -143,6 +146,15 @@
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
     })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
   </script>
 </body>
 </html>

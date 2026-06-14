@@ -7,6 +7,9 @@
   <meta name="description" content="After this story was published Google&#x27;s spokesperson reached out and asked us to publish a slightly different version of that statement. The new statement no longer stated that &quot;it&#x27;s critical that we maintain humans i..." />
   <link rel="canonical" href="https://www.llm-digest.com/story/a9f9b4eaa547ba21" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="Quoting Emanuel Maiberg, 404 Media" />
@@ -143,6 +146,15 @@
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
     })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
   </script>
 </body>
 </html>
