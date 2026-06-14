@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. Lime 2.0 – Zero Human Auth for AI Agents
 - Type: news | Source: hackernews_ai
 - URL: https://lime.pics
-- Score: 2.638 | Reliability: 1.0
+- Score: 2.636 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 14. Reward Modeling for Multi-Agent Orchestration
