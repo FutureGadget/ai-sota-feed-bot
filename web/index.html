@@ -596,6 +596,41 @@
       padding: 1rem;
       opacity: 0.85;
     }
+    /* Loading placeholder. JS-injected before the feed fetch resolves so the
+       footer starts below the fold — without it the empty #list lets the
+       footer sit in the first viewport, then ~200 cards shove it down (CLS).
+       Always replaced by real content on first render, so no-JS users and
+       empty/error states never see it. */
+    .skel {
+      display: grid;
+      gap: 0.75rem;
+      min-height: 100vh;
+    }
+    .skel-card {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--card);
+    }
+    .skel-bar {
+      height: 0.7rem;
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--muted) 20%, transparent);
+      animation: skel-pulse 1.3s ease-in-out infinite;
+    }
+    .skel-bar + .skel-bar {
+      margin-top: 0.6rem;
+    }
+    .skel-bar.w-40 { width: 40%; }
+    .skel-bar.w-70 { width: 70%; }
+    .skel-bar.w-90 { width: 90%; }
+    @keyframes skel-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.85; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .skel-bar { animation: none; }
+    }
     input, button, a[role="button"] {
       font-size: 16px;
     }
@@ -1883,6 +1918,19 @@
     // Last fetched feed payload; search re-renders from here without refetching.
     let feedCache = { items: [], runs: [], freshAdded: 0, runId: null };
 
+    // Loading placeholder for the feed list. Reserves vertical space so the
+    // footer doesn't jump when real cards arrive (CLS). aria-hidden because
+    // the live #list region announces the real content once it renders.
+    function skeletonHtml(n = 6) {
+      const card =
+        '<div class="skel-card">' +
+        '<div class="skel-bar w-40"></div>' +
+        '<div class="skel-bar w-90"></div>' +
+        '<div class="skel-bar w-70"></div>' +
+        '</div>';
+      return `<div class="skel" aria-hidden="true">${card.repeat(n)}</div>`;
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId } = feedCache;
@@ -2207,6 +2255,9 @@
     initFilters();
     initClickTracking();
     initClientConfig();
+    // Reserve the feed's vertical space before the fetch resolves so the
+    // footer starts below the fold and doesn't jump on first render (CLS).
+    document.getElementById('list').innerHTML = skeletonHtml();
     refreshFeed();
   </script>
 </body>
