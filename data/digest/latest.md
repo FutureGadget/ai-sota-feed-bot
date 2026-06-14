@@ -5,13 +5,13 @@ Focus: AI Platform Engineering
 ## 1. Zero-source LLM Hallucination Detection with Human-like Criteria Probing
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.12900v1
-- Score: 3.07 | Reliability: 1.0
+- Score: 3.069 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 2. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 3.061 | Reliability: 1.0
+- Score: 3.059 | Reliability: 1.0
 - Why it matters: 
 
 ## 3. Publishing WASM wheels to PyPI for use with Pyodide
@@ -47,7 +47,7 @@ Focus: AI Platform Engineering
 ## 8. Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.13571v1
-- Score: 2.688 | Reliability: 1.0
+- Score: 2.687 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 9. Fable Mythos Access
@@ -65,7 +65,7 @@ Focus: AI Platform Engineering
 ## 11. SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.13673v1
-- Score: 2.671 | Reliability: 1.0
+- Score: 2.67 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 12. [AINews] Fable and Mythos officially too dangerous to release
@@ -77,7 +77,7 @@ Focus: AI Platform Engineering
 ## 13. Reward Modeling for Multi-Agent Orchestration
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.13598v1
-- Score: 2.575 | Reliability: 1.0
+- Score: 2.574 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 14. Anthropic Public Record
@@ -89,7 +89,7 @@ Focus: AI Platform Engineering
 ## 15. How Preply combines AI and human tutors to personalize learning
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/preply
-- Score: 2.541 | Reliability: 1.0
+- Score: 2.54 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. Dxc Anthropic Alliance
@@ -101,7 +101,7 @@ Focus: AI Platform Engineering
 ## 17. claude-agent-sdk-python v0.2.101
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.101
-- Score: 2.368 | Reliability: 1.0
+- Score: 2.367 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. langgraph==1.2.5
@@ -113,17 +113,17 @@ Focus: AI Platform Engineering
 ## 19. codex 0.140.0-alpha.19
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.19
-- Score: 2.347 | Reliability: 1.0
+- Score: 2.346 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 20. olmo-eval: An evaluation workbench for the model development loop
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/allenai/olmo-eval
-- Score: 2.329 | Reliability: 1.0
+- Score: 2.328 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 21. claude-code v2.1.177
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.177
-- Score: 2.117 | Reliability: 1.0
+- Score: 2.116 | Reliability: 1.0
 - Why it matters:
