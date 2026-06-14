@@ -563,6 +563,15 @@ def render_page(
   </main>
   <script>
 {PAGE_JS}{extra_js}  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+      const go = () => import('/mascot/mascot.js').catch(() => {{}});
+      'requestIdleCallback' in window ? requestIdleCallback(go, {{ timeout: 5000 }}) : setTimeout(go, 2500);
+    }}
+  </script>
 </body>
 </html>
 """
