@@ -498,6 +498,7 @@ def render_head(
   <meta name="twitter:description" content="{escape(description)}" />{ld}
   <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
 {THEME_BOOT_JS}  </script>
   <style>
