@@ -42,6 +42,9 @@ that merely echoes the title is treated as no content (it would render the
 title twice), and the meta/OG description falls back to a synthesized line
 rather than repeating the headline.
 
+Story bodies prefer the concise ``summary_1line`` produced by ranking; raw RSS
+summaries are capped fallbacks, not flattened article bodies.
+
 Stale pages whose recap/story/storyline JSON no longer exists are pruned.
 
 Stdlib only, like the rest of the recap tooling. Run after rebuilding the
@@ -87,6 +90,8 @@ SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}$")
 SLUG_HTML_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}\.html$")
 
 RELATED_STORIES_MAX = 4
+STORY_BRIEF_MAX_CHARS = 320
+MECHANICAL_WHY_PREFIXES = ("Matches feed focus:",)
 
 # Topical-authority gate: the feed lets through occasional off-topic posts from
 # otherwise-relevant sources (e.g. a frontier lab's consumer/PR announcement).
@@ -187,9 +192,14 @@ PAGE_CSS = """\
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
     .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
     .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
     .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
@@ -201,7 +211,10 @@ PAGE_CSS = """\
     .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
     .story-actions button[aria-pressed="true"] { border-color: var(--accent);
       background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
-    @media (max-width: 480px) { .story-img { width: 72px; height: 72px; } }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -281,6 +294,24 @@ def clip(text: str, limit: int) -> str:
         return text
     cut = text[: limit - 1].rsplit(" ", 1)[0]
     return cut + "…"
+
+
+def story_why(rec: dict) -> str:
+    """Reader-facing rationale only; ranking diagnostics belong in topic chips."""
+    why = squeeze(rec.get("why_it_matters"))
+    if any(why.startswith(prefix) for prefix in MECHANICAL_WHY_PREFIXES):
+        return ""
+    return why
+
+
+def story_brief(rec: dict) -> str:
+    """Concise permalink copy, never a flattened full RSS/article body."""
+    title_cf = squeeze(rec.get("title")).casefold()
+    for candidate in (rec.get("summary_1line"), rec.get("summary")):
+        brief = squeeze(candidate)
+        if brief and brief.casefold() != title_cf:
+            return clip(brief, STORY_BRIEF_MAX_CHARS)
+    return ""
 
 
 def intro_paragraphs(intro) -> list[str]:
@@ -802,7 +833,7 @@ def render_story_body(
     parts = []
     storyline_of = storyline_of or {}
     url = str(rec.get("url") or "")
-    why = squeeze(rec.get("why_it_matters"))
+    why = story_why(rec)
     if why:
         parts.append(
             '<div class="intro"><p class="tldr-label">Why it matters</p>'
@@ -831,15 +862,14 @@ def render_story_body(
     highlights = [squeeze(h) for h in rec.get("release_highlights") or [] if squeeze(h)]
     # Release summaries are built from the same changelog bullets as the
     # highlights, so showing both would duplicate the page.
-    summary = "" if highlights else squeeze(rec.get("summary") or rec.get("summary_1line"))
-    # Drop a summary that merely echoes the title — it renders as the title
-    # printed twice (H2 then lead paragraph), the canonical "broken page" look.
-    if summary and summary.casefold() == squeeze(rec.get("title")).casefold():
-        summary = ""
+    summary = "" if highlights else story_brief(rec)
     if summary:
-        parts.append(f'<p class="story-summary">{img_html}{escape(summary)}</p>')
+        parts.append(
+            '<div class="story-lead"><div><p class="tldr-label">In brief</p>'
+            f'<p class="story-summary">{escape(summary)}</p></div>{img_html}</div>'
+        )
     elif img_html:
-        parts.append(f'<p class="story-summary">{img_html}</p>')
+        parts.append(f'<div class="story-lead">{img_html}</div>')
 
     # Framing line for a story with no real body content and no storyline
     # context box above — guarantees the page explains itself and points out to
@@ -848,7 +878,7 @@ def render_story_body(
         when = fmt_story_date(story_dt(rec))
         when_bit = f", published {escape(when)}" if when else ""
         parts.append(
-            f'<p class="story-summary">A brief from <strong>'
+            f'<p class="story-framing">A brief from <strong>'
             f"{escape(source_label(rec, url))}</strong>{when_bit}. "
             "Open the original below for the full text.</p>"
         )
@@ -950,11 +980,9 @@ def render_story_pages(
         # render_story_body) — exclude it from both the body-content signal and
         # the meta/OG description so neither shows the title twice.
         title_cf = title.casefold()
-        why = squeeze(rec.get("why_it_matters"))
+        why = story_why(rec)
         highlights = [h for h in rec.get("release_highlights") or [] if squeeze(h)]
-        body_summary = squeeze(rec.get("summary") or rec.get("summary_1line"))
-        if body_summary.casefold() == title_cf:
-            body_summary = ""
+        body_summary = story_brief(rec)
         has_content = bool(why or highlights or body_summary)
         # Description: first non-title-echo candidate, else a synthesized line so
         # the social/search snippet never just repeats the headline.
@@ -962,9 +990,8 @@ def render_story_pages(
             (
                 c
                 for c in (
-                    squeeze(rec.get("why_it_matters")),
-                    squeeze(rec.get("summary_1line")),
-                    squeeze(rec.get("summary")),
+                    story_brief(rec),
+                    story_why(rec),
                 )
                 if c and c.casefold() != title_cf
             ),
