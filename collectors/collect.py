@@ -9,6 +9,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote
 
@@ -254,11 +255,118 @@ def _extract_published_from_html(html_text: str) -> str | None:
     return None
 
 
-def _fetch_page_published(url: str) -> str | None:
+def _unescape_html(text: str) -> str:
+    return " ".join(html.unescape(text).split())
+
+
+class _PageMetadataParser(HTMLParser):
+    """Collect metadata without depending on HTML attribute order."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.meta: dict[str, str] = {}
+        self.time_values: list[str] = []
+        self.title_parts: list[str] = []
+        self._in_title = False
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attrs_by_name = {str(k).lower(): str(v or "") for k, v in attrs}
+        tag = tag.lower()
+        if tag == "meta":
+            key = (attrs_by_name.get("property") or attrs_by_name.get("name") or "").lower()
+            content = attrs_by_name.get("content", "").strip()
+            if key and content and key not in self.meta:
+                self.meta[key] = content
+        elif tag == "time":
+            value = attrs_by_name.get("datetime", "").strip()
+            if value:
+                self.time_values.append(value)
+        elif tag == "title":
+            self._in_title = True
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.lower() == "title":
+            self._in_title = False
+
+    def handle_data(self, data: str) -> None:
+        if self._in_title:
+            self.title_parts.append(data)
+
+
+def _parse_page_metadata(html_text: str) -> _PageMetadataParser:
+    parser = _PageMetadataParser()
+    parser.feed(html_text)
+    parser.close()
+    return parser
+
+
+def _extract_title_from_metadata(meta: _PageMetadataParser) -> str | None:
+    """Real page title, preferring social metadata over the title element."""
+    for value in (
+        meta.meta.get("og:title"),
+        meta.meta.get("twitter:title"),
+        " ".join(meta.title_parts),
+    ):
+        title = _unescape_html(value or "")
+        if title:
+            return title
+    return None
+
+
+def _extract_description_from_metadata(meta: _PageMetadataParser) -> str | None:
+    """Short page summary from social or standard description metadata."""
+    for key in ("og:description", "description", "twitter:description"):
+        description = _unescape_html(meta.meta.get(key, ""))
+        if description:
+            return description
+    return None
+
+
+def _extract_published_from_metadata(meta: _PageMetadataParser) -> str | None:
+    for key in (
+        "article:published_time",
+        "og:published_time",
+        "publish_date",
+        "date",
+    ):
+        raw = meta.meta.get(key)
+        if raw:
+            published = _normalize_published(raw)
+            if published:
+                return published
+    for raw in meta.time_values:
+        published = _normalize_published(raw)
+        if published:
+            return published
+    return None
+
+
+def _normalize_published(raw: str) -> str | None:
+    try:
+        dt = dt_parser.parse(raw)
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc).isoformat()
+    except Exception:
+        return None
+
+
+def _fetch_page_meta(url: str) -> dict:
+    """Fetch a page once and pull title, description, and published date.
+
+    Sitemaps carry only <loc>/<lastmod>, so without this the item title is a
+    title-cased URL slug and the summary is empty (see collect_from_sitemap).
+    """
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
         html_text = r.read().decode("utf-8", errors="ignore")
-    return _extract_published_from_html(html_text)
+    page_meta = _parse_page_metadata(html_text)
+    return {
+        "title": _extract_title_from_metadata(page_meta),
+        "description": _extract_description_from_metadata(page_meta),
+        "published": _extract_published_from_html(html_text)
+        or _extract_published_from_metadata(page_meta),
+    }
 
 
 def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
@@ -292,13 +400,16 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     out = []
     for loc, lastmod in rows[:60]:
         published = None
+        page_title = None
+        page_desc = None
 
         if extract_from_page:
-            cache_row = cache.get(loc, {})
+            cache_row = cache.get(loc, {}) if isinstance(cache.get(loc), dict) else {}
+            cached_at = cache_row.get("fetched_at")
             cache_ok = False
-            cached_published = cache_row.get("published") if isinstance(cache_row, dict) else None
-            cached_at = cache_row.get("fetched_at") if isinstance(cache_row, dict) else None
-            if cached_published and cached_at:
+            # A cache row counts as fresh only once it carries the page meta we
+            # now extract, so existing published-only rows are re-fetched once.
+            if cached_at and "title" in cache_row:
                 try:
                     fetched_dt = datetime.fromisoformat(cached_at.replace("Z", "+00:00"))
                     if fetched_dt.tzinfo is None:
@@ -308,12 +419,19 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
                 except Exception:
                     cache_ok = False
             if cache_ok:
-                published = cached_published
+                published = cache_row.get("published")
+                page_title = cache_row.get("title")
+                page_desc = cache_row.get("description")
             else:
                 try:
-                    published = _fetch_page_published(loc)
+                    meta = _fetch_page_meta(loc)
+                    published = meta.get("published")
+                    page_title = meta.get("title")
+                    page_desc = meta.get("description")
                     cache[loc] = {
                         "published": published,
+                        "title": page_title,
+                        "description": page_desc,
                         "fetched_at": now.isoformat(),
                     }
                 except Exception:
@@ -323,9 +441,12 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
 
         out.append(
             {
-                "title": prettify_slug(loc),
+                # Real page title/summary when the fetch succeeded; the slug is
+                # only a last-resort fallback (it title-cases to e.g.
+                # "Dxc Anthropic Alliance" and duplicates into summary_1line).
+                "title": (page_title or "").strip() or prettify_slug(loc),
                 "url": loc,
-                "summary": "",
+                "summary": (page_desc or "").strip(),
                 "published": published,
             }
         )
