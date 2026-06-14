@@ -30,7 +30,8 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
    (`story_store.py`, `render_static_pages.py`). Storyline generation is
    intentionally excluded from GitHub Actions.
 6. Prune runtime snapshots (processed 45d, tier1 14d)
-7. Commit + push `data/` + `web/` (triggers Vercel production deploy)
+7. Commit + push `data/` + `web/` (triggers Vercel production deploy, whose
+   build command rerenders static pages from the committed data)
 8. Publish GitHub issue + Telegram digest
 
 Daily companions:

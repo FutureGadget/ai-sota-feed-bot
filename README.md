@@ -170,6 +170,10 @@ pages' design. The index builders (`build_daily_index.py` /
 recap always refreshes the static pages — commit `web/daily/`, `web/weekly/`,
 `web/story/`, and `web/sitemap.xml` alongside `data/`. Base URL override:
 `--base-url` or `SITE_BASE_URL` (default `https://www.llm-digest.com`).
+Vercel also runs `scripts/vercel_build.py` as its `buildCommand`; it invokes the
+renderer and stages `web/` into the configured `public/` output directory.
+PR previews and production deploys therefore reflect renderer code changes
+even when generated `web/` artifacts are omitted from a code-only commit.
 
 ### Story permalink pages (growth loop)
 Every story that makes a published feed snapshot gets a durable, indexable

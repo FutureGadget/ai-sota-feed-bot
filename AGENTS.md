@@ -272,6 +272,10 @@ When implementing a feature:
 - The site (`web/` pages + `api/` serverless functions) auto-deploys to Vercel.
   Config lives in `vercel.json`. Production domain: `https://www.llm-digest.com`
   (apex redirects to www).
+- Vercel runs `python3 scripts/vercel_build.py` as its build command. It
+  regenerates static story/recap/storyline pages from committed data and stages
+  `web/` under the configured `public/` output directory. This keeps code-only
+  renderer PR previews accurate without committing 1,000+ generated files.
 - Every PR gets an automatic **Vercel preview deployment** — use the preview
   URL posted on the PR to eyeball UI changes before merge.
 - Merging to `main` triggers the production deploy. The hourly data commits

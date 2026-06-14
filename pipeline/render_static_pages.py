@@ -33,9 +33,17 @@ mirrors the markup and styles of the dynamic pages so the reader experience is
 identical.
 
 Off-topic story pages (no AI/platform signal, not a release/paper/research item
-and not part of a storyline; see ``is_on_topic``) are still rendered so shared
-links resolve, but get ``robots=noindex,follow`` and are kept out of the
-sitemap to protect topical authority.
+and not part of a storyline; see ``is_on_topic``) — and genuinely thin pages
+that have no body content and aren't part of a storyline — are still rendered
+so shared links resolve, but get ``robots=noindex,follow`` and are kept out of
+the sitemap to protect topical authority. Storyline members always carry an
+up-link to their thread, so they stay substantive (and indexable). A summary
+that merely echoes the title is treated as no content (it would render the
+title twice), and the meta/OG description falls back to a synthesized line
+rather than repeating the headline.
+
+Story bodies prefer the concise ``summary_1line`` produced by ranking; raw RSS
+summaries are capped fallbacks, not flattened article bodies.
 
 Stale pages whose recap/story/storyline JSON no longer exists are pruned.
 
@@ -53,12 +61,14 @@ import json
 import os
 import re
 import sys
+from collections import Counter
 from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -82,6 +92,8 @@ SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}$")
 SLUG_HTML_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}\.html$")
 
 RELATED_STORIES_MAX = 4
+STORY_BRIEF_MAX_CHARS = 320
+MECHANICAL_WHY_PREFIXES = ("Matches feed focus:",)
 
 # Topical-authority gate: the feed lets through occasional off-topic posts from
 # otherwise-relevant sources (e.g. a frontier lab's consumer/PR announcement).
@@ -107,6 +119,26 @@ AI_TERMS = frozenset(
     }
 )
 ON_TOPIC_TYPES = frozenset({"release", "paper", "research"})
+
+# Friendly publisher names for the contentless-story framing line (the story
+# record only carries the internal source id). Falls back to the source domain.
+SOURCE_LABELS = {
+    "anthropic_newsroom": "Anthropic",
+    "anthropic_research": "Anthropic Research",
+    "anthropic_engineering": "Anthropic Engineering",
+    "claude_blog": "the Claude blog",
+    "huggingface_blog": "the Hugging Face blog",
+    "langchain_blog": "the LangChain blog",
+    "google_ai_blog": "the Google AI blog",
+    "google_deepmind_blog": "the Google DeepMind blog",
+    "openai_blog": "the OpenAI blog",
+}
+
+
+def source_label(rec: dict, url: str) -> str:
+    """Human-readable publisher name for a story, for prose framing."""
+    src = str(rec.get("source") or "")
+    return SOURCE_LABELS.get(src) or source_domain(url)
 
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
@@ -162,16 +194,29 @@ PAGE_CSS = """\
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -251,6 +296,24 @@ def clip(text: str, limit: int) -> str:
         return text
     cut = text[: limit - 1].rsplit(" ", 1)[0]
     return cut + "…"
+
+
+def story_why(rec: dict) -> str:
+    """Reader-facing rationale only; ranking diagnostics belong in topic chips."""
+    why = squeeze(rec.get("why_it_matters"))
+    if any(why.startswith(prefix) for prefix in MECHANICAL_WHY_PREFIXES):
+        return ""
+    return why
+
+
+def story_brief(rec: dict) -> str:
+    """Concise permalink copy, never a flattened full RSS/article body."""
+    title_cf = squeeze(rec.get("title")).casefold()
+    for candidate in (rec.get("summary_1line"), rec.get("summary")):
+        brief = squeeze(candidate)
+        if brief and brief.casefold() != title_cf:
+            return clip(brief, STORY_BRIEF_MAX_CHARS)
+    return ""
 
 
 def intro_paragraphs(intro) -> list[str]:
@@ -620,7 +683,7 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
             published=published,
             h1="📰 AI Daily Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
@@ -672,7 +735,7 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
             published=published,
             h1="🗓️ AI Weekly Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,
@@ -718,7 +781,7 @@ def source_domain(url: str) -> str:
     return host.removeprefix("www.") or "the source"
 
 
-def is_on_topic(rec: dict, storyline_sids: set[str]) -> bool:
+def is_on_topic(rec: dict, storyline_sids) -> bool:
     """Whether a story deserves an indexable permalink (see AI_TERMS docstring).
 
     Conservative: index unless the page shows no AI/platform signal at all and
@@ -737,33 +800,92 @@ def is_on_topic(rec: dict, storyline_sids: set[str]) -> bool:
     return any(term in haystack for term in AI_TERMS)
 
 
-def related_stories(rec: dict, stories: dict[str, dict]) -> list[dict]:
-    """Related = shared topic or same source, published at/before this story.
+def related_stories(
+    rec: dict, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
+) -> list[dict]:
+    """Strongly related stories published at/before this story.
 
-    Only looking backward keeps rendered pages stable as new stories arrive
-    (no churn re-committing every page each run).
+    Storyline members show only their own thread history. Other pages require a
+    rare shared title anchor or continuity within one release feed. Same-source
+    alone and ranked-topic overlap are deliberately insufficient: they produced
+    unrelated arXiv papers and generic "agent" recommendations. Looking
+    backward keeps rendered pages stable as new stories arrive.
     """
-    topics = set(rec.get("matched_topics") or [])
+    storyline_of = storyline_of or {}
+    my_slug = (storyline_of.get(str(rec.get("sid") or "")) or (None,))[0]
+    topics = {squeeze(t).casefold() for t in rec.get("matched_topics") or [] if squeeze(t)}
+    token_map = {
+        str(item.get("sid") or ""): title_tokens(item.get("title"))
+        for item in stories.values()
+    }
+    token_df = Counter(tok for tokens in token_map.values() for tok in tokens)
+    # Related cards are a precision surface, so use a stricter rarity cap than
+    # storyline discovery (1.5% vs 2% of the store). This keeps generic terms
+    # such as "learning" from linking otherwise-unrelated papers.
+    rare_cap = max(5, round(len(stories) * 0.015))
+
+    def rare_title_tokens(item: dict) -> set[str]:
+        return {
+            tok
+            for tok in token_map.get(str(item.get("sid") or ""), set())
+            if tok not in STORYLINE_WEAK and token_df[tok] <= rare_cap
+        }
+
+    strong_title = rare_title_tokens(rec)
     cutoff = story_dt(rec)
     scored = []
     for other in stories.values():
         if other.get("sid") == rec.get("sid") or story_dt(other) > cutoff:
             continue
-        shared = len(topics & set(other.get("matched_topics") or []))
+        other_topics = {
+            squeeze(t).casefold() for t in other.get("matched_topics") or [] if squeeze(t)
+        }
+        shared_topics = topics & other_topics
+        shared_title = strong_title & rare_title_tokens(other)
         same_source = other.get("source") == rec.get("source")
-        if shared or same_source:
-            scored.append((2 * shared + int(same_source), story_dt(other), other))
+        release_series = (
+            same_source
+            and str(rec.get("type") or "").lower() == "release"
+            and str(other.get("type") or "").lower() == "release"
+        )
+        other_slug = (storyline_of.get(str(other.get("sid") or "")) or (None,))[0]
+        co_thread = bool(my_slug and other_slug == my_slug)
+        qualifies = co_thread if my_slug else bool(shared_title or release_series)
+        if qualifies:
+            score = (
+                100 * int(co_thread)
+                + 20 * len(shared_title)
+                + 2 * len(shared_topics)
+                + 3 * int(release_series)
+            )
+            scored.append((score, story_dt(other), other))
     scored.sort(key=lambda t: (t[0], t[1]), reverse=True)
     return [other for _, _, other in scored[:RELATED_STORIES_MAX]]
 
 
-def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
+def render_story_body(
+    rec: dict, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
+) -> str:
     parts = []
-    why = squeeze(rec.get("why_it_matters"))
+    storyline_of = storyline_of or {}
+    url = str(rec.get("url") or "")
+    why = story_why(rec)
     if why:
         parts.append(
             '<div class="intro"><p class="tldr-label">Why it matters</p>'
             f"<p>{escape(why)}</p></div>"
+        )
+
+    # Up-link to the storyline this story belongs to. The richest context for a
+    # member story lives one hop away in its timeline; surfacing it turns an
+    # otherwise-thin permalink into an entry point to the memory layer.
+    member = storyline_of.get(str(rec.get("sid") or ""))
+    if member:
+        slug, label = member
+        parts.append(
+            '<div class="intro"><p class="tldr-label">Part of a storyline</p>'
+            f'<p><a class="primary" href="/storyline/{escape(slug)}">'
+            f"{escape(label)} — see the full timeline →</a></p></div>"
         )
 
     img = str(rec.get("image_url") or "")
@@ -776,11 +898,26 @@ def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
     highlights = [squeeze(h) for h in rec.get("release_highlights") or [] if squeeze(h)]
     # Release summaries are built from the same changelog bullets as the
     # highlights, so showing both would duplicate the page.
-    summary = "" if highlights else squeeze(rec.get("summary") or rec.get("summary_1line"))
+    summary = "" if highlights else story_brief(rec)
     if summary:
-        parts.append(f'<p class="story-summary">{img_html}{escape(summary)}</p>')
+        parts.append(
+            '<div class="story-lead"><div><p class="tldr-label">In brief</p>'
+            f'<p class="story-summary">{escape(summary)}</p></div>{img_html}</div>'
+        )
     elif img_html:
-        parts.append(f'<p class="story-summary">{img_html}</p>')
+        parts.append(f'<div class="story-lead">{img_html}</div>')
+
+    # Framing line for a story with no real body content and no storyline
+    # context box above — guarantees the page explains itself and points out to
+    # the source instead of rendering a bare title + buttons shell.
+    if not (why or highlights or summary or member):
+        when = fmt_story_date(story_dt(rec))
+        when_bit = f", published {escape(when)}" if when else ""
+        parts.append(
+            f'<p class="story-framing">A brief from <strong>'
+            f"{escape(source_label(rec, url))}</strong>{when_bit}. "
+            "Open the original below for the full text.</p>"
+        )
 
     if highlights:
         items = "".join(f"<li>{escape(h)}</li>" for h in highlights)
@@ -794,7 +931,6 @@ def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
         chips = "".join(f'<span class="badge">{escape(t)}</span>' for t in topics)
         parts.append(f'<div class="chips">{chips}</div>')
 
-    url = str(rec.get("url") or "")
     feed_link = f"/?item={quote(url, safe='')}&utm_source=story"
     actions = [
         f'<a class="primary" href="{escape(url)}" target="_blank" rel="noopener" '
@@ -823,7 +959,7 @@ def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
             f'<ul>{"".join(rows)}</ul></div>'
         )
 
-    related = related_stories(rec, stories)
+    related = related_stories(rec, stories, storyline_of)
     if related:
         cards = []
         for other in related:
@@ -846,17 +982,20 @@ def render_story_body(rec: dict, stories: dict[str, dict]) -> str:
 
 
 def render_story_pages(
-    base_url: str, stories: dict[str, dict], storyline_sids: set[str] | None = None
+    base_url: str, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
 ) -> tuple[list[tuple[str, str | None]], int]:
     """Render web/story/<sid>.html for every stored story.
 
     Every story still gets a page (so shared links keep resolving), but
-    off-topic stories are rendered with robots=noindex,follow and excluded from
-    the returned sitemap list. Returns (sitemap_entries, noindexed_count) where
+    off-topic OR genuinely thin (no body content) stories are rendered with
+    robots=noindex,follow and excluded from the returned sitemap list — we don't
+    advertise a contentless shell to crawlers. ``storyline_of`` maps a member
+    sid to its ``(slug, label)``; membership keeps a story on-topic and threads
+    the up-link/related boost. Returns (sitemap_entries, noindexed_count) where
     sitemap_entries are (sid, lastmod) pairs newest first.
     """
     out_dir = WEB_DIR / "story"
-    storyline_sids = storyline_sids or set()
+    storyline_of = storyline_of or {}
     sitemap_entries: list[tuple[str, str | None]] = []
     written: set[str] = set()
     noindexed = 0
@@ -870,17 +1009,50 @@ def render_story_pages(
         canonical = f"{base_url}/story/{sid}"
         published_dt = parse_dt(rec.get("published"))
         published = published_dt.isoformat() if published_dt else None
-        description = clip(
-            squeeze(rec.get("why_it_matters"))
-            or squeeze(rec.get("summary_1line"))
-            or squeeze(rec.get("summary")),
-            250,
-        )
         source = squeeze(rec.get("source"))
         kind = squeeze(rec.get("type"))
+        member = storyline_of.get(sid)
+        # A summary that just echoes the title is not real content (see
+        # render_story_body) — exclude it from both the body-content signal and
+        # the meta/OG description so neither shows the title twice.
+        title_cf = title.casefold()
+        why = story_why(rec)
+        highlights = [h for h in rec.get("release_highlights") or [] if squeeze(h)]
+        body_summary = story_brief(rec)
+        has_content = bool(why or highlights or body_summary)
+        # Description: first non-title-echo candidate, else a synthesized line so
+        # the social/search snippet never just repeats the headline.
+        desc_src = next(
+            (
+                c
+                for c in (
+                    story_brief(rec),
+                    story_why(rec),
+                )
+                if c and c.casefold() != title_cf
+            ),
+            "",
+        )
+        if desc_src:
+            description = clip(desc_src, 250)
+        else:
+            description = " · ".join(
+                b for b in (source_label(rec, url), kind or "story", fmt_story_date(story_dt(rec))) if b
+            ) + " — tracked on LLM Digest"
         meta_bits = [b for b in (source, fmt_story_date(story_dt(rec)), kind) if b]
         image = str(rec.get("image_url") or "")
-        on_topic = is_on_topic(rec, storyline_sids)
+        # Members are substantive (storyline up-link + co-thread related), so they
+        # stay indexable; a non-member with no body is a thin shell -> noindex.
+        indexable = is_on_topic(rec, storyline_of) and (has_content or bool(member))
+        if member:
+            crumbs = [
+                ("Home", "/"),
+                ("Storylines", "/storylines"),
+                (member[1], f"/storyline/{member[0]}"),
+                (title, f"/story/{sid}"),
+            ]
+        else:
+            crumbs = [("LLM Digest", "/"), (title, f"/story/{sid}")]
         html = render_page(
             title=title,
             description=description,
@@ -888,15 +1060,15 @@ def render_story_pages(
             published=published,
             h1="📰 Story",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/", "← Live feed"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/rss.xml", "🔔 RSS")],
             json_href="",
             archive="",
             recap_title="",  # replaced by linked title below
             recap_range="",
             intro_html="",
-            body_html=render_story_body(rec, stories),
+            body_html=render_story_body(rec, stories, storyline_of),
             image=image,
-            robots="" if on_topic else "noindex,follow",
+            robots="" if indexable else "noindex,follow",
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -908,9 +1080,7 @@ def render_story_pages(
                     image=image,
                     source_url=url,
                 ),
-                breadcrumb_node(
-                    base_url, [("Home", "/"), ("Stories", "/"), (title, f"/story/{sid}")]
-                ),
+                breadcrumb_node(base_url, crumbs),
             ],
             title_html=(
                 f'<h2 class="recap-title story-title"><a href="{escape(safe_http_url(url))}" '
@@ -920,7 +1090,7 @@ def render_story_pages(
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{sid}.html").write_text(html, encoding="utf-8")
         written.add(f"{sid}.html")
-        if on_topic:
+        if indexable:
             sitemap_entries.append((sid, published_dt.date().isoformat() if published_dt else None))
         else:
             noindexed += 1
@@ -945,16 +1115,24 @@ def load_storyline_details() -> list[dict]:
     return details
 
 
-def storyline_member_sids(details: list[dict]) -> set[str]:
-    """All story sids that appear in any storyline timeline (keeps them indexable)."""
-    sids: set[str] = set()
+def storyline_membership(details: list[dict]) -> dict[str, tuple]:
+    """Map each member story sid -> ``(slug, label)`` of the storyline it's in.
+
+    Keys double as the member-sid set (keeps members indexable in is_on_topic).
+    First storyline wins if a story somehow appears in more than one.
+    """
+    out: dict[str, tuple] = {}
     for sl in details:
+        slug = str(sl.get("slug") or "")
+        if not slug:
+            continue
+        label = squeeze(sl.get("label")) or slug
         for day in sl.get("days") or []:
             for it in day.get("items") or []:
                 sid = str(it.get("sid") or "")
-                if sid:
-                    sids.add(sid)
-    return sids
+                if sid and sid not in out:
+                    out[sid] = (slug, label)
+    return out
 
 
 def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
@@ -962,7 +1140,7 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     slug = str(sl.get("slug") or "")
     last_updated = str(sl.get("last_updated") or "")
     parts.append(
-        '<p class="story-actions"><button id="followBtn" type="button" '
+        '<p class="story-actions"><button id="followBtn" type="button" class="primary" '
         f'data-slug="{escape(slug)}" data-last-updated="{escape(last_updated)}" '
         'aria-pressed="false">+ Follow this story</button></p>'
     )
@@ -1169,11 +1347,11 @@ def main() -> None:
         for s in (index.get("storylines") or [])
         if isinstance(s, dict) and s.get("slug")
     }
-    member_sids = storyline_member_sids(storyline_details)
+    storyline_of = storyline_membership(storyline_details)
 
     days = render_daily_pages(base_url, story_sids)
     weeks = render_weekly_pages(base_url, story_sids)
-    story_pages, noindexed = render_story_pages(base_url, stories, member_sids)
+    story_pages, noindexed = render_story_pages(base_url, stories, storyline_of)
     storyline_pages = render_storyline_pages(
         base_url, storyline_details, active_slugs, story_sids
     )
