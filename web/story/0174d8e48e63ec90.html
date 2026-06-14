@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Warelay -&gt; OpenClaw" />
   <meta name="twitter:description" content="In preparation for a lightning talk I&#x27;m giving at PyCon US this afternoon I decided to figure out how many names OpenClaw has actually had since that first commit back in November. Thanks to this first_line_history.py..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Warelay -> OpenClaw", "description": "In preparation for a lightning talk I'm giving at PyCon US this afternoon I decided to figure out how many names OpenClaw has actually had since that first commit back in November. Thanks to this first_line_history.py...", "datePublished": "2026-05-16T20:23:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0174d8e48e63ec90", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/16/openclaw-names/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Warelay -> OpenClaw", "item": "https://www.llm-digest.com/story/0174d8e48e63ec90"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Warelay -> OpenClaw", "description": "In preparation for a lightning talk I'm giving at PyCon US this afternoon I decided to figure out how many names OpenClaw has actually had since that first commit back in November. Thanks to this first_line_history.py...", "datePublished": "2026-05-16T20:23:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0174d8e48e63ec90", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/16/openclaw-names/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Warelay -> OpenClaw", "item": "https://www.llm-digest.com/story/0174d8e48e63ec90"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 16, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/16/openclaw-names/#atom-everything" target="_blank" rel="noopener">Warelay -&gt; OpenClaw</a></h2>
       
       
-      <p class="story-summary">In preparation for a lightning talk I&#x27;m giving at PyCon US this afternoon I decided to figure out how many names OpenClaw has actually had since that first commit back in November. Thanks to this first_line_history.py tool ( code here ) the answer, according to the Git history of the OpenClaw README, is: Warelay → CLAWDIS → CLAWDBOT → Clawdbot → Moltbot →🦞 OpenClaw Or in detail (the output from the tool): 2025-11-24T11:23:15+01:00 16dfc1a # Warelay — WhatsApp Relay CLI (Twilio) 2025-11-24T11:41:37+01:00 d4153da # 📡 Warelay — WhatsApp Relay CLI (Twilio) 2025-11-24T17:47:57+01:00 343ef9b # 📡 warelay — WhatsApp Relay CLI (Twilio) 2025-11-25T04:44:10+01:00 14b3c6f # 📡 warelay — WhatsApp Relay CLI 2025-11-25T12:48:40+01:00 4814021 # 📡 warelay — Send, receive, and auto-reply on WhatsApp—Twilio-backed or QR-linked. 2025-11-25T13:50:18+01:00 d51a3e9 # warelay 📡 - Send, receive, and auto-reply on WhatsApp via Twilio or QR-linked WhatsApp Web; webhook setup in one command 2025-11-25T13:51:13+01:00 4d2a8a8 # 📡 warelay — Send, receive, and auto-reply on WhatsApp—Twilio-backed or QR-linked. 2025-11-25T14:52:43+01:00 1ef7f4d # 📡 warelay — Send, receive, and auto-reply on WhatsApp. 2025-12-03T15:45:32+00:00 a27ee23 # 🦞 CLAWDIS — WhatsApp Gateway for AI Agents 2025-12-08T12:43:13+01:00 17fa2f4 # 🦞 CLAWDIS — WhatsApp &amp; Telegram Gateway for AI Agents 2025-12-19T18:41:17+01:00 7710439 # 🦞 CLAWDIS — Personal AI Assistant 2026-01-04T14:32:47+00:00 246adaa # 🦞 CLAWDBOT — Personal AI Assistant 2026</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/16/openclaw-names/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F16%2Fopenclaw-names%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/9620fb3381eaf8b8" data-track="story-related">Quoting Julia Evans</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 16, 2026</span></div></article><article><h3><a href="/story/c533eb9ba1b6d17a" data-track="story-related">Not so locked in any more</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/eb690f8a5689ade8" data-track="story-related">Quoting Mitchell Hashimoto</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/439d727a63cd10b1" data-track="story-related">datasette-ip-rate-limit 0.1a0</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">In preparation for a lightning talk I&#x27;m giving at PyCon US this afternoon I decided to figure out how many names OpenClaw has actually had since that first commit back in November. Thanks to this first_line_history.py...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/16/openclaw-names/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F16%2Fopenclaw-names%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/58f994275c6ac200" data-track="story-related">[AINews] The Two Sides of OpenClaw</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Apr 18, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Memory system for AI agents with associations, forgetting, synthesis" />
   <meta name="twitter:description" content="I built an open-source memory plugin for OpenClaw agents, a biologically-inspired alternative to OpenClaw&#x27;s built-in memory-core, with a take on what consolidation should do. My background is in psychology, specifical..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Memory system for AI agents with associations, forgetting, synthesis", "description": "I built an open-source memory plugin for OpenClaw agents, a biologically-inspired alternative to OpenClaw's built-in memory-core, with a take on what consolidation should do. My background is in psychology, specifical...", "datePublished": "2026-05-07T12:37:31+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/83e63e463a1dff9d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/jarimustonen/formative-memory"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Memory system for AI agents with associations, forgetting, synthesis", "item": "https://www.llm-digest.com/story/83e63e463a1dff9d"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Memory system for AI agents with associations, forgetting, synthesis", "description": "I built an open-source memory plugin for OpenClaw agents, a biologically-inspired alternative to OpenClaw's built-in memory-core, with a take on what consolidation should do. My background is in psychology, specifical...", "datePublished": "2026-05-07T12:37:31+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/83e63e463a1dff9d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/jarimustonen/formative-memory"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Memory system for AI agents with associations, forgetting, synthesis", "item": "https://www.llm-digest.com/story/83e63e463a1dff9d"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 7, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/jarimustonen/formative-memory" target="_blank" rel="noopener">Show HN: Memory system for AI agents with associations, forgetting, synthesis</a></h2>
       
       
-      <p class="story-summary">I built an open-source memory plugin for OpenClaw agents, a biologically-inspired alternative to OpenClaw&#x27;s built-in memory-core, with a take on what consolidation should do. My background is in psychology, specifically personality psychology and how personality builds on top of memory. If we let an agent gather memories, it allows the agent to show features that look like a &quot;personality&quot;. The basic architecture is to let the memory system form more complex memories from the initial facts that get remembered. To build this consolidation, memories are forgotten, and memories that are retrieved often get stronger. There&#x27;s also a structure that builds associations, used both in retrieval and in spotting memories that are candidates for consolidation. This is what consolidation here looks like: - *Weighted bidirectional associations* between memory pairs, built from co-retrieval. Recall expands one hop along strong edges, so related memories surface even when they don&#x27;t directly match the query. - *Reconsolidation (&quot;coloring&quot;)* — when a newer memory contradicts an older one, the older memory is rewritten in light of the new context. - *Per-recall Hebbian strengthening* based on which injected memory the agent actually leaned on in the reply. - *Content-addressed identity* (SHA-256), so the same fact from two sources collapses to one object at write time. Today it ships as an OpenClaw plugin (v0.5.5, MIT). The core is agent-agnostic by design and can be extended to other agents. R</p><div class="story-actions"><a class="primary" href="https://github.com/jarimustonen/formative-memory" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fjarimustonen%2Fformative-memory&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/500f8eb4e2a7d8b0" data-track="story-related">Show HN: Desktop Agent Center – Local AI Automation via Hotkeys</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/ad87ab2f75834cf1" data-track="story-related">Show HN: Agent-skills-eval – Test whether Agent Skills improve outputs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/95760bf4b166119a" data-track="story-related">Mythos Shows AI Weapons Inspectors Need Sharp Teeth</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/d132f3c98eb260cc" data-track="story-related">AI evaluation startup Braintrust confirms breach</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 6, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I built an open-source memory plugin for OpenClaw agents, a biologically-inspired alternative to OpenClaw&#x27;s built-in memory-core, with a take on what consolidation should do. My background is in psychology, specifical...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/jarimustonen/formative-memory" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fjarimustonen%2Fformative-memory&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/e20e8e03e0d4d21b" data-track="story-related">Low-Cost Black-Box Detection of LLM Hallucinations via Dynamical System Prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 6, 2026</span></div></article><article><h3><a href="/story/aae281c9c0cb97a0" data-track="story-related">Inside Claude Code Auto Mode: Anthropic’s Autonomous Coding System with Human Approval Gates</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 5, 2026</span></div></article><article><h3><a href="/story/bcfdd0e11f488ccf" data-track="story-related">Ask HN: When did you move from AI agentic loops to simpler deterministic system?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 4, 2026</span></div></article></div></section>
     </section>
 
     <footer>

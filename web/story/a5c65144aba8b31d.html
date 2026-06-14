@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs" />
   <meta name="twitter:description" content="We talk with the VendingBench authors on evaling Claudes from Haiku to Mythos, and how they build leading, and lasting, frontier evals from scratch." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs", "description": "We talk with the VendingBench authors on evaling Claudes from Haiku to Mythos, and how they build leading, and lasting, frontier evals from scratch.", "datePublished": "2026-06-04T20:39:18+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/a5c65144aba8b31d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.latent.space/p/andon"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs", "item": "https://www.llm-digest.com/story/a5c65144aba8b31d"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs", "description": "We talk with the VendingBench authors on evaling Claudes from Haiku to Mythos, and how they build leading, and lasting, frontier evals from scratch.", "datePublished": "2026-06-04T20:39:18+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/a5c65144aba8b31d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.latent.space/p/andon"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs", "item": "https://www.llm-digest.com/story/a5c65144aba8b31d"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">latent_space · Jun 4, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://www.latent.space/p/andon" target="_blank" rel="noopener">Reality: The Final Eval — Lukas Petersson and Axel Backlund of Andon Labs</a></h2>
       
       
-      <p class="story-summary">We talk with the VendingBench authors on evaling Claudes from Haiku to Mythos, and how they build leading, and lasting, frontier evals from scratch.</p><div class="story-actions"><a class="primary" href="https://www.latent.space/p/andon" target="_blank" rel="noopener" data-track="story-source">Read the original at latent.space →</a><a href="/?item=https%3A%2F%2Fwww.latent.space%2Fp%2Fandon&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/29ce4419035044ef" data-track="story-related">[AINews] Reve 2 and Ideogram 4: Layouts in Imagegen</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/485af16b145c3db2" data-track="story-related">🔬Scaling Past Informal AI - Carina Hong, Axiom Math</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/470497b56855ff3a" data-track="story-related">[AINews] Microsoft Build: MAI-Thinking-1 and MAI Family models</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/f0e2135d35e273b2" data-track="story-related">GitHub&#x27;s plan for Agents — Kyle Daigle, GitHub</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 2, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">We talk with the VendingBench authors on evaling Claudes from Haiku to Mythos, and how they build leading, and lasting, frontier evals from scratch.</p></div></div><div class="story-actions"><a class="primary" href="https://www.latent.space/p/andon" target="_blank" rel="noopener" data-track="story-source">Read the original at latent.space →</a><a href="/?item=https%3A%2F%2Fwww.latent.space%2Fp%2Fandon&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/366d9f44ea466db1" data-track="story-related">[AINews] All Model Labs are now Agent Labs</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 23, 2026</span></div></article><article><h3><a href="/story/a28033b82077f4f8" data-track="story-related">AIE Europe Debrief + Agent Labs Thesis: Unsupervised Learning x Latent Space Crossover Special (2026)</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Apr 23, 2026</span></div></article><article><h3><a href="/story/0dba0c3d7be35ac4" data-track="story-related">Claude Design Anthropic Labs</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
     </section>
 
     <footer>

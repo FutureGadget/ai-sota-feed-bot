@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="LLM-driven design of physics-constrained constitutive models: two agents are better than one" />
   <meta name="twitter:description" content="Developing constitutive models that capture how materials deform under load traditionally requires years of specialized expertise in continuum mechanics, machine learning, and scientific programming. Large language mo..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "LLM-driven design of physics-constrained constitutive models: two agents are better than one", "description": "Developing constitutive models that capture how materials deform under load traditionally requires years of specialized expertise in continuum mechanics, machine learning, and scientific programming. Large language mo...", "datePublished": "2026-05-22T15:27:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/3f94f9e4a73682ca", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.23754v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "LLM-driven design of physics-constrained constitutive models: two agents are better than one", "item": "https://www.llm-digest.com/story/3f94f9e4a73682ca"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "LLM-driven design of physics-constrained constitutive models: two agents are better than one", "description": "Developing constitutive models that capture how materials deform under load traditionally requires years of specialized expertise in continuum mechanics, machine learning, and scientific programming. Large language mo...", "datePublished": "2026-05-22T15:27:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/3f94f9e4a73682ca", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.23754v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "LLM-driven design of physics-constrained constitutive models: two agents are better than one", "item": "https://www.llm-digest.com/story/3f94f9e4a73682ca"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_lg · May 22, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2605.23754v1" target="_blank" rel="noopener">LLM-driven design of physics-constrained constitutive models: two agents are better than one</a></h2>
       
       
-      <p class="story-summary">Developing constitutive models that capture how materials deform under load traditionally requires years of specialized expertise in continuum mechanics, machine learning, and scientific programming. Large language models (LLMs) have recently been shown to lower this barrier by generating constitutive models on demand, but existing single-agent pipelines lack systematic checks that the resulting models respect fundamental physical laws. To close this gap, we introduce the first multi-agent LLM-driven approach for constitutive model generation: a Creator agent proposes a model tailored to the data, while an Inspector agent critically audits each proposal against nine physical constraints and returns it for refinement whenever a violation is detected. We demonstrate this concept with constitutive artificial neural networks (CANNs) and benchmark it on brain tissue, experimental rubber, and synthetic rubber, using two different LLM backbones (Claude Opus 4.7 and Kimi K2.5). Adding the Inspector raises the share of exported models that truly satisfy all physical constraints from 91% to a perfect 100% for Opus and from 37% to 56% for Kimi, while preserving near-baseline accuracy and remarkable generalization to unseen loading paths. In combination, the generated models are physically valid, highly accurate, and extrapolate reliably beyond the training data - properties that together make them directly usable in practice. Separating generation from inspection thus turns LLM-driven c</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.23754v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.23754v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/0a27021a97f5b8d0" data-track="story-related">Remember to be Curious: Episodic Context and Persistent Worlds for 3D Exploration</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/e07b992d9e5f2c81" data-track="story-related">Lumberjack: Better Differentially Private Random Forests through Heavy Hitter Detection in Trees</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/d2bba4580b156594" data-track="story-related">DelTA: Discriminative Token Credit Assignment for Reinforcement Learning from Verifiable Rewards</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/71e80583ffcf7537" data-track="story-related">What Twelve LLM Agent Benchmark Papers Disclose About Themselves: A Pilot Audit and an Open Scoring Schema</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 20, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Developing constitutive models that capture how materials deform under load traditionally requires years of specialized expertise in continuum mechanics, machine learning, and scientific programming. Large language mo...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.23754v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.23754v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/13c351925e76e5dd" data-track="story-related">Scalable voice agent design with Amazon Nova Sonic: multi-agent, tools, and session segmentation</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/a801a1504e9aa704" data-track="story-related">Presentation: Accelerating LLM-Driven Developer Productivity at Zoox</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/723d5abc6f415b87" data-track="story-related">Article: Time-Series Storage: Design Choices That Shape Cost and Performance</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/724bb97a1de37f97" data-track="story-related">Why payment escrow for AI agents needed a different design</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 10, 2026</span></div></article></div></section>
     </section>
 
     <footer>

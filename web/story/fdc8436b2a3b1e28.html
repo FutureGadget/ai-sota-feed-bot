@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Clor – give your agent claws" />
   <meta name="twitter:description" content="At my last job I spent a year building an agentic coding platform used by hundreds of thousands of people. Along the way I tried building a hosting service on OpenClaw, and also ran Hermes myself for a while. Both pro..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Clor – give your agent claws", "description": "At my last job I spent a year building an agentic coding platform used by hundreds of thousands of people. Along the way I tried building a hosting service on OpenClaw, and also ran Hermes myself for a while. Both pro...", "datePublished": "2026-06-02T19:53:06+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/fdc8436b2a3b1e28", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://clor.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Clor – give your agent claws", "item": "https://www.llm-digest.com/story/fdc8436b2a3b1e28"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Clor – give your agent claws", "description": "At my last job I spent a year building an agentic coding platform used by hundreds of thousands of people. Along the way I tried building a hosting service on OpenClaw, and also ran Hermes myself for a while. Both pro...", "datePublished": "2026-06-02T19:53:06+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/fdc8436b2a3b1e28", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://clor.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Clor – give your agent claws", "item": "https://www.llm-digest.com/story/fdc8436b2a3b1e28"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Jun 2, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://clor.com" target="_blank" rel="noopener">Show HN: Clor – give your agent claws</a></h2>
       
       
-      <p class="story-summary">At my last job I spent a year building an agentic coding platform used by hundreds of thousands of people. Along the way I tried building a hosting service on OpenClaw, and also ran Hermes myself for a while. Both projects have some great feature ideas, but when I tried to use them for real work they failed more often than not, and their security models worried me. I just couldn&#x27;t see either one becoming something I&#x27;d trust enough for myself/friends/family. After a lot of exploration I realized that what I really wanted all along was to create automations using the coding agent I already work in every day. It turned out coding agents were the best tool for automating anything, not just code, as long as they had the right environment and tools to work with. I also spent 20 years leading Linux infrastructure and distributed systems teams. Anyone who&#x27;s written service daemons knows that most of what we think of as &quot;always on&quot; is really just wake up, do some work, and go back to sleep, which is an efficient pattern to use and reason about. Cron has worked this way for decades. So I built Clor, a CLI that lets your coding agent create &quot;claws&quot;, which are background agents that automate anything on a schedule and run on your laptop, Mac mini, or a VM. A claw can be defined and shared as a single CLAW.md file, which contains a bit of metadata (name, schedule, personality, etc.) and one or more ordered tasks. Each task is a real agent run with full tool use, or a plain bash step. Anyt</p><div class="story-actions"><a class="primary" href="https://clor.com" target="_blank" rel="noopener" data-track="story-source">Read the original at clor.com →</a><a href="/?item=https%3A%2F%2Fclor.com&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/e10afb5b27504f45" data-track="story-related">Show HN: MetaBrain – A local document memory for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/1f6208905606003f" data-track="story-related">Capabilities Can&#x27;t See Your Agent&#x27;s Objective</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/4e601e244fcbd3cc" data-track="story-related">From Specialists to Builders: How AI Agentic Coding Is Reshaping Software Teams</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/7e68bd3da4404479" data-track="story-related">We Built Our Own Cloud Agent Infrastructure</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">At my last job I spent a year building an agentic coding platform used by hundreds of thousands of people. Along the way I tried building a hosting service on OpenClaw, and also ran Hermes myself for a while. Both pro...</p></div></div><div class="story-actions"><a class="primary" href="https://clor.com" target="_blank" rel="noopener" data-track="story-source">Read the original at clor.com →</a><a href="/?item=https%3A%2F%2Fclor.com&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/4c852dd905f0b551" data-track="story-related">Hackers Simply Asked Meta AI to Give Them Access to High-Profile Instagram Accounts. It Worked</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 1, 2026</span></div></article><article><h3><a href="/story/75960e060a8d53d8" data-track="story-related">Red Hat&#x27;s skill packs give AI agents 20 years of institutional memory</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 13, 2026</span></div></article><article><h3><a href="/story/d7305761bae5dfbf" data-track="story-related">How to Test AI Agents When They Never Give the Same Answer Twice</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 3, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model" />
   <meta name="twitter:description" content="Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model Big claims from Qwen about their latest open weight model: Qwen3.6-27B delivers flagship-level agentic coding performance, surpassing the previous-generation ope..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model", "description": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model Big claims from Qwen about their latest open weight model: Qwen3.6-27B delivers flagship-level agentic coding performance, surpassing the previous-generation ope...", "datePublished": "2026-04-22T16:45:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/c37f793c559c2ed9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/Qwen3.6-27B-GGUF-Q4_K_M.png", "isBasedOn": "https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model", "item": "https://www.llm-digest.com/story/c37f793c559c2ed9"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model", "description": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model Big claims from Qwen about their latest open weight model: Qwen3.6-27B delivers flagship-level agentic coding performance, surpassing the previous-generation ope...", "datePublished": "2026-04-22T16:45:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/c37f793c559c2ed9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/Qwen3.6-27B-GGUF-Q4_K_M.png", "isBasedOn": "https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model", "item": "https://www.llm-digest.com/story/c37f793c559c2ed9"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 22, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything" target="_blank" rel="noopener">Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/Qwen3.6-27B-GGUF-Q4_K_M.png" alt="" loading="lazy" onerror="this.remove()" />Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model Big claims from Qwen about their latest open weight model: Qwen3.6-27B delivers flagship-level agentic coding performance, surpassing the previous-generation open-source flagship Qwen3.5-397B-A17B (397B total / 17B active MoE) across all major coding benchmarks. On Hugging Face Qwen3.5-397B-A17B is 807GB, this new Qwen3.6-27B is 55.6GB. I tried it out with the 16.8GB Unsloth Qwen3.6-27B-GGUF:Q4_K_M quantized version and llama-server using this recipe by benob on Hacker News , after first installing llama-server using brew install llama.cpp : llama-server \ -hf unsloth/Qwen3.6-27B-GGUF:Q4_K_M \ --no-mmproj \ --fit on \ -np 1 \ -c 65536 \ --cache-ram 4096 -ctxcp 2 \ --jinja \ --temp 0.6 \ --top-p 0.95 \ --top-k 20 \ --min-p 0.0 \ --presence-penalty 0.0 \ --repeat-penalty 1.0 \ --reasoning on \ --chat-template-kwargs &#x27;{&quot;preserve_thinking&quot;: true}&#x27; On first run that saved the ~17GB model to ~/.cache/huggingface/hub/models--unsloth--Qwen3.6-27B-GGUF . Here&#x27;s the transcript for &quot;Generate an SVG of a pelican riding a bicycle&quot;. This is an outstanding result for a 16.8GB local model: Performance numbers reported by llama-server : Reading: 20 tokens, 0.4s, 54.32 tokens/s Generation: 4,444 tokens, 2min 53s, 25.57 tokens/s For good measure, here&#x27;s Generate an SVG of a NORTH VIRGINIA OPOSSUM ON AN E-SCOOTER (run previously with GLM-5.1 ): That one took 6,575 tokens, 4min 25s, 24.74 t/s. Via Hacker News Tags: ai , generative-ai , local</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F22%2Fqwen36-27b%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/2c96923e2106d91b" data-track="story-related">Changes to GitHub Copilot Individual plans</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 22, 2026</span></div></article><article><h3><a href="/story/b2c9fcda761f8674" data-track="story-related">Where&#x27;s the raccoon with the ham radio? (ChatGPT Images 2.0)</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/0dbe547da66b266b" data-track="story-related">Quoting Andreas Påhlsson-Notini</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/1202813195ca0b8a" data-track="story-related">Adding a new content type to my blog-to-newsletter tool</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 18, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Qwen3.6-27B: Flagship-Level Coding in a 27B Dense Model Big claims from Qwen about their latest open weight model: Qwen3.6-27B delivers flagship-level agentic coding performance, surpassing the previous-generation ope...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/Qwen3.6-27B-GGUF-Q4_K_M.png" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/22/qwen36-27b/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F22%2Fqwen36-27b%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

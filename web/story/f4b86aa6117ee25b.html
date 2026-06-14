@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Zig project&#x27;s rationale for their firm anti-AI contribution policy" />
   <meta name="twitter:description" content="Zig has one of the most stringent anti-LLM policies of any major open source project: No LLMs for issues. No LLMs for pull requests. No LLMs for comments on the bug tracker, including translation. English is encourage..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The Zig project's rationale for their firm anti-AI contribution policy", "description": "Zig has one of the most stringent anti-LLM policies of any major open source project: No LLMs for issues. No LLMs for pull requests. No LLMs for comments on the bug tracker, including translation. English is encourage...", "datePublished": "2026-04-30T01:24:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f4b86aa6117ee25b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "The Zig project's rationale for their firm anti-AI contribution policy", "item": "https://www.llm-digest.com/story/f4b86aa6117ee25b"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The Zig project's rationale for their firm anti-AI contribution policy", "description": "Zig has one of the most stringent anti-LLM policies of any major open source project: No LLMs for issues. No LLMs for pull requests. No LLMs for comments on the bug tracker, including translation. English is encourage...", "datePublished": "2026-04-30T01:24:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f4b86aa6117ee25b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "The Zig project's rationale for their firm anti-AI contribution policy", "item": "https://www.llm-digest.com/story/f4b86aa6117ee25b"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything" target="_blank" rel="noopener">The Zig project&#x27;s rationale for their firm anti-AI contribution policy</a></h2>
       
       
-      <p class="story-summary">Zig has one of the most stringent anti-LLM policies of any major open source project: No LLMs for issues. No LLMs for pull requests. No LLMs for comments on the bug tracker, including translation. English is encouraged, but not required. You are welcome to post in your native language and rely on others to have their own translation tools of choice to interpret your words. The most prominent project written in Zig may be the Bun JavaScript runtime, which was acquired by Anthropic in December 2025 and, unsurprisingly, makes heavy use of AI assistance. Bun operates its own fork of Zig, and recently achieved a 4x performance improvement on Bun compile after adding &quot;parallel semantic analysis and multiple codegen units to the llvm backend&quot;. Here&#x27;s that code . But @bunjavascript says : We do not currently plan to upstream this, as Zig has a strict ban on LLM-authored contributions. (Update: here&#x27;s a Zig core contributor providing details on why they wouldn&#x27;t accept that particular patch independent of the LLM issue - parallel semantic analysis is a long planned feature but has implications &quot;for the Zig language itself&quot;.) In Contributor Poker and Zig&#x27;s AI Ban ( via Lobste.rs ) Zig Software Foundation VP of Community Loris Cro explains the rationale for this strict ban. It&#x27;s the best articulation I&#x27;ve seen yet for a blanket ban on LLM-assisted contributions: In successful open source projects you eventually reach a point where you start getting more PRs than what you’re capable of p</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F30%2Fzig-anti-ai%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/9285d6a73cec4149" data-track="story-related">LLM 0.32a0 is a major backwards-compatible refactor</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/b200fc08cb865f20" data-track="story-related">Quoting OpenAI Codex base_instructions</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/afbaac3fcc8a2327" data-track="story-related">What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns!</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/a79eeb4c6ea1c7f8" data-track="story-related">Introducing talkie: a 13B vintage language model from 1930</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Zig has one of the most stringent anti-LLM policies of any major open source project: No LLMs for issues. No LLMs for pull requests. No LLMs for comments on the bug tracker, including translation. English is encourage...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/30/zig-anti-ai/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F30%2Fzig-anti-ai%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/fff3f0d095f25ea2" data-track="story-related">SupraWall – Runtime Policy Enforcement for AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/c789090be79d70d1" data-track="story-related">UDM-GRPO: Stable and Efficient Group Relative Policy Optimization for Uniform Discrete Diffusion Models</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 20, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Our evaluation of OpenAI&#x27;s GPT-5.5 cyber capabilities" />
   <meta name="twitter:description" content="Our evaluation of OpenAI&#x27;s GPT-5.5 cyber capabilities The UK&#x27;s AI Security Institute previously evaluated Claude Mythos : now they&#x27;ve evaluated GPT-5.5 for finding security vulnerability and found it to be comparable..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities", "description": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities The UK's AI Security Institute previously evaluated Claude Mythos : now they've evaluated GPT-5.5 for finding security vulnerability and found it to be comparable...", "datePublished": "2026-04-30T23:03:24+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/2689fb473ab44ee1", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities", "item": "https://www.llm-digest.com/story/2689fb473ab44ee1"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities", "description": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities The UK's AI Security Institute previously evaluated Claude Mythos : now they've evaluated GPT-5.5 for finding security vulnerability and found it to be comparable...", "datePublished": "2026-04-30T23:03:24+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/2689fb473ab44ee1", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Our evaluation of OpenAI's GPT-5.5 cyber capabilities", "item": "https://www.llm-digest.com/story/2689fb473ab44ee1"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything" target="_blank" rel="noopener">Our evaluation of OpenAI&#x27;s GPT-5.5 cyber capabilities</a></h2>
       
       
-      <p class="story-summary">Our evaluation of OpenAI&#x27;s GPT-5.5 cyber capabilities The UK&#x27;s AI Security Institute previously evaluated Claude Mythos : now they&#x27;ve evaluated GPT-5.5 for finding security vulnerability and found it to be comparable to Mythos, but unlike Mythos it&#x27;s generally available right now. Tags: ai , openai , generative-ai , llms , anthropic , claude , ai-security-research , gpt</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F30%2Fgpt-55-cyber-capabilities%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/f4b86aa6117ee25b" data-track="story-related">The Zig project&#x27;s rationale for their firm anti-AI contribution policy</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/9285d6a73cec4149" data-track="story-related">LLM 0.32a0 is a major backwards-compatible refactor</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/b200fc08cb865f20" data-track="story-related">Quoting OpenAI Codex base_instructions</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/afbaac3fcc8a2327" data-track="story-related">What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns!</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Our evaluation of OpenAI&#x27;s GPT-5.5 cyber capabilities The UK&#x27;s AI Security Institute previously evaluated Claude Mythos : now they&#x27;ve evaluated GPT-5.5 for finding security vulnerability and found it to be comparable...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/30/gpt-55-cyber-capabilities/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F30%2Fgpt-55-cyber-capabilities%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/76a5f876fdc36e33" data-track="story-related">GPT-5.5 prompting guide</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 25, 2026</span></div></article><article><h3><a href="/story/6db84ae4c270dda6" data-track="story-related">A pelican for GPT-5.5 via the semi-official Codex backdoor API</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 23, 2026</span></div></article><article><h3><a href="/story/90fdb9c53f205950" data-track="story-related">Evaluating the Progression of Large Language Model Capabilities for Small-Molecule Drug Design</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
     </section>
 
     <footer>

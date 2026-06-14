@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Adding a new content type to my blog-to-newsletter tool" />
   <meta name="twitter:description" content="Agentic Engineering Patterns Here&#x27;s an example of a deceptively short prompt that got a quite a lot of work done in a single shot. First, some background. I send out a free Substack newsletter around once a week con..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Adding a new content type to my blog-to-newsletter tool", "description": "Agentic Engineering Patterns Here's an example of a deceptively short prompt that got a quite a lot of work done in a single shot. First, some background. I send out a free Substack newsletter around once a week con...", "datePublished": "2026-04-18T03:15:36+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1202813195ca0b8a", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Adding a new content type to my blog-to-newsletter tool", "item": "https://www.llm-digest.com/story/1202813195ca0b8a"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Adding a new content type to my blog-to-newsletter tool", "description": "Agentic Engineering Patterns Here's an example of a deceptively short prompt that got a quite a lot of work done in a single shot. First, some background. I send out a free Substack newsletter around once a week con...", "datePublished": "2026-04-18T03:15:36+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1202813195ca0b8a", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Adding a new content type to my blog-to-newsletter tool", "item": "https://www.llm-digest.com/story/1202813195ca0b8a"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 18, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything" target="_blank" rel="noopener">Adding a new content type to my blog-to-newsletter tool</a></h2>
       
       
-      <p class="story-summary">Agentic Engineering Patterns &gt; Here&#x27;s an example of a deceptively short prompt that got a quite a lot of work done in a single shot. First, some background. I send out a free Substack newsletter around once a week containing content copied-and-pasted from my blog. I&#x27;m effectively using Substack as a lightweight way to allow people to subscribe to my blog via email. I generate the newsletter with my blog-to-newsletter tool - an HTML and JavaScript app that fetches my latest content from this Datasette instance and formats it as rich text HTML, which I can then copy to my clipboard and paste into the Substack editor. Here&#x27;s a detailed explanation of how that works . I recently added a new type of content to my blog to capture content that I post elsewhere, which I called &quot;beats&quot;. These include things like releases of my open source projects, new tools that I&#x27;ve built, museums that I&#x27;ve visited (from niche-museums.com ) and other external content. I wanted to include these in the generated newsletter. Here&#x27;s the prompt I ran against the simonw/tools repository that hosts my blog-to-newsletter tool, using Claude Code on the web . Clone simonw/simonwillisonblog from github to /tmp for reference Update blog-to-newsletter.html to include beats that have descriptions - similar to how the Atom everything feed on the blog works Run it with python -m http.server and use `uvx rodney --help` to test it - compare what shows up in the newsletter with what&#x27;s on the homepage of https://simonw</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2Fguides%2Fagentic-engineering-patterns%2Fadding-a-new-content-type%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/6058b0ccb1b4a18e" data-track="story-related">Join us at PyCon US 2026 in Long Beach - we have new AI and security tracks this year</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Agentic Engineering Patterns Here&#x27;s an example of a deceptively short prompt that got a quite a lot of work done in a single shot. First, some background. I send out a free Substack newsletter around once a week con...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/guides/agentic-engineering-patterns/adding-a-new-content-type/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2Fguides%2Fagentic-engineering-patterns%2Fadding-a-new-content-type%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

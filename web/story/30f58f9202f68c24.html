@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Natural Language Query to Configuration for Retrieval Agents" />
   <meta name="twitter:description" content="Modern retrieval agents expose many configuration choices -- LLM, retriever, number of documents, number of hops, and synthesis strategy -- each shaping both answer quality and serving cost. Today, these pipelines are..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Natural Language Query to Configuration for Retrieval Agents", "description": "Modern retrieval agents expose many configuration choices -- LLM, retriever, number of documents, number of hops, and synthesis strategy -- each shaping both answer quality and serving cost. Today, these pipelines are...", "datePublished": "2026-05-26T17:58:47+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/30f58f9202f68c24", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.27361v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Natural Language Query to Configuration for Retrieval Agents", "item": "https://www.llm-digest.com/story/30f58f9202f68c24"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Natural Language Query to Configuration for Retrieval Agents", "description": "Modern retrieval agents expose many configuration choices -- LLM, retriever, number of documents, number of hops, and synthesis strategy -- each shaping both answer quality and serving cost. Today, these pipelines are...", "datePublished": "2026-05-26T17:58:47+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/30f58f9202f68c24", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.27361v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Natural Language Query to Configuration for Retrieval Agents", "item": "https://www.llm-digest.com/story/30f58f9202f68c24"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_ai · May 26, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2605.27361v1" target="_blank" rel="noopener">Natural Language Query to Configuration for Retrieval Agents</a></h2>
       
       
-      <p class="story-summary">Modern retrieval agents expose many configuration choices -- LLM, retriever, number of documents, number of hops, and synthesis strategy -- each shaping both answer quality and serving cost. Today, these pipelines are typically hand-tuned once per workload, leaving substantial per-query optimization untapped. We formulate the problem: given a natural-language query and either an accuracy or a budget target, select from a predefined pipeline catalog the configuration that minimizes cost or maximizes accuracy at inference time. We propose **BRANE**, which uses an LLM to convert each query into workload-specific characteristics, then trains a lightweight per-configuration predictor that estimates whether the pipeline will answer the query correctly. At inference time, **BRANE** selects the configuration that maximizes predicted correctness penalized by cost, exposing a tunable cost-quality tradeoff without retraining. Across MuSiQue, BrowseComp-Plus, and FinanceBench, **BRANE** consistently pushes the cost-quality Pareto frontier, matches the best fixed configuration&#x27;s accuracy at up to 89% lower cost, and outperforms LLM-routing, rule-based, and fine-tuned Qwen3-4B baselines. These results show that per-query configuration of the full retrieval pipeline is a practical alternative to static workload-level tuning.</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.27361v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.27361v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/c54f92f20e0f2180" data-track="story-related">From Model Scaling to System Scaling: Scaling the Harness in Agentic AI</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 25, 2026</span></div></article><article><h3><a href="/story/ed53e081e3cafb10" data-track="story-related">SkillOpt: Executive Strategy for Self-Evolving Agent Skills</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 22, 2026</span></div></article><article><h3><a href="/story/b8b42273790ea8c3" data-track="story-related">CHRONOS: Temporally-Aware Multi-Agent Coordination for Evolving Data Marketplaces</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 22, 2026</span></div></article><article><h3><a href="/story/62842771ef108d92" data-track="story-related">DeltaBox: Scaling Stateful AI Agents with Millisecond-Level Sandbox Checkpoint/Rollback</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 21, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Modern retrieval agents expose many configuration choices -- LLM, retriever, number of documents, number of hops, and synthesis strategy -- each shaping both answer quality and serving cost. Today, these pipelines are...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.27361v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.27361v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/fba96970be74fbe8" data-track="story-related">Show HN: Layered retrieval beats grep alone for LLM-generated engineering docs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/071ef486161ea852" data-track="story-related">Granite Embedding Multilingual R2: Open Apache 2.0 Multilingual Embeddings with 32K Context — Best Sub-100M Retrieval Quality</a></h3><div class="art-meta"><span class="badge">huggingface_blog</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/45a97a772fdc251c" data-track="story-related">Natural Synthesis: Outperforming Reactive Synthesis Tools with Large Reasoning Models</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/d2e6e93724753e4e" data-track="story-related">Superintelligent Retrieval Agent: The Next Frontier of Information Retrieval</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 10, 2026</span></div></article></div></section>
     </section>
 
     <footer>

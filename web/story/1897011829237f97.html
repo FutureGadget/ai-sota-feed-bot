@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>datasette-agent 0.2a0 | LLM Digest</title>
-  <meta name="description" content="Matches feed focus: agent." />
+  <meta name="description" content="Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(......" />
   <link rel="canonical" href="https://www.llm-digest.com/story/1897011829237f97" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -13,15 +13,15 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="datasette-agent 0.2a0" />
-  <meta property="og:description" content="Matches feed focus: agent." />
+  <meta property="og:description" content="Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(......" />
   <meta property="og:url" content="https://www.llm-digest.com/story/1897011829237f97" />
   <meta property="article:published_time" content="2026-06-10T23:57:27+00:00" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="datasette-agent 0.2a0" />
-  <meta name="twitter:description" content="Matches feed focus: agent." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "datasette-agent 0.2a0", "description": "Matches feed focus: agent.", "datePublished": "2026-06-10T23:57:27+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1897011829237f97", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "datasette-agent 0.2a0", "item": "https://www.llm-digest.com/story/1897011829237f97"}]}]}</script>
+  <meta name="twitter:description" content="Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(......" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "datasette-agent 0.2a0", "description": "Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(......", "datePublished": "2026-06-10T23:57:27+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1897011829237f97", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "datasette-agent 0.2a0", "item": "https://www.llm-digest.com/story/1897011829237f97"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 10, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything" target="_blank" rel="noopener">datasette-agent 0.2a0</a></h2>
       
       
-      <div class="intro"><p class="tldr-label">Why it matters</p><p>Matches feed focus: agent.</p></div><p class="story-summary">Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(...) can ask a yes/no, multiple-choice ( options=[...] ) or free-text ( free_text=True ) question. While a question is unanswered the agent turn suspends: the question renders as a form in the chat UI and persists to the internal database, so suspended conversations survive a server restart. Once answered, the tool re-executes from the top with stored answers replayed, so call ask_user() before performing side effects. #20 New built-in save_query tool: the agent can save SQL it has written as a Datasette stored query . Saving always requires human approval - the agent shows the full SQL plus the proposed name, database and visibility, and nothing is stored until you click Yes. #20 The ask_user() feature was enabled by the new LLM alpha I built yesterday with the help of Claude Fable 5. Tags: ai , datasette , generative-ai , llms , datasette-agent</p><div class="chips"><span class="badge">agent</span></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F10%2Fdatasette-agent%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-10">Daily recap for 2026-06-10</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/d55ae15e9c8bf350" data-track="story-related">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/52e0bd5fb8e8813d" data-track="story-related">llm 0.32a3</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/eab923d7450386e5" data-track="story-related">claude-agent-sdk-python v0.2.96</a></h3><div class="art-meta"><span class="badge">claude_agent_sdk_python_releases</span><span class="badge">Jun 10, 2026</span></div></article><article><h3><a href="/story/d46568f6f6a488d8" data-track="story-related">claude-code v2.1.172</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Jun 10, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Release: datasette-agent 0.2a0 Highlights from the release notes: Tools can now ask the user questions mid-execution. Tools that declare a context parameter receive a ToolContext object, and await context.ask_user(......</p></div></div><div class="chips"><span class="badge">agent</span></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/10/datasette-agent/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F10%2Fdatasette-agent%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-10">Daily recap for 2026-06-10</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/e7c40babf6b02277" data-track="story-related">datasette-agent 0.1a4</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 24, 2026</span></div></article></div></section>
     </section>
 
     <footer>

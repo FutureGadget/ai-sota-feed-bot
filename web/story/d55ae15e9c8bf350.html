@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Initial impressions of Claude Fable 5 | LLM Digest</title>
-  <meta name="description" content="Matches feed focus: agent, claude code." />
+  <meta name="description" content="I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha..." />
   <link rel="canonical" href="https://www.llm-digest.com/story/d55ae15e9c8bf350" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -13,15 +13,15 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="Initial impressions of Claude Fable 5" />
-  <meta property="og:description" content="Matches feed focus: agent, claude code." />
+  <meta property="og:description" content="I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha..." />
   <meta property="og:url" content="https://www.llm-digest.com/story/d55ae15e9c8bf350" />
   <meta property="article:published_time" content="2026-06-09T23:59:54+00:00" />
   <meta property="og:image" content="https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg" />
   <meta name="twitter:image" content="https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Initial impressions of Claude Fable 5" />
-  <meta name="twitter:description" content="Matches feed focus: agent, claude code." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Initial impressions of Claude Fable 5", "description": "Matches feed focus: agent, claude code.", "datePublished": "2026-06-09T23:59:54+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d55ae15e9c8bf350", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg", "isBasedOn": "https://simonwillison.net/2026/Jun/9/claude-fable-5/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Initial impressions of Claude Fable 5", "item": "https://www.llm-digest.com/story/d55ae15e9c8bf350"}]}]}</script>
+  <meta name="twitter:description" content="I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha..." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Initial impressions of Claude Fable 5", "description": "I didn't have early access to today's Claude Fable 5 release, but I've spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It's slow, expensive and ha...", "datePublished": "2026-06-09T23:59:54+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d55ae15e9c8bf350", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg", "isBasedOn": "https://simonwillison.net/2026/Jun/9/claude-fable-5/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Storylines", "item": "https://www.llm-digest.com/storylines"}, {"@type": "ListItem", "position": 3, "name": "Claude Fable", "item": "https://www.llm-digest.com/storyline/claude-fable-2026-06-09"}, {"@type": "ListItem", "position": 4, "name": "Initial impressions of Claude Fable 5", "item": "https://www.llm-digest.com/story/d55ae15e9c8bf350"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 9, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/9/claude-fable-5/#atom-everything" target="_blank" rel="noopener">Initial impressions of Claude Fable 5</a></h2>
       
       
-      <div class="intro"><p class="tldr-label">Why it matters</p><p>Matches feed focus: agent, claude code.</p></div><p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg" alt="" loading="lazy" onerror="this.remove()" />I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and has been quite happily churning through everything I&#x27;ve thrown at it so far. As is frequently the case with current frontier models the challenge is finding tasks that it can&#x27;t do. First, let&#x27;s review the key characteristics. Anthropic claim that Claude Fable 5 offers the same performance as Claude Mythos 5, except with much more strict guardrails in place to prevent it being used for harmful things. Those guardrails trigger often enough that the Claude API has new mechanisms for letting you know when you hit them, and even has a new option to request it falls back to another model automatically if something gets rejected. Claude Mythos 5 is out today as well, Anthropic say it &quot;Shares Claude Fable 5&#x27;s capabilities without the safety classifiers&quot;. The models have a 1 million token context window, 128,000 maximum output tokens and a knowledge cut-off date of January 2026. They are priced at twice the price of Claude Opus 4.5/4.6/4.7/4.8: $10/million input tokens and $50/million output tokens. There&#x27;s no increase in price for longer context usage. Other than that the upgrade guide is substantially thinner than the similar guide for Opus 4.8 . The big model smell The best way to describe Fable is that it feels big . Not just in terms of speed and cost, but also in how</p><div class="chips"><span class="badge">agent</span><span class="badge">claude code</span></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/9/claude-fable-5/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F9%2Fclaude-fable-5%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-09">Daily recap for 2026-06-09</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/52e0bd5fb8e8813d" data-track="story-related">llm 0.32a3</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/df7963c5ba5525b1" data-track="story-related">codex 0.139.0</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/337eede6ad6ae23f" data-track="story-related">claude-agent-sdk-python v0.2.95</a></h3><div class="art-meta"><span class="badge">claude_agent_sdk_python_releases</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/1ee79eedc5428e01" data-track="story-related">claude-code v2.1.170</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Jun 9, 2026</span></div></article></div></section>
+      <div class="intro"><p class="tldr-label">Part of a storyline</p><p><a class="primary" href="/storyline/claude-fable-2026-06-09">Claude Fable — see the full timeline →</a></p></div><div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/agentsview-fable-full-day.jpg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="chips"><span class="badge">agent</span><span class="badge">claude code</span></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/9/claude-fable-5/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F9%2Fclaude-fable-5%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-09">Daily recap for 2026-06-09</a></div>
     </section>
 
     <footer>

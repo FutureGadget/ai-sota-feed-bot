@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="OpenAI Help: Lockdown Mode" />
   <meta name="twitter:description" content="OpenAI Help: Lockdown Mode OpenAI first teased this in February , but now it&#x27;s live and &quot;rolling out to eligible personal accounts, including Free, Go, Plus, and Pro, and self-serve ChatGPT Business accounts&quot;: Lockdow..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "OpenAI Help: Lockdown Mode", "description": "OpenAI Help: Lockdown Mode OpenAI first teased this in February , but now it's live and \"rolling out to eligible personal accounts, including Free, Go, Plus, and Pro, and self-serve ChatGPT Business accounts\": Lockdow...", "datePublished": "2026-06-05T23:56:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0ee7688502ca91e7", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/5/openai-help-lockdown-mode/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "OpenAI Help: Lockdown Mode", "item": "https://www.llm-digest.com/story/0ee7688502ca91e7"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "OpenAI Help: Lockdown Mode", "description": "OpenAI Help: Lockdown Mode OpenAI first teased this in February , but now it's live and \"rolling out to eligible personal accounts, including Free, Go, Plus, and Pro, and self-serve ChatGPT Business accounts\": Lockdow...", "datePublished": "2026-06-05T23:56:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0ee7688502ca91e7", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/5/openai-help-lockdown-mode/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "OpenAI Help: Lockdown Mode", "item": "https://www.llm-digest.com/story/0ee7688502ca91e7"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 5, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/5/openai-help-lockdown-mode/#atom-everything" target="_blank" rel="noopener">OpenAI Help: Lockdown Mode</a></h2>
       
       
-      <p class="story-summary">OpenAI Help: Lockdown Mode OpenAI first teased this in February , but now it&#x27;s live and &quot;rolling out to eligible personal accounts, including Free, Go, Plus, and Pro, and self-serve ChatGPT Business accounts&quot;: Lockdown Mode is designed to help prevent the final stage of data exfiltration from a prompt injection attack by limiting outbound network requests that could transfer sensitive data to an attacker. Lockdown Mode does not prevent prompt injections from appearing in the content ChatGPT processes. For example, a prompt injection could appear in cached web content or in an uploaded file, and could still affect the behavior or accuracy of a response. This looks really good to me. The Lethal Trifecta occurs when an LLM system has access to all three of access to private data, exposure to untrusted content and a way to steal data and transmit it back to the attacker. The only way to solve the trifecta is to cut off one of the three legs, and by far the easiest leg to restrict without making your LLM systems far less useful is the exfiltration vectors to steal data. It looks to me like lockdown mode directly attacks that leg, using mechanisms that are deterministic and, crucially, are not evaluated by AI systems that themselves can be subverted by sufficiently devious attacks. The existence of lockdown mode does however imply that ChatGPT, in its default settings, does not provide robust protection against sufficiently determined data exfiltration attacks! Update : This tweet</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/5/openai-help-lockdown-mode/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F5%2Fopenai-help-lockdown-mode%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-05">Daily recap for 2026-06-05</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/d1d6715e5232e3dc" data-track="story-related">Quoting Andreas Kling</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/cb24507f42289185" data-track="story-related">AI enthusiasts are in a race against time, AI skeptics are in a race against entropy</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/a9f9b4eaa547ba21" data-track="story-related">Quoting Emanuel Maiberg, 404 Media</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/2d52428acfe96e9a" data-track="story-related">Uber Caps Usage of AI Tools Like Claude Code to Manage Costs</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 3, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">OpenAI Help: Lockdown Mode OpenAI first teased this in February , but now it&#x27;s live and &quot;rolling out to eligible personal accounts, including Free, Go, Plus, and Pro, and self-serve ChatGPT Business accounts&quot;: Lockdow...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/5/openai-help-lockdown-mode/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F5%2Fopenai-help-lockdown-mode%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-05">Daily recap for 2026-06-05</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/81e135941fbf3c01" data-track="story-related">OpenAI Introduces Websocket-Based Execution Mode to Reduce Latency in Agentic Workflows</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/aae281c9c0cb97a0" data-track="story-related">Inside Claude Code Auto Mode: Anthropic’s Autonomous Coding System with Human Approval Gates</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 5, 2026</span></div></article><article><h3><a href="/story/3564bfb51e0eeb84" data-track="story-related">Mistral Adds Remote Agents and Work Mode to Le Chat</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 5, 2026</span></div></article></div></section>
     </section>
 
     <footer>

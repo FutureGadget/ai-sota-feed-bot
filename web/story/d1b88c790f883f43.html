@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models" />
   <meta name="twitter:description" content="The accelerating adoption of Large Language Models (LLMs) in software engineering (SE) has brought with it a silent crisis: unsustainable computational cost. While these models demonstrate remarkable capabilities in d..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models", "description": "The accelerating adoption of Large Language Models (LLMs) in software engineering (SE) has brought with it a silent crisis: unsustainable computational cost. While these models demonstrate remarkable capabilities in d...", "datePublished": "2026-04-28T17:48:16+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d1b88c790f883f43", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2604.25903v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models", "item": "https://www.llm-digest.com/story/d1b88c790f883f43"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models", "description": "The accelerating adoption of Large Language Models (LLMs) in software engineering (SE) has brought with it a silent crisis: unsustainable computational cost. While these models demonstrate remarkable capabilities in d...", "datePublished": "2026-04-28T17:48:16+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d1b88c790f883f43", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2604.25903v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models", "item": "https://www.llm-digest.com/story/d1b88c790f883f43"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_lg · Apr 28, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2604.25903v1" target="_blank" rel="noopener">Carbon-Taxed Transformers: A Green Compression Pipeline for Overgrown Language Models</a></h2>
       
       
-      <p class="story-summary">The accelerating adoption of Large Language Models (LLMs) in software engineering (SE) has brought with it a silent crisis: unsustainable computational cost. While these models demonstrate remarkable capabilities in different SE tasks, they are unmanageably large, slow to deploy, memory-intensive, and carbon-heavy. This reality threatens not only the scalability and accessibility of AI-powered SE, but also its long-term environmental sustainability. The research challenge is clear: we must go beyond accuracy and address efficiency and environmental cost as first-class design constraints. To meet this challenge, we introduce Carbon-Taxed Transformers (CTT), a systematic multi-architectural compression principled pipeline ordering inspired by economic carbon taxation principles. Drawing from the economic concept of carbon pricing, CTT operationalizes a computational carbon tax that penalizes architectural inefficiencies and rewards deployment-ready compression. We evaluate CTT across three core SE tasks: code clone detection, code summarization, and code generation, with models spanning encoder-only, encoder-decoder, and decoder-only architecture. Our results show that CTT delivers on inference: (1) up to 49x memory reduction, (2) time reduction up to 8-10x for clone detection, up to 3x for summarization, and 4-7x for generation, (3) up to 81% reduction in CO2 emissions and (4) CTT retains around 98% accuracy on clone detection, around 89% on summarization, and up to 91% (textu</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2604.25903v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2604.25903v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/2f039b99f6683c60" data-track="story-related">Long-Context Aware Upcycling: A New Frontier for Hybrid LLM Scaling</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 27, 2026</span></div></article><article><h3><a href="/story/fbac38fb9a180e14" data-track="story-related">The Override Gap: A Magnitude Account of Knowledge Conflict Failure in Hypernetwork-Based Instant LLM Adaptation</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 26, 2026</span></div></article><article><h3><a href="/story/92d3987b59382965" data-track="story-related">Neural Recovery of Historical Lexical Structure in Bantu Languages from Modern Data</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 24, 2026</span></div></article><article><h3><a href="/story/2d59cef03c280026" data-track="story-related">Adversarial Malware Generation in Linux ELF Binaries via Semantic-Preserving Transformations</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 24, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">The accelerating adoption of Large Language Models (LLMs) in software engineering (SE) has brought with it a silent crisis: unsustainable computational cost. While these models demonstrate remarkable capabilities in d...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2604.25903v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2604.25903v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/621ee2db8719388c" data-track="story-related">Green Shielding: A User-Centric Approach Towards Trustworthy AI</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Apr 27, 2026</span></div></article></div></section>
     </section>
 
     <footer>

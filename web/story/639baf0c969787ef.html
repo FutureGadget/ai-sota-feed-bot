@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases" />
   <meta name="twitter:description" content="Article URL: https://thezvi.substack.com/p/trump-signs-executive-order-for-ai Comments URL: https://news.ycombinator.com/item?id=48429766 Points: 1 # Comments: 0" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases", "description": "Article URL: https://thezvi.substack.com/p/trump-signs-executive-order-for-ai Comments URL: https://news.ycombinator.com/item?id=48429766 Points: 1 # Comments: 0", "datePublished": "2026-06-06T22:42:28+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/639baf0c969787ef", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://thezvi.substack.com/p/trump-signs-executive-order-for-ai"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases", "item": "https://www.llm-digest.com/story/639baf0c969787ef"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases", "description": "Article URL: https://thezvi.substack.com/p/trump-signs-executive-order-for-ai Comments URL: https://news.ycombinator.com/item?id=48429766 Points: 1 # Comments: 0", "datePublished": "2026-06-06T22:42:28+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/639baf0c969787ef", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://thezvi.substack.com/p/trump-signs-executive-order-for-ai"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases", "item": "https://www.llm-digest.com/story/639baf0c969787ef"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Jun 6, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://thezvi.substack.com/p/trump-signs-executive-order-for-ai" target="_blank" rel="noopener">Trump Signs Executive Order for AI Testing Prior to Frontier Model Releases</a></h2>
       
       
-      <p class="story-summary">Article URL: https://thezvi.substack.com/p/trump-signs-executive-order-for-ai Comments URL: https://news.ycombinator.com/item?id=48429766 Points: 1 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://thezvi.substack.com/p/trump-signs-executive-order-for-ai" target="_blank" rel="noopener" data-track="story-source">Read the original at thezvi.substack.com →</a><a href="/?item=https%3A%2F%2Fthezvi.substack.com%2Fp%2Ftrump-signs-executive-order-for-ai&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-06">Daily recap for 2026-06-06</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/de8b6d3c9a9a3016" data-track="story-related">Show HN: Kodiqa Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6, 2026</span></div></article><article><h3><a href="/story/15dfe0a2c6a6b5f9" data-track="story-related">Hermes – Community Web UI with Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6, 2026</span></div></article><article><h3><a href="/story/560d06a84b83854c" data-track="story-related">Every AI Agent Feature Is a Cache Invalidation Surface</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6, 2026</span></div></article><article><h3><a href="/story/e5ed39a297cd6a8f" data-track="story-related">Show HN: Sub-Agent MCP: LLM delegation and sub-agent orchestration via MCP</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Article URL: https://thezvi.substack.com/p/trump-signs-executive-order-for-ai Comments URL: https://news.ycombinator.com/item?id=48429766 Points: 1 # Comments: 0</p></div></div><div class="story-actions"><a class="primary" href="https://thezvi.substack.com/p/trump-signs-executive-order-for-ai" target="_blank" rel="noopener" data-track="story-source">Read the original at thezvi.substack.com →</a><a href="/?item=https%3A%2F%2Fthezvi.substack.com%2Fp%2Ftrump-signs-executive-order-for-ai&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-06">Daily recap for 2026-06-06</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/ed53e081e3cafb10" data-track="story-related">SkillOpt: Executive Strategy for Self-Evolving Agent Skills</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 22, 2026</span></div></article><article><h3><a href="/story/3bfb00e9b3cb718b" data-track="story-related">AI-Native Healthcare: 100M Doctor Visits, 10–20 Hours Saved, Prior Auth in Minutes — Janie Lee &amp; Chai Asawa, Abridge</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/7bdb8fabeed0fc76" data-track="story-related">Synthetic evaluation datasets for testing AI agents before production deployment</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/d5e9af2b2dfadeac" data-track="story-related">ToolSimulator: scalable tool testing for AI agents</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Apr 20, 2026</span></div></article></div></section>
     </section>
 
     <footer>

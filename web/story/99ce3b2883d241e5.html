@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Claude Opus 4.8: &quot;a modest but tangible improvement&quot;" />
   <meta name="twitter:description" content="Anthropic shipped Claude Opus 4.8 today. My favourite thing about it is this note in the release announcement: Users will find Opus 4.8 to be a modest but tangible improvement on its predecessor. There’s still more to..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Claude Opus 4.8: \"a modest but tangible improvement\"", "description": "Anthropic shipped Claude Opus 4.8 today. My favourite thing about it is this note in the release announcement: Users will find Opus 4.8 to be a modest but tangible improvement on its predecessor. There’s still more to...", "datePublished": "2026-05-28T23:59:50+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/99ce3b2883d241e5", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/claude-opus-4.8-low.png", "isBasedOn": "https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Claude Opus 4.8: \"a modest but tangible improvement\"", "item": "https://www.llm-digest.com/story/99ce3b2883d241e5"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Claude Opus 4.8: \"a modest but tangible improvement\"", "description": "Anthropic shipped Claude Opus 4.8 today. My favourite thing about it is this note in the release announcement: Users will find Opus 4.8 to be a modest but tangible improvement on its predecessor. There’s still more to...", "datePublished": "2026-05-28T23:59:50+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/99ce3b2883d241e5", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/claude-opus-4.8-low.png", "isBasedOn": "https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Claude Opus 4.8: \"a modest but tangible improvement\"", "item": "https://www.llm-digest.com/story/99ce3b2883d241e5"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 28, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything" target="_blank" rel="noopener">Claude Opus 4.8: &quot;a modest but tangible improvement&quot;</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/claude-opus-4.8-low.png" alt="" loading="lazy" onerror="this.remove()" />Anthropic shipped Claude Opus 4.8 today. My favourite thing about it is this note in the release announcement: Users will find Opus 4.8 to be a modest but tangible improvement on its predecessor. There’s still more to be done: we’re working on developing and releasing models that provide many of the same capabilities as Opus at a lower cost. It&#x27;s so refreshing to see an AI lab honestly describe a release as a minor incremental improvement over the previous model! Honesty seems to be a theme. Here&#x27;s my other favorite note from that announcement: One of the most prominent improvements in Opus 4.8 is its honesty . We train all our models to be honest---for instance, to avoid making claims that they can&#x27;t support. But a general problem with AI models is that they sometimes jump to conclusions, confidently claiming to have made progress in their work despite the evidence being thin. Early testers report that Opus 4.8 is more likely to flag uncertainties about its work and less likely to make unsupported claims. This is borne out in our evaluations , which show that Opus 4.8 is around four times less likely than its predecessor to allow flaws in code it has written to pass unremarked. That linked system card includes the following: Claude Opus 4.8 had the lowest incorrect-rate of the six models on every benchmark—the most direct measure of factual hallucination. It achieved this mainly by abstaining on questions about which it was uncertain rather than by answering more questions c</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F28%2Fclaude-opus-4-8%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/79b4bf4594434f95" data-track="story-related">sqlite AGENTS.md</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/9531c79f6646d4b5" data-track="story-related">I think Anthropic and OpenAI have found product-market fit</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/5afefdf1a1abc15f" data-track="story-related">Quoting Kyle Ferrana</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/6f30ae0a090a1f8b" data-track="story-related">Microsoft Copilot Cowork Exfiltrates Files</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 26, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Anthropic shipped Claude Opus 4.8 today. My favourite thing about it is this note in the release announcement: Users will find Opus 4.8 to be a modest but tangible improvement on its predecessor. There’s still more to...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/claude-opus-4.8-low.png" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/28/claude-opus-4-8/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F28%2Fclaude-opus-4-8%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/5348a7d239028e9b" data-track="story-related">Claude Opus 4 8</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/7bc402896a2afa7e" data-track="story-related">Gemini 3.5 Flash: more expensive, but Google plan to use it for everything</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/95a943a002619f61" data-track="story-related">[AINews] Moonshot Kimi K2.6: the world&#x27;s leading Open Model refreshes to catch up to Opus 4.6 (ahead of DeepSeek v4?)</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/b8af8104c423c106" data-track="story-related">Claude Opus 4 7</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Apr 16, 2026</span></div></article></div></section>
     </section>
 
     <footer>

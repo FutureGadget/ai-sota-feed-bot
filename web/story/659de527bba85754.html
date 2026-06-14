@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="langgraph-checkpoint-postgres==3.1.0a1" />
   <meta name="twitter:description" content="Changes since checkpointpostgres==3.0.5 release(checkpoint-postgres): pin to checkpoint 4.1.0a1 ( #7648 ) release: alpha for timers ( #7647 ) feat(langgraph): DeltaChannel : store sentinel in blobs, reconstruct from c..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "langgraph-checkpoint-postgres==3.1.0a1", "description": "Changes since checkpointpostgres==3.0.5 release(checkpoint-postgres): pin to checkpoint 4.1.0a1 ( #7648 ) release: alpha for timers ( #7647 ) feat(langgraph): DeltaChannel : store sentinel in blobs, reconstruct from c...", "datePublished": "2026-04-30T18:05:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/659de527bba85754", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.0a1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "langgraph-checkpoint-postgres==3.1.0a1", "item": "https://www.llm-digest.com/story/659de527bba85754"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "langgraph-checkpoint-postgres==3.1.0a1", "description": "Changes since checkpointpostgres==3.0.5 release(checkpoint-postgres): pin to checkpoint 4.1.0a1 ( #7648 ) release: alpha for timers ( #7647 ) feat(langgraph): DeltaChannel : store sentinel in blobs, reconstruct from c...", "datePublished": "2026-04-30T18:05:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/659de527bba85754", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.0a1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "langgraph-checkpoint-postgres==3.1.0a1", "item": "https://www.llm-digest.com/story/659de527bba85754"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">langgraph_releases · Apr 30, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.0a1" target="_blank" rel="noopener">langgraph-checkpoint-postgres==3.1.0a1</a></h2>
       
       
-      <p class="story-summary">Changes since checkpointpostgres==3.0.5 release(checkpoint-postgres): pin to checkpoint 4.1.0a1 ( #7648 ) release: alpha for timers ( #7647 ) feat(langgraph): DeltaChannel : store sentinel in blobs, reconstruct from checkpoint_writes ( #7586 ) chore: update x links to langchain_oss ( #7645 ) release(checkpoint): 4.0.3 ( #7625 ) chore(deps): bump langsmith from 0.6.4 to 0.7.31 in /libs/checkpoint-postgres ( #7527 ) release(checkpoint): 4.0.2 ( #7518 ) docs: document LANGGRAPH_STRICT_MSGPACK for checkpoint security ( #7517 ) chore(deps): bump pytest from 9.0.2 to 9.0.3 in /libs/checkpoint-postgres ( #7503 ) chore(deps): bump langchain-core from 1.2.22 to 1.2.28 in /libs/checkpoint-postgres ( #7454 ) chore(deps): bump the minor-and-patch group in /libs/checkpoint-postgres with 3 updates ( #7371 ) chore(deps): bump pygments from 2.19.2 to 2.20.0 in /libs/checkpoint-postgres ( #7349 ) chore(deps): bump langchain-core from 1.2.11 to 1.2.22 in /libs/checkpoint-postgres ( #7317 ) chore(deps): bump anyio from 4.12.1 to 4.13.0 in /libs/checkpoint-postgres in the minor-and-patch group ( #7288 ) chore(deps): bump requests from 2.32.5 to 2.33.0 in /libs/checkpoint-postgres ( #7283 ) chore(deps): bump ruff from 0.15.6 to 0.15.7 in /libs/checkpoint-postgres in the all-dependencies group ( #7245 )</p><div class="story-actions"><a class="primary" href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.0a1" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Flangchain-ai%2Flanggraph%2Freleases%2Ftag%2Fcheckpointpostgres%253D%253D3.1.0a1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/b35a248df36ca2dc" data-track="story-related">langgraph-checkpoint==4.1.0a1</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/820d7e3b4f55f253" data-track="story-related">langgraph==1.2.0a1</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/3ac70e06bf8b0bd0" data-track="story-related">langgraph==1.1.10</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 27, 2026</span></div></article><article><h3><a href="/story/1b6c8e7888ce29c8" data-track="story-related">langgraph-prebuilt==1.0.11</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 24, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Changes since checkpointpostgres==3.0.5 release(checkpoint-postgres): pin to checkpoint 4.1.0a1 ( #7648 ) release: alpha for timers ( #7647 ) feat(langgraph): DeltaChannel : store sentinel in blobs, reconstruct from c...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointpostgres%3D%3D3.1.0a1" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Flangchain-ai%2Flanggraph%2Freleases%2Ftag%2Fcheckpointpostgres%253D%253D3.1.0a1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/b35a248df36ca2dc" data-track="story-related">langgraph-checkpoint==4.1.0a1</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/820d7e3b4f55f253" data-track="story-related">langgraph==1.2.0a1</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/3ac70e06bf8b0bd0" data-track="story-related">langgraph==1.1.10</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 27, 2026</span></div></article><article><h3><a href="/story/1b6c8e7888ce29c8" data-track="story-related">langgraph-prebuilt==1.0.11</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 24, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution" />
   <meta name="twitter:description" content="In model-driven engineering, metamodel evolution leads to the need to adapt corresponding grammars to maintain consistency, which typically requires tedious manual work. Existing rule-based methods can achieve partial..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution", "description": "In model-driven engineering, metamodel evolution leads to the need to adapt corresponding grammars to maintain consistency, which typically requires tedious manual work. Existing rule-based methods can achieve partial...", "datePublished": "2026-05-20T17:51:51+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f7b5186987519ffc", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.21465v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution", "item": "https://www.llm-digest.com/story/f7b5186987519ffc"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution", "description": "In model-driven engineering, metamodel evolution leads to the need to adapt corresponding grammars to maintain consistency, which typically requires tedious manual work. Existing rule-based methods can achieve partial...", "datePublished": "2026-05-20T17:51:51+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f7b5186987519ffc", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.21465v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution", "item": "https://www.llm-digest.com/story/f7b5186987519ffc"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_cl · May 20, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2605.21465v1" target="_blank" rel="noopener">Leveraging LLMs for Grammar Adaptation: A Study on Metamodel-Grammar Co-Evolution</a></h2>
       
       
-      <p class="story-summary">In model-driven engineering, metamodel evolution leads to the need to adapt corresponding grammars to maintain consistency, which typically requires tedious manual work. Existing rule-based methods can achieve partial automation but have limitations when handling complex grammar scenarios. This paper proposes a Large Language Model-based approach that automatically applies adaptations to new grammars after evolution by learning grammar adaptations from previous versions. We evaluated this approach on six real-world Xtext domain-specific languages, using four DSLs as a training set to develop prompting strategies, two DSLs as a test set for validation, and conducting a longitudinal case study on QVTo. The evaluation used three Large Language Models (Claude Sonnet 4.5, ChatGPT 5.1, Gemini 3) and measured grammar adaptation quality from three dimensions: grammar rule-level adaptation consistency, output similarity, and metamodel conformance. Results show that on the test set, all three LLMs achieved 100% adaptation consistency and output similarity, while the rule-based approach achieved only 84.21% on DOT and 62.50% on Xcore. In the QVTo longitudinal study, the LLM-based approach successfully reused learned adaptations across all three evolution steps without manual grammar editing, while the rule-based approach required manual adjustments in two of three transitions. However, on large-scale grammars (EAST-ADL, 297 rules), LLMs&#x27; adaptation consistency was far below 90%. This st</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.21465v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.21465v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/410fd6fb2984bed9" data-track="story-related">ClinSeekAgent: Automating Multimodal Evidence Seeking for Agentic Clinical Reasoning</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/1221c2601811ccd3" data-track="story-related">Fully Open Meditron: An Auditable Pipeline for Clinical LLMs</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 15, 2026</span></div></article><article><h3><a href="/story/0b4bdeb95ce0707d" data-track="story-related">LLMs Improving LLMs: Agentic Discovery for Test-Time Scaling</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 8, 2026</span></div></article><article><h3><a href="/story/c3fdf0df55fc94fc" data-track="story-related">STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 7, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">In model-driven engineering, metamodel evolution leads to the need to adapt corresponding grammars to maintain consistency, which typically requires tedious manual work. Existing rule-based methods can achieve partial...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.21465v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.21465v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/b9e2b73a81b88dc9" data-track="story-related">Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/fbac38fb9a180e14" data-track="story-related">The Override Gap: A Magnitude Account of Knowledge Conflict Failure in Hypernetwork-Based Instant LLM Adaptation</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 26, 2026</span></div></article></div></section>
     </section>
 
     <footer>

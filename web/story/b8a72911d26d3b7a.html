@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Coding agents in the social sciences - Anthropic" />
   <meta name="twitter:description" content="Coding agents in the social sciences Anthropic" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Coding agents in the social sciences - Anthropic", "description": "Coding agents in the social sciences Anthropic", "datePublished": "2026-05-28T00:22:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b8a72911d26d3b7a", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ?oc=5"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Coding agents in the social sciences - Anthropic", "item": "https://www.llm-digest.com/story/b8a72911d26d3b7a"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Coding agents in the social sciences - Anthropic", "description": "Coding agents in the social sciences Anthropic", "datePublished": "2026-05-28T00:22:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b8a72911d26d3b7a", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ?oc=5"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Coding agents in the social sciences - Anthropic", "item": "https://www.llm-digest.com/story/b8a72911d26d3b7a"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">search_agent_engineering_news · May 28, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ?oc=5" target="_blank" rel="noopener">Coding agents in the social sciences - Anthropic</a></h2>
       
       
-      <p class="story-summary">Coding agents in the social sciences Anthropic</p><div class="story-actions"><a class="primary" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ?oc=5" target="_blank" rel="noopener" data-track="story-source">Read the original at news.google.com →</a><a href="/?item=https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ%3Foc%3D5&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/96eb35c37b9531fb" data-track="story-related">Coding agents in the social sciences - Anthropic</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/42a55e416b5bcd65" data-track="story-related">OpenAI Codex Becomes Desktop Agent: Controls Mac Apps, Watches Screen, Runs on Mobile - Tech Times</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 24, 2026</span></div></article><article><h3><a href="/story/1b05eacd0f47ddb8" data-track="story-related">MC Interview: High-Agency Generalists will define the AI era, says Claude Code co-creator Sid Bidasaria - Moneycontrol.com</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 23, 2026</span></div></article><article><h3><a href="/story/dbc2bcd8b871c856" data-track="story-related">OpenAI Codex Mobile App: AI Coding Agent Now Available on iOS and Android via ChatGPT - Memeburn</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 20, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Coding agents in the social sciences Anthropic</p></div></div><div class="story-actions"><a class="primary" href="https://news.google.com/rss/articles/CBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ?oc=5" target="_blank" rel="noopener" data-track="story-source">Read the original at news.google.com →</a><a href="/?item=https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMivwFBVV95cUxPclVYM3BfckthZzhjakZFQ0ZZTWVhNU8tX1IxNHQ3dUo0cHdyQUdRaG96bG1aRjdvT1pnY25BSmRUSm9va3dxX00wUTJqNURVTUsyZkt5LVJVbHlleFhjUllhNldtWUlkeG1faTI0bzZrQ2psSGViNV94SC1ZT3AzTENmcHRIT2JLQzNQR3V3Mnc3T2dLMHRxM2R5ZS00V2N2cDNCZ2pxZ0JBS3lzdFZwMDFKYXVtc0t6WHpfdWJwQQ%3Foc%3D5&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/96eb35c37b9531fb" data-track="story-related">Coding agents in the social sciences - Anthropic</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/efe2b5110c7bf124" data-track="story-related">Coding Agents Social Sciences</a></h3><div class="art-meta"><span class="badge">anthropic_research</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/078f0d540d88f110" data-track="story-related">Introducing GPT-Rosalind for life sciences research</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Apr 16, 2026</span></div></article></div></section>
     </section>
 
     <footer>

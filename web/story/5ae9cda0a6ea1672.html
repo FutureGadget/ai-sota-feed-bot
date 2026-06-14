@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="datasette-agent-edit 0.1a0" />
   <meta name="twitter:description" content="Release: datasette-agent-edit 0.1a0 I&#x27;m planning several plugins for Datasette Agent which can make edits to existing pieces of text - things like collaborative Markdown editing, updating large SQL queries, and editin..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "datasette-agent-edit 0.1a0", "description": "Release: datasette-agent-edit 0.1a0 I'm planning several plugins for Datasette Agent which can make edits to existing pieces of text - things like collaborative Markdown editing, updating large SQL queries, and editin...", "datePublished": "2026-06-07T23:56:38+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ae9cda0a6ea1672", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/7/datasette-agent-edit/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "datasette-agent-edit 0.1a0", "item": "https://www.llm-digest.com/story/5ae9cda0a6ea1672"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "datasette-agent-edit 0.1a0", "description": "Release: datasette-agent-edit 0.1a0 I'm planning several plugins for Datasette Agent which can make edits to existing pieces of text - things like collaborative Markdown editing, updating large SQL queries, and editin...", "datePublished": "2026-06-07T23:56:38+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ae9cda0a6ea1672", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/7/datasette-agent-edit/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "datasette-agent-edit 0.1a0", "item": "https://www.llm-digest.com/story/5ae9cda0a6ea1672"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 7, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/7/datasette-agent-edit/#atom-everything" target="_blank" rel="noopener">datasette-agent-edit 0.1a0</a></h2>
       
       
-      <p class="story-summary">Release: datasette-agent-edit 0.1a0 I&#x27;m planning several plugins for Datasette Agent which can make edits to existing pieces of text - things like collaborative Markdown editing, updating large SQL queries, and editing SVG files. Agentic editing of text is a little tricky to get right. My favorite published design for this is for the Claude text editor , which implements the following tools: view - view sections of a file, with line numbers added to every line. str_replace - find an exact old_str and replace it with new_str - fail if the original string is not unique insert - insert the specified text after the specified line number Rather than recreate these patterns for every plugin that needs them I decided to create this base plugin, datasette-agent-edit , which implements the core tools in a way that allows them to be adapted for other plugins. Tags: ai , datasette , generative-ai , llms , llm-tool-use , datasette-agent</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/7/datasette-agent-edit/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F7%2Fdatasette-agent-edit%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-07">Daily recap for 2026-06-07</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/c83ad479a2665698" data-track="story-related">Running Python code in a sandbox with MicroPython and WASM</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 6, 2026</span></div></article><article><h3><a href="/story/0ee7688502ca91e7" data-track="story-related">OpenAI Help: Lockdown Mode</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/d1d6715e5232e3dc" data-track="story-related">Quoting Andreas Kling</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/cb24507f42289185" data-track="story-related">AI enthusiasts are in a race against time, AI skeptics are in a race against entropy</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 4, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Release: datasette-agent-edit 0.1a0 I&#x27;m planning several plugins for Datasette Agent which can make edits to existing pieces of text - things like collaborative Markdown editing, updating large SQL queries, and editin...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/7/datasette-agent-edit/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F7%2Fdatasette-agent-edit%2F%23atom-everything&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-07">Daily recap for 2026-06-07</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/1b60ad396cb5e531" data-track="story-related">datasette-agent-micropython 0.1a0</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/7ea449e12be43061" data-track="story-related">datasette-agent-sprites 0.1a0</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/439d727a63cd10b1" data-track="story-related">datasette-ip-rate-limit 0.1a0</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Agents, run any coding agent on your subscription not API costs" />
   <meta name="twitter:description" content="Hi HN. I&#x27;m the founder of Phoenix Labs (ex TikTok, Applied AI) and we&#x27;re open sourcing our internal tooling today which is like a toolchain / meta-harness for CLI agents useful for really scaling eng and creative work..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Agents, run any coding agent on your subscription not API costs", "description": "Hi HN. I'm the founder of Phoenix Labs (ex TikTok, Applied AI) and we're open sourcing our internal tooling today which is like a toolchain / meta-harness for CLI agents useful for really scaling eng and creative work...", "datePublished": "2026-05-31T16:21:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/77c3183ff239fd85", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://agents-cli.sh"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Agents, run any coding agent on your subscription not API costs", "item": "https://www.llm-digest.com/story/77c3183ff239fd85"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Agents, run any coding agent on your subscription not API costs", "description": "Hi HN. I'm the founder of Phoenix Labs (ex TikTok, Applied AI) and we're open sourcing our internal tooling today which is like a toolchain / meta-harness for CLI agents useful for really scaling eng and creative work...", "datePublished": "2026-05-31T16:21:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/77c3183ff239fd85", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://agents-cli.sh"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Agents, run any coding agent on your subscription not API costs", "item": "https://www.llm-digest.com/story/77c3183ff239fd85"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 31, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://agents-cli.sh" target="_blank" rel="noopener">Show HN: Agents, run any coding agent on your subscription not API costs</a></h2>
       
       
-      <p class="story-summary">Hi HN. I&#x27;m the founder of Phoenix Labs (ex TikTok, Applied AI) and we&#x27;re open sourcing our internal tooling today which is like a toolchain / meta-harness for CLI agents useful for really scaling eng and creative work. We are a very small team who&#x27;s building a very ambitious product so we had to find ways to squeeze every ounce of efficiency that we could get our hands on. Harness strengths of different models (Claude, GPTs) and CLI-harnesses (Claude Code, Codex), safe/robust browser integration to speed up UX/QA testing, teams cli to speed up security reviews and parallelize bug hunting and fixes, and secrets cli with touch id integration so DX is extremely fast. We also noticed that small things like installing marketplaces, or sharing resources per projects (skills, plugins, secrets, subagents, workflows, rules, permission groups, hooks) took a lot of time so we put everything under ~/.agents and supported multi-layer dot-agents repos, auto layering and syncing system, user and project level resources and extra so teams can have their own dot-agents repos Fun things like auto-rotation of CC credentials to tackle session limits also exist and save a lot of time. We usually have multiple agent versions installed per agent type. CLI is called `agents` and it injects shims for `claude`, `codex` and other agents. When we need a new feature like routines for keeping CI healthy, we just implement it in a way that&#x27;s compatible with most commonly uses agent-harnesses at our company</p><div class="story-actions"><a class="primary" href="https://agents-cli.sh" target="_blank" rel="noopener" data-track="story-source">Read the original at agents-cli.sh →</a><a href="/?item=https%3A%2F%2Fagents-cli.sh&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/8e9d4624c17d5bf7" data-track="story-related">AI Agent that at inference time updates it&#x27;s harness and model weights</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 31, 2026</span></div></article><article><h3><a href="/story/124c67ef9acf7d6d" data-track="story-related">Cache hit rates of Inference are more meaningful than the headline costs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 31, 2026</span></div></article><article><h3><a href="/story/8b5180f57780884e" data-track="story-related">Show HN: Thaw – Git branch for a running LLM (fork agents, skip prefill)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 30, 2026</span></div></article><article><h3><a href="/story/af33a564d5565d00" data-track="story-related">I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 30, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hi HN. I&#x27;m the founder of Phoenix Labs (ex TikTok, Applied AI) and we&#x27;re open sourcing our internal tooling today which is like a toolchain / meta-harness for CLI agents useful for really scaling eng and creative work...</p></div></div><div class="story-actions"><a class="primary" href="https://agents-cli.sh" target="_blank" rel="noopener" data-track="story-source">Read the original at agents-cli.sh →</a><a href="/?item=https%3A%2F%2Fagents-cli.sh&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/124c67ef9acf7d6d" data-track="story-related">Cache hit rates of Inference are more meaningful than the headline costs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 31, 2026</span></div></article><article><h3><a href="/story/77d52819be146302" data-track="story-related">Show HN: Agnt – Free open-source CLI to run any public or MIT-licensed AI agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 17, 2026</span></div></article><article><h3><a href="/story/c533eb9ba1b6d17a" data-track="story-related">Not so locked in any more</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article></div></section>
     </section>
 
     <footer>

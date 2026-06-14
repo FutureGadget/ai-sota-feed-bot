@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="langgraph-checkpoint-sqlite==3.1.0a1" />
   <meta name="twitter:description" content="Changes since checkpointsqlite==3.0.3 feat(checkpoint-sqlite): override get_delta_channel_history with streaming walk ( #7702 ) release: alpha bump (a4) for langgraph, checkpoint, checkpoint-postgres ( #7701 ) feat: p..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "langgraph-checkpoint-sqlite==3.1.0a1", "description": "Changes since checkpointsqlite==3.0.3 feat(checkpoint-sqlite): override get_delta_channel_history with streaming walk ( #7702 ) release: alpha bump (a4) for langgraph, checkpoint, checkpoint-postgres ( #7701 ) feat: p...", "datePublished": "2026-05-05T19:35:35+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/64a0b13dcae0a20c", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.0a1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "langgraph-checkpoint-sqlite==3.1.0a1", "item": "https://www.llm-digest.com/story/64a0b13dcae0a20c"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "langgraph-checkpoint-sqlite==3.1.0a1", "description": "Changes since checkpointsqlite==3.0.3 feat(checkpoint-sqlite): override get_delta_channel_history with streaming walk ( #7702 ) release: alpha bump (a4) for langgraph, checkpoint, checkpoint-postgres ( #7701 ) feat: p...", "datePublished": "2026-05-05T19:35:35+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/64a0b13dcae0a20c", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.0a1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "langgraph-checkpoint-sqlite==3.1.0a1", "item": "https://www.llm-digest.com/story/64a0b13dcae0a20c"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">langgraph_releases · May 5, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.0a1" target="_blank" rel="noopener">langgraph-checkpoint-sqlite==3.1.0a1</a></h2>
       
       
-      <p class="story-summary">Changes since checkpointsqlite==3.0.3 feat(checkpoint-sqlite): override get_delta_channel_history with streaming walk ( #7702 ) release: alpha bump (a4) for langgraph, checkpoint, checkpoint-postgres ( #7701 ) feat: public get_writes_history saver API + delta cadence rework ( #7699 ) chore(deps): bump the minor-and-patch group in /libs/checkpoint-sqlite with 2 updates ( #7668 ) release: alpha bump (a3) for langgraph, checkpoint, checkpoint-postgres ( #7678 ) release: alpha for timers ( #7647 ) chore: update x links to langchain_oss ( #7645 ) release(checkpoint): 4.0.3 ( #7625 ) chore(deps): bump langsmith from 0.6.4 to 0.7.31 in /libs/checkpoint-sqlite ( #7524 ) release(checkpoint): 4.0.2 ( #7518 ) docs: document LANGGRAPH_STRICT_MSGPACK for checkpoint security ( #7517 ) chore(deps): bump pytest from 9.0.2 to 9.0.3 in /libs/checkpoint-sqlite ( #7502 ) chore(deps): bump langchain-core from 1.2.22 to 1.2.28 in /libs/checkpoint-sqlite ( #7451 ) chore(deps): bump the minor-and-patch group in /libs/checkpoint-sqlite with 3 updates ( #7374 ) chore(deps): bump pygments from 2.19.2 to 2.20.0 in /libs/checkpoint-sqlite ( #7350 ) chore(deps): bump langchain-core from 1.2.11 to 1.2.22 in /libs/checkpoint-sqlite ( #7318 ) chore(deps): bump requests from 2.32.5 to 2.33.0 in /libs/checkpoint-sqlite ( #7279 ) chore(deps): bump the all-dependencies group in /libs/checkpoint-sqlite with 2 updates ( #7248 ) chore(deps): bump ruff from 0.15.5 to 0.15.6 in /libs/checkpoint-sqlite in the all-depe</p><div class="story-actions"><a class="primary" href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.0a1" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Flangchain-ai%2Flanggraph%2Freleases%2Ftag%2Fcheckpointsqlite%253D%253D3.1.0a1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a24fd3a383ac1799" data-track="story-related">langgraph-sdk==0.3.14</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 5, 2026</span></div></article><article><h3><a href="/story/a530f695dc81ba8a" data-track="story-related">langgraph==1.2.0a7</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/12534dd83c90d9f4" data-track="story-related">langgraph==1.2.0a6</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/93491f3b53ee4428" data-track="story-related">langgraph-prebuilt==1.1.0a2</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 1, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Changes since checkpointsqlite==3.0.3 feat(checkpoint-sqlite): override get_delta_channel_history with streaming walk ( #7702 ) release: alpha bump (a4) for langgraph, checkpoint, checkpoint-postgres ( #7701 ) feat: p...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.0a1" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Flangchain-ai%2Flanggraph%2Freleases%2Ftag%2Fcheckpointsqlite%253D%253D3.1.0a1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/659de527bba85754" data-track="story-related">langgraph-checkpoint-postgres==3.1.0a1</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/a24fd3a383ac1799" data-track="story-related">langgraph-sdk==0.3.14</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 5, 2026</span></div></article><article><h3><a href="/story/a530f695dc81ba8a" data-track="story-related">langgraph==1.2.0a7</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/12534dd83c90d9f4" data-track="story-related">langgraph==1.2.0a6</a></h3><div class="art-meta"><span class="badge">langgraph_releases</span><span class="badge">May 4, 2026</span></div></article></div></section>
     </section>
 
     <footer>

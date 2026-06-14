@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Where&#x27;s the raccoon with the ham radio? (ChatGPT Images 2.0)" />
   <meta name="twitter:description" content="OpenAI released ChatGPT Images 2.0 today , their latest image generation model. On the livestream Sam Altman said that the leap from gpt-image-1 to gpt-image-2 was equivalent to jumping from GPT-3 to GPT-5. Here&#x27;s how..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Where's the raccoon with the ham radio? (ChatGPT Images 2.0)", "description": "OpenAI released ChatGPT Images 2.0 today , their latest image generation model. On the livestream Sam Altman said that the leap from gpt-image-1 to gpt-image-2 was equivalent to jumping from GPT-3 to GPT-5. Here's how...", "datePublished": "2026-04-21T20:32:24+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b2c9fcda761f8674", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/image_crop_1402x1122_w1402_q0.3.jpg", "isBasedOn": "https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Where's the raccoon with the ham radio? (ChatGPT Images 2.0)", "item": "https://www.llm-digest.com/story/b2c9fcda761f8674"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Where's the raccoon with the ham radio? (ChatGPT Images 2.0)", "description": "OpenAI released ChatGPT Images 2.0 today , their latest image generation model. On the livestream Sam Altman said that the leap from gpt-image-1 to gpt-image-2 was equivalent to jumping from GPT-3 to GPT-5. Here's how...", "datePublished": "2026-04-21T20:32:24+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b2c9fcda761f8674", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/image_crop_1402x1122_w1402_q0.3.jpg", "isBasedOn": "https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Where's the raccoon with the ham radio? (ChatGPT Images 2.0)", "item": "https://www.llm-digest.com/story/b2c9fcda761f8674"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 21, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything" target="_blank" rel="noopener">Where&#x27;s the raccoon with the ham radio? (ChatGPT Images 2.0)</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/image_crop_1402x1122_w1402_q0.3.jpg" alt="" loading="lazy" onerror="this.remove()" />OpenAI released ChatGPT Images 2.0 today , their latest image generation model. On the livestream Sam Altman said that the leap from gpt-image-1 to gpt-image-2 was equivalent to jumping from GPT-3 to GPT-5. Here&#x27;s how I put it to the test. My prompt: Do a where&#x27;s Waldo style image but it&#x27;s where is the raccoon holding a ham radio gpt-image-1 First as a baseline here&#x27;s what I got from the older gpt-image-1 using ChatGPT directly: I wasn&#x27;t able to spot the raccoon - I quickly realized that testing image generation models on Where&#x27;s Waldo style images (Where&#x27;s Wally in the UK) can be pretty frustrating! I tried getting Claude Opus 4.7 with its new higher resolution inputs to solve it but it was convinced there was a raccoon it couldn&#x27;t find thanks to the instruction card at the top left of the image: Yes — there&#x27;s at least one raccoon in the picture, but it&#x27;s very well hidden . In my careful sweep through zoomed-in sections, honestly, I couldn&#x27;t definitively spot a raccoon holding a ham radio. [...] Nano Banana 2 and Pro Next I tried Google&#x27;s Nano Banana 2, via Gemini : That one was pretty obvious, the raccoon is in the &quot;Amateur Radio Club&quot; booth in the center of the image! Claude said: Honestly, this one wasn&#x27;t really hiding — he&#x27;s the star of the booth. Feels like the illustrator took pity on us after that last impossible scene. The little &quot;W6HAM&quot; callsign pun on the booth sign is a nice touch too. I also tried Nano Banana Pro in AI Studio and got this, by far the worst result</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F21%2Fgpt-image-2%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/0dbe547da66b266b" data-track="story-related">Quoting Andreas Påhlsson-Notini</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/1202813195ca0b8a" data-track="story-related">Adding a new content type to my blog-to-newsletter tool</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 18, 2026</span></div></article><article><h3><a href="/story/6058b0ccb1b4a18e" data-track="story-related">Join us at PyCon US 2026 in Long Beach - we have new AI and security tracks this year</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">OpenAI released ChatGPT Images 2.0 today , their latest image generation model. On the livestream Sam Altman said that the leap from gpt-image-1 to gpt-image-2 was equivalent to jumping from GPT-3 to GPT-5. Here&#x27;s how...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/image_crop_1402x1122_w1402_q0.3.jpg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/21/gpt-image-2/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F21%2Fgpt-image-2%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

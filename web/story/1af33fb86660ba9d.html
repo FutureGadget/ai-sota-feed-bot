@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting | LLM Digest</title>
-  <meta name="description" content="Matches feed focus: eval." />
+  <meta name="description" content="Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evo..." />
   <link rel="canonical" href="https://www.llm-digest.com/story/1af33fb86660ba9d" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -13,15 +13,15 @@
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
   <meta property="og:title" content="Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting" />
-  <meta property="og:description" content="Matches feed focus: eval." />
+  <meta property="og:description" content="Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evo..." />
   <meta property="og:url" content="https://www.llm-digest.com/story/1af33fb86660ba9d" />
   <meta property="article:published_time" content="2026-06-11T16:59:42+00:00" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting" />
-  <meta name="twitter:description" content="Matches feed focus: eval." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting", "description": "Matches feed focus: eval.", "datePublished": "2026-06-11T16:59:42+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1af33fb86660ba9d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.13571v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting", "item": "https://www.llm-digest.com/story/1af33fb86660ba9d"}]}]}</script>
+  <meta name="twitter:description" content="Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evo..." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting", "description": "Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evo...", "datePublished": "2026-06-11T16:59:42+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1af33fb86660ba9d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.13571v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting", "item": "https://www.llm-digest.com/story/1af33fb86660ba9d"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_lg · Jun 11, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2606.13571v1" target="_blank" rel="noopener">Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting</a></h2>
       
       
-      <div class="intro"><p class="tldr-label">Why it matters</p><p>Matches feed focus: eval.</p></div><p class="story-summary">Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evolved from impute-then-forecast pipelines to continuous-time models such as Neural ODEs and continuous-time graph networks. While these approaches improve the modeling of historical irregularity, they still rely on an implicit oracle assumption at inference time: the timestamps of future valid observations are presumed to be known in advance. This assumption limits practical relevance, since in many real systems the more fundamental question is not only what the future value will be, but also whether a valid observation will occur at all. In this paper, we propose Timeflies, a unified framework that reformulates forecasting as a joint problem of future observability inference and value estimation. To explicitly model the interaction between observation dynamics and state evolution, Timeflies adopts an observation stream and a value stream, coupled through three dedicated modules for reliability-aware embedding, observation-guided dependency modeling, and joint prediction. We further construct Shadow, a benchmark that combines natural missingness from public datasets with real-world industrial data, and introduce the Observation-Value Joint Entropy (OVJE) metric to comprehensively evaluate this coupled predictability. Extensive experiments show that Timeflies consi</p><div class="chips"><span class="badge">eval</span></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.13571v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.13571v1&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-11">Daily recap for 2026-06-11</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/fd80bd0fbaa2078c" data-track="story-related">Implicit Neural Representations of Individual Behavior</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Jun 10, 2026</span></div></article><article><h3><a href="/story/41283ce446692999" data-track="story-related">CIAware-Bench: Benchmarking Control Intervention Awareness Across Frontier LLMs</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Jun 9, 2026</span></div></article><article><h3><a href="/story/10129892c7fcda0f" data-track="story-related">MemRefine: LLM-Guided Compression for Long-Term Agent Memory</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 11, 2026</span></div></article><article><h3><a href="/story/6ebf69ac004c3c35" data-track="story-related">Zero-source LLM Hallucination Detection with Human-like Criteria Probing</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 11, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Real-world time series are often highly incomplete and irregular due to sensor dormancy, transmission delays, and event-driven sampling, making reliable forecasting fundamentally challenging. Existing methods have evo...</p></div></div><div class="chips"><span class="badge">eval</span></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.13571v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.13571v1&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-11">Daily recap for 2026-06-11</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/70370c34163bffd7" data-track="story-related">Time series Foundation Models based on Physics-Informed Synthetic Histories for Cold-Start Photovoltaic Forecasting</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/372f944539db1647" data-track="story-related">The Dynamic-Probabilistic Consistency Gap in Chaotic Surrogate Modeling</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/b8b42273790ea8c3" data-track="story-related">CHRONOS: Temporally-Aware Multi-Agent Coordination for Evolving Data Marketplaces</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 22, 2026</span></div></article><article><h3><a href="/story/b7ec08c05326093d" data-track="story-related">Joint Treatment Effect Estimation from Incomplete Healthcare Data: Temporal Causal Normalizing Flows with LLM-driven Evolutionary MNAR Imputation</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 6, 2026</span></div></article></div></section>
     </section>
 
     <footer>

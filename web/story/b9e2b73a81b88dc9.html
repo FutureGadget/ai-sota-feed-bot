@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab" />
   <meta name="twitter:description" content="Grab’s Central Data Team built a multi-agent AI system to automate repetitive engineering support tasks across its data warehouse platform. The system separates investigation and enhancement workflows using specialize..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab", "description": "Grab’s Central Data Team built a multi-agent AI system to automate repetitive engineering support tasks across its data warehouse platform. The system separates investigation and enhancement workflows using specialize...", "datePublished": "2026-05-20T14:38:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b9e2b73a81b88dc9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://res.infoq.com/news/2026/05/grab-multi-agent-support-system/en/headerimage/generatedHeaderImage-1778992985157.jpg", "isBasedOn": "https://www.infoq.com/news/2026/05/grab-multi-agent-support-system/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab", "item": "https://www.llm-digest.com/story/b9e2b73a81b88dc9"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab", "description": "Grab’s Central Data Team built a multi-agent AI system to automate repetitive engineering support tasks across its data warehouse platform. The system separates investigation and enhancement workflows using specialize...", "datePublished": "2026-05-20T14:38:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b9e2b73a81b88dc9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://res.infoq.com/news/2026/05/grab-multi-agent-support-system/en/headerimage/generatedHeaderImage-1778992985157.jpg", "isBasedOn": "https://www.infoq.com/news/2026/05/grab-multi-agent-support-system/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab", "item": "https://www.llm-digest.com/story/b9e2b73a81b88dc9"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">infoq_ai_ml · May 20, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://www.infoq.com/news/2026/05/grab-multi-agent-support-system/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener">Designing a Multi-Agent System for Engineering Support at Scale: a Case Study from Grab</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://res.infoq.com/news/2026/05/grab-multi-agent-support-system/en/headerimage/generatedHeaderImage-1778992985157.jpg" alt="" loading="lazy" onerror="this.remove()" />Grab’s Central Data Team built a multi-agent AI system to automate repetitive engineering support tasks across its data warehouse platform. The system separates investigation and enhancement workflows using specialized agents coordinated via an orchestration layer. It reduces operational load, improves resolution speed, and shifts engineering effort from firefighting to platform engineering work. By Leela Kumili</p><div class="story-actions"><a class="primary" href="https://www.infoq.com/news/2026/05/grab-multi-agent-support-system/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="story-source">Read the original at infoq.com →</a><a href="/?item=https%3A%2F%2Fwww.infoq.com%2Fnews%2F2026%2F05%2Fgrab-multi-agent-support-system%2F%3Futm_campaign%3Dinfoq_content%26utm_source%3Dinfoq%26utm_medium%3Dfeed%26utm_term%3DAI%252C%2BML%2B%2526%2BData%2BEngineering&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/034cae1459ef8855" data-track="story-related">Presentation: The AI Gateway: Scaling Centralized Inference Across Decentralized Teams</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/0b310f4fd15307d3" data-track="story-related">Anthropic Introduces MCP Tunnels for Private Agent Access to Internal Systems</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/ca410933c34a9934" data-track="story-related">Agoda Builds Multimodal Content System to Bridge Images and Reviews in Travel Discovery</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/faafee79721eebbf" data-track="story-related">Presentation: Powering the Future: Building Your GenAI Infrastructure Stack</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 19, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Grab’s Central Data Team built a multi-agent AI system to automate repetitive engineering support tasks across its data warehouse platform. The system separates investigation and enhancement workflows using specialize...</p></div><img class="story-img" src="https://res.infoq.com/news/2026/05/grab-multi-agent-support-system/en/headerimage/generatedHeaderImage-1778992985157.jpg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://www.infoq.com/news/2026/05/grab-multi-agent-support-system/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="story-source">Read the original at infoq.com →</a><a href="/?item=https%3A%2F%2Fwww.infoq.com%2Fnews%2F2026%2F05%2Fgrab-multi-agent-support-system%2F%3Futm_campaign%3Dinfoq_content%26utm_source%3Dinfoq%26utm_medium%3Dfeed%26utm_term%3DAI%252C%2BML%2B%2526%2BData%2BEngineering&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/ca410933c34a9934" data-track="story-related">Agoda Builds Multimodal Content System to Bridge Images and Reviews in Travel Discovery</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/760024546d3f8e25" data-track="story-related">DexHoldem: Playing Texas Hold&#x27;em with Dexterous Embodied System</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 18, 2026</span></div></article><article><h3><a href="/story/e415332637f94c60" data-track="story-related">Microsoft&#x27;s AI system tops Anthropic&#x27;s Mythos on cybersecurity benchmark</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/257ed09536576a04" data-track="story-related">Everything Claude Code: performance optimization system for AI agent harnesses</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 13, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -120,7 +133,7 @@
       <h2 class="recap-title">Dynamic Workflows</h2>
       
       
-      <p class="story-actions"><button id="followBtn" type="button" data-slug="dynamic-workflows" data-last-updated="2026-06-02T00:00:00+00:00" aria-pressed="false">+ Follow this story</button></p><div class="intro"><p class="tldr-label">TL;DR</p><p>Anthropic introduced Dynamic Workflows (“ultracode”) for Claude Code, first surfaced in late May alongside the Opus 4.8 release and detailed over the following days. The capability coordinates large numbers of agents within a single workflow to take on complex engineering tasks, with Anthropic&#x27;s own “A Harness For Every Task” post laying out the model.</p><p><b>What's new:</b> Anthropic&#x27;s own writeup, “A Harness For Every Task,” closes the loop on the launch coverage — framing Dynamic Workflows as a general orchestration harness rather than a one-off feature.</p><p>💡 Dynamic Workflows is the orchestration primitive for fanning out many agents deterministically from a single Claude Code run — directly relevant if you&#x27;re moving past single-agent prompting toward parallel, structured agent pipelines.</p></div><section class="cat"><h2><span class="count">Day 1</span> Friday, May 29, 2026</h2><div class="articles"><article><h3><a href="/story/008b880e906f9835" data-track="storyline-link">[AINews] Anthropic raises $965B Series H, releases Opus 4.8 and Dynamic Workflows/ultracode</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 29</span></div><p class="art-summary">The launch beat — Dynamic Workflows / ultracode ships alongside Opus 4.8.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 1, 2026</h2><div class="articles"><article><h3><a href="/story/72c72052beef8f43" data-track="storyline-link">Claude Code Adds Dynamic Workflows for Parallel Agent Coordination</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 1</span></div><p class="art-summary">InfoQ explains the mechanism: coordinating many agents within one workflow for complex tasks.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 2, 2026</h2><div class="articles"><article><h3><a href="/story/bbb7a8dae33b3ae4" data-track="storyline-link">A Harness For Every Task Dynamic Workflows In Claude Code</a></h3><div class="art-meta"><span class="badge">claude_blog</span><span class="badge">Jun 2</span></div><p class="art-summary">Anthropic&#x27;s own “A Harness For Every Task” framing of the feature.</p></article></div></section>
+      <p class="story-actions"><button id="followBtn" type="button" class="primary" data-slug="dynamic-workflows" data-last-updated="2026-06-02T00:00:00+00:00" aria-pressed="false">+ Follow this story</button></p><div class="intro"><p class="tldr-label">TL;DR</p><p>Anthropic introduced Dynamic Workflows (“ultracode”) for Claude Code, first surfaced in late May alongside the Opus 4.8 release and detailed over the following days. The capability coordinates large numbers of agents within a single workflow to take on complex engineering tasks, with Anthropic&#x27;s own “A Harness For Every Task” post laying out the model.</p><p><b>What's new:</b> Anthropic&#x27;s own writeup, “A Harness For Every Task,” closes the loop on the launch coverage — framing Dynamic Workflows as a general orchestration harness rather than a one-off feature.</p><p>💡 Dynamic Workflows is the orchestration primitive for fanning out many agents deterministically from a single Claude Code run — directly relevant if you&#x27;re moving past single-agent prompting toward parallel, structured agent pipelines.</p></div><section class="cat"><h2><span class="count">Day 1</span> Friday, May 29, 2026</h2><div class="articles"><article><h3><a href="/story/008b880e906f9835" data-track="storyline-link">[AINews] Anthropic raises $965B Series H, releases Opus 4.8 and Dynamic Workflows/ultracode</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 29</span></div><p class="art-summary">The launch beat — Dynamic Workflows / ultracode ships alongside Opus 4.8.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 1, 2026</h2><div class="articles"><article><h3><a href="/story/72c72052beef8f43" data-track="storyline-link">Claude Code Adds Dynamic Workflows for Parallel Agent Coordination</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 1</span></div><p class="art-summary">InfoQ explains the mechanism: coordinating many agents within one workflow for complex tasks.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 2, 2026</h2><div class="articles"><article><h3><a href="/story/bbb7a8dae33b3ae4" data-track="storyline-link">A Harness For Every Task Dynamic Workflows In Claude Code</a></h3><div class="art-meta"><span class="badge">claude_blog</span><span class="badge">Jun 2</span></div><p class="art-summary">Anthropic&#x27;s own “A Harness For Every Task” framing of the feature.</p></article></div></section>
     </section>
 
     <footer>

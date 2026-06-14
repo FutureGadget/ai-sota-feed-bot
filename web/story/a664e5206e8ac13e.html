@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Agent-data – a CLI for giving agents real-time, structured data" />
   <meta name="twitter:description" content="Hey HN, Justin here, and we’re building agent-data: a CLI tool that gives AI agents access to real-time, structured data without requiring them to use browser automation. The idea came from trying to get agents (e.g.,..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Agent-data – a CLI for giving agents real-time, structured data", "description": "Hey HN, Justin here, and we’re building agent-data: a CLI tool that gives AI agents access to real-time, structured data without requiring them to use browser automation. The idea came from trying to get agents (e.g.,...", "datePublished": "2026-05-07T17:50:14+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/a664e5206e8ac13e", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://agent-data.dev"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Agent-data – a CLI for giving agents real-time, structured data", "item": "https://www.llm-digest.com/story/a664e5206e8ac13e"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Agent-data – a CLI for giving agents real-time, structured data", "description": "Hey HN, Justin here, and we’re building agent-data: a CLI tool that gives AI agents access to real-time, structured data without requiring them to use browser automation. The idea came from trying to get agents (e.g.,...", "datePublished": "2026-05-07T17:50:14+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/a664e5206e8ac13e", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://agent-data.dev"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Agent-data – a CLI for giving agents real-time, structured data", "item": "https://www.llm-digest.com/story/a664e5206e8ac13e"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 7, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://agent-data.dev" target="_blank" rel="noopener">Show HN: Agent-data – a CLI for giving agents real-time, structured data</a></h2>
       
       
-      <p class="story-summary">Hey HN, Justin here, and we’re building agent-data: a CLI tool that gives AI agents access to real-time, structured data without requiring them to use browser automation. The idea came from trying to get agents (e.g., OpenClaw, Hermes Agent) to perform more useful tasks than simply organizing our calendars or monitoring our emails. We wanted them to answer questions and take actions that depend on timely external data, e.g., “Can you find me roundtrip flight options from NYC to SF next month”. Personal assistant agents appear to be great frameworks for maintaining user preferences and acting with that information (e.g., “Justin hates early morning flights,” “Justin doesn’t mind a layover if it’s shorter than 3 hours,” etc), but existing tools for providing assistants with actionable, external data are surprisingly limited. For example, browser automation can work, but it’s generally slow, expensive, and flaky [1]. Ad-hoc scraping works well in narrow cases, but can become quite expensive at scale. MCP servers can inject tool schemas into context on every turn (inflating token consumption), and are often either too granular or too coarse in their design. So we built agent-data around a simpler interface: give the agent the ability to discover the right endpoint at runtime, call it via CLI, and get back compact structured output. For example, to answer my earlier question, an agent might use: `agent-data call search-flights --origin_iata JFK --destination_iata SFO [--params]` W</p><div class="story-actions"><a class="primary" href="https://agent-data.dev" target="_blank" rel="noopener" data-track="story-source">Read the original at agent-data.dev →</a><a href="/?item=https%3A%2F%2Fagent-data.dev&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/cdd23fb9c9a3e4b8" data-track="story-related">Show HN: Infinite you – multi agent workflow system</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/83e63e463a1dff9d" data-track="story-related">Show HN: Memory system for AI agents with associations, forgetting, synthesis</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/500f8eb4e2a7d8b0" data-track="story-related">Show HN: Desktop Agent Center – Local AI Automation via Hotkeys</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/ad87ab2f75834cf1" data-track="story-related">Show HN: Agent-skills-eval – Test whether Agent Skills improve outputs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hey HN, Justin here, and we’re building agent-data: a CLI tool that gives AI agents access to real-time, structured data without requiring them to use browser automation. The idea came from trying to get agents (e.g.,...</p></div></div><div class="story-actions"><a class="primary" href="https://agent-data.dev" target="_blank" rel="noopener" data-track="story-source">Read the original at agent-data.dev →</a><a href="/?item=https%3A%2F%2Fagent-data.dev&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/1bbea508e33e96b8" data-track="story-related">GRAIL: A Deep-Granularity Hybrid Resonance Framework for Real-Time Agent Discovery via SLM-Enhanced Indexing</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/1c7780c525a432ee" data-track="story-related">Giving AI Agents Database Access Is Way Harder Than It Looks</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 24, 2026</span></div></article><article><h3><a href="/story/5ff669a4155a29c2" data-track="story-related">Cloudflare Sandboxes Reach General Availability, Giving AI Agents Persistent Isolated Environments</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Apr 22, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs" />
   <meta name="twitter:description" content="Article URL: https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex Comments URL: https://news.ycombinator.com/item?id=48104839 Points: 2 #..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs", "description": "Article URL: https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex Comments URL: https://news.ycombinator.com/item?id=48104839 Points: 2 #...", "datePublished": "2026-05-12T06:17:56+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/99ed19058ab413af", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs", "item": "https://www.llm-digest.com/story/99ed19058ab413af"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs", "description": "Article URL: https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex Comments URL: https://news.ycombinator.com/item?id=48104839 Points: 2 #...", "datePublished": "2026-05-12T06:17:56+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/99ed19058ab413af", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs", "item": "https://www.llm-digest.com/story/99ed19058ab413af"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 12, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex" target="_blank" rel="noopener">We Ran 250 AI Agent Evals to Find Out If Skills Beat Docs</a></h2>
       
       
-      <p class="story-summary">Article URL: https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex Comments URL: https://news.ycombinator.com/item?id=48104839 Points: 2 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex" target="_blank" rel="noopener" data-track="story-source">Read the original at wix.engineering →</a><a href="/?item=https%3A%2F%2Fwww.wix.engineering%2Fpost%2Fwe-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/dea907a55d622ea8" data-track="story-related">Making your developer platform agent-ready</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/56dd165b1184a0a1" data-track="story-related">Show HN: Sipsa Inference – lossless serving at 50% off</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/09ea0b9ebd2ddc06" data-track="story-related">VibeServe: Can AI Agents Build Bespoke LLM Serving Systems?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/cf72cbbc13b7aa89" data-track="story-related">State aware AI agent shitfest – with rules – that helps move code</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Article URL: https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex Comments URL: https://news.ycombinator.com/item?id=48104839 Points: 2 #...</p></div></div><div class="story-actions"><a class="primary" href="https://www.wix.engineering/post/we-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex" target="_blank" rel="noopener" data-track="story-source">Read the original at wix.engineering →</a><a href="/?item=https%3A%2F%2Fwww.wix.engineering%2Fpost%2Fwe-ran-250-ai-agent-evals-to-find-out-if-skills-beat-docs-the-answer-is-more-complicated-than-we-ex&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/ad87ab2f75834cf1" data-track="story-related">Show HN: Agent-skills-eval – Test whether Agent Skills improve outputs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/94705ad394c58f6e" data-track="story-related">Redesigning Agent Skills – two missing parts</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 3, 2026</span></div></article><article><h3><a href="/story/277cf65bf8c8d0a7" data-track="story-related">Plugins and skills</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Apr 23, 2026</span></div></article></div></section>
     </section>
 
     <footer>

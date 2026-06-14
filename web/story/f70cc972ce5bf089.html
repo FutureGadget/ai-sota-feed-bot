@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Lich, start a dev stack per coding agent in parallel" />
   <meta name="twitter:description" content="Hey HN, Lich is a worktree aware local dev stack orchestrator. Simply put, it allows you to run multiple copies of your development stack from different worktrees with different code in parallel without going insane...." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Lich, start a dev stack per coding agent in parallel", "description": "Hey HN, Lich is a worktree aware local dev stack orchestrator. Simply put, it allows you to run multiple copies of your development stack from different worktrees with different code in parallel without going insane....", "datePublished": "2026-06-05T15:30:27+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f70cc972ce5bf089", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/RPate97/lich"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Lich, start a dev stack per coding agent in parallel", "item": "https://www.llm-digest.com/story/f70cc972ce5bf089"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Lich, start a dev stack per coding agent in parallel", "description": "Hey HN, Lich is a worktree aware local dev stack orchestrator. Simply put, it allows you to run multiple copies of your development stack from different worktrees with different code in parallel without going insane....", "datePublished": "2026-06-05T15:30:27+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f70cc972ce5bf089", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/RPate97/lich"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Lich, start a dev stack per coding agent in parallel", "item": "https://www.llm-digest.com/story/f70cc972ce5bf089"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Jun 5, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/RPate97/lich" target="_blank" rel="noopener">Show HN: Lich, start a dev stack per coding agent in parallel</a></h2>
       
       
-      <p class="story-summary">Hey HN, Lich is a worktree aware local dev stack orchestrator. Simply put, it allows you to run multiple copies of your development stack from different worktrees with different code in parallel without going insane. I built Lich because I’ve found myself increasingly using multiple parallel coding agents for development work. I wanted my coding agents to each have independent copies of my development stack to be able to test and validate their own work well. I found that trying to do this totally broke the way I have normally setup tooling for local development. Ports conflict, the UI from one worktree connects to the backend or DB from another one, logs are hard to track down because agents start stacks in the background, any reliability problem sends agents down a rabbithole trying to fix it. I originally built around 5k lines of bash scripts to solve this problem for a single relatively complex application was able to do it, but I realized that for any future thing I might work on I would have to build that whole setup again even though it’s not really that coupled to the specific application I’m working on. I realized I could build a clean, re-usable abstraction to solve this problem robustly and comprehensively for practically any repo through a standard lich.yaml definition and a simple CLI that manages the stack lifecycle, port allocation, log management, and garbage collection. That is what lich is. You might wonder: why can’t I use docker compose to solve this probl</p><div class="story-actions"><a class="primary" href="https://github.com/RPate97/lich" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2FRPate97%2Flich&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-05">Daily recap for 2026-06-05</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/0ef18aeaf8c16704" data-track="story-related">BrowseComp-Plus: A More Fair and Transparent Benchmark of Deep-Research Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 5, 2026</span></div></article><article><h3><a href="/story/c8f65adbeb34cd74" data-track="story-related">Librecode (Yet Another Agent Harness)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/ffb79fe518b6ac2d" data-track="story-related">Anthropic&#x27;s open-source framework for AI-powered vulnerability discovery</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/72c82bc110ddda40" data-track="story-related">Knox – Govern AI agent tool calls before they execute</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 4, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hey HN, Lich is a worktree aware local dev stack orchestrator. Simply put, it allows you to run multiple copies of your development stack from different worktrees with different code in parallel without going insane....</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/RPate97/lich" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2FRPate97%2Flich&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-05">Daily recap for 2026-06-05</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/72c72052beef8f43" data-track="story-related">Claude Code Adds Dynamic Workflows for Parallel Agent Coordination</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 1, 2026</span></div></article><article><h3><a href="/story/1dbcebf10b5ef924" data-track="story-related">Building A Company Due Diligence Agent With Deep Agents Langsmith And Parallel</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">May 8, 2026</span></div></article><article><h3><a href="/story/f4beb33eaf917a32" data-track="story-related">Show HN: Nv – workspace orchestrator for jj built for parallel agent workflows</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/9d2dfc85eeada472" data-track="story-related">Subagents in Gemini CLI Enable Task Delegation and Parallel Agent Workflows</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Apr 20, 2026</span></div></article></div></section>
     </section>
 
     <footer>

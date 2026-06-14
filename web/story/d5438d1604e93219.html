@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="What do you want to see in a next-generation GitHub in the age of AI?" />
   <meta name="twitter:description" content="AI coding agents are making it much cheaper to produce code, and that may change the bottleneck in software projects from writing code to evaluating, reviewing, and safely integrating changes. I’m curious what people..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What do you want to see in a next-generation GitHub in the age of AI?", "description": "AI coding agents are making it much cheaper to produce code, and that may change the bottleneck in software projects from writing code to evaluating, reviewing, and safely integrating changes. I’m curious what people...", "datePublished": "2026-04-30T17:11:12+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d5438d1604e93219", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=47965469"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "What do you want to see in a next-generation GitHub in the age of AI?", "item": "https://www.llm-digest.com/story/d5438d1604e93219"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What do you want to see in a next-generation GitHub in the age of AI?", "description": "AI coding agents are making it much cheaper to produce code, and that may change the bottleneck in software projects from writing code to evaluating, reviewing, and safely integrating changes. I’m curious what people...", "datePublished": "2026-04-30T17:11:12+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/d5438d1604e93219", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=47965469"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "What do you want to see in a next-generation GitHub in the age of AI?", "item": "https://www.llm-digest.com/story/d5438d1604e93219"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Apr 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.ycombinator.com/item?id=47965469" target="_blank" rel="noopener">What do you want to see in a next-generation GitHub in the age of AI?</a></h2>
       
       
-      <p class="story-summary">AI coding agents are making it much cheaper to produce code, and that may change the bottleneck in software projects from writing code to evaluating, reviewing, and safely integrating changes. I’m curious what people here would actually want to see in a next-generation Git repo hosting platform. What do you want that GitHub, GitLab, Forgejo, SourceHut, etc. do not currently provide? A few areas I’m wondering about: * Handling much higher PR volume * Better maintainer controls * Machine-readable project policies * Risk scoring before human review * AI agents as first-class contributors with owners, permissions, and trust history * Better ways for projects to say what kinds of changes they actually want * More open or portable alternatives to GitHub What would be genuinely useful? What would be over-engineered, annoying, or harmful? Comments URL: https://news.ycombinator.com/item?id=47965469 Points: 1 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=47965469" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D47965469&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/37ef1dfbfcf1ee34" data-track="story-related">Show HN: Spec27 – Spec-driven validation for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/337fa96ee2fde233" data-track="story-related">How are teams bridging the gap between company knowledge and AI agents?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/dd35074b283c32c0" data-track="story-related">Show HN: Task Manager for AI Agents (MCP, Opensource)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/8b944dfd28079b0f" data-track="story-related">I built an AI job search agent on Claude Code to run my own PM job search</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 29, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">AI coding agents are making it much cheaper to produce code, and that may change the bottleneck in software projects from writing code to evaluating, reviewing, and safely integrating changes. I’m curious what people...</p></div></div><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=47965469" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D47965469&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/6b8c46a3e355b778" data-track="story-related">Building the compute infrastructure for the Intelligence Age</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Apr 29, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="OpenAI WebRTC Audio Session, now with document context" />
   <meta name="twitter:description" content="OpenAI WebRTC Audio Session, now with document context I built the first version of this tool in December 2024 to try out the then-new OpenAI WebRTC API for interacting with their realtime audio models. Last month Ope..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "OpenAI WebRTC Audio Session, now with document context", "description": "OpenAI WebRTC Audio Session, now with document context I built the first version of this tool in December 2024 to try out the then-new OpenAI WebRTC API for interacting with their realtime audio models. Last month Ope...", "datePublished": "2026-06-12T23:53:04+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b761bf6cddfb2c57", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/openai-webrtc-document-context.jpg", "isBasedOn": "https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "OpenAI WebRTC Audio Session, now with document context", "item": "https://www.llm-digest.com/story/b761bf6cddfb2c57"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "OpenAI WebRTC Audio Session, now with document context", "description": "OpenAI WebRTC Audio Session, now with document context I built the first version of this tool in December 2024 to try out the then-new OpenAI WebRTC API for interacting with their realtime audio models. Last month Ope...", "datePublished": "2026-06-12T23:53:04+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b761bf6cddfb2c57", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/openai-webrtc-document-context.jpg", "isBasedOn": "https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "OpenAI WebRTC Audio Session, now with document context", "item": "https://www.llm-digest.com/story/b761bf6cddfb2c57"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 12, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything" target="_blank" rel="noopener">OpenAI WebRTC Audio Session, now with document context</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/openai-webrtc-document-context.jpg" alt="" loading="lazy" onerror="this.remove()" />OpenAI WebRTC Audio Session, now with document context I built the first version of this tool in December 2024 to try out the then-new OpenAI WebRTC API for interacting with their realtime audio models. Last month OpenAI introduced a brand new model to that API called GPT‑Realtime‑2 , which they promoted as &quot;our first voice model with GPT‑5‑class reasoning&quot; - with a Sep 30, 2024 knowledge cut-off. I&#x27;ve been waiting for that model to show up in the ChatGPT iPhone app but it still hasn&#x27;t, so I revisited my old playground. You can now pick the better model, and you can also paste in a big chunk of document context so you can have as audio conversation in your browser about whatever information you think would be useful to explore in a conversational way. Tags: audio , tools , ai , openai , generative-ai , llms , multi-modal-output , webrtc</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F12%2Fopenai-webrtc%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/9fe430793b389545" data-track="story-related">Quoting Andrew Singleton</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 12, 2026</span></div></article><article><h3><a href="/story/c9ab8f8aa14fe295" data-track="story-related">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11, 2026</span></div></article><article><h3><a href="/story/7a881d742ed801ae" data-track="story-related">datasette 1.0a33</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11, 2026</span></div></article><article><h3><a href="/story/2c271f0703109132" data-track="story-related">Anthropic Walks Back Policy That Could Have ‘Sabotaged’ AI Researchers Using Claude</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">OpenAI WebRTC Audio Session, now with document context I built the first version of this tool in December 2024 to try out the then-new OpenAI WebRTC API for interacting with their realtime audio models. Last month Ope...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/openai-webrtc-document-context.jpg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/12/openai-webrtc/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F12%2Fopenai-webrtc%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/9ff50fdd84cba854" data-track="story-related">Audio Interaction Model</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/e10afb5b27504f45" data-track="story-related">Show HN: MetaBrain – A local document memory for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/13c351925e76e5dd" data-track="story-related">Scalable voice agent design with Amazon Nova Sonic: multi-agent, tools, and session segmentation</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/4a1e17e04fe147f7" data-track="story-related">Article: Local-First AI Inference: A Cloud Architecture Pattern for Cost-Effective Document Processing</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 11, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The Emotional Cost of AI-Assisted Coding" />
   <meta name="twitter:description" content="This post doesn’t have a blog or article; it is a blog itself (kind of). I’m just sharing how coding agents feel. A little about me: I started CS in 2020. I liked being able to instruct and interact with the world thr..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The Emotional Cost of AI-Assisted Coding", "description": "This post doesn’t have a blog or article; it is a blog itself (kind of). I’m just sharing how coding agents feel. A little about me: I started CS in 2020. I liked being able to instruct and interact with the world thr...", "datePublished": "2026-05-12T21:37:58+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/dc8ae67625ff556d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48114954"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "The Emotional Cost of AI-Assisted Coding", "item": "https://www.llm-digest.com/story/dc8ae67625ff556d"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The Emotional Cost of AI-Assisted Coding", "description": "This post doesn’t have a blog or article; it is a blog itself (kind of). I’m just sharing how coding agents feel. A little about me: I started CS in 2020. I liked being able to instruct and interact with the world thr...", "datePublished": "2026-05-12T21:37:58+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/dc8ae67625ff556d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48114954"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "The Emotional Cost of AI-Assisted Coding", "item": "https://www.llm-digest.com/story/dc8ae67625ff556d"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 12, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.ycombinator.com/item?id=48114954" target="_blank" rel="noopener">The Emotional Cost of AI-Assisted Coding</a></h2>
       
       
-      <p class="story-summary">This post doesn’t have a blog or article; it is a blog itself (kind of). I’m just sharing how coding agents feel. A little about me: I started CS in 2020. I liked being able to instruct and interact with the world through code. I especially liked how code runs on hardware, and how software plus hardware can make machines learn patterns. Coding in the pre-LLM era felt like real engineering. I don’t have the words for it, but things felt grounded, discrete math, fundamentals, networking protocols, it felt like hard engineering. A simple web server on a Sunday morning felt like an intellectual endeavour. After reading docs, architecture patterns, and obscure engineer blogs, you actually learned something that stayed with you, plus a small proud GitHub project (think Sophomore CS grad perspective). Life was simpler. Fast forward 6 years. People are obsessed with AI. Obsessed with results, not process or learning. Not a day goes by without “cracked builders”, “token maxing”, “AI first”. Non-technical people ship features, then break core infra. I feel coding agents (and AI tools that remove difficulty from tasks where difficulty was the learning) are, for many, less about value and more about dopamine hits, quick stimulation, and attention reward loops. Like short-form content, engagement over substance. I’m not an AI doomer, but I think we need to better train people to use it properly. AI has shifted reward from learning fundamentals to just optimizing output, does it work or no</p><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48114954" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48114954&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/39001da7899ed7ce" data-track="story-related">Show HN: GitGlimpse – CLI for understanding AI-generated Git diffs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/37ec787bc33809d6" data-track="story-related">Show HN: Ralph Workflow - Simple Agent-Agnostic AI Orchestrator based on Ralph.</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/aedb58826dc08f0a" data-track="story-related">Show HN: Gigacatalyst – Extend your SaaS with an embedded AI builder</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/cc2621200144e413" data-track="story-related">Show HN: YantrikDB – persistent memory for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 12, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">This post doesn’t have a blog or article; it is a blog itself (kind of). I’m just sharing how coding agents feel. A little about me: I started CS in 2020. I liked being able to instruct and interact with the world thr...</p></div></div><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48114954" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48114954&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/723d5abc6f415b87" data-track="story-related">Article: Time-Series Storage: Design Choices That Shape Cost and Performance</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/fd797e93058cd1d0" data-track="story-related">What Parameter Golf taught us about AI-assisted research</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/483b403fad36bd56" data-track="story-related">QCon AI Boston 2026 Schedule: Agents in Production, Inference Cost, and AI in the SDLC</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/5cd65517d196bdcd" data-track="story-related">Agent Cost You $54,540</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 20, 2026</span></div></article></div></section>
     </section>
 
     <footer>

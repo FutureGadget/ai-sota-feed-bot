@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence" />
   <meta name="twitter:description" content="In 3D environments, Embodied Agents answer spatially relevant questions through reasoning from a mixture of modalities including natural language, RGB images, point clouds, depth maps and camera poses. Existing Vision..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence", "description": "In 3D environments, Embodied Agents answer spatially relevant questions through reasoning from a mixture of modalities including natural language, RGB images, point clouds, depth maps and camera poses. Existing Vision...", "datePublished": "2026-06-01T16:36:21+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/cd7c88a8ea42fa29", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.02463v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence", "item": "https://www.llm-digest.com/story/cd7c88a8ea42fa29"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence", "description": "In 3D environments, Embodied Agents answer spatially relevant questions through reasoning from a mixture of modalities including natural language, RGB images, point clouds, depth maps and camera poses. Existing Vision...", "datePublished": "2026-06-01T16:36:21+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/cd7c88a8ea42fa29", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.02463v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence", "item": "https://www.llm-digest.com/story/cd7c88a8ea42fa29"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_ai · Jun 1, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2606.02463v1" target="_blank" rel="noopener">MASER: Modality-Adaptive Specialist Routing for Embodied 3D Spatial Intelligence</a></h2>
       
       
-      <p class="story-summary">In 3D environments, Embodied Agents answer spatially relevant questions through reasoning from a mixture of modalities including natural language, RGB images, point clouds, depth maps and camera poses. Existing Vision-Language models (VLMs) are fine-tuned over a single modality. This completely ignores the question semantics which may favor a different modality than the finetuned modality. To address this, we propose MASER (Modality-Adaptive SpEcialist Routing), a lightweight framework that trains five different modality adapters of a shared VLM backbone and learns a neural routing policy that selects the best adapter based on the question during inference. We encode each question with a frozen sentence transformer and pass the embedding through a small Multi-layer Perceptron (MLP) trained on oracle adapter-accuracy labels. We evaluate our methodology over the Open3D-VQA benchmark and our evaluations show that no single modality is universally optimal -- point-cloud answers are best in 51.5% of cases. MASER routes with 51.3% oracle agreement, outperforming a Random-Forest ablation (43.5%), with only a single adapter call per question.</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.02463v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.02463v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/4ecb40506184767b" data-track="story-related">Stateful Online Monitoring Catches Distributed Agent Attacks</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/c28eac89a6fd2c9a" data-track="story-related">RoboWits: Unexpected Challenges for Robotic Creative Problem Solving</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/7525c027db135f61" data-track="story-related">Automating Low-Risk Code Review at Meta: RADAR, Risk Calibration, and Review Efficiency</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/68ab5e31319d665b" data-track="story-related">SwarmHarness: Skill-Based Task Routing via Decentralized Incentive-Aligned AI Agent Networks</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 27, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">In 3D environments, Embodied Agents answer spatially relevant questions through reasoning from a mixture of modalities including natural language, RGB images, point clouds, depth maps and camera poses. Existing Vision...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.02463v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.02463v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/926242b5ab2db8be" data-track="story-related">I built an agent-run 1:1 email newsletter for competitive intelligence (free)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/68ab5e31319d665b" data-track="story-related">SwarmHarness: Skill-Based Task Routing via Decentralized Incentive-Aligned AI Agent Networks</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/760024546d3f8e25" data-track="story-related">DexHoldem: Playing Texas Hold&#x27;em with Dexterous Embodied System</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 18, 2026</span></div></article><article><h3><a href="/story/a329a7ab99bb29a0" data-track="story-related">Manufacturing intelligence with Amazon Nova Multimodal Embeddings</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">May 11, 2026</span></div></article></div></section>
     </section>
 
     <footer>

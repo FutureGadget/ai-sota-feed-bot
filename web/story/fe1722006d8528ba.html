@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards" />
   <meta name="twitter:description" content="Long-context reasoning remains a central challenge for large language models, which often fail to locate and integrate key information in extensive distracting content. Reinforcement learning with verifiable rewards (..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards", "description": "Long-context reasoning remains a central challenge for large language models, which often fail to locate and integrate key information in extensive distracting content. Reinforcement learning with verifiable rewards (...", "datePublished": "2026-05-29T17:51:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/fe1722006d8528ba", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.31584v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards", "item": "https://www.llm-digest.com/story/fe1722006d8528ba"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards", "description": "Long-context reasoning remains a central challenge for large language models, which often fail to locate and integrate key information in extensive distracting content. Reinforcement learning with verifiable rewards (...", "datePublished": "2026-05-29T17:51:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/fe1722006d8528ba", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.31584v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards", "item": "https://www.llm-digest.com/story/fe1722006d8528ba"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_lg · May 29, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2605.31584v1" target="_blank" rel="noopener">LongTraceRL: Learning Long-Context Reasoning from Search Agent Trajectories with Rubric Rewards</a></h2>
       
       
-      <p class="story-summary">Long-context reasoning remains a central challenge for large language models, which often fail to locate and integrate key information in extensive distracting content. Reinforcement learning with verifiable rewards (RLVR) has shown promise for this task, yet existing methods are limited by low-confusability distractors and sparse, outcome-only reward signals that cannot supervise intermediate reasoning steps. To address these issues, we introduce \textsc{LongTraceRL}. For data construction, we generate multi-hop questions via knowledge graph random walks and leverage search agent trajectories to build \emph{tiered distractors}: documents the agent read but did not cite (high confusability) and documents that appeared in search results but were never opened (low confusability), producing training contexts that are far more challenging than those built by random sampling or one-shot search. For reward design, we propose a \emph{rubric reward} that uses the gold entities along each reasoning chain as fine-grained, entity-level process supervision. This rubric reward is applied only to responses with correct final answers (positive-only strategy), distinguishing the reasoning quality among correct responses and preventing reward hacking. Experiments on three reasoning LLMs (4B--30B) across five long-context benchmarks demonstrate that \textsc{LongTraceRL} consistently outperforms strong baselines and encourages comprehensive, evidence-grounded reasoning. Codes, datasets and mode</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.31584v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.31584v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/372f944539db1647" data-track="story-related">The Dynamic-Probabilistic Consistency Gap in Chaotic Surrogate Modeling</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/d5de9b6de4d31396" data-track="story-related">Statistical Embeddings for Similarity, Retrieval, and Interpretable Alignment of Numeric Tabular Datasets</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/2a9e6920498c09be" data-track="story-related">MarginGate: Sparse Margin-Triggered Verification for Batch-Invariant LLM Inference</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/538297b31138c2bc" data-track="story-related">LLM Zeroth-Order Fine-Tuning is an Inference Workload</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 27, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Long-context reasoning remains a central challenge for large language models, which often fail to locate and integrate key information in extensive distracting content. Reinforcement learning with verifiable rewards (...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.31584v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.31584v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/d2bba4580b156594" data-track="story-related">DelTA: Discriminative Token Credit Assignment for Reinforcement Learning from Verifiable Rewards</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/78dedeee8bda86ba" data-track="story-related">KV-Fold: One-Step KV-Cache Recurrence for Long-Context Inference</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/e5185bf41c4e298f" data-track="story-related">RubricEM: Meta-RL with Rubric-guided Policy Decomposition beyond Verifiable Rewards</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/95e6acabb6861697" data-track="story-related">Selector-Guided Autonomous Curriculum for One-Shot Reinforcement Learning from Verifiable Rewards</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 3, 2026</span></div></article></div></section>
     </section>
 
     <footer>

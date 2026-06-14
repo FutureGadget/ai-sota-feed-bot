@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Changes to GitHub Copilot Individual plans" />
   <meta name="twitter:description" content="Changes to GitHub Copilot Individual plans On the same day as Claude Code&#x27;s temporary will-they-won&#x27;t-they $100/month kerfuffle (for the moment, they won&#x27;t ), here&#x27;s the latest on GitHub Copilot pricing. Unlike Anthro..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Changes to GitHub Copilot Individual plans", "description": "Changes to GitHub Copilot Individual plans On the same day as Claude Code's temporary will-they-won't-they $100/month kerfuffle (for the moment, they won't ), here's the latest on GitHub Copilot pricing. Unlike Anthro...", "datePublished": "2026-04-22T03:30:02+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/2c96923e2106d91b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Changes to GitHub Copilot Individual plans", "item": "https://www.llm-digest.com/story/2c96923e2106d91b"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Changes to GitHub Copilot Individual plans", "description": "Changes to GitHub Copilot Individual plans On the same day as Claude Code's temporary will-they-won't-they $100/month kerfuffle (for the moment, they won't ), here's the latest on GitHub Copilot pricing. Unlike Anthro...", "datePublished": "2026-04-22T03:30:02+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/2c96923e2106d91b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Changes to GitHub Copilot Individual plans", "item": "https://www.llm-digest.com/story/2c96923e2106d91b"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 22, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything" target="_blank" rel="noopener">Changes to GitHub Copilot Individual plans</a></h2>
       
       
-      <p class="story-summary">Changes to GitHub Copilot Individual plans On the same day as Claude Code&#x27;s temporary will-they-won&#x27;t-they $100/month kerfuffle (for the moment, they won&#x27;t ), here&#x27;s the latest on GitHub Copilot pricing. Unlike Anthropic, GitHub put up an official announcement about their changes, which include tightening usage limits, pausing signups for individual plans (!), restricting Claude Opus 4.7 to the more expensive $39/month &quot;Pro+&quot; plan, and dropping the previous Opus models entirely. The key paragraph: Agentic workflows have fundamentally changed Copilot’s compute demands. Long-running, parallelized sessions now regularly consume far more resources than the original plan structure was built to support. As Copilot’s agentic capabilities have expanded rapidly, agents are doing more work, and more customers are hitting usage limits designed to maintain service reliability. It&#x27;s easy to forget that just six months ago heavy LLM users were burning an order of magnitude less tokens. Coding agents consume a lot of compute. Copilot was also unique (I believe) among agents in charging per-request, not per-token. ( Correction: Windsurf also operated a credit system like this which they abandoned last month .) This means that single agentic requests which burn more tokens cut directly into their margins. The most recent pricing scheme addresses that with token-based usage limits on a per-session and weekly basis. My one problem with this announcement is that it doesn&#x27;t clearly clarify which</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F22%2Fchanges-to-github-copilot%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/b2c9fcda761f8674" data-track="story-related">Where&#x27;s the raccoon with the ham radio? (ChatGPT Images 2.0)</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/0dbe547da66b266b" data-track="story-related">Quoting Andreas Påhlsson-Notini</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 21, 2026</span></div></article><article><h3><a href="/story/1202813195ca0b8a" data-track="story-related">Adding a new content type to my blog-to-newsletter tool</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 18, 2026</span></div></article><article><h3><a href="/story/6058b0ccb1b4a18e" data-track="story-related">Join us at PyCon US 2026 in Long Beach - we have new AI and security tracks this year</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Changes to GitHub Copilot Individual plans On the same day as Claude Code&#x27;s temporary will-they-won&#x27;t-they $100/month kerfuffle (for the moment, they won&#x27;t ), here&#x27;s the latest on GitHub Copilot pricing. Unlike Anthro...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/22/changes-to-github-copilot/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F22%2Fchanges-to-github-copilot%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

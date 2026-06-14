@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="v2.1.163" />
   <meta name="twitter:description" content="What&#x27;s changed Added requiredMinimumVersion and requiredMaximumVersion managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version Added /plu..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.163", "description": "What's changed Added requiredMinimumVersion and requiredMaximumVersion managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version Added /plu...", "datePublished": "2026-06-04T21:52:51+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0517ef1efd7e9292", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.163"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "v2.1.163", "item": "https://www.llm-digest.com/story/0517ef1efd7e9292"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.163", "description": "What's changed Added requiredMinimumVersion and requiredMaximumVersion managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version Added /plu...", "datePublished": "2026-06-04T21:52:51+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/0517ef1efd7e9292", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.163"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "v2.1.163", "item": "https://www.llm-digest.com/story/0517ef1efd7e9292"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">claude_code_releases · Jun 4, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank" rel="noopener">v2.1.163</a></h2>
       
       
-      <p class="story-summary">What&#x27;s changed Added requiredMinimumVersion and requiredMaximumVersion managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version Added /plugin list command to list installed plugins, with --enabled / --disabled filters Added a &quot;c to copy&quot; shortcut to /btw that copies the raw markdown answer to the clipboard, preserving formatting when pasted elsewhere Hooks: Stop and SubagentStop hooks can now return hookSpecificOutput.additionalContext to give Claude feedback and keep the turn going without being labeled a hook error Skills: added \$ escape syntax to include a literal $ before a digit in command bodies stdio MCP servers now receive the same CLAUDE_CODE_SESSION_ID as hooks/Bash on --resume Fixed claude -p hanging forever after its final result when a backgrounded command never exits — background shells are now stopped ~5s after the result once stdin closes Fixed claude -p failing with &quot;ANTHROPIC_API_KEY required&quot; on Bedrock/Vertex/Foundry when CI=true and no Anthropic API key is set Fixed bash commands failing under bazel and EDR-protected Go workflows: $TMPDIR was overridden to /tmp/claude-{uid} for all commands instead of only sandboxed ones (regression in 2.1.154) Fixed Bash commands failing on Windows with &quot;EEXIST: file already exists&quot; on the session-env directory when it has the read-only attribute or is inside OneDrive Fixed org-managed permission rules not applying for the entire session when</p><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.163&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/c4a4f4f06cbc4c73" data-track="story-related">v2.1.160</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/177299cab377ed16" data-track="story-related">v2.1.154</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/04a01fee484d75a2" data-track="story-related">v2.1.147</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/88b693a15cea273c" data-track="story-related">v2.1.146</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">What&#x27;s changed Added requiredMinimumVersion and requiredMaximumVersion managed settings — Claude Code refuses to start if its version is outside the allowed range and directs the user to an approved version Added /plu...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.163" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.163&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/c4a4f4f06cbc4c73" data-track="story-related">v2.1.160</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/177299cab377ed16" data-track="story-related">v2.1.154</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/04a01fee484d75a2" data-track="story-related">v2.1.147</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/88b693a15cea273c" data-track="story-related">v2.1.146</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article></div></section>
     </section>
 
     <footer>

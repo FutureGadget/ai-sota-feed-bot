@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="The last six months in LLMs in five minutes" />
   <meta name="twitter:description" content="I put together these annotated slides from my five minute lightning talk at PyCon US 2026, using the latest iteration of my annotated presentation tool . # I presented this lightning talk at PyCon US 2026, attempting..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The last six months in LLMs in five minutes", "description": "I put together these annotated slides from my five minute lightning talk at PyCon US 2026, using the latest iteration of my annotated presentation tool . # I presented this lightning talk at PyCon US 2026, attempting...", "datePublished": "2026-05-19T01:09:44+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ac9595927fac293", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/5-minutes-llms/5-minutes-llms.001.jpeg", "isBasedOn": "https://simonwillison.net/2026/May/19/5-minute-llms/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "The last six months in LLMs in five minutes", "item": "https://www.llm-digest.com/story/5ac9595927fac293"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The last six months in LLMs in five minutes", "description": "I put together these annotated slides from my five minute lightning talk at PyCon US 2026, using the latest iteration of my annotated presentation tool . # I presented this lightning talk at PyCon US 2026, attempting...", "datePublished": "2026-05-19T01:09:44+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ac9595927fac293", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://static.simonwillison.net/static/2026/5-minutes-llms/5-minutes-llms.001.jpeg", "isBasedOn": "https://simonwillison.net/2026/May/19/5-minute-llms/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "The last six months in LLMs in five minutes", "item": "https://www.llm-digest.com/story/5ac9595927fac293"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 19, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/19/5-minute-llms/#atom-everything" target="_blank" rel="noopener">The last six months in LLMs in five minutes</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://static.simonwillison.net/static/2026/5-minutes-llms/5-minutes-llms.001.jpeg" alt="" loading="lazy" onerror="this.remove()" />I put together these annotated slides from my five minute lightning talk at PyCon US 2026, using the latest iteration of my annotated presentation tool . # I presented this lightning talk at PyCon US 2026, attempting to summarize the last six months of developments in LLMs in five minutes. # Six months is a pretty convenient time period to cover, because it captures what I&#x27;ve been calling the November 2025 inflection point . November was a critical month in LLMs, especially for coding. # For one thing, the supposedly &quot;best&quot; model (depending mostly on vibes) changed hands five times between the three big providers. # As always, I&#x27;m using my Generate an SVG of a pelican riding a bicycle test to help illustrate the differences between the models. Why this test? Because pelicans are hard to draw, bicycles are hard to draw, pelicans can&#x27;t ride bicycles ... and there&#x27;s zero chance any AI lab would train a model for such a ridiculous task. # At the start of November the widely acknowledged &quot;best&quot; model was Claude Sonnet 4.5, released on 29th September . It drew me this pelican. In November it was overtaken by GPT-5.1 , then Gemini 3 , then GPT-5.1 Codex Max , and then Anthropic took the crown back again with Claude Opus 4.5 . I think Gemini 3 drew the best pelican out of this lot, but pelicans aren&#x27;t everything. Most practitioners will agree that Opus 4.5 held the crown for the next couple of months. # It took a little while for this to become clear, but the real news from November</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/19/5-minute-llms/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F19%2F5-minute-llms%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a7f49c269fbfd310" data-track="story-related">Glaucous-winged Gull, Brown Pelican, Snowy Egret, Canada Goose</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 18, 2026</span></div></article><article><h3><a href="/story/0174d8e48e63ec90" data-track="story-related">Warelay -&gt; OpenClaw</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 16, 2026</span></div></article><article><h3><a href="/story/9620fb3381eaf8b8" data-track="story-related">Quoting Julia Evans</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 16, 2026</span></div></article><article><h3><a href="/story/c533eb9ba1b6d17a" data-track="story-related">Not so locked in any more</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 14, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I put together these annotated slides from my five minute lightning talk at PyCon US 2026, using the latest iteration of my annotated presentation tool . # I presented this lightning talk at PyCon US 2026, attempting...</p></div><img class="story-img" src="https://static.simonwillison.net/static/2026/5-minutes-llms/5-minutes-llms.001.jpeg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/19/5-minute-llms/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F19%2F5-minute-llms%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/3bfb00e9b3cb718b" data-track="story-related">AI-Native Healthcare: 100M Doctor Visits, 10–20 Hours Saved, Prior Auth in Minutes — Janie Lee &amp; Chai Asawa, Abridge</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/53c962f745e63a71" data-track="story-related">Anthropic Traces Six Weeks of Claude Code Quality Complaints to Three Overlapping Product Changes</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 14, 2026</span></div></article></div></section>
     </section>
 
     <footer>

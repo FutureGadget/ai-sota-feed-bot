@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes" />
   <meta name="twitter:description" content="I spent the past year building a unified memory layer for my AI agents using knowledge graphs and ontologies on top of MongoDB. I followed every trend first. I reached for the shiny frameworks and tried to design the..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes", "description": "I spent the past year building a unified memory layer for my AI agents using knowledge graphs and ontologies on top of MongoDB. I followed every trend first. I reached for the shiny frameworks and tried to design the...", "datePublished": "2026-05-30T16:04:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/af33a564d5565d00", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48337689"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes", "item": "https://www.llm-digest.com/story/af33a564d5565d00"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes", "description": "I spent the past year building a unified memory layer for my AI agents using knowledge graphs and ontologies on top of MongoDB. I followed every trend first. I reached for the shiny frameworks and tried to design the...", "datePublished": "2026-05-30T16:04:30+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/af33a564d5565d00", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48337689"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes", "item": "https://www.llm-digest.com/story/af33a564d5565d00"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.ycombinator.com/item?id=48337689" target="_blank" rel="noopener">I spent a year building agent memory on knowledge graphs. Here are my 5 mistakes</a></h2>
       
       
-      <p class="story-summary">I spent the past year building a unified memory layer for my AI agents using knowledge graphs and ontologies on top of MongoDB. I followed every trend first. I reached for the shiny frameworks and tried to design the perfect upfront ontology. I made basically every mistake possible. Naive memory fails at scale. File search bloats the context window once memory gets big. Claude Code handles it this way out of the box. Even semantic search over history can&#x27;t traverse the relationships between people, topics, objects, locations, and preferences. The fix was to stop treating memory as a retrieval problem and treat it as a *data-modeling problem*. Here are the 5 mistakes I made: 1. I reached for frameworks first. I tried LangGraph and CrewAI. The moment I needed custom ontology constraints, immutable observation logs, composite IDs, and multi-hop traversal, I was fighting the framework. Lesson: Own the memory and the harness yourself because frameworks encode assumptions your system rarely matches. 2. I overthought the ontology. Knowing it&#x27;s a data-modeling problem, I tried to design the perfect ontology upfront. This froze projects for months. Lesson: Ontology design is a data-exploration loop. Start with POLE+O (Person / Object / Location / Event / Organization) and extend only on collisions. For example, I had a run tagging &quot;Claude Code&quot; as a Person when it&#x27;s an Object. 3. I confused resolution with deduplication. Naming is not identity. Confusing them corrupts the graph. Resol</p><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48337689" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48337689&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/bbbccf1f770a4bfe" data-track="story-related">I Gave an AI Agent $0 and Told It to Make $10k</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 30, 2026</span></div></article><article><h3><a href="/story/2406e4b15b5a58e5" data-track="story-related">Autonomous LLM Agent Worms</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 30, 2026</span></div></article><article><h3><a href="/story/8aeffc16ffd6f5ba" data-track="story-related">Show HN: VT Code – open-source terminal coding agent in Rust</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 30, 2026</span></div></article><article><h3><a href="/story/926242b5ab2db8be" data-track="story-related">I built an agent-run 1:1 email newsletter for competitive intelligence (free)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 29, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I spent the past year building a unified memory layer for my AI agents using knowledge graphs and ontologies on top of MongoDB. I followed every trend first. I reached for the shiny frameworks and tried to design the...</p></div></div><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48337689" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48337689&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/5819b447f90429c3" data-track="story-related">Show HN: I built a RAG and knowledge graph agent that runs locally</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 23, 2026</span></div></article><article><h3><a href="/story/cd7e0625b381fcea" data-track="story-related">I built a powerful RAG and knowledge graph agent that runs locally</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 23, 2026</span></div></article><article><h3><a href="/story/1e955186aa050b22" data-track="story-related">Edge-specific signal propagation on mature chromophore-region 3D mechanism graphs for fluorescent protein quantum-yield prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/02b49d0cfa67c74a" data-track="story-related">[AINews] Agents for Everything Else: Codex for Knowledge Work, Claude for Creative Work</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 1, 2026</span></div></article></div></section>
     </section>
 
     <footer>

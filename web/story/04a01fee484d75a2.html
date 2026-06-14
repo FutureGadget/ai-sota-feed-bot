@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="v2.1.147" />
   <meta name="twitter:description" content="What&#x27;s changed Added the Workflow tool for deterministic multi-agent orchestration. It is off by default — set CLAUDE_CODE_WORKFLOWS=1 to enable Pinned background sessions ( Ctrl+T in claude agents ) now stay alive wh..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.147", "description": "What's changed Added the Workflow tool for deterministic multi-agent orchestration. It is off by default — set CLAUDE_CODE_WORKFLOWS=1 to enable Pinned background sessions ( Ctrl+T in claude agents ) now stay alive wh...", "datePublished": "2026-05-21T23:54:18+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/04a01fee484d75a2", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.147"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "v2.1.147", "item": "https://www.llm-digest.com/story/04a01fee484d75a2"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.147", "description": "What's changed Added the Workflow tool for deterministic multi-agent orchestration. It is off by default — set CLAUDE_CODE_WORKFLOWS=1 to enable Pinned background sessions ( Ctrl+T in claude agents ) now stay alive wh...", "datePublished": "2026-05-21T23:54:18+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/04a01fee484d75a2", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.147"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "v2.1.147", "item": "https://www.llm-digest.com/story/04a01fee484d75a2"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">claude_code_releases · May 21, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank" rel="noopener">v2.1.147</a></h2>
       
       
-      <p class="story-summary">What&#x27;s changed Pinned background sessions ( Ctrl+T in claude agents ) now stay alive when idle, are restarted in place to apply Claude Code updates, and are shed under memory pressure only after non-pinned sessions Renamed /simplify to /code-review . It now reports correctness bugs at a chosen effort level (e.g., /code-review high ); pass --comment to post findings as inline GitHub PR comments. The old cleanup-and-fix behavior has been removed Improved auto-updater: retries transient network failures, reports specific error categories and OS error codes on failure, and shows the current version when an update fails Improved diff rendering performance for large file edits Prompt history no longer records consecutive duplicate entries — recalling a prompt with arrow-up and submitting it again won&#x27;t add another copy Fixed enterprise login restrictions ( forceLoginOrgUUID and forceLoginMethod managed-settings) not being enforced against third-party-provider and API-key sessions Fixed &amp; in ! command output displaying as &amp;amp; , which broke copy-pasting URLs from commands like gcloud auth login on headless machines Fixed unknown slash commands silently doing nothing in headless/SDK mode — they now show an error message Fixed /help rendering a broken tab header and showing only one command per page on small terminals when not in fullscreen mode Fixed shell snapshot dropping user functions whose names start with a single underscore, which broke aliases referencing them Fixed plugin a</p><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.147&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/88b693a15cea273c" data-track="story-related">v2.1.146</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/c8e3c28d8d4297cf" data-track="story-related">v2.1.145</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/d9add980c8cb93e3" data-track="story-related">v2.1.142</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/c1a0f231f0eebdab" data-track="story-related">v2.1.141</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 13, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">What&#x27;s changed Added the Workflow tool for deterministic multi-agent orchestration. It is off by default — set CLAUDE_CODE_WORKFLOWS=1 to enable Pinned background sessions ( Ctrl+T in claude agents ) now stay alive wh...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.147" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.147&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/88b693a15cea273c" data-track="story-related">v2.1.146</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 21, 2026</span></div></article><article><h3><a href="/story/c8e3c28d8d4297cf" data-track="story-related">v2.1.145</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 20, 2026</span></div></article><article><h3><a href="/story/d9add980c8cb93e3" data-track="story-related">v2.1.142</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/c1a0f231f0eebdab" data-track="story-related">v2.1.141</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">May 13, 2026</span></div></article></div></section>
     </section>
 
     <footer>

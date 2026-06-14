@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="v2.1.117" />
   <meta name="twitter:description" content="What&#x27;s changed Forked subagents can now be enabled on external builds by setting CLAUDE_CODE_FORK_SUBAGENT=1 Agent frontmatter mcpServers are now loaded for main-thread agent sessions via --agent Improved /model : sel..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.117", "description": "What's changed Forked subagents can now be enabled on external builds by setting CLAUDE_CODE_FORK_SUBAGENT=1 Agent frontmatter mcpServers are now loaded for main-thread agent sessions via --agent Improved /model : sel...", "datePublished": "2026-04-22T00:04:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/45ec04b04df13c6e", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.117"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "v2.1.117", "item": "https://www.llm-digest.com/story/45ec04b04df13c6e"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "v2.1.117", "description": "What's changed Forked subagents can now be enabled on external builds by setting CLAUDE_CODE_FORK_SUBAGENT=1 Agent frontmatter mcpServers are now loaded for main-thread agent sessions via --agent Improved /model : sel...", "datePublished": "2026-04-22T00:04:40+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/45ec04b04df13c6e", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/anthropics/claude-code/releases/tag/v2.1.117"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "v2.1.117", "item": "https://www.llm-digest.com/story/45ec04b04df13c6e"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">claude_code_releases · Apr 22, 2026 · release</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.117" target="_blank" rel="noopener">v2.1.117</a></h2>
       
       
-      <p class="story-summary">What&#x27;s changed Forked subagents can now be enabled on external builds by setting CLAUDE_CODE_FORK_SUBAGENT=1 Agent frontmatter mcpServers are now loaded for main-thread agent sessions via --agent Improved /model : selections now persist across restarts even when the project pins a different model, and the startup header shows when the active model comes from a project or managed-settings pin The /resume command now offers to summarize stale, large sessions before re-reading them, matching the existing --resume behavior Faster startup when both local and claude.ai MCP servers are configured (concurrent connect now default) plugin install on an already-installed plugin now installs any missing dependencies instead of stopping at &quot;already installed&quot; Plugin dependency errors now say &quot;not installed&quot; with an install hint, and claude plugin marketplace add now auto-resolves missing dependencies from configured marketplaces Managed-settings blockedMarketplaces and strictKnownMarketplaces are now enforced on plugin install, update, refresh, and autoupdate Advisor Tool (experimental): dialog now carries an &quot;experimental&quot; label, learn-more link, and startup notification when enabled; sessions no longer get stuck with &quot;Advisor tool result content could not be processed&quot; errors on every prompt and /compact The cleanupPeriodDays retention sweep now also covers ~/.claude/tasks/ , ~/.claude/shell-snapshots/ , and ~/.claude/backups/ OpenTelemetry: user_prompt events now include command_name a</p><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.117" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.117&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/ed034f4457c03aab" data-track="story-related">v2.1.113</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">What&#x27;s changed Forked subagents can now be enabled on external builds by setting CLAUDE_CODE_FORK_SUBAGENT=1 Agent frontmatter mcpServers are now loaded for main-thread agent sessions via --agent Improved /model : sel...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/anthropics/claude-code/releases/tag/v2.1.117" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fanthropics%2Fclaude-code%2Freleases%2Ftag%2Fv2.1.117&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/ed034f4457c03aab" data-track="story-related">v2.1.113</a></h3><div class="art-meta"><span class="badge">claude_code_releases</span><span class="badge">Apr 17, 2026</span></div></article></div></section>
     </section>
 
     <footer>

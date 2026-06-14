@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)" />
   <meta name="twitter:description" content="About me: I am an AI Product Engineer specializing in building autonomous agentic workflows. Recently, I built &#x27;Jarvis&#x27;, a multimodal autonomous agent featuring near-zero latency inference using Groq SDK and complex R..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)", "description": "About me: I am an AI Product Engineer specializing in building autonomous agentic workflows. Recently, I built 'Jarvis', a multimodal autonomous agent featuring near-zero latency inference using Groq SDK and complex R...", "datePublished": "2026-05-26T18:37:47+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/dec0328181979362", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48283927"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)", "item": "https://www.llm-digest.com/story/dec0328181979362"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)", "description": "About me: I am an AI Product Engineer specializing in building autonomous agentic workflows. Recently, I built 'Jarvis', a multimodal autonomous agent featuring near-zero latency inference using Groq SDK and complex R...", "datePublished": "2026-05-26T18:37:47+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/dec0328181979362", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48283927"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)", "item": "https://www.llm-digest.com/story/dec0328181979362"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 26, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.ycombinator.com/item?id=48283927" target="_blank" rel="noopener">Who Wants to Be Hired? (May 2026) – AI Engineer (Python, RAG, Agentic Workflows)</a></h2>
       
       
-      <p class="story-summary">About me: I am an AI Product Engineer specializing in building autonomous agentic workflows. Recently, I built &#x27;Jarvis&#x27;, a multimodal autonomous agent featuring near-zero latency inference using Groq SDK and complex RAG pipelines. Currently, I am working at Invisible Technologies as an AI Operations Advanced Specialist, focusing on multi-agent orchestration and production-grade LLM optimization. Resume: https://drive.google.com/file/d/1862Td4bETGwuISckmQ4J8UIdP40ZpBpW/view?usp=sharing Email: atulchoudhary7781@gmail.com Comments URL: https://news.ycombinator.com/item?id=48283927 Points: 1 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48283927" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48283927&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/f7749d0aa647163c" data-track="story-related">Show HN: Chunk sidecars for validating agent-generated code before pushing to CI</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/fba96970be74fbe8" data-track="story-related">Show HN: Layered retrieval beats grep alone for LLM-generated engineering docs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/a7dec0b80ed188e0" data-track="story-related">Show HN: AgentToolBench-Code – security benchmark for AI coding agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/8b0b02de8b2e4002" data-track="story-related">Show HN: Unsiloed AI – #1 on olmOCR-Bench</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 25, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">About me: I am an AI Product Engineer specializing in building autonomous agentic workflows. Recently, I built &#x27;Jarvis&#x27;, a multimodal autonomous agent featuring near-zero latency inference using Groq SDK and complex R...</p></div></div><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48283927" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48283927&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/154f24165c6a3edc" data-track="story-related">A maintainability ratchet for AI-assisted Python</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 24, 2026</span></div></article><article><h3><a href="/story/0a8ffe12e6075ca1" data-track="story-related">Fluiq – LLM observability, evals and optimization in two lines of Python</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 10, 2026</span></div></article><article><h3><a href="/story/fcbe987fd19570dc" data-track="story-related">I&#x27;m looking for an AI Automation Engineer role or gig</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 5, 2026</span></div></article><article><h3><a href="/story/398b9f083cf0bcd3" data-track="story-related">TRE Python binding — ReDoS robustness demo</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 4, 2026</span></div></article></div></section>
     </section>
 
     <footer>

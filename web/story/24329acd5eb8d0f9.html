@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: An agent that remembers across sessions (no chat history)" />
   <meta name="twitter:description" content="Hi HN — I built this in my off-hours over the last 3 months. Sharing now because I just filed the provisional patent yesterday (US 64/050,345) and the repo is freshly public. The frustration that started it: every tim..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: An agent that remembers across sessions (no chat history)", "description": "Hi HN — I built this in my off-hours over the last 3 months. Sharing now because I just filed the provisional patent yesterday (US 64/050,345) and the repo is freshly public. The frustration that started it: every tim...", "datePublished": "2026-04-28T20:22:41+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/24329acd5eb8d0f9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/umbecanessa/neural-ledger-system"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: An agent that remembers across sessions (no chat history)", "item": "https://www.llm-digest.com/story/24329acd5eb8d0f9"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: An agent that remembers across sessions (no chat history)", "description": "Hi HN — I built this in my off-hours over the last 3 months. Sharing now because I just filed the provisional patent yesterday (US 64/050,345) and the repo is freshly public. The frustration that started it: every tim...", "datePublished": "2026-04-28T20:22:41+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/24329acd5eb8d0f9", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/umbecanessa/neural-ledger-system"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: An agent that remembers across sessions (no chat history)", "item": "https://www.llm-digest.com/story/24329acd5eb8d0f9"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Apr 28, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://github.com/umbecanessa/neural-ledger-system" target="_blank" rel="noopener">Show HN: An agent that remembers across sessions (no chat history)</a></h2>
       
       
-      <p class="story-summary">Hi HN — I built this in my off-hours over the last 3 months. Sharing now because I just filed the provisional patent yesterday (US 64/050,345) and the repo is freshly public. The frustration that started it: every time I use a coding agent (Cursor, OpenCode, Aider, Claude Code, etc.), it eventually loses context — forgets the SSH address, re-asks for the DB password, tries to redeploy to localhost when the server is remote. The &quot;proper&quot; answer is &quot;set up 10 specialized agents with short context windows.&quot; I&#x27;m too lazy for that. The conventional architecture is the actual problem. Every turn re-sends the full conversation, the model recomputes attention from scratch, and cost compounds with conversation length. Long-running agents are economically infeasible by design. What I built: NLS captures the model&#x27;s own computed K/V states (and recurrent states for hybrid models like Qwen3.5-MoE) after each turn, persists them to disk, and re-injects them into the cache on the next turn — at the right positions, with proper alignment. The model behaves as if it had the full conversation in context, but the conversation is never re-sent. Validated across three settings, in increasing order of stringency: (1) Standard conversational recall: 5/5 on a 5-fact production test. Baseline check. (2) LongMemEval (published cross-session benchmark, ~19K sessions). On the 18-question &quot;fully answerable&quot; subset: Condition Qwen 3.5 Qwen 3.6 Memories provided as TEXT in the prompt 8/18 9/18 Same memori</p><div class="story-actions"><a class="primary" href="https://github.com/umbecanessa/neural-ledger-system" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fumbecanessa%2Fneural-ledger-system&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/f5ecd01c54217c78" data-track="story-related">AI Talent agent making direct intros to 100s of startups</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/fff3f0d095f25ea2" data-track="story-related">SupraWall – Runtime Policy Enforcement for AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/cebbee90fb7cb0c4" data-track="story-related">Show HN: Built a local-first way to make AI context reusable across tools</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/384468466541d727" data-track="story-related">Show HN: Discuss CLI – No more reviewing agent plans in the terminal</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hi HN — I built this in my off-hours over the last 3 months. Sharing now because I just filed the provisional patent yesterday (US 64/050,345) and the repo is freshly public. The frustration that started it: every tim...</p></div></div><div class="story-actions"><a class="primary" href="https://github.com/umbecanessa/neural-ledger-system" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fumbecanessa%2Fneural-ledger-system&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/cebbee90fb7cb0c4" data-track="story-related">Show HN: Built a local-first way to make AI context reusable across tools</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/d222946e14c71226" data-track="story-related">Show HN: Stash – CLI to search over your team&#x27;s coding agent sessions</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 23, 2026</span></div></article></div></section>
     </section>
 
     <footer>

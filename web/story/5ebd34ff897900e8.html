@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Presentation: What I Learned Building Multi-Agent Systems From Scratch" />
   <meta name="twitter:description" content="Paulo Arruda discusses Shopify’s evolution in AI adoption, moving from simple chat tools to a sophisticated swarm of specialized agents. He explains the transition from massive &quot;all-in-one&quot; prompts to lean, narrow-foc..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Presentation: What I Learned Building Multi-Agent Systems From Scratch", "description": "Paulo Arruda discusses Shopify’s evolution in AI adoption, moving from simple chat tools to a sophisticated swarm of specialized agents. He explains the transition from massive \"all-in-one\" prompts to lean, narrow-foc...", "datePublished": "2026-05-13T12:01:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ebd34ff897900e8", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://res.infoq.com/presentations/multi-agent-system-lessons/en/mediumimage/medium-1778068150406.jpeg", "isBasedOn": "https://www.infoq.com/presentations/multi-agent-system-lessons/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Presentation: What I Learned Building Multi-Agent Systems From Scratch", "item": "https://www.llm-digest.com/story/5ebd34ff897900e8"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Presentation: What I Learned Building Multi-Agent Systems From Scratch", "description": "Paulo Arruda discusses Shopify’s evolution in AI adoption, moving from simple chat tools to a sophisticated swarm of specialized agents. He explains the transition from massive \"all-in-one\" prompts to lean, narrow-foc...", "datePublished": "2026-05-13T12:01:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/5ebd34ff897900e8", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://res.infoq.com/presentations/multi-agent-system-lessons/en/mediumimage/medium-1778068150406.jpeg", "isBasedOn": "https://www.infoq.com/presentations/multi-agent-system-lessons/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Presentation: What I Learned Building Multi-Agent Systems From Scratch", "item": "https://www.llm-digest.com/story/5ebd34ff897900e8"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">infoq_ai_ml · May 13, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://www.infoq.com/presentations/multi-agent-system-lessons/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener">Presentation: What I Learned Building Multi-Agent Systems From Scratch</a></h2>
       
       
-      <p class="story-summary"><img class="story-img" src="https://res.infoq.com/presentations/multi-agent-system-lessons/en/mediumimage/medium-1778068150406.jpeg" alt="" loading="lazy" onerror="this.remove()" />Paulo Arruda discusses Shopify’s evolution in AI adoption, moving from simple chat tools to a sophisticated swarm of specialized agents. He explains the transition from massive &quot;all-in-one&quot; prompts to lean, narrow-focused agent microservices that slash task times from hours to minutes. He also shares a future-looking hypothesis on using filesystem-based adapters to solve context bloat. By Paulo Arruda</p><div class="story-actions"><a class="primary" href="https://www.infoq.com/presentations/multi-agent-system-lessons/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="story-source">Read the original at infoq.com →</a><a href="/?item=https%3A%2F%2Fwww.infoq.com%2Fpresentations%2Fmulti-agent-system-lessons%2F%3Futm_campaign%3Dinfoq_content%26utm_source%3Dinfoq%26utm_medium%3Dfeed%26utm_term%3DAI%252C%2BML%2B%2526%2BData%2BEngineering&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/baee826830bef409" data-track="story-related">AWS WorkSpaces Now Lets AI Agents Operate Legacy Desktop Applications Without APIs</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 13, 2026</span></div></article><article><h3><a href="/story/723d5abc6f415b87" data-track="story-related">Article: Time-Series Storage: Design Choices That Shape Cost and Performance</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/c9748596f6d2fd09" data-track="story-related">Coder Agents Enable Running AI Coding Workflows on Self-Hosted Infrastructure</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/4a1e17e04fe147f7" data-track="story-related">Article: Local-First AI Inference: A Cloud Architecture Pattern for Cost-Effective Document Processing</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 11, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Paulo Arruda discusses Shopify’s evolution in AI adoption, moving from simple chat tools to a sophisticated swarm of specialized agents. He explains the transition from massive &quot;all-in-one&quot; prompts to lean, narrow-foc...</p></div><img class="story-img" src="https://res.infoq.com/presentations/multi-agent-system-lessons/en/mediumimage/medium-1778068150406.jpeg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-actions"><a class="primary" href="https://www.infoq.com/presentations/multi-agent-system-lessons/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="story-source">Read the original at infoq.com →</a><a href="/?item=https%3A%2F%2Fwww.infoq.com%2Fpresentations%2Fmulti-agent-system-lessons%2F%3Futm_campaign%3Dinfoq_content%26utm_source%3Dinfoq%26utm_medium%3Dfeed%26utm_term%3DAI%252C%2BML%2B%2526%2BData%2BEngineering&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/09ea0b9ebd2ddc06" data-track="story-related">VibeServe: Can AI Agents Build Bespoke LLM Serving Systems?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/fc70033e828575b6" data-track="story-related">Recursive Multi-Agent Systems</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/96c6a74fda7a01f0" data-track="story-related">How GitHub Is Securing Agentic Workflows in Modern CI CD Systems</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 8, 2026</span></div></article><article><h3><a href="/story/31b17c5592bef497" data-track="story-related">Reinforcement Learning for LLM-based Multi-Agent Systems through Orchestration Traces</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 4, 2026</span></div></article></div></section>
     </section>
 
     <footer>

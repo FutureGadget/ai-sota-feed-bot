@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="I Am Retiring from Tech to Live Offline" />
   <meta name="twitter:description" content="I Am Retiring from Tech to Live Offline I&#x27;ve seen a lot of posts on forums from people threatening to quit their careers over AI. This is not one of those: Chad Whitacre is taking concrete steps, starting with this ty..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "I Am Retiring from Tech to Live Offline", "description": "I Am Retiring from Tech to Live Offline I've seen a lot of posts on forums from people threatening to quit their careers over AI. This is not one of those: Chad Whitacre is taking concrete steps, starting with this ty...", "datePublished": "2026-05-30T19:39:08+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/3ce6dcefb71acb2c", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "I Am Retiring from Tech to Live Offline", "item": "https://www.llm-digest.com/story/3ce6dcefb71acb2c"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "I Am Retiring from Tech to Live Offline", "description": "I Am Retiring from Tech to Live Offline I've seen a lot of posts on forums from people threatening to quit their careers over AI. This is not one of those: Chad Whitacre is taking concrete steps, starting with this ty...", "datePublished": "2026-05-30T19:39:08+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/3ce6dcefb71acb2c", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "I Am Retiring from Tech to Live Offline", "item": "https://www.llm-digest.com/story/3ce6dcefb71acb2c"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything" target="_blank" rel="noopener">I Am Retiring from Tech to Live Offline</a></h2>
       
       
-      <p class="story-summary">I Am Retiring from Tech to Live Offline I&#x27;ve seen a lot of posts on forums from people threatening to quit their careers over AI. This is not one of those: Chad Whitacre is taking concrete steps, starting with this typewritten, scanned letter I&#x27;m retiring from tech. Well, &quot;retiring&quot; is euphemistic. I&#x27;m stepping away from tech, and that includes Open Source. [...] AI was the last straw. Have you heard of that island off India where the indigenous population kills any outsiders fool-hardy enough to land? They are doing the rest of us a favor by preserving a way of life we may need again someday, or at the very least should not want to see completely extinguished. A reminder. Never forget your roots. Here in Pennsylvania we have the Amish performing a similar function. Significantly less hostile, though still set apart, they bear witness to what was normal for all of us a couple short centuries ago: horse and buggy, wood stoves and lanterns. My intent is to be AI Amish, which means Internet Amish. Not 1780, but 1980. Neo-Amish. I&#x27;m fine driving a car and flipping a lightswitch, by which I mean that they don&#x27;t make me into something I hate, which AI and [struck through: social media] [handwritten above: doomscrolling] do. I&#x27;ll admit that at first I wasn&#x27;t entirely sure if this was serious. Then I found this earlier post by Chad from Feb 19 2026, Spitting Out the Agentic Kool-Aid : I figured I’d better taste the Kool-Aid in order to form an opinion, so I dove into Claude Code with</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F30%2Fretiring-from-tech-to-live-offline%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/9602d7eff45f67f9" data-track="story-related">datasette 1.0a31</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/99ce3b2883d241e5" data-track="story-related">Claude Opus 4.8: &quot;a modest but tangible improvement&quot;</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/79b4bf4594434f95" data-track="story-related">sqlite AGENTS.md</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/9531c79f6646d4b5" data-track="story-related">I think Anthropic and OpenAI have found product-market fit</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 27, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I Am Retiring from Tech to Live Offline I&#x27;ve seen a lot of posts on forums from people threatening to quit their careers over AI. This is not one of those: Chad Whitacre is taking concrete steps, starting with this ty...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/30/retiring-from-tech-to-live-offline/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F30%2Fretiring-from-tech-to-live-offline%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/42a55e416b5bcd65" data-track="story-related">OpenAI Codex Becomes Desktop Agent: Controls Mac Apps, Watches Screen, Runs on Mobile - Tech Times</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">May 24, 2026</span></div></article><article><h3><a href="/story/bbb4f250c21dbb1f" data-track="story-related">Live blog: Code w/ Claude 2026</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 6, 2026</span></div></article><article><h3><a href="/story/e466aed456c133f6" data-track="story-related">Claw-Eval-Live: A Live Agent Benchmark for Evolving Real-World Workflows</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/2ace93bd388d9f38" data-track="story-related">AI agents (Grok vs. GPT-4o mini) compete in live crypto paper trading</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 29, 2026</span></div></article></div></section>
     </section>
 
     <footer>

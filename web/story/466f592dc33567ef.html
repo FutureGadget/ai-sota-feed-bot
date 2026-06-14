@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Thoughts on GitLab&#x27;s workforce reduction&quot; and &quot;structural and strategic decisions&quot;" />
   <meta name="twitter:description" content="GitLab Act 2 There&#x27;s a lot going on in this announcement from GitLab about the &quot;workforce reduction&quot; and &quot;structural and strategic decisions&quot; they are making with respect to the agentic era. They&#x27;re &quot;planning to reduc..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Thoughts on GitLab's workforce reduction\" and \"structural and strategic decisions\"", "description": "GitLab Act 2 There's a lot going on in this announcement from GitLab about the \"workforce reduction\" and \"structural and strategic decisions\" they are making with respect to the agentic era. They're \"planning to reduc...", "datePublished": "2026-05-11T23:58:55+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/466f592dc33567ef", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Thoughts on GitLab's workforce reduction\" and \"structural and strategic decisions\"", "item": "https://www.llm-digest.com/story/466f592dc33567ef"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Thoughts on GitLab's workforce reduction\" and \"structural and strategic decisions\"", "description": "GitLab Act 2 There's a lot going on in this announcement from GitLab about the \"workforce reduction\" and \"structural and strategic decisions\" they are making with respect to the agentic era. They're \"planning to reduc...", "datePublished": "2026-05-11T23:58:55+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/466f592dc33567ef", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Thoughts on GitLab's workforce reduction\" and \"structural and strategic decisions\"", "item": "https://www.llm-digest.com/story/466f592dc33567ef"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 11, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything" target="_blank" rel="noopener">Thoughts on GitLab&#x27;s workforce reduction&quot; and &quot;structural and strategic decisions&quot;</a></h2>
       
       
-      <p class="story-summary">GitLab Act 2 There&#x27;s a lot going on in this announcement from GitLab about the &quot;workforce reduction&quot; and &quot;structural and strategic decisions&quot; they are making with respect to the agentic era. They&#x27;re &quot;planning to reduce the number of countries by up to 30% where we have small teams&quot;. One of the most interesting things about GitLab is that they have employees spread across a large number of countries - 18 are listed in their public employee handbook but this post says they are &quot;operating in nearly 60 countries&quot;. That handbook used to document their payroll workflows for those countries too - they stopped publishing that in 2023 but the last public version (hooray for version control) remains a fascinating read. Since we don&#x27;t know which of those 60 countries have small teams, we can&#x27;t calculate how many countries that 30% applies to. &quot;We&#x27;re planning to flatten the organization, removing up to three layers of management in some functions so leaders are closer to the work.&quot; - this isn&#x27;t the first announcement of this type I&#x27;ve seen that&#x27;s trimming management. Coinbase recently announced a much more aggressive version of this: they were &quot;flattening our org structure to 5 layers max below&quot; and &quot;No pure managers: Every leader at Coinbase must also be a strong and active individual contributor. Managers should be like player-coaches&quot;. In terms of team structure: &quot;We&#x27;re re-organizing R&amp;D to create roughly 60 smaller, more empowered teams with end-to-end ownership, nearly doubling the</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F11%2Fgitlab-act-2%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/3ee4cc623426e867" data-track="story-related">Using LLM in the shebang line of a script</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/b6be045d33aaf60f" data-track="story-related">Learning on the Shop floor</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 11, 2026</span></div></article><article><h3><a href="/story/05d042dc5905ba44" data-track="story-related">Quoting New York Times Editors’ Note</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 10, 2026</span></div></article><article><h3><a href="/story/0abd127d4083ebc6" data-track="story-related">Using Claude Code: The Unreasonable Effectiveness of HTML</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 8, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">GitLab Act 2 There&#x27;s a lot going on in this announcement from GitLab about the &quot;workforce reduction&quot; and &quot;structural and strategic decisions&quot; they are making with respect to the agentic era. They&#x27;re &quot;planning to reduc...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/11/gitlab-act-2/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F11%2Fgitlab-act-2%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/1548e559386f98ff" data-track="story-related">[AINews] Anthropic growing 10x/year while everyone else is laying off &gt;10% of their workforce</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 9, 2026</span></div></article><article><h3><a href="/story/0dc30895c1d34ed0" data-track="story-related">Workflow Engine Is Durable. Your Agent&#x27;s Decisions Aren&#x27;t</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 8, 2026</span></div></article><article><h3><a href="/story/83140dba03e784fe" data-track="story-related">Progressive Online Video Understanding with Evidence-Aligned Timing and Transparent Decisions</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Apr 20, 2026</span></div></article></div></section>
     </section>
 
     <footer>

@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns!" />
   <meta name="twitter:description" content="What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns! Richard Si describes an excellent set of upgrades to Python&#x27;s default pip tool for installing dependencies. This version drops support for Python 3.9 - fair..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What's new in pip 26.1 - lockfiles and dependency cooldowns!", "description": "What's new in pip 26.1 - lockfiles and dependency cooldowns! Richard Si describes an excellent set of upgrades to Python's default pip tool for installing dependencies. This version drops support for Python 3.9 - fair...", "datePublished": "2026-04-28T05:23:05+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/afbaac3fcc8a2327", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/28/pip-261/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "What's new in pip 26.1 - lockfiles and dependency cooldowns!", "item": "https://www.llm-digest.com/story/afbaac3fcc8a2327"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What's new in pip 26.1 - lockfiles and dependency cooldowns!", "description": "What's new in pip 26.1 - lockfiles and dependency cooldowns! Richard Si describes an excellent set of upgrades to Python's default pip tool for installing dependencies. This version drops support for Python 3.9 - fair...", "datePublished": "2026-04-28T05:23:05+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/afbaac3fcc8a2327", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Apr/28/pip-261/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "What's new in pip 26.1 - lockfiles and dependency cooldowns!", "item": "https://www.llm-digest.com/story/afbaac3fcc8a2327"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Apr 28, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Apr/28/pip-261/#atom-everything" target="_blank" rel="noopener">What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns!</a></h2>
       
       
-      <p class="story-summary">What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns! Richard Si describes an excellent set of upgrades to Python&#x27;s default pip tool for installing dependencies. This version drops support for Python 3.9 - fair enough, since it&#x27;s been EOL since October . macOS still ships with python3 as a default Python 3.9, so I tried out the new Python version against Python 3.14 like this: uv python install 3.14 mkdir /tmp/experiment cd /tmp/experiment python3.14 -m venv venv source venv/bin/activate pip install -U pip pip --version This confirmed I had pip 26.1 - then I tried out the new lock files: pip lock datasette llm This installs Datasette and LLM and all of their dependencies and writes the whole lot to a 519 line pylock.toml file - here&#x27;s the result . The new release also supports dependency cooldowns, discussed here previously , via the new --uploaded-prior-to PXD option where X is a number of days. The format is P-number-of-days-D , following ISO duration format but only supporting days. I shipped a new release of LLM, version 0.31, three days ago . Here&#x27;s how to use the new --uploaded-prior-to P4D option to ask for a version that is at least 4 days old. pip install llm --uploaded-prior-to P4D venv/bin/llm --version This gave me version 0.30. Via Lobste.rs Tags: packaging , pip , python , security , supply-chain</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/28/pip-261/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F28%2Fpip-261%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a79eeb4c6ea1c7f8" data-track="story-related">Introducing talkie: a 13B vintage language model from 1930</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 28, 2026</span></div></article><article><h3><a href="/story/c70f7c2b5ce2a5ae" data-track="story-related">microsoft/VibeVoice</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 27, 2026</span></div></article><article><h3><a href="/story/6dab30f065ef7986" data-track="story-related">Speech translation in Google Meet is now rolling out to mobile devices</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 27, 2026</span></div></article><article><h3><a href="/story/76a5f876fdc36e33" data-track="story-related">GPT-5.5 prompting guide</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Apr 25, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">What&#x27;s new in pip 26.1 - lockfiles and dependency cooldowns! Richard Si describes an excellent set of upgrades to Python&#x27;s default pip tool for installing dependencies. This version drops support for Python 3.9 - fair...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Apr/28/pip-261/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FApr%2F28%2Fpip-261%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

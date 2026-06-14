@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Hackobar – One feed for AI news" />
   <meta name="twitter:description" content="Hey HN, Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI realted news from mmuliple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Hackobar – One feed for AI news", "description": "Hey HN, Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI realted news from mmuliple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles...", "datePublished": "2026-05-25T16:02:57+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/884fd4ae23e54086", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://hackobar.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Hackobar – One feed for AI news", "item": "https://www.llm-digest.com/story/884fd4ae23e54086"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Hackobar – One feed for AI news", "description": "Hey HN, Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI realted news from mmuliple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles...", "datePublished": "2026-05-25T16:02:57+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/884fd4ae23e54086", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://hackobar.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Hackobar – One feed for AI news", "item": "https://www.llm-digest.com/story/884fd4ae23e54086"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 25, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://hackobar.com" target="_blank" rel="noopener">Show HN: Hackobar – One feed for AI news</a></h2>
       
       
-      <p class="story-summary">Hey HN, Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI related news from multiple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles that cover AI, Tech news outlets, major ai lab blogs and of course the numerous AI news letters that are growing by day. GitHub trending repos isn&#x27;t &quot;news&quot; but as an engineer it matters. you can&#x27;t read every arXiv paper or every HuggingFace drop. HN has the best discussions, Twitter has some, newsletters have some. I used to check 5 places and still felt behind. Building this was fun. I had to face many technical challenges, even though I have used Claude Code to help build I think the decisions I took to mitigate those challenges are interesting and wanted to share with this crowd. 1 Fetching: I had to fetch different sources at different rate because fetching some on regular bases didn&#x27;t make sense. for example, fetching AI labs blogs every few hours does not make sense but the HN front page or reddit to get a sense what trending does 2 Filtering: Each articles fetched was filtered for specific top level keywords, then Gemma 4 26B batch classifies each item was AI relevant or not. 3 Deduplication: I deduped using 3 layer pipeline. URL normalization, Jaccard on word tokens and Gemma semantic matching. The same arXiv paper can arrive from HuggingFace or HN, and might show up in three newsletters the same day. When a duplicate is found, the original news items cro</p><div class="story-actions"><a class="primary" href="https://hackobar.com" target="_blank" rel="noopener" data-track="story-source">Read the original at hackobar.com →</a><a href="/?item=https%3A%2F%2Fhackobar.com&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/170d5c1648173458" data-track="story-related">SmithDB, the data layer for agent observability</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 25, 2026</span></div></article><article><h3><a href="/story/db76a6d400d11b80" data-track="story-related">Show HN: I Built a Debugging Challenge for the AI Coding Age</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 25, 2026</span></div></article><article><h3><a href="/story/2f644af7c1340012" data-track="story-related">Agent evals should feel like real work</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 24, 2026</span></div></article><article><h3><a href="/story/59167f62f581d97a" data-track="story-related">Find where your AI coding tokens went: local TUI for Codex/Claude logs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 24, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hey HN, Out of frustration of keeping up with AI news, I built hackobar. It fetches the AI realted news from mmuliple sources such as HN, arxiv, github trending repos, huggingface, many ai subreddits, twitter handles...</p></div></div><div class="story-actions"><a class="primary" href="https://hackobar.com" target="_blank" rel="noopener" data-track="story-source">Read the original at hackobar.com →</a><a href="/?item=https%3A%2F%2Fhackobar.com&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

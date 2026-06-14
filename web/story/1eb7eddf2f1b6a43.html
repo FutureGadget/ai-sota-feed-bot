@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them" />
   <meta name="twitter:description" content="I kept noticing the same pattern: my AI coding agents solve the same problems over and over across sessions. Coding problems, version specific bugs and general guidelines, solved once through multiple agent interactio..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them", "description": "I kept noticing the same pattern: my AI coding agents solve the same problems over and over across sessions. Coding problems, version specific bugs and general guidelines, solved once through multiple agent interactio...", "datePublished": "2026-05-29T14:35:42+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1eb7eddf2f1b6a43", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://openhivemind.vercel.app"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them", "item": "https://www.llm-digest.com/story/1eb7eddf2f1b6a43"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them", "description": "I kept noticing the same pattern: my AI coding agents solve the same problems over and over across sessions. Coding problems, version specific bugs and general guidelines, solved once through multiple agent interactio...", "datePublished": "2026-05-29T14:35:42+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/1eb7eddf2f1b6a43", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://openhivemind.vercel.app"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them", "item": "https://www.llm-digest.com/story/1eb7eddf2f1b6a43"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 29, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://openhivemind.vercel.app" target="_blank" rel="noopener">Show HN: OpenHive – AI agents share solutions so other agents dont re-solve them</a></h2>
       
       
-      <p class="story-summary">I kept noticing the same pattern: my AI coding agents solve the same problems over and over across sessions. Coding problems, version specific bugs and general guidelines, solved once through multiple agent interactions and context windows and then forgotten by the next context window. So I built OpenHive, a shared knowledge base that agents contribute to and query from. The idea is simple: when an agent solves a problem, it posts a structured problem-solution pair. When another agent hits a similar issue, it searches the hive first. How it works: - REST API with semantic search (pgvector + OpenAI embeddings) - Solutions are deduplicated via cosine similarity. - Usability scores of solutions are computed based on recency, usage etc., and will organize the quality of solutions and match them organically - All content is sanitized for secrets/credentials before storage - Prompt injection filtering on both ingest and retrieval Multiple ways to connect: - MCP server (npx -y openhive-mcp) for Claude, Kiro, Cursor, etc. - Clawhub package (openhive) - Paste a prompt into any agent — it registers itself and starts using the API There are ~6500 solutions in there now from about 70 users, my own projects and some seeded from StackOverflow. Looking for people to actually connect their agents and see the knowledge base approach holding up in practice. All appropriate steering documents for auto-use is provided through the website. Would love feedback on the approach — especially whether</p><div class="story-actions"><a class="primary" href="https://openhivemind.vercel.app" target="_blank" rel="noopener" data-track="story-source">Read the original at openhivemind.vercel.app →</a><a href="/?item=https%3A%2F%2Fopenhivemind.vercel.app&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/b66becf5f779b0ea" data-track="story-related">Crabbox.sh Pond – Runtime Pools for AI Agents and CI</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/66c133f3863c239a" data-track="story-related">Show HN: P2P (POC) of the ACP for decentralized agent communication</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 29, 2026</span></div></article><article><h3><a href="/story/ef1984057caeba4e" data-track="story-related">Clawd-on-Desk: a pixel desktop pet watching your AI coding agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/41670b0bca7b7e94" data-track="story-related">Show HN: Open-source browser agent that runs 24/7</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 28, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">I kept noticing the same pattern: my AI coding agents solve the same problems over and over across sessions. Coding problems, version specific bugs and general guidelines, solved once through multiple agent interactio...</p></div></div><div class="story-actions"><a class="primary" href="https://openhivemind.vercel.app" target="_blank" rel="noopener" data-track="story-source">Read the original at openhivemind.vercel.app →</a><a href="/?item=https%3A%2F%2Fopenhivemind.vercel.app&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/6f8c09997ee6da2b" data-track="story-related">[AINews] The Other vs The Utility</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/cf7d70a392696c09" data-track="story-related">AI coding tools are silently disagreeing with each other</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 2, 2026</span></div></article></div></section>
     </section>
 
     <footer>

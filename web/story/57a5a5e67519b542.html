@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Ask HN: Conductor vs. native Claude Code. Same single-agent performance?" />
   <meta name="twitter:description" content="Now that people have been running it for a few months, what&#x27;s the verdict on single-agent performance vs native terminal Claude Code? One thing I noticed is that Conductor bundles its own (pinned) version of Claude Co..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Ask HN: Conductor vs. native Claude Code. Same single-agent performance?", "description": "Now that people have been running it for a few months, what's the verdict on single-agent performance vs native terminal Claude Code? One thing I noticed is that Conductor bundles its own (pinned) version of Claude Co...", "datePublished": "2026-05-15T21:52:25+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/57a5a5e67519b542", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48154390"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Ask HN: Conductor vs. native Claude Code. Same single-agent performance?", "item": "https://www.llm-digest.com/story/57a5a5e67519b542"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Ask HN: Conductor vs. native Claude Code. Same single-agent performance?", "description": "Now that people have been running it for a few months, what's the verdict on single-agent performance vs native terminal Claude Code? One thing I noticed is that Conductor bundles its own (pinned) version of Claude Co...", "datePublished": "2026-05-15T21:52:25+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/57a5a5e67519b542", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.ycombinator.com/item?id=48154390"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Ask HN: Conductor vs. native Claude Code. Same single-agent performance?", "item": "https://www.llm-digest.com/story/57a5a5e67519b542"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 15, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://news.ycombinator.com/item?id=48154390" target="_blank" rel="noopener">Ask HN: Conductor vs. native Claude Code. Same single-agent performance?</a></h2>
       
       
-      <p class="story-summary">Now that people have been running it for a few months, what&#x27;s the verdict on single-agent performance vs native terminal Claude Code? One thing I noticed is that Conductor bundles its own (pinned) version of Claude Code and Codex instead of using the latest one from your system. Does that bother anyone, or is it a non-issue? Comments URL: https://news.ycombinator.com/item?id=48154390 Points: 1 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48154390" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48154390&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/16e92f7aacf915c8" data-track="story-related">Lookagain: Sequential code review with fresh agent contexts</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 15, 2026</span></div></article><article><h3><a href="/story/d84c4dbec1cb7c32" data-track="story-related">Liquid AI releases fine-tuning harness for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 15, 2026</span></div></article><article><h3><a href="/story/cef9bc09adc98eed" data-track="story-related">Kicking the Tyres on Harbor for Agent Evals</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 15, 2026</span></div></article><article><h3><a href="/story/fc54f9ac03272139" data-track="story-related">#1 on the leading AI memory benchmark using a smaller, cheaper model</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 15, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Now that people have been running it for a few months, what&#x27;s the verdict on single-agent performance vs native terminal Claude Code? One thing I noticed is that Conductor bundles its own (pinned) version of Claude Co...</p></div></div><div class="story-actions"><a class="primary" href="https://news.ycombinator.com/item?id=48154390" target="_blank" rel="noopener" data-track="story-source">Read the original at news.ycombinator.com →</a><a href="/?item=https%3A%2F%2Fnews.ycombinator.com%2Fitem%3Fid%3D48154390&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/6abf9a56215e3ec5" data-track="story-related">Show HN: Native agent runtime for Conductor OSS</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 2, 2026</span></div></article><article><h3><a href="/story/3903e746aef05dd5" data-track="story-related">[AINews] Everything is Conductor</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 15, 2026</span></div></article><article><h3><a href="/story/bd6dda1ea4d397ad" data-track="story-related">[AINews] Thinking Machines&#x27; Native Interaction Models - TML-Interaction-Small 276B-A12B - advances SOTA Realtime Voice and kills standard VAD</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 12, 2026</span></div></article><article><h3><a href="/story/d7305761bae5dfbf" data-track="story-related">How to Test AI Agents When They Never Give the Same Answer Twice</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 3, 2026</span></div></article></div></section>
     </section>
 
     <footer>

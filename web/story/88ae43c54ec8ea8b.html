@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution" />
   <meta name="twitter:description" content="Code language models need repository-level context to resolve imports, APIs, and project conventions. Existing methods inject this knowledge as long inputs (retrieved through RAG or dependency analysis) or through per..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution", "description": "Code language models need repository-level context to resolve imports, APIs, and project conventions. Existing methods inject this knowledge as long inputs (retrieved through RAG or dependency analysis) or through per...", "datePublished": "2026-06-04T17:59:46+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/88ae43c54ec8ea8b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.06492v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution", "item": "https://www.llm-digest.com/story/88ae43c54ec8ea8b"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution", "description": "Code language models need repository-level context to resolve imports, APIs, and project conventions. Existing methods inject this knowledge as long inputs (retrieved through RAG or dependency analysis) or through per...", "datePublished": "2026-06-04T17:59:46+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/88ae43c54ec8ea8b", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2606.06492v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution", "item": "https://www.llm-digest.com/story/88ae43c54ec8ea8b"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_cl · Jun 4, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2606.06492v1" target="_blank" rel="noopener">Code2LoRA: Hypernetwork-Generated Adapters for Code Language Models under Software Evolution</a></h2>
       
       
-      <p class="story-summary">Code language models need repository-level context to resolve imports, APIs, and project conventions. Existing methods inject this knowledge as long inputs (retrieved through RAG or dependency analysis) or through per-repository fine-tuning and LoRA -- costly at repository scale and brittle to evolving codebases. We introduce Code2LoRA, a hypernetwork framework that generates repository-specific LoRA adapters, effectively injecting repository knowledge with zero inference-time token overhead. Code2LoRA supports two usage scenarios: Code2LoRA-Static converts a single repository snapshot into an adapter, suitable for comprehension of stable codebases; while Code2LoRA-Evo maintains an adapter backed by a GRU hidden state updated per code diff, suitable for active development of evolving codebases. To evaluate Code2LoRA against parameter-efficient fine-tuning baselines, we build RepoPeftBench, a benchmark of 604 Python repositories with two tracks: a static track with 40K training and 12K test assertion-completion tasks, and an evolution track with 215K commit-derived training and 87K commit-derived test tasks. On the static track, Code2LoRA-Static achieves 63.8% cross-repo and 66.2% in-repo exact match, matching the per-repository LoRA upper bound; on the evolution track, Code2LoRA-Evo achieves 60.3% cross-repo exact match (+5.2 pp over a single shared LoRA). Code2LoRA&#x27;s code can be found at https://anonymous.4open.science/r/code2lora-6857; the model checkpoints and RepoPeftBenc</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.06492v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.06492v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/2fd52f086687b66f" data-track="story-related">Self-Evaluation Is Already There: Eliciting Latent Judge Calibration in Base LLMs with Minimal Data</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/2051b8701a7221a5" data-track="story-related">LoMo: Local Modality Substitution for Deeper Vision-Language Fusion</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 28, 2026</span></div></article><article><h3><a href="/story/b99e183accbd6272" data-track="story-related">PEFT-Arena: Understanding Parameter-Efficient Finetuning from a Stability-Plasticity Perspective</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 27, 2026</span></div></article><article><h3><a href="/story/37f3b911477600e3" data-track="story-related">MATCHA: Matching Text via Contrastive Semantic Alignment</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">May 26, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Code language models need repository-level context to resolve imports, APIs, and project conventions. Existing methods inject this knowledge as long inputs (retrieved through RAG or dependency analysis) or through per...</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2606.06492v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2606.06492v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/2e1f29b50d98a2b5" data-track="story-related">How Endava is redesigning software delivery around AI agents</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Jun 4, 2026</span></div></article><article><h3><a href="/story/4e601e244fcbd3cc" data-track="story-related">From Specialists to Builders: How AI Agentic Coding Is Reshaping Software Teams</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/cf9acfbb6889861d" data-track="story-related">InfoQ Launches Online AI Engineering Cohort and Certification for Senior Software Practitioners</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">May 22, 2026</span></div></article><article><h3><a href="/story/326607290d218cfb" data-track="story-related">Sea&#x27;s View on the Future of Agentic Software Development with Codex</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">May 14, 2026</span></div></article></div></section>
     </section>
 
     <footer>

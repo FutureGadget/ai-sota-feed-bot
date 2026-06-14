@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Our AI started a cafe in Stockholm" />
   <meta name="twitter:description" content="Our AI started a cafe in Stockholm Andon Labs previously started an AI-run retail store in San Francisco. Now they&#x27;re running a similar experiment in Stockholm, Sweden, only this time it&#x27;s a cafe. These experiments ar..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Our AI started a cafe in Stockholm", "description": "Our AI started a cafe in Stockholm Andon Labs previously started an AI-run retail store in San Francisco. Now they're running a similar experiment in Stockholm, Sweden, only this time it's a cafe. These experiments ar...", "datePublished": "2026-05-05T22:14:21+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/e3667d49dc363deb", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Our AI started a cafe in Stockholm", "item": "https://www.llm-digest.com/story/e3667d49dc363deb"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Our AI started a cafe in Stockholm", "description": "Our AI started a cafe in Stockholm Andon Labs previously started an AI-run retail store in San Francisco. Now they're running a similar experiment in Stockholm, Sweden, only this time it's a cafe. These experiments ar...", "datePublished": "2026-05-05T22:14:21+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/e3667d49dc363deb", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Our AI started a cafe in Stockholm", "item": "https://www.llm-digest.com/story/e3667d49dc363deb"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · May 5, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/#atom-everything" target="_blank" rel="noopener">Our AI started a cafe in Stockholm</a></h2>
       
       
-      <p class="story-summary">Our AI started a cafe in Stockholm Andon Labs previously started an AI-run retail store in San Francisco. Now they&#x27;re running a similar experiment in Stockholm, Sweden, only this time it&#x27;s a cafe. These experiments are interesting, and often throw out amusing anecdotes: During the first week of inventory, Mona ordered 120 eggs even though the café has no stove. When the staff told her they couldn’t cook them, she suggested using the high-speed oven, until they pointed out the eggs would likely explode. She also tried to solve the problem of fresh tomatoes being spoiled too fast by ordering 22.5 kg of canned tomatoes for the fresh sandwiches. The baristas eventually started a “Hall of Shame”, a shelf visible to customers with all the weird things Mona ordered, including 6,000 napkins, 3,000 nitrile gloves, 9L coconut milk, and industrial-sized trash bags. Where they lose their shine is when these AI managers start wasting the time of human beings who have not opted into the experiment: She also successfully applied for an outdoor seating permit through the Police e-service, which didn’t require BankID. Her first submission included a sketch she had generated herself, despite having never seen the street outside the café. Unsurprisingly, the Police sent it back for revision. [...] When she makes a mistake, she often sends multiple emails to suppliers with the subject “EMERGENCY” to cancel or change the order. I don&#x27;t think it&#x27;s ethical to run experiments like this that affect r</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F5%2Four-ai-started-a-cafe-in-stockholm%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/398b9f083cf0bcd3" data-track="story-related">TRE Python binding — ReDoS robustness demo</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/ac0eb875a27d5deb" data-track="story-related">Redis Array Playground</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 4, 2026</span></div></article><article><h3><a href="/story/1aa1432e45e77fe3" data-track="story-related">Sightings</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 2, 2026</span></div></article><article><h3><a href="/story/199911941bfe4f19" data-track="story-related">iNaturalist Sightings</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">May 1, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Our AI started a cafe in Stockholm Andon Labs previously started an AI-run retail store in San Francisco. Now they&#x27;re running a similar experiment in Stockholm, Sweden, only this time it&#x27;s a cafe. These experiments ar...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/May/5/our-ai-started-a-cafe-in-stockholm/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FMay%2F5%2Four-ai-started-a-cafe-in-stockholm%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">1 item</span></h2><div class="articles"><article><h3><a href="/story/0bd514e3244e4be3" data-track="story-related">How to get started with Codex</a></h3><div class="art-meta"><span class="badge">openai_blog</span><span class="badge">Apr 23, 2026</span></div></article></div></section>
     </section>
 
     <footer>

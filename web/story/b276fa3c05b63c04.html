@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Microsoft&#x27;s new MAI models" />
   <meta name="twitter:description" content="Microsoft announced two new text LLMs this morning - MAI-Thinking-1 (reasoning, 35B parameters, available to &quot;select early partners&quot;) and MAI-Code-1-Flash (5B parameters, &quot;purpose-built for GitHub Copilot and VS Code..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Microsoft's new MAI models", "description": "Microsoft announced two new text LLMs this morning - MAI-Thinking-1 (reasoning, 35B parameters, available to \"select early partners\") and MAI-Code-1-Flash (5B parameters, \"purpose-built for GitHub Copilot and VS Code...", "datePublished": "2026-06-02T22:21:52+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b276fa3c05b63c04", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/2/microsofts-new-models/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Microsoft's new MAI models", "item": "https://www.llm-digest.com/story/b276fa3c05b63c04"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Microsoft's new MAI models", "description": "Microsoft announced two new text LLMs this morning - MAI-Thinking-1 (reasoning, 35B parameters, available to \"select early partners\") and MAI-Code-1-Flash (5B parameters, \"purpose-built for GitHub Copilot and VS Code...", "datePublished": "2026-06-02T22:21:52+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/b276fa3c05b63c04", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://simonwillison.net/2026/Jun/2/microsofts-new-models/#atom-everything"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Microsoft's new MAI models", "item": "https://www.llm-digest.com/story/b276fa3c05b63c04"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">simon_willison · Jun 2, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://simonwillison.net/2026/Jun/2/microsofts-new-models/#atom-everything" target="_blank" rel="noopener">Microsoft&#x27;s new MAI models</a></h2>
       
       
-      <p class="story-summary">Microsoft announced two new text LLMs this morning - MAI-Thinking-1 (reasoning, 1T parameters, 35B active, available to &quot;select early partners&quot;) and MAI-Code-1-Flash (137B Parameters, 5B active, &quot;purpose-built for GitHub Copilot and VS Code to deliver high performance and lower cost [...] rolling out to GitHub Copilot individual users in Visual Studio Code&quot;). I&#x27;ve not been able to try either of them just yet. It&#x27;s very interesting to see Microsoft releasing models with such low parameter counts, especially given how expensive larger models are to access right now. They claim MAI-Thinking-1 &quot;is preferred to Sonnet 4.6 in our blind human side-by-side evaluations&quot;, which is impressive for a 35B model seeing as I frequently run models larger than that on my own laptop. (UPDATE: I got this entirely wrong, see note below.) Also of note : We trained [MAI-Thinking-1] from the ground up on enterprise grade, clean and commercially licensed data, without distillation from third-party models. And for MAI-Code-1-Flash as well: It is built end-to-end by Microsoft using clean and appropriately licensed data. I would very much like to learn more about this &quot;appropriately licensed&quot; data! Could these be the first generally useful code-specialist models that didn&#x27;t train on an unlicensed dump of the web? ( Update : the answer is no, see note below.) Update : My initial published notes got the size of the models wrong. I misread Microsoft&#x27;s announcements and interpreted the MoE active parameter</p><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/2/microsofts-new-models/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F2%2Fmicrosofts-new-models%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/1b60ad396cb5e531" data-track="story-related">datasette-agent-micropython 0.1a0</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/45855882c4c28111" data-track="story-related">Pasted File Editor</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 2, 2026</span></div></article><article><h3><a href="/story/4c852dd905f0b551" data-track="story-related">Hackers Simply Asked Meta AI to Give Them Access to High-Profile Instagram Accounts. It Worked</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 1, 2026</span></div></article><article><h3><a href="/story/78127eabced19cee" data-track="story-related">May 2026 newsletter</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 1, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Microsoft announced two new text LLMs this morning - MAI-Thinking-1 (reasoning, 35B parameters, available to &quot;select early partners&quot;) and MAI-Code-1-Flash (5B parameters, &quot;purpose-built for GitHub Copilot and VS Code...</p></div></div><div class="story-actions"><a class="primary" href="https://simonwillison.net/2026/Jun/2/microsofts-new-models/#atom-everything" target="_blank" rel="noopener" data-track="story-source">Read the original at simonwillison.net →</a><a href="/?item=https%3A%2F%2Fsimonwillison.net%2F2026%2FJun%2F2%2Fmicrosofts-new-models%2F%23atom-everything&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">2 items</span></h2><div class="articles"><article><h3><a href="/story/e415332637f94c60" data-track="story-related">Microsoft&#x27;s AI system tops Anthropic&#x27;s Mythos on cybersecurity benchmark</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 14, 2026</span></div></article><article><h3><a href="/story/ac89193b79582775" data-track="story-related">Microsoft&#x27;s Russinovich and Hanselman Warn AI Is Hollowing Out the Junior Developer Pipeline</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Apr 27, 2026</span></div></article></div></section>
     </section>
 
     <footer>

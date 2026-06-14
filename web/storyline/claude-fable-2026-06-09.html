@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -120,7 +133,7 @@
       <h2 class="recap-title">Claude Fable</h2>
       
       
-      <p class="story-actions"><button id="followBtn" type="button" data-slug="claude-fable-2026-06-09" data-last-updated="2026-06-11T23:35:17+00:00" aria-pressed="false">+ Follow this story</button></p><section class="cat"><h2><span class="count">Day 1</span> Tuesday, Jun 9, 2026</h2><div class="articles"><article><h3><a href="/story/e11fcea9cd94bb20" data-track="storyline-link">Claude Fable 5 Mythos 5</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jun 9</span></div><p class="art-summary">Claude Fable 5 Mythos 5</p></article><article><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha...</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Wednesday, Jun 10, 2026</h2><div class="articles"><article><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span></div><p class="art-summary">The much anticipated launch of the Mythos-class model was marred by some controversial usage policies</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Thursday, Jun 11, 2026</h2><div class="articles"><article><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">After two days of experience with Claude Fable 5 I think the best way to describe it is relentlessly proactive . It knows a whole lot of tricks and it will deploy pretty much any of them to get to its goal. I&#x27;ll illus...</p></article></div></section>
+      <p class="story-actions"><button id="followBtn" type="button" class="primary" data-slug="claude-fable-2026-06-09" data-last-updated="2026-06-11T23:35:17+00:00" aria-pressed="false">+ Follow this story</button></p><section class="cat"><h2><span class="count">Day 1</span> Tuesday, Jun 9, 2026</h2><div class="articles"><article><h3><a href="/story/e11fcea9cd94bb20" data-track="storyline-link">Claude Fable 5 Mythos 5</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jun 9</span></div><p class="art-summary">Claude Fable 5 Mythos 5</p></article><article><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">I didn&#x27;t have early access to today&#x27;s Claude Fable 5 release, but I&#x27;ve spent the past ~5.5 hours putting it through its paces. My initial impressions are that this is something of a beast . It&#x27;s slow, expensive and ha...</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Wednesday, Jun 10, 2026</h2><div class="articles"><article><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span></div><p class="art-summary">The much anticipated launch of the Mythos-class model was marred by some controversial usage policies</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Thursday, Jun 11, 2026</h2><div class="articles"><article><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">After two days of experience with Claude Fable 5 I think the best way to describe it is relentlessly proactive . It knows a whole lot of tricks and it will deploy pretty much any of them to get to its goal. I&#x27;ll illus...</p></article></div></section>
     </section>
 
     <footer>

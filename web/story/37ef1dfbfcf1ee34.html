@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Spec27 – Spec-driven validation for AI agents" />
   <meta name="twitter:description" content="Hi HN! We’re a team of ML validation specialists and we’ve been building /Spec27, a tool for testing whether AI agents still do their job safely and reliably as models, prompts, tools, and surrounding systems change...." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Spec27 – Spec-driven validation for AI agents", "description": "Hi HN! We’re a team of ML validation specialists and we’ve been building /Spec27, a tool for testing whether AI agents still do their job safely and reliably as models, prompts, tools, and surrounding systems change....", "datePublished": "2026-04-30T09:07:14+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/37ef1dfbfcf1ee34", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.spec27.ai/launch"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Spec27 – Spec-driven validation for AI agents", "item": "https://www.llm-digest.com/story/37ef1dfbfcf1ee34"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Spec27 – Spec-driven validation for AI agents", "description": "Hi HN! We’re a team of ML validation specialists and we’ve been building /Spec27, a tool for testing whether AI agents still do their job safely and reliably as models, prompts, tools, and surrounding systems change....", "datePublished": "2026-04-30T09:07:14+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/37ef1dfbfcf1ee34", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.spec27.ai/launch"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Spec27 – Spec-driven validation for AI agents", "item": "https://www.llm-digest.com/story/37ef1dfbfcf1ee34"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · Apr 30, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://www.spec27.ai/launch" target="_blank" rel="noopener">Show HN: Spec27 – Spec-driven validation for AI agents</a></h2>
       
       
-      <p class="story-summary">Hi HN! We’re a team of ML validation specialists and we’ve been building /Spec27, a tool for testing whether AI agents still do their job safely and reliably as models, prompts, tools, and surrounding systems change. We started working on this because a lot of current LLM evaluation work seems aimed at scoring general model behavior, while many teams are deploying systems that have a specific mission to fulfill. Many of the tools also assume you have full access to the agent stack and traces so you can place SDKs and Gateways, but a lot of agents are being created on vendor platforms where this isn’t possible. As a result, we approaches it from the outside in: all tests just run to the primary interfaces of an Agent and don’t assume anything about internals. The other important things about the approach is spec-driven. Instead of treating testing as a one-off benchmark or static eval set, we let teams define reusable specifications for the behavior they want from an agent, then generate tests against those specs. With this you can automatically generate adversarial and robustness checks, so you can see what an agent is sensitive to and what kinds of changes cause it to fail. We’ve worked on validation for other AI systems before, including vision and tabular workflows, and /Spec27 is our new product for language-model-based agents. Currently in early access, so we’d love feedback! The current version is strongest for single-turn agent and application validation. We do not ful</p><div class="story-actions"><a class="primary" href="https://www.spec27.ai/launch" target="_blank" rel="noopener" data-track="story-source">Read the original at spec27.ai →</a><a href="/?item=https%3A%2F%2Fwww.spec27.ai%2Flaunch&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/337fa96ee2fde233" data-track="story-related">How are teams bridging the gap between company knowledge and AI agents?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/dd35074b283c32c0" data-track="story-related">Show HN: Task Manager for AI Agents (MCP, Opensource)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 30, 2026</span></div></article><article><h3><a href="/story/8b944dfd28079b0f" data-track="story-related">I built an AI job search agent on Claude Code to run my own PM job search</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 29, 2026</span></div></article><article><h3><a href="/story/f4beb33eaf917a32" data-track="story-related">Show HN: Nv – workspace orchestrator for jj built for parallel agent workflows</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 29, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hi HN! We’re a team of ML validation specialists and we’ve been building /Spec27, a tool for testing whether AI agents still do their job safely and reliably as models, prompts, tools, and surrounding systems change....</p></div></div><div class="story-actions"><a class="primary" href="https://www.spec27.ai/launch" target="_blank" rel="noopener" data-track="story-source">Read the original at spec27.ai →</a><a href="/?item=https%3A%2F%2Fwww.spec27.ai%2Flaunch&amp;utm_source=story">Open in live feed</a></div>
     </section>
 
     <footer>

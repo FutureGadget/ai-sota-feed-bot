@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)" />
   <meta name="twitter:description" content="Hey HN, This is my take on the agent harness. Everything on an isometric map. Agents are grouped into &quot;buildings&quot; that run in a sequence or a loop; e.g., the CodeForge has an agent that writes a PRD, another one that..." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)", "description": "Hey HN, This is my take on the agent harness. Everything on an isometric map. Agents are grouped into \"buildings\" that run in a sequence or a loop; e.g., the CodeForge has an agent that writes a PRD, another one that...", "datePublished": "2026-05-19T08:02:28+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/22b600c45f4a3f53", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://getviberia.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)", "item": "https://www.llm-digest.com/story/22b600c45f4a3f53"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)", "description": "Hey HN, This is my take on the agent harness. Everything on an isometric map. Agents are grouped into \"buildings\" that run in a sequence or a loop; e.g., the CodeForge has an agent that writes a PRD, another one that...", "datePublished": "2026-05-19T08:02:28+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/22b600c45f4a3f53", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://getviberia.com"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)", "item": "https://www.llm-digest.com/story/22b600c45f4a3f53"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">hackernews_ai · May 19, 2026 · news</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="https://getviberia.com" target="_blank" rel="noopener">Show HN: Viberia – Civ/Polytopia-like command center for AI agents (BYOK/BYOS)</a></h2>
       
       
-      <p class="story-summary">Hey HN, This is my take on the agent harness. Everything on an isometric map. Agents are grouped into &quot;buildings&quot; that run in a sequence or a loop; e.g., the CodeForge has an agent that writes a PRD, another one that implements, and a third that reviews. Everything is customizable, you build your own buildings/teams however you want. It&#x27;s a Tauri app, really light (about 8x less energy than the closest competitor I benchmarked, so it actually runs from a coffee shop on battery). It&#x27;s macOS only for now, but ping me if you are willing to test the Windows or Linux version. I&#x27;ve been dogfooding this for months and would love to get some feedback, feature requests, and bug reports so I know what to focus on next. Comments URL: https://news.ycombinator.com/item?id=48190531 Points: 1 # Comments: 0</p><div class="story-actions"><a class="primary" href="https://getviberia.com" target="_blank" rel="noopener" data-track="story-source">Read the original at getviberia.com →</a><a href="/?item=https%3A%2F%2Fgetviberia.com&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/1075d406261ec843" data-track="story-related">Nous Research edits GitHub issue to remove plagiarism claims about Hermes Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 19, 2026</span></div></article><article><h3><a href="/story/dc42b4618da17747" data-track="story-related">I&#x27;m making our documentation agent-friendly (and how I&#x27;m not)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 18, 2026</span></div></article><article><h3><a href="/story/575956fc977398e7" data-track="story-related">SmallCode – A coding agent that gets 87% on benchmarks with a 4B parameter model</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 18, 2026</span></div></article><article><h3><a href="/story/78d966140da553b6" data-track="story-related">AI agent harnesses like OpenClaw are changing LLMs, inference, and CPUs</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 18, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Hey HN, This is my take on the agent harness. Everything on an isometric map. Agents are grouped into &quot;buildings&quot; that run in a sequence or a loop; e.g., the CodeForge has an agent that writes a PRD, another one that...</p></div></div><div class="story-actions"><a class="primary" href="https://getviberia.com" target="_blank" rel="noopener" data-track="story-source">Read the original at getviberia.com →</a><a href="/?item=https%3A%2F%2Fgetviberia.com&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">3 items</span></h2><div class="articles"><article><h3><a href="/story/500f8eb4e2a7d8b0" data-track="story-related">Show HN: Desktop Agent Center – Local AI Automation via Hotkeys</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/cdc4a5527a59a0e9" data-track="story-related">Command Code – AI coding agent with taste</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">May 6, 2026</span></div></article><article><h3><a href="/story/eb0d7d11102210eb" data-track="story-related">Show HN: LLM-wiki – One command Karpathy&#x27;s wiki with QMD search for Claude/Codex</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Apr 25, 2026</span></div></article></div></section>
     </section>
 
     <footer>

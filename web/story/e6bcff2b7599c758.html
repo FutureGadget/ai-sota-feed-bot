@@ -21,7 +21,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection" />
   <meta name="twitter:description" content="Reinforcement learning with verifiable rewards (RLVR) can yield large reasoning gains from very few training instances, yet its strong sensitivity to which instances are used makes data selection a central bottleneck...." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection", "description": "Reinforcement learning with verifiable rewards (RLVR) can yield large reasoning gains from very few training instances, yet its strong sensitivity to which instances are used makes data selection a central bottleneck....", "datePublished": "2026-05-27T15:38:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/e6bcff2b7599c758", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.28631v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Stories", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 3, "name": "Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection", "item": "https://www.llm-digest.com/story/e6bcff2b7599c758"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection", "description": "Reinforcement learning with verifiable rewards (RLVR) can yield large reasoning gains from very few training instances, yet its strong sensitivity to which instances are used makes data selection a central bottleneck....", "datePublished": "2026-05-27T15:38:09+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/e6bcff2b7599c758", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "http://arxiv.org/abs/2605.28631v1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection", "item": "https://www.llm-digest.com/story/e6bcff2b7599c758"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -83,16 +83,29 @@
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
-    .story-img { float: right; width: 96px; height: 96px; object-fit: cover;
-      border-radius: 10px; border: 1px solid var(--border); margin: 0 0 0.6rem 0.8rem; }
-    .story-summary { font-size: 1.02rem; margin: 0 0 1.2rem; }
-    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; }
-    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; }
-    .story-actions a { font-size: 0.92rem; padding: 0.45rem 0.85rem; border: 1px solid var(--border);
-      border-radius: 10px; text-decoration: none; background: var(--card); }
-    .story-actions a.primary { border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
-    .story-actions a:hover { border-color: var(--accent); }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
@@ -108,6 +121,7 @@
       <p id="meta" class="muted">arxiv_cs_lg · May 27, 2026 · paper</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
@@ -119,7 +133,7 @@
       <h2 class="recap-title story-title"><a href="http://arxiv.org/abs/2605.28631v1" target="_blank" rel="noopener">Single-Rollout Hidden-State Dynamics for Training-Free RLVR Data Selection</a></h2>
       
       
-      <p class="story-summary">Reinforcement learning with verifiable rewards (RLVR) can yield large reasoning gains from very few training instances, yet its strong sensitivity to which instances are used makes data selection a central bottleneck. Most existing selection pipelines rely on training-time optimization signals and/or require access to verifiable rewards or ground-truth answers over large candidate pools, which is costly and often infeasible in specialized domains. We study RLVR data selection in a setting where selection must be performed before any RL training and without labels or reward evaluation on the full pool. We propose SHIFT, a one-shot, training-free selector based solely on inference-time hidden-state dynamics. For each candidate instance, SHIFT runs a single deterministic reasoning rollout and computes a reasoning-induced representation shift (RIRS) as the start-to-end hidden-state delta. SHIFT uses the RIRS magnitude as a lightweight proxy for instance utility and enforces coverage via a quality-weighted farthest-first CoreSet procedure in an RIRS-augmented feature space, producing compact subsets that scale to large unlabeled pools. Across mathematical reasoning and medical QA benchmarks under ultra-low budgets, SHIFT consistently outperforms training-free diversity and difficulty/uncertainty baselines, improving both in-domain accuracy and transfer to harder evaluation settings. Ablations show that RIRS-based coverage and quality-weighting contribute complementary gains, and a</p><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.28631v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.28631v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/cd20f3730d892bb4" data-track="story-related">Causal Risk Minimization for High-Dimensional Treatments</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/161afd0b859ca9ff" data-track="story-related">DEI: Diversity in Evolutionary Inference for Quality-Diversity Search</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 26, 2026</span></div></article><article><h3><a href="/story/20d3a5a6a39ec1a7" data-track="story-related">Causal methods for LLM development and evaluation</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 25, 2026</span></div></article><article><h3><a href="/story/3f94f9e4a73682ca" data-track="story-related">LLM-driven design of physics-constrained constitutive models: two agents are better than one</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">May 22, 2026</span></div></article></div></section>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Reinforcement learning with verifiable rewards (RLVR) can yield large reasoning gains from very few training instances, yet its strong sensitivity to which instances are used makes data selection a central bottleneck....</p></div></div><div class="story-actions"><a class="primary" href="http://arxiv.org/abs/2605.28631v1" target="_blank" rel="noopener" data-track="story-source">Read the original at arxiv.org →</a><a href="/?item=http%3A%2F%2Farxiv.org%2Fabs%2F2605.28631v1&amp;utm_source=story">Open in live feed</a></div><section class="cat"><h2>Related stories <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/92bbf9a4ebe802d4" data-track="story-related">VecCISC: Improving Confidence-Informed Self-Consistency with Reasoning Trace Clustering and Candidate Answer Selection</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 8, 2026</span></div></article><article><h3><a href="/story/6d50c6f0973e7b4f" data-track="story-related">BAMI: Training-Free Bias Mitigation in GUI Grounding</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 7, 2026</span></div></article><article><h3><a href="/story/8c4c09a950f0df79" data-track="story-related">Driver-WM: A Driver-Centric Traffic-Conditioned Latent World Model for In-Cabin Dynamics Rollout</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">May 6, 2026</span></div></article><article><h3><a href="/story/1036a05b47f5a611" data-track="story-related">Quantum Feature Selection with Higher-Order Binary Optimization on Trapped-Ion Hardware</a></h3><div class="art-meta"><span class="badge">arxiv_cs_lg</span><span class="badge">Apr 29, 2026</span></div></article></div></section>
     </section>
 
     <footer>
