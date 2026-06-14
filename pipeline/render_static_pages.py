@@ -488,6 +488,9 @@ def render_head(
   <meta name="description" content="{escape(description)}" />
   <link rel="canonical" href="{escape(canonical)}" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="{escape(og_type)}" />
   <meta property="og:site_name" content="{escape(SITE_NAME)}" />
   <meta property="og:title" content="{escape(title)}" />
