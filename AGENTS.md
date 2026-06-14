@@ -101,6 +101,14 @@ storyline; it only proposes links the floor then judges.
   `web/storyline/`, `sitemap.xml` (from `render_static_pages.py`). Brand assets:
   `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
   `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
+  `mascot/mascot.js` — "Bubble Buddy", the decorative WebGL/Three.js mascot
+  (lazy-loaded on idle, motion-respecting, parks render loop between random
+  appearances; loader snippet lives in the five shells + the
+  `render_static_pages.py` template). Fully defensive — any failure no-ops.
+  **Portable/modular**: a `createBubbleBuddy(options)` factory (ESM export) —
+  drop-in (auto floating mascot), declarative (`[data-bubble-buddy]` anchors),
+  or programmatic (`mount`/`position`/`colors`/instance API). Multiple instances
+  OK; Three.js imported once and shared. Usage docs: `web/mascot/README.md`.
 - `config/` — runtime knobs:
   - `ranking.yaml` — canonical ranking config; `preset:` key deep-merges
     `config/presets/<name>.yaml` under local overrides
