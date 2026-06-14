@@ -172,11 +172,19 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
 
 
 def collect_from_arxiv_api(source: dict, now: datetime) -> list[dict]:
+    # Two query modes: a plain category dump (`category: cs.CL` -> `cat:cs.CL`)
+    # or a raw arXiv `search_query` for topic-targeted recall across categories
+    # (e.g. '(cat:cs.CL OR cat:cs.AI) AND (abs:hallucination OR abs:factuality)').
+    # search_query widens the catch beyond the per-category latest-N window;
+    # overlap with category sources is harmless — downstream dedupe() collapses
+    # by canonical arXiv URL before ranking.
+    search_query = (source.get("search_query") or "").strip()
     category = source.get("category")
-    if not category:
-        raise ValueError("arxiv_api source requires category")
+    if not search_query and not category:
+        raise ValueError("arxiv_api source requires search_query or category")
     max_results = int(source.get("max_results", 40))
-    q = urllib.parse.quote(f"cat:{category}")
+    raw_query = search_query if search_query else f"cat:{category}"
+    q = urllib.parse.quote(raw_query)
     url = (
         "http://export.arxiv.org/api/query?"
         f"search_query={q}&start=0&max_results={max_results}&sortBy=submittedDate&sortOrder=descending"

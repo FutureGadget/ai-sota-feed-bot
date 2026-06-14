@@ -61,7 +61,7 @@ slots:
     blend: {alpha: 0.75, beta: 0.25}
 
   research_watch:
-    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, paperswithcode_latest, huggingface_blog, anthropic_research]
+    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, arxiv_llm_reliability, paperswithcode_latest, huggingface_blog, anthropic_research]
     min_items: 2
     max_items: 5
     max_per_source: 1
@@ -104,6 +104,7 @@ source_bias:
   arxiv_cs_ai: -0.35
   arxiv_cs_lg: -0.35
   arxiv_cs_cl: -0.30
+  arxiv_llm_reliability: -0.25  # topic-targeted: lift slightly above raw category dumps
   paperswithcode_latest: -0.25
   anthropic_research: 0.40
   anthropic_newsroom: 0.06

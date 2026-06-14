@@ -11,6 +11,14 @@ sources:
     type: arxiv_api
     category: cs.CL
     max_results: 30
+  - name: arxiv_llm_reliability
+    type: arxiv_api
+    # Topic-targeted recall across CL/AI/LG for the platform-engineer reliability
+    # lens (hallucination, factuality, trustworthiness, LLM evaluation). Catches
+    # papers the per-category latest-N dumps miss; arXiv-URL dedupe collapses any
+    # overlap with the category sources before ranking.
+    search_query: '(cat:cs.CL OR cat:cs.AI OR cat:cs.LG) AND (abs:hallucination OR abs:factuality OR abs:trustworthy OR abs:"LLM evaluation")'
+    max_results: 30
   - name: paperswithcode_latest
     type: rss
     url: "https://paperswithcode.com/rss/latest"
