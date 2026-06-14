@@ -61,12 +61,14 @@ import json
 import os
 import re
 import sys
+from collections import Counter
 from datetime import date, datetime, timezone
 from html import escape
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -801,27 +803,61 @@ def is_on_topic(rec: dict, storyline_sids) -> bool:
 def related_stories(
     rec: dict, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
 ) -> list[dict]:
-    """Related = same storyline, shared topic, or same source — published at/
-    before this story.
+    """Strongly related stories published at/before this story.
 
-    Co-thread items (same storyline) are weighted highest so a thin member page
-    leads with the rest of its own timeline. Only looking backward keeps
-    rendered pages stable as new stories arrive (no churn re-committing pages).
+    Storyline members show only their own thread history. Other pages require a
+    rare shared title anchor or continuity within one release feed. Same-source
+    alone and ranked-topic overlap are deliberately insufficient: they produced
+    unrelated arXiv papers and generic "agent" recommendations. Looking
+    backward keeps rendered pages stable as new stories arrive.
     """
     storyline_of = storyline_of or {}
     my_slug = (storyline_of.get(str(rec.get("sid") or "")) or (None,))[0]
-    topics = set(rec.get("matched_topics") or [])
+    topics = {squeeze(t).casefold() for t in rec.get("matched_topics") or [] if squeeze(t)}
+    token_map = {
+        str(item.get("sid") or ""): title_tokens(item.get("title"))
+        for item in stories.values()
+    }
+    token_df = Counter(tok for tokens in token_map.values() for tok in tokens)
+    # Related cards are a precision surface, so use a stricter rarity cap than
+    # storyline discovery (1.5% vs 2% of the store). This keeps generic terms
+    # such as "learning" from linking otherwise-unrelated papers.
+    rare_cap = max(5, round(len(stories) * 0.015))
+
+    def rare_title_tokens(item: dict) -> set[str]:
+        return {
+            tok
+            for tok in token_map.get(str(item.get("sid") or ""), set())
+            if tok not in STORYLINE_WEAK and token_df[tok] <= rare_cap
+        }
+
+    strong_title = rare_title_tokens(rec)
     cutoff = story_dt(rec)
     scored = []
     for other in stories.values():
         if other.get("sid") == rec.get("sid") or story_dt(other) > cutoff:
             continue
-        shared = len(topics & set(other.get("matched_topics") or []))
+        other_topics = {
+            squeeze(t).casefold() for t in other.get("matched_topics") or [] if squeeze(t)
+        }
+        shared_topics = topics & other_topics
+        shared_title = strong_title & rare_title_tokens(other)
         same_source = other.get("source") == rec.get("source")
+        release_series = (
+            same_source
+            and str(rec.get("type") or "").lower() == "release"
+            and str(other.get("type") or "").lower() == "release"
+        )
         other_slug = (storyline_of.get(str(other.get("sid") or "")) or (None,))[0]
         co_thread = bool(my_slug and other_slug == my_slug)
-        if shared or same_source or co_thread:
-            score = 10 * int(co_thread) + 2 * shared + int(same_source)
+        qualifies = co_thread if my_slug else bool(shared_title or release_series)
+        if qualifies:
+            score = (
+                100 * int(co_thread)
+                + 20 * len(shared_title)
+                + 2 * len(shared_topics)
+                + 3 * int(release_series)
+            )
             scored.append((score, story_dt(other), other))
     scored.sort(key=lambda t: (t[0], t[1]), reverse=True)
     return [other for _, _, other in scored[:RELATED_STORIES_MAX]]
