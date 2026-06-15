@@ -5,131 +5,131 @@ Focus: AI Platform Engineering
 ## 1. Why AI hasn’t replaced software engineers, and won’t
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything
-- Score: 3.174 | Reliability: 1.0
+- Score: 3.168 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. New OpenAI Academy courses for the next era of work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/academy-courses-applying-ai-at-work
-- Score: 2.897 | Reliability: 1.0
+- Score: 2.894 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. Publishing WASM wheels to PyPI for use with Pyodide
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/13/publishing-wasm-wheels/#atom-everything
-- Score: 2.895 | Reliability: 1.0
+- Score: 2.89 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 4. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.849 | Reliability: 1.0
+- Score: 2.845 | Reliability: 1.0
 - Why it matters: 
 
 ## 5. Introducing the OpenAI Partner Network
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-openai-partner-network
-- Score: 2.788 | Reliability: 1.0
+- Score: 2.784 | Reliability: 1.0
 - Why it matters: 
 
 ## 6. Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/terraform-mcp-server-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.707 | Reliability: 1.0
+- Score: 2.703 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. WebMCP Standard Proposal for Agentic Web Actuation Now Available in Chrome (Origin Trials)
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/webmcp-web-agent-standard-chrome/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.682 | Reliability: 1.0
+- Score: 2.678 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 8. Show HN: Coding agent with algebraic memory (VSA) instead of RAG
+## 8. Plots, love letters and remedies: The medieval secrets being revealed by AI
 - Type: news | Source: hackernews_ai
-- URL: https://github.com/vitaliyfedotovpro-art/raidho
-- Score: 2.64 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://www.bbc.com/future/article/20260527-plots-love-letters-and-diplomacy-the-medieval-secrets-being-revealed-by-ai
+- Score: 2.647 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
 ## 9. Existence Precedes Value: Joint Modeling of Observational Existence and Evolving States in Time Series Forecasting
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.13571v1
-- Score: 2.635 | Reliability: 1.0
+- Score: 2.632 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 10. Introducing Claude Corps
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-corps
-- Score: 2.628 | Reliability: 1.0
+- Score: 2.625 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. SpatialClaw: Rethinking Action Interface for Agentic Spatial Reasoning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.13673v1
-- Score: 2.617 | Reliability: 1.0
+- Score: 2.614 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 12. [AINews] Fable and Mythos officially too dangerous to release
 - Type: release | Source: latent_space
 - URL: https://www.latent.space/p/ainews-fable-and-mythos-officially
-- Score: 2.586 | Reliability: 1.0
+- Score: 2.582 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. How Preply combines AI and human tutors to personalize learning
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/preply
-- Score: 2.526 | Reliability: 1.0
+- Score: 2.523 | Reliability: 1.0
 - Why it matters: 
 
 ## 14. Reward Modeling for Multi-Agent Orchestration
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.13598v1
-- Score: 2.518 | Reliability: 1.0
+- Score: 2.516 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 15. Claude Fable 5 and Claude Mythos 5
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-fable-5-mythos-5
-- Score: 2.506 | Reliability: 1.0
+- Score: 2.503 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. Results from first Anthropic Public Record
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/anthropic-public-record
-- Score: 2.504 | Reliability: 1.0
+- Score: 2.5 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. DXC will integrate Claude into the systems banks, airlines, and other regulated industries rely on
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/dxc-anthropic-alliance
-- Score: 2.472 | Reliability: 1.0
+- Score: 2.469 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. olmo-eval: An evaluation workbench for the model development loop
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/allenai/olmo-eval
-- Score: 2.307 | Reliability: 1.0
+- Score: 2.304 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 19. claude-agent-sdk-python v0.2.101
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.101
-- Score: 2.268 | Reliability: 1.0
+- Score: 2.264 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 20. langgraph==1.2.5
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.5
-- Score: 2.263 | Reliability: 1.0
+- Score: 2.259 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. codex 0.140.0-alpha.19
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.19
-- Score: 2.232 | Reliability: 1.0
+- Score: 2.226 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 22. claude-code v2.1.177
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.177
-- Score: 2.015 | Reliability: 1.0
+- Score: 2.01 | Reliability: 1.0
 - Why it matters:
