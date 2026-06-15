@@ -65,6 +65,23 @@ def sources_fingerprint() -> str:
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:10]
 
 
+def content_fingerprint(item: dict[str, Any]) -> str:
+    """Hash the parts of an item that a label is actually derived from.
+
+    item_id is sha256(url|title), so a re-published / edited item keeps the same
+    id. Folding the visible content into the cache key means an updated item gets
+    re-labeled instead of serving a stale label keyed only on its url+title.
+    """
+    blob = "".join(
+        [
+            str(item.get("title", "")),
+            str(item.get("summary", "")),
+            str(item.get("content_excerpt", "")),
+        ]
+    )
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()[:10]
+
+
 def _clean_text_oneline(text: str, max_chars: int = 220) -> str:
     s = html.unescape(str(text or ""))
     s = re.sub(r"<[^>]+>", " ", s)
@@ -160,6 +177,10 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     cache = load_cache()
     out = {}
 
+    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
+    enabled = False
+    enabled_state = bool(cfg.get("enabled", False))
+
     version_blob = json.dumps(
         {
             "provider": cfg.get("provider"),
@@ -169,21 +190,23 @@ def label_items(items: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
             "prefs": prefs,
             "cache_version": cfg.get("cache_version", 1),
             "sources_fingerprint": sources_fingerprint(),
+            # Keep LLM-on and LLM-off results in separate cache namespaces so
+            # flipping the LLM on never serves a stale pre-LLM (heuristic) label.
+            "llm_enabled": enabled_state,
         },
         ensure_ascii=False,
         sort_keys=True,
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
-    enabled = False
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     for it in items:
         base_key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
-        key = f"{base_key}::v:{version}"
-        if key in cache:
-            out[base_key] = cache[key]
+        key = f"{base_key}::v:{version}::c:{content_fingerprint(it)}"
+        cached = cache.get(key)
+        if cached is not None and not (enabled_state and cached.get("__label_source") == "heuristic"):
+            out[base_key] = cached
             continue
 
         label = None
@@ -290,6 +313,10 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
     cache = load_cache_file(CACHE_FILE_V2)
     out: dict[str, dict[str, Any]] = {}
 
+    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
+    enabled = False
+    enabled_state = bool(cfg.get("enabled", False))
+
     version_blob = json.dumps(
         {
             "provider": cfg.get("provider"),
@@ -300,14 +327,15 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
             "cache_version": cfg.get("cache_version", 1),
             "sources_fingerprint": sources_fingerprint(),
             "rubric_version": rubric_version,
+            # Keep LLM-on and LLM-off results in separate cache namespaces so
+            # flipping the LLM on never serves a stale pre-LLM (heuristic) label.
+            "llm_enabled": enabled_state,
         },
         ensure_ascii=False,
         sort_keys=True,
     )
     version = hashlib.sha256(version_blob.encode("utf-8")).hexdigest()[:10]
 
-    # Hard-disabled by design: keep interface/caches intact, but no external LLM calls.
-    enabled = False
     debug = bool(cfg.get("debug", False))
     debug_errors = 0
     llm_called = 0
@@ -315,9 +343,12 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
 
     for it in items:
         base_key = it.get("id") or f"{it.get('source')}::{it.get('url')}"
-        key = f"{base_key}::v:{version}"
-        if key in cache:
-            out[base_key] = cache[key]
+        key = f"{base_key}::v:{version}::c:{content_fingerprint(it)}"
+        cached = cache.get(key)
+        # Never serve a cached heuristic label while the LLM is enabled — that is
+        # exactly the stale "outdated results" case; re-label it instead.
+        if cached is not None and not (enabled_state and cached.get("__label_source") == "heuristic"):
+            out[base_key] = cached
             cache_hits += 1
             continue
 
