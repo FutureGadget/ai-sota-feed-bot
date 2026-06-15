@@ -122,17 +122,33 @@ function getRecentItems() {
     byUrl.set(key, it);
   }
 
-  // 3. Sort by score descending
+  // 3. Order reverse-chronologically. RSS / agent consumers treat feed order as
+  //    recency; sorting by score buried fresh items under days-old high-score
+  //    ones, so an agent pulling the feed saw "outdated" results even though the
+  //    underlying data was current. Score is only a tiebreaker now.
+  const bestDate = (it) =>
+    parseDateMaybe(it.published) ||
+    parseDateMaybe(it.first_seen) ||
+    parseDateMaybe(it.collected_at) ||
+    parseDateMaybe(it.last_seen);
+
   return [...byUrl.values()].sort((a, b) => {
+    const da = bestDate(a)?.getTime() ?? 0;
+    const db = bestDate(b)?.getTime() ?? 0;
+    if (db !== da) return db - da;
     const sa = Number(a.v2_final_score ?? a.score ?? a.tier1_quick_score ?? 0);
     const sb = Number(b.v2_final_score ?? b.score ?? b.tier1_quick_score ?? 0);
     return sb - sa;
   });
 }
 
+// An RSS feed is a recency surface, not the full archive. Cap the item count so
+// agents get a focused "what's new" view instead of a 7-day score dump.
+const RSS_MAX_ITEMS = 50;
+
 export default function handler(req, res) {
   try {
-    const items = getRecentItems();
+    const items = getRecentItems().slice(0, RSS_MAX_ITEMS);
     const now = new Date().toUTCString();
     const site = process.env.SITE_BASE_URL || 'https://www.llm-digest.com';
 
