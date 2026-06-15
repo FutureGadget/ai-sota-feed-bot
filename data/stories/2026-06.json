@@ -1067,6 +1067,25 @@
   "url": "https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "39e7fcf7035367b2": {
+  "first_seen": "2026-06-15T22:01:30.227184+00:00",
+  "id": "069c79c37529c9bb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-06-15T21:51:40+00:00",
+  "release_highlights": [
+   "Updated bundled Claude CLI to version 2.1.178"
+  ],
+  "sid": "39e7fcf7035367b2",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Internal/Other Changes Updated bundled Claude CLI to version 2.1.178 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.102/ pip install claude-agent-sdk==0.2.102",
+  "summary_1line": "Updated bundled Claude CLI to version 2.1.178",
+  "title": "claude-agent-sdk-python v0.2.102",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.102",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3b07688473f1b6ac": {
   "first_seen": "2026-06-13T18:54:54.343838+00:00",
   "id": "a63a5d8218c56e33",
@@ -1665,19 +1684,26 @@
  },
  "5484ba005c7c3482": {
   "first_seen": "2026-06-15T21:01:36.405995+00:00",
-  "id": "65dab18f05ec7bd6",
+  "id": "8d51d4a63dc712c1",
   "matched_topics": [
-   "codex"
+   "agent",
+   "codex",
+   "claude code"
   ],
-  "published": "2026-06-15T20:22:01+00:00",
+  "published": "2026-06-15T21:08:11+00:00",
+  "release_highlights": [
+   "Added /usage views for daily, weekly, and cumulative account token activity",
+   "/goal now preserves oversized text, large pasted blocks, and image attachments, including in remote app-server sessions. ( #27508 , #27509 , #27510 )",
+   "Added permanent session deletion through codex delete , /delete , and app-server thread/delete , with confirmation safeguards and subagent cleanup. ( #25018..."
+  ],
   "sid": "5484ba005c7c3482",
   "source": "openai_codex_releases",
-  "summary": "Release 0.140.0",
-  "summary_1line": "Release 0.140.0",
-  "title": "codex rust-v0.140.0",
+  "summary": "New Features Added /usage views for daily, weekly, and cumulative account token activity. ( #27925 ) /goal now preserves oversized text, large pasted blocks, and image attachments, including in remote app-server sessions. ( #27508 , #27509 , #27510 ) Added permanent session deletion through codex delete , /delete , and app-server thread/delete , with confirmation safeguards and subagent cleanup. ( #25018 , #27476 ) Added /import for selectively importing setup, project configuration, and recent chats from Claude Code. ( #27070 , #27071 , #27703 ) Typing @ now opens the unified mentions menu for files, plugins, and skills by default. ( #27499 ) Added managed Amazon Bedrock API-key authentication and encrypted local storage for CLI and MCP OAuth credentials. ( #27443 , #27689 , #27504 , #27535 , #27539 , #27541 ) Bug Fixes Corrupted SQLite state databases are now backed up and rebuilt automatically from rollout data, including malformed database-directory cases. ( #26859 , #27719 ) Prevented /review from crashing when Esc is pressed with queued guidance, while preserving that guidance when the review is canceled. ( #22879 ) Improved MCP reliability by retrying transient startup failures, reporting unusable OAuth credentials as logged out, and preserving explicitly disabled servers. ( #25147 , #26713 , #27414 ) Fixed remote plugin uninstall requests and correctly surfaced apps requiring authentication during installation. ( #27085 , #27223 ) Persisted “Don’t remind me” update di",
+  "summary_1line": "Added /usage views for daily, weekly, and cumulative account token activity · /goal now preserves oversized text, large pasted blocks, and image attachments, including in remote app-server sessions. ( #27508 , #27509...",
+  "title": "codex 0.140.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.140.0",
-  "why_it_matters": "Matches feed focus: codex."
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
  "55809dc9368e7936": {
   "first_seen": "2026-06-12T21:42:38.621439+00:00",
@@ -2644,6 +2670,29 @@
   "title": "Why Video Agent models are next — Ethan He, xAI Grok Imagine",
   "type": "news",
   "url": "https://www.latent.space/p/video-agents"
+ },
+ "9ef99508d91d13ed": {
+  "first_seen": "2026-06-15T22:01:30.227184+00:00",
+  "id": "45ffbe59c5a1baab",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-06-15T21:35:55+00:00",
+  "release_highlights": [
+   "Added Tool(param:value) syntax for permission rules to match a tool's input parameters (with * wildcard), e.g. Agent(model:opus) to block Opus subagents",
+   "Skills in nested .claude/skills directories now load when working on files there; on a name clash, the nested skill appears as <dir>:<name> so both stay avai...",
+   "Nested .claude/ directories: the agent, workflow, and output-style closest to the working directory now wins when names collide; project-scope workflow saves..."
+  ],
+  "sid": "9ef99508d91d13ed",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added Tool(param:value) syntax for permission rules to match a tool's input parameters (with * wildcard), e.g. Agent(model:opus) to block Opus subagents Skills in nested .claude/skills directories now load when working on files there; on a name clash, the nested skill appears as : so both stay available Nested .claude/ directories: the agent, workflow, and output-style closest to the working directory now wins when names collide; project-scope workflow saves now target the closest existing .claude/workflows/ Improved auto mode: subagent spawns are now evaluated by the classifier before launch, closing a gap where a subagent could request a blocked action without review Improved /doctor with consistent flat tree layout across all sections, clearer section status icons, and highlighted command names Improved the skill listing truncation warning to show how many skill descriptions are affected Changed the workflow prompt keyword to use a purple shimmer highlight and trigger only on explicit phrases like \"run a workflow\" or \"workflow:\", not on any mention of the word Improved Remote Control error messages: connection failures now show a persistent red \"/rc failed\" indicator in the footer, and the \"not yet enabled\" error now explains whether it's a gate, a check failure, stale entitlement, or org policy /bug now requires a description before submitting, and no longer uses model-refusal text as the GitHub issue title Fixed a crash (out-of-memory) when the CLI inherit",
+  "summary_1line": "Added Tool(param:value) syntax for permission rules to match a tool's input parameters (with * wildcard), e.g. Agent(model:opus) to block Opus subagents · Skills in nested .claude/skills directories now load when work...",
+  "title": "claude-code v2.1.178",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.178",
+  "why_it_matters": "Matches feed focus: agent, eval, claude code."
  },
  "9fe430793b389545": {
   "first_seen": "2026-06-12T19:03:31.346138+00:00",
@@ -3859,6 +3908,25 @@
   "title": "v0.23.0rc2: [Docker] Fix CUTLASS DSL cu13 install order in Dockerfile (#45204)",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.23.0rc2"
+ },
+ "e7f12e82187d72de": {
+  "first_seen": "2026-06-15T22:01:30.227184+00:00",
+  "id": "7cd56e65dafbf39f",
+  "image_url": "https://res.infoq.com/news/2026/06/claude-code-harnesses/en/headerimage/generatedHeaderImage-1781555724529.jpg",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "claude code"
+  ],
+  "published": "2026-06-15T20:55:00+00:00",
+  "sid": "e7f12e82187d72de",
+  "source": "infoq_ai_ml",
+  "summary": "Anthropic has published additional details about the orchestration system behind Claude Code's recently introduced Dynamic Workflows, highlighting how the feature generates custom execution harnesses designed to coordinate teams of AI agents for complex tasks. By Robert Krzaczyński",
+  "summary_1line": "Anthropic has published additional details about the orchestration system behind Claude Code's recently introduced Dynamic Workflows, highlighting how the feature generates custom execution harnesses designed to coord...",
+  "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent, harness, claude code."
  },
  "e92028a465cc6675": {
   "first_seen": "2026-06-05T09:43:55.524380+00:00",
