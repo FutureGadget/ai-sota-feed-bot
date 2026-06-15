@@ -1,49 +1,67 @@
 {
-  "prefilter_in": 817,
+  "prefilter_in": 787,
   "prefilter_out": 140,
   "prefilter_reasons": {
-    "freshness_window": 549,
+    "freshness_window": 551,
     "hard_exclude": 9,
-    "pool_cap": 119
+    "pool_cap": 87
   },
   "slots": {
     "frontier_official": {
-      "candidates": 2,
-      "llm_scored": 2,
-      "cache_hits": 2,
+      "candidates": 6,
+      "llm_scored": 6,
+      "cache_hits": 6,
       "llm_called": 0,
-      "selected": 2,
+      "selected": 6,
       "reject_source_cap": 0,
       "reject_slot_cap": 0
     },
     "agent_tooling_releases": {
-      "candidates": 3,
-      "llm_scored": 3,
-      "cache_hits": 2,
+      "candidates": 4,
+      "llm_scored": 4,
+      "cache_hits": 3,
       "llm_called": 0,
       "selected": 1,
-      "reject_source_cap": 2,
+      "reject_source_cap": 3,
       "reject_slot_cap": 0
     },
     "infra_runtime_releases": {
-      "candidates": 2,
-      "llm_scored": 2,
-      "cache_hits": 2,
+      "candidates": 3,
+      "llm_scored": 3,
+      "cache_hits": 3,
       "llm_called": 0,
       "selected": 1,
       "reject_source_cap": 0,
-      "reject_slot_cap": 1
+      "reject_slot_cap": 2
     },
     "vendor_general_updates": {
       "candidates": 2,
       "llm_scored": 2,
-      "cache_hits": 1,
+      "cache_hits": 2,
       "llm_called": 0,
       "selected": 1,
       "reject_source_cap": 0,
       "reject_slot_cap": 1
     },
     "cloud_platform_updates": {
+      "candidates": 1,
+      "llm_scored": 1,
+      "cache_hits": 0,
+      "llm_called": 0,
+      "selected": 1,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 0
+    },
+    "practitioner_analysis": {
+      "candidates": 10,
+      "llm_scored": 10,
+      "cache_hits": 9,
+      "llm_called": 0,
+      "selected": 4,
+      "reject_source_cap": 6,
+      "reject_slot_cap": 0
+    },
+    "community_signal": {
       "candidates": 0,
       "llm_scored": 0,
       "cache_hits": 0,
@@ -52,32 +70,14 @@
       "reject_source_cap": 0,
       "reject_slot_cap": 0
     },
-    "practitioner_analysis": {
-      "candidates": 5,
-      "llm_scored": 5,
-      "cache_hits": 4,
-      "llm_called": 0,
-      "selected": 4,
-      "reject_source_cap": 1,
-      "reject_slot_cap": 0
-    },
-    "community_signal": {
-      "candidates": 30,
-      "llm_scored": 30,
-      "cache_hits": 0,
-      "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 29,
-      "reject_slot_cap": 0
-    },
     "research_watch": {
-      "candidates": 96,
-      "llm_scored": 96,
-      "cache_hits": 96,
+      "candidates": 114,
+      "llm_scored": 114,
+      "cache_hits": 114,
       "llm_called": 0,
       "selected": 5,
-      "reject_source_cap": 20,
-      "reject_slot_cap": 71
+      "reject_source_cap": 31,
+      "reject_slot_cap": 78
     },
     "overflow": {
       "candidates": 0,
@@ -92,26 +92,26 @@
   "llm_budget_total": 8,
   "llm_budget_used": 0,
   "slot_priority": {
-    "frontier_official": 0.761,
+    "frontier_official": 0.722,
     "agent_tooling_releases": 0.523,
-    "infra_runtime_releases": 0.46,
-    "vendor_general_updates": 0.246,
-    "cloud_platform_updates": -0.1,
-    "practitioner_analysis": 0.554,
-    "community_signal": 0.492,
+    "infra_runtime_releases": 0.459,
+    "vendor_general_updates": 0.242,
+    "cloud_platform_updates": 0.37,
+    "practitioner_analysis": 0.488,
+    "community_signal": 0.0,
     "research_watch": 0.327,
     "overflow": -0.2
   },
   "merge": {
-    "floor_selected": 8,
-    "headroom_selected": 7,
-    "skip_duplicate": 8,
+    "floor_selected": 9,
+    "headroom_selected": 10,
+    "skip_duplicate": 9,
     "skip_slot_max": 0
   },
   "top_band": {
-    "dedup_removed": 1,
+    "dedup_removed": 2,
     "promoted_frontier": 1,
-    "promoted_anthropic_frontier": 0,
+    "promoted_anthropic_frontier": 1,
     "research_demoted": 1
   },
   "final_prompt_rerank": {
@@ -120,7 +120,7 @@
   },
   "final_summary_pass": {
     "llm_called": 0,
-    "cache_hits": 10,
-    "items": 15
+    "cache_hits": 17,
+    "items": 19
   }
 }
