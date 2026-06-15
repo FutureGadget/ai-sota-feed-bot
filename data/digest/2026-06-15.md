@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. vllm v0.23.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.84 | Reliability: 1.0
+- Score: 2.839 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. Introducing the OpenAI Partner Network
@@ -47,13 +47,13 @@ Focus: AI Platform Engineering
 ## 8. Sync – Quality Control and Project Management System for AI Agents
 - Type: news | Source: hackernews_ai
 - URL: https://sync.buzz
-- Score: 2.641 | Reliability: 1.0
+- Score: 2.64 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. Claude Fable 5 and Claude Mythos 5
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-fable-5-mythos-5
-- Score: 2.525 | Reliability: 1.0
+- Score: 2.524 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Results from first Anthropic Public Record
