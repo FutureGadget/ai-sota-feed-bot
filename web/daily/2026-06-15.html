@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Jun 15, 2026 | LLM Digest</title>
+  <meta name="description" content="Anthropic detailed how Claude Code builds its own execution harnesses to coordinate Dynamic Workflows, and developers debated the new Agent SDK pricing. Agent evaluation tooling landed in force: AWS&#x27;s Strands Evals for failure root-cause analysis…" />
+  <link rel="canonical" href="https://www.llm-digest.com/daily/2026-06-15" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Jun 15, 2026" />
+  <meta property="og:description" content="Anthropic detailed how Claude Code builds its own execution harnesses to coordinate Dynamic Workflows, and developers debated the new Agent SDK pricing. Agent evaluation tooling landed in force: AWS&#x27;s Strands Evals for failure root-cause analysis…" />
+  <meta property="og:url" content="https://www.llm-digest.com/daily/2026-06-15" />
+  <meta property="article:published_time" content="2026-06-16T00:04:35+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What happened in AI — Jun 15, 2026" />
+  <meta name="twitter:description" content="Anthropic detailed how Claude Code builds its own execution harnesses to coordinate Dynamic Workflows, and developers debated the new Agent SDK pricing. Agent evaluation tooling landed in force: AWS&#x27;s Strands Evals for failure root-cause analysis…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What happened in AI — Jun 15, 2026", "description": "Anthropic detailed how Claude Code builds its own execution harnesses to coordinate Dynamic Workflows, and developers debated the new Agent SDK pricing. Agent evaluation tooling landed in force: AWS's Strands Evals for failure root-cause analysis…", "datePublished": "2026-06-16T00:04:35+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-15", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-06-15", "item": "https://www.llm-digest.com/daily/2026-06-15"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 AI Daily Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">20 articles · 5 categories</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/voices" role="button">🗣️ Voices</a>
+        <a href="/rss.xml" role="button">🔔 RSS</a>
+        <a href="/api/daily?date=2026-06-15" role="button">JSON</a>
+        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-15" selected>2026-06-15 · What happened in AI — Jun 15, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title">What happened in AI — Jun 15, 2026</h2>
+      <p class="recap-range">Monday, Jun 15, 2026</p>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Anthropic detailed how Claude Code builds its own execution harnesses to coordinate Dynamic Workflows, and developers debated the new Agent SDK pricing.</li><li>Agent evaluation tooling landed in force: AWS&#x27;s Strands Evals for failure root-cause analysis and LangChain&#x27;s 100x-cheaper trace judge fine-tuned on an open model.</li><li>Security and governance dominated — Google Cloud&#x27;s AI Threat Defense lessons, an InfoQ cloud AI-governance guide, and a warning that agent sandboxes don&#x27;t solve credential authorization.</li><li>Google committed $1.5B to expand its Alabama data center campus in 2026–2027.</li><li>The agent-infrastructure layer keeps filling in: communication buses, AI-native messaging, off-server execution, and per-PR token cost tracking.</li></ul></div><p>Monday&#x27;s feed was almost entirely about the unglamorous work of making AI agents operable — not launching them, but evaluating, debugging, securing, and plumbing them. Anthropic anchored the day: the company published more detail on how Claude Code generates its own execution harnesses to coordinate the recently introduced Dynamic Workflows, while developers chewed over the new Agent SDK pricing (one widely-shared post argued the change is a win for Codex). Simon Willison surfaced an Axios piece on the political clashes that briefly knocked Anthropic&#x27;s models offline — a reminder that the frontier labs now operate as much in Washington as in research.</p><p>The strongest technical signal came from agent evaluation and reliability. AWS shipped Strands Evals for automated failure detection and root-cause analysis, walking through how to turn an agent&#x27;s structured output into categorized failures with causal chains, and separately published a build-it-yourself research agent on Bedrock AgentCore. LangChain and Fireworks fine-tuned an open model into a trace judge that matches frontier-model quality at roughly a hundredth of the cost. Alongside the eval push, security and governance ran hot: Google Cloud&#x27;s new CISO laid out four lessons behind its AI Threat Defense, InfoQ published a practical cloud AI-governance guide for architects, and a Permit.io post made the sharp point that coding-agent sandboxes don&#x27;t actually solve credential authorization.</p><p>The one piece of hard infrastructure news was Google&#x27;s $1.5 billion commitment to expand its Jackson County, Alabama data center campus across 2026–2027 — the kind of substrate the whole agentic stack quietly runs on. Underneath the headlines, a long tail of early-stage projects kept filling in the agent-infrastructure layer: communication buses, AI-native messaging, off-server execution, and tooling to measure what all of it costs.</p></div>
+      <nav class="toc"><a href="#anthropic-agent-sdk">Anthropic &amp; the Agent SDK (3)</a><a href="#evaluating-debugging-agents">Evaluating &amp; Debugging Agents (4)</a><a href="#securing-governing-agents">Securing &amp; Governing Agents (3)</a><a href="#agent-infrastructure-tooling">Agent Infrastructure &amp; Tooling (4)</a><a href="#industry-infrastructure">Industry &amp; Infrastructure (1)</a></nav><section class="cat" id="anthropic-agent-sdk"><h2>Anthropic &amp; the Agent SDK <span class="count">3 items</span></h2><p class="cat-summary">Anthropic stayed at the center of the day — new detail on Claude Code&#x27;s internals, fresh pricing debate, and the politics that briefly took its models offline.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Anthropic Explains How Claude Builds Its Own Execution Harnesses</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/e7f12e82187d72de" data-track="story-link">Details</a></div><p class="art-summary">Anthropic details the orchestration behind Claude Code&#x27;s Dynamic Workflows, where the system generates custom execution harnesses to coordinate multi-step work.</p></article><article><h3><a href="https://clor.com/blog/anthropics-new-agent-sdk-pricing" target="_blank" rel="noopener" data-track="daily-link">Anthropic&#x27;s new Agent SDK pricing is a win for Codex</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/754a498aeb6512c0" data-track="story-link">Details</a></div><p class="art-summary">A widely-shared take argues Anthropic&#x27;s revised Agent SDK pricing shifts the economics in favor of competing coding agents like Codex.</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/15/axios-clashes-anthropics/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">&quot;They screwed us&quot;: Personality clashes sent Anthropic&#x27;s models offline</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 15</span><a class="badge" href="/story/9c479ecb98939c02" data-track="story-link">Details</a></div><p class="art-summary">Simon Willison flags an Axios piece — heavy on anonymous sourcing — on the political clashes around Anthropic that briefly took its models offline.</p></article></div></section><section class="cat" id="evaluating-debugging-agents"><h2>Evaluating &amp; Debugging Agents <span class="count">4 items</span></h2><p class="cat-summary">The day&#x27;s strongest technical thread: cheaper, automated ways to find out why an agent failed and to judge production traces at scale.</p><div class="articles"><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/ai-agent-failure-detection-and-root-cause-analysis-with-strands-evals/" target="_blank" rel="noopener" data-track="daily-link">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/12500c0bbe5e4d6f" data-track="story-link">Details</a></div><p class="art-summary">AWS walks through Strands Evals&#x27; detector functions, which turn agent traces into categorized failures with confidence scores and causal chains.</p></article><article><h3><a href="https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks" target="_blank" rel="noopener" data-track="daily-link">Building a 100x Cheaper Trace Judge with Fireworks</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Jun 15</span><a class="badge" href="/story/4235792e910ea51a" data-track="story-link">Details</a></div><p class="art-summary">LangChain and Fireworks fine-tuned an open model to mine error signals from production traces, matching frontier-model quality at a fraction of the cost.</p></article><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/build-context-rich-research-agents-with-deep-agents-and-bedrock-agentcore/" target="_blank" rel="noopener" data-track="daily-link">Build context-rich research agents with Deep Agents and Bedrock AgentCore</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/2f2101adc8737656" data-track="story-link">Details</a></div><p class="art-summary">An AWS walkthrough for building a multi-step research agent with isolated execution environments using Deep Agents on Bedrock AgentCore.</p></article><article><h3><a href="https://github.com/lolu1032/pantheon-skills" target="_blank" rel="noopener" data-track="daily-link">Show HN: Pantheon – AI vs AI: one writes the code, the other attacks it</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/1869887d8d43b995" data-track="story-link">Details</a></div><p class="art-summary">An early project that pits sub-agents against each other — one generates code, another attacks it, with a scorer ranking and discarding attempts.</p></article></div></section><section class="cat" id="securing-governing-agents"><h2>Securing &amp; Governing Agents <span class="count">3 items</span></h2><p class="cat-summary">As agents gain the ability to act, threat defense, governance, and credential authorization moved to the foreground.</p><div class="articles"><article><h3><a href="https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-the-4-lessons-that-guided-ai-threat-defense/" target="_blank" rel="noopener" data-track="daily-link">Cloud CISO Perspectives: The 4 lessons that guided AI Threat Defense</a></h3><div class="art-meta"><span class="badge">google_cloud_blog</span><a class="badge" href="/story/40a8fe85c3c49b61" data-track="story-link">Details</a></div><p class="art-summary">Google Cloud&#x27;s new CISO Chris Betz shares four lessons the team learned using AI to defend the cloud against emerging threats.</p></article><article><h3><a href="https://www.infoq.com/articles/governing-ai-cloud-guide/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Governing AI in the Cloud: A Practical Guide for Architects</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/204deb5bb365b536" data-track="story-link">Details</a></div><p class="art-summary">An InfoQ guide to cloud AI governance — discovering shadow AI, classifying data at creation, IAM enforcement, policy-as-code, and operational controls.</p></article><article><h3><a href="https://www.permit.io/blog/coding-agent-sandboxes-credentials" target="_blank" rel="noopener" data-track="daily-link">Coding Agent Sandboxes Don&#x27;t Solve Credential Authorization</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/2f585fd257ad02a4" data-track="story-link">Details</a></div><p class="art-summary">A Permit.io argument that sandboxing a coding agent contains execution but leaves the harder problem — what credentials the agent is actually allowed to use — unsolved.</p></article></div></section><section class="cat" id="agent-infrastructure-tooling"><h2>Agent Infrastructure &amp; Tooling <span class="count">4 items</span></h2><p class="cat-summary">A long tail of early-stage projects building the connective tissue for agents — communication, messaging, off-server execution, and cost visibility.</p><div class="articles"><article><h3><a href="https://novu.co/connect/" target="_blank" rel="noopener" data-track="daily-link">The open-source Agent Communication Infrastructure</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/3d5fe55a773d887a" data-track="story-link">Details</a></div><p class="art-summary">Novu pitches an open-source communication layer for agents to coordinate and exchange messages.</p></article><article><h3><a href="https://blog.bridgexapi.io/from-rest-apis-to-mcp-making-messaging-infrastructure-ai-native" target="_blank" rel="noopener" data-track="daily-link">AI Agents Don&#x27;t Need SMS APIs. They Need Infrastructure</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/0652695d185d0b1f" data-track="story-link">Details</a></div><p class="art-summary">BridgeX argues agents need AI-native messaging infrastructure (MCP-based) rather than bolting onto traditional REST/SMS APIs.</p></article><article><h3><a href="https://focused.io/lab/enterprise-ai-agents-are-leaving-the-server" target="_blank" rel="noopener" data-track="daily-link">Enterprise AI Agents Are Leaving the Server</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/5e45f3f6afcae9d6" data-track="story-link">Details</a></div><p class="art-summary">A look at the shift toward running enterprise AI agents off centralized servers and closer to where work happens.</p></article><article><h3><a href="https://github.com/SamuelZ12/prtokens/" target="_blank" rel="noopener" data-track="daily-link">Prtokens – See how much AI agent tokens cost a PR</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/00f3793762a13f49" data-track="story-link">Details</a></div><p class="art-summary">A small tool that surfaces how many tokens — and how much money — an AI agent spends producing a given pull request.</p></article></div></section><section class="cat" id="industry-infrastructure"><h2>Industry &amp; Infrastructure <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s one piece of hard infrastructure news — a major data center expansion underpinning the compute the rest of this depends on.</p><div class="articles"><article><h3><a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/alabama-investment-june-2026/" target="_blank" rel="noopener" data-track="daily-link">Google expands its Alabama data center campus with new investment</a></h3><div class="art-meta"><span class="badge">google_ai_blog</span><a class="badge" href="/story/b5689f5df3fd2b95" data-track="story-link">Details</a></div><p class="art-summary">Google commits $1.5 billion across 2026–2027 to expand its Jackson County, Alabama data center campus, operating there since 2019.</p></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/rss.xml">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
