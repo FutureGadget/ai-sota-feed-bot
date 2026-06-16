@@ -5,95 +5,89 @@ Focus: AI Platform Engineering
 ## 1. How Siemens "slices the elephant," advancing agentic workflows for industrial software development
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/how-siemens-sliced-the-elephant-modernizing-legacy-code-with-agentic-workflows/
-- Score: 3.112 | Reliability: 1.0
+- Score: 3.096 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval, claude code.
 
-## 2. Anthropic Explains How Claude Builds Its Own Execution Harnesses
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.106 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, claude code.
-
-## 3. Binary Tracking for Spatial QA and Navigation with Open Vision-Language Models
+## 2. Binary Tracking for Spatial QA and Navigation with Open Vision-Language Models
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.16902v1
-- Score: 3.06 | Reliability: 1.0
+- Score: 3.057 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. codex 0.140.0
+## 3. codex 0.140.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0
-- Score: 3.053 | Reliability: 1.0
+- Score: 3.045 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex, claude code.
 
-## 5. LESS Is More: Mutual-Stability Sampling for Diffusion Language Models
+## 4. LESS Is More: Mutual-Stability Sampling for Diffusion Language Models
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.16908v1
-- Score: 3.001 | Reliability: 1.0
+- Score: 2.998 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 6. datasette-agent 0.3a0
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/15/datasette-agent/#atom-everything
-- Score: 2.922 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 7. GRACE: Step-Level Benchmark for Faithful Reasoning over Context
+## 5. GRACE: Step-Level Benchmark for Faithful Reasoning over Context
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.16151v1
-- Score: 2.891 | Reliability: 1.0
+- Score: 2.888 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
+
+## 6. Show HN: BlitzGraph – Supabase for graphs, built for LLM agents
+- Type: news | Source: hackernews_ai
+- URL: https://blitzgraph.com
+- Score: 2.805 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 7. AI Coding Agents Get a Stack Overflow of Their Own
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.803 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 8. claude-code v2.1.178
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.178
-- Score: 2.804 | Reliability: 1.0
+- Score: 2.796 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 9. AI Coding Agents Get a Stack Overflow of Their Own
+## 9. Presentation: Automating the Web With MCP: Infra That Doesn’t Break
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.797 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+- URL: https://www.infoq.com/presentations/parallel-agents-production/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.65 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 10. Introducing the OpenAI Partner Network
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-openai-partner-network
-- Score: 2.723 | Reliability: 1.0
+## 10. The Fable 5 Export Controls Harm US Cyber Defense
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything
+- Score: 2.631 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Decoupling Inference from State Updates in Low-Latency Feature Engines via Probabilistic Thinning
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.16981v1
-- Score: 2.882 | Reliability: 1.0
+- Score: 2.879 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. vllm v0.23.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.762 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Cloudflare CAPTCHA on at least one ampersand
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/16/captcha-on-at-least-one-ampersand/#atom-everything
-- Score: 2.641 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
-
-## 14. [AINews] Satya on Loopcraft: Building Frontier Ecosystems
+## 12. [AINews] Satya on Loopcraft: Building Frontier Ecosystems
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-satya-on-loopcraft-building
-- Score: 2.477 | Reliability: 1.0
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: 
 
-## 15. claude-agent-sdk-python v0.2.102
+## 13. Quoting Matteo Wong, The Atlantic
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/16/matteo-wong-the-atlantic/#atom-everything
+- Score: 2.455 | Reliability: 1.0
+- Why it matters: 
+
+## 14. claude-agent-sdk-python v0.2.102
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.102
-- Score: 2.357 | Reliability: 1.0
+- Score: 2.349 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. AI Agent Failure Detection and Root Cause Analysis with Strands Evals
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/ai-agent-failure-detection-and-root-cause-analysis-with-strands-evals/
-- Score: 1.986 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 15. Fastest, Largest, Strongest: NVIDIA Blackwell Sweeps MLPerf Training 6.0
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/blackwell-mlperf-training-6-0/
+- Score: 1.732 | Reliability: 1.0
+- Why it matters:
