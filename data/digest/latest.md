@@ -2,86 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. How Siemens "slices the elephant," advancing agentic workflows for industrial software development
+## 1. Anthropic Explains How Claude Builds Its Own Execution Harnesses
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.122 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, claude code.
+
+## 2. How Siemens "slices the elephant," advancing agentic workflows for industrial software development
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/how-siemens-sliced-the-elephant-modernizing-legacy-code-with-agentic-workflows/
-- Score: 3.071 | Reliability: 1.0
+- Score: 3.064 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval, claude code.
 
-## 2. Binary Tracking for Spatial QA and Navigation with Open Vision-Language Models
+## 3. Binary Tracking for Spatial QA and Navigation with Open Vision-Language Models
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.16902v1
-- Score: 3.052 | Reliability: 1.0
+- Score: 3.043 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. codex 0.140.0
+## 4. codex 0.140.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.140.0
-- Score: 3.034 | Reliability: 1.0
+- Score: 3.031 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex, claude code.
-
-## 4. Quoting Georgi Gerganov
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/16/georgi-gerganov/#atom-everything
-- Score: 3.008 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
 
 ## 5. LESS Is More: Mutual-Stability Sampling for Diffusion Language Models
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.16908v1
-- Score: 2.994 | Reliability: 1.0
+- Score: 2.993 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 6. GRACE: Step-Level Benchmark for Faithful Reasoning over Context
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.16151v1
-- Score: 2.883 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+## 6. Quoting Georgi Gerganov
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/16/georgi-gerganov/#atom-everything
+- Score: 2.987 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 7. AI Coding Agents Get a Stack Overflow of Their Own
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.818 | Reliability: 1.0
+## 7. datasette-agent 0.3a0
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/15/datasette-agent/#atom-everything
+- Score: 2.925 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. Show HN: Kintsugi – a local-first safety net for AI agents and humans
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/arrowassassin/kintsugi
-- Score: 2.785 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex, claude code.
-
-## 9. claude-code v2.1.178
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.178
-- Score: 2.785 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
-
-## 10. Presentation: Automating the Web With MCP: Infra That Doesn’t Break
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/parallel-agents-production/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.664 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 11. Decoupling Inference from State Updates in Low-Latency Feature Engines via Probabilistic Thinning
+## 8. Decoupling Inference from State Updates in Low-Latency Feature Engines via Probabilistic Thinning
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.16981v1
-- Score: 2.874 | Reliability: 1.0
+- Score: 2.866 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. The Fable 5 Export Controls Harm US Cyber Defense
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything
-- Score: 2.646 | Reliability: 1.0
-- Why it matters: 
-
-## 13. claude-agent-sdk-python v0.2.102
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.102
-- Score: 2.338 | Reliability: 1.0
+## 9. AI Coding Agents Get a Stack Overflow of Their Own
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.811 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. HPE AI Factory With NVIDIA Expands for the Era of Agents
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/hpe-ai-factory-agentic-enterprise/
-- Score: 1.93 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 10. Introducing the OpenAI Partner Network
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-openai-partner-network
+- Score: 2.716 | Reliability: 1.0
+- Why it matters: 
+
+## 11. GRACE: Step-Level Benchmark for Faithful Reasoning over Context
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.16151v1
+- Score: 2.861 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 12. claude-code v2.1.178
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.178
+- Score: 2.775 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 13. vllm v0.23.0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
+- Score: 2.738 | Reliability: 1.0
+- Why it matters: 
+
+## 14. [AINews] Satya on Loopcraft: Building Frontier Ecosystems
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-satya-on-loopcraft-building
+- Score: 2.475 | Reliability: 1.0
+- Why it matters: 
+
+## 15. claude-agent-sdk-python v0.2.102
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.102
+- Score: 2.334 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. AI Agent Failure Detection and Root Cause Analysis with Strands Evals
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/ai-agent-failure-detection-and-root-cause-analysis-with-strands-evals/
+- Score: 1.961 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
