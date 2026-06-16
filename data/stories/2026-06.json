@@ -1578,6 +1578,22 @@
   "url": "https://www.infoq.com/news/2026/06/angular-agent-skills/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "4d6ac2ad0b5cc2a4": {
+  "first_seen": "2026-06-16T02:01:34.481349+00:00",
+  "id": "d7dc8b669d965288",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-13T20:39:49+00:00",
+  "sid": "4d6ac2ad0b5cc2a4",
+  "source": "arxiv_cs_cl",
+  "summary": "PLCs execute safety-critical programs across industrial sectors. The dominant PLC notation, ladder diagram (LD) per IEC 61131-3, remains absent from formal verification: SMT-based model checkers cannot process LD's rung-and-coil graphics. This paper presents ESBMC-PLC, the first open-source formal verifier with native LD support (PLCopen XML format), implemented as a new ESBMC frontend. ESBMC-PLC translates LD rungs to GOTO IR, models the PLC scan cycle as a while(true) loop with nondeterministic inputs, and checks safety properties via SMT-based bounded model checking or k-induction. A five-property YAML language (mutual_exclusion, invariant, absence, response, reachability) avoids temporal logic. A survey of 22 studies (2020-2026) identifies four research gaps; ESBMC-PLC closes two of them. Evaluation on 13 benchmarks (6 domains, 3 sources - including deployed CONTROLLINO PLCs and MathWorks Simulink PLC Coder) shows correct classification across 61 properties: all 9 author-constructed programs (Categories A/B) as expected, all 4 vendor programs (Category C) correctly unlabeled, with 8 bugs found (actionable counterexamples), 7 unbounded k-induction proofs, all runs under 60ms on Apple Silicon. Feature comparison with PLCverif shows that ESBMC-PLC is the only open-source tool that combines native LD, k-induction, and SMT bit-vector semantics.",
+  "summary_1line": "PLCs execute safety-critical programs across industrial sectors. The dominant PLC notation, ladder diagram (LD) per IEC 61131-3, remains absent from formal verification: SMT-based model checkers cannot process LD's ru...",
+  "title": "ESBMC-PLC: Formal Verification of IEC 61131-3 Ladder Diagram Programs Using SMT-Based Model Checking",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.15461v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "4dbb4daa381a06bf": {
   "first_seen": "2026-06-10T09:56:36.218209+00:00",
   "id": "9880e01ea8a93acf",
@@ -1640,6 +1656,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.22",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "515524d3f497df0c": {
+  "first_seen": "2026-06-16T02:01:34.481349+00:00",
+  "id": "ac80d8f7b8f2bab9",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-15T03:11:23+00:00",
+  "sid": "515524d3f497df0c",
+  "source": "arxiv_llm_reliability",
+  "summary": "Many reasoning tasks require models to reason over input context, from document-grounded question answering to rule-based deduction. Chain-of-Thought (CoT) prompting produces traces that appear transparent, yet individual steps can silently deviate from the source evidence, even when the final answer is correct. Existing methods detect hallucinations at the response level but fail to identify where in the chain a failure occurs or what type it is. We introduce GRACE, the first human-annotated step-level faithfulness benchmark with a data-driven error taxonomy for context-grounded textual reasoning. GRACE covers CoT traces from 10 models across 4 source datasets, with each step annotated for faithfulness, error category, and natural language explanation. A data-driven taxonomy, discovered bottom-up via unsupervised clustering, organizes failures into two tracks: GRACE-Inference (deductive errors) and GRACE-Grounding (factual grounding errors), with four categories each. The evaluation set is human-annotated and challenging by design. Our experiments reveal substantial headroom for current models. In addition, integrating step-level faithfulness signals into reinforcement learning pipelines improves both downstream accuracy and reasoning reliability.",
+  "summary_1line": "Many reasoning tasks require models to reason over input context, from document-grounded question answering to rule-based deduction. Chain-of-Thought (CoT) prompting produces traces that appear transparent, yet indivi...",
+  "title": "GRACE: Step-Level Benchmark for Faithful Reasoning over Context",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.16151v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "52e0bd5fb8e8813d": {
   "first_seen": "2026-06-10T05:16:47.099466+00:00",
@@ -2617,6 +2649,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.15",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "97e9c0b10413fdc4": {
+  "first_seen": "2026-06-16T02:01:34.481349+00:00",
+  "id": "5d7275ddcc92d132",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-06-14T09:02:33+00:00",
+  "sid": "97e9c0b10413fdc4",
+  "source": "arxiv_cs_ai",
+  "summary": "We present TickingCollabBench, a Minecraft-based multi-agent benchmark for a novel class of time-sensitive complementary collaboration tasks. Our benchmark reflects four core characteristics of real-world collaboration: agent heterogeneity, mandatory collaboration, dynamic environments, and strict real-time constraints with failure risks. To enable this, we develop the TickingCollab framework, which supports the generation of diverse dynamic environments and abstracts Minecraft's primitive APIs to enable declarative YAML task specifications for composing these events. Building on this, we design a feasibility-aware automated benchmark generation pipeline, where an LLM drafts structurally diverse task configurations and feasibility verifier filters out invalid ones using approximate constraints. Evaluations demonstrate that lang latency and inherent difficulty of coordinating under partial observability and agent heterogeneity cause LLMs to frequently fail under dynamic environments and fall significantly short of a global-knowledge oracle.",
+  "summary_1line": "We present TickingCollabBench, a Minecraft-based multi-agent benchmark for a novel class of time-sensitive complementary collaboration tasks. Our benchmark reflects four core characteristics of real-world collaboratio...",
+  "title": "Multi-agent Framework for Time-Sensitive Complementary Collaboration in Minecraft",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.15684v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "98916af90b99edbd": {
   "first_seen": "2026-06-08T22:25:29.341302+00:00",
