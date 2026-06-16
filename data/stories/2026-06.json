@@ -123,6 +123,22 @@
   "type": "news",
   "url": "https://openai.com/index/wasmer"
  },
+ "0339a79efc77790e": {
+  "first_seen": "2026-06-16T03:01:34.193737+00:00",
+  "id": "6385d6cc7030304c",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-15T16:15:45+00:00",
+  "sid": "0339a79efc77790e",
+  "source": "arxiv_cs_cl",
+  "summary": "Diffusion large language models (dLLMs) offer a promising alternative to autoregressive decoding by iteratively refining masked sequences, enabling parallel token updates and bidirectional conditioning. Their practical efficiency, however, is limited by sampling procedures that execute a fixed number of reverse denoising steps selected before decoding, spending computation on already-stable positions and sometimes committing unstable ones too early. We present \\textsc{LESS}, a training-free, model-agnostic adaptive sampler that treats token commitment as an online stopping problem. \\textsc{LESS} implements mutual-stability sampling through a joint stability rule that makes a masked position eligible for unmasking only when its top-1 prediction has high confidence, its top-1 token persists across recent reverse steps, and its predictive distribution is stable under top-$K$ inter-step Jensen--Shannon divergence. We evaluate \\textsc{LESS} on Dream-7B, LLaDA-8B, and LLaDA-1.5-8B, covering full-sequence diffusion and semi-autoregressive blockwise sampling regimes, across seven benchmarks spanning general knowledge, math, and code. \\textsc{LESS} improves average accuracy over strong training-free adaptive samplers while using $72.1\\%$ fewer reverse steps than fixed-budget decoding. Since each reverse step requires a Transformer forward pass, these step-count reductions translate into fewer forward evaluations, lower measured wall-clock latency, and lower estimated inference compute",
+  "summary_1line": "Diffusion large language models (dLLMs) offer a promising alternative to autoregressive decoding by iteratively refining masked sequences, enabling parallel token updates and bidirectional conditioning. Their practica...",
+  "title": "LESS Is More: Mutual-Stability Sampling for Diffusion Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.16908v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0359d8dee23868a6": {
   "first_seen": "2026-06-11T21:18:45.647451+00:00",
   "id": "9b9348175caf737a",
@@ -2025,6 +2041,22 @@
   "type": "release",
   "url": "https://thezvi.substack.com/p/trump-signs-executive-order-for-ai"
  },
+ "64a2327ccedd0135": {
+  "first_seen": "2026-06-16T03:01:34.193737+00:00",
+  "id": "d045329259afdaad",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-15T15:36:29+00:00",
+  "sid": "64a2327ccedd0135",
+  "source": "arxiv_cs_lg",
+  "summary": "Evaluation of spatiotemporal point process (STPP) models relies heavily on opaque real-world datasets, where latent generative structure is unknown and model failures are difficult to attribute. We introduce HawkesNest, a generator-aligned benchmark for controlled spatiotemporal pattern complexity built on a multivariate Hawkes backbone. HawkesNest defines four complexity axes: space--time entanglement, background heterogeneity, cross-type interaction, and domain topology. Each axis is associated with a deterministic index computed from the latent data-generating mechanism. By varying these axes while holding global rate, stability, and simulation budget fixed, HawkesNest enables diagnostic stress tests of STPP models under known structural difficulty. We verify that the indices are monotone and nearly orthogonal under controlled sweeps. We illustrate its use by showing that Hawkes-family baselines degrade under joint heterogeneity--entanglement complexity, even though they are structurally aligned with the Hawkes data-generating backbone. We further show that HawkesNest exposes neural-model sensitivity: AutoSTPP remains vulnerable under isolated increases in space--time entanglement. Code. Available at https://github.com/YahyaAalaila/HawkesNest",
+  "summary_1line": "Evaluation of spatiotemporal point process (STPP) models relies heavily on opaque real-world datasets, where latent generative structure is unknown and model failures are difficult to attribute. We introduce HawkesNes...",
+  "title": "HawkesNest: A Multi-Axis Synthetic Benchmark for Spatiotemporal Pattern Complexity",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.16863v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "64ad8e685ed41a9b": {
   "first_seen": "2026-06-15T22:03:36.840286+00:00",
   "id": "366bf2db28eba5d5",
@@ -2502,6 +2534,23 @@
   "title": "0.137.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.137.0"
+ },
+ "8284c27e10e9ddf0": {
+  "first_seen": "2026-06-16T03:01:34.193737+00:00",
+  "id": "efaf6d8228958be1",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-06-15T16:10:03+00:00",
+  "sid": "8284c27e10e9ddf0",
+  "source": "arxiv_cs_ai",
+  "summary": "This work addresses spatial question answering for service robots traversing long egocentric routes. Given a query such as \"where can I find a dry cleaner on the way back home?\", the system returns a metric coordinate that downstream navigation components can act on. Prior Spatial Question Answering approaches leverage retrieval-augmented agents built on closed-source models such as GPT-4o for path exploration. However, robots operating in the real world often cannot reliably depend on online closed-source models due to network instability, communication latency, and deployment cost. It creates a need for open-source based Spatial Question Answering approaches that can run onboard the robot, yet prior research in this direction remains limited. This work proposes BinTrack, a simple yet effective, fully open-source spatial-localization agent that leverages the temporal ordering of a robot's trajectory. BinTrack performs a binary search over the trajectory segments between two anchor landmarks identified from a query. It improves overall accuracy by up to 22.8% over other open-source implementations and even matches the reported closed-source model result on the global category of the SpaceLocQA benchmark, the most challenging setting that has so far required strong reasoning agents such as GPT-4o. Furthermore, its optimized inference strategy consistently yields more than a 1.5x inference speedup over previous approaches. Finally, this work releases GangnamLoop, a novel and pr",
+  "summary_1line": "This work addresses spatial question answering for service robots traversing long egocentric routes. Given a query such as \"where can I find a dry cleaner on the way back home?\", the system returns a metric coordinate...",
+  "title": "Binary Tracking for Spatial QA and Navigation with Open Vision-Language Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.16902v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "858b8de97864474e": {
   "first_seen": "2026-06-10T05:16:47.099466+00:00",
@@ -3685,6 +3734,19 @@
   "title": "v0.2.88",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.88"
+ },
+ "d682a304bd82efd4": {
+  "first_seen": "2026-06-16T03:01:34.193737+00:00",
+  "id": "b6bd36277de5820f",
+  "image_url": "https://substackcdn.com/image/fetch/$s_!HKwp!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fcf76265a-b9d4-4100-acf7-e262e9f15460_908x1210.png",
+  "published": "2026-06-16T02:29:29+00:00",
+  "sid": "d682a304bd82efd4",
+  "source": "latent_space",
+  "summary": "a quiet day lets us report on Satya's hit essay",
+  "summary_1line": "a quiet day lets us report on Satya's hit essay",
+  "title": "[AINews] Satya on Loopcraft: Building Frontier Ecosystems",
+  "type": "news",
+  "url": "https://www.latent.space/p/ainews-satya-on-loopcraft-building"
  },
  "d8e2054a3dff0685": {
   "first_seen": "2026-06-09T09:40:16.446545+00:00",
