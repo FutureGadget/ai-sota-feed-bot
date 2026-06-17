@@ -5,101 +5,119 @@ Focus: AI Platform Engineering
 ## 1. Trustworthy Self-Composable Big-Data-as-a-Service: An LLM-Orchestrated Multi-Agent Framework for Automated Data Engineering, AutoML, MLOps Deployment, and Drift-Aware Lifecycle Optimization
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.17915v1
-- Score: 3.155 | Reliability: 1.0
+- Score: 3.149 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 2. S4oP: Operator-level Pruning of Structured State Space Models for Resource-Constrained Devices
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2606.18096v1
-- Score: 2.957 | Reliability: 1.0
+## 2. Predicting model behavior before release by simulating deployment
+- Type: release | Source: openai_blog
+- URL: https://openai.com/index/deployment-simulation
+- Score: 3.032 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 3. GitHub Copilot Desktop App Targets Parallel Agentic Workflows
+## 3. S4oP: Operator-level Pruning of Structured State Space Models for Resource-Constrained Devices
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.18096v1
+- Score: 2.951 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 4. GitHub Copilot Desktop App Targets Parallel Agentic Workflows
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/github-copilot-app/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.941 | Reliability: 1.0
+- Score: 2.918 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 4. Unlocking UK house-building with AI-accelerated planning
+## 5. Unlocking UK house-building with AI-accelerated planning
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/
-- Score: 2.844 | Reliability: 1.0
+- Score: 2.828 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Agentic coding and persistent returns to expertise
+## 6. Agentic coding and persistent returns to expertise
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/claude-code-expertise
-- Score: 2.82 | Reliability: 1.0
+- Score: 2.799 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 6. A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry
+## 7. datasette 1.0a34
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/16/datasette/#atom-everything
+- Score: 2.746 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. <click-to-play> — a still that plays
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/17/click-to-play-component/#atom-everything
+- Score: 2.731 | Reliability: 1.0
+- Why it matters: 
+
+## 9. A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/ai-chemist-improves-reaction
-- Score: 2.71 | Reliability: 1.0
+- Score: 2.693 | Reliability: 1.0
 - Why it matters: 
 
-## 7. AI coding agents taught robots how to install GPUs and cut zip-ties
-- Type: news | Source: hackernews_ai
-- URL: https://arstechnica.com/ai/2026/06/ai-coding-agents-can-autonomously-direct-robot-training/
-- Score: 2.677 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem
+## 10. Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem
-- Score: 2.652 | Reliability: 1.0
-- Why it matters: 
-
-## 9. Presentation: From Hype to Strong Foundations: What the Rise, Fall and Resurgence of Agents Can Teach Us About Outlasting the Cycle
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/llm-compound-ai-systems/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.652 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Quoting Charity Majors
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/17/charity-majors/#atom-everything
-- Score: 2.496 | Reliability: 1.0
+- Score: 2.636 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. ReproRepo: Scaling Reproducibility Audits with GitHub Repository Issues
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.18237v1
-- Score: 2.754 | Reliability: 1.0
+- Score: 2.747 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation, codex.
 
-## 12. The Stanford EDGAR Filings Dataset: Reconstructing U.S. Corporate and Financial Disclosures into Layout-Faithful and Token-Efficient Pretraining Data
+## 12. Presentation: From Hype to Strong Foundations: What the Rise, Fall and Resurgence of Agents Can Teach Us About Outlasting the Cycle
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/llm-compound-ai-systems/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.629 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. The Stanford EDGAR Filings Dataset: Reconstructing U.S. Corporate and Financial Disclosures into Layout-Faithful and Token-Efficient Pretraining Data
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.18192v1
-- Score: 2.535 | Reliability: 1.0
+- Score: 2.529 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 13. [AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding
+## 14. [AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding
-- Score: 2.486 | Reliability: 1.0
+- Score: 2.463 | Reliability: 1.0
 - Why it matters: 
 
-## 14. codex rust-v0.141.0-alpha.6
+## 15. codex 0.141.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.141.0-alpha.6
-- Score: 2.443 | Reliability: 1.0
+- Score: 2.388 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 15. From AI potential to agentic reality: Driving the UK’s next chapter
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/inside-google-cloud/london-summit-2026-uk-leads-agentic-enterprise-ai-infrastructure-data-cloud/
-- Score: 2.36 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 16. 🔬 The Self-Driving Lab — Joseph Krause, Radical AI
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/radical-ai
-- Score: 2.354 | Reliability: 1.0
+## 16. langgraph-cli==0.4.30
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.30
+- Score: 2.388 | Reliability: 1.0
 - Why it matters: 
 
-## 17. Context intelligence for your data and AI agents at scale
+## 17. From AI potential to agentic reality: Driving the UK’s next chapter
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/inside-google-cloud/london-summit-2026-uk-leads-agentic-enterprise-ai-infrastructure-data-cloud/
+- Score: 2.357 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 18. claude-code v2.1.179
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.179
+- Score: 2.341 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 19. claude-agent-sdk-python v0.2.103
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.103
+- Score: 2.286 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. Context intelligence for your data and AI agents at scale
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/
-- Score: 2.048 | Reliability: 1.0
+- Score: 2.045 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
