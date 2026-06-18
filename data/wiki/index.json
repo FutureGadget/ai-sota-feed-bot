@@ -1,0 +1,182 @@
+{
+ "generated_at": "2026-06-18T04:16:52.998412+00:00",
+ "areas": [
+  {
+   "area": "memory",
+   "label": "Memory & context",
+   "obstacles": [
+    "agent-memory"
+   ]
+  }
+ ],
+ "nodes": {
+  "agent-memory": {
+   "slug": "agent-memory",
+   "kind": "obstacle",
+   "title": "Agents forget across steps and sessions",
+   "area": "memory",
+   "status": "active",
+   "summary": "An agent's working memory is its context window, which is finite and resets\nbetween runs. On long-horizon tasks it forgets earlier steps, repeats work, and\nloses the user's intent — so \"agent memory\" (what to persist, where, and how to\nrecall it) becomes a first-class architecture problem rather than a prompt tweak.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent memory&quot; (what to persist, where, and how to recall it) becomes a first-class architecture problem rather than a prompt tweak.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. Managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) signal that this is moving from bespoke code to buy-able infrastructure, which sharpens a build-vs-buy decision for teams.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Recent sources push two directions at once: managed persistent-memory services (Cloudflare) lowering the ops bar, and a survey of open agent-memory stacks (Letta, Mem0, Graphiti, Cognee) showing the DIY ecosystem maturing around graph- and vector-backed designs.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Memory is where agent cost, latency, and reliability collide: stuffing everything into context is simple but blows up token cost and latency and still forgets; an external store adds a retrieval hop and a freshness/consistency problem. The decision (compact vs. retrieve vs. both, build vs. buy) is an infrastructure decision with an ongoing operational tail — eviction policies, index maintenance, and recall evaluation — not a one-time integration.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "context-compaction",
+     "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+     "slug": "vector-kb",
+     "title": "External knowledge base: vector and graph retrieval"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [
+    {
+     "slug": "deep-research",
+     "label": "Deep Research"
+    }
+   ],
+   "evidence": [
+    {
+     "sid": "2c8ff757b828dee7",
+     "title": "Presentation: Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale"
+    },
+    {
+     "sid": "9022c498f1c24442",
+     "title": "Designing Memory for AI Agents: Inside Linkedin’s Cognitive Memory Agent"
+    },
+    {
+     "sid": "b3b803dc3d3ab1b8",
+     "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
+    },
+    {
+     "sid": "5c5003b8c444211d",
+     "title": "Agent Memory Systems and Knowledge Graphs: Letta, Mem0, Graphiti, and Cognee"
+    }
+   ],
+   "updated": "2026-06-18"
+  },
+  "context-compaction": {
+   "slug": "context-compaction",
+   "kind": "solution",
+   "title": "Context compaction: summarize, compress, and curate the working set",
+   "area": null,
+   "status": "active",
+   "summary": "Keep memory *inside* the context window but small: summarize old turns,\ncompress history, and deliberately curate what stays in-context each step\n(\"context engineering\"). The agent forgets less because the working set is\nchosen, not just truncated.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Keep memory *inside* the context window but small: summarize old turns, compress history, and deliberately curate what stays in-context each step (&quot;context engineering&quot;). The agent forgets less because the working set is chosen, not just truncated.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href=\"/topic/vector-kb\">vector/graph KB</a>, and rehydrate on demand.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Compression is getting smarter than naive summarization — LLM-guided methods (MemRefine) and forgetting/synthesis-aware memory systems aim to preserve signal density rather than just shrink token count.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>Cheap on infra (no external store) and keeps everything the model needs in one place, but summarization is lossy and irreversible — a detail dropped early can&#x27;t be recovered later, and aggressive compaction can quietly degrade task fidelity. Best for single-session, long-horizon tasks where recency dominates and the full history isn&#x27;t needed verbatim.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Often the highest-leverage first move: it directly attacks token cost and latency (the bill scales with context size) without standing up new infrastructure. The risk is silent quality loss, so it needs evaluation — which makes it a tuning knob, not a set-and-forget fix.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-memory",
+     "title": "Agents forget across steps and sessions"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "10129892c7fcda0f",
+     "title": "MemRefine: LLM-Guided Compression for Long-Term Agent Memory"
+    },
+    {
+     "sid": "2c8ff757b828dee7",
+     "title": "Presentation: Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale"
+    },
+    {
+     "sid": "83e63e463a1dff9d",
+     "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
+    }
+   ],
+   "updated": "2026-06-18"
+  },
+  "vector-kb": {
+   "slug": "vector-kb",
+   "kind": "solution",
+   "title": "External knowledge base: vector and graph retrieval",
+   "area": null,
+   "status": "active",
+   "summary": "Push long-term memory *out* of the context window into an external store —\nembeddings in a vector index, and/or a knowledge graph of entities and\nrelations — and retrieve only the relevant slice at each step. This is how an\nagent \"remembers\" more than fits in a prompt.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Push long-term memory *out* of the context window into an external store — embeddings in a vector index, and/or a knowledge graph of entities and relations — and retrieve only the relevant slice at each step. This is how an agent &quot;remembers&quot; more than fits in a prompt.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>The conversation has shifted from &quot;add a vector DB&quot; to &quot;vector search alone isn&#x27;t enough&quot; — hybrid retrieval and graph structure are now the default recommendation for agent memory rather than an optimization.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall quality is only as good as chunking, embeddings, and reranking, and is hard to evaluate. Graphs add modeling and maintenance cost but answer multi-hop/connected queries vectors can&#x27;t. Best when the durable knowledge is large, queried sparsely, and changes slower than every turn.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is the &quot;buy a database for your agent&#x27;s brain&quot; path: it scales memory well beyond the context window and is independently testable, but it turns memory into a retrieval system you own — with its own freshness, eviction, and eval burden. Pairs with, rather than replaces, <a href=\"/topic/context-compaction\">context compaction</a>.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-memory",
+     "title": "Agents forget across steps and sessions"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "425a66a9c84b30ae",
+     "title": "Article: Why Vector Search Alone Isn't Enough: Hybrid Retrieval for RAG"
+    },
+    {
+     "sid": "5c5003b8c444211d",
+     "title": "Agent Memory Systems and Knowledge Graphs: Letta, Mem0, Graphiti, and Cognee"
+    },
+    {
+     "sid": "2d698f04404f697d",
+     "title": "Local Agent Memory with 98% Recall-5 on LongMemEval-S, no LLMs, no API Key"
+    }
+   ],
+   "updated": "2026-06-18"
+  }
+ }
+}
