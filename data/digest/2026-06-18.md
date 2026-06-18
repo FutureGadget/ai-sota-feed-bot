@@ -23,7 +23,7 @@ Focus: AI Platform Engineering
 ## 4. Unlocking UK house-building with AI-accelerated planning
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/
-- Score: 2.832 | Reliability: 1.0
+- Score: 2.831 | Reliability: 1.0
 - Why it matters: 
 
 ## 5. Agentic coding and persistent returns to expertise
@@ -47,7 +47,7 @@ Focus: AI Platform Engineering
 ## 8. Agent finder for GitHub Copilot now available
 - Type: news | Source: hackernews_ai
 - URL: https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/
-- Score: 2.683 | Reliability: 1.0
+- Score: 2.681 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem
@@ -95,7 +95,7 @@ Focus: AI Platform Engineering
 ## 16. codex 0.141.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.141.0-alpha.6
-- Score: 2.418 | Reliability: 1.0
+- Score: 2.417 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 17. 🔬 The Self-Driving Lab — Joseph Krause, Radical AI
@@ -113,5 +113,5 @@ Focus: AI Platform Engineering
 ## 19. Get back hours every day with autonomous agents in Amazon Quick
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/
-- Score: 2.034 | Reliability: 1.0
+- Score: 2.033 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
