@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What happened in AI — Jun 17, 2026 | LLM Digest</title>
+  <meta name="description" content="OpenAI went deep on science: a near-autonomous AI chemist (GPT-5.4) improved a real medicinal-chemistry reaction, plus a new life-science benchmark, LifeSciBench. Google&#x27;s AMIE matched primary-care physicians on complex disease management in a…" />
+  <link rel="canonical" href="https://www.llm-digest.com/daily/2026-06-17" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="What happened in AI — Jun 17, 2026" />
+  <meta property="og:description" content="OpenAI went deep on science: a near-autonomous AI chemist (GPT-5.4) improved a real medicinal-chemistry reaction, plus a new life-science benchmark, LifeSciBench. Google&#x27;s AMIE matched primary-care physicians on complex disease management in a…" />
+  <meta property="og:url" content="https://www.llm-digest.com/daily/2026-06-17" />
+  <meta property="article:published_time" content="2026-06-18T00:03:23+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What happened in AI — Jun 17, 2026" />
+  <meta name="twitter:description" content="OpenAI went deep on science: a near-autonomous AI chemist (GPT-5.4) improved a real medicinal-chemistry reaction, plus a new life-science benchmark, LifeSciBench. Google&#x27;s AMIE matched primary-care physicians on complex disease management in a…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What happened in AI — Jun 17, 2026", "description": "OpenAI went deep on science: a near-autonomous AI chemist (GPT-5.4) improved a real medicinal-chemistry reaction, plus a new life-science benchmark, LifeSciBench. Google's AMIE matched primary-care physicians on complex disease management in a…", "datePublished": "2026-06-18T00:03:23+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-17", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-06-17", "item": "https://www.llm-digest.com/daily/2026-06-17"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>📰 AI Daily Recap</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">20 articles · 5 categories</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/storylines" role="button">📈 Storylines</a>
+        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/voices" role="button">🗣️ Voices</a>
+        <a href="/rss.xml" role="button">🔔 RSS</a>
+        <a href="/api/daily?date=2026-06-17" role="button">JSON</a>
+        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-17" selected>2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
+      </menu>
+    </header>
+
+    <section id="recap">
+      <h2 class="recap-title">What happened in AI — Jun 17, 2026</h2>
+      <p class="recap-range">Wednesday, Jun 17, 2026</p>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>OpenAI went deep on science: a near-autonomous AI chemist (GPT-5.4) improved a real medicinal-chemistry reaction, plus a new life-science benchmark, LifeSciBench.</li><li>Google&#x27;s AMIE matched primary-care physicians on complex disease management in a Nature study.</li><li>GLM-5.2 claimed the top open frontend-coding model spot.</li><li>Anthropic opened a Seoul office and announced partnerships across the Korean AI ecosystem.</li><li>Agents moved into production plumbing: Amazon Quick autonomous agents, GitHub&#x27;s Copilot desktop app for parallel workflows, AWS context intelligence, and Stanford&#x27;s orchestrator-free DeLM.</li><li>A wave of open-source agent tooling landed: Deputies (background-agent control plane), Adam (AI CAD), and AutomatiQ (web reverse-engineering agent).</li></ul></div><p>Wednesday was AI-for-science day. OpenAI shipped a one-two punch: a near-autonomous AI chemist (built on GPT-5.4, with Molecule.one) that materially improved a hard medicinal-chemistry reaction, and LifeSciBench, an expert-authored benchmark for real life-science research tasks. Google Research, meanwhile, reported in Nature that its conversational AMIE system matched primary-care physicians on complex disease management — the most concrete clinical result the agent-doctor line of work has produced so far.</p><p>The other through-line was agents leaving the demo stage for production plumbing. Amazon put autonomous agents and an activity feed into Quick; GitHub turned Copilot into a desktop control center for running parallel agent workflows; AWS pitched &#x27;context intelligence&#x27; for grounding agents across scattered enterprise data; and Stanford&#x27;s DeLM showed you can cut multi-agent task costs without a central orchestrator. A thick layer of open-source tooling — Deputies (a background-agent control plane), Adam&#x27;s AI CAD, and AutomatiQ&#x27;s web reverse-engineering agent — filled in underneath.</p><p>On models and business: GLM-5.2 claimed the title of top open frontend-coding model, Anthropic opened a Seoul office with a slate of Korean partnerships, and Simon Willison surfaced Charity Majors on how 2025 turned the economics of writing code upside down — a fitting epigraph for a day this saturated with agents.</p></div>
+      <nav class="toc"><a href="#ai-for-science-medicine">AI for Science &amp; Medicine (4)</a><a href="#agents-in-production">Agents in Production (5)</a><a href="#open-source-agent-tooling">Open-Source Agent Tooling (3)</a><a href="#models-business">Models &amp; Business (3)</a><a href="#from-the-community">From the Community (3)</a></nav><section class="cat" id="ai-for-science-medicine"><h2>AI for Science &amp; Medicine <span class="count">4 items</span></h2><p class="cat-summary">The day&#x27;s strongest thread: AI moving from chat into the lab and the clinic, with concrete results in chemistry, life-science evaluation, and disease management.</p><div class="articles"><article><h3><a href="https://openai.com/index/ai-chemist-improves-reaction" target="_blank" rel="noopener" data-track="daily-link">A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry</a></h3><div class="art-meta"><span class="badge">openai_blog</span><a class="badge" href="/story/5ff2f715f1e62741" data-track="story-link">Details</a></div><p class="art-summary">OpenAI and Molecule.one used a near-autonomous AI chemist on GPT-5.4 to improve a key drug-making reaction — a tangible win for AI in the wet lab, not just the benchmark.</p></article><article><h3><a href="https://openai.com/index/introducing-life-sci-bench" target="_blank" rel="noopener" data-track="daily-link">Introducing LifeSciBench</a></h3><div class="art-meta"><span class="badge">openai_blog</span><a class="badge" href="/story/381e7f583722c98d" data-track="story-link">Details</a></div><p class="art-summary">An expert-authored, expert-reviewed benchmark for evaluating how AI handles real-world life-science research tasks — infrastructure for measuring the science push above.</p></article><article><h3><a href="https://blog.google/innovation-and-ai/models-and-research/google-research/amie-for-disease-management-in-nature/" target="_blank" rel="noopener" data-track="daily-link">New research shows how AMIE, our medical AI, could help manage health conditions</a></h3><div class="art-meta"><span class="badge">google_ai_blog</span><a class="badge" href="/story/4ca5042e690d6cce" data-track="story-link">Details</a></div><p class="art-summary">Google Research reports in Nature that its conversational AI matches primary-care physicians on complex disease management — moving the agent-doctor idea toward clinical credibility.</p></article><article><h3><a href="https://www.latent.space/p/radical-ai" target="_blank" rel="noopener" data-track="daily-link">The Self-Driving Lab — Joseph Krause, Radical AI</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/075b966bd6aaba51" data-track="story-link">Details</a></div><p class="art-summary">Radical AI&#x27;s Joseph Krause argues the moat in materials science is the lab itself, not the model — a useful counterweight to model-centric hype.</p></article></div></section><section class="cat" id="agents-in-production"><h2>Agents in Production <span class="count">5 items</span></h2><p class="cat-summary">Major platforms shipped autonomous-agent features and the grounding/orchestration infrastructure to run them at scale.</p><div class="articles"><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/" target="_blank" rel="noopener" data-track="daily-link">Get back hours every day with autonomous agents in Amazon Quick</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/78f90ae4cfcca91b" data-track="story-link">Details</a></div><p class="art-summary">Quick adds autonomous agents that work continuously on your behalf, an activity feed to triage work, and cross-source insight retrieval.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/github-copilot-app/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">GitHub Copilot Desktop App Targets Parallel Agentic Workflows</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/d898f53480dac134" data-track="story-link">Details</a></div><p class="art-summary">GitHub&#x27;s new Copilot desktop app is a control center for agent-native development, designed to keep engineers in charge while agents handle more coding in parallel.</p></article><article><h3><a href="https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/" target="_blank" rel="noopener" data-track="daily-link">Context intelligence for your data and AI agents at scale</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><a class="badge" href="/story/b59f1c1624ba75f4" data-track="story-link">Details</a></div><p class="art-summary">AWS pitches a layer to unify context scattered across lakes, warehouses, databases, and streams — on the premise that agents are only as smart as the context they can reason over.</p></article><article><h3><a href="https://venturebeat.com/orchestration/stanfords-delm-cuts-multi-agent-task-costs-50-without-a-central-orchestrator" target="_blank" rel="noopener" data-track="daily-link">DeLM cuts multi-agent task costs without a central orchestrator</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/19e4caf222bfb0d9" data-track="story-link">Details</a></div><p class="art-summary">Stanford&#x27;s DeLM reports ~50% lower multi-agent task costs by dropping the central orchestrator — an architectural counterpoint to heavyweight agent frameworks.</p></article><article><h3><a href="https://arstechnica.com/ai/2026/06/ai-coding-agents-can-autonomously-direct-robot-training/" target="_blank" rel="noopener" data-track="daily-link">AI coding agents taught robots how to install GPUs and cut zip-ties</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/3127716f4ff7f7c1" data-track="story-link">Details</a></div><p class="art-summary">Coding agents can autonomously direct robot training — pushing agentic automation from software into physical assembly tasks.</p></article></div></section><section class="cat" id="open-source-agent-tooling"><h2>Open-Source Agent Tooling <span class="count">3 items</span></h2><p class="cat-summary">A cluster of open-source launches gave teams self-hostable building blocks for running and controlling agents.</p><div class="articles"><article><h3><a href="https://deputies.dev/" target="_blank" rel="noopener" data-track="daily-link">Show HN: Deputies (open-source background agent control plane)</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/b107ef328f5fba2e" data-track="story-link">Details</a></div><p class="art-summary">A background-agent platform in the vein of internal tools like Ramp&#x27;s Inspect, but open source and deployable anywhere — now with a public demo instance.</p></article><article><h3><a href="https://github.com/Adam-CAD/CADAM" target="_blank" rel="noopener" data-track="daily-link">Launch HN: Adam (YC W25) – Open-Source AI CAD</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/00750e87d1af6fa5" data-track="story-link">Details</a></div><p class="art-summary">AI agents for mechanical CAD, betting that AI becomes the primary medium for creating mechanical designs.</p></article><article><h3><a href="https://github.com/StoneSteel27/AutomatiQ" target="_blank" rel="noopener" data-track="daily-link">Show HN: AutomatiQ – Reverse-Engineering Agent for the Web</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/e047b01d8ad4b601" data-track="story-link">Details</a></div><p class="art-summary">An open-source agent that writes requests-based (no-browser) scraper/automation scripts after you browse a site once.</p></article></div></section><section class="cat" id="models-business"><h2>Models &amp; Business <span class="count">3 items</span></h2><p class="cat-summary">A new open coding leader, Anthropic&#x27;s Korea expansion, and Google Cloud&#x27;s UK agentic push.</p><div class="articles"><article><h3><a href="https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding" target="_blank" rel="noopener" data-track="daily-link">[AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding</a></h3><div class="art-meta"><span class="badge">latent_space</span><a class="badge" href="/story/ffc4c951795ec8c0" data-track="story-link">Details</a></div><p class="art-summary">GLM-5.2 is billed as the new top open frontend-coding model, alongside IndexShare work on speculative decoding.</p></article><article><h3><a href="https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem" target="_blank" rel="noopener" data-track="daily-link">Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jun 17</span><a class="badge" href="/story/47e96fb85bcbcad4" data-track="story-link">Details</a></div><p class="art-summary">Anthropic plants a Seoul office and partners with Korean enterprises, startups, and researchers building on Claude — part of its Asia-Pacific expansion.</p></article><article><h3><a href="https://cloud.google.com/blog/topics/inside-google-cloud/london-summit-2026-uk-leads-agentic-enterprise-ai-infrastructure-data-cloud/" target="_blank" rel="noopener" data-track="daily-link">From AI potential to agentic reality: Driving the UK&#x27;s next chapter</a></h3><div class="art-meta"><span class="badge">google_cloud_blog</span><a class="badge" href="/story/3aed11e5e45f26ca" data-track="story-link">Details</a></div><p class="art-summary">Google Cloud frames London as a hub for agentic enterprise AI, leaning on DeepMind and local infrastructure investment.</p></article></div></section><section class="cat" id="from-the-community"><h2>From the Community <span class="count">3 items</span></h2><p class="cat-summary">Perspective pieces and craft notes worth a moment: the changing economics of code, agent maturity, and good software made without commercial pressure.</p><div class="articles"><article><h3><a href="https://simonwillison.net/2026/Jun/17/charity-majors/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Quoting Charity Majors</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 17</span><a class="badge" href="/story/25776de53c589c57" data-track="story-link">Details</a></div><p class="art-summary">Charity Majors on how 2025 inverted the economics of code production — generating code became effectively free and instant, shifting where the hard work lives.</p></article><article><h3><a href="https://www.infoq.com/presentations/llm-compound-ai-systems/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">From Hype to Strong Foundations: What the Rise, Fall and Resurgence of Agents Can Teach Us</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/7be8731ed26ad73f" data-track="story-link">Details</a></div><p class="art-summary">Aditya Kumarakrishnan&#x27;s blueprint for engineering leaders to build modular agent frameworks (using CoALA) and outlast the hype cycle.</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/17/netnewswire-status/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">NetNewsWire Status</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 17</span><a class="badge" href="/story/42888cf86bd6da2a" data-track="story-link">Details</a></div><p class="art-summary">Simon Willison finds Brent Simmons&#x27; retirement project — making one piece of free software really, really good — quietly inspiring.</p></article></div></section>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/rss.xml">RSS</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+    })();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
