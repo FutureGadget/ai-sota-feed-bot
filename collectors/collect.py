@@ -397,6 +397,47 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     cache_ttl_hours = int(source.get("page_meta_cache_ttl_hours", 24))
     cache = _load_sitemap_meta_cache() if extract_from_page else {}
 
+    # Some sitemaps (e.g. LangChain) ship no <lastmod>, so the only ordering the
+    # sitemap gives is alphabetical-by-slug — meaningless for "newest". Capping
+    # that order to 60 permanently hides any post whose slug sorts past the cut
+    # (a brand-new "the-art-of-..." can never beat "a-..."/"b-..." entries). When
+    # a sitemap carries no usable lastmod, discover the real publish dates first,
+    # then keep the newest 60. Publish dates never change, so they are cached
+    # forever; only a bounded number of new (uncached) pages are fetched per run,
+    # so a cold cache warms up over a few runs instead of stalling one.
+    if extract_from_page and not any(lm for _, lm in rows):
+        budget = int(
+            os.getenv(
+                "COLLECT_SITEMAP_META_BUDGET",
+                str(source.get("page_meta_fetch_budget", 200)),
+            )
+        )
+        fetched = 0
+        dated: list[tuple[str, str]] = []
+        for loc, lastmod in rows:
+            cache_row = cache.get(loc) if isinstance(cache.get(loc), dict) else None
+            if cache_row and cache_row.get("published"):
+                dated.append((loc, cache_row["published"]))
+                continue
+            if fetched >= budget:
+                continue  # out of budget this run; discovered on a later run
+            try:
+                meta = _fetch_page_meta(loc)
+                cache[loc] = {
+                    "published": meta.get("published"),
+                    "title": meta.get("title"),
+                    "description": meta.get("description"),
+                    "fetched_at": now.isoformat(),
+                }
+                fetched += 1
+                dated.append((loc, meta.get("published") or lastmod or now.isoformat()))
+            except Exception:
+                continue  # transient fetch failure; retry on a later run
+        # Reorder by real publish date so the [:60] cap below keeps the newest.
+        dated.sort(key=lambda x: x[1], reverse=True)
+        rows = [(loc, "") for loc, _ in dated]
+        _save_sitemap_meta_cache(cache)
+
     out = []
     for loc, lastmod in rows[:60]:
         published = None
