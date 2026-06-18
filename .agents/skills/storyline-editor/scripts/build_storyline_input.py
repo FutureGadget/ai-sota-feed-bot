@@ -94,10 +94,15 @@ def main() -> None:
                 "last_updated": entry.get("last_updated"),
                 "latest_title": entry.get("latest_title"),
                 "member_sids": member_sids(entry),
+                "via_scout": bool(entry.get("via_scout")),
                 "has_narrative": isinstance(narrative, dict),
                 "needs_narrative": needs,
                 "reason": reason,
                 "narrative_path": f"data/storylines/narratives/{slug}.json",
+                # On a refresh, hand the agent its prior narrative so it can
+                # carry the arc forward (extend beats / update status) instead
+                # of re-deriving the whole story from scratch.
+                "prior_narrative": narrative if isinstance(narrative, dict) else None,
                 "timeline": _timeline(detail),
             }
         )
