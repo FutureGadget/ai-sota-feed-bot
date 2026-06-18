@@ -283,7 +283,18 @@ STORYLINE_FOLLOW_JS = """\
 # tone colors are semantic mid-tones that read on both light and dark). Scoped
 # under .sl so it never leaks into recap/story pages. See render_storyline_body.
 STORYLINE_ARC_CSS = """\
-    .sl { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
+    /* Pin the storyline page to the prototype's true GitHub-dark palette (dark
+       theme only); light theme keeps the site defaults. Scoped to this page
+       because extra_css is injected per-page. */
+    html[data-theme="dark"] { --bg:#0d1117; --card:#0f141b; --border:#21262d;
+      --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
+    .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
+    .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
+    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:0;
+      padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
+      border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
+    .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
+    :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
       --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
     .sl-status { border:1px solid var(--border); border-radius:12px;
       padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
@@ -1567,15 +1578,25 @@ SL_FOOTER_NOTE = (
 )
 
 
-def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
-    parts = []
+def storyline_hero(sl: dict) -> str:
+    """The bespoke storyline header: the story name as the hero H1 with an inline
+    Follow button (passed to render_page as ``title_html``), so the page reads as
+    a dedicated story rather than a generic recap with the name demoted."""
+    label = squeeze(sl.get("label")) or str(sl.get("slug") or "")
     slug = str(sl.get("slug") or "")
     last_updated = str(sl.get("last_updated") or "")
-    parts.append(
-        '<p class="story-actions"><button id="followBtn" type="button" class="primary" '
+    return (
+        '<div class="sl-hero">'
+        f'<h2 class="recap-title">{escape(label)}</h2>'
+        '<button id="followBtn" type="button" class="primary" '
         f'data-slug="{escape(slug)}" data-last-updated="{escape(last_updated)}" '
-        'aria-pressed="false">+ Follow this story</button></p>'
+        'aria-pressed="false">+ Follow this story</button>'
+        "</div>"
     )
+
+
+def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
+    parts = []
     ed = sl.get("editorial") or {}
     parts.append(_sl_status_banner(ed.get("status")))
 
@@ -1657,6 +1678,7 @@ def render_storyline_pages(
             archive="",
             recap_title=label,
             recap_range="",
+            title_html=storyline_hero(sl),
             intro_html="",
             body_html=render_storyline_body(sl, story_sids),
             json_ld=[
