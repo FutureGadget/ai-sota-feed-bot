@@ -23,6 +23,22 @@ from storyline_common import (
 )
 
 
+# Deterministic beat shape so the seeded arc exercises every tone/node style.
+_BEAT_PLAN = [
+    ("LAUNCH", "launch", "It begins"),
+    ("DEVELOPS", "rising", "The story develops"),
+    ("THE TURN", "turn", "The pivot"),
+    ("NOW", "now", "Where it stands"),
+]
+
+
+def _chunk(items: list, n: int) -> list[list]:
+    """Split items into up to n contiguous, roughly equal chunks (no empties)."""
+    n = min(n, len(items)) or 1
+    size = -(-len(items) // n)  # ceil
+    return [items[i : i + size] for i in range(0, len(items), size)]
+
+
 def _seed_for(row: dict) -> dict:
     days = row.get("timeline") or []
     items = [it for d in days for it in d.get("items") or []]
@@ -33,6 +49,28 @@ def _seed_for(row: dict) -> dict:
         f"{row.get('day_count')} days and {row.get('source_count')} sources, "
         f"from “{first}” to “{last}”."
     )
+    chunks = _chunk(items, len(_BEAT_PLAN)) if items else []
+    beats = []
+    provenance: dict = {}
+    for i, ((kicker, tone, headline), group) in enumerate(zip(_BEAT_PLAN, chunks)):
+        sids = [it["sid"] for it in group if it.get("sid")]
+        beats.append(
+            {
+                "kicker": kicker,
+                "tone": tone,
+                "headline": f"[placeholder] {headline}",
+                "summary": f"[placeholder] {group[0].get('title')}",
+                "sids": sids,
+            }
+        )
+        # Exercise each provenance badge across the seeded beats.
+        if sids and i == 0:
+            provenance[sids[0]] = {"surfaced_by": "scout"}
+        if sids and tone == "turn":
+            for s in sids:
+                provenance[s] = {"verified": max(2, len(group))}
+        if sids and i == len(_BEAT_PLAN) - 1:
+            provenance[sids[-1]] = {"status_update": True}
     return {
         "slug": row["slug"],
         "generated_at": now_iso(),
@@ -41,6 +79,23 @@ def _seed_for(row: dict) -> dict:
         "tldr": tldr,
         "whats_new": f"[placeholder] Latest: {last}." if last else "",
         "why_it_matters": "[placeholder] why this matters to AI platform engineers.",
+        "status": {
+            "state": "Developing",
+            "tone": "now",
+            "changed": row.get("last_updated"),
+            "detail": f"[placeholder] current framing of {row.get('label')}.",
+            "track": [
+                {"label": "early", "detail": "", "tone": "launch", "weight": 60},
+                {"label": "now", "detail": "", "tone": "now", "weight": 40},
+            ],
+        },
+        "beats": beats,
+        "provenance": provenance,
+        "open_questions": [
+            "[placeholder] what should an engineer watch next?",
+            "[placeholder] does this extend beyond this vendor?",
+        ],
+        "take_for_builders": "[placeholder] one actionable takeaway for platform engineers.",
         "day_captions": {
             it["sid"]: f"[placeholder] {it.get('title')}"
             for it in items

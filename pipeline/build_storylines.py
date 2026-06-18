@@ -409,14 +409,42 @@ def apply_narrative(slug: str, detail: dict, entry: dict) -> None:
         and set(narr.get("covers_member_sids") or []) == current_sids
     )
     editorial = {"tldr": tldr, "stale": not fresh}
-    for k in ("whats_new", "why_it_matters"):
+    for k in ("whats_new", "why_it_matters", "take_for_builders"):
         if narr.get(k):
             editorial[k] = narr[k]
+    # Arc layer: status banner, narrative beats, and "what to watch" questions.
+    # Beats reference member sids; drop any that no longer belong to the thread
+    # so the overlay can never point a beat at a reclustered-away item.
+    if isinstance(narr.get("status"), dict):
+        editorial["status"] = narr["status"]
+    beats = narr.get("beats")
+    if isinstance(beats, list):
+        clean = []
+        for b in beats:
+            if not isinstance(b, dict):
+                continue
+            sids = [s for s in (b.get("sids") or []) if s in current_sids]
+            clean.append({**b, "sids": sids})
+        if clean:
+            editorial["beats"] = clean
+    oq = narr.get("open_questions")
+    if isinstance(oq, list):
+        editorial["open_questions"] = [str(q) for q in oq if str(q).strip()]
+    # Per-item agent provenance (scout / fact-checker / watcher badges), keyed
+    # by sid — keep only sids still in the thread.
+    prov = narr.get("provenance")
+    if isinstance(prov, dict):
+        kept = {s: v for s, v in prov.items() if s in current_sids and isinstance(v, dict)}
+        if kept:
+            editorial["provenance"] = kept
     if narr.get("generated_at"):
         editorial["generated_at"] = narr["generated_at"]
 
     detail["editorial"] = editorial
+    # Index row carries a teaser plus the status pill so /storylines can badge it.
     entry["editorial"] = {"tldr": tldr, "stale": not fresh}
+    if isinstance(narr.get("status"), dict):
+        entry["editorial"]["status"] = narr["status"]
 
     captions = narr.get("day_captions") or {}
     if isinstance(captions, dict):

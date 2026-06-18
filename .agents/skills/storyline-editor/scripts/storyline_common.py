@@ -112,11 +112,26 @@ NARRATIVE_SCHEMA = {
     "why_it_matters": "optional: one line through the AI-platform-engineer lens",
     "day_captions": "optional: { <sid>: 'one line on what this item added to the "
     "story' } — keyed by the timeline item's sid",
+    "status": "optional: live-status banner { state, tone, changed, detail, reenable } "
+    "for a thread with a current state (shipping / suspended / resolved …)",
+    "beats": "optional: ordered arc of { kicker, tone, headline, summary, sids[] } — "
+    "each beat groups the member sids that moved the story in that phase",
+    "open_questions": "optional: array of 'what to watch' questions agents are tracking",
+    "take_for_builders": "optional: one actionable line for AI platform engineers "
+    "(falls back to why_it_matters when omitted)",
 }
+
+# Semantic tones for the arc/status (node + kicker colors). Mirrored in
+# pipeline/render_static_pages.py STORYLINE_TONES.
+STORYLINE_TONES = frozenset(
+    {"launch", "rising", "turn", "now", "resolved", "alert", "neutral"}
+)
 
 # Guardrails so a runaway summary can't blow out the card layout.
 MAX_TLDR = 700
 MAX_LINE = 400
+MAX_BEATS = 10
+MAX_QUESTIONS = 6
 
 
 def _is_str(v: Any) -> bool:
@@ -171,6 +186,107 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
                     errors.append(f"day_captions[{sid!r}] is too long ({len(text)} chars)")
                 elif valid_sids is not None and sid not in valid_sids:
                     errors.append(f"day_captions references unknown sid {sid!r}")
+
+    status = data.get("status")
+    if status is not None:
+        if not isinstance(status, dict):
+            errors.append("'status' must be an object")
+        else:
+            for field in ("state", "detail", "changed", "reenable"):
+                v = status.get(field)
+                if v is not None and not _is_str(v):
+                    errors.append(f"status.{field} must be a string")
+                elif _is_str(v) and len(v) > MAX_LINE:
+                    errors.append(f"status.{field} is too long ({len(v)} chars)")
+            tone = status.get("tone")
+            if tone is not None and tone not in STORYLINE_TONES:
+                errors.append(f"status.tone {tone!r} not in {sorted(STORYLINE_TONES)}")
+            track = status.get("track")
+            if track is not None:
+                if not isinstance(track, list):
+                    errors.append("status.track must be an array")
+                else:
+                    for i, seg in enumerate(track):
+                        if not isinstance(seg, dict):
+                            errors.append(f"status.track[{i}] must be an object")
+                            continue
+                        st = seg.get("tone")
+                        if st is not None and st not in STORYLINE_TONES:
+                            errors.append(f"status.track[{i}].tone {st!r} not in {sorted(STORYLINE_TONES)}")
+                        w = seg.get("weight")
+                        if w is not None and not isinstance(w, (int, float)):
+                            errors.append(f"status.track[{i}].weight must be a number")
+
+    beats = data.get("beats")
+    if beats is not None:
+        if not isinstance(beats, list):
+            errors.append("'beats' must be an array")
+        else:
+            if len(beats) > MAX_BEATS:
+                errors.append(f"too many beats ({len(beats)} > {MAX_BEATS})")
+            for i, b in enumerate(beats):
+                if not isinstance(b, dict):
+                    errors.append(f"beats[{i}] must be an object")
+                    continue
+                if not _is_str(b.get("headline")) or not str(b.get("headline")).strip():
+                    errors.append(f"beats[{i}] missing required 'headline' string")
+                tone = b.get("tone")
+                if tone is not None and tone not in STORYLINE_TONES:
+                    errors.append(f"beats[{i}].tone {tone!r} not in {sorted(STORYLINE_TONES)}")
+                for field in ("kicker", "headline", "summary"):
+                    v = b.get(field)
+                    if v is not None and not _is_str(v):
+                        errors.append(f"beats[{i}].{field} must be a string")
+                    elif _is_str(v) and len(v) > MAX_LINE:
+                        errors.append(f"beats[{i}].{field} is too long ({len(v)} chars)")
+                sids = b.get("sids")
+                if sids is None:
+                    continue
+                if not (isinstance(sids, list) and all(_is_str(s) for s in sids)):
+                    errors.append(f"beats[{i}].sids must be an array of strings")
+                elif valid_sids is not None:
+                    for s in sids:
+                        if s not in valid_sids:
+                            errors.append(f"beats[{i}] references unknown sid {s!r}")
+
+    oq = data.get("open_questions")
+    if oq is not None:
+        if not (isinstance(oq, list) and all(_is_str(q) for q in oq)):
+            errors.append("'open_questions' must be an array of strings")
+        elif len(oq) > MAX_QUESTIONS:
+            errors.append(f"too many open_questions ({len(oq)} > {MAX_QUESTIONS})")
+        else:
+            for q in oq:
+                if len(q) > MAX_LINE:
+                    errors.append(f"open_questions entry too long ({len(q)} chars)")
+
+    take = data.get("take_for_builders")
+    if take is not None:
+        if not _is_str(take):
+            errors.append("'take_for_builders' must be a string")
+        elif len(take) > MAX_LINE:
+            errors.append(f"'take_for_builders' is too long ({len(take)} chars)")
+
+    prov = data.get("provenance")
+    if prov is not None:
+        if not isinstance(prov, dict):
+            errors.append("'provenance' must be an object keyed by sid")
+        else:
+            for sid, entry in prov.items():
+                if valid_sids is not None and sid not in valid_sids:
+                    errors.append(f"provenance references unknown sid {sid!r}")
+                if not isinstance(entry, dict):
+                    errors.append(f"provenance[{sid!r}] must be an object")
+                    continue
+                sb = entry.get("surfaced_by")
+                if sb is not None and not _is_str(sb):
+                    errors.append(f"provenance[{sid!r}].surfaced_by must be a string")
+                v = entry.get("verified")
+                if v is not None and not isinstance(v, (bool, int)):
+                    errors.append(f"provenance[{sid!r}].verified must be a bool or int")
+                su = entry.get("status_update")
+                if su is not None and not isinstance(su, bool):
+                    errors.append(f"provenance[{sid!r}].status_update must be a bool")
     return errors
 
 

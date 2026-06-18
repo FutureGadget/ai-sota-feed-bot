@@ -279,6 +279,109 @@ STORYLINE_FOLLOW_JS = """\
     })();
 """
 
+# Arc view for /storyline/<slug>. Theme-aware (uses the page's CSS variables;
+# tone colors are semantic mid-tones that read on both light and dark). Scoped
+# under .sl so it never leaks into recap/story pages. See render_storyline_body.
+STORYLINE_ARC_CSS = """\
+    .sl { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
+      --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
+    .sl-status { border:1px solid var(--border); border-radius:12px;
+      padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
+    .sl-status.tone-turn, .sl-status.tone-alert { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border)); background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
+    .sl-status.tone-now { border-color:color-mix(in srgb,var(--t-now) 45%,var(--border)); background:color-mix(in srgb,var(--t-now) 9%,var(--card)); }
+    .sl-status.tone-launch, .sl-status.tone-resolved { border-color:color-mix(in srgb,var(--t-launch) 40%,var(--border)); background:color-mix(in srgb,var(--t-launch) 7%,var(--card)); }
+    .sl-status-head { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem; }
+    .sl-dot { width:9px; height:9px; border-radius:50%; background:var(--t-now); flex:none; }
+    .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot, .sl-status.tone-now .sl-dot { animation:slPulse 2.4s infinite; }
+    .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot { background:var(--t-turn); }
+    .sl-status.tone-launch .sl-dot, .sl-status.tone-resolved .sl-dot { background:var(--t-launch); }
+    @keyframes slPulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--t-now) 55%,transparent);} 70%{box-shadow:0 0 0 5px transparent;} }
+    .sl-state { font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:.06em;
+      text-transform:uppercase; font-weight:700; color:var(--t-now); }
+    .sl-status.tone-turn .sl-state, .sl-status.tone-alert .sl-state { color:var(--t-turn); }
+    .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
+    .sl-status-meta { font-size:0.8rem; color:var(--muted); }
+    .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
+    .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
+    .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
+      background:none; border:none; border-bottom:2px solid transparent; padding:0 0 0.6rem; cursor:pointer; }
+    .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
+    .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
+    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 0.5rem; }
+    .sl-rail { display:flex; gap:2px; height:11px; border-radius:6px; overflow:hidden; margin:0 0 0.4rem; }
+    .sl-rail-seg { flex:1; min-width:8px; border-radius:3px; }
+    .sl-rail-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
+      font-size:0.7rem; color:var(--muted); margin:0 0 1.8rem; }
+    .tone-launch-bg{background:var(--t-launch);} .tone-rising-bg{background:var(--t-rising);}
+    .tone-turn-bg{background:var(--t-turn);} .tone-now-bg{background:var(--t-now);}
+    .tone-resolved-bg{background:var(--t-resolved);} .tone-neutral-bg{background:var(--t-neutral);}
+    .tone-launch-fg{color:var(--t-launch);} .tone-rising-fg{color:var(--t-rising);}
+    .tone-turn-fg{color:var(--t-turn);} .tone-now-fg{color:var(--t-now);}
+    .tone-resolved-fg{color:var(--t-resolved);} .tone-neutral-fg{color:var(--muted);}
+    .sl-track { display:flex; gap:2px; height:13px; border-radius:7px; overflow:hidden; margin:0 0 0.5rem; }
+    .sl-track-seg { border-radius:3px; }
+    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
+      font-size:0.72rem; margin:0 0 1.9rem; }
+    .sl-spine { position:relative; padding-left:2rem; }
+    .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
+    .sl-beat { position:relative; margin:0 0 1.5rem; }
+    .sl-beat > summary { list-style:none; cursor:pointer; }
+    .sl-beat > summary::-webkit-details-marker { display:none; }
+    .sl-node { position:absolute; left:-1.72rem; top:3px; width:14px; height:14px; border-radius:50%;
+      background:var(--bg); border:2px solid var(--t-neutral); }
+    .sl-beat.tone-launch .sl-node{border-color:var(--t-launch);}
+    .sl-beat.tone-rising .sl-node{border-color:var(--t-rising);}
+    .sl-beat.tone-now .sl-node{border-color:var(--t-now);}
+    .sl-beat.tone-resolved .sl-node{border-color:var(--t-resolved);}
+    .sl-beat.tone-turn .sl-node{ left:-1.85rem; top:1px; width:20px; height:20px; border-width:3px;
+      border-color:var(--t-turn); box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 14%,transparent); }
+    .sl-kicker { font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); margin:0 0 0.25rem; }
+    .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
+    .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
+    .sl-beat-title { font-size:1.02rem; font-weight:600; line-height:1.35; }
+    .sl-beat.tone-turn .sl-beat-title { font-size:1.12rem; font-weight:700; }
+    .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
+    .sl-ok { color:var(--t-launch); }
+    .sl-show { font-size:0.8rem; color:var(--muted); margin-top:0.4rem; }
+    .sl-show-link { color:var(--accent); }
+    .sl-cards { display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem; }
+    .sl-card.sl-card-turn { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border));
+      background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
+    .sl-card h3 a { color:var(--accent); }
+    .sl-watch { border:1px solid var(--border); border-radius:12px; padding:0.95rem 1.1rem; margin:1.8rem 0 0; }
+    .sl-watch ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:0.5rem; }
+    .sl-watch li { font-size:0.95rem; line-height:1.45; }
+    .sl-watch li::marker { color:var(--t-now); }
+    .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
+    .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
+    .sl-agent-row b { font-weight:600; }
+    .sl-agent-row .a-scout, .sl-agent-row .a-editor { color:var(--accent); }
+    .sl-agent-row .a-check { color:var(--t-launch); }
+    .sl-agent-row .a-watch { color:var(--t-now); }
+    .sl-note { margin-top:1.6rem; font-size:0.84rem; line-height:1.6; color:var(--muted); }
+    [data-sl-view][hidden] { display:none; }
+"""
+
+# Arc/Timeline tab toggle for the storyline page (progressive enhancement — the
+# Arc view is shown by default; without JS both views are simply visible).
+STORYLINE_ARC_JS = """\
+    (function () {
+      var tabs = document.querySelectorAll('.sl-tab');
+      if (!tabs.length) return;
+      var views = document.querySelectorAll('[data-sl-view]');
+      function show(view) {
+        views.forEach(function (v) { v.hidden = v.getAttribute('data-sl-view') !== view; });
+        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-view') === view); });
+      }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { show(t.getAttribute('data-view')); });
+      });
+      show('arc');
+    })();
+"""
+
 
 def load_json(path: Path):
     try:
@@ -520,6 +623,7 @@ def render_head(
     og_type: str = "article",
     robots: str = "",
     json_ld: list[dict] | None = None,
+    extra_css: str = "",
 ) -> str:
     og_published = (
         f'\n  <meta property="article:published_time" content="{escape(published)}" />'
@@ -569,7 +673,7 @@ def render_head(
   <script>
 {THEME_BOOT_JS}  </script>
   <style>
-{PAGE_CSS}  </style>"""
+{PAGE_CSS}{extra_css}  </style>"""
 
 
 def render_page(
@@ -593,6 +697,7 @@ def render_page(
     robots: str = "",
     json_ld: list[dict] | None = None,
     extra_js: str = "",
+    extra_css: str = "",
 ) -> str:
     nav = "".join(f'\n        <a href="{escape(h)}" role="button">{escape(t)}</a>' for h, t in nav_links)
     json_link = f'\n        <a href="{escape(json_href)}" role="button">JSON</a>' if json_href else ""
@@ -601,7 +706,7 @@ def render_page(
     return f"""<!doctype html>
 <html lang="en">
 <head>
-{render_head(title=title, description=description, canonical=canonical, published=published, image=image, og_type=og_type, robots=robots, json_ld=json_ld)}
+{render_head(title=title, description=description, canonical=canonical, published=published, image=image, og_type=og_type, robots=robots, json_ld=json_ld, extra_css=extra_css)}
 </head>
 <body>
   <main>
@@ -1136,6 +1241,332 @@ def storyline_membership(details: list[dict]) -> dict[str, tuple]:
     return out
 
 
+# Semantic tones for the storyline arc. Drive node/kicker colors and the rail.
+# Mirrored in .agents/skills/storyline-editor (storyline_common.STORYLINE_TONES).
+STORYLINE_TONES = ("launch", "rising", "turn", "now", "resolved", "alert", "neutral")
+
+
+def _sl_short_date(value) -> str:
+    """'Jun 10' style label from an ISO timestamp/date (empty on failure)."""
+    pub = iso_or_none(value)
+    if not pub:
+        return ""
+    d = datetime.fromisoformat(pub)
+    return f"{d.strftime('%b')} {d.day}"
+
+
+def _sl_date_range(items: list[dict]) -> str:
+    """'Jun 10' / 'Jun 10–13' / 'Jun 30 – Jul 2' from a beat's items, ordered by
+    real publish time (so day numbers and month rollovers sort correctly)."""
+    dated = []
+    for it in items:
+        pub = iso_or_none(it.get("published"))
+        if pub:
+            dated.append(datetime.fromisoformat(pub))
+    if not dated:
+        return ""
+    lo, hi = min(dated), max(dated)
+    lo_lbl = f"{lo.strftime('%b')} {lo.day}"
+    if lo.date() == hi.date():
+        return lo_lbl
+    if lo.month == hi.month:
+        return f"{lo_lbl}–{hi.day}"
+    return f"{lo_lbl} – {hi.strftime('%b')} {hi.day}"
+
+
+def _sl_item_card(
+    it: dict, story_sids: set[str], emphasize: bool = False
+) -> str:
+    """One source card revealed when a beat is expanded. Kept deliberately plain
+    (title + source/date + note) — agent provenance lives in the beat meta line,
+    not as per-card pills, so the spine stays clean. ``emphasize`` tints the
+    pivotal turn beat's cards."""
+    href = safe_http_url(it.get("url"))
+    sid = story_sid(it.get("url")) if href != "#" else ""
+    # Prefer the internal story permalink (hub -> spoke) when we have one.
+    title_href = f"/story/{sid}" if sid and sid in story_sids else href
+    attrs = "" if title_href.startswith("/") else ' target="_blank" rel="noopener"'
+    meta = []
+    if it.get("source"):
+        meta.append(f'<span class="badge">{escape(str(it.get("source")))}</span>')
+    short = _sl_short_date(it.get("published"))
+    if short:
+        meta.append(f'<span class="badge">{escape(short)}</span>')
+    if it.get("sources") and len(it["sources"]) > 1:
+        meta.append(f'<span class="badge">{len(it["sources"])} sources</span>')
+    note = squeeze(it.get("editor_note")) or squeeze(it.get("summary_1line"))
+    note_html = f'<p class="art-summary">{escape(note)}</p>' if note else ""
+    cls = "sl-card sl-card-turn" if emphasize else "sl-card"
+    return (
+        f'<article class="{cls}">'
+        f'<h3><a href="{escape(title_href)}"{attrs} data-track="storyline-link">'
+        f'{escape(squeeze(it.get("title")) or "Untitled")}</a></h3>'
+        f'<div class="art-meta">{"".join(meta)}</div>{note_html}</article>'
+    )
+
+
+def _sl_timeline_view(sl: dict, story_sids: set[str]) -> str:
+    """Classic day-by-day timeline (the fallback view, and the un-narrated one)."""
+    parts = []
+    for i, day in enumerate(sl.get("days") or []):
+        items = day.get("items") or []
+        if not items:
+            continue
+        cards = "".join(_sl_item_card(it, story_sids) for it in items)
+        parts.append(
+            f'<section class="cat"><h2><span class="count">Day {i + 1}</span> '
+            f'{escape(fmt_long_date(str(day.get("date") or "")))}</h2>'
+            f'<div class="articles">{cards}</div></section>'
+        )
+    return "".join(parts)
+
+
+def _sl_access_track(status: dict) -> str:
+    """The 'Access over time' bar — proportional, tone-colored phases with
+    labeled ends. Driven by the optional ``status.track`` segment list."""
+    track = (status or {}).get("track") if isinstance(status, dict) else None
+    if not isinstance(track, list) or not track:
+        return ""
+    segs, weights = [], []
+    for s in track:
+        w = max(float(s.get("weight") or 1), 0.0001)
+        weights.append(w)
+    total = sum(weights) or 1
+    for s, w in zip(track, weights):
+        tone = _sl_tone(s)
+        segs.append(
+            f'<span class="sl-track-seg tone-{tone}-bg" style="flex:0 0 {w / total * 100:.3f}%"></span>'
+        )
+
+    def _end(seg: dict, dot_left: bool) -> str:
+        tone = _sl_tone(seg)
+        label = squeeze(seg.get("label"))
+        detail = squeeze(seg.get("detail"))
+        text = label + (f" · {detail}" if detail else "")
+        dot = "● " if dot_left else ""
+        tail = "" if dot_left else " ●"
+        return f'<span class="tone-{tone}-fg">{dot}{escape(text)}{tail}</span>'
+
+    ends = f"{_end(track[0], True)}{_end(track[-1], False)}"
+    return (
+        '<p class="sl-rail-label">Access over time</p>'
+        f'<div class="sl-track">{"".join(segs)}</div>'
+        f'<div class="sl-track-ends">{ends}</div>'
+    )
+
+
+def _sl_beat_sources(items: list[dict]) -> int:
+    """Distinct source count across a beat's items (for 'verified across N')."""
+    srcs: set[str] = set()
+    for it in items:
+        if it.get("source"):
+            srcs.add(str(it["source"]))
+        for s in it.get("sources") or []:
+            srcs.add(str(s))
+    return len(srcs)
+
+
+def _sl_arc_view(
+    sl: dict, beats: list[dict], story_sids: set[str], prov: dict, status: dict
+) -> str:
+    """The narrative arc: an access track + a spine of editor-defined beats, each
+    grouping the source items that moved the story. Items not placed in any beat
+    are swept into a trailing 'More in this thread' beat so nothing is dropped."""
+    by_sid: dict[str, dict] = {}
+    for day in sl.get("days") or []:
+        for it in day.get("items") or []:
+            if it.get("sid"):
+                by_sid[str(it["sid"])] = it
+
+    placed: set[str] = set()
+    rendered: list[tuple[dict, list[dict]]] = []  # (beat, items)
+    for beat in beats:
+        items = [by_sid[s] for s in beat.get("sids") or [] if s in by_sid]
+        if not items:
+            continue
+        placed.update(str(it["sid"]) for it in items)
+        rendered.append((beat, items))
+    leftover = [it for sid, it in by_sid.items() if sid not in placed]
+    if leftover:
+        rendered.append(
+            ({"kicker": "More", "tone": "neutral", "headline": "More in this thread"}, leftover)
+        )
+    if not rendered:
+        return ""
+
+    # Prefer the editor's access track; fall back to a one-segment-per-beat rail.
+    track = _sl_access_track(status)
+    if not track:
+        segs = "".join(
+            f'<span class="sl-rail-seg tone-{_sl_tone(b)}-bg"></span>' for b, _ in rendered
+        )
+        first_lbl = _sl_short_date((rendered[0][1] or [{}])[0].get("published"))
+        last_lbl = _sl_short_date((rendered[-1][1] or [{}])[-1].get("published"))
+        track = (
+            '<p class="sl-rail-label">Arc</p>'
+            f'<div class="sl-rail">{segs}</div>'
+            f'<div class="sl-rail-ends"><span>{escape(first_lbl)}</span>'
+            f"<span>{escape(last_lbl)} · now</span></div>"
+        )
+
+    blocks = []
+    for idx, (beat, items) in enumerate(rendered):
+        tone = _sl_tone(beat)
+        when = _sl_date_range(items)
+        kicker = squeeze(beat.get("kicker")) or "UPDATE"
+        kicker_txt = f"{kicker.upper()}" + (f" · {when}" if when else "")
+        summary = squeeze(beat.get("summary"))
+        # If any item in the beat is editor-verified, surface a corroboration
+        # line. The count is the editor's asserted source count (so it agrees
+        # with the per-item badge), falling back to the beat's distinct sources.
+        vcounts = []
+        for it in items:
+            v = (prov.get(str(it.get("sid"))) or {}).get("verified")
+            if isinstance(v, (int, float)) and not isinstance(v, bool):
+                vcounts.append(int(v))
+            elif v:
+                vcounts.append(0)
+        verified = bool(vcounts)
+        n_sources = max(vcounts) if vcounts and max(vcounts) > 1 else _sl_beat_sources(items)
+        check = (
+            f' <span class="sl-ok">✓ fact-checker verified across {n_sources} sources</span>'
+            if verified
+            else ""
+        )
+        # Only the turn beat shows a descriptive line by default (it carries the
+        # corroboration note); the rest stay a clean headline + meta line.
+        sum_html = (
+            f'<div class="sl-beat-sum">{escape(summary)}{check}</div>'
+            if ((summary and tone == "turn") or check)
+            else ""
+        )
+        n = len(items)
+        # Agent attribution as quiet text in the meta line (not pills): which
+        # agent surfaced or re-statused this beat, from the provenance map.
+        hints = []
+        if any(
+            str((prov.get(str(it.get("sid"))) or {}).get("surfaced_by") or "").lower() == "scout"
+            for it in items
+        ):
+            hints.append("scout")
+        if any((prov.get(str(it.get("sid"))) or {}).get("status_update") for it in items):
+            hints.append("watcher updated status")
+        meta = f'{n} source{"s" if n != 1 else ""}'
+        if hints:
+            meta += " · " + " · ".join(hints)
+        show = f"show source{'s' if n != 1 else ''} ▾"
+        cards = "".join(
+            _sl_item_card(it, story_sids, emphasize=(tone == "turn")) for it in items
+        )
+        # Beats are collapsed by default — the spine reads as a scannable arc;
+        # click any beat to reveal its source cards.
+        blocks.append(
+            f'<details class="sl-beat tone-{tone}">'
+            '<summary><span class="sl-node"></span>'
+            f'<div class="sl-kicker">{escape(kicker_txt)}</div>'
+            f'<div class="sl-beat-title">{escape(squeeze(beat.get("headline")) or "Update")}</div>'
+            f'{sum_html}'
+            f'<div class="sl-show">{escape(meta)} · <span class="sl-show-link">{escape(show)}</span></div>'
+            f'</summary><div class="sl-cards">{cards}</div></details>'
+        )
+    return f'{track}<div class="sl-spine">{"".join(blocks)}</div>'
+
+
+def _sl_tone(obj: dict) -> str:
+    tone = str((obj or {}).get("tone") or "neutral").lower()
+    return tone if tone in STORYLINE_TONES else "neutral"
+
+
+def _sl_status_banner(status: dict) -> str:
+    if not isinstance(status, dict):
+        return ""
+    state = squeeze(status.get("state"))
+    detail = squeeze(status.get("detail"))
+    if not state and not detail:
+        return ""
+    tone = _sl_tone(status)
+    meta_bits = []
+    changed = _sl_short_date(status.get("changed")) or squeeze(status.get("changed"))
+    if changed:
+        meta_bits.append(f"status changed {changed}")
+    if squeeze(status.get("reenable")):
+        meta_bits.append(squeeze(status.get("reenable")))
+    meta = (
+        f'<span class="sl-status-meta">{escape(" · ".join(meta_bits))}</span>'
+        if meta_bits
+        else ""
+    )
+    state_html = f'<span class="sl-state">{escape(state)}</span>' if state else ""
+    detail_html = f'<p class="sl-status-detail">{escape(detail)}</p>' if detail else ""
+    return (
+        f'<div class="sl-status tone-{tone}">'
+        f'<div class="sl-status-head"><span class="sl-dot"></span>{state_html}{meta}</div>'
+        f"{detail_html}</div>"
+    )
+
+
+def _sl_watch(open_questions: list, take: str) -> str:
+    qs = [squeeze(q) for q in (open_questions or []) if squeeze(q)]
+    take = squeeze(take)
+    if not qs and not take:
+        return ""
+    inner = '<p class="sl-watch-label">What to watch — open questions</p>'
+    if qs:
+        lis = "".join(f"<li>{escape(q)}</li>" for q in qs)
+        inner += f"<ul>{lis}</ul>"
+    if take:
+        inner += (
+            f'<div class="sl-take">💡 <b>Take for builders:</b> {escape(take)}</div>'
+        )
+    return f'<div class="sl-watch">{inner}</div>'
+
+
+def _sl_agents(sl: dict, beats: list[dict], prov: dict, status: dict) -> list[tuple[str, str, str]]:
+    """The named agents that touched this thread, as (css, name, what) — each
+    backed by a real signal so the strip never claims work that didn't happen:
+    scout from ``via_scout``/provenance, editor from the narrative, fact-checker
+    from editor-verified items, watcher from status changes."""
+    rows: list[tuple[str, str, str]] = []
+    scout_n = sum(1 for p in prov.values() if str((p or {}).get("surfaced_by") or "").lower() == "scout")
+    if sl.get("via_scout") or scout_n:
+        what = f"surfaced {scout_n}" if scout_n else "surfaced this thread"
+        rows.append(("a-scout", "scout", what))
+    ed = sl.get("editorial") or {}
+    if ed.get("tldr"):
+        nb = len([b for b in beats if b.get("sids")])
+        rows.append(("a-editor", "editor", f"wrote the arc · {nb} beats" if nb else "wrote TL;DR"))
+    verified_n = sum(1 for p in prov.values() if (p or {}).get("verified"))
+    if verified_n:
+        rows.append(("a-check", "fact-checker", f"{verified_n} verified"))
+    status_n = sum(1 for p in prov.values() if (p or {}).get("status_update"))
+    if not status_n and isinstance(status, dict) and status.get("changed"):
+        status_n = 1
+    if status_n:
+        rows.append(("a-watch", "watcher", f"{status_n} status change" + ("s" if status_n != 1 else "")))
+    return rows
+
+
+def _sl_agents_strip(agents: list[tuple[str, str, str]]) -> str:
+    if not agents:
+        return ""
+    bits = [
+        f'<span><b class="{css}">{escape(name)}</b> {escape(what)}</span>'
+        for css, name, what in agents
+    ]
+    return (
+        '<div class="sl-agents"><p class="sl-watch-label">Agents on this story</p>'
+        f'<div class="sl-agent-row">{"".join(bits)}</div></div>'
+    )
+
+
+SL_FOOTER_NOTE = (
+    "Storylines are threaded mechanically from the feed: stories that share a "
+    "distinctive anchor across multiple days and sources. Each item links to "
+    "its original source. The arc, status, and open questions are written by "
+    "the editor routine and refreshed whenever a new beat lands."
+)
+
+
 def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     parts = []
     slug = str(sl.get("slug") or "")
@@ -1146,52 +1577,43 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
         'aria-pressed="false">+ Follow this story</button></p>'
     )
     ed = sl.get("editorial") or {}
+    parts.append(_sl_status_banner(ed.get("status")))
+
     tldr = squeeze(ed.get("tldr"))
     whats_new = squeeze(ed.get("whats_new"))
-    why = squeeze(ed.get("why_it_matters"))
-    if tldr or why or whats_new:
+    if tldr or whats_new:
         bits = []
         if tldr:
             bits.append('<p class="tldr-label">TL;DR</p>' f"<p>{escape(tldr)}</p>")
         if whats_new:
             bits.append(f"<p><b>What's new:</b> {escape(whats_new)}</p>")
-        if why:
-            bits.append(f"<p>💡 {escape(why)}</p>")
         parts.append(f'<div class="intro">{"".join(bits)}</div>')
 
-    for i, day in enumerate(sl.get("days") or []):
-        items = day.get("items") or []
-        if not items:
-            continue
-        cards = []
-        for it in items:
-            href = safe_http_url(it.get("url"))
-            sid = story_sid(it.get("url")) if href != "#" else ""
-            # Prefer the internal story permalink (hub -> spoke) when we have one.
-            title_href = f"/story/{sid}" if sid and sid in story_sids else href
-            internal = title_href.startswith("/")
-            attrs = "" if internal else ' target="_blank" rel="noopener"'
-            meta = []
-            if it.get("source"):
-                meta.append(f'<span class="badge">{escape(str(it.get("source")))}</span>')
-            pub = iso_or_none(it.get("published"))
-            if pub:
-                d = datetime.fromisoformat(pub)
-                meta.append(f'<span class="badge">{escape(d.strftime("%b"))} {d.day}</span>')
-            note = squeeze(it.get("editor_note")) or squeeze(it.get("summary_1line"))
-            note_html = f'<p class="art-summary">{escape(note)}</p>' if note else ""
-            cards.append(
-                "<article>"
-                f'<h3><a href="{escape(title_href)}"{attrs} data-track="storyline-link">'
-                f'{escape(squeeze(it.get("title")) or "Untitled")}</a></h3>'
-                f'<div class="art-meta">{"".join(meta)}</div>{note_html}</article>'
-            )
+    status = ed.get("status") if isinstance(ed.get("status"), dict) else {}
+    prov = ed.get("provenance") if isinstance(ed.get("provenance"), dict) else {}
+    beats = [b for b in (ed.get("beats") or []) if isinstance(b, dict)]
+    agents = _sl_agents(sl, beats, prov, status)
+    arc_html = _sl_arc_view(sl, beats, story_sids, prov, status) if beats else ""
+    timeline_html = _sl_timeline_view(sl, story_sids)
+
+    if arc_html:
+        note = f"maintained by {len(agents)} agents" if agents else "narrated by the editor"
         parts.append(
-            f'<section class="cat"><h2><span class="count">Day {i + 1}</span> '
-            f'{escape(fmt_long_date(str(day.get("date") or "")))}</h2>'
-            f'<div class="articles">{"".join(cards)}</div></section>'
+            '<div class="sl-tabs">'
+            '<button class="sl-tab is-active" type="button" data-view="arc">The Arc</button>'
+            '<button class="sl-tab" type="button" data-view="timeline">Timeline</button>'
+            f'<span class="sl-tab-note">{escape(note)}</span></div>'
         )
-    return "".join(parts)
+        parts.append(f'<div data-sl-view="arc">{arc_html}</div>')
+        parts.append(f'<div data-sl-view="timeline" hidden>{timeline_html}</div>')
+    else:
+        parts.append(timeline_html)
+
+    take = squeeze(ed.get("take_for_builders")) or squeeze(ed.get("why_it_matters"))
+    parts.append(_sl_watch(ed.get("open_questions"), take))
+    parts.append(_sl_agents_strip(agents))
+    parts.append(f'<p class="sl-note">{escape(SL_FOOTER_NOTE)}</p>')
+    return "".join(p for p in parts if p)
 
 
 def render_storyline_pages(
@@ -1251,7 +1673,8 @@ def render_storyline_pages(
                     [("Home", "/"), ("Storylines", "/storylines"), (label, f"/storyline/{slug}")],
                 ),
             ],
-            extra_js=STORYLINE_FOLLOW_JS,
+            extra_js=STORYLINE_FOLLOW_JS + STORYLINE_ARC_JS,
+            extra_css=STORYLINE_ARC_CSS,
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{slug}.html").write_text(html, encoding="utf-8")

@@ -10,6 +10,15 @@ happened**: launched → hands-on impressions → controversial terms → access
 changes → suspension. That narrative arc is your job. You turn a clustered
 timeline into a story a reader can follow.
 
+The `/storyline/<slug>` page renders an **Arc view** when you provide it: a
+live-status banner, a spine of named **beats** (LAUNCH → FRICTION → THE TURN →
+NOW), a "what to watch" list of open questions, and a builder takeaway — with a
+plain "Timeline" view as the fallback tab. Provide the arc fields below and the
+page upgrades automatically; omit them and it falls back to the day-by-day
+timeline. Every badge on the page must be **true** — we surface only real
+provenance (mechanical threading, scout, the editor). Do not invent
+verification/agent labels the system doesn't actually produce.
+
 Audience: **AI platform engineers** (see `AGENTS.md` → Product Positioning).
 Write for the person who skimmed the headline last Tuesday and wants the
 through-line, not hype. The quality bar is "would the owner read this and feel
@@ -65,11 +74,70 @@ and write `data/storylines/narratives/<slug>.json`:
   "tldr": "2-3 sentences: the arc of the whole thread, in order. What it is, what happened next, where it stands now.",
   "whats_new": "1-2 sentences: what the most recent day added vs. before. Omit on a brand-new single-burst thread.",
   "why_it_matters": "One line through the AI-platform-engineer lens: what an engineer should take from this.",
+  "status": {
+    "state": "Suspended · temporary",
+    "tone": "alert",
+    "changed": "2026-06-13",
+    "reenable": "re-enable date unknown",
+    "detail": "One sentence on the current framing of the whole thread.",
+    "track": [
+      { "label": "available", "detail": "Jun 10–13", "tone": "launch", "weight": 62 },
+      { "label": "suspended", "detail": "Jun 13 → now", "tone": "now", "weight": 38 }
+    ]
+  },
+  "provenance": {
+    "<sid>": { "surfaced_by": "scout", "verified": 3, "status_update": true }
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Fable 5 + Mythos 5 ship — \"made safe for general use\"",
+      "summary": "Optional one line on what this phase was.",
+      "sids": ["<sid>", "<sid>"]
+    },
+    { "kicker": "THE TURN", "tone": "turn", "headline": "Export-control directive suspends access", "sids": ["<sid>"] }
+  ],
+  "open_questions": [
+    "Is \"temporary\" confirmed — does any re-enable date appear?",
+    "Does the directive extend to other frontier labs?"
+  ],
+  "take_for_builders": "One actionable line for platform engineers (falls back to why_it_matters).",
   "day_captions": {
     "<sid>": "one line on what THIS item added to the story (not a re-summary of the article)"
   }
 }
 ```
+
+**The arc fields (optional but recommended — they drive the Arc view)**
+- `status` is the live-status banner. `state` is a short label ("Shipping",
+  "Suspended · temporary", "Resolved"); `tone` ∈ `launch | rising | turn | now |
+  resolved | alert | neutral` colors the banner; `changed` is the ISO date the
+  state last moved; `reenable`/`detail` are optional clarifiers. Use it for a
+  thread that has a *current state*; omit it for a thread that's just developing.
+  `status.track` (optional) is the **"Access over time"** bar — an ordered list
+  of `{label, detail, tone, weight}` phases (weights are relative widths); use
+  it for threads where a state visibly flips over time (available → suspended).
+- `provenance` (optional) keys agent badges by item `sid`:
+  `surfaced_by: "scout"` (🔍 dashed pill, for an item the scout actually
+  surfaced), `verified: <N sources>` (✓ pill + a per-beat "verified across N
+  sources" line — only set it when N independent sources genuinely corroborate
+  the beat), `status_update: true` (↻ pill, for the item that moved the status).
+  These drive the "Agents on this story" strip and the "maintained by N agents"
+  count — so set them **truthfully**; a badge with no real work behind it is
+  exactly the kind of hype this product exists to avoid.
+- `beats` are the spine — an **ordered** arc, each beat grouping the member
+  `sids` that moved the story in that phase. `headline` is required; `kicker` is
+  the short phase label (LAUNCH / FRICTION / THE TURN / NOW — your call); `tone`
+  colors the node (use `turn` for the pivot, it gets the emphasized red node).
+  The renderer derives each beat's date range from its items and sweeps any
+  uncovered members into a trailing "More in this thread" beat — but aim to
+  place every sid. Only use sids present in the bundle; the validator rejects
+  unknown ones.
+- `open_questions` is "what to watch" — up to 6 genuinely open questions an
+  engineer would track, not rhetorical filler.
+- `take_for_builders` renders as the **Take for builders** line; if omitted the
+  page falls back to `why_it_matters`.
 
 **Editorial guidance**
 - `covers_last_updated` and `covers_member_sids` are the **staleness snapshot** —
@@ -104,14 +172,30 @@ export const meta = {
   description: 'Write a narrative sidecar for each storyline needing one',
   phases: [{ title: 'Narrate' }],
 }
+const TONE = { type: 'string', enum: ['launch','rising','turn','now','resolved','alert','neutral'] }
 const NARR = {
   type: 'object',
   required: ['slug', 'tldr', 'covers_last_updated', 'covers_member_sids'],
   properties: {
     slug: { type: 'string' }, tldr: { type: 'string' },
     whats_new: { type: 'string' }, why_it_matters: { type: 'string' },
+    take_for_builders: { type: 'string' },
     covers_last_updated: { type: 'string' },
     covers_member_sids: { type: 'array', items: { type: 'string' } },
+    status: { type: 'object', properties: {
+      state: { type: 'string' }, tone: TONE, changed: { type: 'string' },
+      reenable: { type: 'string' }, detail: { type: 'string' },
+      track: { type: 'array', items: { type: 'object', properties: {
+        label: { type: 'string' }, detail: { type: 'string' },
+        tone: TONE, weight: { type: 'number' } } } } } },
+    provenance: { type: 'object', additionalProperties: { type: 'object', properties: {
+      surfaced_by: { type: 'string' }, verified: { type: 'integer' },
+      status_update: { type: 'boolean' } } } },
+    beats: { type: 'array', items: { type: 'object', required: ['headline'],
+      properties: { kicker: { type: 'string' }, tone: TONE,
+        headline: { type: 'string' }, summary: { type: 'string' },
+        sids: { type: 'array', items: { type: 'string' } } } } },
+    open_questions: { type: 'array', items: { type: 'string' } },
     day_captions: { type: 'object', additionalProperties: { type: 'string' } },
   },
 }
@@ -165,6 +249,9 @@ committed files. Keep this in a data-only commit (see
   from the bundle. NOT real summaries; only for testing the `/storyline` render.
 
 ## Where it shows up
-- Page: `/storylines` (TL;DR teaser per card) and `/storyline/<slug>` (full
-  TL;DR + what's-new + per-item editor notes)
+- Page: `/storylines` (TL;DR teaser per card) and `/storyline/<slug>` (the Arc
+  view — status banner, beat spine, what-to-watch, builder take — with a
+  Timeline fallback tab and per-item editor notes)
 - API: `/api/storylines`, `/api/storylines?slug=<slug>`
+- The page is rendered by `pipeline/render_static_pages.py`
+  (`render_storyline_body`) from the overlaid `data/storylines/<slug>.json`.
