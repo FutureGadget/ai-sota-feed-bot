@@ -109,6 +109,96 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    /* Pin the storyline page to the prototype's true GitHub-dark palette (dark
+       theme only); light theme keeps the site defaults. Scoped to this page
+       because extra_css is injected per-page. */
+    html[data-theme="dark"] { --bg:#0d1117; --card:#0f141b; --border:#21262d;
+      --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
+    .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
+    .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
+    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:0;
+      padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
+      border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
+    .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
+    :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
+      --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
+    .sl-status { border:1px solid var(--border); border-radius:12px;
+      padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
+    .sl-status.tone-turn, .sl-status.tone-alert { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border)); background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
+    .sl-status.tone-now { border-color:color-mix(in srgb,var(--t-now) 45%,var(--border)); background:color-mix(in srgb,var(--t-now) 9%,var(--card)); }
+    .sl-status.tone-launch, .sl-status.tone-resolved { border-color:color-mix(in srgb,var(--t-launch) 40%,var(--border)); background:color-mix(in srgb,var(--t-launch) 7%,var(--card)); }
+    .sl-status-head { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem; }
+    .sl-dot { width:9px; height:9px; border-radius:50%; background:var(--t-now); flex:none; }
+    .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot, .sl-status.tone-now .sl-dot { animation:slPulse 2.4s infinite; }
+    .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot { background:var(--t-turn); }
+    .sl-status.tone-launch .sl-dot, .sl-status.tone-resolved .sl-dot { background:var(--t-launch); }
+    @keyframes slPulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--t-now) 55%,transparent);} 70%{box-shadow:0 0 0 5px transparent;} }
+    .sl-state { font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:.06em;
+      text-transform:uppercase; font-weight:700; color:var(--t-now); }
+    .sl-status.tone-turn .sl-state, .sl-status.tone-alert .sl-state { color:var(--t-turn); }
+    .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
+    .sl-status-meta { font-size:0.8rem; color:var(--muted); }
+    .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
+    .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
+    .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
+      background:none; border:none; border-bottom:2px solid transparent; padding:0 0 0.6rem; cursor:pointer; }
+    .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
+    .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
+    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 0.5rem; }
+    .sl-rail { display:flex; gap:2px; height:11px; border-radius:6px; overflow:hidden; margin:0 0 0.4rem; }
+    .sl-rail-seg { flex:1; min-width:8px; border-radius:3px; }
+    .sl-rail-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
+      font-size:0.7rem; color:var(--muted); margin:0 0 1.8rem; }
+    .tone-launch-bg{background:var(--t-launch);} .tone-rising-bg{background:var(--t-rising);}
+    .tone-turn-bg{background:var(--t-turn);} .tone-now-bg{background:var(--t-now);}
+    .tone-resolved-bg{background:var(--t-resolved);} .tone-neutral-bg{background:var(--t-neutral);}
+    .tone-launch-fg{color:var(--t-launch);} .tone-rising-fg{color:var(--t-rising);}
+    .tone-turn-fg{color:var(--t-turn);} .tone-now-fg{color:var(--t-now);}
+    .tone-resolved-fg{color:var(--t-resolved);} .tone-neutral-fg{color:var(--muted);}
+    .sl-track { display:flex; gap:2px; height:13px; border-radius:7px; overflow:hidden; margin:0 0 0.5rem; }
+    .sl-track-seg { border-radius:3px; }
+    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
+      font-size:0.72rem; margin:0 0 1.9rem; }
+    .sl-spine { position:relative; padding-left:2rem; }
+    .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
+    .sl-beat { position:relative; margin:0 0 1.5rem; }
+    .sl-beat > summary { list-style:none; cursor:pointer; }
+    .sl-beat > summary::-webkit-details-marker { display:none; }
+    .sl-node { position:absolute; left:-1.72rem; top:3px; width:14px; height:14px; border-radius:50%;
+      background:var(--bg); border:2px solid var(--t-neutral); }
+    .sl-beat.tone-launch .sl-node{border-color:var(--t-launch);}
+    .sl-beat.tone-rising .sl-node{border-color:var(--t-rising);}
+    .sl-beat.tone-now .sl-node{border-color:var(--t-now);}
+    .sl-beat.tone-resolved .sl-node{border-color:var(--t-resolved);}
+    .sl-beat.tone-turn .sl-node{ left:-1.85rem; top:1px; width:20px; height:20px; border-width:3px;
+      border-color:var(--t-turn); box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 14%,transparent); }
+    .sl-kicker { font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); margin:0 0 0.25rem; }
+    .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
+    .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
+    .sl-beat-title { font-size:1.02rem; font-weight:600; line-height:1.35; }
+    .sl-beat.tone-turn .sl-beat-title { font-size:1.12rem; font-weight:700; }
+    .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
+    .sl-ok { color:var(--t-launch); }
+    .sl-show { font-size:0.8rem; color:var(--muted); margin-top:0.4rem; }
+    .sl-show-link { color:var(--accent); }
+    .sl-cards { display:flex; flex-direction:column; gap:0.6rem; margin-top:0.8rem; }
+    .sl-card.sl-card-turn { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border));
+      background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
+    .sl-card h3 a { color:var(--accent); }
+    .sl-watch { border:1px solid var(--border); border-radius:12px; padding:0.95rem 1.1rem; margin:1.8rem 0 0; }
+    .sl-watch ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:0.5rem; }
+    .sl-watch li { font-size:0.95rem; line-height:1.45; }
+    .sl-watch li::marker { color:var(--t-now); }
+    .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
+    .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
+    .sl-agent-row b { font-weight:600; }
+    .sl-agent-row .a-scout, .sl-agent-row .a-editor { color:var(--accent); }
+    .sl-agent-row .a-check { color:var(--t-launch); }
+    .sl-agent-row .a-watch { color:var(--t-now); }
+    .sl-note { margin-top:1.6rem; font-size:0.84rem; line-height:1.6; color:var(--muted); }
+    [data-sl-view][hidden] { display:none; }
   </style>
 </head>
 <body>
@@ -130,10 +220,10 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Dynamic Workflows</h2>
+      <div class="sl-hero"><h2 class="recap-title">Dynamic Workflows</h2><button id="followBtn" type="button" class="primary" data-slug="dynamic-workflows" data-last-updated="2026-06-02T00:00:00+00:00" aria-pressed="false">+ Follow this story</button></div>
       
       
-      <p class="story-actions"><button id="followBtn" type="button" class="primary" data-slug="dynamic-workflows" data-last-updated="2026-06-02T00:00:00+00:00" aria-pressed="false">+ Follow this story</button></p><div class="intro"><p class="tldr-label">TL;DR</p><p>Anthropic introduced Dynamic Workflows (“ultracode”) for Claude Code, first surfaced in late May alongside the Opus 4.8 release and detailed over the following days. The capability coordinates large numbers of agents within a single workflow to take on complex engineering tasks, with Anthropic&#x27;s own “A Harness For Every Task” post laying out the model.</p><p><b>What's new:</b> Anthropic&#x27;s own writeup, “A Harness For Every Task,” closes the loop on the launch coverage — framing Dynamic Workflows as a general orchestration harness rather than a one-off feature.</p><p>💡 Dynamic Workflows is the orchestration primitive for fanning out many agents deterministically from a single Claude Code run — directly relevant if you&#x27;re moving past single-agent prompting toward parallel, structured agent pipelines.</p></div><section class="cat"><h2><span class="count">Day 1</span> Friday, May 29, 2026</h2><div class="articles"><article><h3><a href="/story/008b880e906f9835" data-track="storyline-link">[AINews] Anthropic raises $965B Series H, releases Opus 4.8 and Dynamic Workflows/ultracode</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 29</span></div><p class="art-summary">The launch beat — Dynamic Workflows / ultracode ships alongside Opus 4.8.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 1, 2026</h2><div class="articles"><article><h3><a href="/story/72c72052beef8f43" data-track="storyline-link">Claude Code Adds Dynamic Workflows for Parallel Agent Coordination</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 1</span></div><p class="art-summary">InfoQ explains the mechanism: coordinating many agents within one workflow for complex tasks.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 2, 2026</h2><div class="articles"><article><h3><a href="/story/bbb7a8dae33b3ae4" data-track="storyline-link">A Harness For Every Task Dynamic Workflows In Claude Code</a></h3><div class="art-meta"><span class="badge">claude_blog</span><span class="badge">Jun 2</span></div><p class="art-summary">Anthropic&#x27;s own “A Harness For Every Task” framing of the feature.</p></article></div></section>
+      <div class="intro"><p class="tldr-label">TL;DR</p><p>Anthropic introduced Dynamic Workflows (“ultracode”) for Claude Code, first surfaced in late May alongside the Opus 4.8 release and detailed over the following days. The capability coordinates large numbers of agents within a single workflow to take on complex engineering tasks, with Anthropic&#x27;s own “A Harness For Every Task” post laying out the model.</p><p><b>What's new:</b> Anthropic&#x27;s own writeup, “A Harness For Every Task,” closes the loop on the launch coverage — framing Dynamic Workflows as a general orchestration harness rather than a one-off feature.</p></div><section class="cat"><h2><span class="count">Day 1</span> Friday, May 29, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/008b880e906f9835" data-track="storyline-link">[AINews] Anthropic raises $965B Series H, releases Opus 4.8 and Dynamic Workflows/ultracode</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">May 29</span></div><p class="art-summary">The launch beat — Dynamic Workflows / ultracode ships alongside Opus 4.8.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 1, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/72c72052beef8f43" data-track="storyline-link">Claude Code Adds Dynamic Workflows for Parallel Agent Coordination</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 1</span></div><p class="art-summary">InfoQ explains the mechanism: coordinating many agents within one workflow for complex tasks.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 2, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/bbb7a8dae33b3ae4" data-track="storyline-link">A Harness For Every Task Dynamic Workflows In Claude Code</a></h3><div class="art-meta"><span class="badge">claude_blog</span><span class="badge">Jun 2</span></div><p class="art-summary">Anthropic&#x27;s own “A Harness For Every Task” framing of the feature.</p></article></div></section><div class="sl-watch"><p class="sl-watch-label">What to watch — open questions</p><div class="sl-take">💡 <b>Take for builders:</b> Dynamic Workflows is the orchestration primitive for fanning out many agents deterministically from a single Claude Code run — directly relevant if you&#x27;re moving past single-agent prompting toward parallel, structured agent pipelines.</div></div><div class="sl-agents"><p class="sl-watch-label">Agents on this story</p><div class="sl-agent-row"><span><b class="a-editor">editor</b> wrote TL;DR</span></div></div><p class="sl-note">Storylines are threaded mechanically from the feed: stories that share a distinctive anchor across multiple days and sources. Each item links to its original source. The arc, status, and open questions are written by the editor routine and refreshed whenever a new beat lands.</p>
     </section>
 
     <footer>
@@ -180,6 +270,19 @@
         save(f);
         paint();
       });
+    })();
+    (function () {
+      var tabs = document.querySelectorAll('.sl-tab');
+      if (!tabs.length) return;
+      var views = document.querySelectorAll('[data-sl-view]');
+      function show(view) {
+        views.forEach(function (v) { v.hidden = v.getAttribute('data-sl-view') !== view; });
+        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-view') === view); });
+      }
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () { show(t.getAttribute('data-view')); });
+      });
+      show('arc');
     })();
   </script>
 
