@@ -75,6 +75,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DAILY_DIR = ROOT / "data" / "daily"
 WEEKLY_DIR = ROOT / "data" / "weekly"
 STORYLINES_DIR = ROOT / "data" / "storylines"
+WIKI_DIR = ROOT / "data" / "wiki"
 WEB_DIR = ROOT / "web"
 
 DEFAULT_BASE_URL = os.environ.get("SITE_BASE_URL", "https://www.llm-digest.com")
@@ -1263,6 +1264,173 @@ def render_storyline_pages(
     return sitemap_entries
 
 
+def load_wiki() -> dict:
+    """The compiled agent-engineering wiki (pipeline/build_wiki.py output)."""
+    return load_json(WIKI_DIR / "index.json") or {}
+
+
+KIND_BADGE = {"obstacle": "🧱 Obstacle", "solution": "🛠️ Solution"}
+
+
+def render_topic_body(node: dict, nodes: dict) -> str:
+    """Body for a single /topic/<slug> node: sections + cross-links + evidence."""
+    parts: list[str] = []
+    for sec in node.get("sections") or []:
+        heading = squeeze(sec.get("heading"))
+        html = sec.get("html") or ""
+        if not html:
+            continue
+        parts.append(f'<div class="cat"><h2>{escape(heading)}</h2>{html}</div>')
+
+    # Cross-links: obstacle -> solutions, solution -> obstacles.
+    if node["kind"] == "obstacle":
+        linked, link_label = node.get("solutions") or [], "Solutions"
+    else:
+        linked, link_label = node.get("obstacles") or [], "Addresses"
+    if linked:
+        chips = "".join(
+            f'<a href="/topic/{escape(l["slug"])}">{escape(squeeze(l["title"]))}</a>'
+            for l in linked
+            if l.get("slug") in nodes
+        )
+        parts.append(f'<div class="cat"><h2>{link_label}</h2><div class="toc">{chips}</div></div>')
+
+    storylines = node.get("related_storylines") or []
+    evidence = node.get("evidence") or []
+    if storylines or evidence:
+        items = []
+        for sl in storylines:
+            items.append(
+                f'<li><a href="/storyline/{escape(sl["slug"])}">📈 {escape(squeeze(sl["label"]))}</a> '
+                "<span class=\"muted\">— storyline</span></li>"
+            )
+        for ev in evidence:
+            items.append(
+                f'<li><a href="/story/{escape(ev["sid"])}">{escape(squeeze(ev["title"]))}</a></li>'
+            )
+        parts.append(
+            '<div class="cat covered"><h2>Evidence</h2><ul>' + "".join(items) + "</ul></div>"
+        )
+    return "\n".join(parts)
+
+
+def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]]:
+    """Render web/topic/<slug>.html for every wiki node; return sitemap entries."""
+    nodes = wiki.get("nodes") or {}
+    out_dir = WEB_DIR / "topic"
+    sitemap_entries: list[tuple[str, str | None]] = []
+    written: set[str] = set()
+    for slug, node in nodes.items():
+        if not SLUG_RE.match(slug):
+            continue
+        title = squeeze(node.get("title")) or slug
+        description = clip(squeeze(node.get("summary")) or title, 250)
+        canonical = f"{base_url}/topic/{slug}"
+        updated = iso_or_none(node.get("updated")) or node.get("updated") or None
+        area_label = node.get("area") or ""
+        meta_bits = [KIND_BADGE.get(node["kind"], node["kind"])]
+        if area_label:
+            meta_bits.append(str(area_label))
+        if node.get("evidence"):
+            meta_bits.append(f"{len(node['evidence'])} sources")
+        html = render_page(
+            title=f"{title} — agent engineering",
+            description=description,
+            canonical=canonical,
+            published=None,
+            h1="🧠 Agent Engineering Wiki",
+            meta_line=" · ".join(meta_bits),
+            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/rss.xml", "🔔 RSS")],
+            json_href="",
+            archive="",
+            recap_title=title,
+            recap_range="",
+            intro_html="",
+            body_html=render_topic_body(node, nodes),
+            json_ld=[
+                article_node(
+                    type_="Article",
+                    title=title,
+                    description=description,
+                    canonical=canonical,
+                    published=None,
+                    base_url=base_url,
+                ),
+                breadcrumb_node(
+                    base_url,
+                    [("Home", "/"), ("Knowledge map", "/map"), (title, f"/topic/{slug}")],
+                ),
+            ],
+        )
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{slug}.html").write_text(html, encoding="utf-8")
+        written.add(f"{slug}.html")
+        lastmod = (updated or "")[:10] or None
+        sitemap_entries.append((slug, lastmod))
+    prune_orphans(out_dir, SLUG_HTML_RE, written)
+    sitemap_entries.sort(key=lambda t: t[0])
+    return sitemap_entries
+
+
+def render_map_page(base_url: str, wiki: dict) -> bool:
+    """Render web/map.html — the obstacle→solution index. False if no nodes."""
+    nodes = wiki.get("nodes") or {}
+    areas = wiki.get("areas") or []
+    if not nodes:
+        return False
+    blocks: list[str] = []
+    for area in areas:
+        cards = []
+        for slug in area.get("obstacles") or []:
+            node = nodes.get(slug)
+            if not node:
+                continue
+            sols = "".join(
+                f'<a href="/topic/{escape(s["slug"])}">{escape(squeeze(s["title"]))}</a>'
+                for s in node.get("solutions") or []
+            )
+            sol_html = f'<div class="toc">{sols}</div>' if sols else ""
+            cards.append(
+                "<article>"
+                f'<h3 class="story-title"><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
+                f'<p class="art-summary">{escape(clip(squeeze(node.get("summary")), 200))}</p>'
+                f"{sol_html}</article>"
+            )
+        if cards:
+            blocks.append(
+                f'<div class="cat"><h2>{escape(squeeze(area.get("label")) or area.get("area"))} '
+                f'<span class="count">{len(cards)}</span></h2>'
+                f'<div class="articles">{"".join(cards)}</div></div>'
+            )
+    body = "\n".join(blocks) or "<p>No topics yet.</p>"
+    canonical = f"{base_url}/map"
+    description = (
+        "A living map of the obstacles to building and operating AI agents — "
+        "memory, reliability, tool use, cost, and more — each linked to the "
+        "solutions the field uses, with source articles."
+    )
+    html = render_page(
+        title="Agent Engineering Wiki — obstacles & solutions",
+        description=description,
+        canonical=canonical,
+        published=None,
+        h1="🧠 Agent Engineering Wiki",
+        meta_line="Obstacles to building & operating agents, mapped to solutions",
+        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/rss.xml", "🔔 RSS")],
+        json_href="/api/topics",
+        archive="",
+        recap_title="Agent engineering: obstacles & solutions",
+        recap_range="",
+        intro_html=f'<div class="intro"><p>{escape(description)}</p></div>',
+        body_html=body,
+        json_ld=[
+            breadcrumb_node(base_url, [("Home", "/"), ("Knowledge map", "/map")]),
+        ],
+    )
+    (WEB_DIR / "map.html").write_text(html, encoding="utf-8")
+    return True
+
+
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
     if not out_dir.is_dir():
         return
@@ -1289,6 +1457,7 @@ def write_sitemap(
     weeks: list[str],
     stories: list[tuple[str, str | None]] | None = None,
     storylines: list[tuple[str, str | None]] | None = None,
+    topics: list[tuple[str, str | None]] | None = None,
 ) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
     entries: list[tuple[str, str | None, str | None]] = [
@@ -1298,6 +1467,11 @@ def write_sitemap(
         (f"{base_url}/storylines", today, "daily"),
         (f"{base_url}/voices", today, "monthly"),
     ]
+    if topics:
+        entries.append((f"{base_url}/map", today, "weekly"))
+        entries += [
+            (f"{base_url}/topic/{slug}", lastmod, "weekly") for slug, lastmod in topics
+        ]
     entries += [(f"{base_url}/daily/{d}", d, None) for d in days]
     # Weekly recaps: lastmod = the week's end date (Sunday) when derivable.
     for w in weeks:
@@ -1355,15 +1529,20 @@ def main() -> None:
     storyline_pages = render_storyline_pages(
         base_url, storyline_details, active_slugs, story_sids
     )
-    write_sitemap(base_url, days, weeks, story_pages, storyline_pages)
+    wiki = load_wiki()
+    topic_pages = render_topic_pages(base_url, wiki)
+    has_map = render_map_page(base_url, wiki)
+    write_sitemap(base_url, days, weeks, story_pages, storyline_pages, topic_pages)
     write_robots(base_url)
     print(
         f"static pages rendered: {len(days)} daily, {len(weeks)} weekly, "
         f"{len(story_pages) + noindexed} story ({noindexed} noindex), "
-        f"{len(storyline_details)} storyline ({len(storyline_pages)} active) "
-        "-> web/daily/, web/weekly/, web/story/, web/storyline/"
+        f"{len(storyline_details)} storyline ({len(storyline_pages)} active), "
+        f"{len(topic_pages)} topic ({'map' if has_map else 'no map'}) "
+        "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/"
     )
     n_urls = 5 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
+    n_urls += (1 + len(topic_pages)) if topic_pages else 0
     print(f"sitemap: web/sitemap.xml ({n_urls} urls), robots: web/robots.txt")
     if not days and not weeks and not story_pages and not storyline_pages:
         print("warning: no recaps or stories found; nothing rendered", file=sys.stderr)

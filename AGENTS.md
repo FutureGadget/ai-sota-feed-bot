@@ -87,18 +87,22 @@ storyline; it only proposes links the floor then judges.
   - `llm_label.py`, `llm_rerank.py` — no-op placeholders while LLM disabled
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages
+  - `build_wiki.py` — compiles the agent-engineering wiki markdown pages
+    (`data/wiki/`) into the served `data/wiki/index.json` (deterministic; LLM
+    synthesis is the `wiki-curator` routine's job)
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
 - `publish/` — `publish_issue.py` (GitHub Issue), `publish_telegram.py`
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
-  `daily.js`, `weekly.js`, `storylines.js`, `client-config.js`. They read
-  committed `data/` files bundled via `vercel.json` `includeFiles`.
+  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`. They
+  read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
   `/storyline/<slug>` is served from the static page below), `voices.html`.
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
-  `web/storyline/`, `sitemap.xml` (from `render_static_pages.py`). Brand assets:
+  `web/storyline/`, `web/topic/`, `web/map.html`, `sitemap.xml` (from
+  `render_static_pages.py`). Brand assets:
   `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
   `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
   `mascot/mascot.js` — "Bubble Buddy", the decorative WebGL/Three.js mascot
@@ -114,6 +118,8 @@ storyline; it only proposes links the floor then judges.
     `config/presets/<name>.yaml` under local overrides
   - `sources.yaml` (feeds + weights), `profile.yaml` (relevance keywords),
     `llm.yaml` (**enabled: false**), `user_preferences.yaml`, `config/prompts/`
+  - `wiki_schema.md` — contract for the agent-engineering wiki (obstacle areas,
+    page format, ingest/lint/query ops, `build_wiki.py` invariants)
 - `scripts/` — `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
@@ -123,7 +129,10 @@ storyline; it only proposes links the floor then judges.
 - `.agents/skills/` — agent recap routines: `daily-summary/`, `weekly-summary/`,
   `storyline-editor/` (narrates cross-day threads into a sidecar the pipeline
   overlays), `storyline-scout/` (proposes thread links the clustering missed,
-  applied through the deterministic floor), `add-source/` (add a feed source
+  applied through the deterministic floor), `wiki-curator/` (LLM-wiki routine:
+  ingests new stories into the cross-linked obstacle→solution markdown pages
+  under `data/wiki/`, then `build_wiki.py` compiles + validates them — serves
+  `/map` and `/topic/<slug>`), `add-source/` (add a feed source
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
   gates and reaches the feed)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
@@ -155,6 +164,10 @@ storyline; it only proposes links the floor then judges.
   overlay when narrated, `via_scout` when surfaced by the scout);
   `narratives/<slug>.json` agent-written sidecars + `input/` bundles;
   `scout/{candidates,links}.json` recall candidates + confirmed links
+- `data/wiki/` — agent-engineering knowledge wiki: `{obstacles,solutions}/*.md`
+  source pages (LLM-curated; the source of truth), `index.json` (compiled by
+  `build_wiki.py`; the only file served/bundled), `index.md` (catalog), `log.md`
+  (append-only activity), `input/` ingest bundles. Schema: `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
@@ -168,10 +181,11 @@ storyline; it only proposes links the floor then judges.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
-`/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/voices` ·
-`/s?u=<url>` share redirect · `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
+`/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/map` (wiki
+index) · `/topic/<slug>` (wiki node) · `/voices` · `/s?u=<url>` share redirect ·
+`/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/client-config`.
+`/api/storylines`, `/api/topics`, `/api/client-config`.
 
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs

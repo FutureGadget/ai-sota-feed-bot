@@ -14,6 +14,12 @@ PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 
 
 def main() -> None:
+    # Recompile the agent-engineering wiki from its committed markdown pages so
+    # code-only PR previews reflect edited pages. Non-fatal: a broken page falls
+    # back to the committed data/wiki/index.json rather than failing the deploy.
+    wiki = subprocess.run([sys.executable, "pipeline/build_wiki.py"], cwd=ROOT)
+    if wiki.returncode != 0:
+        print("warning: build_wiki.py failed; using committed index.json", file=sys.stderr)
     subprocess.run(
         [sys.executable, "pipeline/render_static_pages.py"],
         cwd=ROOT,

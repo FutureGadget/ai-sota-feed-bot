@@ -52,6 +52,26 @@ available to each function.
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)
 
+## Agent-engineering wiki (`data/wiki/`)
+LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).
+Source of truth is markdown; `index.json` is the only file served/bundled.
+- `data/wiki/obstacles/<slug>.md`, `data/wiki/solutions/<slug>.md` — node pages.
+  YAML front matter (`slug`, `kind` obstacle|solution, `title`, `area` for
+  obstacles, `status`, edge lists `solutions:`/`obstacles:`, `related_storylines:`,
+  `evidence:` real story sids, `updated`, `covers_evidence` staleness snapshot) +
+  a markdown body with known `## ` sections. Format/invariants in
+  `config/wiki_schema.md`.
+- `data/wiki/index.json` — compiled by `pipeline/build_wiki.py`: `{generated_at,
+  areas:[{area,label,obstacles:[slug]}], nodes:{slug:{kind,title,area,status,
+  summary,sections:[{heading,html}],solutions:[{slug,title}],obstacles:[…],
+  related_storylines:[{slug,label}],evidence:[{sid,title}],updated}}}`. The build
+  symmetrizes edges and fails on dangling edges / unresolved evidence sids or
+  storyline slugs. Served by `/api/topics` and rendered to `web/map.html` +
+  `web/topic/<slug>.html`.
+- `data/wiki/index.md` — human catalog. `data/wiki/log.md` — append-only activity
+  log. `data/wiki/input/latest.json` — `wiki-curator` ingest bundle (recent
+  stories grouped by obstacle area; excluded from deploys).
+
 ## Feedback loop
 - `data/feedback/events.jsonl` — reader feedback events (PostHog sync + manual)
 - `data/feedback/ctr_clicks.json` — per-source click counts (PostHog sync)

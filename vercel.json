@@ -20,6 +20,8 @@
     { "source": "/voices", "destination": "/web/voices.html" },
     { "source": "/storylines", "destination": "/web/storyline.html" },
     { "source": "/storyline/:slug([a-z0-9-]+)", "destination": "/web/storyline/:slug.html" },
+    { "source": "/map", "destination": "/web/map.html" },
+    { "source": "/topic/:slug([a-z0-9-]+)", "destination": "/web/topic/:slug.html" },
     { "source": "/story/:sid([0-9a-f]{16})", "destination": "/web/story/:sid.html" },
     { "source": "/s", "destination": "/api/share" },
     { "source": "/rss.xml", "destination": "/api/rss" },
@@ -60,6 +62,9 @@
     "api/storylines.js": {
       "includeFiles": "data/storylines/**",
       "excludeFiles": "data/storylines/{input/**,narratives/**,scout/**}"
+    },
+    "api/topics.js": {
+      "includeFiles": "data/wiki/index.json"
     },
     "api/client-config.js": {
       "excludeFiles": "data/**"
