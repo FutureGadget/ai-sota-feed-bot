@@ -4,30 +4,15 @@
  "item_count": 3,
  "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-05-27T07:45:00+00:00",
- "last_updated": "2026-06-15T13:56:33+00:00",
- "generated_at": "2026-06-15T15:11:20.746371+00:00",
+ "first_seen": "2026-06-08T17:08:36+00:00",
+ "last_updated": "2026-06-16T17:22:07+00:00",
+ "generated_at": "2026-06-18T00:09:20.882123+00:00",
  "sources": [
+  "arxiv_cs_ai",
   "arxiv_cs_cl",
-  "aws_ml_blog",
-  "infoq_ai_ml"
+  "aws_ml_blog"
  ],
  "days": [
-  {
-   "date": "2026-05-27",
-   "items": [
-    {
-     "title": "Sarang Kulkarni on Lessons from Building Deep Research Agents in Production",
-     "url": "https://www.infoq.com/news/2026/05/kulkarni-deep-research-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-     "source": "infoq_ai_ml",
-     "type": "news",
-     "summary_1line": "Deep Research Agentic Systems are AI Agents designed to conduct multi-step research for complex tasks using dynamic reasoning, multi-hop information retrieval, and generate structured analytical reports. Sarang Kulkar...",
-     "sid": "db3f935ead18d952",
-     "published": "2026-05-27T07:45:00+00:00",
-     "editor_note": "Opens the thread with production lessons and a working definition of deep research agentic systems."
-    }
-   ]
-  },
   {
    "date": "2026-06-08",
    "items": [
@@ -39,7 +24,7 @@
      "summary_1line": "Existing benchmarks for deep research agents (DRAs) assess only single-shot outputs, ignoring a key question: can DRAs improve their reports when guided by feedback? To investigate this, we conduct a multi-turn evalua...",
      "sid": "c5cd09a4f478ae3e",
      "published": "2026-06-08T17:08:36+00:00",
-     "editor_note": "Names the evaluation gap — existing benchmarks test only single-shot output — and proposes multi-turn evaluation under process-level feedback."
+     "editor_note": "Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback."
     }
    ]
   },
@@ -55,16 +40,32 @@
      "why_it_matters": "Matches feed focus: agent.",
      "sid": "2f2101adc8737656",
      "published": "2026-06-15T13:56:33+00:00",
-     "editor_note": "First concrete end-to-end build pattern, on AWS Deep Agents and Bedrock AgentCore."
+     "editor_note": "Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows."
+    }
+   ]
+  },
+  {
+   "date": "2026-06-16",
+   "items": [
+    {
+     "title": "DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction",
+     "url": "http://arxiv.org/abs/2606.18191v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Deep research (DR) systems are increasingly used for complex information-seeking tasks, but existing works mainly focus on generating reports and summaries. In contrast, many enterprise tasks instead require an agent...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "0221a891a5b9e026",
+     "published": "2026-06-16T17:22:07+00:00",
+     "editor_note": "Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Deep research agents — systems that run multi-step research using dynamic reasoning and multi-hop retrieval — moved from field notes toward repeatable practice over three weeks. InfoQ opened with Sarang Kulkarni's production lessons on building them; an arXiv paper then flagged an evaluation gap, arguing existing benchmarks only score single-shot output and proposing multi-turn evaluation under process-level feedback; AWS closed with an end-to-end build using Deep Agents and Bedrock AgentCore.",
+  "tldr": "In mid-June, deep research agents got pushed on both evaluation and engineering. An arXiv paper argued that existing benchmarks only grade a single-shot report and miss whether an agent improves when given feedback, and ran a multi-turn evaluation under process-level feedback. AWS then shipped a concrete build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows. The latest beat, DRFLOW, reframes the target again, arguing real enterprise work needs the agent to predict a personalized workflow rather than just produce a report, and proposing a benchmark for it.",
   "stale": false,
-  "whats_new": "The latest beat is AWS's hands-on walkthrough building a competitive research agent end to end on Deep Agents plus Bedrock AgentCore — the thread's first concrete, platform-specific build pattern, after the earlier production-lessons and evaluation-method posts.",
-  "why_it_matters": "Deep research agents are maturing into something an engineer can actually ship: there's now a managed-cloud build pattern to copy and a multi-turn evaluation method to judge whether the agent improves under feedback rather than just its one-shot answer.",
-  "generated_at": "2026-06-15T15:11:00+00:00"
+  "whats_new": "The newest item, DRFLOW (Jun 16), moves the benchmark goalposts past report generation toward predicting personalized, enterprise-style workflows — a different success criterion than the feedback-driven report quality the Jun 8 paper measured.",
+  "why_it_matters": "How you evaluate a deep research agent is still unsettled: single-shot report quality, improvement under process-level feedback, and personalized workflow prediction are three different bars, and the one you pick changes what you build. AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the isolated-execution, multi-step plumbing underneath any of them.",
+  "generated_at": "2026-06-18T00:08:34Z"
  }
 }
