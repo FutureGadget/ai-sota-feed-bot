@@ -2,116 +2,86 @@
 
 Focus: AI Platform Engineering
 
-## 1. Introducing LifeSciBench
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-life-sci-bench
-- Score: 3.33 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 2. codex 0.141.0
+## 1. codex 0.141.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.141.0
-- Score: 3.163 | Reliability: 1.0
+- Score: 3.159 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 3. Trustworthy Self-Composable Big-Data-as-a-Service: An LLM-Orchestrated Multi-Agent Framework for Automated Data Engineering, AutoML, MLOps Deployment, and Drift-Aware Lifecycle Optimization
+## 2. Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance
 - Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.17915v1
-- Score: 3.144 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+- URL: http://arxiv.org/abs/2606.18613v1
+- Score: 3.038 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 4. GLM-5.2 is probably the most powerful text-only open weights LLM
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/17/glm-52/#atom-everything
-- Score: 3.127 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 5. Claude Design now stays on brand for daily work | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-design-stays-on-brand-for-daily-work
-- Score: 2.99 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
-
-## 6. ProductConsistency: Improving Product Identity Preservation in Instruction-Based Image Editing via SFT and RL
+## 3. ProductConsistency: Improving Product Identity Preservation in Instruction-Based Image Editing via SFT and RL
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.19103v1
-- Score: 2.929 | Reliability: 1.0
+- Score: 2.937 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 7. Unlocking UK house-building with AI-accelerated planning
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/
-- Score: 2.806 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Agentic coding and persistent returns to expertise
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/claude-code-expertise
-- Score: 2.794 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 9. A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry
+## 4. A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/ai-chemist-improves-reaction
-- Score: 2.669 | Reliability: 1.0
+- Score: 2.676 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem
-- Score: 2.609 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Urdu Katib Handwritten Dataset: A Historical Document Dataset for Offline Urdu Handwritten Text Recognition with CRNN-Based Baseline Evaluation
+## 5. Urdu Katib Handwritten Dataset: A Historical Document Dataset for Offline Urdu Handwritten Text Recognition with CRNN-Based Baseline Evaluation
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.19139v1
-- Score: 2.637 | Reliability: 1.0
+- Score: 2.646 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 12. Presentation: From Hype to Strong Foundations: What the Rise, Fall and Resurgence of Agents Can Teach Us About Outlasting the Cycle
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/llm-compound-ai-systems/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.629 | Reliability: 1.0
+## 6. AI Agents for Contractors
+- Type: news | Source: hackernews_ai
+- URL: https://dolfyn.ai/
+- Score: 2.627 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 13. INDEQS: Informed Neural controlled Differential EQuationS
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2606.19138v1
-- Score: 2.545 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 7. Anthropic opens Seoul office and announces new partnerships across the Korean AI ecosystem
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem
+- Score: 2.616 | Reliability: 1.0
+- Why it matters: 
 
-## 14. [AINews] Midjourney Medical: scan your organs like you step on a scale
+## 8. [AINews] Midjourney Medical: scan your organs like you step on a scale
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-midjourney-medical-scan-your
-- Score: 2.53 | Reliability: 1.0
+- Score: 2.535 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Quoting Charity Majors
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/17/charity-majors/#atom-everything
-- Score: 2.469 | Reliability: 1.0
-- Why it matters: 
-
-## 16. claude-agent-sdk-python v0.2.104
+## 9. claude-agent-sdk-python v0.2.104
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.104
-- Score: 2.43 | Reliability: 1.0
+- Score: 2.427 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. 🔬 The Self-Driving Lab — Joseph Krause, Radical AI
+## 10. 🔬 The Self-Driving Lab — Joseph Krause, Radical AI
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/radical-ai
-- Score: 2.326 | Reliability: 1.0
+- Score: 2.332 | Reliability: 1.0
 - Why it matters: 
 
-## 18. claude-code v2.1.181
+## 11. INDEQS: Informed Neural controlled Differential EQuationS
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.19138v1
+- Score: 2.554 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 12. From the Hugging Face Hub to robot hardware with Strands Agents and LeRobot
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/amazon/strands-lerobot-hub-to-hardware
+- Score: 2.443 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. claude-code v2.1.181
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.181
-- Score: 2.285 | Reliability: 1.0
+- Score: 2.281 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 19. Get back hours every day with autonomous agents in Amazon Quick
+## 14. Get back hours every day with autonomous agents in Amazon Quick
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/
-- Score: 1.962 | Reliability: 1.0
+- Score: 1.958 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
