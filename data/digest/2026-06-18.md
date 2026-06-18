@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. Agentic AI, Biology, and What Remains Human
 - Type: news | Source: hackernews_ai
 - URL: https://dvitsios.org/2026/06/17/agentic-ai-biology-and-what-remains-human/
-- Score: 2.681 | Reliability: 1.0
+- Score: 2.679 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 7. A near-autonomous AI chemist improves a challenging reaction in medicinal chemistry
@@ -83,7 +83,7 @@ Focus: AI Platform Engineering
 ## 14. claude-code v2.1.181
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.181
-- Score: 2.243 | Reliability: 1.0
+- Score: 2.242 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 15. France Advances Europe’s AI Future With NVIDIA Technologies
