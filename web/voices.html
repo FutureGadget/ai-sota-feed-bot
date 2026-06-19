@@ -314,7 +314,7 @@
         if (document.getElementById('nav-update-style')) return;
         var s = document.createElement('style');
         s.id = 'nav-update-style';
-        s.textContent = '.nav-update-dot{display:inline-block;width:.5rem;height:.5rem;margin-left:.35rem;border-radius:999px;background:#dc2626;vertical-align:middle}.nav-update-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
+        s.textContent = '.nav-update-dot{display:inline-block;margin-left:.4rem;padding:.03rem .34rem;font-size:.62rem;font-weight:700;line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 16%,transparent);border:1px solid color-mix(in srgb,var(--accent,#2563eb) 38%,transparent);border-radius:999px;vertical-align:middle;animation:navUpdateIn .35s ease-out both}@keyframes navUpdateIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}@media (prefers-reduced-motion:reduce){.nav-update-dot{animation:none}}.nav-update-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
         (document.head || document.documentElement).appendChild(s);
       }
 
@@ -326,6 +326,7 @@
           if (ROUTE[pathOnly] !== section || a.querySelector('.nav-update-dot')) continue;
           var dot = document.createElement('span');
           dot.className = 'nav-update-dot';
+          dot.textContent = 'New';
           dot.setAttribute('aria-hidden', 'true');
           a.appendChild(dot);
           var sr = document.createElement('span');
