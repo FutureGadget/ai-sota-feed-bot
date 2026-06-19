@@ -797,6 +797,23 @@
   "type": "news",
   "url": "https://github.com/Aidan945/SafeAgentDB"
  },
+ "1e85a71d2b195222": {
+  "first_seen": "2026-06-19T03:01:32.022731+00:00",
+  "id": "11975116514bfb8e",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-06-18T17:49:36+00:00",
+  "sid": "1e85a71d2b195222",
+  "source": "arxiv_cs_lg",
+  "summary": "Mainstream LLM serving systems reuse prefix work mainly through paged or radix key-value (KV) caches. This is highly effective for high-throughput, high-concurrency serving, but it manages only one positional fragment of execution state: the KV cache. We study the opposite regime: low-latency, small-batch, on-device physical-AI serving, where interactive LLM agents, speech systems, and robot policies repeatedly branch, reset, interrupt, and re-enter under tight responsiveness budgets. We introduce execution-state capsules, a graph-bound checkpoint and restore mechanism for the complete restorable state at a committed boundary. FlashRT is a white-box, backend-facing kernel runtime whose evaluated NVIDIA CUDA backend runs captured graph plans over contiguous static buffers with no block-table indirection. Because the live state is a closed set of named buffers, a capsule can snapshot, restore, fork, or roll back the whole execution boundary, including KV, recurrent state, convolution state, MTP state, and metadata. This moves reuse from token-addressed KV fragments to graph-bound execution-state boundaries. On an RTX 5090, capsule restore is byte-exact at the stored-state level and token-identical under greedy decode. A KV-only ablation diverges, showing that recurrent state is load-bearing. GPU-resident snapshot and restore are sub-millisecond, and TTFT speedup over cold prefill grows from 3.9x at 2k tokens to 27x at 16k tokens. On Jetson AGX Thor and DGX Spark, the same corre",
+  "summary_1line": "Mainstream LLM serving systems reuse prefix work mainly through paged or radix key-value (KV) caches. This is highly effective for high-throughput, high-concurrency serving, but it manages only one positional fragment...",
+  "title": "Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.20537v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "1ee79eedc5428e01": {
   "first_seen": "2026-06-09T22:24:07.551166+00:00",
   "id": "f939ae1c38f2b28d",
