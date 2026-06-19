@@ -4147,7 +4147,7 @@
   ],
   "published": "2026-06-17T17:20:46+00:00",
   "sid": "b19d91e2f2001c8f",
-  "source": "arxiv_llm_reliability",
+  "source": "arxiv_cs_lg",
   "summary": "Embodied Vision-Language-Action (VLA) models are typically obtained by fine-tuning powerful pretrained VLMs on robotics data, yet it is unclear how much commonsense and factual knowledge they retain after adaptation. Failures on knowledge-sensitive tasks are ambiguous, conflating missing knowledge with poor generalization of low-level control. We introduce Act2Answer, a lightweight protocol that adapts VLM knowledge benchmarks to VLA evaluation by requiring agents to answer through action. Each question becomes a short tabletop episode where the agent performs a single object-placement action to select among candidate answers, yielding an action-grounded success rate with reduced control confounds. We curate a test suite of such environments across diverse commonsense and world-knowledge categories and introduce layerwise intent probing to localize answer-relevant information across the VLM backbone and action head. In a large-scale study of 7 VLA models and 9 VLM baselines, we systematically rank models across categories, finding that VLAs show solid performance on simple concepts while exhibiting larger gaps on richer semantic categories relative to their source VLMs, that VQA co-training is associated with better knowledge retention, and that answer-relevant signals peak in middle VLA layers but attenuate in upper layers. Act2Answer is available at https://tttonyalpha.github.io/act2answer/.",
   "summary_1line": "Embodied Vision-Language-Action (VLA) models are typically obtained by fine-tuning powerful pretrained VLMs on robotics data, yet it is unclear how much commonsense and factual knowledge they retain after adaptation....",
   "title": "Does VLA Even Know the Basics? Measuring Commonsense and World Knowledge Retention in Vision-Language-Action Models",
@@ -5772,6 +5772,26 @@
   "title": "How to Stop Shipping Low-Quality RL Environments (with Examples)",
   "type": "news",
   "url": "https://www.latent.space/p/bad-envs"
+ },
+ "f58f76bdac67ff25": {
+  "first_seen": "2026-06-19T01:01:28.162436+00:00",
+  "id": "de25b8ebb4548544",
+  "image_url": "https://static.simonwillison.net/static/2026/datasette-timeline-app.jpg",
+  "matched_topics": [
+   "agent",
+   "evaluation",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-06-18T23:58:38+00:00",
+  "sid": "f58f76bdac67ff25",
+  "source": "simon_willison",
+  "summary": "Today we launched a new plugin for Datasette, datasette-apps , with this launch announcement post on the Datasette project blog. That post has the what , but I'm going to expand on that a little bit here to provide the why . The TL;DR Datasette Apps are self-contained HTML+JavaScript applications that run in a tightly constrained sandbox hosted on your Datasette application. They can use JavaScript to run read-only SQL queries against data in Datasette, and can run write queries too if you configure them with some stored queries . Here's a very simple example and a more complex custom timeline example - the latter looks like this: Apps are allowed to run JavaScript and render HTML and CSS. They are limited in terms of access - the they run in prevents them from accessing cookies or localStorage and they also have an injected CSP header (thanks to this research ) which prevents them from making HTTP requests to outside hosts, preventing a malicious or buggy app from exfiltrating private data. Datasette Apps started out as my attempt at building a Claude Artifacts mechanism for Datasette Agent , but I quickly realised that the sandboxed pattern is interesting for way more than just adding custom apps to the interface surface and promoted it to its own top-level concept within the Datasette ecosystem. They're also a fun way to turn my multi-year experiment in vibe-coded HTML tools into a core feature of my main project! You can try out Datasette Apps by signing in with GitHub to",
+  "summary_1line": "Today we launched a new plugin for Datasette, datasette-apps , with this launch announcement post on the Datasette project blog. That post has the what , but I'm going to expand on that a little bit here to provide th...",
+  "title": "Datasette Apps: Host custom HTML applications inside Datasette",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jun/18/datasette-apps/#atom-everything",
+  "why_it_matters": "Matches feed focus: agent, evaluation, codex."
  },
  "f6cf006fbdea0d5a": {
   "first_seen": "2026-06-14T12:01:22.980480+00:00",
