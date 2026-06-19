@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Engineering Wiki — obstacles &amp; solutions | LLM Digest</title>
-  <meta name="description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <link rel="canonical" href="https://www.llm-digest.com/map" />
+  <title>Coordinating multiple agents adds more failure than capability — agent engineering | LLM Digest</title>
+  <meta name="description" content="Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains —…" />
+  <link rel="canonical" href="https://www.llm-digest.com/topic/multi-agent" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta property="og:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <meta property="og:url" content="https://www.llm-digest.com/map" />
+  <meta property="og:title" content="Coordinating multiple agents adds more failure than capability — agent engineering" />
+  <meta property="og:description" content="Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains —…" />
+  <meta property="og:url" content="https://www.llm-digest.com/topic/multi-agent" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta name="twitter:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}]}</script>
+  <meta name="twitter:title" content="Coordinating multiple agents adds more failure than capability — agent engineering" />
+  <meta name="twitter:description" content="Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains —…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Coordinating multiple agents adds more failure than capability", "description": "Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains —…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/multi-agent", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "Coordinating multiple agents adds more failure than capability", "item": "https://www.llm-digest.com/topic/multi-agent"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -117,26 +117,26 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Obstacles to building &amp; operating agents, mapped to solutions</p>
+      <p id="meta" class="muted">🧱 Obstacle · multi-agent · 4 sources</p>
       <menu>
+        <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
         <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/daily" role="button">🗓️ Daily</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
-        <a href="/api/topics" role="button">JSON</a>
         
       </menu>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent engineering: obstacles &amp; solutions</h2>
+      <h2 class="recap-title">Coordinating multiple agents adds more failure than capability</h2>
       
-      <div class="intro"><p>A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles.</p></div>
-      <div class="cat"><h2>Memory &amp; context <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="art-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent…</p><div class="toc"><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></div></article></div></div>
-<div class="cat"><h2>Tool use &amp; interop <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="art-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way…</p><div class="toc"><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></div></article></div></div>
-<div class="cat"><h2>Evaluation <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="art-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic,…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></article></div></div>
-<div class="cat"><h2>Multi-agent coordination <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/multi-agent">Coordinating multiple agents adds more failure than capability</a></h3><p class="art-summary">Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></div></article></div></div>
-<div class="cat"><h2>Security &amp; safety <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="art-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects…</p><div class="toc"><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></div></article></div></div>
+      
+      <div class="cat"><h2>TL;DR</h2><p>Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains — the hard part isn&#x27;t building the agents, it&#x27;s getting them to work together without costing more than one good agent would.</p></div>
+<div class="cat"><h2>State of the art</h2><p>The conversation is shifting from &quot;more agents is better&quot; to characterizing *when* multi-agent actually helps, and the recurring answer is that the <strong>communication structure dominates the agent count</strong>. DPBench studies the structural determinants of multi-agent LLM coordination directly — which topologies and role assignments make collaboration pay off versus add noise. Cost is the second axis: Stanford&#x27;s DeLM reports cutting multi-agent task cost by roughly half by *removing the central orchestrator*, evidence that a single coordinating agent is both a token bottleneck and a single point of failure. Orchestration itself is becoming dynamic rather than hand-wired — Anthropic&#x27;s writeup on Claude Code&#x27;s Dynamic Workflows describes generating a custom execution harness per task to coordinate sub-agents instead of committing to one fixed shape. Meanwhile practitioners are still hunting for frameworks where *heterogeneous* models genuinely collaborate (route refactors to one model, codegen to another), which is really a routing-and-handoff problem, not a model problem. The durable lesson: who talks to whom, in what format, and under whose control is the dominant variable.</p></div>
+<div class="cat"><h2>What&#x27;s new</h2><p>Evidence is converging that *topology*, not the number of agents, drives both coordination quality and cost — DPBench formalizes the structural determinants, DeLM shows decentralizing away from a central orchestrator cuts task cost ~50%, and Anthropic is now generating execution harnesses per task rather than fixing a single coordination shape.</p></div>
+<div class="cat"><h2>Why it matters for platform engineers</h2><p>Every extra agent is extra tokens, extra latency, and extra failure surface, so a multi-agent design has to clear a hard bar: beat a single well-prompted agent on cost *and* reliability — and it often doesn&#x27;t. The engineering job is choosing a topology (orchestrator-worker vs. decentralized), writing strict handoff contracts so one agent&#x27;s output is safely another&#x27;s input, and budgeting the communication overhead up front. Crucially it needs an eval (see <a href="/topic/agent-benchmarks">agent benchmarks</a>) that proves the extra agents paid for themselves, because the default failure mode is paying N× the cost for a result a single agent could have produced.</p></div>
+<div class="cat"><h2>Solutions</h2><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></div></div>
+<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/story/64ad8e685ed41a9b">DPBench: Structural Determinants of Multi-Agent LLM Coordination</a></li><li><a href="/story/19e4caf222bfb0d9">DeLM cuts multi-agent task costs without a central orchestrator</a></li><li><a href="/story/e7f12e82187d72de">Anthropic Explains How Claude Builds Its Own Execution Harnesses</a></li><li><a href="/story/f961ee6418699914">Ask HN: Multi-LLM orchestration frameworks that collaborate?</a></li></ul></div>
     </section>
 
     <footer>

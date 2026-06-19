@@ -14,6 +14,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions
   → solutions: vector-kb, context-compaction
 
+### multi-agent
+- [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability
+  → solutions: agent-orchestration, agent-benchmarks
+
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent
   → solutions: agent-sandboxing
@@ -24,6 +28,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 
 ## Solutions
 - [agent-benchmarks](solutions/agent-benchmarks.md) — Fixed tasks that exercise real tool use
+- [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses
 - [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails
 - [context-compaction](solutions/context-compaction.md) — Summarize, compress, and curate the working set
 - [llm-as-judge](solutions/llm-as-judge.md) — Model-graded evaluation of traces and outputs

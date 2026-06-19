@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-19T00:48:30.026799+00:00",
+ "generated_at": "2026-06-19T10:01:52.409183+00:00",
  "areas": [
   {
    "area": "memory",
@@ -20,6 +20,13 @@
    "label": "Evaluation",
    "obstacles": [
     "agent-evaluation"
+   ]
+  },
+  {
+   "area": "multi-agent",
+   "label": "Multi-agent coordination",
+   "obstacles": [
+    "multi-agent"
    ]
   },
   {
@@ -163,6 +170,63 @@
    ],
    "updated": "2026-06-18"
   },
+  "multi-agent": {
+   "slug": "multi-agent",
+   "kind": "obstacle",
+   "title": "Coordinating multiple agents adds more failure than capability",
+   "area": "multi-agent",
+   "status": "active",
+   "summary": "Splitting a job across several agents promises specialization and parallelism,\nbut every handoff is a lossy interface and each added agent multiplies the ways\nthe system can stall, loop, or disagree. Coordination overhead routinely eats\nthe gains — the hard part isn't building the agents, it's getting them to work\ntogether without costing more than one good agent would.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or disagree. Coordination overhead routinely eats the gains — the hard part isn&#x27;t building the agents, it&#x27;s getting them to work together without costing more than one good agent would.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The conversation is shifting from &quot;more agents is better&quot; to characterizing *when* multi-agent actually helps, and the recurring answer is that the <strong>communication structure dominates the agent count</strong>. DPBench studies the structural determinants of multi-agent LLM coordination directly — which topologies and role assignments make collaboration pay off versus add noise. Cost is the second axis: Stanford&#x27;s DeLM reports cutting multi-agent task cost by roughly half by *removing the central orchestrator*, evidence that a single coordinating agent is both a token bottleneck and a single point of failure. Orchestration itself is becoming dynamic rather than hand-wired — Anthropic&#x27;s writeup on Claude Code&#x27;s Dynamic Workflows describes generating a custom execution harness per task to coordinate sub-agents instead of committing to one fixed shape. Meanwhile practitioners are still hunting for frameworks where *heterogeneous* models genuinely collaborate (route refactors to one model, codegen to another), which is really a routing-and-handoff problem, not a model problem. The durable lesson: who talks to whom, in what format, and under whose control is the dominant variable.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Evidence is converging that *topology*, not the number of agents, drives both coordination quality and cost — DPBench formalizes the structural determinants, DeLM shows decentralizing away from a central orchestrator cuts task cost ~50%, and Anthropic is now generating execution harnesses per task rather than fixing a single coordination shape.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Every extra agent is extra tokens, extra latency, and extra failure surface, so a multi-agent design has to clear a hard bar: beat a single well-prompted agent on cost *and* reliability — and it often doesn&#x27;t. The engineering job is choosing a topology (orchestrator-worker vs. decentralized), writing strict handoff contracts so one agent&#x27;s output is safely another&#x27;s input, and budgeting the communication overhead up front. Crucially it needs an eval (see <a href=\"/topic/agent-benchmarks\">agent benchmarks</a>) that proves the extra agents paid for themselves, because the default failure mode is paying N× the cost for a result a single agent could have produced.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "agent-benchmarks",
+     "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+     "slug": "agent-orchestration",
+     "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "64ad8e685ed41a9b",
+     "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+     "sid": "19e4caf222bfb0d9",
+     "title": "DeLM cuts multi-agent task costs without a central orchestrator"
+    },
+    {
+     "sid": "e7f12e82187d72de",
+     "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses"
+    },
+    {
+     "sid": "f961ee6418699914",
+     "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
   "prompt-injection": {
    "slug": "prompt-injection",
    "kind": "obstacle",
@@ -299,6 +363,10 @@
     {
      "slug": "agent-evaluation",
      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+     "slug": "multi-agent",
+     "title": "Coordinating multiple agents adds more failure than capability"
     }
    ],
    "related_storylines": [
@@ -323,6 +391,59 @@
     {
      "sid": "8f76e67ad854a6c0",
      "title": "olmo-eval: An evaluation workbench for the model development loop"
+    },
+    {
+     "sid": "64ad8e685ed41a9b",
+     "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
+  "agent-orchestration": {
+   "slug": "agent-orchestration",
+   "kind": "solution",
+   "title": "Orchestration patterns: topologies, handoffs, and harnesses",
+   "area": null,
+   "status": "active",
+   "summary": "Orchestration is the control plane of a multi-agent system: how the work is\ndecomposed, which agent does what, how they hand off, and who — if anyone — is\nin charge. The pattern you pick (central orchestrator vs. decentralized, a fixed\ngraph vs. one generated per task) sets the cost, latency, and reliability\nceiling of the whole system.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Orchestration is the control plane of a multi-agent system: how the work is decomposed, which agent does what, how they hand off, and who — if anyone — is in charge. The pattern you pick (central orchestrator vs. decentralized, a fixed graph vs. one generated per task) sets the cost, latency, and reliability ceiling of the whole system.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Two axes are in play. <strong>Topology</strong>: the orchestrator-worker (star) pattern is the simplest to reason about but makes the coordinator a throughput bottleneck and a single point of failure — Stanford&#x27;s DeLM reports cutting task cost ~50% by removing the central orchestrator, and DPBench finds the communication structure is the dominant determinant of whether coordination helps at all. <strong>Dynamism</strong>: orchestration is moving from hand-wired graphs toward *generated* control flow — Anthropic&#x27;s Claude Code Dynamic Workflows generate a custom execution harness per task to coordinate sub-agents rather than committing to one static shape. Across both axes the durable lesson is that the value lives in the <strong>interface contracts</strong> between agents — structured handoffs, compact wire formats, explicit roles — not in the number of agents you spin up.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>The center of gravity has moved from &quot;add more agents&quot; to &quot;design the coordination&quot;: decentralized topologies that drop the central orchestrator (DeLM) and per-task generated harnesses (Anthropic) are displacing the default single-coordinator star, with the communication structure treated as the primary design variable.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>A central orchestrator is easy to trace and debug but caps throughput and adds a bottleneck; decentralized topologies scale and cut cost but are harder to observe and can deadlock or diverge. Generated orchestration adapts per task but is less predictable and harder to test than a fixed graph. More agents and more coordination nearly always cost more tokens and latency, so the pattern only pays off when the task genuinely decomposes and the handoffs are cheap and well-typed — otherwise the orchestration overhead is pure loss.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is distributed-systems design wearing an LLM hat: topology choice, backpressure, handoff schemas, and failure isolation. The actionable stance is to default to a single agent, reach for orchestration only when a task decomposes cleanly, prefer decentralized or contract-based handoffs over a fat central coordinator where you can trace them, and measure (see <a href=\"/topic/agent-benchmarks\">agent benchmarks</a>) that the multi-agent version actually beats the single-agent baseline on cost and reliability before you ship it.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "multi-agent",
+     "title": "Coordinating multiple agents adds more failure than capability"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "19e4caf222bfb0d9",
+     "title": "DeLM cuts multi-agent task costs without a central orchestrator"
+    },
+    {
+     "sid": "e7f12e82187d72de",
+     "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses"
     },
     {
      "sid": "64ad8e685ed41a9b",
