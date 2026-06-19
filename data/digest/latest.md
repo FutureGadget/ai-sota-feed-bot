@@ -5,131 +5,95 @@ Focus: AI Platform Engineering
 ## 1. Datasette Apps: Host custom HTML applications inside Datasette
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/18/datasette-apps/#atom-everything
-- Score: 3.531 | Reliability: 1.0
+- Score: 3.605 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation, codex.
 
-## 2. Introducing LifeSciBench
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-life-sci-bench
-- Score: 3.251 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 3. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
+## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.20373v1
-- Score: 3.244 | Reliability: 1.0
+- Score: 3.274 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. GLM-5.2 is probably the most powerful text-only open weights LLM
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/17/glm-52/#atom-everything
-- Score: 3.06 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 3. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.20537v1
+- Score: 2.976 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 5. codex 0.141.0
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.141.0
-- Score: 3.036 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
-
-## 6. Predicting model behavior before release by simulating deployment
-- Type: release | Source: openai_blog
-- URL: https://openai.com/index/deployment-simulation
-- Score: 2.944 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 7. Claude Design now stays on brand for daily work | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-design-stays-on-brand-for-daily-work
-- Score: 2.917 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
-
-## 8. GitHub Copilot Desktop App Targets Parallel Agentic Workflows
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/github-copilot-app/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.865 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 9. Improving health intelligence in ChatGPT
+## 4. Improving health intelligence in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/improving-health-intelligence-in-chatgpt
-- Score: 2.827 | Reliability: 1.0
+- Score: 2.861 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 10. New usage analytics and updated spend controls for enterprises
+## 5. New usage analytics and updated spend controls for enterprises
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-enterprise-spend-controls
-- Score: 2.799 | Reliability: 1.0
+- Score: 2.833 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Claude Code now supports artifacts | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/artifacts-in-claude-code
-- Score: 2.792 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
+## 6. Using AI to help physicians diagnose rare genetic diseases affecting children
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/diagnose-rare-childhood-diseases
+- Score: 2.815 | Reliability: 1.0
+- Why it matters: 
 
-## 12. Steering Claude Code: skills, hooks, subagents and more | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more
-- Score: 2.792 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 7. A Systematic Evaluation of Black-Box Uncertainty Estimation Methods for Large Language Models
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.19868v1
+- Score: 2.812 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 13. Microsoft Scout, New  Enterprise Autopilot Built on OpenClaw, Announced at Build 2026
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/microsoft-scout-openclaw-build/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.771 | Reliability: 1.0
+## 8. Show HN: Coding Tools MCP – Give any LLM agent the ability to code
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/xyTom/coding-tools-mcp
+- Score: 2.743 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. Agentic coding and persistent returns to expertise
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/claude-code-expertise
-- Score: 2.747 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 15. Is it agentic enough? Benchmarking open models on your own tooling
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/is-it-agentic-enough
-- Score: 2.743 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 16. vllm v0.23.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.23.0
-- Score: 2.555 | Reliability: 1.0
-- Why it matters: 
-
-## 17. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2606.20527v1
-- Score: 2.535 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 18. [AINews] GLM > GPT? GLM-5.2 passes vibe check; Z.ai forecasts Open Fable by December
+## 9. [AINews] GLM > GPT? GLM-5.2 passes vibe check; Z.ai forecasts Open Fable by December
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-glm-gpt-glm-52-passes-vibe
-- Score: 2.514 | Reliability: 1.0
+- Score: 2.587 | Reliability: 1.0
 - Why it matters: 
 
-## 19. langgraph==1.2.6
+## 10. langgraph==1.2.6
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.6
-- Score: 2.501 | Reliability: 1.0
+- Score: 2.485 | Reliability: 1.0
 - Why it matters: 
 
-## 20. claude-agent-sdk-python v0.2.105
+## 11. Is it agentic enough? Benchmarking open models on your own tooling
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/is-it-agentic-enough
+- Score: 2.773 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 12. Project Fetch: Phase two
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/project-fetch-phase-two
+- Score: 2.628 | Reliability: 1.0
+- Why it matters: 
+
+## 13. claude-agent-sdk-python v0.2.105
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.105
-- Score: 2.435 | Reliability: 1.0
+- Score: 2.418 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. claude-code v2.1.183
+## 14. codex 0.142.0-alpha.3
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.3
+- Score: 2.4 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. claude-code v2.1.183
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.183
-- Score: 2.413 | Reliability: 1.0
+- Score: 2.396 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 22. France Advances Europe’s AI Future With NVIDIA Technologies
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/france-advances-europes-ai-future/
-- Score: 1.82 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 16. Monitor and debug generative AI inference with SageMaker detailed metrics and Insights dashboard on CloudWatch
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/monitor-and-debug-generative-ai-inference-with-sagemaker-detailed-metrics-and-insights-dashboard-on-cloudwatch/
+- Score: 1.415 | Reliability: 1.0
+- Why it matters:
