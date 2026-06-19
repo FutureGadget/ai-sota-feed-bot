@@ -268,5 +268,123 @@
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
     }
   </script>
+  <!-- "New updates" nav dots — flag unread updates in the daily, weekly,
+       storylines and knowledge-map sections. Daily and weekly are time-aware
+       (a stale recap never reads as "fresh" even if you haven't opened it);
+       storylines and the map rely on read history alone. Signals come from
+       /api/updates; "seen" markers live in localStorage. See
+       docs/product-specs/nav-update-indicators.md. -->
+  <script>
+    (function () {
+      var SEEN = {
+        daily: 'ai_feed_seen_daily_v1',
+        weekly: 'ai_feed_seen_weekly_v1',
+        storylines: 'ai_feed_seen_storylines_v1',
+        map: 'ai_feed_seen_map_v1'
+      };
+      var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines', '/map': 'map' };
+      // Daily/weekly age-out: a stale recap is not "fresh" even when unread.
+      var DAILY_FRESH_MAX_AGE = 1;   // covers today or yesterday
+      var WEEKLY_FRESH_MAX_AGE = 8;  // most recent completed week (+1 day grace)
+
+      function getItem(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+      function setItem(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+      function ms(s) { var t = s ? Date.parse(s) : NaN; return isFinite(t) ? t : NaN; }
+
+      function currentSection() {
+        var p = location.pathname.replace(/\/+$/, '') || '/';
+        if (p === '/daily' || p.indexOf('/daily/') === 0) return 'daily';
+        if (p === '/weekly' || p.indexOf('/weekly/') === 0) return 'weekly';
+        if (p === '/storylines' || p.indexOf('/storyline/') === 0) return 'storylines';
+        if (p === '/map' || p.indexOf('/topic/') === 0) return 'map';
+        return null;
+      }
+
+      // Whole-day difference (now - dateStr), UTC, in days.
+      function dayAge(nowIso, dateStr) {
+        if (!dateStr) return Infinity;
+        var now = new Date(nowIso);
+        var d = new Date(dateStr.length === 10 ? dateStr + 'T00:00:00Z' : dateStr);
+        if (isNaN(now.getTime()) || isNaN(d.getTime())) return Infinity;
+        var a = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+        var b = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+        return Math.round((a - b) / 86400000);
+      }
+
+      // Value compared against the "seen" marker for each section.
+      function signalOf(u, section) {
+        if (section === 'daily') return u.daily && u.daily.generated_at;
+        if (section === 'weekly') return u.weekly && u.weekly.generated_at;
+        if (section === 'storylines') return u.storylines && u.storylines.last_updated;
+        if (section === 'map') return u.map && u.map.updated;
+        return null;
+      }
+
+      function isUnread(section, signal) {
+        var seen = getItem(SEEN[section]);
+        if (!seen) return true;
+        var a = ms(signal), b = ms(seen);
+        if (isFinite(a) && isFinite(b)) return a > b;
+        return String(signal) > String(seen); // date-only strings sort lexically
+      }
+
+      function isFresh(section, u) {
+        if (section === 'daily') return dayAge(u.now, u.daily && u.daily.date) <= DAILY_FRESH_MAX_AGE;
+        if (section === 'weekly') return dayAge(u.now, u.weekly && u.weekly.end) <= WEEKLY_FRESH_MAX_AGE;
+        return true; // storylines + map: read history only, no time gate
+      }
+
+      function injectStyle() {
+        if (document.getElementById('nav-update-style')) return;
+        var s = document.createElement('style');
+        s.id = 'nav-update-style';
+        s.textContent = '.nav-update-dot{display:inline-block;width:.5rem;height:.5rem;margin-left:.35rem;border-radius:999px;background:#dc2626;vertical-align:middle}.nav-update-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
+        (document.head || document.documentElement).appendChild(s);
+      }
+
+      function decorate(section) {
+        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        for (var i = 0; i < links.length; i++) {
+          var a = links[i];
+          var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
+          if (ROUTE[pathOnly] !== section || a.querySelector('.nav-update-dot')) continue;
+          var dot = document.createElement('span');
+          dot.className = 'nav-update-dot';
+          dot.setAttribute('aria-hidden', 'true');
+          a.appendChild(dot);
+          var sr = document.createElement('span');
+          sr.className = 'nav-update-sr';
+          sr.textContent = ' (new updates)';
+          a.appendChild(sr);
+        }
+      }
+
+      function run() {
+        fetch('/api/updates', { headers: { accept: 'application/json' } })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (u) {
+            if (!u) return;
+            injectStyle();
+            Object.keys(ROUTE).forEach(function (route) {
+              var section = ROUTE[route];
+              var signal = signalOf(u, section);
+              if (signal && isUnread(section, signal) && isFresh(section, u)) decorate(section);
+            });
+            var cur = currentSection();
+            if (cur) {
+              var sig = signalOf(u, cur);
+              if (sig) setItem(SEEN[cur], sig);
+            }
+          })
+          .catch(function () {});
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+      } else {
+        run();
+      }
+    })();
+  </script>
 </body>
 </html>

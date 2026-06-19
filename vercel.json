@@ -40,15 +40,15 @@
   ],
   "functions": {
     "api/feed.js": {
-      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,tier1/runs/**,feedback/source_adjustments.json}",
+      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,feedback/source_adjustments.json}",
       "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/events.jsonl,feedback/ctr_clicks.json,analysis/**}"
     },
     "api/rss.js": {
-      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,tier1/runs/**}",
+      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json}",
       "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/**,analysis/**}"
     },
     "api/share.js": {
-      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,tier1/runs/**,stories/index.json}",
+      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,stories/index.json}",
       "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/**,analysis/**}"
     },
     "api/weekly.js": {
@@ -65,6 +65,9 @@
     },
     "api/topics.js": {
       "includeFiles": "data/wiki/index.json"
+    },
+    "api/updates.js": {
+      "includeFiles": "data/{daily/index.json,weekly/index.json,storylines/index.json,wiki/index.json}"
     },
     "api/client-config.js": {
       "excludeFiles": "data/**"

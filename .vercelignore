@@ -1,0 +1,20 @@
+# Keep heavy, never-served runtime data out of the Vercel deployment.
+#
+# Vercel bundles the uploaded project into EACH serverless function (minus that
+# function's excludeFiles), so as data/ grew, functions without a broad exclude
+# (daily/weekly/storylines/topics/updates) bundled the whole tree and blew past
+# Vercel's 250 MB unzipped function limit, freezing all deploys.
+#
+# None of the dirs below are read by any api/ function at request time or by the
+# static build (scripts/vercel_build.py -> build_wiki.py + render_static_pages.py).
+# feed.js/rss.js/share.js touch tier1/runs only via graceful-fallback paths that
+# degrade to tier1/latest.json when the runs are absent. Everything here stays in
+# git (audit/replay) but ships out of the deployment.
+data/raw
+data/tier1/runs
+data/llm
+data/health
+data/digest
+data/diagnostics
+data/cache
+data/analysis

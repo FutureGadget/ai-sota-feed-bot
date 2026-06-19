@@ -174,10 +174,17 @@ storyline; it only proposes links the floor then judges.
   `alerts_state.json`, `ingest_runs.jsonl`
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
 - Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
-  (deleted outright, no archive tail — tier1 snapshots are ~1.5 MB each and
-  bundled into the Vercel feed/rss functions, which only read tier1 for a 24h
-  fresh-blend). Env-tunable via `prune_runtime_data.py`, run automatically in
-  `run_full.sh`.
+  (deleted outright, no archive tail — tier1 snapshots are ~1.5–1.9 MB each).
+  Env-tunable via `prune_runtime_data.py`, run automatically in `run_full.sh`.
+  **Heavy runtime dirs are kept out of Vercel via `.vercelignore`**
+  (`data/raw`, `data/tier1/runs`, `data/llm`, `data/health`, `data/digest`,
+  `data/diagnostics`, `data/cache`, `data/analysis`). Vercel bundles the whole
+  uploaded project into *each* serverless function, so once `data/` grew
+  (`tier1/runs` ~175 MB at ~30 runs/day, `data/raw` ~125 MB) functions blew
+  past the 250 MB unzipped limit and froze all deploys. These dirs are read by
+  neither the static build nor any function at request time (`feed.js` falls
+  back to `tier1/latest.json` when the runs are absent), so they stay in git
+  (audit/replay) but ship out of the deployment. See the 2026-06-19 ADR.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
@@ -185,7 +192,8 @@ storyline; it only proposes links the floor then judges.
 index) · `/topic/<slug>` (wiki node) · `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/topics`, `/api/client-config`.
+`/api/storylines`, `/api/topics`, `/api/client-config`, `/api/updates`
+(lightweight freshness signals powering the nav "new updates" dots).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs
