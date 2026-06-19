@@ -5,113 +5,131 @@ Focus: AI Platform Engineering
 ## 1. Datasette Apps: Host custom HTML applications inside Datasette
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/18/datasette-apps/#atom-everything
-- Score: 3.563 | Reliability: 1.0
+- Score: 3.535 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation, codex.
 
-## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2606.20373v1
-- Score: 3.286 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 2. Introducing LifeSciBench
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-life-sci-bench
+- Score: 3.27 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 3. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
+## 3. Applied AI Engineer/ Product Builder/ Data Science
+- Type: news | Source: hackernews_ai
+- URL: https://news.ycombinator.com/item?id=48594452
+- Score: 3.151 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, claude code.
+
+## 4. codex 0.141.0
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.141.0
+- Score: 3.024 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 5. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.20537v1
-- Score: 2.989 | Reliability: 1.0
+- Score: 2.948 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Improving health intelligence in ChatGPT
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/improving-health-intelligence-in-chatgpt
-- Score: 2.857 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 5. New usage analytics and updated spend controls for enterprises
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/chatgpt-enterprise-spend-controls
-- Score: 2.829 | Reliability: 1.0
-- Why it matters: 
-
-## 6. A Systematic Evaluation of Black-Box Uncertainty Estimation Methods for Large Language Models
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.19868v1
-- Score: 2.824 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 7. Claude Code now supports artifacts | Claude
+## 6. Claude Design now stays on brand for daily work | Claude
 - Type: news | Source: claude_blog
-- URL: https://claude.com/blog/artifacts-in-claude-code
-- Score: 2.822 | Reliability: 1.0
+- URL: https://claude.com/blog/claude-design-stays-on-brand-for-daily-work
+- Score: 2.936 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 8. Steering Claude Code: skills, hooks, subagents and more | Claude
+## 7. Improving health intelligence in ChatGPT
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/improving-health-intelligence-in-chatgpt
+- Score: 2.848 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 8. New usage analytics and updated spend controls for enterprises
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/chatgpt-enterprise-spend-controls
+- Score: 2.82 | Reliability: 1.0
+- Why it matters: 
+
+## 9. Claude Code now supports artifacts | Claude
+- Type: news | Source: claude_blog
+- URL: https://claude.com/blog/artifacts-in-claude-code
+- Score: 2.813 | Reliability: 1.0
+- Why it matters: Matches feed focus: claude code.
+
+## 10. Steering Claude Code: skills, hooks, subagents and more | Claude
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more
-- Score: 2.822 | Reliability: 1.0
+- Score: 2.813 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 9. Using AI to help physicians diagnose rare genetic diseases affecting children
+## 11. Using AI to help physicians diagnose rare genetic diseases affecting children
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/diagnose-rare-childhood-diseases
-- Score: 2.811 | Reliability: 1.0
+- Score: 2.802 | Reliability: 1.0
 - Why it matters: 
 
-## 10. datasette-acl 0.6a0
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/18/datasette-acl/#atom-everything
-- Score: 2.624 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Is it agentic enough? Benchmarking open models on your own tooling
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/is-it-agentic-enough
-- Score: 2.785 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 12. Project Fetch: Phase two
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/project-fetch-phase-two
-- Score: 2.641 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Centrally manage authorization for MCP connectors | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/enterprise-managed-auth
-- Score: 2.622 | Reliability: 1.0
-- Why it matters: 
-
-## 14. langgraph==1.2.6
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.6
-- Score: 2.517 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Presentation: Write-Ahead Intent Log: A Foundation for Efficient CDC at Scale
+## 12. Microsoft Scout, New  Enterprise Autopilot Built on OpenClaw, Announced at Build 2026
 - Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/write-ahead-intent-log/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.448 | Reliability: 1.0
-- Why it matters: 
-
-## 16. codex 0.142.0-alpha.3
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.3
-- Score: 2.434 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 17. claude-code v2.1.183
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.183
-- Score: 2.43 | Reliability: 1.0
+- URL: https://www.infoq.com/news/2026/06/microsoft-scout-openclaw-build/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.773 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. The Professor of Outputmaxxing — Anjney Midha, AMP
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/anj
-- Score: 2.334 | Reliability: 1.0
+## 13. Agentic coding and persistent returns to expertise
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/claude-code-expertise
+- Score: 2.747 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 14. Is it agentic enough? Benchmarking open models on your own tooling
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/is-it-agentic-enough
+- Score: 2.744 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 15. datasette-acl 0.6a0
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/18/datasette-acl/#atom-everything
+- Score: 2.597 | Reliability: 1.0
 - Why it matters: 
 
-## 19. How FERC’s Large-Load Interconnection Actions Help Address Grid Stress, Improve Affordability
+## 16. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2606.20527v1
+- Score: 2.537 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 17. langgraph==1.2.6
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.6
+- Score: 2.491 | Reliability: 1.0
+- Why it matters: 
+
+## 18. [AINews] Midjourney Medical: scan your organs like you step on a scale
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-midjourney-medical-scan-your
+- Score: 2.445 | Reliability: 1.0
+- Why it matters: 
+
+## 19. Presentation: Write-Ahead Intent Log: A Foundation for Efficient CDC at Scale
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/write-ahead-intent-log/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.421 | Reliability: 1.0
+- Why it matters: 
+
+## 20. claude-code v2.1.183
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.183
+- Score: 2.404 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 21. claude-agent-sdk-python v0.2.104
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.104
+- Score: 2.303 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 22. How FERC’s Large-Load Interconnection Actions Help Address Grid Stress, Improve Affordability
 - Type: news | Source: nvidia_blog
 - URL: https://blogs.nvidia.com/blog/ferc-large-load-interconnection/
-- Score: 1.642 | Reliability: 1.0
+- Score: 1.628 | Reliability: 1.0
 - Why it matters:
