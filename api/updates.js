@@ -50,7 +50,7 @@ function latestStorylines() {
   }
   return {
     generated_at: idx.generated_at || null,
-    last_updated: latest !== null ? new Date(latest).toISOString() : (idx.generated_at || null),
+    last_updated: latest !== null ? new Date(latest).toISOString() : null,
   };
 }
 

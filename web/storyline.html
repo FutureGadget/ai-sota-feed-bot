@@ -426,7 +426,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('a[href]');
+        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
