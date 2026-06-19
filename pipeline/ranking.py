@@ -113,6 +113,21 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
     exclude_title_regex = profile.get("selection", {}).get("exclude_title_regex", [])
     cap = int(cfg.get("candidate_pool_cap", 100))
 
+    # Deterministic off-topic relevance gate (see config/profile.yaml off_topic).
+    # Anchored-phrase blocklist with a platform-keyword rescue clause, applied to
+    # title+summary. Lists are flattened once here, not per-item.
+    off_cfg = profile.get("off_topic", {}) or {}
+    off_phrases: list[str] = []
+    rescue_re = None
+    if off_cfg.get("enabled", False):
+        for phrases in (off_cfg.get("categories", {}) or {}).values():
+            off_phrases.extend(str(p).lower() for p in (phrases or []) if str(p).strip())
+        rescue_kw = [str(k).lower() for k in (off_cfg.get("rescue_keywords", []) or []) if str(k).strip()]
+        if rescue_kw:
+            # Word-boundary match so short tokens (mcp, gpu) don't false-rescue
+            # as substrings ("rag" inside "storage", "agent" inside text, etc.).
+            rescue_re = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in rescue_kw) + r")\b")
+
     out: list[dict[str, Any]] = []
     reasons = defaultdict(int)
 
@@ -121,6 +136,12 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
         if any(re.search(pat, title) for pat in exclude_title_regex):
             reasons["hard_exclude"] += 1
             continue
+
+        if off_phrases:
+            haystack = f"{title} {it.get('summary', '')}".lower()
+            if any(ph in haystack for ph in off_phrases) and not (rescue_re and rescue_re.search(haystack)):
+                reasons["off_topic"] += 1
+                continue
 
         src = it.get("source", "")
         slot = src_to_slot.get(src, "overflow")

@@ -121,7 +121,12 @@ Interpretation:
 - source failing or parser mismatch.
 
 2. **Prefiltered out**
-- title regex exclude
+- title regex exclude (`selection.exclude_title_regex`)
+- off-topic relevance gate (`profile.off_topic`, `prefilter_reasons.off_topic`):
+  an anchored off-topic phrase matched title+summary and no
+  `off_topic.rescue_keywords` term was present. If an on-topic item is wrongly
+  dropped, either narrow the offending phrase or add a rescue keyword — never
+  add a loose single word to the phrase list.
 - freshness window too short for that slot
 - source health floor
 - candidate pool cap reached (`candidate_pool_cap`)
