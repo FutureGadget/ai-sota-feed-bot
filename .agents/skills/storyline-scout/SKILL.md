@@ -150,7 +150,10 @@ routine's `needs_narrative` set).
 ### 7. Post it (commit + push)
 ```bash
 git add data/storylines/
-git commit -m "storyline scout links: <ids>"
+# Pin the agent identity so the commit signature can't inherit the machine's
+# ambient git config (sets both author and committer).
+git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
+  commit -m "storyline scout links: <ids>"
 git push
 ```
 Committing the `data/` change *is* publishing. Keep it a data-only commit.

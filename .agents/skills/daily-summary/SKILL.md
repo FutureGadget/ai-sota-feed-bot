@@ -131,7 +131,10 @@ fix and re-run until clean. (`--check` validates without writing.)
 ### 5. Post it (commit + push)
 ```bash
 git add data/daily/ web/daily/ web/sitemap.xml web/robots.txt
-git commit -m "daily recap: <date>"
+# Pin the agent identity so the commit signature can't inherit the machine's
+# ambient git config (sets both author and committer).
+git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
+  commit -m "daily recap: <date>"
 git push
 ```
 
