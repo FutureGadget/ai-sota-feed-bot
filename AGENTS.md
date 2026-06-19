@@ -185,7 +185,8 @@ storyline; it only proposes links the floor then judges.
 index) · `/topic/<slug>` (wiki node) · `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/topics`, `/api/client-config`.
+`/api/storylines`, `/api/topics`, `/api/client-config`, `/api/updates`
+(lightweight freshness signals powering the nav "new updates" dots).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs
