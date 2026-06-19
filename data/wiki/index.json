@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-18T04:19:52.705342+00:00",
+ "generated_at": "2026-06-19T00:48:30.026799+00:00",
  "areas": [
   {
    "area": "memory",
@@ -7,9 +7,100 @@
    "obstacles": [
     "agent-memory"
    ]
+  },
+  {
+   "area": "tool-use",
+   "label": "Tool use & interop",
+   "obstacles": [
+    "tool-use"
+   ]
+  },
+  {
+   "area": "evaluation",
+   "label": "Evaluation",
+   "obstacles": [
+    "agent-evaluation"
+   ]
+  },
+  {
+   "area": "security",
+   "label": "Security & safety",
+   "obstacles": [
+    "prompt-injection"
+   ]
   }
  ],
  "nodes": {
+  "agent-evaluation": {
+   "slug": "agent-evaluation",
+   "kind": "obstacle",
+   "title": "Measuring whether an agent actually worked is hard",
+   "area": "evaluation",
+   "status": "active",
+   "summary": "A chatbot is graded on its final answer; an agent has to be graded on what it\n*did* — the multi-step trajectory of tool calls, retries, and decisions that\nled there. Outputs are non-deterministic, \"correct-looking\" answers can come\nfrom broken paths, and a benchmark the agent has effectively memorized tells\nyou nothing about a new environment. Knowing whether an agent works in\nproduction is itself an unsolved engineering problem.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, &quot;correct-looking&quot; answers can come from broken paths, and a benchmark the agent has effectively memorized tells you nothing about a new environment. Knowing whether an agent works in production is itself an unsolved engineering problem.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Evaluation is splitting into two complementary jobs. The first is <strong>trajectory / process evaluation</strong> — judging the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The second is <strong>outcome evaluation under distribution shift</strong>: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>The conversation has moved past &quot;did it answer correctly&quot; to graded *process*: trace judges that score trajectories (LangChain/Fireworks report matching frontier-judge quality at ~1/100th the cost by fine-tuning an open model on production traces) and root-cause failure detectors, plus mounting evidence that familiar-benchmark scores collapse out of distribution.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Eval is the regression test of the agent stack — without it you cannot tell a prompt tweak or model upgrade from a silent regression, and you cannot put a number on reliability. But running a frontier LLM as a judge over every production trace is its own cost-and-latency line item, and a benchmark your agent has effectively trained on gives false confidence. The practical job is building a cheap, trustworthy, trajectory-aware eval harness you can run in CI and on live traffic — closer to observability than to a one-time accuracy check.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "agent-benchmarks",
+     "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+     "slug": "llm-as-judge",
+     "title": "LLM-as-judge: model-graded evaluation of traces and outputs"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [
+    {
+     "slug": "deep-research",
+     "label": "Deep Research"
+    }
+   ],
+   "evidence": [
+    {
+     "sid": "b8b632a161a052e9",
+     "title": "The Roadmap to Mastering AI Agent Evaluation"
+    },
+    {
+     "sid": "12500c0bbe5e4d6f",
+     "title": "AI Agent Failure Detection and Root Cause Analysis with Strands Evals"
+    },
+    {
+     "sid": "4235792e910ea51a",
+     "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+     "sid": "55809dc9368e7936",
+     "title": "Show HN: Rubric – test what your LLM agent did, not just what it said"
+    },
+    {
+     "sid": "f07b6a3f3f344020",
+     "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
+    },
+    {
+     "sid": "c000018ba1f03575",
+     "title": "Predicting model behavior before release by simulating deployment"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
   "agent-memory": {
    "slug": "agent-memory",
    "kind": "obstacle",
@@ -72,6 +163,227 @@
    ],
    "updated": "2026-06-18"
   },
+  "prompt-injection": {
+   "slug": "prompt-injection",
+   "kind": "obstacle",
+   "title": "Untrusted input and tools can hijack an agent",
+   "area": "security",
+   "status": "active",
+   "summary": "An agent treats whatever it reads — a web page, a tool result, a file, another\nagent's message — as instructions it might follow. Prompt injection turns that\ninto an attack: hidden text redirects the agent to exfiltrate data, misuse its\ntools, or escalate privileges. Because the agent has real credentials and can\nact, a successful injection is not a bad answer — it's an unauthorized action.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects the agent to exfiltrate data, misuse its tools, or escalate privileges. Because the agent has real credentials and can act, a successful injection is not a bad answer — it&#x27;s an unauthorized action.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Defenses are being shown to be brittle from two directions at once: guardrail models can be turned into a DoS vector, and sandboxing is reframed as not solving credential authorization at all — pushing the emphasis from &quot;filter the prompt&quot; toward scoping permissions and measuring multi-agent injection exposure directly.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is the security boundary of the whole agent stack, and it maps to ordinary ops controls done right: scoped credentials, per-tool authorization, network egress limits, and human approval on high-impact actions. The mistake is treating a sandbox or a guardrail model as the answer; both are layers, and both have published bypasses. Every tool you connect (see <a href=\"/topic/tool-use\">tool use</a>) widens the attack surface, so authorization and blast-radius limits — not prompt hygiene alone — are the real control.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "agent-sandboxing",
+     "title": "Sandboxing, scoped credentials, and guardrails"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "2f58221195cbccdf",
+     "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
+    },
+    {
+     "sid": "6b3ed4b86d0301bf",
+     "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
+    },
+    {
+     "sid": "2f585fd257ad02a4",
+     "title": "Coding Agent Sandboxes Don't Solve Credential Authorization"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
+  "tool-use": {
+   "slug": "tool-use",
+   "kind": "obstacle",
+   "title": "Agents reach the outside world through fragile, ad-hoc integrations",
+   "area": "tool-use",
+   "status": "active",
+   "summary": "An agent is only as useful as the tools it can call, but every integration has\nhistorically been bespoke: hand-written wrappers around REST APIs, brittle\nschemas the model misuses, and no shared way to discover or authorize tools.\nConnecting an agent to real systems — infra, browsers, SaaS — is where a lot of\nthe engineering actually goes, and it breaks in production in ways the model\nnever sees.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way to discover or authorize tools. Connecting an agent to real systems — infra, browsers, SaaS — is where a lot of the engineering actually goes, and it breaks in production in ways the model never sees.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The field is converging on a <strong>protocol layer</strong> rather than per-app glue: the Model Context Protocol (MCP) standardizes how tools are described, discovered, and called, so a Terraform server, a Webex server, or a browser can expose capabilities to any MCP-speaking agent. The argument has sharpened from &quot;wrap your REST API&quot; to &quot;agents need *infrastructure*, not SMS APIs&quot; — purpose-built, agent-native endpoints rather than human-oriented ones bolted on. The actuation surface is widening too: WebMCP is entering Chrome origin trials so sites can expose JavaScript functions and HTML forms directly to in-browser agents. Running this in production surfaces classic distributed-systems problems — bursty, stateful multi-tenancy and securing the execution sandbox — that the model&#x27;s tool-calling ability does nothing to solve.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Tool use is standardizing fast: WebMCP moving into Chrome origin trials (in-page tools for browser agents) and the GA of infrastructure MCP servers like HashiCorp&#x27;s Terraform server mark the shift from one-off integrations to a shared, discoverable protocol surface.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Tool integration is the part of an agent that looks like ordinary distributed systems — auth, rate limits, retries, multi-tenancy, sandboxing — and it is where most production incidents live, not in the model. A protocol like MCP reduces N×M custom connectors to a common interface, but it also makes the <strong>authorization and blast-radius</strong> question central: every tool you expose is a new permission and a new attack surface (see <a href=\"/topic/prompt-injection\">prompt injection</a>). The build-vs-buy decision is increasingly &quot;adopt the protocol and govern the connectors&quot; rather than &quot;write another API wrapper.&quot;</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "mcp",
+     "title": "Model Context Protocol: a standard interface for agent tools"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "6d71486170022687",
+     "title": "WebMCP Standard Proposal for Agentic Web Actuation Now Available in Chrome (Origin Trials)"
+    },
+    {
+     "sid": "8bad13df6e63105d",
+     "title": "Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure"
+    },
+    {
+     "sid": "0652695d185d0b1f",
+     "title": "AI Agents Don't Need SMS APIs. They Need Infrastructure"
+    },
+    {
+     "sid": "5b5273180a38e7c0",
+     "title": "Presentation: Automating the Web With MCP: Infra That Doesn’t Break"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
+  "agent-benchmarks": {
+   "slug": "agent-benchmarks",
+   "kind": "solution",
+   "title": "Agent benchmarks: fixed tasks that exercise real tool use",
+   "area": null,
+   "status": "active",
+   "summary": "Pin down a fixed set of tasks with known good outcomes and run agents against\nthem repeatedly. Unlike model benchmarks, agent benchmarks have to exercise\n*tool use and multi-step trajectories* — booking, querying, fixing, coordinating\n— so they double as integration tests for the whole agent, not just the model.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they double as integration tests for the whole agent, not just the model.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Skepticism of leaderboard scores is now the default stance: results that agents collapse &quot;beyond familiar environments,&quot; plus workbenches that benchmark models on *your* tools, push teams toward task suites grounded in their own environment rather than trusting a public number.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>A fixed benchmark is reproducible and cheap to re-run, but it&#x27;s a static target: agents over-fit to it, it goes stale as tools change, and &quot;passing&quot; can mean &quot;memorized the distribution.&quot; Building a benchmark on your own tooling is more predictive but is real work to author and maintain, and small task sets have high variance. Best as a regression gate (catch known failures) — complement with <a href=\"/topic/llm-as-judge\">LLM-as-judge</a> on live traces for the open-ended cases a fixed suite can&#x27;t enumerate.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Agent benchmarks are the CI gate of the agent stack: a fixed suite you run on every prompt, model, or tool change to catch regressions before users do. The leverage is building it from *your* environment and tools, because public leaderboards systematically over-state how an agent will do on your workload — and budgeting the upkeep, since a benchmark is only useful while it still resembles production.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-evaluation",
+     "title": "Measuring whether an agent actually worked is hard"
+    }
+   ],
+   "related_storylines": [
+    {
+     "slug": "deep-research",
+     "label": "Deep Research"
+    }
+   ],
+   "evidence": [
+    {
+     "sid": "432c23c0dd1c00f1",
+     "title": "Is it agentic enough? Benchmarking open models on your own tooling"
+    },
+    {
+     "sid": "f07b6a3f3f344020",
+     "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
+    },
+    {
+     "sid": "55809dc9368e7936",
+     "title": "Show HN: Rubric – test what your LLM agent did, not just what it said"
+    },
+    {
+     "sid": "8f76e67ad854a6c0",
+     "title": "olmo-eval: An evaluation workbench for the model development loop"
+    },
+    {
+     "sid": "64ad8e685ed41a9b",
+     "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
+  "agent-sandboxing": {
+   "slug": "agent-sandboxing",
+   "kind": "solution",
+   "title": "Sandboxing, scoped credentials, and guardrails",
+   "area": null,
+   "status": "active",
+   "summary": "Assume the agent will be hijacked and limit the damage: run its code in a\nsandbox, give it narrowly scoped and short-lived credentials, gate high-impact\nactions behind approvals, and screen inputs/outputs with guardrails. None of\nthese stops injection on its own — together they shrink the blast radius of one\nthat gets through.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Assume the agent will be hijacked and limit the damage: run its code in a sandbox, give it narrowly scoped and short-lived credentials, gate high-impact actions behind approvals, and screen inputs/outputs with guardrails. None of these stops injection on its own — together they shrink the blast radius of one that gets through.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Least privilege plus human approval on the few actions that really matter is the most durable control.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>The framing has flipped from &quot;add a guardrail/sandbox&quot; to &quot;those are necessary but insufficient&quot;: sandboxes are shown not to address credential authorization, guardrails can be weaponized into DoS, so emphasis shifts to scoped, centrally governed permissions as the load-bearing defense.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>More isolation and tighter scopes mean more friction: approval gates add latency and human cost, narrow credentials break workflows that legitimately need broad access, and sandboxes add ops overhead. Guardrail models add a per-call cost and a new failure/attack surface of their own. The honest stance is defense in depth with no single layer trusted — which is more moving parts to build and monitor. Best calibrated to blast radius: heavy controls on agents with write access or money/data reach, lighter on read-only ones.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is standard security engineering applied to a new actor: least privilege, short-lived scoped tokens, egress limits, and approvals — not prompt cleverness. The actionable lesson is to treat the sandbox as containing *code* and the credential/authorization layer as containing *capability*, and to govern tool access centrally (see <a href=\"/topic/mcp\">MCP</a>) so a hijacked agent can reach little.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "prompt-injection",
+     "title": "Untrusted input and tools can hijack an agent"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "2f585fd257ad02a4",
+     "title": "Coding Agent Sandboxes Don't Solve Credential Authorization"
+    },
+    {
+     "sid": "6b3ed4b86d0301bf",
+     "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
+    },
+    {
+     "sid": "b2c537fce6444ae6",
+     "title": "Centrally manage authorization for MCP connectors | Claude"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
   "context-compaction": {
    "slug": "context-compaction",
    "kind": "solution",
@@ -124,6 +436,116 @@
     }
    ],
    "updated": "2026-06-18"
+  },
+  "llm-as-judge": {
+   "slug": "llm-as-judge",
+   "kind": "solution",
+   "title": "LLM-as-judge: model-graded evaluation of traces and outputs",
+   "area": null,
+   "status": "active",
+   "summary": "Use a model to grade a model: give an LLM the agent's output (or its full\ntrace), plus a rubric, and have it return a structured verdict. It scales the\njudgment human raters can't keep up with — every production trace, every CI run —\nand is the practical backbone of agent evaluation when answers are open-ended.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the practical backbone of agent evaluation when answers are open-ended.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: detectors that read a trace and emit categorized failures with confidence scores and causal chains (AWS&#x27;s Strands Evals) rather than a single scalar. The headline cost problem — running a frontier judge over every trace is expensive — is being attacked by <strong>fine-tuning small open judges on production traces</strong>: LangChain and Fireworks report matching frontier-judge quality at roughly 1/100th the cost by mining perceived-error signals from real traffic. A related frontier is judging *before* deployment — OpenAI&#x27;s deployment simulation predicts model behavior on real conversation data pre-release, using model-graded simulation as a forecasting tool rather than a post-hoc check.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Cheap, specialized judges: instead of paying frontier-model rates per trace, teams fine-tune a small open model on their own production traces and recover near-frontier judging quality — turning LLM-as-judge from a sampling luxury into something you can run on the whole stream.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>The judge is itself a non-deterministic model: it has biases (verbosity, position, self-preference), can be gamed, and needs its *own* validation against human labels or it just launders noise. Cheap fine-tuned judges narrow the cost gap but can overfit to the trace distribution they were trained on and miss novel failure modes. Best when paired with a rubric and a held-out human-labeled set, and when you care about explanations (which step failed) rather than a single opaque score.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is what makes continuous agent eval affordable: a judge you can run in CI and on live traffic to catch regressions a model upgrade or prompt change introduces. The cost knob (frontier vs. fine-tuned local judge) is a real budget decision, and the judge becomes a dependency you must monitor and re-validate like any other piece of infra. Pairs with <a href=\"/topic/agent-benchmarks\">agent benchmarks</a> for the fixed-task side of evaluation.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-evaluation",
+     "title": "Measuring whether an agent actually worked is hard"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "4235792e910ea51a",
+     "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+     "sid": "12500c0bbe5e4d6f",
+     "title": "AI Agent Failure Detection and Root Cause Analysis with Strands Evals"
+    },
+    {
+     "sid": "c000018ba1f03575",
+     "title": "Predicting model behavior before release by simulating deployment"
+    }
+   ],
+   "updated": "2026-06-19"
+  },
+  "mcp": {
+   "slug": "mcp",
+   "kind": "solution",
+   "title": "Model Context Protocol: a standard interface for agent tools",
+   "area": null,
+   "status": "active",
+   "summary": "The Model Context Protocol (MCP) is a standard way to describe, discover, and\ncall tools so any MCP-speaking agent can use any MCP server. It collapses the\nN×M problem of bespoke integrations into a common interface — the agent\nequivalent of \"speak HTTP\" instead of writing a custom client per service.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of &quot;speak HTTP&quot; instead of writing a custom client per service.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>MCP is crossing into governed, GA infrastructure: a GA Terraform server, browser actuation via WebMCP origin trials in Chrome, and centrally managed connector authorization through enterprise identity providers — i.e. the boring, load-bearing pieces, not just demos.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>A shared protocol buys interoperability and reuse, but every connector you expose is a new permission and a new attack surface — MCP standardizes *access*, which makes authorization and blast-radius the hard part (see <a href=\"/topic/prompt-injection\">prompt injection</a>). It also adds a moving dependency: server quality, versioning, and uptime become yours to manage, and a misbehaving or malicious server is now reachable by every agent that speaks the protocol. Best when you have many tools and many agents; overkill for a single hardcoded integration.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>MCP is the integration layer you adopt instead of writing API wrappers — it turns tool connectivity into a fleet you provision and govern (identity-provider auth, per-connector permissions) rather than scattered glue code. The platform job shifts accordingly: from building connectors to running a connector registry safely, which is squarely an infra-and-security responsibility.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "tool-use",
+     "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "b2c537fce6444ae6",
+     "title": "Centrally manage authorization for MCP connectors | Claude"
+    },
+    {
+     "sid": "8bad13df6e63105d",
+     "title": "Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure"
+    },
+    {
+     "sid": "6d71486170022687",
+     "title": "WebMCP Standard Proposal for Agentic Web Actuation Now Available in Chrome (Origin Trials)"
+    },
+    {
+     "sid": "3c7fd2cd97de321f",
+     "title": "Build a meeting prep and follow-up assistant with Amazon Quick and Cisco Webex MCP servers"
+    }
+   ],
+   "updated": "2026-06-19"
   },
   "vector-kb": {
    "slug": "vector-kb",

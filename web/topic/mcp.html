@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Engineering Wiki — obstacles &amp; solutions | LLM Digest</title>
-  <meta name="description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <link rel="canonical" href="https://www.llm-digest.com/map" />
+  <title>Model Context Protocol: a standard interface for agent tools — agent engineering | LLM Digest</title>
+  <meta name="description" content="The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of &quot;speak…" />
+  <link rel="canonical" href="https://www.llm-digest.com/topic/mcp" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta property="og:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <meta property="og:url" content="https://www.llm-digest.com/map" />
+  <meta property="og:title" content="Model Context Protocol: a standard interface for agent tools — agent engineering" />
+  <meta property="og:description" content="The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of &quot;speak…" />
+  <meta property="og:url" content="https://www.llm-digest.com/topic/mcp" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta name="twitter:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}]}</script>
+  <meta name="twitter:title" content="Model Context Protocol: a standard interface for agent tools — agent engineering" />
+  <meta name="twitter:description" content="The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of &quot;speak…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Model Context Protocol: a standard interface for agent tools", "description": "The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of \"speak…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/mcp", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "Model Context Protocol: a standard interface for agent tools", "item": "https://www.llm-digest.com/topic/mcp"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -117,25 +117,27 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Obstacles to building &amp; operating agents, mapped to solutions</p>
+      <p id="meta" class="muted">🛠️ Solution · 4 sources</p>
       <menu>
+        <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
         <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/daily" role="button">🗓️ Daily</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
-        <a href="/api/topics" role="button">JSON</a>
         
       </menu>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent engineering: obstacles &amp; solutions</h2>
+      <h2 class="recap-title">Model Context Protocol: a standard interface for agent tools</h2>
       
-      <div class="intro"><p>A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles.</p></div>
-      <div class="cat"><h2>Memory &amp; context <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="art-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent…</p><div class="toc"><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></div></article></div></div>
-<div class="cat"><h2>Tool use &amp; interop <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="art-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way…</p><div class="toc"><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></div></article></div></div>
-<div class="cat"><h2>Evaluation <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="art-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic,…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></article></div></div>
-<div class="cat"><h2>Security &amp; safety <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="art-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects…</p><div class="toc"><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></div></article></div></div>
+      
+      <div class="cat"><h2>TL;DR</h2><p>The Model Context Protocol (MCP) is a standard way to describe, discover, and call tools so any MCP-speaking agent can use any MCP server. It collapses the N×M problem of bespoke integrations into a common interface — the agent equivalent of &quot;speak HTTP&quot; instead of writing a custom client per service.</p></div>
+<div class="cat"><h2>State of the art</h2><p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p></div>
+<div class="cat"><h2>What&#x27;s new</h2><p>MCP is crossing into governed, GA infrastructure: a GA Terraform server, browser actuation via WebMCP origin trials in Chrome, and centrally managed connector authorization through enterprise identity providers — i.e. the boring, load-bearing pieces, not just demos.</p></div>
+<div class="cat"><h2>Trade-offs</h2><p>A shared protocol buys interoperability and reuse, but every connector you expose is a new permission and a new attack surface — MCP standardizes *access*, which makes authorization and blast-radius the hard part (see <a href="/topic/prompt-injection">prompt injection</a>). It also adds a moving dependency: server quality, versioning, and uptime become yours to manage, and a misbehaving or malicious server is now reachable by every agent that speaks the protocol. Best when you have many tools and many agents; overkill for a single hardcoded integration.</p></div>
+<div class="cat"><h2>Why it matters for platform engineers</h2><p>MCP is the integration layer you adopt instead of writing API wrappers — it turns tool connectivity into a fleet you provision and govern (identity-provider auth, per-connector permissions) rather than scattered glue code. The platform job shifts accordingly: from building connectors to running a connector registry safely, which is squarely an infra-and-security responsibility.</p></div>
+<div class="cat"><h2>Addresses</h2><div class="toc"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></div></div>
+<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/story/b2c537fce6444ae6">Centrally manage authorization for MCP connectors | Claude</a></li><li><a href="/story/8bad13df6e63105d">Terraform MCP Server Enables AI Assistants to Interact with Terraform Infrastructure</a></li><li><a href="/story/6d71486170022687">WebMCP Standard Proposal for Agentic Web Actuation Now Available in Chrome (Origin Trials)</a></li><li><a href="/story/3c7fd2cd97de321f">Build a meeting prep and follow-up assistant with Amazon Quick and Cisco Webex MCP servers</a></li></ul></div>
     </section>
 
     <footer>

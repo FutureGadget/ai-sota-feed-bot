@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Engineering Wiki — obstacles &amp; solutions | LLM Digest</title>
-  <meta name="description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <link rel="canonical" href="https://www.llm-digest.com/map" />
+  <title>LLM-as-judge: model-graded evaluation of traces and outputs — agent engineering | LLM Digest</title>
+  <meta name="description" content="Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the…" />
+  <link rel="canonical" href="https://www.llm-digest.com/topic/llm-as-judge" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta property="og:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <meta property="og:url" content="https://www.llm-digest.com/map" />
+  <meta property="og:title" content="LLM-as-judge: model-graded evaluation of traces and outputs — agent engineering" />
+  <meta property="og:description" content="Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the…" />
+  <meta property="og:url" content="https://www.llm-digest.com/topic/llm-as-judge" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta name="twitter:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}]}</script>
+  <meta name="twitter:title" content="LLM-as-judge: model-graded evaluation of traces and outputs — agent engineering" />
+  <meta name="twitter:description" content="Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "LLM-as-judge: model-graded evaluation of traces and outputs", "description": "Use a model to grade a model: give an LLM the agent's output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can't keep up with — every production trace, every CI run — and is the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/llm-as-judge", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "LLM-as-judge: model-graded evaluation of traces and outputs", "item": "https://www.llm-digest.com/topic/llm-as-judge"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -117,25 +117,27 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Obstacles to building &amp; operating agents, mapped to solutions</p>
+      <p id="meta" class="muted">🛠️ Solution · 3 sources</p>
       <menu>
+        <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
         <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/daily" role="button">🗓️ Daily</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
-        <a href="/api/topics" role="button">JSON</a>
         
       </menu>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent engineering: obstacles &amp; solutions</h2>
+      <h2 class="recap-title">LLM-as-judge: model-graded evaluation of traces and outputs</h2>
       
-      <div class="intro"><p>A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles.</p></div>
-      <div class="cat"><h2>Memory &amp; context <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="art-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent…</p><div class="toc"><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></div></article></div></div>
-<div class="cat"><h2>Tool use &amp; interop <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="art-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way…</p><div class="toc"><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></div></article></div></div>
-<div class="cat"><h2>Evaluation <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="art-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic,…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></article></div></div>
-<div class="cat"><h2>Security &amp; safety <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="art-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects…</p><div class="toc"><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></div></article></div></div>
+      
+      <div class="cat"><h2>TL;DR</h2><p>Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the practical backbone of agent evaluation when answers are open-ended.</p></div>
+<div class="cat"><h2>State of the art</h2><p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: detectors that read a trace and emit categorized failures with confidence scores and causal chains (AWS&#x27;s Strands Evals) rather than a single scalar. The headline cost problem — running a frontier judge over every trace is expensive — is being attacked by <strong>fine-tuning small open judges on production traces</strong>: LangChain and Fireworks report matching frontier-judge quality at roughly 1/100th the cost by mining perceived-error signals from real traffic. A related frontier is judging *before* deployment — OpenAI&#x27;s deployment simulation predicts model behavior on real conversation data pre-release, using model-graded simulation as a forecasting tool rather than a post-hoc check.</p></div>
+<div class="cat"><h2>What&#x27;s new</h2><p>Cheap, specialized judges: instead of paying frontier-model rates per trace, teams fine-tune a small open model on their own production traces and recover near-frontier judging quality — turning LLM-as-judge from a sampling luxury into something you can run on the whole stream.</p></div>
+<div class="cat"><h2>Trade-offs</h2><p>The judge is itself a non-deterministic model: it has biases (verbosity, position, self-preference), can be gamed, and needs its *own* validation against human labels or it just launders noise. Cheap fine-tuned judges narrow the cost gap but can overfit to the trace distribution they were trained on and miss novel failure modes. Best when paired with a rubric and a held-out human-labeled set, and when you care about explanations (which step failed) rather than a single opaque score.</p></div>
+<div class="cat"><h2>Why it matters for platform engineers</h2><p>This is what makes continuous agent eval affordable: a judge you can run in CI and on live traffic to catch regressions a model upgrade or prompt change introduces. The cost knob (frontier vs. fine-tuned local judge) is a real budget decision, and the judge becomes a dependency you must monitor and re-validate like any other piece of infra. Pairs with <a href="/topic/agent-benchmarks">agent benchmarks</a> for the fixed-task side of evaluation.</p></div>
+<div class="cat"><h2>Addresses</h2><div class="toc"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></div></div>
+<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li><li><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li></ul></div>
     </section>
 
     <footer>

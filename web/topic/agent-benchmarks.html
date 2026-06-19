@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agent Engineering Wiki — obstacles &amp; solutions | LLM Digest</title>
-  <meta name="description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <link rel="canonical" href="https://www.llm-digest.com/map" />
+  <title>Agent benchmarks: fixed tasks that exercise real tool use — agent engineering | LLM Digest</title>
+  <meta name="description" content="Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they…" />
+  <link rel="canonical" href="https://www.llm-digest.com/topic/agent-benchmarks" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta property="og:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <meta property="og:url" content="https://www.llm-digest.com/map" />
+  <meta property="og:title" content="Agent benchmarks: fixed tasks that exercise real tool use — agent engineering" />
+  <meta property="og:description" content="Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they…" />
+  <meta property="og:url" content="https://www.llm-digest.com/topic/agent-benchmarks" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta name="twitter:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}]}</script>
+  <meta name="twitter:title" content="Agent benchmarks: fixed tasks that exercise real tool use — agent engineering" />
+  <meta name="twitter:description" content="Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Agent benchmarks: fixed tasks that exercise real tool use", "description": "Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/agent-benchmarks", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "Agent benchmarks: fixed tasks that exercise real tool use", "item": "https://www.llm-digest.com/topic/agent-benchmarks"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <script defer src="/_vercel/speed-insights/script.js"></script>
@@ -117,25 +117,27 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Obstacles to building &amp; operating agents, mapped to solutions</p>
+      <p id="meta" class="muted">🛠️ Solution · 5 sources</p>
       <menu>
+        <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
         <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/daily" role="button">🗓️ Daily</a>
         <a href="/rss.xml" role="button">🔔 RSS</a>
-        <a href="/api/topics" role="button">JSON</a>
         
       </menu>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent engineering: obstacles &amp; solutions</h2>
+      <h2 class="recap-title">Agent benchmarks: fixed tasks that exercise real tool use</h2>
       
-      <div class="intro"><p>A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles.</p></div>
-      <div class="cat"><h2>Memory &amp; context <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="art-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent…</p><div class="toc"><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></div></article></div></div>
-<div class="cat"><h2>Tool use &amp; interop <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="art-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way…</p><div class="toc"><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></div></article></div></div>
-<div class="cat"><h2>Evaluation <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="art-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic,…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></article></div></div>
-<div class="cat"><h2>Security &amp; safety <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="art-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects…</p><div class="toc"><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></div></article></div></div>
+      
+      <div class="cat"><h2>TL;DR</h2><p>Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they double as integration tests for the whole agent, not just the model.</p></div>
+<div class="cat"><h2>State of the art</h2><p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off.</p></div>
+<div class="cat"><h2>What&#x27;s new</h2><p>Skepticism of leaderboard scores is now the default stance: results that agents collapse &quot;beyond familiar environments,&quot; plus workbenches that benchmark models on *your* tools, push teams toward task suites grounded in their own environment rather than trusting a public number.</p></div>
+<div class="cat"><h2>Trade-offs</h2><p>A fixed benchmark is reproducible and cheap to re-run, but it&#x27;s a static target: agents over-fit to it, it goes stale as tools change, and &quot;passing&quot; can mean &quot;memorized the distribution.&quot; Building a benchmark on your own tooling is more predictive but is real work to author and maintain, and small task sets have high variance. Best as a regression gate (catch known failures) — complement with <a href="/topic/llm-as-judge">LLM-as-judge</a> on live traces for the open-ended cases a fixed suite can&#x27;t enumerate.</p></div>
+<div class="cat"><h2>Why it matters for platform engineers</h2><p>Agent benchmarks are the CI gate of the agent stack: a fixed suite you run on every prompt, model, or tool change to catch regressions before users do. The leverage is building it from *your* environment and tools, because public leaderboards systematically over-state how an agent will do on your workload — and budgeting the upkeep, since a benchmark is only useful while it still resembles production.</p></div>
+<div class="cat"><h2>Addresses</h2><div class="toc"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></div></div>
+<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/storyline/deep-research">📈 Deep Research</a> <span class="muted">— storyline</span></li><li><a href="/story/432c23c0dd1c00f1">Is it agentic enough? Benchmarking open models on your own tooling</a></li><li><a href="/story/f07b6a3f3f344020">Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments</a></li><li><a href="/story/55809dc9368e7936">Show HN: Rubric – test what your LLM agent did, not just what it said</a></li><li><a href="/story/8f76e67ad854a6c0">olmo-eval: An evaluation workbench for the model development loop</a></li><li><a href="/story/64ad8e685ed41a9b">DPBench: Structural Determinants of Multi-Agent LLM Coordination</a></li></ul></div>
     </section>
 
     <footer>
