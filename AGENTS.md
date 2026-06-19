@@ -174,10 +174,16 @@ storyline; it only proposes links the floor then judges.
   `alerts_state.json`, `ingest_runs.jsonl`
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
 - Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
-  (deleted outright, no archive tail — tier1 snapshots are ~1.5 MB each and
-  bundled into the Vercel feed/rss functions, which only read tier1 for a 24h
-  fresh-blend). Env-tunable via `prune_runtime_data.py`, run automatically in
-  `run_full.sh`.
+  (deleted outright, no archive tail — tier1 snapshots are ~1.5–1.9 MB each).
+  Env-tunable via `prune_runtime_data.py`, run automatically in `run_full.sh`.
+  **`tier1/runs/**` is NOT bundled into the Vercel functions** — `feed.js`/
+  `rss.js`/`share.js` `includeFiles` carry only `tier1/latest.json` +
+  `tier1/runs_index.json` (plus `processed/**`). The run frequency grew to
+  ~30/day, so 3d of `tier1/runs/` is ~175 MB — bundling it pushed `feed.js`
+  past Vercel's 250 MB unzipped function limit and froze all deploys. The
+  blend code only needs the last 24 h and falls back to `latest.json` when the
+  historical runs are absent, so they stay in git (for audit/replay) but ship
+  out of the function bundles. See the 2026-06-19 ADR.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
