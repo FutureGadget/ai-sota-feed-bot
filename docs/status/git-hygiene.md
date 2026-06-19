@@ -40,3 +40,23 @@ When rebasing with conflicts, prefer **keeping local generated artifacts** after
 - Never mix large runtime-data changes into logic commits.
 - Re-run pipeline after rebases that touched runtime data.
 - Keep commit messages explicit (`feat|fix|refactor` for code, `chore(data)` for artifacts).
+
+## Commit identity (agent routines)
+Agent routines (`daily-summary`, `weekly-summary`, `storyline-editor`,
+`storyline-scout`, `wiki-curator`) run **outside** GitHub Actions, so a bare
+`git commit` inherits whatever `user.name`/`user.email` the machine happens to
+have configured. That is how a stray commit once landed on `main` signed
+`wiki-curator <plumlike8@gmail.com>` instead of the canonical bot identity.
+
+Canonical agent identity: **`Claude <noreply@anthropic.com>`**.
+
+Pin it explicitly on every routine commit so the signature can't depend on
+ambient config (this sets both author and committer):
+
+```bash
+git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
+  commit -m "<routine message>"
+```
+
+GitHub Actions data/code commits keep their own `github-actions[bot]` identity —
+this rule is only for the agent routines listed above.

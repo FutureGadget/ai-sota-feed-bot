@@ -94,7 +94,10 @@ page and re-run until you get `WIKI_BUILD_OK`.
 ```bash
 python pipeline/render_static_pages.py   # regenerates web/map.html + web/topic/*.html
 git add data/wiki/ web/map.html web/topic/ web/sitemap.xml
-git commit -m "wiki: <slugs touched>"
+# Pin the agent identity so the commit signature can't inherit the machine's
+# ambient git config (sets both author and committer).
+git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
+  commit -m "wiki: <slugs touched>"
 git push
 ```
 Committing `data/wiki/` *is* publishing — the renderer and `/api/topics` read the

@@ -235,7 +235,10 @@ page renders these automatically — there is no separate static render step
 ### 5. Post it (commit + push)
 ```bash
 git add data/storylines/
-git commit -m "storyline narratives: <slugs>"
+# Pin the agent identity so the commit signature can't inherit the machine's
+# ambient git config (sets both author and committer).
+git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
+  commit -m "storyline narratives: <slugs>"
 git push
 ```
 Committing the `data/` change *is* publishing — the serverless API reads the
