@@ -1,12 +1,30 @@
 # Nav "new updates" indicators
 
-A small red dot on the navigation links to **Daily recap**, **Weekly recap**,
-**Storylines**, and **Knowledge map** tells a returning reader, at a glance,
-which of those sections has something new since they last looked — without
-opening each page to check.
+A small **"New" pill** on the navigation links to **Daily recap**, **Weekly
+recap**, **Storylines**, and **Knowledge map** tells a returning reader, at a
+glance, which of those sections has something new since they last looked —
+without opening each page to check.
 
 This serves the "memory / catch-up" pillar of the product positioning: the
 reader should be able to tell what they missed, not just see four static links.
+
+### Visual treatment (why a pill, not a red dot)
+
+The first version was a bare red dot. Two problems: red reads as
+*alert / error / action-required* (Gmail and iOS notification badges), which
+clashes with the product's calm, anti-hype positioning; and a dot carries no
+**information scent** — it says "something" but not "new what?", so readers
+weren't sure there was anything to *read*.
+
+The indicator is now a small uppercase **"New" pill** in the site's **accent
+color** (`--accent`, theme-aware) on a faint accent tint with a 1px accent
+border — the same chip styling already used for badges elsewhere on the site.
+It fades/scales in on load (gated behind `prefers-reduced-motion`) so a
+returning eye catches it without a nagging perpetual pulse. This follows the
+established "label pill" pattern for *informational* newness (Linear, Notion,
+Vercel) and reserves red for action-required counts. The accent-text-on-tint
+treatment keeps adequate contrast in both light and dark themes, unlike
+white-on-accent.
 
 ## Behaviour
 
@@ -66,12 +84,12 @@ staleness notion.
   and in the static-render template (`pipeline/render_static_pages.py`,
   `NAV_UPDATES_JS`) fetches `/api/updates`, compares each signal against a
   per-section "seen" marker in `localStorage`, applies the freshness gate for
-  daily/weekly, and decorates any matching nav link with a dot.
+  daily/weekly, and decorates any matching nav link with the "New" pill.
 
 - **Read tracking:** when the reader is *on* a section page
   (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`, `/map` or
   `/topic/<slug>`), the script records that section's current signal as the new
-  "seen" marker, so the dot clears on the next page they visit.
+  "seen" marker, so the pill clears on the next page they visit.
 
 ### localStorage keys
 
