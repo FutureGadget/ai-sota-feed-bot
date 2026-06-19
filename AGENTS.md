@@ -176,14 +176,15 @@ storyline; it only proposes links the floor then judges.
 - Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
   (deleted outright, no archive tail — tier1 snapshots are ~1.5–1.9 MB each).
   Env-tunable via `prune_runtime_data.py`, run automatically in `run_full.sh`.
-  **`tier1/runs/**` is NOT bundled into the Vercel functions** — `feed.js`/
-  `rss.js`/`share.js` `includeFiles` carry only `tier1/latest.json` +
-  `tier1/runs_index.json` (plus `processed/**`). The run frequency grew to
-  ~30/day, so 3d of `tier1/runs/` is ~175 MB — bundling it pushed `feed.js`
-  past Vercel's 250 MB unzipped function limit and froze all deploys. The
-  blend code only needs the last 24 h and falls back to `latest.json` when the
-  historical runs are absent, so they stay in git (for audit/replay) but ship
-  out of the function bundles. See the 2026-06-19 ADR.
+  **Heavy runtime dirs are kept out of Vercel via `.vercelignore`**
+  (`data/raw`, `data/tier1/runs`, `data/llm`, `data/health`, `data/digest`,
+  `data/diagnostics`, `data/cache`, `data/analysis`). Vercel bundles the whole
+  uploaded project into *each* serverless function, so once `data/` grew
+  (`tier1/runs` ~175 MB at ~30 runs/day, `data/raw` ~125 MB) functions blew
+  past the 250 MB unzipped limit and froze all deploys. These dirs are read by
+  neither the static build nor any function at request time (`feed.js` falls
+  back to `tier1/latest.json` when the runs are absent), so they stay in git
+  (audit/replay) but ship out of the deployment. See the 2026-06-19 ADR.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
