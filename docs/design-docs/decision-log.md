@@ -1,5 +1,42 @@
 # Decision Log
 
+## 2026-06-20 (Email digest — provider owns the list; deltas are content-based)
+- **Decision:** Add an email subscribe channel (daily brief + weekly recap) as
+  the product's missing retention loop, planned in `docs/exec-plans/active/v2.2-email-digest.md`
+  and specced in `docs/product-specs/email-digest.md`. Two foundational choices:
+  (1) a **third-party newsletter provider** (Buttondown or Resend) owns the
+  subscriber list, double-opt-in, unsubscribe, and CAN-SPAM/GDPR compliance — no
+  subscriber PII ever enters git; we hold only an API key in env/secrets and call
+  the provider's broadcast endpoint. (2) Storyline + knowledge-map sections are
+  **delta-driven against a committed send cursor** (`data/email/state.json`,
+  mirroring `data/health/alerts_state.json`), diffing the **content-based**
+  signals (storyline `last_updated`, wiki node `updated` / `log.md`) — **never**
+  `generated_at`.
+- **Context / Problem:** The ranking engine and reader surface are mature, but
+  there is no habit loop — a "finishable, read-every-morning" brief that lives on
+  a site nobody is pushed to. The target persona (AI platform engineers) triage in
+  email/Slack, not GitHub Issues/Telegram. The repo is public and has no database,
+  so subscriber emails cannot live in `data/`. Storylines (5-hourly) and the wiki
+  (curator-cadence) rebuild constantly, so a naive "top storylines" block would
+  repeat every send.
+- **Rationale:** Provider-owns-list is the only PII-safe option given a public
+  repo + no DB, and it offloads compliance/unsubscribe/deliverability. The
+  content-based-delta + cursor design reuses the exact freshness signals already
+  proven by `api/updates.js` (which documents the `generated_at` trap), so the
+  email surfaces only genuinely new movement with no repeats. Knowledge map is
+  weekly-only (slow, evergreen) to protect the daily brief's finishability. No
+  topic personalization (cadence preference only) preserves the anti-filter-bubble
+  stance. Every step is secrets-gated to no-op cleanly, like Telegram/PostHog, and
+  email never runs on the hourly schedule.
+- **Impact (planned):** new `publish/publish_email.py` (mirrors
+  `publish_telegram.py`), `.github/workflows/email-digest.yml` (daily + Friday
+  crons), `config/email.yaml`, `data/email/state.json`, `api/subscribe.js` +
+  `vercel.json` rewrite (Phase 5). `api/client-config.js` already exposes the
+  `DIGEST_EMAIL_SIGNUP_URL` CTA hook. No change to the hourly pipeline.
+- **Rollback:** Unset `EMAIL_API_KEY` / `config/email.yaml -> enabled: false` ⇒
+  clean no-send; phases are additive and isolated; the cursor regenerates if
+  deleted; the CTA disappears when `DIGEST_EMAIL_SIGNUP_URL` is unset.
+
 ## 2026-06-20 (Superseded storyline slug-forks redirect to the live thread)
 - **Decision:** In `pipeline/render_static_pages.py` `render_storyline_pages`, a non-active storyline detail file whose member sids are `>= REDIRECT_MIN_OVERLAP` (0.6) contained in an *active* storyline now renders a tiny noindex redirect document (`<link rel=canonical>` + `<meta http-equiv=refresh>` + `location.replace`) to the live slug, instead of a full narrative-less duplicate timeline (exec-plan `v2.1` phase 4). Detail files are still never deleted.
 - **Context / Problem:** `carry_over_slugs` reuses a prior slug for the cluster with the most member overlap; when a recluster settles on a different slug, the old detail file is orphaned but never pruned (shared `/storyline/<slug>` links must keep working). The live window carried `claude-fable-2026-06-09.json` — a stale slug-fork of the active `claude-fable` thread, with no narrative — served at its own permalink as a worse duplicate of a thread that has a full Arc one slug over. The renderer builds a static page per detail file, so the orphan got a real page.

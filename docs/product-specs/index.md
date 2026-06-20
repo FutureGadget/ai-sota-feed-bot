@@ -5,3 +5,4 @@
 - llm-ranking.md
 - agent-wiki.md
 - nav-update-indicators.md
+- email-digest.md
