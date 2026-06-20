@@ -41,7 +41,7 @@ Focus: AI Platform Engineering
 ## 7. New usage analytics and updated spend controls for enterprises
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-enterprise-spend-controls
-- Score: 2.761 | Reliability: 1.0
+- Score: 2.759 | Reliability: 1.0
 - Why it matters: 
 
 ## 8. A Systematic Evaluation of Black-Box Uncertainty Estimation Methods for Large Language Models
@@ -71,5 +71,5 @@ Focus: AI Platform Engineering
 ## 12. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.20527v1
-- Score: 2.516 | Reliability: 1.0
+- Score: 2.515 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
