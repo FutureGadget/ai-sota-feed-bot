@@ -1,5 +1,32 @@
 # Decision Log
 
+## 2026-06-20 (Email weekly recap is window-based, not cursor-based)
+- **Decision:** The weekly recap's "Storylines that moved this week" and "New in
+  the knowledge map" sections select threads (`last_updated`) and wiki nodes
+  (`updated`) inside the recap's own `[start, end]` window
+  (`publish/publish_email.py::storylines_in_window` / `wiki_in_window`), rather
+  than diffing the committed `storylines`/`wiki` cursor as Phase 4 of the
+  v2.2 exec-plan originally specified. The weekly cursor stores only
+  `weekly.last_sent_week` (a Friday-cron idempotency guard); no wiki high-water
+  mark is kept.
+- **Context / Problem:** The **daily** brief advances the shared
+  `storylines.sent_through` / `seen_sids` cursor every day. A cursor-based weekly
+  would therefore be **starved** — by Friday the daily sends have already
+  consumed the week's storyline movement, so the recap's flagship "what happened
+  this week" section would render empty.
+- **Rationale:** Windowing by the recap period is what "this week" *means*, is
+  fully deterministic, and decouples the two cadences. Overlap is correct, not a
+  bug: a thread can legitimately appear in Tuesday's daily ("new today") and the
+  Friday recap ("what happened this week"). It also drops an unused cursor branch
+  (`wiki.{sent_through,seen_slugs}`) from `data/email/state.json`. Still keys off
+  the content-based `last_updated` / node `updated` — never `generated_at`.
+- **Impact:** `publish/publish_email.py` (window selectors + weekly build/main
+  branch), `.github/workflows/email-digest.yml` (Friday `0 23 * * 5` cron mapped
+  to `--kind weekly` via `github.event.schedule`). Cursor schema simplified in
+  `docs/generated/db-schema.md` and `docs/product-specs/email-digest.md`.
+- **Rollback:** Revert to the cursor-based selectors; would require a separate
+  weekly storyline cursor to avoid the starvation above.
+
 ## 2026-06-20 (Email digest — provider owns the list; deltas are content-based)
 - **Decision:** Add an email subscribe channel (daily brief + weekly recap) as
   the product's missing retention loop, planned in `docs/exec-plans/active/v2.2-email-digest.md`

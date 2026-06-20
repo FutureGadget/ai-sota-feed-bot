@@ -102,16 +102,22 @@ successful send.
   "daily":      { "last_sent_date": "2026-06-19" },
   "weekly":     { "last_sent_week": "2026-W24" },
   "storylines": { "sent_through": "2026-06-18T11:47:13+00:00",
-                  "seen_sids": ["c5cd09a4f478ae3e", "…"] },
-  "wiki":       { "sent_through": "2026-06-19", "seen_slugs": ["agent-cost", "…"] }
+                  "seen_sids": ["c5cd09a4f478ae3e", "…"] }
 }
 ```
 
-A storyline qualifies for "Continuing threads" only when
+**Daily** "Continuing threads": a storyline qualifies only when
 `last_updated > storylines.sent_through` **and** it has `member_sids` not in
-`seen_sids`. A wiki node qualifies for "New in the knowledge map" when its
-`updated > wiki.sent_through` (or it appears in `log.md` after that date) and its
-slug is not in `seen_slugs`.
+`seen_sids`; the cursor advances on each successful daily send.
+
+**Weekly** "Storylines that moved this week" / "New in the knowledge map" are
+**window-based**, not cursor-based: they select threads (`last_updated`) and wiki
+nodes (`updated`) inside the recap's `[start, end]`. The daily send advances the
+shared `storylines` cursor every day, so a cursor-based weekly would be starved
+by Friday; windowing also matches the recap period and lets a thread appear in
+both a daily ("new today") and the Friday roundup ("what happened this week") —
+intended. So the weekly cursor stores only `last_sent_week` (idempotency); there
+is no wiki high-water mark.
 
 ## Architecture
 

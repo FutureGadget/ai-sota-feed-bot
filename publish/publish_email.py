@@ -48,7 +48,7 @@ DEFAULTS = {
     "site_base": "https://www.llm-digest.com",
     "utm_source": "email",
     "daily": {"max_items": 12, "max_threads": 3},
-    "weekly": {"max_threads": 12},
+    "weekly": {"max_threads": 12, "articles_per_category": 3, "max_wiki": 8},
 }
 
 # A reader-tune nudge only earns a visible badge once it is clearly positive;
@@ -167,6 +167,69 @@ def storyline_deltas(state: dict, limit: int | None) -> list[dict]:
     return out if limit is None else out[:limit]
 
 
+def storylines_in_window(start: str, end: str, limit: int | None) -> list[dict]:
+    """Weekly recap: threads whose ``last_updated`` falls within the recap week
+    ``[start, end]`` (YYYY-MM-DD). Window-based — NOT cursor-based — because the
+    daily send advances the shared storyline cursor, which would starve a
+    cursor-based weekly. A thread re-appearing in both a daily and the Friday
+    roundup is intended: "new today" vs. "what happened this week".
+    """
+    idx_path = ROOT / "data" / "storylines" / "index.json"
+    if not idx_path.exists():
+        return []
+    try:
+        idx = json.loads(idx_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    out: list[dict] = []
+    for s in idx.get("storylines", []):
+        last_updated = s.get("last_updated") or ""
+        if start <= last_updated[:10] <= end:
+            out.append(
+                {
+                    "slug": s.get("slug", ""),
+                    "label": s.get("label") or s.get("slug", ""),
+                    "last_updated": last_updated,
+                    "whats_new": narrative_copy(s.get("slug", ""), last_updated, s.get("latest_title", "")),
+                }
+            )
+    out.sort(key=lambda r: r["last_updated"], reverse=True)
+    return out if limit is None else out[:limit]
+
+
+def wiki_in_window(start: str, end: str, limit: int | None) -> list[dict]:
+    """Weekly recap: knowledge-map nodes edited within ``[start, end]`` (node
+    ``updated``, YYYY-MM-DD — a real page edit, not the index ``generated_at``
+    that every compile bumps). Evergreen, slow-moving content — weekly only, so
+    it never dilutes the daily brief's finishability.
+    """
+    idx_path = ROOT / "data" / "wiki" / "index.json"
+    if not idx_path.exists():
+        return []
+    try:
+        idx = json.loads(idx_path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    nodes = idx.get("nodes") or {}
+    out: list[dict] = []
+    for node in nodes.values():
+        updated = node.get("updated") or ""
+        if start <= updated <= end:
+            summary = " ".join(str(node.get("summary") or "").split())
+            out.append(
+                {
+                    "slug": node.get("slug", ""),
+                    "title": node.get("title", ""),
+                    "kind": node.get("kind", ""),
+                    "area": node.get("area", ""),
+                    "updated": updated,
+                    "summary": summary,
+                }
+            )
+    out.sort(key=lambda r: (r["updated"], r["title"]), reverse=True)
+    return out if limit is None else out[:limit]
+
+
 # --------------------------------------------------------------------------- #
 # HTML email
 # --------------------------------------------------------------------------- #
@@ -245,6 +308,106 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
     return subject, body
 
 
+def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) -> tuple[str, str]:
+    """Returns (subject, html_body) for the weekly recap."""
+    title = wk.get("title") or f"What happened in AI — week {wk.get('week','')}"
+    subject = title
+    base = cfg["site_base"].rstrip("/")
+    utm = cfg["utm_source"]
+
+    intro = wk.get("intro") or []
+    intro_html = "".join(
+        f'<p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
+        for p in intro[:2]
+    )
+
+    highlights = wk.get("highlights") or []
+    hl_html = ""
+    if highlights:
+        lis = "".join(f'<li style="margin:4px 0">{html.escape(h)}</li>' for h in highlights)
+        hl_html = (
+            '<h2 style="font-size:16px;margin:22px 0 6px">⭐ Highlights</h2>'
+            f'<ul style="font-size:14px;line-height:1.5;color:#333;padding-left:20px;margin:0">{lis}</ul>'
+        )
+
+    per_cat = int(cfg["weekly"]["articles_per_category"])
+    cat_html = []
+    for c in wk.get("categories") or []:
+        arts = []
+        for a in (c.get("articles") or [])[:per_cat]:
+            url = a.get("url", "")
+            t = html.escape(tg.clean(a.get("title", ""), 130))
+            src = html.escape(tg.clean(a.get("source", ""), 32))
+            arts.append(
+                f'<li style="margin:5px 0;font-size:13px;line-height:1.4">'
+                f'<a href="{html.escape(story_url(cfg, url))}" style="color:#111;text-decoration:none">{t}</a>'
+                f' <span style="color:#999">· {src}</span></li>'
+            )
+        cat_html.append(
+            f'<div style="margin:14px 0"><div style="font-size:15px;font-weight:600">{html.escape(c.get("name",""))}</div>'
+            f'<div style="font-size:13px;color:#666;margin:2px 0 4px">{html.escape(tg.clean(c.get("summary",""), 220))}</div>'
+            f'<ul style="padding-left:18px;margin:0;list-style:disc">{"".join(arts)}</ul></div>'
+        )
+    cats_section = (
+        '<h2 style="font-size:16px;margin:24px 0 4px">📚 By theme</h2>' + "".join(cat_html) if cat_html else ""
+    )
+
+    thread_html = ""
+    if threads:
+        tr = []
+        for t in threads:
+            wn = html.escape(tg.clean(t["whats_new"], 220))
+            tr.append(
+                f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
+                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"]))}" '
+                f'style="color:#1a6dd6;text-decoration:none">{html.escape(t["label"])} →</a></div>'
+                f'<div style="font-size:13px;color:#444;margin-top:3px">{wn}</div></td></tr>'
+            )
+        thread_html = (
+            '<h2 style="font-size:16px;margin:26px 0 6px">🧵 Storylines that moved this week</h2>'
+            f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(tr)}</table>'
+        )
+
+    wiki_html = ""
+    if wiki:
+        wr = []
+        for w in wiki:
+            topic_url = f"{base}/topic/{w['slug']}?utm_source={utm}"
+            kind = "obstacle" if w["kind"] == "obstacle" else "solution"
+            wr.append(
+                f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
+                f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(topic_url)}" '
+                f'style="color:#7a3fb8;text-decoration:none">{html.escape(tg.clean(w["title"], 120))} →</a>'
+                f'<span style="font-size:11px;color:#999;font-weight:400"> · {kind}</span></div>'
+                f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(tg.clean(w["summary"], 200))}</div></td></tr>'
+            )
+        wiki_html = (
+            '<h2 style="font-size:16px;margin:26px 0 6px">🗺️ New in the knowledge map</h2>'
+            '<div style="font-size:12px;color:#888;margin-bottom:6px">'
+            "Patterns and solutions that emerged this week — the durable layer, not the news.</div>"
+            f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(wr)}</table>'
+        )
+
+    feed_url = f"{base}/?utm_source={utm}"
+    weekly_page = f"{base}/weekly/{wk.get('week','')}?utm_source={utm}"
+    body = f"""\
+<div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
+  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">LLM Digest · Weekly recap</div>
+  <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
+  {intro_html}
+  {hl_html}
+  {cats_section}
+  {thread_html}
+  {wiki_html}
+  <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
+    <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">Read the full recap</a> ·
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a><br>
+    The finishable AI feed for platform engineers — 10 minutes a day, with memory.
+  </div>
+</div>"""
+    return subject, body
+
+
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
@@ -291,6 +454,38 @@ def build_daily(cfg: dict, state: dict) -> tuple[str, str, list[dict]]:
     return subject, body, threads
 
 
+def _latest_weekly() -> dict | None:
+    idx_path = ROOT / "data" / "weekly" / "index.json"
+    if not idx_path.exists():
+        return None
+    try:
+        idx = json.loads(idx_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    rows = [r for r in (idx if isinstance(idx, list) else []) if r.get("end")]
+    if not rows:
+        return None
+    top = max(rows, key=lambda r: r.get("end", ""))
+    wk_path = ROOT / "data" / "weekly" / (top.get("path") or f"{top.get('week','')}.json")
+    if not wk_path.exists():
+        return None
+    try:
+        return json.loads(wk_path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
+def build_weekly(cfg: dict) -> tuple[str, str, dict, int, int]:
+    wk = _latest_weekly()
+    if not wk:
+        raise RuntimeError("no weekly recap to render")
+    start, end = wk.get("start", ""), wk.get("end", "")
+    threads = storylines_in_window(start, end, int(cfg["weekly"]["max_threads"]))
+    wiki = wiki_in_window(start, end, int(cfg["weekly"]["max_wiki"]))
+    subject, body = render_weekly(cfg, wk, threads, wiki)
+    return subject, body, wk, len(threads), len(wiki)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Send the email digest")
     ap.add_argument("--kind", choices=["daily", "weekly"], default="daily")
@@ -300,23 +495,29 @@ def main() -> int:
 
     cfg = load_config()
     state = load_state()
-
-    if args.kind == "weekly":
-        # Weekly recap is exec-plan v2.2 Phase 4 — not wired yet.
-        print("email_skipped=true kind=weekly reason=not_implemented")
-        return 0
-
     today = datetime.now().strftime("%Y-%m-%d")
-    if not args.force and state.get("daily", {}).get("last_sent_date") == today and not args.dry_run:
-        print("email_skipped=true kind=daily reason=already_sent_today")
-        return 0
 
-    subject, body, threads = build_daily(cfg, state)
+    # Build the email + figure out the idempotency guard for this kind.
+    if args.kind == "weekly":
+        subject, body, wk, n_threads, n_wiki = build_weekly(cfg)
+        week_key = wk.get("week", "")
+        already_sent = state.get("weekly", {}).get("last_sent_week") == week_key
+        guard_reason = "already_sent_week"
+        summary = f"week={week_key} threads={n_threads} wiki={n_wiki}"
+    else:
+        subject, body, threads = build_daily(cfg, state)
+        already_sent = state.get("daily", {}).get("last_sent_date") == today
+        guard_reason = "already_sent_today"
+        summary = f"items_capped={cfg['daily']['max_items']} threads={len(threads)}"
 
     if args.dry_run:
         print(f"<!-- subject: {subject} -->")
         print(body)
-        print(f"\n<!-- threads_in_email={len(threads)} -->")
+        print(f"\n<!-- kind={args.kind} {summary} -->")
+        return 0
+
+    if already_sent and not args.force:
+        print(f"email_skipped=true kind={args.kind} reason={guard_reason}")
         return 0
 
     api_key = os.getenv("EMAIL_API_KEY", "").strip()
@@ -329,18 +530,23 @@ def main() -> int:
     send_broadcast(cfg, api_key, subject, body)
 
     # Advance the cursor only after a successful send, so a failure re-sends
-    # rather than silently dropping a day.
-    new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
-    newest = state.get("storylines", {}).get("sent_through") or ""
-    for t in threads:
-        new_seen.update(t["member_sids"])
-        if t["last_updated"] > newest:
-            newest = t["last_updated"]
-    state["daily"] = {"last_sent_date": today}
-    state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
+    # rather than silently dropping a period.
+    if args.kind == "weekly":
+        # Weekly is window-based (see storylines_in_window); the cursor only
+        # records last_sent_week for the Friday-cron idempotency guard.
+        state["weekly"] = {"last_sent_week": week_key}
+    else:
+        new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
+        newest = state.get("storylines", {}).get("sent_through") or ""
+        for t in threads:
+            new_seen.update(t["member_sids"])
+            if t["last_updated"] > newest:
+                newest = t["last_updated"]
+        state["daily"] = {"last_sent_date": today}
+        state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
     save_state(state)
 
-    print(f"email_sent=true kind=daily items_capped={cfg['daily']['max_items']} threads={len(threads)}")
+    print(f"email_sent=true kind={args.kind} {summary}")
     return 0
 
 

@@ -84,9 +84,11 @@ Source of truth is markdown; `index.json` is the only file served/bundled.
 - `data/health/alerts_state.json`, `latest_alerts.json` — degradation alerts
 - `data/health/ingest_runs.jsonl` — per-run ingest status log
 - `data/email/state.json` — email-digest send cursor (NOT subscriber PII; the
-  provider owns the list). Keys: `daily.last_sent_date`, `weekly.last_sent_week`,
-  `storylines.{sent_through,seen_sids}`, `wiki.{sent_through,seen_slugs}` — the
-  high-water marks used to mail only storyline/wiki deltas, no repeats.
+  provider owns the list). Keys: `daily.last_sent_date`, `weekly.last_sent_week`
+  (idempotency guards), and `storylines.{sent_through,seen_sids}` — the
+  high-water marks the **daily** brief uses to mail only storyline deltas with no
+  repeats. The **weekly** recap is window-based (`[start,end]` of the recap),
+  so it needs no storyline/wiki high-water mark.
 - `data/diagnostics/<date>_ranking.json` — per-day ranking diagnostics
 - `data/analysis/` — one-off analysis artifacts
 

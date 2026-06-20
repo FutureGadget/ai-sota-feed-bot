@@ -1,15 +1,17 @@
 name: AI Feed Email Digest
 
-# Daily finishable brief to the subscriber list. Runs on its OWN schedule — NOT
-# the hourly feed pipeline (hourly email = instant unsubscribe). Reads whatever
-# data the hourly pipeline already committed to main. Secrets-gated: with no
-# EMAIL_API_KEY (or config/email.yaml enabled:false) publish_email.py is a clean
-# no-op and the cursor commit finds nothing to push.
+# Email digest to the subscriber list. Runs on its OWN schedule — NOT the hourly
+# feed pipeline (hourly email = instant unsubscribe). Reads whatever data the
+# hourly pipeline already committed to main. Secrets-gated: with no EMAIL_API_KEY
+# (or config/email.yaml enabled:false) publish_email.py is a clean no-op and the
+# cursor commit finds nothing to push.
 #
-# Weekly recap (Friday) is exec-plan v2.2 Phase 4 — not wired here yet.
+#   - daily brief:   every day 22:30 UTC (07:30 KST)
+#   - weekly recap:  Friday 23:00 UTC (08:00 KST Sat) — the recap week ends Sat
 on:
   schedule:
-    - cron: "30 22 * * *"  # 07:30 KST — morning brief
+    - cron: "30 22 * * *"  # daily brief — 07:30 KST
+    - cron: "0 23 * * 5"   # weekly recap — Fri 23:00 UTC
   workflow_dispatch:
     inputs:
       kind:
@@ -51,10 +53,19 @@ jobs:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
           EMAIL_AUDIENCE_ID: ${{ secrets.EMAIL_AUDIENCE_ID }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+          INPUT_KIND: ${{ github.event.inputs.kind }}
+          SCHEDULE: ${{ github.event.schedule }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
         run: |
-          .venv/bin/python publish/publish_email.py \
-            --kind "${{ github.event.inputs.kind || 'daily' }}" \
-            ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
+          # Manual dispatch picks the kind; cron maps the weekly schedule to
+          # --kind weekly (github.event.schedule carries the cron expression).
+          KIND="$INPUT_KIND"
+          if [ -z "$KIND" ]; then
+            if [ "$SCHEDULE" = "0 23 * * 5" ]; then KIND="weekly"; else KIND="daily"; fi
+          fi
+          DRY=""
+          if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi
+          .venv/bin/python publish/publish_email.py --kind "$KIND" $DRY
 
       - name: Commit send cursor
         if: ${{ github.event.inputs.dry_run != 'true' }}
