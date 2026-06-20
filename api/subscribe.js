@@ -1,11 +1,12 @@
 // POST /api/subscribe { email, hp? } — registers a self-serve subscriber by
 // adding them to your Resend contacts.
 //
-// Resend's contacts are global (created at POST /contacts) — registration needs
-// NO audience/segment id, only the API key. "Audiences" were renamed to
-// Segments and only matter at send time (to choose broadcast recipients).
-// Optionally opt the contact into a Topic (EMAIL_TOPIC_ID) so Resend's
-// preference page can manage per-topic unsubscribe.
+// Resend's contacts are global (created at POST /contacts). The API key alone
+// is required, but we also add the contact to EMAIL_SEGMENT_ID (the segment the
+// daily/weekly broadcast sends to) via the `segments` array — otherwise the
+// contact is created segment-less and the broadcast fails with 422 "...has no
+// contacts". Optionally opt the contact into a Topic (EMAIL_TOPIC_ID) so
+// Resend's preference page can manage per-topic unsubscribe.
 //
 // The key is read server-side only (never reaches the browser). Honeypot +
 // validation guard abuse. With no EMAIL_API_KEY the endpoint returns 503 and
@@ -44,6 +45,12 @@ export default async function handler(req, res) {
   const payload = { email, unsubscribed: false };
   const topicId = String(process.env.EMAIL_TOPIC_ID || '').trim();
   if (topicId) payload.topics = [{ id: topicId, status: 'opt_in' }];
+  // Place the contact into the segment the daily/weekly broadcast targets
+  // (publish_email.py sends to EMAIL_SEGMENT_ID). Without this the contact is
+  // created segment-less and a broadcast to that segment fails with
+  // 422 "...has no contacts". Mirror the broadcast's env resolution exactly.
+  const segmentId = String(process.env.EMAIL_SEGMENT_ID || process.env.EMAIL_AUDIENCE_ID || '').trim();
+  if (segmentId) payload.segments = [{ id: segmentId }];
 
   try {
     const r = await fetch('https://api.resend.com/contacts', {

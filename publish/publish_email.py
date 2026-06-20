@@ -460,7 +460,9 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
-def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> None:
+def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> bool:
+    """Send the broadcast. Returns True if sent, False for a clean no-op
+    (e.g. the recipient segment is empty — nothing to send, not an error)."""
     provider = (cfg.get("provider") or "buttondown").lower()
     if provider == "buttondown":
         r = requests.post(
@@ -470,6 +472,7 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> Non
             timeout=30,
         )
         r.raise_for_status()
+        return True
     elif provider == "resend":
         # Audiences were renamed to Segments; a broadcast targets a segment_id
         # (optionally scoped to a topic_id). `send: true` creates + sends in one
@@ -488,7 +491,19 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> Non
             json=payload,
             timeout=30,
         )
+        # An empty recipient segment is "nothing to send", not a failure: Resend
+        # returns 422 "...has no contacts". No-op cleanly instead of crashing the
+        # job, the same way we no-op when secrets are absent.
+        if r.status_code == 422:
+            try:
+                msg = (r.json().get("message") or "").lower()
+            except Exception:
+                msg = r.text.lower()
+            if "no contacts" in msg:
+                print("email_send_skipped=true reason=empty_segment provider=resend")
+                return False
         r.raise_for_status()
+        return True
     else:
         raise RuntimeError(f"unknown email provider: {provider}")
 
@@ -579,7 +594,11 @@ def main() -> int:
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
 
-    send_broadcast(cfg, api_key, subject, body)
+    if not send_broadcast(cfg, api_key, subject, body):
+        # Nothing was sent (e.g. empty recipient segment). Leave the cursor
+        # untouched so the next run re-attempts once contacts exist.
+        print(f"email_send_skipped=true kind={args.kind} reason=nothing_sent")
+        return 0
 
     # Advance the cursor only after a successful send, so a failure re-sends
     # rather than silently dropping a period.
