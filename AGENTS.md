@@ -40,6 +40,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-full-publish.yml` | hourly cron (`37 * * * *`) + external ticker | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
+| `email-digest.yml` | daily 22:30 UTC | `publish/publish_email.py` — finishable daily brief to the subscriber list (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
 
 The GitHub `schedule` is best-effort (deprioritized at `:00`, drops hours), so
 `feed-full-publish.yml` also runs at `37 * * * *` and is triggered for *real*
@@ -93,7 +94,9 @@ storyline; it only proposes links the floor then judges.
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
-- `publish/` — `publish_issue.py` (GitHub Issue), `publish_telegram.py`
+- `publish/` — `publish_issue.py` (GitHub Issue), `publish_telegram.py`,
+  `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
+  secrets-gated no-op; reads/advances the `data/email/state.json` cursor)
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
   `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`. They
   read committed `data/` files bundled via `vercel.json` `includeFiles`.
@@ -172,6 +175,8 @@ storyline; it only proposes links the floor then judges.
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
   `alerts_state.json`, `ingest_runs.jsonl`
+- `data/email/state.json` — email-digest send cursor (high-water marks for
+  daily/storyline/wiki deltas; **no subscriber PII** — the provider owns the list)
 - `data/llm/labels.json` (cache), `data/cache/`, `data/diagnostics/`, `data/analysis/`
 - Retention: processed 45d (daily/weekly archive tail), tier1 **3d hard cap**
   (deleted outright, no archive tail — tier1 snapshots are ~1.5–1.9 MB each).
