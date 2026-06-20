@@ -11,7 +11,6 @@ concurrency:
 
 permissions:
   contents: write
-  issues: write
 
 jobs:
   publish:
@@ -44,8 +43,5 @@ jobs:
 
       - name: Run full publish
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           AUTO_PUSH_RUNTIME: "1"
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bash skills/ai-feed-digest-local/scripts/run_full.sh

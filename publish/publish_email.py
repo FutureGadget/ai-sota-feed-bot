@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Email digest publisher — daily finishable brief to the subscriber list.
 
-Mirrors ``publish/publish_telegram.py``: same committed artifacts as input,
-same secrets-gated no-op contract (no ``EMAIL_API_KEY`` => render nothing, send
+Uses committed artifacts as input and a secrets-gated no-op contract
+(no ``EMAIL_API_KEY`` => render nothing, send
 nothing, touch no state). A third-party newsletter provider (Buttondown or
 Resend) owns the subscriber list, double-opt-in, unsubscribe and compliance —
 no subscriber PII ever lives in this repo. We only hold an API key in env and
@@ -33,12 +33,8 @@ import requests
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-# Reuse the canonical sid + the Telegram item helpers as the single source of
-# truth (no logic fork between the two publish surfaces).
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 from pipeline.story_store import story_sid  # noqa: E402
-import publish_telegram as tg  # noqa: E402
 
 STATE_PATH = ROOT / "data" / "email" / "state.json"
 DEFAULTS = {
@@ -54,6 +50,46 @@ DEFAULTS = {
 # A reader-tune nudge only earns a visible badge once it is clearly positive;
 # below this it is ranking noise, not a signal worth surfacing to readers.
 READER_BOOST_MIN = 0.02
+
+
+def clean(s: str, n: int = 120) -> str:
+    s = (s or "").replace("\n", " ").strip()
+    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+
+
+def short_why(s: str) -> str:
+    s = clean(s or "", 120)
+    low = s.lower()
+    if low.startswith("likely impact on ") and "platform decisions" in low:
+        core = s[len("Likely impact on ") :]
+        core = core.replace("workflows and platform decisions.", "").replace("and platform decisions.", "")
+        core = core.strip(" .")
+        if core:
+            return clean(f"Impact: {core}.", 76)
+    return clean(s, 76)
+
+
+def signal_label(item: dict) -> str:
+    item_type = (item.get("type") or "news").lower()
+    source = (item.get("source") or "").lower()
+    if item_type == "release":
+        return "Tooling Release"
+    if "hackernews" in source or "show hn" in (item.get("title", "").lower()):
+        return "Field Report"
+    if item_type == "paper":
+        return "Research"
+    return "Platform News"
+
+
+def confidence_label(item: dict) -> str:
+    score = float(item.get("score", 0) or 0)
+    reliability = float(item.get("source_reliability", 1.0) or 1.0)
+    value = score + reliability
+    if value >= 8.0:
+        return "High"
+    if value >= 6.0:
+        return "Medium"
+    return "Low"
 
 
 # --------------------------------------------------------------------------- #
@@ -109,7 +145,7 @@ def reader_boosted(it: dict) -> bool:
 
 def item_why(it: dict) -> str:
     raw = it.get("why_it_matters") or it.get("llm_why_1line") or it.get("summary_1line") or ""
-    return tg.short_why(raw)
+    return short_why(raw)
 
 
 def narrative_copy(slug: str, thread_last_updated: str, latest_title: str) -> str:
@@ -257,16 +293,16 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
     n = len(items)
     mins = max(3, round(n * 0.5))
     today = datetime.now().strftime("%Y-%m-%d")
-    top_title = tg.clean(items[0].get("title", "AI updates"), 60) if items else "AI updates"
+    top_title = clean(items[0].get("title", "AI updates"), 60) if items else "AI updates"
     subject = f"Your AI brief — {n} items · ~{mins} min · {top_title}"
 
     rows: list[str] = []
     for i, it in enumerate(items, start=1):
         url = it.get("url", "")
-        title = html.escape(tg.clean(it.get("title", ""), 140))
-        source = html.escape(tg.clean(it.get("source", "unknown"), 40))
-        signal = html.escape(tg.signal_label(it))
-        conf = html.escape(tg.confidence_label(it))
+        title = html.escape(clean(it.get("title", ""), 140))
+        source = html.escape(clean(it.get("source", "unknown"), 40))
+        signal = html.escape(signal_label(it))
+        conf = html.escape(confidence_label(it))
         why = html.escape(item_why(it))
         badges = _badge("Reader-boosted", "#eef6ff", "#1a6dd6") if reader_boosted(it) else ""
         meta = f"{signal} · {conf} confidence · {source}"
@@ -284,7 +320,7 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
     if threads:
         tr = []
         for t in threads:
-            wn = html.escape(tg.clean(t["whats_new"], 220))
+            wn = html.escape(clean(t["whats_new"], 220))
             label = html.escape(t["label"])
             tr.append(
                 f'<tr><td style="padding:10px 0;border-bottom:1px solid #f0f0f0">'
@@ -348,8 +384,8 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
         arts = []
         for a in (c.get("articles") or [])[:per_cat]:
             url = a.get("url", "")
-            t = html.escape(tg.clean(a.get("title", ""), 130))
-            src = html.escape(tg.clean(a.get("source", ""), 32))
+            t = html.escape(clean(a.get("title", ""), 130))
+            src = html.escape(clean(a.get("source", ""), 32))
             arts.append(
                 f'<li style="margin:5px 0;font-size:13px;line-height:1.4">'
                 f'<a href="{html.escape(story_url(cfg, url))}" style="color:#111;text-decoration:none">{t}</a>'
@@ -357,7 +393,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
             )
         cat_html.append(
             f'<div style="margin:14px 0"><div style="font-size:15px;font-weight:600">{html.escape(c.get("name",""))}</div>'
-            f'<div style="font-size:13px;color:#666;margin:2px 0 4px">{html.escape(tg.clean(c.get("summary",""), 220))}</div>'
+            f'<div style="font-size:13px;color:#666;margin:2px 0 4px">{html.escape(clean(c.get("summary",""), 220))}</div>'
             f'<ul style="padding-left:18px;margin:0;list-style:disc">{"".join(arts)}</ul></div>'
         )
     cats_section = (
@@ -368,7 +404,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
     if threads:
         tr = []
         for t in threads:
-            wn = html.escape(tg.clean(t["whats_new"], 220))
+            wn = html.escape(clean(t["whats_new"], 220))
             tr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
                 f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(storyline_url(cfg, t["slug"]))}" '
@@ -389,9 +425,9 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
             wr.append(
                 f'<tr><td style="padding:9px 0;border-bottom:1px solid #f0f0f0">'
                 f'<div style="font-size:14px;font-weight:600"><a href="{html.escape(topic_url)}" '
-                f'style="color:#7a3fb8;text-decoration:none">{html.escape(tg.clean(w["title"], 120))} →</a>'
+                f'style="color:#7a3fb8;text-decoration:none">{html.escape(clean(w["title"], 120))} →</a>'
                 f'<span style="font-size:11px;color:#999;font-weight:400"> · {kind}</span></div>'
-                f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(tg.clean(w["summary"], 200))}</div></td></tr>'
+                f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(clean(w["summary"], 200))}</div></td></tr>'
             )
         wiki_html = (
             '<h2 style="font-size:16px;margin:26px 0 6px">🗺️ New in the knowledge map</h2>'
@@ -539,7 +575,7 @@ def main() -> int:
     api_key = os.getenv("EMAIL_API_KEY", "").strip()
     enabled = bool(cfg.get("enabled")) and bool(api_key)
     if not enabled:
-        # Secrets-gated no-op, exactly like Telegram/PostHog when unconfigured.
+        # Secrets-gated no-op, like PostHog when unconfigured.
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
 

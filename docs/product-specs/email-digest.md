@@ -2,10 +2,9 @@
 
 A subscribe-by-email channel that pushes the **finishable daily brief** and the
 **weekly recap** straight to an AI platform engineer's inbox — the channel where
-this persona actually does morning triage. Today's distribution (a GitHub Issue
-and an optional Telegram post) does not serve the "read this every morning, 10
-minutes a day" job; email does, and it is the missing **retention loop** on top
-of an already-strong engine.
+this persona actually does morning triage. Website-only discovery does not serve
+the "read this every morning, 10 minutes a day" job; email is the supported
+**retention loop** on top of an already-strong engine.
 
 This serves all three positioning pillars at once:
 
@@ -35,8 +34,8 @@ This serves all three positioning pillars at once:
 
 ### Daily brief (morning cron)
 
-Sourced from `data/processed/latest.json` (+ `data/digest/<date>.md`), reusing
-the item helpers in `publish/publish_telegram.py` (`signal_label`, `short_why`,
+Sourced from `data/processed/latest.json` (+ `data/digest/<date>.md`), using
+the item helpers in `publish/publish_email.py` (`signal_label`, `short_why`,
 hype flag, Reader-boosted badge).
 
 1. **Subject** that sells finishable:
@@ -138,9 +137,9 @@ is no wiki high-water mark.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
 - **List + compliance.** The provider. Nothing in git.
-- **Send.** `publish/publish_email.py`, mirroring `publish/publish_telegram.py`
-  (same artifact inputs, same secrets-gated no-op: return cleanly when
-  `EMAIL_API_KEY` is unset). Renders email-safe HTML and calls the provider's
+- **Send.** `publish/publish_email.py` reads committed artifacts and uses a
+  secrets-gated no-op: it returns cleanly when `EMAIL_API_KEY` is unset.
+  It renders email-safe HTML and calls the provider's
   **broadcast** endpoint (the provider fans out and appends the unsubscribe
   footer).
 - **Schedule.** `.github/workflows/email-digest.yml` — a **daily** morning cron

@@ -1,4 +1,4 @@
-# Current System State (as of 2026-06-13 KST)
+# Current System State (as of 2026-06-21 KST)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
@@ -21,7 +21,7 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 
 ## End-to-end behavior (hourly `feed-full-publish` workflow → `run_full.sh`)
 1. Collect raw items (`collectors/collect.py`, per-source crawl cooldown)
-2. Source health update + degradation alerts (Telegram critical-only)
+2. Source health update + local degradation alert artifacts/logs
 3. Tier-1 fast snapshot (`pipeline/build_tier1.py` → `data/tier1/latest.json`)
 4. Tier-0 full build (`pipeline/build_digest.py`, `TIER0_INPUT=tier1`,
    incremental mode on; exits early with `FULL_RUN_NO_DELTA_SKIP=true` when
@@ -29,10 +29,10 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 5. Story store sync + static page render
    (`story_store.py`, `render_static_pages.py`). Storyline generation is
    intentionally excluded from GitHub Actions.
-6. Prune runtime snapshots (processed 45d, tier1 14d)
+6. Prune runtime snapshots (processed 45d, tier1 3d hard cap)
 7. Commit + push `data/` + `web/` (triggers Vercel production deploy, whose
    build command rerenders static pages from the committed data)
-8. Publish GitHub issue + Telegram digest
+8. Finish with `FULL_RUN_OK`; website deployment follows the runtime-data push
 
 Daily companions:
 - `feed-ops-summary` (12:30 UTC): ops health snapshot
@@ -59,7 +59,7 @@ Daily companions:
 
 ## Run health signals (greppable)
 - `v2_stats prefilter=A->B llm_used=N/8 slots=... total=T`
-- `FULL_RUN_OK` / `FULL_RUN_PARTIAL` / `FULL_RUN_NO_DELTA_SKIP=true`
+- `FULL_RUN_OK` / `FULL_RUN_NO_DELTA_SKIP=true`
 - `runtime_commit_done=true` / `runtime_push_skipped=true`
 - `latest_json_valid=true`
 

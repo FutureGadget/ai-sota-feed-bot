@@ -16,14 +16,12 @@ Two-tier deterministic pipeline (LLM currently **disabled** — see Gotchas):
 ```text
 collectors/collect.py                  -> data/raw/YYYY-MM-DD/items.json
 pipeline/source_health.py update       -> data/health/* (health, circuit breaker)
-pipeline/source_alerts.py              -> degradation alerts (Telegram critical-only)
+pipeline/source_alerts.py              -> local degradation alert artifacts/logs
 pipeline/build_tier1.py                -> data/tier1/latest.json (fast quick-score, no LLM)
 pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/digest/*.md
    (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
-publish/publish_issue.py               -> GitHub Issue "Daily AI Digest - YYYY-MM-DD"
-publish/publish_telegram.py            -> Telegram digest (optional, secrets-gated)
 
 Claude Code storyline routine (every 5h, outside GitHub Actions):
 pipeline/build_storylines.py           -> data/storylines/ (deterministic threads)
@@ -94,8 +92,7 @@ storyline; it only proposes links the floor then judges.
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
-- `publish/` — `publish_issue.py` (GitHub Issue), `publish_telegram.py`,
-  `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
+- `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
   secrets-gated no-op; reads/advances the `data/email/state.json` cursor)
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
   `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`,
@@ -257,7 +254,7 @@ Implications for any change in this repo:
 ## Working Rules
 - Keep changes small and shippable.
 - Prefer deterministic ranking logic before LLM layers.
-- Never commit secrets or tokens (Telegram/PostHog config comes from env/secrets).
+- Never commit secrets or tokens (email/PostHog config comes from env/secrets).
 - Add/update docs with every meaningful feature change.
 - If you add a new feature or a new document category, update docs index/links
   in the same PR.
@@ -288,7 +285,7 @@ When implementing a feature:
 ## Engineering Guardrails
 - Keep workflows idempotent and observable (pipelines log machine-greppable
   `key=value` signals like `FULL_RUN_OK`, `v2_stats`, `runtime_commit_done`).
-- Fail gracefully when optional integrations are missing (Telegram/PostHog
+- Fail gracefully when optional integrations are missing (email/PostHog
   secrets) — every publish/sync step must no-op cleanly without them.
 - Prefer config-driven behavior (`config/*.yaml`) over hardcoding.
 

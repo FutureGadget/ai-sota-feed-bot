@@ -34,7 +34,5 @@ jobs:
 
       - name: Run ops daily summary
         env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           AUTO_PUSH_RUNTIME: "1"
         run: bash skills/ops-daily-summary/scripts/run_ops_daily_summary.sh

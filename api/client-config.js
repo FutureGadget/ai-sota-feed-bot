@@ -8,9 +8,6 @@ export default async function handler(req, res) {
   const host = String(process.env.POSTHOG_HOST || 'https://us.i.posthog.com').trim();
   const enabled = String(process.env.POSTHOG_ENABLED || '').trim() === '1' && !!key;
 
-  // Public Telegram channel for the daily digest; subscribe CTAs only render
-  // when this is configured (e.g. https://t.me/your_channel).
-  const digestTelegram = String(process.env.DIGEST_TELEGRAM_URL || '').trim();
   // Optional external email-digest signup page (e.g. an RSS-to-email form); the
   // subscribe menu shows an outbound email link only when this is configured.
   const emailSignup = String(process.env.DIGEST_EMAIL_SIGNUP_URL || '').trim();
@@ -26,7 +23,6 @@ export default async function handler(req, res) {
       project_api_key: enabled ? key : null,
     },
     digest: {
-      telegram_url: /^https:\/\//.test(digestTelegram) ? digestTelegram : null,
       email_signup_url: /^https:\/\//.test(emailSignup) ? emailSignup : null,
       email_subscribe_enabled: emailSubscribeEnabled,
     },

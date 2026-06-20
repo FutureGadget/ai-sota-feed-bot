@@ -96,11 +96,4 @@ if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
   fi
 fi
 
-python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date "$(date +%F)"
-
-if [ -z "${TELEGRAM_BOT_TOKEN:-}" ] || [ -z "${TELEGRAM_CHAT_ID:-}" ]; then
-  echo "FULL_RUN_PARTIAL: missing TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID (issue published, telegram skipped)"
-else
-  python publish/publish_telegram.py
-  echo "FULL_RUN_OK"
-fi
+echo "FULL_RUN_OK"
