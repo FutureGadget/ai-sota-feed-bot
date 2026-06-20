@@ -30,7 +30,10 @@ Candidates (TIER0_INPUT=tier1 by default, raw fallback)
       |
       v
 Stage A: prefilter (ranking.stage_a_prefilter)
-  - title regex excludes
+  - title regex excludes (selection.exclude_title_regex)
+  - off-topic relevance gate (profile.off_topic): anchored-phrase blocklist
+    over title+summary, with a word-boundary platform rescue clause
+    (prefilter_reasons.off_topic)
   - per-slot freshness window
   - source health floor
   - cap to candidate_pool_cap (120)

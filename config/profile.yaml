@@ -95,6 +95,90 @@ selection:
     - "(?i)amazon bedrock"
     - "(?i)customer"
 
+# Deterministic off-topic relevance gate (pipeline/ranking.py stage_a_prefilter).
+# The home feed reads run_ranking() output verbatim, and trusted/frontier sources
+# regularly publish content that is structurally off-mission for the "AI platform
+# engineer" lens (clinical/healthcare AI, macro-economics/policy/governance,
+# consumer/gaming). Those used to slide straight onto the feed because the only
+# hard gate was selection.exclude_title_regex (title-only, 2 patterns).
+#
+# How it works: an item whose title+summary contains any phrase below is dropped
+# from the candidate pool UNLESS it also carries a strong platform signal (any
+# platform_keywords term) — the rescue clause protects on-topic posts that merely
+# brush an off-topic word (e.g. "Responsible Scaling Policy", "Making Claude Code
+# more secure"). Scalable: add a phrase, no code change. Observable: dropped
+# count is emitted as prefilter_reasons["off_topic"].
+#
+# PRECISION FIRST: use multi-word anchors, never loose single words. A loose word
+# like "policy"/"health"/"secure" nukes real platform content. Better to miss a
+# few off-topic items than drop relevant ones.
+off_topic:
+  enabled: true
+  # Rescue clause: an off-topic match is kept ONLY if title+summary also carries
+  # one of these strong platform-engineering terms (matched on word boundaries,
+  # so short tokens don't false-match as substrings). Deliberately a tight set —
+  # NOT the broad platform_keywords (terms like "context"/"agent"/"rag" would
+  # rescue clear off-topic posts, e.g. "health intelligence in ChatGPT").
+  rescue_keywords:
+    - inference
+    - serving
+    - latency
+    - throughput
+    - quantization
+    - vllm
+    - triton
+    - tgi
+    - kubernetes
+    - observability
+    - orchestration
+    - benchmark
+    - kernel
+    - gpu
+    - cuda
+    - tokens/sec
+    - vector database
+    - context window
+    - mcp
+  categories:
+    healthcare_life_sciences:
+      - genetic disease
+      - rare disease
+      - clinical reasoning
+      - medical ai
+      - in healthcare
+      - life sciences
+      - drug discovery
+      - liver disease
+      - infectious disease
+      - patient care
+      - physicians diagnose
+      - diagnose rare
+      - health intelligence
+      - new diagnoses
+      - co-clinician
+      - aging research
+    policy_economics_governance:
+      - economic index
+      - economic research
+      - democratic governance
+      - election safeguard
+      - public policy agenda
+      - policy agenda
+      - industrial policy
+      - community investment
+      - country brief
+      - labor market
+      - sign mou
+      - signs mou
+      - sign an mou
+      - political advocacy
+    consumer_lifestyle:
+      - geforce now
+      - scan your organs
+      - summer sale
+      - league of legends
+      - game librar
+
 type_bonus:
   paper: 0.0
   news: 0.0
