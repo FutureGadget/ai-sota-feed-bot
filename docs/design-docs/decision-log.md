@@ -1,5 +1,28 @@
 # Decision Log
 
+## 2026-06-21 (Assign email subscribers to the broadcast segment)
+- **Decision:** On signup, add the Resend contact to the same segment the
+  daily/weekly broadcast targets. `api/subscribe.js` now sends
+  `segments: [{ id: EMAIL_SEGMENT_ID }]` on `POST /contacts` (mirroring the
+  broadcast's `EMAIL_SEGMENT_ID || EMAIL_AUDIENCE_ID` env resolution), and
+  `publish/publish_email.py` treats Resend's `422 "...has no contacts"` as a
+  clean no-op (`email_send_skipped=true reason=empty_segment`) without advancing
+  the send cursor, instead of raising.
+- **Rationale:** Subscribers were created as segment-less global contacts, so the
+  broadcast to `EMAIL_SEGMENT_ID` always hit an empty segment and Resend rejected
+  the send with 422 — hard-crashing the `email-digest` workflow. The send side
+  and the signup side had drifted: the segment was only referenced at send time.
+- **Impact:** `api/subscribe.js` (new `segments` payload field + header comment),
+  `publish/publish_email.py` (`send_broadcast` returns bool; empty-segment 422 →
+  graceful no-op; `main()` skips the cursor advance when nothing was sent).
+  `EMAIL_SEGMENT_ID` must now also be set as a **Vercel** env var (subscribe runs
+  on Vercel, not GitHub Actions). Behavior is unchanged when the var is unset
+  (contact still created globally; send still no-ops via secrets gate). Requires
+  a *static* segment — a dynamic/filter segment won't accept manual membership.
+- **Rollback:** Drop the `segments` field from `subscribe.js` and revert
+  `send_broadcast` to `raise_for_status()`; behavior returns to the prior
+  global-contact + crash-on-empty-segment state.
+
 ## 2026-06-21 (Dedicated canonical email-subscription page)
 - **Decision:** Add `/subscribe` as the canonical email acquisition surface and
   route every promoted email CTA there. Keep the homepage popover's inline form
