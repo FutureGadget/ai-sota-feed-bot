@@ -65,6 +65,12 @@ WINDOW_DAYS = 21
 MIN_ITEMS = 3
 MIN_DAYS = 2
 MIN_SOURCES = 2
+# A confirmed scout link already carries its precision from the judge (a verified
+# same-story link across sources), so the anchor-pair item-count noise-guard
+# double-charges it. Scout links surface at a lower item floor than anchor pairs —
+# but still must span multiple sources AND days, so a thin single-source or
+# single-day link stays inert. The MIN_DAYS/MIN_SOURCES floor is unchanged.
+SCOUT_MIN_ITEMS = 2
 # A cluster absorbs a smaller candidate when they share this fraction of items.
 MERGE_OVERLAP = 0.6
 MAX_STORYLINES = 12
@@ -283,8 +289,9 @@ def cluster(nodes: list[dict]) -> list[dict]:
             candidates.append({"key": key, "idx": set(idx), "scout": False})
 
     # Scout links → floor-gated synthetic candidates (the recall layer). Applied
-    # through the same MIN_ITEMS/DAYS/SOURCES floor, so a link is inert unless its
-    # nodes clear it; no link can bypass the deterministic gate.
+    # through the SCOUT_MIN_ITEMS/MIN_DAYS/MIN_SOURCES floor (lower item floor than
+    # anchor pairs — the judge supplies the precision), so a link is inert unless its
+    # nodes clear it; no link bypasses the deterministic multi-source/multi-day gate.
     sid_to_nodes: dict[str, set[int]] = defaultdict(set)
     for ni, n in enumerate(nodes):
         for sid in n["sids"]:
@@ -296,7 +303,7 @@ def cluster(nodes: list[dict]) -> list[dict]:
             continue
         days = {nodes[i]["_dt"].date() for i in idx}
         sources = {s for i in idx for s in nodes[i]["sources"]}
-        if len(idx) >= MIN_ITEMS and len(days) >= MIN_DAYS and len(sources) >= MIN_SOURCES:
+        if len(idx) >= SCOUT_MIN_ITEMS and len(days) >= MIN_DAYS and len(sources) >= MIN_SOURCES:
             key = (SCOUT_NS, str(link.get("id") or f"link-{li}"))
             candidates.append({"key": key, "idx": idx, "scout": True})
             scout_hint[key] = str(link.get("label_hint") or "")
