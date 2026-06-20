@@ -570,6 +570,21 @@
       padding: 1rem;
       opacity: 0.85;
     }
+    /* "You're caught up" end-marker: closes the Brief view so the finishable
+       promise has a visible finish line. */
+    .end-marker {
+      text-align: center;
+      padding: 1.5rem 1rem 0.5rem;
+      opacity: 0.8;
+    }
+    .end-marker .end-marker-title {
+      font-weight: 600;
+    }
+    .end-marker .end-marker-sub {
+      font-size: 0.9em;
+      opacity: 0.85;
+      margin-top: 0.2rem;
+    }
     /* Loading placeholder. JS-injected before the feed fetch resolves so the
        footer starts below the fold — without it the empty #list lets the
        footer sit in the first viewport, then ~200 cards shove it down (CLS).
@@ -659,12 +674,12 @@
       </nav>
 
       <nav class="sections" id="sections" aria-label="Sections">
-        <button type="button" data-section="" class="active">All</button>
+        <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
         <button type="button" data-section="platform">Platform</button>
+        <button type="button" data-section="research" title="Papers and research write-ups">Research</button>
         <button type="button" data-section="release">Releases</button>
-        <button type="button" data-section="research">Research</button>
-        <button type="button" data-section="paper">Papers</button>
         <button type="button" data-section="news">News</button>
+        <button type="button" data-section="" title="The full firehose, including release notes">All</button>
         <button type="button" id="savedTab">⭐ Saved</button>
       </nav>
 
@@ -1102,10 +1117,13 @@
       }
 
       const labels = p.getAll('label').flatMap((v) => String(v).split(','));
-      // No labels in the URL → fall back to the reader's pinned defaults —
-      // unless this is a share landing, where pinned topics could hide the
-      // very story the reader came for.
-      const fallbackLabels = pendingSharedItemUrl ? [] : pinnedLabelsState;
+      // No labels in the URL → fall back to the reader's pinned defaults, or the
+      // finishable "Brief" lens (everything except releases) when nothing is
+      // pinned. A share landing clears filters so pinned topics / the Brief lens
+      // can't hide the very story the reader came for.
+      const fallbackLabels = pendingSharedItemUrl
+        ? []
+        : (pinnedLabelsState.length ? pinnedLabelsState : DEFAULT_SECTION_LABELS);
       setSelectedLabels(labels.some((l) => normalizeLabel(l)) ? labels : fallbackLabels);
     }
 
@@ -1155,9 +1173,20 @@
       return a.length === b.length && [...a].sort().join(',') === [...b].sort().join(',');
     }
 
-    // Section tabs are a quick-select over the existing label filter.
-    // Each maps to a single llm_category/type label value.
-    const SECTION_VALUES = new Set(['platform', 'release', 'research', 'paper', 'news']);
+    // Section tabs are a quick-select over the existing label filter. Each maps
+    // to a single label value: 'platform'/'research'/'release'/'news' are real
+    // llm_category/type labels; 'brief' is a synthetic lens the feed API expands
+    // to "everything except releases" (the finishable default). Papers are folded
+    // into Research (every paper carries llm_category=research).
+    const SECTION_VALUES = new Set(['brief', 'platform', 'release', 'research', 'news']);
+
+    // The homepage default when the reader hasn't pinned their own topics.
+    const DEFAULT_SECTION_LABELS = ['brief'];
+
+    // Display labels for the per-card format badge (it.type). Now that Papers
+    // folded into Research, this badge is the only paper/research/release signal,
+    // so it reads as a proper label rather than a lowercase token.
+    const TYPE_BADGE_LABELS = { paper: 'Paper', release: 'Release', research: 'Research' };
 
     function activeSection() {
       const labels = getSelectedLabels();
@@ -1557,6 +1586,7 @@
       const source = esc(sourceDisplayName(it.source));
       const sourceSlug = esc(it.source || 'unknown');
       const type = esc(it.type || 'news');
+      const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));
       const summaryRaw = cleanText(it.summary_1line);
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
@@ -1599,7 +1629,7 @@
           <div class="card-top">
             <span class="src">${source}</span>
             ${published ? `<span class="when">${esc(published)}</span>` : ''}
-            ${type !== 'news' ? `<span class="badge">${type}</span>` : ''}
+            ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
             ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
             ${isNew ? `<span class="badge badge-new">New</span>` : ''}
             ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
@@ -1653,9 +1683,8 @@
     const ONBOARDING_DONE_KEY = 'ai_feed_onboarding_done_v1';
     const ONBOARD_TOPICS = [
       { value: 'platform', label: 'Platform' },
-      { value: 'release', label: 'Releases' },
       { value: 'research', label: 'Research' },
-      { value: 'paper', label: 'Papers' },
+      { value: 'release', label: 'Releases' },
       { value: 'news', label: 'News' },
     ];
     let onboardSelection = new Set();
@@ -1798,7 +1827,9 @@
         posthogCapture('catchup_view', { new_count: fresh.length, shown: picks.length });
       }
 
-      const topicsNote = getSelectedLabels().length ? ' in your topics' : '';
+      // "brief" is the default lens, not a reader-chosen topic — don't claim
+      // the catch-up count is scoped "in your topics" when it's just the default.
+      const topicsNote = getSelectedLabels().some((l) => l !== 'brief') ? ' in your topics' : '';
       return `
         <section class="catchup" aria-label="Catch up since your last visit">
           <div class="catchup-head">
@@ -1852,6 +1883,22 @@
       return `<div class="skel" aria-hidden="true">${card.repeat(n)}</div>`;
     }
 
+    // End-of-Brief marker: a one-line finish line so the default view ends
+    // ("read everything, you're caught up") instead of trailing off.
+    function endMarkerHtml() {
+      const rangeLabel = (customRangeState.from || customRangeState.to)
+        ? ''
+        : ({ 1: 'today', 3: 'the last 3 days', 7: 'the last 7 days', 30: 'the last 30 days' }[presetDaysState] || '');
+      const sub = rangeLabel
+        ? `That's everything worth reading from ${rangeLabel} — release notes are under the Releases tab.`
+        : `Release notes are under the Releases tab whenever you want them.`;
+      return `
+        <div class="end-marker">
+          <div class="end-marker-title">✓ You're all caught up</div>
+          <div class="end-marker-sub">${esc(sub)}</div>
+        </div>`;
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId } = feedCache;
@@ -1867,7 +1914,10 @@
       const newSince = visible.filter((it) => String(it.tier_hint || '') !== 'tier1_fresh' && isNewSinceLastVisit(it)).length;
       const newNote = newSince > 0 ? ` · ${newSince} new since your last visit` : '';
       const selectedLabels = getSelectedLabels();
-      const labelNote = selectedLabels.length ? ` · topics: ${selectedLabels.join(', ')}` : '';
+      // "brief" is the default lens, not a reader-chosen topic — keep it out of
+      // the "topics:" note so the default view doesn't claim a topic filter.
+      const noteTopics = selectedLabels.filter((l) => l !== 'brief');
+      const labelNote = noteTopics.length ? ` · topics: ${noteTopics.join(', ')}` : '';
       // "159 stories" alone reads as homework; naming the window frames it
       // as coverage ("everything from the last 7 days") instead of a backlog.
       const RANGE_LABELS = { 1: 'today', 3: 'last 3 days', 7: 'last 7 days', 30: 'last 30 days' };
@@ -1893,6 +1943,9 @@
         const promo = onboardingHtml() || subscribeNudgeHtml();
         if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
         cards.unshift(catchupHtml(items), storylineNoticeHtml());
+        // Finish line for the Brief default — make the "finishable" promise
+        // visible. Only on the Brief lens (not the firehose/topic views).
+        if (activeSection() === 'brief') cards.push(endMarkerHtml());
       }
       list.innerHTML = cards.join('');
     }
