@@ -69,6 +69,15 @@ MIN_SOURCES = 2
 MERGE_OVERLAP = 0.6
 MAX_STORYLINES = 12
 
+# Same-event re-syndication merge (dedup_nodes pass 3). A re-run of one story
+# carries a shorter headline that is nearly a *subset* of the fuller one; a new
+# storyline *beat* (release -> availability -> suspension) instead adds new
+# significant tokens and falls below CONTAIN_MIN, so threads are never collapsed.
+# Deliberately conservative — over-merging a distinct story costs reader trust.
+NODE_CONTAIN_MIN = 0.8   # smaller significant-title set must be ~contained in the larger
+NODE_MERGE_DAY_GAP = 2   # same news cycle — cross-source timestamps for one event drift a day or two
+NODE_MERGE_MIN_TOKENS = 2  # never merge on a one-word title
+
 TOKEN_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9.\-']*")
 
 # Title noise: grammar, hype verbs, calendar words, and feed-speak that never
@@ -163,6 +172,12 @@ def dedup_nodes(recs: list[dict]) -> list[dict]:
     Two signatures also merge when the smaller (>=2 tokens) is a subset of the
     larger and the only extra tokens are broad company/topic words (``WEAK``),
     catching "Coding Agents Social Sciences" vs "... social sciences - Anthropic".
+
+    A third pass folds same-event re-syndications that overlap heavily without
+    being a clean subset — the shorter headline of a re-run is ~contained in the
+    fuller one (``NODE_CONTAIN_MIN``) from a different source within a day. A
+    storyline *beat* that adds new facts ("now available", "suspended") sits below
+    the containment bar and is left as its own node, so threads survive dedup.
     Records whose significant title is empty stay singletons — never pool junk.
     """
     sig = [frozenset(title_tokens(r.get("title"))) for r in recs]
@@ -178,6 +193,37 @@ def dedup_nodes(recs: list[dict]) -> list[dict]:
     for a, b in itertools.permutations(by_sig, 2):
         if len(a) >= 2 and a < b and (b - a) <= WEAK:
             union(by_sig[a][0], by_sig[b][0])
+
+    # Pass 3: same-event re-syndications whose headlines overlap heavily but are
+    # neither identical nor a weak-only superset — e.g. "Claude Fable 5 and Mythos
+    # 5" (newsroom) vs "[AINews] … Claude Fable 5 — Mythos but Safe" (latent.space).
+    # We fold a pair when the smaller significant-title set is ~contained in the
+    # larger (NODE_CONTAIN_MIN), the two come from *different* sources within a day,
+    # and they share a distinctive (non-WEAK) token. A storyline beat that adds new
+    # facts ("now available", "suspended") lowers containment below the bar and is
+    # left intact. Candidate pairs are gathered via distinctive-token buckets, so
+    # records sharing only a broad company word are never even compared.
+    by_tok: dict[str, list[int]] = defaultdict(list)
+    for i, s in enumerate(sig):
+        for tok in s:
+            if tok not in WEAK:
+                by_tok[tok].append(i)
+    for idxs in by_tok.values():
+        for i, j in itertools.combinations(idxs, 2):
+            if find(i) == find(j):
+                continue
+            si, sj = sig[i], sig[j]
+            small = si if len(si) <= len(sj) else sj
+            if len(small) < NODE_MERGE_MIN_TOKENS:
+                continue
+            if len(si & sj) / len(small) < NODE_CONTAIN_MIN:
+                continue
+            ri, rj = recs[i], recs[j]
+            if ri.get("source") and ri.get("source") == rj.get("source"):
+                continue
+            if abs((ri["_dt"].date() - rj["_dt"].date()).days) > NODE_MERGE_DAY_GAP:
+                continue
+            union(i, j)
 
     groups: dict[int, list[dict]] = defaultdict(list)
     for i, rec in enumerate(recs):
