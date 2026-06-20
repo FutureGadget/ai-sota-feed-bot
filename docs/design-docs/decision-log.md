@@ -1,5 +1,20 @@
 # Decision Log
 
+## 2026-06-21 (Email replaces RSS in user-facing subscription CTAs)
+- **Decision:** Route every user-facing subscription CTA to `/#subscribe`, which
+  opens the email signup surface on the live feed. Remove RSS from the subscribe
+  menu and returning-reader nudge. Keep `/rss.xml`, `/api/rss`, and RSS
+  autodiscovery available for feed readers and machine consumers.
+- **Rationale:** Email is now the operated retention channel (daily brief +
+  weekly recap), while presenting RSS alongside it splits the primary
+  subscription action. A stable hash target lets static recap, storyline,
+  permalink, voice, and wiki pages open the same in-page form.
+- **Impact:** Page shells and generated static navigation/footer links now say
+  “Email digest.” The feed’s subscribe menu and nudge are email-first, with
+  Telegram remaining an optional secondary channel. The RSS API is unchanged.
+- **Rollback:** Restore the RSS CTA entries and `/rss.xml` navigation links;
+  the endpoint requires no restoration because it remains live.
+
 ## 2026-06-20 (Align with Resend's new Contacts/Segments/Topics model)
 - **Decision:** Update the email integration to Resend's restructured API (the
   earlier code was written against the older audience-scoped endpoints):

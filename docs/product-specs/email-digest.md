@@ -129,8 +129,10 @@ is no wiki high-water mark.
     `api/client-config.js`
     exposes `digest.email_subscribe_enabled`, and the 🔔 menu in
     `web/index.html` renders an inline email form as its **primary** action when
-    it is true (RSS / external channels drop below an "Other ways to follow"
-    divider). Honeypot + email validation; single opt-in (Resend carries
+    it is true (configured external channels drop below an "Other ways to
+    follow" divider). All user-facing subscription CTAs on static and dynamic
+    pages route to `/#subscribe`; RSS remains available through autodiscovery
+    and its direct endpoint. Honeypot + email validation; single opt-in (Resend carries
     unsubscribe). `/api/subscribe`
     is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu

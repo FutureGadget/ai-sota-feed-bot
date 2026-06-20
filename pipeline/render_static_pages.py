@@ -857,7 +857,7 @@ def render_page(
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/rss.xml">RSS</a>
+      <a href="/#subscribe">Email digest</a>
     </footer>
   </main>
   <script>
@@ -919,7 +919,7 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
             published=published,
             h1="📰 AI Daily Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/#subscribe", "✉️ Email digest")],
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
@@ -971,7 +971,7 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
             published=published,
             h1="🗓️ AI Weekly Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/#subscribe", "✉️ Email digest")],
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,
@@ -1296,7 +1296,7 @@ def render_story_pages(
             published=published,
             h1="📰 Story",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/#subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title="",  # replaced by linked title below
@@ -1863,7 +1863,7 @@ def render_storyline_pages(
             published=first_seen,
             h1="📈 AI Storyline",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/storylines", "← All storylines"), ("/", "📰 Live feed"), ("/daily", "🗓️ Daily recap"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/storylines", "← All storylines"), ("/", "📰 Live feed"), ("/daily", "🗓️ Daily recap"), ("/#subscribe", "✉️ Email digest")],
             json_href=f"/api/storylines?slug={slug}",
             archive="",
             recap_title=label,
@@ -1975,7 +1975,7 @@ def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]
             published=None,
             h1="🧠 Agent Engineering Wiki",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/rss.xml", "🔔 RSS")],
+            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/#subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title=title,
@@ -2051,7 +2051,7 @@ def render_map_page(base_url: str, wiki: dict) -> bool:
         published=None,
         h1="🧠 Agent Engineering Wiki",
         meta_line="Obstacles to building & operating agents, mapped to solutions",
-        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/rss.xml", "🔔 RSS")],
+        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/#subscribe", "✉️ Email digest")],
         json_href="/api/topics",
         archive="",
         recap_title="Agent engineering: obstacles & solutions",

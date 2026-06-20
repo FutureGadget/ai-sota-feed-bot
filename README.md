@@ -84,16 +84,16 @@ export TELEGRAM_TOP_WHY=5       # optional
 python publish/publish_telegram.py
 ```
 
-To surface "subscribe to the daily digest" CTAs on the website, set
-`DIGEST_TELEGRAM_URL` (a public channel link like `https://t.me/your_channel`)
-in the Vercel environment. Optionally set `DIGEST_EMAIL_SIGNUP_URL` (e.g. a
-Buttondown/RSS-to-email signup page) to add an email option. The respective
-CTAs stay hidden when unset; RSS is always offered.
+To enable the in-page email subscription form, set `EMAIL_API_KEY` in the
+Vercel environment. Optionally set `DIGEST_EMAIL_SIGNUP_URL` to use an external
+signup page instead, and `DIGEST_TELEGRAM_URL` to expose a public Telegram
+channel as a secondary option. Unconfigured channels stay hidden.
 
 Current web app behavior:
-- Subscribe is a first-class action: a 🔔 menu in the feed header offers
-  RSS (`/rss.xml`, always), the Telegram digest, and email signup (when
-  configured). Returning visitors get a one-time dismissible subscribe nudge
+- Subscribe is a first-class action: a 🔔 menu in the feed header offers the
+  email digest and, when configured, Telegram as a secondary channel. All
+  user-facing subscription links route to `/#subscribe`. Returning visitors
+  get a one-time dismissible subscribe nudge
   after the 3rd story (first visits get topic onboarding instead). Events:
   `subscribe_menu_open`, `subscribe_click` (channel + placement),
   `subscribe_nudge_dismiss`. All pages carry RSS autodiscovery for `/rss.xml`.
