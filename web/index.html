@@ -769,13 +769,13 @@
           <li><a href="/storylines">Storylines</a> — follow a developing story day by day.</li>
           <li><a href="/map">Knowledge map</a> — agent-engineering obstacles mapped to solutions.</li>
           <li><a href="/voices">Voices</a> — influential AI engineers and their writing.</li>
-          <li><a href="/rss.xml">RSS feed</a> · <a href="/api/feed">JSON feed</a></li>
+          <li><a href="/#subscribe">Email digest</a> · <a href="/api/feed">JSON feed</a></li>
         </ul>
       </noscript>
     </section>
 
     <footer class="sitefooter">
-      <a href="/rss.xml" data-subscribe-channel="rss" data-subscribe-placement="footer">RSS feed</a> · <a href="/api/feed">JSON feed</a>
+      <a href="#subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -1335,31 +1335,24 @@
       return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now()}`;
     }
 
-    // Daily digest subscription (growth loop): a public Telegram channel URL
-    // and optional email signup page from /api/client-config. Channel CTAs
-    // render only when configured, so the UI carries no dead "subscribe"
-    // affordances on unconfigured deploys. RSS is always available.
+    // Daily digest subscription (growth loop): email is the primary channel,
+    // with an optional public Telegram channel from /api/client-config.
+    // Channel CTAs render only when configured.
     let digestTelegramUrl = '';
     let emailSignupUrl = '';
     let emailSubscribeEnabled = false;
 
     function subscribeChannels() {
-      const channels = [
-        { channel: 'rss', href: '/rss.xml', label: '📡 RSS feed', desc: 'Every story, in your reader' },
-      ];
+      const channels = [];
+      if (emailSignupUrl) {
+        channels.push({ channel: 'email', href: emailSignupUrl, label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox', external: true });
+      } else if (emailSubscribeEnabled) {
+        channels.push({ channel: 'email', href: '#subscribe', label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox' });
+      }
       if (digestTelegramUrl) {
         channels.push({ channel: 'telegram', href: digestTelegramUrl, label: '📬 Telegram daily digest', desc: 'Top stories, once a day', external: true });
       }
-      if (emailSignupUrl) {
-        channels.push({ channel: 'email', href: emailSignupUrl, label: '✉️ Email digest', desc: 'The recap, in your inbox', external: true });
-      }
       return channels;
-    }
-
-    function subscribeLinksHtml(placement) {
-      return subscribeChannels().map((c) =>
-        `<a href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="${esc(placement)}">${c.label}${c.desc ? `<span class="sub-desc">${esc(c.desc)}</span>` : ''}</a>`
-      ).join('');
     }
 
     // In-page email form (Resend via /api/subscribe), shown only when the deploy
@@ -1436,12 +1429,17 @@
       const btn = document.getElementById('subscribeToggle');
       if (!menu || !btn) return;
       if (open) {
-        // Email-first: the in-page form is the primary call to action; RSS and
-        // any external channels drop below an "Other ways to follow" divider.
+        // Email-first: the in-page form is the primary call to action; any
+        // external channels drop below an "Other ways to follow" divider.
         const inPageEmail = showInPageEmailForm();
-        const links = subscribeLinksHtml('menu');
+        const linkChannels = inPageEmail
+          ? subscribeChannels().filter((c) => c.channel !== 'email')
+          : subscribeChannels();
+        const links = linkChannels.map((c) =>
+          `<a href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="menu">${c.label}${c.desc ? `<span class="sub-desc">${esc(c.desc)}</span>` : ''}</a>`
+        ).join('');
         menu.innerHTML = inPageEmail
-          ? emailFormHtml('menu') + '<div class="sub-other">Other ways to follow</div>' + links
+          ? emailFormHtml('menu') + (links ? '<div class="sub-other">Other ways to follow</div>' + links : '')
           : links;
         const form = menu.querySelector('.sub-email-form');
         if (form) form.addEventListener('submit', (e) => { e.preventDefault(); onSubscribeSubmit(form); });
@@ -1465,6 +1463,14 @@
       });
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') setSubscribeMenuOpen(false);
+      });
+    }
+
+    function openEmailSubscribeFromHash() {
+      if (location.hash !== '#subscribe') return;
+      setSubscribeMenuOpen(true);
+      requestAnimationFrame(() => {
+        document.querySelector('#subscribeMenu input[name="email"]')?.focus();
       });
     }
 
@@ -1529,6 +1535,7 @@
         const em = String(cfg?.digest?.email_signup_url || '');
         if (safeUrl(em) !== '#' && em) emailSignupUrl = em;
         emailSubscribeEnabled = !!(cfg?.digest?.email_subscribe_enabled);
+        openEmailSubscribeFromHash();
         if (digestTelegramUrl) {
           renderDigestCtas();
           // The catch-up brief includes a subscribe link; re-render so it
@@ -2390,11 +2397,18 @@
       });
       // Any channel click retires the returning-visitor nudge.
       if (a.dataset.subscribePlacement === 'nudge') markSubscribeNudgeDone();
+      if (a.getAttribute('href') === '#subscribe') {
+        e.preventDefault();
+        if (location.hash !== '#subscribe') history.pushState(null, '', '#subscribe');
+        openEmailSubscribeFromHash();
+        return;
+      }
       setSubscribeMenuOpen(false);
     });
 
     initThemeToggle();
     initSubscribeMenu();
+    window.addEventListener('hashchange', openEmailSubscribeFromHash);
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
