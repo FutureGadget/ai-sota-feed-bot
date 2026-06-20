@@ -11,7 +11,7 @@ Focus: AI Platform Engineering
 ## 2. Show HN: I built a middleware agent that turns PLC data into REST/gRPC APIs
 - Type: news | Source: hackernews_ai
 - URL: https://limenedge.com/docs/getting-started
-- Score: 3.047 | Reliability: 1.0
+- Score: 3.045 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. codex 0.142.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.7
-- Score: 2.303 | Reliability: 1.0
+- Score: 2.301 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
