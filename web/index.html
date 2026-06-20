@@ -114,6 +114,12 @@
       background: var(--card);
       cursor: pointer;
     }
+    #subscribeToggle {
+      white-space: nowrap;
+    }
+    .subscribe-toggle-icon {
+      margin-right: 0.22rem;
+    }
     #meta {
       margin: 0.35rem 0 0;
       font-size: 0.86rem;
@@ -701,6 +707,12 @@
       .h1-sub {
         display: none;
       }
+      .subscribe-toggle-label {
+        display: none;
+      }
+      .subscribe-toggle-icon {
+        margin-right: 0;
+      }
       .thumb {
         width: 64px;
         height: 64px;
@@ -715,7 +727,7 @@
         <h1>📰 LLM Digest <span class="h1-sub">— AI news for platform engineers</span></h1>
         <div class="topbar-actions">
           <div class="subscribe-wrap">
-            <button id="subscribeToggle" type="button" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" aria-haspopup="true" aria-expanded="false">🔔</button>
+            <button id="subscribeToggle" type="button" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" aria-haspopup="true" aria-expanded="false"><span class="subscribe-toggle-icon" aria-hidden="true">✉️</span><span class="subscribe-toggle-label">Subscribe</span></button>
             <div id="subscribeMenu" class="subscribe-menu" hidden></div>
           </div>
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
@@ -769,13 +781,13 @@
           <li><a href="/storylines">Storylines</a> — follow a developing story day by day.</li>
           <li><a href="/map">Knowledge map</a> — agent-engineering obstacles mapped to solutions.</li>
           <li><a href="/voices">Voices</a> — influential AI engineers and their writing.</li>
-          <li><a href="/#subscribe">Email digest</a> · <a href="/api/feed">JSON feed</a></li>
+          <li><a href="/subscribe">Email digest</a> · <a href="/api/feed">JSON feed</a></li>
         </ul>
       </noscript>
     </section>
 
     <footer class="sitefooter">
-      <a href="#subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -1336,17 +1348,16 @@
     }
 
     // Daily digest subscription (growth loop): email is the primary channel.
-    // The CTA renders only when email is configured.
+    // The canonical CTA is always available; provider config decides whether
+    // the homepage popover can render its inline form.
     let emailSignupUrl = '';
     let emailSubscribeEnabled = false;
+    const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
 
     function subscribeChannels() {
-      const channels = [];
-      if (emailSignupUrl) {
-        channels.push({ channel: 'email', href: emailSignupUrl, label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox', external: true });
-      } else if (emailSubscribeEnabled) {
-        channels.push({ channel: 'email', href: '#subscribe', label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox' });
-      }
+      const channels = [
+        { channel: 'email', href: '/subscribe', label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox' },
+      ];
       return channels;
     }
 
@@ -1396,6 +1407,7 @@
           setMsg("✅ You're subscribed. See you tomorrow morning.", 'ok');
           if (emailInput) emailInput.disabled = true;
           if (btn) btn.remove();
+          markEmailSubscribed();
           posthogCapture('subscribe_email', { placement });
         } else if (r.status === 400) {
           setMsg('Please enter a valid email.', 'err');
@@ -1461,14 +1473,6 @@
       });
     }
 
-    function openEmailSubscribeFromHash() {
-      if (location.hash !== '#subscribe') return;
-      setSubscribeMenuOpen(true);
-      requestAnimationFrame(() => {
-        document.querySelector('#subscribeMenu input[name="email"]')?.focus();
-      });
-    }
-
     // Reciprocity, stated plainly: when reader clicks/feedback have produced
     // real ranking adjustments (pipeline/auto_tune.py via the feed API's
     // reader_tuning block), say so in the footer with honest counts. Renders
@@ -1504,7 +1508,6 @@
         const em = String(cfg?.digest?.email_signup_url || '');
         if (safeUrl(em) !== '#' && em) emailSignupUrl = em;
         emailSubscribeEnabled = !!(cfg?.digest?.email_subscribe_enabled);
-        openEmailSubscribeFromHash();
 
         const ph = cfg?.posthog || {};
         if (!ph.enabled || !ph.project_api_key) return;
@@ -1907,9 +1910,24 @@
     // visitLastMs), and any subscribe click or "Not now" retires the nudge.
     const SUBSCRIBE_NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
 
+    function isEmailSubscribed() {
+      try {
+        return localStorage.getItem(EMAIL_SUBSCRIBED_KEY) === '1';
+      } catch {
+        return false;
+      }
+    }
+
+    function markEmailSubscribed() {
+      try {
+        localStorage.setItem(EMAIL_SUBSCRIBED_KEY, '1');
+      } catch {}
+      markSubscribeNudgeDone();
+    }
+
     function isSubscribeNudgeDone() {
       try {
-        return localStorage.getItem(SUBSCRIBE_NUDGE_DONE_KEY) === '1';
+        return isEmailSubscribed() || localStorage.getItem(SUBSCRIBE_NUDGE_DONE_KEY) === '1';
       } catch {
         return true;
       }
@@ -2360,18 +2378,11 @@
       });
       // Any channel click retires the returning-visitor nudge.
       if (a.dataset.subscribePlacement === 'nudge') markSubscribeNudgeDone();
-      if (a.getAttribute('href') === '#subscribe') {
-        e.preventDefault();
-        if (location.hash !== '#subscribe') history.pushState(null, '', '#subscribe');
-        openEmailSubscribeFromHash();
-        return;
-      }
       setSubscribeMenuOpen(false);
     });
 
     initThemeToggle();
     initSubscribeMenu();
-    window.addEventListener('hashchange', openEmailSubscribeFromHash);
     readFiltersFromUrl();
     initFilters();
     initClickTracking();

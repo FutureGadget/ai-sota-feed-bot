@@ -1,5 +1,26 @@
 # Decision Log
 
+## 2026-06-21 (Dedicated canonical email-subscription page)
+- **Decision:** Add `/subscribe` as the canonical email acquisition surface and
+  route every promoted email CTA there. Keep the homepage popover's inline form
+  as a fast path, label its trigger “✉️ Subscribe” on wider screens, and add
+  contextual signup prompts to daily and weekly recaps. Successful signup sets
+  `ai_feed_email_subscribed_v1=1` in local storage and retires the returning
+  reader nudge. `/rss.xml` and RSS autodiscovery remain supported but are not
+  restored as visible competing subscription CTAs.
+- **Rationale:** `/#subscribe` only worked by loading the live feed, fetching
+  client configuration, opening a small popover, and focusing its form. Readers
+  arriving through recaps, storylines, permalinks, or search needed a stable,
+  explanatory destination with a full-size form and clear frequency/privacy
+  expectations.
+- **Impact:** New `web/subscribe.html` and `/subscribe` rewrite; page shells and
+  generated navigation/footer links use the canonical route; daily/weekly pages
+  include contextual CTAs; the sitemap includes `/subscribe`. The existing
+  `/api/subscribe` and `/api/client-config` contracts are unchanged.
+- **Rollback:** Remove the rewrite/page and sitemap row, restore `/#subscribe`
+  links, and remove the recap CTA blocks. No provider or subscriber migration
+  is required.
+
 ## 2026-06-21 (Email replaces RSS in user-facing subscription CTAs)
 - **Decision:** Route every user-facing subscription CTA to `/#subscribe`, which
   opens the email signup surface on the live feed. Remove RSS from the subscribe

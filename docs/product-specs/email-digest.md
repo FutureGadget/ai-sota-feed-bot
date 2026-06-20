@@ -126,13 +126,16 @@ is no wiki high-water mark.
     Resend contacts are global, so **registration needs only `EMAIL_API_KEY`**,
     no segment id (sending targets a Segment, formerly "Audience").
     `api/client-config.js`
-    exposes `digest.email_subscribe_enabled`, and the 🔔 menu in
-    `web/index.html` renders an inline email form as its **primary** action when
-    it is true (configured external channels drop below an "Other ways to
-    follow" divider). All user-facing subscription CTAs on static and dynamic
-    pages route to `/#subscribe`; RSS remains available through autodiscovery
-    and its direct endpoint. Honeypot + email validation; single opt-in (Resend carries
-    unsubscribe). `/api/subscribe`
+    exposes `digest.email_subscribe_enabled`. The canonical `/subscribe` page
+    renders the form when it is true, or links to
+    `digest.email_signup_url` when an external provider is configured. The
+    homepage subscribe menu keeps the same inline form as a fast path. All
+    other user-facing subscription CTAs route to `/subscribe`; RSS remains
+    available through autodiscovery and its direct endpoint but is not promoted
+    as a competing subscription action. Successful in-page signup stores
+    `ai_feed_email_subscribed_v1=1` locally to suppress promotional nudges.
+    Honeypot + email validation; single opt-in (Resend carries unsubscribe).
+    `/api/subscribe`
     is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
@@ -155,6 +158,9 @@ is no wiki high-water mark.
 - Cursor round-trip: run twice against an unchanged tree ⇒ the second run emits
   **no** "Continuing threads" / "New in the knowledge map" (no repeats); advance
   a storyline's `last_updated` and confirm exactly that thread reappears.
-- `node --check api/subscribe.js` (when added); subscribe POST hits the provider
-  sandbox and returns a pending-confirmation state.
+- `node --check api/subscribe.js`; API tests cover invalid input, success,
+  duplicate/idempotent signup, provider failure, and network failure.
+- Render static pages and confirm subscription links resolve to `/subscribe`,
+  `/subscribe` is in the sitemap, and no generated page carries `/#subscribe`
+  or a visible RSS subscription CTA.
 - Confirm no email send is wired into `run_full.sh` / the hourly workflow.

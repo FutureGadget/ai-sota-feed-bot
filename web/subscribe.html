@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Email digest | LLM Digest</title>
+  <meta name="description" content="Get the finishable AI brief for platform engineers: a daily email and a weekly recap, with no infinite feed." />
+  <link rel="canonical" href="https://www.llm-digest.com/subscribe" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Get the LLM Digest email brief" />
+  <meta property="og:description" content="The finishable AI brief for platform engineers, delivered daily with a weekly recap." />
+  <meta property="og:url" content="https://www.llm-digest.com/subscribe" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #fff; --fg: #1a1a1a; --card: #fff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); line-height: 1.55; }
+    a { color: var(--accent); }
+    button, input { color: inherit; font: inherit; }
+    main { width: 100%; max-width: 680px; margin: 1rem auto; padding: 0 0.9rem 3rem; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    header a { text-decoration: none; }
+    #themeToggle { padding: 0.35rem 0.6rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; }
+    .hero { margin: 3rem 0 1.5rem; }
+    h1 { margin: 0 0 0.7rem; font-size: clamp(2rem, 7vw, 3.2rem); line-height: 1.08; }
+    .lede { margin: 0; color: var(--muted); font-size: 1.08rem; }
+    .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin: 1.5rem 0; }
+    .benefit { padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+    .benefit strong { display: block; margin-bottom: 0.2rem; }
+    .benefit span { color: var(--muted); font-size: 0.9rem; }
+    .signup { border: 1px solid var(--border); border-radius: 14px; background: var(--card); padding: 1.2rem; }
+    .signup h2 { margin: 0 0 0.25rem; font-size: 1.25rem; }
+    .signup > p { margin: 0 0 1rem; color: var(--muted); }
+    form { display: flex; gap: 0.55rem; align-items: flex-start; }
+    input[type="email"] { width: 100%; min-width: 0; padding: 0.7rem 0.75rem; border: 1px solid var(--border); border-radius: 9px; background: var(--bg); }
+    button[type="submit"], .external-signup { min-height: 44px; padding: 0.65rem 1rem; border: 1px solid var(--accent); border-radius: 9px; background: var(--accent); color: #fff; font-weight: 650; cursor: pointer; text-decoration: none; white-space: nowrap; }
+    button[disabled] { opacity: 0.6; cursor: default; }
+    .message { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--muted); }
+    .message[data-state="ok"] { color: var(--accent); }
+    .message[data-state="err"] { color: #b42318; }
+    .privacy { margin-top: 0.8rem; font-size: 0.85rem; color: var(--muted); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.9rem; }
+    @media (max-width: 620px) {
+      .hero { margin-top: 2rem; }
+      .benefits { grid-template-columns: 1fr; }
+      form { flex-direction: column; }
+      button[type="submit"] { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <a href="/">← LLM Digest</a>
+      <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+    </header>
+
+    <section class="hero">
+      <h1>Get the finishable AI brief.</h1>
+      <p class="lede">The important model, infrastructure, agent-tooling, and research updates for platform engineers—ranked, deduplicated, and designed to end.</p>
+    </section>
+
+    <section class="benefits" aria-label="What subscribers receive">
+      <div class="benefit"><strong>Daily brief</strong><span>The highest-signal updates without an infinite feed.</span></div>
+      <div class="benefit"><strong>Weekly recap</strong><span>Friday context for anything you missed.</span></div>
+      <div class="benefit"><strong>Low-hype</strong><span>One transparent ranking, optimized for platform engineers.</span></div>
+    </section>
+
+    <section class="signup" aria-labelledby="signupTitle">
+      <h2 id="signupTitle">Email digest</h2>
+      <p>Daily brief plus weekly recap. Unsubscribe anytime.</p>
+      <div id="signupSurface">
+        <p class="message" role="status">Checking subscription availability…</p>
+      </div>
+      <noscript><p class="message">JavaScript is required to submit the subscription form.</p></noscript>
+    </section>
+
+    <footer>
+      Your address is stored by the email provider, not in this public repository.
+      <a href="/">Return to the live feed</a>.
+    </footer>
+  </main>
+
+  <script>
+    const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
+    const NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
+
+    function safeExternalUrl(value) {
+      try {
+        const url = new URL(String(value || ''));
+        return url.protocol === 'https:' ? url.href : '';
+      } catch {
+        return '';
+      }
+    }
+
+    function markSubscribed() {
+      try {
+        localStorage.setItem(EMAIL_SUBSCRIBED_KEY, '1');
+        localStorage.setItem(NUDGE_DONE_KEY, '1');
+      } catch {}
+    }
+
+    function formHtml() {
+      return `<form id="subscribeForm" novalidate>
+        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email" inputmode="email" />
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">Subscribe</button>
+      </form>
+      <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
+      <p class="privacy">No account required. Every email includes an unsubscribe link.</p>`;
+    }
+
+    function setMessage(text, state) {
+      const msg = document.getElementById('formMessage');
+      if (!msg) return;
+      msg.textContent = text;
+      msg.dataset.state = state || '';
+      msg.hidden = !text;
+    }
+
+    async function submitForm(form) {
+      const emailInput = form.elements.email;
+      const button = form.querySelector('button[type="submit"]');
+      const email = String(emailInput.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMessage('Please enter a valid email address.', 'err');
+        emailInput.focus();
+        return;
+      }
+      button.disabled = true;
+      setMessage('Subscribing…', '');
+      try {
+        const response = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, hp: String(form.elements.website.value || '') }),
+        });
+        if (response.ok) {
+          markSubscribed();
+          emailInput.disabled = true;
+          button.remove();
+          setMessage("You’re subscribed. The next brief will arrive by email.", 'ok');
+          return;
+        }
+        if (response.status === 400) {
+          setMessage('Please enter a valid email address.', 'err');
+        } else {
+          setMessage('Subscription is temporarily unavailable. Please try again shortly.', 'err');
+        }
+      } catch {
+        setMessage('Network error. Check your connection and try again.', 'err');
+      }
+      button.disabled = false;
+    }
+
+    async function initSignup() {
+      const surface = document.getElementById('signupSurface');
+      try {
+        const response = await fetch('/api/client-config', { headers: { accept: 'application/json' } });
+        if (!response.ok) throw new Error('config unavailable');
+        const config = await response.json();
+        const externalUrl = safeExternalUrl(config?.digest?.email_signup_url);
+        if (externalUrl) {
+          surface.innerHTML = `<a class="external-signup" href="${externalUrl}" target="_blank" rel="noopener">Continue to email signup →</a>
+            <p class="privacy">Signup and subscription preferences are managed by our email provider.</p>`;
+          return;
+        }
+        if (config?.digest?.email_subscribe_enabled) {
+          surface.innerHTML = formHtml();
+          const form = document.getElementById('subscribeForm');
+          form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            submitForm(form);
+          });
+          form.elements.email.focus();
+          return;
+        }
+      } catch {}
+      surface.innerHTML = '<p class="message" data-state="err" role="status">Email signup is temporarily unavailable. Please check back soon.</p>';
+    }
+
+    const themeButton = document.getElementById('themeToggle');
+    applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+    themeButton.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'light';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    initSignup();
+  </script>
+</body>
+</html>
