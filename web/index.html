@@ -106,6 +106,7 @@
       flex-shrink: 0;
     }
     .topbar-actions button,
+    .topbar-actions a#subscribeToggle,
     .topbar-actions select {
       font-size: 0.92rem;
       padding: 0.3rem 0.5rem;
@@ -115,7 +116,11 @@
       cursor: pointer;
     }
     #subscribeToggle {
+      display: inline-flex;
+      align-items: center;
       white-space: nowrap;
+      text-decoration: none;
+      color: inherit;
     }
     .subscribe-toggle-icon {
       margin-right: 0.22rem;
@@ -502,100 +507,6 @@
     .catchup-more a:hover {
       text-decoration: underline;
     }
-    .subscribe-wrap {
-      position: relative;
-    }
-    /* display:flex would override the UA's [hidden]{display:none} — keep the
-       closed state authoritative or the empty popover renders permanently. */
-    .subscribe-menu[hidden] {
-      display: none;
-    }
-    .subscribe-menu {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 6px);
-      min-width: 240px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.4rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-      z-index: 50;
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      text-align: left;
-    }
-    .subscribe-menu a {
-      display: block;
-      padding: 0.45rem 0.6rem;
-      border-radius: 8px;
-      text-decoration: none;
-      color: inherit;
-      font-size: 0.92rem;
-      white-space: nowrap;
-    }
-    .subscribe-menu a:hover {
-      background: color-mix(in srgb, var(--accent) 12%, transparent);
-    }
-    .subscribe-menu .sub-desc {
-      display: block;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
-    .sub-email-form {
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      padding: 0.45rem 0.6rem 0.5rem;
-    }
-    .subscribe-menu .sub-other {
-      font-size: 0.78rem;
-      color: var(--muted);
-      padding: 0.4rem 0.6rem 0.2rem;
-      border-top: 1px solid var(--border);
-      margin-top: 0.2rem;
-    }
-    .sub-email-form .sub-email-label {
-      font-size: 0.92rem;
-    }
-    .sub-email-form input[type="email"] {
-      padding: 0.4rem 0.5rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg, transparent);
-      color: inherit;
-      font-size: 0.9rem;
-    }
-    .sub-email-form button {
-      padding: 0.4rem 0.6rem;
-      border: 1px solid var(--accent);
-      border-radius: 8px;
-      background: color-mix(in srgb, var(--accent) 14%, transparent);
-      color: inherit;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-    .sub-email-form button[disabled] {
-      opacity: 0.6;
-      cursor: default;
-    }
-    /* Honeypot — kept in the layout flow but off-screen for humans, visible to
-       form-filling bots. Never display:none (some bots skip hidden fields). */
-    .sub-hp {
-      position: absolute;
-      left: -9999px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-    }
-    .sub-msg {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-    .sub-msg[data-state="ok"] {
-      color: var(--accent);
-    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -726,10 +637,7 @@
       <div class="topbar">
         <h1>📰 LLM Digest <span class="h1-sub">— AI news for platform engineers</span></h1>
         <div class="topbar-actions">
-          <div class="subscribe-wrap">
-            <button id="subscribeToggle" type="button" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" aria-haspopup="true" aria-expanded="false"><span class="subscribe-toggle-icon" aria-hidden="true">✉️</span><span class="subscribe-toggle-label">Subscribe</span></button>
-            <div id="subscribeMenu" class="subscribe-menu" hidden></div>
-          </div>
+          <a id="subscribeToggle" href="/subscribe" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="topbar"><span class="subscribe-toggle-icon" aria-hidden="true">✉️</span><span class="subscribe-toggle-label">Subscribe</span></a>
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
           <select id="rangeSelect" aria-label="Time range">
             <option value="1">Today</option>
@@ -1348,10 +1256,7 @@
     }
 
     // Daily digest subscription (growth loop): email is the primary channel.
-    // The canonical CTA is always available; provider config decides whether
-    // the homepage popover can render its inline form.
-    let emailSignupUrl = '';
-    let emailSubscribeEnabled = false;
+    // The canonical CTA links to the dedicated /subscribe page.
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
 
     function subscribeChannels() {
@@ -1359,118 +1264,6 @@
         { channel: 'email', href: '/subscribe', label: '✉️ Email digest', desc: 'Daily brief + weekly recap, in your inbox' },
       ];
       return channels;
-    }
-
-    // In-page email form (Resend via /api/subscribe), shown only when the deploy
-    // has the provider creds and no external signup page is configured. Single
-    // opt-in; the honeypot input traps form-filling bots.
-    function showInPageEmailForm() {
-      return emailSubscribeEnabled && !emailSignupUrl;
-    }
-
-    function emailFormHtml(placement) {
-      return `<form class="sub-email-form" data-subscribe-channel="email" data-subscribe-placement="${esc(placement)}" novalidate>
-        <span class="sub-email-label">✉️ Email digest<span class="sub-desc">Daily brief + weekly recap, in your inbox</span></span>
-        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email" inputmode="email" />
-        <input type="text" name="website" class="sub-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit">Subscribe</button>
-        <div class="sub-msg" role="status" aria-live="polite" hidden></div>
-      </form>`;
-    }
-
-    async function onSubscribeSubmit(form) {
-      const placement = form.getAttribute('data-subscribe-placement') || 'menu';
-      const emailInput = form.querySelector('input[name="email"]');
-      const hp = form.querySelector('input[name="website"]');
-      const btn = form.querySelector('button[type="submit"]');
-      const msg = form.querySelector('.sub-msg');
-      const email = (emailInput && emailInput.value || '').trim();
-      const setMsg = (text, state) => {
-        if (!msg) return;
-        msg.textContent = text;
-        msg.dataset.state = state || '';
-        msg.hidden = !text;
-      };
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        setMsg('Please enter a valid email.', 'err');
-        return;
-      }
-      if (btn) btn.disabled = true;
-      setMsg('Subscribing…', '');
-      try {
-        const r = await fetch('/api/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, hp: hp ? hp.value : '' }),
-        });
-        if (r.ok) {
-          setMsg("✅ You're subscribed. See you tomorrow morning.", 'ok');
-          if (emailInput) emailInput.disabled = true;
-          if (btn) btn.remove();
-          markEmailSubscribed();
-          posthogCapture('subscribe_email', { placement });
-        } else if (r.status === 400) {
-          setMsg('Please enter a valid email.', 'err');
-          if (btn) btn.disabled = false;
-        } else {
-          // Surface the upstream provider status to speed up diagnosis (e.g. a
-          // Sending-access Resend key returns 401 on the contacts endpoint).
-          let info = '';
-          try {
-            const j = await r.json();
-            console.error('subscribe failed', r.status, j);
-            if (j && j.status) info = ` (provider ${j.status})`;
-            else if (j && j.error) info = ` (${j.error})`;
-          } catch {}
-          setMsg(`Something went wrong${info} — please try again.`, 'err');
-          if (btn) btn.disabled = false;
-        }
-      } catch {
-        setMsg('Network error — please try again.', 'err');
-        if (btn) btn.disabled = false;
-      }
-    }
-
-    function setSubscribeMenuOpen(open) {
-      const menu = document.getElementById('subscribeMenu');
-      const btn = document.getElementById('subscribeToggle');
-      if (!menu || !btn) return;
-      if (open) {
-        // Email-first: the in-page form is the primary call to action; any
-        // external channels drop below an "Other ways to follow" divider.
-        const inPageEmail = showInPageEmailForm();
-        const linkChannels = inPageEmail
-          ? subscribeChannels().filter((c) => c.channel !== 'email')
-          : subscribeChannels();
-        const links = linkChannels.map((c) =>
-          `<a href="${esc(c.href)}"${c.external ? ' target="_blank" rel="noopener"' : ''} data-subscribe-channel="${esc(c.channel)}" data-subscribe-placement="menu">${c.label}${c.desc ? `<span class="sub-desc">${esc(c.desc)}</span>` : ''}</a>`
-        ).join('');
-        menu.innerHTML = inPageEmail
-          ? emailFormHtml('menu') + (links ? '<div class="sub-other">Other ways to follow</div>' + links : '')
-          : links;
-        const form = menu.querySelector('.sub-email-form');
-        if (form) form.addEventListener('submit', (e) => { e.preventDefault(); onSubscribeSubmit(form); });
-      }
-      menu.hidden = !open;
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) {
-        const channels = subscribeChannels().map((c) => c.channel);
-        if (showInPageEmailForm()) channels.push('email');
-        posthogCapture('subscribe_menu_open', { channels });
-      }
-    }
-
-    function initSubscribeMenu() {
-      const btn = document.getElementById('subscribeToggle');
-      const menu = document.getElementById('subscribeMenu');
-      if (!btn || !menu) return;
-      btn.addEventListener('click', () => setSubscribeMenuOpen(menu.hidden));
-      document.addEventListener('click', (e) => {
-        if (!menu.hidden && !e.target.closest('.subscribe-wrap')) setSubscribeMenuOpen(false);
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') setSubscribeMenuOpen(false);
-      });
     }
 
     // Reciprocity, stated plainly: when reader clicks/feedback have produced
@@ -1504,10 +1297,6 @@
         const res = await fetch('/api/client-config');
         if (!res.ok) return;
         const cfg = await res.json();
-
-        const em = String(cfg?.digest?.email_signup_url || '');
-        if (safeUrl(em) !== '#' && em) emailSignupUrl = em;
-        emailSubscribeEnabled = !!(cfg?.digest?.email_subscribe_enabled);
 
         const ph = cfg?.posthog || {};
         if (!ph.enabled || !ph.project_api_key) return;
@@ -2362,7 +2151,7 @@
     }
 
     // Subscribe CTAs live in several places (quicknav, catch-up brief, footer,
-    // subscribe menu, returning-visitor nudge); document-level listeners
+    // topbar button, returning-visitor nudge); document-level listeners
     // attribute clicks by placement.
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-digest-cta]');
@@ -2378,11 +2167,9 @@
       });
       // Any channel click retires the returning-visitor nudge.
       if (a.dataset.subscribePlacement === 'nudge') markSubscribeNudgeDone();
-      setSubscribeMenuOpen(false);
     });
 
     initThemeToggle();
-    initSubscribeMenu();
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
