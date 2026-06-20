@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6]
-updated: 2026-06-19
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1]
+updated: 2026-06-20
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1]
 ---
 
 ## TL;DR
@@ -27,14 +27,21 @@ Target" shows the guardrail's own reasoning can be turned into a denial-of-servi
 vector against the protected agent. The center of gravity is therefore moving to
 **authorization**: scope what each tool/connector can do and provision it
 centrally — e.g. identity-provider-managed MCP connector auth — so permissions
-are explicit and revocable rather than ambient. Least privilege plus human
-approval on the few actions that really matter is the most durable control.
+are explicit and revocable rather than ambient. Two reinforcing moves are
+pushing this further: treating each agent as a **non-human identity** with its
+own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a
+human's session), and pushing isolation **down into the OS** — Microsoft positions
+Windows as a trust base for agents with a dedicated Execution Container so the
+sandbox is an OS-enforced boundary, not just a process wrapper. Least privilege
+plus human approval on the few actions that really matter is the most durable
+control.
 
 ## What's new
-The framing has flipped from "add a guardrail/sandbox" to "those are necessary
-but insufficient": sandboxes are shown not to address credential authorization,
-guardrails can be weaponized into DoS, so emphasis shifts to scoped, centrally
-governed permissions as the load-bearing defense.
+The defense is climbing the stack on both ends: down into the OS (Windows'
+Execution Container as an OS-enforced agent sandbox) and up into identity (each
+agent provisioned and audited as a first-class non-human identity) — converging
+on scoped, centrally governed, revocable permissions rather than guardrails or
+process sandboxes alone.
 
 ## Trade-offs
 More isolation and tighter scopes mean more friction: approval gates add latency

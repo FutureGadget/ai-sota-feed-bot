@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4]
-updated: 2026-06-19
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd]
+updated: 2026-06-20
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd]
 ---
 
 ## TL;DR
@@ -31,13 +31,19 @@ tokens that injected instructions can abuse. The threat compounds in multi-agent
 systems, where one compromised agent's output is another's trusted input; new
 benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent
 (indirect) prompt-injection exposure. The durable lesson is **least privilege**:
-scope what the agent can touch so a hijack has a small blast radius.
+scope what the agent can touch so a hijack has a small blast radius — and the
+operational framing is consolidating around **agent-as-identity**: an autonomous
+agent holds credentials and takes actions, so it is a non-human identity that
+needs the same lifecycle, scoping, and audit as a service account. Security teams
+warn that most organizations don't yet treat agents that way, leaving an
+ungoverned class of actors with standing privileges that injection can borrow.
 
 ## What's new
-Defenses are being shown to be brittle from two directions at once: guardrail
-models can be turned into a DoS vector, and sandboxing is reframed as not solving
-credential authorization at all — pushing the emphasis from "filter the prompt"
-toward scoping permissions and measuring multi-agent injection exposure directly.
+The emphasis is moving up the stack from "filter the prompt" to "govern the
+actor": guardrails can be turned into a DoS vector and sandboxes don't solve
+credential authorization, while a parallel push reframes every agent as a
+first-class **identity** to be provisioned, scoped, and audited like a service
+account — closing the gap injection exploits when agents hold ambient privilege.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

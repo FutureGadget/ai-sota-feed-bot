@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d]
-updated: 2026-06-18
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8]
+updated: 2026-06-20
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8]
 ---
 
 ## TL;DR
@@ -25,12 +25,20 @@ open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory
 layers with different stances on graph vs. vector vs. hybrid. Strong results are
 achievable without an LLM in the recall path (a local store hitting high
 LongMemEval recall), underscoring that retrieval quality is an engineering
-problem, not a model-scale one.
+problem, not a model-scale one. The category is also being challenged from
+outside vectors entirely: bi-temporal relational stores (Memharness, a single
+SQLite file) lean on time and structure rather than embeddings, and
+vector-symbolic / algebraic memory (VSA) proposes binding and bundling
+operations *instead of* RAG-style nearest-neighbour lookup. The shared claim is
+that for an agent's facts-and-preferences memory, exact, structured, temporally
+aware recall often beats fuzzy similarity.
 
 ## What's new
-The conversation has shifted from "add a vector DB" to "vector search alone
-isn't enough" — hybrid retrieval and graph structure are now the default
-recommendation for agent memory rather than an optimization.
+The "is a vector DB even the right primitive" question is now live: alongside
+hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores
+(Memharness) and algebraic/vector-symbolic memory positioned explicitly as a
+RAG alternative (VSA) — argue that structured, exact recall can outperform
+embedding similarity for agent memory.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall

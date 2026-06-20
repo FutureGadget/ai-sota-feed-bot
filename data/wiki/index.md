@@ -6,6 +6,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 
 ## Obstacles by area
 
+### cost
+- [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away
+  → solutions: cost-controls, context-compaction, agent-orchestration
+
 ### evaluation
 - [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard
   → solutions: llm-as-judge, agent-benchmarks
@@ -31,6 +35,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses
 - [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails
 - [context-compaction](solutions/context-compaction.md) — Summarize, compress, and curate the working set
+- [cost-controls](solutions/cost-controls.md) — Budgets, metering, and per-task cost attribution
 - [llm-as-judge](solutions/llm-as-judge.md) — Model-graded evaluation of traces and outputs
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools
 - [vector-kb](solutions/vector-kb.md) — External knowledge base: vector and graph retrieval

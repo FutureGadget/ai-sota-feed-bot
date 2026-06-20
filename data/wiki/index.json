@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-19T10:01:52.409183+00:00",
+ "generated_at": "2026-06-20T02:09:32.889255+00:00",
  "areas": [
   {
    "area": "memory",
@@ -30,6 +30,13 @@
    ]
   },
   {
+   "area": "cost",
+   "label": "Cost",
+   "obstacles": [
+    "agent-cost"
+   ]
+  },
+  {
    "area": "security",
    "label": "Security & safety",
    "obstacles": [
@@ -38,6 +45,75 @@
   }
  ],
  "nodes": {
+  "agent-cost": {
+   "slug": "agent-cost",
+   "kind": "obstacle",
+   "title": "Agent token costs are unpredictable and easily run away",
+   "area": "cost",
+   "status": "active",
+   "summary": "A chatbot turn costs a predictable number of tokens; an agent can loop, re-read\nits whole context every step, spawn sub-agents, and call a model to grade its\nown work — so the bill is a function of *behavior*, not request count, and a\nsingle misbehaving run or a topology choice can multiply spend without anyone\nnoticing until the invoice arrives. Cost is the run-time obstacle that the\nbuild-time decisions (memory, multi-agent, eval) silently determine.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>A chatbot turn costs a predictable number of tokens; an agent can loop, re-read its whole context every step, spawn sub-agents, and call a model to grade its own work — so the bill is a function of *behavior*, not request count, and a single misbehaving run or a topology choice can multiply spend without anyone noticing until the invoice arrives. Cost is the run-time obstacle that the build-time decisions (memory, multi-agent, eval) silently determine.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Cost is being attacked on two fronts: <strong>making it visible</strong> and <strong>making it smaller</strong>. Visibility is moving from a monthly surprise to a first-class signal — enterprise platforms now ship usage analytics and hard spend controls (OpenAI&#x27;s enterprise spend caps), and developer tooling attributes cost down to the unit of work, e.g. showing how many agent tokens a single pull request consumed (Prtokens). The reduction side is the sum of the other obstacles&#x27; solutions: keeping the working set small via <a href=\"/topic/context-compaction\">context compaction</a> attacks the per-step token bill directly (the cost scales with context size); choosing a cheaper <a href=\"/topic/agent-orchestration\">orchestration</a> topology matters because the coordination structure dominates spend — Stanford&#x27;s DeLM reports cutting multi-agent task cost ~50% by dropping the central orchestrator; and even evaluation is a cost line item, which is why teams fine-tune small judges to cut trace-judging cost ~100×. Infra-level levers help too: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is the <strong>context cost of instructions themselves</strong> — every skill, hook, or subagent you add to steer an agent consumes context budget, so steering and cost are the same knob viewed from two sides.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Cost is becoming an explicit, measured surface rather than an after-the-fact invoice: enterprise spend caps and usage analytics, per-PR token-cost attribution (Prtokens), and a growing recognition that the cheapest lever is architectural — decentralized topologies (DeLM, ~50% off) and cheap fine-tuned judges (~100× off) rather than a smaller model alone.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is the obstacle that turns a working demo into an unaffordable product. The job is to make spend observable per task and per user, set budgets and caps before a loop runs away, and treat the architecture (compact vs. retrieve, single-agent vs. orchestrated, frontier vs. fine-tuned judge) as the primary cost control — because the biggest savings come from *how* the agent is built, not from shaving the model price. Cost, latency, and reliability trade against each other, so the deliverable is a cost model you can reason about, not a one-time optimization.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "agent-orchestration",
+     "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+    },
+    {
+     "slug": "context-compaction",
+     "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+     "slug": "cost-controls",
+     "title": "Cost controls: budgets, metering, and per-task attribution"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "450d5ccfb1602dc2",
+     "title": "New usage analytics and updated spend controls for enterprises"
+    },
+    {
+     "sid": "00f3793762a13f49",
+     "title": "Prtokens – See how much AI agent tokens cost a PR"
+    },
+    {
+     "sid": "e0a1d0978e9e8c3b",
+     "title": "Introducing container caching in Amazon SageMaker AI for faster model scaling"
+    },
+    {
+     "sid": "1c98fc492e1df243",
+     "title": "Steering Claude Code: skills, hooks, subagents and more | Claude"
+    },
+    {
+     "sid": "19e4caf222bfb0d9",
+     "title": "DeLM cuts multi-agent task costs without a central orchestrator"
+    },
+    {
+     "sid": "4235792e910ea51a",
+     "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    }
+   ],
+   "updated": "2026-06-20"
+  },
   "agent-evaluation": {
    "slug": "agent-evaluation",
    "kind": "obstacle",
@@ -122,11 +198,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. Managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) signal that this is moving from bespoke code to buy-able infrastructure, which sharpens a build-vs-buy decision for teams.</p>"
+     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Recent sources push two directions at once: managed persistent-memory services (Cloudflare) lowering the ops bar, and a survey of open agent-memory stacks (Letta, Mem0, Graphiti, Cognee) showing the DIY ecosystem maturing around graph- and vector-backed designs.</p>"
+     "html": "<p>A wave of local-first, single-file agent-memory tools (Memharness&#x27;s bi-temporal SQLite store, Cortex&#x27;s encrypted local memory over MCP, Brain2.0&#x27;s curated project memory) reframes memory as an installable, developer-owned component — and pushes bi-temporal modeling (when a fact was true vs. when it was learned) as a recall primitive, not just embed-and-retrieve.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -166,9 +242,21 @@
     {
      "sid": "5c5003b8c444211d",
      "title": "Agent Memory Systems and Knowledge Graphs: Letta, Mem0, Graphiti, and Cognee"
+    },
+    {
+     "sid": "623de2bad771dca8",
+     "title": "Show HN: Memharness – Bi-temporal memory for AI agents, in one SQLite file"
+    },
+    {
+     "sid": "f472926ede32221b",
+     "title": "Show HN: Cortex – local-first encrypted memory for AI agents (Rust, MCP)"
+    },
+    {
+     "sid": "f6cf006fbdea0d5a",
+     "title": "Project Brain2.0–curated project memory for ClaudeCode(+ any file-reading agent)"
     }
    ],
-   "updated": "2026-06-18"
+   "updated": "2026-06-20"
   },
   "multi-agent": {
    "slug": "multi-agent",
@@ -241,11 +329,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius.</p>"
+     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius — and the operational framing is consolidating around <strong>agent-as-identity</strong>: an autonomous agent holds credentials and takes actions, so it is a non-human identity that needs the same lifecycle, scoping, and audit as a service account. Security teams warn that most organizations don&#x27;t yet treat agents that way, leaving an ungoverned class of actors with standing privileges that injection can borrow.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Defenses are being shown to be brittle from two directions at once: guardrail models can be turned into a DoS vector, and sandboxing is reframed as not solving credential authorization at all — pushing the emphasis from &quot;filter the prompt&quot; toward scoping permissions and measuring multi-agent injection exposure directly.</p>"
+     "html": "<p>The emphasis is moving up the stack from &quot;filter the prompt&quot; to &quot;govern the actor&quot;: guardrails can be turned into a DoS vector and sandboxes don&#x27;t solve credential authorization, while a parallel push reframes every agent as a first-class <strong>identity</strong> to be provisioned, scoped, and audited like a service account — closing the gap injection exploits when agents hold ambient privilege.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -272,9 +360,13 @@
     {
      "sid": "2f585fd257ad02a4",
      "title": "Coding Agent Sandboxes Don't Solve Credential Authorization"
+    },
+    {
+     "sid": "dd1dcc3f564a3ddd",
+     "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-20"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -290,11 +382,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The field is converging on a <strong>protocol layer</strong> rather than per-app glue: the Model Context Protocol (MCP) standardizes how tools are described, discovered, and called, so a Terraform server, a Webex server, or a browser can expose capabilities to any MCP-speaking agent. The argument has sharpened from &quot;wrap your REST API&quot; to &quot;agents need *infrastructure*, not SMS APIs&quot; — purpose-built, agent-native endpoints rather than human-oriented ones bolted on. The actuation surface is widening too: WebMCP is entering Chrome origin trials so sites can expose JavaScript functions and HTML forms directly to in-browser agents. Running this in production surfaces classic distributed-systems problems — bursty, stateful multi-tenancy and securing the execution sandbox — that the model&#x27;s tool-calling ability does nothing to solve.</p>"
+     "html": "<p>The field is converging on a <strong>protocol layer</strong> rather than per-app glue: the Model Context Protocol (MCP) standardizes how tools are described, discovered, and called, so a Terraform server, a Webex server, or a browser can expose capabilities to any MCP-speaking agent. The argument has sharpened from &quot;wrap your REST API&quot; to &quot;agents need *infrastructure*, not SMS APIs&quot; — purpose-built, agent-native endpoints rather than human-oriented ones bolted on. The actuation surface is widening too: WebMCP is entering Chrome origin trials so sites can expose JavaScript functions and HTML forms directly to in-browser agents, and cloud platforms are folding the whole tool-calling loop into their serverless runtimes — Azure Functions&#x27; agents runtime defines an agent in an <code>.agent.md</code> file with YAML triggers, MCP server access, 1,400+ connectors, and sandboxed execution. Running this in production surfaces classic distributed-systems problems — bursty, stateful multi-tenancy and securing the execution sandbox — that the model&#x27;s tool-calling ability does nothing to solve.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Tool use is standardizing fast: WebMCP moving into Chrome origin trials (in-page tools for browser agents) and the GA of infrastructure MCP servers like HashiCorp&#x27;s Terraform server mark the shift from one-off integrations to a shared, discoverable protocol surface.</p>"
+     "html": "<p>Tool use is standardizing *and* becoming a managed platform primitive: WebMCP in Chrome origin trials (in-page tools), GA infrastructure MCP servers (HashiCorp Terraform), and cloud serverless agent runtimes that bundle MCP access plus 1,400+ connectors and sandboxing (Azure Functions) push past one-off integrations toward a discoverable, hosted connector surface.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -325,9 +417,13 @@
     {
      "sid": "5b5273180a38e7c0",
      "title": "Presentation: Automating the Web With MCP: Infra That Doesn’t Break"
+    },
+    {
+     "sid": "4f7d4f99793e131d",
+     "title": "Azure Functions Ships Serverless Agents Runtime at Build 2026"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-20"
   },
   "agent-benchmarks": {
    "slug": "agent-benchmarks",
@@ -431,6 +527,10 @@
    "solutions": [],
    "obstacles": [
     {
+     "slug": "agent-cost",
+     "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
      "slug": "multi-agent",
      "title": "Coordinating multiple agents adds more failure than capability"
     }
@@ -466,11 +566,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Least privilege plus human approval on the few actions that really matter is the most durable control.</p>"
+     "html": "<p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Two reinforcing moves are pushing this further: treating each agent as a <strong>non-human identity</strong> with its own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a human&#x27;s session), and pushing isolation <strong>down into the OS</strong> — Microsoft positions Windows as a trust base for agents with a dedicated Execution Container so the sandbox is an OS-enforced boundary, not just a process wrapper. Least privilege plus human approval on the few actions that really matter is the most durable control.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The framing has flipped from &quot;add a guardrail/sandbox&quot; to &quot;those are necessary but insufficient&quot;: sandboxes are shown not to address credential authorization, guardrails can be weaponized into DoS, so emphasis shifts to scoped, centrally governed permissions as the load-bearing defense.</p>"
+     "html": "<p>The defense is climbing the stack on both ends: down into the OS (Windows&#x27; Execution Container as an OS-enforced agent sandbox) and up into identity (each agent provisioned and audited as a first-class non-human identity) — converging on scoped, centrally governed, revocable permissions rather than guardrails or process sandboxes alone.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -501,9 +601,17 @@
     {
      "sid": "b2c537fce6444ae6",
      "title": "Centrally manage authorization for MCP connectors | Claude"
+    },
+    {
+     "sid": "dd1dcc3f564a3ddd",
+     "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way"
+    },
+    {
+     "sid": "b36dcebbf2119ee1",
+     "title": "Windows Platform Security and the Race to Secure AI Agents"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-20"
   },
   "context-compaction": {
    "slug": "context-compaction",
@@ -537,6 +645,10 @@
    "solutions": [],
    "obstacles": [
     {
+     "slug": "agent-cost",
+     "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
      "slug": "agent-memory",
      "title": "Agents forget across steps and sessions"
     }
@@ -557,6 +669,63 @@
     }
    ],
    "updated": "2026-06-18"
+  },
+  "cost-controls": {
+   "slug": "cost-controls",
+   "kind": "solution",
+   "title": "Cost controls: budgets, metering, and per-task attribution",
+   "area": null,
+   "status": "active",
+   "summary": "Make agent spend observable and bounded: meter token usage per task, user, and\ntool; attribute it to the unit of work (a request, a PR); set budgets and hard\ncaps so a runaway loop trips a limit instead of the invoice; and cut fixed\noverhead with caching. These are the operational guardrails that sit *around* an\nagent, complementing the architectural levers (compaction, topology, cheap\njudges) that reduce the underlying token count.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Make agent spend observable and bounded: meter token usage per task, user, and tool; attribute it to the unit of work (a request, a PR); set budgets and hard caps so a runaway loop trips a limit instead of the invoice; and cut fixed overhead with caching. These are the operational guardrails that sit *around* an agent, complementing the architectural levers (compaction, topology, cheap judges) that reduce the underlying token count.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>The tooling is maturing from &quot;read the monthly bill&quot; toward continuous FinOps for agents. Platform vendors ship <strong>usage analytics plus enforceable spend controls</strong> (OpenAI&#x27;s enterprise spend caps and analytics) so an org can set ceilings rather than discover overruns. Developer tooling pushes <strong>attribution</strong> down to the unit of work — Prtokens surfaces how many agent tokens a single pull request burned, making cost a number on the artifact instead of an aggregate. <strong>Caching</strong> removes repeated fixed cost: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency, and prompt/result caching trims repeated context. The load-bearing idea is that you cannot control what you don&#x27;t meter, so per-task metering and budgets are the foundation the architectural savings build on.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Cost controls are shifting left: from a monthly finance review to per-task, per-PR metering with enforceable caps (OpenAI spend controls, Prtokens attribution) and caching that removes repeated fixed cost — turning agent cost into a CI/ops signal you watch live rather than reconcile after the fact.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>Metering and attribution add plumbing (token accounting, tagging by task/user) and only become actionable if someone owns the budgets. Hard caps protect spend but can fail a legitimate long task at the worst moment, so they need graceful degradation, not a hard kill. Caching saves money only when inputs actually repeat and adds an invalidation/staleness problem of its own. And these controls *bound* cost without lowering it — the real reductions come from the architecture (<a href=\"/topic/context-compaction\">compaction</a>, <a href=\"/topic/agent-orchestration\">orchestration</a>, cheap judges), so controls are the floor, not the fix.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>This is FinOps for agents: the difference between a product with a known unit economics story and one that quietly loses money per request. The actionable stance is to meter every run, attribute cost to task and user, set budgets and caps with sane fallback, and cache the repeatable — then use that visibility to justify the architectural changes that actually move the bill.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-cost",
+     "title": "Agent token costs are unpredictable and easily run away"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "450d5ccfb1602dc2",
+     "title": "New usage analytics and updated spend controls for enterprises"
+    },
+    {
+     "sid": "00f3793762a13f49",
+     "title": "Prtokens – See how much AI agent tokens cost a PR"
+    },
+    {
+     "sid": "e0a1d0978e9e8c3b",
+     "title": "Introducing container caching in Amazon SageMaker AI for faster model scaling"
+    },
+    {
+     "sid": "4235792e910ea51a",
+     "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    }
+   ],
+   "updated": "2026-06-20"
   },
   "llm-as-judge": {
    "slug": "llm-as-judge",
@@ -625,11 +794,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
+     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. MCP is also becoming the assumed plug for hosted runtimes — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives). Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>MCP is crossing into governed, GA infrastructure: a GA Terraform server, browser actuation via WebMCP origin trials in Chrome, and centrally managed connector authorization through enterprise identity providers — i.e. the boring, load-bearing pieces, not just demos.</p>"
+     "html": "<p>MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP access built in (Azure Functions&#x27; agents runtime), the small-server long tail is filling out (a generic coding-tools MCP), and authorization is moving to identity-provider governance — the boring, load-bearing pieces, not just demos.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -664,9 +833,17 @@
     {
      "sid": "3c7fd2cd97de321f",
      "title": "Build a meeting prep and follow-up assistant with Amazon Quick and Cisco Webex MCP servers"
+    },
+    {
+     "sid": "4f7d4f99793e131d",
+     "title": "Azure Functions Ships Serverless Agents Runtime at Build 2026"
+    },
+    {
+     "sid": "ff1510e381d9b329",
+     "title": "Show HN: Coding Tools MCP – Give any LLM agent the ability to code"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-20"
   },
   "vector-kb": {
    "slug": "vector-kb",
@@ -682,11 +859,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one.</p>"
+     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, and vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup. The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The conversation has shifted from &quot;add a vector DB&quot; to &quot;vector search alone isn&#x27;t enough&quot; — hybrid retrieval and graph structure are now the default recommendation for agent memory rather than an optimization.</p>"
+     "html": "<p>The &quot;is a vector DB even the right primitive&quot; question is now live: alongside hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores (Memharness) and algebraic/vector-symbolic memory positioned explicitly as a RAG alternative (VSA) — argue that structured, exact recall can outperform embedding similarity for agent memory.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -717,9 +894,17 @@
     {
      "sid": "2d698f04404f697d",
      "title": "Local Agent Memory with 98% Recall-5 on LongMemEval-S, no LLMs, no API Key"
+    },
+    {
+     "sid": "e596543fdecfca96",
+     "title": "Show HN: Coding agent with algebraic memory (VSA) instead of RAG"
+    },
+    {
+     "sid": "623de2bad771dca8",
+     "title": "Show HN: Memharness – Bi-temporal memory for AI agents, in one SQLite file"
     }
    ],
-   "updated": "2026-06-18"
+   "updated": "2026-06-20"
   }
  }
 }

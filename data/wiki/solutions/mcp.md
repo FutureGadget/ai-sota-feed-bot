@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f]
-updated: 2026-06-19
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329]
+updated: 2026-06-20
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329]
 ---
 
 ## TL;DR
@@ -23,6 +23,10 @@ GA so agents can drive Terraform Registry APIs, and reference builds wire up Saa
 servers (Amazon Quick, Cisco Webex) into working assistants. The actuation
 surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a
 site expose JavaScript functions and HTML forms as tools to an in-page agent.
+MCP is also becoming the assumed plug for hosted runtimes — Azure Functions'
+agents runtime gives every agent MCP server access (alongside 1,400+ connectors)
+out of the box — and the long tail keeps filling in with small task servers
+(e.g. a "coding tools" MCP that hands any agent file/shell coding primitives).
 Crucially, the protocol's growth is forcing the **governance** layer — Claude's
 enterprise managed authorization provisions MCP connectors org-wide through an
 identity provider (Okta first), so connector access and authorization are
@@ -30,10 +34,10 @@ configured centrally rather than per user. That move from "connect a tool" to
 "govern a fleet of connectors" is the sign of a maturing standard.
 
 ## What's new
-MCP is crossing into governed, GA infrastructure: a GA Terraform server, browser
-actuation via WebMCP origin trials in Chrome, and centrally managed
-connector authorization through enterprise identity providers — i.e. the boring,
-load-bearing pieces, not just demos.
+MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP
+access built in (Azure Functions' agents runtime), the small-server long tail is
+filling out (a generic coding-tools MCP), and authorization is moving to
+identity-provider governance — the boring, load-bearing pieces, not just demos.
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose

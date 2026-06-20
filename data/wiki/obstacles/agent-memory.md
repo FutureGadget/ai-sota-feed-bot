@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d]
-updated: 2026-06-18
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a]
+updated: 2026-06-20
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a]
 ---
 
 ## TL;DR
@@ -27,15 +27,23 @@ and is a useful reference architecture. The hard questions are no longer "should
 the agent have memory" but **what to write, when to write it, and how to recall
 the right slice cheaply** — which is where the two linked solutions diverge:
 retrieval from an external store (vector/graph knowledge bases) versus keeping
-the working set small via compaction. Managed offerings (e.g. Cloudflare's
-persistent Agent Memory service) signal that this is moving from bespoke code to
-buy-able infrastructure, which sharpens a build-vs-buy decision for teams.
+the working set small via compaction. The market is splitting along a build-vs-buy
+seam: managed offerings (e.g. Cloudflare's persistent Agent Memory service) move
+memory toward buy-able infrastructure, while a parallel wave of **local-first,
+single-file, developer-owned stores** — bi-temporal memory in one SQLite file
+(Memharness), local-first encrypted memory over MCP (Cortex), curated
+file-based project memory (Brain2.0) — treats memory as a component you install
+and own rather than a service you rent. A recurring design theme in this wave is
+**richer temporal modeling**: bi-temporal stores track both when a fact was true
+and when the agent learned it, so recall can reason about staleness instead of
+returning whatever embeds nearest.
 
 ## What's new
-Recent sources push two directions at once: managed persistent-memory services
-(Cloudflare) lowering the ops bar, and a survey of open agent-memory stacks
-(Letta, Mem0, Graphiti, Cognee) showing the DIY ecosystem maturing around
-graph- and vector-backed designs.
+A wave of local-first, single-file agent-memory tools (Memharness's bi-temporal
+SQLite store, Cortex's encrypted local memory over MCP, Brain2.0's curated
+project memory) reframes memory as an installable, developer-owned component —
+and pushes bi-temporal modeling (when a fact was true vs. when it was learned)
+as a recall primitive, not just embed-and-retrieve.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

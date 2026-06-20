@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0]
-updated: 2026-06-19
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d]
+updated: 2026-06-20
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d]
 ---
 
 ## TL;DR
@@ -28,16 +28,20 @@ capabilities to any MCP-speaking agent. The argument has sharpened from "wrap
 your REST API" to "agents need *infrastructure*, not SMS APIs" — purpose-built,
 agent-native endpoints rather than human-oriented ones bolted on. The actuation
 surface is widening too: WebMCP is entering Chrome origin trials so sites can
-expose JavaScript functions and HTML forms directly to in-browser agents.
-Running this in production surfaces classic distributed-systems problems —
-bursty, stateful multi-tenancy and securing the execution sandbox — that the
-model's tool-calling ability does nothing to solve.
+expose JavaScript functions and HTML forms directly to in-browser agents, and
+cloud platforms are folding the whole tool-calling loop into their serverless
+runtimes — Azure Functions' agents runtime defines an agent in an `.agent.md`
+file with YAML triggers, MCP server access, 1,400+ connectors, and sandboxed
+execution. Running this in production surfaces classic distributed-systems
+problems — bursty, stateful multi-tenancy and securing the execution sandbox —
+that the model's tool-calling ability does nothing to solve.
 
 ## What's new
-Tool use is standardizing fast: WebMCP moving into Chrome origin trials (in-page
-tools for browser agents) and the GA of infrastructure MCP servers like
-HashiCorp's Terraform server mark the shift from one-off integrations to a
-shared, discoverable protocol surface.
+Tool use is standardizing *and* becoming a managed platform primitive: WebMCP in
+Chrome origin trials (in-page tools), GA infrastructure MCP servers (HashiCorp
+Terraform), and cloud serverless agent runtimes that bundle MCP access plus
+1,400+ connectors and sandboxing (Azure Functions) push past one-off
+integrations toward a discoverable, hosted connector surface.
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed
