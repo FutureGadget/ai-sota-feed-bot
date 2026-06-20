@@ -1413,7 +1413,16 @@
           setMsg('Please enter a valid email.', 'err');
           if (btn) btn.disabled = false;
         } else {
-          setMsg('Something went wrong — please try again.', 'err');
+          // Surface the upstream provider status to speed up diagnosis (e.g. a
+          // Sending-access Resend key returns 401 on the contacts endpoint).
+          let info = '';
+          try {
+            const j = await r.json();
+            console.error('subscribe failed', r.status, j);
+            if (j && j.status) info = ` (provider ${j.status})`;
+            else if (j && j.error) info = ` (${j.error})`;
+          } catch {}
+          setMsg(`Something went wrong${info} — please try again.`, 'err');
           if (btn) btn.disabled = false;
         }
       } catch {

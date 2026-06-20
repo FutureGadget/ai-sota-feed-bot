@@ -61,6 +61,9 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
     const detail = await r.text().catch(() => '');
+    // Surface the upstream status in the Vercel function logs — the usual cause
+    // is a "Sending access" API key that can't write contacts (needs Full access).
+    console.error('resend create-contact failed', r.status, detail.slice(0, 300));
     return res.status(502).json({ error: 'provider_error', status: r.status, detail: detail.slice(0, 200) });
   } catch (e) {
     return res.status(502).json({ error: 'provider_unreachable', detail: String(e).slice(0, 200) });
