@@ -286,10 +286,23 @@ function parseLabelFilters(query) {
   return [...new Set(arr.map((s) => String(s || '').trim().toLowerCase()).filter(Boolean))];
 }
 
+function isReleaseItem(it) {
+  const cat = String(it?.llm_category || '').trim().toLowerCase();
+  const type = String(it?.type || '').trim().toLowerCase();
+  return cat === 'release' || type === 'release';
+}
+
 function applyLabelFilter(items, selectedLabels) {
   if (!selectedLabels?.length) return items;
   const selected = new Set(selectedLabels);
-  return items.filter((it) => labelsFromItem(it).some((l) => selected.has(l)));
+  // "brief" is a synthetic lens, not a real item label: the finishable default
+  // view = everything except release notes (which live under the Releases tab).
+  // It OR-combines with any real labels also selected.
+  const briefMode = selected.has('brief');
+  return items.filter((it) => {
+    if (briefMode && !isReleaseItem(it)) return true;
+    return labelsFromItem(it).some((l) => selected.has(l));
+  });
 }
 
 function summarizeLabels(items, max = 30) {

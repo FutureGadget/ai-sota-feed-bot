@@ -23,6 +23,42 @@
   `send_broadcast` to `raise_for_status()`; behavior returns to the prior
   global-contact + crash-on-empty-segment state.
 
+## 2026-06-21 (Homepage default = "Brief"; fold Papers into Research)
+- **Decision:** Replace the raw "All" homepage default with a **Brief** lens
+  (everything except release notes) and collapse the section tabs to
+  `Brief · Platform · Research · Releases · News · All`. The separate **Papers**
+  tab is removed — papers fold into **Research** (every paper already carries
+  `llm_category=research`, so Research captured them anyway and the two tabs were
+  redundant). The paper-vs-write-up distinction stays visible as the per-card
+  type badge, now capitalized (`Paper`/`Release`/`Research`) since it's the only
+  remaining format signal. The Brief view ends with a one-line "✓ You're all
+  caught up" marker so the finishable promise has a visible finish line. "All"
+  remains as an explicit firehose escape-hatch tab.
+- **Rationale:** The product promise is a *finishable* 10-minute brief, but the
+  default surfaced the full firehose including routine release notes, diluting
+  the morning read. The five tabs also mixed two orthogonal axes (`type`:
+  paper/release/news vs `llm_category`: platform/release/research) into one row,
+  making Research and Papers indistinguishable to readers. Aligning the UI to the
+  three topical buckets the ranking engine already uses (platform/release/
+  research) removes the redundancy.
+- **Impact:** `web/index.html` — new tab bar, `SECTION_VALUES` gains `brief` and
+  drops `paper`, default-load fallback is `DEFAULT_SECTION_LABELS=['brief']` when
+  no pinned topics, onboarding picker drops the Papers chip, the per-card type
+  badge gets a `TYPE_BADGE_LABELS` display map, and `renderFeedList` appends an
+  `endMarkerHtml()` finish line when `activeSection() === 'brief'` (the "topics:"
+  meta note and catch-up "in your topics" copy both ignore the synthetic `brief`
+  label so the default doesn't read as a chosen topic). `api/feed.js` —
+  `applyLabelFilter` treats `brief` as a synthetic lens (non-release items),
+  OR-combined with any real labels; `brief` is not added to `labelsFromItem`, so
+  `available_labels`/per-item labels stay clean. A share landing still clears
+  filters so the Brief lens can't hide the linked story. No pipeline/ranking or
+  data-artifact changes; release items are unchanged, only their default
+  visibility moves to the Releases/All tabs.
+- **Rollback:** Restore the old six-button tab bar (`All` first + `Papers`),
+  revert `SECTION_VALUES`/`ONBOARD_TOPICS`/the default fallback in
+  `web/index.html`, and remove the `brief`/`isReleaseItem` branch in
+  `api/feed.js`. No data migration required.
+
 ## 2026-06-21 (Dedicated canonical email-subscription page)
 - **Decision:** Add `/subscribe` as the canonical email acquisition surface and
   route every promoted email CTA there. Keep the homepage popover's inline form
