@@ -121,13 +121,15 @@ is no wiki high-water mark.
 
 ## Architecture
 
-- **Subscribe surface.** `api/client-config.js` already exposes a
-  `DIGEST_EMAIL_SIGNUP_URL` hook; the subscribe CTA renders only when it is set.
-  - *v0 (zero code):* point it at a provider-hosted form → acquisition live.
-  - *v1 (in-page):* `api/subscribe.js` holds the provider key server-side, POSTs
-    the address to the provider (triggers double-opt-in); add `/api/subscribe` to
-    `vercel.json` rewrites and a small footer form in the page shells. Honeypot
-    field + basic validation; double-opt-in is the real abuse guard.
+- **Subscribe surface.** Two paths, picked by which env is configured:
+  - *In-page (Resend, shipped):* `api/subscribe.js` holds the Resend key
+    server-side and POSTs the address to the audience; `api/client-config.js`
+    exposes `digest.email_subscribe_enabled`, and the 🔔 menu in
+    `web/index.html` renders an inline email form when it is true. Honeypot +
+    email validation; single opt-in (Resend carries unsubscribe). `/api/subscribe`
+    is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
+  - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
+    links out instead. The in-page form is suppressed when this is set.
 - **List + compliance.** The provider. Nothing in git.
 - **Send.** `publish/publish_email.py`, mirroring `publish/publish_telegram.py`
   (same artifact inputs, same secrets-gated no-op: return cleanly when

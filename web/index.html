@@ -537,6 +537,54 @@
       font-size: 0.8rem;
       color: var(--muted);
     }
+    .sub-email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 0.45rem 0.6rem 0.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 0.15rem;
+    }
+    .sub-email-form .sub-email-label {
+      font-size: 0.92rem;
+    }
+    .sub-email-form input[type="email"] {
+      padding: 0.4rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg, transparent);
+      color: inherit;
+      font-size: 0.9rem;
+    }
+    .sub-email-form button {
+      padding: 0.4rem 0.6rem;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--accent) 14%, transparent);
+      color: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .sub-email-form button[disabled] {
+      opacity: 0.6;
+      cursor: default;
+    }
+    /* Honeypot — kept in the layout flow but off-screen for humans, visible to
+       form-filling bots. Never display:none (some bots skip hidden fields). */
+    .sub-hp {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+    .sub-msg {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .sub-msg[data-state="ok"] {
+      color: var(--accent);
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -1288,6 +1336,7 @@
     // affordances on unconfigured deploys. RSS is always available.
     let digestTelegramUrl = '';
     let emailSignupUrl = '';
+    let emailSubscribeEnabled = false;
 
     function subscribeChannels() {
       const channels = [
@@ -1308,14 +1357,82 @@
       ).join('');
     }
 
+    // In-page email form (Resend via /api/subscribe), shown only when the deploy
+    // has the provider creds and no external signup page is configured. Single
+    // opt-in; the honeypot input traps form-filling bots.
+    function showInPageEmailForm() {
+      return emailSubscribeEnabled && !emailSignupUrl;
+    }
+
+    function emailFormHtml(placement) {
+      return `<form class="sub-email-form" data-subscribe-channel="email" data-subscribe-placement="${esc(placement)}" novalidate>
+        <span class="sub-email-label">✉️ Email digest<span class="sub-desc">Daily brief + weekly recap, in your inbox</span></span>
+        <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email" inputmode="email" />
+        <input type="text" name="website" class="sub-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">Subscribe</button>
+        <div class="sub-msg" role="status" aria-live="polite" hidden></div>
+      </form>`;
+    }
+
+    async function onSubscribeSubmit(form) {
+      const placement = form.getAttribute('data-subscribe-placement') || 'menu';
+      const emailInput = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="website"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.sub-msg');
+      const email = (emailInput && emailInput.value || '').trim();
+      const setMsg = (text, state) => {
+        if (!msg) return;
+        msg.textContent = text;
+        msg.dataset.state = state || '';
+        msg.hidden = !text;
+      };
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        setMsg('Please enter a valid email.', 'err');
+        return;
+      }
+      if (btn) btn.disabled = true;
+      setMsg('Subscribing…', '');
+      try {
+        const r = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, hp: hp ? hp.value : '' }),
+        });
+        if (r.ok) {
+          setMsg("✅ You're subscribed. See you tomorrow morning.", 'ok');
+          if (emailInput) emailInput.disabled = true;
+          if (btn) btn.remove();
+          posthogCapture('subscribe_email', { placement });
+        } else if (r.status === 400) {
+          setMsg('Please enter a valid email.', 'err');
+          if (btn) btn.disabled = false;
+        } else {
+          setMsg('Something went wrong — please try again.', 'err');
+          if (btn) btn.disabled = false;
+        }
+      } catch {
+        setMsg('Network error — please try again.', 'err');
+        if (btn) btn.disabled = false;
+      }
+    }
+
     function setSubscribeMenuOpen(open) {
       const menu = document.getElementById('subscribeMenu');
       const btn = document.getElementById('subscribeToggle');
       if (!menu || !btn) return;
-      if (open) menu.innerHTML = subscribeLinksHtml('menu');
+      if (open) {
+        menu.innerHTML = subscribeLinksHtml('menu') + (showInPageEmailForm() ? emailFormHtml('menu') : '');
+        const form = menu.querySelector('.sub-email-form');
+        if (form) form.addEventListener('submit', (e) => { e.preventDefault(); onSubscribeSubmit(form); });
+      }
       menu.hidden = !open;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) posthogCapture('subscribe_menu_open', { channels: subscribeChannels().map((c) => c.channel) });
+      if (open) {
+        const channels = subscribeChannels().map((c) => c.channel);
+        if (showInPageEmailForm()) channels.push('email');
+        posthogCapture('subscribe_menu_open', { channels });
+      }
     }
 
     function initSubscribeMenu() {
@@ -1391,6 +1508,7 @@
         if (safeUrl(tg) !== '#' && tg) digestTelegramUrl = tg;
         const em = String(cfg?.digest?.email_signup_url || '');
         if (safeUrl(em) !== '#' && em) emailSignupUrl = em;
+        emailSubscribeEnabled = !!(cfg?.digest?.email_subscribe_enabled);
         if (digestTelegramUrl) {
           renderDigestCtas();
           // The catch-up brief includes a subscribe link; re-render so it

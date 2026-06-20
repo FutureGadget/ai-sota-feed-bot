@@ -7,10 +7,12 @@
 # list, double-opt-in, unsubscribe and compliance.
 enabled: false
 
-# buttondown | resend
-#   buttondown: needs EMAIL_API_KEY (Authorization: Token ...).
-#   resend:     needs EMAIL_API_KEY + EMAIL_AUDIENCE_ID + EMAIL_FROM.
-provider: buttondown
+# resend | buttondown
+#   resend:     needs EMAIL_API_KEY + EMAIL_AUDIENCE_ID + EMAIL_FROM. In-page
+#               signups go through POST /api/subscribe → the Resend audience.
+#   buttondown: needs EMAIL_API_KEY (Authorization: Token ...); pairs with an
+#               external hosted signup page via DIGEST_EMAIL_SIGNUP_URL.
+provider: resend
 
 from_name: "LLM Digest"
 site_base: "https://www.llm-digest.com"

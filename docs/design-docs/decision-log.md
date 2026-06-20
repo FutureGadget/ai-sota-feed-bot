@@ -1,5 +1,34 @@
 # Decision Log
 
+## 2026-06-20 (Email provider: Resend + in-page /api/subscribe, single opt-in)
+- **Decision:** Target **Resend** (a developer email API) as the digest provider
+  over Buttondown, and ship the in-page subscribe surface: `api/subscribe.js`
+  POSTs to the Resend audience, `api/client-config.js` exposes
+  `digest.email_subscribe_enabled`, and `web/index.html`'s 🔔 menu renders an
+  inline email form when enabled (`config/email.yaml -> provider: resend`).
+- **Context / Problem:** The initial plan floated Buttondown for its hosted
+  signup page (no code), but Buttondown is positioned as a *creator-newsletter*
+  platform (Substack-like). This is a CI-triggered **product** newsletter, so an
+  API-first developer email platform fits better. Resend has Audiences +
+  Broadcasts (list/unsubscribe/compliance) and matches the Vercel stack; it was
+  already wired as a `provider` branch in `publish_email.py`. Its one gap — no
+  strong hosted form — is closed by the small `api/subscribe.js` endpoint.
+- **Rationale:** Key stays server-side (never shipped to the browser); honeypot +
+  validation guard abuse; 409/422 treated as idempotent success. Single opt-in:
+  Resend adds the contact directly and its broadcasts carry the unsubscribe link
+  + honor `unsubscribed`. Double opt-in (a confirm-email step) is deferred, as is
+  per-reader cadence (one audience = daily + weekly; no topic segmentation, per
+  the anti-filter-bubble stance). `/api/subscribe` is filesystem-routed, so only
+  a `functions` `excludeFiles: data/**` entry was needed, no rewrite.
+- **Impact:** `api/subscribe.js` (new), `api/client-config.js`, `vercel.json`,
+  `web/index.html` (form + CSS + submit handler, PostHog `subscribe_email`),
+  `config/email.yaml` (`provider: resend`). Buttondown remains a supported
+  `provider` (external `DIGEST_EMAIL_SIGNUP_URL` path) — the in-page form is
+  suppressed when that URL is set.
+- **Rollback:** Set `provider: buttondown` + `DIGEST_EMAIL_SIGNUP_URL` (external
+  page); or unset the Resend env so `email_subscribe_enabled` is false and the
+  form never renders (endpoint returns 503).
+
 ## 2026-06-20 (Email weekly recap is window-based, not cursor-based)
 - **Decision:** The weekly recap's "Storylines that moved this week" and "New in
   the knowledge map" sections select threads (`last_updated`) and wiki nodes

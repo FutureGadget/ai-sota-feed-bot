@@ -98,8 +98,9 @@ storyline; it only proposes links the floor then judges.
   `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
   secrets-gated no-op; reads/advances the `data/email/state.json` cursor)
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
-  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`. They
-  read committed `data/` files bundled via `vercel.json` `includeFiles`.
+  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`,
+  `subscribe.js` (POST → Resend audience for the email digest; reads no `data/`).
+  The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
   `/storyline/<slug>` is served from the static page below), `voices.html`.
@@ -198,7 +199,8 @@ index) · `/topic/<slug>` (wiki node) · `/voices` · `/s?u=<url>` share redirec
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/storylines`, `/api/topics`, `/api/client-config`, `/api/updates`
-(lightweight freshness signals powering the nav "new updates" dots).
+(lightweight freshness signals powering the nav "new updates" dots),
+`/api/subscribe` (POST email → Resend audience; secrets-gated, 503 when unconfigured).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs
