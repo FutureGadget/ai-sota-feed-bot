@@ -1,0 +1,89 @@
+name: AI Feed Email Digest
+
+# Email digest to the subscriber list. Runs on its OWN schedule — NOT the hourly
+# feed pipeline (hourly email = instant unsubscribe). Reads whatever data the
+# hourly pipeline already committed to main. Secrets-gated: with no EMAIL_API_KEY
+# (or config/email.yaml enabled:false) publish_email.py is a clean no-op and the
+# cursor commit finds nothing to push.
+#
+#   - daily brief:   every day 22:30 UTC (07:30 KST)
+#   - weekly recap:  Friday 23:00 UTC (08:00 KST Sat) — the recap week ends Sat
+on:
+  schedule:
+    - cron: "30 22 * * *"  # daily brief — 07:30 KST
+    - cron: "0 23 * * 5"   # weekly recap — Fri 23:00 UTC
+  workflow_dispatch:
+    inputs:
+      kind:
+        description: "daily | weekly"
+        default: "daily"
+      dry_run:
+        description: "Render only, do not send"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: email-digest
+  cancel-in-progress: false
+
+jobs:
+  email-digest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Send digest
+        env:
+          EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
+          # Resend: broadcasts target a Segment (formerly "Audience"); optional Topic.
+          EMAIL_SEGMENT_ID: ${{ secrets.EMAIL_SEGMENT_ID }}
+          EMAIL_TOPIC_ID: ${{ secrets.EMAIL_TOPIC_ID }}
+          EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+          INPUT_KIND: ${{ github.event.inputs.kind }}
+          SCHEDULE: ${{ github.event.schedule }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          # Manual dispatch picks the kind; cron maps the weekly schedule to
+          # --kind weekly (github.event.schedule carries the cron expression).
+          KIND="$INPUT_KIND"
+          if [ -z "$KIND" ]; then
+            if [ "$SCHEDULE" = "0 23 * * 5" ]; then KIND="weekly"; else KIND="daily"; fi
+          fi
+          DRY=""
+          if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi
+          .venv/bin/python publish/publish_email.py --kind "$KIND" $DRY
+
+      - name: Commit send cursor
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- data/email/state.json; then
+            echo "no cursor change to commit"
+            exit 0
+          fi
+          git add data/email/state.json
+          git commit -m "chore(data): advance email digest cursor $(date -u +%F)"
+          # main is busy with hourly bot commits — rebase + retry on push.
+          for i in 1 2 3 4; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            sleep $((2 ** i))
+          done
+          echo "cursor push failed after retries" >&2
+          exit 1

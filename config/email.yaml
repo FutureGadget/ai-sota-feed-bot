@@ -1,0 +1,30 @@
+# Email digest configuration (exec-plan docs/exec-plans/active/v2.2-email-digest.md).
+#
+# The send is gated TWICE: `enabled: true` here AND a non-empty EMAIL_API_KEY in
+# the environment. With either missing, publish/publish_email.py is a clean
+# no-op (renders nothing, sends nothing, touches no state) — same contract as
+# Telegram/PostHog. No subscriber PII lives in this repo; the provider owns the
+# list, double-opt-in, unsubscribe and compliance.
+enabled: true
+
+# resend | buttondown
+#   resend:
+#     - SIGNUP (api/subscribe.js): only EMAIL_API_KEY. Resend contacts are
+#       global (POST /contacts) — no audience/segment id needed to register.
+#     - SEND (publish_email.py): EMAIL_API_KEY + EMAIL_SEGMENT_ID + EMAIL_FROM
+#       (a broadcast targets a Segment, formerly "Audience"). Optional
+#       EMAIL_TOPIC_ID scopes the send + powers per-topic unsubscribe.
+#   buttondown: EMAIL_API_KEY (Authorization: Token ...); pairs with an external
+#       hosted signup page via DIGEST_EMAIL_SIGNUP_URL.
+provider: resend
+
+from_name: "LLM Digest"
+site_base: "https://www.llm-digest.com"
+utm_source: "email"   # appended to every link for CTR attribution (PostHog loop)
+
+daily:
+  max_items: 12       # finishable cap
+  max_threads: 3      # "Continuing threads" storyline deltas in the daily brief
+
+weekly:
+  max_threads: 12     # Phase 4 — full set of threads that moved this week

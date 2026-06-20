@@ -1,5 +1,126 @@
 # Decision Log
 
+## 2026-06-20 (Align with Resend's new Contacts/Segments/Topics model)
+- **Decision:** Update the email integration to Resend's restructured API (the
+  earlier code was written against the older audience-scoped endpoints):
+  - **Signup** (`api/subscribe.js`): POST to the global `https://api.resend.com/contacts`
+    with `{ email, unsubscribed:false }` — **no audience/segment id required to
+    register**. Gate `email_subscribe_enabled` on `EMAIL_API_KEY` alone. Optional
+    `EMAIL_TOPIC_ID` opts the contact into a Topic at signup.
+  - **Send** (`publish/publish_email.py`): a broadcast now targets a
+    **`segment_id`** ("Audiences" were renamed to **Segments**), with optional
+    `topic_id`, and `send:true` creates+sends in one call. Env renamed
+    `EMAIL_AUDIENCE_ID` → `EMAIL_SEGMENT_ID` (old name still read as a fallback).
+    The body includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` token (compliance).
+- **Context / Problem:** While the owner was configuring Resend, the dashboard
+  showed Contacts / Properties / Segments / Topics — newer than the assistant's
+  Jan-2026 knowledge. Verified against live docs: contacts are now global
+  (`/contacts`, no `audience_id`), Audiences → Segments (send-time targeting),
+  and Topics are the user-facing per-category unsubscribe mechanism.
+- **Rationale:** Registration and sending are now cleanly decoupled — you can
+  collect self-serve subscribers with only the API key and set up the Segment
+  later for sending. Topics give compliant per-topic unsubscribe; the broadcast
+  unsubscribe token is required in-body.
+- **Impact:** `api/subscribe.js`, `api/client-config.js`,
+  `publish/publish_email.py`, `.github/workflows/email-digest.yml` (env rename +
+  `EMAIL_TOPIC_ID`), `config/email.yaml`. Validated with stubbed-fetch tests for
+  both the `/contacts` signup and the segment broadcast payload.
+- **Rollback:** None needed (the old endpoints are gone); the `EMAIL_AUDIENCE_ID`
+  fallback covers an unrenamed secret.
+
+## 2026-06-20 (Email provider: Resend + in-page /api/subscribe, single opt-in)
+- **Decision:** Target **Resend** (a developer email API) as the digest provider
+  over Buttondown, and ship the in-page subscribe surface: `api/subscribe.js`
+  POSTs to the Resend audience, `api/client-config.js` exposes
+  `digest.email_subscribe_enabled`, and `web/index.html`'s 🔔 menu renders an
+  inline email form when enabled (`config/email.yaml -> provider: resend`).
+- **Context / Problem:** The initial plan floated Buttondown for its hosted
+  signup page (no code), but Buttondown is positioned as a *creator-newsletter*
+  platform (Substack-like). This is a CI-triggered **product** newsletter, so an
+  API-first developer email platform fits better. Resend has Audiences +
+  Broadcasts (list/unsubscribe/compliance) and matches the Vercel stack; it was
+  already wired as a `provider` branch in `publish_email.py`. Its one gap — no
+  strong hosted form — is closed by the small `api/subscribe.js` endpoint.
+- **Rationale:** Key stays server-side (never shipped to the browser); honeypot +
+  validation guard abuse; 409/422 treated as idempotent success. Single opt-in:
+  Resend adds the contact directly and its broadcasts carry the unsubscribe link
+  + honor `unsubscribed`. Double opt-in (a confirm-email step) is deferred, as is
+  per-reader cadence (one audience = daily + weekly; no topic segmentation, per
+  the anti-filter-bubble stance). `/api/subscribe` is filesystem-routed, so only
+  a `functions` `excludeFiles: data/**` entry was needed, no rewrite.
+- **Impact:** `api/subscribe.js` (new), `api/client-config.js`, `vercel.json`,
+  `web/index.html` (form + CSS + submit handler, PostHog `subscribe_email`),
+  `config/email.yaml` (`provider: resend`). Buttondown remains a supported
+  `provider` (external `DIGEST_EMAIL_SIGNUP_URL` path) — the in-page form is
+  suppressed when that URL is set.
+- **Rollback:** Set `provider: buttondown` + `DIGEST_EMAIL_SIGNUP_URL` (external
+  page); or unset the Resend env so `email_subscribe_enabled` is false and the
+  form never renders (endpoint returns 503).
+
+## 2026-06-20 (Email weekly recap is window-based, not cursor-based)
+- **Decision:** The weekly recap's "Storylines that moved this week" and "New in
+  the knowledge map" sections select threads (`last_updated`) and wiki nodes
+  (`updated`) inside the recap's own `[start, end]` window
+  (`publish/publish_email.py::storylines_in_window` / `wiki_in_window`), rather
+  than diffing the committed `storylines`/`wiki` cursor as Phase 4 of the
+  v2.2 exec-plan originally specified. The weekly cursor stores only
+  `weekly.last_sent_week` (a Friday-cron idempotency guard); no wiki high-water
+  mark is kept.
+- **Context / Problem:** The **daily** brief advances the shared
+  `storylines.sent_through` / `seen_sids` cursor every day. A cursor-based weekly
+  would therefore be **starved** — by Friday the daily sends have already
+  consumed the week's storyline movement, so the recap's flagship "what happened
+  this week" section would render empty.
+- **Rationale:** Windowing by the recap period is what "this week" *means*, is
+  fully deterministic, and decouples the two cadences. Overlap is correct, not a
+  bug: a thread can legitimately appear in Tuesday's daily ("new today") and the
+  Friday recap ("what happened this week"). It also drops an unused cursor branch
+  (`wiki.{sent_through,seen_slugs}`) from `data/email/state.json`. Still keys off
+  the content-based `last_updated` / node `updated` — never `generated_at`.
+- **Impact:** `publish/publish_email.py` (window selectors + weekly build/main
+  branch), `.github/workflows/email-digest.yml` (Friday `0 23 * * 5` cron mapped
+  to `--kind weekly` via `github.event.schedule`). Cursor schema simplified in
+  `docs/generated/db-schema.md` and `docs/product-specs/email-digest.md`.
+- **Rollback:** Revert to the cursor-based selectors; would require a separate
+  weekly storyline cursor to avoid the starvation above.
+
+## 2026-06-20 (Email digest — provider owns the list; deltas are content-based)
+- **Decision:** Add an email subscribe channel (daily brief + weekly recap) as
+  the product's missing retention loop, planned in `docs/exec-plans/active/v2.2-email-digest.md`
+  and specced in `docs/product-specs/email-digest.md`. Two foundational choices:
+  (1) a **third-party newsletter provider** (Buttondown or Resend) owns the
+  subscriber list, double-opt-in, unsubscribe, and CAN-SPAM/GDPR compliance — no
+  subscriber PII ever enters git; we hold only an API key in env/secrets and call
+  the provider's broadcast endpoint. (2) Storyline + knowledge-map sections are
+  **delta-driven against a committed send cursor** (`data/email/state.json`,
+  mirroring `data/health/alerts_state.json`), diffing the **content-based**
+  signals (storyline `last_updated`, wiki node `updated` / `log.md`) — **never**
+  `generated_at`.
+- **Context / Problem:** The ranking engine and reader surface are mature, but
+  there is no habit loop — a "finishable, read-every-morning" brief that lives on
+  a site nobody is pushed to. The target persona (AI platform engineers) triage in
+  email/Slack, not GitHub Issues/Telegram. The repo is public and has no database,
+  so subscriber emails cannot live in `data/`. Storylines (5-hourly) and the wiki
+  (curator-cadence) rebuild constantly, so a naive "top storylines" block would
+  repeat every send.
+- **Rationale:** Provider-owns-list is the only PII-safe option given a public
+  repo + no DB, and it offloads compliance/unsubscribe/deliverability. The
+  content-based-delta + cursor design reuses the exact freshness signals already
+  proven by `api/updates.js` (which documents the `generated_at` trap), so the
+  email surfaces only genuinely new movement with no repeats. Knowledge map is
+  weekly-only (slow, evergreen) to protect the daily brief's finishability. No
+  topic personalization (cadence preference only) preserves the anti-filter-bubble
+  stance. Every step is secrets-gated to no-op cleanly, like Telegram/PostHog, and
+  email never runs on the hourly schedule.
+- **Impact (planned):** new `publish/publish_email.py` (mirrors
+  `publish_telegram.py`), `.github/workflows/email-digest.yml` (daily + Friday
+  crons), `config/email.yaml`, `data/email/state.json`, `api/subscribe.js` +
+  `vercel.json` rewrite (Phase 5). `api/client-config.js` already exposes the
+  `DIGEST_EMAIL_SIGNUP_URL` CTA hook. No change to the hourly pipeline.
+- **Rollback:** Unset `EMAIL_API_KEY` / `config/email.yaml -> enabled: false` ⇒
+  clean no-send; phases are additive and isolated; the cursor regenerates if
+  deleted; the CTA disappears when `DIGEST_EMAIL_SIGNUP_URL` is unset.
+
 ## 2026-06-20 (Superseded storyline slug-forks redirect to the live thread)
 - **Decision:** In `pipeline/render_static_pages.py` `render_storyline_pages`, a non-active storyline detail file whose member sids are `>= REDIRECT_MIN_OVERLAP` (0.6) contained in an *active* storyline now renders a tiny noindex redirect document (`<link rel=canonical>` + `<meta http-equiv=refresh>` + `location.replace`) to the live slug, instead of a full narrative-less duplicate timeline (exec-plan `v2.1` phase 4). Detail files are still never deleted.
 - **Context / Problem:** `carry_over_slugs` reuses a prior slug for the cluster with the most member overlap; when a recluster settles on a different slug, the old detail file is orphaned but never pruned (shared `/storyline/<slug>` links must keep working). The live window carried `claude-fable-2026-06-09.json` — a stale slug-fork of the active `claude-fable` thread, with no narrative — served at its own permalink as a worse duplicate of a thread that has a full Arc one slug over. The renderer builds a static page per detail file, so the orphan got a real page.
