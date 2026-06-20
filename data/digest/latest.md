@@ -17,7 +17,7 @@ Focus: AI Platform Engineering
 ## 3. Quoting Sean Lynch
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/19/sean-lynch/#atom-everything
-- Score: 2.83 | Reliability: 1.0
+- Score: 2.829 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
 ## 4. A Systematic Evaluation of Black-Box Uncertainty Estimation Methods for Large Language Models
@@ -29,13 +29,13 @@ Focus: AI Platform Engineering
 ## 5. Show HN: Zero-config session-taste packer for AI agents
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/dvcoolarun/taste-ai
-- Score: 2.697 | Reliability: 1.0
+- Score: 2.692 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 6. Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.656 | Reliability: 1.0
+- Score: 2.654 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. Project Fetch: Phase two
@@ -47,19 +47,19 @@ Focus: AI Platform Engineering
 ## 8. [AINews] not much happened today
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-not-much-happened-today-e7b
-- Score: 2.515 | Reliability: 1.0
+- Score: 2.513 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.479 | Reliability: 1.0
+- Score: 2.477 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. codex 0.142.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.7
-- Score: 2.345 | Reliability: 1.0
+- Score: 2.343 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
