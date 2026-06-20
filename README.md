@@ -1,6 +1,6 @@
 # AI SOTA Feed Bot (Prototype)
 
-GitHub-first prototype for AI platform engineering news intelligence.
+Git-backed AI platform engineering news intelligence.
 
 ## What it does
 - Collects fresh items from high-signal RSS feeds
@@ -16,12 +16,9 @@ GitHub-first prototype for AI platform engineering news intelligence.
 - Applies diversity-aware ranking (strict minimum mix + caps for paper/news/release)
 - Tracks source reliability/health and incorporates it into ranking
 - Applies source circuit breaker on repeated failures with cooldown auto-recovery
-- Sends low-noise degradation alerts; Telegram delivery is critical-only by default
+- Records low-noise degradation alerts for operational inspection
 - Builds a Markdown digest
-- Publishes digest as:
-  - versioned file in `data/digest/`
-  - GitHub Issue (`Daily AI Digest - YYYY-MM-DD`)
-  - Telegram mobile-friendly digest (top list + compact remainder)
+- Publishes the feed and versioned digest artifacts through the website
 - Publishes a weekly "What happened in AI this week" recap at `/weekly` (see below)
 
 ## Weekly recap (`/weekly`)
@@ -72,28 +69,17 @@ pip install -r requirements.txt
 
 python collectors/collect.py
 python pipeline/build_digest.py
-python publish/publish_issue.py --repo FutureGadget/ai-sota-feed-bot --date $(date +%F)
-```
-
-## Optional Telegram publish
-```bash
-export TELEGRAM_BOT_TOKEN=xxx
-export TELEGRAM_CHAT_ID=xxx
-export TELEGRAM_MAX_ITEMS=12    # optional
-export TELEGRAM_TOP_WHY=5       # optional
-python publish/publish_telegram.py
 ```
 
 To enable the in-page email subscription form, set `EMAIL_API_KEY` in the
 Vercel environment. Optionally set `DIGEST_EMAIL_SIGNUP_URL` to use an external
-signup page instead, and `DIGEST_TELEGRAM_URL` to expose a public Telegram
-channel as a secondary option. Unconfigured channels stay hidden.
+signup page instead. The form stays hidden when email is unconfigured; RSS
+remains available through `/rss.xml` and autodiscovery.
 
 Current web app behavior:
 - Subscribe is a first-class action: a 🔔 menu in the feed header offers the
-  email digest and, when configured, Telegram as a secondary channel. All
-  user-facing subscription links route to `/#subscribe`. Returning visitors
-  get a one-time dismissible subscribe nudge
+  email digest. All user-facing subscription links route to `/#subscribe`.
+  Returning visitors get a one-time dismissible subscribe nudge
   after the 3rd story (first visits get topic onboarding instead). Events:
   `subscribe_menu_open`, `subscribe_click` (channel + placement),
   `subscribe_nudge_dismiss`. All pages carry RSS autodiscovery for `/rss.xml`.
@@ -223,8 +209,6 @@ The pipeline runs in deterministic/heuristic mode (no external LLM calls). LLM i
 python pipeline/source_health.py update
 python pipeline/source_health.py report
 python pipeline/source_alerts.py
-# optional telegram push (critical-only)
-python pipeline/source_alerts.py --send-telegram --telegram-min-severity critical
 # state files: data/health/circuit_breaker.json, data/health/alerts_state.json
 ```
 
@@ -251,8 +235,8 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
 ## GitHub Actions
 - `feed-full-publish` (hourly): full pipeline via
   `skills/ai-feed-digest-local/scripts/run_full.sh` — collect, tier1, tier0,
-  durable story sync/static pages, prune, data commit + push, issue + optional
-  Telegram. It intentionally does **not** build storylines.
+  durable story sync/static pages, prune, data commit + push. It intentionally
+  does **not** build storylines.
 - Storylines: external Claude Code routine every 5 hours; no GitHub Actions
   workflow generates them.
 - `feed-ops-summary` (daily): operational health snapshot
@@ -260,7 +244,5 @@ python pipeline/source_alerts.py --send-telegram --telegram-min-severity critica
   auto-tune apply (no-op if secrets are missing)
 
 ### Repository secrets (optional)
-- `TELEGRAM_BOT_TOKEN`
-- `TELEGRAM_CHAT_ID`
 - `POSTHOG_PERSONAL_API_KEY` (feedback sync)
 - `POSTHOG_PROJECT_ID` (feedback sync)

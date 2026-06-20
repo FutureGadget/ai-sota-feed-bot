@@ -10,10 +10,27 @@
   subscription action. A stable hash target lets static recap, storyline,
   permalink, voice, and wiki pages open the same in-page form.
 - **Impact:** Page shells and generated static navigation/footer links now say
-  “Email digest.” The feed’s subscribe menu and nudge are email-first, with
-  Telegram remaining an optional secondary channel. The RSS API is unchanged.
+  “Email digest.” The feed’s subscribe menu and nudge are email-first. The RSS
+  API is unchanged.
 - **Rollback:** Restore the RSS CTA entries and `/rss.xml` navigation links;
   the endpoint requires no restoration because it remains live.
+
+## 2026-06-21 (Retire GitHub Issue and Telegram delivery)
+- **Decision:** Remove the hourly GitHub Issue publisher and all Telegram
+  delivery surfaces, including digest sends, source-alert sends, workflow
+  secrets/permissions, and website Telegram subscription CTAs. Keep source
+  alerts as committed/local operational artifacts and logs.
+- **Rationale:** The website, RSS, and scheduled email digest are the supported
+  reader channels. GitHub Issues and Telegram no longer match the product's
+  distribution strategy and add credentials, failure modes, and duplicate
+  presentation code to the hourly pipeline.
+- **Impact:** `run_full.sh` now ends after runtime artifacts are committed and
+  pushed. `publish_issue.py` and `publish_telegram.py` are deleted; email owns
+  its small formatting helpers directly. GitHub Actions no longer requests
+  issue-write permission or Telegram secrets.
+- **Rollback:** Restore the two publishers and their workflow wiring from git
+  history; re-add credentials and the website CTA only if those channels become
+  supported products again.
 
 ## 2026-06-20 (Align with Resend's new Contacts/Segments/Topics model)
 - **Decision:** Update the email integration to Resend's restructured API (the

@@ -75,8 +75,6 @@ Top-band constraints (ranking.enforce_top_band_constraints)
 Final feed list (data/processed/latest.json)
       |
       +--> data/digest/YYYY-MM-DD.md
-      +--> GitHub issue publish
-      +--> Telegram publish
       +--> story store / storylines / static pages (downstream of latest.json)
 ```
 

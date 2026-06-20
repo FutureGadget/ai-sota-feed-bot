@@ -1,15 +1,15 @@
 ---
 name: ai-feed-digest-local
-description: Run and iterate the AI SOTA feed pipeline locally (collect, health, digest, Telegram publish) with OpenClaw-host environment and keep development synced to GitHub via commit/push. Use when asked to run local end-to-end tests, iterate ranking/prompts/preferences, or ship changes while preserving remote repo history.
+description: Run and iterate the AI SOTA feed pipeline locally (collect, health, digest, static publish) with OpenClaw-host environment and keep development synced to GitHub via commit/push. Use when asked to run local end-to-end tests, iterate ranking/prompts/preferences, or ship changes while preserving remote repo history.
 ---
 
 Run local pipeline from repository root using bundled scripts.
 
 ## Quick Commands
 
-- Run full local pipeline (includes GitHub issue + Telegram publish):
+- Run full local pipeline (including runtime commit/push):
   - `skills/ai-feed-digest-local/scripts/run_full.sh`
-- Run dev pipeline without Telegram publish:
+- Run dev pipeline without runtime publishing:
   - `skills/ai-feed-digest-local/scripts/run_dev.sh`
 - Run fast Tier-1 pipeline (ingest + health + quick scoring, no LLM/publish):
   - `skills/ai-feed-digest-local/scripts/run_tier1_fast.sh`
@@ -34,9 +34,6 @@ Run local pipeline from repository root using bundled scripts.
   - `PROCESSED_RUN_RETENTION_DAYS` (default 45)
   - `TIER1_RUN_RETENTION_DAYS` (default 14)
   - `WEEKLY_ARCHIVE_AFTER_DAYS` (default 365; older history compacted weekly)
-- Required for Telegram publish:
-  - `TELEGRAM_BOT_TOKEN`
-  - `TELEGRAM_CHAT_ID`
 - Prefer local manual runs during development (no schedule required).
 - Keep preferences prompt-driven via:
   - `config/user_preferences.yaml`
@@ -57,8 +54,6 @@ Run local pipeline from repository root using bundled scripts.
   - `digest_items=...`
   - `latest_json_valid=true`
   - `runtime_commit_done=true` (or explicit reason if push intentionally disabled)
-  - `updated_issue=#...`
-  - `telegram_sent=true`
   - `FULL_RUN_OK`
 - Incremental no-delta behavior:
   - `run_full.sh` defaults to `TIER0_INCREMENTAL=1` and `TIER0_INCREMENTAL_SKIP_NO_DELTA=1`.

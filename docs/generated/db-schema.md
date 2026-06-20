@@ -22,8 +22,7 @@ available to each function.
   — per-run history (retention ~45d)
 
 ## Digest + publishing
-- `data/digest/<YYYY-MM-DD>.md` — daily digest markdown (also published as a
-  GitHub Issue and optionally to Telegram)
+- `data/digest/<YYYY-MM-DD>.md` — versioned daily digest markdown
 
 ## Durable reader-facing stores
 - `data/stories/<YYYY-MM>.json` — append-only story store keyed by

@@ -12,7 +12,6 @@ Sources (RSS/sitemap/arXiv/GitHub releases)
    -> pipeline/build_digest.py         (Tier-0: full ranking via pipeline/ranking.py,
       TIER0_INPUT=tier1, incremental no-delta skip)
    -> data/processed/latest.json       (the feed) + data/digest/YYYY-MM-DD.md
-   -> publish/publish_issue.py / publish/publish_telegram.py
 
 Reader-facing derivatives (built from the durable story store):
    pipeline/story_store.py sync      -> data/stories/   (/story/<sid> permalinks)
@@ -30,13 +29,13 @@ Reader feedback loop (daily):
 - Scheduler: GitHub Actions —
   - `feed-full-publish` (hourly): runs `skills/ai-feed-digest-local/scripts/run_full.sh`
     end-to-end (collect → tier1 → tier0 → stories/storylines/static pages →
-    prune → commit/push → publish issue/Telegram)
+    prune → commit/push)
   - `feed-ops-summary` (daily): operational health snapshot
   - `feedback-sync` (daily): PostHog feedback/CTR sync + source auto-tuning
 - Storage: Git repository (versioned data artifacts; no database)
-- Delivery: Website on Vercel (https://www.llm-digest.com) + GitHub Issues +
-  optional Telegram; Vercel serverless functions in `api/` read committed
-  `data/` files bundled per `vercel.json`
+- Delivery: Website on Vercel (https://www.llm-digest.com), RSS, and the
+  separately scheduled email digest; Vercel serverless functions in `api/`
+  read committed `data/` files bundled per `vercel.json`
 
 ## Current Constraints
 - RSS/sitemap-heavy ingestion (API connectors pending)

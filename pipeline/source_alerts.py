@@ -1,12 +1,8 @@
 from __future__ import annotations
 
-import argparse
 import json
-import os
 from datetime import datetime, timezone
 from pathlib import Path
-
-import requests
 
 ROOT = Path(__file__).resolve().parents[1]
 CIRCUIT_FILE = ROOT / "data" / "health" / "circuit_breaker.json"
@@ -15,7 +11,6 @@ ALERTS_OUT_FILE = ROOT / "data" / "health" / "latest_alerts.json"
 
 OPEN_TOO_LONG_HOURS = 12
 REPEAT_ALERT_COOLDOWN_HOURS = 12
-SEVERITY_ORDER = {"info": 0, "warning": 1, "critical": 2}
 
 
 def parse_ts(ts: str | None) -> datetime | None:
@@ -104,11 +99,6 @@ def build_alerts() -> tuple[list[dict], dict]:
     return alerts, next_state
 
 
-def filter_alerts_by_min_severity(alerts: list[dict], min_severity: str) -> list[dict]:
-    threshold = SEVERITY_ORDER.get(min_severity, SEVERITY_ORDER["critical"])
-    return [a for a in alerts if SEVERITY_ORDER.get(a.get("severity", "info"), 0) >= threshold]
-
-
 def format_alert_text(alerts: list[dict]) -> str:
     lines = ["⚠️ AI Feed Source Alert"]
     for a in alerts:
@@ -118,25 +108,7 @@ def format_alert_text(alerts: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def send_telegram(text: str) -> None:
-    token = os.getenv("TELEGRAM_BOT_TOKEN")
-    chat_id = os.getenv("TELEGRAM_CHAT_ID")
-    if not token or not chat_id:
-        print("alerts_telegram_skipped=missing_secrets")
-        return
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {"chat_id": chat_id, "text": text, "disable_web_page_preview": True}
-    r = requests.post(url, json=payload, timeout=20)
-    r.raise_for_status()
-    print("alerts_telegram_sent=true")
-
-
 def main() -> None:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--send-telegram", action="store_true")
-    ap.add_argument("--telegram-min-severity", default="critical", choices=["info", "warning", "critical"])
-    args = ap.parse_args()
-
     alerts, next_state = build_alerts()
     save_json(ALERTS_STATE_FILE, next_state)
     save_json(
@@ -146,14 +118,7 @@ def main() -> None:
 
     print(f"alerts_count={len(alerts)}")
     if alerts:
-        text = format_alert_text(alerts)
-        print(text)
-
-    if args.send_telegram:
-        to_send = filter_alerts_by_min_severity(alerts, args.telegram_min_severity)
-        print(f"alerts_telegram_candidate_count={len(to_send)} min_severity={args.telegram_min_severity}")
-        if to_send:
-            send_telegram(format_alert_text(to_send))
+        print(format_alert_text(alerts))
 
 
 if __name__ == "__main__":
