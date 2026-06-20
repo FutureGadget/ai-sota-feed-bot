@@ -51,7 +51,9 @@ jobs:
       - name: Send digest
         env:
           EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
-          EMAIL_AUDIENCE_ID: ${{ secrets.EMAIL_AUDIENCE_ID }}
+          # Resend: broadcasts target a Segment (formerly "Audience"); optional Topic.
+          EMAIL_SEGMENT_ID: ${{ secrets.EMAIL_SEGMENT_ID }}
+          EMAIL_TOPIC_ID: ${{ secrets.EMAIL_TOPIC_ID }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
           INPUT_KIND: ${{ github.event.inputs.kind }}
           SCHEDULE: ${{ github.event.schedule }}

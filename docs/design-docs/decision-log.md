@@ -1,5 +1,33 @@
 # Decision Log
 
+## 2026-06-20 (Align with Resend's new Contacts/Segments/Topics model)
+- **Decision:** Update the email integration to Resend's restructured API (the
+  earlier code was written against the older audience-scoped endpoints):
+  - **Signup** (`api/subscribe.js`): POST to the global `https://api.resend.com/contacts`
+    with `{ email, unsubscribed:false }` — **no audience/segment id required to
+    register**. Gate `email_subscribe_enabled` on `EMAIL_API_KEY` alone. Optional
+    `EMAIL_TOPIC_ID` opts the contact into a Topic at signup.
+  - **Send** (`publish/publish_email.py`): a broadcast now targets a
+    **`segment_id`** ("Audiences" were renamed to **Segments**), with optional
+    `topic_id`, and `send:true` creates+sends in one call. Env renamed
+    `EMAIL_AUDIENCE_ID` → `EMAIL_SEGMENT_ID` (old name still read as a fallback).
+    The body includes Resend's `{{{RESEND_UNSUBSCRIBE_URL}}}` token (compliance).
+- **Context / Problem:** While the owner was configuring Resend, the dashboard
+  showed Contacts / Properties / Segments / Topics — newer than the assistant's
+  Jan-2026 knowledge. Verified against live docs: contacts are now global
+  (`/contacts`, no `audience_id`), Audiences → Segments (send-time targeting),
+  and Topics are the user-facing per-category unsubscribe mechanism.
+- **Rationale:** Registration and sending are now cleanly decoupled — you can
+  collect self-serve subscribers with only the API key and set up the Segment
+  later for sending. Topics give compliant per-topic unsubscribe; the broadcast
+  unsubscribe token is required in-body.
+- **Impact:** `api/subscribe.js`, `api/client-config.js`,
+  `publish/publish_email.py`, `.github/workflows/email-digest.yml` (env rename +
+  `EMAIL_TOPIC_ID`), `config/email.yaml`. Validated with stubbed-fetch tests for
+  both the `/contacts` signup and the segment broadcast payload.
+- **Rollback:** None needed (the old endpoints are gone); the `EMAIL_AUDIENCE_ID`
+  fallback covers an unrenamed secret.
+
 ## 2026-06-20 (Email provider: Resend + in-page /api/subscribe, single opt-in)
 - **Decision:** Target **Resend** (a developer email API) as the digest provider
   over Buttondown, and ship the in-page subscribe surface: `api/subscribe.js`

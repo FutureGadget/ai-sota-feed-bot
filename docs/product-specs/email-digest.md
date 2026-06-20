@@ -123,7 +123,10 @@ is no wiki high-water mark.
 
 - **Subscribe surface.** Two paths, picked by which env is configured:
   - *In-page (Resend, shipped):* `api/subscribe.js` holds the Resend key
-    server-side and POSTs the address to the audience; `api/client-config.js`
+    server-side and POSTs the address to the global `/contacts` endpoint —
+    Resend contacts are global, so **registration needs only `EMAIL_API_KEY`**,
+    no segment id (sending targets a Segment, formerly "Audience").
+    `api/client-config.js`
     exposes `digest.email_subscribe_enabled`, and the 🔔 menu in
     `web/index.html` renders an inline email form as its **primary** action when
     it is true (RSS / external channels drop below an "Other ways to follow"

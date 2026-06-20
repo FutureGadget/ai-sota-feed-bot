@@ -1,15 +1,15 @@
-// POST /api/subscribe { email, hp? } — adds an address to the Resend audience.
+// POST /api/subscribe { email, hp? } — registers a self-serve subscriber by
+// adding them to your Resend contacts.
 //
-// The Resend API key is read server-side only and never reaches the browser
-// (the whole reason the signup goes through our function instead of a client
-// call). The provider owns the subscriber list, unsubscribe, and compliance;
-// no email address is stored in this repo. Single opt-in: Resend adds the
-// contact directly and its broadcasts carry the unsubscribe link + honor the
-// `unsubscribed` flag. (A double opt-in confirmation step is a possible
-// follow-up — it would send a confirm email before flipping the contact live.)
+// Resend's contacts are global (created at POST /contacts) — registration needs
+// NO audience/segment id, only the API key. "Audiences" were renamed to
+// Segments and only matter at send time (to choose broadcast recipients).
+// Optionally opt the contact into a Topic (EMAIL_TOPIC_ID) so Resend's
+// preference page can manage per-topic unsubscribe.
 //
-// Gating mirrors the rest of the stack: with no EMAIL_API_KEY / EMAIL_AUDIENCE_ID
-// the endpoint returns 503 not_configured and the client hides the form.
+// The key is read server-side only (never reaches the browser). Honeypot +
+// validation guard abuse. With no EMAIL_API_KEY the endpoint returns 503 and
+// the client hides the form.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -20,8 +20,7 @@ export default async function handler(req, res) {
   }
 
   const apiKey = String(process.env.EMAIL_API_KEY || '').trim();
-  const audienceId = String(process.env.EMAIL_AUDIENCE_ID || '').trim();
-  if (!apiKey || !audienceId) {
+  if (!apiKey) {
     return res.status(503).json({ error: 'not_configured' });
   }
 
@@ -42,14 +41,18 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'invalid_email' });
   }
 
+  const payload = { email, unsubscribed: false };
+  const topicId = String(process.env.EMAIL_TOPIC_ID || '').trim();
+  if (topicId) payload.topics = [{ id: topicId, status: 'opt_in' }];
+
   try {
-    const r = await fetch(`https://api.resend.com/audiences/${audienceId}/contacts`, {
+    const r = await fetch('https://api.resend.com/contacts', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, unsubscribed: false }),
+      body: JSON.stringify(payload),
     });
 
     // 2xx = added; 409/422 typically means the contact already exists — treat a

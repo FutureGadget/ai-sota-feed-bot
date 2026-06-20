@@ -8,10 +8,14 @@
 enabled: false
 
 # resend | buttondown
-#   resend:     needs EMAIL_API_KEY + EMAIL_AUDIENCE_ID + EMAIL_FROM. In-page
-#               signups go through POST /api/subscribe → the Resend audience.
-#   buttondown: needs EMAIL_API_KEY (Authorization: Token ...); pairs with an
-#               external hosted signup page via DIGEST_EMAIL_SIGNUP_URL.
+#   resend:
+#     - SIGNUP (api/subscribe.js): only EMAIL_API_KEY. Resend contacts are
+#       global (POST /contacts) — no audience/segment id needed to register.
+#     - SEND (publish_email.py): EMAIL_API_KEY + EMAIL_SEGMENT_ID + EMAIL_FROM
+#       (a broadcast targets a Segment, formerly "Audience"). Optional
+#       EMAIL_TOPIC_ID scopes the send + powers per-topic unsubscribe.
+#   buttondown: EMAIL_API_KEY (Authorization: Token ...); pairs with an external
+#       hosted signup page via DIGEST_EMAIL_SIGNUP_URL.
 provider: resend
 
 from_name: "LLM Digest"

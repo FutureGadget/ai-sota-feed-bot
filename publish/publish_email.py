@@ -233,6 +233,17 @@ def wiki_in_window(start: str, end: str, limit: int | None) -> list[dict]:
 # --------------------------------------------------------------------------- #
 # HTML email
 # --------------------------------------------------------------------------- #
+def unsubscribe_html(cfg: dict) -> str:
+    """Resend broadcasts template the unsubscribe URL into the body via the
+    `{{{RESEND_UNSUBSCRIBE_URL}}}` token (compliance + one-click unsubscribe).
+    Returned as a plain string so the triple braces survive f-string footers.
+    Buttondown appends its own unsubscribe footer, so it needs nothing here.
+    """
+    if (cfg.get("provider") or "").lower() == "resend":
+        return ' · <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#999">Unsubscribe</a>'
+    return ""
+
+
 def _badge(text: str, bg: str, fg: str) -> str:
     return (
         f'<span style="display:inline-block;font-size:11px;font-weight:600;'
@@ -291,6 +302,7 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
 
     feed_url = f"{cfg['site_base'].rstrip('/')}/?utm_source={cfg['utm_source']}"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
+    unsub = unsubscribe_html(cfg)
     body = f"""\
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">LLM Digest · {today}</div>
@@ -301,7 +313,7 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
   <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">✅ You're caught up.</div>
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the full feed</a> ·
-    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">This week's recap</a><br>
+    <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">This week's recap</a>{unsub}<br>
     The finishable AI feed for platform engineers — 10 minutes a day, with memory.
   </div>
 </div>"""
@@ -390,6 +402,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
 
     feed_url = f"{base}/?utm_source={utm}"
     weekly_page = f"{base}/weekly/{wk.get('week','')}?utm_source={utm}"
+    unsub = unsubscribe_html(cfg)
     body = f"""\
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
   <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">LLM Digest · Weekly recap</div>
@@ -401,7 +414,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
   {wiki_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">Read the full recap</a> ·
-    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a><br>
+    <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a>{unsub}<br>
     The finishable AI feed for platform engineers — 10 minutes a day, with memory.
   </div>
 </div>"""
@@ -422,21 +435,24 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> Non
         )
         r.raise_for_status()
     elif provider == "resend":
-        audience_id = os.getenv("EMAIL_AUDIENCE_ID", "").strip()
+        # Audiences were renamed to Segments; a broadcast targets a segment_id
+        # (optionally scoped to a topic_id). `send: true` creates + sends in one
+        # call. The unsubscribe link is templated into the body (see footers).
+        segment_id = (os.getenv("EMAIL_SEGMENT_ID") or os.getenv("EMAIL_AUDIENCE_ID") or "").strip()
         from_addr = os.getenv("EMAIL_FROM", "").strip()
-        if not audience_id or not from_addr:
-            raise RuntimeError("resend requires EMAIL_AUDIENCE_ID and EMAIL_FROM")
-        headers = {"Authorization": f"Bearer {api_key}"}
-        create = requests.post(
+        if not segment_id or not from_addr:
+            raise RuntimeError("resend requires EMAIL_SEGMENT_ID and EMAIL_FROM")
+        payload = {"segment_id": segment_id, "from": from_addr, "subject": subject, "html": html_body, "send": True}
+        topic_id = (os.getenv("EMAIL_TOPIC_ID") or "").strip()
+        if topic_id:
+            payload["topic_id"] = topic_id
+        r = requests.post(
             "https://api.resend.com/broadcasts",
-            headers=headers,
-            json={"audience_id": audience_id, "from": from_addr, "subject": subject, "html": html_body},
+            headers={"Authorization": f"Bearer {api_key}"},
+            json=payload,
             timeout=30,
         )
-        create.raise_for_status()
-        bid = create.json().get("id")
-        send = requests.post(f"https://api.resend.com/broadcasts/{bid}/send", headers=headers, timeout=30)
-        send.raise_for_status()
+        r.raise_for_status()
     else:
         raise RuntimeError(f"unknown email provider: {provider}")
 

@@ -14,12 +14,10 @@ export default async function handler(req, res) {
   // Optional external email-digest signup page (e.g. an RSS-to-email form); the
   // subscribe menu shows an outbound email link only when this is configured.
   const emailSignup = String(process.env.DIGEST_EMAIL_SIGNUP_URL || '').trim();
-  // In-page subscribe (POST /api/subscribe → Resend audience). Enabled when the
-  // same provider creds the send workflow uses are present on the deploy, so the
-  // client renders the inline email form instead of an outbound link.
-  const emailSubscribeEnabled =
-    !!String(process.env.EMAIL_API_KEY || '').trim() &&
-    !!String(process.env.EMAIL_AUDIENCE_ID || '').trim();
+  // In-page subscribe (POST /api/subscribe → Resend contacts). Resend contacts
+  // are global, so registration needs only the API key — no audience/segment id
+  // (a segment id is a send-time concern). Enabled when the key is present.
+  const emailSubscribeEnabled = !!String(process.env.EMAIL_API_KEY || '').trim();
 
   return res.status(200).json({
     posthog: {
