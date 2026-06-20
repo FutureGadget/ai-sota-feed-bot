@@ -191,8 +191,9 @@ storyline; it only proposes links the floor then judges.
 
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
-`/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/map` (wiki
-index) · `/topic/<slug>` (wiki node) · `/voices` · `/s?u=<url>` share redirect ·
+`/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
+(email digest signup) · `/map` (wiki index) · `/topic/<slug>` (wiki node) ·
+`/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/storylines`, `/api/topics`, `/api/client-config`, `/api/updates`

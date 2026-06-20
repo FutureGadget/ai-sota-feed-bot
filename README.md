@@ -77,8 +77,9 @@ signup page instead. The form stays hidden when email is unconfigured; RSS
 remains available through `/rss.xml` and autodiscovery.
 
 Current web app behavior:
-- Subscribe is a first-class action: a 🔔 menu in the feed header offers the
-  email digest. All user-facing subscription links route to `/#subscribe`.
+- Subscribe is a first-class action: a labeled email menu in the feed header
+  offers inline signup.
+  All user-facing subscription links route to the canonical `/subscribe` page.
   Returning visitors get a one-time dismissible subscribe nudge
   after the 3rd story (first visits get topic onboarding instead). Events:
   `subscribe_menu_open`, `subscribe_click` (channel + placement),

@@ -192,6 +192,11 @@ PAGE_CSS = """\
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     .archive { margin-left: auto; }
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
@@ -857,7 +862,7 @@ def render_page(
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/#subscribe">Email digest</a>
+      <a href="/subscribe">Email digest</a>
     </footer>
   </main>
   <script>
@@ -919,13 +924,14 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
             published=published,
             h1="📰 AI Daily Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/#subscribe", "✉️ Email digest")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
             recap_range=fmt_long_date(day),
             intro_html=render_intro(recap),
-            body_html=render_categories(recap, "daily-link", story_sids),
+            body_html=render_categories(recap, "daily-link", story_sids)
+            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -971,13 +977,14 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
             published=published,
             h1="🗓️ AI Weekly Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/#subscribe", "✉️ Email digest")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,
             recap_range=f"{recap_range} · {week}" if recap_range else week,
             intro_html=render_intro(recap),
-            body_html=render_categories(recap, "weekly-link", story_sids),
+            body_html=render_categories(recap, "weekly-link", story_sids)
+            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief on weekdays.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -1296,7 +1303,7 @@ def render_story_pages(
             published=published,
             h1="📰 Story",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/#subscribe", "✉️ Email digest")],
+            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title="",  # replaced by linked title below
@@ -1863,7 +1870,7 @@ def render_storyline_pages(
             published=first_seen,
             h1="📈 AI Storyline",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/storylines", "← All storylines"), ("/", "📰 Live feed"), ("/daily", "🗓️ Daily recap"), ("/#subscribe", "✉️ Email digest")],
+            nav_links=[("/storylines", "← All storylines"), ("/", "📰 Live feed"), ("/daily", "🗓️ Daily recap"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/storylines?slug={slug}",
             archive="",
             recap_title=label,
@@ -1975,7 +1982,7 @@ def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]
             published=None,
             h1="🧠 Agent Engineering Wiki",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/#subscribe", "✉️ Email digest")],
+            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title=title,
@@ -2051,7 +2058,7 @@ def render_map_page(base_url: str, wiki: dict) -> bool:
         published=None,
         h1="🧠 Agent Engineering Wiki",
         meta_line="Obstacles to building & operating agents, mapped to solutions",
-        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/#subscribe", "✉️ Email digest")],
+        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/subscribe", "✉️ Email digest")],
         json_href="/api/topics",
         archive="",
         recap_title="Agent engineering: obstacles & solutions",
@@ -2099,6 +2106,7 @@ def write_sitemap(
         (f"{base_url}/", today, "hourly"),
         (f"{base_url}/daily", today, "daily"),
         (f"{base_url}/weekly", today, "weekly"),
+        (f"{base_url}/subscribe", today, "monthly"),
         (f"{base_url}/storylines", today, "daily"),
         (f"{base_url}/voices", today, "monthly"),
     ]
