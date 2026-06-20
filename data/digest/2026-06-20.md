@@ -35,7 +35,7 @@ Focus: AI Platform Engineering
 ## 6. Show HN: WhatsKept – Searchable,agent-queryable WhatsApp history from iOS backup
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/alkait/whatskept
-- Score: 2.668 | Reliability: 1.0
+- Score: 2.667 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. Project Fetch: Phase two
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. codex 0.142.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.7
-- Score: 2.361 | Reliability: 1.0
+- Score: 2.36 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
