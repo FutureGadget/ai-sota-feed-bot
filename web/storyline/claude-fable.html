@@ -80,6 +80,11 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     .archive { margin-left: auto; }
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
     .story-title a:hover { text-decoration: underline; }
@@ -213,7 +218,7 @@
         <a href="/storylines" role="button">← All storylines</a>
         <a href="/" role="button">📰 Live feed</a>
         <a href="/daily" role="button">🗓️ Daily recap</a>
-        <a href="/rss.xml" role="button">🔔 RSS</a>
+        <a href="/subscribe" role="button">✉️ Email digest</a>
         <a href="/api/storylines?slug=claude-fable" role="button">JSON</a>
         
       </menu>
@@ -228,7 +233,7 @@
 
     <footer>
       Built from the AI SOTA feed. Each item links to its original source. ·
-      <a href="/rss.xml">RSS</a>
+      <a href="/subscribe">Email digest</a>
     </footer>
   </main>
   <script>
