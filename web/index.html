@@ -542,8 +542,13 @@
       flex-direction: column;
       gap: 0.35rem;
       padding: 0.45rem 0.6rem 0.5rem;
+    }
+    .subscribe-menu .sub-other {
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding: 0.4rem 0.6rem 0.2rem;
       border-top: 1px solid var(--border);
-      margin-top: 0.15rem;
+      margin-top: 0.2rem;
     }
     .sub-email-form .sub-email-label {
       font-size: 0.92rem;
@@ -710,7 +715,7 @@
         <h1>📰 LLM Digest <span class="h1-sub">— AI news for platform engineers</span></h1>
         <div class="topbar-actions">
           <div class="subscribe-wrap">
-            <button id="subscribeToggle" type="button" aria-label="Subscribe to the feed" aria-haspopup="true" aria-expanded="false">🔔</button>
+            <button id="subscribeToggle" type="button" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" aria-haspopup="true" aria-expanded="false">🔔</button>
             <div id="subscribeMenu" class="subscribe-menu" hidden></div>
           </div>
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
@@ -1422,7 +1427,13 @@
       const btn = document.getElementById('subscribeToggle');
       if (!menu || !btn) return;
       if (open) {
-        menu.innerHTML = subscribeLinksHtml('menu') + (showInPageEmailForm() ? emailFormHtml('menu') : '');
+        // Email-first: the in-page form is the primary call to action; RSS and
+        // any external channels drop below an "Other ways to follow" divider.
+        const inPageEmail = showInPageEmailForm();
+        const links = subscribeLinksHtml('menu');
+        menu.innerHTML = inPageEmail
+          ? emailFormHtml('menu') + '<div class="sub-other">Other ways to follow</div>' + links
+          : links;
         const form = menu.querySelector('.sub-email-form');
         if (form) form.addEventListener('submit', (e) => { e.preventDefault(); onSubscribeSubmit(form); });
       }
