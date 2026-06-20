@@ -32,11 +32,13 @@ from collections import Counter, defaultdict
 from datetime import datetime, timezone
 
 from build_storylines import (
+    MERGE_OVERLAP,
     MIN_DAYS,
     MIN_ITEMS,
     MIN_SOURCES,
     OUT_DIR,
     WEAK,
+    _uf,
     dedup_nodes,
     load_json,
     load_window,
@@ -107,29 +109,59 @@ def main() -> None:
             if strong(a) or strong(b):
                 pair_items[(a, b)].add(i)
 
-    near_miss = []
+    # Raw near-miss anchors: a pair under the floor by at most one on any dimension.
+    raw_nm: list[dict] = []
     for key, idx in pair_items.items():
         if len(idx) < 2 or fully_clustered(idx):
             continue
         sig = _signal(nodes, idx)
         qualifies = sig["items"] >= MIN_ITEMS and sig["days"] >= MIN_DAYS and sig["sources"] >= MIN_SOURCES
-        # "close to the floor": shares an anchor, ≥2 items, and is at most one
-        # short on any single dimension — i.e. a plausible promote/extend.
+        # "close to the floor": shares an anchor, >=2 items, at most one short on
+        # any single dimension — i.e. a plausible promote/extend.
         close = (
             not qualifies
             and sig["items"] >= MIN_ITEMS - 1
             and sig["days"] >= MIN_DAYS - 1
             and sig["sources"] >= MIN_SOURCES - 1
         )
-        if not close:
-            continue
+        if close:
+            raw_nm.append({"key": key, "idx": set(idx)})
+
+    # De-fragment: one real cluster fans a single headline into many anchor-pair
+    # rows over the same nodes (a roundup -> nemotron/nvidia/ultra/rtx/spark). Merge
+    # rows whose node sets overlap heavily (>= MERGE_OVERLAP, the cluster-merge bar)
+    # so each candidate the agent reads is a *distinct* thread, not a repeat — this
+    # de-duplicates the cap budget without raising the cap. Pairs sharing only the
+    # one roundup node (overlap < bar) stay separate (Nemotron vs RTX/LoL).
+    find, union = _uf(len(raw_nm))
+    for i in range(len(raw_nm)):
+        for j in range(i + 1, len(raw_nm)):
+            a, b = raw_nm[i]["idx"], raw_nm[j]["idx"]
+            inter = len(a & b)
+            if inter and (inter / len(a) >= MERGE_OVERLAP or inter / len(b) >= MERGE_OVERLAP):
+                union(i, j)
+    merged: dict[int, dict] = {}
+    for i, e in enumerate(raw_nm):
+        g = merged.setdefault(find(i), {"keys": [], "idx": set()})
+        g["keys"].append(e["key"])
+        g["idx"] |= e["idx"]
+
+    near_miss = []
+    for g in merged.values():
+        idx = g["idx"]
+        sig = _signal(nodes, idx)
+        # Primary anchor (drives id/label) = the pair covering the most nodes.
+        keys = sorted(g["keys"], key=lambda k: (-len(pair_items[k]), k))
+        primary = keys[0]
         related = next((node_storyline(i) for i in idx if node_storyline(i)), None)
+        fan = "" if len(keys) == 1 else f" [merged {len(keys)} anchor pairs]"
         near_miss.append(
             {
-                "id": f"nearmiss-{key[0]}-{key[1]}",
+                "id": f"nearmiss-{primary[0]}-{primary[1]}",
                 "type": "near_miss",
-                "anchor": list(key),
-                "reason": f"shares anchor '{key[0]}/{key[1]}' but is under the floor "
+                "anchor": list(primary),
+                "anchors": [list(k) for k in keys],
+                "reason": f"shares anchor '{primary[0]}/{primary[1]}'{fan}; under-floor signal "
                 f"({sig['items']} items / {sig['days']} days / {sig['sources']} sources)",
                 "signal": sig,
                 "related_storyline": related,

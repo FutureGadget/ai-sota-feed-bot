@@ -1756,14 +1756,76 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     return "".join(p for p in parts if p)
 
 
+# A superseded slug-fork (a detail file whose members are mostly contained in a
+# *currently active* storyline) redirects to the live thread instead of serving a
+# narrative-less duplicate. Detail files are never pruned (shared links must keep
+# working), so the redirect is the no-delete way to honor an old permalink.
+REDIRECT_MIN_OVERLAP = 0.6
+
+
+def _detail_sids(sl: dict) -> set[str]:
+    return {
+        str(it.get("sid"))
+        for day in sl.get("days") or []
+        for it in day.get("items") or []
+        if it.get("sid")
+    }
+
+
+def _redirect_target(sl: dict, active_members: dict[str, set[str]]) -> str | None:
+    """The active slug a superseded fork should redirect to, or None.
+
+    Redirects when the fork's members are >= REDIRECT_MIN_OVERLAP contained in an
+    active storyline — so a genuinely distinct aged-out thread (low overlap) keeps
+    its own page; only same-thread duplicates fold into the live slug.
+    """
+    sids = _detail_sids(sl)
+    if not sids:
+        return None
+    best, best_overlap = None, 0.0
+    for slug, members in active_members.items():
+        if slug == sl.get("slug") or not members:
+            continue
+        overlap = len(sids & members) / len(sids)
+        if overlap > best_overlap:
+            best, best_overlap = slug, overlap
+    return best if best_overlap >= REDIRECT_MIN_OVERLAP else None
+
+
+def render_redirect_page(base_url: str, slug: str, target_slug: str) -> str:
+    """Tiny noindex redirect document for a superseded storyline permalink."""
+    target_path = f"/storyline/{target_slug}"
+    canonical = f"{base_url}{target_path}"
+    t = escape(target_path)
+    return (
+        "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        "<meta name=\"robots\" content=\"noindex, follow\">"
+        f"<link rel=\"canonical\" href=\"{escape(canonical)}\">"
+        f"<meta http-equiv=\"refresh\" content=\"0; url={t}\">"
+        "<title>Storyline moved</title>"
+        f"<script>location.replace({json.dumps(target_path)});</script>"
+        "</head><body style=\"font-family:system-ui,sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem\">"
+        f"<p>This storyline has merged into <a href=\"{t}\">the current thread</a>.</p>"
+        "</body></html>\n"
+    )
+
+
 def render_storyline_pages(
-    base_url: str, details: list[dict], active_slugs: set[str], story_sids: set[str]
+    base_url: str,
+    details: list[dict],
+    active_slugs: set[str],
+    story_sids: set[str],
+    active_members: dict[str, set[str]] | None = None,
 ) -> list[tuple[str, str | None]]:
     """Render web/storyline/<slug>.html for every storyline timeline file.
 
     Active storylines (still in the index window) are returned for the sitemap;
     aged-out threads stay rendered so shared links keep working, just unlisted.
+    A superseded slug-fork redirects to its live thread instead of serving a
+    duplicate (see ``_redirect_target``).
     """
+    active_members = active_members or {}
     out_dir = WEB_DIR / "storyline"
     sitemap_entries: list[tuple[str, str | None]] = []
     written: set[str] = set()
@@ -1771,6 +1833,15 @@ def render_storyline_pages(
         slug = str(sl.get("slug") or "")
         if not SLUG_RE.match(slug):
             continue
+        if slug not in active_slugs:
+            target = _redirect_target(sl, active_members)
+            if target:
+                out_dir.mkdir(parents=True, exist_ok=True)
+                (out_dir / f"{slug}.html").write_text(
+                    render_redirect_page(base_url, slug, target), encoding="utf-8"
+                )
+                written.add(f"{slug}.html")
+                continue
         label = squeeze(sl.get("label")) or slug
         title = f"{label} — AI storyline"
         ed = sl.get("editorial") or {}
@@ -2085,13 +2156,20 @@ def main() -> None:
         for s in (index.get("storylines") or [])
         if isinstance(s, dict) and s.get("slug")
     }
+    # Member sids per active storyline — lets a superseded slug-fork redirect to
+    # the live thread it duplicates (orphan detail files are never pruned).
+    active_members = {
+        str(s.get("slug")): {str(x) for x in (s.get("member_sids") or [])}
+        for s in (index.get("storylines") or [])
+        if isinstance(s, dict) and s.get("slug")
+    }
     storyline_of = storyline_membership(storyline_details)
 
     days = render_daily_pages(base_url, story_sids)
     weeks = render_weekly_pages(base_url, story_sids)
     story_pages, noindexed = render_story_pages(base_url, stories, storyline_of)
     storyline_pages = render_storyline_pages(
-        base_url, storyline_details, active_slugs, story_sids
+        base_url, storyline_details, active_slugs, story_sids, active_members
     )
     wiki = load_wiki()
     topic_pages = render_topic_pages(base_url, wiki)
