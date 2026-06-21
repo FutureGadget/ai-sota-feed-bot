@@ -1,5 +1,26 @@
 # Decision Log
 
+## 2026-06-21 (Exclude subscriber discount/ticket promos from the feed)
+- **Decision:** Add `(?i)\$\d[\d,]*\s*off\b` to
+  `config/profile.yaml → selection.exclude_title_regex`, hard-dropping titles
+  that carry a dollar-amount discount (e.g. Latent Space's "[Exclusive] $250
+  off AI Engineer tix til Monday").
+- **Context / Problem:** A pure promotional post — a $250 conference-ticket
+  discount for subscribers — reached the served feed (`data/processed/latest.json`).
+  It is an advertisement, not platform/agent-engineering content, and erodes the
+  finishable, anti-hype quality bar.
+- **Rationale:** A "$<n> off" in a title is reliably a promo and never genuine
+  engineering content. The hard `exclude_title_regex` gate (applied in
+  `pipeline/ranking.py` stage_a_prefilter) is the precise, config-driven tool
+  for this. Anchored on `$<digits> off` so it cannot false-match cost/pricing
+  analysis posts. Verified: matches the target and zero of 13,154 other raw
+  titles; re-running `build_digest` drops it from the processed feed.
+- **Impact:** Config-only change. The next hourly `feed-full-publish` run
+  regenerates `data/` on `main` and the promo disappears from the feed; no
+  runtime data committed on this branch (git hygiene — code/config separate
+  from generated data).
+- **Rollback:** Remove the regex line from `exclude_title_regex` and rebuild.
+
 ## 2026-06-22 (Fix 2026-06-20 placeholder daily recap)
 - **Decision:** Replaced the placeholder daily recap for 2026-06-20 with a real, curated summary (three thematic categories, 13 articles, synthesized intro and highlights), and re-rendered the static HTML pages.
 - **Rationale:** The daily recap for 2026-06-20 was still a placeholder showing placeholder narrative text and template strings. Writing a real curated summary provides the expected value for platform and agent engineers.

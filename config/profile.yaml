@@ -101,6 +101,11 @@ selection:
     # mention it in the summary (e.g. "Using LLM in the shebang line") are kept.
     - "(?i)\\bdatasette\\b"
     - "(?i)not much happened today"
+    # Conference/subscriber discount promos (e.g. Latent Space's "[Exclusive]
+    # $250 off AI Engineer tix til Monday"). A dollar-amount discount in the
+    # title is always a promotion, never platform-engineering content. Anchored
+    # on "$<n> off" so it can't false-match cost/pricing analysis posts.
+    - "(?i)\\$\\d[\\d,]*\\s*off\\b"
 
 
 # Deterministic off-topic relevance gate (pipeline/ranking.py stage_a_prefilter).
