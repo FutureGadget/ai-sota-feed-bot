@@ -2,53 +2,53 @@
 
 Focus: AI Platform Engineering
 
-## 1. New usage analytics and updated spend controls for enterprises
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/chatgpt-enterprise-spend-controls
-- Score: 2.658 | Reliability: 1.0
-- Why it matters: 
+## 1. Workspace, Runtime, and Directories – Designing an Agent Orchestration Library
+- Type: news | Source: hackernews_ai
+- URL: https://ffacu.dev/blog/designing-agents-environment
+- Score: 2.839 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.20373v1
-- Score: 3.116 | Reliability: 1.0
+- Score: 3.126 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.18613v2
-- Score: 2.855 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 4. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
+## 3. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.20537v1
-- Score: 2.824 | Reliability: 1.0
+- Score: 2.834 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
+
+## 4. A Systematic Evaluation of Black-Box Uncertainty Estimation Methods for Large Language Models
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.19868v1
+- Score: 2.669 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 5. Anthropic Reports Claude Now Handles 95% of Internal Analytics Queries
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/anthropic-claude-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.627 | Reliability: 1.0
+- Score: 2.663 | Reliability: 1.0
 - Why it matters: 
 
-## 6. Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.552 | Reliability: 1.0
+## 6. Project Fetch: Phase two
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/project-fetch-phase-two
+- Score: 2.487 | Reliability: 1.0
 - Why it matters: 
 
-## 7. codex 0.142.0-alpha.9
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.9
-- Score: 2.326 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 8. [Exclusive] $250 off AI Engineer tix til Monday
+## 7. [Exclusive] $250 off AI Engineer tix til Monday
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/exclusive-250-off-ai-engineer-tix
-- Score: 2.322 | Reliability: 1.0
+- Score: 2.357 | Reliability: 1.0
 - Why it matters: 
+
+## 8. codex 0.142.0-alpha.9
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.9
+- Score: 2.325 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 9. claude-agent-sdk-python v0.2.106
 - Type: release | Source: claude_agent_sdk_python_releases
@@ -62,14 +62,8 @@ Focus: AI Platform Engineering
 - Score: 2.134 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Is it agentic enough? Benchmarking open models on your own tooling
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/is-it-agentic-enough
-- Score: 2.637 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 12. Project Fetch: Phase two
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/project-fetch-phase-two
-- Score: 2.477 | Reliability: 1.0
-- Why it matters:
+## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2606.20527v1
+- Score: 2.432 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
