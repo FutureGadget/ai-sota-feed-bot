@@ -6,6 +6,31 @@
 - **Impact:** Updated `data/storylines/narratives/opus-4-8.json` and the compiled `data/storylines/opus-4-8.json`. Regenerated `web/storyline/opus-4-8.html` via `pipeline/render_static_pages.py`.
 - **Rollback:** Revert the JSON and HTML changes.
 
+## 2026-06-21 (Reader-local hide / swipe-to-dismiss for feed stories)
+- **Decision:** Add a purely client-side **hide** control to the feed
+  (`web/index.html`): swipe a card away (touch), tap ✕, or tap 👎 *Not relevant*
+  (which now also hides). Hidden stories are filtered from the feed view and
+  stored in `localStorage["ai_feed_hidden_items_v1"]` only. An undo snackbar and
+  a "🙈 N hidden · Show hidden / Restore all" manager give a way back. Spec:
+  `docs/product-specs/feed-hide.md`.
+- **Context / Problem:** A reader had no way to clear read/unwanted stories, so
+  the feed couldn't separate "already handled" from "new since last visit". The
+  only noise-reducing per-item action was the 👎 relevance feedback button,
+  which is a *ranking signal*, not personal bookkeeping.
+- **Rationale:** Hiding and "not relevant" are deliberately **decoupled**. A
+  reader may hide a story they liked just to tidy the feed, so a hide must never
+  reach the ranking pipeline. The decoupling is structural: hides emit a
+  distinct `item_hide` analytics event and live only in `localStorage`, while
+  `pipeline/feedback.py` ingests only `item_feedback`. The 👎 button still fires
+  its `irrelevant` `item_feedback` vote (which tunes ranking) *independently* of
+  the local hide it triggers. Swipe-to-hide is touch-native; the ✕ button keeps
+  it keyboard/mouse accessible; the saved view omits the control.
+- **Impact:** Frontend-only, no pipeline/config/data changes. New localStorage
+  key and two new PostHog events (`item_hide`, `hidden_manage`). Inline scripts
+  verified to parse.
+- **Rollback:** Revert the `web/index.html` changes; the orphaned localStorage
+  key is harmless and ignored.
+
 ## 2026-06-21 (Exclude subscriber discount/ticket promos from the feed)
 - **Decision:** Add `(?i)\$\d[\d,]*\s*off\b` to
   `config/profile.yaml → selection.exclude_title_regex`, hard-dropping titles

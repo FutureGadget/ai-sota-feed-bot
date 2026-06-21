@@ -414,6 +414,151 @@
     .share-btn:hover {
       color: var(--accent);
     }
+    .hide-btn {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1rem;
+      line-height: 1;
+      padding: 0 0.2rem;
+      color: var(--muted);
+    }
+    .hide-btn:hover {
+      color: #dc2626;
+    }
+    .hide-btn[aria-pressed="true"] {
+      color: var(--accent);
+    }
+    /* Swipe-to-hide: the card tracks the finger horizontally, then animates out. */
+    #list {
+      position: relative;
+    }
+    #list > article {
+      touch-action: pan-y;
+    }
+    /* While swiping, the card slides over a stationary "hide" hint behind it,
+       so it must be opaque and stacked above the hint. */
+    #list > article.swiping {
+      transition: none;
+      will-change: transform;
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+    }
+    /* The revealed action background behind a swiped card (iOS/Gmail pattern).
+       A label is pinned to each edge so whichever side opens up shows it; the
+       card's opaque surface hides the rest until it slides away. */
+    .swipe-hint {
+      position: absolute;
+      z-index: 0;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0 1.15rem;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--accent) 15%, var(--bg));
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .swipe-hint .swipe-hint-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+    /* Past the hide threshold: solid accent + "release to hide" copy. */
+    .swipe-hint.armed {
+      background: var(--accent);
+      color: var(--card, #fff);
+    }
+    #list > article.card-removing {
+      transition: transform 0.22s ease, opacity 0.22s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+    /* "Show hidden" reveals dimmed cards so a reader can restore a mistake. */
+    #list > article.card-hidden {
+      opacity: 0.5;
+    }
+    #list > article.card-hidden:hover,
+    #list > article.card-hidden:focus-within {
+      opacity: 0.8;
+    }
+    .feed-hidden-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin: 0 0 0.6rem;
+      padding: 0.5rem 0.7rem;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      font-size: 0.86rem;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--muted) 6%, var(--card));
+    }
+    .feed-hidden-bar button {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--fg);
+      font-size: 0.82rem;
+      padding: 0.12rem 0.6rem;
+      cursor: pointer;
+    }
+    .feed-hidden-bar button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    /* Undo snackbar after a hide — gives a fast, low-friction way back.
+       Sits on a toast layer ABOVE the decorative Bubble Buddy mascot (default
+       z-index 60, bottom-right): the mascot's canvas has pointer-events:auto
+       and mounts late, so at an equal z-index it would stack over the snackbar
+       and steal taps on the Undo button (they overlap on narrow screens). */
+    .undo-snack {
+      position: fixed;
+      left: 50%;
+      bottom: 1.2rem;
+      transform: translateX(-50%) translateY(1.5rem);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      max-width: calc(100vw - 2rem);
+      padding: 0.55rem 0.9rem;
+      border-radius: 10px;
+      background: var(--fg);
+      color: var(--bg);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+      font-size: 0.88rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+    }
+    .undo-snack.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    .undo-snack button {
+      border: none;
+      background: transparent;
+      color: var(--bg);
+      font-weight: 700;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.88rem;
+      padding: 0.1rem 0.2rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #list > article.card-removing,
+      .undo-snack {
+        transition: opacity 0.15s ease;
+      }
+    }
     .fb-row {
       display: flex;
       align-items: center;
@@ -782,6 +927,9 @@
     #list > article { position:relative; padding:1.05rem 0 1.1rem 3.35rem;
       border:0; border-bottom:1px solid var(--border); border-radius:0;
       background:transparent; box-shadow:none; }
+    /* Mobile cards are transparent over the page, so the sliding card must
+       repaint with the page background to cover the hide hint. */
+    #list > article.swiping { background:var(--bg); }
     #list > article:first-of-type { border-top:1px solid var(--border); }
     #list > article.big-story { border-left:0; }
     #list > article.big-story::after { content:"multi-source"; position:absolute; right:0; top:1.12rem;
@@ -1207,6 +1355,208 @@
       persistSavedItems();
       posthogCapture('item_save', { item_id: key, action: 'save', source: it.source || null });
       return true;
+    }
+
+    // Reader-hidden items (spec: docs/product-specs/feed-hide.md). Purely a
+    // personal "I'm done with this one" control — swipe a card away, tap ✕, or
+    // tap 👎 Not relevant. Stored LOCALLY ONLY and NEVER synced to the ranking:
+    // hiding lets a reader clear out read stories so the feed shows what's new,
+    // and that is deliberately NOT a relevance vote. The 👎 Not relevant button
+    // still fires its own `item_feedback` signal (that part tunes ranking), but
+    // the hide it triggers is independent — see the decoupling note in the
+    // `irrelevant` branch of the feedback click handler. `item_hide` analytics
+    // events are emitted but pipeline/feedback.py only ingests `item_feedback`,
+    // so a hide can never be read as "not relevant".
+    const HIDDEN_ITEMS_KEY = 'ai_feed_hidden_items_v1';
+    let showHiddenState = false;
+
+    function loadHiddenItems() {
+      try {
+        const v = JSON.parse(localStorage.getItem(HIDDEN_ITEMS_KEY) || '{}');
+        return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+      } catch {
+        return {};
+      }
+    }
+
+    let hiddenItemsState = loadHiddenItems();
+
+    function persistHiddenItems() {
+      try {
+        localStorage.setItem(HIDDEN_ITEMS_KEY, JSON.stringify(hiddenItemsState));
+      } catch {}
+    }
+
+    function isItemHidden(key) {
+      return Object.prototype.hasOwnProperty.call(hiddenItemsState, key);
+    }
+
+    function hiddenCount() {
+      return Object.keys(hiddenItemsState).length;
+    }
+
+    // reason is local-only metadata ('swipe' | 'button' | 'irrelevant') — handy
+    // for our own analytics, but it never reaches the ranking pipeline.
+    function setHidden(key, reason = 'button') {
+      if (!key || isItemHidden(key)) return false;
+      hiddenItemsState[key] = { ts: new Date().toISOString(), reason };
+      persistHiddenItems();
+      const it = itemForKey(key) || {};
+      posthogCapture('item_hide', { item_id: key, action: 'hide', reason, source: it.source || null });
+      return true;
+    }
+
+    function setUnhidden(key) {
+      if (!isItemHidden(key)) return false;
+      delete hiddenItemsState[key];
+      persistHiddenItems();
+      posthogCapture('item_hide', { item_id: key, action: 'unhide' });
+      return true;
+    }
+
+    // Brief "Hidden — Undo" toast so an accidental swipe/tap is one tap to fix.
+    let undoSnackTimer = null;
+    function showUndoSnack(message, onUndo) {
+      let snack = document.getElementById('undoSnack');
+      if (!snack) {
+        snack = document.createElement('div');
+        snack.id = 'undoSnack';
+        snack.className = 'undo-snack';
+        snack.setAttribute('role', 'status');
+        document.body.appendChild(snack);
+      }
+      snack.innerHTML = '<span class="undo-snack-msg"></span><button type="button" data-undo="1">Undo</button>';
+      snack.querySelector('.undo-snack-msg').textContent = message;
+      const dismiss = () => snack.classList.remove('show');
+      snack.querySelector('button[data-undo]').onclick = () => {
+        clearTimeout(undoSnackTimer);
+        dismiss();
+        try { onUndo(); } catch {}
+      };
+      requestAnimationFrame(() => snack.classList.add('show'));
+      clearTimeout(undoSnackTimer);
+      undoSnackTimer = setTimeout(dismiss, 6000);
+    }
+
+    // Hide a story and offer an undo. When the reader isn't actively managing
+    // hidden items the card animates out; otherwise we just re-render so it
+    // dims in place. Re-render keeps counts/markers/hidden-bar in sync.
+    function hideItemWithUndo(key, { card = null, reason = 'button' } = {}) {
+      if (!setHidden(key, reason)) return false;
+      const rerender = () => { if (viewState === 'feed') renderFeedList(); };
+      if (!showHiddenState && card) {
+        card.classList.add('card-removing');
+        card.style.transform = 'translateX(-110%)';
+        let done = false;
+        const finish = () => { if (done) return; done = true; rerender(); };
+        card.addEventListener('transitionend', finish, { once: true });
+        setTimeout(finish, 320);
+      } else {
+        rerender();
+      }
+      showUndoSnack('Hidden from your feed', () => { setUnhidden(key); rerender(); });
+      return true;
+    }
+
+    // Touch swipe-to-hide on feed cards. Horizontal drag past the threshold
+    // hides the card; small or vertical movement falls through as a normal
+    // tap/scroll. Ignores swipes that start on a link/button so controls keep
+    // working, and skips already-hidden (dimmed) cards in the manage view.
+    // As the card slides it uncovers a stationary "🙈 Hide" hint behind it
+    // (iOS/Gmail reveal pattern) so the gesture reads as a real action, not
+    // empty space.
+    function initSwipeToHide() {
+      const list = document.getElementById('list');
+      if (!list) return;
+      const THRESHOLD = 90;
+      let card = null, startX = 0, startY = 0, dx = 0, dragging = false, decided = false, horizontal = false;
+
+      // One reusable hint element. #list.innerHTML is rewritten on every render,
+      // which detaches it, so we (re-)append on demand.
+      let hint = null, armed = false;
+      function ensureHint() {
+        if (!hint) {
+          hint = document.createElement('div');
+          hint.className = 'swipe-hint';
+          hint.setAttribute('aria-hidden', 'true');
+          hint.innerHTML = '<span class="swipe-hint-label"></span><span class="swipe-hint-label"></span>';
+        }
+        if (hint.parentNode !== list) list.appendChild(hint);
+        return hint;
+      }
+      function showHint(c) {
+        const h = ensureHint();
+        h.style.top = c.offsetTop + 'px';
+        h.style.left = c.offsetLeft + 'px';
+        h.style.width = c.offsetWidth + 'px';
+        h.style.height = c.offsetHeight + 'px';
+        h.style.borderRadius = getComputedStyle(c).borderRadius;
+        setArmed(false, true);
+        h.style.display = 'flex';
+      }
+      function setArmed(on, force) {
+        if (on === armed && !force) return;
+        armed = on;
+        if (!hint) return;
+        hint.classList.toggle('armed', on);
+        const txt = on ? '🙈 Release to hide' : '🙈 Hide';
+        hint.querySelectorAll('.swipe-hint-label').forEach((s) => { s.textContent = txt; });
+      }
+      function hideHint() {
+        if (hint) hint.style.display = 'none';
+      }
+
+      function reset(c) {
+        c.classList.remove('swiping');
+        c.style.transform = '';
+        hideHint();
+      }
+
+      list.addEventListener('touchstart', (e) => {
+        if (viewState !== 'feed' || e.touches.length !== 1) { card = null; dragging = false; return; }
+        const t = e.target.closest('#list > article');
+        if (!t || t.classList.contains('card-hidden') || e.target.closest('a, button, input')) {
+          card = null; dragging = false; return;
+        }
+        card = t; startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+        dx = 0; dragging = true; decided = false; horizontal = false;
+      }, { passive: true });
+
+      list.addEventListener('touchmove', (e) => {
+        if (!dragging || !card) return;
+        dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        if (!decided) {
+          if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+          decided = true;
+          horizontal = Math.abs(dx) > Math.abs(dy);
+          if (horizontal) { card.classList.add('swiping'); showHint(card); }
+        }
+        if (!horizontal) {
+          dragging = false; reset(card); card = null;
+          return;
+        }
+        e.preventDefault();
+        card.style.transform = `translateX(${dx}px)`;
+        setArmed(Math.abs(dx) >= THRESHOLD);
+      }, { passive: false });
+
+      const end = () => {
+        if (!dragging || !card) { dragging = false; return; }
+        dragging = false;
+        const c = card; card = null;
+        if (horizontal && Math.abs(dx) >= THRESHOLD) {
+          // Commit: drop the hint and let the card animate out from here.
+          c.classList.remove('swiping');
+          c.style.transform = '';
+          hideHint();
+          hideItemWithUndo(c.dataset.itemKey || '', { card: c, reason: 'swipe' });
+        } else {
+          reset(c);
+        }
+      };
+      list.addEventListener('touchend', end);
+      list.addEventListener('touchcancel', end);
     }
 
     // One-tap reader feedback (spec: docs/product-specs/feedback-loop.md).
@@ -1933,7 +2283,7 @@
       return why;
     }
 
-    function cardHtml(it, { rank = null, runId = '' } = {}) {
+    function cardHtml(it, { rank = null, runId = '', hideable = true } = {}) {
       const key = itemKey(it);
       const title = esc(it.title || 'Untitled');
       const source = esc(sourceDisplayName(it.source));
@@ -1977,13 +2327,15 @@
         ? `<a class="badge badge-storyline" href="/storyline/${esc(storyline.slug)}" data-storyline-badge="${esc(storyline.slug)}" title="Day ${storylineDayNum(storyline, it)} of a developing storyline: ${esc(storyline.label || '')} — ${storyline.item_count} items from ${storyline.source_count} sources. Tap to see the whole thread.">📈 Developing · day ${storylineDayNum(storyline, it)}</a>`
         : '';
       const saved = isItemSaved(key);
+      const hidden = isItemHidden(key);
       const fbActive = feedbackState[key]?.signal || '';
       const fbButtons = FEEDBACK_SIGNALS.map(({ signal, label }) =>
         `<button type="button" class="fb-btn" data-fb-id="${itemId}" data-fb-signal="${signal}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" aria-pressed="${fbActive === signal ? 'true' : 'false'}">${label}</button>`
       ).join('');
 
+      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : ''].filter(Boolean).join(' ');
       return `
-        <article${sourceCount >= 3 ? ' class="big-story"' : ''}>
+        <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
           ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <span class="src">${source}</span>
@@ -1997,6 +2349,7 @@
             ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
             <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
+            ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎' : '✕'}</button>` : ''}
           </div>
           <div class="card-main">
             <div class="card-text">
@@ -2034,7 +2387,7 @@
         return;
       }
       const tools = `<div class="saved-tools"><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
-      list.innerHTML = tools + saved.map((it) => cardHtml(it)).join('');
+      list.innerHTML = tools + saved.map((it) => cardHtml(it, { hideable: false })).join('');
     }
 
     // First-visit onboarding: one-time topic picker that feeds the existing
@@ -2266,11 +2619,35 @@
         </div>`;
     }
 
+    // Reader's hidden-items manager. Shows how many stories are hidden in the
+    // current window and a toggle to reveal/restore them (dimmed, with the ↩︎
+    // restore control on each card).
+    function hiddenBarHtml(n) {
+      const noun = n === 1 ? 'story' : 'stories';
+      return `
+        <div class="feed-hidden-bar">
+          <span>🙈 ${n} hidden ${noun} in this range</span>
+          <button type="button" data-toggle-hidden="1" aria-pressed="${showHiddenState ? 'true' : 'false'}">${showHiddenState ? 'Hide them again' : 'Show hidden'}</button>
+          ${showHiddenState ? `<button type="button" data-clear-hidden="1">Restore all</button>` : ''}
+        </div>`;
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId, totalItems, hasMore } = feedCache;
       const q = searchQueryState.trim().toLowerCase();
-      const visible = items.filter((it) => matchesQuery(it, q));
+      // Single pass over the matched items: count how many are hidden and build
+      // the visible list. Hidden items are dropped from the feed unless the
+      // reader is managing them via the "Show hidden" toggle — the reader's own
+      // read/new bookkeeping, never a ranking signal.
+      let hiddenInView = 0;
+      const visible = [];
+      for (const it of items) {
+        if (!matchesQuery(it, q)) continue;
+        const hidden = isItemHidden(itemKey(it));
+        if (hidden) hiddenInView++;
+        if (showHiddenState || !hidden) visible.push(it);
+      }
 
       // Reader-facing summary line: stories + recency, not pipeline jargon.
       const latestRunAt = runs.reduce((acc, r) => {
@@ -2293,10 +2670,18 @@
       const countText = q
         ? `${visible.length} of ${items.length} stories`
         : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
-      document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}`;
+      const hiddenNote = hiddenInView > 0 ? ` · ${hiddenInView} hidden` : '';
+      document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}${hiddenNote}`;
       syncSectionTabs();
 
       if (!visible.length) {
+        if (!q && hiddenInView > 0) {
+          // Everything in this window is hidden — offer a way to bring it back
+          // rather than implying the feed is empty.
+          list.innerHTML = hiddenBarHtml(hiddenInView)
+            + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
+          return;
+        }
         list.innerHTML = q
           ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
           : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
@@ -2304,6 +2689,7 @@
       }
 
       const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
+      if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
       if (!q) {
         // Onboarding (first visit) or subscribe nudge (returning visits) goes
         // after the 3rd story; catch-up stays pinned on top.
@@ -2477,10 +2863,19 @@
 
         const fbBtn = e.target.closest('button[data-fb-signal]');
         if (fbBtn) {
-          const active = toggleFeedback(fbBtn.dataset.fbId || '', fbBtn.dataset.fbSignal || '', {
+          const fbKey = fbBtn.dataset.fbId || '';
+          const active = toggleFeedback(fbKey, fbBtn.dataset.fbSignal || '', {
             rank: Number(fbBtn.dataset.rank || 0) || null,
             runId: fbBtn.dataset.runId || null,
           });
+          // 👎 Not relevant also clears the story from the feed — but only as a
+          // LOCAL hide. The relevance vote above is the part that tunes ranking;
+          // the hide is the reader's view bookkeeping and is never synced as a
+          // signal. (Retracting the vote does not auto-unhide; use Undo/Restore.)
+          if (fbBtn.dataset.fbSignal === 'irrelevant' && active === 'irrelevant' && viewState === 'feed') {
+            hideItemWithUndo(fbKey, { card: fbBtn.closest('article'), reason: 'irrelevant' });
+            return;
+          }
           const row = fbBtn.closest('.fb-row');
           if (row) {
             row.querySelectorAll('button[data-fb-signal]').forEach((b) => {
@@ -2519,6 +2914,33 @@
           return;
         }
 
+        const hideBtn = e.target.closest('button[data-hide-id]');
+        if (hideBtn) {
+          const key = hideBtn.dataset.hideId || '';
+          if (isItemHidden(key)) {
+            setUnhidden(key);
+            renderFeedList();
+          } else {
+            hideItemWithUndo(key, { card: hideBtn.closest('article'), reason: 'button' });
+          }
+          return;
+        }
+
+        if (e.target.closest('button[data-toggle-hidden]')) {
+          showHiddenState = !showHiddenState;
+          posthogCapture('hidden_manage', { action: showHiddenState ? 'show' : 'collapse', count: hiddenCount() });
+          renderFeedList();
+          return;
+        }
+
+        if (e.target.closest('button[data-clear-hidden]')) {
+          const keys = Object.keys(hiddenItemsState);
+          keys.forEach((k) => setUnhidden(k));
+          posthogCapture('hidden_manage', { action: 'restore_all', count: keys.length });
+          renderFeedList();
+          return;
+        }
+
         const a = e.target.closest('a[data-track="item-link"]');
         if (!a) return;
 
@@ -2534,6 +2956,8 @@
         };
         captureEvents([event]);
       });
+
+      initSwipeToHide();
     }
 
     function initFilters() {
