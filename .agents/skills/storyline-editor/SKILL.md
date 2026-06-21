@@ -10,13 +10,11 @@ happened**: launched → hands-on impressions → controversial terms → access
 changes → suspension. That narrative arc is your job. You turn a clustered
 timeline into a story a reader can follow.
 
-The `/storyline/<slug>` page renders an **Arc view** when you provide it: a
-live-status banner, a spine of named **beats** (LAUNCH → FRICTION → THE TURN →
-NOW), a "what to watch" list of open questions, and a builder takeaway — with a
-plain "Timeline" view as the fallback tab. Provide the arc fields below and the
-page upgrades automatically; omit them and it falls back to the day-by-day
-timeline. Every badge on the page must be **true** — we surface only real
-provenance (mechanical threading, scout, the editor). Do not invent
+The `/storyline/<slug>` page renders an **Arc view** when you provide it. Its
+reader hierarchy is: current state → latest change → builder action → optional
+background → arc/timeline → open questions. A spine of named **beats** commonly
+looks like LAUNCH → FRICTION → THE TURN → NOW, but use labels that accurately
+describe the thread. Every provenance claim must be true. Do not invent
 verification/agent labels the system doesn't actually produce.
 
 Audience: **AI platform engineers** (see `AGENTS.md` → Product Positioning).
@@ -71,8 +69,8 @@ and write `data/storylines/narratives/<slug>.json`:
   "generated_at": "<ISO-8601 now>",
   "covers_last_updated": "<copy last_updated from the bundle entry, verbatim>",
   "covers_member_sids": ["<every sid in this storyline's timeline>"],
-  "tldr": "2-3 sentences: the arc of the whole thread, in order. What it is, what happened next, where it stands now.",
-  "whats_new": "1-2 sentences: what the most recent day added vs. before. Omit on a brand-new single-burst thread.",
+  "tldr": "2-3 concise sentences: background for the whole thread, in order. Do not repeat the latest-change and builder-takeaway wording.",
+  "whats_new": "1-2 sentences led by the newest consequential fact. This is the primary index-card and detail-page summary.",
   "why_it_matters": "One line through the AI-platform-engineer lens: what an engineer should take from this.",
   "status": {
     "state": "Suspended · temporary",
@@ -102,7 +100,7 @@ and write `data/storylines/narratives/<slug>.json`:
     "Is \"temporary\" confirmed — does any re-enable date appear?",
     "Does the directive extend to other frontier labs?"
   ],
-  "take_for_builders": "One actionable line for platform engineers (falls back to why_it_matters).",
+  "take_for_builders": "One actionable line: what a platform or agent engineer should check, change, defer, or monitor now.",
   "day_captions": {
     "<sid>": "one line on what THIS item added to the story (not a re-summary of the article)"
   }
@@ -115,17 +113,20 @@ and write `data/storylines/narratives/<slug>.json`:
   resolved | alert | neutral` colors the banner; `changed` is the ISO date the
   state last moved; `reenable`/`detail` are optional clarifiers. Use it for a
   thread that has a *current state*; omit it for a thread that's just developing.
+  When the tracked event has genuinely ended, set `state: "Resolved"` and
+  `tone: "resolved"` so the index can stop presenting it as active.
   `status.track` (optional) is the **"Access over time"** bar — an ordered list
   of `{label, detail, tone, weight}` phases (weights are relative widths); use
   it for threads where a state visibly flips over time (available → suspended).
-- `provenance` (optional) keys agent badges by item `sid`:
+- `provenance` (optional) keys evidence signals by item `sid`:
   `surfaced_by: "scout"` (🔍 dashed pill, for an item the scout actually
   surfaced), `verified: <N sources>` (✓ pill + a per-beat "verified across N
   sources" line — only set it when N independent sources genuinely corroborate
   the beat), `status_update: true` (↻ pill, for the item that moved the status).
-  These drive the "Agents on this story" strip and the "maintained by N agents"
-  count — so set them **truthfully**; a badge with no real work behind it is
-  exactly the kind of hype this product exists to avoid.
+  These drive the collapsed reader-facing "How this thread was built" evidence
+  block. Set them **truthfully**. `verified` means N genuinely independent
+  sources corroborate the claim, not N syndicated copies or N items in the
+  cluster.
 - `beats` are the spine — an **ordered** arc, each beat grouping the member
   `sids` that moved the story in that phase. `headline` is required; `kicker` is
   the short phase label (LAUNCH / FRICTION / THE TURN / NOW — your call); `tone`
@@ -135,7 +136,9 @@ and write `data/storylines/narratives/<slug>.json`:
   place every sid. Only use sids present in the bundle; the validator rejects
   unknown ones.
 - `open_questions` is "what to watch" — up to 6 genuinely open questions an
-  engineer would track, not rhetorical filler.
+  engineer would track, not rhetorical filler. Phrase each so a future source
+  can clearly answer it; do not add internal assignees or workflow statuses to
+  this reader-facing field.
 - `take_for_builders` renders as the **Take for builders** line; if omitted the
   page falls back to `why_it_matters`.
 
@@ -144,17 +147,23 @@ and write `data/storylines/narratives/<slug>.json`:
   copy `last_updated` verbatim and include the `sid` of every item in the
   timeline. Getting these right is what keeps the overlay from re-flagging your
   work stale on the next run.
-- `tldr` is the payoff. Lead with the substance, in chronological order. No
-  "in this storyline we see…" throat-clearing.
-- `whats_new` is what makes a **follow** worth it (threads have a Follow
-  button). Answer "what happened next?" since the prior beat. Leave it out
-  (or empty) when the thread is a single same-day burst with no prior state.
+- `whats_new` is the first editorial text readers see on both the index and
+  detail page. Lead with the newest consequential fact and answer "what happened
+  next?" Do not start by recapping the launch.
+- `tldr` is collapsible background. Keep it to 2-3 concise chronological
+  sentences and avoid repeating `whats_new` or `take_for_builders`.
 - `why_it_matters` is the platform-engineer lens — pricing, availability,
   agent/tooling impact, reliability — not generic "this is significant".
+- `take_for_builders` should be operational: check a deployment term, keep a
+  fallback, rerun an eval, pin a version, change a guardrail, or explicitly
+  wait for missing evidence. Avoid generic "teams should monitor this."
+- Reward failure and degradation evidence. If the story includes an outage,
+  rollback, suspension, cost regression, broken compatibility, or failed eval,
+  give it a beat and state the concrete failure mode plus recovery status.
 - `day_captions` are keyed by `sid` and describe what each item *added* to the
   arc ("first independent benchmark", "Anthropic's official response"), not a
-  restatement of the headline. You don't need a caption for every item; caption
-  the ones that move the story.
+  restatement of the headline. Use quantitative impact language only when the
+  cited item actually supports the number or complexity claim.
 - **Never invent links or items.** Only use `sid`s present in the bundle's
   timeline — the validator rejects unknown sids.
 
@@ -175,21 +184,23 @@ export const meta = {
 const TONE = { type: 'string', enum: ['launch','rising','turn','now','resolved','alert','neutral'] }
 const NARR = {
   type: 'object',
-  required: ['slug', 'tldr', 'covers_last_updated', 'covers_member_sids'],
+  required: ['slug', 'generated_at', 'tldr', 'covers_last_updated', 'covers_member_sids'],
   properties: {
     slug: { type: 'string' }, tldr: { type: 'string' },
+    generated_at: { type: 'string' },
     whats_new: { type: 'string' }, why_it_matters: { type: 'string' },
     take_for_builders: { type: 'string' },
     covers_last_updated: { type: 'string' },
-    covers_member_sids: { type: 'array', items: { type: 'string' } },
-    status: { type: 'object', properties: {
+    covers_member_sids: { type: 'array', minItems: 1, items: { type: 'string' } },
+    status: { type: 'object', required: ['state', 'tone'], properties: {
       state: { type: 'string' }, tone: TONE, changed: { type: 'string' },
       reenable: { type: 'string' }, detail: { type: 'string' },
       track: { type: 'array', items: { type: 'object', properties: {
         label: { type: 'string' }, detail: { type: 'string' },
         tone: TONE, weight: { type: 'number' } } } } } },
     provenance: { type: 'object', additionalProperties: { type: 'object', properties: {
-      surfaced_by: { type: 'string' }, verified: { type: 'integer' },
+      surfaced_by: { type: 'string', enum: ['scout'] },
+      verified: { type: 'integer', minimum: 2 },
       status_update: { type: 'boolean' } } } },
     beats: { type: 'array', items: { type: 'object', required: ['headline'],
       properties: { kicker: { type: 'string' }, tone: TONE,
@@ -228,9 +239,12 @@ python pipeline/build_storylines.py
 ```
 Rebuilds the storylines and **overlays** your fresh sidecars onto
 `data/storylines/<slug>.json` (adds an `editorial` block + per-item
-`editor_note`) and `index.json` (adds a TL;DR teaser). The `/storyline/<slug>`
-page renders these automatically — there is no separate static render step
-(storyline pages are client-rendered from `/api/storylines`).
+`editor_note`) and `index.json` (adds compact latest-change/status/builder
+fields for the list). Production renders static `/storyline/<slug>` pages during
+the Vercel build. For local visual QA, run:
+```bash
+python pipeline/render_static_pages.py
+```
 
 ### 5. Post it (commit + push)
 ```bash
@@ -247,7 +261,7 @@ committed files. Keep this in a data-only commit (see
 
 ## Helpers
 - `scripts/run_storyline.sh` — build input → (optionally `--seed`) → validate →
-  overlay, in one go, for smoke-testing the UI.
+  overlay → static render, in one go, for smoke-testing the UI.
 - `scripts/seed_storyline_sample.py` — deterministic **placeholder** narratives
   from the bundle. NOT real summaries; only for testing the `/storyline` render.
 

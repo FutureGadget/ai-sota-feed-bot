@@ -11,9 +11,11 @@ thread sitting one item/day/source under the floor. Your job is to catch those.
 
 You do **not** decide what becomes a storyline. You propose **links** (these
 sids are one story/thread); `pipeline/build_storylines.py` applies each link as a
-synthetic candidate **through the same MIN_ITEMS=3 / MIN_DAYS=2 / MIN_SOURCES=2
-floor**. A link is inert unless its nodes clear that floor — so a wrong or thin
-link simply never surfaces. Precision is the whole job: **a bogus storyline
+synthetic candidate through the deterministic floor. A confirmed scout link
+uses `SCOUT_MIN_ITEMS=2` rather than the anchor path's `MIN_ITEMS=3` because the
+adversarial judge already supplies the missing precision signal. It must still
+span at least 2 days and 2 sources. A link is inert unless its nodes clear that
+floor — so a wrong or thin link simply never surfaces. Precision is the whole job: **a bogus storyline
 costs reader trust; a missed one costs nothing. When unsure, do not link.**
 
 All scripts live next to this file in `scripts/` and locate the repo root
@@ -47,8 +49,10 @@ Decide which sids genuinely belong to one story/thread. Rules:
   same event or a clear development of it (launch → hands-on → reaction).
 - Same broad topic is **not** a thread ("two OpenAI items this week" ≠ one
   story). Same *specific event or its follow-ups* is.
-- To actually surface, a link needs **≥3 sids across ≥2 days and ≥2 sources**.
-  Fewer is allowed but inert (kept for when it grows) — prefer to skip it.
+- To actually surface, a confirmed scout link needs **≥2 deduped items across
+  ≥2 days and ≥2 sources**. Prefer links with three or more independent beats;
+  the two-item path is for a clear development such as announcement →
+  availability, not merely two articles about the same topic.
 - When extending an existing thread (`related_storyline` set), **include that
   storyline's member sids** in `members` so the link merges into it instead of
   spawning a duplicate.
@@ -139,8 +143,9 @@ Structural check + every member sid must be a real candidate sid. Fix until clea
 python pipeline/build_storylines.py
 ```
 Confirmed links are applied; a thread that used a link gets `via_scout: true`
-(the page badges it "🔍 surfaced by scout"). Links that don't clear the floor
-silently no-op — that's intended.
+(the detail page records that evidence inside the collapsed "How this thread
+was built" section). Links that don't clear the floor silently no-op — that's
+intended.
 
 ### 6. (Optional) hand new threads to the editor
 A freshly surfaced scout thread has no narrative yet. Running the
@@ -171,4 +176,5 @@ Keep `confidence: high` links only unless you have a reason to keep weaker ones.
 
 ## Where it shows up
 - `/storylines` + `/storyline/<slug>` — scout-surfaced threads render like any
-  other, badged "🔍 surfaced by scout".
+  other; the reader-facing provenance is available under "How this thread was
+  built" rather than promoted as index-card machinery.

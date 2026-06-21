@@ -128,6 +128,73 @@ class StoryPageRenderingTest(unittest.TestCase):
 
         self.assertEqual([item["sid"] for item in related], [anchor_match["sid"]])
 
+    def test_storyline_body_prioritizes_latest_change_and_builder_action(self) -> None:
+        storyline = {
+            "slug": "claude-fable",
+            "label": "Claude Fable",
+            "editorial": {
+                "status": {
+                    "state": "Available with data sharing",
+                    "tone": "now",
+                    "changed": "2026-06-20",
+                    "detail": "Access returned under changed data terms.",
+                },
+                "whats_new": "Access returned on Bedrock with data sharing required.",
+                "tldr": "The model launched, was suspended, and later returned.",
+                "take_for_builders": "Review retention terms before restoring traffic.",
+                "beats": [
+                    {
+                        "kicker": "NOW",
+                        "tone": "now",
+                        "headline": "Access returns with changed terms",
+                        "sids": ["aaaaaaaaaaaaaaaa"],
+                    }
+                ],
+                "open_questions": ["Will private inference return?"],
+            },
+            "days": [
+                {
+                    "date": "2026-06-20",
+                    "items": [
+                        {
+                            "sid": "aaaaaaaaaaaaaaaa",
+                            "title": "Access returns",
+                            "url": "https://example.com/access",
+                            "published": "2026-06-20T10:00:00+00:00",
+                            "source": "example",
+                        }
+                    ],
+                }
+            ],
+        }
+
+        body = render.render_storyline_body(storyline, set())
+
+        self.assertLess(body.index("Latest change"), body.index("Background — the story so far"))
+        self.assertLess(body.index("For builders"), body.index("The Arc"))
+        self.assertIn('role="tablist"', body)
+        self.assertIn('role="tabpanel"', body)
+        self.assertIn("<details class=\"sl-background\">", body)
+        self.assertIn("<details class=\"sl-agents\">", body)
+        self.assertEqual(body.count("Review retention terms before restoring traffic."), 1)
+        self.assertNotIn("Access returned under changed data terms.", body)
+
+    def test_storyline_access_track_explains_every_phase_on_small_screens(self) -> None:
+        status = {
+            "track": [
+                {"label": "available", "detail": "Jun 9–13", "tone": "launch", "weight": 40},
+                {"label": "suspended", "detail": "Jun 13–20", "tone": "alert", "weight": 38},
+                {"label": "returned", "detail": "Jun 20 → now", "tone": "now", "weight": 22},
+            ]
+        }
+
+        html = render._sl_access_track(status)
+
+        self.assertIn("sl-track-legend", html)
+        self.assertIn("available", html)
+        self.assertIn("suspended", html)
+        self.assertIn("returned", html)
+
 
 if __name__ == "__main__":
     unittest.main()

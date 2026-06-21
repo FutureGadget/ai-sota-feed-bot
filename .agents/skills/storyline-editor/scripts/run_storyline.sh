@@ -27,3 +27,6 @@ fi
 "$PY" "$SCRIPT_DIR/validate_narratives.py" --check
 # Overlay sidecars onto data/storylines/<slug>.json + index.json (deterministic).
 "$PY" "$REPO_ROOT/pipeline/build_storylines.py"
+# Render the actual static detail pages used in production so this helper is a
+# real UI smoke test, not only a data-overlay check.
+"$PY" "$REPO_ROOT/pipeline/render_static_pages.py"

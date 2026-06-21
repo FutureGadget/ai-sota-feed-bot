@@ -414,6 +414,10 @@ STORYLINE_FOLLOW_JS = """\
         var on = !!load()[slug];
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         btn.textContent = on ? '\\u2713 Following' : '+ Follow this story';
+        var hint = document.getElementById('followHint');
+        if (hint) hint.textContent = on
+          ? 'Following in this browser. New updates will appear on your Live feed.'
+          : 'Follow in this browser to see new updates on your Live feed.';
       }
       paint();
       btn.addEventListener('click', function () {
@@ -437,10 +441,11 @@ STORYLINE_ARC_CSS = """\
       --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
     .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
     .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
-    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:0;
+    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:44px;
       padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
       border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
     .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
+    .sl-follow-hint { width:100%; margin:-0.35rem 0 0; font-size:0.78rem; color:var(--muted); }
     :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
       --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
     .sl-status { border:1px solid var(--border); border-radius:12px;
@@ -460,9 +465,19 @@ STORYLINE_ARC_CSS = """\
     .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
     .sl-status-meta { font-size:0.8rem; color:var(--muted); }
     .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
+    .sl-latest { border-left:4px solid var(--accent); border-radius:10px; padding:0.9rem 1rem;
+      margin:0 0 1rem; background:color-mix(in srgb,var(--accent) 7%,var(--card)); }
+    .sl-latest .sl-watch-label { color:var(--accent); }
+    .sl-latest p:last-child { margin:0; font-size:1.02rem; line-height:1.55; }
+    .sl-builder-take { border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border));
+      border-radius:10px; padding:0.85rem 1rem; margin:0 0 1.2rem; line-height:1.55; }
+    .sl-background { margin:0 0 1.4rem; border-bottom:1px solid var(--border); padding-bottom:1rem; }
+    .sl-background > summary { cursor:pointer; color:var(--accent); font-weight:600; min-height:44px;
+      display:flex; align-items:center; }
+    .sl-background p { margin:0.5rem 0 0; line-height:1.6; }
     .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
     .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
-      background:none; border:none; border-bottom:2px solid transparent; padding:0 0 0.6rem; cursor:pointer; }
+      background:none; border:none; border-bottom:2px solid transparent; padding:0.65rem 0; min-height:44px; cursor:pointer; }
     .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
     .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
     .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
@@ -481,6 +496,10 @@ STORYLINE_ARC_CSS = """\
     .sl-track-seg { border-radius:3px; }
     .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
       font-size:0.72rem; margin:0 0 1.9rem; }
+    .sl-track-legend { display:grid; gap:0.35rem; margin:0 0 1.9rem; padding:0; list-style:none;
+      font-family:ui-monospace,monospace; font-size:0.72rem; }
+    .sl-track-legend li { display:flex; align-items:flex-start; gap:0.45rem; color:var(--muted); }
+    .sl-track-key { width:9px; height:9px; border-radius:50%; flex:none; margin-top:0.22rem; }
     .sl-spine { position:relative; padding-left:2rem; }
     .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
     .sl-beat { position:relative; margin:0 0 1.5rem; }
@@ -513,6 +532,8 @@ STORYLINE_ARC_CSS = """\
     .sl-watch li::marker { color:var(--t-now); }
     .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
     .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agents > summary { cursor:pointer; min-height:32px; display:flex; align-items:center; margin:0; }
+    .sl-agents[open] > summary { margin-bottom:0.7rem; }
     .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
     .sl-agent-row b { font-weight:600; }
     .sl-agent-row .a-scout, .sl-agent-row .a-editor { color:var(--accent); }
@@ -520,6 +541,22 @@ STORYLINE_ARC_CSS = """\
     .sl-agent-row .a-watch { color:var(--t-now); }
     .sl-note { margin-top:1.6rem; font-size:0.84rem; line-height:1.6; color:var(--muted); }
     [data-sl-view][hidden] { display:none; }
+    .sl-tab:focus-visible, .sl-hero #followBtn:focus-visible, .sl-background > summary:focus-visible,
+    .sl-beat > summary:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);
+      outline-offset:3px; border-radius:6px; }
+    @media (max-width:560px) {
+      .sl-hero { align-items:flex-start; }
+      .sl-hero .recap-title { font-size:1.75rem; width:100%; }
+      .sl-hero #followBtn { width:100%; justify-content:center; }
+      .sl-tabs { gap:1rem; flex-wrap:wrap; }
+      .sl-tab-note { width:100%; order:3; margin:-0.65rem 0 0; padding-bottom:0.65rem; }
+      .sl-track-ends { display:none; }
+      .sl-track-legend { display:grid; }
+      .sl-spine { padding-left:1.65rem; }
+    }
+    @media (min-width:561px) {
+      .sl-track-legend { display:none; }
+    }
 """
 
 # Arc/Timeline tab toggle for the storyline page (progressive enhancement — the
@@ -531,10 +568,21 @@ STORYLINE_ARC_JS = """\
       var views = document.querySelectorAll('[data-sl-view]');
       function show(view) {
         views.forEach(function (v) { v.hidden = v.getAttribute('data-sl-view') !== view; });
-        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-view') === view); });
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-view') === view;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.setAttribute('tabindex', on ? '0' : '-1');
+        });
       }
       tabs.forEach(function (t) {
         t.addEventListener('click', function () { show(t.getAttribute('data-view')); });
+        t.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+          e.preventDefault();
+          var next = e.key === 'ArrowRight' ? t.nextElementSibling : t.previousElementSibling;
+          if (next && next.classList.contains('sl-tab')) { next.focus(); next.click(); }
+        });
       });
       show('arc');
     })();
@@ -1515,10 +1563,17 @@ def _sl_access_track(status: dict) -> str:
         return f'<span class="tone-{tone}-fg">{dot}{escape(text)}{tail}</span>'
 
     ends = f"{_end(track[0], True)}{_end(track[-1], False)}"
+    legend = "".join(
+        f'<li><span class="sl-track-key tone-{_sl_tone(seg)}-bg"></span>'
+        f'<span>{escape(squeeze(seg.get("label")))}'
+        f'{escape(" · " + squeeze(seg.get("detail"))) if squeeze(seg.get("detail")) else ""}</span></li>'
+        for seg in track
+    )
     return (
         '<p class="sl-rail-label">Access over time</p>'
         f'<div class="sl-track">{"".join(segs)}</div>'
         f'<div class="sl-track-ends">{ends}</div>'
+        f'<ul class="sl-track-legend">{"".join(legend)}</ul>'
     )
 
 
@@ -1596,7 +1651,7 @@ def _sl_arc_view(
         verified = bool(vcounts)
         n_sources = max(vcounts) if vcounts and max(vcounts) > 1 else _sl_beat_sources(items)
         check = (
-            f' <span class="sl-ok">✓ fact-checker verified across {n_sources} sources</span>'
+            f' <span class="sl-ok">✓ corroborated across {n_sources} sources</span>'
             if verified
             else ""
         )
@@ -1644,7 +1699,7 @@ def _sl_tone(obj: dict) -> str:
     return tone if tone in STORYLINE_TONES else "neutral"
 
 
-def _sl_status_banner(status: dict) -> str:
+def _sl_status_banner(status: dict, *, show_detail: bool = True) -> str:
     if not isinstance(status, dict):
         return ""
     state = squeeze(status.get("state"))
@@ -1664,7 +1719,11 @@ def _sl_status_banner(status: dict) -> str:
         else ""
     )
     state_html = f'<span class="sl-state">{escape(state)}</span>' if state else ""
-    detail_html = f'<p class="sl-status-detail">{escape(detail)}</p>' if detail else ""
+    detail_html = (
+        f'<p class="sl-status-detail">{escape(detail)}</p>'
+        if detail and show_detail
+        else ""
+    )
     return (
         f'<div class="sl-status tone-{tone}">'
         f'<div class="sl-status-head"><span class="sl-dot"></span>{state_html}{meta}</div>'
@@ -1691,8 +1750,8 @@ def _sl_watch(open_questions: list, take: str) -> str:
 def _sl_agents(sl: dict, beats: list[dict], prov: dict, status: dict) -> list[tuple[str, str, str]]:
     """The named agents that touched this thread, as (css, name, what) — each
     backed by a real signal so the strip never claims work that didn't happen:
-    scout from ``via_scout``/provenance, editor from the narrative, fact-checker
-    from editor-verified items, watcher from status changes."""
+    scout from ``via_scout``/provenance, editor from the narrative,
+    corroboration from editor-verified items, watcher from status changes."""
     rows: list[tuple[str, str, str]] = []
     scout_n = sum(1 for p in prov.values() if str((p or {}).get("surfaced_by") or "").lower() == "scout")
     if sl.get("via_scout") or scout_n:
@@ -1704,7 +1763,7 @@ def _sl_agents(sl: dict, beats: list[dict], prov: dict, status: dict) -> list[tu
         rows.append(("a-editor", "editor", f"wrote the arc · {nb} beats" if nb else "wrote TL;DR"))
     verified_n = sum(1 for p in prov.values() if (p or {}).get("verified"))
     if verified_n:
-        rows.append(("a-check", "fact-checker", f"{verified_n} verified"))
+        rows.append(("a-check", "corroboration", f"{verified_n} source checks"))
     status_n = sum(1 for p in prov.values() if (p or {}).get("status_update"))
     if not status_n and isinstance(status, dict) and status.get("changed"):
         status_n = 1
@@ -1721,8 +1780,8 @@ def _sl_agents_strip(agents: list[tuple[str, str, str]]) -> str:
         for css, name, what in agents
     ]
     return (
-        '<div class="sl-agents"><p class="sl-watch-label">Agents on this story</p>'
-        f'<div class="sl-agent-row">{"".join(bits)}</div></div>'
+        '<details class="sl-agents"><summary class="sl-watch-label">How this thread was built</summary>'
+        f'<div class="sl-agent-row">{"".join(bits)}</div></details>'
     )
 
 
@@ -1746,7 +1805,9 @@ def storyline_hero(sl: dict) -> str:
         f'<h2 class="recap-title">{escape(label)}</h2>'
         '<button id="followBtn" type="button" class="primary" '
         f'data-slug="{escape(slug)}" data-last-updated="{escape(last_updated)}" '
-        'aria-pressed="false">+ Follow this story</button>'
+        'aria-pressed="false" aria-describedby="followHint">+ Follow this story</button>'
+        '<p id="followHint" class="sl-follow-hint" aria-live="polite">'
+        'Follow in this browser to see new updates on your Live feed.</p>'
         "</div>"
     )
 
@@ -1754,17 +1815,24 @@ def storyline_hero(sl: dict) -> str:
 def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     parts = []
     ed = sl.get("editorial") or {}
-    parts.append(_sl_status_banner(ed.get("status")))
+    whats_new = squeeze(ed.get("whats_new"))
+    parts.append(_sl_status_banner(ed.get("status"), show_detail=not bool(whats_new)))
+    if whats_new:
+        parts.append(
+            '<div class="sl-latest"><p class="sl-watch-label">Latest change</p>'
+            f"<p>{escape(whats_new)}</p></div>"
+        )
+
+    take = squeeze(ed.get("take_for_builders")) or squeeze(ed.get("why_it_matters"))
+    if take:
+        parts.append(f'<div class="sl-builder-take">💡 <b>For builders:</b> {escape(take)}</div>')
 
     tldr = squeeze(ed.get("tldr"))
-    whats_new = squeeze(ed.get("whats_new"))
-    if tldr or whats_new:
-        bits = []
-        if tldr:
-            bits.append('<p class="tldr-label">TL;DR</p>' f"<p>{escape(tldr)}</p>")
-        if whats_new:
-            bits.append(f"<p><b>What's new:</b> {escape(whats_new)}</p>")
-        parts.append(f'<div class="intro">{"".join(bits)}</div>')
+    if tldr:
+        parts.append(
+            '<details class="sl-background"><summary>Background — the story so far</summary>'
+            f"<p>{escape(tldr)}</p></details>"
+        )
 
     status = ed.get("status") if isinstance(ed.get("status"), dict) else {}
     prov = ed.get("provenance") if isinstance(ed.get("provenance"), dict) else {}
@@ -1774,20 +1842,21 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     timeline_html = _sl_timeline_view(sl, story_sids)
 
     if arc_html:
-        note = f"maintained by {len(agents)} agents" if agents else "narrated by the editor"
+        note = "source-backed editorial arc"
         parts.append(
-            '<div class="sl-tabs">'
-            '<button class="sl-tab is-active" type="button" data-view="arc">The Arc</button>'
-            '<button class="sl-tab" type="button" data-view="timeline">Timeline</button>'
+            '<div class="sl-tabs" role="tablist" aria-label="Storyline views">'
+            '<button id="arcTab" class="sl-tab is-active" type="button" role="tab" '
+            'aria-controls="arcView" aria-selected="true" data-view="arc">The Arc</button>'
+            '<button id="timelineTab" class="sl-tab" type="button" role="tab" '
+            'aria-controls="timelineView" aria-selected="false" data-view="timeline">Timeline</button>'
             f'<span class="sl-tab-note">{escape(note)}</span></div>'
         )
-        parts.append(f'<div data-sl-view="arc">{arc_html}</div>')
-        parts.append(f'<div data-sl-view="timeline" hidden>{timeline_html}</div>')
+        parts.append(f'<div id="arcView" role="tabpanel" aria-labelledby="arcTab" data-sl-view="arc">{arc_html}</div>')
+        parts.append(f'<div id="timelineView" role="tabpanel" aria-labelledby="timelineTab" data-sl-view="timeline" hidden>{timeline_html}</div>')
     else:
         parts.append(timeline_html)
 
-    take = squeeze(ed.get("take_for_builders")) or squeeze(ed.get("why_it_matters"))
-    parts.append(_sl_watch(ed.get("open_questions"), take))
+    parts.append(_sl_watch(ed.get("open_questions"), ""))
     parts.append(_sl_agents_strip(agents))
     parts.append(f'<p class="sl-note">{escape(SL_FOOTER_NOTE)}</p>')
     return "".join(p for p in parts if p)

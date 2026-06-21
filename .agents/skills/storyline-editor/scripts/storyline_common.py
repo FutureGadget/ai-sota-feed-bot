@@ -155,6 +155,11 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
     elif not SLUG_RE.match(str(slug)):
         errors.append(f"'slug' is not a valid slug: {slug!r}")
 
+    for field in ("generated_at", "covers_last_updated"):
+        value = data.get(field)
+        if not _is_str(value) or not value.strip():
+            errors.append(f"missing required field: {field} (non-empty string)")
+
     tldr = data.get("tldr")
     if not tldr or not _is_str(tldr) or not tldr.strip():
         errors.append("missing required field: tldr (non-empty string)")
@@ -171,8 +176,8 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
             errors.append(f"'{field}' is too long ({len(v)} > {MAX_LINE} chars)")
 
     sids = data.get("covers_member_sids")
-    if sids is not None and not (isinstance(sids, list) and all(_is_str(s) for s in sids)):
-        errors.append("'covers_member_sids' must be an array of strings")
+    if not isinstance(sids, list) or not sids or not all(_is_str(s) and s for s in sids):
+        errors.append("missing required field: covers_member_sids (non-empty array of strings)")
 
     caps = data.get("day_captions")
     if caps is not None:
@@ -199,6 +204,10 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
                 elif _is_str(v) and len(v) > MAX_LINE:
                     errors.append(f"status.{field} is too long ({len(v)} chars)")
             tone = status.get("tone")
+            if not _is_str(status.get("state")) or not str(status.get("state")).strip():
+                errors.append("status.state must be a non-empty string")
+            if tone is None:
+                errors.append("status.tone is required when status is present")
             if tone is not None and tone not in STORYLINE_TONES:
                 errors.append(f"status.tone {tone!r} not in {sorted(STORYLINE_TONES)}")
             track = status.get("track")
@@ -279,11 +288,11 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
                     errors.append(f"provenance[{sid!r}] must be an object")
                     continue
                 sb = entry.get("surfaced_by")
-                if sb is not None and not _is_str(sb):
-                    errors.append(f"provenance[{sid!r}].surfaced_by must be a string")
+                if sb is not None and sb != "scout":
+                    errors.append(f"provenance[{sid!r}].surfaced_by must be 'scout'")
                 v = entry.get("verified")
-                if v is not None and not isinstance(v, (bool, int)):
-                    errors.append(f"provenance[{sid!r}].verified must be a bool or int")
+                if v is not None and (isinstance(v, bool) or not isinstance(v, int) or v < 2):
+                    errors.append(f"provenance[{sid!r}].verified must be an integer >= 2")
                 su = entry.get("status_update")
                 if su is not None and not isinstance(su, bool):
                     errors.append(f"provenance[{sid!r}].status_update must be a bool")

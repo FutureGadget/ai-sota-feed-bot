@@ -494,8 +494,13 @@ def apply_narrative(slug: str, detail: dict, entry: dict) -> None:
         editorial["generated_at"] = narr["generated_at"]
 
     detail["editorial"] = editorial
-    # Index row carries a teaser plus the status pill so /storylines can badge it.
+    # Index row carries the compact reader-facing fields the /storylines list
+    # needs. Keeping these in the index avoids making one detail request per
+    # card just to answer "what changed?" and "what should I do?".
     entry["editorial"] = {"tldr": tldr, "stale": not fresh}
+    for k in ("whats_new", "why_it_matters", "take_for_builders"):
+        if narr.get(k):
+            entry["editorial"][k] = narr[k]
     if isinstance(narr.get("status"), dict):
         entry["editorial"]["status"] = narr["status"]
 

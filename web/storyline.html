@@ -50,7 +50,7 @@
     .sl-meta { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; display: flex; flex-wrap: wrap;
       gap: 0.6rem; align-items: center; }
     .follow-btn { font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--border);
-      border-radius: 999px; cursor: pointer; }
+      border-radius: 999px; cursor: pointer; min-height: 44px; }
     .follow-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent);
       background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
     .day { margin: 0 0 1.6rem; }
@@ -80,6 +80,32 @@
     .editor-note { margin: 0.35rem 0 0; font-size: 0.95rem; font-weight: 500;
       border-left: 2px solid var(--accent); padding-left: 0.55rem; }
     .sl-card .teaser { margin: 0.4rem 0 0; font-size: 0.92rem; color: var(--muted); }
+    .sl-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; }
+    .sl-card-head h2 { flex: 1; }
+    .lifecycle { flex: none; font-size: 0.68rem; line-height: 1.5; text-transform: uppercase;
+      letter-spacing: 0.05em; font-weight: 700; padding: 0.1rem 0.48rem; border-radius: 999px;
+      border: 1px solid var(--border); color: var(--muted); }
+    .lifecycle.active { color: #16763b; border-color: color-mix(in srgb, #2ea043 45%, var(--border));
+      background: color-mix(in srgb, #2ea043 10%, var(--card)); }
+    .lifecycle.tracking { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      background: color-mix(in srgb, var(--accent) 8%, var(--card)); }
+    .lifecycle.resolved { color: #16763b; border-color: color-mix(in srgb, #2ea043 45%, var(--border)); }
+    html[data-theme="dark"] .lifecycle.active,
+    html[data-theme="dark"] .lifecycle.resolved { color: #3fb950; }
+    .current-state { margin: 0.35rem 0 0; font-size: 0.84rem; color: var(--muted); }
+    .latest-change { margin: 0.7rem 0 0; font-size: 0.96rem; line-height: 1.5; }
+    .latest-change b { color: var(--accent); }
+    .builder-impact { margin: 0.55rem 0 0; font-size: 0.88rem; color: var(--muted); }
+    .view-link { display: inline-block; margin-top: 0.7rem; font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; }
+    .list-tools { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+      flex-wrap: wrap; margin: 1rem 0 0; }
+    .list-tools p { margin: 0; color: var(--muted); font-size: 0.86rem; }
+    .sl-filters { display: flex; gap: 0.4rem; }
+    .sl-filter { font: inherit; min-height: 44px; padding: 0.35rem 0.75rem; border: 1px solid var(--border);
+      border-radius: 999px; cursor: pointer; }
+    .sl-filter[aria-pressed="true"] { color: var(--accent); border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--card)); }
     .scout-badge { font-size: 0.75rem; padding: 0.12rem 0.55rem; border-radius: 999px;
       border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent);
       background: color-mix(in srgb, var(--accent) 8%, var(--card)); white-space: nowrap; cursor: help; }
@@ -90,6 +116,14 @@
     .sl-card h2 a:hover { text-decoration: underline; }
     .sl-card .latest { margin: 0.35rem 0 0; font-size: 0.95rem; }
     .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+    button:focus-visible, a:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
+      outline-offset: 3px; }
+    @media (max-width: 560px) {
+      .sl-card-head { display: block; }
+      .lifecycle { display: inline-block; margin-bottom: 0.35rem; }
+      .follow-btn { width: 100%; }
+      .sl-meta { align-items: stretch; }
+    }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
   </style>
 </head>
@@ -182,6 +216,9 @@
       try { localStorage.setItem(FOLLOWS_KEY, JSON.stringify(follows)); } catch {}
     }
     let follows = loadFollows();
+    let storylineList = [];
+    let listMode = 'all';
+    let storylineWindowDays = 21;
 
     function toggleFollow(slug, lastUpdated) {
       if (follows[slug]) {
@@ -204,6 +241,28 @@
     function followBtnHtml(slug, lastUpdated) {
       const on = !!follows[slug];
       return `<button type="button" class="follow-btn" data-follow-slug="${esc(slug)}" data-last-updated="${esc(lastUpdated || '')}" aria-pressed="${on ? 'true' : 'false'}">${on ? '✓ Following' : '+ Follow this story'}</button>`;
+    }
+
+    function clipText(value, limit = 240) {
+      const text = String(value || '').trim();
+      if (text.length <= limit) return text;
+      const cut = text.slice(0, limit - 1);
+      return `${cut.slice(0, Math.max(0, cut.lastIndexOf(' ')))}…`;
+    }
+
+    function lifecycle(sl) {
+      const status = sl.editorial?.status || {};
+      const tone = String(status.tone || '').toLowerCase();
+      if (tone === 'resolved') return { label: 'Resolved', cls: 'resolved' };
+      const t = Date.parse(sl.last_updated || '');
+      const age = Number.isFinite(t) ? Math.floor((Date.now() - t) / 86400000) : 99;
+      if (age <= 3) return { label: 'Active', cls: 'active' };
+      if (age <= 10) return { label: 'Tracking', cls: 'tracking' };
+      return { label: 'Quiet', cls: 'quiet' };
+    }
+
+    function activeFollowCount() {
+      return storylineList.filter((sl) => !!follows[sl.slug]).length;
     }
 
     // Threads surfaced by the scout (a link the deterministic anchor rule
@@ -283,38 +342,80 @@
     }
 
     function renderList(index) {
-      const list = Array.isArray(index.storylines) ? index.storylines : [];
-      document.getElementById('meta').textContent = list.length
-        ? `${list.length} developing ${list.length === 1 ? 'storyline' : 'storylines'} from the last ${index.window_days || 21} days`
-        : 'No developing storylines right now';
+      storylineList = Array.isArray(index.storylines) ? index.storylines : [];
+      storylineWindowDays = Number(index.window_days || storylineWindowDays || 21);
+      const list = listMode === 'following'
+        ? storylineList.filter((sl) => !!follows[sl.slug])
+        : storylineList;
+      document.getElementById('meta').textContent = storylineList.length
+        ? `${storylineList.length} tracked ${storylineList.length === 1 ? 'storyline' : 'storylines'} from the last ${index.window_days || 21} days`
+        : 'No tracked storylines right now';
+      if (!storylineList.length) {
+        document.getElementById('content').innerHTML =
+          '<div class="state">No storylines are being tracked right now — check back after the next story develops.</div>';
+        return;
+      }
+      const filters = `
+        <div class="list-tools">
+          <p>Follow in this browser to see a thread's next update on your Live feed.</p>
+          <div class="sl-filters" aria-label="Filter storylines">
+            <button class="sl-filter" type="button" data-list-mode="all" aria-pressed="${listMode === 'all'}">All</button>
+            <button class="sl-filter" type="button" data-list-mode="following" aria-pressed="${listMode === 'following'}">Following (${activeFollowCount()})</button>
+          </div>
+        </div>`;
       if (!list.length) {
         document.getElementById('content').innerHTML =
-          '<div class="state">No storylines are developing right now — check back after the next big story breaks.</div>';
+          `${filters}<div class="state">You are not following any active storylines yet.</div>`;
         return;
       }
       document.getElementById('content').innerHTML = `
+        ${filters}
         <div class="sl-list">${list.map((sl) => `
           <div class="sl-card">
-            <h2><a href="/storyline/${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
+            <div class="sl-card-head">
+              <h2><a href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
+              <span class="lifecycle ${lifecycle(sl).cls}">${lifecycle(sl).label}</span>
+            </div>
             <p class="sl-meta">
-              <span>${sl.item_count} items · ${sl.source_count} sources · day ${sl.day_count} · updated ${esc(fmtRelTime(sl.last_updated))}</span>
-              ${scoutBadgeHtml(sl.via_scout)}
+              <span>${sl.item_count} updates · ${sl.source_count} sources · ${sl.day_count} days · updated ${esc(fmtRelTime(sl.last_updated))}</span>
               ${followBtnHtml(sl.slug, sl.last_updated)}
             </p>
-            ${sl.editorial && String(sl.editorial.tldr || '').trim()
-                ? `<p class="teaser">${esc(sl.editorial.tldr)}</p>`
-                : `<p class="latest">Latest: ${esc(sl.latest_title || '')}</p>`}
+            ${sl.editorial?.status?.state
+                ? `<p class="current-state"><b>Current:</b> ${esc(sl.editorial.status.state)}</p>` : ''}
+            <p class="latest-change"><b>Latest:</b> ${esc(clipText(sl.editorial?.whats_new || sl.latest_title || sl.editorial?.tldr || '', 260))}</p>
+            ${sl.editorial?.take_for_builders || sl.editorial?.why_it_matters
+                ? `<p class="builder-impact">💡 ${esc(clipText(sl.editorial.take_for_builders || sl.editorial.why_it_matters, 180))}</p>` : ''}
+            <a class="view-link" href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">See the full arc →</a>
           </div>`).join('')}
         </div>`;
       posthogCapture('storylines_list_view', { count: list.length });
     }
 
     document.getElementById('content').addEventListener('click', (e) => {
+      const open = e.target.closest('a[data-storyline-open]');
+      if (open) {
+        posthogCapture('storyline_open', {
+          slug: open.dataset.storylineOpen || '',
+          placement: open.classList.contains('view-link') ? 'index_cta' : 'index_title',
+        });
+      }
+      const filter = e.target.closest('button[data-list-mode]');
+      if (filter) {
+        listMode = filter.dataset.listMode === 'following' ? 'following' : 'all';
+        renderList({ storylines: storylineList, window_days: storylineWindowDays });
+        return;
+      }
       const btn = e.target.closest('button[data-follow-slug]');
       if (!btn) return;
       const on = toggleFollow(btn.dataset.followSlug || '', btn.dataset.lastUpdated || '');
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
       btn.textContent = on ? '✓ Following' : '+ Follow this story';
+      if (listMode === 'following') {
+        renderList({ storylines: storylineList, window_days: storylineWindowDays });
+        return;
+      }
+      const count = document.querySelector('button[data-list-mode="following"]');
+      if (count) count.textContent = `Following (${activeFollowCount()})`;
     });
 
     async function run() {

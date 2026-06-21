@@ -4,6 +4,7 @@
 - feedback-loop.md
 - llm-ranking.md
 - agent-wiki.md
+- storylines.md
 - playbook.md
 - nav-update-indicators.md
 - email-digest.md
