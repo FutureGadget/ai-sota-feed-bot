@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-06-22 (Fix Anthropic Series H raise figure in storyline)
+- **Decision:** Corrected the raise figure in `data/storylines/narratives/opus-4-8.json` from "$965B Series H raise" to "$65B Series H raise (at a $965B valuation)".
+- **Rationale:** The original text incorrectly described the $965B post-money valuation as the funding raise amount, which was actually $65B.
+- **Impact:** Updated `data/storylines/narratives/opus-4-8.json` and the compiled `data/storylines/opus-4-8.json`. Regenerated `web/storyline/opus-4-8.html` via `pipeline/render_static_pages.py`.
+- **Rollback:** Revert the JSON and HTML changes.
+
 ## 2026-06-21 (Exclude subscriber discount/ticket promos from the feed)
 - **Decision:** Add `(?i)\$\d[\d,]*\s*off\b` to
   `config/profile.yaml → selection.exclude_title_regex`, hard-dropping titles
