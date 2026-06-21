@@ -1319,10 +1319,10 @@
     // hiding lets a reader clear out read stories so the feed shows what's new,
     // and that is deliberately NOT a relevance vote. The 👎 Not relevant button
     // still fires its own `item_feedback` signal (that part tunes ranking), but
-    // the hide it triggers is independent — see the decoupling note in
-    // toggleHidden / hideFromFeedback. `item_hide` analytics events are emitted
-    // but pipeline/feedback.py only ingests `item_feedback`, so a hide can never
-    // be read as "not relevant".
+    // the hide it triggers is independent — see the decoupling note in the
+    // `irrelevant` branch of the feedback click handler. `item_hide` analytics
+    // events are emitted but pipeline/feedback.py only ingests `item_feedback`,
+    // so a hide can never be read as "not relevant".
     const HIDDEN_ITEMS_KEY = 'ai_feed_hidden_items_v1';
     let showHiddenState = false;
 
@@ -1368,10 +1368,6 @@
       persistHiddenItems();
       posthogCapture('item_hide', { item_id: key, action: 'unhide' });
       return true;
-    }
-
-    function toggleHidden(key, reason = 'button') {
-      return isItemHidden(key) ? (setUnhidden(key), false) : (setHidden(key, reason), true);
     }
 
     // Brief "Hidden — Undo" toast so an accidental swipe/tap is one tap to fix.
@@ -2551,12 +2547,18 @@
       const list = document.getElementById('list');
       const { items, runs, freshAdded, runId, totalItems, hasMore } = feedCache;
       const q = searchQueryState.trim().toLowerCase();
-      const matched = items.filter((it) => matchesQuery(it, q));
-      // Hidden items are dropped from the feed unless the reader is managing
-      // them via the "Show hidden" toggle. This is the reader's own read/new
-      // bookkeeping — never a ranking signal.
-      const hiddenInView = matched.filter((it) => isItemHidden(itemKey(it))).length;
-      const visible = showHiddenState ? matched : matched.filter((it) => !isItemHidden(itemKey(it)));
+      // Single pass over the matched items: count how many are hidden and build
+      // the visible list. Hidden items are dropped from the feed unless the
+      // reader is managing them via the "Show hidden" toggle — the reader's own
+      // read/new bookkeeping, never a ranking signal.
+      let hiddenInView = 0;
+      const visible = [];
+      for (const it of items) {
+        if (!matchesQuery(it, q)) continue;
+        const hidden = isItemHidden(itemKey(it));
+        if (hidden) hiddenInView++;
+        if (showHiddenState || !hidden) visible.push(it);
+      }
 
       // Reader-facing summary line: stories + recency, not pipeline jargon.
       const latestRunAt = runs.reduce((acc, r) => {
