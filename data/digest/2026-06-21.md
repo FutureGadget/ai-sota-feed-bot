@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Workspace, Runtime, and Directories – Designing an Agent Orchestration Library
 - Type: news | Source: hackernews_ai
 - URL: https://ffacu.dev/blog/designing-agents-environment
-- Score: 2.789 | Reliability: 1.0
+- Score: 2.787 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
@@ -53,13 +53,13 @@ Focus: AI Platform Engineering
 ## 9. claude-agent-sdk-python v0.2.106
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.106
-- Score: 2.289 | Reliability: 1.0
+- Score: 2.288 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 10. claude-code v2.1.185
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.185
-- Score: 2.14 | Reliability: 1.0
+- Score: 2.139 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
