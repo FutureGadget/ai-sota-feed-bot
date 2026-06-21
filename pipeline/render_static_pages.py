@@ -981,7 +981,7 @@ def render_head(
     ld = json_ld_script(json_ld or [])
     return f"""\
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />{robots_meta}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />{robots_meta}
   <title>{escape(title)} | {escape(SITE_NAME)}</title>
   <meta name="description" content="{escape(description)}" />
   <link rel="canonical" href="{escape(canonical)}" />
@@ -2399,7 +2399,7 @@ def render_redirect_page(base_url: str, slug: str, target_slug: str) -> str:
     t = escape(target_path)
     return (
         "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">"
-        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">"
         "<meta name=\"robots\" content=\"noindex, follow\">"
         f"<link rel=\"canonical\" href=\"{escape(canonical)}\">"
         f"<meta http-equiv=\"refresh\" content=\"0; url={t}\">"
