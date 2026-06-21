@@ -102,7 +102,7 @@ export function createBubbleBuddy(userOpts = {}) {
   let stateAt = 0, dwell = 0, scheduleTimer = 0;
   let blinkAt = 0, blinking = 0, reactUntil = 0;
   let started = false, destroyed = false, wired = false;
-  let themeObserver = null, sizeObserver = null, visHandler = null;
+  let themeObserver = null, sizeObserver = null, visHandler = null, floatResizeHandler = null;
 
   const TIPS = (opts.tips && opts.tips.length) ? opts.tips : DEFAULT_TIPS;
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -160,7 +160,26 @@ export function createBubbleBuddy(userOpts = {}) {
       const vert = opts.position.includes('top') ? 'top' : 'bottom';
       const horz = opts.position.includes('left') ? 'left' : 'right';
       container.style[vert] = opts.offsetY + 'px';
-      container.style[horz] = opts.offsetX + 'px';
+      // Horizontal anchoring: when floating fixed-to-viewport (toBody), iOS
+      // Safari opens a phantom horizontal scroll gutter for `position: fixed`
+      // elements anchored with `right` (made worse by `user-scalable=no`). The
+      // mascot then parks itself in that blank space on the right. Anchor with
+      // `left`, computed against the clipped viewport width and kept in sync on
+      // resize/orientation, so it stays on-screen and never opens a gutter.
+      if (toBody && horz === 'right') {
+        floatResizeHandler = () => {
+          if (!container) return;
+          const vw = document.documentElement.clientWidth || window.innerWidth || 0;
+          container.style.right = 'auto';
+          container.style.left = Math.max(0, Math.round(vw - opts.width - opts.offsetX)) + 'px';
+        };
+        floatResizeHandler();
+        window.addEventListener('resize', floatResizeHandler, { passive: true });
+        window.addEventListener('orientationchange', floatResizeHandler, { passive: true });
+        if (window.visualViewport) window.visualViewport.addEventListener('resize', floatResizeHandler, { passive: true });
+      } else {
+        container.style[horz] = opts.offsetX + 'px';
+      }
     }
 
     canvas = document.createElement('canvas');
@@ -658,6 +677,11 @@ export function createBubbleBuddy(userOpts = {}) {
     destroyed = true;
     clearTimeout(scheduleTimer); stopLoop();
     if (visHandler) document.removeEventListener('visibilitychange', visHandler);
+    if (floatResizeHandler) {
+      window.removeEventListener('resize', floatResizeHandler);
+      window.removeEventListener('orientationchange', floatResizeHandler);
+      if (window.visualViewport) window.visualViewport.removeEventListener('resize', floatResizeHandler);
+    }
     if (themeObserver) themeObserver.disconnect();
     if (sizeObserver) sizeObserver.disconnect();
     if (scene) scene.traverse((o) => {
