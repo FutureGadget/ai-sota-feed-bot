@@ -53,6 +53,11 @@ DEFAULTS = {
 # below this it is ranking noise, not a signal worth surfacing to readers.
 READER_BOOST_MIN = 0.02
 
+# "Reader-boosted" is a source-level signal, so a single tuned source can stamp
+# many rows and the badge stops meaning anything. Cap how many rows wear it (the
+# most-boosted ones) so it reads as a highlight, not wallpaper.
+READER_BOOST_MAX_BADGES = 2
+
 # Invisible filler appended after the preheader so the body's first visible line
 # doesn't bleed into the inbox preview after the snippet (the standard hack:
 # zero-width joiners + non-breaking spaces, which render as nothing).
@@ -61,7 +66,63 @@ PREHEADER_PAD = "&#847;&zwnj;&nbsp;" * 40
 
 def clean(s: str, n: int = 120) -> str:
     s = (s or "").replace("\n", " ").strip()
-    return s if len(s) <= n else s[: n - 1].rstrip() + "…"
+    if len(s) <= n:
+        return s
+    cut = s[: n - 1].rstrip()
+    # Prefer the last word boundary so we never slice mid-word ("to understa…"),
+    # but only if it doesn't chop off so much that the snippet loses its point.
+    sp = cut.rfind(" ")
+    if sp >= int(n * 0.6):
+        cut = cut[:sp].rstrip()
+    return cut.rstrip(" ,.;:–—-") + "…"
+
+
+# Reader-facing publisher names, mirroring web/index.html's SOURCE_NAMES so the
+# email and the site label sources identically. Unknown slugs degrade to an
+# acronym-aware prettify (same fallback as the site's sourceDisplayName).
+SOURCE_NAMES = {
+    "arxiv_cs_ai": "arXiv cs.AI",
+    "arxiv_cs_lg": "arXiv cs.LG",
+    "arxiv_cs_cl": "arXiv cs.CL",
+    "paperswithcode_latest": "Papers with Code",
+    "openai_blog": "OpenAI Blog",
+    "anthropic_newsroom": "Anthropic Newsroom",
+    "anthropic_engineering": "Anthropic Engineering",
+    "anthropic_research": "Anthropic Research",
+    "huggingface_blog": "Hugging Face Blog",
+    "nvidia_blog": "NVIDIA Blog",
+    "google_ai_blog": "Google AI Blog",
+    "aws_ml_blog": "AWS ML Blog",
+    "vllm_releases": "vLLM Releases",
+    "triton_releases": "Triton Releases",
+    "llamaindex_releases": "LlamaIndex Releases",
+    "langgraph_releases": "LangGraph Releases",
+    "openai_codex_releases": "OpenAI Codex Releases",
+    "claude_code_releases": "Claude Code Releases",
+    "claude_agent_sdk_python_releases": "Claude Agent SDK Releases",
+    "claude_blog": "Claude Blog",
+    "hackernews_ai": "Hacker News AI",
+    "infoq_ai_ml": "InfoQ AI/ML",
+    "simon_willison": "Simon Willison",
+    "latent_space": "Latent Space",
+    "langchain_blog": "LangChain Blog",
+    "search_agent_engineering_news": "Agent Engineering News",
+    "search_llm_ops_news": "LLM Ops News",
+}
+SOURCE_ACRONYMS = {"ai", "ml", "llm", "aws", "api", "sdk", "gpu"}
+
+
+def source_name(slug: str) -> str:
+    s = (slug or "").strip()
+    if not s:
+        return "unknown"
+    if s in SOURCE_NAMES:
+        return SOURCE_NAMES[s]
+    return " ".join(
+        w.upper() if w.lower() in SOURCE_ACRONYMS else w[:1].upper() + w[1:]
+        for w in re.split(r"[_\s]+", s)
+        if w
+    )
 
 
 def short_why(s: str) -> str:
@@ -76,15 +137,33 @@ def short_why(s: str) -> str:
     return clean(s, 76)
 
 
+# Source buckets for the signal label. First-party announcements from model labs
+# and platform vendors; independent practitioner commentary; third-party industry
+# reporting. Anything unmapped degrades to the generic "Platform News".
+VENDOR_SOURCES = frozenset({
+    "openai_blog", "claude_blog", "anthropic_newsroom", "anthropic_engineering",
+    "anthropic_research", "google_ai_blog", "google_deepmind_blog", "nvidia_blog",
+    "huggingface_blog", "aws_ml_blog", "google_cloud_blog", "langchain_blog",
+})
+ANALYSIS_SOURCES = frozenset({"simon_willison", "latent_space"})
+INDUSTRY_NEWS_SOURCES = frozenset({"infoq_ai_ml", "search_agent_engineering_news", "search_llm_ops_news"})
+
+
 def signal_label(item: dict) -> str:
     item_type = (item.get("type") or "news").lower()
     source = (item.get("source") or "").lower()
     if item_type == "release":
         return "Tooling Release"
+    if item_type in ("paper", "research"):
+        return "Research"
     if "hackernews" in source or "show hn" in (item.get("title", "").lower()):
         return "Field Report"
-    if item_type == "paper":
-        return "Research"
+    if source in VENDOR_SOURCES:
+        return "Vendor Update"
+    if source in ANALYSIS_SOURCES:
+        return "Analysis"
+    if source in INDUSTRY_NEWS_SOURCES:
+        return "Industry News"
     return "Platform News"
 
 
@@ -174,9 +253,15 @@ def _why_text(it: dict) -> str:
     why = (it.get("why_it_matters") or it.get("llm_why_1line") or "").strip()
     if not why or why.lower().startswith("matches feed focus"):
         why = (it.get("summary_1line") or it.get("llm_summary_1line") or "").strip()
-    title = (it.get("title") or "").strip().lower()
-    if title and why.lower().rstrip(".").startswith(title.rstrip(".")[:60]):
-        return ""
+    tnorm = (it.get("title") or "").strip().lower().rstrip(".")
+    if tnorm and why.lower().rstrip(".").startswith(tnorm[:60]):
+        # The summary opens by echoing the headline (e.g. "Introducing X, a …").
+        # Keep the substantive remainder after the echoed prefix rather than
+        # discarding the whole line and leaving the row context-less.
+        remainder = why[len(tnorm[:60]) :].lstrip(" ,.:;–—-")
+        if len(remainder) < 30:
+            return ""
+        return remainder[:1].upper() + remainder[1:]
     return why
 
 
@@ -405,13 +490,23 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
     top_title = clean(items[0].get("title", "AI updates"), 60) if items else "AI updates"
     subject = f"Your AI brief — {n} items · ~{mins} min · {top_title}"
 
+    # Cap the badge to the most-boosted non-lead rows (the lead is already a hero,
+    # so it never competes for the badge). 0-based item indices.
+    badge_idx = set(
+        sorted(
+            (j for j, it in enumerate(items) if j > 0 and reader_boosted(it)),
+            key=lambda j: float(items[j].get("source_tune") or 0),
+            reverse=True,
+        )[:READER_BOOST_MAX_BADGES]
+    )
+
     rows: list[str] = []
     for i, it in enumerate(items, start=1):
         url = it.get("url", "")
         title = html.escape(clean(it.get("title", ""), 140))
-        source = html.escape(clean(it.get("source", "unknown"), 40))
+        source = html.escape(clean(source_name(it.get("source", "")), 40))
         signal = html.escape(signal_label(it))
-        badges = _badge("Reader-boosted", "#eef6ff", "#1a6dd6") if reader_boosted(it) else ""
+        badges = _badge("Reader-boosted", "#eef6ff", "#1a6dd6") if (i - 1) in badge_idx else ""
         meta = f"{signal} · {source}"
         if i == 1:
             # Lead-story hero: bigger headline + fuller context so the day has a
@@ -509,7 +604,9 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
     fav = reader_favorites(int(cfg["weekly"].get("max_favorites", 3)))
     fav_html = ""
     if fav:
-        chips = " · ".join(f'<span style="color:#333;font-weight:600">{html.escape(s)}</span>' for s, _ in fav)
+        chips = " · ".join(
+            f'<span style="color:#333;font-weight:600">{html.escape(source_name(s))}</span>' for s, _ in fav
+        )
         fav_html = (
             '<div style="margin:18px 0 4px;padding:10px 12px;border-radius:8px;background:#f6f8fa;font-size:13px;color:#555">'
             f"📈 <strong>Reader favorites this week</strong> — sources you clicked most: {chips}</div>"
@@ -522,7 +619,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
         for a in (c.get("articles") or [])[:per_cat]:
             url = a.get("url", "")
             t = html.escape(clean(a.get("title", ""), 130))
-            src = html.escape(clean(a.get("source", ""), 32))
+            src = html.escape(clean(source_name(a.get("source", "")), 32))
             arts.append(
                 f'<li style="margin:5px 0;font-size:13px;line-height:1.4">'
                 f'<a href="{html.escape(story_url(cfg, url))}" style="color:#111;text-decoration:none">{t}</a>'
