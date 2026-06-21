@@ -135,15 +135,24 @@
     .quicknav a:hover {
       text-decoration: underline;
     }
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border, #e5e5e5);
+      margin-top: 0.65rem;
+      width: 100%;
+      min-width: 0;
+    }
     .sections {
+      flex: 1;
+      min-width: 0;
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       gap: 0.4rem;
-      margin-top: 0.65rem;
-      border-bottom: 1px solid var(--border, #e5e5e5);
       padding-bottom: 0.5rem;
     }
     .sections::-webkit-scrollbar {
@@ -152,6 +161,18 @@
     .sections button {
       white-space: nowrap;
       flex-shrink: 0;
+    }
+    .controls-bar select {
+      display: inline-block;
+      flex-shrink: 0;
+      width: auto;
+      font-size: 0.92rem;
+      padding: 0.3rem 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      cursor: pointer;
+      margin-bottom: 0.5rem;
     }
     .sitefooter {
       margin-top: 2rem;
@@ -690,14 +711,18 @@
     .feed-promise strong { color:var(--fg); }
     #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.68rem; line-height:1.55; }
-    .sections { gap:0; margin-top:0; padding:0; border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border); }
+    .controls-bar { display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0;
+      width: 100%; min-width: 0; }
+    .sections { flex: 1; min-width: 0; gap: 0; margin-top: 0; padding: 0; border: 0; }
     .sections button { min-height:44px; padding:.55rem .8rem; border:0;
       border-bottom:2px solid transparent; border-radius:0; color:var(--muted);
       font-size:.82rem; }
     .sections button:hover { color:var(--accent); border-color:transparent; }
     .sections button.active { background:transparent; border-bottom-color:var(--accent);
       color:var(--fg); font-weight:700; }
+    .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; border: 0; border-radius: 0; background: transparent; font-size: 0.82rem;
+      color: var(--muted); min-height: 44px; padding: 0 0.8rem; margin: 0; cursor: pointer; }
     .searchbar { margin-top:.8rem; border-radius:3px; background:transparent; }
     .selected-labels { padding:.55rem 0; margin:0; border-bottom:1px solid var(--border); }
     .selected-labels .badge { border:0; border-radius:0; padding:.2rem .45rem;
@@ -757,11 +782,38 @@
     .skel-card { border:0; border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
-      .topbar { align-items:flex-start; }
-      .topbar-actions { flex-wrap:wrap; justify-content:flex-end; }
-      .feed-hero { grid-template-columns:1fr; gap:.75rem; margin-top:1.55rem; }
-      .feed-title { font-size:3.1rem; }
+      .topbar { align-items:center; }
+      .topbar-actions { flex-wrap:nowrap; justify-content:flex-end; }
+      .feed-hero { grid-template-columns:1fr; gap:0.5rem; margin:1rem 0 0.8rem; }
+      .feed-title { font-size:2.2rem; line-height:1.0; }
+      .feed-promise { display:none; }
       .sections { overflow-x:auto; }
+      .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; max-width: 100px; font-size:0.82rem; padding:0 0.4rem 0 0.6rem; min-height:44px; }
+      .quicknav {
+        display: flex;
+        width: calc(100% + 2rem);
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.6rem;
+        padding: 0.65rem 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        scrollbar-width: none;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .quicknav::-webkit-scrollbar {
+        display: none;
+      }
+      .quicknav a {
+        flex-shrink: 0;
+        padding: 0.25rem 0.6rem;
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        font-size: 0.65rem;
+      }
       #list > article { padding-left:2.45rem; }
       .rank-no { width:1.7rem; font-size:1.35rem; }
       .card-top { padding-right:0; }
@@ -785,13 +837,6 @@
         <div class="topbar-actions">
           <a id="subscribeToggle" href="/subscribe" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="topbar"><span class="subscribe-toggle-icon" aria-hidden="true">✉️</span><span class="subscribe-toggle-label">Subscribe</span></a>
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
-          <select id="rangeSelect" aria-label="Time range">
-            <option value="1">Today</option>
-            <option value="3">Last 3d</option>
-            <option value="7" selected>Last 7d</option>
-            <option value="30">Last 30d</option>
-            <option value="all">All</option>
-          </select>
           <button id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
         </div>
       </div>
@@ -815,15 +860,24 @@
         </div>
       </section>
 
-      <nav class="sections" id="sections" aria-label="Sections">
-        <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
-        <button type="button" data-section="platform">Platform</button>
-        <button type="button" data-section="research" title="Papers and research write-ups">Research</button>
-        <button type="button" data-section="release">Releases</button>
-        <button type="button" data-section="news">News</button>
-        <button type="button" data-section="" title="The full firehose, including release notes">All</button>
-        <button type="button" id="savedTab">⭐ Saved</button>
-      </nav>
+      <div class="controls-bar">
+        <nav class="sections" id="sections" aria-label="Sections">
+          <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
+          <button type="button" data-section="platform">Platform</button>
+          <button type="button" data-section="research" title="Papers and research write-ups">Research</button>
+          <button type="button" data-section="release">Releases</button>
+          <button type="button" data-section="news">News</button>
+          <button type="button" data-section="" title="The full firehose, including release notes">All</button>
+          <button type="button" id="savedTab">⭐ Saved</button>
+        </nav>
+        <select id="rangeSelect" aria-label="Time range">
+          <option value="1">Today</option>
+          <option value="3">Last 3d</option>
+          <option value="7" selected>Last 7d</option>
+          <option value="30">Last 30d</option>
+          <option value="all">All</option>
+        </select>
+      </div>
 
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
       <div id="selectedLabels" class="selected-labels"></div>
