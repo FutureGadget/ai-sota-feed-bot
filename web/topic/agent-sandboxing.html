@@ -116,6 +116,131 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], #themeToggle, .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -125,10 +250,11 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">🛠️ Solution · 9 sources</p>
+      <p id="meta" class="muted"></p>
       <menu>
         <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
+        <a href="/playbook" role="button">🛠️ Playbook</a>
         <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/topic/agent-sandboxing" data-share-title="Sandboxing, scoped credentials, and guardrails — agent engineering">🔗 Share</button>
@@ -137,16 +263,16 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Sandboxing, scoped credentials, and guardrails</h2>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">Sandboxing, scoped credentials, and guardrails</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>9 sources<span class="sep">·</span>updated 2026-06-21</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="cat"><h2>TL;DR</h2><p>Assume the agent will be hijacked and limit the damage: run its code in a sandbox, give it narrowly scoped and short-lived credentials, gate high-impact actions behind approvals, and screen inputs/outputs with guardrails. None of these stops injection on its own — together they shrink the blast radius of one that gets through.</p></div>
-<div class="cat"><h2>State of the art</h2><p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Two reinforcing moves are pushing this further: treating each agent as a <strong>non-human identity</strong> with its own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a human&#x27;s session), and pushing isolation <strong>down into the OS</strong> — Microsoft positions Windows as a trust base for agents with a dedicated Execution Container so the sandbox is an OS-enforced boundary, not just a process wrapper. These controls are now showing up as concrete, shipping primitives rather than principles: identity-based sandbox platforms hide infrastructure secrets from both developers and the agent (Cordium, a self-hosted Kubernetes sandbox where the credentials never enter the agent&#x27;s reach); harness permission rules are getting fine-grained enough to match a tool *call&#x27;s parameters* — Claude Code&#x27;s <code>Tool(param:value)</code> syntax can, for example, block Opus subagents — so authorization is scoped per action, not per tool; and write paths are being gated behind explicit user approval that respects the caller&#x27;s own permissions (datasette-agent&#x27;s approval-prompted <code>execute_write_sql</code>, on top of a general resource-sharing ACL layer). Least privilege plus human approval on the few actions that really matter is the most durable control.</p></div>
-<div class="cat"><h2>What&#x27;s new</h2><p>The controls are turning from principles into shipped primitives: per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>, e.g. blocking Opus subagents), approval-gated writes that honor the caller&#x27;s permissions (datasette-agent), and identity-based sandboxes that keep infra secrets out of the agent&#x27;s reach entirely (Cordium) — converging, alongside OS-enforced containers and agent-as-identity, on scoped, centrally governed, revocable permissions rather than guardrails or process sandboxes alone.</p></div>
-<div class="cat"><h2>Trade-offs</h2><p>More isolation and tighter scopes mean more friction: approval gates add latency and human cost, narrow credentials break workflows that legitimately need broad access, and sandboxes add ops overhead. Guardrail models add a per-call cost and a new failure/attack surface of their own. The honest stance is defense in depth with no single layer trusted — which is more moving parts to build and monitor. Best calibrated to blast radius: heavy controls on agents with write access or money/data reach, lighter on read-only ones.</p></div>
-<div class="cat"><h2>Why it matters for platform engineers</h2><p>This is standard security engineering applied to a new actor: least privilege, short-lived scoped tokens, egress limits, and approvals — not prompt cleverness. The actionable lesson is to treat the sandbox as containing *code* and the credential/authorization layer as containing *capability*, and to govern tool access centrally (see <a href="/topic/mcp">MCP</a>) so a hijacked agent can reach little.</p></div>
-<div class="cat"><h2>Addresses</h2><div class="toc"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></div></div>
-<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/story/2f585fd257ad02a4">Coding Agent Sandboxes Don&#x27;t Solve Credential Authorization</a></li><li><a href="/story/6b3ed4b86d0301bf">From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails</a></li><li><a href="/story/b2c537fce6444ae6">Centrally manage authorization for MCP connectors | Claude</a></li><li><a href="/story/dd1dcc3f564a3ddd">Every AI Agent Is an Identity. Most Organizations Don&#x27;t Treat Them That Way</a></li><li><a href="/story/b36dcebbf2119ee1">Windows Platform Security and the Race to Secure AI Agents</a></li><li><a href="/story/4c55eebe122eae12">Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents</a></li><li><a href="/story/9ef99508d91d13ed">claude-code v2.1.178</a></li><li><a href="/story/810e8370a6841be6">datasette-agent 0.3a0</a></li><li><a href="/story/68a519e26dde7563">datasette-acl 0.6a0</a></li></ul></div>
+      <div class="topic"><div class="topic-lead"><p>Assume the agent will be hijacked and limit the damage: run its code in a sandbox, give it narrowly scoped and short-lived credentials, gate high-impact actions behind approvals, and screen inputs/outputs with guardrails. None of these stops injection on its own — together they shrink the blast radius of one that gets through.</p></div>
+<aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Addresses</span><ul><li><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></li></ul></div></aside>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Two reinforcing moves are pushing this further: treating each agent as a <strong>non-human identity</strong> with its own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a human&#x27;s session), and pushing isolation <strong>down into the OS</strong> — Microsoft positions Windows as a trust base for agents with a dedicated Execution Container so the sandbox is an OS-enforced boundary, not just a process wrapper. These controls are now showing up as concrete, shipping primitives rather than principles: identity-based sandbox platforms hide infrastructure secrets from both developers and the agent (Cordium, a self-hosted Kubernetes sandbox where the credentials never enter the agent&#x27;s reach); harness permission rules are getting fine-grained enough to match a tool *call&#x27;s parameters* — Claude Code&#x27;s <code>Tool(param:value)</code> syntax can, for example, block Opus subagents — so authorization is scoped per action, not per tool; and write paths are being gated behind explicit user approval that respects the caller&#x27;s own permissions (datasette-agent&#x27;s approval-prompted <code>execute_write_sql</code>, on top of a general resource-sharing ACL layer). Least privilege plus human approval on the few actions that really matter is the most durable control.</p></div></section>
+<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>The controls are turning from principles into shipped primitives: per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>, e.g. blocking Opus subagents), approval-gated writes that honor the caller&#x27;s permissions (datasette-agent), and identity-based sandboxes that keep infra secrets out of the agent&#x27;s reach entirely (Cordium) — converging, alongside OS-enforced containers and agent-as-identity, on scoped, centrally governed, revocable permissions rather than guardrails or process sandboxes alone.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Trade-offs</div><div class="topic-prose"><p>More isolation and tighter scopes mean more friction: approval gates add latency and human cost, narrow credentials break workflows that legitimately need broad access, and sandboxes add ops overhead. Guardrail models add a per-call cost and a new failure/attack surface of their own. The honest stance is defense in depth with no single layer trusted — which is more moving parts to build and monitor. Best calibrated to blast radius: heavy controls on agents with write access or money/data reach, lighter on read-only ones.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>This is standard security engineering applied to a new actor: least privilege, short-lived scoped tokens, egress limits, and approvals — not prompt cleverness. The actionable lesson is to treat the sandbox as containing *code* and the credential/authorization layer as containing *capability*, and to govern tool access centrally (see <a href="/topic/mcp">MCP</a>) so a hijacked agent can reach little.</p></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 9 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/2f585fd257ad02a4">Coding Agent Sandboxes Don&#x27;t Solve Credential Authorization</a></li><li class="ev-story"><a href="/story/6b3ed4b86d0301bf">From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails</a></li><li class="ev-story"><a href="/story/b2c537fce6444ae6">Centrally manage authorization for MCP connectors | Claude</a></li><li class="ev-story"><a href="/story/dd1dcc3f564a3ddd">Every AI Agent Is an Identity. Most Organizations Don&#x27;t Treat Them That Way</a></li><li class="ev-story"><a href="/story/b36dcebbf2119ee1">Windows Platform Security and the Race to Secure AI Agents</a></li><li class="ev-story"><a href="/story/4c55eebe122eae12">Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents</a></li><li class="ev-story"><a href="/story/9ef99508d91d13ed">claude-code v2.1.178</a></li><li class="ev-story"><a href="/story/810e8370a6841be6">datasette-agent 0.3a0</a></li><li class="ev-story"><a href="/story/68a519e26dde7563">datasette-acl 0.6a0</a></li></ul></section></div>
     </section>
 
     <footer>

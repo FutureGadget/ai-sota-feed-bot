@@ -116,6 +116,131 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], #themeToggle, .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -125,10 +250,11 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">🛠️ Solution · 3 sources</p>
+      <p id="meta" class="muted"></p>
       <menu>
         <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
+        <a href="/playbook" role="button">🛠️ Playbook</a>
         <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/topic/version-pinning" data-share-title="Version pinning, compatibility ranges, and staged upgrades — agent engineering">🔗 Share</button>
@@ -137,16 +263,16 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Version pinning, compatibility ranges, and staged upgrades</h2>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">Version pinning, compatibility ranges, and staged upgrades</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>3 sources<span class="sep">·</span>updated 2026-06-21</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="cat"><h2>TL;DR</h2><p>Treat the model, agent SDK, framework, and serving runtime as version-controlled dependencies, not a rolling stream: pin exact versions, declare the compatibility range you actually support, heed deprecation warnings, and promote upgrades through a staged, tested path instead of tracking latest. It doesn&#x27;t stop the substrate from changing — it stops the change from reaching production unnoticed.</p></div>
-<div class="cat"><h2>State of the art</h2><p>The primitives are arriving. <strong>Compatibility ranges</strong> let you state the substrate versions an agent is built against rather than implicitly accepting whatever is newest — LangGraph&#x27;s CLI added support for declaring compatible API version ranges, turning an implicit assumption into an explicit, checkable contract. <strong>Deprecation signals</strong> close the gap where a model vanishes underneath a running agent: Claude Code now warns when the requested model is deprecated, so an operator can schedule the migration instead of discovering it as an outage. <strong>Transitive pinning</strong> is the subtle case the agent SDKs expose — a Claude Agent SDK release whose only change is bumping the bundled CLI shows that pinning your direct dependency is not enough when that dependency vendors an executable; the version you actually run can move at a patch bump, so the pin has to reach the whole chain (SDK → bundled CLI → model). The honest current state is that the tooling gives you the levers but the defaults still favor latest, so pinning is a discipline you impose, not a default you inherit.</p></div>
-<div class="cat"><h2>What&#x27;s new</h2><p>Two concrete levers landed: declarable compatible API version ranges (LangGraph CLI) and explicit deprecation warnings for requested models (Claude Code) — moving drift management from &quot;hope the upgrade is safe&quot; toward stating the contract and being told before it breaks.</p></div>
-<div class="cat"><h2>Trade-offs</h2><p>Pinning trades freshness and security currency for stability: stay pinned too long and you miss fixes, performance passes, and patched vulnerabilities, and you accumulate a painful catch-up upgrade. Pin too loosely and a patch bump reintroduces a regression. Ranges and staged rollouts add CI and release machinery, and a pin is only as good as the regression suite that gates the unpin — without <a href="/topic/agent-benchmarks">agent benchmarks</a> you&#x27;ve frozen the version but not proven the behavior.</p></div>
-<div class="cat"><h2>Why it matters for platform engineers</h2><p>This is ordinary dependency hygiene applied to a substrate most teams treat as a service rather than a dependency. The deliverable is a lockfile that reaches all the way down — model id, SDK, bundled CLI, framework, serving runtime — plus a staged upgrade path gated by regression evals, so a model deprecation or a framework patch is a planned migration, not a surprise behavior change in prod. It pairs directly with <a href="/topic/model-drift">model drift</a>: pinning is how you decide *when* drift reaches you instead of letting it arrive on the substrate&#x27;s schedule. &lt;/content&gt;</p></div>
-<div class="cat"><h2>Addresses</h2><div class="toc"><a href="/topic/model-drift">Agent behavior drifts as the model, SDK, and runtime churn under it</a></div></div>
-<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/story/473efa3d40555ca9">langgraph-cli==0.4.30</a></li><li><a href="/story/860864df5583b9ff">claude-code v2.1.183</a></li><li><a href="/story/0971e4ffff50b51c">claude-agent-sdk-python v0.2.106</a></li></ul></div>
+      <div class="topic"><div class="topic-lead"><p>Treat the model, agent SDK, framework, and serving runtime as version-controlled dependencies, not a rolling stream: pin exact versions, declare the compatibility range you actually support, heed deprecation warnings, and promote upgrades through a staged, tested path instead of tracking latest. It doesn&#x27;t stop the substrate from changing — it stops the change from reaching production unnoticed.</p></div>
+<aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Addresses</span><ul><li><a href="/topic/model-drift">Agent behavior drifts as the model, SDK, and runtime churn under it</a></li></ul></div></aside>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>The primitives are arriving. <strong>Compatibility ranges</strong> let you state the substrate versions an agent is built against rather than implicitly accepting whatever is newest — LangGraph&#x27;s CLI added support for declaring compatible API version ranges, turning an implicit assumption into an explicit, checkable contract. <strong>Deprecation signals</strong> close the gap where a model vanishes underneath a running agent: Claude Code now warns when the requested model is deprecated, so an operator can schedule the migration instead of discovering it as an outage. <strong>Transitive pinning</strong> is the subtle case the agent SDKs expose — a Claude Agent SDK release whose only change is bumping the bundled CLI shows that pinning your direct dependency is not enough when that dependency vendors an executable; the version you actually run can move at a patch bump, so the pin has to reach the whole chain (SDK → bundled CLI → model). The honest current state is that the tooling gives you the levers but the defaults still favor latest, so pinning is a discipline you impose, not a default you inherit.</p></div></section>
+<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>Two concrete levers landed: declarable compatible API version ranges (LangGraph CLI) and explicit deprecation warnings for requested models (Claude Code) — moving drift management from &quot;hope the upgrade is safe&quot; toward stating the contract and being told before it breaks.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Trade-offs</div><div class="topic-prose"><p>Pinning trades freshness and security currency for stability: stay pinned too long and you miss fixes, performance passes, and patched vulnerabilities, and you accumulate a painful catch-up upgrade. Pin too loosely and a patch bump reintroduces a regression. Ranges and staged rollouts add CI and release machinery, and a pin is only as good as the regression suite that gates the unpin — without <a href="/topic/agent-benchmarks">agent benchmarks</a> you&#x27;ve frozen the version but not proven the behavior.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>This is ordinary dependency hygiene applied to a substrate most teams treat as a service rather than a dependency. The deliverable is a lockfile that reaches all the way down — model id, SDK, bundled CLI, framework, serving runtime — plus a staged upgrade path gated by regression evals, so a model deprecation or a framework patch is a planned migration, not a surprise behavior change in prod. It pairs directly with <a href="/topic/model-drift">model drift</a>: pinning is how you decide *when* drift reaches you instead of letting it arrive on the substrate&#x27;s schedule. &lt;/content&gt;</p></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 3 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/473efa3d40555ca9">langgraph-cli==0.4.30</a></li><li class="ev-story"><a href="/story/860864df5583b9ff">claude-code v2.1.183</a></li><li class="ev-story"><a href="/story/0971e4ffff50b51c">claude-agent-sdk-python v0.2.106</a></li></ul></section></div>
     </section>
 
     <footer>

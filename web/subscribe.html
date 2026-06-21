@@ -28,74 +28,144 @@
   </script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
+    /* Email digest — "AI operations instrument" family member, but a conversion
+       utility first: clarity and trust outrank novelty. The one bold move is the
+       signup panel (accent-ruled, washed, square — the unmistakable action). The
+       three generic benefit cards are replaced by a "what arrives" delivery spec
+       whose rows link to live daily/weekly samples. */
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
-      --bg: #fff; --fg: #1a1a1a; --card: #fff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b; --err:#b42318;
     }
     html[data-theme="dark"] {
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb; --err:#ff9b8a;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--fg); line-height: 1.55; }
+    body { margin:0; background:var(--bg); color:var(--fg); line-height:1.55;
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     a { color: var(--accent); }
     button, input { color: inherit; font: inherit; }
-    main { width: 100%; max-width: 680px; margin: 1rem auto; padding: 0 0.9rem 3rem; }
-    header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-    header a { text-decoration: none; }
-    #themeToggle { padding: 0.35rem 0.6rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); cursor: pointer; }
-    .hero { margin: 3rem 0 1.5rem; }
-    h1 { margin: 0 0 0.7rem; font-size: clamp(2rem, 7vw, 3.2rem); line-height: 1.08; }
-    .lede { margin: 0; color: var(--muted); font-size: 1.08rem; }
-    .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin: 1.5rem 0; }
-    .benefit { padding: 0.8rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
-    .benefit strong { display: block; margin-bottom: 0.2rem; }
-    .benefit span { color: var(--muted); font-size: 0.9rem; }
-    .signup { border: 1px solid var(--border); border-radius: 14px; background: var(--card); padding: 1.2rem; }
-    .signup h2 { margin: 0 0 0.25rem; font-size: 1.25rem; }
-    .signup > p { margin: 0 0 1rem; color: var(--muted); }
-    form { display: flex; gap: 0.55rem; align-items: flex-start; }
-    input[type="email"] { width: 100%; min-width: 0; padding: 0.7rem 0.75rem; border: 1px solid var(--border); border-radius: 9px; background: var(--bg); }
-    button[type="submit"], .external-signup { min-height: 44px; padding: 0.65rem 1rem; border: 1px solid var(--accent); border-radius: 9px; background: var(--accent); color: #fff; font-weight: 650; cursor: pointer; text-decoration: none; white-space: nowrap; }
-    button[disabled] { opacity: 0.6; cursor: default; }
-    .message { margin: 0.7rem 0 0; font-size: 0.92rem; color: var(--muted); }
-    .message[data-state="ok"] { color: var(--accent); }
-    .message[data-state="err"] { color: #b42318; }
-    .privacy { margin-top: 0.8rem; font-size: 0.85rem; color: var(--muted); }
-    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-    footer { margin-top: 2rem; color: var(--muted); font-size: 0.9rem; }
-    @media (max-width: 620px) {
-      .hero { margin-top: 2rem; }
-      .benefits { grid-template-columns: 1fr; }
-      form { flex-direction: column; }
-      button[type="submit"] { width: 100%; }
+    main { width:100%; max-width:720px; margin:1rem auto; padding:0 1.1rem 3rem; }
+    header { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    header .back { text-decoration:none; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.74rem; letter-spacing:.03em; padding:.42rem .6rem; min-height:34px;
+      display:inline-flex; align-items:center; border:1px solid var(--border); color:var(--fg); }
+    header .back:hover { border-color:var(--accent); color:var(--accent); }
+    #themeToggle { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem;
+      letter-spacing:.03em; padding:.42rem .6rem; min-height:34px; border:1px solid var(--border);
+      border-radius:0; background:transparent; cursor:pointer; color:var(--fg); }
+    #themeToggle:hover { border-color:var(--accent); color:var(--accent); }
+
+    .hero { margin:2.7rem 0 1.6rem; }
+    .hero-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    h1 { margin:0; max-width:18ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.3rem,6.5vw,3.6rem); font-weight:700; letter-spacing:-.04em; line-height:.96; }
+    .lede { margin:1rem 0 0; max-width:42rem; color:var(--fg); font-size:1.04rem; line-height:1.6; }
+
+    /* The focal action. */
+    .signup { margin:1.8rem 0 0; padding:1.35rem 1.4rem; border-left:3px solid var(--accent);
+      background:var(--brief-wash); color:var(--brief-ink); }
+    .signup h2 { margin:0 0 .25rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .signup > p { margin:0 0 1.1rem; color:var(--muted); font-size:.95rem; }
+    form { display:flex; gap:.6rem; align-items:flex-start; }
+    input[type="email"] { flex:1; width:100%; min-width:0; min-height:50px; padding:.75rem .9rem;
+      border:1px solid var(--border); border-radius:0; background:var(--card); color:var(--fg); font-size:16px; }
+    input[type="email"]:focus { outline:none; border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent); }
+    button[type="submit"], .external-signup { min-height:50px; padding:.75rem 1.4rem;
+      border:1px solid var(--accent); border-radius:0; background:var(--accent); color:#fff;
+      font-weight:700; cursor:pointer; text-decoration:none; white-space:nowrap; }
+    button[type="submit"]:hover, .external-signup:hover {
+      background:color-mix(in srgb,var(--accent) 85%,#000); }
+    button[disabled] { opacity:.6; cursor:default; }
+    .external-signup { display:inline-flex; align-items:center; }
+    .message { margin:.8rem 0 0; font-size:.92rem; color:var(--muted); }
+    .message[data-state="ok"] { color:var(--accent); font-weight:600; }
+    .message[data-state="err"] { color:var(--err); }
+    .privacy { margin:.85rem 0 0; font-size:.84rem; color:var(--muted); }
+    .hp { position:absolute; left:-9999px; width:1px; height:1px; opacity:0; }
+
+    /* What arrives — honest delivery spec, not generic feature cards. */
+    .deliveries { border-top:1px solid var(--border); margin:2rem 0 0; }
+    .delivery { display:grid; grid-template-columns:minmax(7rem,.28fr) minmax(0,1.72fr);
+      gap:.35rem 1.6rem; padding:1.15rem 0; border-bottom:1px solid var(--border); }
+    .delivery-when { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem;
+      font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.5; }
+    .delivery-what { min-width:0; }
+    .delivery-what h3 { margin:0 0 .25rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.18rem; line-height:1.15; }
+    .delivery-what p { margin:0; font-size:.93rem; line-height:1.55; color:var(--muted); }
+    .delivery-what a.sample { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      letter-spacing:.03em; text-decoration:none; white-space:nowrap; }
+    .delivery-what a.sample:hover { text-decoration:underline; }
+
+    footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.85rem; }
+    button:focus-visible, a:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      .hero { margin-top:2rem; }
+      h1 { font-size:2.5rem; }
+      form { flex-direction:column; }
+      button[type="submit"] { width:100%; }
+      .delivery { grid-template-columns:1fr; gap:.4rem; }
     }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
   <main>
     <header>
-      <a href="/">← LLM Digest</a>
+      <a class="back" href="/">← LLM Digest</a>
       <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
     </header>
 
     <section class="hero">
-      <h1>Get the finishable AI brief.</h1>
-      <p class="lede">The important model, infrastructure, agent-tooling, and research updates for platform &amp; agent engineers—ranked, deduplicated, and designed to end.</p>
-    </section>
-
-    <section class="benefits" aria-label="What subscribers receive">
-      <div class="benefit"><strong>Daily brief</strong><span>The highest-signal updates without an infinite feed.</span></div>
-      <div class="benefit"><strong>Weekly recap</strong><span>Friday context for anything you missed.</span></div>
-      <div class="benefit"><strong>Low-hype</strong><span>One transparent ranking, optimized for platform &amp; agent engineers.</span></div>
+      <p class="hero-kicker">The finishable AI brief · by email</p>
+      <h1>Catch up on AI in ten minutes a day.</h1>
+      <p class="lede">The model, infrastructure, agent-tooling, and research updates that matter for
+      platform &amp; agent engineers — ranked, deduplicated, and built to end. No infinite feed,
+      no hype.</p>
     </section>
 
     <section class="signup" aria-labelledby="signupTitle">
-      <h2 id="signupTitle">Email digest</h2>
-      <p>Daily brief plus weekly recap. Unsubscribe anytime.</p>
+      <h2 id="signupTitle">Get the email digest</h2>
+      <p>The daily brief plus the Friday recap. Unsubscribe anytime.</p>
       <div id="signupSurface">
         <p class="message" role="status">Checking subscription availability…</p>
       </div>
       <noscript><p class="message">JavaScript is required to submit the subscription form.</p></noscript>
+    </section>
+
+    <section class="deliveries" aria-label="What you receive">
+      <div class="delivery">
+        <p class="delivery-when">Daily · every morning</p>
+        <div class="delivery-what">
+          <h3>The daily brief</h3>
+          <p>The day's highest-signal updates, ranked and deduplicated — read it and you're caught up.
+          <a class="sample" href="/daily">See today's brief →</a></p>
+        </div>
+      </div>
+      <div class="delivery">
+        <p class="delivery-when">Weekly · Fridays</p>
+        <div class="delivery-what">
+          <h3>The weekly recap</h3>
+          <p>The week's pattern report: what shifted and what you missed, in one read.
+          <a class="sample" href="/weekly">See this week's recap →</a></p>
+        </div>
+      </div>
+      <div class="delivery">
+        <p class="delivery-when">Always</p>
+        <div class="delivery-what">
+          <h3>One transparent ranking</h3>
+          <p>The same low-hype ranking everyone sees — no personalized filter bubble, no engagement bait.
+          <a class="sample" href="/">See the live feed →</a></p>
+        </div>
+      </div>
     </section>
 
     <footer>

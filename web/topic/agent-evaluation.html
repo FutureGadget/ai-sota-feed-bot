@@ -116,6 +116,131 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], #themeToggle, .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -125,10 +250,11 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">🧱 Obstacle · evaluation · 6 sources</p>
+      <p id="meta" class="muted"></p>
       <menu>
         <a href="/map" role="button">← Knowledge map</a>
         <a href="/" role="button">📰 Live feed</a>
+        <a href="/playbook" role="button">🛠️ Playbook</a>
         <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/topic/agent-evaluation" data-share-title="Measuring whether an agent actually worked is hard — agent engineering">🔗 Share</button>
@@ -137,15 +263,15 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Measuring whether an agent actually worked is hard</h2>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">Measuring whether an agent actually worked is hard</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>evaluation<span class="sep">·</span>active<span class="sep">·</span>6 sources<span class="sep">·</span>updated 2026-06-19</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="cat"><h2>TL;DR</h2><p>A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, &quot;correct-looking&quot; answers can come from broken paths, and a benchmark the agent has effectively memorized tells you nothing about a new environment. Knowing whether an agent works in production is itself an unsolved engineering problem.</p></div>
-<div class="cat"><h2>State of the art</h2><p>Evaluation is splitting into two complementary jobs. The first is <strong>trajectory / process evaluation</strong> — judging the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The second is <strong>outcome evaluation under distribution shift</strong>: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident.</p></div>
-<div class="cat"><h2>What&#x27;s new</h2><p>The conversation has moved past &quot;did it answer correctly&quot; to graded *process*: trace judges that score trajectories (LangChain/Fireworks report matching frontier-judge quality at ~1/100th the cost by fine-tuning an open model on production traces) and root-cause failure detectors, plus mounting evidence that familiar-benchmark scores collapse out of distribution.</p></div>
-<div class="cat"><h2>Why it matters for platform engineers</h2><p>Eval is the regression test of the agent stack — without it you cannot tell a prompt tweak or model upgrade from a silent regression, and you cannot put a number on reliability. But running a frontier LLM as a judge over every production trace is its own cost-and-latency line item, and a benchmark your agent has effectively trained on gives false confidence. The practical job is building a cheap, trustworthy, trajectory-aware eval harness you can run in CI and on live traffic — closer to observability than to a one-time accuracy check.</p></div>
-<div class="cat"><h2>Solutions</h2><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></div>
-<div class="cat covered"><h2>Evidence</h2><ul><li><a href="/storyline/deep-research">📈 Deep Research</a> <span class="muted">— storyline</span></li><li><a href="/story/b8b632a161a052e9">The Roadmap to Mastering AI Agent Evaluation</a></li><li><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li><li><a href="/story/55809dc9368e7936">Show HN: Rubric – test what your LLM agent did, not just what it said</a></li><li><a href="/story/f07b6a3f3f344020">Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments</a></li><li><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li></ul></div>
+      <div class="topic"><div class="topic-lead"><p>A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, &quot;correct-looking&quot; answers can come from broken paths, and a benchmark the agent has effectively memorized tells you nothing about a new environment. Knowing whether an agent works in production is itself an unsolved engineering problem.</p></div>
+<aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Solved by</span><ul><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></li></ul></div><div class="topic-xgroup"><span class="topic-xgroup-label">Tracked in storylines</span><ul><li><a href="/storyline/deep-research">📈 Deep Research</a></li></ul></div></aside>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>Evaluation is splitting into two complementary jobs. The first is <strong>trajectory / process evaluation</strong> — judging the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The second is <strong>outcome evaluation under distribution shift</strong>: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident.</p></div></section>
+<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>The conversation has moved past &quot;did it answer correctly&quot; to graded *process*: trace judges that score trajectories (LangChain/Fireworks report matching frontier-judge quality at ~1/100th the cost by fine-tuning an open model on production traces) and root-cause failure detectors, plus mounting evidence that familiar-benchmark scores collapse out of distribution.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>Eval is the regression test of the agent stack — without it you cannot tell a prompt tweak or model upgrade from a silent regression, and you cannot put a number on reliability. But running a frontier LLM as a judge over every production trace is its own cost-and-latency line item, and a benchmark your agent has effectively trained on gives false confidence. The practical job is building a cheap, trustworthy, trajectory-aware eval harness you can run in CI and on live traffic — closer to observability than to a one-time accuracy check.</p></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 6 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/b8b632a161a052e9">The Roadmap to Mastering AI Agent Evaluation</a></li><li class="ev-story"><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li class="ev-story"><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li><li class="ev-story"><a href="/story/55809dc9368e7936">Show HN: Rubric – test what your LLM agent did, not just what it said</a></li><li class="ev-story"><a href="/story/f07b6a3f3f344020">Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments</a></li><li class="ev-story"><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li></ul></section></div>
     </section>
 
     <footer>

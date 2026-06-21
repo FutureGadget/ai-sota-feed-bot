@@ -97,6 +97,51 @@ routine refuses to overwrite an existing one.
 Required per card: `title`, `problem`, `apply`, `result`, `url`. `effort`, when
 present, must be `low` | `medium` | `high`.
 
+## Surface design (redesigned 2026-06-21)
+The page belongs to the site's **AI operations instrument** family (shared cool
+instrument-paper palette, blue `#2457d6` accent, condensed display titles,
+monospace utility labels, hairline rules — no large rounded cards, no pill
+navigation). It spends its one page-specific expressive idea on the **change
+record**:
+
+- Each entry is an engineer's change record with a vertical
+  **`SIGNAL → APPLY → EXPECTED`** spine. `problem` is the *Signal* (what should
+  make you act), `apply` is the change, `result` is the *Expected* outcome.
+- **`Apply` is the single dominant block** — accent left-rule, faint accent
+  wash, the largest body type on the card — so it reads like a patch hunk. The
+  earlier layout gave problem/apply/result three equal field labels; the
+  redesign deliberately breaks that false equality, because the reader's job is
+  to decide *what to change*. `problem`/`result` are demoted to compact,
+  muted, monospace-labeled annotations.
+- A left **area rail** indexes each record by engineering area (Memory, Tool
+  use, Evals, …), aligned with `/map`. Area — not a decorative `01 / 02`
+  sequence — is the honest classifier, since the cards are independent changes,
+  not steps in a process. The hero carries a "Covers …" strip summarizing the
+  edition's span.
+- **`effort` renders as a 3-segment meter** (low/medium/high = 1/2/3 filled),
+  not a red/amber/green pill — honest magnitude, no hype color.
+- The hero states the **finishable** count ("N changes worth making") and the
+  list closes with a "That's the edition — N changes" finish line, matching the
+  finishable promise of the daily brief without reusing its reading-route
+  signature.
+
+Behavior preserved by the redesign: the `/api/playbook` latest/date/list
+contract, the archive dropdown, the JSON link, source links
+(`target="_blank" rel="noopener"`, `data-track="playbook-link"`), the
+`/api/updates` nav "New" dot (`ai_feed_seen_playbook_v1`), light/dark themes,
+visible keyboard focus, reduced motion, and empty/error states. A localhost-only
+fallback reads committed `data/playbook/{latest,index}.json` / `<date>.json`
+when `/api/*` is unavailable (local visual QA only; production API behavior is
+unchanged), mirroring the recap shells.
+
+Editorial implication (no schema change): because `problem`/`result` are small
+annotations and `apply` is the hero, the `playbook` skill keeps `problem` and
+`result` to 1–2 tight sentences and puts the substance in `apply`; `area` is now
+load-bearing for the rail/coverage index and should be set when clear. See
+`.agents/skills/playbook/SKILL.md`.
+
+Regression coverage: `tests/test_playbook_surface.py`.
+
 ## Status / follow-ups
 - Shipped with a hand-authored **starter edition** (`2026-06-21`) whose cards are
   distilled from the agent-engineering wiki and link to the relevant `/topic`

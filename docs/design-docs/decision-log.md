@@ -1,5 +1,155 @@
 # Decision Log
 
+## 2026-06-21 (Frontend redesign: cross-surface consistency pass)
+- **Decision:** Final consistency pass over the redesigned surfaces (live feed,
+  daily, weekly, storyline, playbook, knowledge map, topic, voices, subscribe).
+  Two alignment fixes to the live feed (`web/index.html`): (1) add the shared
+  instrument **focus ring** (`button/a/select/input:focus-visible` → 3px accent
+  outline) — it was the only shell still falling back to Oat's gray 2px outline;
+  (2) remove a **dead duplicate `:root`/dark token block** left over from the
+  earlier redesign (the instrument-palette block lower in the file already fully
+  shadowed it), so the file has one source of truth for the palette.
+- **Rationale:** All surfaces already shared the instrument tokens, condensed +
+  monospace type, hairline structure, and reduced-motion handling; the live feed
+  was visually consistent but carried the stale token block (a trap for future
+  editors) and an off-family focus outline. These two fixes close the gap on the
+  entry page at zero regeneration cost.
+- **Verification:** Compared tokens/type/focus/reduced-motion across all shells
+  and the generated CSS blocks; each page keeps a distinct reader job + signature
+  (ranked ledger / reading route + finish line / pattern report / evidence trace
+  / lifecycle ledger / change records / obstacle→solution map / problem readout /
+  reading guide / conversion panel). Light/dark at desktop + mobile, keyboard
+  focus, and reduced motion verified per surface; Oat gray hover/box collisions
+  fixed on every redesigned component. Relevant suite **61 green**, `git diff
+  --check` clean. A single renderer regeneration confirmed **no accidental global
+  churn** — only the known pre-existing `web/story/*` drift (committed copies
+  predate `STORY_PAGE_CSS`; the hourly pipeline re-renders them), which was
+  restored, not committed.
+- **Known follow-up (not done here):** the generated `daily/weekly/story` pages
+  still use Oat's gray focus outline (the `DAILY_RECAP_CSS`/`WEEKLY_RECAP_CSS`/
+  `STORY_PAGE_CSS` blocks lack the accent `:focus-visible` rule; storyline/topic/
+  map already have it). Visible focus (mandatory) is met everywhere, so this is a
+  ring-style polish, not an a11y gap. Adding it to the shared `PAGE_CSS` is the
+  right fix but would re-render ~1,250 pages, so it should be a deliberate
+  full-regeneration commit rather than part of this verification pass.
+- **Rollback:** Revert the two `web/index.html` edits.
+
+## 2026-06-21 (Frontend redesign: /subscribe as a conversion utility)
+- **Decision:** Redesign `/subscribe` (`web/subscribe.html`) into the instrument
+  family but as a **conversion utility first** — clarity/trust over novelty. Spend
+  the one bold move on an **accent-ruled, washed, square signup panel** placed
+  directly under the hero (the email field + accent Subscribe button are the
+  unmistakable action). Replace the three generic benefit cards with a **"what
+  arrives" delivery spec** (hairline rows for the daily brief / weekly recap / one
+  ranking, each linking to a live sample at `/daily`, `/weekly`, `/`).
+- **Rationale:** The page's single job is "explain the finite product and collect
+  an email". The prior layout buried the form below three equal feature cards and
+  used rounded-card styling inconsistent with the redesigned surfaces. Leading
+  with a focal form and proving the product via real sample links serves the
+  conversion job and the anti-hype positioning better than generic benefit copy.
+- **Impact:** `web/subscribe.html` only — **CSS + markup, no JS change**. Every
+  data behavior preserved: the `/api/client-config` form-vs-external decision
+  (`email_subscribe_enabled` / `email_signup_url`), `/api/subscribe` POST,
+  honeypot, email validation, status messages, the `ai_feed_email_subscribed_v1`
+  / `ai_feed_subscribe_nudge_done_v1` keys, and the provider/privacy copy. All
+  states were visually verified against real code paths (mocked responses, never a
+  page-level fake success): configured form, external-signup fallback,
+  unavailable, submitting, success, validation-error, API-error. Added
+  `tests/test_subscribe_surface.py`. No editorial-skill change.
+- **Rollback:** Revert `web/subscribe.html` and `tests/test_subscribe_surface.py`.
+
+## 2026-06-21 (Frontend redesign: /voices as an annotated reading guide)
+- **Decision:** Redesign `/voices` (`web/voices.html`) into the instrument family
+  as an **annotated reading guide**: each entry is a hairline-separated index row
+  with the name (condensed, linking to the person's primary site) + role
+  (monospace) on the left, the **editor's reason to read them as dominant prose**
+  on the right, and the outbound links demoted to a quiet monospace "Read" line.
+  Removed the equal rounded-card list and the link pills.
+- **Rationale:** The reader's job is "who is worth following and why". The prior
+  layout gave every person an identical card and rendered links as prominent
+  pills, burying the one thing that helps the reader choose — the reason. Making
+  the *why* the largest text and the links quiet matches the job; a name-led left
+  rail makes the list scannable like an annotated bibliography / field guide. The
+  curated order is editorial (lab leaders → researchers → practitioners), so the
+  page is explicitly **not ranked** — no numbers, stated in the kicker and footer.
+- **Impact:** `web/voices.html` only. The hand-curated `PEOPLE` data and every
+  outbound link are preserved verbatim (`target="_blank" rel="noopener"`); theme
+  toggle, nav-update dots, and the count are intact; mascot disabled in local
+  preview for deterministic QA (matching the other shells). Added
+  `tests/test_voices_surface.py` (6 assertions, including a guard that all 12
+  curated people remain). No agent skill owns this page, so none was changed.
+- **Rollback:** Revert `web/voices.html` and `tests/test_voices_surface.py`.
+
+## 2026-06-21 (Frontend redesign: /map adjacency map + /topic problem readout)
+- **Decision:** Redesign the agent-engineering wiki surfaces in the shared "AI
+  operations instrument" family, via `pipeline/render_static_pages.py` (the
+  generated `web/map.html` / `web/topic/*.html` are never hand-edited). `/map`
+  becomes an **obstacle → solution adjacency map** (areas group obstacles; each
+  obstacle row links left=obstacle / right=solutions with a `→` edge), plus an
+  area jump-legend and a trailing "Solutions in this map" index. `/topic` becomes
+  a **problem readout**: status line, TL;DR lead, a high graph-neighborhood
+  cross-link panel (`→ Solved by` / `→ Addresses` + storylines), the synthesized
+  sections as a left-rail dossier, and an evidence source ledger. Added
+  `WIKI_PAGE_CSS`; extracted `wiki_map_body` and `wiki_topic_hero` as pure,
+  testable helpers.
+- **Rationale:** The prior pages reused the recap shell (`PAGE_CSS` rounded
+  `<article>` cards, pill `.toc` links, white background) — a generic grid that
+  encoded none of the obstacle→solution structure and didn't match the redesigned
+  surfaces. `/map`'s reader job is "choose an obstacle and understand the
+  obstacle→solution structure", so the adjacency layout *is* the structure
+  (deliberately not a canvas graph, which would break mobile/scan/a11y).
+  `/topic`'s job is "understand the current state in ~60s and trust the evidence",
+  so current-state/what-changed are foregrounded and the graph neighborhood sits
+  high; chronology is intentionally not the device (that belongs to storylines).
+  The shared `→` cross-link language makes the two read as one graph.
+- **Impact:** `pipeline/render_static_pages.py` only (rendering); all data/API
+  contracts preserved — cross-links, evidence sids → `/story`, related storylines
+  → `/storyline`, canonical URLs, sitemap entries, JSON-LD/breadcrumbs,
+  deterministic output, `/api/topics`. Fixed an Oat `<article>` card-box leak into
+  the adjacency rows. Regenerated `web/map.html` + 16 `web/topic/*.html`; **the
+  1,252 `web/story/*.html` that also re-rendered are pre-existing drift** (the
+  committed copies predate `STORY_PAGE_CSS`) and were restored, not committed —
+  the hourly pipeline re-renders them. Added `tests/test_wiki_surface.py` (12
+  assertions; relevant suite 49 green; `build_wiki.py --check` OK; `git diff
+  --check` clean). Updated `docs/product-specs/agent-wiki.md`. No `wiki-curator`
+  or `config/wiki_schema.md` change — the renderer adapts to existing sections.
+- **Rollback:** Revert `pipeline/render_static_pages.py` and
+  `tests/test_wiki_surface.py`, then `python pipeline/render_static_pages.py` to
+  regenerate the prior map/topic HTML; the spec section is additive.
+
+## 2026-06-21 (Frontend redesign: /playbook as engineering change records)
+- **Decision:** Redesign the `/playbook` surface (`web/playbook.html`) into the
+  shared "AI operations instrument" visual family, with a page-specific
+  **change-record** signature: each entry is a `SIGNAL → APPLY → EXPECTED` spine
+  where the **Apply** block is the single dominant element (accent left-rule,
+  accent wash, largest body type). Replaced the old equal-weight three-field
+  boxed cards + colored effort pills with hairline-separated records, a
+  monospace left **area rail** as the index, and a 3-segment **effort meter**.
+  Hero states the finishable count ("N changes worth making"); the list closes
+  with a finish line.
+- **Rationale:** The Playbook's single reader job is "what should I change in my
+  agent because of this?" The previous layout labeled problem/apply/result as
+  three equal fields, hiding the one thing the reader is there to find. Weighting
+  Apply (and demoting problem→*Signal* and result→*Expected* to compact
+  annotations) matches the job. Area — not a decorative `01/02` sequence — is the
+  honest structural index because the cards are independent changes across areas,
+  not a process; this also aligns with `/map`. The effort meter and instrument
+  palette remove the generic rounded-card / pill look flagged in the redesign
+  brief while keeping family resemblance to the daily/weekly/story surfaces.
+- **Impact:** `web/playbook.html` only (client shell; no static renderer). All
+  data/API behavior preserved: `/api/playbook` latest/date/list, archive
+  dropdown, JSON link, source links (`data-track="playbook-link"`),
+  `/api/updates` nav dot, themes, focus, reduced motion, empty/error states. Added
+  a localhost-only committed-data fallback for visual QA (production API
+  unchanged) and disabled the decorative mascot in local preview (matching
+  `web/index.html`). Added `tests/test_playbook_surface.py` (10 assertions; full
+  redesign suite 37 green, `git diff --check` clean). Updated
+  `docs/product-specs/playbook.md` and a focused editorial note in
+  `.agents/skills/playbook/SKILL.md` (keep `problem`/`result` compact, set
+  `area`) — **no JSON schema change**.
+- **Rollback:** Revert `web/playbook.html` and `tests/test_playbook_surface.py`;
+  the SKILL note and spec section are additive and harmless to keep.
+
 ## 2026-06-21 (Positioning: widen the audience to platform & agent engineers)
 - **Decision:** Rename the target audience from "AI platform engineers — and
   only them" to **engineers who build and operate AI systems — AI platform

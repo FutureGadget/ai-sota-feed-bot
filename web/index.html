@@ -37,23 +37,8 @@
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
     }
-    :root,
-    html[data-theme="light"] {
-      --bg: #ffffff;
-      --fg: #1a1a1a;
-      --card: #ffffff;
-      --border: #e5e5e5;
-      --accent: #2563eb;
-      --muted: #6b7280;
-    }
-    html[data-theme="dark"] {
-      --bg: #15171c;
-      --fg: #e8e8ea;
-      --card: #1e2128;
-      --border: #34373f;
-      --accent: #5b8def;
-      --muted: #9aa0aa;
-    }
+    /* Token palette lives in the instrument-system block below (the live-feed
+       identity layer); it fully defines the light/dark vars. */
     body {
       margin: 0;
       line-height: 1.5;
@@ -779,6 +764,10 @@
       .end-marker { display:block; text-align:left; }
       .end-marker::before { display:block; margin-bottom:.6rem; }
     }
+    /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
+       the other surfaces (replaces Oat's default gray outline). */
+    button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
   </style>
 </head>
 <body>

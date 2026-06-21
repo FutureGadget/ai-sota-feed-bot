@@ -29,38 +29,80 @@
   <script src="https://oat.ink/oat.min.js" defer></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
+    /* AI Voices — "AI operations instrument" family member. Reader job: decide
+       who is worth reading and why. Signature: an annotated reading guide — each
+       entry is a hairline-separated index row (name + role on the left, the
+       editor's reason as dominant prose on the right, sources as a quiet mono
+       line). No boxed cards, no link pills, no ranking numbers — the curated
+       order is editorial, not a leaderboard. */
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --signal:#23875b;
     }
     html[data-theme="dark"] {
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886;
     }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
-    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
     header { margin-bottom: 1rem; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
-    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
-    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:.75rem; }
+    .topbar h1 { margin:0; font-size:1.5rem; line-height:1.2; overflow-wrap:anywhere; }
+    #meta { margin:.35rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.78rem; letter-spacing:.03em; color:var(--muted); }
     .muted { color: var(--muted); }
-    .intro { font-size: 1.02rem; background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1rem 1.1rem; margin: 1.2rem 0 1.5rem; }
-    .intro p { margin: 0; }
-    #people { display: flex; flex-direction: column; gap: 0.8rem; }
-    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; background: var(--card); }
-    article h2 { margin: 0 0 0.15rem; font-size: 1.15rem; line-height: 1.35; }
-    .role { margin: 0 0 0.5rem; font-size: 0.92rem; color: var(--muted); }
-    .why { margin: 0 0 0.6rem; font-size: 0.97rem; }
-    .links { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .links a { font-size: 0.86rem; padding: 0.22rem 0.6rem; text-decoration: none;
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      border-radius: 999px; color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 14%, var(--card)); }
-    .links a:hover { border-color: var(--accent); }
-    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+
+    menu { display:flex; flex-wrap:wrap; gap:.45rem .6rem; padding:0; margin:.85rem 0 0; align-items:center; }
+    menu a[role="button"], #themeToggle {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; }
+
+    .voices-hero { margin:2.3rem 0 1.6rem; }
+    .voices-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .voices-headline { margin:0; max-width:20ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.4rem,6vw,4rem); font-weight:700; letter-spacing:-.045em; line-height:.95; }
+    .voices-thesis { max-width:44rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+
+    .voices-list { border-top:1px solid var(--border); margin:1.7rem 0 0; }
+    .voice { display:grid; grid-template-columns:minmax(11rem,.34fr) minmax(0,1.66fr);
+      gap:.5rem 2.2rem; padding:1.5rem 0; border-bottom:1px solid var(--border); }
+    .voice-who { min-width:0; }
+    .voice-name { margin:0 0 .4rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.42rem; line-height:1.08; letter-spacing:-.02em; }
+    .voice-name a { color:inherit; text-decoration:none; }
+    .voice-name a:hover { color:var(--accent); }
+    .voice-role { margin:0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; line-height:1.55; letter-spacing:.02em; color:var(--muted); }
+    .voice-note { min-width:0; max-width:44rem; }
+    .voice-why { margin:0; font-size:1.05rem; line-height:1.62; }
+    .voice-read { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; letter-spacing:.04em; color:var(--muted); }
+    .voice-read .voice-read-label { font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--muted); margin-right:.6rem; }
+    .voice-read a { text-decoration:none; white-space:nowrap; }
+    .voice-read a:hover { text-decoration:underline; }
+    .voice-read .sep { color:var(--border); margin:0 .4rem; }
+
+    footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.82rem; }
+    button:focus-visible, a:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .voices-headline { font-size:2.6rem; }
+      .voice { grid-template-columns:1fr; gap:.55rem; }
+      .voice-name { font-size:1.32rem; }
+    }
   </style>
 </head>
 <body>
@@ -70,25 +112,29 @@
         <h1>🗣️ AI Voices</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">People shaping how the industry thinks about AI</p>
+      <p id="meta">People shaping how the industry thinks about AI</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
-        <a href="/daily" role="button">📰 Daily recap</a>
-        <a href="/weekly" role="button">🗓️ Weekly recap</a>
+        <a href="/daily" role="button">Daily recap</a>
+        <a href="/weekly" role="button">Weekly recap</a>
+        <a href="/map" role="button">Knowledge map</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
       </menu>
     </header>
 
-    <div class="intro">
-      <p>A short, curated list of people whose essays, talks, and blogs set the agenda
-      in AI — lab leaders, researchers, and practitioners. The feed tracks the news;
-      these are the voices behind it. Links go to their own sites and writing.</p>
-    </div>
+    <section class="voices-hero">
+      <p class="voices-kicker">A reading guide · curated, not ranked</p>
+      <h2 class="voices-headline">Who to actually read on AI</h2>
+      <p class="voices-thesis">The feed tracks the news; these people set the agenda behind it —
+      lab leaders, researchers, and practitioners. A hand-picked reading list, with the reason each
+      one earns your time. Links go to their own sites and writing.</p>
+    </section>
 
-    <section id="people" aria-live="polite"></section>
+    <section id="people" class="voices-list" aria-live="polite"></section>
 
     <footer>
-      Curated by hand, not by the pipeline. Suggestions welcome via the repo.
+      Curated by hand, not by the pipeline — the order is editorial, not a ranking.
+      Suggestions welcome via the repo.
     </footer>
   </main>
 
@@ -219,17 +265,33 @@
 
     function render() {
       const box = document.getElementById('people');
-      box.innerHTML = PEOPLE.map((p) => `
-        <article>
-          <h2>${esc(p.name)}</h2>
-          <p class="role">${esc(p.role)}</p>
-          <p class="why">${esc(p.why)}</p>
-          <div class="links">
-            ${p.links.map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join('')}
+      box.innerHTML = PEOPLE.map((p) => {
+        const links = Array.isArray(p.links) ? p.links : [];
+        const primary = links[0];
+        const nameHtml = primary
+          ? `<a href="${esc(primary.url)}" target="_blank" rel="noopener">${esc(p.name)}</a>`
+          : esc(p.name);
+        const readLine = links.length
+          ? `<p class="voice-read"><span class="voice-read-label">Read</span>${
+              links.map((l) =>
+                `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)} ↗</a>`
+              ).join('<span class="sep">·</span>')
+            }</p>`
+          : '';
+        return `
+        <article class="voice">
+          <div class="voice-who">
+            <h2 class="voice-name">${nameHtml}</h2>
+            <p class="voice-role">${esc(p.role)}</p>
           </div>
-        </article>`).join('');
+          <div class="voice-note">
+            <p class="voice-why">${esc(p.why)}</p>
+            ${readLine}
+          </div>
+        </article>`;
+      }).join('');
       document.getElementById('meta').textContent =
-        `${PEOPLE.length} people shaping how the industry thinks about AI`;
+        `${PEOPLE.length} voices worth your reading time`;
     }
 
     initThemeToggle();
@@ -239,7 +301,8 @@
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
        skipped under prefers-reduced-motion. Never affects initial load. -->
   <script type="module">
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const isLocalPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    if (!isLocalPreview && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const go = () => import('/mascot/mascot.js').catch(() => {});
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
     }

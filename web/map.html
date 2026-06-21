@@ -116,6 +116,131 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], #themeToggle, .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -125,9 +250,10 @@
         <h1>🧠 Agent Engineering Wiki</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Obstacles to building &amp; operating agents, mapped to solutions</p>
+      <p id="meta" class="muted"></p>
       <menu>
         <a href="/" role="button">📰 Live feed</a>
+        <a href="/playbook" role="button">🛠️ Playbook</a>
         <a href="/storylines" role="button">📈 Storylines</a>
         <a href="/daily" role="button">🗓️ Daily</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
@@ -138,16 +264,17 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent engineering: obstacles &amp; solutions</h2>
+      <!-- hero is inside the .map body -->
       <!-- range is included in the custom hero -->
-      <div class="intro"><p>A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles.</p></div>
-      <div class="cat"><h2>Memory &amp; context <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="art-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s intent — so &quot;agent…</p><div class="toc"><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></div></article></div></div>
-<div class="cat"><h2>Tool use &amp; interop <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="art-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model misuses, and no shared way…</p><div class="toc"><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></div></article></div></div>
-<div class="cat"><h2>Evaluation <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="art-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic,…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></div></article></div></div>
-<div class="cat"><h2>Multi-agent coordination <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/multi-agent">Coordinating multiple agents adds more failure than capability</a></h3><p class="art-summary">Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can stall, loop, or…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></div></article></div></div>
-<div class="cat"><h2>Cost <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/agent-cost">Agent token costs are unpredictable and easily run away</a></h3><p class="art-summary">A chatbot turn costs a predictable number of tokens; an agent can loop, re-read its whole context every step, spawn sub-agents, and call a model to grade its own work — so the bill is a function of…</p><div class="toc"><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a><a href="/topic/cost-controls">Cost controls: budgets, metering, and per-task attribution</a></div></article></div></div>
-<div class="cat"><h2>Security &amp; safety <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="art-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack: hidden text redirects…</p><div class="toc"><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></div></article></div></div>
-<div class="cat"><h2>Drift &amp; maintenance <span class="count">1</span></h2><div class="articles"><article><h3 class="story-title"><a href="/topic/model-drift">Agent behavior drifts as the model, SDK, and runtime churn under it</a></h3><p class="art-summary">An agent is built on a substrate you don&#x27;t control and that moves faster than your app: the underlying model gets upgraded or deprecated, the agent SDK and orchestration framework ship multiple…</p><div class="toc"><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a><a href="/topic/version-pinning">Version pinning, compatibility ranges, and staged upgrades</a></div></article></div></div>
+      
+      <div class="map"><section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">What breaks when you ship an agent — and how the field fixes it</h2><p class="wiki-thesis">A living map of the obstacles to building and operating AI agents, each linked to the solutions in use. Every claim is grounded in source articles already in the feed — one shared structure, no hype.</p><p class="wiki-readout">7 obstacles<span class="sep">·</span>9 solutions<span class="sep">·</span>7 areas</p><nav class="map-legend" aria-label="Obstacle areas"><b>Areas</b><a href="#area-memory">Memory &amp; context</a><span class="sep">·</span><a href="#area-tool-use">Tool use &amp; interop</a><span class="sep">·</span><a href="#area-evaluation">Evaluation</a><span class="sep">·</span><a href="#area-multi-agent">Multi-agent coordination</a><span class="sep">·</span><a href="#area-cost">Cost</a><span class="sep">·</span><a href="#area-security">Security &amp; safety</a><span class="sep">·</span><a href="#area-drift">Drift &amp; maintenance</a></nav></section><section class="map-area" id="area-memory"><div class="map-area-head"><h2>Memory &amp; context</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="map-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a></li><li><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></li></ul></div></article></section>
+<section class="map-area" id="area-tool-use"><div class="map-area-head"><h2>Tool use &amp; interop</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="map-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></li></ul></div></article></section>
+<section class="map-area" id="area-evaluation"><div class="map-area-head"><h2>Evaluation</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></h3><p class="map-summary">A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></li></ul></div></article></section>
+<section class="map-area" id="area-multi-agent"><div class="map-area-head"><h2>Multi-agent coordination</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/multi-agent">Coordinating multiple agents adds more failure than capability</a></h3><p class="map-summary">Splitting a job across several agents promises specialization and parallelism, but every handoff is a lossy interface and each added agent multiplies the ways the system can…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></li></ul></div></article></section>
+<section class="map-area" id="area-cost"><div class="map-area-head"><h2>Cost</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-cost">Agent token costs are unpredictable and easily run away</a></h3><p class="map-summary">A chatbot turn costs a predictable number of tokens; an agent can loop, re-read its whole context every step, spawn sub-agents, and call a model to grade its own work — so the…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></li><li><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a></li><li><a href="/topic/cost-controls">Cost controls: budgets, metering, and per-task attribution</a></li></ul></div></article></section>
+<section class="map-area" id="area-security"><div class="map-area-head"><h2>Security &amp; safety</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></h3><p class="map-summary">An agent treats whatever it reads — a web page, a tool result, a file, another agent&#x27;s message — as instructions it might follow. Prompt injection turns that into an attack:…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></li></ul></div></article></section>
+<section class="map-area" id="area-drift"><div class="map-area-head"><h2>Drift &amp; maintenance</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/model-drift">Agent behavior drifts as the model, SDK, and runtime churn under it</a></h3><p class="map-summary">An agent is built on a substrate you don&#x27;t control and that moves faster than your app: the underlying model gets upgraded or deprecated, the agent SDK and orchestration…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/version-pinning">Version pinning, compatibility ranges, and staged upgrades</a></li></ul></div></article></section>
+<section class="map-solindex"><h2>Solutions in this map</h2><ul class="map-sol-list"><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a></li><li><a href="/topic/cost-controls">Cost controls: budgets, metering, and per-task attribution</a></li><li><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></li><li><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></li><li><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></li><li><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></li><li><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></li><li><a href="/topic/version-pinning">Version pinning, compatibility ranges, and staged upgrades</a></li></ul></section></div>
     </section>
 
     <footer>

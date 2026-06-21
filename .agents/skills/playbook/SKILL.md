@@ -96,6 +96,21 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
   on Monday because of this card?" If not, cut it.
 - `intro` is optional and short — one or two sentences. The cards carry the value.
 
+**How the page renders your fields (write to this hierarchy)**
+The `/playbook` page renders each card as a change record with a
+`SIGNAL → APPLY → EXPECTED` spine, and `apply` is the one dominant, visually
+weighted block — `problem` and `result` are quiet annotations bracketing it:
+
+- Keep `problem` (the **Signal**) and `result` (the **Expected** outcome) to
+  **1–2 tight sentences each**. They are set in small, muted type; a paragraph
+  there fights the Apply block and breaks the scan. Put the substance in `apply`.
+- `apply` can run a little longer (it's the largest text on the card) but stays a
+  concrete instruction, not a summary.
+- Set `area` whenever the area is clear: it's the page's structural index — it
+  labels the left rail of each record and feeds the edition's "Covers …" strip,
+  so readers scan by engineering area (Memory, Tool use, Evals, …). A card with
+  no `area` still renders, but loses that index.
+
 ### 4. Validate + rebuild the index (what the site serves)
 ```bash
 python .agents/skills/playbook/scripts/build_playbook_index.py

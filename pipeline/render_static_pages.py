@@ -2464,48 +2464,251 @@ def load_wiki() -> dict:
 
 
 KIND_BADGE = {"obstacle": "🧱 Obstacle", "solution": "🛠️ Solution"}
+KIND_LABEL = {"obstacle": "Obstacle", "solution": "Solution"}
+
+
+# Shared "AI operations instrument" styling for the knowledge map (/map) and the
+# topic nodes (/topic/<slug>). Reuses the daily/weekly token system + type, then
+# adds two page-specific structural devices:
+#   - /map  : an obstacle → solution adjacency map (a scannable bipartite graph,
+#             grouped by area), not a grid of topic cards.
+#   - /topic: a problem readout — status line, TL;DR lead, a graph-neighborhood
+#             cross-link panel, the synthesized sections as a left-rail dossier,
+#             and a source ledger. Semantic state, not a chronology.
+WIKI_PAGE_CSS = """\
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], #themeToggle, .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; }
+    menu a[role="button"]:hover, #themeToggle:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def _slugify_area(area: str) -> str:
+    return re.sub(r"[^a-z0-9]+", "-", str(area or "").lower()).strip("-") or "area"
+
+
+def wiki_topic_hero(node: dict) -> str:
+    """Status readout + title for a /topic node (passed as title_html)."""
+    kind = node.get("kind", "")
+    bits = [f'<span class="on">{escape(KIND_BADGE.get(kind, kind))}</span>']
+    if node.get("area"):
+        bits.append(escape(str(node["area"])))
+    if node.get("status"):
+        bits.append(escape(str(node["status"])))
+    ev = node.get("evidence") or []
+    if ev:
+        bits.append(f"{len(ev)} source{'' if len(ev) == 1 else 's'}")
+    updated = (iso_or_none(node.get("updated")) or str(node.get("updated") or ""))[:10]
+    if updated:
+        bits.append(f"updated {escape(updated)}")
+    readout = '<span class="sep">·</span>'.join(bits)
+    title = squeeze(node.get("title")) or node.get("slug", "")
+    kicker = "Agent engineering · knowledge map"
+    return (
+        '<section class="wiki-hero">'
+        f'<p class="wiki-kicker">{escape(kicker)}</p>'
+        f'<h2 class="wiki-headline">{escape(title)}</h2>'
+        f'<p class="wiki-readout">{readout}</p>'
+        "</section>"
+    )
 
 
 def render_topic_body(node: dict, nodes: dict) -> str:
-    """Body for a single /topic/<slug> node: sections + cross-links + evidence."""
+    """Body for a single /topic/<slug> node: TL;DR lead, graph cross-links,
+    synthesized sections (left-rail dossier), and a source ledger."""
     parts: list[str] = []
-    for sec in node.get("sections") or []:
+
+    # Pull the TL;DR out as the lead; the rest become dossier sections.
+    sections = node.get("sections") or []
+    lead_html = ""
+    body_sections = []
+    for sec in sections:
         heading = squeeze(sec.get("heading"))
         html = sec.get("html") or ""
         if not html:
             continue
-        parts.append(f'<div class="cat"><h2>{escape(heading)}</h2>{html}</div>')
+        if not lead_html and heading.lower().rstrip(":").replace(";", "").startswith("tl"):
+            lead_html = html
+        else:
+            body_sections.append((heading, html))
+    if lead_html:
+        parts.append(f'<div class="topic-lead">{lead_html}</div>')
 
-    # Cross-links: obstacle -> solutions, solution -> obstacles.
-    if node["kind"] == "obstacle":
-        linked, link_label = node.get("solutions") or [], "Solutions"
+    # Graph neighborhood: obstacle -> solutions, solution -> obstacles, plus
+    # related storylines. This is the reader's next hop across the graph.
+    if node.get("kind") == "obstacle":
+        linked, link_label = node.get("solutions") or [], "→ Solved by"
     else:
-        linked, link_label = node.get("obstacles") or [], "Addresses"
-    if linked:
-        chips = "".join(
-            f'<a href="/topic/{escape(l["slug"])}">{escape(squeeze(l["title"]))}</a>'
-            for l in linked
-            if l.get("slug") in nodes
-        )
-        parts.append(f'<div class="cat"><h2>{link_label}</h2><div class="toc">{chips}</div></div>')
-
+        linked, link_label = node.get("obstacles") or [], "→ Addresses"
+    linked = [l for l in linked if l.get("slug") in nodes]
     storylines = node.get("related_storylines") or []
-    evidence = node.get("evidence") or []
-    if storylines or evidence:
-        items = []
-        for sl in storylines:
-            items.append(
-                f'<li><a href="/storyline/{escape(sl["slug"])}">📈 {escape(squeeze(sl["label"]))}</a> '
-                "<span class=\"muted\">— storyline</span></li>"
-            )
-        for ev in evidence:
-            items.append(
-                f'<li><a href="/story/{escape(ev["sid"])}">{escape(squeeze(ev["title"]))}</a></li>'
-            )
-        parts.append(
-            '<div class="cat covered"><h2>Evidence</h2><ul>' + "".join(items) + "</ul></div>"
+    xgroups = []
+    if linked:
+        lis = "".join(
+            f'<li><a href="/topic/{escape(l["slug"])}">{escape(squeeze(l["title"]))}</a></li>'
+            for l in linked
         )
-    return "\n".join(parts)
+        xgroups.append(
+            f'<div class="topic-xgroup"><span class="topic-xgroup-label">{escape(link_label)}</span>'
+            f"<ul>{lis}</ul></div>"
+        )
+    if storylines:
+        lis = "".join(
+            f'<li><a href="/storyline/{escape(sl["slug"])}">📈 {escape(squeeze(sl["label"]))}</a></li>'
+            for sl in storylines
+        )
+        xgroups.append(
+            '<div class="topic-xgroup"><span class="topic-xgroup-label">Tracked in storylines</span>'
+            f"<ul>{lis}</ul></div>"
+        )
+    if xgroups:
+        parts.append(f'<aside class="topic-xlinks">{"".join(xgroups)}</aside>')
+
+    # Synthesized state, as a left-rail dossier (label left, prose right).
+    for heading, html in body_sections:
+        parts.append(
+            '<section class="topic-section">'
+            f'<div class="topic-rail">{escape(heading)}</div>'
+            f'<div class="topic-prose">{html}</div>'
+            "</section>"
+        )
+
+    # Source ledger: evidence sids resolve to durable /story permalinks.
+    evidence = node.get("evidence") or []
+    if evidence:
+        items = "".join(
+            f'<li class="ev-story"><a href="/story/{escape(ev["sid"])}">{escape(squeeze(ev["title"]))}</a></li>'
+            for ev in evidence
+        )
+        parts.append(
+            '<section class="topic-section topic-evidence">'
+            f'<div class="topic-rail">Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}</div>'
+            f'<ul class="evidence-list">{items}</ul>'
+            "</section>"
+        )
+
+    return f'<div class="topic">{chr(10).join(parts)}</div>'
 
 
 def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]]:
@@ -2521,26 +2724,22 @@ def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]
         description = clip(squeeze(node.get("summary")) or title, 250)
         canonical = f"{base_url}/topic/{slug}"
         updated = iso_or_none(node.get("updated")) or node.get("updated") or None
-        area_label = node.get("area") or ""
-        meta_bits = [KIND_BADGE.get(node["kind"], node["kind"])]
-        if area_label:
-            meta_bits.append(str(area_label))
-        if node.get("evidence"):
-            meta_bits.append(f"{len(node['evidence'])} sources")
         html = render_page(
             title=f"{title} — agent engineering",
             description=description,
             canonical=canonical,
             published=None,
             h1="🧠 Agent Engineering Wiki",
-            meta_line=" · ".join(meta_bits),
-            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/subscribe", "✉️ Email digest")],
+            meta_line="",
+            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/playbook", "🛠️ Playbook"), ("/storylines", "📈 Storylines"), ("/subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title=title,
             recap_range="",
+            title_html=wiki_topic_hero(node),
             intro_html="",
             body_html=render_topic_body(node, nodes),
+            extra_css=WIKI_PAGE_CSS,
             json_ld=[
                 article_node(
                     type_="Article",
@@ -2566,37 +2765,103 @@ def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]
     return sitemap_entries
 
 
-def render_map_page(base_url: str, wiki: dict) -> bool:
-    """Render web/map.html — the obstacle→solution index. False if no nodes."""
+def wiki_map_body(wiki: dict) -> str | None:
+    """Build the /map body: an obstacle → solution adjacency map (areas group
+    obstacles; each obstacle links to the solutions that address it — the
+    edges). A scannable bipartite graph, not a grid of cards. None if no nodes."""
     nodes = wiki.get("nodes") or {}
     areas = wiki.get("areas") or []
     if not nodes:
-        return False
+        return None
+
     blocks: list[str] = []
+    legend_links: list[str] = []
+    n_obstacles = 0
     for area in areas:
-        cards = []
+        rows = []
         for slug in area.get("obstacles") or []:
             node = nodes.get(slug)
             if not node:
                 continue
-            sols = "".join(
-                f'<a href="/topic/{escape(s["slug"])}">{escape(squeeze(s["title"]))}</a>'
-                for s in node.get("solutions") or []
+            n_obstacles += 1
+            sols = [s for s in (node.get("solutions") or []) if s.get("slug") in nodes]
+            if sols:
+                sol_items = "".join(
+                    f'<li><a href="/topic/{escape(s["slug"])}">{escape(squeeze(s["title"]))}</a></li>'
+                    for s in sols
+                )
+                sol_html = f'<ul>{sol_items}</ul>'
+            else:
+                sol_html = '<p class="map-none">No solution pages linked yet.</p>'
+            rows.append(
+                '<article class="map-row">'
+                '<div class="map-obstacle"><span class="map-tag">Obstacle</span>'
+                f'<h3><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
+                f'<p class="map-summary">{escape(clip(squeeze(node.get("summary")), 180))}</p></div>'
+                '<div class="map-solutions"><span class="map-tag">Solved by</span>'
+                f"{sol_html}</div>"
+                "</article>"
             )
-            sol_html = f'<div class="toc">{sols}</div>' if sols else ""
-            cards.append(
-                "<article>"
-                f'<h3 class="story-title"><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
-                f'<p class="art-summary">{escape(clip(squeeze(node.get("summary")), 200))}</p>'
-                f"{sol_html}</article>"
-            )
-        if cards:
+        if rows:
+            label = squeeze(area.get("label")) or area.get("area") or ""
+            anchor = f"area-{_slugify_area(area.get('area') or label)}"
+            n = len(rows)
+            legend_links.append(f'<a href="#{escape(anchor)}">{escape(label)}</a>')
             blocks.append(
-                f'<div class="cat"><h2>{escape(squeeze(area.get("label")) or area.get("area"))} '
-                f'<span class="count">{len(cards)}</span></h2>'
-                f'<div class="articles">{"".join(cards)}</div></div>'
+                f'<section class="map-area" id="{escape(anchor)}">'
+                f'<div class="map-area-head"><h2>{escape(label)}</h2>'
+                f'<span class="map-area-meta">{n} obstacle{"" if n == 1 else "s"}</span></div>'
+                f'{"".join(rows)}</section>'
             )
-    body = "\n".join(blocks) or "<p>No topics yet.</p>"
+
+    # Trailing index: every solution node, one click from the map.
+    solution_nodes = sorted(
+        (n for n in nodes.values() if n.get("kind") == "solution"),
+        key=lambda n: squeeze(n.get("title")) or n.get("slug", ""),
+    )
+    n_solutions = len(solution_nodes)
+    if solution_nodes:
+        sol_lis = "".join(
+            f'<li><a href="/topic/{escape(n["slug"])}">{escape(squeeze(n.get("title")) or n["slug"])}</a></li>'
+            for n in solution_nodes
+        )
+        blocks.append(
+            '<section class="map-solindex"><h2>Solutions in this map</h2>'
+            f'<ul class="map-sol-list">{sol_lis}</ul></section>'
+        )
+
+    legend = ""
+    if legend_links:
+        legend = (
+            '<nav class="map-legend" aria-label="Obstacle areas"><b>Areas</b>'
+            + '<span class="sep">·</span>'.join(legend_links)
+            + "</nav>"
+        )
+
+    body = (
+        '<div class="map">'
+        '<section class="wiki-hero">'
+        '<p class="wiki-kicker">Agent engineering · knowledge map</p>'
+        '<h2 class="wiki-headline">What breaks when you ship an agent — and how the field fixes it</h2>'
+        '<p class="wiki-thesis">A living map of the obstacles to building and operating AI agents, '
+        'each linked to the solutions in use. Every claim is grounded in source articles already in the feed — '
+        'one shared structure, no hype.</p>'
+        f'<p class="wiki-readout">{n_obstacles} obstacle{"" if n_obstacles == 1 else "s"}'
+        f'<span class="sep">·</span>{n_solutions} solution{"" if n_solutions == 1 else "s"}'
+        f'<span class="sep">·</span>{len(legend_links)} area{"" if len(legend_links) == 1 else "s"}</p>'
+        f"{legend}</section>"
+        + ("\n".join(blocks) or "<p>No topics yet.</p>")
+        + "</div>"
+    )
+    return body
+
+
+def render_map_page(base_url: str, wiki: dict) -> bool:
+    """Render web/map.html. False if there are no nodes."""
+    body = wiki_map_body(wiki)
+    if body is None:
+        return False
+
     canonical = f"{base_url}/map"
     description = (
         "A living map of the obstacles to building and operating AI agents — "
@@ -2609,14 +2874,16 @@ def render_map_page(base_url: str, wiki: dict) -> bool:
         canonical=canonical,
         published=None,
         h1="🧠 Agent Engineering Wiki",
-        meta_line="Obstacles to building & operating agents, mapped to solutions",
-        nav_links=[("/", "📰 Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/subscribe", "✉️ Email digest")],
+        meta_line="",
+        nav_links=[("/", "📰 Live feed"), ("/playbook", "🛠️ Playbook"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/subscribe", "✉️ Email digest")],
         json_href="/api/topics",
         archive="",
         recap_title="Agent engineering: obstacles & solutions",
         recap_range="",
-        intro_html=f'<div class="intro"><p>{escape(description)}</p></div>',
+        title_html="<!-- hero is inside the .map body -->",
+        intro_html="",
         body_html=body,
+        extra_css=WIKI_PAGE_CSS,
         json_ld=[
             breadcrumb_node(base_url, [("Home", "/"), ("Knowledge map", "/map")]),
         ],

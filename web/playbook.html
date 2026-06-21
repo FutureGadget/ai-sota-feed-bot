@@ -29,54 +29,133 @@
   <script src="https://oat.ink/oat.min.js" defer></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
+    /* Agent Builder's Playbook — "AI operations instrument" family member.
+       Reader job: decide what to change in your agent. Signature: each entry is
+       a change record with a SIGNAL → APPLY → EXPECTED spine, where APPLY is the
+       single weighted, accent-ruled block (reads like a patch hunk). No boxed
+       cards, no pills: hairline rules + monospace utility labels. Tokens/type
+       are shared with the daily/weekly/story surfaces. */
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
+      --apply-wash:#eef3ff; --apply-edge:#2457d6;
     }
     html[data-theme="dark"] {
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
+      --apply-wash:#1b2436; --apply-edge:#7ca0ff;
     }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
-    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
     header { margin-bottom: 1rem; }
-    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
-    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
-    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:0.75rem; }
+    .topbar h1 { margin:0; font-size:1.5rem; line-height:1.2; overflow-wrap:anywhere; }
     .muted { color: var(--muted); }
-    .edition-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
-    .edition-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
-    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
-    .intro p { margin: 0 0 0.75rem; }
-    .intro p:last-child { margin-bottom: 0; }
-    .cards { display: flex; flex-direction: column; gap: 1rem; }
-    .pcard { border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; background: var(--card); }
-    .pcard h2 { margin: 0 0 0.5rem; font-size: 1.12rem; line-height: 1.35; }
-    .pcard-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.7rem; }
-    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      border-radius: 999px; color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
-    .badge.area { color: var(--fg); border-color: var(--border); background: transparent; }
-    .badge.effort-low { color: #15803d; border-color: color-mix(in srgb, #15803d 35%, transparent); background: color-mix(in srgb, #15803d 12%, var(--card)); }
-    .badge.effort-medium { color: #b45309; border-color: color-mix(in srgb, #b45309 35%, transparent); background: color-mix(in srgb, #b45309 12%, var(--card)); }
-    .badge.effort-high { color: #b91c1c; border-color: color-mix(in srgb, #b91c1c 35%, transparent); background: color-mix(in srgb, #b91c1c 12%, var(--card)); }
-    .field { margin: 0 0 0.6rem; }
-    .field:last-of-type { margin-bottom: 0; }
-    .field-label { display: block; text-transform: uppercase; letter-spacing: 0.05em;
-      font-size: 0.68rem; font-weight: 700; color: var(--muted); margin: 0 0 0.15rem; }
-    .field-label.apply { color: var(--accent); }
-    .field p { margin: 0; font-size: 0.97rem; }
-    .pcard-source { margin: 0.85rem 0 0; padding-top: 0.7rem; border-top: 1px solid var(--border);
-      font-size: 0.88rem; }
-    .pcard-source a { text-decoration: none; }
-    .pcard-source a:hover { text-decoration: underline; }
-    .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
-    .archive { margin-left: auto; }
-    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    #meta { margin:.35rem 0 0; font-size:.8rem; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; letter-spacing:.04em; }
+
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display:flex; flex-wrap:wrap; gap:.45rem .6rem; padding:0; margin:.85rem 0 0; align-items:center; }
+    menu a[role="button"], #themeToggle, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; transition:border-color .12s ease, color .12s ease; }
+    menu a[role="button"]:hover, #themeToggle:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; }
+    .archive { margin-left:auto; display:flex; align-items:center; gap:.45rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--muted); }
+    .archive select { text-transform:none; letter-spacing:.02em; }
+
+    /* Hero — finishable thesis: "N changes worth making". */
+    .pb-hero { margin:2.3rem 0 1.7rem; }
+    .pb-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .pb-headline { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.5rem,6.4vw,4.2rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .pb-thesis { max-width:43rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .pb-intro { max-width:43rem; margin:.7rem 0 0; font-size:.95rem; line-height:1.62; color:var(--muted); }
+    .pb-intro p { margin:0 0 .6rem; }
+    .pb-intro p:last-child { margin-bottom:0; }
+    .pb-covers { margin:1.3rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; letter-spacing:.04em;
+      color:var(--muted); line-height:1.8; }
+    .pb-covers b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .pb-covers .sep { color:var(--border); margin:0 .35rem; }
+
+    /* The change records. */
+    .pb-list { border-top:1px solid var(--border); margin:1.7rem 0 0; }
+    .pb-record { display:grid; grid-template-columns:minmax(8.5rem,.4fr) minmax(0,1.6fr);
+      gap:1rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .pb-rail { display:flex; flex-direction:column; gap:.7rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; }
+    .pb-area { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--accent); line-height:1.3; }
+    .pb-effort { display:flex; align-items:center; gap:.5rem; font-size:.6rem; letter-spacing:.11em;
+      text-transform:uppercase; color:var(--muted); }
+    .pb-eff-bar { display:inline-flex; gap:3px; }
+    .pb-eff-seg { width:14px; height:5px; border:1px solid var(--border); border-radius:1px; background:transparent; }
+    .pb-eff-seg.on { background:var(--accent); border-color:var(--accent); }
+
+    .pb-body { min-width:0; }
+    .pb-title { margin:0 0 1rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(1.22rem,2.5vw,1.5rem); font-weight:700; letter-spacing:-.02em; line-height:1.08; }
+    .pb-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem; font-weight:700;
+      letter-spacing:.13em; text-transform:uppercase; }
+    .pb-signal { margin:0 0 1rem; }
+    .pb-signal .pb-label { display:block; color:var(--muted); margin:0 0 .3rem; }
+    .pb-signal p { margin:0; font-size:.88rem; line-height:1.58; color:var(--muted); }
+
+    /* APPLY — the dominant instruction (the page's single bold move). */
+    .pb-apply { margin:0 0 1rem; padding:.85rem 1.05rem .9rem;
+      border-left:3px solid var(--apply-edge); background:var(--apply-wash); }
+    .pb-apply .pb-label { display:block; color:var(--accent); margin:0 0 .35rem; }
+    .pb-apply p { margin:0; font-size:1.06rem; line-height:1.5; font-weight:500; color:var(--fg); }
+
+    .pb-expected { margin:0; }
+    .pb-expected .pb-label { color:var(--signal); }
+    .pb-expected p { margin:.3rem 0 0; font-size:.9rem; line-height:1.56; }
+
+    .pb-source { margin:1.05rem 0 0; padding-top:.75rem; border-top:1px solid var(--border);
+      display:flex; flex-wrap:wrap; justify-content:space-between; gap:.5rem 1rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; letter-spacing:.03em;
+      color:var(--muted); }
+    .pb-source a { color:var(--accent); text-decoration:none; white-space:nowrap; }
+    .pb-source a:hover { text-decoration:underline; }
+
+    .pb-end { display:flex; align-items:center; gap:.8rem; margin:2.4rem 0 .4rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .pb-end::before, .pb-end::after { content:""; height:1px; flex:1; background:var(--border); }
+
+    .state { padding:2.2rem 1rem; text-align:center; color:var(--muted);
+      border:1px solid var(--border); margin:1.7rem 0 0; }
+    footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.82rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .pb-hero { margin-top:1.7rem; }
+      .pb-headline { font-size:2.7rem; }
+      .pb-record { grid-template-columns:1fr; gap:.75rem; padding:1.4rem 0; }
+      .pb-rail { flex-direction:row; align-items:center; flex-wrap:wrap; gap:.8rem 1.2rem; }
+      .archive { width:100%; margin-left:0; }
+      .archive select { flex:1; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      * { scroll-behavior:auto !important; }
+      menu a[role="button"], #themeToggle, .archive select { transition:none; }
+    }
   </style>
 </head>
 <body>
@@ -86,30 +165,26 @@
         <h1>🛠️ Agent Builder's Playbook</h1>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Loading…</p>
+      <p id="meta">Loading…</p>
       <menu>
         <a href="/" role="button">← Live feed</a>
-        <a href="/daily" role="button">📰 Daily recap</a>
-        <a href="/map" role="button">🧠 Knowledge map</a>
+        <a href="/daily" role="button">Daily recap</a>
+        <a href="/weekly" role="button">Weekly recap</a>
+        <a href="/map" role="button">Knowledge map</a>
         <a id="jsonLink" href="/api/playbook" role="button">JSON</a>
-        <label class="archive muted">Edition
+        <label class="archive">Edition
           <select id="archive" aria-label="Choose edition"></select>
         </label>
       </menu>
     </header>
-
-    <p class="muted" style="margin:0 0 0.5rem;font-size:0.95rem;">
-      Actionable changes you can apply to your agents. Each card: the
-      <strong>problem</strong> it solves, what to <strong>apply</strong>, and the
-      expected <strong>result</strong>.
-    </p>
 
     <section id="edition" aria-live="polite">
       <div class="state">Loading the Playbook…</div>
     </section>
 
     <footer>
-      Built from the AI SOTA feed. Each card links to its source.
+      Distilled from the AI feed for engineers who build and operate agents.
+      Every change links to its source.
     </footer>
   </main>
 
@@ -156,64 +231,96 @@
       return m ? m[1] : null;
     }
 
+    const isLocal = () => /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+
     function introParagraphs(intro) {
       if (Array.isArray(intro)) return intro.map((p) => String(p).trim()).filter(Boolean);
       return String(intro || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
     }
 
-    function renderIntro(edition) {
-      const paras = introParagraphs(edition.intro);
-      if (!paras.length) return '';
-      return `<div class="intro">${paras.map((p) => `<p>${esc(p)}</p>`).join('')}</div>`;
-    }
-
-    function effortBadge(effort) {
+    // Effort as an honest 3-segment meter (low=1, medium=2, high=3) — not a
+    // colored hype pill. Empty effort renders nothing.
+    function effortMeter(effort) {
       const e = String(effort || '').toLowerCase();
-      if (!['low', 'medium', 'high'].includes(e)) return '';
-      return `<span class="badge effort-${e}">${esc(e)} effort</span>`;
+      const rank = { low: 1, medium: 2, high: 3 }[e];
+      if (!rank) return '';
+      const segs = [1, 2, 3].map((n) => `<span class="pb-eff-seg${n <= rank ? ' on' : ''}"></span>`).join('');
+      return `<span class="pb-effort" title="${esc(e)} effort"><span>effort</span>` +
+        `<span class="pb-eff-bar" role="img" aria-label="${esc(e)} effort">${segs}</span></span>`;
     }
 
-    function renderCard(c) {
+    // One change record: a SIGNAL → APPLY → EXPECTED spine. APPLY is the single
+    // dominant block; problem/result are quiet annotations bracketing it.
+    function renderRecord(c) {
       const href = safeUrl(c.url);
-      const field = (label, value, cls) => value
-        ? `<div class="field"><span class="field-label${cls ? ' ' + cls : ''}">${label}</span><p>${esc(value)}</p></div>`
-        : '';
+      const sourceLabel = c.source || (href !== '#' ? 'source' : '');
       return `
-        <article class="pcard">
-          <h2>${esc(c.title || 'Untitled')}</h2>
-          <div class="pcard-meta">
-            ${c.area ? `<span class="badge area">${esc(c.area)}</span>` : ''}
-            ${effortBadge(c.effort)}
+        <article class="pb-record">
+          <div class="pb-rail">
+            ${c.area ? `<span class="pb-area">${esc(c.area)}</span>` : ''}
+            ${effortMeter(c.effort)}
           </div>
-          ${field('Problem', c.problem)}
-          ${field('Apply', c.apply, 'apply')}
-          ${field('Result', c.result)}
-          ${href !== '#' ? `<p class="pcard-source">Source: <a href="${href}" target="_blank" rel="noopener" data-track="playbook-link">${esc(c.source || 'link')}</a></p>` : ''}
+          <div class="pb-body">
+            <h2 class="pb-title">${esc(c.title || 'Untitled change')}</h2>
+            ${c.problem ? `<div class="pb-signal"><span class="pb-label">Signal</span><p>${esc(c.problem)}</p></div>` : ''}
+            ${c.apply ? `<div class="pb-apply"><span class="pb-label">Apply</span><p>${esc(c.apply)}</p></div>` : ''}
+            ${c.result ? `<div class="pb-expected"><span class="pb-label">→ Expected</span><p>${esc(c.result)}</p></div>` : ''}
+            ${href !== '#' ? `<p class="pb-source"><span>Source</span><a href="${href}" target="_blank" rel="noopener" data-track="playbook-link">${esc(sourceLabel)} →</a></p>` : ''}
+          </div>
         </article>`;
     }
 
+    function renderCovers(cards) {
+      const areas = [];
+      for (const c of cards) {
+        const a = String(c.area || '').trim();
+        if (a && !areas.includes(a)) areas.push(a);
+      }
+      if (!areas.length) return '';
+      return `<p class="pb-covers"><b>Covers</b>${
+        areas.map(esc).join('<span class="sep">·</span>')
+      }</p>`;
+    }
+
     function renderEdition(edition) {
-      document.title = `Agent Builder's Playbook — ${edition.title || edition.date}`;
+      document.title = `${edition.title || "Agent Builder's Playbook"} | LLM Digest`;
       document.getElementById('jsonLink').href = `/api/playbook?date=${encodeURIComponent(edition.date)}`;
       const cards = Array.isArray(edition.cards) ? edition.cards : [];
+      const n = cards.length;
       document.getElementById('meta').textContent =
-        `${cards.length} actionable card${cards.length === 1 ? '' : 's'}`;
+        `${edition.date || ''} · ${n} change${n === 1 ? '' : 's'} to apply`;
+
+      const headline = n
+        ? `${n} change${n === 1 ? '' : 's'} worth making`
+        : 'Nothing to apply yet';
+      const intro = introParagraphs(edition.intro);
 
       document.getElementById('edition').innerHTML = `
-        <h2 class="edition-title">${esc(edition.title || edition.date)}</h2>
-        <p class="edition-range">${esc(fmtLongDate(edition.date))}</p>
-        ${renderIntro(edition)}
-        <div class="cards">${
-          cards.length ? cards.map(renderCard).join('') : '<div class="state">No cards in this edition yet.</div>'
-        }</div>`;
+        <section class="pb-hero">
+          <p class="pb-kicker">Agent change log · ${esc(fmtLongDate(edition.date))}</p>
+          <h2 class="pb-headline">${esc(headline)}</h2>
+          <p class="pb-thesis">Each entry names the <strong>signal</strong> that should trigger it,
+            the concrete <strong>change to apply</strong> to your agent, and the
+            <strong>result</strong> to expect.</p>
+          ${intro.length ? `<div class="pb-intro">${intro.map((p) => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
+          ${renderCovers(cards)}
+        </section>
+        ${n
+          ? `<div class="pb-list">${cards.map(renderRecord).join('')}</div>
+             <p class="pb-end">That's the edition — ${n} change${n === 1 ? '' : 's'}</p>`
+          : '<div class="state">No changes in this edition yet.</div>'}`;
     }
 
     async function loadArchive(currentDate) {
       const sel = document.getElementById('archive');
       try {
-        const res = await fetch('/api/playbook?list=1');
+        let res = await fetch('/api/playbook?list=1');
+        if (res.status === 404 && isLocal()) {
+          res = await fetch('/data/playbook/index.json', { cache: 'no-store' });
+        }
         if (!res.ok) throw new Error('list_http_' + res.status);
-        const { editions = [] } = await res.json();
+        const payload = await res.json();
+        const editions = Array.isArray(payload) ? payload : (payload.editions || []);
         if (!editions.length) { sel.innerHTML = '<option>—</option>'; return; }
         sel.innerHTML = editions.map((d) =>
           `<option value="${esc(d.date)}" ${d.date === currentDate ? 'selected' : ''}>${esc(d.date)}</option>`).join('');
@@ -229,7 +336,13 @@
       const date = dateFromLocation();
       const url = date ? `/api/playbook?date=${encodeURIComponent(date)}` : '/api/playbook';
       try {
-        const res = await fetch(url);
+        let res = await fetch(url);
+        if (res.status === 404 && isLocal()) {
+          res = await fetch(
+            date ? `/data/playbook/${encodeURIComponent(date)}.json` : '/data/playbook/latest.json',
+            { cache: 'no-store' }
+          );
+        }
         if (res.status === 404) {
           document.getElementById('meta').textContent = 'No edition yet';
           document.getElementById('edition').innerHTML =
@@ -255,7 +368,8 @@
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
        skipped under prefers-reduced-motion. Never affects initial load. -->
   <script type="module">
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const isLocalPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    if (!isLocalPreview && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const go = () => import('/mascot/mascot.js').catch(() => {});
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
     }

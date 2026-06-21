@@ -2,7 +2,26 @@
 
 **Date:** 2026-06-21
 **Branch:** `codex/validate-storyline-eval-results`
-**Status:** In progress; the worktree contains intentional, uncommitted redesign work.
+**Status:** Redesign complete (pending owner review). All remaining surfaces —
+Playbook, Knowledge map, Topic, Voices, Subscribe — have been redesigned and
+visually verified one by one, followed by a cross-surface consistency pass. The
+worktree contains intentional, uncommitted redesign work.
+
+> **Completion note (2026-06-21).** Sections 1–5 below are done:
+> - **/playbook** — change records with a dominant `Apply` block; effort meter;
+>   `tests/test_playbook_surface.py`; spec + SKILL editorial note.
+> - **/map & /topic** — obstacle→solution adjacency map + problem-readout dossier
+>   (renderer-only); `tests/test_wiki_surface.py`; spec updated.
+> - **/voices** — annotated reading guide (why-forward, not ranked);
+>   `tests/test_voices_surface.py`.
+> - **/subscribe** — conversion utility with a focal signup panel + delivery spec;
+>   all states verified via real code paths; `tests/test_subscribe_surface.py`.
+> - **Consistency pass** — live-feed focus ring + dead-token-block cleanup; verified
+>   tokens/type/focus/reduced-motion/themes/Oat collisions across surfaces. Relevant
+>   suite 61 green, `git diff --check` clean, no accidental render churn (only the
+>   known pre-existing `web/story/*` drift, restored). See the 2026-06-21 ADRs in
+>   `docs/design-docs/decision-log.md`. One documented follow-up: accent focus ring
+>   for the generated daily/weekly/story pages (needs a full re-render commit).
 
 ## Objective
 

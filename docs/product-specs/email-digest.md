@@ -151,6 +151,35 @@ is no wiki high-water mark.
   through `/s?u=`) so clicks attribute into the existing PostHog / CTR →
   `auto_tune` loop. Otherwise we go blind on the best channel.
 
+## Subscribe page design (redesigned 2026-06-21)
+
+`/subscribe` (`web/subscribe.html`) belongs to the "AI operations instrument"
+family but is a **conversion utility first** — clarity and trust outrank novelty.
+
+- **One bold move: the signup panel.** An accent-ruled, washed, square panel
+  (not a rounded card) placed directly under the hero so the email field and the
+  accent **Subscribe** button are the unmistakable action. Everything else stays
+  quiet.
+- **No generic feature cards.** The previous three benefit cards are replaced by
+  a **"what arrives" delivery spec** — hairline rows naming the real deliverables
+  (the daily brief, the Friday recap, the one transparent ranking) with their
+  cadence as a monospace label and a **"see a sample" link** into the live
+  `/daily`, `/weekly`, and `/` pages, so the reader can preview the product
+  before subscribing (clarity + trust).
+- **Behavior preserved, states verified.** The redesign is CSS + markup only; the
+  signup JS is unchanged. All states were exercised against real code paths
+  (mocked responses, never a page-level fake success): configured form,
+  provider-config **external-signup** fallback (`digest.email_signup_url`,
+  `target=_blank rel=noopener`), **unavailable** (the natural local state when
+  `/api/client-config` is absent), **submitting**, **success** (sets
+  `ai_feed_email_subscribed_v1` + `ai_feed_subscribe_nudge_done_v1`, disables the
+  field, removes the button), client-side **validation-error**, and **API-error**
+  (button re-enabled for retry). Honeypot, email validation, status messages, the
+  privacy/provider copy, and the local-storage keys are intact. Light/dark themes,
+  visible keyboard focus, an email-field focus ring, reduced motion, and 50px
+  touch targets are covered. No editorial-skill change. Regression coverage:
+  `tests/test_subscribe_surface.py`.
+
 ## Validation
 
 - `python3 publish/publish_email.py --dry-run` renders both emails from the live
