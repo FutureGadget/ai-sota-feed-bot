@@ -167,15 +167,14 @@ export function createBubbleBuddy(userOpts = {}) {
       // `left`, computed against the clipped viewport width and kept in sync on
       // resize/orientation, so it stays on-screen and never opens a gutter.
       if (toBody && horz === 'right') {
+        container.style.right = 'auto';
         floatResizeHandler = () => {
           if (!container) return;
           const vw = document.documentElement.clientWidth || window.innerWidth || 0;
-          container.style.right = 'auto';
           container.style.left = Math.max(0, Math.round(vw - opts.width - opts.offsetX)) + 'px';
         };
         floatResizeHandler();
-        window.addEventListener('resize', floatResizeHandler, { passive: true });
-        window.addEventListener('orientationchange', floatResizeHandler, { passive: true });
+        ['resize', 'orientationchange'].forEach((e) => window.addEventListener(e, floatResizeHandler, { passive: true }));
         if (window.visualViewport) window.visualViewport.addEventListener('resize', floatResizeHandler, { passive: true });
       } else {
         container.style[horz] = opts.offsetX + 'px';
@@ -678,8 +677,7 @@ export function createBubbleBuddy(userOpts = {}) {
     clearTimeout(scheduleTimer); stopLoop();
     if (visHandler) document.removeEventListener('visibilitychange', visHandler);
     if (floatResizeHandler) {
-      window.removeEventListener('resize', floatResizeHandler);
-      window.removeEventListener('orientationchange', floatResizeHandler);
+      ['resize', 'orientationchange'].forEach((e) => window.removeEventListener(e, floatResizeHandler));
       if (window.visualViewport) window.visualViewport.removeEventListener('resize', floatResizeHandler);
     }
     if (themeObserver) themeObserver.disconnect();
