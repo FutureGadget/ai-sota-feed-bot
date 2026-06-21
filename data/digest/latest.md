@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Beast: Inference Economy Inversion in Agentic Coding Systems
 - Type: release | Source: hackernews_ai
 - URL: https://github.com/Byron2306/EdgeK-BEAST
-- Score: 2.808 | Reliability: 1.0
+- Score: 2.805 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
@@ -41,13 +41,13 @@ Focus: AI Platform Engineering
 ## 7. codex 0.142.0-alpha.9
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.9
-- Score: 2.392 | Reliability: 1.0
+- Score: 2.39 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 8. claude-agent-sdk-python v0.2.106
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.106
-- Score: 2.343 | Reliability: 1.0
+- Score: 2.341 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. claude-code v2.1.185
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.185
-- Score: 2.194 | Reliability: 1.0
+- Score: 2.192 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
