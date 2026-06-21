@@ -31,6 +31,12 @@
   news-only. Playbook editions continue serving normally; recap source files
   require no migration.
 
+## 2026-06-22 (Fix Mobile View Zoom Overflow)
+- **Decision:** Add `overflow-x: hidden` to the `html` tag CSS block in the page templates (`web/*.html` shells) and the generated pages styling (`pipeline/render_static_pages.py`). Add `overflow-x: hidden` to the `body` tag in `web/subscribe.html` to match.
+- **Rationale:** On iOS Safari and Chrome, `body { overflow-x: hidden; }` is ignored for page-level horizontal scaling boundaries. If any component overflows or is pulled by the user, the browser allows zooming out/scaling down beyond `initial-scale=1.0`, displaying a large blank space on the right of the content. Setting `overflow-x: hidden` on the `html` element bounds the layout viewport properly on mobile iOS, preventing zoom-out beyond 1.0 while fully preserving accessibility zoom-in.
+- **Impact:** Modified `pipeline/render_static_pages.py` (`PAGE_CSS`), and the shells `web/index.html`, `web/daily.html`, `web/weekly.html`, `web/storyline.html`, `web/playbook.html`, `web/map.html`, `web/voices.html`, and `web/subscribe.html`. Regenerated all static files under `web/` using the renderer.
+- **Rollback:** Revert CSS changes in the templates and renderer, and run `pipeline/render_static_pages.py` to regenerate the static pages.
+
 ## 2026-06-21 (Mobile feed: timeframe + feedback-button polish)
 - **Decision:** On the live feed (`web/index.html`), (1) move the mobile
   timeframe selector inline at the right edge of the section-tab row (showing the
@@ -55,7 +61,7 @@
   "Mobile UI & UX Improvements" entry (dedicated timeframe row, larger feedback
   targets).
 - **Rollback:** Revert the `web/index.html` diff (restores the
-  `.mobile-controls-row`/`#rangeSelectMobile` row and the larger feedback
+  `.mobile-controls-row` / `#rangeSelectMobile` row and the larger feedback
   buttons).
 
 ## 2026-06-21 (Mobile UI & UX Improvements)
