@@ -136,6 +136,8 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--border, #e5e5e5);
       margin-top: 0.65rem;
+      width: 100%;
+      min-width: 0;
     }
     .sections {
       flex: 1;
@@ -703,7 +705,8 @@
     #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.68rem; line-height:1.55; }
     .controls-bar { display: flex; align-items: center; justify-content: space-between;
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0; }
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0;
+      width: 100%; min-width: 0; }
     .sections { flex: 1; min-width: 0; gap: 0; margin-top: 0; padding: 0; border: 0; }
     .sections button { min-height:44px; padding:.55rem .8rem; border:0;
       border-bottom:2px solid transparent; border-radius:0; color:var(--muted);
@@ -780,6 +783,8 @@
       .sections { overflow-x:auto; }
       .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; max-width: 100px; font-size:0.82rem; padding:0 0.4rem 0 0.6rem; min-height:44px; }
       .quicknav {
+        display: flex;
+        width: calc(100% + 2rem);
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
