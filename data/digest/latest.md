@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Beast: Inference Economy Inversion in Agentic Coding Systems
 - Type: release | Source: hackernews_ai
 - URL: https://github.com/Byron2306/EdgeK-BEAST
-- Score: 2.809 | Reliability: 1.0
+- Score: 2.808 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.333 | Reliability: 1.0
+- Score: 2.332 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. claude-code v2.1.185
