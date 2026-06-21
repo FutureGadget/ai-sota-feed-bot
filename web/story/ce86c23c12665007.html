@@ -48,6 +48,9 @@
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
     .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
     menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    menu .menu-share { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; }
+    menu .menu-share:hover { text-decoration: underline; }
+    menu .menu-share.copied { color: var(--muted); cursor: default; }
     .muted { color: var(--muted); }
     .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
     .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
@@ -130,6 +133,7 @@
         <a href="/daily" role="button">📰 Daily recap</a>
         <a href="/weekly" role="button">🗓️ Weekly recap</a>
         <a href="/subscribe" role="button">✉️ Email digest</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/ce86c23c12665007" data-share-title="🔬ESM: The Bitter Lesson is Coming for Proteins - Alex Rives, BioHub">🔗 Share</button>
         
       </menu>
     </header>
@@ -164,6 +168,29 @@
       }
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
     })();
   </script>
 
