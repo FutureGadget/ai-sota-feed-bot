@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Ask HN: What are some good benchmarks for different agent harnesses?
 - Type: news | Source: hackernews_ai
 - URL: https://news.ycombinator.com/item?id=48614029
-- Score: 2.812 | Reliability: 1.0
+- Score: 2.811 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. codex 0.142.0-alpha.7
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.7
-- Score: 2.302 | Reliability: 1.0
+- Score: 2.301 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 10. claude-code v2.1.185
