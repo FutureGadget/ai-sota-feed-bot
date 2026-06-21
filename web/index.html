@@ -476,13 +476,17 @@
       border-color: var(--accent);
       color: var(--accent);
     }
-    /* Undo snackbar after a hide — gives a fast, low-friction way back. */
+    /* Undo snackbar after a hide — gives a fast, low-friction way back.
+       Sits on a toast layer ABOVE the decorative Bubble Buddy mascot (default
+       z-index 60, bottom-right): the mascot's canvas has pointer-events:auto
+       and mounts late, so at an equal z-index it would stack over the snackbar
+       and steal taps on the Undo button (they overlap on narrow screens). */
     .undo-snack {
       position: fixed;
       left: 50%;
       bottom: 1.2rem;
       transform: translateX(-50%) translateY(1.5rem);
-      z-index: 60;
+      z-index: 1000;
       display: flex;
       align-items: center;
       gap: 0.8rem;
