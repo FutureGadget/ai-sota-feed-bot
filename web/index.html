@@ -404,6 +404,12 @@
       font-size: 0.82rem;
       color: var(--muted);
     }
+    .fb-actions {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      gap: 0.4rem;
+    }
     .fb-btn {
       border: 1px solid var(--border);
       border-radius: 999px;
@@ -600,9 +606,6 @@
       padding: 1rem;
       opacity: 0.85;
     }
-    .mobile-controls-row {
-      display: none;
-    }
     /* "You're caught up" end-marker: closes the Brief view so the finishable
        promise has a visible finish line. */
     .end-marker {
@@ -787,7 +790,10 @@
       main { padding-left:1rem; padding-right:1rem; }
       .topbar { align-items:center; }
       .topbar-actions { flex-wrap:nowrap; justify-content:flex-end; }
-      .controls-bar #rangeSelect { display: none !important; }
+      /* Timeframe sits inline at the right of the section tabs (one control row)
+         rather than on its own line below them. */
+      .controls-bar #rangeSelect { display: inline-block !important; flex-shrink: 0;
+        font-size: 0.78rem; padding: 0 0 0 0.5rem; }
       .feed-hero { grid-template-columns:1fr; gap:0.5rem; margin:1rem 0 0.8rem; }
       .feed-title { font-size:2.2rem; line-height:1.0; }
       .feed-promise { display:none; }
@@ -797,25 +803,6 @@
         padding-bottom: 0.25rem;
         -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
         mask-image: linear-gradient(to right, black 85%, transparent 100%);
-      }
-      .mobile-controls-row {
-        display: flex;
-        align-items: center;
-        margin-top: 0.65rem;
-        font-size: 0.82rem;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 0.55rem;
-      }
-      .mobile-controls-row select {
-        font-size: 0.82rem;
-        padding: 0.2rem 0.4rem;
-        border: 1px solid var(--border);
-        border-radius: 6px;
-        background: transparent;
-        color: inherit;
-        cursor: pointer;
-        min-height: 36px;
-        margin-left: 0.35rem;
       }
       .quicknav {
         display: flex;
@@ -851,14 +838,22 @@
       article h3 { font-size:1.18rem; }
       .thumb { width:72px; height:64px; }
       .fb-btn {
-        min-height: 40px;
-        padding: 0.25rem 0.6rem;
+        min-height: 32px;
+        padding: 0.2rem 0.5rem;
         display: inline-flex;
         align-items: center;
-        margin-bottom: 0.2rem;
+        font-size: 0.7rem;
       }
       .fb-row {
-        gap: 0.6rem;
+        gap: 0.35rem;
+      }
+      /* Prompt on its own caption line so the three buttons stay together on a
+         single compact row instead of an awkward 2-then-1 wrap. */
+      .fb-label {
+        flex-basis: 100%;
+      }
+      .fb-actions {
+        gap: 0.35rem;
       }
       .end-marker { display:block; text-align:left; }
       .end-marker::before { display:block; margin-bottom:.6rem; }
@@ -917,19 +912,6 @@
           <option value="30">Last 30d</option>
           <option value="all">All</option>
         </select>
-      </div>
-
-      <div class="mobile-controls-row">
-        <div class="mobile-control-group">
-          <span class="muted">Timeframe:</span>
-          <select id="rangeSelectMobile" aria-label="Time range">
-            <option value="1">Today</option>
-            <option value="3">Last 3d</option>
-            <option value="7" selected>Last 7d</option>
-            <option value="30">Last 30d</option>
-            <option value="all">All</option>
-          </select>
-        </div>
       </div>
 
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
@@ -1073,10 +1055,8 @@
 
     function syncRangeSelect() {
       const sel = document.getElementById('rangeSelect');
-      const selMobile = document.getElementById('rangeSelectMobile');
       const v = ['1', '3', '7', '30', 'all'].includes(presetDaysState) ? presetDaysState : '7';
       if (sel) sel.value = v;
-      if (selMobile) selMobile.value = v;
     }
 
     // 'feed' renders the API feed; 'saved' renders locally saved items.
@@ -1966,7 +1946,7 @@
           </div>
           ${why ? `<p class="matters">💡 ${why}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
-          <div class="fb-row"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : FEEDBACK_PROMPT}</span>${fbButtons}</div>
+          <div class="fb-row"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : FEEDBACK_PROMPT}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
     }
 
@@ -2517,11 +2497,6 @@
       });
 
       document.getElementById('rangeSelect')?.addEventListener('change', (e) => {
-        setDateRangeDays(e.target.value);
-        refreshFeed({ exitSaved: true });
-      });
-
-      document.getElementById('rangeSelectMobile')?.addEventListener('change', (e) => {
         setDateRangeDays(e.target.value);
         refreshFeed({ exitSaved: true });
       });
