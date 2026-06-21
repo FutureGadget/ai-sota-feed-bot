@@ -799,14 +799,19 @@
       return `${days}d ago`;
     }
 
-    function toIsoDateStart(dateStr) {
+    function localDateBoundaryUtc(dateStr, endOfDay = false) {
       if (!dateStr) return null;
-      return `${dateStr}T00:00:00`;
-    }
-
-    function toIsoDateEnd(dateStr) {
-      if (!dateStr) return null;
-      return `${dateStr}T23:59:59`;
+      const match = String(dateStr).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!match) return null;
+      const y = Number(match[1]);
+      const m = Number(match[2]);
+      const d = Number(match[3]);
+      const localStart = new Date(y, m - 1, d, 0, 0, 0, 0);
+      if (localStart.getFullYear() !== y || localStart.getMonth() !== m - 1 || localStart.getDate() !== d) return null;
+      const boundary = endOfDay
+        ? new Date(y, m - 1, d + 1, 0, 0, 0, -1)
+        : localStart;
+      return boundary.toISOString();
     }
 
     function toDateInput(d) {
@@ -1310,14 +1315,14 @@
     }
 
     function buildFeedUrl() {
-      let from = toIsoDateStart(customRangeState.from);
-      let to = toIsoDateEnd(customRangeState.to);
+      let from = localDateBoundaryUtc(customRangeState.from);
+      let to = localDateBoundaryUtc(customRangeState.to, true);
       if (!from && !to && presetDaysState !== 'all') {
         const n = Math.max(1, Number(presetDaysState || 7));
         const now = new Date();
-        const fromD = new Date(now.getTime() - n * 24 * 60 * 60 * 1000);
-        from = toIsoDateStart(toDateInput(fromD));
-        to = toIsoDateEnd(toDateInput(now));
+        const fromD = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (n - 1));
+        from = localDateBoundaryUtc(toDateInput(fromD));
+        to = localDateBoundaryUtc(toDateInput(now), true);
       }
 
       const u = new URL('/api/feed', window.location.origin);
@@ -1944,7 +1949,7 @@
     }
 
     // Last fetched feed payload; search re-renders from here without refetching.
-    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null };
+    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false };
 
     // Loading placeholder for the feed list. Reserves vertical space so the
     // footer doesn't jump when real cards arrive (CLS). aria-hidden because
@@ -1975,9 +1980,17 @@
         </div>`;
     }
 
+    function truncatedMarkerHtml(totalItems, shownItems) {
+      return `
+        <div class="end-marker">
+          <div class="end-marker-title">Showing the first ${shownItems} of ${totalItems} stories</div>
+          <div class="end-marker-sub">This range is larger than the current feed page. Narrow the time range to reach a true finish line.</div>
+        </div>`;
+    }
+
     function renderFeedList() {
       const list = document.getElementById('list');
-      const { items, runs, freshAdded, runId } = feedCache;
+      const { items, runs, freshAdded, runId, totalItems, hasMore } = feedCache;
       const q = searchQueryState.trim().toLowerCase();
       const visible = items.filter((it) => matchesQuery(it, q));
 
@@ -2001,7 +2014,7 @@
       const rangeNote = rangeLabel ? ` ${rangeLabel === 'today' ? 'today' : `from the ${rangeLabel}`}` : '';
       const countText = q
         ? `${visible.length} of ${items.length} stories`
-        : `${items.length} ${items.length === 1 ? 'story' : 'stories'}${rangeNote}`;
+        : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
       document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}`;
       syncSectionTabs();
 
@@ -2021,7 +2034,9 @@
         cards.unshift(catchupHtml(items), storylineNoticeHtml());
         // Finish line for the Brief default — make the "finishable" promise
         // visible. Only on the Brief lens (not the firehose/topic views).
-        if (activeSection() === 'brief') cards.push(endMarkerHtml());
+        if (activeSection() === 'brief') {
+          cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
+        }
       }
       list.innerHTML = cards.join('');
     }
@@ -2045,6 +2060,8 @@
         runs,
         freshAdded: Number(data.tier1_blend?.fresh_added || 0),
         runId,
+        totalItems: Number(data.total_items ?? items.length),
+        hasMore: Boolean(data.has_more),
       };
       itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
       renderFeedList();

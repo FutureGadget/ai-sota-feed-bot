@@ -7,3 +7,4 @@
 - playbook.md
 - nav-update-indicators.md
 - email-digest.md
+- feed-date-ranges.md
