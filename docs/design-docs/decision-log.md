@@ -1,5 +1,36 @@
 # Decision Log
 
+## 2026-06-22 (Planned: canonical Playbook cards overlay recaps by source SID)
+- **Decision:** Plan an action-mapping layer for daily/weekly recaps in
+  `docs/exec-plans/active/v2.3-recap-playbook-integration.md`. The Playbook
+  agent remains the sole author of `problem → apply → result`; deterministic
+  code validates evidence, indexes source-backed cards by the existing story
+  SID (`sha256(source_url)[:16]`), and overlays exact matches into recap
+  articles. Evergreen wiki cards remain valid on `/playbook` but are ineligible
+  for recap embedding without exact source provenance. Delivery is weekly-first,
+  then daily, with hard finishability caps.
+- **Context / Problem:** Recaps currently explain events while `/playbook`
+  separately explains actions, leaving the reader to bridge passive reading
+  and implementation. The current June 21 Playbook edition also uses
+  `/topic/...` as `url`, despite the skill contract requiring original source
+  URLs, so title/URL guessing would produce unreliable joins and fabricated
+  provenance.
+- **Rationale:** Semantic extraction belongs in the scheduled agent routine;
+  joining, eligibility, caps, and rendering are deterministic concerns.
+  Source-SID matching reuses the durable permalink identity and avoids fuzzy
+  title matching. Explicit evidence kinds (`source-measured`,
+  `source-claimed`, `editorial-inference`) prevent unsupported benchmark claims.
+  Keeping recap JSON unchanged preserves archive compatibility and one canonical
+  editorial record.
+- **Impact (planned):** Extend the Playbook schema/validator and index builder,
+  add `data/playbook/source-index.json`, admit actionable papers/releases into
+  weekly input under hard curation, then render capped inline cards in static
+  and dynamic weekly/daily recap surfaces. The hourly deterministic feed
+  pipeline remains untouched.
+- **Rollback:** Disable the additive recap overlay and restore weekly input to
+  news-only. Playbook editions continue serving normally; recap source files
+  require no migration.
+
 ## 2026-06-21 (Mobile feed: timeframe + feedback-button polish)
 - **Decision:** On the live feed (`web/index.html`), (1) move the mobile
   timeframe selector inline at the right edge of the section-tab row (showing the

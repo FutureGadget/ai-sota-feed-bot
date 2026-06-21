@@ -21,6 +21,7 @@ from playbook_common import (
     PLAYBOOK_INPUT_DIR,
     fmt_day,
     load_json,
+    source_sid,
     write_json,
 )
 
@@ -41,6 +42,8 @@ def main() -> None:
     for a in articles:
         cards.append(
             {
+                "id": f"pb-{source_sid(a['url'])}",
+                "kind": "source-backed",
                 "title": f"[placeholder] Apply the learning from: {a['title']}",
                 "area": "Tool use",
                 "problem": "PLACEHOLDER — replace with the problem this solves for an agent builder.",
@@ -48,7 +51,12 @@ def main() -> None:
                 "result": "PLACEHOLDER — state the expected result / payoff.",
                 "effort": "medium",
                 "source": a["source"],
-                "url": a["url"],
+                "source_url": a["url"],
+                "source_sid": source_sid(a["url"]),
+                "evidence": {
+                    "kind": "editorial-inference",
+                    "note": "PLACEHOLDER — replace with the source's actual evidence basis.",
+                },
                 "published": a.get("published"),
             }
         )

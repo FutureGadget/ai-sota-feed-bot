@@ -116,6 +116,10 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 - `highlights` (optional but recommended) is a "In 30 seconds" bullet list the
   page renders above the intro — 3–6 scannable one-liners so a reader gets the
   gist without reading the full narrative. Cover the day's biggest threads.
+- Never author or copy `problem`, `apply`, or `result` into recap JSON. When the
+  Playbook routine already produced a validated card for an article,
+  deterministic rendering may show it inline. Daily remains news-first; a
+  Playbook match does not force an article into the recap.
 
 ### 4. Validate + rebuild the index (what the site serves)
 ```bash

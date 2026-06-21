@@ -19,6 +19,12 @@ retrieval, cost/latency, reliability, safety) — never framework churn, prompt
 listicles, or generic AI news. If an article has no applicable takeaway for an
 agent builder, **skip it**. Curate hard; 4–8 strong cards beat 20 weak ones.
 
+This routine is the **only editorial author** of Playbook takeaways. Daily and
+weekly recap agents never rewrite `problem`, `apply`, or `result`; deterministic
+code joins validated cards into recaps by the source article's durable SID.
+When these routines cover the same period, run Playbook first, validate it, then
+generate the recap.
+
 All scripts live next to this file in `scripts/` and run from anywhere (they
 locate the repo root automatically). This routine mirrors the `daily-summary`
 skill, but the unit is an *actionable card*, not a news summary.
@@ -66,6 +72,8 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
   "card_count": 5,
   "cards": [
     {
+      "id": "pb-cache-tool-schemas",
+      "kind": "source-backed",
       "title": "Verb-first headline, e.g. 'Cache tool schemas to cut first-token latency'",
       "area": "Tool use",
       "problem": "What hurts today for an agent builder (1–2 sentences).",
@@ -73,7 +81,13 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
       "result": "The expected result / payoff (quantify when the source does).",
       "effort": "low",
       "source": "anthropic_blog",
-      "url": "https://…  (copy verbatim from the bundle)",
+      "source_url": "https://…  (copy verbatim from the bundle)",
+      "source_sid": "sha256(normalized source_url)[:16]",
+      "topic_url": "/topic/tool-use",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "The source measured the result in its published benchmark."
+      },
       "published": "2026-06-21T17:44:18Z"
     }
   ]
@@ -81,9 +95,15 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
 ```
 
 **Editorial guidance**
-- **Preserve `url` exactly** from the bundle — it's the reader's link to the
-  primary source. Never invent, shorten, or guess links. Every card needs one.
-- Required per card: `title`, `problem`, `apply`, `result`, `url`. Optional:
+- Use `kind: "source-backed"` for a card distilled from one article. Preserve
+  `source_url` exactly from the bundle and copy its supplied `source_sid`. Never
+  invent, shorten, normalize, or guess the source URL.
+- Use `kind: "evergreen"` only for durable wiki guidance that cannot honestly
+  be attributed to one input article. It requires `topic_url` and appears on
+  `/playbook`, but is deliberately ineligible for recap embedding.
+- Every card needs a stable `id` beginning with `pb-`.
+- Required per card: `id`, `kind`, `title`, `problem`, `apply`, `result`.
+  Optional:
   `area` (use the `area_hints` — Memory, Tool use, Orchestration, Evals,
   Reliability, Cost & latency, Safety, Retrieval), `effort` (`low`/`medium`/
   `high`), `published`, `tags`.
@@ -92,6 +112,12 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
   item doesn't belong in the Playbook.
 - **`result` is the promise** — what changes once they apply it. Quantify when
   the source gives numbers; otherwise describe the qualitative win honestly.
+- Source-backed cards require `evidence.kind`:
+  - `source-measured`: the primary source reports a measured result.
+  - `source-claimed`: a vendor/project claims the result; word it as a claim.
+  - `editorial-inference`: a qualitative expected outcome inferred by the
+    editor. Never put percentages, multipliers, latency figures, benchmark
+    scores, or guarantees in an inferred result.
 - Keep the audience bar: "would an AI platform/agent engineer change something
   on Monday because of this card?" If not, cut it.
 - `intro` is optional and short — one or two sentences. The cards carry the value.
@@ -116,7 +142,8 @@ weighted block — `problem` and `result` are quiet annotations bracketing it:
 python .agents/skills/playbook/scripts/build_playbook_index.py
 ```
 Validates every edition against the schema and rebuilds
-`data/playbook/index.json` + `data/playbook/latest.json`. Exits non-zero on a
+`data/playbook/index.json` + `data/playbook/latest.json` and the recap lookup
+`data/playbook/source-index.json`. Exits non-zero on a
 malformed edition — fix and re-run until clean. (`--check` validates without
 writing.)
 

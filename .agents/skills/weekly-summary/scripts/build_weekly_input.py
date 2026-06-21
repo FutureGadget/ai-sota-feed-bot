@@ -20,11 +20,13 @@ from datetime import date, datetime, time, timedelta, timezone
 
 from weekly_common import (
     CATEGORY_ORDER,
+    ROOT,
     WEEKLY_DIR,
     WEEKLY_INPUT_DIR,
     collect_week_articles,
     fmt_range,
     iso_week_id,
+    load_json,
     recap_article_urls,
     week_bounds,
     write_json,
@@ -38,9 +40,9 @@ def main() -> None:
     ap.add_argument("--days", type=int, default=7, help="Lookback window in days when using --end (default 7)")
     ap.add_argument(
         "--types",
-        default="news",
-        help="Comma-separated item types to include, or 'all' (default: news). "
-        "Other types (paper/release/research) are better served by the live feed.",
+        default="news,release,research,paper",
+        help="Comma-separated item types to include, or 'all' "
+        "(default: news,release,research,paper).",
     )
     ap.add_argument(
         "--keep-carryover",
@@ -82,6 +84,12 @@ def main() -> None:
     )
     if include_types is not None:
         articles = [a for a in articles if a.get("type") in include_types]
+    playbook_index = load_json(ROOT / "data" / "playbook" / "source-index.json", {})
+    if not isinstance(playbook_index, dict):
+        playbook_index = {}
+    for article in articles:
+        card = playbook_index.get(article.get("source_sid"))
+        article["playbook_card_id"] = card.get("id") if isinstance(card, dict) else None
 
     # Pre-group by deterministic category so the agent has a starting structure.
     grouped: dict[str, list] = {}

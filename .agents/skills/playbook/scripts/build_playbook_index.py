@@ -5,6 +5,7 @@ schema, then writes:
 
 - ``data/playbook/index.json``  -> list of edition summaries (newest first)
 - ``data/playbook/latest.json`` -> the most recent edition in full
+- ``data/playbook/source-index.json`` -> source-sid lookup for recap overlays
 
 Run this after an agent writes a new edition (the SKILL does this
 automatically). The /playbook page + /api/playbook read these two files.
@@ -22,6 +23,7 @@ import sys
 from playbook_common import (
     DATE_FILE_RE,
     PLAYBOOK_DIR,
+    build_source_index,
     load_json,
     validate_edition,
     write_json,
@@ -38,6 +40,7 @@ def main() -> None:
     )
 
     entries = []
+    editions = []
     errors_total = 0
     for path in edition_files:
         data = load_json(path, None)
@@ -49,6 +52,7 @@ def main() -> None:
                 print(f"  - {e}", file=sys.stderr)
             continue
         cards = data.get("cards", [])
+        editions.append(data)
         entries.append(
             {
                 "date": data["date"],
@@ -60,6 +64,11 @@ def main() -> None:
         )
 
     entries.sort(key=lambda e: str(e.get("date")), reverse=True)
+    source_index, source_errors = build_source_index(editions)
+    if source_errors:
+        errors_total += len(source_errors)
+        for error in source_errors:
+            print(f"[invalid] source-index: {error}", file=sys.stderr)
 
     if args.check:
         if errors_total:
@@ -69,13 +78,15 @@ def main() -> None:
         return
 
     write_json(PLAYBOOK_DIR / "index.json", entries)
+    write_json(PLAYBOOK_DIR / "source-index.json", source_index)
     if entries:
         latest = load_json(PLAYBOOK_DIR / entries[0]["path"], None)
         if latest is not None:
             write_json(PLAYBOOK_DIR / "latest.json", latest)
 
     print(
-        f"index rebuilt: {len(entries)} edition(s)"
+        f"index rebuilt: {len(entries)} edition(s), "
+        f"playbook_indexed={len(source_index)}"
         + (f", {errors_total} skipped (invalid)" if errors_total else "")
     )
 

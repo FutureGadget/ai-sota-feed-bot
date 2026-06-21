@@ -24,13 +24,20 @@ class WeeklyRecapSurfaceTest(unittest.TestCase):
     def test_shell_supports_local_preview_and_archive(self) -> None:
         self.assertIn("'/data/weekly/latest.json'", self.html)
         self.assertIn("'/data/weekly/index.json'", self.html)
+        self.assertIn("'/data/playbook/source-index.json'", self.html)
         self.assertIn('id="archive"', self.html)
 
     def test_static_pages_share_the_weekly_visual_system(self) -> None:
         css = render.WEEKLY_RECAP_CSS
         self.assertIn(".weekly-hero", css)
         self.assertIn(".weekly-close", css)
+        self.assertIn(".playbook-takeaway", css)
         self.assertIn("@media (prefers-reduced-motion:reduce)", css)
+
+    def test_shell_renders_capped_playbook_takeaways(self) -> None:
+        self.assertIn("renderPlaybookTakeaway", self.html)
+        self.assertIn("PLAYBOOK_CAP = 5", self.html)
+        self.assertIn('data-track="weekly-playbook"', self.html)
 
 
 if __name__ == "__main__":

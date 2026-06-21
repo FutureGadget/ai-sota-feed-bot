@@ -23,13 +23,20 @@ class DailyRecapSurfaceTest(unittest.TestCase):
     def test_shell_supports_local_preview_and_archive(self) -> None:
         self.assertIn("'/data/daily/latest.json'", self.html)
         self.assertIn("'/data/daily/index.json'", self.html)
+        self.assertIn("'/data/playbook/source-index.json'", self.html)
         self.assertIn('id="archive"', self.html)
 
     def test_static_pages_share_the_daily_visual_system(self) -> None:
         css = render.DAILY_RECAP_CSS
         self.assertIn(".daily-hero", css)
         self.assertIn(".finish-line", css)
+        self.assertIn(".playbook-takeaway", css)
         self.assertIn("@media (prefers-reduced-motion:reduce)", css)
+
+    def test_shell_renders_capped_playbook_takeaways(self) -> None:
+        self.assertIn("renderPlaybookTakeaway", self.html)
+        self.assertIn("PLAYBOOK_CAP = 3", self.html)
+        self.assertIn('data-track="daily-playbook"', self.html)
 
 
 if __name__ == "__main__":

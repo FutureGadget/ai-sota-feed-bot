@@ -8,6 +8,8 @@
   "card_count": 6,
   "cards": [
     {
+      "id": "pb-context-compaction",
+      "kind": "evergreen",
       "title": "Compact the working context instead of letting it grow unbounded",
       "area": "Memory",
       "problem": "Long-running agents forget across steps and sessions, and a naively growing message history blows the context window, raises cost, and degrades reasoning as the window fills with stale turns.",
@@ -16,9 +18,12 @@
       "effort": "medium",
       "source": "LLM Digest wiki",
       "url": "/topic/context-compaction",
+      "topic_url": "/topic/context-compaction",
       "tags": ["context", "memory"]
     },
     {
+      "id": "pb-mcp",
+      "kind": "evergreen",
       "title": "Put tools behind MCP rather than ad-hoc per-integration glue",
       "area": "Tool use",
       "problem": "Agents reach the outside world through fragile, hand-rolled integrations that each define their own schema, auth, and error handling — every new tool is bespoke and breaks differently.",
@@ -27,9 +32,12 @@
       "effort": "medium",
       "source": "LLM Digest wiki",
       "url": "/topic/mcp",
+      "topic_url": "/topic/mcp",
       "tags": ["tools", "mcp"]
     },
     {
+      "id": "pb-llm-as-judge",
+      "kind": "evergreen",
       "title": "Grade agent traces with an LLM-as-judge instead of eyeballing",
       "area": "Evals",
       "problem": "Measuring whether an agent actually worked is hard — exact-match metrics miss partial success, and manual spot-checks don't scale or catch regressions before they ship.",
@@ -38,9 +46,12 @@
       "effort": "medium",
       "source": "LLM Digest wiki",
       "url": "/topic/llm-as-judge",
+      "topic_url": "/topic/llm-as-judge",
       "tags": ["evals", "quality"]
     },
     {
+      "id": "pb-cost-controls",
+      "kind": "evergreen",
       "title": "Meter and budget tokens per task before costs run away",
       "area": "Cost & latency",
       "problem": "Agent token costs are unpredictable — a single runaway loop or over-eager tool fan-out can multiply spend, and without attribution you can't tell which task or tool is responsible.",
@@ -49,9 +60,12 @@
       "effort": "low",
       "source": "LLM Digest wiki",
       "url": "/topic/cost-controls",
+      "topic_url": "/topic/cost-controls",
       "tags": ["cost", "reliability"]
     },
     {
+      "id": "pb-agent-sandboxing",
+      "kind": "evergreen",
       "title": "Sandbox tools and scope credentials to contain prompt injection",
       "area": "Safety",
       "problem": "Untrusted input and tool results can hijack an agent into taking actions the user never intended — exfiltrating data or calling destructive tools with the agent's full privileges.",
@@ -60,9 +74,12 @@
       "effort": "high",
       "source": "LLM Digest wiki",
       "url": "/topic/agent-sandboxing",
+      "topic_url": "/topic/agent-sandboxing",
       "tags": ["security", "prompt-injection"]
     },
     {
+      "id": "pb-version-pinning",
+      "kind": "evergreen",
       "title": "Pin model and SDK versions so behavior doesn't drift under you",
       "area": "Reliability",
       "problem": "Agent behavior drifts as the model, SDK, and runtime churn underneath it — a silent provider update can change tool-calling format or output style and break a working agent overnight.",
@@ -71,6 +88,7 @@
       "effort": "low",
       "source": "LLM Digest wiki",
       "url": "/topic/version-pinning",
+      "topic_url": "/topic/version-pinning",
       "tags": ["reliability", "ops"]
     }
   ]

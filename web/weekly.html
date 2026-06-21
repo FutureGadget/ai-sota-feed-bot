@@ -125,6 +125,16 @@
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; }
     .badge + .badge::before { content:"·"; margin-right:.65rem; color:var(--border); }
     .art-summary { margin:0; font-size:.87rem; line-height:1.55; }
+    .playbook-takeaway { margin:.8rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--week-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
     .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
       letter-spacing:.06em; text-transform:uppercase; }
@@ -276,6 +286,29 @@
       return `<div class="intro">${tldr}<div class="intro-copy">${body}</div></div>`;
     }
 
+    const PLAYBOOK_CAP = 5;
+    let playbookByUrl = new Map();
+
+    function renderPlaybookTakeaway(card) {
+      if (!card) return '';
+      const evidenceLabel = {
+        'source-measured': 'Source measured',
+        'source-claimed': 'Source claim',
+        'editorial-inference': 'Editorial inference'
+      }[card.evidence?.kind] || '';
+      const guide = String(card.topic_url || '').startsWith('/topic/')
+        ? card.topic_url
+        : `/playbook?date=${encodeURIComponent(card.edition_date || '')}`;
+      return `<aside class="playbook-takeaway" aria-label="Playbook takeaway">
+        <p class="playbook-label">Playbook takeaway</p>
+        <p><span>Problem</span>${esc(card.problem || '')}</p>
+        <p class="playbook-apply"><span>Apply</span>${esc(card.apply || '')}</p>
+        <p><span>Expected</span>${esc(card.result || '')}</p>
+        <p class="playbook-links"><span>${esc(evidenceLabel)}</span>
+          <a href="${esc(guide)}" data-track="weekly-playbook">Open guide →</a></p>
+      </aside>`;
+    }
+
     function renderRecap(recap) {
       document.title = `AI Weekly Recap — ${recap.title || recap.week}`;
       document.getElementById('jsonLink').href = `/api/weekly?week=${encodeURIComponent(recap.week)}`;
@@ -289,10 +322,18 @@
             `<a href="#${esc(c.slug || c.name)}">${esc(c.name)} (${c.articles?.length || 0})</a>`).join('')}</nav>`
         : '';
 
+      let playbookRendered = 0;
+      const playbookSeen = new Set();
       const sections = cats.map((c) => {
         const arts = (c.articles || []).map((a) => {
           const href = safeUrl(a.url);
           const date = fmtDate(a.published);
+          const card = playbookRendered < PLAYBOOK_CAP && !playbookSeen.has(a.url)
+            ? playbookByUrl.get(a.url) : null;
+          if (card) {
+            playbookRendered += 1;
+            playbookSeen.add(a.url);
+          }
           return `
             <article>
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="weekly-link">${esc(a.title || 'Untitled')}</a></h3>
@@ -301,6 +342,7 @@
                 ${date ? `<span class="badge">${esc(date)}</span>` : ''}
               </div>
               ${a.summary ? `<p class="art-summary">${esc(a.summary)}</p>` : ''}
+              ${renderPlaybookTakeaway(card)}
             </article>`;
         }).join('');
         return `
@@ -351,6 +393,22 @@
       }
     }
 
+    async function loadPlaybookIndex() {
+      try {
+        let res = await fetch('/api/playbook?sources=1');
+        if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+          res = await fetch('/data/playbook/source-index.json', { cache: 'no-store' });
+        }
+        if (!res.ok) return new Map();
+        const payload = await res.json();
+        return new Map(Object.values(payload || {})
+          .filter((card) => card && card.source_url)
+          .map((card) => [card.source_url, card]));
+      } catch {
+        return new Map();
+      }
+    }
+
     async function run() {
       const week = weekFromLocation();
       const url = week ? `/api/weekly?week=${encodeURIComponent(week)}` : '/api/weekly';
@@ -369,7 +427,8 @@
           return;
         }
         if (!res.ok) throw new Error('weekly_http_' + res.status);
-        const recap = await res.json();
+        const [recap, sourceCards] = await Promise.all([res.json(), loadPlaybookIndex()]);
+        playbookByUrl = sourceCards;
         renderRecap(recap);
         loadArchive(recap.week);
       } catch (err) {
