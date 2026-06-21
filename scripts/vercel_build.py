@@ -31,6 +31,17 @@ def main() -> None:
     shutil.copytree(ROOT / "web", PUBLIC_WEB_DIR)
     print(f"vercel static output staged: {PUBLIC_WEB_DIR}")
 
+    # Pages are served from /web/* via vercel.json rewrites, but the brand and
+    # icon assets are referenced from the site root (e.g. /logo.png in emails
+    # and the Organization JSON-LD, /favicon.svg, /og-default.png, the PWA
+    # manifest). Vercel only serves files that physically exist under the output
+    # dir, and rewrites are a fallback that never fires when a request has a
+    # file extension, so these must be copied to the public root or they 404.
+    root_assets = [p for p in (ROOT / "web").glob("*") if p.is_file() and p.suffix != ".html"]
+    for asset in root_assets:
+        shutil.copy2(asset, PUBLIC_DIR / asset.name)
+    print(f"vercel root assets staged: {len(root_assets)} files")
+
 
 if __name__ == "__main__":
     main()
