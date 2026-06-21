@@ -1,0 +1,77 @@
+{
+  "date": "2026-06-21",
+  "title": "Agent Builder's Playbook — Jun 21, 2026",
+  "generated_at": "2026-06-21T00:00:00Z",
+  "intro": [
+    "Starter edition: six changes you can make to an agent this week, distilled from the agent-engineering knowledge map. Each card links to the topic that collects the primary sources. Live editions cite the original articles directly."
+  ],
+  "card_count": 6,
+  "cards": [
+    {
+      "title": "Compact the working context instead of letting it grow unbounded",
+      "area": "Memory",
+      "problem": "Long-running agents forget across steps and sessions, and a naively growing message history blows the context window, raises cost, and degrades reasoning as the window fills with stale turns.",
+      "apply": "Add a compaction step that summarizes and curates the working set between turns — keep the task goal, recent tool results, and a rolling summary; drop superseded intermediate output. Recompute the summary on a token budget, not every turn.",
+      "result": "Stable context size on long tasks, lower per-step cost, and fewer 'lost-in-the-middle' failures where the agent ignores facts buried in a bloated history.",
+      "effort": "medium",
+      "source": "LLM Digest wiki",
+      "url": "/topic/context-compaction",
+      "tags": ["context", "memory"]
+    },
+    {
+      "title": "Put tools behind MCP rather than ad-hoc per-integration glue",
+      "area": "Tool use",
+      "problem": "Agents reach the outside world through fragile, hand-rolled integrations that each define their own schema, auth, and error handling — every new tool is bespoke and breaks differently.",
+      "apply": "Expose tools through the Model Context Protocol so the agent talks to one standard interface. Wrap existing internal APIs as MCP servers instead of inlining call logic into the agent prompt.",
+      "result": "New tools become drop-in, schemas and auth are uniform, and the same tool surface works across agents and clients without rewriting integration code.",
+      "effort": "medium",
+      "source": "LLM Digest wiki",
+      "url": "/topic/mcp",
+      "tags": ["tools", "mcp"]
+    },
+    {
+      "title": "Grade agent traces with an LLM-as-judge instead of eyeballing",
+      "area": "Evals",
+      "problem": "Measuring whether an agent actually worked is hard — exact-match metrics miss partial success, and manual spot-checks don't scale or catch regressions before they ship.",
+      "apply": "Add a model-graded eval that scores recorded traces against a rubric (did it use the right tool, reach the goal, avoid unsafe actions). Pin the judge model and rubric, and calibrate against a small human-labeled set.",
+      "result": "A repeatable score you can gate deploys on, catching quality regressions automatically rather than discovering them in production.",
+      "effort": "medium",
+      "source": "LLM Digest wiki",
+      "url": "/topic/llm-as-judge",
+      "tags": ["evals", "quality"]
+    },
+    {
+      "title": "Meter and budget tokens per task before costs run away",
+      "area": "Cost & latency",
+      "problem": "Agent token costs are unpredictable — a single runaway loop or over-eager tool fan-out can multiply spend, and without attribution you can't tell which task or tool is responsible.",
+      "apply": "Attach a per-task token budget and meter spend as the agent runs; attribute cost to task and tool. Trip a circuit-breaker (stop or downgrade the model) when a task exceeds its budget.",
+      "result": "Bounded worst-case spend per task, visibility into which workflows are expensive, and an automatic stop on runaway loops.",
+      "effort": "low",
+      "source": "LLM Digest wiki",
+      "url": "/topic/cost-controls",
+      "tags": ["cost", "reliability"]
+    },
+    {
+      "title": "Sandbox tools and scope credentials to contain prompt injection",
+      "area": "Safety",
+      "problem": "Untrusted input and tool results can hijack an agent into taking actions the user never intended — exfiltrating data or calling destructive tools with the agent's full privileges.",
+      "apply": "Run tool execution in a sandbox with least-privilege, scoped credentials per task, and an allowlist of side-effecting actions. Treat all tool/web content as untrusted and require confirmation for high-impact operations.",
+      "result": "A hijacked prompt can't escalate beyond the task's scoped permissions, turning a full compromise into a contained, recoverable failure.",
+      "effort": "high",
+      "source": "LLM Digest wiki",
+      "url": "/topic/agent-sandboxing",
+      "tags": ["security", "prompt-injection"]
+    },
+    {
+      "title": "Pin model and SDK versions so behavior doesn't drift under you",
+      "area": "Reliability",
+      "problem": "Agent behavior drifts as the model, SDK, and runtime churn underneath it — a silent provider update can change tool-calling format or output style and break a working agent overnight.",
+      "apply": "Pin model snapshots and SDK versions, define compatibility ranges, and stage upgrades behind your eval suite before promoting them to production.",
+      "result": "Reproducible agent behavior, upgrades that are deliberate and tested rather than surprise regressions, and a fast rollback path when a new version misbehaves.",
+      "effort": "low",
+      "source": "LLM Digest wiki",
+      "url": "/topic/version-pinning",
+      "tags": ["reliability", "ops"]
+    }
+  ]
+}

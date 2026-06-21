@@ -688,6 +688,7 @@
         <a href="/daily">📰 Daily recap</a>
         <a href="/weekly">🗓️ Weekly recap</a>
         <a href="/storylines">📈 Storylines</a>
+        <a href="/playbook">🛠️ Playbook</a>
         <a href="/map">🧠 Knowledge map</a>
         <a href="/voices">🗣️ Voices</a>
       </nav>
@@ -723,6 +724,7 @@
           <li><a href="/daily">Daily recap</a> — what changed in AI today, in 10 minutes.</li>
           <li><a href="/weekly">Weekly recap</a> — what you missed this week.</li>
           <li><a href="/storylines">Storylines</a> — follow a developing story day by day.</li>
+          <li><a href="/playbook">Playbook</a> — actionable cards: the problem, what to apply, the expected result.</li>
           <li><a href="/map">Knowledge map</a> — agent-engineering obstacles mapped to solutions.</li>
           <li><a href="/voices">Voices</a> — influential AI engineers and their writing.</li>
           <li><a href="/subscribe">Email digest</a> · <a href="/api/feed">JSON feed</a></li>
@@ -2327,12 +2329,14 @@
         daily: 'ai_feed_seen_daily_v1',
         weekly: 'ai_feed_seen_weekly_v1',
         storylines: 'ai_feed_seen_storylines_v1',
+        playbook: 'ai_feed_seen_playbook_v1',
         map: 'ai_feed_seen_map_v1'
       };
-      var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines', '/map': 'map' };
-      // Daily/weekly age-out: a stale recap is not "fresh" even when unread.
+      var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines', '/playbook': 'playbook', '/map': 'map' };
+      // Daily/weekly/playbook age-out: a stale edition is not "fresh" even when unread.
       var DAILY_FRESH_MAX_AGE = 1;   // covers today or yesterday
       var WEEKLY_FRESH_MAX_AGE = 8;  // most recent completed week (+1 day grace)
+      var PLAYBOOK_FRESH_MAX_AGE = 10; // editions are curated every few days
 
       function getItem(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
       function setItem(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
@@ -2343,6 +2347,7 @@
         if (p === '/daily' || p.indexOf('/daily/') === 0) return 'daily';
         if (p === '/weekly' || p.indexOf('/weekly/') === 0) return 'weekly';
         if (p === '/storylines' || p.indexOf('/storyline/') === 0) return 'storylines';
+        if (p === '/playbook' || p.indexOf('/playbook/') === 0) return 'playbook';
         if (p === '/map' || p.indexOf('/topic/') === 0) return 'map';
         return null;
       }
@@ -2363,6 +2368,7 @@
         if (section === 'daily') return u.daily && u.daily.generated_at;
         if (section === 'weekly') return u.weekly && u.weekly.generated_at;
         if (section === 'storylines') return u.storylines && u.storylines.last_updated;
+        if (section === 'playbook') return u.playbook && u.playbook.generated_at;
         if (section === 'map') return u.map && u.map.updated;
         return null;
       }
@@ -2378,6 +2384,7 @@
       function isFresh(section, u) {
         if (section === 'daily') return dayAge(u.now, u.daily && u.daily.date) <= DAILY_FRESH_MAX_AGE;
         if (section === 'weekly') return dayAge(u.now, u.weekly && u.weekly.end) <= WEEKLY_FRESH_MAX_AGE;
+        if (section === 'playbook') return dayAge(u.now, u.playbook && u.playbook.date) <= PLAYBOOK_FRESH_MAX_AGE;
         return true; // storylines + map: read history only, no time gate
       }
 

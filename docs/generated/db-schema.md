@@ -50,6 +50,13 @@ available to each function.
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)
+- `data/playbook/<YYYY-MM-DD>.json` — agent-written **Playbook editions**: a
+  batch of actionable cards for agent builders. Each card has
+  `{title, problem, apply, result, url}` (required) plus optional
+  `{area, effort low|medium|high, source, published, tags}`. `index.json` +
+  `latest.json` rebuilt by `.agents/skills/playbook/scripts/build_playbook_index.py`;
+  `input/` holds the article bundles the agent reads (excluded from deploys).
+  Served at `/playbook` via `/api/playbook`
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).
