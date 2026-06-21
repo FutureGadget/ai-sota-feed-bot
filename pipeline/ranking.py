@@ -438,7 +438,13 @@ def global_merge(slot_selections: dict[str, list[dict[str, Any]]], cfg: dict[str
 def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, int]]:
     cfg = (cfg.get("top_band_constraints", {}) or {})
 
-    band_diag = {"dedup_removed": 0, "promoted_frontier": 0, "promoted_anthropic_frontier": 0, "research_demoted": 0}
+    band_diag = {
+        "dedup_removed": 0,
+        "promoted_frontier": 0,
+        "promoted_anthropic_frontier": 0,
+        "research_demoted": 0,
+        "lead_lifted": 0,
+    }
 
     # Always dedupe final list by canonical key to prevent visible duplicates.
     deduped: list[dict[str, Any]] = []
@@ -522,6 +528,19 @@ def enforce_top_band_constraints(items: list[dict[str, Any]], cfg: dict[str, Any
         tail = [x for x in out if x not in top]
         tail.sort(key=lambda x: x.get("global_score", 0), reverse=True)
         out = top + tail
+
+    # Keep the lead (position 0) off niche research. The band is sorted by
+    # global_score, so a fresh arXiv paper that outscores everything would lead —
+    # but a platform engineer's "read this first" should be a frontier /
+    # practitioner / tooling item, not a paper. Lift the best-scoring
+    # non-research item to the lead; only the lead moves, the rest keep their
+    # global_score order. No-op when the whole band is research (quiet paper day).
+    if cfg.get("lead_excludes_research", False) and top and is_research(top[0]):
+        j = next((k for k, x in enumerate(top) if not is_research(x)), None)
+        if j is not None and j > 0:
+            top.insert(0, top.pop(j))
+            band_diag["lead_lifted"] = 1
+            out = top + out[top_n:]
 
     final: list[dict[str, Any]] = []
     seen3 = set()
@@ -689,6 +708,6 @@ def run_ranking(items: list[dict[str, Any]], profile: dict[str, Any], llm_cfg: d
         f"slots={'/'.join(slot_bits)} "
         f"slot_priority={'/'.join(sp_bits)} "
         f"merge=floor{m.get('floor_selected',0)}/headroom{m.get('headroom_selected',0)}/dupSkip{m.get('skip_duplicate',0)}/slotMaxSkip{m.get('skip_slot_max',0)} "
-        f"top_band=promoteF{tb.get('promoted_frontier',0)}/promoteA{tb.get('promoted_anthropic_frontier',0)}/researchDemote{tb.get('research_demoted',0)} total={len(top)}"
+        f"top_band=promoteF{tb.get('promoted_frontier',0)}/promoteA{tb.get('promoted_anthropic_frontier',0)}/researchDemote{tb.get('research_demoted',0)}/leadLift{tb.get('lead_lifted',0)} total={len(top)}"
     )
     return top, diag

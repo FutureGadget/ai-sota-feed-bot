@@ -1,5 +1,32 @@
 # Decision Log
 
+## 2026-06-21 (Ranking: keep the lead off niche research papers)
+- **Decision:** Add a `lead_excludes_research` rule to
+  `top_band_constraints` (`pipeline/ranking.enforce_top_band_constraints`). The
+  visible top band is sorted by `global_score` (`final_score + slot_priority`),
+  so a fresh, high-quality arXiv paper can outscore frontier/practitioner items
+  and occupy position 1 — even though `research_watch` has the lowest
+  `slot_priority`. The existing constraints capped research *count*
+  (`max_research_in_top_n: 3`) but never *position*, so the brief regularly led
+  with a niche paper (e.g. a compiler-tuning arXiv on 2026-06-21). The rule
+  lifts the best-scoring non-research item to the lead; only the lead moves, the
+  rest of the band keeps its `global_score` order, the research-count cap still
+  holds, and it is a no-op when the whole band is research (a quiet paper day).
+- **Rationale:** The lead is the brief's "read this first" and the daily email
+  renders it as a hero card, so a niche paper leading is especially costly for
+  the platform-engineer audience. A position rule is more honest and predictable
+  than over-penalizing arXiv in `source_bias` (which would bury all research and
+  fight the quality signal) or reworking `global_score` semantics.
+- **Impact:** `pipeline/ranking.py` (lead lift + `lead_lifted` diag, surfaced in
+  the `ranking_stats … top_band=…/leadLift{n}` log), `config/ranking.yaml`
+  (`lead_excludes_research: true`), `docs/ranking-v2-flow.md`,
+  `tests/test_ranking_top_band.py` (5 cases). Verified against the live
+  2026-06-21 feed: lead moved from the arXiv compiler paper to the top
+  practitioner item; research stayed ≤3 in the top 10. Applies on the next
+  hourly build (no runtime data committed here). Tests green (18).
+- **Rollback:** Set `lead_excludes_research: false` (instant, config-only) or
+  revert the source/test/doc changes.
+
 ## 2026-06-21 (Email digest: lead hero, preheader, one-tap feedback, reader favorites, text part, logo)
 - **Decision:** A batch of email-usefulness upgrades across
   `publish/publish_email.py` + `web/index.html`. (1) **Lead-story hero** — the

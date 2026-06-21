@@ -70,6 +70,8 @@ Global merge (ranking.global_merge)
       v
 Top-band constraints (ranking.enforce_top_band_constraints)
   - e.g. min frontier_official items and max research items in the top 10
+  - lead rule: position 1 is never a research paper when a non-research item
+    exists (the best-scoring non-research item is lifted to the lead)
       |
       v
 Final feed list (data/processed/latest.json)
@@ -93,6 +95,7 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 - `slots.*.blend.alpha / beta` (llm-or-heuristic score vs freshness)
 - `dynamic_slot_rerank.*`: slot priority weights and per-slot base bias
 - `top_band_constraints.*`: composition floors/caps for the top N
+  (incl. `lead_excludes_research`: keep position 1 off niche research papers)
 - `source_bias`, `topical_bias`: static score adjustments
 - `auto_tune.*`: gates for the learned `source_tune` adjustment
 
@@ -127,7 +130,12 @@ which gate a source dies at.
    first, then remaining capacity fills by `global_score`
    (`final_score + slot_priority`).
 7. **Top-band constraints** — frontier/research promotion/demotion can reorder
-   (but not drop) the visible top N.
+   (but not drop) the visible top N. Includes the **lead rule**
+   (`lead_excludes_research`): the band is sorted by `global_score`, so a fresh
+   high-quality arXiv paper can outscore everything and land at position 1; this
+   lifts the best-scoring non-research item to the lead instead (only the lead
+   moves; no-op when the whole band is research). The daily email renders
+   position 1 as a hero, so a niche paper leading is especially costly.
 
 When adding a *new slot*, also add a `dynamic_slot_rerank.base_bias.<slot>`
 entry — a missing entry defaults to `0.0`, which is a higher priority than most
