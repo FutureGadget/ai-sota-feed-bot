@@ -12,7 +12,11 @@ with this" control, and conflating the two pollutes the feedback loop.
 A purely reader-local **hide** control. Hidden stories are dropped from the
 reader's feed view and stored in `localStorage` only. Three ways to hide:
 
-1. **Swipe** a card horizontally (touch devices) past a ~90px threshold.
+1. **Swipe** a card horizontally (touch devices) past a ~90px threshold. As the
+   card slides it uncovers a stationary **"🙈 Hide"** action background behind it
+   (the iOS Mail / Gmail reveal pattern), which switches to a solid accent
+   **"🙈 Release to hide"** once past the threshold — so the gesture reads as a
+   real action instead of empty space.
 2. **Tap the ✕** hide control on the card (keyboard/mouse accessible; the
    touch-free path).
 3. **Tap 👎 Not relevant** — in addition to recording the existing relevance

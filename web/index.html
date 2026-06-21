@@ -430,12 +430,49 @@
       color: var(--accent);
     }
     /* Swipe-to-hide: the card tracks the finger horizontally, then animates out. */
+    #list {
+      position: relative;
+    }
     #list > article {
       touch-action: pan-y;
     }
+    /* While swiping, the card slides over a stationary "hide" hint behind it,
+       so it must be opaque and stacked above the hint. */
     #list > article.swiping {
       transition: none;
       will-change: transform;
+      position: relative;
+      z-index: 1;
+      background: var(--card);
+    }
+    /* The revealed action background behind a swiped card (iOS/Gmail pattern).
+       A label is pinned to each edge so whichever side opens up shows it; the
+       card's opaque surface hides the rest until it slides away. */
+    .swipe-hint {
+      position: absolute;
+      z-index: 0;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      box-sizing: border-box;
+      padding: 0 1.15rem;
+      overflow: hidden;
+      background: color-mix(in srgb, var(--accent) 15%, var(--bg));
+      color: var(--accent);
+      font-size: 0.92rem;
+      font-weight: 600;
+      pointer-events: none;
+    }
+    .swipe-hint .swipe-hint-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+    /* Past the hide threshold: solid accent + "release to hide" copy. */
+    .swipe-hint.armed {
+      background: var(--accent);
+      color: var(--card, #fff);
     }
     #list > article.card-removing {
       transition: transform 0.22s ease, opacity 0.22s ease;
@@ -890,6 +927,9 @@
     #list > article { position:relative; padding:1.05rem 0 1.1rem 3.35rem;
       border:0; border-bottom:1px solid var(--border); border-radius:0;
       background:transparent; box-shadow:none; }
+    /* Mobile cards are transparent over the page, so the sliding card must
+       repaint with the page background to cover the hide hint. */
+    #list > article.swiping { background:var(--bg); }
     #list > article:first-of-type { border-top:1px solid var(--border); }
     #list > article.big-story { border-left:0; }
     #list > article.big-story::after { content:"multi-source"; position:absolute; right:0; top:1.12rem;
@@ -1422,11 +1462,55 @@
     // hides the card; small or vertical movement falls through as a normal
     // tap/scroll. Ignores swipes that start on a link/button so controls keep
     // working, and skips already-hidden (dimmed) cards in the manage view.
+    // As the card slides it uncovers a stationary "🙈 Hide" hint behind it
+    // (iOS/Gmail reveal pattern) so the gesture reads as a real action, not
+    // empty space.
     function initSwipeToHide() {
       const list = document.getElementById('list');
       if (!list) return;
       const THRESHOLD = 90;
       let card = null, startX = 0, startY = 0, dx = 0, dragging = false, decided = false, horizontal = false;
+
+      // One reusable hint element. #list.innerHTML is rewritten on every render,
+      // which detaches it, so we (re-)append on demand.
+      let hint = null, armed = false;
+      function ensureHint() {
+        if (!hint) {
+          hint = document.createElement('div');
+          hint.className = 'swipe-hint';
+          hint.setAttribute('aria-hidden', 'true');
+          hint.innerHTML = '<span class="swipe-hint-label"></span><span class="swipe-hint-label"></span>';
+        }
+        if (hint.parentNode !== list) list.appendChild(hint);
+        return hint;
+      }
+      function showHint(c) {
+        const h = ensureHint();
+        h.style.top = c.offsetTop + 'px';
+        h.style.left = c.offsetLeft + 'px';
+        h.style.width = c.offsetWidth + 'px';
+        h.style.height = c.offsetHeight + 'px';
+        h.style.borderRadius = getComputedStyle(c).borderRadius;
+        setArmed(false, true);
+        h.style.display = 'flex';
+      }
+      function setArmed(on, force) {
+        if (on === armed && !force) return;
+        armed = on;
+        if (!hint) return;
+        hint.classList.toggle('armed', on);
+        const txt = on ? '🙈 Release to hide' : '🙈 Hide';
+        hint.querySelectorAll('.swipe-hint-label').forEach((s) => { s.textContent = txt; });
+      }
+      function hideHint() {
+        if (hint) hint.style.display = 'none';
+      }
+
+      function reset(c) {
+        c.classList.remove('swiping');
+        c.style.transform = '';
+        hideHint();
+      }
 
       list.addEventListener('touchstart', (e) => {
         if (viewState !== 'feed' || e.touches.length !== 1) { card = null; dragging = false; return; }
@@ -1446,28 +1530,29 @@
           if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
           decided = true;
           horizontal = Math.abs(dx) > Math.abs(dy);
-          if (horizontal) card.classList.add('swiping');
+          if (horizontal) { card.classList.add('swiping'); showHint(card); }
         }
         if (!horizontal) {
-          dragging = false; card.classList.remove('swiping');
-          card.style.transform = ''; card.style.opacity = ''; card = null;
+          dragging = false; reset(card); card = null;
           return;
         }
         e.preventDefault();
         card.style.transform = `translateX(${dx}px)`;
-        card.style.opacity = String(Math.max(0.3, 1 - Math.abs(dx) / 320));
+        setArmed(Math.abs(dx) >= THRESHOLD);
       }, { passive: false });
 
       const end = () => {
         if (!dragging || !card) { dragging = false; return; }
         dragging = false;
         const c = card; card = null;
-        c.classList.remove('swiping');
-        if (horizontal && Math.abs(dx) > THRESHOLD) {
+        if (horizontal && Math.abs(dx) >= THRESHOLD) {
+          // Commit: drop the hint and let the card animate out from here.
+          c.classList.remove('swiping');
           c.style.transform = '';
+          hideHint();
           hideItemWithUndo(c.dataset.itemKey || '', { card: c, reason: 'swipe' });
         } else {
-          c.style.transform = ''; c.style.opacity = '';
+          reset(c);
         }
       };
       list.addEventListener('touchend', end);
