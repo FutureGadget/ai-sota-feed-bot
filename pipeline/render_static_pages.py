@@ -146,15 +146,21 @@ def source_label(rec: dict, url: str) -> str:
 PAGE_CSS = """\
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
+      color-scheme: light;
       --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
     }
     html[data-theme="dark"] {
+      color-scheme: dark;
       --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
     }
     body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
     main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
     header { margin-bottom: 1rem; }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
@@ -2489,17 +2495,23 @@ KIND_LABEL = {"obstacle": "Obstacle", "solution": "Solution"}
 #             and a source ledger. Semantic state, not a chronology.
 WIKI_PAGE_CSS = """\
     :root, html[data-theme="light"] {
+      color-scheme: light;
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
       --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
       --signal:#23875b; --warm:#b6780c;
     }
     html[data-theme="dark"] {
+      color-scheme: dark;
       --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
       --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
       --signal:#54b886; --warm:#e0ad4e;
     }
     body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
     #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
     menu a[role="button"], #themeToggle, .menu-share, .archive select {
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;

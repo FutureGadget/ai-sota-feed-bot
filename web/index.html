@@ -57,6 +57,11 @@
     a {
       color: var(--accent);
     }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--feed-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg);
+    }
     main {
       width: 100%;
       max-width: 920px;
@@ -653,11 +658,13 @@
        behavior; this layer makes order, evidence, and completion visually true. */
     :root,
     html[data-theme="light"] {
+      color-scheme: light;
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
       --muted:#687386; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
       --signal:#23875b; --warm:#b6780c; --alert:#c4483f;
     }
     html[data-theme="dark"] {
+      color-scheme: dark;
       --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
       --muted:#9aa6b6; --fg:#eff3f8; --feed-wash:#1c2a48; --feed-ink:#e8eefb;
       --signal:#54b886; --warm:#e0ad4e; --alert:#ef756d;
