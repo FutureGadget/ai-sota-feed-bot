@@ -28,6 +28,7 @@ a multi-day lookback window rather than a single calendar day.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from datetime import date, datetime, time, timezone
@@ -118,6 +119,12 @@ def norm_url(value: Any) -> str:
     return s[:-1] if s.endswith("/") and len(s) > 1 else s
 
 
+def source_sid(url: Any) -> str:
+    """Return the durable story id used throughout the repository."""
+    normalized = norm_url(url)
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:16] if normalized else ""
+
+
 def clean_article(item: dict[str, Any]) -> dict[str, Any]:
     """Project a processed feed item down to the fields the routine needs."""
     summary = item.get("summary_1line") or item.get("summary") or ""
@@ -126,6 +133,7 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
         "id": item.get("id") or item.get("url") or item.get("title"),
         "title": str(item.get("title") or "Untitled").strip(),
         "url": item.get("url") or "",
+        "source_sid": source_sid(item.get("url")),
         "source": item.get("source") or "unknown",
         "type": str(item.get("type") or "news").lower(),
         "summary": summary,
@@ -152,7 +160,12 @@ def edition_card_urls(exclude_date: str | None = None) -> set[str]:
         if exclude_date and data.get("date") == exclude_date:
             continue
         for card in data.get("cards", []) or []:
-            if isinstance(card, dict) and card.get("url"):
+            if not isinstance(card, dict):
+                continue
+            source_url = card.get("source_url")
+            if source_url:
+                urls.add(norm_url(source_url))
+            elif str(card.get("url") or "").startswith(("http://", "https://")):
                 urls.add(norm_url(card["url"]))
     return urls
 
@@ -236,6 +249,8 @@ PLAYBOOK_SCHEMA = {
     "card_count": "int, number of cards in this edition",
     "cards": [
         {
+            "id": "stable card id, e.g. 'pb-cache-tool-schemas'",
+            "kind": "'source-backed' or 'evergreen'",
             "title": "verb-first actionable headline, e.g. 'Cache tool schemas to cut latency'",
             "area": "optional: obstacle area, e.g. 'Memory', 'Tool use', 'Evals'",
             "problem": "the problem this solves for an agent builder",
@@ -243,15 +258,86 @@ PLAYBOOK_SCHEMA = {
             "result": "the expected result / payoff",
             "effort": "optional: 'low' | 'medium' | 'high'",
             "source": "source name",
-            "url": "original source link (copied verbatim from the bundle)",
+            "source_url": "required for source-backed cards; copied verbatim from the bundle",
+            "source_sid": "required for source-backed cards; sha256(normalized source_url)[:16]",
+            "topic_url": "required for evergreen cards; optional for source-backed cards",
+            "evidence": {
+                "kind": "'source-measured' | 'source-claimed' | 'editorial-inference'",
+                "note": "short explanation of the evidence basis",
+            },
             "published": "optional: ISO-8601 timestamp",
             "tags": "optional: array of short tag strings",
         }
     ],
 }
 
-REQUIRED_CARD_FIELDS = ("title", "problem", "apply", "result", "url")
+REQUIRED_CARD_FIELDS = ("id", "kind", "title", "problem", "apply", "result")
 VALID_EFFORT = {"low", "medium", "high"}
+VALID_CARD_KINDS = {"source-backed", "evergreen"}
+CARD_ID_RE = re.compile(r"^pb-[a-z0-9][a-z0-9-]*$")
+VALID_EVIDENCE_KINDS = {
+    "source-measured",
+    "source-claimed",
+    "editorial-inference",
+}
+NUMERIC_RESULT_RE = re.compile(
+    r"(?:\d+(?:\.\d+)?\s*%|\b\d+(?:\.\d+)?\s*[x×]\b|"
+    r"\b\d+(?:\.\d+)?\s*(?:ms|milliseconds?|seconds?|minutes?|hours?|"
+    r"tokens?|points?|requests?/s|req/s)\b)",
+    re.IGNORECASE,
+)
+CLAIM_WORDING_RE = re.compile(
+    r"\b(?:source|author|vendor|project|company|paper|release)\b.*"
+    r"\b(?:claim|claims|claimed|report|reports|reported|say|says|said)\b|"
+    r"\b(?:claim|claims|claimed|report|reports|reported)\b",
+    re.IGNORECASE,
+)
+
+
+def _valid_topic_url(value: Any) -> bool:
+    return bool(re.match(r"^/topic/[a-z0-9][a-z0-9-]*$", str(value or "").strip()))
+
+
+def _source_index_row(card: dict[str, Any], edition: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "id": card["id"],
+        "kind": "source-backed",
+        "title": card["title"],
+        "area": card.get("area"),
+        "problem": card["problem"],
+        "apply": card["apply"],
+        "result": card["result"],
+        "effort": card.get("effort"),
+        "source": card.get("source"),
+        "source_url": card["source_url"],
+        "source_sid": card["source_sid"],
+        "topic_url": card.get("topic_url"),
+        "evidence": card["evidence"],
+        "edition_date": edition["date"],
+    }
+
+
+def build_source_index(
+    editions: list[dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], list[str]]:
+    """Build the exact-source lookup used by recap renderers."""
+    index: dict[str, dict[str, Any]] = {}
+    errors: list[str] = []
+    for edition in sorted(editions, key=lambda row: str(row.get("date") or "")):
+        for card in edition.get("cards", []) or []:
+            if not isinstance(card, dict) or card.get("kind") != "source-backed":
+                continue
+            sid = str(card.get("source_sid") or "")
+            if sid in index:
+                errors.append(
+                    f"duplicate source-backed card for source_sid {sid}: "
+                    f"{index[sid].get('id')} and {card.get('id')}"
+                )
+                continue
+            index[sid] = _source_index_row(card, edition)
+    if errors:
+        return {}, errors
+    return dict(sorted(index.items())), []
 
 
 def validate_edition(data: Any) -> list[str]:
@@ -268,6 +354,7 @@ def validate_edition(data: Any) -> list[str]:
     if not isinstance(cards, list) or not cards:
         errors.append("'cards' must be a non-empty array")
         return errors
+    seen_ids: set[str] = set()
     for i, card in enumerate(cards):
         if not isinstance(card, dict):
             errors.append(f"cards[{i}] must be an object")
@@ -275,7 +362,52 @@ def validate_edition(data: Any) -> list[str]:
         for field in REQUIRED_CARD_FIELDS:
             if not str(card.get(field) or "").strip():
                 errors.append(f"cards[{i}] missing '{field}'")
+        card_id = str(card.get("id") or "")
+        if card_id and not CARD_ID_RE.match(card_id):
+            errors.append(f"cards[{i}] 'id' must start with 'pb-' and be URL-safe")
+        if card_id in seen_ids:
+            errors.append(f"cards[{i}] duplicates card id '{card_id}'")
+        seen_ids.add(card_id)
+        kind = str(card.get("kind") or "")
+        if kind and kind not in VALID_CARD_KINDS:
+            errors.append(f"cards[{i}] 'kind' must be one of {sorted(VALID_CARD_KINDS)}")
         eff = card.get("effort")
         if eff is not None and str(eff).lower() not in VALID_EFFORT:
             errors.append(f"cards[{i}] 'effort' must be one of {sorted(VALID_EFFORT)}")
+        if kind == "evergreen":
+            if not _valid_topic_url(card.get("topic_url")):
+                errors.append(f"cards[{i}] evergreen card needs a valid 'topic_url'")
+            continue
+        if kind != "source-backed":
+            continue
+        source_url = str(card.get("source_url") or "").strip()
+        if not source_url.startswith(("http://", "https://")):
+            errors.append(f"cards[{i}] source-backed card needs an HTTP(S) 'source_url'")
+        expected_sid = source_sid(source_url) if source_url else ""
+        if str(card.get("source_sid") or "") != expected_sid:
+            errors.append(f"cards[{i}] 'source_sid' does not match 'source_url'")
+        topic_url = card.get("topic_url")
+        if topic_url and not _valid_topic_url(topic_url):
+            errors.append(f"cards[{i}] has invalid 'topic_url'")
+        evidence = card.get("evidence")
+        if not isinstance(evidence, dict):
+            errors.append(f"cards[{i}] source-backed card needs an 'evidence' object")
+            continue
+        evidence_kind = str(evidence.get("kind") or "")
+        if evidence_kind not in VALID_EVIDENCE_KINDS:
+            errors.append(
+                f"cards[{i}] evidence.kind must be one of {sorted(VALID_EVIDENCE_KINDS)}"
+            )
+        if not str(evidence.get("note") or "").strip():
+            errors.append(f"cards[{i}] evidence needs a non-empty 'note'")
+        if evidence_kind == "editorial-inference" and NUMERIC_RESULT_RE.search(
+            str(card.get("result") or "")
+        ):
+            errors.append(
+                f"cards[{i}] numeric result requires source-measured or source-claimed evidence"
+            )
+        if evidence_kind == "source-claimed" and not CLAIM_WORDING_RE.search(
+            str(card.get("result") or "")
+        ):
+            errors.append(f"cards[{i}] source-claimed result must be worded as a claim")
     return errors

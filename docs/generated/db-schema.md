@@ -51,12 +51,16 @@ available to each function.
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)
 - `data/playbook/<YYYY-MM-DD>.json` — agent-written **Playbook editions**: a
-  batch of actionable cards for agent builders. Each card has
-  `{title, problem, apply, result, url}` (required) plus optional
-  `{area, effort low|medium|high, source, published, tags}`. `index.json` +
+  batch of actionable cards for agent builders. Every card has
+  `{id, kind, title, problem, apply, result}`. `source-backed` cards additionally
+  require `{source_url, source_sid, evidence}` and may be embedded in recaps;
+  `evergreen` cards require `topic_url` and remain Playbook-only. `index.json` +
   `latest.json` rebuilt by `.agents/skills/playbook/scripts/build_playbook_index.py`;
   `input/` holds the article bundles the agent reads (excluded from deploys).
   Served at `/playbook` via `/api/playbook`
+- `data/playbook/source-index.json` — deterministic lookup keyed by durable
+  story `source_sid`. Contains only validated source-backed cards plus their
+  edition id; consumed by static and dynamic daily/weekly recap renderers.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).

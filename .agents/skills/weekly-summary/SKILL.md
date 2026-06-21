@@ -19,7 +19,7 @@ python .agents/skills/weekly-summary/scripts/build_weekly_input.py
 # Targets the ISO week containing today. Override with:
 #   --week 2026-W23           (a specific ISO week, Mon–Sun)
 #   --end 2026-06-07 --days 7 (a trailing window ending on a date)
-#   --types news,release      (default: news only; use 'all' for everything)
+#   --types news,release      (default: news,release,research,paper)
 #   --keep-carryover          (include articles published in an earlier week
 #                              but still in the feed; OFF by default)
 #   --no-prior-dedup          (don't exclude articles already in an earlier
@@ -40,9 +40,12 @@ repeats a prior week:
 
 (Override either with the flags above only if you deliberately want carryover.)
 
-By default only `news`-type items are bundled (papers/releases are better
-served by the live feed and add little to a weekly narrative). The bundle's
-`included_types` field records what was included.
+By default `news`, `release`, `research`, and `paper` items are bundled.
+Releases and papers belong only when they support a real weekly shift or a
+concrete builder action; curate them hard rather than dumping them into the
+published recap. Each article carries `source_sid` and `playbook_card_id` when
+the preceding Playbook run produced a validated source-backed card for that
+exact URL.
 
 ### 2. Check the week isn't already published (dedup)
 The **unique key for a week is its ISO week id** (`YYYY-Www`, e.g. `2026-W23`) —
@@ -120,6 +123,8 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 - Treat each category as a **weekly shift**, not a storage bucket. Its `summary`
   should make one clear pattern claim that the listed articles then support.
   Avoid vague labels such as "Other news" or categories defined only by source.
+- Never author or copy `problem`, `apply`, or `result` into recap JSON. Inline
+  Playbook takeaways are overlaid deterministically after validation.
 
 ### 4. Validate + rebuild the index (what the site serves)
 ```bash

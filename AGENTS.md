@@ -59,7 +59,9 @@ pages, and committing the JSON *is* publishing. The **Playbook**
 (`.agents/skills/playbook/` → `/playbook`) follows the same shape — the agent
 writes dated editions of actionable problem→apply→result cards to
 `data/playbook/<date>.json`, validated by `build_playbook_index.py` (no static
-render; the `/playbook` shell reads `/api/playbook`).
+render; the `/playbook` shell reads `/api/playbook`). The index builder also
+writes `data/playbook/source-index.json`; recap renderers use it to overlay
+exact-source Playbook takeaways without duplicating editorial content.
 
 Storyline narratives work the same way (`.agents/skills/storyline-editor/`): the
 agent reads the mechanically-built threads and writes a durable **narrative
@@ -179,7 +181,9 @@ storyline; it only proposes links the floor then judges.
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
 - `data/playbook/` — agent-written **Playbook editions** (`<date>.json`:
   actionable problem→apply→result cards) + `index.json`/`latest.json` +
-  `input/` bundles (excluded from deploys). Served at `/playbook`
+  `source-index.json` (source-backed cards keyed by story sid) + `input/`
+  bundles (excluded from deploys). Served at `/playbook`; source-backed cards
+  may appear inline in capped daily/weekly recap overlays
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
   `alerts_state.json`, `ingest_runs.jsonl`

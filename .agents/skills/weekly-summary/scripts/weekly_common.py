@@ -24,6 +24,7 @@ The weekly recap pipeline has three artifacts under ``data/weekly/``:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from datetime import date, datetime, timedelta, timezone
@@ -123,6 +124,11 @@ def category_for_type(item_type: str | None) -> str:
     return CATEGORY_LABELS.get(str(item_type or "").lower(), DEFAULT_CATEGORY)
 
 
+def source_sid(url: Any) -> str:
+    normalized = norm_url(url)
+    return hashlib.sha256(normalized.encode("utf-8")).hexdigest()[:16] if normalized else ""
+
+
 def clean_article(item: dict[str, Any]) -> dict[str, Any]:
     """Project a processed feed item down to the fields the recap needs."""
     summary = item.get("summary_1line") or item.get("summary") or ""
@@ -131,6 +137,7 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
         "id": item.get("id") or item.get("url") or item.get("title"),
         "title": str(item.get("title") or "Untitled").strip(),
         "url": item.get("url") or "",
+        "source_sid": source_sid(item.get("url")),
         "source": item.get("source") or "unknown",
         "type": str(item.get("type") or "news").lower(),
         "category": category_for_type(item.get("type")),

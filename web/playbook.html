@@ -258,7 +258,7 @@
     // One change record: a SIGNAL → APPLY → EXPECTED spine. APPLY is the single
     // dominant block; problem/result are quiet annotations bracketing it.
     function renderRecord(c) {
-      const href = safeUrl(c.url);
+      const href = safeUrl(c.source_url || c.topic_url || c.url);
       const sourceLabel = c.source || (href !== '#' ? 'source' : '');
       return `
         <article class="pb-record">

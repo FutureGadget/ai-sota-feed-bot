@@ -74,6 +74,7 @@ from story_store import load_store, parse_dt, story_sid  # noqa: E402
 ROOT = Path(__file__).resolve().parents[1]
 DAILY_DIR = ROOT / "data" / "daily"
 WEEKLY_DIR = ROOT / "data" / "weekly"
+PLAYBOOK_DIR = ROOT / "data" / "playbook"
 STORYLINES_DIR = ROOT / "data" / "storylines"
 WIKI_DIR = ROOT / "data" / "wiki"
 WEB_DIR = ROOT / "web"
@@ -802,7 +803,41 @@ def render_intro(recap: dict, label: str = "In 30 seconds") -> str:
     return f'<div class="intro">{tldr}{body}</div>'
 
 
-def render_categories(recap: dict, track: str, story_sids: set[str] | None = None) -> str:
+def render_playbook_takeaway(card: dict, track: str) -> str:
+    """Render one validated source-backed Playbook card inside a recap item."""
+    evidence = card.get("evidence") if isinstance(card.get("evidence"), dict) else {}
+    evidence_kind = str(evidence.get("kind") or "")
+    evidence_label = {
+        "source-measured": "Source measured",
+        "source-claimed": "Source claim",
+        "editorial-inference": "Editorial inference",
+    }.get(evidence_kind, "")
+    topic_url = str(card.get("topic_url") or "")
+    edition_date = str(card.get("edition_date") or "")
+    primary_url = topic_url if topic_url.startswith("/topic/") else (
+        f"/playbook?date={quote(edition_date)}" if edition_date else "/playbook"
+    )
+    return (
+        '<aside class="playbook-takeaway" aria-label="Playbook takeaway">'
+        '<p class="playbook-label">Playbook takeaway</p>'
+        f'<p class="playbook-problem"><span>Problem</span>{escape(squeeze(card.get("problem")))}</p>'
+        f'<p class="playbook-apply"><span>Apply</span>{escape(squeeze(card.get("apply")))}</p>'
+        f'<p class="playbook-result"><span>Expected</span>{escape(squeeze(card.get("result")))}</p>'
+        '<p class="playbook-links">'
+        f'<span>{escape(evidence_label)}</span>'
+        f'<a href="{escape(primary_url)}" data-track="{escape(track)}">Open guide →</a>'
+        '</p></aside>'
+    )
+
+
+def render_categories(
+    recap: dict,
+    track: str,
+    story_sids: set[str] | None = None,
+    *,
+    playbook_index: dict[str, dict] | None = None,
+    playbook_cap: int = 0,
+) -> str:
     cats = [c for c in recap.get("categories") or [] if isinstance(c, dict)]
     toc = ""
     if len(cats) > 1:
@@ -814,6 +849,8 @@ def render_categories(recap: dict, track: str, story_sids: set[str] | None = Non
         toc = f'<nav class="toc">{links}</nav>'
 
     sections = []
+    playbook_rendered = 0
+    playbook_seen: set[str] = set()
     for c in cats:
         arts = []
         for a in c.get("articles") or []:
@@ -843,12 +880,25 @@ def render_categories(recap: dict, track: str, story_sids: set[str] | None = Non
                 if squeeze(a.get("summary"))
                 else ""
             )
+            takeaway = ""
+            if (
+                sid
+                and playbook_index
+                and playbook_rendered < playbook_cap
+                and sid not in playbook_seen
+                and isinstance(playbook_index.get(sid), dict)
+            ):
+                takeaway = render_playbook_takeaway(
+                    playbook_index[sid], track.replace("-link", "-playbook")
+                )
+                playbook_rendered += 1
+                playbook_seen.add(sid)
             arts.append(
                 "<article>"
                 f'<h3><a href="{escape(href)}" target="_blank" rel="noopener" data-track="{track}">'
                 f'{escape(squeeze(a.get("title")) or "Untitled")}</a></h3>'
                 f'<div class="art-meta">{src_badge}{pub_badge}{detail_link}</div>'
-                f"{summary}</article>"
+                f"{summary}{takeaway}</article>"
             )
         n = len(arts)
         cat_summary = (
@@ -860,6 +910,17 @@ def render_categories(recap: dict, track: str, story_sids: set[str] | None = Non
             f'<section class="cat" id="{escape(str(c.get("slug") or c.get("name") or ""))}">'
             f'<h2>{escape(str(c.get("name") or ""))} <span class="count">{n} item{"" if n == 1 else "s"}</span></h2>'
             f'{cat_summary}<div class="articles">{"".join(arts)}</div></section>'
+        )
+    if playbook_index:
+        capped = max(0, len({
+            story_sid(a.get("url"))
+            for c in cats
+            for a in c.get("articles") or []
+            if isinstance(a, dict) and playbook_index.get(story_sid(a.get("url")))
+        }) - playbook_rendered)
+        print(
+            f"recap_playbook_matched={playbook_rendered} "
+            f"recap_playbook_capped={capped} track={track}"
         )
     return toc + "".join(sections)
 
@@ -1169,6 +1230,16 @@ DAILY_RECAP_CSS = """\
     .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
     .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--brief-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
     .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
       letter-spacing:.06em; text-transform:uppercase; }
@@ -1185,7 +1256,7 @@ DAILY_RECAP_CSS = """\
       .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
       .toc a { min-width:50%; border-bottom:1px solid var(--border); }
       article { grid-template-columns:1fr; gap:.55rem; }
-      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
 """
@@ -1206,7 +1277,11 @@ def daily_hero(recap: dict) -> str:
     )
 
 
-def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
+def render_daily_pages(
+    base_url: str,
+    story_sids: set[str] | None = None,
+    playbook_index: dict[str, dict] | None = None,
+) -> list[str]:
     recaps = load_recaps(DAILY_DIR, DATE_FILE_RE, "date")
     out_dir = WEB_DIR / "daily"
     archive_options = [
@@ -1233,7 +1308,13 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
             recap_range="",
             title_html=daily_hero(recap),
             intro_html=render_intro(recap),
-            body_html=render_categories(recap, "daily-link", story_sids)
+            body_html=render_categories(
+                recap,
+                "daily-link",
+                story_sids,
+                playbook_index=playbook_index,
+                playbook_cap=3,
+            )
             + '<p class="finish-line">You are caught up for this edition</p>'
             + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
@@ -1322,6 +1403,16 @@ WEEKLY_RECAP_CSS = """\
     .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; }
     .art-summary { margin:0; font-size:.87rem; line-height:1.55; }
+    .playbook-takeaway { margin:.8rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--week-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
     .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
       letter-spacing:.06em; text-transform:uppercase; }
@@ -1362,7 +1453,11 @@ def weekly_hero(recap: dict) -> str:
     )
 
 
-def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
+def render_weekly_pages(
+    base_url: str,
+    story_sids: set[str] | None = None,
+    playbook_index: dict[str, dict] | None = None,
+) -> list[str]:
     recaps = load_recaps(WEEKLY_DIR, WEEK_FILE_RE, "week")
     out_dir = WEB_DIR / "weekly"
     archive_options = [
@@ -1392,7 +1487,13 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
             recap_range="",
             title_html=weekly_hero(recap),
             intro_html=render_intro(recap, "The week in signals"),
-            body_html=render_categories(recap, "weekly-link", story_sids)
+            body_html=render_categories(
+                recap,
+                "weekly-link",
+                story_sids,
+                playbook_index=playbook_index,
+                playbook_cap=5,
+            )
             + '<p class="weekly-close">The week, resolved into patterns</p>'
             + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief on weekdays.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
@@ -3039,8 +3140,11 @@ def main() -> None:
     }
     storyline_of = storyline_membership(storyline_details)
 
-    days = render_daily_pages(base_url, story_sids)
-    weeks = render_weekly_pages(base_url, story_sids)
+    playbook_index = load_json(PLAYBOOK_DIR / "source-index.json") or {}
+    if not isinstance(playbook_index, dict):
+        playbook_index = {}
+    days = render_daily_pages(base_url, story_sids, playbook_index)
+    weeks = render_weekly_pages(base_url, story_sids, playbook_index)
     story_pages, noindexed = render_story_pages(base_url, stories, storyline_of)
     storyline_pages = render_storyline_pages(
         base_url, storyline_details, active_slugs, story_sids, active_members
