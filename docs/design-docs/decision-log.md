@@ -1,5 +1,32 @@
 # Decision Log
 
+## 2026-06-21 (Mobile feed: timeframe + feedback-button polish)
+- **Decision:** On the live feed (`web/index.html`), (1) move the mobile
+  timeframe selector inline at the right edge of the section-tab row (showing the
+  existing `#rangeSelect` compactly) and drop the dedicated `.mobile-controls-row`
+  + `#rangeSelectMobile` that sat on its own line between the tabs and the label
+  chips; (2) make the per-item feedback control more compact — the prompt
+  ("Was this useful?"/"Thanks…") becomes a caption on its own line and the three
+  buttons (👍 Useful / 👎 Not relevant / 🫧 Hype) sit together on a single
+  no-wrap row (`.fb-actions`) with a smaller hit target (min-height 40px → 32px,
+  tighter padding, 0.7rem text).
+- **Rationale:** Owner feedback: the standalone timeframe row was an awkward
+  location (splitting the tabs from the label chips and eating a full row), and
+  the feedback buttons were too large and wrapped 2-then-1 onto a second line.
+  Inlining the timeframe matches the desktop control row and removes a row;
+  grouping the buttons no-wrap with a caption above kills the ragged wrap while
+  keeping every control comfortably tappable.
+- **Impact:** `web/index.html` only — CSS (`.fb-actions`, mobile `.fb-row`/
+  `.fb-label`/`.fb-btn`, mobile `#rangeSelect`), removed `.mobile-controls-row`
+  markup/CSS, wrapped feedback buttons in `.fb-actions`, and dropped the
+  `rangeSelectMobile` element + its JS sync/change handlers. No pipeline or
+  static-render changes. This partially supersedes the earlier 2026-06-21
+  "Mobile UI & UX Improvements" entry (dedicated timeframe row, larger feedback
+  targets).
+- **Rollback:** Revert the `web/index.html` diff (restores the
+  `.mobile-controls-row`/`#rangeSelectMobile` row and the larger feedback
+  buttons).
+
 ## 2026-06-21 (Mobile UI & UX Improvements)
 - **Decision:** Reposition the time range dropdown selector below category tabs on mobile devices as a dedicated controls row, style category and navigation menus with horizontal scrolling and right-fade masks, reduce ledger item padding, and increase feedback hit targets.
 - **Rationale:** The time range dropdown was wrapping inside the topbar actions container on mobile, causing layout overlaps. Converting the multi-line wrap navigation menus into a single-row horizontally scrolling container with right-fade masks drastically cleans up layout and improves visual feedback. Reducing rank padding maximizes text space for article titles on narrow screens, and larger feedback button hit targets prevent accidental taps.
