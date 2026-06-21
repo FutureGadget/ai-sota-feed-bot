@@ -15,6 +15,21 @@ reader's local timezone.
 Constructing both local midnights before converting to UTC keeps ranges correct
 across daylight-saving transitions.
 
+## Filter basis: publish age, not run time
+
+The `from`/`to` window filters items by **publish age** — the same date the
+card displays (`published`, falling back to `first_seen`, then `last_seen`) —
+so a window like `Today` always agrees with the date badge on each row.
+
+The window still bounds which pipeline runs the API scans to assemble the feed,
+but run membership alone is not sufficient: a highly-ranked story reappears in
+every hourly run and would otherwise survive a `Today` window while badged
+"3d ago". `api/feed.js` therefore applies an item-level publish-window filter
+(`filterItemsByPublishWindow`) after run assembly and label filtering, before
+`limit`, so `total_items` and the "N stories" count reflect what the reader
+sees. Items with no parseable date are kept (they cannot be proven out of
+window).
+
 ## Completion contract
 
 The feed API returns `total_items` and `has_more` after date and label filtering.

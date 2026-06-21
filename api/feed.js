@@ -179,6 +179,26 @@ function filterRunsByDate(runs, fromIso, toIso) {
   });
 }
 
+// The run window above bounds which snapshots we scan, but a highly-ranked
+// item lingers across many runs, so run-based filtering alone lets a story
+// published days ago survive a "Today" window. Filter the assembled items by
+// the SAME date the card displays (published, then first_seen, then last_seen)
+// so the timeframe reflects publish age and never contradicts the date badge.
+// Items with no usable date are kept — we can't prove they're out of window.
+function filterItemsByPublishWindow(items, fromIso, toIso) {
+  const from = parseDateMaybe(fromIso);
+  const to = parseDateMaybe(toIso);
+  if (!from && !to) return items;
+
+  return items.filter((it) => {
+    const d = parseDateMaybe(it?.published || it?.first_seen || it?.last_seen);
+    if (!d) return true;
+    if (from && d < from) return false;
+    if (to && d > to) return false;
+    return true;
+  });
+}
+
 function mergeTier1Fresh(baseItems, tier1Items, deepRunAtIso, opts = {}) {
   const {
     freshCap = 4,
@@ -467,7 +487,8 @@ export default async function handler(req, res) {
     const mergedWithLabels = merged.items.map((it) =>
       withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
-    const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
+    const labelFiltered = applyLabelFilter(mergedWithLabels, selectedLabels);
+    const filteredMerged = filterItemsByPublishWindow(labelFiltered, from, to);
     const totalItems = filteredMerged.length;
 
     return res.status(200).json({
