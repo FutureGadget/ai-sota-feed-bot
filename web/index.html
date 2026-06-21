@@ -1058,6 +1058,12 @@
     let pendingSharedItemUrl = '';
     let landingUtmSource = '';
     let sharedItemRetried = false;
+    // Email one-tap feedback deep link (?fb=<signal> alongside ?item=<url>): the
+    // daily brief carries 👍/👎 links that land here and record the same
+    // item_feedback signal the on-page buttons fire. Applied once the shared
+    // item resolves (see maybeHighlightSharedItem).
+    let pendingFeedbackSignal = '';
+    const FEEDBACK_SIGNAL_SET = new Set(FEEDBACK_SIGNALS.map((s) => s.signal));
 
     function normShareUrl(v) {
       const s = String(v || '').trim();
@@ -1099,6 +1105,41 @@
         card.classList.add('shared-highlight');
         card.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
+      applyEmailFeedback(it, card);
+    }
+
+    // Record an email feedback deep link (?fb=<signal>) as if the reader had
+    // tapped the on-page button: set local state, fire the synced item_feedback
+    // event (idempotent — skipped if already that signal), and reflect it in the
+    // card so the reader sees their vote registered.
+    function applyEmailFeedback(it, card) {
+      const sig = pendingFeedbackSignal;
+      pendingFeedbackSignal = '';
+      if (!sig || !it) return;
+      const key = itemKey(it);
+      const prev = feedbackState[key]?.signal || null;
+      if (prev !== sig) {
+        feedbackState[key] = { signal: sig, ts: new Date().toISOString() };
+        persistFeedbackState();
+        posthogCapture('item_feedback', {
+          item_id: key,
+          signal: sig,
+          action: 'set',
+          prev_signal: prev,
+          url: it.url || null,
+          source: it.source || null,
+          title: it.title || null,
+          rank_position: null,
+          run_id: null,
+          via: 'email',
+        });
+      }
+      const row = card?.querySelector('.fb-row');
+      row?.querySelectorAll('button[data-fb-signal]').forEach((b) => {
+        b.setAttribute('aria-pressed', b.dataset.fbSignal === sig ? 'true' : 'false');
+      });
+      const label = row?.querySelector('.fb-label');
+      if (label) label.textContent = FEEDBACK_THANKS;
     }
 
     function updateSavedTab() {
@@ -1116,6 +1157,8 @@
       // here because syncUrlFromFilters() rewrites the URL right after boot.
       pendingSharedItemUrl = p.get('item') || '';
       landingUtmSource = p.get('utm_source') || '';
+      const fb = p.get('fb') || '';
+      pendingFeedbackSignal = FEEDBACK_SIGNAL_SET.has(fb) ? fb : '';
 
       viewState = p.get('view') === 'saved' ? 'saved' : 'feed';
       limitState = p.get('limit') || '200';

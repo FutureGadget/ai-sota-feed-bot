@@ -1,5 +1,117 @@
 # Decision Log
 
+## 2026-06-21 (Feed: exclude Datasette from the candidate pool)
+- **Decision:** Add `(?i)\bdatasette\b` to `profile.selection.exclude_title_regex`
+  — a title-only hard exclude in `stage_a_prefilter`. Datasette (Simon
+  Willison's SQLite data-publishing tool) and its plugin ecosystem are
+  off-mission for the AI-platform-engineer lens.
+- **Rationale:** Title-only on purpose. Audited the story store: the 19 real
+  datasette posts (`datasette 1.0aN`, `datasette-acl …`, `Datasette Agent`,
+  `Welcome to the Datasette blog`) all carry it in the title, while 13 on-topic
+  LLM posts mention it only in passing in the summary (`Using LLM in the shebang
+  line`, `sqlite AGENTS.md`). A title gate drops the former and keeps the latter;
+  the broader `off_topic` (title+summary) gate would have risked the on-topic
+  posts. `simon_willison` stays a valued source — this is item-level, not
+  source-level.
+- **Impact:** `config/profile.yaml` only (config-driven, no code change). Drops
+  count toward `prefilter_reasons["hard_exclude"]`. Applies to the candidate pool
+  on the next hourly build; existing durable `data/stories` entries are not
+  retroactively purged (same as every other exclude). Tests green (18).
+- **Rollback:** Remove the pattern line.
+
+## 2026-06-21 (Ranking: keep the lead off niche research papers)
+- **Decision:** Add a `lead_excludes_research` rule to
+  `top_band_constraints` (`pipeline/ranking.enforce_top_band_constraints`). The
+  visible top band is sorted by `global_score` (`final_score + slot_priority`),
+  so a fresh, high-quality arXiv paper can outscore frontier/practitioner items
+  and occupy position 1 — even though `research_watch` has the lowest
+  `slot_priority`. The existing constraints capped research *count*
+  (`max_research_in_top_n: 3`) but never *position*, so the brief regularly led
+  with a niche paper (e.g. a compiler-tuning arXiv on 2026-06-21). The rule
+  lifts the best-scoring non-research item to the lead; only the lead moves, the
+  rest of the band keeps its `global_score` order, the research-count cap still
+  holds, and it is a no-op when the whole band is research (a quiet paper day).
+- **Rationale:** The lead is the brief's "read this first" and the daily email
+  renders it as a hero card, so a niche paper leading is especially costly for
+  the platform-engineer audience. A position rule is more honest and predictable
+  than over-penalizing arXiv in `source_bias` (which would bury all research and
+  fight the quality signal) or reworking `global_score` semantics.
+- **Impact:** `pipeline/ranking.py` (lead lift + `lead_lifted` diag, surfaced in
+  the `ranking_stats … top_band=…/leadLift{n}` log), `config/ranking.yaml`
+  (`lead_excludes_research: true`), `docs/ranking-v2-flow.md`,
+  `tests/test_ranking_top_band.py` (5 cases). Verified against the live
+  2026-06-21 feed: lead moved from the arXiv compiler paper to the top
+  practitioner item; research stayed ≤3 in the top 10. Applies on the next
+  hourly build (no runtime data committed here). Tests green (18).
+- **Rollback:** Set `lead_excludes_research: false` (instant, config-only) or
+  revert the source/test/doc changes.
+
+## 2026-06-21 (Email digest: lead hero, preheader, one-tap feedback, reader favorites, text part, logo)
+- **Decision:** A batch of email-usefulness upgrades across
+  `publish/publish_email.py` + `web/index.html`. (1) **Lead-story hero** — the
+  daily's top item renders as a "▲ Today's lead" card (18px headline + ~200-char
+  context) so the day has a clear "read this first"; items 2–N stay compact.
+  (2) **Preheader** — a hidden inbox-preview snippet (top 1–2 headlines + remaining
+  count) on both daily and weekly, padded so body text doesn't leak into the
+  preview. (3) **One-tap email feedback** — each daily item carries
+  `👍 Useful · 👎 Not relevant` links to `/?item=<url>&fb=<signal>&utm_source=email`;
+  the feed client (`applyEmailFeedback`) records the **same** PostHog
+  `item_feedback` event the on-page buttons fire (`via:'email'`), reusing the
+  existing share-landing `?item=` path — **no new endpoint or storage**, flows
+  through PostHog → `sync-posthog` → `auto_tune`. (4) **Reader favorites** — the
+  weekly shows the top-3 most-clicked sources from `data/feedback/ctr_clicks.json`
+  (source granularity — per-article click data isn't collected). (5) **Knowledge
+  map trimmed** 8→4 nodes (finishability). (6) **Plain-text part** —
+  `html_to_text` derives a clean text alternative now sent with every Resend
+  broadcast (deliverability). (7) **Logo** in both headers (absolute URL).
+- **Rationale:** Make the brief more scannable (hero), sell the open (preheader),
+  close the engagement loop the email previously dead-ended (feedback links feed
+  ranking), add honest social proof (favorites), and harden deliverability
+  (text part) — all within the finishable / transparent / memory positioning and
+  the no-PII broadcast model.
+- **Not done — memory re-engagement ("while you were away"):** requires
+  per-recipient open/last-seen state the no-PII broadcast model intentionally
+  omits. Correct home is a provider-side (Resend) re-engagement segment, not the
+  renderer. Logged here rather than built.
+- **Impact:** `publish/publish_email.py` (helpers `logo_img`, `html_to_text`,
+  `feedback_url`/`feedback_row`, `_preheader`, `reader_favorites`, `lead_context`;
+  refactored `_why_text`; hero/preheader/feedback in `render_daily`;
+  favorites/preheader/logo in `render_weekly`; `text` in the Resend payload),
+  `web/index.html` (`?fb=` parse + `applyEmailFeedback`), `config/email.yaml`
+  (`max_wiki: 4`, `max_favorites: 3`), `docs/product-specs/feedback-loop.md`
+  (email-feedback channel). Tests green (13); both kinds render via `--dry-run`;
+  client JS `node --check` clean. Runtime check of the `?fb=` deep link belongs
+  on the Vercel PR preview.
+- **Rollback:** Revert the two source files + config + docs. No data/state
+  migration — renderers are pure; the feedback deep link degrades to a normal
+  share-landing if the JS is reverted.
+
+## 2026-06-21 (Daily email: drop broken confidence label, fix why-line filler)
+- **Decision:** Two credibility fixes in the daily brief renderer
+  (`publish/publish_email.py`). (1) Remove the per-item "confidence" column. The
+  `confidence_label` helper read `item["score"]` (a field the processed feed does
+  not carry — the real fields are `final_score`/`global_score`), so it always
+  computed `0 + reliability(1.0) = 1.0` and printed "Low confidence" on **every**
+  item; its `≥8`/`≥6` thresholds were also on the wrong scale (production
+  `final_score`s sit in low single digits). The item meta line is now
+  `{signal} · {source}`. (2) `item_why` no longer ships the mechanical
+  `why_it_matters` keyword echo ("Matches feed focus: agent, eval.") — when
+  `why_it_matters` is empty or starts with that string it falls through to the
+  item's real `summary_1line` (every item carries one), and a summary that merely
+  echoes the headline is suppressed so the title isn't shown twice.
+- **Rationale:** A column screaming "Low confidence" next to all 12 stories, plus
+  machine-sounding "Matches feed focus" filler, directly undercut the anti-hype /
+  trust-first positioning. Source reliability is uniformly `1.0` in the processed
+  feed today (the real per-source variation lives in `data/health/` and isn't
+  joined into items), so a reliability badge would be equally meaningless — drop
+  the broken signal rather than replace it with another empty one.
+- **Impact:** `publish/publish_email.py` only (`confidence_label` deleted; `meta`
+  line in `render_daily`; `item_why` fallback + title-echo guard). Weekly renderer
+  unaffected. Verified via `--kind daily --dry-run`: no "confidence" / "Matches
+  feed focus" strings remain; weekly still renders.
+- **Rollback:** Revert the single file. No data or state migration — renderer is
+  pure and re-runs cleanly against existing artifacts.
+
 ## 2026-06-21 (Share button, HN boilerplate strip, reader-tuning trust banner)
 - **Decision:** Three small trust/shareability wins. (1) `render_static_pages.py`
   emits a `🔗 Share` control in the nav `<menu>` of every generated page (daily,

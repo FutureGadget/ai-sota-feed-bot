@@ -120,6 +120,11 @@ top_band_constraints:
   min_frontier_official: 3
   min_anthropic_frontier: 1
   max_research_in_top_n: 3
+  # The lead (position 1) is the brief's "read this first" — and the daily email
+  # renders it as a hero. A fresh arXiv paper can outscore everything on a quiet
+  # day; this keeps it from being the lead by lifting the best-scoring
+  # non-research item to position 1. No-op when the whole band is research.
+  lead_excludes_research: true
 
 # Optional source-level bias for practical ordering within/across slots.
 # Negative values push sources lower; positive values lift them.

@@ -94,6 +94,12 @@ selection:
   exclude_title_regex:
     - "(?i)amazon bedrock"
     - "(?i)customer"
+    # Datasette (Simon Willison's SQLite data-publishing tool) and its plugin
+    # ecosystem are off-mission for the AI-platform-engineer lens. Title-only on
+    # purpose: real datasette posts carry it in the title ("datasette 1.0aN",
+    # "datasette-acl …", "Datasette Agent"), while on-topic LLM posts that merely
+    # mention it in the summary (e.g. "Using LLM in the shebang line") are kept.
+    - "(?i)\\bdatasette\\b"
 
 # Deterministic off-topic relevance gate (pipeline/ranking.py stage_a_prefilter).
 # The home feed reads run_ranking() output verbatim, and trusted/frontier sources

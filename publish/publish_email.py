@@ -25,9 +25,11 @@ import argparse
 import html
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote
 
 import requests
 import yaml
@@ -44,12 +46,17 @@ DEFAULTS = {
     "site_base": "https://www.llm-digest.com",
     "utm_source": "email",
     "daily": {"max_items": 12, "max_threads": 3},
-    "weekly": {"max_threads": 12, "articles_per_category": 3, "max_wiki": 8},
+    "weekly": {"max_threads": 12, "articles_per_category": 3, "max_wiki": 4, "max_favorites": 3},
 }
 
 # A reader-tune nudge only earns a visible badge once it is clearly positive;
 # below this it is ranking noise, not a signal worth surfacing to readers.
 READER_BOOST_MIN = 0.02
+
+# Invisible filler appended after the preheader so the body's first visible line
+# doesn't bleed into the inbox preview after the snippet (the standard hack:
+# zero-width joiners + non-breaking spaces, which render as nothing).
+PREHEADER_PAD = "&#847;&zwnj;&nbsp;" * 40
 
 
 def clean(s: str, n: int = 120) -> str:
@@ -79,17 +86,6 @@ def signal_label(item: dict) -> str:
     if item_type == "paper":
         return "Research"
     return "Platform News"
-
-
-def confidence_label(item: dict) -> str:
-    score = float(item.get("score", 0) or 0)
-    reliability = float(item.get("source_reliability", 1.0) or 1.0)
-    value = score + reliability
-    if value >= 8.0:
-        return "High"
-    if value >= 6.0:
-        return "Medium"
-    return "Low"
 
 
 # --------------------------------------------------------------------------- #
@@ -136,6 +132,31 @@ def storyline_url(cfg: dict, slug: str) -> str:
     return f"{cfg['site_base'].rstrip('/')}/storyline/{slug}?utm_source={cfg['utm_source']}"
 
 
+def feedback_url(cfg: dict, url: str, signal: str) -> str:
+    """One-tap feedback deep link: lands on the feed with the item highlighted
+    and ``?fb=<signal>``, which the client records as the same ``item_feedback``
+    event the on-page buttons fire (synced into the auto-tune loop). No new
+    endpoint — it reuses the existing share-landing ``?item=<url>`` path.
+    """
+    base = cfg["site_base"].rstrip("/")
+    return f"{base}/?item={quote(url, safe='')}&fb={signal}&utm_source={cfg['utm_source']}"
+
+
+def feedback_row(cfg: dict, url: str) -> str:
+    """Compact 👍 / 👎 line under a daily item."""
+    if not url:
+        return ""
+    useful = html.escape(feedback_url(cfg, url, "useful"))
+    irrel = html.escape(feedback_url(cfg, url, "irrelevant"))
+    return (
+        '<div style="font-size:12px;margin-top:5px">'
+        f'<a href="{useful}" style="color:#1a7f37;text-decoration:none">👍 Useful</a>'
+        '<span style="color:#ccc"> · </span>'
+        f'<a href="{irrel}" style="color:#999;text-decoration:none">👎 Not relevant</a>'
+        "</div>"
+    )
+
+
 def reader_boosted(it: dict) -> bool:
     try:
         return float(it.get("source_tune") or 0) >= READER_BOOST_MIN
@@ -143,9 +164,61 @@ def reader_boosted(it: dict) -> bool:
         return False
 
 
+def _why_text(it: dict) -> str:
+    """Best human-readable description for an item, length-agnostic. Prefers a
+    real ``why_it_matters``; the mechanical ``Matches feed focus: …`` keyword
+    echo is treated as absent and falls through to the article's own one-line
+    summary (every item carries one). A summary that merely echoes the headline
+    returns empty so callers can show the title alone instead of it twice.
+    """
+    why = (it.get("why_it_matters") or it.get("llm_why_1line") or "").strip()
+    if not why or why.lower().startswith("matches feed focus"):
+        why = (it.get("summary_1line") or it.get("llm_summary_1line") or "").strip()
+    title = (it.get("title") or "").strip().lower()
+    if title and why.lower().rstrip(".").startswith(title.rstrip(".")[:60]):
+        return ""
+    return why
+
+
 def item_why(it: dict) -> str:
-    raw = it.get("why_it_matters") or it.get("llm_why_1line") or it.get("summary_1line") or ""
-    return short_why(raw)
+    """Compact why-line for a list row (≤76 chars)."""
+    return short_why(_why_text(it))
+
+
+def lead_context(it: dict) -> str:
+    """Fuller context for the lead-story hero (≤200 chars)."""
+    return clean(_why_text(it), 200)
+
+
+def _preheader(items: list[dict]) -> str:
+    """Inbox-preview snippet: the top one or two headlines + remaining count, so
+    the brief sells itself in the inbox instead of leaking the boilerplate header.
+    """
+    titles = [clean(it.get("title", ""), 50) for it in items[:2] if it.get("title")]
+    extra = max(0, len(items) - len(titles))
+    tail = f" · +{extra} more" if extra else ""
+    return f"{' · '.join(titles)}{tail} — then you're caught up."
+
+
+def reader_favorites(limit: int = 3) -> list[tuple[str, int]]:
+    """Top sources by click-through in the rolling CTR window (the same
+    source-level signal that drives auto-tune). Per-article click data is not
+    collected, so this is honest social proof at *source* granularity — matching
+    how the rest of the email already labels items by source slug.
+    """
+    p = ROOT / "data" / "feedback" / "ctr_clicks.json"
+    if not p.exists():
+        return []
+    try:
+        clicks = json.loads(p.read_text(encoding="utf-8")).get("clicks") or {}
+    except Exception:
+        return []
+    ranked = sorted(
+        ((s, int(c)) for s, c in clicks.items() if int(c) > 0),
+        key=lambda r: r[1],
+        reverse=True,
+    )
+    return ranked[:limit]
 
 
 def narrative_copy(slug: str, thread_last_updated: str, latest_title: str) -> str:
@@ -280,6 +353,42 @@ def unsubscribe_html(cfg: dict) -> str:
     return ""
 
 
+def logo_img(cfg: dict) -> str:
+    """Small brand mark for the email header (absolute URL — email clients can't
+    resolve site-relative paths). Square logo served from the site root."""
+    src = f"{cfg['site_base'].rstrip('/')}/logo.png"
+    return (
+        f'<img src="{html.escape(src)}" alt="LLM Digest" width="22" height="22" '
+        f'style="width:22px;height:22px;vertical-align:middle;margin-right:7px;border-radius:5px">'
+    )
+
+
+def html_to_text(body: str) -> str:
+    """Derive a plain-text alternative from the rendered HTML body (improves
+    deliverability and serves text-only clients). Not a full HTML parser — a
+    targeted converter for our own known markup: drops the hidden preheader and
+    the one-tap feedback rows (noise in text), renders links as ``text (url)``,
+    and turns block elements into line breaks.
+    """
+    s = re.sub(r'<div style="display:none.*?</div>', "", body, count=1, flags=re.S)
+    s = re.sub(r'<div style="font-size:12px;margin-top:5px">.*?</div>', "", s, flags=re.S)
+    s = re.sub(
+        r'<a [^>]*href="([^"]*)"[^>]*>(.*?)</a>',
+        lambda m: f"{re.sub('<[^>]+>', '', m.group(2))} ({html.unescape(m.group(1))})",
+        s,
+        flags=re.S,
+    )
+    s = re.sub(r"<li[^>]*>", "- ", s, flags=re.I)
+    s = re.sub(r"<br\s*/?>", "\n", s, flags=re.I)
+    s = re.sub(r"</(h1|h2|h3|div|tr|li|p|table|ul)>", "\n", s, flags=re.I)
+    s = re.sub(r"<[^>]+>", "", s)
+    s = html.unescape(s)
+    s = re.sub(r"[ \t]+", " ", s)
+    s = re.sub(r"\n[ \t]+", "\n", s)
+    s = re.sub(r"\n{3,}", "\n\n", s)
+    return s.strip()
+
+
 def _badge(text: str, bg: str, fg: str) -> str:
     return (
         f'<span style="display:inline-block;font-size:11px;font-weight:600;'
@@ -302,10 +411,26 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
         title = html.escape(clean(it.get("title", ""), 140))
         source = html.escape(clean(it.get("source", "unknown"), 40))
         signal = html.escape(signal_label(it))
-        conf = html.escape(confidence_label(it))
-        why = html.escape(item_why(it))
         badges = _badge("Reader-boosted", "#eef6ff", "#1a6dd6") if reader_boosted(it) else ""
-        meta = f"{signal} · {conf} confidence · {source}"
+        meta = f"{signal} · {source}"
+        if i == 1:
+            # Lead-story hero: bigger headline + fuller context so the day has a
+            # clear "read this first" instead of 12 equal-weight rows.
+            ctx = html.escape(lead_context(it))
+            rows.append(
+                f'<tr><td style="padding:6px 0 16px;border-bottom:1px solid #eee">'
+                f'<div style="font-size:11px;font-weight:700;letter-spacing:.05em;'
+                f'text-transform:uppercase;color:#1a6dd6;margin-bottom:5px">▲ Today\'s lead</div>'
+                f'<div style="font-size:18px;font-weight:700;line-height:1.3">'
+                f'<a href="{html.escape(story_url(cfg, url))}" '
+                f'style="color:#111;text-decoration:none">{title}</a>{badges}</div>'
+                f'<div style="font-size:12px;color:#888;margin-top:4px">{meta}</div>'
+                + (f'<div style="font-size:14px;color:#333;margin-top:7px;line-height:1.5">{ctx}</div>' if ctx else "")
+                + feedback_row(cfg, url)
+                + "</td></tr>"
+            )
+            continue
+        why = html.escape(item_why(it))
         rows.append(
             f'<tr><td style="padding:12px 0;border-bottom:1px solid #eee">'
             f'<div style="font-size:15px;font-weight:600;line-height:1.35">'
@@ -313,6 +438,7 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
             f'style="color:#111;text-decoration:none">{title}</a>{badges}</div>'
             f'<div style="font-size:12px;color:#888;margin-top:3px">{meta}</div>'
             + (f'<div style="font-size:13px;color:#444;margin-top:4px">{why}</div>' if why else "")
+            + feedback_row(cfg, url)
             + "</td></tr>"
         )
 
@@ -339,9 +465,11 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
     feed_url = f"{cfg['site_base'].rstrip('/')}/?utm_source={cfg['utm_source']}"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
     unsub = unsubscribe_html(cfg)
+    preheader = html.escape(_preheader(items))
     body = f"""\
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">LLM Digest · {today}</div>
+  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {today}</div>
   <h1 style="font-size:20px;margin:6px 0 2px">Your AI brief</h1>
   <div style="font-size:13px;color:#777;margin-bottom:8px">{n} ranked picks · ~{mins} min · one shared ranking, no filter bubble</div>
   <table width="100%" cellpadding="0" cellspacing="0">{"".join(rows)}</table>
@@ -376,6 +504,15 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
         hl_html = (
             '<h2 style="font-size:16px;margin:22px 0 6px">⭐ Highlights</h2>'
             f'<ul style="font-size:14px;line-height:1.5;color:#333;padding-left:20px;margin:0">{lis}</ul>'
+        )
+
+    fav = reader_favorites(int(cfg["weekly"].get("max_favorites", 3)))
+    fav_html = ""
+    if fav:
+        chips = " · ".join(f'<span style="color:#333;font-weight:600">{html.escape(s)}</span>' for s, _ in fav)
+        fav_html = (
+            '<div style="margin:18px 0 4px;padding:10px 12px;border-radius:8px;background:#f6f8fa;font-size:13px;color:#555">'
+            f"📈 <strong>Reader favorites this week</strong> — sources you clicked most: {chips}</div>"
         )
 
     per_cat = int(cfg["weekly"]["articles_per_category"])
@@ -439,12 +576,16 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
     feed_url = f"{base}/?utm_source={utm}"
     weekly_page = f"{base}/weekly/{wk.get('week','')}?utm_source={utm}"
     unsub = unsubscribe_html(cfg)
+    pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
+    preheader = html.escape(f"{pre} — your weekly catch-up.")
     body = f"""\
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">LLM Digest · Weekly recap</div>
+  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · Weekly recap</div>
   <h1 style="font-size:21px;margin:6px 0 10px">{html.escape(title)}</h1>
   {intro_html}
   {hl_html}
+  {fav_html}
   {cats_section}
   {thread_html}
   {wiki_html}
@@ -464,6 +605,7 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> boo
     """Send the broadcast. Returns True if sent, False for a clean no-op
     (e.g. the recipient segment is empty — nothing to send, not an error)."""
     provider = (cfg.get("provider") or "buttondown").lower()
+    text_body = html_to_text(html_body)
     if provider == "buttondown":
         r = requests.post(
             "https://api.buttondown.com/v1/emails",
@@ -481,7 +623,14 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> boo
         from_addr = os.getenv("EMAIL_FROM", "").strip()
         if not segment_id or not from_addr:
             raise RuntimeError("resend requires EMAIL_SEGMENT_ID and EMAIL_FROM")
-        payload = {"segment_id": segment_id, "from": from_addr, "subject": subject, "html": html_body, "send": True}
+        payload = {
+            "segment_id": segment_id,
+            "from": from_addr,
+            "subject": subject,
+            "html": html_body,
+            "text": text_body,
+            "send": True,
+        }
         topic_id = (os.getenv("EMAIL_TOPIC_ID") or "").strip()
         if topic_id:
             payload["topic_id"] = topic_id

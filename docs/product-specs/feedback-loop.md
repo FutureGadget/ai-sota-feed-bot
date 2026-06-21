@@ -20,6 +20,21 @@ Every feed card on `/` shows a one-tap feedback row:
 - Works in both the live feed and the Saved view. No-op when PostHog is
   disabled (the local UI state still works).
 
+## Email feedback (one-tap deep link)
+Each item in the daily email brief carries `👍 Useful · 👎 Not relevant` links
+(`publish/publish_email.py` → `feedback_row`). They point at the feed with the
+item highlighted and a feedback signal:
+`/?item=<encoded url>&fb=<useful|irrelevant>&utm_source=email`.
+
+- On landing, the feed client (`web/index.html` → `applyEmailFeedback`) resolves
+  the item via the existing share-landing `?item=<url>` path and records the
+  **same** `item_feedback` event the on-page buttons fire (with `via: 'email'`),
+  so no new endpoint or storage is involved — it flows through the same
+  PostHog → `sync-posthog` → `auto_tune` loop.
+- Idempotent: re-clicking an already-set signal does not re-fire. The vote is
+  reflected in the card UI (the reader sees it registered) and remembered in
+  the same `localStorage` state as on-page taps.
+
 ## Manual input (CLI)
 `python pipeline/feedback.py add --url <item_url> --signal useful|irrelevant|hype [--note <text>]`
 
