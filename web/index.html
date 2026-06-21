@@ -600,6 +600,9 @@
       padding: 1rem;
       opacity: 0.85;
     }
+    .mobile-controls-row {
+      display: none;
+    }
     /* "You're caught up" end-marker: closes the Brief view so the finishable
        promise has a visible finish line. */
     .end-marker {
@@ -784,11 +787,36 @@
       main { padding-left:1rem; padding-right:1rem; }
       .topbar { align-items:center; }
       .topbar-actions { flex-wrap:nowrap; justify-content:flex-end; }
+      .topbar-actions #rangeSelect { display: none !important; }
       .feed-hero { grid-template-columns:1fr; gap:0.5rem; margin:1rem 0 0.8rem; }
       .feed-title { font-size:2.2rem; line-height:1.0; }
       .feed-promise { display:none; }
-      .sections { overflow-x:auto; }
-      .controls-bar select { display: inline-block; flex-shrink: 0; width: auto; max-width: 100px; font-size:0.82rem; padding:0 0.4rem 0 0.6rem; min-height:44px; }
+      .sections {
+        overflow-x: auto;
+        border-bottom: 0;
+        padding-bottom: 0.25rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      .mobile-controls-row {
+        display: flex;
+        align-items: center;
+        margin-top: 0.65rem;
+        font-size: 0.82rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.55rem;
+      }
+      .mobile-controls-row select {
+        font-size: 0.82rem;
+        padding: 0.2rem 0.4rem;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        background: transparent;
+        color: inherit;
+        cursor: pointer;
+        min-height: 36px;
+        margin-left: 0.35rem;
+      }
       .quicknav {
         display: flex;
         width: calc(100% + 2rem);
@@ -802,6 +830,8 @@
         scrollbar-width: none;
         border-top: 1px solid var(--border);
         border-bottom: 1px solid var(--border);
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
       }
       .quicknav::-webkit-scrollbar {
         display: none;
@@ -814,12 +844,22 @@
         border-radius: 999px;
         font-size: 0.65rem;
       }
-      #list > article { padding-left:2.45rem; }
-      .rank-no { width:1.7rem; font-size:1.35rem; }
+      #list > article { padding-left:1.75rem; }
+      .rank-no { width:1.2rem; font-size:1.35rem; }
       .card-top { padding-right:0; }
       #list > article.big-story::after { display:none; }
       article h3 { font-size:1.18rem; }
       .thumb { width:72px; height:64px; }
+      .fb-btn {
+        min-height: 40px;
+        padding: 0.25rem 0.6rem;
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: 0.2rem;
+      }
+      .fb-row {
+        gap: 0.6rem;
+      }
       .end-marker { display:block; text-align:left; }
       .end-marker::before { display:block; margin-bottom:.6rem; }
     }
@@ -877,6 +917,19 @@
           <option value="30">Last 30d</option>
           <option value="all">All</option>
         </select>
+      </div>
+
+      <div class="mobile-controls-row">
+        <div class="mobile-control-group">
+          <span class="muted">Timeframe:</span>
+          <select id="rangeSelectMobile" aria-label="Time range">
+            <option value="1">Today</option>
+            <option value="3">Last 3d</option>
+            <option value="7" selected>Last 7d</option>
+            <option value="30">Last 30d</option>
+            <option value="all">All</option>
+          </select>
+        </div>
       </div>
 
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
@@ -1020,9 +1073,10 @@
 
     function syncRangeSelect() {
       const sel = document.getElementById('rangeSelect');
-      if (!sel) return;
+      const selMobile = document.getElementById('rangeSelectMobile');
       const v = ['1', '3', '7', '30', 'all'].includes(presetDaysState) ? presetDaysState : '7';
-      sel.value = v;
+      if (sel) sel.value = v;
+      if (selMobile) selMobile.value = v;
     }
 
     // 'feed' renders the API feed; 'saved' renders locally saved items.
@@ -2458,6 +2512,11 @@
       });
 
       document.getElementById('rangeSelect')?.addEventListener('change', (e) => {
+        setDateRangeDays(e.target.value);
+        refreshFeed({ exitSaved: true });
+      });
+
+      document.getElementById('rangeSelectMobile')?.addEventListener('change', (e) => {
         setDateRangeDays(e.target.value);
         refreshFeed({ exitSaved: true });
       });

@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-06-21 (Mobile UI & UX Improvements)
+- **Decision:** Reposition the time range dropdown selector below category tabs on mobile devices as a dedicated controls row, style category and navigation menus with horizontal scrolling and right-fade masks, reduce ledger item padding, and increase feedback hit targets.
+- **Rationale:** The time range dropdown was wrapping inside the topbar actions container on mobile, causing layout overlaps. Converting the multi-line wrap navigation menus into a single-row horizontally scrolling container with right-fade masks drastically cleans up layout and improves visual feedback. Reducing rank padding maximizes text space for article titles on narrow screens, and larger feedback button hit targets prevent accidental taps.
+- **Impact:** Modified `web/index.html` (header, timeframe controls, padding, feedback targets), `web/daily.html` (navigation scroll/masks), `web/weekly.html` (navigation scroll/masks), `web/storyline.html` (navigation scroll/masks), and `pipeline/render_static_pages.py` (`PAGE_CSS` template alignment). Statically rendered pages were regenerated successfully.
+- **Rollback:** Revert styling and structural HTML changes in the respective files, then run `python pipeline/render_static_pages.py` to regenerate previous static pages.
+
 ## 2026-06-21 (Frontend redesign: cross-surface consistency pass)
 - **Decision:** Final consistency pass over the redesigned surfaces (live feed,
   daily, weekly, storyline, playbook, knowledge map, topic, voices, subscribe).
