@@ -61,11 +61,15 @@ DATE_ID_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 # deterministic fallback used by the input bundle and the seed sample.
 CATEGORY_ORDER: list[tuple[str, str]] = [
     ("release", "Model & Product Releases"),
-    ("paper", "Research Papers"),
     ("research", "Research & Techniques"),
     ("news", "Industry News"),
 ]
-CATEGORY_LABELS: dict[str, str] = dict(CATEGORY_ORDER)
+CATEGORY_LABELS: dict[str, str] = {
+    "release": "Model & Product Releases",
+    "paper": "Research & Techniques",
+    "research": "Research & Techniques",
+    "news": "Industry News",
+}
 DEFAULT_CATEGORY = "Industry News"
 
 

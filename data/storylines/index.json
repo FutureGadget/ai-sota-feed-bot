@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-21T05:07:20.219612+00:00",
+ "generated_at": "2026-06-21T13:33:36.519645+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -46,6 +46,9 @@
    "editorial": {
     "tldr": "Anthropic launched Claude Fable 5 and the higher Mythos 5 tier on Jun 9; the first day-one hands-on called it \"something of a beast\" — powerful but slow and expensive — as launch coverage flagged controversial usage terms. Two days in, a sustained read called Fable 5 \"relentlessly proactive.\" Then on Jun 12-13 the story turned: a US export-control directive, citing national security, suspended access, and coverage recast the launch as too dangerous to release. A Jun 15 recap framed it as temporary. By Jun 20 access is back on Amazon Bedrock — but only via provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review.",
     "stale": false,
+    "whats_new": "Access is partially restored: Fable 5 and Mythos 5 are usable on Amazon Bedrock again, but require opting into provider_data_share — prompts and outputs go to Anthropic for 30-day retention with human review, a break from how previous Bedrock models kept inference data private.",
+    "why_it_matters": "A flagship can swing from GA launch to government-ordered suspension and back to a conditional, data-sharing-only return within days. The Bedrock terms make the catch concrete: regaining access can mean surrendering prompt/output confidentiality, which matters for anything handling sensitive data.",
+    "take_for_builders": "If you re-enable Fable 5 / Mythos 5 on Bedrock, read the provider_data_share terms first: access now means prompts and outputs are retained by Anthropic for 30 days with human review. Keep a fallback model wired in rather than hard-coding a single flagship tier.",
     "status": {
      "state": "On Bedrock · data-sharing required",
      "tone": "rising",
@@ -105,6 +108,9 @@
    "editorial": {
     "tldr": "Through mid-June, deep research agents kept getting redefined faster than they could be standardized. An arXiv paper argued that benchmarks only grade a single-shot report and miss whether an agent improves under feedback, and ran a multi-turn process-level evaluation. AWS then shipped a build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. DRFLOW moved the target toward predicting a personalized, enterprise-style workflow rather than just a report, and the latest beat, ScaffoldAgent, attacks the long-form report itself — utility-guided dynamic outline optimization for open-ended deep research.",
     "stale": false,
+    "whats_new": "The newest item, ScaffoldAgent (Jun 18), shifts the focus from what to evaluate back to how to generate: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report, and makes the outline the optimization target with a utility-guided, dynamically optimized scaffold — a generation-side answer after a run of benchmark-side papers.",
+    "why_it_matters": "How you evaluate and structure a deep research agent is still unsettled: report quality, improvement under process-level feedback, personalized workflow prediction, and outline-driven coherence are four different bars, and the one you pick changes what you build. AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
+    "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — feedback-driven report quality, personalized workflow prediction, or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
     "status": {
      "state": "Active research",
      "tone": "rising",
@@ -138,11 +144,50 @@
    "editorial": {
     "tldr": "NVIDIA unveiled Nemotron 3 Ultra — a frontier reasoning model — alongside Cosmos 3 and the RTX Spark in early June. Two days later it was available to deploy on Amazon SageMaker JumpStart, where AWS pitched roughly 5x faster inference and 30% lower cost for agentic AI workloads. The thread traces a fast announcement-to-cloud-availability path for a model aimed squarely at agentic reasoning.",
     "stale": false,
+    "whats_new": "Nemotron 3 Ultra moved from announcement to one-deploy cloud availability on Amazon SageMaker JumpStart within two days, with AWS quoting 5x faster inference and 30% lower cost for agentic workloads.",
+    "why_it_matters": "For platform engineers the signal isn't the launch but the deployment path: a frontier reasoning model reachable through SageMaker JumpStart with vendor-quoted inference and cost wins makes it cheap to A/B against incumbents for agentic workloads.",
+    "take_for_builders": "If you run agentic reasoning workloads on AWS, Nemotron 3 Ultra is now a one-deploy A/B candidate on SageMaker JumpStart — worth a cost/latency bake-off against your current model before committing.",
     "status": {
      "state": "Available",
      "tone": "launch",
      "changed": "2026-06-04",
      "detail": "Announced Jun 2 alongside Cosmos 3 and the RTX Spark; available to deploy on Amazon SageMaker JumpStart by Jun 4."
+    }
+   }
+  },
+  {
+   "slug": "dynamic-workflows",
+   "label": "Dynamic Workflows",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-01T16:55:00+00:00",
+   "last_updated": "2026-06-02T00:00:00+00:00",
+   "via_scout": true,
+   "latest_title": "A Harness For Every Task Dynamic Workflows In Claude Code",
+   "days": [
+    "2026-06-01",
+    "2026-06-02"
+   ],
+   "member_sids": [
+    "72c72052beef8f43",
+    "bbb7a8dae33b3ae4"
+   ],
+   "member_urls": [
+    "https://www.infoq.com/news/2026/06/dynamic-workflows-claude-code/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
+   ],
+   "editorial": {
+    "tldr": "On Jun 1 Anthropic introduced Dynamic Workflows for Claude Code, a capability for tackling complex software-engineering tasks by coordinating large numbers of agents inside a single workflow. A day later Anthropic published its own account of the feature.",
+    "stale": false,
+    "whats_new": "Anthropic's own writeup, \"A Harness For Every Task,\" frames Dynamic Workflows as a general orchestration harness rather than a one-off Claude Code feature.",
+    "why_it_matters": "Dynamic Workflows is the orchestration primitive for fanning many agents out from a single Claude Code run — the thing to evaluate if you're moving past single-agent prompting toward parallel, structured agent pipelines.",
+    "take_for_builders": "If you orchestrate agents today with bespoke glue, prototype the same fan-out as a Dynamic Workflow in Claude Code and compare cost, latency, and reliability before committing — read Anthropic's \"A Harness For Every Task\" for the intended model.",
+    "status": {
+     "state": "Shipping",
+     "tone": "launch",
+     "changed": "2026-06-02",
+     "detail": "Dynamic Workflows is live in Claude Code, with Anthropic's own framing of how the harness works."
     }
    }
   }

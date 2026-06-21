@@ -1,18 +1,44 @@
 {
   "slug": "dynamic-workflows",
-  "generated_at": "2026-06-13T07:27:25.938989+00:00",
+  "generated_at": "2026-06-21T13:33:11+00:00",
   "covers_last_updated": "2026-06-02T00:00:00+00:00",
   "covers_member_sids": [
-    "008b880e906f9835",
     "72c72052beef8f43",
     "bbb7a8dae33b3ae4"
   ],
-  "tldr": "Anthropic introduced Dynamic Workflows (“ultracode”) for Claude Code, first surfaced in late May alongside the Opus 4.8 release and detailed over the following days. The capability coordinates large numbers of agents within a single workflow to take on complex engineering tasks, with Anthropic's own “A Harness For Every Task” post laying out the model.",
-  "whats_new": "Anthropic's own writeup, “A Harness For Every Task,” closes the loop on the launch coverage — framing Dynamic Workflows as a general orchestration harness rather than a one-off feature.",
-  "why_it_matters": "Dynamic Workflows is the orchestration primitive for fanning out many agents deterministically from a single Claude Code run — directly relevant if you're moving past single-agent prompting toward parallel, structured agent pipelines.",
+  "tldr": "On Jun 1 Anthropic introduced Dynamic Workflows for Claude Code, a capability for tackling complex software-engineering tasks by coordinating large numbers of agents inside a single workflow. A day later Anthropic published its own account of the feature.",
+  "whats_new": "Anthropic's own writeup, \"A Harness For Every Task,\" frames Dynamic Workflows as a general orchestration harness rather than a one-off Claude Code feature.",
+  "why_it_matters": "Dynamic Workflows is the orchestration primitive for fanning many agents out from a single Claude Code run — the thing to evaluate if you're moving past single-agent prompting toward parallel, structured agent pipelines.",
+  "status": {
+    "state": "Shipping",
+    "tone": "launch",
+    "changed": "2026-06-02",
+    "detail": "Dynamic Workflows is live in Claude Code, with Anthropic's own framing of how the harness works."
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Claude Code adds Dynamic Workflows to coordinate many agents in one run",
+      "summary": "InfoQ reports the new capability for handling complex engineering tasks by coordinating large numbers of agents within a single workflow.",
+      "sids": ["72c72052beef8f43"]
+    },
+    {
+      "kicker": "THE MODEL",
+      "tone": "rising",
+      "headline": "Anthropic frames it as \"a harness for every task\"",
+      "summary": "Anthropic's own post lays out Dynamic Workflows as a general orchestration harness for Claude Code.",
+      "sids": ["bbb7a8dae33b3ae4"]
+    }
+  ],
+  "open_questions": [
+    "What are the concrete limits on agent count and nesting depth within one Dynamic Workflow?",
+    "How does coordinating many agents in a single workflow affect cost and latency versus sequential single-agent runs?",
+    "Does Dynamic Workflows expose hooks for deterministic control, retries, or failure handling across the fan-out?"
+  ],
+  "take_for_builders": "If you orchestrate agents today with bespoke glue, prototype the same fan-out as a Dynamic Workflow in Claude Code and compare cost, latency, and reliability before committing — read Anthropic's \"A Harness For Every Task\" for the intended model.",
   "day_captions": {
-    "008b880e906f9835": "The launch beat — Dynamic Workflows / ultracode ships alongside Opus 4.8.",
-    "72c72052beef8f43": "InfoQ explains the mechanism: coordinating many agents within one workflow for complex tasks.",
-    "bbb7a8dae33b3ae4": "Anthropic's own “A Harness For Every Task” framing of the feature."
+    "72c72052beef8f43": "First coverage of the launch: InfoQ explains the mechanism — coordinating many agents within one workflow for complex tasks.",
+    "bbb7a8dae33b3ae4": "Anthropic's own \"A Harness For Every Task\" framing, positioning the feature as a general orchestration harness."
   }
 }
