@@ -434,53 +434,109 @@ STORYLINE_FOLLOW_JS = """\
 # tone colors are semantic mid-tones that read on both light and dark). Scoped
 # under .sl so it never leaks into recap/story pages. See render_storyline_body.
 STORYLINE_ARC_CSS = """\
-    /* Pin the storyline page to the prototype's true GitHub-dark palette (dark
-       theme only); light theme keeps the site defaults. Scoped to this page
-       because extra_css is injected per-page. */
-    html[data-theme="dark"] { --bg:#0d1117; --card:#0f141b; --border:#21262d;
-      --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
-    .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
-    .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
-    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:44px;
-      padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
-      border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
-    .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
-    .sl-follow-hint { width:100%; margin:-0.35rem 0 0; font-size:0.78rem; color:var(--muted); }
-    :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
-      --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
-    .sl-status { border:1px solid var(--border); border-radius:12px;
-      padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
-    .sl-status.tone-turn, .sl-status.tone-alert { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border)); background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
-    .sl-status.tone-now { border-color:color-mix(in srgb,var(--t-now) 45%,var(--border)); background:color-mix(in srgb,var(--t-now) 9%,var(--card)); }
-    .sl-status.tone-launch, .sl-status.tone-resolved { border-color:color-mix(in srgb,var(--t-launch) 40%,var(--border)); background:color-mix(in srgb,var(--t-launch) 7%,var(--card)); }
-    .sl-status-head { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem; }
+    /* Storyline pages borrow from an operations trace: cool instrument paper,
+       condensed display type, and one continuous state/evidence signal. */
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --sl-wash:#eaf0ff; --sl-ink:#18243b;
+      --t-launch:#23875b; --t-rising:#718096; --t-turn:#c4483f;
+      --t-now:#b6780c; --t-resolved:#2457d6; --t-neutral:#a8b1bf;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --sl-wash:#1c2a48; --sl-ink:#e8eefb;
+      --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
+      --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .sl-hero { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end;
+      gap:1.25rem 2rem; margin:2.2rem 0 0.55rem; }
+    .sl-hero-copy { min-width:0; }
+    .sl-hero-kicker { margin:0 0 0.25rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-hero .recap-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.6rem,7vw,4.6rem); font-weight:700; letter-spacing:-0.045em; line-height:.92; }
+    .sl-hero #followBtn { font-family:inherit; font-size:0.84rem; font-weight:600; min-height:44px;
+      padding:0.55rem 0.9rem; border-radius:3px; cursor:pointer; color:var(--accent);
+      background:transparent; border:1px solid color-mix(in srgb,var(--accent) 55%,var(--border)); }
+    .sl-hero #followBtn:hover { background:color-mix(in srgb,var(--accent) 8%,var(--card)); }
+    .sl-hero #followBtn[aria-pressed="true"] { background:var(--sl-wash); }
+    .sl-follow-hint { grid-column:1 / -1; margin:0.15rem 0 0; font-size:0.78rem; color:var(--muted); }
+    .sl-command { margin:1.4rem 0 0; }
+    .sl-status { position:relative; padding:0.78rem 0.9rem 0.78rem 1.1rem; margin:0;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; }
+    .sl-status::before { content:""; position:absolute; left:0; top:0.75rem; bottom:0.75rem;
+      width:3px; background:var(--t-rising); }
+    .sl-status.tone-turn::before, .sl-status.tone-alert::before { background:var(--t-turn); }
+    .sl-status.tone-now::before { background:var(--t-now); }
+    .sl-status.tone-launch::before, .sl-status.tone-resolved::before { background:var(--t-launch); }
+    .sl-status-head { display:flex; align-items:center; gap:0.55rem; flex-wrap:wrap; margin:0; }
     .sl-dot { width:9px; height:9px; border-radius:50%; background:var(--t-now); flex:none; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot, .sl-status.tone-now .sl-dot { animation:slPulse 2.4s infinite; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot { background:var(--t-turn); }
     .sl-status.tone-launch .sl-dot, .sl-status.tone-resolved .sl-dot { background:var(--t-launch); }
     @keyframes slPulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--t-now) 55%,transparent);} 70%{box-shadow:0 0 0 5px transparent;} }
-    .sl-state { font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:.06em;
+    .sl-status-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-right:0.25rem; }
+    .sl-state { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.72rem; letter-spacing:.06em;
       text-transform:uppercase; font-weight:700; color:var(--t-now); }
     .sl-status.tone-turn .sl-state, .sl-status.tone-alert .sl-state { color:var(--t-turn); }
     .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
     .sl-status-meta { font-size:0.8rem; color:var(--muted); }
-    .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
-    .sl-latest { border-left:4px solid var(--accent); border-radius:10px; padding:0.9rem 1rem;
-      margin:0 0 1rem; background:color-mix(in srgb,var(--accent) 7%,var(--card)); }
-    .sl-latest .sl-watch-label { color:var(--accent); }
-    .sl-latest p:last-child { margin:0; font-size:1.02rem; line-height:1.55; }
-    .sl-builder-take { border:1px solid color-mix(in srgb,var(--accent) 38%,var(--border));
-      border-radius:10px; padding:0.85rem 1rem; margin:0 0 1.2rem; line-height:1.55; }
-    .sl-background { margin:0 0 1.4rem; border-bottom:1px solid var(--border); padding-bottom:1rem; }
-    .sl-background > summary { cursor:pointer; color:var(--accent); font-weight:600; min-height:44px;
-      display:flex; align-items:center; }
-    .sl-background p { margin:0.5rem 0 0; line-height:1.6; }
-    .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
-    .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
-      background:none; border:none; border-bottom:2px solid transparent; padding:0.65rem 0; min-height:44px; cursor:pointer; }
+    .sl-status-detail { margin:0.55rem 0 0; max-width:54rem; font-size:0.96rem; line-height:1.55; }
+    .sl-delta-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(16rem,.8fr);
+      gap:0; align-items:stretch; border-bottom:1px solid var(--border); }
+    .sl-latest { margin:0; padding:1.6rem 2.25rem 1.7rem 0;
+      border:0; background:transparent; }
+    .sl-latest-head { display:flex; align-items:center; gap:0.45rem; margin:0 0 0.45rem; }
+    .sl-latest-dot { width:7px; height:7px; border-radius:50%; flex:none; background:var(--accent); }
+    .sl-latest .sl-watch-label { color:var(--muted); margin:0; }
+    .sl-latest p:last-child { margin:0; max-width:44rem; font-size:1.14rem; line-height:1.62;
+      letter-spacing:-0.01em; }
+    .sl-builder-take { margin:0; padding:1.45rem 1.35rem 1.55rem;
+      border:0; border-left:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+      border-radius:0; background:var(--sl-wash); line-height:1.55; }
+    .sl-builder-label { margin:0 0 0.55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-builder-take p:last-child { margin:0; color:var(--sl-ink); font-size:0.91rem; line-height:1.6; }
+    .sl-background { margin:0 0 2rem; padding:0; border:0;
+      border-bottom:1px solid var(--border); border-radius:0; background:transparent; box-shadow:none; }
+    .sl-background > summary { cursor:pointer; min-height:50px; display:flex; align-items:center;
+      gap:0.75rem; margin:0; padding:0.9rem 0; border:0; border-radius:0;
+      color:var(--fg); background:transparent; box-shadow:none; list-style:none; }
+    .sl-background > summary::-webkit-details-marker { display:none; }
+    .sl-background > summary::marker { content:""; }
+    .sl-background > summary::after { content:""; display:block; width:7px; height:7px;
+      margin-left:auto; margin-right:0.2rem; border:0; border-right:1.5px solid var(--muted);
+      border-bottom:1.5px solid var(--muted); background:none; transform:rotate(45deg);
+      transition:transform .15s ease; }
+    .sl-background[open] > summary::after { transform:rotate(225deg); }
+    .sl-background > summary:hover, .sl-background > summary:focus,
+    .sl-background > summary:active { color:var(--fg); background:transparent; box-shadow:none; }
+    .sl-background-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .sl-background-title { font-size:0.9rem; font-weight:600; }
+    .sl-background-body { padding:0 0 1.2rem; max-width:46rem; }
+    .sl-background p { margin:0; color:color-mix(in srgb,var(--fg) 82%,var(--muted));
+      font-size:0.95rem; line-height:1.65; }
+    /* Oat styles ARIA tabs and details globally. Reset those presentation
+       defaults here so adding correct semantics cannot reshape the Arc UI. */
+    .sl-tabs[role="tablist"] { display:flex; align-items:center; gap:1.2rem;
+      border:0; border-bottom:1px solid var(--border); border-radius:0;
+      margin:0 0 1.65rem; padding:0; background:transparent; box-shadow:none; }
+    .sl-tab { font:inherit; font-size:0.86rem; font-weight:600; color:var(--muted);
+      display:inline-flex; align-items:center; gap:0; width:auto; background:none;
+      border:0; border-bottom:2px solid transparent; border-radius:0;
+      margin:0; padding:0.65rem 0; min-height:44px; cursor:pointer; box-shadow:none; }
     .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
-    .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
-    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
+    .sl-tab-note { margin-left:auto; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; letter-spacing:.04em; color:var(--muted); padding-bottom:0.6rem; }
+    [role="tabpanel"][data-sl-view] { padding:0; margin:0; border:0; background:transparent; }
+    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.66rem;
       letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 0.5rem; }
     .sl-rail { display:flex; gap:2px; height:11px; border-radius:6px; overflow:hidden; margin:0 0 0.4rem; }
     .sl-rail-seg { flex:1; min-width:8px; border-radius:3px; }
@@ -492,32 +548,40 @@ STORYLINE_ARC_CSS = """\
     .tone-launch-fg{color:var(--t-launch);} .tone-rising-fg{color:var(--t-rising);}
     .tone-turn-fg{color:var(--t-turn);} .tone-now-fg{color:var(--t-now);}
     .tone-resolved-fg{color:var(--t-resolved);} .tone-neutral-fg{color:var(--muted);}
-    .sl-track { display:flex; gap:2px; height:13px; border-radius:7px; overflow:hidden; margin:0 0 0.5rem; }
-    .sl-track-seg { border-radius:3px; }
-    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
-      font-size:0.72rem; margin:0 0 1.9rem; }
+    .sl-track { display:flex; gap:4px; height:8px; overflow:hidden; margin:0 0 0.65rem; }
+    .sl-track-seg { border-radius:1px; }
+    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.68rem; margin:0 0 2.4rem; }
     .sl-track-legend { display:grid; gap:0.35rem; margin:0 0 1.9rem; padding:0; list-style:none;
       font-family:ui-monospace,monospace; font-size:0.72rem; }
     .sl-track-legend li { display:flex; align-items:flex-start; gap:0.45rem; color:var(--muted); }
     .sl-track-key { width:9px; height:9px; border-radius:50%; flex:none; margin-top:0.22rem; }
-    .sl-spine { position:relative; padding-left:2rem; }
-    .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
-    .sl-beat { position:relative; margin:0 0 1.5rem; }
-    .sl-beat > summary { list-style:none; cursor:pointer; }
+    .sl-spine { position:relative; padding-left:2.3rem; }
+    .sl-spine::before { content:""; position:absolute; left:7px; top:7px; bottom:8px; width:1px;
+      background:linear-gradient(to bottom,var(--t-launch),var(--t-turn) 52%,var(--t-now)); opacity:.65; }
+    .sl-beat { position:relative; margin:0 0 1.75rem; padding:0; border:0;
+      border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary { display:block; list-style:none; cursor:pointer; margin:0;
+      padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary:hover, .sl-beat > summary:focus,
+    .sl-beat > summary:active { background:transparent; color:inherit; box-shadow:none; }
     .sl-beat > summary::-webkit-details-marker { display:none; }
-    .sl-node { position:absolute; left:-1.72rem; top:3px; width:14px; height:14px; border-radius:50%;
+    .sl-node { position:absolute; left:-2.04rem; top:3px; width:15px; height:15px; border-radius:2px;
       background:var(--bg); border:2px solid var(--t-neutral); }
     .sl-beat.tone-launch .sl-node{border-color:var(--t-launch);}
     .sl-beat.tone-rising .sl-node{border-color:var(--t-rising);}
     .sl-beat.tone-now .sl-node{border-color:var(--t-now);}
     .sl-beat.tone-resolved .sl-node{border-color:var(--t-resolved);}
-    .sl-beat.tone-turn .sl-node{ left:-1.85rem; top:1px; width:20px; height:20px; border-width:3px;
-      border-color:var(--t-turn); box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 14%,transparent); }
-    .sl-kicker { font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); margin:0 0 0.25rem; }
+    .sl-beat.tone-turn .sl-node{ left:-2.12rem; top:0; width:21px; height:21px; border-width:3px;
+      border-color:var(--t-turn); transform:rotate(45deg);
+      box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 12%,transparent); }
+    .sl-kicker { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.68rem;
+      letter-spacing:.035em; color:var(--muted); margin:0 0 0.25rem; }
     .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
     .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
-    .sl-beat-title { font-size:1.02rem; font-weight:600; line-height:1.35; }
-    .sl-beat.tone-turn .sl-beat-title { font-size:1.12rem; font-weight:700; }
+    .sl-beat-title { max-width:44rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.16rem; font-weight:650; letter-spacing:-0.015em; line-height:1.3; }
+    .sl-beat.tone-turn .sl-beat-title { font-size:1.28rem; font-weight:700; }
     .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
     .sl-ok { color:var(--t-launch); }
     .sl-show { font-size:0.8rem; color:var(--muted); margin-top:0.4rem; }
@@ -526,13 +590,17 @@ STORYLINE_ARC_CSS = """\
     .sl-card.sl-card-turn { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border));
       background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
     .sl-card h3 a { color:var(--accent); }
-    .sl-watch { border:1px solid var(--border); border-radius:12px; padding:0.95rem 1.1rem; margin:1.8rem 0 0; }
+    .sl-watch { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; padding:1.25rem 0 1.4rem; margin:2.4rem 0 0; }
     .sl-watch ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:0.5rem; }
     .sl-watch li { font-size:0.95rem; line-height:1.45; }
     .sl-watch li::marker { color:var(--t-now); }
     .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
-    .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agents { border:0; border-bottom:1px solid var(--border); border-radius:0;
+      padding:0.8rem 0; margin:1rem 0 0; }
     .sl-agents > summary { cursor:pointer; min-height:32px; display:flex; align-items:center; margin:0; }
+    .sl-agents > summary:hover, .sl-agents > summary:focus,
+    .sl-agents > summary:active { background:transparent; color:var(--muted); box-shadow:none; }
     .sl-agents[open] > summary { margin-bottom:0.7rem; }
     .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
     .sl-agent-row b { font-weight:600; }
@@ -544,18 +612,33 @@ STORYLINE_ARC_CSS = """\
     .sl-tab:focus-visible, .sl-hero #followBtn:focus-visible, .sl-background > summary:focus-visible,
     .sl-beat > summary:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);
       outline-offset:3px; border-radius:6px; }
+    .sl-background > summary:focus-visible { outline:0;
+      box-shadow:inset 2px 0 0 color-mix(in srgb,var(--accent) 55%,transparent); }
     @media (max-width:560px) {
-      .sl-hero { align-items:flex-start; }
-      .sl-hero .recap-title { font-size:1.75rem; width:100%; }
+      main { padding-left:1rem; padding-right:1rem; }
+      .sl-hero { grid-template-columns:1fr; align-items:flex-start; margin-top:1.6rem; }
+      .sl-hero .recap-title { font-size:3rem; width:100%; }
       .sl-hero #followBtn { width:100%; justify-content:center; }
+      .sl-follow-hint { grid-column:1; }
+      .sl-delta-grid { grid-template-columns:1fr; }
+      .sl-latest { padding:1.35rem 0 1.45rem; }
+      .sl-latest p:last-child { font-size:1.04rem; }
+      .sl-builder-take { border-left:0; border-top:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+        padding:1.1rem 1rem 1.2rem; }
       .sl-tabs { gap:1rem; flex-wrap:wrap; }
       .sl-tab-note { width:100%; order:3; margin:-0.65rem 0 0; padding-bottom:0.65rem; }
       .sl-track-ends { display:none; }
       .sl-track-legend { display:grid; }
-      .sl-spine { padding-left:1.65rem; }
+      .sl-spine { padding-left:1.85rem; }
+      .sl-node { left:-1.62rem; }
+      .sl-beat.tone-turn .sl-node { left:-1.7rem; }
     }
     @media (min-width:561px) {
       .sl-track-legend { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .sl-dot { animation:none !important; }
+      .sl-background > summary::after { transition:none; }
     }
 """
 
@@ -662,7 +745,7 @@ def safe_http_url(value) -> str:
     return s if s.startswith("http://") or s.startswith("https://") else "#"
 
 
-def render_intro(recap: dict) -> str:
+def render_intro(recap: dict, label: str = "In 30 seconds") -> str:
     paras = intro_paragraphs(recap.get("intro"))
     highlights = [squeeze(h) for h in recap.get("highlights") or [] if squeeze(h)]
     if not paras and not highlights:
@@ -671,7 +754,7 @@ def render_intro(recap: dict) -> str:
     if highlights:
         items = "".join(f"<li>{escape(h)}</li>" for h in highlights)
         tldr = (
-            '<div class="tldr"><p class="tldr-label">In 30 seconds</p>'
+            f'<div class="tldr"><p class="tldr-label">{escape(label)}</p>'
             f"<ul>{items}</ul></div>"
         )
     body = "".join(f"<p>{escape(p)}</p>" for p in paras)
@@ -912,7 +995,11 @@ def render_page(
         f' data-share-title="{escape(title)}">🔗 Share</button>'
     )
     heading = title_html or f'<h2 class="recap-title">{escape(recap_title)}</h2>'
-    range_line = f'<p class="recap-range">{escape(recap_range)}</p>' if recap_range else ""
+    range_line = (
+        f'<p class="recap-range">{escape(recap_range)}</p>'
+        if recap_range
+        else "<!-- range is included in the custom hero -->"
+    )
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -982,6 +1069,102 @@ def meta_line_for(recap: dict) -> str:
     return f"{total} articles · {len(cats)} categories"
 
 
+DAILY_RECAP_CSS = """\
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def daily_hero(recap: dict) -> str:
+    day = str(recap.get("date") or "")
+    cats = recap.get("categories") or []
+    total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
+    title = squeeze(recap.get("title")) or day
+    return (
+        '<section class="daily-hero"><div>'
+        '<p class="daily-kicker">The finishable daily brief</p>'
+        f'<h2 class="recap-title">{escape(title)}</h2></div><div>'
+        f'<p class="daily-date">{escape(fmt_long_date(day))}<br>'
+        f'{total} articles · {len(cats)} categories</p>'
+        '<p class="daily-route">read top to bottom · then stop</p></div></section>'
+    )
+
+
 def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
     recaps = load_recaps(DAILY_DIR, DATE_FILE_RE, "date")
     out_dir = WEB_DIR / "daily"
@@ -1006,9 +1189,11 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
-            recap_range=fmt_long_date(day),
+            recap_range="",
+            title_html=daily_hero(recap),
             intro_html=render_intro(recap),
             body_html=render_categories(recap, "daily-link", story_sids)
+            + '<p class="finish-line">You are caught up for this edition</p>'
             + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
@@ -1024,12 +1209,116 @@ def render_daily_pages(base_url: str, story_sids: set[str] | None = None) -> lis
                     [("Home", "/"), ("Daily recaps", "/daily"), (day, f"/daily/{day}")],
                 ),
             ],
+            extra_css=DAILY_RECAP_CSS,
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{day}.html").write_text(html, encoding="utf-8")
         ids.append(day)
     prune_orphans(out_dir, DATE_HTML_RE, {f"{i}.html" for i in ids})
     return ids
+
+
+WEEKLY_RECAP_CSS = """\
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --week-wash:#eaf0ff; --week-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --week-wash:#1c2a48; --week-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .weekly-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(15rem,.55fr);
+      gap:1.5rem 2.6rem; align-items:end; margin:2.35rem 0 1.7rem; }
+    .weekly-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .weekly-hero .recap-title { margin:0; max-width:49rem;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.75rem,7vw,4.75rem); font-weight:700; letter-spacing:-.047em; line-height:.92; }
+    .weekly-range { margin:0 0 .25rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.65; }
+    .weekly-mark { display:flex; justify-content:flex-end; gap:4px; height:7px; margin:.75rem 0 0; }
+    .weekly-mark span { width:2.7rem; background:var(--accent); }
+    .weekly-mark span:nth-child(2) { width:1.7rem; background:var(--signal); }
+    .weekly-mark span:nth-child(3) { width:.9rem; background:var(--warm); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.75fr) minmax(0,1.25fr);
+      gap:.7rem 2.4rem; padding:1.4rem 0 1.5rem; margin:0 0 1.6rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.64; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.62rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.87rem; line-height:1.48; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      transform:rotate(45deg); background:var(--warm); }
+    .toc { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0;
+      border-top:1px solid var(--border); border-left:1px solid var(--border); }
+    .toc a { min-width:0; padding:.8rem .75rem; border:0; border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.67rem; color:var(--muted); }
+    .toc a:hover { color:var(--accent); background:var(--week-wash); }
+    .cat { position:relative; margin-bottom:3.1rem; padding-left:1.4rem; }
+    .cat::before { content:""; position:absolute; left:0; top:.1rem; bottom:0; width:3px; background:var(--accent); }
+    .cat:nth-of-type(3n+1)::before { background:var(--signal); }
+    .cat:nth-of-type(3n+2)::before { background:var(--warm); }
+    .cat h2 { margin:0; padding:0 0 .8rem; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.85rem; line-height:1; }
+    .cat h2 .count { display:block; margin-top:.45rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; }
+    .cat-summary { margin:.85rem 0 .2rem; max-width:48rem; color:var(--fg); font-size:1rem; line-height:1.58; }
+    .articles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2rem; }
+    article { padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { margin:0 0 .45rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.08rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta { margin:0 0 .4rem; gap:.65rem; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; }
+    .art-summary { margin:0; font-size:.87rem; line-height:1.55; }
+    .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .weekly-close::before, .weekly-close::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--week-wash); color:var(--week-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .weekly-hero { grid-template-columns:1fr; gap:.85rem; margin-top:1.75rem; }
+      .weekly-hero .recap-title { font-size:3rem; }
+      .weekly-range { text-align:left; }
+      .weekly-mark { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc { grid-template-columns:1fr 1fr; }
+      .cat { padding-left:1rem; }
+      .articles { grid-template-columns:1fr; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def weekly_hero(recap: dict) -> str:
+    cats = recap.get("categories") or []
+    total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
+    week = str(recap.get("week") or "")
+    start = str(recap.get("start") or "")
+    end = str(recap.get("end") or "")
+    return (
+        '<section class="weekly-hero"><div>'
+        '<p class="weekly-kicker">Weekly pattern report</p>'
+        f'<h2 class="recap-title">{len(cats)} shifts that shaped AI this week</h2>'
+        '</div><div>'
+        f'<p class="weekly-range">{escape(start)} → {escape(end)}<br>'
+        f'{escape(week)} · {total} articles reviewed</p>'
+        '<div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>'
+        '</div></section>'
+    )
 
 
 def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> list[str]:
@@ -1059,9 +1348,11 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,
-            recap_range=f"{recap_range} · {week}" if recap_range else week,
-            intro_html=render_intro(recap),
+            recap_range="",
+            title_html=weekly_hero(recap),
+            intro_html=render_intro(recap, "The week in signals"),
             body_html=render_categories(recap, "weekly-link", story_sids)
+            + '<p class="weekly-close">The week, resolved into patterns</p>'
             + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief on weekdays.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
@@ -1077,6 +1368,7 @@ def render_weekly_pages(base_url: str, story_sids: set[str] | None = None) -> li
                     [("Home", "/"), ("Weekly recaps", "/weekly"), (week, f"/weekly/{week}")],
                 ),
             ],
+            extra_css=WEEKLY_RECAP_CSS,
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{week}.html").write_text(html, encoding="utf-8")
@@ -1188,13 +1480,14 @@ def render_story_body(
     rec: dict, stories: dict[str, dict], storyline_of: dict[str, tuple] | None = None
 ) -> str:
     parts = []
+    context_parts = []
     storyline_of = storyline_of or {}
     url = str(rec.get("url") or "")
     why = story_why(rec)
     if why:
-        parts.append(
-            '<div class="intro"><p class="tldr-label">Why it matters</p>'
-            f"<p>{escape(why)}</p></div>"
+        context_parts.append(
+            '<section class="story-context-item"><p class="tldr-label">Why it matters</p>'
+            f"<p>{escape(why)}</p></section>"
         )
 
     # Up-link to the storyline this story belongs to. The richest context for a
@@ -1203,17 +1496,19 @@ def render_story_body(
     member = storyline_of.get(str(rec.get("sid") or ""))
     if member:
         slug, label = member
-        parts.append(
-            '<div class="intro"><p class="tldr-label">Part of a storyline</p>'
+        context_parts.append(
+            '<section class="story-context-item story-thread"><p class="tldr-label">Continues in</p>'
             f'<p><a class="primary" href="/storyline/{escape(slug)}">'
-            f"{escape(label)} — see the full timeline →</a></p></div>"
+            f"{escape(label)} — open the evidence trace →</a></p></section>"
         )
 
     img = str(rec.get("image_url") or "")
+    image_path = urlsplit(img).path.casefold() if img else ""
+    is_source_logo = "/logo/" in image_path or Path(image_path).stem.startswith("logo")
     img_html = (
         f'<img class="story-img" src="{escape(img)}" alt="" loading="lazy" '
         'onerror="this.remove()" />'
-        if img.startswith(("http://", "https://"))
+        if img.startswith(("http://", "https://")) and not is_source_logo
         else ""
     )
     highlights = [squeeze(h) for h in rec.get("release_highlights") or [] if squeeze(h)]
@@ -1227,6 +1522,9 @@ def render_story_body(
         )
     elif img_html:
         parts.append(f'<div class="story-lead">{img_html}</div>')
+
+    if context_parts:
+        parts.append(f'<div class="story-context-grid">{"".join(context_parts)}</div>')
 
     # Framing line for a story with no real body content and no storyline
     # context box above — guarantees the page explains itself and points out to
@@ -1250,7 +1548,10 @@ def render_story_body(
     topics = [squeeze(t) for t in rec.get("matched_topics") or [] if squeeze(t)]
     if topics:
         chips = "".join(f'<span class="badge">{escape(t)}</span>' for t in topics)
-        parts.append(f'<div class="chips">{chips}</div>')
+        parts.append(
+            '<div class="story-topics"><span class="tldr-label">Feed lens</span>'
+            f'<div class="chips">{chips}</div></div>'
+        )
 
     feed_link = f"/?item={quote(url, safe='')}&utm_source=story"
     actions = [
@@ -1260,8 +1561,11 @@ def render_story_body(
     ]
     day = story_dt(rec).date().isoformat()
     if (DAILY_DIR / f"{day}.json").is_file():
-        actions.append(f'<a href="/daily/{day}">Daily recap for {escape(day)}</a>')
-    parts.append(f'<div class="story-actions">{"".join(actions)}</div>')
+        actions.append(f'<a href="/daily/{day}">Read that day’s brief</a>')
+    parts.append(
+        '<div class="story-source-gate"><p class="tldr-label">Continue reading</p>'
+        f'<div class="story-actions">{"".join(actions)}</div></div>'
+    )
 
     covered = [c for c in rec.get("also_covered") or [] if isinstance(c, dict)]
     if covered:
@@ -1295,11 +1599,110 @@ def render_story_body(
                 f'<div class="art-meta">{"".join(meta)}</div></article>'
             )
         parts.append(
-            '<section class="cat"><h2>Related stories '
+            '<section class="cat story-related"><h2>Earlier in this thread '
             f'<span class="count">{len(cards)} item{"" if len(cards) == 1 else "s"}</span></h2>'
             f'<div class="articles">{"".join(cards)}</div></section>'
         )
     return "".join(parts)
+
+
+STORY_PAGE_CSS = """\
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --story-wash:#eaf0ff; --story-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --story-wash:#1c2a48; --story-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .story-hero { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem 2rem;
+      align-items:end; margin:2.35rem 0 1.7rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
+    .story-hero-copy { min-width:0; }
+    .story-kicker { margin:0 0 .4rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .story-hero .recap-title { margin:0; max-width:49rem;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.45rem,6.4vw,4.25rem); font-weight:700; letter-spacing:-.043em; line-height:.96; }
+    .story-hero .recap-title a { color:var(--fg); }
+    .story-hero .recap-title a:hover { color:var(--accent); text-decoration:none; }
+    .story-origin { align-self:end; max-width:15rem; margin:0; text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; line-height:1.6; color:var(--muted); }
+    .story-origin strong { display:block; color:var(--fg); font-size:.72rem; }
+    .story-lead { display:grid; grid-template-columns:minmax(0,1fr) 220px; gap:1.5rem;
+      align-items:center; margin:0; padding:1.55rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; }
+    .story-summary { max-width:43rem; font-size:1.16rem; line-height:1.62; letter-spacing:-.01em; }
+    .story-img { width:220px; height:145px; border:0; border-radius:2px;
+      object-fit:contain; background:var(--card); }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.65rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .story-context-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:0; border-bottom:1px solid var(--border); }
+    .story-context-item { padding:1.15rem 1.25rem 1.25rem 0; }
+    .story-context-item:only-child { grid-column:1 / -1; }
+    .story-context-item + .story-context-item { padding-left:1.25rem; border-left:1px solid var(--border); }
+    .story-context-item p { margin:.4rem 0 0; font-size:.92rem; line-height:1.58; }
+    .story-thread { background:var(--story-wash); color:var(--story-ink); padding-right:1.25rem; }
+    .story-thread a { font-weight:650; text-decoration:none; }
+    .story-topics { display:flex; align-items:center; gap:1rem; padding:.85rem 0;
+      border-bottom:1px solid var(--border); }
+    .story-topics .tldr-label { color:var(--muted); flex:none; }
+    .chips { margin:0; gap:.75rem; }
+    .chips .badge { padding:0; border:0; border-radius:0; background:transparent;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.65rem; color:var(--muted); }
+    .story-source-gate { margin:1.5rem 0 2.3rem; padding:1rem 0 0; }
+    .story-actions { display:flex; flex-wrap:wrap; gap:.55rem; margin:.65rem 0 0; }
+    .story-actions a, .story-actions button { min-height:44px; padding:.5rem .85rem;
+      border:1px solid var(--border); border-radius:3px; background:transparent; font-size:.84rem; }
+    .story-actions a.primary { border-color:var(--accent); background:var(--story-wash);
+      color:var(--accent); font-weight:700; }
+    .covered { padding:1rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .story-related { margin-top:2.5rem; }
+    .story-related h2 { padding-bottom:.75rem; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.45rem; }
+    .story-related .articles { gap:0; }
+    .story-related article { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center;
+      gap:1rem; padding:.9rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    .story-related article h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.05rem; }
+    .story-related .art-meta { margin:0; }
+    .story-related .badge { padding:0; border:0; border-radius:0; background:transparent;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; color:var(--muted); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .story-hero { grid-template-columns:1fr; margin-top:1.75rem; }
+      .story-hero .recap-title { font-size:2.85rem; }
+      .story-origin { text-align:left; max-width:none; }
+      .story-lead { grid-template-columns:1fr; gap:1rem; }
+      .story-img { width:100%; height:auto; max-height:220px; }
+      .story-context-grid { grid-template-columns:1fr; }
+      .story-context-item, .story-context-item + .story-context-item { padding:1rem 0;
+        border-left:0; border-top:1px solid var(--border); }
+      .story-thread { margin:0 -1rem; padding-left:1rem !important; padding-right:1rem !important; }
+      .story-topics { align-items:flex-start; }
+      .story-related article { grid-template-columns:1fr; gap:.35rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def story_hero(rec: dict) -> str:
+    url = str(rec.get("url") or "")
+    title = squeeze(rec.get("title")) or "Untitled"
+    source = source_label(rec, url)
+    return (
+        '<section class="story-hero"><div class="story-hero-copy">'
+        '<p class="story-kicker">Source brief</p>'
+        f'<h2 class="recap-title story-title"><a href="{escape(safe_http_url(url))}" '
+        f'target="_blank" rel="noopener">{escape(title)}</a></h2></div>'
+        f'<p class="story-origin"><strong>{escape(source)}</strong>'
+        f'{escape(fmt_story_date(story_dt(rec)))}<br>original source linked</p></section>'
+    )
 
 
 def render_story_pages(
@@ -1403,10 +1806,8 @@ def render_story_pages(
                 ),
                 breadcrumb_node(base_url, crumbs),
             ],
-            title_html=(
-                f'<h2 class="recap-title story-title"><a href="{escape(safe_http_url(url))}" '
-                f'target="_blank" rel="noopener">{escape(title)}</a></h2>'
-            ),
+            title_html=story_hero(rec),
+            extra_css=STORY_PAGE_CSS,
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{sid}.html").write_text(html, encoding="utf-8")
@@ -1570,7 +1971,7 @@ def _sl_access_track(status: dict) -> str:
         for seg in track
     )
     return (
-        '<p class="sl-rail-label">Access over time</p>'
+        '<p class="sl-rail-label">State over time</p>'
         f'<div class="sl-track">{"".join(segs)}</div>'
         f'<div class="sl-track-ends">{ends}</div>'
         f'<ul class="sl-track-legend">{"".join(legend)}</ul>'
@@ -1588,12 +1989,45 @@ def _sl_beat_sources(items: list[dict]) -> int:
     return len(srcs)
 
 
+def _sl_item_time(item: dict) -> datetime:
+    """Sortable publication time for Arc fallback placement."""
+    published = iso_or_none(item.get("published"))
+    return datetime.fromisoformat(published) if published else datetime.max.replace(tzinfo=timezone.utc)
+
+
+def _sl_insert_uncovered(
+    rendered: list[tuple[dict, list[dict]]], leftover: list[dict]
+) -> list[tuple[dict, list[dict]]]:
+    """Insert unassigned source items at their chronological position.
+
+    Editorial beats should cover every displayed item, but the renderer remains
+    lossless when a freshly reclustered item arrives before the editor refreshes
+    the sidecar. It must not append an early article after the "Now" beat.
+    """
+    out = list(rendered)
+    for item in sorted(leftover, key=_sl_item_time):
+        item_time = _sl_item_time(item)
+        insert_at = len(out)
+        for i, (_, items) in enumerate(out):
+            if items and item_time < min(_sl_item_time(it) for it in items):
+                insert_at = i
+                break
+        fallback = {
+            "kicker": "Context",
+            "tone": "neutral",
+            "headline": squeeze(item.get("title")) or "Additional context",
+        }
+        out.insert(insert_at, (fallback, [item]))
+    return out
+
+
 def _sl_arc_view(
     sl: dict, beats: list[dict], story_sids: set[str], prov: dict, status: dict
 ) -> str:
     """The narrative arc: an access track + a spine of editor-defined beats, each
     grouping the source items that moved the story. Items not placed in any beat
-    are swept into a trailing 'More in this thread' beat so nothing is dropped."""
+    are inserted as neutral context at their chronological position so nothing
+    is dropped or shown after a later "Now" beat."""
     by_sid: dict[str, dict] = {}
     for day in sl.get("days") or []:
         for it in day.get("items") or []:
@@ -1610,9 +2044,7 @@ def _sl_arc_view(
         rendered.append((beat, items))
     leftover = [it for sid, it in by_sid.items() if sid not in placed]
     if leftover:
-        rendered.append(
-            ({"kicker": "More", "tone": "neutral", "headline": "More in this thread"}, leftover)
-        )
+        rendered = _sl_insert_uncovered(rendered, leftover)
     if not rendered:
         return ""
 
@@ -1726,7 +2158,8 @@ def _sl_status_banner(status: dict, *, show_detail: bool = True) -> str:
     )
     return (
         f'<div class="sl-status tone-{tone}">'
-        f'<div class="sl-status-head"><span class="sl-dot"></span>{state_html}{meta}</div>'
+        f'<div class="sl-status-head"><span class="sl-dot"></span>'
+        f'<span class="sl-status-label">Current state</span>{state_html}{meta}</div>'
         f"{detail_html}</div>"
     )
 
@@ -1788,7 +2221,7 @@ def _sl_agents_strip(agents: list[tuple[str, str, str]]) -> str:
 SL_FOOTER_NOTE = (
     "Storylines are threaded mechanically from the feed: stories that share a "
     "distinctive anchor across multiple days and sources. Each item links to "
-    "its original source. The arc, status, and open questions are written by "
+    "its original source. The evidence trace, current state, and open questions are written by "
     "the editor routine and refreshed whenever a new beat lands."
 )
 
@@ -1802,7 +2235,10 @@ def storyline_hero(sl: dict) -> str:
     last_updated = str(sl.get("last_updated") or "")
     return (
         '<div class="sl-hero">'
+        '<div class="sl-hero-copy">'
+        '<p class="sl-hero-kicker">Operational story trace</p>'
         f'<h2 class="recap-title">{escape(label)}</h2>'
+        '</div>'
         '<button id="followBtn" type="button" class="primary" '
         f'data-slug="{escape(slug)}" data-last-updated="{escape(last_updated)}" '
         'aria-pressed="false" aria-describedby="followHint">+ Follow this story</button>'
@@ -1816,22 +2252,39 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     parts = []
     ed = sl.get("editorial") or {}
     whats_new = squeeze(ed.get("whats_new"))
-    parts.append(_sl_status_banner(ed.get("status"), show_detail=not bool(whats_new)))
+    status_html = _sl_status_banner(ed.get("status"), show_detail=not bool(whats_new))
+    brief_parts = []
     if whats_new:
-        parts.append(
-            '<div class="sl-latest"><p class="sl-watch-label">Latest change</p>'
-            f"<p>{escape(whats_new)}</p></div>"
+        brief_parts.append(
+            '<section class="sl-latest" aria-labelledby="latestChangeLabel">'
+            '<div class="sl-latest-head"><span class="sl-latest-dot"></span>'
+            '<p id="latestChangeLabel" class="sl-watch-label">Latest change</p></div>'
+            f"<p>{escape(whats_new)}</p></section>"
         )
 
     take = squeeze(ed.get("take_for_builders")) or squeeze(ed.get("why_it_matters"))
     if take:
-        parts.append(f'<div class="sl-builder-take">💡 <b>For builders:</b> {escape(take)}</div>')
+        brief_parts.append(
+            '<aside class="sl-builder-take">'
+            '<p class="sl-builder-label">Builder action</p>'
+            f'<p>{escape(take)}</p></aside>'
+        )
+    if status_html or brief_parts:
+        brief = (
+            f'<div class="sl-delta-grid">{"".join(brief_parts)}</div>'
+            if brief_parts
+            else ""
+        )
+        parts.append(f'<section class="sl-command">{status_html}{brief}</section>')
 
     tldr = squeeze(ed.get("tldr"))
     if tldr:
         parts.append(
-            '<details class="sl-background"><summary>Background — the story so far</summary>'
-            f"<p>{escape(tldr)}</p></details>"
+            '<details class="sl-background"><summary>'
+            '<span class="sl-background-label">Earlier context</span>'
+            '<span class="sl-background-title">The story so far</span>'
+            '</summary><div class="sl-background-body">'
+            f"<p>{escape(tldr)}</p></div></details>"
         )
 
     status = ed.get("status") if isinstance(ed.get("status"), dict) else {}
@@ -1842,13 +2295,13 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     timeline_html = _sl_timeline_view(sl, story_sids)
 
     if arc_html:
-        note = "source-backed editorial arc"
+        note = "editor-curated · source-linked"
         parts.append(
             '<div class="sl-tabs" role="tablist" aria-label="Storyline views">'
             '<button id="arcTab" class="sl-tab is-active" type="button" role="tab" '
-            'aria-controls="arcView" aria-selected="true" data-view="arc">The Arc</button>'
+            'aria-controls="arcView" aria-selected="true" data-view="arc">Evidence trace</button>'
             '<button id="timelineTab" class="sl-tab" type="button" role="tab" '
-            'aria-controls="timelineView" aria-selected="false" data-view="timeline">Timeline</button>'
+            'aria-controls="timelineView" aria-selected="false" data-view="timeline">Source timeline</button>'
             f'<span class="sl-tab-note">{escape(note)}</span></div>'
         )
         parts.append(f'<div id="arcView" role="tabpanel" aria-labelledby="arcTab" data-sl-view="arc">{arc_html}</div>')

@@ -31,59 +31,111 @@
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --week-wash:#eaf0ff; --week-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c; --turn:#c4483f;
     }
     html[data-theme="dark"] {
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --week-wash:#1c2a48; --week-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e; --turn:#ef756d;
     }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
-    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
     header { margin-bottom: 1rem; }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
     .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
     menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
     .muted { color: var(--muted); }
-    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
-    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
-    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
-      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
-    .intro p { margin: 0 0 0.75rem; }
+    .weekly-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(15rem,.55fr);
+      gap:1.5rem 2.6rem; align-items:end; margin:2.35rem 0 1.7rem; }
+    .weekly-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .recap-title { margin:0; max-width:49rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.75rem,7vw,4.75rem); font-weight:700; letter-spacing:-.047em; line-height:.92; }
+    .recap-range { color:var(--muted); margin:0 0 .25rem; text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.65; }
+    .weekly-mark { display:flex; justify-content:flex-end; gap:4px; height:7px; margin:.75rem 0 0; }
+    .weekly-mark span { width:2.7rem; background:var(--accent); }
+    .weekly-mark span:nth-child(2) { width:1.7rem; background:var(--signal); }
+    .weekly-mark span:nth-child(3) { width:.9rem; background:var(--warm); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.75fr) minmax(0,1.25fr);
+      gap:1.5rem 2.4rem; padding:1.4rem 0 1.5rem; margin:0 0 1.6rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro p { margin:0 0 .8rem; line-height:1.64; }
     .intro p:last-child { margin-bottom: 0; }
-    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
-    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
-      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
-    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
-    .tldr li { font-size: 0.95rem; line-height: 1.45; }
-    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
-    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
-      border-radius: 999px; text-decoration: none; }
-    .toc a:hover { border-color: var(--accent); }
-    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
-    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
-    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
-    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
-    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
-    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
-    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    .intro-copy { min-width:0; }
+    .tldr { margin:0; padding:0 1rem 0 0; border:0; }
+    .tldr-label { margin:0 0 .65rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      text-transform:uppercase; letter-spacing:.11em; font-size:.66rem; font-weight:700; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.62rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.87rem; line-height:1.48; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      transform:rotate(45deg); background:var(--warm); }
+    .toc { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0 0 2.5rem;
+      border-top:1px solid var(--border); border-left:1px solid var(--border); }
+    .toc a { min-width:0; padding:.8rem .75rem; border:0; border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border); border-radius:0; text-decoration:none;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.67rem; color:var(--muted); }
+    .toc a:hover { color:var(--accent); background:var(--week-wash); }
+    .cat { position:relative; margin:0 0 3.1rem; padding-left:1.4rem; scroll-margin-top:1rem; }
+    .cat::before { content:""; position:absolute; left:0; top:.1rem; bottom:0; width:3px; background:var(--accent); }
+    .cat:nth-of-type(3n+1)::before { background:var(--signal); }
+    .cat:nth-of-type(3n+2)::before { background:var(--warm); }
+    .cat-head { display:grid; grid-template-columns:minmax(14rem,.72fr) minmax(0,1.28fr);
+      gap:1rem 2.2rem; align-items:start; padding:0 0 1rem; border-bottom:1px solid var(--border); }
+    .cat h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.85rem; line-height:1; letter-spacing:-.02em; }
+    .cat h2 .count { display:block; margin-top:.45rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; color:var(--muted); font-weight:400; }
+    .cat-summary { margin:0; color:var(--fg); font-size:1rem; line-height:1.58; }
+    .articles { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 2rem; }
+    article { padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { margin:0 0 .45rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.08rem; line-height:1.25; }
     article h3 a { text-decoration: none; }
-    article h3 a:hover { text-decoration: underline; }
-    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
-    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
-      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
-      border-radius: 999px; color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
-    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta { display:flex; flex-wrap:wrap; gap:.65rem; align-items:center; margin:0 0 .4rem; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; }
+    .badge + .badge::before { content:"·"; margin-right:.65rem; color:var(--border); }
+    .art-summary { margin:0; font-size:.87rem; line-height:1.55; }
+    .weekly-close { display:flex; align-items:center; gap:.8rem; margin:3rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .weekly-close::before, .weekly-close::after { content:""; height:1px; flex:1; background:var(--border); }
     .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
     .archive { margin-left: auto; }
-    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+    .subscribe-cta { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
+      gap:.75rem; margin:1.5rem 0 0; padding:1rem 1.1rem; border:0; border-left:2px solid var(--accent);
+      border-radius:0; background:var(--week-wash); color:var(--week-ink); }
     .subscribe-cta p { margin: 0; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .weekly-hero { grid-template-columns:1fr; gap:.85rem; margin-top:1.75rem; }
+      .recap-title { font-size:3rem; }
+      .recap-range { text-align:left; }
+      .weekly-mark { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.2rem; }
+      .tldr { padding-right:0; }
+      .toc { grid-template-columns:1fr 1fr; }
+      .cat { padding-left:1rem; }
+      .cat-head { grid-template-columns:1fr; gap:.75rem; }
+      .articles { grid-template-columns:1fr; }
+      .archive { width:100%; margin-left:0; }
+      .archive select { width:100%; max-width:100%; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -174,12 +226,12 @@
       if (!paras.length && !highlights.length) return '';
       const tldr = highlights.length
         ? `<div class="tldr">
-             <p class="tldr-label">In 30 seconds</p>
+             <p class="tldr-label">The week in signals</p>
              <ul>${highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
            </div>`
         : '';
       const body = paras.map((p) => `<p>${esc(p)}</p>`).join('');
-      return `<div class="intro">${tldr}${body}</div>`;
+      return `<div class="intro">${tldr}<div class="intro-copy">${body}</div></div>`;
     }
 
     function renderRecap(recap) {
@@ -211,26 +263,41 @@
         }).join('');
         return `
           <section class="cat" id="${esc(c.slug || c.name)}">
-            <h2>${esc(c.name)} <span class="count">${c.articles?.length || 0} item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
-            ${c.summary ? `<p class="cat-summary">${esc(c.summary)}</p>` : ''}
+            <div class="cat-head">
+              <h2>${esc(c.name)} <span class="count">${c.articles?.length || 0} supporting item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
+              ${c.summary ? `<p class="cat-summary">${esc(c.summary)}</p>` : '<span></span>'}
+            </div>
             <div class="articles">${arts}</div>
           </section>`;
       }).join('');
 
       document.getElementById('recap').innerHTML = `
-        <h2 class="recap-title">${esc(recap.title || recap.week)}</h2>
-        <p class="recap-range">${esc(recap.start || '')} – ${esc(recap.end || '')} · ${esc(recap.week || '')}</p>
+        <section class="weekly-hero">
+          <div>
+            <p class="weekly-kicker">Weekly pattern report</p>
+            <h2 class="recap-title">${cats.length} shifts that shaped AI this week</h2>
+          </div>
+          <div>
+            <p class="recap-range">${esc(recap.start || '')} → ${esc(recap.end || '')}<br>${esc(recap.week || '')} · ${recap.article_count ?? totalArticles} articles reviewed</p>
+            <div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+          </div>
+        </section>
         ${renderIntro(recap)}
         ${toc}
-        ${sections || '<div class="state">No categories in this recap yet.</div>'}`;
+        ${sections || '<div class="state">No categories in this recap yet.</div>'}
+        ${sections ? '<p class="weekly-close">The week, resolved into patterns</p>' : ''}`;
     }
 
     async function loadArchive(currentWeek) {
       const sel = document.getElementById('archive');
       try {
-        const res = await fetch('/api/weekly?list=1');
+        let res = await fetch('/api/weekly?list=1');
+        if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+          res = await fetch('/data/weekly/index.json', { cache: 'no-store' });
+        }
         if (!res.ok) throw new Error('list_http_' + res.status);
-        const { weeks = [] } = await res.json();
+        const payload = await res.json();
+        const weeks = Array.isArray(payload) ? payload : (payload.weeks || []);
         if (!weeks.length) { sel.innerHTML = '<option>—</option>'; return; }
         sel.innerHTML = weeks.map((w) =>
           `<option value="${esc(w.week)}" ${w.week === currentWeek ? 'selected' : ''}>${esc(w.week)} · ${esc(w.title || '')}</option>`).join('');
@@ -246,7 +313,13 @@
       const week = weekFromLocation();
       const url = week ? `/api/weekly?week=${encodeURIComponent(week)}` : '/api/weekly';
       try {
-        const res = await fetch(url);
+        let res = await fetch(url);
+        if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+          res = await fetch(
+            week ? `/data/weekly/${encodeURIComponent(week)}.json` : '/data/weekly/latest.json',
+            { cache: 'no-store' }
+          );
+        }
         if (res.status === 404) {
           document.getElementById('meta').textContent = 'No recap yet';
           document.getElementById('recap').innerHTML =

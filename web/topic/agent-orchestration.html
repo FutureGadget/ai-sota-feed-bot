@@ -138,7 +138,7 @@
 
     <section id="recap">
       <h2 class="recap-title">Orchestration patterns: topologies, handoffs, and harnesses</h2>
-      
+      <!-- range is included in the custom hero -->
       
       <div class="cat"><h2>TL;DR</h2><p>Orchestration is the control plane of a multi-agent system: how the work is decomposed, which agent does what, how they hand off, and who — if anyone — is in charge. The pattern you pick (central orchestrator vs. decentralized, a fixed graph vs. one generated per task) sets the cost, latency, and reliability ceiling of the whole system.</p></div>
 <div class="cat"><h2>State of the art</h2><p>Two axes are in play. <strong>Topology</strong>: the orchestrator-worker (star) pattern is the simplest to reason about but makes the coordinator a throughput bottleneck and a single point of failure — Stanford&#x27;s DeLM reports cutting task cost ~50% by removing the central orchestrator, and DPBench finds the communication structure is the dominant determinant of whether coordination helps at all. <strong>Dynamism</strong>: orchestration is moving from hand-wired graphs toward *generated* control flow — Anthropic&#x27;s Claude Code Dynamic Workflows generate a custom execution harness per task to coordinate sub-agents rather than committing to one static shape. Across both axes the durable lesson is that the value lives in the <strong>interface contracts</strong> between agents — structured handoffs, compact wire formats, explicit roles — not in the number of agents you spin up.</p></div>

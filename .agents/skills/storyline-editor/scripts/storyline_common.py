@@ -138,12 +138,18 @@ def _is_str(v: Any) -> bool:
     return isinstance(v, str)
 
 
-def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list[str]:
+def validate_narrative(
+    data: Any,
+    *,
+    valid_sids: set[str] | None = None,
+    required_beat_sids: set[str] | None = None,
+) -> list[str]:
     """Return human-readable validation errors (empty == valid).
 
-    ``valid_sids`` (the current member set, when known) turns unknown caption
-    keys into errors so a narrative can't reference items that aren't in the
-    thread; pass ``None`` to skip that cross-check.
+    ``valid_sids`` (the current member set, when known) turns unknown references
+    into errors. ``required_beat_sids`` is the set of representative items
+    actually displayed in the timeline; when beats exist, every one must appear
+    in exactly one beat.
     """
     errors: list[str] = []
     if not isinstance(data, dict):
@@ -233,6 +239,7 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
         else:
             if len(beats) > MAX_BEATS:
                 errors.append(f"too many beats ({len(beats)} > {MAX_BEATS})")
+            assigned: list[str] = []
             for i, b in enumerate(beats):
                 if not isinstance(b, dict):
                     errors.append(f"beats[{i}] must be an object")
@@ -257,6 +264,20 @@ def validate_narrative(data: Any, *, valid_sids: set[str] | None = None) -> list
                     for s in sids:
                         if s not in valid_sids:
                             errors.append(f"beats[{i}] references unknown sid {s!r}")
+                if isinstance(sids, list):
+                    assigned.extend(s for s in sids if _is_str(s))
+            if required_beat_sids is not None and beats:
+                assigned_set = set(assigned)
+                missing = sorted(required_beat_sids - assigned_set)
+                duplicates = sorted({sid for sid in assigned if assigned.count(sid) > 1})
+                if missing:
+                    errors.append(
+                        "beats leave displayed timeline sids unassigned: " + ", ".join(missing)
+                    )
+                if duplicates:
+                    errors.append(
+                        "beats assign the same sid more than once: " + ", ".join(duplicates)
+                    )
 
     oq = data.get("open_questions")
     if oq is not None:

@@ -117,42 +117,109 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    /* Pin the storyline page to the prototype's true GitHub-dark palette (dark
-       theme only); light theme keeps the site defaults. Scoped to this page
-       because extra_css is injected per-page. */
-    html[data-theme="dark"] { --bg:#0d1117; --card:#0f141b; --border:#21262d;
-      --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
-    .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
-    .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
-    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:0;
-      padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
-      border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
-    .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
-    :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
-      --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
-    .sl-status { border:1px solid var(--border); border-radius:12px;
-      padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
-    .sl-status.tone-turn, .sl-status.tone-alert { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border)); background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
-    .sl-status.tone-now { border-color:color-mix(in srgb,var(--t-now) 45%,var(--border)); background:color-mix(in srgb,var(--t-now) 9%,var(--card)); }
-    .sl-status.tone-launch, .sl-status.tone-resolved { border-color:color-mix(in srgb,var(--t-launch) 40%,var(--border)); background:color-mix(in srgb,var(--t-launch) 7%,var(--card)); }
-    .sl-status-head { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem; }
+    /* Storyline pages borrow from an operations trace: cool instrument paper,
+       condensed display type, and one continuous state/evidence signal. */
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --sl-wash:#eaf0ff; --sl-ink:#18243b;
+      --t-launch:#23875b; --t-rising:#718096; --t-turn:#c4483f;
+      --t-now:#b6780c; --t-resolved:#2457d6; --t-neutral:#a8b1bf;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --sl-wash:#1c2a48; --sl-ink:#e8eefb;
+      --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
+      --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .sl-hero { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end;
+      gap:1.25rem 2rem; margin:2.2rem 0 0.55rem; }
+    .sl-hero-copy { min-width:0; }
+    .sl-hero-kicker { margin:0 0 0.25rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-hero .recap-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.6rem,7vw,4.6rem); font-weight:700; letter-spacing:-0.045em; line-height:.92; }
+    .sl-hero #followBtn { font-family:inherit; font-size:0.84rem; font-weight:600; min-height:44px;
+      padding:0.55rem 0.9rem; border-radius:3px; cursor:pointer; color:var(--accent);
+      background:transparent; border:1px solid color-mix(in srgb,var(--accent) 55%,var(--border)); }
+    .sl-hero #followBtn:hover { background:color-mix(in srgb,var(--accent) 8%,var(--card)); }
+    .sl-hero #followBtn[aria-pressed="true"] { background:var(--sl-wash); }
+    .sl-follow-hint { grid-column:1 / -1; margin:0.15rem 0 0; font-size:0.78rem; color:var(--muted); }
+    .sl-command { margin:1.4rem 0 0; }
+    .sl-status { position:relative; padding:0.78rem 0.9rem 0.78rem 1.1rem; margin:0;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; }
+    .sl-status::before { content:""; position:absolute; left:0; top:0.75rem; bottom:0.75rem;
+      width:3px; background:var(--t-rising); }
+    .sl-status.tone-turn::before, .sl-status.tone-alert::before { background:var(--t-turn); }
+    .sl-status.tone-now::before { background:var(--t-now); }
+    .sl-status.tone-launch::before, .sl-status.tone-resolved::before { background:var(--t-launch); }
+    .sl-status-head { display:flex; align-items:center; gap:0.55rem; flex-wrap:wrap; margin:0; }
     .sl-dot { width:9px; height:9px; border-radius:50%; background:var(--t-now); flex:none; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot, .sl-status.tone-now .sl-dot { animation:slPulse 2.4s infinite; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot { background:var(--t-turn); }
     .sl-status.tone-launch .sl-dot, .sl-status.tone-resolved .sl-dot { background:var(--t-launch); }
     @keyframes slPulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--t-now) 55%,transparent);} 70%{box-shadow:0 0 0 5px transparent;} }
-    .sl-state { font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:.06em;
+    .sl-status-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-right:0.25rem; }
+    .sl-state { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.72rem; letter-spacing:.06em;
       text-transform:uppercase; font-weight:700; color:var(--t-now); }
     .sl-status.tone-turn .sl-state, .sl-status.tone-alert .sl-state { color:var(--t-turn); }
     .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
     .sl-status-meta { font-size:0.8rem; color:var(--muted); }
-    .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
-    .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
-    .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
-      background:none; border:none; border-bottom:2px solid transparent; padding:0 0 0.6rem; cursor:pointer; }
+    .sl-status-detail { margin:0.55rem 0 0; max-width:54rem; font-size:0.96rem; line-height:1.55; }
+    .sl-delta-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(16rem,.8fr);
+      gap:0; align-items:stretch; border-bottom:1px solid var(--border); }
+    .sl-latest { margin:0; padding:1.6rem 2.25rem 1.7rem 0;
+      border:0; background:transparent; }
+    .sl-latest-head { display:flex; align-items:center; gap:0.45rem; margin:0 0 0.45rem; }
+    .sl-latest-dot { width:7px; height:7px; border-radius:50%; flex:none; background:var(--accent); }
+    .sl-latest .sl-watch-label { color:var(--muted); margin:0; }
+    .sl-latest p:last-child { margin:0; max-width:44rem; font-size:1.14rem; line-height:1.62;
+      letter-spacing:-0.01em; }
+    .sl-builder-take { margin:0; padding:1.45rem 1.35rem 1.55rem;
+      border:0; border-left:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+      border-radius:0; background:var(--sl-wash); line-height:1.55; }
+    .sl-builder-label { margin:0 0 0.55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-builder-take p:last-child { margin:0; color:var(--sl-ink); font-size:0.91rem; line-height:1.6; }
+    .sl-background { margin:0 0 2rem; padding:0; border:0;
+      border-bottom:1px solid var(--border); border-radius:0; background:transparent; box-shadow:none; }
+    .sl-background > summary { cursor:pointer; min-height:50px; display:flex; align-items:center;
+      gap:0.75rem; margin:0; padding:0.9rem 0; border:0; border-radius:0;
+      color:var(--fg); background:transparent; box-shadow:none; list-style:none; }
+    .sl-background > summary::-webkit-details-marker { display:none; }
+    .sl-background > summary::marker { content:""; }
+    .sl-background > summary::after { content:""; display:block; width:7px; height:7px;
+      margin-left:auto; margin-right:0.2rem; border:0; border-right:1.5px solid var(--muted);
+      border-bottom:1.5px solid var(--muted); background:none; transform:rotate(45deg);
+      transition:transform .15s ease; }
+    .sl-background[open] > summary::after { transform:rotate(225deg); }
+    .sl-background > summary:hover, .sl-background > summary:focus,
+    .sl-background > summary:active { color:var(--fg); background:transparent; box-shadow:none; }
+    .sl-background-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .sl-background-title { font-size:0.9rem; font-weight:600; }
+    .sl-background-body { padding:0 0 1.2rem; max-width:46rem; }
+    .sl-background p { margin:0; color:color-mix(in srgb,var(--fg) 82%,var(--muted));
+      font-size:0.95rem; line-height:1.65; }
+    /* Oat styles ARIA tabs and details globally. Reset those presentation
+       defaults here so adding correct semantics cannot reshape the Arc UI. */
+    .sl-tabs[role="tablist"] { display:flex; align-items:center; gap:1.2rem;
+      border:0; border-bottom:1px solid var(--border); border-radius:0;
+      margin:0 0 1.65rem; padding:0; background:transparent; box-shadow:none; }
+    .sl-tab { font:inherit; font-size:0.86rem; font-weight:600; color:var(--muted);
+      display:inline-flex; align-items:center; gap:0; width:auto; background:none;
+      border:0; border-bottom:2px solid transparent; border-radius:0;
+      margin:0; padding:0.65rem 0; min-height:44px; cursor:pointer; box-shadow:none; }
     .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
-    .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
-    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
+    .sl-tab-note { margin-left:auto; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; letter-spacing:.04em; color:var(--muted); padding-bottom:0.6rem; }
+    [role="tabpanel"][data-sl-view] { padding:0; margin:0; border:0; background:transparent; }
+    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.66rem;
       letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 0.5rem; }
     .sl-rail { display:flex; gap:2px; height:11px; border-radius:6px; overflow:hidden; margin:0 0 0.4rem; }
     .sl-rail-seg { flex:1; min-width:8px; border-radius:3px; }
@@ -164,28 +231,40 @@
     .tone-launch-fg{color:var(--t-launch);} .tone-rising-fg{color:var(--t-rising);}
     .tone-turn-fg{color:var(--t-turn);} .tone-now-fg{color:var(--t-now);}
     .tone-resolved-fg{color:var(--t-resolved);} .tone-neutral-fg{color:var(--muted);}
-    .sl-track { display:flex; gap:2px; height:13px; border-radius:7px; overflow:hidden; margin:0 0 0.5rem; }
-    .sl-track-seg { border-radius:3px; }
-    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
-      font-size:0.72rem; margin:0 0 1.9rem; }
-    .sl-spine { position:relative; padding-left:2rem; }
-    .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
-    .sl-beat { position:relative; margin:0 0 1.5rem; }
-    .sl-beat > summary { list-style:none; cursor:pointer; }
+    .sl-track { display:flex; gap:4px; height:8px; overflow:hidden; margin:0 0 0.65rem; }
+    .sl-track-seg { border-radius:1px; }
+    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.68rem; margin:0 0 2.4rem; }
+    .sl-track-legend { display:grid; gap:0.35rem; margin:0 0 1.9rem; padding:0; list-style:none;
+      font-family:ui-monospace,monospace; font-size:0.72rem; }
+    .sl-track-legend li { display:flex; align-items:flex-start; gap:0.45rem; color:var(--muted); }
+    .sl-track-key { width:9px; height:9px; border-radius:50%; flex:none; margin-top:0.22rem; }
+    .sl-spine { position:relative; padding-left:2.3rem; }
+    .sl-spine::before { content:""; position:absolute; left:7px; top:7px; bottom:8px; width:1px;
+      background:linear-gradient(to bottom,var(--t-launch),var(--t-turn) 52%,var(--t-now)); opacity:.65; }
+    .sl-beat { position:relative; margin:0 0 1.75rem; padding:0; border:0;
+      border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary { display:block; list-style:none; cursor:pointer; margin:0;
+      padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary:hover, .sl-beat > summary:focus,
+    .sl-beat > summary:active { background:transparent; color:inherit; box-shadow:none; }
     .sl-beat > summary::-webkit-details-marker { display:none; }
-    .sl-node { position:absolute; left:-1.72rem; top:3px; width:14px; height:14px; border-radius:50%;
+    .sl-node { position:absolute; left:-2.04rem; top:3px; width:15px; height:15px; border-radius:2px;
       background:var(--bg); border:2px solid var(--t-neutral); }
     .sl-beat.tone-launch .sl-node{border-color:var(--t-launch);}
     .sl-beat.tone-rising .sl-node{border-color:var(--t-rising);}
     .sl-beat.tone-now .sl-node{border-color:var(--t-now);}
     .sl-beat.tone-resolved .sl-node{border-color:var(--t-resolved);}
-    .sl-beat.tone-turn .sl-node{ left:-1.85rem; top:1px; width:20px; height:20px; border-width:3px;
-      border-color:var(--t-turn); box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 14%,transparent); }
-    .sl-kicker { font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); margin:0 0 0.25rem; }
+    .sl-beat.tone-turn .sl-node{ left:-2.12rem; top:0; width:21px; height:21px; border-width:3px;
+      border-color:var(--t-turn); transform:rotate(45deg);
+      box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 12%,transparent); }
+    .sl-kicker { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.68rem;
+      letter-spacing:.035em; color:var(--muted); margin:0 0 0.25rem; }
     .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
     .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
-    .sl-beat-title { font-size:1.02rem; font-weight:600; line-height:1.35; }
-    .sl-beat.tone-turn .sl-beat-title { font-size:1.12rem; font-weight:700; }
+    .sl-beat-title { max-width:44rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.16rem; font-weight:650; letter-spacing:-0.015em; line-height:1.3; }
+    .sl-beat.tone-turn .sl-beat-title { font-size:1.28rem; font-weight:700; }
     .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
     .sl-ok { color:var(--t-launch); }
     .sl-show { font-size:0.8rem; color:var(--muted); margin-top:0.4rem; }
@@ -194,12 +273,18 @@
     .sl-card.sl-card-turn { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border));
       background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
     .sl-card h3 a { color:var(--accent); }
-    .sl-watch { border:1px solid var(--border); border-radius:12px; padding:0.95rem 1.1rem; margin:1.8rem 0 0; }
+    .sl-watch { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; padding:1.25rem 0 1.4rem; margin:2.4rem 0 0; }
     .sl-watch ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:0.5rem; }
     .sl-watch li { font-size:0.95rem; line-height:1.45; }
     .sl-watch li::marker { color:var(--t-now); }
     .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
-    .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agents { border:0; border-bottom:1px solid var(--border); border-radius:0;
+      padding:0.8rem 0; margin:1rem 0 0; }
+    .sl-agents > summary { cursor:pointer; min-height:32px; display:flex; align-items:center; margin:0; }
+    .sl-agents > summary:hover, .sl-agents > summary:focus,
+    .sl-agents > summary:active { background:transparent; color:var(--muted); box-shadow:none; }
+    .sl-agents[open] > summary { margin-bottom:0.7rem; }
     .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
     .sl-agent-row b { font-weight:600; }
     .sl-agent-row .a-scout, .sl-agent-row .a-editor { color:var(--accent); }
@@ -207,6 +292,37 @@
     .sl-agent-row .a-watch { color:var(--t-now); }
     .sl-note { margin-top:1.6rem; font-size:0.84rem; line-height:1.6; color:var(--muted); }
     [data-sl-view][hidden] { display:none; }
+    .sl-tab:focus-visible, .sl-hero #followBtn:focus-visible, .sl-background > summary:focus-visible,
+    .sl-beat > summary:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);
+      outline-offset:3px; border-radius:6px; }
+    .sl-background > summary:focus-visible { outline:0;
+      box-shadow:inset 2px 0 0 color-mix(in srgb,var(--accent) 55%,transparent); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .sl-hero { grid-template-columns:1fr; align-items:flex-start; margin-top:1.6rem; }
+      .sl-hero .recap-title { font-size:3rem; width:100%; }
+      .sl-hero #followBtn { width:100%; justify-content:center; }
+      .sl-follow-hint { grid-column:1; }
+      .sl-delta-grid { grid-template-columns:1fr; }
+      .sl-latest { padding:1.35rem 0 1.45rem; }
+      .sl-latest p:last-child { font-size:1.04rem; }
+      .sl-builder-take { border-left:0; border-top:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+        padding:1.1rem 1rem 1.2rem; }
+      .sl-tabs { gap:1rem; flex-wrap:wrap; }
+      .sl-tab-note { width:100%; order:3; margin:-0.65rem 0 0; padding-bottom:0.65rem; }
+      .sl-track-ends { display:none; }
+      .sl-track-legend { display:grid; }
+      .sl-spine { padding-left:1.85rem; }
+      .sl-node { left:-1.62rem; }
+      .sl-beat.tone-turn .sl-node { left:-1.7rem; }
+    }
+    @media (min-width:561px) {
+      .sl-track-legend { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .sl-dot { animation:none !important; }
+      .sl-background > summary::after { transition:none; }
+    }
   </style>
 </head>
 <body>
@@ -229,10 +345,10 @@
     </header>
 
     <section id="recap">
-      <div class="sl-hero"><h2 class="recap-title">Deep Research</h2><button id="followBtn" type="button" class="primary" data-slug="deep-research" data-last-updated="2026-06-18T11:47:13+00:00" aria-pressed="false">+ Follow this story</button></div>
+      <div class="sl-hero"><div class="sl-hero-copy"><p class="sl-hero-kicker">Operational story trace</p><h2 class="recap-title">Deep Research</h2></div><button id="followBtn" type="button" class="primary" data-slug="deep-research" data-last-updated="2026-06-18T11:47:13+00:00" aria-pressed="false" aria-describedby="followHint">+ Follow this story</button><p id="followHint" class="sl-follow-hint" aria-live="polite">Follow in this browser to see new updates on your Live feed.</p></div>
+      <!-- range is included in the custom hero -->
       
-      
-      <div class="sl-status tone-rising"><div class="sl-status-head"><span class="sl-dot"></span><span class="sl-state">Active research</span><span class="sl-status-meta">status changed Jun 18</span></div><p class="sl-status-detail">A fast-moving research thread where the success criterion for deep research agents keeps being redefined — evaluation, workflow prediction, and now report-generation structure.</p></div><div class="intro"><p class="tldr-label">TL;DR</p><p>Through mid-June, deep research agents kept getting redefined faster than they could be standardized. An arXiv paper argued that benchmarks only grade a single-shot report and miss whether an agent improves under feedback, and ran a multi-turn process-level evaluation. AWS then shipped a build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. DRFLOW moved the target toward predicting a personalized, enterprise-style workflow rather than just a report, and the latest beat, ScaffoldAgent, attacks the long-form report itself — utility-guided dynamic outline optimization for open-ended deep research.</p><p><b>What's new:</b> The newest item, ScaffoldAgent (Jun 18), shifts the focus from what to evaluate back to how to generate: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report, and makes the outline the optimization target with a utility-guided, dynamically optimized scaffold — a generation-side answer after a run of benchmark-side papers.</p></div><div class="sl-tabs"><button class="sl-tab is-active" type="button" data-view="arc">The Arc</button><button class="sl-tab" type="button" data-view="timeline">Timeline</button><span class="sl-tab-note">maintained by 2 agents</span></div><div data-sl-view="arc"><p class="sl-rail-label">Arc</p><div class="sl-rail"><span class="sl-rail-seg tone-launch-bg"></span><span class="sl-rail-seg tone-rising-bg"></span><span class="sl-rail-seg tone-turn-bg"></span><span class="sl-rail-seg tone-now-bg"></span></div><div class="sl-rail-ends"><span>Jun 8</span><span>Jun 18 · now</span></div><div class="sl-spine"><details class="sl-beat tone-launch"><summary><span class="sl-node"></span><div class="sl-kicker">EVAL GAP · Jun 8</div><div class="sl-beat-title">Single-shot benchmarks miss whether agents improve under feedback</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/c5cd09a4f478ae3e" data-track="storyline-link">Multi-Turn Evaluation of Deep Research Agents Under Process-Level Feedback</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 8</span></div><p class="art-summary">Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback.</p></article></div></details><details class="sl-beat tone-rising"><summary><span class="sl-node"></span><div class="sl-kicker">BUILD PATTERN · Jun 15</div><div class="sl-beat-title">AWS ships an end-to-end research agent on Deep Agents + Bedrock AgentCore</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/2f2101adc8737656" data-track="storyline-link">Build context-rich research agents with Deep Agents and Bedrock AgentCore</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 15</span></div><p class="art-summary">Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.</p></article></div></details><details class="sl-beat tone-turn"><summary><span class="sl-node"></span><div class="sl-kicker">NEW TARGET · Jun 16</div><div class="sl-beat-title">DRFLOW benchmarks personalized workflow prediction, not report generation</div><div class="sl-beat-sum">Argues enterprise work needs the agent to predict a personalized workflow, not just summarize.</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card sl-card-turn"><h3><a href="/story/0221a891a5b9e026" data-track="storyline-link">DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Jun 16</span></div><p class="art-summary">Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.</p></article></div></details><details class="sl-beat tone-now"><summary><span class="sl-node"></span><div class="sl-kicker">NOW · Jun 18</div><div class="sl-beat-title">ScaffoldAgent makes the outline the lever for long-form deep research</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/b453c7e259c052f6" data-track="storyline-link">ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 18</span></div><p class="art-summary">Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.</p></article></div></details></div></div><div data-sl-view="timeline" hidden><section class="cat"><h2><span class="count">Day 1</span> Monday, Jun 8, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/c5cd09a4f478ae3e" data-track="storyline-link">Multi-Turn Evaluation of Deep Research Agents Under Process-Level Feedback</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 8</span></div><p class="art-summary">Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 15, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/2f2101adc8737656" data-track="storyline-link">Build context-rich research agents with Deep Agents and Bedrock AgentCore</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 15</span></div><p class="art-summary">Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 16, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/0221a891a5b9e026" data-track="storyline-link">DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Jun 16</span></div><p class="art-summary">Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.</p></article></div></section><section class="cat"><h2><span class="count">Day 4</span> Thursday, Jun 18, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/b453c7e259c052f6" data-track="storyline-link">ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 18</span></div><p class="art-summary">Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.</p></article></div></section></div><div class="sl-watch"><p class="sl-watch-label">What to watch — open questions</p><ul><li>Do these competing criteria — feedback improvement, workflow prediction, outline quality — converge into one benchmark, or stay fragmented?</li><li>Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on the multi-turn feedback test?</li><li>Will production stacks like Deep Agents + Bedrock AgentCore adopt any of these academic evaluation criteria?</li></ul><div class="sl-take">💡 <b>Take for builders:</b> If you&#x27;re building a deep research agent, decide up front which bar you&#x27;re optimizing — feedback-driven report quality, personalized workflow prediction, or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.</div></div><div class="sl-agents"><p class="sl-watch-label">Agents on this story</p><div class="sl-agent-row"><span><b class="a-editor">editor</b> wrote the arc · 4 beats</span><span><b class="a-watch">watcher</b> 1 status change</span></div></div><p class="sl-note">Storylines are threaded mechanically from the feed: stories that share a distinctive anchor across multiple days and sources. Each item links to its original source. The arc, status, and open questions are written by the editor routine and refreshed whenever a new beat lands.</p>
+      <section class="sl-command"><div class="sl-status tone-rising"><div class="sl-status-head"><span class="sl-dot"></span><span class="sl-status-label">Current state</span><span class="sl-state">Active research</span><span class="sl-status-meta">status changed Jun 18</span></div></div><div class="sl-delta-grid"><section class="sl-latest" aria-labelledby="latestChangeLabel"><div class="sl-latest-head"><span class="sl-latest-dot"></span><p id="latestChangeLabel" class="sl-watch-label">Latest change</p></div><p>The newest item, ScaffoldAgent (Jun 18), shifts the focus from what to evaluate back to how to generate: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report, and makes the outline the optimization target with a utility-guided, dynamically optimized scaffold — a generation-side answer after a run of benchmark-side papers.</p></section><aside class="sl-builder-take"><p class="sl-builder-label">Builder action</p><p>If you&#x27;re building a deep research agent, decide up front which bar you&#x27;re optimizing — feedback-driven report quality, personalized workflow prediction, or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.</p></aside></div></section><details class="sl-background"><summary><span class="sl-background-label">Earlier context</span><span class="sl-background-title">The story so far</span></summary><div class="sl-background-body"><p>Through mid-June, deep research agents kept getting redefined faster than they could be standardized. An arXiv paper argued that benchmarks only grade a single-shot report and miss whether an agent improves under feedback, and ran a multi-turn process-level evaluation. AWS then shipped a build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. DRFLOW moved the target toward predicting a personalized, enterprise-style workflow rather than just a report, and the latest beat, ScaffoldAgent, attacks the long-form report itself — utility-guided dynamic outline optimization for open-ended deep research.</p></div></details><div class="sl-tabs" role="tablist" aria-label="Storyline views"><button id="arcTab" class="sl-tab is-active" type="button" role="tab" aria-controls="arcView" aria-selected="true" data-view="arc">Evidence trace</button><button id="timelineTab" class="sl-tab" type="button" role="tab" aria-controls="timelineView" aria-selected="false" data-view="timeline">Source timeline</button><span class="sl-tab-note">editor-curated · source-linked</span></div><div id="arcView" role="tabpanel" aria-labelledby="arcTab" data-sl-view="arc"><p class="sl-rail-label">Arc</p><div class="sl-rail"><span class="sl-rail-seg tone-launch-bg"></span><span class="sl-rail-seg tone-rising-bg"></span><span class="sl-rail-seg tone-turn-bg"></span><span class="sl-rail-seg tone-now-bg"></span></div><div class="sl-rail-ends"><span>Jun 8</span><span>Jun 18 · now</span></div><div class="sl-spine"><details class="sl-beat tone-launch"><summary><span class="sl-node"></span><div class="sl-kicker">EVAL GAP · Jun 8</div><div class="sl-beat-title">Single-shot benchmarks miss whether agents improve under feedback</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/c5cd09a4f478ae3e" data-track="storyline-link">Multi-Turn Evaluation of Deep Research Agents Under Process-Level Feedback</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 8</span></div><p class="art-summary">Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback.</p></article></div></details><details class="sl-beat tone-rising"><summary><span class="sl-node"></span><div class="sl-kicker">BUILD PATTERN · Jun 15</div><div class="sl-beat-title">AWS ships an end-to-end research agent on Deep Agents + Bedrock AgentCore</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/2f2101adc8737656" data-track="storyline-link">Build context-rich research agents with Deep Agents and Bedrock AgentCore</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 15</span></div><p class="art-summary">Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.</p></article></div></details><details class="sl-beat tone-turn"><summary><span class="sl-node"></span><div class="sl-kicker">NEW TARGET · Jun 16</div><div class="sl-beat-title">DRFLOW benchmarks personalized workflow prediction, not report generation</div><div class="sl-beat-sum">Argues enterprise work needs the agent to predict a personalized workflow, not just summarize.</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card sl-card-turn"><h3><a href="/story/0221a891a5b9e026" data-track="storyline-link">DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Jun 16</span></div><p class="art-summary">Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.</p></article></div></details><details class="sl-beat tone-now"><summary><span class="sl-node"></span><div class="sl-kicker">NOW · Jun 18</div><div class="sl-beat-title">ScaffoldAgent makes the outline the lever for long-form deep research</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/b453c7e259c052f6" data-track="storyline-link">ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 18</span></div><p class="art-summary">Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.</p></article></div></details></div></div><div id="timelineView" role="tabpanel" aria-labelledby="timelineTab" data-sl-view="timeline" hidden><section class="cat"><h2><span class="count">Day 1</span> Monday, Jun 8, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/c5cd09a4f478ae3e" data-track="storyline-link">Multi-Turn Evaluation of Deep Research Agents Under Process-Level Feedback</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 8</span></div><p class="art-summary">Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Monday, Jun 15, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/2f2101adc8737656" data-track="storyline-link">Build context-rich research agents with Deep Agents and Bedrock AgentCore</a></h3><div class="art-meta"><span class="badge">aws_ml_blog</span><span class="badge">Jun 15</span></div><p class="art-summary">Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Tuesday, Jun 16, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/0221a891a5b9e026" data-track="storyline-link">DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction</a></h3><div class="art-meta"><span class="badge">arxiv_cs_ai</span><span class="badge">Jun 16</span></div><p class="art-summary">Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.</p></article></div></section><section class="cat"><h2><span class="count">Day 4</span> Thursday, Jun 18, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/b453c7e259c052f6" data-track="storyline-link">ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research</a></h3><div class="art-meta"><span class="badge">arxiv_llm_reliability</span><span class="badge">Jun 18</span></div><p class="art-summary">Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.</p></article></div></section></div><div class="sl-watch"><p class="sl-watch-label">What to watch — open questions</p><ul><li>Do these competing criteria — feedback improvement, workflow prediction, outline quality — converge into one benchmark, or stay fragmented?</li><li>Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on the multi-turn feedback test?</li><li>Will production stacks like Deep Agents + Bedrock AgentCore adopt any of these academic evaluation criteria?</li></ul></div><details class="sl-agents"><summary class="sl-watch-label">How this thread was built</summary><div class="sl-agent-row"><span><b class="a-editor">editor</b> wrote the arc · 4 beats</span><span><b class="a-watch">watcher</b> 1 status change</span></div></details><p class="sl-note">Storylines are threaded mechanically from the feed: stories that share a distinctive anchor across multiple days and sources. Each item links to its original source. The evidence trace, current state, and open questions are written by the editor routine and refreshed whenever a new beat lands.</p>
     </section>
 
     <footer>
@@ -293,6 +409,10 @@
         var on = !!load()[slug];
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         btn.textContent = on ? '\u2713 Following' : '+ Follow this story';
+        var hint = document.getElementById('followHint');
+        if (hint) hint.textContent = on
+          ? 'Following in this browser. New updates will appear on your Live feed.'
+          : 'Follow in this browser to see new updates on your Live feed.';
       }
       paint();
       btn.addEventListener('click', function () {
@@ -309,10 +429,21 @@
       var views = document.querySelectorAll('[data-sl-view]');
       function show(view) {
         views.forEach(function (v) { v.hidden = v.getAttribute('data-sl-view') !== view; });
-        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-view') === view); });
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-view') === view;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.setAttribute('tabindex', on ? '0' : '-1');
+        });
       }
       tabs.forEach(function (t) {
         t.addEventListener('click', function () { show(t.getAttribute('data-view')); });
+        t.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+          e.preventDefault();
+          var next = e.key === 'ArrowRight' ? t.nextElementSibling : t.previousElementSibling;
+          if (next && next.classList.contains('sl-tab')) { next.focus(); next.click(); }
+        });
       });
       show('arc');
     })();

@@ -31,28 +31,44 @@
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
     :root, html[data-theme="light"] {
-      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --sl-wash:#eaf0ff; --sl-ink:#18243b;
+      --t-launch:#23875b; --t-rising:#718096; --t-turn:#c4483f;
+      --t-now:#b6780c; --t-resolved:#2457d6; --t-neutral:#a8b1bf;
     }
     html[data-theme="dark"] {
-      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --sl-wash:#1c2a48; --sl-ink:#e8eefb;
+      --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
+      --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
     }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
-    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
     header { margin-bottom: 1rem; }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
     .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
     menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
     .muted { color: var(--muted); }
+    .sl-index-hero { margin:2.35rem 0 2rem; display:grid;
+      grid-template-columns:minmax(0,1.45fr) minmax(16rem,.55fr); gap:2rem; align-items:end; }
+    .sl-index-kicker { margin:0 0 0.35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .sl-index-title { margin:0; max-width:46rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.75rem,7vw,4.7rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .sl-index-intro { margin:0 0 .25rem; color:var(--muted); font-size:.94rem; line-height:1.65; }
     .sl-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
     .sl-meta { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; display: flex; flex-wrap: wrap;
       gap: 0.6rem; align-items: center; }
-    .follow-btn { font-size: 0.9rem; padding: 0.35rem 0.9rem; border: 1px solid var(--border);
-      border-radius: 999px; cursor: pointer; min-height: 44px; }
+    .follow-btn { font:inherit; font-size:.8rem; font-weight:600; padding:.45rem .75rem;
+      border:1px solid color-mix(in srgb,var(--accent) 48%,var(--border));
+      border-radius:3px; cursor:pointer; min-height:44px; color:var(--accent); background:transparent; }
+    .follow-btn:hover { background:color-mix(in srgb,var(--accent) 8%,var(--card)); }
     .follow-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+      background:var(--sl-wash); }
     .day { margin: 0 0 1.6rem; }
     .day h2 { font-size: 1.05rem; margin: 0 0 0.6rem; display: flex; align-items: baseline; gap: 0.5rem; }
     .day h2 .daynum { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
@@ -79,50 +95,91 @@
     .editorial .stale { margin: 0.6rem 0 0; font-size: 0.82rem; color: var(--muted); font-style: italic; }
     .editor-note { margin: 0.35rem 0 0; font-size: 0.95rem; font-weight: 500;
       border-left: 2px solid var(--accent); padding-left: 0.55rem; }
-    .sl-card .teaser { margin: 0.4rem 0 0; font-size: 0.92rem; color: var(--muted); }
-    .sl-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.8rem; }
-    .sl-card-head h2 { flex: 1; }
-    .lifecycle { flex: none; font-size: 0.68rem; line-height: 1.5; text-transform: uppercase;
-      letter-spacing: 0.05em; font-weight: 700; padding: 0.1rem 0.48rem; border-radius: 999px;
-      border: 1px solid var(--border); color: var(--muted); }
-    .lifecycle.active { color: #16763b; border-color: color-mix(in srgb, #2ea043 45%, var(--border));
-      background: color-mix(in srgb, #2ea043 10%, var(--card)); }
-    .lifecycle.tracking { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
-      background: color-mix(in srgb, var(--accent) 8%, var(--card)); }
-    .lifecycle.resolved { color: #16763b; border-color: color-mix(in srgb, #2ea043 45%, var(--border)); }
-    html[data-theme="dark"] .lifecycle.active,
-    html[data-theme="dark"] .lifecycle.resolved { color: #3fb950; }
-    .current-state { margin: 0.35rem 0 0; font-size: 0.84rem; color: var(--muted); }
-    .latest-change { margin: 0.7rem 0 0; font-size: 0.96rem; line-height: 1.5; }
-    .latest-change b { color: var(--accent); }
-    .builder-impact { margin: 0.55rem 0 0; font-size: 0.88rem; color: var(--muted); }
-    .view-link { display: inline-block; margin-top: 0.7rem; font-size: 0.88rem; font-weight: 600;
-      text-decoration: none; }
-    .list-tools { display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
-      flex-wrap: wrap; margin: 1rem 0 0; }
+    .sl-card-head { display:flex; align-items:center; justify-content:space-between; gap:.8rem;
+      padding:0 0 .85rem; border-bottom:1px solid var(--border); }
+    .sl-card-signal { display:flex; align-items:center; gap:.55rem; min-width:0; }
+    .sl-card-dot { width:9px; height:9px; border-radius:2px; flex:none; background:var(--t-neutral); }
+    .tone-launch .sl-card-dot, .tone-resolved .sl-card-dot { background:var(--t-launch); }
+    .tone-rising .sl-card-dot { background:var(--t-rising); }
+    .tone-now .sl-card-dot { background:var(--t-now); }
+    .tone-alert .sl-card-dot, .tone-turn .sl-card-dot { background:var(--t-turn); }
+    .lifecycle { flex:none; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.65rem;
+      line-height:1.5; text-transform:uppercase; letter-spacing:.1em; font-weight:700; color:var(--muted); }
+    .lifecycle.active { color:var(--t-launch); }
+    .lifecycle.tracking { color:var(--accent); }
+    .lifecycle.resolved { color:var(--t-resolved); }
+    .sl-updated { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.67rem; color:var(--muted); }
+    .sl-card-grid { display:grid; grid-template-columns:minmax(13rem,.8fr) minmax(0,1.35fr);
+      gap:1.6rem 2.4rem; padding:1.25rem 0 1.15rem; }
+    .sl-card-identity h2 { margin:0 0 .65rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.8rem; line-height:1; letter-spacing:-.025em; }
+    .sl-card-identity h2 a { color:var(--fg); text-decoration:none; }
+    .sl-card-identity h2 a:hover { color:var(--accent); }
+    .sl-counts { margin:0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; color:var(--muted); }
+    .current-state { margin:.7rem 0 0; font-size:.79rem; line-height:1.45; color:var(--muted); }
+    .current-state b { color:var(--fg); font-weight:600; }
+    .sl-card-copy { min-width:0; }
+    .sl-card-label { margin:0 0 .4rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.65rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .latest-change { margin:0; max-width:42rem; font-size:1rem; line-height:1.58; }
+    .builder-impact { margin:.8rem 0 0; padding:.75rem .85rem; border-left:2px solid var(--accent);
+      background:var(--sl-wash); color:var(--sl-ink); font-size:.82rem; line-height:1.55; }
+    .sl-card-actions { display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:.85rem 0 0; border-top:1px solid var(--border); }
+    .view-link { display:inline-flex; align-items:center; min-height:44px; font-size:.84rem; font-weight:700;
+      text-decoration:none; }
+    .sl-mini-track { display:flex; gap:3px; width:min(15rem,42vw); height:5px; }
+    .sl-mini-seg { min-width:4px; border-radius:1px; background:var(--t-neutral); }
+    .tone-launch-bg { background:var(--t-launch); } .tone-rising-bg { background:var(--t-rising); }
+    .tone-turn-bg, .tone-alert-bg { background:var(--t-turn); } .tone-now-bg { background:var(--t-now); }
+    .tone-resolved-bg { background:var(--t-resolved); } .tone-neutral-bg { background:var(--t-neutral); }
+    .list-tools { display:flex; align-items:center; justify-content:space-between; gap:.8rem;
+      flex-wrap:wrap; margin:0; padding:.8rem 0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); }
     .list-tools p { margin: 0; color: var(--muted); font-size: 0.86rem; }
     .sl-filters { display: flex; gap: 0.4rem; }
-    .sl-filter { font: inherit; min-height: 44px; padding: 0.35rem 0.75rem; border: 1px solid var(--border);
-      border-radius: 999px; cursor: pointer; }
+    .sl-filter { font:inherit; min-height:44px; padding:.35rem .75rem; border:0;
+      border-bottom:2px solid transparent; border-radius:0; cursor:pointer; color:var(--muted); background:transparent; }
     .sl-filter[aria-pressed="true"] { color: var(--accent); border-color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 10%, var(--card)); }
-    .scout-badge { font-size: 0.75rem; padding: 0.12rem 0.55rem; border-radius: 999px;
-      border: 1px dashed color-mix(in srgb, var(--accent) 45%, transparent); color: var(--accent);
-      background: color-mix(in srgb, var(--accent) 8%, var(--card)); white-space: nowrap; cursor: help; }
-    .sl-list { display: flex; flex-direction: column; gap: 0.8rem; margin-top: 1.2rem; }
-    .sl-card { border: 1px solid var(--border); border-radius: 12px; padding: 0.9rem 1rem; background: var(--card); }
-    .sl-card h2 { margin: 0 0 0.25rem; font-size: 1.15rem; }
-    .sl-card h2 a { text-decoration: none; }
-    .sl-card h2 a:hover { text-decoration: underline; }
-    .sl-card .latest { margin: 0.35rem 0 0; font-size: 0.95rem; }
+      background:transparent; }
+    .scout-badge { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem;
+      letter-spacing:.04em; color:var(--muted); white-space:nowrap; cursor:help; }
+    .sl-list { display:flex; flex-direction:column; gap:0; margin-top:1.45rem; }
+    .sl-card { position:relative; padding:1rem 1.1rem 1.05rem 1.3rem; border:0;
+      border-bottom:1px solid var(--border); border-radius:0; background:transparent; box-shadow:none; }
+    .sl-card:first-child { border-top:1px solid var(--border); }
+    .sl-card::before { content:""; position:absolute; left:0; top:1rem; bottom:1rem; width:3px;
+      background:var(--t-neutral); }
+    .sl-card.tone-launch::before, .sl-card.tone-resolved::before { background:var(--t-launch); }
+    .sl-card.tone-rising::before { background:var(--t-rising); }
+    .sl-card.tone-now::before { background:var(--t-now); }
+    .sl-card.tone-alert::before, .sl-card.tone-turn::before { background:var(--t-turn); }
     .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
     button:focus-visible, a:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
       outline-offset: 3px; }
     @media (max-width: 560px) {
-      .sl-card-head { display: block; }
-      .lifecycle { display: inline-block; margin-bottom: 0.35rem; }
+      main { padding-left:1rem; padding-right:1rem; }
+      .sl-index-hero { grid-template-columns:1fr; gap:.9rem; margin:1.75rem 0 1.6rem; }
+      .sl-index-title { font-size:3.15rem; }
+      .sl-index-intro { max-width:22rem; }
+      .list-tools { align-items:flex-start; }
+      .list-tools p { width:100%; }
+      .sl-filters { width:100%; }
+      .sl-filter { flex:1; }
+      .sl-card { padding-left:1rem; padding-right:0; }
+      .sl-card-head { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:start; }
+      .sl-card-signal { flex-wrap:nowrap; }
+      .sl-updated { width:auto; padding:0; text-align:right; }
+      .sl-card-grid { grid-template-columns:1fr; gap:1rem; padding:1.1rem 0; }
+      .sl-card-identity h2 { font-size:1.65rem; }
+      .sl-card-actions { align-items:stretch; flex-wrap:wrap; }
+      .sl-mini-track { width:100%; order:-1; }
       .follow-btn { width: 100%; }
       .sl-meta { align-items: stretch; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      * { scroll-behavior:auto !important; }
     }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
   </style>
@@ -261,6 +318,27 @@
       return { label: 'Quiet', cls: 'quiet' };
     }
 
+    function storylineTone(sl) {
+      const tone = String(sl.editorial?.status?.tone || 'neutral').toLowerCase();
+      return ['launch', 'rising', 'turn', 'now', 'resolved', 'alert'].includes(tone)
+        ? tone : 'neutral';
+    }
+
+    function miniTrackHtml(status) {
+      const track = Array.isArray(status?.track) ? status.track : [];
+      if (!track.length) return '';
+      const total = track.reduce((sum, seg) => sum + Math.max(Number(seg.weight) || 1, 0.01), 0);
+      return `<div class="sl-mini-track" aria-label="State history">${
+        track.map((seg) => {
+          const tone = ['launch', 'rising', 'turn', 'now', 'resolved', 'alert'].includes(String(seg.tone || '').toLowerCase())
+            ? String(seg.tone).toLowerCase() : 'neutral';
+          const weight = Math.max(Number(seg.weight) || 1, 0.01);
+          const label = [seg.label, seg.detail].filter(Boolean).join(' · ');
+          return `<span class="sl-mini-seg tone-${tone}-bg" style="flex:${weight / total}" title="${esc(label)}"></span>`;
+        }).join('')
+      }</div>`;
+    }
+
     function activeFollowCount() {
       return storylineList.filter((sl) => !!follows[sl.slug]).length;
     }
@@ -357,7 +435,7 @@
       }
       const filters = `
         <div class="list-tools">
-          <p>Follow in this browser to see a thread's next update on your Live feed.</p>
+          <p>Follow a trace to surface its next change on your Live feed.</p>
           <div class="sl-filters" aria-label="Filter storylines">
             <button class="sl-filter" type="button" data-list-mode="all" aria-pressed="${listMode === 'all'}">All</button>
             <button class="sl-filter" type="button" data-list-mode="following" aria-pressed="${listMode === 'following'}">Following (${activeFollowCount()})</button>
@@ -369,24 +447,43 @@
         return;
       }
       document.getElementById('content').innerHTML = `
+        <section class="sl-index-hero">
+          <div>
+            <p class="sl-index-kicker">Continuity for fast-moving AI</p>
+            <h2 class="sl-index-title">Stories do not end at launch.</h2>
+          </div>
+          <p class="sl-index-intro">See what changed, where each thread stands, and what builders should do next—without rereading the news cycle.</p>
+        </section>
         ${filters}
         <div class="sl-list">${list.map((sl) => `
-          <div class="sl-card">
+          <article class="sl-card tone-${storylineTone(sl)}">
             <div class="sl-card-head">
-              <h2><a href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
-              <span class="lifecycle ${lifecycle(sl).cls}">${lifecycle(sl).label}</span>
+              <div class="sl-card-signal">
+                <span class="sl-card-dot"></span>
+                <span class="lifecycle ${lifecycle(sl).cls}">${lifecycle(sl).label}</span>
+              </div>
+              <span class="sl-updated">updated ${esc(fmtRelTime(sl.last_updated))}</span>
             </div>
-            <p class="sl-meta">
-              <span>${sl.item_count} updates · ${sl.source_count} sources · ${sl.day_count} days · updated ${esc(fmtRelTime(sl.last_updated))}</span>
+            <div class="sl-card-grid">
+              <div class="sl-card-identity">
+                <h2><a href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a></h2>
+                <p class="sl-counts">${sl.item_count} updates · ${sl.source_count} sources · ${sl.day_count} days</p>
+                ${sl.editorial?.status?.state
+                    ? `<p class="current-state"><b>Current state</b><br>${esc(sl.editorial.status.state)}</p>` : ''}
+              </div>
+              <div class="sl-card-copy">
+                <p class="sl-card-label">Latest change</p>
+                <p class="latest-change">${esc(clipText(sl.editorial?.whats_new || sl.latest_title || sl.editorial?.tldr || '', 260))}</p>
+                ${sl.editorial?.take_for_builders || sl.editorial?.why_it_matters
+                    ? `<p class="builder-impact"><b>Builder action:</b> ${esc(clipText(sl.editorial.take_for_builders || sl.editorial.why_it_matters, 180))}</p>` : ''}
+              </div>
+            </div>
+            <div class="sl-card-actions">
+              <a class="view-link" href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">Open evidence trace →</a>
+              ${miniTrackHtml(sl.editorial?.status)}
               ${followBtnHtml(sl.slug, sl.last_updated)}
-            </p>
-            ${sl.editorial?.status?.state
-                ? `<p class="current-state"><b>Current:</b> ${esc(sl.editorial.status.state)}</p>` : ''}
-            <p class="latest-change"><b>Latest:</b> ${esc(clipText(sl.editorial?.whats_new || sl.latest_title || sl.editorial?.tldr || '', 260))}</p>
-            ${sl.editorial?.take_for_builders || sl.editorial?.why_it_matters
-                ? `<p class="builder-impact">💡 ${esc(clipText(sl.editorial.take_for_builders || sl.editorial.why_it_matters, 180))}</p>` : ''}
-            <a class="view-link" href="/storyline/${esc(sl.slug)}" data-storyline-open="${esc(sl.slug)}">See the full arc →</a>
-          </div>`).join('')}
+            </div>
+          </article>`).join('')}
         </div>`;
       posthogCapture('storylines_list_view', { count: list.length });
     }
@@ -422,7 +519,10 @@
       const slug = slugFromLocation();
       const url = slug ? `/api/storylines?slug=${encodeURIComponent(slug)}` : '/api/storylines';
       try {
-        const res = await fetch(url);
+        let res = await fetch(url);
+        if (!slug && res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+          res = await fetch('/data/storylines/index.json');
+        }
         if (res.status === 404) {
           document.getElementById('meta').textContent = 'Not found';
           document.getElementById('content').innerHTML =

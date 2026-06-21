@@ -117,6 +117,83 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -140,10 +217,10 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">What happened in AI — Jun 7, 2026</h2>
-      <p class="recap-range">Sunday, Jun 7, 2026</p>
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">What happened in AI — Jun 7, 2026</h2></div><div><p class="daily-date">Sunday, Jun 7, 2026<br>3 articles · 2 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
+      <!-- range is included in the custom hero -->
       <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>An Ask HN thread took the community&#x27;s pulse on which AI coding tools, harnesses, and providers people actually use day to day.</li><li>NVIDIA pushed its RTX Spark superchip — pitched for the era of personal AI agents — at Korea&#x27;s PC Bangs following its COMPUTEX debut.</li><li>AWS open-sourced ExtendDB, a DynamoDB-compatible adapter with pluggable storage backends, beginning with PostgreSQL.</li></ul></div><p>A quiet Sunday with the spotlight on the practical edges of AI rather than new frontier models. The day&#x27;s most-discussed item wasn&#x27;t an announcement at all but a community gut-check: an Ask HN thread polling what people actually reach for in AI coding today — which clients and harnesses, which providers, which local setups — a useful snapshot of a fast-churning tooling landscape.</p><p>On the hardware and infrastructure side, NVIDIA carried its COMPUTEX momentum into Korea, promoting the RTX Spark superchip for the era of personal AI agents, while AWS&#x27;s open-source ExtendDB gave developers a DynamoDB-compatible API atop pluggable storage backends, starting with PostgreSQL.</p></div>
-      <nav class="toc"><a href="#community-pulse">Community Pulse (1)</a><a href="#hardware-infrastructure">Hardware &amp; Infrastructure (2)</a></nav><section class="cat" id="community-pulse"><h2>Community Pulse <span class="count">1 item</span></h2><p class="cat-summary">A practitioner snapshot of how people are actually doing AI-assisted coding right now.</p><div class="articles"><article><h3><a href="https://news.ycombinator.com/item?id=48433171" target="_blank" rel="noopener" data-track="daily-link">Ask HN: What do you currently use for AI coding (personal or professional)?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 7</span><a class="badge" href="/story/67666533bb35a1ee" data-track="story-link">Details</a></div><p class="art-summary">A community thread surveying which clients, harnesses, LLM providers, and local setups developers rely on for AI coding amid a fast-evolving landscape.</p></article></div></section><section class="cat" id="hardware-infrastructure"><h2>Hardware &amp; Infrastructure <span class="count">2 items</span></h2><p class="cat-summary">The building blocks for personal AI agents and the data layer beneath them.</p><div class="articles"><article><h3><a href="https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/" target="_blank" rel="noopener" data-track="daily-link">NVIDIA, KRAFTON, NC and Reigning &#x27;League of Legends&#x27; Champions T1 Celebrate RTX Spark at Korea&#x27;s PC Bangs</a></h3><div class="art-meta"><span class="badge">nvidia_blog</span><span class="badge">Jun 7</span><a class="badge" href="/story/03de06baa81fd9c0" data-track="story-link">Details</a></div><p class="art-summary">NVIDIA carries its COMPUTEX RTX Spark launch — a superchip pitched for the era of personal AI agents — into Korea&#x27;s PC Bangs, with Jensen Huang on the ground.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/extenddb-dynamodb-adapter/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">ExtendDB: Open Source Amazon DynamoDB Compatible Adapter with Pluggable Storage Backends</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 7</span><a class="badge" href="/story/148bf9dc3a8ad113" data-track="story-link">Details</a></div><p class="art-summary">AWS&#x27;s open-source ExtendDB lets developers use the DynamoDB API over different storage backends — starting with PostgreSQL — while keeping existing SDKs and tools.</p></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
+      <nav class="toc"><a href="#community-pulse">Community Pulse (1)</a><a href="#hardware-infrastructure">Hardware &amp; Infrastructure (2)</a></nav><section class="cat" id="community-pulse"><h2>Community Pulse <span class="count">1 item</span></h2><p class="cat-summary">A practitioner snapshot of how people are actually doing AI-assisted coding right now.</p><div class="articles"><article><h3><a href="https://news.ycombinator.com/item?id=48433171" target="_blank" rel="noopener" data-track="daily-link">Ask HN: What do you currently use for AI coding (personal or professional)?</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 7</span><a class="badge" href="/story/67666533bb35a1ee" data-track="story-link">Details</a></div><p class="art-summary">A community thread surveying which clients, harnesses, LLM providers, and local setups developers rely on for AI coding amid a fast-evolving landscape.</p></article></div></section><section class="cat" id="hardware-infrastructure"><h2>Hardware &amp; Infrastructure <span class="count">2 items</span></h2><p class="cat-summary">The building blocks for personal AI agents and the data layer beneath them.</p><div class="articles"><article><h3><a href="https://blogs.nvidia.com/blog/krafton-nc-t1-korea-gaming-pc-bang-rtx-spark/" target="_blank" rel="noopener" data-track="daily-link">NVIDIA, KRAFTON, NC and Reigning &#x27;League of Legends&#x27; Champions T1 Celebrate RTX Spark at Korea&#x27;s PC Bangs</a></h3><div class="art-meta"><span class="badge">nvidia_blog</span><span class="badge">Jun 7</span><a class="badge" href="/story/03de06baa81fd9c0" data-track="story-link">Details</a></div><p class="art-summary">NVIDIA carries its COMPUTEX RTX Spark launch — a superchip pitched for the era of personal AI agents — into Korea&#x27;s PC Bangs, with Jensen Huang on the ground.</p></article><article><h3><a href="https://www.infoq.com/news/2026/06/extenddb-dynamodb-adapter/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">ExtendDB: Open Source Amazon DynamoDB Compatible Adapter with Pluggable Storage Backends</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 7</span><a class="badge" href="/story/148bf9dc3a8ad113" data-track="story-link">Details</a></div><p class="art-summary">AWS&#x27;s open-source ExtendDB lets developers use the DynamoDB API over different storage backends — starting with PostgreSQL — while keeping existing SDKs and tools.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
     </section>
 
     <footer>

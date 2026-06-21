@@ -138,7 +138,7 @@
 
     <section id="recap">
       <h2 class="recap-title">Agent benchmarks: fixed tasks that exercise real tool use</h2>
-      
+      <!-- range is included in the custom hero -->
       
       <div class="cat"><h2>TL;DR</h2><p>Pin down a fixed set of tasks with known good outcomes and run agents against them repeatedly. Unlike model benchmarks, agent benchmarks have to exercise *tool use and multi-step trajectories* — booking, querying, fixing, coordinating — so they double as integration tests for the whole agent, not just the model.</p></div>
 <div class="cat"><h2>State of the art</h2><p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off.</p></div>

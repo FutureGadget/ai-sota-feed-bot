@@ -138,7 +138,7 @@
 
     <section id="recap">
       <h2 class="recap-title">External knowledge base: vector and graph retrieval</h2>
-      
+      <!-- range is included in the custom hero -->
       
       <div class="cat"><h2>TL;DR</h2><p>Push long-term memory *out* of the context window into an external store — embeddings in a vector index, and/or a knowledge graph of entities and relations — and retrieve only the relevant slice at each step. This is how an agent &quot;remembers&quot; more than fits in a prompt.</p></div>
 <div class="cat"><h2>State of the art</h2><p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, and vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup. The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity.</p></div>

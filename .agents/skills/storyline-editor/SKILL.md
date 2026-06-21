@@ -10,9 +10,9 @@ happened**: launched → hands-on impressions → controversial terms → access
 changes → suspension. That narrative arc is your job. You turn a clustered
 timeline into a story a reader can follow.
 
-The `/storyline/<slug>` page renders an **Arc view** when you provide it. Its
+The `/storyline/<slug>` page renders an **Evidence trace** when you provide it. Its
 reader hierarchy is: current state → latest change → builder action → optional
-background → arc/timeline → open questions. A spine of named **beats** commonly
+earlier context → evidence trace/source timeline → open questions. A spine of named **beats** commonly
 looks like LAUNCH → FRICTION → THE TURN → NOW, but use labels that accurately
 describe the thread. Every provenance claim must be true. Do not invent
 verification/agent labels the system doesn't actually produce.
@@ -69,8 +69,8 @@ and write `data/storylines/narratives/<slug>.json`:
   "generated_at": "<ISO-8601 now>",
   "covers_last_updated": "<copy last_updated from the bundle entry, verbatim>",
   "covers_member_sids": ["<every sid in this storyline's timeline>"],
-  "tldr": "2-3 concise sentences: background for the whole thread, in order. Do not repeat the latest-change and builder-takeaway wording.",
-  "whats_new": "1-2 sentences led by the newest consequential fact. This is the primary index-card and detail-page summary.",
+  "tldr": "2 concise sentences of background: establish the starting point, the major turn, and where the prior context ended. Do not repeat the latest change or builder takeaway.",
+  "whats_new": "1 compact sentence led by the newest consequential fact. This is the primary index-card and detail-page update.",
   "why_it_matters": "One line through the AI-platform-engineer lens: what an engineer should take from this.",
   "status": {
     "state": "Suspended · temporary",
@@ -107,7 +107,7 @@ and write `data/storylines/narratives/<slug>.json`:
 }
 ```
 
-**The arc fields (optional but recommended — they drive the Arc view)**
+**The arc fields (optional but recommended — they drive the Evidence trace)**
 - `status` is the live-status banner. `state` is a short label ("Shipping",
   "Suspended · temporary", "Resolved"); `tone` ∈ `launch | rising | turn | now |
   resolved | alert | neutral` colors the banner; `changed` is the ISO date the
@@ -115,7 +115,7 @@ and write `data/storylines/narratives/<slug>.json`:
   thread that has a *current state*; omit it for a thread that's just developing.
   When the tracked event has genuinely ended, set `state: "Resolved"` and
   `tone: "resolved"` so the index can stop presenting it as active.
-  `status.track` (optional) is the **"Access over time"** bar — an ordered list
+  `status.track` (optional) is the **"State over time"** trace — an ordered list
   of `{label, detail, tone, weight}` phases (weights are relative widths); use
   it for threads where a state visibly flips over time (available → suspended).
 - `provenance` (optional) keys evidence signals by item `sid`:
@@ -132,9 +132,10 @@ and write `data/storylines/narratives/<slug>.json`:
   the short phase label (LAUNCH / FRICTION / THE TURN / NOW — your call); `tone`
   colors the node (use `turn` for the pivot, it gets the emphasized red node).
   The renderer derives each beat's date range from its items and sweeps any
-  uncovered members into a trailing "More in this thread" beat — but aim to
-  place every sid. Only use sids present in the bundle; the validator rejects
-  unknown ones.
+  uncovered member into a neutral chronological fallback so no source vanishes,
+  but that fallback means the narrative is incomplete. Place every displayed
+  timeline `sid` in exactly one beat; the validator rejects missing, duplicated,
+  or unknown beat sids.
 - `open_questions` is "what to watch" — up to 6 genuinely open questions an
   engineer would track, not rhetorical filler. Phrase each so a future source
   can clearly answer it; do not add internal assignees or workflow statuses to
@@ -148,10 +149,13 @@ and write `data/storylines/narratives/<slug>.json`:
   timeline. Getting these right is what keeps the overlay from re-flagging your
   work stale on the next run.
 - `whats_new` is the first editorial text readers see on both the index and
-  detail page. Lead with the newest consequential fact and answer "what happened
-  next?" Do not start by recapping the launch.
-- `tldr` is collapsible background. Keep it to 2-3 concise chronological
-  sentences and avoid repeating `whats_new` or `take_for_builders`.
+  detail page. Write one compact sentence, ideally under 240 characters. Lead
+  with the newest consequential fact and answer "what happened next?" Do not
+  start by recapping the launch or add scene-setting.
+- `tldr` is subdued, collapsible background — not a second lead story. Use two
+  concise chronological sentences, ideally under 420 characters total:
+  establish the starting point and major turn, then stop before the fact already
+  covered by `whats_new`. Avoid repeating `take_for_builders`.
 - `why_it_matters` is the platform-engineer lens — pricing, availability,
   agent/tooling impact, reliability — not generic "this is significant".
 - `take_for_builders` should be operational: check a deployment term, keep a
@@ -166,6 +170,10 @@ and write `data/storylines/narratives/<slug>.json`:
   cited item actually supports the number or complexity claim.
 - **Never invent links or items.** Only use `sid`s present in the bundle's
   timeline — the validator rejects unknown sids.
+- Before saving, compare the union of every `beats[].sids` with every displayed
+  `timeline[].items[].sid`. They must match exactly. When an early article is
+  added during reclustering, extend the relevant early beat instead of allowing
+  it to appear after the current-state beat as generic context.
 
 ### Scaling to many storylines (optional Workflow)
 With a handful of storylines, just write each sidecar inline (above). When the

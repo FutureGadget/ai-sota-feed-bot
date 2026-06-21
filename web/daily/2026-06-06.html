@@ -117,6 +117,83 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -140,10 +217,10 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">What happened in AI — Jun 6, 2026</h2>
-      <p class="recap-range">Saturday, Jun 6, 2026</p>
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">What happened in AI — Jun 6, 2026</h2></div><div><p class="daily-date">Saturday, Jun 6, 2026<br>7 articles · 3 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
+      <!-- range is included in the custom hero -->
       <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Latent Space called it a quiet day of recursive self-improvement — not much happened on the frontier.</li><li>Weekend Show HN leaned into agent control: Kodiqa (one agent, every model), Hermes (community web UI), and Sub-Agent MCP for delegation.</li><li>Agent-ML-skills offers a skills pack to stop Codex/Claude/Cursor from repeating common ML mistakes.</li><li>An engineering essay reframes every AI agent feature as a cache-invalidation surface.</li><li>Simon Willison sandboxes Python by running MicroPython compiled to WASM.</li></ul></div><p>A quiet Saturday on the frontier — Latent Space&#x27;s daily dispatch again shrugged with &quot;not much happened today&quot; — but a busy weekend for builders shipping agent tooling. The day&#x27;s Show HN feed was all about controlling and orchestrating agents: a one-agent-every-model client (Kodiqa), a community web UI (Hermes), MCP-based sub-agent delegation, and a skills pack to teach Codex, Claude, and Cursor to stop making the same ML mistakes.</p><p>The sharper reading came from two engineering notes: an argument that every AI agent feature is really a cache-invalidation surface, and Simon Willison&#x27;s latest take on sandboxing — running Python safely via MicroPython compiled to WASM.</p></div>
-      <nav class="toc"><a href="#agent-tooling-orchestration">Agent Tooling &amp; Orchestration (4)</a><a href="#engineering-notes">Engineering Notes (2)</a><a href="#commentary">Commentary (1)</a></nav><section class="cat" id="agent-tooling-orchestration"><h2>Agent Tooling &amp; Orchestration <span class="count">4 items</span></h2><p class="cat-summary">The weekend&#x27;s loudest thread: clients, UIs, and orchestration layers for running and delegating across agents.</p><div class="articles"><article><h3><a href="https://github.com/Kodiqa-Solutions/Kodiqa-agent" target="_blank" rel="noopener" data-track="daily-link">Show HN: Kodiqa Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/de8b6d3c9a9a3016" data-track="story-link">Details</a></div><p class="art-summary">An agent client pitched as &quot;one agent, every model, zero limits&quot; — a single interface across providers.</p></article><article><h3><a href="https://get-hermes.ai/" target="_blank" rel="noopener" data-track="daily-link">Hermes – Community Web UI with Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/15dfe0a2c6a6b5f9" data-track="story-link">Details</a></div><p class="art-summary">A community-built web UI with an integrated agent for interacting with models in the browser.</p></article><article><h3><a href="https://github.com/stormaref/Sub-Agent-MCP" target="_blank" rel="noopener" data-track="daily-link">Show HN: Sub-Agent MCP: LLM delegation and sub-agent orchestration via MCP</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/e5ed39a297cd6a8f" data-track="story-link">Details</a></div><p class="art-summary">An MCP server for LLM delegation, letting a primary agent spawn and orchestrate sub-agents through the protocol.</p></article><article><h3><a href="https://github.com/param087/agent-ml-skills" target="_blank" rel="noopener" data-track="daily-link">Agent-ML-skills – Teach Codex/Claude/Cursor to stop making ML mistakes</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/c1dbb940627539f5" data-track="story-link">Details</a></div><p class="art-summary">A skills pack that gives coding agents like Codex, Claude, and Cursor guardrails to avoid common machine-learning mistakes.</p></article></div></section><section class="cat" id="engineering-notes"><h2>Engineering Notes <span class="count">2 items</span></h2><p class="cat-summary">Two builder-focused reads on the hard parts: state invalidation in agents and safely sandboxing untrusted code.</p><div class="articles"><article><h3><a href="https://www.openclacky.com/engineering/cache-invalidation-surface" target="_blank" rel="noopener" data-track="daily-link">Every AI Agent Feature Is a Cache Invalidation Surface</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/560d06a84b83854c" data-track="story-link">Details</a></div><p class="art-summary">An essay arguing that each new agent feature really introduces another cache-invalidation problem — the perennial hard problem resurfacing in agent design.</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/6/micropython-in-a-sandbox/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Running Python code in a sandbox with MicroPython and WASM</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 6</span><a class="badge" href="/story/c83ad479a2665698" data-track="story-link">Details</a></div><p class="art-summary">Simon Willison&#x27;s latest sandboxing approach — running Python via MicroPython compiled to WASM — which he says finally hits the properties he&#x27;s been after.</p></article></div></section><section class="cat" id="commentary"><h2>Commentary <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s signal-to-noise read.</p><div class="articles"><article><h3><a href="https://www.latent.space/p/ainews-not-much-happened-today-6b8" target="_blank" rel="noopener" data-track="daily-link">[AINews] not much happened today</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 6</span><a class="badge" href="/story/fa9a146bd397c66b" data-track="story-link">Details</a></div><p class="art-summary">Latent Space&#x27;s daily dispatch calls it a quiet day of recursive self-improvement — a useful signal that the week&#x27;s big moves landed elsewhere.</p></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
+      <nav class="toc"><a href="#agent-tooling-orchestration">Agent Tooling &amp; Orchestration (4)</a><a href="#engineering-notes">Engineering Notes (2)</a><a href="#commentary">Commentary (1)</a></nav><section class="cat" id="agent-tooling-orchestration"><h2>Agent Tooling &amp; Orchestration <span class="count">4 items</span></h2><p class="cat-summary">The weekend&#x27;s loudest thread: clients, UIs, and orchestration layers for running and delegating across agents.</p><div class="articles"><article><h3><a href="https://github.com/Kodiqa-Solutions/Kodiqa-agent" target="_blank" rel="noopener" data-track="daily-link">Show HN: Kodiqa Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/de8b6d3c9a9a3016" data-track="story-link">Details</a></div><p class="art-summary">An agent client pitched as &quot;one agent, every model, zero limits&quot; — a single interface across providers.</p></article><article><h3><a href="https://get-hermes.ai/" target="_blank" rel="noopener" data-track="daily-link">Hermes – Community Web UI with Agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/15dfe0a2c6a6b5f9" data-track="story-link">Details</a></div><p class="art-summary">A community-built web UI with an integrated agent for interacting with models in the browser.</p></article><article><h3><a href="https://github.com/stormaref/Sub-Agent-MCP" target="_blank" rel="noopener" data-track="daily-link">Show HN: Sub-Agent MCP: LLM delegation and sub-agent orchestration via MCP</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/e5ed39a297cd6a8f" data-track="story-link">Details</a></div><p class="art-summary">An MCP server for LLM delegation, letting a primary agent spawn and orchestrate sub-agents through the protocol.</p></article><article><h3><a href="https://github.com/param087/agent-ml-skills" target="_blank" rel="noopener" data-track="daily-link">Agent-ML-skills – Teach Codex/Claude/Cursor to stop making ML mistakes</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/c1dbb940627539f5" data-track="story-link">Details</a></div><p class="art-summary">A skills pack that gives coding agents like Codex, Claude, and Cursor guardrails to avoid common machine-learning mistakes.</p></article></div></section><section class="cat" id="engineering-notes"><h2>Engineering Notes <span class="count">2 items</span></h2><p class="cat-summary">Two builder-focused reads on the hard parts: state invalidation in agents and safely sandboxing untrusted code.</p><div class="articles"><article><h3><a href="https://www.openclacky.com/engineering/cache-invalidation-surface" target="_blank" rel="noopener" data-track="daily-link">Every AI Agent Feature Is a Cache Invalidation Surface</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 6</span><a class="badge" href="/story/560d06a84b83854c" data-track="story-link">Details</a></div><p class="art-summary">An essay arguing that each new agent feature really introduces another cache-invalidation problem — the perennial hard problem resurfacing in agent design.</p></article><article><h3><a href="https://simonwillison.net/2026/Jun/6/micropython-in-a-sandbox/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">Running Python code in a sandbox with MicroPython and WASM</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 6</span><a class="badge" href="/story/c83ad479a2665698" data-track="story-link">Details</a></div><p class="art-summary">Simon Willison&#x27;s latest sandboxing approach — running Python via MicroPython compiled to WASM — which he says finally hits the properties he&#x27;s been after.</p></article></div></section><section class="cat" id="commentary"><h2>Commentary <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s signal-to-noise read.</p><div class="articles"><article><h3><a href="https://www.latent.space/p/ainews-not-much-happened-today-6b8" target="_blank" rel="noopener" data-track="daily-link">[AINews] not much happened today</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 6</span><a class="badge" href="/story/fa9a146bd397c66b" data-track="story-link">Details</a></div><p class="art-summary">Latent Space&#x27;s daily dispatch calls it a quiet day of recursive self-improvement — a useful signal that the week&#x27;s big moves landed elsewhere.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
     </section>
 
     <footer>

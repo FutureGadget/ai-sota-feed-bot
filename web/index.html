@@ -663,6 +663,122 @@
         height: 64px;
       }
     }
+
+    /* Live-feed identity: a ranked reading ledger. The feed keeps all existing
+       behavior; this layer makes order, evidence, and completion visually true. */
+    :root,
+    html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c; --alert:#c4483f;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --feed-wash:#1c2a48; --feed-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e; --alert:#ef756d;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .topbar h1 { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.7rem; letter-spacing:-.025em; }
+    .topbar-actions button, .topbar-actions a#subscribeToggle, .topbar-actions select {
+      border-radius:3px; background:transparent; min-height:40px; }
+    .quicknav { margin-top:.8rem; padding:.65rem 0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; gap:.5rem 1.25rem; }
+    .quicknav a { color:var(--muted); }
+    .quicknav a:hover { color:var(--accent); text-decoration:none; }
+    .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
+    .feed-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
+    .feed-promise { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
+    .feed-promise strong { color:var(--fg); }
+    #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; line-height:1.55; }
+    .sections { gap:0; margin-top:0; padding:0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); }
+    .sections button { min-height:44px; padding:.55rem .8rem; border:0;
+      border-bottom:2px solid transparent; border-radius:0; color:var(--muted);
+      font-size:.82rem; }
+    .sections button:hover { color:var(--accent); border-color:transparent; }
+    .sections button.active { background:transparent; border-bottom-color:var(--accent);
+      color:var(--fg); font-weight:700; }
+    .searchbar { margin-top:.8rem; border-radius:3px; background:transparent; }
+    .selected-labels { padding:.55rem 0; margin:0; border-bottom:1px solid var(--border); }
+    .selected-labels .badge { border:0; border-radius:0; padding:.2rem .45rem;
+      background:var(--feed-wash); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.65rem; }
+    .trust-banner { margin:1rem 0 0; padding:.75rem 0; border:0;
+      border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
+    .trust-banner[hidden] { display:none !important; }
+    #list { gap:0; margin-top:1.3rem; }
+    #list > article { position:relative; padding:1.05rem 0 1.1rem 3.35rem;
+      border:0; border-bottom:1px solid var(--border); border-radius:0;
+      background:transparent; box-shadow:none; }
+    #list > article:first-of-type { border-top:1px solid var(--border); }
+    #list > article.big-story { border-left:0; }
+    #list > article.big-story::after { content:"multi-source"; position:absolute; right:0; top:1.12rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      letter-spacing:.07em; text-transform:uppercase; color:var(--alert); }
+    .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.65rem;
+      line-height:1; font-weight:700; color:color-mix(in srgb,var(--muted) 55%,transparent); }
+    .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.45rem .7rem; }
+    .card-top .src, .when { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; font-weight:500; color:var(--muted); }
+    .card-top .src { color:var(--fg); font-weight:700; letter-spacing:.04em; }
+    .card-top .badge, .badge { border:0; border-radius:0; padding:.05rem 0;
+      background:transparent; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; }
+    .card-top .badge::before { content:"· "; color:var(--border); }
+    a.badge-storyline { border:0; background:transparent; color:var(--accent); }
+    .save-btn { margin-left:auto; }
+    .card-main { gap:1rem; }
+    article h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.28rem; line-height:1.22; }
+    article h3 a { font-weight:650; }
+    .why { max-width:45rem; margin:.3rem 0 0; font-size:.93rem; line-height:1.56; }
+    .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
+      border-left:2px solid var(--accent); background:var(--feed-wash);
+      color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
+    .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
+    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; }
+    .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
+    .fb-label { font-size:.72rem; }
+    .fb-btn { border:0; border-bottom:1px solid var(--border); border-radius:0;
+      padding:.15rem .35rem; font-size:.72rem; }
+    .catchup, .onboard { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--feed-wash); color:var(--feed-ink); }
+    .catchup { margin-bottom:1rem; }
+    .end-marker { display:flex; align-items:center; justify-content:center; gap:.8rem;
+      margin:2rem 0 .5rem; padding:1.2rem 0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); opacity:1; }
+    .end-marker::before { content:""; width:2rem; height:5px; background:var(--signal); }
+    .end-marker-title { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; }
+    .end-marker-sub { color:var(--muted); }
+    .state { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; }
+    .skel-card { border:0; border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
+    @media (max-width:640px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .topbar { align-items:flex-start; }
+      .topbar-actions { flex-wrap:wrap; justify-content:flex-end; }
+      .feed-hero { grid-template-columns:1fr; gap:.75rem; margin-top:1.55rem; }
+      .feed-title { font-size:3.1rem; }
+      .sections { overflow-x:auto; }
+      #list > article { padding-left:2.45rem; }
+      .rank-no { width:1.7rem; font-size:1.35rem; }
+      .card-top { padding-right:0; }
+      #list > article.big-story::after { display:none; }
+      article h3 { font-size:1.18rem; }
+      .thumb { width:72px; height:64px; }
+      .end-marker { display:block; text-align:left; }
+      .end-marker::before { display:block; margin-bottom:.6rem; }
+    }
   </style>
 </head>
 <body>
@@ -683,7 +799,6 @@
           <button id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
         </div>
       </div>
-      <p id="meta">Loading...</p>
       <nav class="quicknav" aria-label="More pages">
         <a href="/daily">📰 Daily recap</a>
         <a href="/weekly">🗓️ Weekly recap</a>
@@ -692,6 +807,17 @@
         <a href="/map">🧠 Knowledge map</a>
         <a href="/voices">🗣️ Voices</a>
       </nav>
+
+      <section class="feed-hero">
+        <div>
+          <p class="feed-kicker">Ranked signal · finite reading</p>
+          <h2 class="feed-title">The AI brief that ends.</h2>
+        </div>
+        <div>
+          <p class="feed-promise"><strong>One shared ranking.</strong> Scan what changed, save what matters, and stop when the finish line appears.</p>
+          <p id="meta">Loading...</p>
+        </div>
+      </section>
 
       <nav class="sections" id="sections" aria-label="Sections">
         <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
@@ -1658,7 +1784,8 @@
 
     function whyItMattersText(it) {
       const why = cleanText(it.why_it_matters);
-      return why !== LEGACY_PLACEHOLDER_WHY ? why : '';
+      if (why === LEGACY_PLACEHOLDER_WHY || /^Matches feed focus:/i.test(why)) return '';
+      return why;
     }
 
     function cardHtml(it, { rank = null, runId = '' } = {}) {
@@ -1707,6 +1834,7 @@
 
       return `
         <article${sourceCount >= 3 ? ' class="big-story"' : ''}>
+          ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <span class="src">${source}</span>
             ${published ? `<span class="when">${esc(published)}</span>` : ''}
@@ -2047,10 +2175,39 @@
         renderSavedView();
         return;
       }
-      const [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines()]);
+      let [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines()]);
+      if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+        res = await fetch('/data/processed/latest.json', { cache: 'no-store' });
+      }
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
 
-      const data = await res.json();
+      let data = await res.json();
+      if (Array.isArray(data)) {
+        const labels = getSelectedLabels();
+        const cutoff = presetDaysState === 'all'
+          ? 0
+          : Date.now() - Math.max(1, Number(presetDaysState || 7)) * 86400000;
+        const localItems = data.filter((it) => {
+          const published = Date.parse(it.published || it.collected_at || '');
+          if (cutoff && Number.isFinite(published) && published < cutoff) return false;
+          if (!labels.length || labels.includes('brief')) return String(it.type || '') !== 'release';
+          return labels.some((label) =>
+            label === String(it.type || '').toLowerCase()
+            || label === String(it.llm_category || '').toLowerCase()
+            || (it.matched_topics || []).map((t) => String(t).toLowerCase()).includes(label)
+          );
+        });
+        const latestAt = localItems.reduce((latest, it) => {
+          const value = it.collected_at || it.published || '';
+          return String(value) > String(latest) ? value : latest;
+        }, '');
+        data = {
+          items: localItems,
+          runs: latestAt ? [{ run_at: latestAt }] : [],
+          total_items: localItems.length,
+          has_more: false,
+        };
+      }
       const items = data.items || [];
       const runs = data.runs || [];
       const runId = runs?.[0]?.run_at || null;
@@ -2329,7 +2486,8 @@
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
        skipped under prefers-reduced-motion. Never affects initial load. -->
   <script type="module">
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const isLocalPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    if (!isLocalPreview && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       const go = () => import('/mascot/mascot.js').catch(() => {});
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
     }

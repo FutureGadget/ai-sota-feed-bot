@@ -45,7 +45,13 @@ def main() -> None:
         data = load_json(path, None)
         entry = entries.get(path.stem)
         valid_sids = set(member_sids(entry)) if entry else None
-        errs = validate_narrative(data, valid_sids=valid_sids)
+        detail = load_json(NARRATIVE_DIR.parent / f"{path.stem}.json", {}) or {}
+        displayed_sids = set(member_sids(detail)) if detail else None
+        errs = validate_narrative(
+            data,
+            valid_sids=valid_sids,
+            required_beat_sids=displayed_sids,
+        )
         if errs:
             errors_total += len(errs)
             print(f"[invalid] {path.name}:", file=sys.stderr)

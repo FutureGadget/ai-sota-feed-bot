@@ -5,7 +5,9 @@
 - llm-ranking.md
 - agent-wiki.md
 - storylines.md
+- story-permalinks.md
 - playbook.md
 - nav-update-indicators.md
 - email-digest.md
 - feed-date-ranges.md
+- live-feed.md

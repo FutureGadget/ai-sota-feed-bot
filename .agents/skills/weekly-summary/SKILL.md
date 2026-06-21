@@ -72,9 +72,9 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
   "title": "What happened in AI — Jun 1–7, 2026",
   "generated_at": "<ISO-8601 now>",
   "intro": [
-    "Paragraph 1: the headline through-line of the week.",
-    "Paragraph 2: the next thread.",
-    "Paragraph 3 (optional): the kicker."
+    "Paragraph 1: the dominant shift and what changed.",
+    "Paragraph 2: how the other major patterns connect.",
+    "Paragraph 3 (optional): the durable implication."
   ],
   "highlights": [
     "Scannable one-line takeaway (3–6 of these).",
@@ -109,13 +109,17 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
   Highlights". Don't just echo "Industry News".
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest ~5–10 articles. You need not include every article.
-- `intro` is the headline experience — tell the reader what actually happened
-  this week, newsletter-opener style. Use the array form (one string per
-  paragraph) so the page renders it as readable paragraphs; a plain string still
-  works and is split on blank lines. Keep it to 2–4 short paragraphs.
+- `intro` is the editorial interpretation beside the week's signal list. Explain
+  the dominant shift, connect the other major patterns, and end with the durable
+  implication in 2–3 short paragraphs, ideally under 1,100 characters total.
+  Use the array form (one string per paragraph); a plain string still works and
+  is split on blank lines. Do not walk through every category in order.
 - `highlights` (optional but recommended) is a "In 30 seconds" bullet list the
   page renders above the intro — 3–6 scannable one-liners so a reader gets the
   gist without reading the full narrative. Cover the week's biggest threads.
+- Treat each category as a **weekly shift**, not a storage bucket. Its `summary`
+  should make one clear pattern claim that the listed articles then support.
+  Avoid vague labels such as "Other news" or categories defined only by source.
 
 ### 4. Validate + rebuild the index (what the site serves)
 ```bash

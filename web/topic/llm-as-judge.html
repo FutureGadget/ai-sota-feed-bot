@@ -138,7 +138,7 @@
 
     <section id="recap">
       <h2 class="recap-title">LLM-as-judge: model-graded evaluation of traces and outputs</h2>
-      
+      <!-- range is included in the custom hero -->
       
       <div class="cat"><h2>TL;DR</h2><p>Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace), plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the practical backbone of agent evaluation when answers are open-ended.</p></div>
 <div class="cat"><h2>State of the art</h2><p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: detectors that read a trace and emit categorized failures with confidence scores and causal chains (AWS&#x27;s Strands Evals) rather than a single scalar. The headline cost problem — running a frontier judge over every trace is expensive — is being attacked by <strong>fine-tuning small open judges on production traces</strong>: LangChain and Fireworks report matching frontier-judge quality at roughly 1/100th the cost by mining perceived-error signals from real traffic. A related frontier is judging *before* deployment — OpenAI&#x27;s deployment simulation predicts model behavior on real conversation data pre-release, using model-graded simulation as a forecasting tool rather than a post-hoc check.</p></div>

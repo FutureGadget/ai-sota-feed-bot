@@ -117,6 +117,83 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -140,10 +217,10 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">What happened in AI — Jun 14, 2026</h2>
-      <p class="recap-range">Sunday, Jun 14, 2026</p>
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">What happened in AI — Jun 14, 2026</h2></div><div><p class="daily-date">Sunday, Jun 14, 2026<br>4 articles · 2 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
+      <!-- range is included in the custom hero -->
       <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>ClawMoat proposes runtime containment for AI agents in a post-Fable 5 world — sandboxing what autonomous agents are allowed to do.</li><li>Lime 2.0 takes the opposite tack with zero-human-auth, letting agents authenticate without a person in the loop.</li><li>An early legal-agent benchmark shares initial results, an attempt to measure how agents actually perform on real legal tasks.</li><li>AWS adds a durable storage option to ElastiCache for Valkey, extending the managed cache to persistent, failure-resilient workloads.</li></ul></div><p>A quiet Sunday after a busy MCP-heavy Saturday. There were no marquee model or product launches, and the day&#x27;s signal came almost entirely from early-stage Show HN projects circling the same question: as agents gain the ability to act on their own, how do you fence them in and let them authenticate without a human in the loop? ClawMoat pitched runtime containment &#x27;after Fable 5,&#x27; Lime 2.0 went the other way with zero-human-auth for agents, and an early legal-agent benchmark started putting numbers to how well these systems actually perform on real work.</p><p>The one piece of hard infrastructure news came from AWS, which added a durable storage option to ElastiCache for Valkey — pushing the managed cache beyond pure caching into persistent, failure-resilient workloads. It&#x27;s a plumbing update rather than an AI headline, but it&#x27;s the kind of substrate the agentic stack quietly runs on. On a thin day, the takeaway is mostly directional: the builders are converging on containment, authentication, and evaluation as the next problems to solve for autonomous agents.</p></div>
-      <nav class="toc"><a href="#agent-autonomy-containment-auth">Agent Autonomy, Containment &amp; Auth (3)</a><a href="#infrastructure-data">Infrastructure &amp; Data (1)</a></nav><section class="cat" id="agent-autonomy-containment-auth"><h2>Agent Autonomy, Containment &amp; Auth <span class="count">3 items</span></h2><p class="cat-summary">The day&#x27;s dominant thread, all from early-stage projects: as agents act on their own, how do you contain them, authenticate them, and measure them?</p><div class="articles"><article><h3><a href="https://clawmoat.com/" target="_blank" rel="noopener" data-track="daily-link">ClawMoat, runtime containment for AI agents after Fable 5</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/ff67252b298ec2b2" data-track="story-link">Details</a></div><p class="art-summary">An early project pitching runtime containment for autonomous agents — sandboxing what an agent is permitted to do at execution time.</p></article><article><h3><a href="https://lime.pics" target="_blank" rel="noopener" data-track="daily-link">Lime 2.0 – Zero Human Auth for AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/ed9128e2d4995592" data-track="story-link">Details</a></div><p class="art-summary">A take on agent authentication that removes the human from the loop, letting agents prove identity and gain access on their own.</p></article><article><h3><a href="https://twitter.com/gabepereyra/status/2059320727988224128" target="_blank" rel="noopener" data-track="daily-link">Initial Results on Legal Agent Benchmark</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/aa34bb758376dd3d" data-track="story-link">Details</a></div><p class="art-summary">Early results from a benchmark probing how well AI agents handle real legal tasks — a step toward measuring agent performance beyond demos.</p></article></div></section><section class="cat" id="infrastructure-data"><h2>Infrastructure &amp; Data <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s one piece of hard infrastructure news, extending a managed cache toward durable, persistent workloads.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/elasticache-valkey-durability/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">AWS Introduces Durable Storage Option for ElastiCache for Valkey</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/3e315de228a25e72" data-track="story-link">Details</a></div><p class="art-summary">AWS adds durability to ElastiCache for Valkey, enabling reliable data retention across failures and expanding the service beyond caching to persistent workloads.</p></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
+      <nav class="toc"><a href="#agent-autonomy-containment-auth">Agent Autonomy, Containment &amp; Auth (3)</a><a href="#infrastructure-data">Infrastructure &amp; Data (1)</a></nav><section class="cat" id="agent-autonomy-containment-auth"><h2>Agent Autonomy, Containment &amp; Auth <span class="count">3 items</span></h2><p class="cat-summary">The day&#x27;s dominant thread, all from early-stage projects: as agents act on their own, how do you contain them, authenticate them, and measure them?</p><div class="articles"><article><h3><a href="https://clawmoat.com/" target="_blank" rel="noopener" data-track="daily-link">ClawMoat, runtime containment for AI agents after Fable 5</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/ff67252b298ec2b2" data-track="story-link">Details</a></div><p class="art-summary">An early project pitching runtime containment for autonomous agents — sandboxing what an agent is permitted to do at execution time.</p></article><article><h3><a href="https://lime.pics" target="_blank" rel="noopener" data-track="daily-link">Lime 2.0 – Zero Human Auth for AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/ed9128e2d4995592" data-track="story-link">Details</a></div><p class="art-summary">A take on agent authentication that removes the human from the loop, letting agents prove identity and gain access on their own.</p></article><article><h3><a href="https://twitter.com/gabepereyra/status/2059320727988224128" target="_blank" rel="noopener" data-track="daily-link">Initial Results on Legal Agent Benchmark</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/aa34bb758376dd3d" data-track="story-link">Details</a></div><p class="art-summary">Early results from a benchmark probing how well AI agents handle real legal tasks — a step toward measuring agent performance beyond demos.</p></article></div></section><section class="cat" id="infrastructure-data"><h2>Infrastructure &amp; Data <span class="count">1 item</span></h2><p class="cat-summary">The day&#x27;s one piece of hard infrastructure news, extending a managed cache toward durable, persistent workloads.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/06/elasticache-valkey-durability/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">AWS Introduces Durable Storage Option for ElastiCache for Valkey</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/3e315de228a25e72" data-track="story-link">Details</a></div><p class="art-summary">AWS adds durability to ElastiCache for Valkey, enabling reliable data retention across failures and expanding the service beyond caching to persistent workloads.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>
     </section>
 
     <footer>

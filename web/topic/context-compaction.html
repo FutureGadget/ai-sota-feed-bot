@@ -138,7 +138,7 @@
 
     <section id="recap">
       <h2 class="recap-title">Context compaction: summarize, compress, and curate the working set</h2>
-      
+      <!-- range is included in the custom hero -->
       
       <div class="cat"><h2>TL;DR</h2><p>Keep memory *inside* the context window but small: summarize old turns, compress history, and deliberately curate what stays in-context each step (&quot;context engineering&quot;). The agent forgets less because the working set is chosen, not just truncated.</p></div>
 <div class="cat"><h2>State of the art</h2><p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href="/topic/vector-kb">vector/graph KB</a>, and rehydrate on demand.</p></div>

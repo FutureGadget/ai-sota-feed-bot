@@ -73,8 +73,7 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
   "generated_at": "<ISO-8601 now>",
   "intro": [
     "Paragraph 1: the headline through-line of the day.",
-    "Paragraph 2: the next thread.",
-    "Paragraph 3 (optional): the kicker."
+    "Paragraph 2 (optional): the secondary thread or operational implication."
   ],
   "highlights": [
     "Scannable one-line takeaway (3–6 of these).",
@@ -109,11 +108,11 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
   Highlights". Don't just echo "Industry News".
 - Curate, don't dump. Skip duplicates and low-signal items; keep each category
   to its strongest items. You need not include every article.
-- `intro` is the headline experience — tell the reader what actually happened
-  today, newsletter-opener style. Use the array form (one string per paragraph)
-  so the page renders it as readable paragraphs; a plain string still works and
-  is split on blank lines. Keep it to 2–3 short paragraphs (a day is smaller
-  than a week — don't pad it).
+- `intro` is the synthesis beside the fast-scan highlights, not a second full
+  recap. Tell the reader what actually happened today and connect the major
+  signals in 1–2 short paragraphs, ideally under 650 characters total. Use the
+  array form (one string per paragraph); a plain string still works and is split
+  on blank lines. Do not restate every highlight or enumerate every category.
 - `highlights` (optional but recommended) is a "In 30 seconds" bullet list the
   page renders above the intro — 3–6 scannable one-liners so a reader gets the
   gist without reading the full narrative. Cover the day's biggest threads.

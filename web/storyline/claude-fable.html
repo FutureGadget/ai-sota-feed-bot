@@ -117,42 +117,109 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    /* Pin the storyline page to the prototype's true GitHub-dark palette (dark
-       theme only); light theme keeps the site defaults. Scoped to this page
-       because extra_css is injected per-page. */
-    html[data-theme="dark"] { --bg:#0d1117; --card:#0f141b; --border:#21262d;
-      --accent:#58a6ff; --muted:#8b949e; --fg:#e6edf3; }
-    .sl-hero { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin:1.4rem 0 0.5rem; }
-    .sl-hero .recap-title { margin:0; font-size:2.15rem; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
-    .sl-hero #followBtn { font-family:inherit; font-size:0.85rem; font-weight:500; min-height:0;
-      padding:0.5rem 0.9rem; border-radius:9px; cursor:pointer; color:var(--accent); background:transparent;
-      border:1px solid color-mix(in srgb,var(--accent) 45%,var(--border)); }
-    .sl-hero #followBtn[aria-pressed="true"] { background:color-mix(in srgb,var(--accent) 16%,var(--card)); }
-    :root { --t-launch:#2ea043; --t-rising:var(--muted); --t-turn:#e5534b;
-      --t-now:#d9a521; --t-resolved:var(--accent); --t-neutral:var(--border); }
-    .sl-status { border:1px solid var(--border); border-radius:12px;
-      padding:0.85rem 1.05rem; margin:0 0 1.4rem; background:var(--card); }
-    .sl-status.tone-turn, .sl-status.tone-alert { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border)); background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
-    .sl-status.tone-now { border-color:color-mix(in srgb,var(--t-now) 45%,var(--border)); background:color-mix(in srgb,var(--t-now) 9%,var(--card)); }
-    .sl-status.tone-launch, .sl-status.tone-resolved { border-color:color-mix(in srgb,var(--t-launch) 40%,var(--border)); background:color-mix(in srgb,var(--t-launch) 7%,var(--card)); }
-    .sl-status-head { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.45rem; }
+    /* Storyline pages borrow from an operations trace: cool instrument paper,
+       condensed display type, and one continuous state/evidence signal. */
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --sl-wash:#eaf0ff; --sl-ink:#18243b;
+      --t-launch:#23875b; --t-rising:#718096; --t-turn:#c4483f;
+      --t-now:#b6780c; --t-resolved:#2457d6; --t-neutral:#a8b1bf;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --sl-wash:#1c2a48; --sl-ink:#e8eefb;
+      --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
+      --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .sl-hero { display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:end;
+      gap:1.25rem 2rem; margin:2.2rem 0 0.55rem; }
+    .sl-hero-copy { min-width:0; }
+    .sl-hero-kicker { margin:0 0 0.25rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-hero .recap-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.6rem,7vw,4.6rem); font-weight:700; letter-spacing:-0.045em; line-height:.92; }
+    .sl-hero #followBtn { font-family:inherit; font-size:0.84rem; font-weight:600; min-height:44px;
+      padding:0.55rem 0.9rem; border-radius:3px; cursor:pointer; color:var(--accent);
+      background:transparent; border:1px solid color-mix(in srgb,var(--accent) 55%,var(--border)); }
+    .sl-hero #followBtn:hover { background:color-mix(in srgb,var(--accent) 8%,var(--card)); }
+    .sl-hero #followBtn[aria-pressed="true"] { background:var(--sl-wash); }
+    .sl-follow-hint { grid-column:1 / -1; margin:0.15rem 0 0; font-size:0.78rem; color:var(--muted); }
+    .sl-command { margin:1.4rem 0 0; }
+    .sl-status { position:relative; padding:0.78rem 0.9rem 0.78rem 1.1rem; margin:0;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; }
+    .sl-status::before { content:""; position:absolute; left:0; top:0.75rem; bottom:0.75rem;
+      width:3px; background:var(--t-rising); }
+    .sl-status.tone-turn::before, .sl-status.tone-alert::before { background:var(--t-turn); }
+    .sl-status.tone-now::before { background:var(--t-now); }
+    .sl-status.tone-launch::before, .sl-status.tone-resolved::before { background:var(--t-launch); }
+    .sl-status-head { display:flex; align-items:center; gap:0.55rem; flex-wrap:wrap; margin:0; }
     .sl-dot { width:9px; height:9px; border-radius:50%; background:var(--t-now); flex:none; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot, .sl-status.tone-now .sl-dot { animation:slPulse 2.4s infinite; }
     .sl-status.tone-turn .sl-dot, .sl-status.tone-alert .sl-dot { background:var(--t-turn); }
     .sl-status.tone-launch .sl-dot, .sl-status.tone-resolved .sl-dot { background:var(--t-launch); }
     @keyframes slPulse { 0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--t-now) 55%,transparent);} 70%{box-shadow:0 0 0 5px transparent;} }
-    .sl-state { font-family:ui-monospace,monospace; font-size:0.72rem; letter-spacing:.06em;
+    .sl-status-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-right:0.25rem; }
+    .sl-state { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.72rem; letter-spacing:.06em;
       text-transform:uppercase; font-weight:700; color:var(--t-now); }
     .sl-status.tone-turn .sl-state, .sl-status.tone-alert .sl-state { color:var(--t-turn); }
     .sl-status.tone-launch .sl-state, .sl-status.tone-resolved .sl-state { color:var(--t-launch); }
     .sl-status-meta { font-size:0.8rem; color:var(--muted); }
-    .sl-status-detail { margin:0; font-size:0.98rem; line-height:1.55; }
-    .sl-tabs { display:flex; align-items:center; gap:1.2rem; border-bottom:1px solid var(--border); margin:0 0 1.4rem; }
-    .sl-tab { font:inherit; font-size:0.9rem; font-weight:600; color:var(--muted);
-      background:none; border:none; border-bottom:2px solid transparent; padding:0 0 0.6rem; cursor:pointer; }
+    .sl-status-detail { margin:0.55rem 0 0; max-width:54rem; font-size:0.96rem; line-height:1.55; }
+    .sl-delta-grid { display:grid; grid-template-columns:minmax(0,1.55fr) minmax(16rem,.8fr);
+      gap:0; align-items:stretch; border-bottom:1px solid var(--border); }
+    .sl-latest { margin:0; padding:1.6rem 2.25rem 1.7rem 0;
+      border:0; background:transparent; }
+    .sl-latest-head { display:flex; align-items:center; gap:0.45rem; margin:0 0 0.45rem; }
+    .sl-latest-dot { width:7px; height:7px; border-radius:50%; flex:none; background:var(--accent); }
+    .sl-latest .sl-watch-label { color:var(--muted); margin:0; }
+    .sl-latest p:last-child { margin:0; max-width:44rem; font-size:1.14rem; line-height:1.62;
+      letter-spacing:-0.01em; }
+    .sl-builder-take { margin:0; padding:1.45rem 1.35rem 1.55rem;
+      border:0; border-left:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+      border-radius:0; background:var(--sl-wash); line-height:1.55; }
+    .sl-builder-label { margin:0 0 0.55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--accent); }
+    .sl-builder-take p:last-child { margin:0; color:var(--sl-ink); font-size:0.91rem; line-height:1.6; }
+    .sl-background { margin:0 0 2rem; padding:0; border:0;
+      border-bottom:1px solid var(--border); border-radius:0; background:transparent; box-shadow:none; }
+    .sl-background > summary { cursor:pointer; min-height:50px; display:flex; align-items:center;
+      gap:0.75rem; margin:0; padding:0.9rem 0; border:0; border-radius:0;
+      color:var(--fg); background:transparent; box-shadow:none; list-style:none; }
+    .sl-background > summary::-webkit-details-marker { display:none; }
+    .sl-background > summary::marker { content:""; }
+    .sl-background > summary::after { content:""; display:block; width:7px; height:7px;
+      margin-left:auto; margin-right:0.2rem; border:0; border-right:1.5px solid var(--muted);
+      border-bottom:1.5px solid var(--muted); background:none; transform:rotate(45deg);
+      transition:transform .15s ease; }
+    .sl-background[open] > summary::after { transform:rotate(225deg); }
+    .sl-background > summary:hover, .sl-background > summary:focus,
+    .sl-background > summary:active { color:var(--fg); background:transparent; box-shadow:none; }
+    .sl-background-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.64rem;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .sl-background-title { font-size:0.9rem; font-weight:600; }
+    .sl-background-body { padding:0 0 1.2rem; max-width:46rem; }
+    .sl-background p { margin:0; color:color-mix(in srgb,var(--fg) 82%,var(--muted));
+      font-size:0.95rem; line-height:1.65; }
+    /* Oat styles ARIA tabs and details globally. Reset those presentation
+       defaults here so adding correct semantics cannot reshape the Arc UI. */
+    .sl-tabs[role="tablist"] { display:flex; align-items:center; gap:1.2rem;
+      border:0; border-bottom:1px solid var(--border); border-radius:0;
+      margin:0 0 1.65rem; padding:0; background:transparent; box-shadow:none; }
+    .sl-tab { font:inherit; font-size:0.86rem; font-weight:600; color:var(--muted);
+      display:inline-flex; align-items:center; gap:0; width:auto; background:none;
+      border:0; border-bottom:2px solid transparent; border-radius:0;
+      margin:0; padding:0.65rem 0; min-height:44px; cursor:pointer; box-shadow:none; }
     .sl-tab.is-active { color:var(--fg); border-bottom-color:var(--accent); }
-    .sl-tab-note { margin-left:auto; font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); padding-bottom:0.6rem; }
-    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,monospace; font-size:0.66rem;
+    .sl-tab-note { margin-left:auto; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.66rem; letter-spacing:.04em; color:var(--muted); padding-bottom:0.6rem; }
+    [role="tabpanel"][data-sl-view] { padding:0; margin:0; border:0; background:transparent; }
+    .sl-rail-label, .sl-watch-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.66rem;
       letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:0 0 0.5rem; }
     .sl-rail { display:flex; gap:2px; height:11px; border-radius:6px; overflow:hidden; margin:0 0 0.4rem; }
     .sl-rail-seg { flex:1; min-width:8px; border-radius:3px; }
@@ -164,28 +231,40 @@
     .tone-launch-fg{color:var(--t-launch);} .tone-rising-fg{color:var(--t-rising);}
     .tone-turn-fg{color:var(--t-turn);} .tone-now-fg{color:var(--t-now);}
     .tone-resolved-fg{color:var(--t-resolved);} .tone-neutral-fg{color:var(--muted);}
-    .sl-track { display:flex; gap:2px; height:13px; border-radius:7px; overflow:hidden; margin:0 0 0.5rem; }
-    .sl-track-seg { border-radius:3px; }
-    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,monospace;
-      font-size:0.72rem; margin:0 0 1.9rem; }
-    .sl-spine { position:relative; padding-left:2rem; }
-    .sl-spine::before { content:""; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--border); }
-    .sl-beat { position:relative; margin:0 0 1.5rem; }
-    .sl-beat > summary { list-style:none; cursor:pointer; }
+    .sl-track { display:flex; gap:4px; height:8px; overflow:hidden; margin:0 0 0.65rem; }
+    .sl-track-seg { border-radius:1px; }
+    .sl-track-ends { display:flex; justify-content:space-between; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.68rem; margin:0 0 2.4rem; }
+    .sl-track-legend { display:grid; gap:0.35rem; margin:0 0 1.9rem; padding:0; list-style:none;
+      font-family:ui-monospace,monospace; font-size:0.72rem; }
+    .sl-track-legend li { display:flex; align-items:flex-start; gap:0.45rem; color:var(--muted); }
+    .sl-track-key { width:9px; height:9px; border-radius:50%; flex:none; margin-top:0.22rem; }
+    .sl-spine { position:relative; padding-left:2.3rem; }
+    .sl-spine::before { content:""; position:absolute; left:7px; top:7px; bottom:8px; width:1px;
+      background:linear-gradient(to bottom,var(--t-launch),var(--t-turn) 52%,var(--t-now)); opacity:.65; }
+    .sl-beat { position:relative; margin:0 0 1.75rem; padding:0; border:0;
+      border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary { display:block; list-style:none; cursor:pointer; margin:0;
+      padding:0; border:0; border-radius:0; background:transparent; box-shadow:none; }
+    .sl-beat > summary:hover, .sl-beat > summary:focus,
+    .sl-beat > summary:active { background:transparent; color:inherit; box-shadow:none; }
     .sl-beat > summary::-webkit-details-marker { display:none; }
-    .sl-node { position:absolute; left:-1.72rem; top:3px; width:14px; height:14px; border-radius:50%;
+    .sl-node { position:absolute; left:-2.04rem; top:3px; width:15px; height:15px; border-radius:2px;
       background:var(--bg); border:2px solid var(--t-neutral); }
     .sl-beat.tone-launch .sl-node{border-color:var(--t-launch);}
     .sl-beat.tone-rising .sl-node{border-color:var(--t-rising);}
     .sl-beat.tone-now .sl-node{border-color:var(--t-now);}
     .sl-beat.tone-resolved .sl-node{border-color:var(--t-resolved);}
-    .sl-beat.tone-turn .sl-node{ left:-1.85rem; top:1px; width:20px; height:20px; border-width:3px;
-      border-color:var(--t-turn); box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 14%,transparent); }
-    .sl-kicker { font-family:ui-monospace,monospace; font-size:0.7rem; color:var(--muted); margin:0 0 0.25rem; }
+    .sl-beat.tone-turn .sl-node{ left:-2.12rem; top:0; width:21px; height:21px; border-width:3px;
+      border-color:var(--t-turn); transform:rotate(45deg);
+      box-shadow:0 0 0 5px color-mix(in srgb,var(--t-turn) 12%,transparent); }
+    .sl-kicker { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:0.68rem;
+      letter-spacing:.035em; color:var(--muted); margin:0 0 0.25rem; }
     .sl-beat.tone-launch .sl-kicker{color:var(--t-launch);} .sl-beat.tone-now .sl-kicker{color:var(--t-now);}
     .sl-beat.tone-turn .sl-kicker{color:var(--t-turn); font-weight:700;}
-    .sl-beat-title { font-size:1.02rem; font-weight:600; line-height:1.35; }
-    .sl-beat.tone-turn .sl-beat-title { font-size:1.12rem; font-weight:700; }
+    .sl-beat-title { max-width:44rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.16rem; font-weight:650; letter-spacing:-0.015em; line-height:1.3; }
+    .sl-beat.tone-turn .sl-beat-title { font-size:1.28rem; font-weight:700; }
     .sl-beat-sum { font-size:0.92rem; color:var(--fg); opacity:0.82; margin-top:0.35rem; line-height:1.5; }
     .sl-ok { color:var(--t-launch); }
     .sl-show { font-size:0.8rem; color:var(--muted); margin-top:0.4rem; }
@@ -194,12 +273,18 @@
     .sl-card.sl-card-turn { border-color:color-mix(in srgb,var(--t-turn) 45%,var(--border));
       background:color-mix(in srgb,var(--t-turn) 7%,var(--card)); }
     .sl-card h3 a { color:var(--accent); }
-    .sl-watch { border:1px solid var(--border); border-radius:12px; padding:0.95rem 1.1rem; margin:1.8rem 0 0; }
+    .sl-watch { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; padding:1.25rem 0 1.4rem; margin:2.4rem 0 0; }
     .sl-watch ul { margin:0; padding-left:1.1rem; display:flex; flex-direction:column; gap:0.5rem; }
     .sl-watch li { font-size:0.95rem; line-height:1.45; }
     .sl-watch li::marker { color:var(--t-now); }
     .sl-take { margin-top:0.9rem; padding-top:0.85rem; border-top:1px solid var(--border); font-size:0.93rem; line-height:1.55; }
-    .sl-agents { border:1px solid var(--border); border-radius:12px; padding:0.85rem 1.1rem; margin:1.4rem 0 0; }
+    .sl-agents { border:0; border-bottom:1px solid var(--border); border-radius:0;
+      padding:0.8rem 0; margin:1rem 0 0; }
+    .sl-agents > summary { cursor:pointer; min-height:32px; display:flex; align-items:center; margin:0; }
+    .sl-agents > summary:hover, .sl-agents > summary:focus,
+    .sl-agents > summary:active { background:transparent; color:var(--muted); box-shadow:none; }
+    .sl-agents[open] > summary { margin-bottom:0.7rem; }
     .sl-agent-row { display:flex; gap:1.4rem; flex-wrap:wrap; font-family:ui-monospace,monospace; font-size:0.78rem; color:var(--muted); }
     .sl-agent-row b { font-weight:600; }
     .sl-agent-row .a-scout, .sl-agent-row .a-editor { color:var(--accent); }
@@ -207,6 +292,37 @@
     .sl-agent-row .a-watch { color:var(--t-now); }
     .sl-note { margin-top:1.6rem; font-size:0.84rem; line-height:1.6; color:var(--muted); }
     [data-sl-view][hidden] { display:none; }
+    .sl-tab:focus-visible, .sl-hero #followBtn:focus-visible, .sl-background > summary:focus-visible,
+    .sl-beat > summary:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent);
+      outline-offset:3px; border-radius:6px; }
+    .sl-background > summary:focus-visible { outline:0;
+      box-shadow:inset 2px 0 0 color-mix(in srgb,var(--accent) 55%,transparent); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .sl-hero { grid-template-columns:1fr; align-items:flex-start; margin-top:1.6rem; }
+      .sl-hero .recap-title { font-size:3rem; width:100%; }
+      .sl-hero #followBtn { width:100%; justify-content:center; }
+      .sl-follow-hint { grid-column:1; }
+      .sl-delta-grid { grid-template-columns:1fr; }
+      .sl-latest { padding:1.35rem 0 1.45rem; }
+      .sl-latest p:last-child { font-size:1.04rem; }
+      .sl-builder-take { border-left:0; border-top:1px solid color-mix(in srgb,var(--accent) 35%,var(--border));
+        padding:1.1rem 1rem 1.2rem; }
+      .sl-tabs { gap:1rem; flex-wrap:wrap; }
+      .sl-tab-note { width:100%; order:3; margin:-0.65rem 0 0; padding-bottom:0.65rem; }
+      .sl-track-ends { display:none; }
+      .sl-track-legend { display:grid; }
+      .sl-spine { padding-left:1.85rem; }
+      .sl-node { left:-1.62rem; }
+      .sl-beat.tone-turn .sl-node { left:-1.7rem; }
+    }
+    @media (min-width:561px) {
+      .sl-track-legend { display:none; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .sl-dot { animation:none !important; }
+      .sl-background > summary::after { transition:none; }
+    }
   </style>
 </head>
 <body>
@@ -229,10 +345,10 @@
     </header>
 
     <section id="recap">
-      <div class="sl-hero"><h2 class="recap-title">Claude Fable</h2><button id="followBtn" type="button" class="primary" data-slug="claude-fable" data-last-updated="2026-06-20T09:03:00+00:00" aria-pressed="false">+ Follow this story</button></div>
+      <div class="sl-hero"><div class="sl-hero-copy"><p class="sl-hero-kicker">Operational story trace</p><h2 class="recap-title">Claude Fable</h2></div><button id="followBtn" type="button" class="primary" data-slug="claude-fable" data-last-updated="2026-06-20T09:03:00+00:00" aria-pressed="false" aria-describedby="followHint">+ Follow this story</button><p id="followHint" class="sl-follow-hint" aria-live="polite">Follow in this browser to see new updates on your Live feed.</p></div>
+      <!-- range is included in the custom hero -->
       
-      
-      <div class="sl-status tone-rising"><div class="sl-status-head"><span class="sl-dot"></span><span class="sl-state">On Bedrock · data-sharing required</span><span class="sl-status-meta">status changed Jun 20 · available via provider_data_share opt-in</span></div><p class="sl-status-detail">Fable 5 and Mythos 5 launched &quot;made safe for general use,&quot; were pulled by a US export-control directive, then returned on Amazon Bedrock — but only with provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review.</p></div><div class="intro"><p class="tldr-label">TL;DR</p><p>Anthropic launched Claude Fable 5 and the higher Mythos 5 tier on Jun 9; the first day-one hands-on called it &quot;something of a beast&quot; — powerful but slow and expensive — as launch coverage flagged controversial usage terms. Two days in, a sustained read called Fable 5 &quot;relentlessly proactive.&quot; Then on Jun 12-13 the story turned: a US export-control directive, citing national security, suspended access, and coverage recast the launch as too dangerous to release. A Jun 15 recap framed it as temporary. By Jun 20 access is back on Amazon Bedrock — but only via provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review.</p><p><b>What's new:</b> Access is partially restored: Fable 5 and Mythos 5 are usable on Amazon Bedrock again, but require opting into provider_data_share — prompts and outputs go to Anthropic for 30-day retention with human review, a break from how previous Bedrock models kept inference data private.</p></div><div class="sl-tabs"><button class="sl-tab is-active" type="button" data-view="arc">The Arc</button><button class="sl-tab" type="button" data-view="timeline">Timeline</button><span class="sl-tab-note">maintained by 4 agents</span></div><div data-sl-view="arc"><p class="sl-rail-label">Access over time</p><div class="sl-track"><span class="sl-track-seg tone-launch-bg" style="flex:0 0 40.000%"></span><span class="sl-track-seg tone-alert-bg" style="flex:0 0 38.000%"></span><span class="sl-track-seg tone-now-bg" style="flex:0 0 22.000%"></span></div><div class="sl-track-ends"><span class="tone-launch-fg">● available · Jun 9–13</span><span class="tone-now-fg">on Bedrock w/ data-sharing · Jun 20 → now ●</span></div><div class="sl-spine"><details class="sl-beat tone-launch"><summary><span class="sl-node"></span><div class="sl-kicker">LAUNCH · Jun 9–10</div><div class="sl-beat-title">Claude Fable 5 + Mythos 5 ship — a &quot;beast&quot; with controversial terms</div><div class="sl-show">2 sources · <span class="sl-show-link">show sources ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Day-one impressions on release day, without early access — ~5.5 hours of hands-on calling Fable 5 &#x27;something of a beast&#x27;: powerful but slow and expensive.</p></article><article class="sl-card"><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span><span class="badge">2 sources</span></div><p class="art-summary">Launch: Anthropic ships Claude Fable 5 and the higher Mythos 5 tier, billed as made safe for general use, alongside controversial usage terms — the event that starts the thread.</p></article></div></details><details class="sl-beat tone-rising"><summary><span class="sl-node"></span><div class="sl-kicker">HANDS-ON · Jun 11</div><div class="sl-beat-title">A powerful but &quot;relentlessly proactive&quot; beast</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">First sustained hands-on — after two days, Fable 5 reads as &#x27;relentlessly proactive,&#x27; deploying any trick it knows to reach a goal.</p></article></div></details><details class="sl-beat tone-turn"><summary><span class="sl-node"></span><div class="sl-kicker">THE TURN · Jun 12–13</div><div class="sl-beat-title">US export-control directive suspends access</div><div class="sl-beat-sum">On national-security grounds the US government orders access to Fable 5 and Mythos 5 suspended; coverage reframes the launch as &quot;too dangerous to release.&quot; <span class="sl-ok">✓ fact-checker verified across 3 sources</span></div><div class="sl-show">2 sources · <span class="sl-show-link">show sources ▾</span></div></summary><div class="sl-cards"><article class="sl-card sl-card-turn"><h3><a href="/story/e464b7a63a6a0397" data-track="storyline-link">Statement on the US government directive to suspend access to Fable 5 and Mythos 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 12</span><span class="badge">2 sources</span></div><p class="art-summary">The turn — Anthropic&#x27;s statement surfaces a US government export-control directive ordering access to Fable 5 and Mythos 5 suspended.</p></article><article class="sl-card sl-card-turn"><h3><a href="/story/1a3926308e38dbe8" data-track="storyline-link">[AINews] Fable and Mythos officially too dangerous to release</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 13</span></div><p class="art-summary">Industry reaction recasts the launch as models officially &#x27;too dangerous to release.&#x27;</p></article></div></details><details class="sl-beat tone-alert"><summary><span class="sl-node"></span><div class="sl-kicker">SUSPENDED · Jun 15</div><div class="sl-beat-title">Reframed as a temporary suspension — no re-enable date</div><div class="sl-beat-sum">An outside recap ties the takedown to the export-control directive and frames it as temporary rather than permanent. <span class="sl-ok">✓ fact-checker verified across 3 sources</span></div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/575139a8c2fbbeb4" data-track="storyline-link">Anthropic Releases and Temporarily Suspends Claude Fable 5</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 15</span></div><p class="art-summary">Outside recap; first to frame the suspension as temporary and tie it to the US export-control directive.</p></article></div></details><details class="sl-beat tone-now"><summary><span class="sl-node"></span><div class="sl-kicker">NOW · Jun 20</div><div class="sl-beat-title">Back on Bedrock — but only with data-sharing opted in</div><div class="sl-show">1 source · scout · watcher updated status · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/679c5fff40623508" data-track="storyline-link">Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 20</span></div><p class="art-summary">Access returns on Amazon Bedrock, but gated behind provider_data_share — prompts and outputs sent to Anthropic for 30-day retention with human review, unlike prior Bedrock models.</p></article></div></details></div></div><div data-sl-view="timeline" hidden><section class="cat"><h2><span class="count">Day 1</span> Tuesday, Jun 9, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Day-one impressions on release day, without early access — ~5.5 hours of hands-on calling Fable 5 &#x27;something of a beast&#x27;: powerful but slow and expensive.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Wednesday, Jun 10, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span><span class="badge">2 sources</span></div><p class="art-summary">Launch: Anthropic ships Claude Fable 5 and the higher Mythos 5 tier, billed as made safe for general use, alongside controversial usage terms — the event that starts the thread.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Thursday, Jun 11, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">First sustained hands-on — after two days, Fable 5 reads as &#x27;relentlessly proactive,&#x27; deploying any trick it knows to reach a goal.</p></article></div></section><section class="cat"><h2><span class="count">Day 4</span> Friday, Jun 12, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/e464b7a63a6a0397" data-track="storyline-link">Statement on the US government directive to suspend access to Fable 5 and Mythos 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 12</span><span class="badge">2 sources</span></div><p class="art-summary">The turn — Anthropic&#x27;s statement surfaces a US government export-control directive ordering access to Fable 5 and Mythos 5 suspended.</p></article></div></section><section class="cat"><h2><span class="count">Day 5</span> Saturday, Jun 13, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/1a3926308e38dbe8" data-track="storyline-link">[AINews] Fable and Mythos officially too dangerous to release</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 13</span></div><p class="art-summary">Industry reaction recasts the launch as models officially &#x27;too dangerous to release.&#x27;</p></article></div></section><section class="cat"><h2><span class="count">Day 6</span> Monday, Jun 15, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/575139a8c2fbbeb4" data-track="storyline-link">Anthropic Releases and Temporarily Suspends Claude Fable 5</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 15</span></div><p class="art-summary">Outside recap; first to frame the suspension as temporary and tie it to the US export-control directive.</p></article></div></section><section class="cat"><h2><span class="count">Day 7</span> Saturday, Jun 20, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/679c5fff40623508" data-track="storyline-link">Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 20</span></div><p class="art-summary">Access returns on Amazon Bedrock, but gated behind provider_data_share — prompts and outputs sent to Anthropic for 30-day retention with human review, unlike prior Bedrock models.</p></article></div></section></div><div class="sl-watch"><p class="sl-watch-label">What to watch — open questions</p><ul><li>Is the Bedrock data-sharing requirement temporary, or the permanent condition of access?</li><li>Is Fable 5 / Mythos 5 returning anywhere outside Bedrock, on standard private-inference terms?</li><li>Does the export-control directive still apply, or has it been lifted for the Bedrock path?</li><li>How is the 30-day retention with human review reconciled with enterprise data-governance commitments?</li></ul><div class="sl-take">💡 <b>Take for builders:</b> If you re-enable Fable 5 / Mythos 5 on Bedrock, read the provider_data_share terms first: access now means prompts and outputs are retained by Anthropic for 30 days with human review. Keep a fallback model wired in rather than hard-coding a single flagship tier.</div></div><div class="sl-agents"><p class="sl-watch-label">Agents on this story</p><div class="sl-agent-row"><span><b class="a-scout">scout</b> surfaced 1</span><span><b class="a-editor">editor</b> wrote the arc · 5 beats</span><span><b class="a-check">fact-checker</b> 3 verified</span><span><b class="a-watch">watcher</b> 1 status change</span></div></div><p class="sl-note">Storylines are threaded mechanically from the feed: stories that share a distinctive anchor across multiple days and sources. Each item links to its original source. The arc, status, and open questions are written by the editor routine and refreshed whenever a new beat lands.</p>
+      <section class="sl-command"><div class="sl-status tone-rising"><div class="sl-status-head"><span class="sl-dot"></span><span class="sl-status-label">Current state</span><span class="sl-state">On Bedrock · data-sharing required</span><span class="sl-status-meta">status changed Jun 20 · available via provider_data_share opt-in</span></div></div><div class="sl-delta-grid"><section class="sl-latest" aria-labelledby="latestChangeLabel"><div class="sl-latest-head"><span class="sl-latest-dot"></span><p id="latestChangeLabel" class="sl-watch-label">Latest change</p></div><p>Access is partially restored: Fable 5 and Mythos 5 are usable on Amazon Bedrock again, but require opting into provider_data_share — prompts and outputs go to Anthropic for 30-day retention with human review, a break from how previous Bedrock models kept inference data private.</p></section><aside class="sl-builder-take"><p class="sl-builder-label">Builder action</p><p>If you re-enable Fable 5 / Mythos 5 on Bedrock, read the provider_data_share terms first: access now means prompts and outputs are retained by Anthropic for 30 days with human review. Keep a fallback model wired in rather than hard-coding a single flagship tier.</p></aside></div></section><details class="sl-background"><summary><span class="sl-background-label">Earlier context</span><span class="sl-background-title">The story so far</span></summary><div class="sl-background-body"><p>Anthropic launched Claude Fable 5 and the higher Mythos 5 tier on Jun 9; the first day-one hands-on called it &quot;something of a beast&quot; — powerful but slow and expensive — as launch coverage flagged controversial usage terms. Two days in, a sustained read called Fable 5 &quot;relentlessly proactive.&quot; Then on Jun 12-13 the story turned: a US export-control directive, citing national security, suspended access, and coverage recast the launch as too dangerous to release. A Jun 15 recap framed it as temporary. By Jun 20 access is back on Amazon Bedrock — but only via provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review.</p></div></details><div class="sl-tabs" role="tablist" aria-label="Storyline views"><button id="arcTab" class="sl-tab is-active" type="button" role="tab" aria-controls="arcView" aria-selected="true" data-view="arc">Evidence trace</button><button id="timelineTab" class="sl-tab" type="button" role="tab" aria-controls="timelineView" aria-selected="false" data-view="timeline">Source timeline</button><span class="sl-tab-note">editor-curated · source-linked</span></div><div id="arcView" role="tabpanel" aria-labelledby="arcTab" data-sl-view="arc"><p class="sl-rail-label">State over time</p><div class="sl-track"><span class="sl-track-seg tone-launch-bg" style="flex:0 0 40.000%"></span><span class="sl-track-seg tone-alert-bg" style="flex:0 0 38.000%"></span><span class="sl-track-seg tone-now-bg" style="flex:0 0 22.000%"></span></div><div class="sl-track-ends"><span class="tone-launch-fg">● available · Jun 9–13</span><span class="tone-now-fg">on Bedrock w/ data-sharing · Jun 20 → now ●</span></div><ul class="sl-track-legend"><li><span class="sl-track-key tone-launch-bg"></span><span>available · Jun 9–13</span></li><li><span class="sl-track-key tone-alert-bg"></span><span>suspended · Jun 13–20</span></li><li><span class="sl-track-key tone-now-bg"></span><span>on Bedrock w/ data-sharing · Jun 20 → now</span></li></ul><div class="sl-spine"><details class="sl-beat tone-launch"><summary><span class="sl-node"></span><div class="sl-kicker">LAUNCH · Jun 9–10</div><div class="sl-beat-title">Claude Fable 5 + Mythos 5 ship — a &quot;beast&quot; with controversial terms</div><div class="sl-show">2 sources · <span class="sl-show-link">show sources ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Day-one impressions on release day, without early access — ~5.5 hours of hands-on calling Fable 5 &#x27;something of a beast&#x27;: powerful but slow and expensive.</p></article><article class="sl-card"><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span><span class="badge">2 sources</span></div><p class="art-summary">Launch: Anthropic ships Claude Fable 5 and the higher Mythos 5 tier, billed as made safe for general use, alongside controversial usage terms — the event that starts the thread.</p></article></div></details><details class="sl-beat tone-rising"><summary><span class="sl-node"></span><div class="sl-kicker">HANDS-ON · Jun 11</div><div class="sl-beat-title">A powerful but &quot;relentlessly proactive&quot; beast</div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">First sustained hands-on — after two days, Fable 5 reads as &#x27;relentlessly proactive,&#x27; deploying any trick it knows to reach a goal.</p></article></div></details><details class="sl-beat tone-turn"><summary><span class="sl-node"></span><div class="sl-kicker">THE TURN · Jun 12–13</div><div class="sl-beat-title">US export-control directive suspends access</div><div class="sl-beat-sum">On national-security grounds the US government orders access to Fable 5 and Mythos 5 suspended; coverage reframes the launch as &quot;too dangerous to release.&quot; <span class="sl-ok">✓ corroborated across 3 sources</span></div><div class="sl-show">2 sources · <span class="sl-show-link">show sources ▾</span></div></summary><div class="sl-cards"><article class="sl-card sl-card-turn"><h3><a href="/story/e464b7a63a6a0397" data-track="storyline-link">Statement on the US government directive to suspend access to Fable 5 and Mythos 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 12</span><span class="badge">2 sources</span></div><p class="art-summary">The turn — Anthropic&#x27;s statement surfaces a US government export-control directive ordering access to Fable 5 and Mythos 5 suspended.</p></article><article class="sl-card sl-card-turn"><h3><a href="/story/1a3926308e38dbe8" data-track="storyline-link">[AINews] Fable and Mythos officially too dangerous to release</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 13</span></div><p class="art-summary">Industry reaction recasts the launch as models officially &#x27;too dangerous to release.&#x27;</p></article></div></details><details class="sl-beat tone-alert"><summary><span class="sl-node"></span><div class="sl-kicker">SUSPENDED · Jun 15</div><div class="sl-beat-title">Reframed as a temporary suspension — no re-enable date</div><div class="sl-beat-sum">An outside recap ties the takedown to the export-control directive and frames it as temporary rather than permanent. <span class="sl-ok">✓ corroborated across 3 sources</span></div><div class="sl-show">1 source · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/575139a8c2fbbeb4" data-track="storyline-link">Anthropic Releases and Temporarily Suspends Claude Fable 5</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 15</span></div><p class="art-summary">Outside recap; first to frame the suspension as temporary and tie it to the US export-control directive.</p></article></div></details><details class="sl-beat tone-now"><summary><span class="sl-node"></span><div class="sl-kicker">NOW · Jun 20</div><div class="sl-beat-title">Back on Bedrock — but only with data-sharing opted in</div><div class="sl-show">1 source · scout · watcher updated status · <span class="sl-show-link">show source ▾</span></div></summary><div class="sl-cards"><article class="sl-card"><h3><a href="/story/679c5fff40623508" data-track="storyline-link">Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 20</span></div><p class="art-summary">Access returns on Amazon Bedrock, but gated behind provider_data_share — prompts and outputs sent to Anthropic for 30-day retention with human review, unlike prior Bedrock models.</p></article></div></details></div></div><div id="timelineView" role="tabpanel" aria-labelledby="timelineTab" data-sl-view="timeline" hidden><section class="cat"><h2><span class="count">Day 1</span> Tuesday, Jun 9, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/d55ae15e9c8bf350" data-track="storyline-link">Initial impressions of Claude Fable 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 9</span></div><p class="art-summary">Day-one impressions on release day, without early access — ~5.5 hours of hands-on calling Fable 5 &#x27;something of a beast&#x27;: powerful but slow and expensive.</p></article></div></section><section class="cat"><h2><span class="count">Day 2</span> Wednesday, Jun 10, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/d232148f3de4820c" data-track="storyline-link">[AINews] Anthropic Claude Fable 5 — Mythos but Safe, with Controversial Terms</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 10</span><span class="badge">2 sources</span></div><p class="art-summary">Launch: Anthropic ships Claude Fable 5 and the higher Mythos 5 tier, billed as made safe for general use, alongside controversial usage terms — the event that starts the thread.</p></article></div></section><section class="cat"><h2><span class="count">Day 3</span> Thursday, Jun 11, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/c9ab8f8aa14fe295" data-track="storyline-link">Claude Fable is relentlessly proactive</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 11</span></div><p class="art-summary">First sustained hands-on — after two days, Fable 5 reads as &#x27;relentlessly proactive,&#x27; deploying any trick it knows to reach a goal.</p></article></div></section><section class="cat"><h2><span class="count">Day 4</span> Friday, Jun 12, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/e464b7a63a6a0397" data-track="storyline-link">Statement on the US government directive to suspend access to Fable 5 and Mythos 5</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 12</span><span class="badge">2 sources</span></div><p class="art-summary">The turn — Anthropic&#x27;s statement surfaces a US government export-control directive ordering access to Fable 5 and Mythos 5 suspended.</p></article></div></section><section class="cat"><h2><span class="count">Day 5</span> Saturday, Jun 13, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/1a3926308e38dbe8" data-track="storyline-link">[AINews] Fable and Mythos officially too dangerous to release</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jun 13</span></div><p class="art-summary">Industry reaction recasts the launch as models officially &#x27;too dangerous to release.&#x27;</p></article></div></section><section class="cat"><h2><span class="count">Day 6</span> Monday, Jun 15, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/575139a8c2fbbeb4" data-track="storyline-link">Anthropic Releases and Temporarily Suspends Claude Fable 5</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 15</span></div><p class="art-summary">Outside recap; first to frame the suspension as temporary and tie it to the US export-control directive.</p></article></div></section><section class="cat"><h2><span class="count">Day 7</span> Saturday, Jun 20, 2026</h2><div class="articles"><article class="sl-card"><h3><a href="/story/679c5fff40623508" data-track="storyline-link">Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 20</span></div><p class="art-summary">Access returns on Amazon Bedrock, but gated behind provider_data_share — prompts and outputs sent to Anthropic for 30-day retention with human review, unlike prior Bedrock models.</p></article></div></section></div><div class="sl-watch"><p class="sl-watch-label">What to watch — open questions</p><ul><li>Is the Bedrock data-sharing requirement temporary, or the permanent condition of access?</li><li>Is Fable 5 / Mythos 5 returning anywhere outside Bedrock, on standard private-inference terms?</li><li>Does the export-control directive still apply, or has it been lifted for the Bedrock path?</li><li>How is the 30-day retention with human review reconciled with enterprise data-governance commitments?</li></ul></div><details class="sl-agents"><summary class="sl-watch-label">How this thread was built</summary><div class="sl-agent-row"><span><b class="a-scout">scout</b> surfaced 1</span><span><b class="a-editor">editor</b> wrote the arc · 5 beats</span><span><b class="a-check">corroboration</b> 3 source checks</span><span><b class="a-watch">watcher</b> 1 status change</span></div></details><p class="sl-note">Storylines are threaded mechanically from the feed: stories that share a distinctive anchor across multiple days and sources. Each item links to its original source. The evidence trace, current state, and open questions are written by the editor routine and refreshed whenever a new beat lands.</p>
     </section>
 
     <footer>
@@ -293,6 +409,10 @@
         var on = !!load()[slug];
         btn.setAttribute('aria-pressed', on ? 'true' : 'false');
         btn.textContent = on ? '\u2713 Following' : '+ Follow this story';
+        var hint = document.getElementById('followHint');
+        if (hint) hint.textContent = on
+          ? 'Following in this browser. New updates will appear on your Live feed.'
+          : 'Follow in this browser to see new updates on your Live feed.';
       }
       paint();
       btn.addEventListener('click', function () {
@@ -309,10 +429,21 @@
       var views = document.querySelectorAll('[data-sl-view]');
       function show(view) {
         views.forEach(function (v) { v.hidden = v.getAttribute('data-sl-view') !== view; });
-        tabs.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-view') === view); });
+        tabs.forEach(function (t) {
+          var on = t.getAttribute('data-view') === view;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          t.setAttribute('tabindex', on ? '0' : '-1');
+        });
       }
       tabs.forEach(function (t) {
         t.addEventListener('click', function () { show(t.getAttribute('data-view')); });
+        t.addEventListener('keydown', function (e) {
+          if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+          e.preventDefault();
+          var next = e.key === 'ArrowRight' ? t.nextElementSibling : t.previousElementSibling;
+          if (next && next.classList.contains('sl-tab')) { next.focus(); next.click(); }
+        });
       });
       show('arc');
     })();
