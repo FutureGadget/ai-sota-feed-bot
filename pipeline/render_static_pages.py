@@ -145,7 +145,7 @@ def source_label(rec: dict, url: str) -> str:
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
 PAGE_CSS = """\
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
     :root, html[data-theme="light"] {
       color-scheme: light;
       --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
