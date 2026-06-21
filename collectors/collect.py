@@ -116,7 +116,16 @@ def _is_bad_image_url(url: str) -> bool:
 
 def extract_image_url(entry, summary_html: str = "") -> str:
     def ok(href: str) -> bool:
-        return bool(href) and not _is_bad_image_url(href)
+        href = (href or "").strip()
+        # Must be an absolute http(s) (or protocol-relative) URL. This rejects
+        # placeholder/example markup scraped from article bodies — e.g. Simon
+        # Willison's <click-to-play> post embeds <img src="URL to first frame">
+        # as a code sample — and relative paths, both of which would otherwise
+        # be rendered as <img src>/og:image and resolve against our own domain
+        # and 404.
+        if not re.match(r"^(?:https?:)?//\S+$", href):
+            return False
+        return not _is_bad_image_url(href)
 
     # 1) RSS enclosure
     encs = getattr(entry, "enclosures", []) or []
