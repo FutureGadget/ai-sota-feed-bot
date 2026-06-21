@@ -1,5 +1,27 @@
 # Decision Log
 
+## 2026-06-21 (Share button, HN boilerplate strip, reader-tuning trust banner)
+- **Decision:** Three small trust/shareability wins. (1) `render_static_pages.py`
+  emits a `🔗 Share` control in the nav `<menu>` of every generated page (daily,
+  weekly, story, storyline, topic, map) — native share sheet via `navigator.share`
+  with a clipboard fallback + "✓ Link copied" confirmation, targeting the page's
+  canonical URL. (2) `enrich.py` strips hnrss.org summary boilerplate ("Article
+  URL / Comments URL / Points / # Comments") for HackerNews items; link-only posts
+  fall back to their title, Ask/Show HN text posts keep their body. (3) The feed's
+  reader-tuning note (`renderReaderTuningNote` in `web/index.html`) is promoted
+  from a footer `<p>` to a visible top-of-feed `.trust-banner` with honest
+  boosted/downweighted counts, hidden when there are no adjustments.
+- **Rationale:** Recaps are the shareable growth artifacts yet had no share CTA;
+  HN items showed pure metadata instead of a summary; and reader-feedback tuning
+  — the most differentiating anti-filter-bubble signal — was buried in the footer.
+- **Impact:** `pipeline/render_static_pages.py` (menu share button + `.menu-share`
+  CSS + `PAGE_JS` handler), `pipeline/enrich.py` (`strip_hn_boilerplate` /
+  `_is_hackernews`, applied in `enrich_items`; idempotent), `web/index.html`
+  (`#readerTuningBanner` aside + `.trust-banner` CSS + rewritten render fn). All
+  generated `web/*` pages regenerate with the share button. Tests green (13).
+- **Rollback:** Revert the three source files; regenerate static pages. No data
+  migration — `enrich_items` is idempotent and re-runs cleanly on existing items.
+
 ## 2026-06-21 (Assign email subscribers to the broadcast segment)
 - **Decision:** On signup, add the Resend contact to the same segment the
   daily/weekly broadcast targets. `api/subscribe.js` now sends

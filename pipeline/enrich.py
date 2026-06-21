@@ -110,9 +110,37 @@ def _looks_like_github_release(item: dict[str, Any]) -> bool:
     return "/releases/tag/" in url or src.endswith("_releases")
 
 
+# hnrss.org wraps every item summary in a fixed metadata block — "Article URL",
+# "Comments URL", "Points", "# Comments" — and link-only stories carry no other
+# text, so once tags are stripped the summary is pure boilerplate. Strip those
+# fields; if nothing else remains the title carries the item (Ask/Show HN text
+# posts keep their body).
+_HN_FIELD_RE = re.compile(
+    r"(?:article url|comments url|points|#\s*comments)\s*:\s*\S*",
+    re.I,
+)
+
+
+def _is_hackernews(item: dict[str, Any]) -> bool:
+    src = str(item.get("source", "")).lower()
+    url = str(item.get("url", "")).lower()
+    return "hackernews" in src or "news.ycombinator.com" in url or "hnrss.org" in url
+
+
+def strip_hn_boilerplate(summary_html: str) -> str:
+    """Drop hnrss metadata; return remaining prose (or '' when there is none)."""
+    text = clean_oneline(summary_html, max_chars=10_000)
+    if not text:
+        return ""
+    residual = re.sub(r"\s+", " ", _HN_FIELD_RE.sub(" ", text)).strip()
+    return residual
+
+
 def enrich_items(items: list[dict[str, Any]]) -> list[dict[str, Any]]:
     """Apply mechanical enrichment in place (and return the list)."""
     for it in items:
+        if _is_hackernews(it):
+            it["summary"] = strip_hn_boilerplate(it.get("summary", ""))
         if not _looks_like_github_release(it):
             continue
         it["title"] = normalize_release_title(it.get("title", ""), it.get("url", ""))

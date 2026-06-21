@@ -171,6 +171,25 @@
       color: var(--muted);
       text-align: center;
     }
+    /* Reader-tuning trust banner: surfaces that this feed's ranking is being
+       adjusted by aggregate reader feedback — our most differentiating,
+       anti-filter-bubble signal. Honest counts only; hidden when none. */
+    .trust-banner {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin: 0 0 1rem;
+      padding: 0.6rem 0.85rem;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 10px;
+      background: color-mix(in srgb, var(--accent) 9%, var(--card));
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+    .trust-banner strong { color: var(--accent); font-weight: 600; }
+    .trust-banner .trust-detail { color: var(--muted); }
+    .trust-banner a { color: var(--accent); white-space: nowrap; }
     .sections button {
       font-size: 0.92rem;
       padding: 0.35rem 0.7rem;
@@ -671,6 +690,8 @@
       <input type="search" id="searchBox" class="searchbar" placeholder="Search the feed…" aria-label="Search the feed" hidden />
       <div id="selectedLabels" class="selected-labels"></div>
     </header>
+
+    <aside id="readerTuningBanner" class="trust-banner" aria-label="Reader-tuned ranking" hidden></aside>
 
     <section id="list" aria-live="polite">
       <noscript>
@@ -1268,28 +1289,38 @@
 
     // Reciprocity, stated plainly: when reader clicks/feedback have produced
     // real ranking adjustments (pipeline/auto_tune.py via the feed API's
-    // reader_tuning block), say so in the footer with honest counts. Renders
-    // nothing while no adjustments exist.
+    // reader_tuning block), surface it as a visible top-of-feed banner with
+    // honest counts — our most differentiating, anti-filter-bubble signal.
+    // Stays hidden while no adjustments exist.
     function renderReaderTuningNote(rt) {
-      const foot = document.querySelector('.sitefooter');
-      if (!foot || !rt) return;
-      const boosted = Array.isArray(rt.boosted) ? rt.boosted : [];
-      const down = Array.isArray(rt.downweighted) ? rt.downweighted : [];
-      if (!boosted.length && !down.length) return;
-
-      let el = foot.querySelector('[data-reader-tuning]');
-      if (!el) {
-        el = document.createElement('p');
-        el.dataset.readerTuning = '1';
-        foot.appendChild(el);
+      const banner = document.getElementById('readerTuningBanner');
+      if (!banner) return;
+      const boosted = Array.isArray(rt && rt.boosted) ? rt.boosted : [];
+      const down = Array.isArray(rt && rt.downweighted) ? rt.downweighted : [];
+      if (!boosted.length && !down.length) {
+        banner.hidden = true;
+        return;
       }
+
+      const plural = (n) => (n === 1 ? '' : 's');
       const updated = rt.updated_at ? `, updated ${fmtCompactDate(rt.updated_at)}` : '';
-      el.textContent = `👍 Reader feedback is tuning this feed: ${boosted.length} source${boosted.length === 1 ? '' : 's'} boosted, ${down.length} downweighted (last ${rt.window_days || 30} days${updated}).`;
+      const lead = document.createElement('strong');
+      lead.textContent = '👍 Reader feedback is tuning this feed';
+      const detail = document.createElement('span');
+      detail.className = 'trust-detail';
+      detail.textContent =
+        ` ${boosted.length} source${plural(boosted.length)} boosted, ` +
+        `${down.length} downweighted over the last ${rt.window_days || 30} days${updated}. ` +
+        `One shared, transparent ranking — not a personal filter bubble.`;
+
       const names = (list) => list.slice(0, 5).map((b) => sourceDisplayName(b.source)).join(', ');
-      el.title = [
+      detail.title = [
         boosted.length ? `Boosted: ${names(boosted)}` : '',
         down.length ? `Downweighted: ${names(down)}` : '',
       ].filter(Boolean).join(' · ');
+
+      banner.replaceChildren(lead, detail);
+      banner.hidden = false;
     }
 
     async function initClientConfig() {
