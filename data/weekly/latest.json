@@ -1,322 +1,314 @@
 {
   "week": "2026-W25",
-  "start": "2026-06-14",
-  "end": "2026-06-20",
+  "start": "2026-06-15",
+  "end": "2026-06-21",
   "title": "What happened in AI — Jun 14–20, 2026",
-  "generated_at": "2026-06-20T05:30:00+00:00",
+  "generated_at": "2026-06-21T10:50:57.559345+00:00",
+  "generator": "seed_weekly_sample (placeholder)",
   "intro": [
-    "Open weights became a frontier story rather than a cheaper substitute. MIT-licensed GLM-5.2 earned strong independent coding reviews while local Qwen deployments showed that capable daily-use models are no longer confined to closed APIs.",
-    "At the same time, agents moved into production infrastructure: always-on runtimes, desktop control planes, enterprise authentication, and agent-facing knowledge systems. That shift made identity, credentials, sandboxing, and prompt injection the week’s practical platform problems.",
-    "The durable signal extended beyond software delivery. Reasoning models produced concrete medical and chemistry results, while the capital and compute behind the field continued scaling."
+    "This week (Jun 14–20, 2026) the feed surfaced 193 unique articles across 7 categories. The biggest threads ran through Models & Releases, Agents & Tooling, Research & Techniques, Infrastructure & Compute, Funding & Business, Safety & Policy, More in AI.",
+    "This is placeholder narrative text — a Claude Code routine will replace it with a real “what happened in AI this week” overview drawn from the article summaries below."
   ],
   "highlights": [
-    "GLM-5.2 lands MIT-licensed as the strongest open text model and top frontend coder — Z.ai forecasts an open Fable-class model by December.",
-    "Build 2026 pushes agents into production: Microsoft 'Scout' autopilot, Azure serverless agents, a GitHub Copilot desktop app, and Stack Overflow for Agents.",
-    "Anthropic ships Claude Code artifacts + enterprise MCP auth and WIF GA, but pauses Agent SDK token billing and weathers a reported political clash.",
-    "AI-for-science breaks through: 18 new rare-disease diagnoses, a near-autonomous AI chemist, and Google's AMIE matching PCPs on disease management.",
-    "Securing agents becomes the new platform problem — identity, credential authorization, sandboxes, and prompt-injection benchmarks all in the spotlight.",
-    "Infrastructure and money keep scaling: NVIDIA Blackwell sweeps MLPerf Training 6.0, OpenAI launches a $150M Partner Network, Google adds $1.5B in Alabama."
+    "Models & Releases: claude-agent-sdk-python v0.2.106",
+    "Agents & Tooling: Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)",
+    "Research & Techniques: Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving",
+    "Infrastructure & Compute: At Cannes Lions, NVIDIA Partners Reshape Advertising and Marketing With AI",
+    "Funding & Business: Quoting Matteo Wong, The Atlantic"
   ],
-  "article_count": 116,
+  "article_count": 193,
   "categories": [
     {
-      "name": "Open Models Break Out",
-      "slug": "open-models-break-out",
-      "summary": "GLM-5.2 made open weights a frontier story in their own right — MIT-licensed, top of the coding charts, and good enough that independent reviewers stopped grading on a curve.",
+      "name": "Models & Releases",
+      "slug": "models-releases",
+      "summary": "102 items this week under Models & Releases. Headlined by “claude-agent-sdk-python v0.2.106”. (Placeholder summary — the agent replaces this with a real recap.)",
       "articles": [
         {
-          "title": "GLM-5.2 is probably the most powerful text-only open weights LLM",
-          "summary": "Simon Willison's hands-on with Z.ai's MIT-licensed GLM-5.2 — the clearest sign open weights now compete at the frontier, not a tier below.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/17/glm-52/#atom-everything",
-          "published": "2026-06-17T23:58:39+00:00"
+          "title": "claude-agent-sdk-python v0.2.106",
+          "summary": "Updated bundled Claude CLI to version 2.1.185",
+          "source": "claude_agent_sdk_python_releases",
+          "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.106",
+          "published": "2026-06-20T21:12:37Z"
         },
         {
-          "title": "GLM > GPT? GLM-5.2 passes vibe check; Z.ai forecasts Open Fable by December",
-          "summary": "GLM-5.2 clears the community vibe check while Z.ai teases an open Fable-class model by year-end — the open story turning into a real frontier race.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/ainews-glm-gpt-glm-52-passes-vibe",
-          "published": "2026-06-19T05:53:54+00:00"
+          "title": "claude-code v2.1.185",
+          "summary": "The stream-stall hint now reads \"Waiting for API response · will retry in …\" instead of \"No response from API · Retrying in …\", and triggers after 20s of sil...",
+          "source": "claude_code_releases",
+          "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.185",
+          "published": "2026-06-20T20:59:19Z"
         },
         {
-          "title": "GLM-5.2: the top Frontend Coding model in the world",
-          "summary": "Benchmarks put GLM-5.2 at the top for frontend coding — a new high-water mark for what an openly licensed model can do on real dev work.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
-          "published": "2026-06-17T05:37:40+00:00"
-        },
-        {
-          "title": "Georgi Gerganov on Qwen3.6-27B as a daily local coding model",
-          "summary": "The llama.cpp creator vouches for Qwen3.6-27B as a genuinely capable local coding model — evidence the open ecosystem is usable on a single workstation.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/16/georgi-gerganov/#atom-everything",
-          "published": "2026-06-16T16:04:59+00:00"
-        }
-      ]
-    },
-    {
-      "name": "Anthropic & Claude",
-      "slug": "anthropic-and-claude",
-      "summary": "A heavy shipping week for Claude — artifacts, a steering model, enterprise auth — undercut by a paused Agent SDK billing model and a reported political clash that pulled models offline.",
-      "articles": [
-        {
-          "title": "Claude Code now supports artifacts",
-          "summary": "Claude Code can now preview in-progress work as a live, shareable artifact built from full session context — closing the loop between coding and demoing.",
-          "source": "claude_blog",
-          "url": "https://claude.com/blog/artifacts-in-claude-code",
-          "published": "2026-06-18T00:00:00+00:00"
-        },
-        {
-          "title": "Steering Claude Code: skills, hooks, subagents and more",
-          "summary": "Anthropic lays out seven ways to instruct Claude's behavior and the context cost of each — a practical map for anyone building on the harness.",
-          "source": "claude_blog",
-          "url": "https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more",
-          "published": "2026-06-18T00:00:00+00:00"
-        },
-        {
-          "title": "Centrally manage authorization for MCP connectors",
-          "summary": "Admins can now provision MCP connectors org-wide through an identity provider (starting with Okta) — making MCP deployable at enterprise scale.",
-          "source": "claude_blog",
-          "url": "https://claude.com/blog/enterprise-managed-auth",
-          "published": "2026-06-18T00:00:00+00:00"
-        },
-        {
-          "title": "Workload Identity Federation is now GA on the Claude Platform",
-          "summary": "WIF replaces static API keys with short-lived, scoped credentials from any OIDC provider — a meaningful security upgrade for production Claude deployments.",
-          "source": "claude_blog",
-          "url": "https://claude.com/blog/workload-identity-federation",
-          "published": "2026-06-17T00:00:00+00:00"
-        },
-        {
-          "title": "Anthropic \"pauses\" token-based billing for its Claude Agent SDK",
-          "summary": "Anthropic halts token-based billing for the Agent SDK — a pricing reset that competitors (and Codex watchers) read as a tell about agent economics.",
+          "title": "Show HN: Namecom-CLI – CLI and agent skill so Claude Code/Codex can do your DNS",
+          "summary": "Article URL: https://github.com/hypersocialinc/namecom-cli Comments URL: https://news.ycombinator.com/item?id=48610151 Points: 3 # Comments: 0",
           "source": "hackernews_ai",
-          "url": "https://arstechnica.com/ai/2026/06/anthropic-pauses-token-based-billing-for-its-claude-agent-sdk/",
-          "published": "2026-06-19T16:59:45+00:00"
+          "url": "https://github.com/hypersocialinc/namecom-cli",
+          "published": "Sat, 20 Jun 2026 15:51:34 +0000"
         },
         {
-          "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses",
-          "summary": "InfoQ details the orchestration behind Claude Code's Dynamic Workflows, where the model generates custom execution harnesses to coordinate work.",
+          "title": "Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI",
+          "summary": "At WWDC 26, Apple announced the Core AI framework, the official successor to Core ML. It is designed to allow developers to run large language models and generative AI entirely on-device, supporting both custom-conver...",
           "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-15T20:55:00+00:00"
+          "url": "https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Sat, 20 Jun 2026 11:00:00 GMT"
         },
         {
-          "title": "Anthropic opens Seoul office and Korean AI partnerships",
-          "summary": "Anthropic plants a flag in Korea with a Seoul office and ecosystem partnerships — part of a steady international expansion around Claude deployments.",
-          "source": "anthropic_newsroom",
-          "url": "https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem",
-          "published": "2026-06-17T19:34:00+00:00"
+          "title": "Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic",
+          "summary": "Using Claude Fable 5 or Mythos 5 on Amazon Bedrock requires opting into provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review. Previous Bedrock models kept inference data...",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Sat, 20 Jun 2026 09:03:00 GMT"
+        },
+        {
+          "title": "codex 0.142.0-alpha.7",
+          "summary": "Release 0.142.0-alpha.7",
+          "source": "openai_codex_releases",
+          "url": "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.7",
+          "published": "2026-06-20T00:43:26Z"
+        },
+        {
+          "title": "codex 0.142.0-alpha.6",
+          "summary": "Release 0.142.0-alpha.6",
+          "source": "openai_codex_releases",
+          "url": "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.6",
+          "published": "2026-06-19T20:31:59Z"
+        },
+        {
+          "title": "codex rust-v0.142.0-alpha.5",
+          "summary": "Release 0.142.0-alpha.5",
+          "source": "openai_codex_releases",
+          "url": "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.5",
+          "published": "2026-06-19T19:00:45Z"
         }
       ]
     },
     {
-      "name": "Agents Go to Production",
-      "slug": "agents-go-to-production",
-      "summary": "Build 2026 and the cloud vendors moved agents from proof-of-concept to always-on infrastructure — runtimes, desktop control planes, and even a Stack Overflow built for agents.",
+      "name": "Agents & Tooling",
+      "slug": "agents-tooling",
+      "summary": "71 items this week under Agents & Tooling. Headlined by “Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)”. (Placeholder summary — the agent replaces this with a real recap.)",
       "articles": [
         {
-          "title": "Microsoft Scout, new Enterprise Autopilot built on OpenClaw, announced at Build 2026",
-          "summary": "Microsoft introduces 'Scout,' an always-on autonomous agent — the first of a new 'Autopilots' category that works on a user's behalf without prompting.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/microsoft-scout-openclaw-build/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-18T05:26:00+00:00"
-        },
-        {
-          "title": "Azure Functions ships Serverless Agents Runtime at Build 2026",
-          "summary": "Azure Functions adds a serverless agents runtime where agents are defined in .agent.md files with YAML triggers, MCP access, and sandboxed execution.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/azure-functions-serverless-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-19T08:57:00+00:00"
-        },
-        {
-          "title": "GitHub Copilot Desktop App targets parallel agentic workflows",
-          "summary": "GitHub's new desktop Copilot app is a control center for running multiple coding agents at once while keeping engineers in charge.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/github-copilot-app/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-17T08:00:00+00:00"
-        },
-        {
-          "title": "Agent finder for GitHub Copilot now available",
-          "summary": "GitHub adds a discovery surface for Copilot agents — a small but telling sign that 'pick the right agent' is becoming a first-class workflow.",
+          "title": "Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)",
+          "summary": "Hey everyone. My cofounder and I are formally open sourcing (MIT) persona.js. It's a VanillaJS library that helps anyone build agentic experiences on the web, without a framework dependency, and full WebMCP support So...",
           "source": "hackernews_ai",
-          "url": "https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/",
-          "published": "2026-06-18T00:00:35+00:00"
+          "url": "https://www.persona-chat.dev/",
+          "published": "Sat, 20 Jun 2026 19:32:56 +0000"
         },
         {
-          "title": "Get back hours every day with autonomous agents in Amazon Quick",
-          "summary": "AWS turns Amazon Quick into an autonomous coworker — agents that run continuously, prioritize work, and pull insights across every connected dataset.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/",
-          "published": "2026-06-17T20:35:39+00:00"
+          "title": "Show HN: I built a middleware agent that turns PLC data into REST/gRPC APIs",
+          "summary": "When I was exploring automation I noticed a lot of engineers working with modern stacks facing a critical issue when trying to collect data from industrial tools. because industrial tools often come with different pro...",
+          "source": "hackernews_ai",
+          "url": "https://limenedge.com/docs/getting-started",
+          "published": "Sat, 20 Jun 2026 18:39:59 +0000"
         },
         {
-          "title": "AI Coding Agents Get a Stack Overflow of Their Own",
-          "summary": "Stack Overflow launches an API-first knowledge exchange built for AI coding agents rather than humans — an attempt to stay relevant in the agent era.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-16T08:00:00+00:00"
+          "title": "Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents",
+          "summary": "Hello HN. Cordium is a FOSS, self-hosted, identity-based, general-purpose sandbox platform that I've been working on for a long time now that is built on Kubernetes and Octelium, my main work. The key difference here...",
+          "source": "hackernews_ai",
+          "url": "https://github.com/octelium/cordium",
+          "published": "Sat, 20 Jun 2026 13:19:20 +0000"
         },
         {
-          "title": "CircleCI introduces Chunk Sidecars to bring CI validation into AI coding workflows",
-          "summary": "CircleCI's Chunk Sidecars push CI-style validation directly into a coding agent's inner loop — catching breakage before the agent moves on.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/circleci-chunk-sidecars/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-19T12:00:00+00:00"
+          "title": "Show HN: Zero-config session-taste packer for AI agents",
+          "summary": "Article URL: https://github.com/dvcoolarun/taste-ai Comments URL: https://news.ycombinator.com/item?id=48608707 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://github.com/dvcoolarun/taste-ai",
+          "published": "Sat, 20 Jun 2026 12:21:11 +0000"
+        },
+        {
+          "title": "Show HN: WhatsKept – Searchable,agent-queryable WhatsApp history from iOS backup",
+          "summary": "Agent-queryable WhatsApp history from an iOS backup — a single Go binary. Runs on Mac and Windows. Comments URL: https://news.ycombinator.com/item?id=48607710 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://github.com/alkait/whatskept",
+          "published": "Sat, 20 Jun 2026 09:20:20 +0000"
+        },
+        {
+          "title": "Logslim – compact test/build output before your AI agent reads it",
+          "summary": "Article URL: https://github.com/P156HAM/logslim Comments URL: https://news.ycombinator.com/item?id=48607333 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://github.com/P156HAM/logslim",
+          "published": "Sat, 20 Jun 2026 08:13:20 +0000"
+        },
+        {
+          "title": "Show HN: StayUp – keep a Mac awake (lid closed) while AI agents are working",
+          "summary": "Article URL: https://getstayup.app Comments URL: https://news.ycombinator.com/item?id=48607172 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://getstayup.app",
+          "published": "Sat, 20 Jun 2026 07:36:45 +0000"
+        },
+        {
+          "title": "What are good benchmarks to test my CLI AI agentic system?",
+          "summary": "Article URL: https://www.minovativemind.dev/ Comments URL: https://news.ycombinator.com/item?id=48604511 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://www.minovativemind.dev/",
+          "published": "Fri, 19 Jun 2026 23:22:50 +0000"
         }
       ]
     },
     {
-      "name": "AI for Science & Medicine",
-      "slug": "ai-for-science-and-medicine",
-      "summary": "Reasoning models posted concrete scientific wins this week — new diagnoses, improved lab chemistry, and clinical performance matching physicians — plus fresh benchmarks to keep them honest.",
+      "name": "Research & Techniques",
+      "slug": "research-techniques",
+      "summary": "7 items this week under Research & Techniques. Headlined by “Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving”. (Placeholder summary — the agent replaces this with a real recap.)",
       "articles": [
         {
-          "title": "Using AI to help physicians diagnose rare genetic diseases in children",
-          "summary": "An OpenAI reasoning model helped clinicians reach 18 new diagnoses in previously unsolved rare-disease cases — a tangible medical result, not a demo.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/diagnose-rare-childhood-diseases",
-          "published": "2026-06-18T08:00:00+00:00"
+          "title": "Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving",
+          "summary": "Mainstream LLM serving systems reuse prefix work mainly through paged or radix key-value (KV) caches. This is highly effective for high-throughput, high-concurrency serving, but it manages only one positional fragment...",
+          "source": "arxiv_cs_lg",
+          "url": "http://arxiv.org/abs/2606.20537v1",
+          "published": "2026-06-18T17:49:36Z"
         },
         {
-          "title": "A near-autonomous AI chemist improves a challenging medicinal-chemistry reaction",
-          "summary": "OpenAI and Molecule.one used GPT-5.4 as a near-autonomous chemist to improve a key drug-making reaction — agents doing real bench science.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/ai-chemist-improves-reaction",
-          "published": "2026-06-17T10:00:00+00:00"
-        },
-        {
-          "title": "New research shows how Google's AMIE could help manage health conditions",
-          "summary": "Published in Nature, Google's conversational AMIE system matched primary-care physicians on complex disease management — a notable clinical milestone.",
+          "title": "New research shows how AMIE, our medical AI, could help manage health conditions.",
+          "summary": "Research in “Nature” shows our conversational AI system matches primary care physicians in complex disease management.",
           "source": "google_ai_blog",
           "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-for-disease-management-in-nature/",
-          "published": "2026-06-17T15:00:00+00:00"
+          "published": "Wed, 17 Jun 2026 15:00:00 +0000"
+        },
+        {
+          "title": "Urdu Katib Handwritten Dataset: A Historical Document Dataset for Offline Urdu Handwritten Text Recognition with CRNN-Based Baseline Evaluation",
+          "summary": "Automatic Handwritten Text Recognition (HTR) is inherently a challenging task, and its complexity is further increased when dealing with cursive scripts. Although significant efforts have been made on various cursive...",
+          "source": "arxiv_cs_cl",
+          "url": "http://arxiv.org/abs/2606.19139v1",
+          "published": "2026-06-17T14:46:29Z"
+        },
+        {
+          "title": "Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance",
+          "summary": "The most plausible near-term role of medical LLMs is to assist rather than replace physicians, yet current evaluations often test isolated capabilities: clinical knowledge, EHR system interaction, or patient communica...",
+          "source": "arxiv_llm_reliability",
+          "url": "http://arxiv.org/abs/2606.18613v2",
+          "published": "2026-06-17T02:20:29Z"
+        },
+        {
+          "title": "Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance",
+          "summary": "The most plausible near-term role of medical LLMs is to assist rather than replace physicians, yet current evaluations often test isolated capabilities: clinical knowledge, EHR system interaction, or patient communica...",
+          "source": "arxiv_llm_reliability",
+          "url": "http://arxiv.org/abs/2606.18613v1",
+          "published": "2026-06-17T02:20:29Z"
         },
         {
           "title": "Introducing LifeSciBench",
-          "summary": "OpenAI releases an expert-authored, expert-reviewed benchmark for real-world life-science research tasks — a rigorous yardstick for AI in the lab.",
+          "summary": "Introducing LifeSciBench, an expert-authored, expert-reviewed benchmark for evaluating how AI systems handle real-world life science research tasks and decisions.",
           "source": "openai_blog",
           "url": "https://openai.com/index/introducing-life-sci-bench",
-          "published": "2026-06-17T00:00:00+00:00"
+          "published": "Wed, 17 Jun 2026 00:00:00 GMT"
         },
         {
-          "title": "Improving health intelligence in ChatGPT",
-          "summary": "GPT-5.5 Instant sharpens ChatGPT's health and wellness answers with better reasoning and physician-informed evaluations — health Q&A as a flagship use case.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/improving-health-intelligence-in-chatgpt",
-          "published": "2026-06-18T11:00:00+00:00"
-        },
-        {
-          "title": "New benchmark evaluates AI for everyday patient care",
-          "summary": "Mass General Brigham introduces a benchmark for routine patient-care performance — pushing evaluation beyond exam questions toward real clinical work.",
-          "source": "hackernews_ai",
-          "url": "https://www.massgeneralbrigham.org/en/about/newsroom/press-releases/evaluating-ai-performance-for-everyday-patient-care",
-          "published": "2026-06-18T22:52:54+00:00"
+          "title": "AWS Introduces Durable Storage Option for ElastiCache for Valkey",
+          "summary": "AWS has recently introduced durability for Amazon ElastiCache for Valkey, enabling reliable data retention across failures and expanding support beyond caching to persistent workloads. The feature offers new options t...",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/06/elasticache-valkey-durability/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Sun, 14 Jun 2026 05:13:00 GMT"
         }
       ]
     },
     {
-      "name": "Securing & Governing Agents",
-      "slug": "securing-and-governing-agents",
-      "summary": "As agents touched real systems, identity, credentials, and prompt-injection moved to the front of the queue — and a wave of post-Fable-5 containment tooling appeared to meet them.",
+      "name": "Infrastructure & Compute",
+      "slug": "infrastructure-compute",
+      "summary": "1 item this week under Infrastructure & Compute. Headlined by “At Cannes Lions, NVIDIA Partners Reshape Advertising and Marketing With AI”. (Placeholder summary — the agent replaces this with a real recap.)",
       "articles": [
         {
-          "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way",
-          "summary": "A reminder that autonomous agents are non-human identities needing real IAM — and that most orgs haven't caught up to the risk.",
-          "source": "hackernews_ai",
-          "url": "https://www.bleepingcomputer.com/news/security/every-ai-agent-is-an-identity-most-organizations-dont-treat-them-that-way/",
-          "published": "2026-06-19T13:23:13+00:00"
-        },
-        {
-          "title": "Coding Agent Sandboxes Don't Solve Credential Authorization",
-          "summary": "Sandboxing a coding agent doesn't fix who it's allowed to act as — a sharp look at the unsolved authorization gap underneath agent execution.",
-          "source": "hackernews_ai",
-          "url": "https://www.permit.io/blog/coding-agent-sandboxes-credentials",
-          "published": "2026-06-15T11:01:04+00:00"
-        },
-        {
-          "title": "Windows Platform Security and the Race to Secure AI Agents",
-          "summary": "Microsoft positions Windows as the trustworthy OS for autonomous agents, introducing a Microsoft Execution Context to constrain what agents can do.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/windows-security-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-19T08:00:00+00:00"
-        },
-        {
-          "title": "Deep-XPIA: a prompt-injection benchmark for multi-agent AI systems",
-          "summary": "An open benchmark for cross-prompt injection attacks across multi-agent systems — formalizing one of the thorniest agent-security threats.",
-          "source": "hackernews_ai",
-          "url": "https://freyzo.github.io/deep-xpia/",
-          "published": "2026-06-16T01:40:07+00:00"
-        },
-        {
-          "title": "The Fable 5 Export Controls Harm US Cyber Defense",
-          "summary": "Simon Willison relays Katie Moussouris's argument that export controls tied to the Fable jailbreak end up weakening US cyber defense — the policy fallout continues.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything",
-          "published": "2026-06-16T05:20:29+00:00"
-        },
-        {
-          "title": "Governing AI in the Cloud: A Practical Guide for Architects",
-          "summary": "An architect's playbook for AI governance — shadow-AI discovery, data classification, IAM enforcement, and policy-as-code for production systems.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/articles/governing-ai-cloud-guide/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-15T11:00:00+00:00"
-        }
-      ]
-    },
-    {
-      "name": "Infrastructure, Money & the Macro Picture",
-      "slug": "infrastructure-money-and-the-macro-picture",
-      "summary": "The capital and silicon behind the boom kept compounding — record training benchmarks, fresh partner and data-center investment — while sharper voices weighed in on what AI is and isn't replacing.",
-      "articles": [
-        {
-          "title": "Fastest, Largest, Strongest: NVIDIA Blackwell Sweeps MLPerf Training 6.0",
-          "summary": "NVIDIA's Blackwell tops MLPerf Training 6.0 across the board — the infrastructure setting the pace for how fast and how big the next models can get.",
+          "title": "At Cannes Lions, NVIDIA Partners Reshape Advertising and Marketing With AI",
+          "summary": "The digital era gave the advertising and marketing industry speed; the AI era is giving it autonomous operations. For companies building next-generation technologies for advertising and marketing, the question is no l...",
           "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/blackwell-mlperf-training-6-0/",
-          "published": "2026-06-16T15:00:36+00:00"
-        },
+          "url": "https://blogs.nvidia.com/blog/nvidia-ai-marketing-advertising-cannes-lions/",
+          "published": "Thu, 18 Jun 2026 13:00:43 +0000"
+        }
+      ]
+    },
+    {
+      "name": "Funding & Business",
+      "slug": "funding-business",
+      "summary": "1 item this week under Funding & Business. Headlined by “Quoting Matteo Wong, The Atlantic”. (Placeholder summary — the agent replaces this with a real recap.)",
+      "articles": [
         {
-          "title": "How FERC's Large-Load Interconnection Actions Help Address Grid Stress",
-          "summary": "A FERC ruling on large-load interconnection directly shapes how AI factories and data centers get built — power, not chips, as the binding constraint.",
+          "title": "Quoting Matteo Wong, The Atlantic",
+          "summary": "Katie Moussouris, a cybersecurity expert and the CEO of Luta Security, told me that Anthropic shared with her a copy of the White House’s report on the Fable jailbreak to get her appraisal. (She said that she is not b...",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Jun/16/matteo-wong-the-atlantic/#atom-everything",
+          "published": "2026-06-16T03:07:54+00:00"
+        }
+      ]
+    },
+    {
+      "name": "Safety & Policy",
+      "slug": "safety-policy",
+      "summary": "2 items this week under Safety & Policy. Headlined by “How FERC’s Large-Load Interconnection Actions Help Address Grid Stress, Improve Affordability”. (Placeholder summary — the agent replaces this with a real recap.)",
+      "articles": [
+        {
+          "title": "How FERC’s Large-Load Interconnection Actions Help Address Grid Stress, Improve Affordability",
+          "summary": "In a consequential grid infrastructure decision, the Federal Energy Regulatory Commission (FERC) today issued a major milestone on large-load interconnection impacting how those building AI factories, semiconductor fa...",
           "source": "nvidia_blog",
           "url": "https://blogs.nvidia.com/blog/ferc-large-load-interconnection/",
-          "published": "2026-06-18T20:00:27+00:00"
+          "published": "Thu, 18 Jun 2026 20:00:27 +0000"
         },
         {
-          "title": "Introducing the OpenAI Partner Network",
-          "summary": "OpenAI commits $150M to a Partner Network to accelerate enterprise adoption and deployment — building the channel layer around its models.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/introducing-openai-partner-network",
-          "published": "2026-06-14T17:00:00+00:00"
+          "title": "Unlocking UK house-building with AI-accelerated planning",
+          "summary": "UK government partners with Google DeepMind to build a new AI-powered prototype aimed at faster housing decisions.",
+          "source": "google_deepmind_blog",
+          "url": "https://deepmind.google/blog/unlocking-uk-house-building-with-ai-accelerated-planning/",
+          "published": "Tue, 16 Jun 2026 21:29:50 +0000"
+        }
+      ]
+    },
+    {
+      "name": "More in AI",
+      "slug": "more-in-ai",
+      "summary": "9 items this week under More in AI. Headlined by “[AINews] not much happened today”. (Placeholder summary — the agent replaces this with a real recap.)",
+      "articles": [
+        {
+          "title": "[AINews] not much happened today",
+          "summary": "a quiet day lets us promo AIE one last time",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-not-much-happened-today-e7b",
+          "published": "Sat, 20 Jun 2026 08:06:05 GMT"
         },
         {
-          "title": "New usage analytics and updated spend controls for enterprises",
-          "summary": "OpenAI adds spend controls and usage analytics to ChatGPT Enterprise — the unglamorous cost-governance features that make scaled AI defensible.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/chatgpt-enterprise-spend-controls",
-          "published": "2026-06-18T17:00:00+00:00"
+          "title": "Presentation: Write-Ahead Intent Log: A Foundation for Efficient CDC at Scale",
+          "summary": "Vinay Chella and Akshat Goel discuss the challenges of running traditional CDC across heterogeneous databases during peak order traffic. They explain how Debezium hit limits under high load and share how they built Wr...",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/write-ahead-intent-log/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Thu, 18 Jun 2026 13:13:00 GMT"
         },
         {
-          "title": "Google expands its Alabama data-center campus with a $1.5B investment",
-          "summary": "Google pledges $1.5B across 2026–27 to grow its Jackson County data center — more evidence the buildout race is now about land, power, and concrete.",
-          "source": "google_ai_blog",
-          "url": "https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/alabama-investment-june-2026/",
-          "published": "2026-06-15T15:00:00+00:00"
+          "title": "codex 0.141.0",
+          "summary": "Remote executors now use authenticated, end-to-end encrypted Noise relay channels. ( #26242 , #26245 ) · Cross-platform remote execution now preserves executor-native working directories and shells, including filesyst...",
+          "source": "openai_codex_releases",
+          "url": "https://github.com/openai/codex/releases/tag/rust-v0.141.0",
+          "published": "2026-06-18T04:44:21Z"
         },
         {
-          "title": "Why AI hasn't replaced software engineers, and won't",
-          "summary": "Narayanan and Kapoor argue software engineering is uniquely AI-exposed yet still standing — a grounded counter to the job-loss panic.",
+          "title": "NetNewsWire Status",
+          "summary": "NetNewsWire Status I find this inspiring. Brent Simmons retired a year ago, and his retirement project is making one piece of software really, really good - free from any commercial pressure. The software is NetNewsWi...",
           "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/14/why-ai-hasnt-replaced-software-engineers/#atom-everything",
-          "published": "2026-06-14T23:54:11+00:00"
+          "url": "https://simonwillison.net/2026/Jun/17/netnewswire-status/#atom-everything",
+          "published": "2026-06-17T03:36:09+00:00"
         },
         {
-          "title": "\"They screwed us\": Personality clashes sent Anthropic's models offline",
-          "summary": "An Axios report (via Simon Willison) on the political fallout that briefly pulled Anthropic's models offline — a reminder the frontier is now entangled with Washington.",
+          "title": "[AINews] Satya on Loopcraft: Building Frontier Ecosystems",
+          "summary": "a quiet day lets us report on Satya's hit essay",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-satya-on-loopcraft-building",
+          "published": "Tue, 16 Jun 2026 02:29:29 GMT"
+        },
+        {
+          "title": "codex 0.140.0",
+          "summary": "Added /usage views for daily, weekly, and cumulative account token activity · /goal now preserves oversized text, large pasted blocks, and image attachments, including in remote app-server sessions. ( #27508 , #27509...",
+          "source": "openai_codex_releases",
+          "url": "https://github.com/openai/codex/releases/tag/rust-v0.140.0",
+          "published": "2026-06-15T21:08:11Z"
+        },
+        {
+          "title": "Quoting Julia Evans",
+          "summary": "[...] Instead, I picture a specific person and I just write for them. Often this person is \"me, but 3 years ago\" or a good friend. — Julia Evans , write for 1 person Tags: writing , julia-evans",
           "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/15/axios-clashes-anthropics/#atom-everything",
-          "published": "2026-06-15T14:57:33+00:00"
+          "url": "https://simonwillison.net/2026/Jun/15/julia-evans/#atom-everything",
+          "published": "2026-06-15T02:05:19+00:00"
+        },
+        {
+          "title": "Plots, love letters and remedies: The medieval secrets being revealed by AI",
+          "summary": "Article URL: https://www.bbc.com/future/article/20260527-plots-love-letters-and-diplomacy-the-medieval-secrets-being-revealed-by-ai Comments URL: https://news.ycombinator.com/item?id=48535151 Points: 1 # Comments: 0",
+          "source": "hackernews_ai",
+          "url": "https://www.bbc.com/future/article/20260527-plots-love-letters-and-diplomacy-the-medieval-secrets-being-revealed-by-ai",
+          "published": "Mon, 15 Jun 2026 00:59:18 +0000"
         }
       ]
     }
