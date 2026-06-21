@@ -1,5 +1,32 @@
 # Decision Log
 
+## 2026-06-21 (Positioning: widen the audience to platform & agent engineers)
+- **Decision:** Rename the target audience from "AI platform engineers — and
+  only them" to **engineers who build and operate AI systems — AI platform
+  engineers and agent builders/engineers**. Copy-only change: the positioning
+  block, tagline, and implications in `AGENTS.md`/`CLAUDE.md`, plus the
+  user-facing strings in `web/index.html`, `web/subscribe.html`,
+  `web/site.webmanifest`, `api/share.js`, and `api/rss.js`. No ranking,
+  `config/profile.yaml`, or `config/sources.yaml` change was made.
+- **Rationale:** The two audiences overlap heavily — the person standing up RAG,
+  tool-calling, evals, and inference infra is usually the same person shipping
+  agents on top of it — and we *already* curate for agent builders via the
+  agent-engineering wiki (`/map`, `/topic/<slug>`). So this names who we already
+  serve rather than broadening scope. The standing "never for breadth / niche
+  drift erases the advantage" rule is preserved: agent-builder content means the
+  *engineering* of agent systems (orchestration, tool use, evals, memory,
+  cost/latency, safety), explicitly NOT prompt-tip listicles, framework churn,
+  no-code agent users, or general AI news. The quality bar is unchanged.
+- **Impact:** Copy/positioning only; pipeline behavior is identical this PR.
+  Generated daily/topic pages and other agent-authored data narratives still say
+  "platform engineer" in places and were intentionally left untouched — they
+  regenerate and will adopt the wider framing as future agent routines run
+  against the updated positioning. A future, deliberate source/keyword re-tune
+  (own ADR) is the path to actually shifting ranking toward agent-engineering
+  coverage.
+- **Rollback:** Revert the copy edits; the positioning block carries the
+  `audience widened 2026-06-21` marker to locate them.
+
 ## 2026-06-21 (Build: serve brand/icon assets from the site root)
 - **Decision:** `scripts/vercel_build.py` now copies every top-level non-HTML
   file in `web/` (favicon set, `apple-touch-icon.png`, `icon-192/512.png`,

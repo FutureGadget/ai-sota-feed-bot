@@ -220,10 +220,21 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
   from runtime-data commits (`scripts/git_commit_code.sh` vs
   `scripts/git_commit_runtime.sh`; see `docs/status/git-hygiene.md`).
 
-## Product Positioning (decided 2026-06-13)
-The target audience is **AI platform engineers** — and only them. Danu (the
+## Product Positioning (decided 2026-06-13; audience widened 2026-06-21)
+The target audience is **engineers who build and operate AI systems** —
+**AI platform engineers and agent builders/engineers**. These overlap heavily
+(the person standing up RAG, tool-calling, evals, and inference infra is usually
+the same person shipping agents on top of it), and we already curate for agent
+builders via the agent-engineering wiki (`/map`, `/topic/<slug>`). Danu (the
 owner) is one himself and built llm-digest.com from his own need, so "would the
 owner read this every morning and save time" is the primary quality bar.
+
+This widening is a **rename of who we already serve, not a broadening of scope**.
+The audience explicitly does NOT include prompt hobbyists, no-code agent users,
+or general AI-news readers. Agent-builder content means the engineering of agent
+systems (orchestration, tool use, evals, memory, cost/latency, safety) — never
+framework churn, prompt-tip listicles, or "10 prompts" content. The quality bar
+is unchanged; only the audience label is wider.
 
 We deliberately do NOT compete with SNS/X (freshness), Google News (algorithmic
 personalization), or HN/GeekNews (community). The position is built on the jobs
@@ -240,17 +251,20 @@ those products are structurally bad at:
    continuity layer is the structural moat: timelines and community threads
    forget; we don't.
 
-Tagline shape: "The finishable AI feed for platform engineers — 10 minutes a
-day, with memory."
+Tagline shape: "The finishable AI feed for platform & agent engineers —
+10 minutes a day, with memory."
 
 Implications for any change in this repo:
 - Site copy, source selection, and ranking tuning (`config/profile.yaml`)
-  optimize for the platform-engineer lens and the catch-up job — never for
-  breadth, engagement, or generic AI news. Niche drift erases the advantage.
+  optimize for the platform-/agent-engineer lens and the catch-up job — never
+  for breadth, engagement, or generic AI news. Niche drift erases the advantage.
+- The audience widening is **copy-only for now** (2026-06-21): no ranking or
+  source re-tune was made. Adding agent-engineering sources/keywords is a
+  deliberate, separate change — keep it to the engineering-of-agents lens above.
 - Storylines and recap pages are the shareable growth artifacts (shared *into*
   HN/Slack/Reddit); invest there before feed features.
-- Distribution targets places platform engineers already are; we don't build
-  community features.
+- Distribution targets places platform & agent engineers already are; we don't
+  build community features.
 
 ## Working Rules
 - Keep changes small and shippable.
