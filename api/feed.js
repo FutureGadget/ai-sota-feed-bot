@@ -21,6 +21,18 @@ function toIso(v) {
   return d ? d.toISOString() : null;
 }
 
+function parseTimezoneAwareBound(v) {
+  if (v == null || v === '') return { value: null, error: null };
+  const raw = String(v).trim();
+  if (!/(?:z|[+-]\d{2}:\d{2})$/i.test(raw)) {
+    return { value: null, error: 'timezone_required' };
+  }
+  const value = toIso(raw);
+  return value
+    ? { value, error: null }
+    : { value: null, error: 'invalid_timestamp' };
+}
+
 // URL-first identity: titles can be rewritten by pipeline enrichment between
 // runs (e.g. release titles gaining a repo prefix), but the URL is stable.
 function itemKey(it) {
@@ -382,8 +394,18 @@ function accumulateItems(runs) {
 
 export default async function handler(req, res) {
   try {
-    const from = toIso(req.query?.from);
-    const to = toIso(req.query?.to);
+    const fromBound = parseTimezoneAwareBound(req.query?.from);
+    const toBound = parseTimezoneAwareBound(req.query?.to);
+    if (fromBound.error || toBound.error) {
+      const field = fromBound.error ? 'from' : 'to';
+      return res.status(400).json({
+        error: fromBound.error || toBound.error,
+        field,
+        message: `${field} must be a valid ISO timestamp with Z or an explicit UTC offset`,
+      });
+    }
+    const from = fromBound.value;
+    const to = toBound.value;
     const limit = Math.max(1, Math.min(500, Number.parseInt(String(req.query?.limit || '200'), 10) || 200));
     const selectedLabels = parseLabelFilters(req.query);
     const blendTier1 = String(req.query?.blend_tier1 ?? '1') !== '0';
@@ -406,12 +428,15 @@ export default async function handler(req, res) {
         withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
       const availableLabels = summarizeLabels(allItems);
       const filteredBase = applyLabelFilter(allItems, selectedLabels);
+      const totalItems = filteredBase.length;
       return res.status(200).json({
         mode: 'latest',
         date: new Date().toISOString(),
         filters: { from, to, limit, labels: selectedLabels },
         runs: [],
         items: filteredBase.slice(0, limit),
+        total_items: totalItems,
+        has_more: totalItems > limit,
         available_labels: availableLabels,
         reader_tuning: readerTuningSummary(readerTuning),
       });
@@ -443,6 +468,7 @@ export default async function handler(req, res) {
       withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
     const filteredMerged = applyLabelFilter(mergedWithLabels, selectedLabels);
+    const totalItems = filteredMerged.length;
 
     return res.status(200).json({
       mode: 'history',
@@ -450,6 +476,8 @@ export default async function handler(req, res) {
       filters: { from, to, limit, labels: selectedLabels },
       runs: runSummaries,
       items: filteredMerged.slice(0, limit),
+      total_items: totalItems,
+      has_more: totalItems > limit,
       available_labels: availableLabels,
       reader_tuning: readerTuningSummary(readerTuning),
       tier1_blend: {
