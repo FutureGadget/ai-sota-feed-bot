@@ -1,5 +1,24 @@
 # Decision Log
 
+## 2026-06-21 (Feed: exclude Datasette from the candidate pool)
+- **Decision:** Add `(?i)\bdatasette\b` to `profile.selection.exclude_title_regex`
+  — a title-only hard exclude in `stage_a_prefilter`. Datasette (Simon
+  Willison's SQLite data-publishing tool) and its plugin ecosystem are
+  off-mission for the AI-platform-engineer lens.
+- **Rationale:** Title-only on purpose. Audited the story store: the 19 real
+  datasette posts (`datasette 1.0aN`, `datasette-acl …`, `Datasette Agent`,
+  `Welcome to the Datasette blog`) all carry it in the title, while 13 on-topic
+  LLM posts mention it only in passing in the summary (`Using LLM in the shebang
+  line`, `sqlite AGENTS.md`). A title gate drops the former and keeps the latter;
+  the broader `off_topic` (title+summary) gate would have risked the on-topic
+  posts. `simon_willison` stays a valued source — this is item-level, not
+  source-level.
+- **Impact:** `config/profile.yaml` only (config-driven, no code change). Drops
+  count toward `prefilter_reasons["hard_exclude"]`. Applies to the candidate pool
+  on the next hourly build; existing durable `data/stories` entries are not
+  retroactively purged (same as every other exclude). Tests green (18).
+- **Rollback:** Remove the pattern line.
+
 ## 2026-06-21 (Ranking: keep the lead off niche research papers)
 - **Decision:** Add a `lead_excludes_research` rule to
   `top_band_constraints` (`pipeline/ranking.enforce_top_band_constraints`). The
