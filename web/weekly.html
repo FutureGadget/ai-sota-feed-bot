@@ -49,7 +49,20 @@
     header { margin-bottom: 1rem; }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
     .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
-    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: .45rem .6rem; padding: 0; margin: .85rem 0 0; align-items: center; }
+    menu a[role="button"], #themeToggle, .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: .74rem; letter-spacing: .03em;
+      padding: .42rem .6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color .12s ease, color .12s ease; }
+    menu a[role="button"]:hover, #themeToggle:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: .45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: .66rem; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: .02em; }
     .muted { color: var(--muted); }
     .weekly-hero { display:grid; grid-template-columns:minmax(0,1.45fr) minmax(15rem,.55fr);
       gap:1.5rem 2.6rem; align-items:end; margin:2.35rem 0 1.7rem; }
@@ -111,7 +124,7 @@
       letter-spacing:.06em; text-transform:uppercase; }
     .weekly-close::before, .weekly-close::after { content:""; height:1px; flex:1; background:var(--border); }
     .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
-    .archive { margin-left: auto; }
+    /* .archive styled in header menu styles */
     .subscribe-cta { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between;
       gap:.75rem; margin:1.5rem 0 0; padding:1rem 1.1rem; border:0; border-left:2px solid var(--accent);
       border-radius:0; background:var(--week-wash); color:var(--week-ink); }

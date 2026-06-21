@@ -51,7 +51,16 @@
     header { margin-bottom: 1rem; }
     .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
     .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
-    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: .45rem .6rem; padding: 0; margin: .85rem 0 0; align-items: center; }
+    menu a[role="button"], #themeToggle, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: .74rem; letter-spacing: .03em;
+      padding: .42rem .6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color .12s ease, color .12s ease; }
+    menu a[role="button"]:hover, #themeToggle:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
     .muted { color: var(--muted); }
     .sl-index-hero { margin:2.35rem 0 2rem; display:grid;
       grid-template-columns:minmax(0,1.45fr) minmax(16rem,.55fr); gap:2rem; align-items:end; }
