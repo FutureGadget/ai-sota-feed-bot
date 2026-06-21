@@ -5,7 +5,7 @@ Focus: AI Platform Engineering
 ## 1. Temporary Cloudflare Accounts for AI agents
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/21/temporary-cloudflare-accounts/#atom-everything
-- Score: 2.986 | Reliability: 1.0
+- Score: 2.983 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
@@ -14,53 +14,53 @@ Focus: AI Platform Engineering
 - Score: 3.109 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance
+## 3. Samsung Electronics brings ChatGPT and Codex to employees
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/samsung-electronics-chatgpt-codex-deployment
+- Score: 2.882 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 4. Are LLMs Ready to Assist Physicians? PhysAssistBench for Interactive Doctor-Patient-EHR Assistance
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.18613v2
-- Score: 2.85 | Reliability: 1.0
+- Score: 2.849 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 4. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
+## 5. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.20537v1
 - Score: 2.817 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 5. New usage analytics and updated spend controls for enterprises
+## 6. New usage analytics and updated spend controls for enterprises
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-enterprise-spend-controls
-- Score: 2.651 | Reliability: 1.0
+- Score: 2.717 | Reliability: 1.0
 - Why it matters: 
 
-## 6. Anthropic Reports Claude Now Handles 95% of Internal Analytics Queries
+## 7. Anthropic Reports Claude Now Handles 95% of Internal Analytics Queries
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/anthropic-claude-analytics/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.622 | Reliability: 1.0
+- Score: 2.619 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI
+## 8. Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.554 | Reliability: 1.0
+- Score: 2.552 | Reliability: 1.0
 - Why it matters: 
 
-## 8. codex 0.142.0-alpha.10
+## 9. codex 0.142.0-alpha.10
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.10
-- Score: 2.381 | Reliability: 1.0
+- Score: 2.379 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. claude-agent-sdk-python v0.2.106
+## 10. claude-agent-sdk-python v0.2.106
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.106
-- Score: 2.276 | Reliability: 1.0
+- Score: 2.274 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
-
-## 10. claude-code v2.1.185
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.185
-- Score: 2.127 | Reliability: 1.0
-- Why it matters: 
 
 ## 11. Is it agentic enough? Benchmarking open models on your own tooling
 - Type: research | Source: huggingface_blog
@@ -71,5 +71,11 @@ Focus: AI Platform Engineering
 ## 12. Project Fetch: Phase two
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/project-fetch-phase-two
-- Score: 2.471 | Reliability: 1.0
+- Score: 2.47 | Reliability: 1.0
+- Why it matters: 
+
+## 13. claude-code v2.1.185
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.185
+- Score: 2.125 | Reliability: 1.0
 - Why it matters:
