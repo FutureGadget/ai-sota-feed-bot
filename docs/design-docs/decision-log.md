@@ -1181,3 +1181,13 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** The product is a text-first, already responsive reading surface, and the reported zoom-out state materially harms perceived quality. A single site-wide policy prevents inconsistent behavior between the live feed and memory surfaces.
 - **Impact:** Safari and other browsers that honor the directive can no longer pinch-zoom these pages. This is an explicit accessibility tradeoff because users also lose pinch-to-enlarge; browser text-size controls remain available.
 - **Rollback / Alternative:** Remove `maximum-scale=1.0, user-scalable=no` from the viewport metadata to restore browser zoom. A CSS-only fix was rejected because pinch zoom changes Safari's visual viewport rather than the document's responsive layout.
+
+## 2026-06-22 (Weekly recap: Interactive Scan Mode, Categorical Focus Widget, and Sticky Nav)
+- **Decision:** Introduce a sticky sub-navigation bar for weekly recaps featuring a "Detailed" vs. "Scan" view-mode toggle, along with a top-level Categorical Focus Widget showing thematic proportions. In Scan Mode, individual article summaries are hidden by default, showing only the title, publication metadata, and a micro-animated "Expand/Collapse" button.
+- **Rationale:** Platform engineers reading the weekly report want to quickly see the thematic makeup of the week (solved by the visual focus bar) and scan 30+ items in seconds (solved by Scan Mode). A sticky sub-navigation keeps these view controls and category links accessible at all times during scrolling, using an IntersectionObserver to highlight the active section.
+- **Impact:** 
+  - `web/weekly.html` updated with responsive view-mode CSS, local-storage state persistence, the focus widget structure, and interactive event delegation handlers.
+  - `pipeline/render_static_pages.py` updated to generate the `weekly-focus-widget` markup (`render_focus_widget`) and inject the CSS/JS view-mode assets during the static build.
+  - Regenerated `web/weekly/2026-W23.html`, `2026-W24.html`, and `2026-W25.html` via the static rendering script.
+- **Rollback:** Revert changes to `web/weekly.html` and `pipeline/render_static_pages.py`, then re-run the static generation script to compile standard weekly reports.
+
