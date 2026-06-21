@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd]
-updated: 2026-06-20
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6]
+updated: 2026-06-21
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6]
 ---
 
 ## TL;DR
@@ -44,6 +44,10 @@ actor": guardrails can be turned into a DoS vector and sandboxes don't solve
 credential authorization, while a parallel push reframes every agent as a
 first-class **identity** to be provisioned, scoped, and audited like a service
 account — closing the gap injection exploits when agents hold ambient privilege.
+The least-privilege controls are now landing as concrete harness primitives —
+per-parameter permission rules (Claude Code's `Tool(param:value)`) and
+approval-gated writes that respect the caller's permissions (datasette-agent) —
+so blast-radius limiting is becoming a configurable boundary, not just advice.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

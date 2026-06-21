@@ -27,6 +27,31 @@
 - **Rollback:** Revert the copy edits; the positioning block carries the
   `audience widened 2026-06-21` marker to locate them.
 
+## 2026-06-21 (Build: serve brand/icon assets from the site root)
+- **Decision:** `scripts/vercel_build.py` now copies every top-level non-HTML
+  file in `web/` (favicon set, `apple-touch-icon.png`, `icon-192/512.png`,
+  `logo.png`, `og-default.png`, `site.webmanifest`, `favicon.ico`, the
+  `.txt`/`.xml` files) into the `public/` output root, alongside the existing
+  `public/web/` page tree.
+- **Rationale:** Pages are served from `/web/*` via `vercel.json` rewrites, but
+  the brand assets are referenced from the **site root** — `/logo.png` (the
+  daily/weekly email footer logo via `publish/publish_email.py:logo_img` and the
+  Organization JSON-LD), `/favicon.svg`, `/og-default.png` (OG/Twitter cards),
+  `/site.webmanifest`. The build only staged them under `public/web/`, so all of
+  them returned **404** in production (`https://www.llm-digest.com/logo.png` and
+  every favicon/OG asset). Vercel only serves files that physically exist under
+  the output dir; a rewrite is a fallback that never fires for a request with a
+  file extension, so a `/logo.png → /web/logo.png` rewrite would not have helped.
+  Copying the flat assets to the root is the minimal fix and self-maintaining
+  (new top-level assets are picked up automatically).
+- **Impact:** `scripts/vercel_build.py` only. Verified locally: the build prints
+  `vercel root assets staged: 14 files` and `public/logo.png`,
+  `public/favicon.svg`, `public/og-default.png`, `public/site.webmanifest` now
+  exist. Fixes the broken email logo, favicons, and social-share image on the
+  next deploy. No runtime data committed; `public/` is a build artifact (not
+  tracked).
+- **Rollback:** Remove the root-asset copy loop in `scripts/vercel_build.py`.
+
 ## 2026-06-21 (Feed: exclude Datasette from the candidate pool)
 - **Decision:** Add `(?i)\bdatasette\b` to `profile.selection.exclude_title_regex`
   — a title-only hard exclude in `stage_a_prefilter`. Datasette (Simon
