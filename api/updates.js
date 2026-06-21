@@ -54,6 +54,15 @@ function latestStorylines() {
   };
 }
 
+function latestPlaybook() {
+  // Editions are dated like the daily recap; `date` is the period and
+  // `generated_at` the content signal the read-history dot keys off.
+  const idx = readJsonSafe(path.join(DATA, 'playbook', 'index.json'), []);
+  const top = newestBy(idx, 'date');
+  if (!top) return null;
+  return { date: top.date || null, generated_at: top.generated_at || null };
+}
+
 function latestMap() {
   const idx = readJsonSafe(path.join(DATA, 'wiki', 'index.json'), null);
   if (!idx || !idx.nodes || typeof idx.nodes !== 'object') return null;
@@ -78,6 +87,7 @@ export default function handler(req, res) {
       daily: latestDaily(),
       weekly: latestWeekly(),
       storylines: latestStorylines(),
+      playbook: latestPlaybook(),
       map: latestMap(),
     });
   } catch (e) {

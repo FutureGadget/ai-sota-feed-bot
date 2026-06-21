@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Builder's Playbook | LLM Digest</title>
+  <meta name="description" content="Actionable cards for agent engineers — each states the problem it solves, what to apply to your agent, and the expected result. Distilled from the AI feed." />
+  <link rel="canonical" href="https://www.llm-digest.com/playbook" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Agent Builder's Playbook" />
+  <meta property="og:description" content="Actionable cards for agent engineers — each states the problem it solves, what to apply to your agent, and the expected result." />
+  <meta property="og:url" content="https://www.llm-digest.com/playbook" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="https://oat.ink/oat.min.js" defer></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+    :root, html[data-theme="light"] {
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    menu { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; margin: 0.75rem 0 0; align-items: center; }
+    .muted { color: var(--muted); }
+    .edition-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .edition-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .cards { display: flex; flex-direction: column; gap: 1rem; }
+    .pcard { border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.1rem; background: var(--card); }
+    .pcard h2 { margin: 0 0 0.5rem; font-size: 1.12rem; line-height: 1.35; }
+    .pcard-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.7rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .badge.area { color: var(--fg); border-color: var(--border); background: transparent; }
+    .badge.effort-low { color: #15803d; border-color: color-mix(in srgb, #15803d 35%, transparent); background: color-mix(in srgb, #15803d 12%, var(--card)); }
+    .badge.effort-medium { color: #b45309; border-color: color-mix(in srgb, #b45309 35%, transparent); background: color-mix(in srgb, #b45309 12%, var(--card)); }
+    .badge.effort-high { color: #b91c1c; border-color: color-mix(in srgb, #b91c1c 35%, transparent); background: color-mix(in srgb, #b91c1c 12%, var(--card)); }
+    .field { margin: 0 0 0.6rem; }
+    .field:last-of-type { margin-bottom: 0; }
+    .field-label { display: block; text-transform: uppercase; letter-spacing: 0.05em;
+      font-size: 0.68rem; font-weight: 700; color: var(--muted); margin: 0 0 0.15rem; }
+    .field-label.apply { color: var(--accent); }
+    .field p { margin: 0; font-size: 0.97rem; }
+    .pcard-source { margin: 0.85rem 0 0; padding-top: 0.7rem; border-top: 1px solid var(--border);
+      font-size: 0.88rem; }
+    .pcard-source a { text-decoration: none; }
+    .pcard-source a:hover { text-decoration: underline; }
+    .state { padding: 2rem 1rem; text-align: center; color: var(--muted); }
+    .archive { margin-left: auto; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="topbar">
+        <h1>🛠️ Agent Builder's Playbook</h1>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
+      <p id="meta" class="muted">Loading…</p>
+      <menu>
+        <a href="/" role="button">← Live feed</a>
+        <a href="/daily" role="button">📰 Daily recap</a>
+        <a href="/map" role="button">🧠 Knowledge map</a>
+        <a id="jsonLink" href="/api/playbook" role="button">JSON</a>
+        <label class="archive muted">Edition
+          <select id="archive" aria-label="Choose edition"></select>
+        </label>
+      </menu>
+    </header>
+
+    <p class="muted" style="margin:0 0 0.5rem;font-size:0.95rem;">
+      Actionable changes you can apply to your agents. Each card: the
+      <strong>problem</strong> it solves, what to <strong>apply</strong>, and the
+      expected <strong>result</strong>.
+    </p>
+
+    <section id="edition" aria-live="polite">
+      <div class="state">Loading the Playbook…</div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each card links to its source.
+    </footer>
+  </main>
+
+  <script>
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+    }
+    function initThemeToggle() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+      btn.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function safeUrl(u) {
+      if (!u) return '#';
+      try {
+        const url = new URL(u, window.location.origin);
+        return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : '#';
+      } catch { return '#'; }
+    }
+
+    function fmtLongDate(v) {
+      if (!v) return '';
+      const d = new Date(`${v}T00:00:00`);
+      return Number.isNaN(d.getTime())
+        ? String(v)
+        : d.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    function dateFromLocation() {
+      const q = new URLSearchParams(window.location.search).get('date');
+      if (q) return q;
+      const m = window.location.pathname.match(/\/playbook\/(\d{4}-\d{2}-\d{2})/);
+      return m ? m[1] : null;
+    }
+
+    function introParagraphs(intro) {
+      if (Array.isArray(intro)) return intro.map((p) => String(p).trim()).filter(Boolean);
+      return String(intro || '').split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+    }
+
+    function renderIntro(edition) {
+      const paras = introParagraphs(edition.intro);
+      if (!paras.length) return '';
+      return `<div class="intro">${paras.map((p) => `<p>${esc(p)}</p>`).join('')}</div>`;
+    }
+
+    function effortBadge(effort) {
+      const e = String(effort || '').toLowerCase();
+      if (!['low', 'medium', 'high'].includes(e)) return '';
+      return `<span class="badge effort-${e}">${esc(e)} effort</span>`;
+    }
+
+    function renderCard(c) {
+      const href = safeUrl(c.url);
+      const field = (label, value, cls) => value
+        ? `<div class="field"><span class="field-label${cls ? ' ' + cls : ''}">${label}</span><p>${esc(value)}</p></div>`
+        : '';
+      return `
+        <article class="pcard">
+          <h2>${esc(c.title || 'Untitled')}</h2>
+          <div class="pcard-meta">
+            ${c.area ? `<span class="badge area">${esc(c.area)}</span>` : ''}
+            ${effortBadge(c.effort)}
+          </div>
+          ${field('Problem', c.problem)}
+          ${field('Apply', c.apply, 'apply')}
+          ${field('Result', c.result)}
+          ${href !== '#' ? `<p class="pcard-source">Source: <a href="${href}" target="_blank" rel="noopener" data-track="playbook-link">${esc(c.source || 'link')}</a></p>` : ''}
+        </article>`;
+    }
+
+    function renderEdition(edition) {
+      document.title = `Agent Builder's Playbook — ${edition.title || edition.date}`;
+      document.getElementById('jsonLink').href = `/api/playbook?date=${encodeURIComponent(edition.date)}`;
+      const cards = Array.isArray(edition.cards) ? edition.cards : [];
+      document.getElementById('meta').textContent =
+        `${cards.length} actionable card${cards.length === 1 ? '' : 's'}`;
+
+      document.getElementById('edition').innerHTML = `
+        <h2 class="edition-title">${esc(edition.title || edition.date)}</h2>
+        <p class="edition-range">${esc(fmtLongDate(edition.date))}</p>
+        ${renderIntro(edition)}
+        <div class="cards">${
+          cards.length ? cards.map(renderCard).join('') : '<div class="state">No cards in this edition yet.</div>'
+        }</div>`;
+    }
+
+    async function loadArchive(currentDate) {
+      const sel = document.getElementById('archive');
+      try {
+        const res = await fetch('/api/playbook?list=1');
+        if (!res.ok) throw new Error('list_http_' + res.status);
+        const { editions = [] } = await res.json();
+        if (!editions.length) { sel.innerHTML = '<option>—</option>'; return; }
+        sel.innerHTML = editions.map((d) =>
+          `<option value="${esc(d.date)}" ${d.date === currentDate ? 'selected' : ''}>${esc(d.date)}</option>`).join('');
+        sel.addEventListener('change', () => {
+          window.location.search = `?date=${encodeURIComponent(sel.value)}`;
+        });
+      } catch {
+        sel.innerHTML = '<option>—</option>';
+      }
+    }
+
+    async function run() {
+      const date = dateFromLocation();
+      const url = date ? `/api/playbook?date=${encodeURIComponent(date)}` : '/api/playbook';
+      try {
+        const res = await fetch(url);
+        if (res.status === 404) {
+          document.getElementById('meta').textContent = 'No edition yet';
+          document.getElementById('edition').innerHTML =
+            '<div class="state">No Playbook edition has been published yet. Check back soon.</div>';
+          return;
+        }
+        if (!res.ok) throw new Error('playbook_http_' + res.status);
+        const edition = await res.json();
+        renderEdition(edition);
+        loadArchive(edition.date);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('meta').textContent = 'Playbook unavailable';
+        document.getElementById('edition').innerHTML =
+          '<div class="state">Could not load the Playbook right now. Please refresh in a moment.</div>';
+      }
+    }
+
+    initThemeToggle();
+    run();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+  <!-- "New updates" nav dots — flag unread updates in the daily, weekly,
+       storylines, playbook and knowledge-map sections. Time-aware sections
+       (daily/weekly/playbook) never read as "fresh" once stale. Signals come
+       from /api/updates; "seen" markers live in localStorage. Visiting this
+       page marks the playbook section seen. See
+       docs/product-specs/nav-update-indicators.md. -->
+  <script>
+    (function () {
+      var SEEN = {
+        daily: 'ai_feed_seen_daily_v1',
+        weekly: 'ai_feed_seen_weekly_v1',
+        storylines: 'ai_feed_seen_storylines_v1',
+        playbook: 'ai_feed_seen_playbook_v1',
+        map: 'ai_feed_seen_map_v1'
+      };
+      var ROUTE = { '/daily': 'daily', '/weekly': 'weekly', '/storylines': 'storylines', '/playbook': 'playbook', '/map': 'map' };
+      var DAILY_FRESH_MAX_AGE = 1;
+      var WEEKLY_FRESH_MAX_AGE = 8;
+      var PLAYBOOK_FRESH_MAX_AGE = 10;
+
+      function getItem(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+      function setItem(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+      function ms(s) { var t = s ? Date.parse(s) : NaN; return isFinite(t) ? t : NaN; }
+
+      function currentSection() {
+        var p = location.pathname.replace(/\/+$/, '') || '/';
+        if (p === '/daily' || p.indexOf('/daily/') === 0) return 'daily';
+        if (p === '/weekly' || p.indexOf('/weekly/') === 0) return 'weekly';
+        if (p === '/storylines' || p.indexOf('/storyline/') === 0) return 'storylines';
+        if (p === '/playbook' || p.indexOf('/playbook/') === 0) return 'playbook';
+        if (p === '/map' || p.indexOf('/topic/') === 0) return 'map';
+        return null;
+      }
+
+      function dayAge(nowIso, dateStr) {
+        if (!dateStr) return Infinity;
+        var now = new Date(nowIso);
+        var d = new Date(dateStr.length === 10 ? dateStr + 'T00:00:00Z' : dateStr);
+        if (isNaN(now.getTime()) || isNaN(d.getTime())) return Infinity;
+        var a = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+        var b = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+        return Math.round((a - b) / 86400000);
+      }
+
+      function signalOf(u, section) {
+        if (section === 'daily') return u.daily && u.daily.generated_at;
+        if (section === 'weekly') return u.weekly && u.weekly.generated_at;
+        if (section === 'storylines') return u.storylines && u.storylines.last_updated;
+        if (section === 'playbook') return u.playbook && u.playbook.generated_at;
+        if (section === 'map') return u.map && u.map.updated;
+        return null;
+      }
+
+      function isUnread(section, signal) {
+        var seen = getItem(SEEN[section]);
+        if (!seen) return true;
+        var a = ms(signal), b = ms(seen);
+        if (isFinite(a) && isFinite(b)) return a > b;
+        return String(signal) > String(seen);
+      }
+
+      function isFresh(section, u) {
+        if (section === 'daily') return dayAge(u.now, u.daily && u.daily.date) <= DAILY_FRESH_MAX_AGE;
+        if (section === 'weekly') return dayAge(u.now, u.weekly && u.weekly.end) <= WEEKLY_FRESH_MAX_AGE;
+        if (section === 'playbook') return dayAge(u.now, u.playbook && u.playbook.date) <= PLAYBOOK_FRESH_MAX_AGE;
+        return true;
+      }
+
+      function injectStyle() {
+        if (document.getElementById('nav-update-style')) return;
+        var s = document.createElement('style');
+        s.id = 'nav-update-style';
+        s.textContent = '.nav-update-dot{display:inline-block;margin-left:.4rem;padding:.03rem .34rem;font-size:.62rem;font-weight:700;line-height:1.5;letter-spacing:.04em;text-transform:uppercase;color:var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 16%,transparent);border:1px solid color-mix(in srgb,var(--accent,#2563eb) 38%,transparent);border-radius:999px;vertical-align:middle;animation:navUpdateIn .35s ease-out both}@keyframes navUpdateIn{from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}}@media (prefers-reduced-motion:reduce){.nav-update-dot{animation:none}}.nav-update-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}';
+        (document.head || document.documentElement).appendChild(s);
+      }
+
+      function decorate(section) {
+        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        for (var i = 0; i < links.length; i++) {
+          var a = links[i];
+          var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
+          if (ROUTE[pathOnly] !== section || a.querySelector('.nav-update-dot')) continue;
+          var dot = document.createElement('span');
+          dot.className = 'nav-update-dot';
+          dot.textContent = 'New';
+          dot.setAttribute('aria-hidden', 'true');
+          a.appendChild(dot);
+          var sr = document.createElement('span');
+          sr.className = 'nav-update-sr';
+          sr.textContent = ' (new updates)';
+          a.appendChild(sr);
+        }
+      }
+
+      function run() {
+        fetch('/api/updates', { headers: { accept: 'application/json' } })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .then(function (u) {
+            if (!u) return;
+            injectStyle();
+            Object.keys(ROUTE).forEach(function (route) {
+              var section = ROUTE[route];
+              var signal = signalOf(u, section);
+              if (signal && isUnread(section, signal) && isFresh(section, u)) decorate(section);
+            });
+            var cur = currentSection();
+            if (cur) {
+              var sig = signalOf(u, cur);
+              if (sig) setItem(SEEN[cur], sig);
+            }
+          })
+          .catch(function () {});
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', run);
+      } else {
+        run();
+      }
+    })();
+  </script>
+</body>
+</html>

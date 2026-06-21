@@ -55,7 +55,11 @@ Daily/weekly recaps are produced by **agent routines** (Claude Code), not
 workflows: `.agents/skills/daily-summary/` and `.agents/skills/weekly-summary/`
 build an input bundle, the agent writes `data/daily/<date>.json` /
 `data/weekly/<week>.json`, the index builder validates + re-renders static
-pages, and committing the JSON *is* publishing.
+pages, and committing the JSON *is* publishing. The **Playbook**
+(`.agents/skills/playbook/` → `/playbook`) follows the same shape — the agent
+writes dated editions of actionable problem→apply→result cards to
+`data/playbook/<date>.json`, validated by `build_playbook_index.py` (no static
+render; the `/playbook` shell reads `/api/playbook`).
 
 Storyline narratives work the same way (`.agents/skills/storyline-editor/`): the
 agent reads the mechanically-built threads and writes a durable **narrative
@@ -133,7 +137,10 @@ storyline; it only proposes links the floor then judges.
   applied through the deterministic floor), `wiki-curator/` (LLM-wiki routine:
   ingests new stories into the cross-linked obstacle→solution markdown pages
   under `data/wiki/`, then `build_wiki.py` compiles + validates them — serves
-  `/map` and `/topic/<slug>`), `add-source/` (add a feed source
+  `/map` and `/topic/<slug>`), `playbook/` (writes dated **Playbook editions** —
+  actionable problem→apply→result cards for agent builders — to
+  `data/playbook/<date>.json`, validated by `build_playbook_index.py`; serves
+  `/playbook`), `add-source/` (add a feed source
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
   gates and reaches the feed)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
@@ -170,6 +177,9 @@ storyline; it only proposes links the floor then judges.
   `build_wiki.py`; the only file served/bundled), `index.md` (catalog), `log.md`
   (append-only activity), `input/` ingest bundles. Schema: `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
+- `data/playbook/` — agent-written **Playbook editions** (`<date>.json`:
+  actionable problem→apply→result cards) + `index.json`/`latest.json` +
+  `input/` bundles (excluded from deploys). Served at `/playbook`
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
   `alerts_state.json`, `ingest_runs.jsonl`
@@ -193,10 +203,11 @@ storyline; it only proposes links the floor then judges.
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
 `/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
 (email digest signup) · `/map` (wiki index) · `/topic/<slug>` (wiki node) ·
+`/playbook` (actionable agent-builder cards) ·
 `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/topics`, `/api/client-config`, `/api/updates`
+`/api/storylines`, `/api/topics`, `/api/playbook`, `/api/client-config`, `/api/updates`
 (lightweight freshness signals powering the nav "new updates" dots),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,
 503 when unconfigured).
