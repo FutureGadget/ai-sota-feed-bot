@@ -1,5 +1,11 @@
 # Decision Log
 
+## 2026-06-22 (Fix 2026-06-20 placeholder daily recap)
+- **Decision:** Replaced the placeholder daily recap for 2026-06-20 with a real, curated summary (three thematic categories, 13 articles, synthesized intro and highlights), and re-rendered the static HTML pages.
+- **Rationale:** The daily recap for 2026-06-20 was still a placeholder showing placeholder narrative text and template strings. Writing a real curated summary provides the expected value for platform and agent engineers.
+- **Impact:** Modified `data/daily/2026-06-20.json`, and regenerated `data/daily/{index,latest}.json` and `web/daily/2026-06-20.html` via the index builder.
+- **Rollback:** Restore the placeholder JSON file and rebuild the daily index.
+
 ## 2026-06-22 (Planned: canonical Playbook cards overlay recaps by source SID)
 - **Decision:** Plan an action-mapping layer for daily/weekly recaps in
   `docs/exec-plans/active/v2.3-recap-playbook-integration.md`. The Playbook
