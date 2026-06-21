@@ -147,7 +147,7 @@ export default async function handler(req, res) {
     if (!targetUrl) {
       res.status(200).send(
         sharePage({
-          title: `${SITE_NAME} — AI news feed for platform engineers`,
+          title: `${SITE_NAME} — AI news feed for platform and agent engineers`,
           description: 'A low-hype AI news feed: model releases, research, and tooling — ranked for what changed and why it matters.',
           canonical: `${SITE_BASE_URL}/`,
           redirect: '/?utm_source=share&utm_medium=social',
@@ -171,7 +171,7 @@ export default async function handler(req, res) {
       // Aged out of feed retention: generic card, still land on our feed.
       res.status(200).send(
         sharePage({
-          title: `${SITE_NAME} — AI news feed for platform engineers`,
+          title: `${SITE_NAME} — AI news feed for platform and agent engineers`,
           description: 'This story is no longer in the live feed, but the latest AI news is one tap away.',
           canonical,
           redirect,
