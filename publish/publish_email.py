@@ -698,9 +698,13 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
-def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> bool:
+def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: str = "") -> bool:
     """Send the broadcast. Returns True if sent, False for a clean no-op
-    (e.g. the recipient segment is empty — nothing to send, not an error)."""
+    (e.g. the recipient segment is empty — nothing to send, not an error).
+
+    ``name`` is the provider-side internal label shown in the dashboard
+    broadcast list (distinct from the subscriber-facing ``subject``). Without
+    it Resend lists every broadcast as "Untitled"."""
     provider = (cfg.get("provider") or "buttondown").lower()
     text_body = html_to_text(html_body)
     if provider == "buttondown":
@@ -728,6 +732,8 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str) -> boo
             "text": text_body,
             "send": True,
         }
+        if name:
+            payload["name"] = name
         topic_id = (os.getenv("EMAIL_TOPIC_ID") or "").strip()
         if topic_id:
             payload["topic_id"] = topic_id
@@ -817,11 +823,13 @@ def main() -> int:
         already_sent = state.get("weekly", {}).get("last_sent_week") == week_key
         guard_reason = "already_sent_week"
         summary = f"week={week_key} threads={n_threads} wiki={n_wiki}"
+        broadcast_name = f"Weekly recap — {week_key or today}"
     else:
         subject, body, threads = build_daily(cfg, state)
         already_sent = state.get("daily", {}).get("last_sent_date") == today
         guard_reason = "already_sent_today"
         summary = f"items_capped={cfg['daily']['max_items']} threads={len(threads)}"
+        broadcast_name = f"Daily brief — {today}"
 
     if args.dry_run:
         print(f"<!-- subject: {subject} -->")
@@ -840,7 +848,7 @@ def main() -> int:
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
 
-    if not send_broadcast(cfg, api_key, subject, body):
+    if not send_broadcast(cfg, api_key, subject, body, broadcast_name):
         # Nothing was sent (e.g. empty recipient segment). Leave the cursor
         # untouched so the next run re-attempts once contacts exist.
         print(f"email_send_skipped=true kind={args.kind} reason=nothing_sent")
