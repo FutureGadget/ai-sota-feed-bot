@@ -216,6 +216,16 @@
     .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
     .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--brief-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
     .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
       letter-spacing:.06em; text-transform:uppercase; }
@@ -232,7 +242,7 @@
       .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
       .toc a { min-width:50%; border-bottom:1px solid var(--border); }
       article { grid-template-columns:1fr; gap:.55rem; }
-      article h3, .art-meta, .art-summary { grid-column:1; grid-row:auto; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
