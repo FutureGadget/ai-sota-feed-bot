@@ -1905,7 +1905,12 @@
       const whyRaw = whyItMattersText(it);
       const why = (whyRaw && whyRaw !== summaryRaw) ? esc(whyRaw) : '';
       const href = safeUrl(it.url);
-      const image = safeUrl(it.image_url || '');
+      // Only use an absolute http(s) image URL. safeUrl() resolves bare/relative
+      // strings against our origin (e.g. a scraped placeholder "URL to first
+      // frame"), which would request that path on our own domain and 404; an
+      // absolute image src cannot be a relative reference.
+      const rawImage = String(it.image_url || '');
+      const image = /^https?:\/\//i.test(rawImage) ? safeUrl(rawImage) : '#';
       const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
         .filter((e) => e && e.source && safeUrl(e.url) !== '#');
       const alsoCovered = alsoCoveredAll.slice(0, 4);

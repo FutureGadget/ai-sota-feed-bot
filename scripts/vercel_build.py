@@ -42,6 +42,17 @@ def main() -> None:
         shutil.copy2(asset, PUBLIC_DIR / asset.name)
     print(f"vercel root assets staged: {len(root_assets)} files")
 
+    # The mascot is loaded via a root-relative ES module import (`/mascot/mascot.js`,
+    # see web/mascot/README.md and the loader snippet in every page shell). Like the
+    # brand assets above, a request with a file extension is served only if the file
+    # physically exists at that path — the /web/* rewrites never fire for it. The
+    # root-asset copy above is non-recursive, so the mascot subdirectory must be
+    # staged to the public root explicitly or the import 404s and the mascot no-ops.
+    mascot_src = ROOT / "web" / "mascot"
+    if mascot_src.is_dir():
+        shutil.copytree(mascot_src, PUBLIC_DIR / "mascot", dirs_exist_ok=True)
+        print(f"vercel root assets staged: mascot/ -> {PUBLIC_DIR / 'mascot'}")
+
 
 if __name__ == "__main__":
     main()
