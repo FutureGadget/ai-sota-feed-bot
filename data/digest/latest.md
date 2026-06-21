@@ -5,13 +5,13 @@ Focus: AI Platform Engineering
 ## 1. Beast: Inference Economy Inversion in Agentic Coding Systems
 - Type: release | Source: hackernews_ai
 - URL: https://github.com/Byron2306/EdgeK-BEAST
-- Score: 2.756 | Reliability: 1.0
+- Score: 2.747 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. AutoPass: Evidence-Guided LLM Agents for Compiler Performance Tuning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.20373v1
-- Score: 3.137 | Reliability: 1.0
+- Score: 3.136 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. Execution-State Capsules: Graph-Bound Execution-State Checkpoint and Restore for Low-Latency, Small-Batch, On-Device Physical-AI Serving
@@ -29,37 +29,37 @@ Focus: AI Platform Engineering
 ## 5. Project Fetch: Phase two
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/project-fetch-phase-two
-- Score: 2.499 | Reliability: 1.0
+- Score: 2.498 | Reliability: 1.0
 - Why it matters: 
 
 ## 6. Apple Launches Core AI for Apple-Silicon Optimized On-Device Generative AI
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.495 | Reliability: 1.0
+- Score: 2.493 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. codex 0.142.0-alpha.9
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.9
-- Score: 2.373 | Reliability: 1.0
+- Score: 2.371 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 8. claude-agent-sdk-python v0.2.106
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.106
-- Score: 2.326 | Reliability: 1.0
+- Score: 2.324 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.322 | Reliability: 1.0
+- Score: 2.32 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. claude-code v2.1.185
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.185
-- Score: 2.177 | Reliability: 1.0
+- Score: 2.175 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. StylisticBias: A Few Human Visual Cues Drive Most Social Biases in MLLMs
