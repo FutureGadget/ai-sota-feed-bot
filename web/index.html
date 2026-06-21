@@ -188,9 +188,9 @@
        anti-filter-bubble signal. Honest counts only; hidden when none. */
     .trust-banner {
       display: flex;
-      align-items: baseline;
-      gap: 0.5rem;
-      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
       margin: 0 0 1rem;
       padding: 0.6rem 0.85rem;
       border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
@@ -199,9 +199,29 @@
       font-size: 0.9rem;
       line-height: 1.45;
     }
+    .trust-banner-content {
+      flex: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
     .trust-banner strong { color: var(--accent); font-weight: 600; }
     .trust-banner .trust-detail { color: var(--muted); }
     .trust-banner a { color: var(--accent); white-space: nowrap; }
+    .trust-banner-dismiss {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 1.3rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0 0.2rem;
+      flex-shrink: 0;
+    }
+    .trust-banner-dismiss:hover {
+      color: var(--fg);
+    }
     .sections button {
       font-size: 0.92rem;
       padding: 0.35rem 0.7rem;
@@ -405,6 +425,9 @@
       font-size: 0.82rem;
       color: var(--muted);
     }
+    .fb-label:empty {
+      display: none !important;
+    }
     .fb-actions {
       display: flex;
       align-items: center;
@@ -419,16 +442,33 @@
       font-size: 0.82rem;
       padding: 0.18rem 0.6rem;
       cursor: pointer;
+      opacity: 0.65;
+      transition: opacity 0.2s ease, border-color 0.2s ease, color 0.2s ease;
     }
     .fb-btn:hover {
       border-color: var(--accent);
       color: var(--accent);
+      opacity: 1;
     }
     .fb-btn[aria-pressed="true"] {
       border-color: var(--accent);
       color: var(--accent);
       background: color-mix(in srgb, var(--accent) 14%, var(--card));
       font-weight: 600;
+      opacity: 1;
+    }
+    @media (hover: hover) {
+      #list > article .fb-row {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+      }
+      #list > article:hover .fb-row,
+      #list > article:focus-within .fb-row,
+      #list > article .fb-row.fb-has-voted {
+        opacity: 1;
+        visibility: visible;
+      }
     }
     .why {
       margin: 0.35rem 0 0;
@@ -1585,6 +1625,10 @@
     function renderReaderTuningNote(rt) {
       const banner = document.getElementById('readerTuningBanner');
       if (!banner) return;
+      if (localStorage.getItem('ai_feed_tuning_banner_dismissed') === '1') {
+        banner.hidden = true;
+        return;
+      }
       const boosted = Array.isArray(rt && rt.boosted) ? rt.boosted : [];
       const down = Array.isArray(rt && rt.downweighted) ? rt.downweighted : [];
       if (!boosted.length && !down.length) {
@@ -1594,6 +1638,10 @@
 
       const plural = (n) => (n === 1 ? '' : 's');
       const updated = rt.updated_at ? `, updated ${fmtCompactDate(rt.updated_at)}` : '';
+      
+      const content = document.createElement('div');
+      content.className = 'trust-banner-content';
+      
       const lead = document.createElement('strong');
       lead.textContent = '👍 Reader feedback is tuning this feed';
       const detail = document.createElement('span');
@@ -1609,7 +1657,19 @@
         down.length ? `Downweighted: ${names(down)}` : '',
       ].filter(Boolean).join(' · ');
 
-      banner.replaceChildren(lead, detail);
+      content.replaceChildren(lead, detail);
+
+      const dismissBtn = document.createElement('button');
+      dismissBtn.type = 'button';
+      dismissBtn.className = 'trust-banner-dismiss';
+      dismissBtn.setAttribute('aria-label', 'Dismiss banner');
+      dismissBtn.textContent = '×';
+      dismissBtn.addEventListener('click', () => {
+        localStorage.setItem('ai_feed_tuning_banner_dismissed', '1');
+        banner.hidden = true;
+      });
+
+      banner.replaceChildren(content, dismissBtn);
       banner.hidden = false;
     }
 
@@ -1947,7 +2007,7 @@
           </div>
           ${why ? `<p class="matters">💡 ${why}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
-          <div class="fb-row"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : FEEDBACK_PROMPT}</span><div class="fb-actions">${fbButtons}</div></div>
+          <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
     }
 
@@ -2422,11 +2482,18 @@
             runId: fbBtn.dataset.runId || null,
           });
           const row = fbBtn.closest('.fb-row');
-          row?.querySelectorAll('button[data-fb-signal]').forEach((b) => {
-            b.setAttribute('aria-pressed', b.dataset.fbSignal === active ? 'true' : 'false');
-          });
+          if (row) {
+            row.querySelectorAll('button[data-fb-signal]').forEach((b) => {
+              b.setAttribute('aria-pressed', b.dataset.fbSignal === active ? 'true' : 'false');
+            });
+            if (active) {
+              row.classList.add('fb-has-voted');
+            } else {
+              row.classList.remove('fb-has-voted');
+            }
+          }
           const label = row?.querySelector('.fb-label');
-          if (label) label.textContent = active ? FEEDBACK_THANKS : FEEDBACK_PROMPT;
+          if (label) label.textContent = active ? FEEDBACK_THANKS : '';
           return;
         }
 
