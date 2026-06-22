@@ -1,0 +1,22 @@
+schema_version: 1
+id: wiki-curator-daily
+name: "[News Feed Management] Knowledge Graph Management"
+description: Ingest and lint the agent-engineering knowledge wiki.
+
+schedule:
+  cron: "0 11 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

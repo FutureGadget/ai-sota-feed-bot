@@ -1,0 +1,22 @@
+schema_version: 1
+id: playbook-weekly
+name: "[News Feed Management] Agent Builders' Playbook Contents curation / publishing"
+description: Curate and publish the weekly Agent Builder's Playbook edition.
+
+schedule:
+  cron: "0 19 * * 5"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

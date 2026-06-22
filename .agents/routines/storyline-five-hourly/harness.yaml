@@ -1,0 +1,22 @@
+schema_version: 1
+id: storyline-five-hourly
+name: "[News Feed Management] Storyline"
+description: Scout, narrate, validate, and publish storyline updates.
+
+schedule:
+  cron: "0 */5 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

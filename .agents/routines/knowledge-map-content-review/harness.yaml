@@ -1,0 +1,27 @@
+schema_version: 1
+id: knowledge-map-content-review
+name: "Contents review for the knowledge map"
+description: Review the live knowledge map and topic pages for factual or graph errors.
+
+schedule:
+  cron: "0 9 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+  delivery: best_effort
+
+execution:
+  environment: local
+  scheduler: antigravity
+  capabilities:
+    network: true
+    browser: true
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

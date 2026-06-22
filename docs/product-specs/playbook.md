@@ -52,6 +52,17 @@ build_playbook_index.py   -> data/playbook/{index,latest}.json (validated; serve
 - **Validate + serve:** `build_playbook_index.py` validates every edition
   against the schema (`playbook_common.validate_edition`) and rebuilds
   `index.json` + `latest.json`. It exits non-zero on a malformed edition.
+- **Cadence:** `.agents/routines/playbook-weekly/harness.yaml` is the
+  repository-owned scheduler definition. It runs every Friday at 19:00
+  `Asia/Seoul`. The scheduler provisions the harness and injects only
+  `.agents/routines/playbook-weekly/prompt.md`; the prompt selects a seven-day
+  input window. Shared direct-to-`main` publishing behavior lives in
+  `.agents/routines/COMMON.md`.
+- **Execution preconditions:** the scheduler checks out
+  `FutureGadget/ai-sota-feed-bot` in its cloud environment and applies the
+  `unrestricted` Git-push guardrail, allowing pushes to any branch in this
+  repository, including `main`. These permissions must be provisioned by the
+  scheduler before the routine starts; the agent does not modify guardrails.
 
 An edition's **unique key is its date id** (`YYYY-MM-DD`) — the `date` field,
 the filename, and the index key. There is exactly one edition per date; the
@@ -147,6 +158,13 @@ Regression coverage: `tests/test_playbook_surface.py`.
   distilled from the agent-engineering wiki and link to the relevant `/topic`
   pages. Live editions are written by the `playbook` agent routine and cite the
   primary sources from the input bundle.
-- Not yet wired: a cadence (the routine is run on demand, like the recaps);
-  static per-edition SEO pages; and an "add to Playbook" affordance from a feed
-  item. These are deliberate fast-follows, not part of the first slice.
+- The canonical cadence is Friday at 19:00 `Asia/Seoul`, declared in
+  `.agents/routines/playbook-weekly/harness.yaml`. Provider-side schedule
+  synchronization remains an external operational step.
+- A local Antigravity review routine is defined at
+  `.agents/routines/playbook-content-review/harness.yaml`. It runs best-effort
+  around 10:00 `Asia/Seoul`, verifies live cards against their evidence, and
+  injects only its `prompt.md`. Corrections are made to dated edition JSON;
+  Playbook indexes are rebuilt.
+- Not yet wired: static per-edition SEO pages and an "add to Playbook"
+  affordance from a feed item. These are deliberate fast-follows.

@@ -43,7 +43,7 @@ When rebasing with conflicts, prefer **keeping local generated artifacts** after
 
 ## Commit identity (agent routines)
 Agent routines (`daily-summary`, `weekly-summary`, `storyline-editor`,
-`storyline-scout`, `wiki-curator`) run **outside** GitHub Actions, so a bare
+`storyline-scout`, `wiki-curator`, `playbook`) run **outside** GitHub Actions, so a bare
 `git commit` inherits whatever `user.name`/`user.email` the machine happens to
 have configured. That is how a stray commit once landed on `main` signed
 `wiki-curator <plumlike8@gmail.com>` instead of the canonical bot identity.
@@ -60,3 +60,8 @@ git -c user.name="Claude" -c user.email="noreply@anthropic.com" \
 
 GitHub Actions data/code commits keep their own `github-actions[bot]` identity —
 this rule is only for the agent routines listed above.
+
+The canonical shared checkout, staging, commit, rebase/retry, and push behavior
+for externally scheduled routines is `.agents/routines/COMMON.md`. A push race
+may be retried after fetching and rebasing. A real rebase conflict must be
+aborted and reported; routines never force-push shared `main`.

@@ -73,3 +73,24 @@ and recoveries should receive explicit beats when supported by evidence.
 The editor sidecar remains durable source-of-truth. The deterministic builder
 copies `whats_new`, `why_it_matters`, `take_for_builders`, and `status` into the
 index so the list does not need one API request per storyline.
+
+## Publishing routine
+
+The repository-owned scheduler definition is
+`.agents/routines/storyline-five-hourly/harness.yaml`. It runs at minute zero
+every five hours in `Asia/Seoul`, in the cloud, against
+`FutureGadget/ai-sota-feed-bot`. The scheduler provisions unrestricted push
+permission for this repository and injects only
+`.agents/routines/storyline-five-hourly/prompt.md` into agent context.
+
+The prompt runs `storyline-scout` before `storyline-editor`, validates both
+sidecar types, rebuilds deterministic storyline outputs, and publishes one
+data-only commit directly to `main`. It retries push races up to three times;
+generated-output conflicts are handled by preserving agent-authored sidecars
+and rebuilding rather than manually merging generated JSON.
+
+A separate local Antigravity review routine is defined at
+`.agents/routines/storyline-content-review/harness.yaml`. It runs best-effort
+around 08:00 `Asia/Seoul`, reviews the live index and detail pages against their
+sources, and injects only its `prompt.md`. Corrections are made to durable
+narrative or scout sidecars; generated storyline JSON and HTML are rebuilt.

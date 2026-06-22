@@ -1,0 +1,27 @@
+schema_version: 1
+id: weekly-content-review
+name: "Contents review for weekly"
+description: Improve the latest weekly recap's clarity, interest, and readability.
+
+schedule:
+  cron: "0 7 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+  delivery: best_effort
+
+execution:
+  environment: local
+  scheduler: antigravity
+  capabilities:
+    network: true
+    browser: true
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

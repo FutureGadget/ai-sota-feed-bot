@@ -1,0 +1,22 @@
+schema_version: 1
+id: weekly-recap
+name: "[News Feed Management] Update Weekly AI Feed Summary page"
+description: Curate and publish the current ISO week's AI recap.
+
+schedule:
+  cron: "0 13 * * 6"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md
