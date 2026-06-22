@@ -3364,6 +3364,7 @@ def write_sitemap(
         (f"{base_url}/subscribe", today, "monthly"),
         (f"{base_url}/storylines", today, "daily"),
         (f"{base_url}/voices", today, "monthly"),
+        (f"{base_url}/playbook", today, "daily"),
     ]
     if topics:
         entries.append((f"{base_url}/map", today, "weekly"))

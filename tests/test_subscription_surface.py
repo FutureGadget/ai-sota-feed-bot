@@ -44,6 +44,7 @@ class SubscriptionSurfaceTest(unittest.TestCase):
             xml = (Path(tmp) / "sitemap.xml").read_text(encoding="utf-8")
 
         self.assertIn("<loc>https://example.com/subscribe</loc>", xml)
+        self.assertIn("<loc>https://example.com/playbook</loc>", xml)
 
 
 if __name__ == "__main__":
