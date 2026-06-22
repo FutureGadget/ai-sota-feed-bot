@@ -11,50 +11,42 @@
   ],
   "highlights": [
     "GLM-5.2 landed as the strongest open-weights LLM yet — MIT-licensed, and rated the top frontend-coding model in the world.",
-    "Build 2026 and WWDC made agents a platform layer: Apple Core AI on-device, Azure serverless agents, Microsoft Scout, and a parallel-agent GitHub Copilot app.",
-    "Anthropic hardened agent identity and ops: org-managed MCP auth via Okta, Workload Identity Federation GA, Claude Code artifacts — and paused Agent SDK token billing.",
-    "Agent evaluation and memory tooling matured — 100x-cheaper trace judges, Strands failure root-cause analysis, and decentralized multi-agent orchestration (DeLM).",
-    "Security caught up to autonomy: agents-as-identities, credential isolation beyond sandboxes, Windows agent security, and prompt-injection benchmarks.",
-    "AI-for-science kept compounding: Google's AMIE matched physicians on disease management, and OpenAI models drove rare-disease diagnoses and a near-autonomous chemist."
+    "Build 2026 and WWDC made agents platform primitives: Apple Core AI on-device, Azure serverless agents runtime, Microsoft Scout, and a parallel-agent GitHub Copilot app.",
+    "Anthropic hardened agent identity and operations: org-managed MCP auth via Okta, Workload Identity Federation GA, Claude Code artifacts, and paused Agent SDK token billing.",
+    "Agent validation, memory, and evaluation matured: CircleCI Chunk Sidecars, 100x-cheaper trace judges, Strands failure analysis, and Stanford's DeLM.",
+    "Security and governance caught up to autonomy: agents-as-identities, credential isolation beyond sandboxes, Windows execution context, and prompt-injection benchmarks."
   ],
   "article_count": 120,
   "categories": [
     {
-      "name": "GLM-5.2 & the Open-Weights Frontier",
-      "slug": "glm-52-open-weights-frontier",
-      "summary": "An MIT-licensed open model from Z.ai reached frontier territory this week, turning self-hostable weights from a fallback into a genuine competitor for coding and agent work.",
+      "name": "Frontier Open Weights & On-Device Models",
+      "slug": "frontier-open-weights-on-device-models",
+      "summary": "Permissively-licensed open models and on-device runtimes reached frontier coding capabilities, transforming local execution from a fallback into a primary deployment target.",
       "articles": [
         {
           "title": "GLM-5.2 is probably the most powerful text-only open weights LLM",
-          "summary": "Simon Willison's hands-on read: Z.ai released GLM-5.2 to coding subscribers, then dropped the full weights under MIT — a credible frontier model you can run yourself.",
+          "summary": "Z.ai released the MIT-licensed GLM-5.2 weights, offering a credible frontier-class model developers can host locally to eliminate API lock-in and high token costs.",
           "source": "simon_willison",
           "url": "https://simonwillison.net/2026/Jun/17/glm-52/#atom-everything",
           "published": "2026-06-17T23:58:39+00:00"
         },
         {
           "title": "GLM-5.2: the top Frontend Coding model in the world",
-          "summary": "Latent Space's roundup crowns GLM-5.2 the best frontend-coding model anywhere and flags IndexShare for speculative decoding — open weights now leading a real benchmark.",
+          "summary": "Latent Space reviews GLM-5.2's top performance in frontend coding and highlights its IndexShare speculative decoding architecture, showing how open weights are now leading key coding benchmarks.",
           "source": "latent_space",
           "url": "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
           "published": "2026-06-17T05:37:40Z"
         },
         {
-          "title": "GLM > GPT? GLM-5.2 passes vibe check; Z.ai forecasts Open Fable by December",
-          "summary": "With GLM-5.2 clearing community vibe checks, Latent Space argues the open-models thread has become a true frontier story — and Z.ai signals more to come.",
-          "source": "latent_space",
-          "url": "https://www.latent.space/p/ainews-glm-gpt-glm-52-passes-vibe",
-          "published": "2026-06-19T05:53:54Z"
-        },
-        {
           "title": "Qwen3.6-27B is a very capable local model for coding",
-          "summary": "Georgi Gerganov (via Willison) attests to daily coding use of Qwen3.6-27B on an M2 Ultra and RTX 5090 — more evidence local models are viable for real engineering work.",
+          "summary": "Georgi Gerganov shares hands-on validation of Qwen3.6-27B running locally on consumer/workstation hardware for daily development, proving that local open-weights coding models have reached production viability.",
           "source": "simon_willison",
           "url": "https://simonwillison.net/2026/Jun/16/georgi-gerganov/#atom-everything",
           "published": "2026-06-16T16:04:59+00:00"
         },
         {
           "title": "Apple Launches Core AI for On-Device Generative AI",
-          "summary": "At WWDC 26 Apple unveiled Core AI, the successor to Core ML, letting developers run LLMs and generative models entirely on-device across Apple Silicon.",
+          "summary": "Apple introduced Core AI, its successor to Core ML with direct support for local LLM execution, enabling developers to run optimization pipelines directly on Apple Silicon.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/apple-core-ai-wwdc/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-20T11:00:00Z"
@@ -62,104 +54,90 @@
       ]
     },
     {
-      "name": "Agents Become a Platform Layer",
-      "slug": "agents-platform-layer",
-      "summary": "Build 2026 and WWDC turned agents into first-class platform primitives — runtimes, always-on autopilots, and developer surfaces from every major vendor.",
+      "name": "Enterprise Agent Platforms & Developer Tooling",
+      "slug": "enterprise-agent-platforms-developer-tooling",
+      "summary": "Major platforms turned agents into first-class system primitives, offering serverless runtimes, background autopilots, and API-first developer surfaces.",
       "articles": [
         {
           "title": "Azure Functions Ships Serverless Agents Runtime at Build 2026",
-          "summary": "Agents defined in .agent.md files with YAML triggers, MCP access, 1,400+ connectors, and sandboxed execution — serverless agents as a managed primitive.",
+          "summary": "Azure Functions launched a serverless agent runtime using `.agent.md` files, giving developers a markdown-first primitive that integrates MCP tools and scales on-demand.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/azure-functions-serverless-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-19T08:57:00Z"
         },
         {
           "title": "Microsoft Scout, New Enterprise Autopilot, Announced at Build 2026",
-          "summary": "Microsoft debuted Scout, an always-on \"Autopilot\" agent that works autonomously on a user's behalf — a new category bet on persistent enterprise agents.",
+          "summary": "Microsoft unveiled Scout, an always-on autopilot built on the open-source OpenClaw framework, showcasing how enterprises are wrapping open-source agent tooling in sandboxed execution.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/microsoft-scout-openclaw-build/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-18T05:26:00Z"
         },
         {
           "title": "GitHub Copilot Desktop App Targets Parallel Agentic Workflows",
-          "summary": "A desktop control center for agent-native development, built to keep engineers in charge while multiple Copilot agents handle coding in parallel.",
+          "summary": "GitHub launched a Copilot desktop app that orchestrates multiple coding agents in parallel, helping developers manage concurrent agents without losing context.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/github-copilot-app/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-17T08:00:00Z"
         },
         {
           "title": "AI Coding Agents Get a Stack Overflow of Their Own",
-          "summary": "Stack Overflow launched an API-first \"Stack Overflow for Agents\" knowledge exchange aimed at coding agents rather than human developers.",
+          "summary": "Stack Overflow launched a beta API-first knowledge exchange for coding agents, addressing context limits by providing a structured way for agents to query documentation.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/stack-overflow-for-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-16T08:00:00Z"
         },
         {
-          "title": "Get back hours every day with autonomous agents in Amazon Quick",
-          "summary": "AWS added always-on autonomous agents to Amazon Quick that work continuously and surface cross-source insights — agents embedded directly in the BI workflow.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/get-back-hours-every-day-with-autonomous-agents-in-amazon-quick/",
-          "published": "2026-06-17T20:35:39+00:00"
-        },
-        {
-          "title": "Agent finder for GitHub Copilot now available",
-          "summary": "GitHub shipped an agent finder for Copilot, making it easier to discover and route work to the right specialized agent.",
+          "title": "Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)",
+          "summary": "An open-source, vanilla JavaScript library for building web-based agent UIs with native WebMCP support, enabling developers to build agent interfaces without heavy framework overhead.",
           "source": "hackernews_ai",
-          "url": "https://github.blog/changelog/2026-06-17-agent-finder-for-github-copilot-now-available/",
-          "published": "2026-06-18T00:00:35+00:00"
+          "url": "https://www.persona-chat.dev/",
+          "published": "2026-06-20T19:32:56Z"
         }
       ]
     },
     {
-      "name": "Claude Code, MCP & Agent Identity",
-      "slug": "claude-code-mcp-agent-identity",
-      "summary": "Anthropic spent the week on the operational layer for agents — managed connector auth, short-lived credentials, shareable artifacts, and a notable pause on Agent SDK token billing.",
+      "name": "Claude Code, MCP & Agent Integration",
+      "slug": "claude-code-mcp-agent-integration",
+      "summary": "Anthropic focused on the enterprise operational layer, shipping Okta-managed MCP auth, Workload Identity Federation, interactive artifacts, and pausing SDK billing.",
       "articles": [
         {
           "title": "Centrally manage authorization for MCP connectors",
-          "summary": "Admins can now provision MCP connectors org-wide through their IdP (starting with Okta), with access granted automatically on first login — enterprise-grade MCP governance.",
+          "summary": "Anthropic introduced org-managed authorization for MCP connectors via Okta, allowing admins to govern tool and database access for enterprise agents centrally.",
           "source": "claude_blog",
           "url": "https://claude.com/blog/enterprise-managed-auth",
           "published": "2026-06-18T00:00:00+00:00"
         },
         {
           "title": "Workload Identity Federation is now GA on the Claude Platform",
-          "summary": "WIF replaces static API keys with short-lived, scoped credentials issued per request, compatible with any OIDC provider across all Claude API endpoints.",
+          "summary": "Anthropic released Workload Identity Federation (WIF) for the Claude Platform, replacing long-lived API keys with short-lived, scoped credentials to harden agent authorization.",
           "source": "claude_blog",
           "url": "https://claude.com/blog/workload-identity-federation",
           "published": "2026-06-17T00:00:00+00:00"
         },
         {
           "title": "Claude Code now supports artifacts",
-          "summary": "Claude Code can preview in-progress work as a live, interactive, shareable artifact built from full session context — tightening the build-and-review loop.",
+          "summary": "Claude Code added support for interactive artifacts, allowing CLI-based agents to present web previews and code visualizers directly to the user for faster feedback.",
           "source": "claude_blog",
           "url": "https://claude.com/blog/artifacts-in-claude-code",
           "published": "2026-06-18T00:00:00+00:00"
         },
         {
           "title": "Steering Claude Code: skills, hooks, subagents and more",
-          "summary": "A practical guide to the seven ways to instruct Claude, with the context cost and authority of each — a useful mental model for anyone customizing agent behavior.",
+          "summary": "Anthropic published a guide on the seven ways to instruct Claude Code, outlining the authority and token context cost of rules, hooks, and subagents to optimize custom agent configurations.",
           "source": "claude_blog",
           "url": "https://claude.com/blog/steering-claude-code-skills-hooks-rules-subagents-and-more",
           "published": "2026-06-18T00:00:00+00:00"
         },
         {
           "title": "Anthropic pauses token-based billing for its Claude Agent SDK",
-          "summary": "Anthropic halted token-based billing on the Agent SDK — a pricing reset that reshapes the cost calculus for teams building on it.",
+          "summary": "Anthropic paused token-based billing for its Claude Agent SDK, reducing execution cost volatility for developers building complex, multi-agent loops.",
           "source": "hackernews_ai",
           "url": "https://arstechnica.com/ai/2026/06/anthropic-pauses-token-based-billing-for-its-claude-agent-sdk/",
           "published": "2026-06-19T16:59:45+00:00"
         },
         {
-          "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses",
-          "summary": "More detail on the orchestration behind Claude Code's Dynamic Workflows — how it generates custom execution harnesses to coordinate parallel agents.",
-          "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/news/2026/06/claude-code-harnesses/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-15T20:55:00Z"
-        },
-        {
           "title": "What MCP really offers over skills/CLI",
-          "summary": "Sean Lynch (via Willison): MCP's core value is isolating the auth flow outside the agent's context window — a sharp reframing of when to reach for MCP.",
+          "summary": "Sean Lynch highlights that the primary value of the Model Context Protocol (MCP) is isolating auth credentials outside the agent's context window, offering a secure alternative to raw CLI execution.",
           "source": "simon_willison",
           "url": "https://simonwillison.net/2026/Jun/19/sean-lynch/#atom-everything",
           "published": "2026-06-19T22:45:49+00:00"
@@ -167,55 +145,48 @@
       ]
     },
     {
-      "name": "Agent Memory, Evals & Orchestration",
-      "slug": "agent-memory-evals-orchestration",
-      "summary": "The production-readiness layer for agents thickened — cheaper judges, failure diagnosis, decentralized coordination, and context systems built for agents at scale.",
+      "name": "Agent Observability, Memory & Evals",
+      "slug": "agent-observability-memory-evals",
+      "summary": "Developer tooling for validating, tracing, and recalling agent state matured, with lightweight local memory schemes and microVM-based testing loops.",
       "articles": [
         {
           "title": "Building a 100x Cheaper Trace Judge with Fireworks",
-          "summary": "LangChain and Fireworks fine-tuned an open model to mine error signals from production traces at a fraction of frontier-model cost — practical eval economics.",
+          "summary": "LangChain and Fireworks fine-tuned a smaller open model to evaluate production agent traces, matching frontier-model accuracy at 1/100th the cost.",
           "source": "langchain_blog",
           "url": "https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks",
           "published": "2026-06-15T16:55:00+00:00"
         },
         {
           "title": "AI Agent Failure Detection and Root Cause Analysis with Strands Evals",
-          "summary": "AWS walks through Strands Evals detector functions that categorize agent failures with confidence scores and causal chains — observability for non-deterministic agents.",
+          "summary": "AWS introduced Strands Evals detector functions to classify agent failures with confidence scores and causal chains, bringing structured observability to non-deterministic loops.",
           "source": "aws_ml_blog",
           "url": "https://aws.amazon.com/blogs/machine-learning/ai-agent-failure-detection-and-root-cause-analysis-with-strands-evals/",
           "published": "2026-06-15T18:07:59+00:00"
         },
         {
           "title": "Stanford's DeLM cuts multi-agent task costs without a central orchestrator",
-          "summary": "DeLM reportedly halves multi-agent task cost by dropping the central orchestrator — a decentralized coordination pattern worth watching for cost-sensitive pipelines.",
+          "summary": "Stanford researchers introduced DeLM, a decentralized coordination protocol that halves multi-agent collaboration costs by removing the overhead of a central orchestrator.",
           "source": "hackernews_ai",
           "url": "https://venturebeat.com/orchestration/stanfords-delm-cuts-multi-agent-task-costs-50-without-a-central-orchestrator",
           "published": "2026-06-17T20:28:47+00:00"
         },
         {
-          "title": "Context intelligence for your data and AI agents at scale",
-          "summary": "AWS argues agents are only as good as the context they can reason over, and pitches unifying scattered data and institutional knowledge for them.",
-          "source": "aws_ml_blog",
-          "url": "https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale/",
-          "published": "2026-06-17T17:17:37+00:00"
-        },
-        {
-          "title": "AI Agents to Make Sense of Data at OpenAI",
-          "summary": "OpenAI's Bonnie Xu on Kepler, an internal data-analyst agent querying 600+ petabytes — using MCP, code crawling, and RAG to beat context-window limits.",
+          "title": "CircleCI Introduces Chunk Sidecars to Bring CI Validation Directly Into AI Coding Workflows",
+          "summary": "CircleCI launched Chunk Sidecars to run lightweight, sub-second microbuilds in Firecracker VMs, allowing AI agents to validate code and self-correct before committing.",
           "source": "infoq_ai_ml",
-          "url": "https://www.infoq.com/presentations/data-aware-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-          "published": "2026-06-19T12:02:00Z"
+          "url": "https://www.infoq.com/news/2026/06/circleci-chunk-sidecars/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "2026-06-19T12:00:00Z"
         },
         {
           "title": "Memharness – Bi-temporal memory for AI agents in one SQLite file",
-          "summary": "A bi-temporal agent-memory store packed into a single SQLite file — part of a week-long wave of lightweight, self-hostable agent memory experiments.",
+          "summary": "Memharness implements a bi-temporal agent memory store inside a single SQLite file, providing lightweight, self-hostable history tracking without complex database infrastructure.",
           "source": "hackernews_ai",
           "url": "https://github.com/las7/memharness",
           "published": "2026-06-18T05:43:48+00:00"
         },
         {
           "title": "FERNme – agent memory that updates with ~zero LLM calls",
-          "summary": "A graph-based, Hebbian agent-memory system designed to cut LLM token spend on memory updates — another angle on cheaper persistent memory.",
+          "summary": "FERNme uses fuzzy-edge Hebbian graphs to update persistent agent memory without expensive LLM calls, significantly reducing token spend on memory maintenance.",
           "source": "hackernews_ai",
           "url": "https://github.com/mirkofr/FERNme",
           "published": "2026-06-20T23:34:03+00:00"
@@ -223,149 +194,58 @@
       ]
     },
     {
-      "name": "Agent Security & Governance",
-      "slug": "agent-security-governance",
-      "summary": "As autonomy spread, the security conversation shifted to treating agents as identities, isolating their credentials, and stress-testing them against prompt injection.",
+      "name": "Security, Governance & Compliance",
+      "slug": "security-governance-compliance",
+      "summary": "The safety discussion shifted to treating agents as first-class identities, enforcing credential authorization, and managing cloud compliance boundaries.",
       "articles": [
         {
           "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way",
-          "summary": "A pointed argument that autonomous agents are identities needing the same lifecycle and access controls as users — a governance gap most orgs still have.",
+          "summary": "A security analysis arguing that autonomous agents should be treated as full IAM identities with scoped lifecycles, addressing a major access control gap in corporate networks.",
           "source": "hackernews_ai",
           "url": "https://www.bleepingcomputer.com/news/security/every-ai-agent-is-an-identity-most-organizations-dont-treat-them-that-way/",
           "published": "2026-06-19T13:23:13+00:00"
         },
         {
           "title": "Coding Agent Sandboxes Don't Solve Credential Authorization",
-          "summary": "Permit.io argues sandboxing a coding agent doesn't address what it's authorized to do with credentials — fine-grained authorization is the real control.",
+          "summary": "Permit.io highlights that sandbox isolation does not prevent agents from abusing valid credentials, showing the need for fine-grained, policy-based authorization layers.",
           "source": "hackernews_ai",
           "url": "https://www.permit.io/blog/coding-agent-sandboxes-credentials",
           "published": "2026-06-15T11:01:04+00:00"
         },
         {
           "title": "Windows Platform Security and the Race to Secure AI Agents",
-          "summary": "Microsoft positions Windows as a trustworthy OS for autonomous agents and introduces a Microsoft Execution Context for sandboxed agent actions.",
+          "summary": "Microsoft introduced the Windows Execution Context for agents, providing OS-level isolation for file and network access to secure local agent operations.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/windows-security-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-19T08:00:00Z"
         },
         {
-          "title": "Cloud CISO Perspectives: The 4 lessons that guided AI Threat Defense",
-          "summary": "Google Cloud's new CISO shares four lessons on defending with and against AI — a practitioner's view on operationalizing AI threat defense.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-the-4-lessons-that-guided-ai-threat-defense/",
-          "published": "2026-06-15T16:00:00+00:00"
-        },
-        {
           "title": "Kintsugi – a local-first safety net for AI agents",
-          "summary": "A local-first guardrail for coding agents that run real shell commands (rm -rf, force-push, DROP TABLE), catching the rare destructive or prompt-injected action.",
+          "summary": "Kintsugi is a local-first safety net that intercepts destructive shell commands (like force-pushes or recursive deletions) generated by autonomous coding agents.",
           "source": "hackernews_ai",
           "url": "https://github.com/arrowassassin/kintsugi",
           "published": "2026-06-16T17:00:29+00:00"
         },
         {
+          "title": "Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents",
+          "summary": "Cordium is a self-hosted, Kubernetes-based sandbox platform that isolates infrastructure credentials, ensuring that human developers and AI agents cannot leak sensitive secrets.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/octelium/cordium",
+          "published": "2026-06-20T13:19:20Z"
+        },
+        {
           "title": "Deep-XPIA – Prompt injection benchmark for multi-agent AI systems",
-          "summary": "A benchmark for cross-prompt injection attacks in multi-agent systems — early tooling for measuring how exposed agent pipelines are to injection.",
+          "summary": "Deep-XPIA provides a benchmark for cross-prompt injection attacks in multi-agent workflows, helping developers measure how vulnerabilities propagate across agent boundaries.",
           "source": "hackernews_ai",
           "url": "https://freyzo.github.io/deep-xpia/",
           "published": "2026-06-16T01:40:07+00:00"
-        }
-      ]
-    },
-    {
-      "name": "AI for Science, Medicine & Industry",
-      "slug": "ai-science-medicine-industry",
-      "summary": "Domain-specific agents and reasoning models kept posting concrete research wins — matching clinicians, surfacing new diagnoses, and improving real chemistry.",
-      "articles": [
-        {
-          "title": "AMIE matches primary care physicians in complex disease management",
-          "summary": "Google's conversational AMIE system matched PCPs on complex disease management in a Nature study — a rigorous benchmark for clinical-grade medical agents.",
-          "source": "google_ai_blog",
-          "url": "https://blog.google/innovation-and-ai/models-and-research/google-research/amie-for-disease-management-in-nature/",
-          "published": "2026-06-17T15:00:00+00:00"
-        },
-        {
-          "title": "Using AI to help physicians diagnose rare genetic diseases in children",
-          "summary": "An OpenAI reasoning model helped clinicians reach 18 new diagnoses in previously unsolved rare-disease cases — agents as a diagnostic instrument.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/diagnose-rare-childhood-diseases",
-          "published": "2026-06-18T08:00:00Z"
-        },
-        {
-          "title": "A near-autonomous AI chemist improves a challenging reaction",
-          "summary": "OpenAI and Molecule.one show a GPT-5.4-driven near-autonomous chemist improving a key drug-making reaction — agentic science with measurable lab results.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/ai-chemist-improves-reaction",
-          "published": "2026-06-17T10:00:00Z"
-        },
-        {
-          "title": "Introducing LifeSciBench",
-          "summary": "An expert-authored benchmark for how AI systems handle real life-science research tasks — infrastructure for evaluating scientific reasoning rigorously.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/introducing-life-sci-bench",
-          "published": "2026-06-17T00:00:00Z"
-        },
-        {
-          "title": "How Siemens advances agentic workflows for industrial software",
-          "summary": "Siemens details \"slicing the elephant\" — modernizing legacy industrial code with agentic workflows, a concrete enterprise pattern for large codebases.",
-          "source": "google_cloud_blog",
-          "url": "https://cloud.google.com/blog/products/ai-machine-learning/how-siemens-sliced-the-elephant-modernizing-legacy-code-with-agentic-workflows/",
-          "published": "2026-06-16T14:00:00+00:00"
-        },
-        {
-          "title": "AI coding agents taught robots how to install GPUs and cut zip-ties",
-          "summary": "Coding agents autonomously directed robot training for physical tasks — a striking bridge from software agents to embodied automation.",
-          "source": "hackernews_ai",
-          "url": "https://arstechnica.com/ai/2026/06/ai-coding-agents-can-autonomously-direct-robot-training/",
-          "published": "2026-06-17T19:39:07+00:00"
-        }
-      ]
-    },
-    {
-      "name": "Infrastructure, Policy & the AI Economy",
-      "slug": "infrastructure-policy-economy",
-      "summary": "The plumbing and politics around frontier AI stayed in the headlines — record training silicon, the Fable 5 export-control fight, and enterprise cost controls.",
-      "articles": [
-        {
-          "title": "NVIDIA Blackwell Sweeps MLPerf Training 6.0",
-          "summary": "Blackwell topped MLPerf Training 6.0 across the board — the training-infrastructure baseline that shapes how fast teams can iterate on new models.",
-          "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/blackwell-mlperf-training-6-0/",
-          "published": "2026-06-16T15:00:36+00:00"
-        },
-        {
-          "title": "The Fable 5 Export Controls Harm US Cyber Defense",
-          "summary": "Willison relays Katie Moussouris arguing the Fable 5 export controls and \"jailbreak\" framing undercut US cyber defense — the week's sharpest policy critique.",
-          "source": "simon_willison",
-          "url": "https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything",
-          "published": "2026-06-16T05:20:29+00:00"
         },
         {
           "title": "Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic",
-          "summary": "Using Fable 5 or Mythos 5 on Bedrock now requires opting into data sharing with 30-day retention and human review — a real compliance consideration for builders.",
+          "summary": "AWS announced that using Claude Fable 5 or Mythos 5 on Bedrock requires opting into inference data sharing for human review, presenting a significant compliance check for enterprise developers.",
           "source": "infoq_ai_ml",
           "url": "https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
           "published": "2026-06-20T09:03:00Z"
-        },
-        {
-          "title": "New usage analytics and spend controls for ChatGPT Enterprise",
-          "summary": "OpenAI added spend controls and usage analytics for ChatGPT Enterprise — directly answering the agent-era cost-overrun problem enterprises hit this year.",
-          "source": "openai_blog",
-          "url": "https://openai.com/index/chatgpt-enterprise-spend-controls",
-          "published": "2026-06-18T17:00:00Z"
-        },
-        {
-          "title": "Anthropic opens Seoul office and Korean AI partnerships",
-          "summary": "Anthropic opened a Seoul office and announced partnerships across the Korean AI ecosystem — continued enterprise-distribution expansion in Asia.",
-          "source": "anthropic_newsroom",
-          "url": "https://www.anthropic.com/news/seoul-office-partnerships-korean-ai-ecosystem",
-          "published": "2026-06-17T19:34:00+00:00"
-        },
-        {
-          "title": "HPE AI Factory With NVIDIA Expands for the Era of Agents",
-          "summary": "HPE and NVIDIA extended their AI Factory for production agentic workloads — more evidence agents are moving from PoC to dedicated infrastructure.",
-          "source": "nvidia_blog",
-          "url": "https://blogs.nvidia.com/blog/hpe-ai-factory-agentic-enterprise/",
-          "published": "2026-06-16T16:30:27+00:00"
         }
       ]
     }
