@@ -1,0 +1,23 @@
+schema_version: 1
+id: daily-recap
+name: "[News Feed Management] Daily recap"
+description: Curate and publish the previous UTC day's AI news recap.
+
+schedule:
+  cron: "0 9 * * *"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md
+

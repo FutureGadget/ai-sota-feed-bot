@@ -39,7 +39,12 @@ Daily companions:
 - `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
-  committing is publishing.
+  committing is publishing. The repository-owned daily scheduler definition is
+  `.agents/routines/daily-recap/harness.yaml`: 09:00 `Asia/Seoul`, targeting
+  the previous UTC calendar day. The weekly scheduler definition is
+  `.agents/routines/weekly-recap/harness.yaml`: Saturday at 13:00
+  `Asia/Seoul`, targeting the current ISO week with a news-only bundle. Each
+  scheduler injects only its routine's `prompt.md`.
 - Storylines: external Claude Code routine every 5 hours runs
   `storyline-scout` then `storyline-editor`, validates and rebuilds
   `data/storylines/`, and commits/pushes the result. The hourly workflow only

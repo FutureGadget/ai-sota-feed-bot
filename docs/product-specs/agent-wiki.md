@@ -54,6 +54,13 @@ The obstacle areas, page format, the three operations (ingest / lint / query),
 and the validation invariants live in **`config/wiki_schema.md`** (the contract).
 The maintenance routine is **`.agents/skills/wiki-curator/`**.
 
+Its repository-owned scheduler definition is
+`.agents/routines/wiki-curator-daily/harness.yaml`: daily at 11:00
+`Asia/Seoul`, in the cloud, against `FutureGadget/ai-sota-feed-bot`. The
+scheduler provisions unrestricted push permission for this repository and
+injects only `.agents/routines/wiki-curator-daily/prompt.md` into agent context.
+The prompt runs a seven-day ingest window plus a full graph lint.
+
 ## Relationship to storylines
 Separate graphs, cross-linked. Storylines cluster stories over *time*; the wiki
 organizes knowledge over *topic*. Wiki pages **reference** storylines/stories as

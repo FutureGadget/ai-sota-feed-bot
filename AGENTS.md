@@ -146,6 +146,11 @@ storyline; it only proposes links the floor then judges.
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
   gates and reaches the feed)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
+- `.agents/routines/` — repository-owned external scheduler definitions.
+  Each routine directory separates scheduler-only `harness.yaml` metadata from
+  the agent-visible `prompt.md`; `COMMON.md` owns shared checkout, validation,
+  commit, rebase/retry, and direct-to-`main` publishing rules. Harness metadata
+  must not be injected into agent context.
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,
