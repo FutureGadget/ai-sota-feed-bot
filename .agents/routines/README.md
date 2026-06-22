@@ -54,6 +54,12 @@ Harness rules:
   the repository.
 - `execution.environment: cloud` requires the scheduler to launch the routine
   in its cloud execution environment, not a local interactive session.
+- `execution.environment: local` requires the named local scheduler to run
+  against its configured local checkout. Local routines may declare required
+  capabilities such as browser and network access; these remain harness
+  metadata and are not injected into agent context.
+- `schedule.delivery: best_effort` records that the local scheduler may run
+  near, rather than exactly at, the cron minute.
 - `repository.slug` identifies the repository the scheduler must check out.
 - `permissions.git_push: unrestricted` means the scheduler must grant the
   routine permission to push any branch in the named repository, including its

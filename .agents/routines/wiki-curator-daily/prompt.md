@@ -96,4 +96,3 @@ Publish directly to `main` using the shared rebase-and-retry contract in
 
 Report the nodes created or updated, lint issues fixed, validation result,
 commit status, and push status.
-

@@ -49,6 +49,27 @@ Daily companions:
   `storyline-scout` then `storyline-editor`, validates and rebuilds
   `data/storylines/`, and commits/pushes the result. The hourly workflow only
   keeps `data/stories/` current as its input.
+- Daily recap content review: local Antigravity routine
+  (`.agents/routines/daily-content-review/harness.yaml`) runs best-effort around
+  06:00 `Asia/Seoul`, checks the live `/daily` recap against its sources, and
+  publishes evidence-backed corrections directly to `main`.
+- Weekly recap content review: local Antigravity routine
+  (`.agents/routines/weekly-content-review/harness.yaml`) runs best-effort
+  around 07:00 `Asia/Seoul`, improves the latest `/weekly` edition's editorial
+  structure and readability while preserving facts and source provenance.
+- Storyline content review: local Antigravity routine
+  (`.agents/routines/storyline-content-review/harness.yaml`) runs best-effort
+  around 08:00 `Asia/Seoul`, checks the live storyline index and details
+  against their source timelines, and publishes sidecar corrections directly
+  to `main`.
+- Knowledge-map content review: local Antigravity routine
+  (`.agents/routines/knowledge-map-content-review/harness.yaml`) runs
+  best-effort around 09:00 `Asia/Seoul`, checks `/map` and its topic pages
+  against declared evidence, and publishes wiki source-Markdown corrections.
+- Playbook content review: local Antigravity routine
+  (`.agents/routines/playbook-content-review/harness.yaml`) runs best-effort
+  around 10:00 `Asia/Seoul`, verifies live cards and evidence classifications,
+  and publishes dated-edition corrections with rebuilt indexes.
 
 ## Ranking stages (active)
 - Stage A: deterministic prefilter (regex excludes, slot freshness windows,

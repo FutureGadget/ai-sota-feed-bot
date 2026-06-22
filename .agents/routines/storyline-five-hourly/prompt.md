@@ -109,4 +109,3 @@ Report:
 - affected storyline slugs;
 - both validator results and final build result;
 - push result or no-change result.
-

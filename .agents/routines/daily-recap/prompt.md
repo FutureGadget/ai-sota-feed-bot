@@ -76,4 +76,3 @@ completed, report the blocker and the unmerged branch or pull request.
 Report the UTC recap date, input article count, published article and category
 counts, validation result, commit SHA or no-op reason, and final publication
 result.
-

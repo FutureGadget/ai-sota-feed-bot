@@ -161,5 +161,10 @@ Regression coverage: `tests/test_playbook_surface.py`.
 - The canonical cadence is Friday at 19:00 `Asia/Seoul`, declared in
   `.agents/routines/playbook-weekly/harness.yaml`. Provider-side schedule
   synchronization remains an external operational step.
+- A local Antigravity review routine is defined at
+  `.agents/routines/playbook-content-review/harness.yaml`. It runs best-effort
+  around 10:00 `Asia/Seoul`, verifies live cards against their evidence, and
+  injects only its `prompt.md`. Corrections are made to dated edition JSON;
+  Playbook indexes are rebuilt.
 - Not yet wired: static per-edition SEO pages and an "add to Playbook"
   affordance from a feed item. These are deliberate fast-follows.

@@ -80,4 +80,3 @@ completed, report the blocker and the unmerged branch or pull request.
 
 Report the ISO week ID, selected category names, included article count,
 validation result, commit SHA or no-op reason, and final publication result.
-

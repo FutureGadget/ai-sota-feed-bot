@@ -88,3 +88,9 @@ sidecar types, rebuilds deterministic storyline outputs, and publishes one
 data-only commit directly to `main`. It retries push races up to three times;
 generated-output conflicts are handled by preserving agent-authored sidecars
 and rebuilding rather than manually merging generated JSON.
+
+A separate local Antigravity review routine is defined at
+`.agents/routines/storyline-content-review/harness.yaml`. It runs best-effort
+around 08:00 `Asia/Seoul`, reviews the live index and detail pages against their
+sources, and injects only its `prompt.md`. Corrections are made to durable
+narrative or scout sidecars; generated storyline JSON and HTML are rebuilt.

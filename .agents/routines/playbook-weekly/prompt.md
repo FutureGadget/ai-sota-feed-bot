@@ -33,4 +33,3 @@ routine with these requirements:
 
 Report the edition date, number of cards published, commit status, and push
 status.
-
