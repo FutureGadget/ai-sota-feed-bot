@@ -154,6 +154,8 @@ storyline; it only proposes links the floor then judges.
   - `docs/deploy/` — Vercel deployment notes
   - `docs/product-specs/` — behavior specs (feedback-loop, llm-ranking, onboarding)
   - `docs/design-docs/` — `decision-log.md` (ADR log), `core-beliefs.md`
+  - `docs/ideas/` — confirmed concept one-pagers before backlog ideas become
+    implementation-ready specs or execution plans
   - `docs/exec-plans/` — execution plans (`active/`, `completed/`, tech-debt tracker)
   - `docs/generated/` — derived references (`db-schema.md` = data file layout)
   - `docs/references/` — vendored third-party LLM-friendly references
