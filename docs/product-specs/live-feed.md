@@ -17,6 +17,21 @@ Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
 may appear as supporting context.
 
+## "New since your last visit"
+
+The **New** badge, the meta-line "N new since your last visit" count, and the
+"⚡ Catch me up" brief all share one definition: an item is new when it
+**entered the reader's feed** after their previous visit. That is keyed off
+`first_seen` (the feed-arrival time the feed API computes in history mode — the
+`run_at` when the item first reached the ranked window), falling back to
+`published` only when `first_seen` is absent (the no-history "latest" API path).
+Publish time alone is the wrong signal: the pipeline surfaces arXiv papers, slow
+RSS, and resurfaced stories days after their publish date, so keying off
+`published` silently drops items that are genuinely new to the feed. Card
+display dates, storyline day numbering, and Saved snapshots still show
+`published` first — those answer "when was this written", not "is this new to
+me".
+
 ## Behavioral invariants
 
 - Existing date ranges, topic pinning, search, Saved items, feedback, sharing,
