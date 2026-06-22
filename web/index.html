@@ -1279,17 +1279,19 @@
 
     const visitLastMs = initVisitTracking();
 
-    // Is this item genuinely new for "since your last visit"? Key off the
-    // article's *published* time — that's what a reader means by "new" and how
-    // they judge "outdated", and it's present on every item. first_seen (when
-    // the pipeline first ingested it) is only a fallback for the rare item with
-    // no published date: it's unreliable here — null on the feed API's
-    // no-history "latest" path, and it marks an old story resurfacing in the
-    // feed today as "new" even though it was published days ago. NEVER fall
-    // back to collected_at: it's the pipeline build timestamp, identical for
-    // every item on a run and always ≈ now, so it would flag everything new.
+    // Is this item genuinely new for "since your last visit"? "New" here means
+    // *appeared in the reader's feed* since they last looked — so key off
+    // first_seen, the feed-arrival time the feed API computes in history mode
+    // (the run_at when the item first entered the ranked window). Publish time
+    // is the WRONG signal: the pipeline surfaces arXiv papers, slow RSS, and
+    // resurfaced stories days after their publish date, so keying off published
+    // silently drops items that are genuinely new to the feed (e.g. a paper
+    // published last week that only ranked in today). Fall back to published
+    // only when first_seen is absent (the no-history "latest" API path). NEVER
+    // fall back to collected_at: it's the pipeline build timestamp, identical
+    // for every item on a run and always ≈ now, so it would flag everything new.
     function itemArrivalMs(it) {
-      const t = Date.parse(it.published || it.first_seen || '');
+      const t = Date.parse(it.first_seen || it.published || '');
       return Number.isFinite(t) ? t : NaN;
     }
 
