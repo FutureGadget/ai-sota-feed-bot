@@ -58,4 +58,3 @@ framework patch is a planned migration, not a surprise behavior change in prod.
 It pairs directly with [model drift](/topic/model-drift): pinning is how you
 decide *when* drift reaches you instead of letting it arrive on the substrate's
 schedule.
-</content>

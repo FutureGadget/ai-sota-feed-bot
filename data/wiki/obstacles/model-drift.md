@@ -59,5 +59,3 @@ pinned, version-controlled dependencies with a regression gate
 [agent benchmarks](/topic/agent-benchmarks)) — staged, tested upgrades, not a
 rolling "latest." Drift trades against freshness: the newest model or framework
 is also the one most likely to move under you.
-</content>
-</invoke>
