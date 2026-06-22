@@ -28,6 +28,9 @@ the backlog entry. Record meaningful scope or architecture decisions in
 | BL-001 | Agent-managed source pipeline | idea | critical | Source inbox/schema |
 | BL-002 | Metrics-driven optimization agent | idea | critical | Metric access and definitions |
 | BL-003 | Agent experimentation system | idea | high | Exposure logging and sufficient traffic |
+| BL-004 | Agent Skill Lab | needs-spec | high | Experiment methodology and artifact format |
+| BL-005 | Harness Field Tests | idea | high | BL-004 methodology and product access |
+| BL-006 | Benchmark Decoder | idea | medium | Editorial rubric and benchmark source policy |
 
 ## BL-001 — Agent-managed source pipeline
 
@@ -98,3 +101,93 @@ the backlog entry. Record meaningful scope or architecture decisions in
 - **Promotion criteria:** Demonstrate sufficient traffic for a realistic test,
   define the assignment unit and exposure event, document statistical decision
   rules, and select a low-risk first experiment.
+
+## BL-004 — Agent Skill Lab
+
+- **Status:** needs-spec
+- **Priority:** high
+- **Outcome:** Help engineers building agents understand how a reusable skill or
+  instruction set changes agent behavior, not merely the final answer, through
+  reproducible trajectory-level experiments that create recurring reasons to
+  return and subscribe.
+- **Scope:**
+  1. Select one public agent skill with a concrete behavioral claim.
+  2. Run a fixed task under at least three conditions: no skill, a minimal
+     instruction baseline, and the complete skill.
+  3. Compare task success, trajectory shape, tool use, recovery behavior,
+     unnecessary work, latency, token usage, and cost across repeated runs.
+  4. Publish the task, environment, model and skill versions, instructions,
+     evaluation rubric, representative trajectories, limitations, and a
+     practical recommendation.
+  5. Package experiments as a recurring editorial series with a subscription
+     call to action and durable links to reproducibility artifacts.
+- **Dependencies:** Define a versioned experiment manifest, task fixtures,
+  repeat-run policy, evaluation rubric, artifact retention policy, and
+  analytics events for return visits, subscriptions, and artifact engagement.
+- **Guardrails:** Do not infer general superiority from a single task or run.
+  Separate observed behavior from interpretation; disclose failures and
+  experimenter judgment; preserve prompts and versions needed to reproduce the
+  result. Cover skills for engineering agent systems, not prompt-tip content
+  for general users.
+- **Promotion criteria:** Specify the first three skill experiments, including
+  one candidate such as
+  [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills);
+  define the common task and metrics; estimate per-edition execution cost; and
+  establish baseline retention, subscription, and artifact-click metrics.
+
+## BL-005 — Harness Field Tests
+
+- **Status:** idea
+- **Priority:** high
+- **Outcome:** Help engineers choose an agent harness based on verified workflow
+  capabilities and constraints rather than product descriptions or generic
+  feature matrices.
+- **Scope:**
+  - Compare harnesses on realistic jobs such as repository changes, browser
+    operation, scheduled tasks, cloud or remote execution, parallel work,
+    isolation, and recovery after failure.
+  - Publish job-specific conclusions such as "best fit for unattended scheduled
+    work" instead of naming one universal winner.
+  - Record product version, plan, environment, configuration, task fixture,
+    observed trajectory, human intervention, completion quality, latency, and
+    cost.
+  - Re-run or clearly expire findings when relevant capabilities change.
+- **Dependencies:** Reuse the BL-004 experiment manifest and reporting format;
+  obtain comparable product access; define a capability-change watch and
+  retest policy; identify legally and operationally safe test repositories and
+  accounts.
+- **Guardrails:** Test claimed capabilities hands-on. Distinguish unsupported,
+  unavailable on the tested plan, and not discovered. Do not reduce nuanced
+  workflow fit to a single leaderboard score, and do not present stale findings
+  as current.
+- **Promotion criteria:** Select two harnesses and one high-value workflow for
+  a pilot; define parity rules for model, permissions, context, and budget;
+  document the update/expiry policy; and validate that the expected reader
+  value justifies recurring access and execution costs.
+
+## BL-006 — Benchmark Decoder
+
+- **Status:** idea
+- **Priority:** medium
+- **Outcome:** Help agent and platform engineers understand what an LLM or agent
+  benchmark score does—and does not—say about a practical engineering
+  decision.
+- **Scope:**
+  - Explain one benchmark at a time: task construction, scoring, expected
+    meaning of a high score, important limitations, contamination risk, and
+    sensitivity to prompts, tools, and harness design.
+  - Connect benchmark results to specific engineering decisions and identify
+    cases where a local task-specific evaluation is more informative.
+  - Use benchmark explainers to support Skill Lab and Harness Field Test
+    methodology rather than operating a general model leaderboard.
+- **Dependencies:** Establish an official-source-first citation policy,
+  benchmark selection rubric, version/update handling, and a compact explainer
+  template.
+- **Guardrails:** Do not republish leaderboard numbers without context. Avoid
+  universal "best model" conclusions, unsupported score comparisons across
+  benchmark versions, and beginner-oriented general LLM education that dilutes
+  the site's practical engineering focus.
+- **Promotion criteria:** Choose three benchmarks commonly encountered by agent
+  engineers; demonstrate that each maps to a real model, harness, or evaluation
+  decision; and test whether an explainer drives meaningful search traffic,
+  experiment readership, or subscriptions.

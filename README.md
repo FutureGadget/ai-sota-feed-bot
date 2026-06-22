@@ -224,6 +224,7 @@ python pipeline/source_alerts.py
 - Git hygiene guide: `docs/status/git-hygiene.md`
 - Source onboarding + filtering debug guide: `docs/how-to/sources-and-filter-debugging.md`
 - PostHog setup + dashboard runbook: `docs/how-to/posthog-setup-and-dashboard.md`
+- Confirmed product idea one-pagers: `docs/ideas/`
 
 ## Config
 - `config/sources.yaml`: feed list + source weights
