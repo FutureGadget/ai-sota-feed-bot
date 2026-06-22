@@ -159,7 +159,9 @@ storyline; it only proposes links the floor then judges.
   - `docs/references/` — vendored third-party LLM-friendly references
   - root docs — `ranking-v2-flow.md` (production ranking flow), `DESIGN.md`,
     `FRONTEND.md`, `PRODUCT_SENSE.md`, `QUALITY_SCORE.md`, `RELIABILITY.md`,
-    `SECURITY.md`, `PLANS.md`, scoring-v2 plans (historical)
+    `SECURITY.md`, `PLANS.md` (current roadmap), `BACKLOGS.md` (durable,
+    unscheduled product/engineering ideas with promotion criteria), scoring-v2
+    plans (historical)
 - Root: `Makefile` (minimal legacy targets; prefer `skills/` scripts),
   `vercel.json` (rewrites + function data bundles), `requirements.txt` (Python
   deps: feedparser/PyYAML/dateutil/requests), `package.json` (LLM bridge dep only)
