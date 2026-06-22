@@ -565,6 +565,10 @@
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
           if (ROUTE[pathOnly] !== section || a.querySelector('.nav-update-dot')) continue;
+          // Give the link a containing block: the sr-only label below is
+          // position:absolute and would otherwise escape the nav's overflow clip
+          // and open a phantom horizontal scroll gutter on mobile.
+          if (window.getComputedStyle(a).position === 'static') a.style.position = 'relative';
           var dot = document.createElement('span');
           dot.className = 'nav-update-dot';
           dot.textContent = 'New';

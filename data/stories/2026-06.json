@@ -653,6 +653,22 @@
   "url": "https://github.com/DO-SAY-GO/web-cli",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "173dbad21da8e3a8": {
+  "first_seen": "2026-06-22T00:01:40.453761+00:00",
+  "id": "eaea0735abb8210d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-06-21T23:35:47+00:00",
+  "sid": "173dbad21da8e3a8",
+  "source": "simon_willison",
+  "summary": "sqlite-utils is my combined Python library and CLI tool for working with SQLite databases. It provides an extensive set of higher-level operations on top of Python's default sqlite3 package , including support for complex table transformations , automatic table creation from JSON data and a whole lot more. I released sqlite-utils 4.0rc1 , the first release candidate for sqlite-utils v4. The major version bump indicates some (minor) backwards incompatible changes, so I'm interested in having people try this out before I commit to a stable release. New feature: migrations There are two significant new features in this RC compared to the previous 4.0 alphas. The first is support for database migrations . This isn't a completely new implementation - it's a slightly modified port of the sqlite-migrate package I released a few years ago. I think that package has proved itself over time, so I'm now ready to bundle it with sqlite-utils directly. Here's what a set of migrations in a migrations.py file looks like: from sqlite_utils import Database , Migrations migrations = Migrations ( \"creatures\" ) @ migrations () def create_table ( db ): db [ \"creatures\" ]. create ( { \"id\" : int , \"name\" : str , \"species\" : str }, pk = \"id\" , ) @ migrations () def add_weight ( db ): db [ \"creatures\" ]. add_column ( \"weight\" , float ) This defines a set of two migrations, one creating the creatures table and another adding a column to it. You can then run those migrations either using Python: db = Dat",
+  "summary_1line": "sqlite-utils is my combined Python library and CLI tool for working with SQLite databases. It provides an extensive set of higher-level operations on top of Python's default sqlite3 package , including support for com...",
+  "title": "sqlite-utils 4.0rc1 adds migrations and nested transactions",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jun/21/sqlite-utils-40rc1/#atom-everything",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "17e0c5a039fdf99c": {
   "first_seen": "2026-06-18T17:46:51.826874+00:00",
   "id": "a5ba86f9f4f25594",
@@ -2375,7 +2391,7 @@
  },
  "4c277f07a0de642e": {
   "first_seen": "2026-06-19T12:01:37.130853+00:00",
-  "id": "3e380410f7eace95",
+  "id": "1123edd52e5d97eb",
   "image_url": "https://res.infoq.com/news/2026/06/circleci-chunk-sidecars/en/headerimage/generatedHeaderImage-1781604235680.jpg",
   "matched_topics": [
    "agent"
@@ -2383,9 +2399,9 @@
   "published": "2026-06-19T12:00:00+00:00",
   "sid": "4c277f07a0de642e",
   "source": "infoq_ai_ml",
-  "summary": "CircleCI has launched Chunk Sidecars, a new capability designed to bring CI-style validation directly into an AI coding agent's inner development loop By Craig Risi",
-  "summary_1line": "CircleCI has launched Chunk Sidecars, a new capability designed to bring CI-style validation directly into an AI coding agent's inner development loop By Craig Risi",
-  "title": "CircleCI Introduces Chunk Sidecars to Bring CI Validation Directly Into AI Coding Workflows",
+  "summary": "CircleCI has launched Chunk Sidecars, a new capability designed to bring CI-style validation directly into an AI coding agent's inner development loop. By Craig Risi",
+  "summary_1line": "CircleCI has launched Chunk Sidecars, a new capability designed to bring CI-style validation directly into an AI coding agent's inner development loop. By Craig Risi",
+  "title": "CircleCI Introduces Chunk Sidecars to Bring CI Validation Directly into AI Coding Workflows",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/06/circleci-chunk-sidecars/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
