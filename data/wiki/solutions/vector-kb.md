@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8]
-updated: 2026-06-20
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8]
+updated: 2026-06-22
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8]
 ---
 
 ## TL;DR
@@ -27,18 +27,23 @@ achievable without an LLM in the recall path (a local store hitting high
 LongMemEval recall), underscoring that retrieval quality is an engineering
 problem, not a model-scale one. The category is also being challenged from
 outside vectors entirely: bi-temporal relational stores (Memharness, a single
-SQLite file) lean on time and structure rather than embeddings, and
+SQLite file) lean on time and structure rather than embeddings,
 vector-symbolic / algebraic memory (VSA) proposes binding and bundling
-operations *instead of* RAG-style nearest-neighbour lookup. The shared claim is
-that for an agent's facts-and-preferences memory, exact, structured, temporally
-aware recall often beats fuzzy similarity.
+operations *instead of* RAG-style nearest-neighbour lookup, and graph-based
+associative stores build the structure from co-occurrence rather than embeddings
+(FERNme grows a memory graph with fuzzy edges and a Hebbian co-occurrence rule,
+keeping the LLM out of the *write* path as well as the read path). The shared
+claim is that for an agent's facts-and-preferences memory, exact, structured,
+temporally aware recall often beats fuzzy similarity — and can be built and
+updated without per-turn LLM cost.
 
 ## What's new
 The "is a vector DB even the right primitive" question is now live: alongside
 hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores
-(Memharness) and algebraic/vector-symbolic memory positioned explicitly as a
-RAG alternative (VSA) — argue that structured, exact recall can outperform
-embedding similarity for agent memory.
+(Memharness), algebraic/vector-symbolic memory positioned explicitly as a
+RAG alternative (VSA), and graph-based associative memory grown from Hebbian
+co-occurrence (FERNme) — argue that structured, exact recall can outperform
+embedding similarity for agent memory, and can be updated with ~zero LLM calls.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall

@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a]
-updated: 2026-06-20
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8]
+updated: 2026-06-22
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8]
 ---
 
 ## TL;DR
@@ -32,18 +32,24 @@ seam: managed offerings (e.g. Cloudflare's persistent Agent Memory service) move
 memory toward buy-able infrastructure, while a parallel wave of **local-first,
 single-file, developer-owned stores** — bi-temporal memory in one SQLite file
 (Memharness), local-first encrypted memory over MCP (Cortex), curated
-file-based project memory (Brain2.0) — treats memory as a component you install
+file-based project memory (Brain2.0), graph-based associative memory built with
+~zero LLM calls (FERNme) — treats memory as a component you install
 and own rather than a service you rent. A recurring design theme in this wave is
 **richer temporal modeling**: bi-temporal stores track both when a fact was true
 and when the agent learned it, so recall can reason about staleness instead of
-returning whatever embeds nearest.
+returning whatever embeds nearest. A second, cost-driven theme is **cheap,
+mechanical writes**: rather than calling an LLM to decide what to store, newer
+stores build the memory structure deterministically — FERNme forms associative
+memory tags from fuzzy edges and a Hebbian co-occurrence rule — so persisting
+what an agent learns stops being a per-turn token bill.
 
 ## What's new
-A wave of local-first, single-file agent-memory tools (Memharness's bi-temporal
-SQLite store, Cortex's encrypted local memory over MCP, Brain2.0's curated
-project memory) reframes memory as an installable, developer-owned component —
-and pushes bi-temporal modeling (when a fact was true vs. when it was learned)
-as a recall primitive, not just embed-and-retrieve.
+The local-first wave is now also attacking the **write cost** of memory: FERNme
+builds an associative memory graph from fuzzy edges and a Hebbian co-occurrence
+rule that updates with ~zero LLM calls, so persisting what an agent learns stops
+being a per-turn token bill — joining bi-temporal SQLite stores (Memharness) and
+encrypted local memory over MCP (Cortex) in treating memory as an installable,
+developer-owned component rather than a metered service.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

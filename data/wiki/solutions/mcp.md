@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329]
-updated: 2026-06-20
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9]
+updated: 2026-06-22
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9]
 ---
 
 ## TL;DR
@@ -22,8 +22,11 @@ Vendors are shipping official servers — HashiCorp's Terraform MCP server reach
 GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS
 servers (Amazon Quick, Cisco Webex) into working assistants. The actuation
 surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a
-site expose JavaScript functions and HTML forms as tools to an in-page agent.
-MCP is also becoming the assumed plug for hosted runtimes — Azure Functions'
+site expose JavaScript functions and HTML forms as tools to an in-page agent —
+and the open-source client side is filling in alongside the browser trial, with
+MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site
+can build agentic experiences without a vendor SDK. MCP is also becoming the
+assumed plug for hosted runtimes — Azure Functions'
 agents runtime gives every agent MCP server access (alongside 1,400+ connectors)
 out of the box — and the long tail keeps filling in with small task servers
 (e.g. a "coding tools" MCP that hands any agent file/shell coding primitives).
@@ -36,8 +39,10 @@ configured centrally rather than per user. That move from "connect a tool" to
 ## What's new
 MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP
 access built in (Azure Functions' agents runtime), the small-server long tail is
-filling out (a generic coding-tools MCP), and authorization is moving to
-identity-provider governance — the boring, load-bearing pieces, not just demos.
+filling out (a generic coding-tools MCP), the browser surface is getting open,
+framework-free WebMCP client libraries (Persona.js, MIT), and authorization is
+moving to identity-provider governance — the boring, load-bearing pieces, not
+just demos.
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose

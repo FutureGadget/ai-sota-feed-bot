@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a]
-updated: 2026-06-20
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c]
+updated: 2026-06-22
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c]
 ---
 
 ## TL;DR
@@ -37,14 +37,22 @@ trace-judging cost ~100×. Infra-level levers help too: container/image caching
 (Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is
 the **context cost of instructions themselves** — every skill, hook, or subagent
 you add to steer an agent consumes context budget, so steering and cost are the
-same knob viewed from two sides.
+same knob viewed from two sides. The flip side of that knob is the biggest single
+lever: **spending context to downshift the model**. Cheap models are far cheaper
+per token but ignore architecture rules — ANMA reports Claude Haiku 4.5 violating
+its constraints in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit
+boundary contracts (YAML rules plus `CLAUDE.md`, hooks, and CI checks) — so a bit
+of contract overhead can make a cheaper model reliable enough to replace a
+frontier one on the bulk of the work.
 
 ## What's new
 Cost is becoming an explicit, measured surface rather than an after-the-fact
 invoice: enterprise spend caps and usage analytics, per-PR token-cost attribution
 (Prtokens), and a growing recognition that the cheapest lever is architectural —
-decentralized topologies (DeLM, ~50% off) and cheap fine-tuned judges (~100× off)
-rather than a smaller model alone.
+decentralized topologies (DeLM, ~50% off), cheap fine-tuned judges (~100× off),
+and contract layers that make a cheaper model obey rules well enough to downshift
+to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a smaller model
+alone.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product. The

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-22T00:10:01.163984+00:00",
+ "generated_at": "2026-06-22T02:11:40.864311+00:00",
  "areas": [
   {
    "area": "memory",
@@ -66,11 +66,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Cost is being attacked on two fronts: <strong>making it visible</strong> and <strong>making it smaller</strong>. Visibility is moving from a monthly surprise to a first-class signal — enterprise platforms now ship usage analytics and hard spend controls (OpenAI&#x27;s enterprise spend caps), and developer tooling attributes cost down to the unit of work, e.g. showing how many agent tokens a single pull request consumed (Prtokens). The reduction side is the sum of the other obstacles&#x27; solutions: keeping the working set small via <a href=\"/topic/context-compaction\">context compaction</a> attacks the per-step token bill directly (the cost scales with context size); choosing a cheaper <a href=\"/topic/agent-orchestration\">orchestration</a> topology matters because the coordination structure dominates spend — Stanford&#x27;s DeLM reports cutting multi-agent task cost ~50% by dropping the central orchestrator; and even evaluation is a cost line item, which is why teams fine-tune small judges to cut trace-judging cost ~100×. Infra-level levers help too: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is the <strong>context cost of instructions themselves</strong> — every skill, hook, or subagent you add to steer an agent consumes context budget, so steering and cost are the same knob viewed from two sides.</p>"
+     "html": "<p>Cost is being attacked on two fronts: <strong>making it visible</strong> and <strong>making it smaller</strong>. Visibility is moving from a monthly surprise to a first-class signal — enterprise platforms now ship usage analytics and hard spend controls (OpenAI&#x27;s enterprise spend caps), and developer tooling attributes cost down to the unit of work, e.g. showing how many agent tokens a single pull request consumed (Prtokens). The reduction side is the sum of the other obstacles&#x27; solutions: keeping the working set small via <a href=\"/topic/context-compaction\">context compaction</a> attacks the per-step token bill directly (the cost scales with context size); choosing a cheaper <a href=\"/topic/agent-orchestration\">orchestration</a> topology matters because the coordination structure dominates spend — Stanford&#x27;s DeLM reports cutting multi-agent task cost ~50% by dropping the central orchestrator; and even evaluation is a cost line item, which is why teams fine-tune small judges to cut trace-judging cost ~100×. Infra-level levers help too: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is the <strong>context cost of instructions themselves</strong> — every skill, hook, or subagent you add to steer an agent consumes context budget, so steering and cost are the same knob viewed from two sides. The flip side of that knob is the biggest single lever: <strong>spending context to downshift the model</strong>. Cheap models are far cheaper per token but ignore architecture rules — ANMA reports Claude Haiku 4.5 violating its constraints in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit boundary contracts (YAML rules plus <code>CLAUDE.md</code>, hooks, and CI checks) — so a bit of contract overhead can make a cheaper model reliable enough to replace a frontier one on the bulk of the work.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Cost is becoming an explicit, measured surface rather than an after-the-fact invoice: enterprise spend caps and usage analytics, per-PR token-cost attribution (Prtokens), and a growing recognition that the cheapest lever is architectural — decentralized topologies (DeLM, ~50% off) and cheap fine-tuned judges (~100× off) rather than a smaller model alone.</p>"
+     "html": "<p>Cost is becoming an explicit, measured surface rather than an after-the-fact invoice: enterprise spend caps and usage analytics, per-PR token-cost attribution (Prtokens), and a growing recognition that the cheapest lever is architectural — decentralized topologies (DeLM, ~50% off), cheap fine-tuned judges (~100× off), and contract layers that make a cheaper model obey rules well enough to downshift to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a smaller model alone.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -117,9 +117,13 @@
     {
      "sid": "4235792e910ea51a",
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+     "sid": "c32171008fef614c",
+     "title": "Show HN: ANMA, boundary contracts for cheaper AI coding agents"
     }
    ],
-   "updated": "2026-06-20"
+   "updated": "2026-06-22"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -205,11 +209,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest.</p>"
+     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0), graph-based associative memory built with ~zero LLM calls (FERNme) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest. A second, cost-driven theme is <strong>cheap, mechanical writes</strong>: rather than calling an LLM to decide what to store, newer stores build the memory structure deterministically — FERNme forms associative memory tags from fuzzy edges and a Hebbian co-occurrence rule — so persisting what an agent learns stops being a per-turn token bill.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>A wave of local-first, single-file agent-memory tools (Memharness&#x27;s bi-temporal SQLite store, Cortex&#x27;s encrypted local memory over MCP, Brain2.0&#x27;s curated project memory) reframes memory as an installable, developer-owned component — and pushes bi-temporal modeling (when a fact was true vs. when it was learned) as a recall primitive, not just embed-and-retrieve.</p>"
+     "html": "<p>The local-first wave is now also attacking the <strong>write cost</strong> of memory: FERNme builds an associative memory graph from fuzzy edges and a Hebbian co-occurrence rule that updates with ~zero LLM calls, so persisting what an agent learns stops being a per-turn token bill — joining bi-temporal SQLite stores (Memharness) and encrypted local memory over MCP (Cortex) in treating memory as an installable, developer-owned component rather than a metered service.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -261,9 +265,13 @@
     {
      "sid": "f6cf006fbdea0d5a",
      "title": "Project Brain2.0–curated project memory for ClaudeCode(+ any file-reading agent)"
+    },
+    {
+     "sid": "eb5267262e7d31c8",
+     "title": "Show HN: FERNme – agent memory that updates with ~zero LLM calls"
     }
    ],
-   "updated": "2026-06-20"
+   "updated": "2026-06-22"
   },
   "model-drift": {
    "slug": "model-drift",
@@ -646,11 +654,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Two reinforcing moves are pushing this further: treating each agent as a <strong>non-human identity</strong> with its own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a human&#x27;s session), and pushing isolation <strong>down into the OS</strong> — Microsoft positions Windows as a trust base for agents with a dedicated Execution Container so the sandbox is an OS-enforced boundary, not just a process wrapper. These controls are now showing up as concrete, shipping primitives rather than principles: identity-based sandbox platforms hide infrastructure secrets from both developers and the agent (Cordium, a self-hosted Kubernetes sandbox where the credentials never enter the agent&#x27;s reach); harness permission rules are getting fine-grained enough to match a tool *call&#x27;s parameters* — Claude Code&#x27;s <code>Tool(param:value)</code> syntax can, for example, block Opus subagents — so authorization is scoped per action, not per tool; and write paths are being gated behind explicit user approval that respects the caller&#x27;s own permissions (datasette-agent&#x27;s approval-prompted <code>execute_write_sql</code>, on top of a general resource-sharing ACL layer). Least privilege plus human approval on the few actions that really matter is the most durable control.</p>"
+     "html": "<p>The layers are real but each has a published gap. <strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges. <strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot; shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent. The center of gravity is therefore moving to <strong>authorization</strong>: scope what each tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient. Two reinforcing moves are pushing this further: treating each agent as a <strong>non-human identity</strong> with its own scoped credentials, lifecycle, and audit trail (rather than a sidecar on a human&#x27;s session), and pushing isolation <strong>down into the OS</strong> — Microsoft positions Windows as a trust base for agents with a dedicated Execution Container so the sandbox is an OS-enforced boundary, not just a process wrapper. These controls are now showing up as concrete, shipping primitives rather than principles: identity-based sandbox platforms hide infrastructure secrets from both developers and the agent (Cordium, a self-hosted Kubernetes sandbox where the credentials never enter the agent&#x27;s reach); harness permission rules are getting fine-grained enough to match a tool *call&#x27;s parameters* — Claude Code&#x27;s <code>Tool(param:value)</code> syntax can, for example, block Opus subagents — so authorization is scoped per action, not per tool; and write paths are being gated behind explicit user approval that respects the caller&#x27;s own permissions (datasette-agent&#x27;s approval-prompted <code>execute_write_sql</code>, on top of a general resource-sharing ACL layer). The same instinct is reaching the <strong>cloud-account</strong> layer: Cloudflare now lets you spin up and run a Workers project under a temporary, disposable account with no standing login — an ephemeral, self-expiring credential boundary instead of handing an agent your real account keys (worth noting, as Simon Willison does, that the &quot;for AI agents&quot; framing is partly marketing — it is a general ephemeral scoped-account feature, which is exactly the short-lived least-privilege primitive agents need). Least privilege plus human approval on the few actions that really matter is the most durable control.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The controls are turning from principles into shipped primitives: per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>, e.g. blocking Opus subagents), approval-gated writes that honor the caller&#x27;s permissions (datasette-agent), and identity-based sandboxes that keep infra secrets out of the agent&#x27;s reach entirely (Cordium) — converging, alongside OS-enforced containers and agent-as-identity, on scoped, centrally governed, revocable permissions rather than guardrails or process sandboxes alone.</p>"
+     "html": "<p>The controls are turning from principles into shipped primitives: per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>, e.g. blocking Opus subagents), approval-gated writes that honor the caller&#x27;s permissions (datasette-agent), identity-based sandboxes that keep infra secrets out of the agent&#x27;s reach entirely (Cordium), and ephemeral cloud accounts an agent can run under without standing keys (Cloudflare&#x27;s temporary accounts) — converging, alongside OS-enforced containers and agent-as-identity, on scoped, centrally governed, short-lived, revocable permissions rather than guardrails or process sandboxes alone.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -705,9 +713,13 @@
     {
      "sid": "68a519e26dde7563",
      "title": "datasette-acl 0.6a0"
+    },
+    {
+     "sid": "ed140b4e4c38f7b0",
+     "title": "Temporary Cloudflare Accounts for AI agents"
     }
    ],
-   "updated": "2026-06-21"
+   "updated": "2026-06-22"
   },
   "context-compaction": {
    "slug": "context-compaction",
@@ -723,11 +735,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href=\"/topic/vector-kb\">vector/graph KB</a>, and rehydrate on demand.</p>"
+     "html": "<p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href=\"/topic/vector-kb\">vector/graph KB</a>, and rehydrate on demand. A complementary, cheaper move is compaction at the <strong>input boundary</strong> — shrinking a tool result *before* it ever enters the context, not summarizing it afterward. Coding agents read verbose build/test logs, so deterministic pre-compactors that strip noise from that output (Logslim) cut the per-step token bill with no model call and no lossy summarization of the agent&#x27;s own reasoning.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Compression is getting smarter than naive summarization — LLM-guided methods (MemRefine) and forgetting/synthesis-aware memory systems aim to preserve signal density rather than just shrink token count.</p>"
+     "html": "<p>Compression is getting smarter than naive summarization — LLM-guided methods (MemRefine) and forgetting/synthesis-aware memory systems aim to preserve signal density rather than just shrink token count — and compaction is moving to the tool-output boundary, deterministically trimming verbose build/test logs before the agent reads them (Logslim) so the cheapest tokens are the ones never added.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -762,9 +774,13 @@
     {
      "sid": "83e63e463a1dff9d",
      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
+    },
+    {
+     "sid": "c763e01254fa7c5c",
+     "title": "Logslim – compact test/build output before your AI agent reads it"
     }
    ],
-   "updated": "2026-06-18"
+   "updated": "2026-06-22"
   },
   "cost-controls": {
    "slug": "cost-controls",
@@ -890,11 +906,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. MCP is also becoming the assumed plug for hosted runtimes — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives). Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
+     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent — and the open-source client side is filling in alongside the browser trial, with MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site can build agentic experiences without a vendor SDK. MCP is also becoming the assumed plug for hosted runtimes — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives). Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP access built in (Azure Functions&#x27; agents runtime), the small-server long tail is filling out (a generic coding-tools MCP), and authorization is moving to identity-provider governance — the boring, load-bearing pieces, not just demos.</p>"
+     "html": "<p>MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP access built in (Azure Functions&#x27; agents runtime), the small-server long tail is filling out (a generic coding-tools MCP), the browser surface is getting open, framework-free WebMCP client libraries (Persona.js, MIT), and authorization is moving to identity-provider governance — the boring, load-bearing pieces, not just demos.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -937,9 +953,13 @@
     {
      "sid": "ff1510e381d9b329",
      "title": "Show HN: Coding Tools MCP – Give any LLM agent the ability to code"
+    },
+    {
+     "sid": "10de279350c1ecc9",
+     "title": "Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)"
     }
    ],
-   "updated": "2026-06-20"
+   "updated": "2026-06-22"
   },
   "vector-kb": {
    "slug": "vector-kb",
@@ -955,11 +975,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, and vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup. The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity.</p>"
+     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup, and graph-based associative stores build the structure from co-occurrence rather than embeddings (FERNme grows a memory graph with fuzzy edges and a Hebbian co-occurrence rule, keeping the LLM out of the *write* path as well as the read path). The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity — and can be built and updated without per-turn LLM cost.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The &quot;is a vector DB even the right primitive&quot; question is now live: alongside hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores (Memharness) and algebraic/vector-symbolic memory positioned explicitly as a RAG alternative (VSA) — argue that structured, exact recall can outperform embedding similarity for agent memory.</p>"
+     "html": "<p>The &quot;is a vector DB even the right primitive&quot; question is now live: alongside hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores (Memharness), algebraic/vector-symbolic memory positioned explicitly as a RAG alternative (VSA), and graph-based associative memory grown from Hebbian co-occurrence (FERNme) — argue that structured, exact recall can outperform embedding similarity for agent memory, and can be updated with ~zero LLM calls.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -998,9 +1018,13 @@
     {
      "sid": "623de2bad771dca8",
      "title": "Show HN: Memharness – Bi-temporal memory for AI agents, in one SQLite file"
+    },
+    {
+     "sid": "eb5267262e7d31c8",
+     "title": "Show HN: FERNme – agent memory that updates with ~zero LLM calls"
     }
    ],
-   "updated": "2026-06-20"
+   "updated": "2026-06-22"
   },
   "version-pinning": {
    "slug": "version-pinning",
