@@ -24,9 +24,11 @@ This serves all three positioning pillars at once:
   list, double-opt-in, unsubscribe, and CAN-SPAM/GDPR compliance. We only hold
   an API key in env/secrets and call the provider's broadcast endpoint.
 - **No topic personalization.** Cadence preference (daily vs. weekly-only) is
-  allowed; per-reader topic filtering is not — it would violate the "one shared
+  allowed — and **is** a signup choice (see *Per-digest selection* below) — but
+  per-reader *content* filtering is not; that would violate the "one shared
   ranking, not a filter bubble" stance. Pinned topics remain a client-side lens
-  on the site, not an email segmentation key.
+  on the site, not an email segmentation key. The cadence choice maps to which
+  digests a reader receives, never to which stories appear inside one.
 - **No hourly email.** The hourly pipeline keeps committing data; email sends on
   its own daily/weekly schedule reading whatever is already committed.
 
@@ -139,6 +141,20 @@ is no wiki high-water mark.
     is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
+- **Per-digest selection (Resend Topics).** The `/subscribe` form carries a
+  single **"Weekly recap only — less email"** checkbox (default off = both
+  digests). Daily and weekly are modelled as two Resend **Topics**
+  (`EMAIL_TOPIC_ID_DAILY`, `EMAIL_TOPIC_ID_WEEKLY`):
+  - *Signup* (`api/subscribe.js`) opts the contact into the **weekly** topic
+    always, and into the **daily** topic with `status: opt_in` unless
+    `weekly_only` is set, in which case `status: opt_out`.
+  - *Send* (`publish_email.py` → `resolve_topic_id(kind)`) scopes each broadcast
+    to its kind's topic, so Resend suppresses the daily send for weekly-only
+    contacts and the hosted preference page manages the choice thereafter.
+  - *Fallback:* with the per-kind ids unset, both sides fall back to the legacy
+    single `EMAIL_TOPIC_ID` (both digests, one topic) — the prior behavior.
+    Topics are why the cadence choice never touches *content*: it selects which
+    broadcasts reach a reader, not which stories sit inside one.
 - **List + compliance.** The provider. Nothing in git.
 - **Send.** `publish/publish_email.py` reads committed artifacts and uses a
   secrets-gated no-op: it returns cleanly when `EMAIL_API_KEY` is unset.

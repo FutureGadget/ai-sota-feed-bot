@@ -54,6 +54,10 @@ jobs:
           # Resend: broadcasts target a Segment (formerly "Audience"); optional Topic.
           EMAIL_SEGMENT_ID: ${{ secrets.EMAIL_SEGMENT_ID }}
           EMAIL_TOPIC_ID: ${{ secrets.EMAIL_TOPIC_ID }}
+          # Per-digest selection: daily/weekly each scope to their own Topic so a
+          # "weekly only" subscriber is suppressed from the daily send.
+          EMAIL_TOPIC_ID_DAILY: ${{ secrets.EMAIL_TOPIC_ID_DAILY }}
+          EMAIL_TOPIC_ID_WEEKLY: ${{ secrets.EMAIL_TOPIC_ID_WEEKLY }}
           EMAIL_FROM: ${{ vars.EMAIL_FROM }}
           INPUT_KIND: ${{ github.event.inputs.kind }}
           SCHEDULE: ${{ github.event.schedule }}

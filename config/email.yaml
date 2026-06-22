@@ -12,8 +12,14 @@ enabled: true
 #     - SIGNUP (api/subscribe.js): only EMAIL_API_KEY. Resend contacts are
 #       global (POST /contacts) — no audience/segment id needed to register.
 #     - SEND (publish_email.py): EMAIL_API_KEY + EMAIL_SEGMENT_ID + EMAIL_FROM
-#       (a broadcast targets a Segment, formerly "Audience"). Optional
-#       EMAIL_TOPIC_ID scopes the send + powers per-topic unsubscribe.
+#       (a broadcast targets a Segment, formerly "Audience").
+#     - PER-DIGEST SELECTION (optional): EMAIL_TOPIC_ID_DAILY and
+#       EMAIL_TOPIC_ID_WEEKLY are separate Resend Topics, one per digest. Signup
+#       (api/subscribe.js) opts a contact into the weekly topic always and the
+#       daily topic unless they chose "weekly recap only"; each broadcast scopes
+#       to its own topic so the opt-out holds, and Resend's preference page
+#       manages it. Falls back to a single legacy EMAIL_TOPIC_ID (both digests,
+#       one topic) when the per-kind ids aren't set.
 #   buttondown: EMAIL_API_KEY (Authorization: Token ...); pairs with an external
 #       hosted signup page via DIGEST_EMAIL_SIGNUP_URL.
 provider: resend

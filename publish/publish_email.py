@@ -698,13 +698,28 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
 # --------------------------------------------------------------------------- #
 # Provider send (broadcast)
 # --------------------------------------------------------------------------- #
-def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: str = "") -> bool:
+def resolve_topic_id(kind: str) -> str:
+    """The Resend Topic a given digest kind scopes to. Daily and weekly are
+    separate topics so a reader can take "weekly only — less email" (opted out
+    of the daily topic but kept in the weekly one); the per-topic preference is
+    set at signup (see ``api/subscribe.js``) and Resend's hosted preference page
+    manages it thereafter. Falls back to the legacy single ``EMAIL_TOPIC_ID``
+    (both digests, one topic) when the per-kind ids aren't configured."""
+    per_kind = {
+        "daily": os.getenv("EMAIL_TOPIC_ID_DAILY"),
+        "weekly": os.getenv("EMAIL_TOPIC_ID_WEEKLY"),
+    }.get(kind)
+    return (per_kind or os.getenv("EMAIL_TOPIC_ID") or "").strip()
+
+
+def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: str = "", kind: str = "daily") -> bool:
     """Send the broadcast. Returns True if sent, False for a clean no-op
     (e.g. the recipient segment is empty — nothing to send, not an error).
 
     ``name`` is the provider-side internal label shown in the dashboard
     broadcast list (distinct from the subscriber-facing ``subject``). Without
-    it Resend lists every broadcast as "Untitled"."""
+    it Resend lists every broadcast as "Untitled". ``kind`` selects the Resend
+    Topic the send scopes to (daily vs weekly), so per-digest opt-outs hold."""
     provider = (cfg.get("provider") or "buttondown").lower()
     text_body = html_to_text(html_body)
     if provider == "buttondown":
@@ -734,7 +749,7 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: 
         }
         if name:
             payload["name"] = name
-        topic_id = (os.getenv("EMAIL_TOPIC_ID") or "").strip()
+        topic_id = resolve_topic_id(kind)
         if topic_id:
             payload["topic_id"] = topic_id
         r = requests.post(
@@ -848,7 +863,7 @@ def main() -> int:
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
 
-    if not send_broadcast(cfg, api_key, subject, body, broadcast_name):
+    if not send_broadcast(cfg, api_key, subject, body, broadcast_name, kind=args.kind):
         # Nothing was sent (e.g. empty recipient segment). Leave the cursor
         # untouched so the next run re-attempts once contacts exist.
         print(f"email_send_skipped=true kind={args.kind} reason=nothing_sent")
