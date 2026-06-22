@@ -91,6 +91,10 @@
       background:color-mix(in srgb,var(--accent) 85%,#000); }
     button[disabled] { opacity:.6; cursor:default; }
     .external-signup { display:inline-flex; align-items:center; }
+    .pref { display:flex; align-items:flex-start; gap:.5rem; margin:.85rem 0 0; font-size:.9rem; color:var(--brief-ink); }
+    .pref input[type="checkbox"] { margin-top:.18rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
+    .pref label { cursor:pointer; }
+    .pref .pref-note { display:block; color:var(--muted); font-size:.82rem; }
     .message { margin:.8rem 0 0; font-size:.92rem; color:var(--muted); }
     .message[data-state="ok"] { color:var(--accent); font-weight:600; }
     .message[data-state="err"] { color:var(--err); }
@@ -215,6 +219,12 @@
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">Subscribe</button>
       </form>
+      <div class="pref">
+        <input type="checkbox" id="weeklyOnly" name="weekly_only" />
+        <label for="weeklyOnly">Weekly recap only — less email
+          <span class="pref-note">Default is the daily brief plus the Friday recap. Check this to receive the Friday recap only.</span>
+        </label>
+      </div>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy">No account required. Every email includes an unsubscribe link.</p>`;
     }
@@ -230,6 +240,7 @@
     async function submitForm(form) {
       const emailInput = form.elements.email;
       const button = form.querySelector('button[type="submit"]');
+      const weeklyOnly = !!(form.elements.weekly_only && form.elements.weekly_only.checked);
       const email = String(emailInput.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setMessage('Please enter a valid email address.', 'err');
@@ -242,13 +253,18 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, hp: String(form.elements.website.value || '') }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: String(form.elements.website.value || '') }),
         });
         if (response.ok) {
           markSubscribed();
           emailInput.disabled = true;
+          if (form.elements.weekly_only) form.elements.weekly_only.disabled = true;
           button.remove();
-          setMessage("You’re subscribed. The next brief will arrive by email.", 'ok');
+          setMessage(
+            weeklyOnly
+              ? "You’re subscribed to the weekly recap. The next Friday recap will arrive by email."
+              : "You’re subscribed. The next brief will arrive by email.",
+            'ok');
           return;
         }
         if (response.status === 400) {

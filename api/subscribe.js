@@ -5,8 +5,10 @@
 // is required, but we also add the contact to EMAIL_SEGMENT_ID (the segment the
 // daily/weekly broadcast sends to) via the `segments` array — otherwise the
 // contact is created segment-less and the broadcast fails with 422 "...has no
-// contacts". Optionally opt the contact into a Topic (EMAIL_TOPIC_ID) so
-// Resend's preference page can manage per-topic unsubscribe.
+// contacts". Per-digest selection rides on Resend Topics: EMAIL_TOPIC_ID_DAILY
+// and EMAIL_TOPIC_ID_WEEKLY are separate topics, so a "weekly only" signup opts
+// the contact OUT of the daily topic while staying in the weekly one (Resend's
+// preference page then manages it). Falls back to a single legacy EMAIL_TOPIC_ID.
 //
 // The key is read server-side only (never reaches the browser). Honeypot +
 // validation guard abuse. With no EMAIL_API_KEY the endpoint returns 503 and
@@ -43,8 +45,23 @@ export default async function handler(req, res) {
   }
 
   const payload = { email, unsubscribed: false };
-  const topicId = String(process.env.EMAIL_TOPIC_ID || '').trim();
-  if (topicId) payload.topics = [{ id: topicId, status: 'opt_in' }];
+  // Per-digest selection. Daily and weekly are separate Resend Topics so a reader
+  // can take "weekly only — less email": opted into the weekly topic, opted OUT
+  // of the daily one (Resend then suppresses the daily broadcast for them, and
+  // its hosted preference page manages the choice thereafter). Default = both.
+  // Falls back to the legacy single EMAIL_TOPIC_ID (both digests, one topic)
+  // when the per-kind ids aren't configured.
+  const dailyTopic = String(process.env.EMAIL_TOPIC_ID_DAILY || '').trim();
+  const weeklyTopic = String(process.env.EMAIL_TOPIC_ID_WEEKLY || '').trim();
+  const weeklyOnly = body.weekly_only === true || String(body.weekly_only || '') === 'true';
+  const topics = [];
+  if (dailyTopic) topics.push({ id: dailyTopic, status: weeklyOnly ? 'opt_out' : 'opt_in' });
+  if (weeklyTopic) topics.push({ id: weeklyTopic, status: 'opt_in' });
+  if (!topics.length) {
+    const legacyTopic = String(process.env.EMAIL_TOPIC_ID || '').trim();
+    if (legacyTopic) topics.push({ id: legacyTopic, status: 'opt_in' });
+  }
+  if (topics.length) payload.topics = topics;
   // Place the contact into the segment the daily/weekly broadcast targets
   // (publish_email.py sends to EMAIL_SEGMENT_ID). Without this the contact is
   // created segment-less and a broadcast to that segment fails with
