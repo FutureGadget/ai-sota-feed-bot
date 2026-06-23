@@ -1,47 +1,48 @@
 {
-  "prefilter_in": 704,
-  "prefilter_out": 115,
+  "prefilter_in": 831,
+  "prefilter_out": 140,
   "prefilter_reasons": {
     "hard_exclude": 16,
     "off_topic": 33,
-    "freshness_window": 540
+    "freshness_window": 540,
+    "pool_cap": 102
   },
   "slots": {
     "frontier_official": {
-      "candidates": 19,
-      "llm_scored": 19,
-      "cache_hits": 19,
+      "candidates": 3,
+      "llm_scored": 3,
+      "cache_hits": 3,
       "llm_called": 0,
-      "selected": 7,
-      "reject_source_cap": 1,
-      "reject_slot_cap": 11
+      "selected": 3,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 0
     },
     "agent_tooling_releases": {
-      "candidates": 22,
-      "llm_scored": 22,
-      "cache_hits": 20,
-      "llm_called": 0,
-      "selected": 4,
-      "reject_source_cap": 8,
-      "reject_slot_cap": 10
-    },
-    "infra_runtime_releases": {
-      "candidates": 2,
-      "llm_scored": 2,
-      "cache_hits": 2,
-      "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 0,
-      "reject_slot_cap": 1
-    },
-    "vendor_general_updates": {
-      "candidates": 8,
-      "llm_scored": 8,
+      "candidates": 9,
+      "llm_scored": 9,
       "cache_hits": 8,
       "llm_called": 0,
-      "selected": 1,
+      "selected": 3,
+      "reject_source_cap": 6,
+      "reject_slot_cap": 0
+    },
+    "infra_runtime_releases": {
+      "candidates": 0,
+      "llm_scored": 0,
+      "cache_hits": 0,
+      "llm_called": 0,
+      "selected": 0,
       "reject_source_cap": 0,
-      "reject_slot_cap": 7
+      "reject_slot_cap": 0
+    },
+    "vendor_general_updates": {
+      "candidates": 0,
+      "llm_scored": 0,
+      "cache_hits": 0,
+      "llm_called": 0,
+      "selected": 0,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 0
     },
     "cloud_platform_updates": {
       "candidates": 0,
@@ -53,31 +54,31 @@
       "reject_slot_cap": 0
     },
     "practitioner_analysis": {
-      "candidates": 19,
-      "llm_scored": 19,
-      "cache_hits": 18,
+      "candidates": 3,
+      "llm_scored": 3,
+      "cache_hits": 3,
       "llm_called": 0,
-      "selected": 5,
-      "reject_source_cap": 11,
-      "reject_slot_cap": 3
+      "selected": 3,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 0
     },
     "community_signal": {
-      "candidates": 2,
-      "llm_scored": 2,
-      "cache_hits": 2,
+      "candidates": 26,
+      "llm_scored": 26,
+      "cache_hits": 10,
       "llm_called": 0,
       "selected": 1,
-      "reject_source_cap": 1,
+      "reject_source_cap": 25,
       "reject_slot_cap": 0
     },
     "research_watch": {
-      "candidates": 43,
-      "llm_scored": 43,
-      "cache_hits": 40,
+      "candidates": 99,
+      "llm_scored": 99,
+      "cache_hits": 23,
       "llm_called": 0,
-      "selected": 3,
-      "reject_source_cap": 40,
-      "reject_slot_cap": 0
+      "selected": 5,
+      "reject_source_cap": 28,
+      "reject_slot_cap": 66
     },
     "overflow": {
       "candidates": 0,
@@ -92,20 +93,20 @@
   "llm_budget_total": 8,
   "llm_budget_used": 0,
   "slot_priority": {
-    "frontier_official": 0.702,
-    "agent_tooling_releases": 0.474,
-    "infra_runtime_releases": 0.263,
-    "vendor_general_updates": 0.194,
+    "frontier_official": 0.797,
+    "agent_tooling_releases": 0.519,
+    "infra_runtime_releases": -0.1,
+    "vendor_general_updates": -0.22,
     "cloud_platform_updates": -0.1,
-    "practitioner_analysis": 0.435,
-    "community_signal": 0.331,
-    "research_watch": 0.262,
+    "practitioner_analysis": 0.56,
+    "community_signal": 0.456,
+    "research_watch": 0.378,
     "overflow": -0.2
   },
   "merge": {
-    "floor_selected": 10,
-    "headroom_selected": 12,
-    "skip_duplicate": 10,
+    "floor_selected": 9,
+    "headroom_selected": 6,
+    "skip_duplicate": 9,
     "skip_slot_max": 0
   },
   "top_band": {
@@ -113,7 +114,7 @@
     "promoted_frontier": 0,
     "promoted_anthropic_frontier": 0,
     "research_demoted": 0,
-    "lead_lifted": 0
+    "lead_lifted": 1
   },
   "final_prompt_rerank": {
     "applied": false,
@@ -121,7 +122,7 @@
   },
   "final_summary_pass": {
     "llm_called": 0,
-    "cache_hits": 21,
-    "items": 22
+    "cache_hits": 9,
+    "items": 15
   }
 }
