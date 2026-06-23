@@ -286,7 +286,10 @@ PAGE_JS = """\
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         var btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+        }
       }
       var btn = document.getElementById('themeToggle');
       if (btn) {
@@ -395,7 +398,7 @@ NAV_UPDATES_JS = r"""
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
@@ -944,14 +947,42 @@ def render_categories(
 
 
 def render_archive_select(options: list[tuple[str, str]], current: str, label: str) -> str:
-    """Static archive picker; options are (href, text) pairs, newest first."""
+    """Static Previous/Current/Next picker; options are newest first."""
     opts = "".join(
         f'<option value="{escape(href)}"{" selected" if href == current else ""}>{escape(text)}</option>'
         for href, text in options
     )
+    current_index = next(
+        (index for index, (href, _text) in enumerate(options) if href == current),
+        -1,
+    )
+    previous_item = (
+        options[current_index + 1]
+        if current_index >= 0 and current_index + 1 < len(options)
+        else None
+    )
+    next_item = (
+        options[current_index - 1] if current_index > 0 else None
+    )
+
+    def direction(item: tuple[str, str] | None, name: str, glyph: str) -> str:
+        if not item:
+            return (
+                f'<span class="site-context-disabled" aria-hidden="true">{glyph}</span>'
+            )
+        href, text = item
+        return (
+            f'<a href="{escape(href)}" aria-label="{escape(name)}: {escape(text)}">'
+            f'{glyph}</a>'
+        )
+
     return (
-        f'<label class="archive muted">{escape(label)} '
+        f'<div class="site-context" aria-label="Choose {escape(label.lower())}">'
+        f'{direction(previous_item, f"Previous {label.lower()}", "‹")}'
+        f'<label class="archive muted"><span>{escape(label)}</span>'
         f'<select id="archive" aria-label="Choose {escape(label.lower())}">{opts}</select></label>'
+        f'{direction(next_item, f"Next {label.lower()}", "›")}'
+        f'</div>'
     )
 
 
@@ -1078,6 +1109,8 @@ def render_head(
   <meta name="twitter:description" content="{escape(description)}" />{ld}
   <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
 {THEME_BOOT_JS}  </script>
@@ -1093,7 +1126,6 @@ def render_page(
     published: str | None,
     h1: str,
     meta_line: str,
-    nav_links: list[tuple[str, str]],
     json_href: str,
     archive: str,
     recap_title: str,
@@ -1108,11 +1140,14 @@ def render_page(
     extra_js: str = "",
     extra_css: str = "",
 ) -> str:
-    nav = "".join(f'\n        <a href="{escape(h)}" role="button">{escape(t)}</a>' for h, t in nav_links)
-    json_link = f'\n        <a href="{escape(json_href)}" role="button">JSON</a>' if json_href else ""
+    section = site_section_for_url(canonical)
+    nav = render_site_nav(section)
+    json_link = (
+        f'\n        <a href="{escape(json_href)}">View as JSON</a>' if json_href else ""
+    )
     share_btn = (
         f'\n        <button type="button" class="menu-share" data-share-url="{escape(canonical)}"'
-        f' data-share-title="{escape(title)}">🔗 Share</button>'
+        f' data-share-title="{escape(title)}">Share this page</button>'
     )
     heading = title_html or f'<h2 class="recap-title">{escape(recap_title)}</h2>'
     range_line = (
@@ -1127,15 +1162,23 @@ def render_page(
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
+    <header class="site-chrome" data-site-section="{escape(section)}">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
         <h1>{h1}</h1>
+        <p id="meta" class="muted">{escape(meta_line)}</p>
+      </div>
+      {nav}
+      <div class="site-actions-fallback" aria-label="Page actions">{json_link}{share_btn}
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">{escape(meta_line)}</p>
-      <menu>{nav}{json_link}{share_btn}
-        {archive}
-      </menu>
+{archive}
     </header>
 
     <section id="recap">
@@ -1167,6 +1210,52 @@ def render_page(
 </body>
 </html>
 """
+
+
+SITE_DESTINATIONS = (
+    ("/", "Live feed"),
+    ("/daily", "Daily recap"),
+    ("/weekly", "Weekly recap"),
+    ("/storylines", "Storylines"),
+    ("/playbook", "Playbook"),
+    ("/map", "Knowledge map"),
+    ("/voices", "Voices"),
+    ("/subscribe", "Email digest"),
+)
+
+
+def site_section_for_url(url: str) -> str:
+    """Map a canonical/detail URL to its parent site destination."""
+    path = urlsplit(url).path.rstrip("/") or "/"
+    if path == "/" or path.startswith("/story/"):
+        return "/"
+    if path == "/daily" or path.startswith("/daily/"):
+        return "/daily"
+    if path == "/weekly" or path.startswith("/weekly/"):
+        return "/weekly"
+    if path == "/storylines" or path.startswith("/storyline/"):
+        return "/storylines"
+    if path == "/playbook" or path.startswith("/playbook/"):
+        return "/playbook"
+    if path == "/map" or path.startswith("/topic/"):
+        return "/map"
+    if path == "/voices":
+        return "/voices"
+    if path == "/subscribe":
+        return "/subscribe"
+    return ""
+
+
+def render_site_nav(current: str) -> str:
+    """Semantic no-JS navigation; shared JS moves it into the Browse dialog."""
+    links = ""
+    for href, label in SITE_DESTINATIONS:
+        current_attr = ' aria-current="page"' if href == current else ""
+        links += (
+            f'\n        <a href="{href}" data-site-destination="{href}"'
+            f'{current_attr}>{label}</a>'
+        )
+    return f'<nav class="site-nav-fallback" aria-label="LLM Digest">{links}\n      </nav>'
 
 
 def load_recaps(directory: Path, file_re: re.Pattern, id_field: str) -> list[dict]:
@@ -1317,9 +1406,8 @@ def render_daily_pages(
             description=description,
             canonical=canonical,
             published=published,
-            h1="📰 AI Daily Recap",
+            h1="AI Daily Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/weekly", "🗓️ Weekly recap"), ("/voices", "🗣️ Voices"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/daily?date={day}",
             archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
             recap_title=squeeze(recap.get("title")) or day,
@@ -1765,9 +1853,8 @@ def render_weekly_pages(
             description=description,
             canonical=canonical,
             published=published,
-            h1="🗓️ AI Weekly Recap",
+            h1="AI Weekly Recap",
             meta_line=meta_line_for(recap),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/voices", "🗣️ Voices"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/weekly?week={week}",
             archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
             recap_title=squeeze(recap.get("title")) or week,
@@ -2212,9 +2299,8 @@ def render_story_pages(
             description=description,
             canonical=canonical,
             published=published,
-            h1="📰 Story",
+            h1="Story",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/", "← Live feed"), ("/storylines", "📈 Storylines"), ("/daily", "📰 Daily recap"), ("/weekly", "🗓️ Weekly recap"), ("/subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title="",  # replaced by linked title below
@@ -2850,9 +2936,8 @@ def render_storyline_pages(
             description=description,
             canonical=canonical,
             published=first_seen,
-            h1="📈 AI Storyline",
+            h1="AI Storyline",
             meta_line=" · ".join(meta_bits),
-            nav_links=[("/storylines", "← All storylines"), ("/", "📰 Live feed"), ("/daily", "🗓️ Daily recap"), ("/subscribe", "✉️ Email digest")],
             json_href=f"/api/storylines?slug={slug}",
             archive="",
             recap_title=label,
@@ -3165,9 +3250,8 @@ def render_topic_pages(base_url: str, wiki: dict) -> list[tuple[str, str | None]
             description=description,
             canonical=canonical,
             published=None,
-            h1="🧠 Agent Engineering Wiki",
+            h1="Agent Engineering Wiki",
             meta_line="",
-            nav_links=[("/map", "← Knowledge map"), ("/", "📰 Live feed"), ("/playbook", "🛠️ Playbook"), ("/storylines", "📈 Storylines"), ("/subscribe", "✉️ Email digest")],
             json_href="",
             archive="",
             recap_title=title,
@@ -3309,9 +3393,8 @@ def render_map_page(base_url: str, wiki: dict) -> bool:
         description=description,
         canonical=canonical,
         published=None,
-        h1="🧠 Agent Engineering Wiki",
+        h1="Agent Engineering Wiki",
         meta_line="",
-        nav_links=[("/", "📰 Live feed"), ("/playbook", "🛠️ Playbook"), ("/storylines", "📈 Storylines"), ("/daily", "🗓️ Daily"), ("/subscribe", "✉️ Email digest")],
         json_href="/api/topics",
         archive="",
         recap_title="Agent engineering: obstacles & solutions",

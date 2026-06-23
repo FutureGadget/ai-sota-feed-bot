@@ -20,12 +20,14 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     /* Email digest — "AI operations instrument" family member, but a conversion
@@ -69,7 +71,7 @@
     .hero { margin:2.7rem 0 1.6rem; }
     .hero-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
-    h1 { margin:0; max-width:18ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+    .hero h2 { margin:0; max-width:18ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:clamp(2.3rem,6.5vw,3.6rem); font-weight:700; letter-spacing:-.04em; line-height:.96; }
     .lede { margin:1rem 0 0; max-width:42rem; color:var(--fg); font-size:1.04rem; line-height:1.6; }
 
@@ -121,7 +123,7 @@
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
     @media (max-width:620px) {
       .hero { margin-top:2rem; }
-      h1 { font-size:2.5rem; }
+      .hero h2 { font-size:2.5rem; }
       form { flex-direction:column; }
       button[type="submit"] { width:100%; }
       .delivery { grid-template-columns:1fr; gap:.4rem; }
@@ -131,14 +133,36 @@
 </head>
 <body>
   <main>
-    <header>
-      <a class="back" href="/">← LLM Digest</a>
-      <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+    <header class="site-chrome" data-site-section="/subscribe">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Email digest</h1>
+        <p>The finishable AI brief, delivered.</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe" aria-current="page">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+      </div>
     </header>
 
     <section class="hero">
       <p class="hero-kicker">The finishable AI brief · by email</p>
-      <h1>Catch up on AI in ten minutes a day.</h1>
+      <h2>Catch up on AI in ten minutes a day.</h2>
       <p class="lede">The model, infrastructure, agent-tooling, and research updates that matter for
       platform &amp; agent engineers — ranked, deduplicated, and built to end. No infinite feed,
       no hype.</p>
@@ -194,7 +218,10 @@
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
-      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      if (btn) {
+        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+      }
     }
 
     function safeExternalUrl(value) {

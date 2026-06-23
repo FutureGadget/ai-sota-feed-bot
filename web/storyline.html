@@ -20,6 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -27,6 +28,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -217,19 +219,32 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
-        <h1>📈 AI Storylines</h1>
+    <header class="site-chrome" data-site-section="/storylines">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Storylines</h1>
+        <p id="meta" class="muted">Loading…</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines" aria-current="page">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a id="jsonLink" href="/api/storylines">View storylines as JSON</a>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Loading…</p>
-      <menu>
-        <a href="/" role="button">← Live feed</a>
-        <a href="/daily" role="button">📰 Daily recap</a>
-        <a href="/weekly" role="button">🗓️ Weekly recap</a>
-        <a href="/subscribe" role="button">✉️ Email digest</a>
-        <a id="jsonLink" href="/api/storylines" role="button">JSON</a>
-      </menu>
     </header>
 
     <section id="content" aria-live="polite">
@@ -249,7 +264,10 @@
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
-      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      if (btn) {
+        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+      }
     }
     function initThemeToggle() {
       const btn = document.getElementById('themeToggle');
@@ -659,7 +677,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');

@@ -23,6 +23,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -30,6 +31,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -1055,23 +1057,33 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
-        <h1>📰 LLM Digest <span class="h1-sub">— AI news for platform &amp; agent engineers</span></h1>
-        <div class="topbar-actions">
-          <a id="subscribeToggle" href="/subscribe" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="topbar"><span class="subscribe-toggle-icon" aria-hidden="true">✉️</span><span class="subscribe-toggle-label">Subscribe</span></a>
-          <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">🔍</button>
-          <button id="themeToggle" type="button" aria-label="Toggle theme">🌙</button>
+    <header class="site-chrome" data-site-section="/">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">Search</button>
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
         </div>
       </div>
-      <nav class="quicknav" aria-label="More pages">
-        <a href="/daily">📰 Daily recap</a>
-        <a href="/weekly">🗓️ Weekly recap</a>
-        <a href="/storylines">📈 Storylines</a>
-        <a href="/playbook">🛠️ Playbook</a>
-        <a href="/map">🧠 Knowledge map</a>
-        <a href="/voices">🗣️ Voices</a>
+      <div class="site-page-heading">
+        <h1>Live feed</h1>
+        <p class="h1-sub">AI news for platform &amp; agent engineers</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="topbar">Email digest</a>
       </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a id="subscribeToggle" href="/subscribe" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="topbar"><span aria-hidden="true">✉️</span> Subscribe</a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
+      </div>
 
       <section class="feed-hero">
         <div>
@@ -1143,7 +1155,7 @@
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
       if (btn) {
-        btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
         btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
       }
     }
@@ -3155,7 +3167,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
