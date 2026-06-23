@@ -55,11 +55,11 @@ export default async function handler(req, res) {
   const weeklyTopic = String(process.env.EMAIL_TOPIC_ID_WEEKLY || '').trim();
   const weeklyOnly = body.weekly_only === true || String(body.weekly_only || '') === 'true';
   const topics = [];
-  if (dailyTopic) topics.push({ id: dailyTopic, status: weeklyOnly ? 'opt_out' : 'opt_in' });
-  if (weeklyTopic) topics.push({ id: weeklyTopic, status: 'opt_in' });
+  if (dailyTopic) topics.push({ id: dailyTopic, subscription: weeklyOnly ? 'opt_out' : 'opt_in' });
+  if (weeklyTopic) topics.push({ id: weeklyTopic, subscription: 'opt_in' });
   if (!topics.length) {
     const legacyTopic = String(process.env.EMAIL_TOPIC_ID || '').trim();
-    if (legacyTopic) topics.push({ id: legacyTopic, status: 'opt_in' });
+    if (legacyTopic) topics.push({ id: legacyTopic, subscription: 'opt_in' });
   }
   if (topics.length) payload.topics = topics;
   // Place the contact into the segment the daily/weekly broadcast targets
