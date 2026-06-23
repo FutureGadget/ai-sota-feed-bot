@@ -174,7 +174,7 @@
 
     <section class="signup" aria-labelledby="signupTitle">
       <h2 id="signupTitle">Get the email digest</h2>
-      <p>The daily brief plus the Friday recap. Unsubscribe anytime.</p>
+      <p>The daily brief plus the <span data-weekly-day>weekly</span> recap. Unsubscribe anytime.</p>
       <div id="signupSurface">
         <p class="message" role="status">Checking subscription availability…</p>
       </div>
@@ -183,7 +183,7 @@
 
     <section class="deliveries" aria-label="What you receive">
       <div class="delivery">
-        <p class="delivery-when">Daily · every morning</p>
+        <p class="delivery-when">Daily · every <span data-daily-time>morning</span></p>
         <div class="delivery-what">
           <h3>The daily brief</h3>
           <p>The day's highest-signal updates, ranked and deduplicated — read it and you're caught up.
@@ -191,7 +191,7 @@
         </div>
       </div>
       <div class="delivery">
-        <p class="delivery-when">Weekly · Fridays</p>
+        <p class="delivery-when">Weekly · <span data-weekly-day-plural>weekends</span></p>
         <div class="delivery-what">
           <h3>The weekly recap</h3>
           <p>The week's pattern report: what shifted and what you missed, in one read.
@@ -217,6 +217,39 @@
   <script>
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
     const NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
+
+    // The email-digest workflow sends on fixed UTC crons (daily brief 22:30 UTC;
+    // weekly recap Friday 23:00 UTC). The weekday/time a reader actually receives
+    // mail depends on their timezone — e.g. Fri 23:00 UTC is Sat 08:00 in Seoul —
+    // so derive reader-local labels instead of hardcoding UTC-centric
+    // "Friday"/"morning". English weekday names (the copy is English) with the
+    // browser's own timezone.
+    const SEND_SCHEDULE = (() => {
+      try {
+        // The upcoming Friday 23:00 UTC (any one works; using a real upcoming
+        // instant respects the reader's current daylight-saving offset).
+        const weekly = new Date();
+        weekly.setUTCHours(23, 0, 0, 0);
+        let add = (5 - weekly.getUTCDay() + 7) % 7;
+        if (add === 0 && Date.now() > weekly.getTime()) add = 7;
+        weekly.setUTCDate(weekly.getUTCDate() + add);
+        const weeklyDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(weekly);
+        // Daily brief at 22:30 UTC — the reader-local hour picks the time word.
+        const daily = new Date();
+        daily.setUTCHours(22, 30, 0, 0);
+        const h = daily.getHours();
+        const dailyTime = (h < 5 || h >= 22) ? 'night' : h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+        return { weeklyDay, weeklyDayPlural: weeklyDay + 's', dailyTime };
+      } catch {
+        return { weeklyDay: 'weekly', weeklyDayPlural: 'weekends', dailyTime: 'morning' };
+      }
+    })();
+
+    function localizeSchedule() {
+      document.querySelectorAll('[data-weekly-day]').forEach((el) => { el.textContent = SEND_SCHEDULE.weeklyDay; });
+      document.querySelectorAll('[data-weekly-day-plural]').forEach((el) => { el.textContent = SEND_SCHEDULE.weeklyDayPlural; });
+      document.querySelectorAll('[data-daily-time]').forEach((el) => { el.textContent = SEND_SCHEDULE.dailyTime; });
+    }
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
@@ -254,14 +287,14 @@
         <legend>What you'll receive</legend>
         <label class="pref-opt">
           <input type="radio" name="cadence" value="both" form="subscribeForm" checked />
-          <span>Daily brief + Friday recap
-            <span class="pref-note">The full digest — one email each morning plus the weekly recap.</span>
+          <span>Daily brief + ${SEND_SCHEDULE.weeklyDay} recap
+            <span class="pref-note">The full digest — one email every ${SEND_SCHEDULE.dailyTime} plus the weekly recap.</span>
           </span>
         </label>
         <label class="pref-opt">
           <input type="radio" name="cadence" value="weekly" form="subscribeForm" />
-          <span>Friday recap only — less email
-            <span class="pref-note">Skip the daily brief; get just the weekly recap on Fridays.</span>
+          <span>${SEND_SCHEDULE.weeklyDay} recap only — less email
+            <span class="pref-note">Skip the daily brief; get just the weekly recap on ${SEND_SCHEDULE.weeklyDayPlural}.</span>
           </span>
         </label>
       </fieldset>
@@ -302,7 +335,7 @@
           button.remove();
           setMessage(
             weeklyOnly
-              ? "You’re subscribed to the weekly recap. The next Friday recap will arrive by email."
+              ? `You’re subscribed to the weekly recap. The next ${SEND_SCHEDULE.weeklyDay} recap will arrive by email.`
               : "You’re subscribed. The next brief will arrive by email.",
             'ok');
           return;
@@ -350,6 +383,7 @@
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
+    localizeSchedule();
     initSignup();
   </script>
 </body>

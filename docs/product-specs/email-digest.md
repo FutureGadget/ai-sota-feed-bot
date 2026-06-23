@@ -158,11 +158,23 @@ is no wiki high-water mark.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
 - **Per-digest selection (Resend Topics).** The `/subscribe` form offers an
-  explicit two-way cadence choice (radio buttons): **"Daily brief + Friday
-  recap"** (default) or **"Friday recap only — less email"**. The selection maps
-  to the same `weekly_only` boolean as before (the second option sets it true);
-  explicit radios replace the prior opt-down checkbox, whose unchecked state
-  was easy to misread. Daily and weekly are modelled as two Resend **Topics**
+  explicit two-way cadence choice (radio buttons): **"Daily brief + \<weekday\>
+  recap"** (default) or **"\<weekday\> recap only — less email"**. The selection
+  maps to the same `weekly_only` boolean as before (the second option sets it
+  true); explicit radios replace the prior opt-down checkbox, whose unchecked
+  state was easy to misread.
+  - *Timezone-adaptive labels.* The recap weekday and the daily time-of-day are
+    rendered client-side from the reader's own timezone, not hardcoded. The
+    sends are fixed UTC crons (daily 22:30 UTC; weekly **Friday 23:00 UTC**), but
+    Friday 23:00 UTC is **Saturday** morning in Seoul (KST = UTC+9), so the copy
+    would otherwise be wrong east of UTC. `web/subscribe.html` computes the
+    upcoming Friday-23:00-UTC instant and the daily-22:30-UTC instant, formats
+    the local weekday (English, `Intl.DateTimeFormat`) and a time-of-day word
+    (morning/afternoon/evening/night from the local hour), and fills the
+    `[data-weekly-day]`, `[data-weekly-day-plural]`, and `[data-daily-time]`
+    spans plus the form/success copy. Falls back to neutral "weekly"/"weekends"/
+    "morning" if `Intl` throws.
+  Daily and weekly are modelled as two Resend **Topics**
   (`EMAIL_TOPIC_ID_DAILY`, `EMAIL_TOPIC_ID_WEEKLY`):
   - *Signup* (`api/subscribe.js`) opts the contact into the **weekly** topic
     always, and into the **daily** topic with `status: opt_in` unless
