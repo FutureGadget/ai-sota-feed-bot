@@ -157,9 +157,12 @@ is no wiki high-water mark.
     is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
-- **Per-digest selection (Resend Topics).** The `/subscribe` form carries a
-  single **"Weekly recap only — less email"** checkbox (default off = both
-  digests). Daily and weekly are modelled as two Resend **Topics**
+- **Per-digest selection (Resend Topics).** The `/subscribe` form offers an
+  explicit two-way cadence choice (radio buttons): **"Daily brief + Friday
+  recap"** (default) or **"Friday recap only — less email"**. The selection maps
+  to the same `weekly_only` boolean as before (the second option sets it true);
+  explicit radios replace the prior opt-down checkbox, whose unchecked state
+  was easy to misread. Daily and weekly are modelled as two Resend **Topics**
   (`EMAIL_TOPIC_ID_DAILY`, `EMAIL_TOPIC_ID_WEEKLY`):
   - *Signup* (`api/subscribe.js`) opts the contact into the **weekly** topic
     always, and into the **daily** topic with `status: opt_in` unless

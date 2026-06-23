@@ -93,10 +93,14 @@
       background:color-mix(in srgb,var(--accent) 85%,#000); }
     button[disabled] { opacity:.6; cursor:default; }
     .external-signup { display:inline-flex; align-items:center; }
-    .pref { display:flex; align-items:flex-start; gap:.5rem; margin:.85rem 0 0; font-size:.9rem; color:var(--brief-ink); }
-    .pref input[type="checkbox"] { margin-top:.18rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
-    .pref label { cursor:pointer; }
-    .pref .pref-note { display:block; color:var(--muted); font-size:.82rem; }
+    .pref { margin:.95rem 0 0; padding:0; border:0; min-width:0; }
+    .pref legend { padding:0; margin:0 0 .5rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .pref-opt { display:flex; align-items:flex-start; gap:.55rem; margin:.45rem 0 0;
+      font-size:.92rem; color:var(--brief-ink); cursor:pointer; }
+    .pref-opt input[type="radio"] { margin-top:.2rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
+    .pref-opt:has(input:disabled) { cursor:default; opacity:.7; }
+    .pref-note { display:block; color:var(--muted); font-size:.82rem; }
     .message { margin:.8rem 0 0; font-size:.92rem; color:var(--muted); }
     .message[data-state="ok"] { color:var(--accent); font-weight:600; }
     .message[data-state="err"] { color:var(--err); }
@@ -246,12 +250,21 @@
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">Subscribe</button>
       </form>
-      <div class="pref">
-        <input type="checkbox" id="weeklyOnly" name="weekly_only" form="subscribeForm" />
-        <label for="weeklyOnly">Weekly recap only — less email
-          <span class="pref-note">Default is the daily brief plus the Friday recap. Check this to receive the Friday recap only.</span>
+      <fieldset class="pref">
+        <legend>What you'll receive</legend>
+        <label class="pref-opt">
+          <input type="radio" name="cadence" value="both" form="subscribeForm" checked />
+          <span>Daily brief + Friday recap
+            <span class="pref-note">The full digest — one email each morning plus the weekly recap.</span>
+          </span>
         </label>
-      </div>
+        <label class="pref-opt">
+          <input type="radio" name="cadence" value="weekly" form="subscribeForm" />
+          <span>Friday recap only — less email
+            <span class="pref-note">Skip the daily brief; get just the weekly recap on Fridays.</span>
+          </span>
+        </label>
+      </fieldset>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy">No account required. Every email includes an unsubscribe link.</p>`;
     }
@@ -267,7 +280,7 @@
     async function submitForm(form) {
       const emailInput = form.elements.email;
       const button = form.querySelector('button[type="submit"]');
-      const weeklyOnly = !!(form.elements.weekly_only && form.elements.weekly_only.checked);
+      const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
       const email = String(emailInput.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setMessage('Please enter a valid email address.', 'err');
@@ -285,7 +298,7 @@
         if (response.ok) {
           markSubscribed();
           emailInput.disabled = true;
-          if (form.elements.weekly_only) form.elements.weekly_only.disabled = true;
+          if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
           button.remove();
           setMessage(
             weeklyOnly
