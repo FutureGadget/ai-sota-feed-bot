@@ -108,7 +108,12 @@ storyline; it only proposes links the floor then judges.
   The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
-  `/storyline/<slug>` is served from the static page below), `voices.html`.
+  `/storyline/<slug>` is served from the static page below), `playbook.html`,
+  `voices.html`, `subscribe.html`. Shared responsive navigation lives in
+  top-level `site-chrome.css` + `site-chrome.js`: semantic fallback links are
+  progressively moved into Browse/More dialogs, while date/week/edition
+  controls remain visible. Generated pages receive the same chrome through
+  `pipeline/render_static_pages.py`.
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
   `web/storyline/`, `web/topic/`, `web/map.html`, `sitemap.xml` (from
   `render_static_pages.py`). Brand assets:

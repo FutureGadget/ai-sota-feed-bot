@@ -20,6 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -27,6 +28,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -191,22 +193,39 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
-        <h1>📰 AI Daily Recap</h1>
+    <header class="site-chrome" data-site-section="/daily">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Daily Recap</h1>
+        <p id="meta" class="muted">Loading…</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a id="jsonLink" href="/api/daily">View daily recap as JSON</a>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">Loading…</p>
-      <menu>
-        <a href="/" role="button">← Live feed</a>
-        <a href="/weekly" role="button">🗓️ Weekly recap</a>
-        <a href="/voices" role="button">🗣️ Voices</a>
-        <a href="/subscribe" role="button">✉️ Email digest</a>
-        <a id="jsonLink" href="/api/daily" role="button">JSON</a>
-        <label class="archive muted">Day
+      <div class="site-context" aria-label="Choose daily recap">
+        <a id="archivePrev" href="/daily" aria-label="Previous day">‹</a>
+        <label class="archive muted"><span>Day</span>
           <select id="archive" aria-label="Choose day"></select>
         </label>
-      </menu>
+        <a id="archiveNext" href="/daily" aria-label="Next day">›</a>
+      </div>
     </header>
 
     <section id="recap" aria-live="polite">
@@ -227,7 +246,10 @@
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
-      if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+      if (btn) {
+        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+      }
     }
     function initThemeToggle() {
       const btn = document.getElementById('themeToggle');
@@ -395,6 +417,20 @@
         if (!days.length) { sel.innerHTML = '<option>—</option>'; return; }
         sel.innerHTML = days.map((d) =>
           `<option value="${esc(d.date)}" ${d.date === currentDate ? 'selected' : ''}>${esc(d.date)} · ${esc(d.title || '')}</option>`).join('');
+        const index = days.findIndex((d) => d.date === currentDate);
+        const configureDirection = (id, item, label) => {
+          const link = document.getElementById(id);
+          if (!item) {
+            link.hidden = true;
+            link.removeAttribute('href');
+            return;
+          }
+          link.hidden = false;
+          link.href = `?date=${encodeURIComponent(item.date)}`;
+          link.setAttribute('aria-label', `${label}, ${item.date}`);
+        };
+        configureDirection('archivePrev', index >= 0 ? days[index + 1] : null, 'Previous day');
+        configureDirection('archiveNext', index > 0 ? days[index - 1] : null, 'Next day');
         sel.addEventListener('change', () => {
           window.location.search = `?date=${encodeURIComponent(sel.value)}`;
         });
@@ -536,7 +572,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');

@@ -12,3 +12,4 @@
 - feed-date-ranges.md
 - live-feed.md
 - feed-hide.md
+- mobile-site-chrome.md

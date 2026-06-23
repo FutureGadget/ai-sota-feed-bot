@@ -80,11 +80,14 @@ staleness notion.
   - map uses the max per-node `updated` date (a real page edit — **not** the
     wiki `index.json` `generated_at`, which every Vercel build regenerates).
 
-- A small inline script in each shell (`web/{index,daily,weekly,storyline,voices}.html`)
-  and in the static-render template (`pipeline/render_static_pages.py`,
+- A small inline script in each shell
+  (`web/{index,daily,weekly,storyline,playbook,voices}.html`) and in the
+  static-render template (`pipeline/render_static_pages.py`,
   `NAV_UPDATES_JS`) fetches `/api/updates`, compares each signal against a
   per-section "seen" marker in `localStorage`, applies the freshness gate for
-  daily/weekly, and decorates any matching nav link with the "New" pill.
+  daily/weekly, and decorates matching `.site-nav-fallback` links. Shared site
+  chrome moves that same semantic navigation node into Browse, so the pill
+  remains visible without duplicating freshness logic.
 
 - **Read tracking:** when the reader is *on* a section page
   (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`, `/map` or
