@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6]
-updated: 2026-06-21
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75]
+updated: 2026-06-23
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75]
 ---
 
 ## TL;DR
@@ -37,6 +37,11 @@ agent holds credentials and takes actions, so it is a non-human identity that
 needs the same lifecycle, scoping, and audit as a service account. Security teams
 warn that most organizations don't yet treat agents that way, leaving an
 ungoverned class of actors with standing privileges that injection can borrow.
+Red-teaming practitioners (Gray Swan, with OpenAI's Zico Kolter) push the same
+point from the offensive side: agent security is *not* "cybersecurity with AI
+sprinkled on" — the attack surface is the model's behavior under adversarial
+input, so it needs dedicated red-teaming of the agent's decisions and tool use,
+not just the perimeter around it.
 
 ## What's new
 The emphasis is moving up the stack from "filter the prompt" to "govern the
@@ -48,6 +53,9 @@ The least-privilege controls are now landing as concrete harness primitives —
 per-parameter permission rules (Claude Code's `Tool(param:value)`) and
 approval-gated writes that respect the caller's permissions (datasette-agent) —
 so blast-radius limiting is becoming a configurable boundary, not just advice.
+And on the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that
+agent security is a distinct discipline from classic cybersecurity, requiring
+adversarial testing of the agent's own behavior rather than perimeter defense.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

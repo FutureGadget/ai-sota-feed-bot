@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575]
-updated: 2026-06-19
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817]
+updated: 2026-06-23
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817]
 ---
 
 ## TL;DR
@@ -26,13 +26,21 @@ on production traces**: LangChain and Fireworks report matching frontier-judge
 quality at roughly 1/100th the cost by mining perceived-error signals from real
 traffic. A related frontier is judging *before* deployment — OpenAI's deployment
 simulation predicts model behavior on real conversation data pre-release, using
-model-graded simulation as a forecasting tool rather than a post-hoc check.
+model-graded simulation as a forecasting tool rather than a post-hoc check. The
+counterweight to all of this is **judge auditing**: BabelJudge quantifies how
+unreliable judges are across languages and agent trajectories — position bias
+(favoring slot A), verbosity bias, and language-dependent drift that raw accuracy
+masks — making "validate the judge" a measurable step, not a caveat. The practical
+read is that a fine-tuned or frontier judge is only as trustworthy as the
+bias-and-agreement numbers you can show against held-out human labels.
 
 ## What's new
-Cheap, specialized judges: instead of paying frontier-model rates per trace,
-teams fine-tune a small open model on their own production traces and recover
-near-frontier judging quality — turning LLM-as-judge from a sampling luxury into
-something you can run on the whole stream.
+Judge auditing is catching up with judge adoption: BabelJudge puts numbers on
+position, verbosity, and cross-language bias in LLM-as-judge over agent
+trajectories, reinforcing that a cheap fine-tuned judge still has to clear a
+measured bias-and-agreement bar before you trust it. That sits next to the
+ongoing cost story — teams fine-tune a small open model on their own production
+traces to recover near-frontier quality at a fraction of the cost.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,

@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575]
-updated: 2026-06-19
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3]
+updated: 2026-06-23
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3]
 ---
 
 ## TL;DR
@@ -35,14 +35,25 @@ field leans on **LLM-as-judge** scoring (now being cost-reduced by fine-tuning
 small judges on production traces) and on **agent benchmarks** that exercise an
 agent against its own tooling. The frontier edge is *pre*-deployment prediction —
 simulating deployment on real conversation data to forecast behavior before
-release rather than measuring it after an incident.
+release rather than measuring it after an incident. Two countercurrents now
+temper the optimism. First, the judge itself is under audit: BabelJudge measures
+LLM-as-judge reliability across languages *and* agent trajectories and finds the
+systematic biases (position, verbosity, language) that raw accuracy hides — so a
+trajectory judge needs its own validation before you trust its verdicts. Second,
+hard-won practitioner write-ups (three years of evals for financial agents; a
+post-mortem on why most evals would miss a real Linear sales-email failure)
+converge on the same warning: an eval suite passes while the agent fails the way
+that actually matters, because the suite never encoded the real-world failure.
 
 ## What's new
-The conversation has moved past "did it answer correctly" to graded *process*:
-trace judges that score trajectories (LangChain/Fireworks report matching
-frontier-judge quality at ~1/100th the cost by fine-tuning an open model on
-production traces) and root-cause failure detectors, plus mounting evidence that
-familiar-benchmark scores collapse out of distribution.
+Scrutiny has turned on the eval machinery itself: BabelJudge shows trajectory
+judges carry measurable position/language bias under the hood, and practitioner
+post-mortems (financial-agent evals, the missed Linear failure) argue that a
+green eval suite routinely hides the failure that matters — so "build a judge"
+is giving way to "validate the judge and the suite against real failures." This
+sits alongside the earlier shift to graded *process* — trace judges that score
+trajectories at ~1/100th frontier cost and root-cause failure detectors — and
+mounting evidence that familiar-benchmark scores collapse out of distribution.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell a

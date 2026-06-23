@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-22T02:11:40.864311+00:00",
+ "generated_at": "2026-06-23T02:09:43.640383+00:00",
  "areas": [
   {
    "area": "memory",
@@ -139,11 +139,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Evaluation is splitting into two complementary jobs. The first is <strong>trajectory / process evaluation</strong> — judging the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The second is <strong>outcome evaluation under distribution shift</strong>: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident.</p>"
+     "html": "<p>Evaluation is splitting into two complementary jobs. The first is <strong>trajectory / process evaluation</strong> — judging the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The second is <strong>outcome evaluation under distribution shift</strong>: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident. Two countercurrents now temper the optimism. First, the judge itself is under audit: BabelJudge measures LLM-as-judge reliability across languages *and* agent trajectories and finds the systematic biases (position, verbosity, language) that raw accuracy hides — so a trajectory judge needs its own validation before you trust its verdicts. Second, hard-won practitioner write-ups (three years of evals for financial agents; a post-mortem on why most evals would miss a real Linear sales-email failure) converge on the same warning: an eval suite passes while the agent fails the way that actually matters, because the suite never encoded the real-world failure.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The conversation has moved past &quot;did it answer correctly&quot; to graded *process*: trace judges that score trajectories (LangChain/Fireworks report matching frontier-judge quality at ~1/100th the cost by fine-tuning an open model on production traces) and root-cause failure detectors, plus mounting evidence that familiar-benchmark scores collapse out of distribution.</p>"
+     "html": "<p>Scrutiny has turned on the eval machinery itself: BabelJudge shows trajectory judges carry measurable position/language bias under the hood, and practitioner post-mortems (financial-agent evals, the missed Linear failure) argue that a green eval suite routinely hides the failure that matters — so &quot;build a judge&quot; is giving way to &quot;validate the judge and the suite against real failures.&quot; This sits alongside the earlier shift to graded *process* — trace judges that score trajectories at ~1/100th frontier cost and root-cause failure detectors — and mounting evidence that familiar-benchmark scores collapse out of distribution.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -191,9 +191,21 @@
     {
      "sid": "c000018ba1f03575",
      "title": "Predicting model behavior before release by simulating deployment"
+    },
+    {
+     "sid": "c579e90dd1110817",
+     "title": "BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories"
+    },
+    {
+     "sid": "27f5cba0a6308a00",
+     "title": "Why most AI evals would miss the Linear sales email failure"
+    },
+    {
+     "sid": "00678eb9b30563c3",
+     "title": "Lessons from Building Evals for Financial AI Agents"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-23"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -209,11 +221,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0), graph-based associative memory built with ~zero LLM calls (FERNme) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest. A second, cost-driven theme is <strong>cheap, mechanical writes</strong>: rather than calling an LLM to decide what to store, newer stores build the memory structure deterministically — FERNme forms associative memory tags from fuzzy edges and a Hebbian co-occurrence rule — so persisting what an agent learns stops being a per-turn token bill.</p>"
+     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0), graph-based associative memory built with ~zero LLM calls (FERNme) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest. A second, cost-driven theme is <strong>cheap, mechanical writes</strong>: rather than calling an LLM to decide what to store, newer stores build the memory structure deterministically — FERNme forms associative memory tags from fuzzy edges and a Hebbian co-occurrence rule, and local-first stores like PMB index writes with a hybrid BM25-plus-vector retriever in a single SQLite file — so persisting and recalling what an agent learns stops being a per-turn token bill. A third, newer theme is <strong>memory integrity</strong>: persistent memory is also a persistent attack surface. A reproducible benchmark shows agent-memory systems readily admit *poisoned facts* — adversarial or wrong entries that get written once and then retrieved as trusted context on every later turn — which makes write-time validation and provenance, not just recall quality, part of the memory-engineering job (and ties memory to <a href=\"/topic/prompt-injection\">prompt injection</a>).</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The local-first wave is now also attacking the <strong>write cost</strong> of memory: FERNme builds an associative memory graph from fuzzy edges and a Hebbian co-occurrence rule that updates with ~zero LLM calls, so persisting what an agent learns stops being a per-turn token bill — joining bi-temporal SQLite stores (Memharness) and encrypted local memory over MCP (Cortex) in treating memory as an installable, developer-owned component rather than a metered service.</p>"
+     "html": "<p>Memory <strong>integrity</strong> has joined cost and recall as a first-class concern: a reproducible benchmark shows agent-memory systems readily admit *poisoned facts* that are then retrieved as trusted context forever, making write-time validation and provenance part of the design. The local-first wave keeps widening too — FERNme&#x27;s ~zero-LLM-call associative graph and PMB&#x27;s single-file hybrid BM25+vector store join bi-temporal SQLite (Memharness) and encrypted memory over MCP (Cortex) in treating memory as an installable, developer-owned component, not a metered service.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -269,9 +281,17 @@
     {
      "sid": "eb5267262e7d31c8",
      "title": "Show HN: FERNme – agent memory that updates with ~zero LLM calls"
+    },
+    {
+     "sid": "cc131dd2666136ca",
+     "title": "Agent-memory systems admit poisoned facts – a reproducible benchmark"
+    },
+    {
+     "sid": "fbb59a181d9a71e6",
+     "title": "Show HN: PMB – local-first memory for AI coding agents over MCP"
     }
    ],
-   "updated": "2026-06-22"
+   "updated": "2026-06-23"
   },
   "model-drift": {
    "slug": "model-drift",
@@ -348,11 +368,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The conversation is shifting from &quot;more agents is better&quot; to characterizing *when* multi-agent actually helps, and the recurring answer is that the <strong>communication structure dominates the agent count</strong>. DPBench studies the structural determinants of multi-agent LLM coordination directly — which topologies and role assignments make collaboration pay off versus add noise. Cost is the second axis: Stanford&#x27;s DeLM reports cutting multi-agent task cost by roughly half by *removing the central orchestrator*, evidence that a single coordinating agent is both a token bottleneck and a single point of failure. Orchestration itself is becoming dynamic rather than hand-wired — Anthropic&#x27;s writeup on Claude Code&#x27;s Dynamic Workflows describes generating a custom execution harness per task to coordinate sub-agents instead of committing to one fixed shape. Meanwhile practitioners are still hunting for frameworks where *heterogeneous* models genuinely collaborate (route refactors to one model, codegen to another), which is really a routing-and-handoff problem, not a model problem. The durable lesson: who talks to whom, in what format, and under whose control is the dominant variable.</p>"
+     "html": "<p>The conversation is shifting from &quot;more agents is better&quot; to characterizing *when* multi-agent actually helps, and the recurring answer is that the <strong>communication structure dominates the agent count</strong>. DPBench studies the structural determinants of multi-agent LLM coordination directly — which topologies and role assignments make collaboration pay off versus add noise. Cost is the second axis: Stanford&#x27;s DeLM reports cutting multi-agent task cost by roughly half by *removing the central orchestrator*, evidence that a single coordinating agent is both a token bottleneck and a single point of failure. Orchestration itself is becoming dynamic rather than hand-wired — Anthropic&#x27;s writeup on Claude Code&#x27;s Dynamic Workflows describes generating a custom execution harness per task to coordinate sub-agents instead of committing to one fixed shape. Meanwhile practitioners are still hunting for frameworks where *heterogeneous* models genuinely collaborate (route refactors to one model, codegen to another), which is really a routing-and-handoff problem, not a model problem. A sharper version of the &quot;is it worth it&quot; question is now visible at both ends: Sakana&#x27;s Fugu *collapses* a multi-agent system into a single distilled model — trading the coordination layer away entirely once the division of labor is known — while practitioners building orchestration libraries report that the real engineering is mundane plumbing (workspaces, runtimes, directory layout for sub-agents) rather than clever agent roles. The durable lesson: who talks to whom, in what format, and under whose control is the dominant variable — and sometimes the cheapest topology is no topology at all.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Evidence is converging that *topology*, not the number of agents, drives both coordination quality and cost — DPBench formalizes the structural determinants, DeLM shows decentralizing away from a central orchestrator cuts task cost ~50%, and Anthropic is now generating execution harnesses per task rather than fixing a single coordination shape.</p>"
+     "html": "<p>The &quot;does multi-agent even pay&quot; question is sharpening from both ends: Sakana&#x27;s Fugu distills a whole multi-agent system into one model (delete the coordination layer), and orchestration-library authors report the hard part is workspace/ runtime/directory plumbing, not agent cleverness. That reinforces the earlier finding that *topology*, not agent count, drives quality and cost — DPBench formalizes the structural determinants, DeLM cuts task cost ~50% by dropping the central orchestrator, and Anthropic generates execution harnesses per task.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -387,9 +407,17 @@
     {
      "sid": "f961ee6418699914",
      "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
+    },
+    {
+     "sid": "884659da8630c702",
+     "title": "Sakana Fugu multi-agent system delivered as one model"
+    },
+    {
+     "sid": "296564a4c4e09d02",
+     "title": "Workspace, Runtime, and Directories – Designing an Agent Orchestration Library"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-23"
   },
   "prompt-injection": {
    "slug": "prompt-injection",
@@ -405,11 +433,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius — and the operational framing is consolidating around <strong>agent-as-identity</strong>: an autonomous agent holds credentials and takes actions, so it is a non-human identity that needs the same lifecycle, scoping, and audit as a service account. Security teams warn that most organizations don&#x27;t yet treat agents that way, leaving an ungoverned class of actors with standing privileges that injection can borrow.</p>"
+     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius — and the operational framing is consolidating around <strong>agent-as-identity</strong>: an autonomous agent holds credentials and takes actions, so it is a non-human identity that needs the same lifecycle, scoping, and audit as a service account. Security teams warn that most organizations don&#x27;t yet treat agents that way, leaving an ungoverned class of actors with standing privileges that injection can borrow. Red-teaming practitioners (Gray Swan, with OpenAI&#x27;s Zico Kolter) push the same point from the offensive side: agent security is *not* &quot;cybersecurity with AI sprinkled on&quot; — the attack surface is the model&#x27;s behavior under adversarial input, so it needs dedicated red-teaming of the agent&#x27;s decisions and tool use, not just the perimeter around it.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The emphasis is moving up the stack from &quot;filter the prompt&quot; to &quot;govern the actor&quot;: guardrails can be turned into a DoS vector and sandboxes don&#x27;t solve credential authorization, while a parallel push reframes every agent as a first-class <strong>identity</strong> to be provisioned, scoped, and audited like a service account — closing the gap injection exploits when agents hold ambient privilege. The least-privilege controls are now landing as concrete harness primitives — per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>) and approval-gated writes that respect the caller&#x27;s permissions (datasette-agent) — so blast-radius limiting is becoming a configurable boundary, not just advice.</p>"
+     "html": "<p>The emphasis is moving up the stack from &quot;filter the prompt&quot; to &quot;govern the actor&quot;: guardrails can be turned into a DoS vector and sandboxes don&#x27;t solve credential authorization, while a parallel push reframes every agent as a first-class <strong>identity</strong> to be provisioned, scoped, and audited like a service account — closing the gap injection exploits when agents hold ambient privilege. The least-privilege controls are now landing as concrete harness primitives — per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>) and approval-gated writes that respect the caller&#x27;s permissions (datasette-agent) — so blast-radius limiting is becoming a configurable boundary, not just advice. And on the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that agent security is a distinct discipline from classic cybersecurity, requiring adversarial testing of the agent&#x27;s own behavior rather than perimeter defense.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -448,9 +476,13 @@
     {
      "sid": "810e8370a6841be6",
      "title": "datasette-agent 0.3a0"
+    },
+    {
+     "sid": "0ef52ef7cd8a9e75",
+     "title": "Red-Teaming after Mythos — Zico Kolter & Matt Fredrikson, Gray Swan"
     }
    ],
-   "updated": "2026-06-21"
+   "updated": "2026-06-23"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -523,11 +555,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off.</p>"
+     "html": "<p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off. A third theme is <strong>the harness is part of what you benchmark</strong>: a cross-harness study reports a deliberately simple agent loop reaching SOTA across 21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate scaffolding often adds cost and variance without adding capability — so the benchmark should hold the harness fixed and let it earn its complexity.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Skepticism of leaderboard scores is now the default stance: results that agents collapse &quot;beyond familiar environments,&quot; plus workbenches that benchmark models on *your* tools, push teams toward task suites grounded in their own environment rather than trusting a public number.</p>"
+     "html": "<p>The harness is now treated as a benchmark variable in its own right: a cross-harness study finds a *simple* agent loop hitting SOTA across 21 models on SWE-pro/Terminal-Bench suites, arguing elaborate scaffolding mostly adds cost and variance. That joins the standing skepticism of leaderboard scores — agents collapse &quot;beyond familiar environments,&quot; and workbenches that benchmark on *your* tools push teams toward task suites grounded in their own environment.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -579,9 +611,13 @@
     {
      "sid": "64ad8e685ed41a9b",
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+     "sid": "3abcf8c08cb66506",
+     "title": "Simplicity always wins:SOTA on swe-pro,tb2,-verif on 21 models with simple-agent"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-23"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
@@ -597,11 +633,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Two axes are in play. <strong>Topology</strong>: the orchestrator-worker (star) pattern is the simplest to reason about but makes the coordinator a throughput bottleneck and a single point of failure — Stanford&#x27;s DeLM reports cutting task cost ~50% by removing the central orchestrator, and DPBench finds the communication structure is the dominant determinant of whether coordination helps at all. <strong>Dynamism</strong>: orchestration is moving from hand-wired graphs toward *generated* control flow — Anthropic&#x27;s Claude Code Dynamic Workflows generate a custom execution harness per task to coordinate sub-agents rather than committing to one static shape. Across both axes the durable lesson is that the value lives in the <strong>interface contracts</strong> between agents — structured handoffs, compact wire formats, explicit roles — not in the number of agents you spin up.</p>"
+     "html": "<p>Two axes are in play. <strong>Topology</strong>: the orchestrator-worker (star) pattern is the simplest to reason about but makes the coordinator a throughput bottleneck and a single point of failure — Stanford&#x27;s DeLM reports cutting task cost ~50% by removing the central orchestrator, and DPBench finds the communication structure is the dominant determinant of whether coordination helps at all. <strong>Dynamism</strong>: orchestration is moving from hand-wired graphs toward *generated* control flow — Anthropic&#x27;s Claude Code Dynamic Workflows generate a custom execution harness per task to coordinate sub-agents rather than committing to one static shape. Across both axes the durable lesson is that the value lives in the <strong>interface contracts</strong> between agents — structured handoffs, compact wire formats, explicit roles — not in the number of agents you spin up. A third, quieter axis is the <strong>runtime substrate</strong>: writeups from teams building orchestration libraries report that the load-bearing design is workspace, runtime, and directory layout — where each sub-agent runs, what filesystem and state it sees, how outputs are isolated and collected — i.e. orchestration is as much an execution-environment problem as a control-flow one.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The center of gravity has moved from &quot;add more agents&quot; to &quot;design the coordination&quot;: decentralized topologies that drop the central orchestrator (DeLM) and per-task generated harnesses (Anthropic) are displacing the default single-coordinator star, with the communication structure treated as the primary design variable.</p>"
+     "html": "<p>Beyond topology and dynamism, orchestration is increasingly framed as a <strong>runtime-substrate</strong> problem: library authors report that workspace, runtime, and per-agent directory isolation are the load-bearing design, not the role graph. That complements the move from &quot;add more agents&quot; to &quot;design the coordination&quot; — decentralized topologies (DeLM) and per-task generated harnesses (Anthropic) displacing the single-coordinator star.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -636,9 +672,13 @@
     {
      "sid": "64ad8e685ed41a9b",
      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+     "sid": "296564a4c4e09d02",
+     "title": "Workspace, Runtime, and Directories – Designing an Agent Orchestration Library"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-23"
   },
   "agent-sandboxing": {
    "slug": "agent-sandboxing",
@@ -853,11 +893,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: detectors that read a trace and emit categorized failures with confidence scores and causal chains (AWS&#x27;s Strands Evals) rather than a single scalar. The headline cost problem — running a frontier judge over every trace is expensive — is being attacked by <strong>fine-tuning small open judges on production traces</strong>: LangChain and Fireworks report matching frontier-judge quality at roughly 1/100th the cost by mining perceived-error signals from real traffic. A related frontier is judging *before* deployment — OpenAI&#x27;s deployment simulation predicts model behavior on real conversation data pre-release, using model-graded simulation as a forecasting tool rather than a post-hoc check.</p>"
+     "html": "<p>The pattern is maturing from &quot;ask GPT to rate 1–5&quot; toward <strong>structured, trajectory-level judging</strong>: detectors that read a trace and emit categorized failures with confidence scores and causal chains (AWS&#x27;s Strands Evals) rather than a single scalar. The headline cost problem — running a frontier judge over every trace is expensive — is being attacked by <strong>fine-tuning small open judges on production traces</strong>: LangChain and Fireworks report matching frontier-judge quality at roughly 1/100th the cost by mining perceived-error signals from real traffic. A related frontier is judging *before* deployment — OpenAI&#x27;s deployment simulation predicts model behavior on real conversation data pre-release, using model-graded simulation as a forecasting tool rather than a post-hoc check. The counterweight to all of this is <strong>judge auditing</strong>: BabelJudge quantifies how unreliable judges are across languages and agent trajectories — position bias (favoring slot A), verbosity bias, and language-dependent drift that raw accuracy masks — making &quot;validate the judge&quot; a measurable step, not a caveat. The practical read is that a fine-tuned or frontier judge is only as trustworthy as the bias-and-agreement numbers you can show against held-out human labels.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Cheap, specialized judges: instead of paying frontier-model rates per trace, teams fine-tune a small open model on their own production traces and recover near-frontier judging quality — turning LLM-as-judge from a sampling luxury into something you can run on the whole stream.</p>"
+     "html": "<p>Judge auditing is catching up with judge adoption: BabelJudge puts numbers on position, verbosity, and cross-language bias in LLM-as-judge over agent trajectories, reinforcing that a cheap fine-tuned judge still has to clear a measured bias-and-agreement bar before you trust it. That sits next to the ongoing cost story — teams fine-tune a small open model on their own production traces to recover near-frontier quality at a fraction of the cost.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -888,9 +928,13 @@
     {
      "sid": "c000018ba1f03575",
      "title": "Predicting model behavior before release by simulating deployment"
+    },
+    {
+     "sid": "c579e90dd1110817",
+     "title": "BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories"
     }
    ],
-   "updated": "2026-06-19"
+   "updated": "2026-06-23"
   },
   "mcp": {
    "slug": "mcp",
@@ -906,11 +950,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent — and the open-source client side is filling in alongside the browser trial, with MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site can build agentic experiences without a vendor SDK. MCP is also becoming the assumed plug for hosted runtimes — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives). Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>"
+     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants. The actuation surface is expanding to the browser: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent — and the open-source client side is filling in alongside the browser trial, with MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site can build agentic experiences without a vendor SDK. MCP is also becoming the assumed plug for hosted runtimes — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives). Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard. The same maturation is landing in the client tooling: Claude Code added <code>claude mcp login</code> / <code>logout</code> to authenticate servers from the CLI without the interactive menu, and practitioners increasingly argue MCP&#x27;s *core* value is exactly this — isolating the auth flow outside the agent&#x27;s context window (and ideally out of the harness entirely) rather than the tool-description format itself. Read that way, the durable win of MCP is credential handling, not schema standardization.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP access built in (Azure Functions&#x27; agents runtime), the small-server long tail is filling out (a generic coding-tools MCP), the browser surface is getting open, framework-free WebMCP client libraries (Persona.js, MIT), and authorization is moving to identity-provider governance — the boring, load-bearing pieces, not just demos.</p>"
+     "html": "<p>Authentication is becoming MCP&#x27;s center of gravity: Claude Code shipped <code>claude mcp login</code>/<code>logout</code> for headless server auth, and the framing is hardening that MCP&#x27;s real edge is <strong>isolating the auth flow outside the agent&#x27;s context window</strong>, not the schema format. This sits on top of the now-assumed infrastructure — MCP-equipped serverless runtimes (Azure Functions), a filling small-server long tail, framework-free WebMCP clients (Persona.js, MIT), and identity-provider-governed authorization.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -957,9 +1001,17 @@
     {
      "sid": "10de279350c1ecc9",
      "title": "Show HN: Persona.js – a vanilla-JS agent UI library with native WebMCP (MIT)"
+    },
+    {
+     "sid": "f672838de330e86f",
+     "title": "claude-code v2.1.186"
+    },
+    {
+     "sid": "9370d60ff069b1f4",
+     "title": "Quoting Sean Lynch"
     }
    ],
-   "updated": "2026-06-22"
+   "updated": "2026-06-23"
   },
   "vector-kb": {
    "slug": "vector-kb",

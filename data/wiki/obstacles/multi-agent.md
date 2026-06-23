@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914]
-updated: 2026-06-19
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02]
+updated: 2026-06-23
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02]
 ---
 
 ## TL;DR
@@ -34,15 +34,24 @@ execution harness per task to coordinate sub-agents instead of committing to one
 fixed shape. Meanwhile practitioners are still hunting for frameworks where
 *heterogeneous* models genuinely collaborate (route refactors to one model,
 codegen to another), which is really a routing-and-handoff problem, not a model
-problem. The durable lesson: who talks to whom, in what format, and under whose
-control is the dominant variable.
+problem. A sharper version of the
+"is it worth it" question is now visible at both ends: Sakana's Fugu *collapses* a
+multi-agent system into a single distilled model — trading the coordination layer
+away entirely once the division of labor is known — while practitioners building
+orchestration libraries report that the real engineering is mundane plumbing
+(workspaces, runtimes, directory layout for sub-agents) rather than clever agent
+roles. The durable lesson: who talks to whom, in what format, and under whose
+control is the dominant variable — and sometimes the cheapest topology is no
+topology at all.
 
 ## What's new
-Evidence is converging that *topology*, not the number of agents, drives both
-coordination quality and cost — DPBench formalizes the structural determinants,
-DeLM shows decentralizing away from a central orchestrator cuts task cost ~50%,
-and Anthropic is now generating execution harnesses per task rather than fixing
-a single coordination shape.
+The "does multi-agent even pay" question is sharpening from both ends: Sakana's
+Fugu distills a whole multi-agent system into one model (delete the coordination
+layer), and orchestration-library authors report the hard part is workspace/
+runtime/directory plumbing, not agent cleverness. That reinforces the earlier
+finding that *topology*, not agent count, drives quality and cost — DPBench
+formalizes the structural determinants, DeLM cuts task cost ~50% by dropping the
+central orchestrator, and Anthropic generates execution harnesses per task.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

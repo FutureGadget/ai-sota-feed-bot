@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b]
-updated: 2026-06-19
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506]
+updated: 2026-06-23
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506]
 ---
 
 ## TL;DR
@@ -27,13 +27,19 @@ tools, and "Running the Gauntlet" shows agents that top familiar leaderboards
 degrade sharply in unfamiliar environments — so a high public score is weak
 evidence for your workload. Reusable eval workbenches (olmo-eval) package this
 into the model/agent development loop so benchmarking is a standing harness, not
-a one-off.
+a one-off. A third theme is **the harness is part of what you benchmark**: a
+cross-harness study reports a deliberately simple agent loop reaching SOTA across
+21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate
+scaffolding often adds cost and variance without adding capability — so the
+benchmark should hold the harness fixed and let it earn its complexity.
 
 ## What's new
-Skepticism of leaderboard scores is now the default stance: results that agents
-collapse "beyond familiar environments," plus workbenches that benchmark models
-on *your* tools, push teams toward task suites grounded in their own
-environment rather than trusting a public number.
+The harness is now treated as a benchmark variable in its own right: a
+cross-harness study finds a *simple* agent loop hitting SOTA across 21 models on
+SWE-pro/Terminal-Bench suites, arguing elaborate scaffolding mostly adds cost and
+variance. That joins the standing skepticism of leaderboard scores — agents
+collapse "beyond familiar environments," and workbenches that benchmark on *your*
+tools push teams toward task suites grounded in their own environment.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static target:

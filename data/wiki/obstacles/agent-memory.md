@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8]
-updated: 2026-06-22
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6]
+updated: 2026-06-23
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6]
 ---
 
 ## TL;DR
@@ -40,16 +40,26 @@ and when the agent learned it, so recall can reason about staleness instead of
 returning whatever embeds nearest. A second, cost-driven theme is **cheap,
 mechanical writes**: rather than calling an LLM to decide what to store, newer
 stores build the memory structure deterministically — FERNme forms associative
-memory tags from fuzzy edges and a Hebbian co-occurrence rule — so persisting
-what an agent learns stops being a per-turn token bill.
+memory tags from fuzzy edges and a Hebbian co-occurrence rule, and local-first
+stores like PMB index writes with a hybrid BM25-plus-vector retriever in a single
+SQLite file — so persisting and recalling what an agent learns stops being a
+per-turn token bill. A third, newer theme is **memory integrity**: persistent
+memory is also a persistent attack surface. A reproducible benchmark shows
+agent-memory systems readily admit *poisoned facts* — adversarial or wrong
+entries that get written once and then retrieved as trusted context on every
+later turn — which makes write-time validation and provenance, not just recall
+quality, part of the memory-engineering job (and ties memory to
+[prompt injection](/topic/prompt-injection)).
 
 ## What's new
-The local-first wave is now also attacking the **write cost** of memory: FERNme
-builds an associative memory graph from fuzzy edges and a Hebbian co-occurrence
-rule that updates with ~zero LLM calls, so persisting what an agent learns stops
-being a per-turn token bill — joining bi-temporal SQLite stores (Memharness) and
-encrypted local memory over MCP (Cortex) in treating memory as an installable,
-developer-owned component rather than a metered service.
+Memory **integrity** has joined cost and recall as a first-class concern: a
+reproducible benchmark shows agent-memory systems readily admit *poisoned facts*
+that are then retrieved as trusted context forever, making write-time validation
+and provenance part of the design. The local-first wave keeps widening too —
+FERNme's ~zero-LLM-call associative graph and PMB's single-file hybrid BM25+vector
+store join bi-temporal SQLite (Memharness) and encrypted memory over MCP (Cortex)
+in treating memory as an installable, developer-owned component, not a metered
+service.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

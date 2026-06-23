@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b]
-updated: 2026-06-19
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02]
+updated: 2026-06-23
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02]
 ---
 
 ## TL;DR
@@ -28,14 +28,20 @@ control flow — Anthropic's Claude Code Dynamic Workflows generate a custom
 execution harness per task to coordinate sub-agents rather than committing to one
 static shape. Across both axes the durable lesson is that the value lives in the
 **interface contracts** between agents — structured handoffs, compact wire
-formats, explicit roles — not in the number of agents you spin up.
+formats, explicit roles — not in the number of agents you spin up. A third,
+quieter axis is the **runtime substrate**: writeups from teams building
+orchestration libraries report that the load-bearing design is workspace,
+runtime, and directory layout — where each sub-agent runs, what filesystem and
+state it sees, how outputs are isolated and collected — i.e. orchestration is as
+much an execution-environment problem as a control-flow one.
 
 ## What's new
-The center of gravity has moved from "add more agents" to "design the
-coordination": decentralized topologies that drop the central orchestrator (DeLM)
-and per-task generated harnesses (Anthropic) are displacing the default
-single-coordinator star, with the communication structure treated as the primary
-design variable.
+Beyond topology and dynamism, orchestration is increasingly framed as a
+**runtime-substrate** problem: library authors report that workspace, runtime,
+and per-agent directory isolation are the load-bearing design, not the role
+graph. That complements the move from "add more agents" to "design the
+coordination" — decentralized topologies (DeLM) and per-task generated harnesses
+(Anthropic) displacing the single-coordinator star.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

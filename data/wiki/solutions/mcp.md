@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9]
-updated: 2026-06-22
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4]
+updated: 2026-06-23
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4]
 ---
 
 ## TL;DR
@@ -34,15 +34,22 @@ Crucially, the protocol's growth is forcing the **governance** layer — Claude'
 enterprise managed authorization provisions MCP connectors org-wide through an
 identity provider (Okta first), so connector access and authorization are
 configured centrally rather than per user. That move from "connect a tool" to
-"govern a fleet of connectors" is the sign of a maturing standard.
+"govern a fleet of connectors" is the sign of a maturing standard. The same
+maturation is landing in the client tooling: Claude Code added `claude mcp login`
+/ `logout` to authenticate servers from the CLI without the interactive menu, and
+practitioners increasingly argue MCP's *core* value is exactly this — isolating
+the auth flow outside the agent's context window (and ideally out of the harness
+entirely) rather than the tool-description format itself. Read that way, the
+durable win of MCP is credential handling, not schema standardization.
 
 ## What's new
-MCP is now assumed infrastructure: hosted serverless runtimes ship with MCP
-access built in (Azure Functions' agents runtime), the small-server long tail is
-filling out (a generic coding-tools MCP), the browser surface is getting open,
-framework-free WebMCP client libraries (Persona.js, MIT), and authorization is
-moving to identity-provider governance — the boring, load-bearing pieces, not
-just demos.
+Authentication is becoming MCP's center of gravity: Claude Code shipped
+`claude mcp login`/`logout` for headless server auth, and the framing is
+hardening that MCP's real edge is **isolating the auth flow outside the agent's
+context window**, not the schema format. This sits on top of the now-assumed
+infrastructure — MCP-equipped serverless runtimes (Azure Functions), a filling
+small-server long tail, framework-free WebMCP clients (Persona.js, MIT), and
+identity-provider-governed authorization.
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose
