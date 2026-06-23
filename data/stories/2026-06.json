@@ -1134,6 +1134,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4tQU5RNkdheXNGM05RRVVXQXlSY2t1dXNoVTZrVk93dC1udkY2VVJSd0xaVV90dkdlNDExSW9pTEQ1cUR0TTNTTlg5RlpDN3VZLVVMV0dPV3lPMXNqZWNTZFBjb3JHZmpVUjdxbg?oc=5"
  },
+ "23e2eafdfbedac08": {
+  "first_seen": "2026-06-23T03:01:43.917625+00:00",
+  "id": "351dd21602389ebb",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-06-21T13:10:48+00:00",
+  "sid": "23e2eafdfbedac08",
+  "source": "arxiv_cs_cl",
+  "summary": "Decision-making in real-world settings rarely follows a fixed script. Instead, it unfolds as a dynamic reasoning process in which the appropriate course of action evolves as new context and data become available. Traditional Business Process Management systems provide rigor, determinism, and auditability, yet they generally struggle to adapt their execution at runtime. Conversely, agentic systems based on Large Language Models (LLMs) bring flexibility to decision-making, but they are inherently opaque, often unreliable, and suffer from significant scalability constraints when operating over large datasets. To combine these complementary paradigms, we introduce VADAOrchestra, a neurosymbolic framework that models complex workflows as evolving reasoning processes. The framework adopts a hybrid approach: given a user query and a collection of data sources, an LLM-based orchestrator incrementally plans and adapts the workflow. This is encoded as a logic program in a fragment of Datalog+/- where predicates correspond to tool invocations and rules represent both predefined domain dependencies and logic constructs synthesized on demand to manipulate intermediate results. All logical inference tasks are then executed by a state-of-the-art Datalog+/- symbolic engine. This approach provides a verifiable reasoning trace, supporting the auditability and reproducibility of the entire process. Furthermore, by decoupling high-level orchestration from symbolic inference, it addresses scalabi",
+  "summary_1line": "Decision-making in real-world settings rarely follows a fixed script. Instead, it unfolds as a dynamic reasoning process in which the appropriate course of action evolves as new context and data become available. Trad...",
+  "title": "VADAOrchestra: Neurosymbolic Orchestration of Adaptive Reasoning Workflows",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.22485v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "24d81e2b3dc74856": {
   "first_seen": "2026-06-01T22:10:15.011782+00:00",
   "id": "6a3e03b3e82739c3",
@@ -1395,6 +1412,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2606.12207v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "2ac1a036ff3a658b": {
+  "first_seen": "2026-06-23T03:01:43.917625+00:00",
+  "id": "b450ac3cd83cd53c",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-21T07:39:07+00:00",
+  "sid": "2ac1a036ff3a658b",
+  "source": "arxiv_cs_lg",
+  "summary": "In this paper, we present Kiwano, an open-source toolkit designed to advance research and evaluation for speaker verification. Kiwano provides a lightweight yet extensible framework built on PyTorch, offering standardized recipes, pretrained models, and integration of several widely used speaker verification architectures. The toolkit emphasizes reproducibility, by delivering transparent training pipelines, unified evaluation protocols and ready-to-use baselines across multiple corpora. Beyond conventional training and inference, Kiwano includes tools for benchmarking, experiment tracking and rapid prototyping of new architectures. To foster community adoption, the toolkit is distributed under the Apache 2.0 license, accompanied by comprehensive documentation and reproducible experiments. By lowering entry barriers and standardizing evaluation practices, Kiwano contributes a valuable resource for both academic research and applied development in speaker verification. The toolkit is publicly available at: https://github.com/kiwano-toolkit/kiwano/",
+  "summary_1line": "In this paper, we present Kiwano, an open-source toolkit designed to advance research and evaluation for speaker verification. Kiwano provides a lightweight yet extensible framework built on PyTorch, offering standard...",
+  "title": "Kiwano: A Cutting-Edge Open-Source Toolkit for Speaker Verification",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.22369v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "2b908e3b541deb07": {
   "first_seen": "2026-06-22T21:01:42.434785+00:00",
@@ -4550,6 +4583,23 @@
   "title": "The latest AI news we announced in May 2026",
   "type": "news",
   "url": "https://blog.google/innovation-and-ai/technology/ai/google-ai-updates-may-2026"
+ },
+ "9c19b2212d6264ac": {
+  "first_seen": "2026-06-23T03:01:43.917625+00:00",
+  "id": "83f0aaf464aed3e6",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-06-21T14:30:20+00:00",
+  "sid": "9c19b2212d6264ac",
+  "source": "arxiv_cs_ai",
+  "summary": "Modern LLM agents increasingly rely on context compaction, summarization, or eviction to keep long-running sessions within a token budget. We show that this context-management layer is a safety-critical failure surface: in-context governance constraints that agents reliably obey while visible can be silently removed by compaction, causing the same agent to perform prohibited tool actions later in the session. We call this failure mode Governance Decay. We introduce ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading, and measure compaction-induced violations across seven model families. Across 1,323 episodes, violation rises from 0% with the policy in full context to 30% after compaction, reaching 59% for some models; when the constraint survives the summary, violation remains 0%, but when it is dropped, violation reaches 38%. We further study a Compaction-Eviction Attack, in which adversarial in-context content biases the summarizer to omit a legitimate policy, and show that optimized injections defeat every evaluated model. Finally, we propose Constraint Pinning, a simple training-free mitigation that quarantines governance constraints from lossy compaction and restores violation to 0% in our benchmark. These results identify context management as a first-class governance surface for deployed LLM agents.",
+  "summary_1line": "Modern LLM agents increasingly rely on context compaction, summarization, or eviction to keep long-running sessions within a token budget. We show that this context-management layer is a safety-critical failure surfac...",
+  "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.22528v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "9c2b579c877cbe05": {
   "first_seen": "2026-06-05T21:24:37.072572+00:00",
