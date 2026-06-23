@@ -24,6 +24,8 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "langgraph==1.2.0a6", "description": "langgraph v1.2 (alpha) This release adds finer-grained control over node execution — timeouts, error recovery, and graceful shutdown — a new channel type that cuts checkpoint overhead for long-running threads, and a n...", "datePublished": "2026-05-04T19:08:31+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/12534dd83c90d9f4", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.0a6"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "langgraph==1.2.0a6", "item": "https://www.llm-digest.com/story/12534dd83c90d9f4"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -243,21 +245,33 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
-        <h1>📰 Story</h1>
+    <header class="site-chrome" data-site-section="/">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Story</h1>
+        <p id="meta" class="muted">langgraph_releases · May 4, 2026 · release</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/12534dd83c90d9f4" data-share-title="langgraph==1.2.0a6">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">langgraph_releases · May 4, 2026 · release</p>
-      <menu>
-        <a href="/" role="button">← Live feed</a>
-        <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/daily" role="button">📰 Daily recap</a>
-        <a href="/weekly" role="button">🗓️ Weekly recap</a>
-        <a href="/subscribe" role="button">✉️ Email digest</a>
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/12534dd83c90d9f4" data-share-title="langgraph==1.2.0a6">🔗 Share</button>
-        
-      </menu>
+
     </header>
 
     <section id="recap">
@@ -278,7 +292,10 @@
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         var btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+        }
       }
       var btn = document.getElementById('themeToggle');
       if (btn) {
@@ -386,7 +403,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');

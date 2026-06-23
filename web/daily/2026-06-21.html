@@ -24,6 +24,8 @@
   <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "What happened in AI — Jun 21, 2026", "description": "Samsung Electronics deploys ChatGPT Enterprise + Codex to employees globally — one of OpenAI's largest enterprise rollouts. Anthropic reports Claude now fields ~95% of its internal analytics queries, replacing much of the data-team request queue.…", "datePublished": "2026-06-22T00:10:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-06-21", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-06-21", "item": "https://www.llm-digest.com/daily/2026-06-21"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css" />
+  <script defer src="/site-chrome.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -249,22 +251,34 @@
 </head>
 <body>
   <main>
-    <header>
-      <div class="topbar">
-        <h1>📰 AI Daily Recap</h1>
+    <header class="site-chrome" data-site-section="/daily">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <button type="button" data-site-browse-open>Browse</button>
+          <button type="button" data-site-more-open aria-label="More actions">More</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Daily Recap</h1>
+        <p id="meta" class="muted">5 articles · 2 categories</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/daily?date=2026-06-21">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/daily/2026-06-21" data-share-title="What happened in AI — Jun 21, 2026">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
       </div>
-      <p id="meta" class="muted">5 articles · 2 categories</p>
-      <menu>
-        <a href="/" role="button">← Live feed</a>
-        <a href="/storylines" role="button">📈 Storylines</a>
-        <a href="/weekly" role="button">🗓️ Weekly recap</a>
-        <a href="/voices" role="button">🗣️ Voices</a>
-        <a href="/subscribe" role="button">✉️ Email digest</a>
-        <a href="/api/daily?date=2026-06-21" role="button">JSON</a>
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/daily/2026-06-21" data-share-title="What happened in AI — Jun 21, 2026">🔗 Share</button>
-        <label class="archive muted">Day <select id="archive" aria-label="Choose day"><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21" selected>2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label>
-      </menu>
+<div class="site-context" aria-label="Choose day"><a href="/daily/2026-06-20" aria-label="Previous day: 2026-06-20 · What happened in AI — Jun 20, 2026">‹</a><label class="archive muted"><span>Day</span><select id="archive" aria-label="Choose day"><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21" selected>2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label><a href="/daily/2026-06-22" aria-label="Next day: 2026-06-22 · What happened in AI — Jun 22, 2026">›</a></div>
     </header>
 
     <section id="recap">
@@ -285,7 +299,10 @@
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         var btn = document.getElementById('themeToggle');
-        if (btn) btn.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+        }
       }
       var btn = document.getElementById('themeToggle');
       if (btn) {
@@ -393,7 +410,7 @@
       }
 
       function decorate(section) {
-        var links = document.querySelectorAll('.quicknav a[href], menu a[href]');
+        var links = document.querySelectorAll('.site-nav-fallback a[href]');
         for (var i = 0; i < links.length; i++) {
           var a = links[i];
           var pathOnly = (a.getAttribute('href') || '').split('#')[0].split('?')[0].replace(/\/+$/, '');
