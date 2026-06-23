@@ -1422,7 +1422,7 @@ def render_daily_pages(
                 playbook_cap=3,
             )
             + '<p class="finish-line">You are caught up for this edition</p>'
-            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and Friday recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
+            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -1869,7 +1869,7 @@ def render_weekly_pages(
                 playbook_cap=5,
             )
             + '<p class="weekly-close">The week, resolved into patterns</p>'
-            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief on weekdays.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
+            + '<aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Get next week’s recap by email.</strong><br><span class="muted">Plus the finishable daily brief every day.</span></p><a href="/subscribe" role="button">Get the email digest →</a></aside>',
             json_ld=[
                 article_node(
                     type_="NewsArticle",
