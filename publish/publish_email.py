@@ -8,12 +8,18 @@ Resend) owns the subscriber list, double-opt-in, unsubscribe and compliance —
 no subscriber PII ever lives in this repo. We only hold an API key in env and
 POST a rendered broadcast.
 
-The daily brief carries the ranked feed (``data/processed/latest.json``) plus a
+The daily brief carries the **curated daily recap** (``data/daily/latest.json`` —
+the very same editorial recap the ``/daily`` page serves: an intro, highlights,
+and themed categories) so the email and the page show the same content, plus a
 "Continuing threads" block of storylines that **moved since the last send**.
 That delta is computed against a committed cursor (``data/email/state.json``,
 mirroring ``data/health/alerts_state.json``) using the *content-based* storyline
 signal ``last_updated`` — never ``generated_at``, which the 5-hourly rebuild
 bumps every run (see ``api/updates.js`` for the same pattern).
+
+The daily idempotency guard keys off the **recap's own date**, not the calendar
+day: the email sends the latest committed recap once and re-sends only when a
+newer recap appears (no new recap ⇒ clean no-op, never the raw feed).
 
 Usage:
     python3 publish/publish_email.py --kind daily            # send (if configured)
@@ -48,15 +54,6 @@ DEFAULTS = {
     "daily": {"max_items": 12, "max_threads": 3},
     "weekly": {"max_threads": 12, "articles_per_category": 3, "max_wiki": 4, "max_favorites": 3},
 }
-
-# A reader-tune nudge only earns a visible badge once it is clearly positive;
-# below this it is ranking noise, not a signal worth surfacing to readers.
-READER_BOOST_MIN = 0.02
-
-# "Reader-boosted" is a source-level signal, so a single tuned source can stamp
-# many rows and the badge stops meaning anything. Cap how many rows wear it (the
-# most-boosted ones) so it reads as a highlight, not wallpaper.
-READER_BOOST_MAX_BADGES = 2
 
 # Invisible filler appended after the preheader so the body's first visible line
 # doesn't bleed into the inbox preview after the snippet (the standard hack:
@@ -123,48 +120,6 @@ def source_name(slug: str) -> str:
         for w in re.split(r"[_\s]+", s)
         if w
     )
-
-
-def short_why(s: str) -> str:
-    s = clean(s or "", 120)
-    low = s.lower()
-    if low.startswith("likely impact on ") and "platform decisions" in low:
-        core = s[len("Likely impact on ") :]
-        core = core.replace("workflows and platform decisions.", "").replace("and platform decisions.", "")
-        core = core.strip(" .")
-        if core:
-            return clean(f"Impact: {core}.", 76)
-    return clean(s, 76)
-
-
-# Source buckets for the signal label. First-party announcements from model labs
-# and platform vendors; independent practitioner commentary; third-party industry
-# reporting. Anything unmapped degrades to the generic "Platform News".
-VENDOR_SOURCES = frozenset({
-    "openai_blog", "claude_blog", "anthropic_newsroom", "anthropic_engineering",
-    "anthropic_research", "google_ai_blog", "google_deepmind_blog", "nvidia_blog",
-    "huggingface_blog", "aws_ml_blog", "google_cloud_blog", "langchain_blog",
-})
-ANALYSIS_SOURCES = frozenset({"simon_willison", "latent_space"})
-INDUSTRY_NEWS_SOURCES = frozenset({"infoq_ai_ml", "search_agent_engineering_news", "search_llm_ops_news"})
-
-
-def signal_label(item: dict) -> str:
-    item_type = (item.get("type") or "news").lower()
-    source = (item.get("source") or "").lower()
-    if item_type == "release":
-        return "Tooling Release"
-    if item_type in ("paper", "research"):
-        return "Research"
-    if "hackernews" in source or "show hn" in (item.get("title", "").lower()):
-        return "Field Report"
-    if source in VENDOR_SOURCES:
-        return "Vendor Update"
-    if source in ANALYSIS_SOURCES:
-        return "Analysis"
-    if source in INDUSTRY_NEWS_SOURCES:
-        return "Industry News"
-    return "Platform News"
 
 
 # --------------------------------------------------------------------------- #
@@ -236,51 +191,28 @@ def feedback_row(cfg: dict, url: str) -> str:
     )
 
 
-def reader_boosted(it: dict) -> bool:
-    try:
-        return float(it.get("source_tune") or 0) >= READER_BOOST_MIN
-    except Exception:
-        return False
+def daily_articles(recap: dict) -> list[dict]:
+    """Flatten the recap's category articles in display order."""
+    out: list[dict] = []
+    for c in recap.get("categories") or []:
+        if not isinstance(c, dict):
+            continue
+        for a in c.get("articles") or []:
+            if isinstance(a, dict):
+                out.append(a)
+    return out
 
 
-def _why_text(it: dict) -> str:
-    """Best human-readable description for an item, length-agnostic. Prefers a
-    real ``why_it_matters``; the mechanical ``Matches feed focus: …`` keyword
-    echo is treated as absent and falls through to the article's own one-line
-    summary (every item carries one). A summary that merely echoes the headline
-    returns empty so callers can show the title alone instead of it twice.
+def _preheader(recap: dict, articles: list[dict]) -> str:
+    """Inbox-preview snippet: lead with the recap's first highlight (its editorial
+    "in 30 seconds"), else the top headlines + remaining count — so the brief
+    sells itself in the inbox instead of leaking the boilerplate header.
     """
-    why = (it.get("why_it_matters") or it.get("llm_why_1line") or "").strip()
-    if not why or why.lower().startswith("matches feed focus"):
-        why = (it.get("summary_1line") or it.get("llm_summary_1line") or "").strip()
-    tnorm = (it.get("title") or "").strip().lower().rstrip(".")
-    if tnorm and why.lower().rstrip(".").startswith(tnorm[:60]):
-        # The summary opens by echoing the headline (e.g. "Introducing X, a …").
-        # Keep the substantive remainder after the echoed prefix rather than
-        # discarding the whole line and leaving the row context-less.
-        remainder = why[len(tnorm[:60]) :].lstrip(" ,.:;–—-")
-        if len(remainder) < 30:
-            return ""
-        return remainder[:1].upper() + remainder[1:]
-    return why
-
-
-def item_why(it: dict) -> str:
-    """Compact why-line for a list row (≤76 chars)."""
-    return short_why(_why_text(it))
-
-
-def lead_context(it: dict) -> str:
-    """Fuller context for the lead-story hero (≤200 chars)."""
-    return clean(_why_text(it), 200)
-
-
-def _preheader(items: list[dict]) -> str:
-    """Inbox-preview snippet: the top one or two headlines + remaining count, so
-    the brief sells itself in the inbox instead of leaking the boilerplate header.
-    """
-    titles = [clean(it.get("title", ""), 50) for it in items[:2] if it.get("title")]
-    extra = max(0, len(items) - len(titles))
+    highlights = [clean(h, 90) for h in (recap.get("highlights") or []) if isinstance(h, str) and h.strip()]
+    if highlights:
+        return f"{highlights[0]} — then you're caught up."
+    titles = [clean(a.get("title", ""), 50) for a in articles[:2] if a.get("title")]
+    extra = max(0, len(articles) - len(titles))
     tail = f" · +{extra} more" if extra else ""
     return f"{' · '.join(titles)}{tail} — then you're caught up."
 
@@ -474,68 +406,70 @@ def html_to_text(body: str) -> str:
     return s.strip()
 
 
-def _badge(text: str, bg: str, fg: str) -> str:
-    return (
-        f'<span style="display:inline-block;font-size:11px;font-weight:600;'
-        f'padding:1px 7px;border-radius:10px;background:{bg};color:{fg};'
-        f'margin-left:6px;vertical-align:middle">{html.escape(text)}</span>'
-    )
+def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]:
+    """Render the curated daily recap (``data/daily/latest.json``) as the brief.
 
-
-def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str, str]:
-    """Returns (subject, html_body)."""
-    n = len(items)
+    Mirrors the ``/daily`` page — the same intro, highlights ("In 30 seconds"),
+    and themed categories — so the email and the page show one editorial recap,
+    plus the email-only "Continuing threads" storyline deltas, one-tap feedback
+    links, and the "you're caught up" end marker. Returns (subject, html_body).
+    """
+    articles = daily_articles(recap)
+    cats = [c for c in (recap.get("categories") or []) if isinstance(c, dict)]
+    n = len(articles)
     mins = max(3, round(n * 0.5))
-    today = datetime.now().strftime("%Y-%m-%d")
-    top_title = clean(items[0].get("title", "AI updates"), 60) if items else "AI updates"
-    subject = f"Your AI brief — {n} items · ~{mins} min · {top_title}"
+    recap_date = (recap.get("date") or datetime.now().strftime("%Y-%m-%d")).strip()
+    top_title = clean(articles[0].get("title", "AI updates"), 60) if articles else "AI updates"
+    subject = f"Your AI brief — {n} picks · ~{mins} min · {top_title}"
 
-    # Cap the badge to the most-boosted non-lead rows (the lead is already a hero,
-    # so it never competes for the badge). 0-based item indices.
-    badge_idx = set(
-        sorted(
-            (j for j, it in enumerate(items) if j > 0 and reader_boosted(it)),
-            key=lambda j: float(items[j].get("source_tune") or 0),
-            reverse=True,
-        )[:READER_BOOST_MAX_BADGES]
+    # "In 30 seconds" TL;DR (highlights) then the editorial intro paragraphs —
+    # the same lead the /daily page shows above the categories.
+    highlights = [clean(h, 200) for h in (recap.get("highlights") or []) if isinstance(h, str) and h.strip()]
+    tldr_html = ""
+    if highlights:
+        lis = "".join(f'<li style="margin:4px 0">{html.escape(h)}</li>' for h in highlights)
+        tldr_html = (
+            '<div style="margin:6px 0 14px;padding:12px 14px;border-radius:8px;background:#f6f8fa">'
+            '<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;'
+            'color:#1a6dd6;margin-bottom:6px">In 30 seconds</div>'
+            f'<ul style="font-size:13px;line-height:1.5;color:#333;padding-left:18px;margin:0">{lis}</ul></div>'
+        )
+    intro_paras = [clean(p, 500) for p in (recap.get("intro") or []) if isinstance(p, str) and p.strip()]
+    intro_html = "".join(
+        f'<p style="font-size:14px;line-height:1.6;color:#333;margin:0 0 10px">{html.escape(p)}</p>'
+        for p in intro_paras[:2]
     )
 
-    rows: list[str] = []
-    for i, it in enumerate(items, start=1):
-        url = it.get("url", "")
-        title = html.escape(clean(it.get("title", ""), 140))
-        source = html.escape(clean(source_name(it.get("source", "")), 40))
-        signal = html.escape(signal_label(it))
-        badges = _badge("Reader-boosted", "#eef6ff", "#1a6dd6") if (i - 1) in badge_idx else ""
-        meta = f"{signal} · {source}"
-        if i == 1:
-            # Lead-story hero: bigger headline + fuller context so the day has a
-            # clear "read this first" instead of 12 equal-weight rows.
-            ctx = html.escape(lead_context(it))
-            rows.append(
-                f'<tr><td style="padding:6px 0 16px;border-bottom:1px solid #eee">'
-                f'<div style="font-size:11px;font-weight:700;letter-spacing:.05em;'
-                f'text-transform:uppercase;color:#1a6dd6;margin-bottom:5px">▲ Today\'s lead</div>'
-                f'<div style="font-size:18px;font-weight:700;line-height:1.3">'
+    # Themed categories: each article links to its /story/<sid> permalink, carries
+    # its source and one-line recap summary, and keeps the one-tap feedback row.
+    cat_html: list[str] = []
+    for c in cats:
+        name = html.escape(clean(c.get("name", ""), 80))
+        csum = html.escape(clean(c.get("summary", ""), 220))
+        arts: list[str] = []
+        for a in c.get("articles") or []:
+            if not isinstance(a, dict):
+                continue
+            url = a.get("url", "")
+            title = html.escape(clean(a.get("title", ""), 140))
+            src = html.escape(clean(source_name(a.get("source", "")), 40))
+            asum = html.escape(clean(a.get("summary", ""), 180))
+            arts.append(
+                '<tr><td style="padding:11px 0;border-bottom:1px solid #eee">'
+                f'<div style="font-size:15px;font-weight:600;line-height:1.35">'
                 f'<a href="{html.escape(story_url(cfg, url))}" '
-                f'style="color:#111;text-decoration:none">{title}</a>{badges}</div>'
-                f'<div style="font-size:12px;color:#888;margin-top:4px">{meta}</div>'
-                + (f'<div style="font-size:14px;color:#333;margin-top:7px;line-height:1.5">{ctx}</div>' if ctx else "")
+                f'style="color:#111;text-decoration:none">{title}</a></div>'
+                f'<div style="font-size:12px;color:#888;margin-top:3px">{src}</div>'
+                + (f'<div style="font-size:13px;color:#444;margin-top:4px">{asum}</div>' if asum else "")
                 + feedback_row(cfg, url)
                 + "</td></tr>"
             )
-            continue
-        why = html.escape(item_why(it))
-        rows.append(
-            f'<tr><td style="padding:12px 0;border-bottom:1px solid #eee">'
-            f'<div style="font-size:15px;font-weight:600;line-height:1.35">'
-            f'{i}. <a href="{html.escape(story_url(cfg, url))}" '
-            f'style="color:#111;text-decoration:none">{title}</a>{badges}</div>'
-            f'<div style="font-size:12px;color:#888;margin-top:3px">{meta}</div>'
-            + (f'<div style="font-size:13px;color:#444;margin-top:4px">{why}</div>' if why else "")
-            + feedback_row(cfg, url)
-            + "</td></tr>"
+        cat_html.append(
+            f'<h2 style="font-size:15px;margin:24px 0 2px;color:#111">{name}</h2>'
+            + (f'<div style="font-size:13px;color:#666;margin:0 0 2px">{csum}</div>' if csum else "")
+            + f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(arts)}</table>'
         )
+    cats_html = "".join(cat_html)
 
     thread_html = ""
     if threads:
@@ -558,19 +492,25 @@ def render_daily(cfg: dict, items: list[dict], threads: list[dict]) -> tuple[str
         )
 
     feed_url = f"{cfg['site_base'].rstrip('/')}/?utm_source={cfg['utm_source']}"
+    daily_page = f"{cfg['site_base'].rstrip('/')}/daily/{recap_date}?utm_source={cfg['utm_source']}"
     weekly_url = f"{cfg['site_base'].rstrip('/')}/weekly?utm_source={cfg['utm_source']}"
     unsub = unsubscribe_html(cfg)
-    preheader = html.escape(_preheader(items))
+    n_cats = len(cats)
+    sub_meta = f"{n} picks · {n_cats} theme{'s' if n_cats != 1 else ''} · ~{mins} min · one shared ranking, no filter bubble"
+    preheader = html.escape(_preheader(recap, articles))
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
-  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {today}</div>
+  <div style="font-size:12px;color:#999;letter-spacing:.04em;text-transform:uppercase">{logo_img(cfg)}LLM Digest · {recap_date}</div>
   <h1 style="font-size:20px;margin:6px 0 2px">Your AI brief</h1>
-  <div style="font-size:13px;color:#777;margin-bottom:8px">{n} ranked picks · ~{mins} min · one shared ranking, no filter bubble</div>
-  <table width="100%" cellpadding="0" cellspacing="0">{"".join(rows)}</table>
+  <div style="font-size:13px;color:#777;margin-bottom:12px">{sub_meta}</div>
+  {tldr_html}
+  {intro_html}
+  {cats_html}
   {thread_html}
   <div style="margin:26px 0 10px;padding:12px;border-radius:8px;background:#f6f8fa;text-align:center;font-size:14px;font-weight:600;color:#1a7f37">✅ You're caught up.</div>
   <div style="font-size:12px;color:#999;margin-top:18px;line-height:1.6">
+    <a href="{html.escape(daily_page)}" style="color:#1a6dd6">Read this on the web</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the full feed</a> ·
     <a href="{html.escape(weekly_url)}" style="color:#1a6dd6">This week's recap</a>{unsub}<br>
     The finishable AI feed for platform engineers — 10 minutes a day, with memory.
@@ -778,14 +718,29 @@ def send_broadcast(cfg: dict, api_key: str, subject: str, html_body: str, name: 
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
-def build_daily(cfg: dict, state: dict) -> tuple[str, str, list[dict]]:
-    processed = ROOT / "data" / "processed" / "latest.json"
-    if not processed.exists():
-        raise RuntimeError("no data/processed/latest.json to render")
-    items = json.loads(processed.read_text(encoding="utf-8"))[: int(cfg["daily"]["max_items"])]
+def _latest_daily() -> dict | None:
+    """The most recent committed daily recap — ``data/daily/latest.json``, the
+    same file the ``/daily`` page serves. None when no recap exists yet (the
+    email then no-ops cleanly rather than falling back to the raw feed)."""
+    p = ROOT / "data" / "daily" / "latest.json"
+    if not p.exists():
+        return None
+    try:
+        recap = json.loads(p.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    return recap if isinstance(recap, dict) and recap.get("categories") else None
+
+
+def build_daily(cfg: dict, state: dict) -> tuple[str, str, list[dict], str] | None:
+    """Returns (subject, body, threads, recap_date), or None when there is no
+    daily recap to send (clean no-op)."""
+    recap = _latest_daily()
+    if not recap:
+        return None
     threads = storyline_deltas(state, int(cfg["daily"]["max_threads"]))
-    subject, body = render_daily(cfg, items, threads)
-    return subject, body, threads
+    subject, body = render_daily(cfg, recap, threads)
+    return subject, body, threads, (recap.get("date") or "").strip()
 
 
 def _latest_weekly() -> dict | None:
@@ -824,7 +779,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="Send the email digest")
     ap.add_argument("--kind", choices=["daily", "weekly"], default="daily")
     ap.add_argument("--dry-run", action="store_true", help="render to stdout, never send, never touch state")
-    ap.add_argument("--force", action="store_true", help="ignore the same-day already-sent guard")
+    ap.add_argument("--force", action="store_true", help="ignore the already-sent guard")
     args = ap.parse_args()
 
     cfg = load_config()
@@ -840,11 +795,18 @@ def main() -> int:
         summary = f"week={week_key} threads={n_threads} wiki={n_wiki}"
         broadcast_name = f"Weekly recap — {week_key or today}"
     else:
-        subject, body, threads = build_daily(cfg, state)
-        already_sent = state.get("daily", {}).get("last_sent_date") == today
-        guard_reason = "already_sent_today"
-        summary = f"items_capped={cfg['daily']['max_items']} threads={len(threads)}"
-        broadcast_name = f"Daily brief — {today}"
+        built = build_daily(cfg, state)
+        if built is None:
+            # No curated recap committed yet — no-op cleanly (never the raw feed).
+            print("email_send_skipped=true kind=daily reason=no_recap")
+            return 0
+        subject, body, threads, recap_date = built
+        # Guard on the recap's own date, not the calendar day: send the latest
+        # recap once, re-send only when a newer recap appears.
+        already_sent = state.get("daily", {}).get("last_sent_date") == recap_date
+        guard_reason = "already_sent_recap"
+        summary = f"recap_date={recap_date} threads={len(threads)}"
+        broadcast_name = f"Daily brief — {recap_date or today}"
 
     if args.dry_run:
         print(f"<!-- subject: {subject} -->")
@@ -882,7 +844,7 @@ def main() -> int:
             new_seen.update(t["member_sids"])
             if t["last_updated"] > newest:
                 newest = t["last_updated"]
-        state["daily"] = {"last_sent_date": today}
+        state["daily"] = {"last_sent_date": recap_date}
         state["storylines"] = {"sent_through": newest, "seen_sids": sorted(new_seen)}
     save_state(state)
 

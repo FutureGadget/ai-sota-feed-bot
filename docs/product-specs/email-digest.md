@@ -34,25 +34,41 @@ This serves all three positioning pillars at once:
 
 ## Contents
 
-### Daily brief (morning cron)
+### Daily brief (evening cron)
 
-Sourced from `data/processed/latest.json` (+ `data/digest/<date>.md`), using
-the item helpers in `publish/publish_email.py` (`signal_label`, `short_why`,
-hype flag, Reader-boosted badge).
+Sourced from **`data/daily/latest.json`** — the *same curated recap the `/daily`
+page serves* (decided 2026-06-23; previously the raw ranked feed
+`data/processed/latest.json`). The email and the page now show one editorial
+recap, so a reader who clicks through sees more of what hooked them, not a
+different-looking firehose. The recap is written by the `daily-summary` agent
+routine (intro, highlights, themed categories); the email renderer in
+`publish/publish_email.py` mirrors the page's intro → "In 30 seconds" highlights
+→ themed categories.
 
 1. **Subject** that sells finishable:
-   `Your AI brief — {N} items · ~{mins} min · {top headline}`.
-2. **Ranked top items** (cap ~12): title → `/story/<sid>` permalink, source +
-   reliability, one-line *why-it-matters*, 🫧 hype flag and *Reader-boosted*
-   badge where present.
-3. **Continuing threads** (1–3): storylines that **moved since the last send**
+   `Your AI brief — {N} picks · ~{mins} min · {top headline}`.
+2. **Editorial lead** — the recap's `intro` paragraphs and an **"In 30 seconds"**
+   TL;DR built from `highlights` (the same lead the `/daily` page shows).
+3. **Themed categories** — each recap category (name + summary) with its
+   articles: title → `/story/<sid>` permalink, source, the one-line recap
+   summary, and a one-tap 👍/👎 feedback link (feeds the auto-tune loop).
+4. **Continuing threads** (1–3): storylines that **moved since the last send**
    (see "Change detection") — each shows the narrative `whats_new` line and a
    `/storyline/<slug>` link. Change-driven, so it never repeats a quiet thread.
-4. **Hard end marker** — `✅ You're caught up` — reinforces *finishable*.
-5. **Footer** — full feed, this week's recap, manage-subscription (provider).
+5. **Hard end marker** — `✅ You're caught up` — reinforces *finishable*.
+6. **Footer** — read on the web (`/daily/<date>`), full feed, this week's
+   recap, manage-subscription (provider).
 
 The knowledge map is **not** in the daily brief — it moves slowly and is
 evergreen, so it would dilute finishability.
+
+**Idempotency keys off the recap's date, not the calendar day.** The send guard
+compares `data/email/state.json` → `daily.last_sent_date` to the recap's own
+`date`: the latest committed recap sends once and re-sends only when a *newer*
+recap appears. If no new recap exists (the agent routine has not run), the send
+is a **clean no-op** — it never falls back to mailing the raw feed. The evening
+cron (22:30 UTC) typically sends the prior day's just-completed recap, which is
+the finished, deduped, categorized artifact rather than a mid-day snapshot.
 
 ### Weekly recap (Friday cron)
 
@@ -200,6 +216,8 @@ family but is a **conversion utility first** — clarity and trust outrank novel
 
 - `python3 publish/publish_email.py --dry-run` renders both emails from the live
   `data/` tree to stdout/HTML without sending (no `EMAIL_API_KEY` ⇒ no-op send).
+  The daily renders from `data/daily/latest.json`; with no recap committed it
+  prints `email_send_skipped=true kind=daily reason=no_recap` and never the feed.
 - Cursor round-trip: run twice against an unchanged tree ⇒ the second run emits
   **no** "Continuing threads" / "New in the knowledge map" (no repeats); advance
   a storyline's `last_updated` and confirm exactly that thread reappears.
