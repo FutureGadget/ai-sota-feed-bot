@@ -26,6 +26,8 @@
     { "source": "/playbook/:date", "destination": "/web/playbook.html" },
     { "source": "/map", "destination": "/web/map.html" },
     { "source": "/topic/:slug([a-z0-9-]+)", "destination": "/web/topic/:slug.html" },
+    { "source": "/foundations", "destination": "/web/foundations.html" },
+    { "source": "/foundations/:slug([a-z0-9-]+)", "destination": "/web/foundations/:slug.html" },
     { "source": "/story/:sid([0-9a-f]{16})", "destination": "/web/story/:sid.html" },
     { "source": "/s", "destination": "/api/share" },
     { "source": "/rss.xml", "destination": "/api/rss" },
@@ -69,6 +71,9 @@
     },
     "api/topics.js": {
       "includeFiles": "data/wiki/index.json"
+    },
+    "api/foundations.js": {
+      "includeFiles": "data/foundations/index.json"
     },
     "api/playbook.js": {
       "includeFiles": "data/playbook/{index,latest,source-index}.json data/playbook/*-*-*.json",

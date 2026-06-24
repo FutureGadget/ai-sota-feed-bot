@@ -1,0 +1,22 @@
+schema_version: 1
+id: foundations-curator-weekly
+name: "[News Feed Management] Agent Builder Foundations curation"
+description: Curate and publish evidence-tiered Agent Builder Foundations pages.
+
+schedule:
+  cron: "0 18 * * 4"
+  timezone: Asia/Seoul
+  enabled: true
+
+execution:
+  environment: cloud
+
+repository:
+  slug: FutureGadget/ai-sota-feed-bot
+  default_branch: main
+
+permissions:
+  git_push: unrestricted
+
+agent:
+  prompt_file: prompt.md

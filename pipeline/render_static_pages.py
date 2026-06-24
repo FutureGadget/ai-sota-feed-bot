@@ -77,6 +77,7 @@ WEEKLY_DIR = ROOT / "data" / "weekly"
 PLAYBOOK_DIR = ROOT / "data" / "playbook"
 STORYLINES_DIR = ROOT / "data" / "storylines"
 WIKI_DIR = ROOT / "data" / "wiki"
+FOUNDATIONS_DIR = ROOT / "data" / "foundations"
 WEB_DIR = ROOT / "web"
 
 DEFAULT_BASE_URL = os.environ.get("SITE_BASE_URL", "https://www.llm-digest.com")
@@ -1219,6 +1220,7 @@ SITE_DESTINATIONS = (
     ("/storylines", "Storylines"),
     ("/playbook", "Playbook"),
     ("/map", "Knowledge map"),
+    ("/foundations", "Foundations"),
     ("/voices", "Voices"),
     ("/subscribe", "Email digest"),
 )
@@ -1239,6 +1241,8 @@ def site_section_for_url(url: str) -> str:
         return "/playbook"
     if path == "/map" or path.startswith("/topic/"):
         return "/map"
+    if path == "/foundations" or path.startswith("/foundations/"):
+        return "/foundations"
     if path == "/voices":
         return "/voices"
     if path == "/subscribe":
@@ -3411,6 +3415,357 @@ def render_map_page(base_url: str, wiki: dict) -> bool:
     return True
 
 
+FOUNDATION_KIND_LABELS = {
+    "theory-paper": "Theory",
+    "benchmark-result": "Benchmark",
+    "production-field-report": "Field report",
+    "primary-doc": "Primary doc",
+    "editorial-inference": "Editorial",
+    "story": "Source story",
+    "storyline": "Storyline",
+}
+
+
+FOUNDATIONS_PAGE_CSS = """\
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f7f8fb; --card:#ffffff; --border:#d8dee8; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#a15c16;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .foundation-xlabel { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; color:var(--accent); letter-spacing:.04em; text-transform:uppercase; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.7rem; margin-left:.35rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def load_foundations() -> dict:
+    data = load_json(FOUNDATIONS_DIR / "index.json") or {}
+    if not isinstance(data, dict):
+        return {"clusters": [], "concepts": {}}
+    data.setdefault("clusters", [])
+    data.setdefault("concepts", {})
+    return data
+
+
+def foundations_index_body(foundations: dict) -> str | None:
+    concepts = foundations.get("concepts") or {}
+    clusters = foundations.get("clusters") or []
+    if not concepts:
+        return None
+
+    blocks = []
+    for cluster in clusters:
+        rows = []
+        for slug in cluster.get("concepts") or []:
+            concept = concepts.get(slug)
+            if not concept:
+                continue
+            title = squeeze(concept.get("title")) or slug
+            summary = clip(squeeze(concept.get("summary")), 220)
+            evidence_count = len(concept.get("evidence") or [])
+            rows.append(
+                '<li class="foundation-card">'
+                f'<div><h3><a href="/foundations/{escape(slug)}">{escape(title)}</a></h3>'
+                f'<p>{escape(summary)}</p></div>'
+                f'<span class="foundation-card-meta">{evidence_count} evidence tier{"" if evidence_count == 1 else "s"}</span>'
+                "</li>"
+            )
+        if rows:
+            label = squeeze(cluster.get("label")) or cluster.get("slug") or "Cluster"
+            blocks.append(
+                '<section class="foundation-cluster">'
+                f'<h2>{escape(label)}</h2>'
+                f'<ul class="foundation-list">{"".join(rows)}</ul>'
+                "</section>"
+            )
+
+    body = (
+        '<div class="foundations">'
+        '<section class="foundations-hero">'
+        '<p class="foundations-kicker">Agent Builder Foundations</p>'
+        '<h2 class="foundations-headline">Mechanisms behind reliable agents</h2>'
+        '<p class="foundations-thesis">Durable explanations for builders who want to understand why a prompt, '
+        'retrieval setup, tool call, memory system, or eval behaves the way it does. Each page separates '
+        'paper-backed mechanisms, benchmark results, field reports, and LLM Digest synthesis.</p>'
+        f'<p class="foundations-readout"><span class="on">{len(concepts)} concept{"" if len(concepts) == 1 else "s"}</span>'
+        f'<span class="sep">·</span>{len(blocks)} cluster{"" if len(blocks) == 1 else "s"}'
+        '<span class="sep">·</span>evidence-tiered</p>'
+        '</section>'
+        + ("\n".join(blocks) or "<p>No Foundation concepts yet.</p>")
+        + "</div>"
+    )
+    return body
+
+
+def foundation_concept_hero(concept: dict) -> str:
+    title = squeeze(concept.get("title")) or concept.get("slug", "")
+    bits = ['<span class="on">Concept</span>']
+    if concept.get("cluster_label"):
+        bits.append(escape(str(concept["cluster_label"])))
+    if concept.get("math_depth"):
+        bits.append(f'math {escape(str(concept["math_depth"]).replace("-", " "))}')
+    evidence = concept.get("evidence") or []
+    if evidence:
+        bits.append(f"{len(evidence)} evidence tier{'' if len(evidence) == 1 else 's'}")
+    updated = (iso_or_none(concept.get("updated")) or str(concept.get("updated") or ""))[:10]
+    if updated:
+        bits.append(f"updated {escape(updated)}")
+    readout = '<span class="sep">·</span>'.join(bits)
+    return (
+        '<section class="foundations-hero">'
+        '<p class="foundations-kicker">Agent foundations</p>'
+        f'<h2 class="foundations-headline">{escape(title)}</h2>'
+        f'<p class="foundations-readout">{readout}</p>'
+        "</section>"
+    )
+
+
+def render_foundation_body(concept: dict) -> str:
+    parts: list[str] = []
+    sections = concept.get("sections") or []
+    lead_html = ""
+    body_sections = []
+    for sec in sections:
+        heading = squeeze(sec.get("heading"))
+        html = sec.get("html") or ""
+        if not html:
+            continue
+        if not lead_html and heading.lower() == "builder consequence":
+            lead_html = html
+        else:
+            body_sections.append((heading, html))
+    if lead_html:
+        parts.append(f'<div class="foundation-lead">{lead_html}</div>')
+
+    xgroups = []
+    topics = concept.get("related_topics") or []
+    if topics:
+        lis = "".join(
+            f'<li><a href="/topic/{escape(t["slug"])}">{escape(squeeze(t["title"]))}</a></li>'
+            for t in topics
+        )
+        xgroups.append(
+            '<div><span class="foundation-xlabel">Related map topics</span>'
+            f"<ul>{lis}</ul></div>"
+        )
+    storylines = concept.get("related_storylines") or []
+    if storylines:
+        lis = "".join(
+            f'<li><a href="/storyline/{escape(sl["slug"])}">📈 {escape(squeeze(sl["label"]))}</a></li>'
+            for sl in storylines
+        )
+        xgroups.append(
+            '<div><span class="foundation-xlabel">Tracked in storylines</span>'
+            f"<ul>{lis}</ul></div>"
+        )
+    if xgroups:
+        parts.append(f'<aside class="foundation-xlinks">{"".join(xgroups)}</aside>')
+
+    for heading, html in body_sections:
+        # The source ledger below renders the canonical evidence list, so the
+        # prose Evidence section remains explanation rather than the only ledger.
+        parts.append(
+            '<section class="foundation-section">'
+            f'<div class="foundation-rail">{escape(heading)}</div>'
+            f'<div class="foundation-prose">{html}</div>'
+            "</section>"
+        )
+
+    evidence = concept.get("evidence") or []
+    if evidence:
+        items = []
+        for ev in evidence:
+            kind = str(ev.get("kind") or "")
+            kind_label = FOUNDATION_KIND_LABELS.get(kind, kind)
+            tier = squeeze(ev.get("tier"))
+            title = squeeze(ev.get("title")) or ev.get("id") or "Evidence"
+            note = squeeze(ev.get("note"))
+            if kind == "story" and ev.get("sid"):
+                title_html = f'<a href="/story/{escape(str(ev["sid"]))}">{escape(title)}</a>'
+            elif kind == "storyline" and ev.get("slug"):
+                title_html = f'<a href="/storyline/{escape(str(ev["slug"]))}">{escape(title)}</a>'
+            elif ev.get("url"):
+                title_html = f'<a href="{escape(str(ev["url"]))}" target="_blank" rel="noopener">{escape(title)}</a>'
+            else:
+                title_html = escape(title)
+            note_html = f'<p>{escape(note)}</p>' if note else ""
+            items.append(
+                '<li>'
+                f'<span class="foundation-evidence-kind">{escape(kind_label)}</span>{title_html}'
+                f'<span class="foundation-evidence-tier">{escape(tier)}</span>'
+                f"{note_html}</li>"
+            )
+        parts.append(
+            '<section class="foundation-section foundation-evidence">'
+            f'<div class="foundation-rail">Evidence · {len(evidence)} source{"" if len(evidence) == 1 else "s"}</div>'
+            f'<ul class="foundation-evidence-list">{"".join(items)}</ul>'
+            "</section>"
+        )
+
+    return f'<div class="foundation-concept">{chr(10).join(parts)}</div>'
+
+
+def render_foundation_pages(base_url: str, foundations: dict) -> list[tuple[str, str | None]]:
+    concepts = foundations.get("concepts") or {}
+    out_dir = WEB_DIR / "foundations"
+    sitemap_entries: list[tuple[str, str | None]] = []
+    written: set[str] = set()
+    for slug, concept in concepts.items():
+        if not SLUG_RE.match(slug):
+            continue
+        title = squeeze(concept.get("title")) or slug
+        description = clip(squeeze(concept.get("summary")) or title, 250)
+        canonical = f"{base_url}/foundations/{slug}"
+        updated = iso_or_none(concept.get("updated")) or concept.get("updated") or None
+        html = render_page(
+            title=f"{title} — Agent Builder Foundations",
+            description=description,
+            canonical=canonical,
+            published=None,
+            h1="Agent Builder Foundations",
+            meta_line="Evidence-tiered mechanisms for agent builders",
+            json_href=f"/api/foundations?slug={quote(slug)}",
+            archive="",
+            recap_title=title,
+            recap_range="",
+            title_html=foundation_concept_hero(concept),
+            intro_html="<!-- intro is inside the foundation concept hero -->",
+            body_html=render_foundation_body(concept),
+            extra_css=FOUNDATIONS_PAGE_CSS,
+            json_ld=[
+                article_node(
+                    type_="Article",
+                    title=title,
+                    description=description,
+                    canonical=canonical,
+                    published=None,
+                    base_url=base_url,
+                ),
+                breadcrumb_node(
+                    base_url,
+                    [("Home", "/"), ("Foundations", "/foundations"), (title, f"/foundations/{slug}")],
+                ),
+            ],
+        )
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{slug}.html").write_text(html, encoding="utf-8")
+        written.add(f"{slug}.html")
+        sitemap_entries.append((slug, (updated or "")[:10] or None))
+    prune_orphans(out_dir, SLUG_HTML_RE, written)
+    sitemap_entries.sort(key=lambda t: t[0])
+    return sitemap_entries
+
+
+def render_foundations_page(base_url: str, foundations: dict) -> bool:
+    body = foundations_index_body(foundations)
+    if body is None:
+        return False
+    canonical = f"{base_url}/foundations"
+    description = (
+        "Evidence-tiered explanations of LLM and agent-system mechanisms for "
+        "software engineers building reliable agents."
+    )
+    html = render_page(
+        title="Agent Builder Foundations",
+        description=description,
+        canonical=canonical,
+        published=None,
+        h1="Agent Builder Foundations",
+        meta_line="Mechanisms, math intuition, evidence, and application",
+        json_href="/api/foundations",
+        archive="",
+        recap_title="Agent Builder Foundations",
+        recap_range="",
+        title_html="<!-- hero is inside the .foundations body -->",
+        intro_html="<!-- intro is inside the .foundations body -->",
+        body_html=body,
+        extra_css=FOUNDATIONS_PAGE_CSS,
+        json_ld=[
+            breadcrumb_node(base_url, [("Home", "/"), ("Foundations", "/foundations")]),
+        ],
+    )
+    (WEB_DIR / "foundations.html").write_text(html, encoding="utf-8")
+    return True
+
+
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
     if not out_dir.is_dir():
         return
@@ -3438,6 +3793,7 @@ def write_sitemap(
     stories: list[tuple[str, str | None]] | None = None,
     storylines: list[tuple[str, str | None]] | None = None,
     topics: list[tuple[str, str | None]] | None = None,
+    foundations: list[tuple[str, str | None]] | None = None,
 ) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
     entries: list[tuple[str, str | None, str | None]] = [
@@ -3453,6 +3809,12 @@ def write_sitemap(
         entries.append((f"{base_url}/map", today, "weekly"))
         entries += [
             (f"{base_url}/topic/{slug}", lastmod, "weekly") for slug, lastmod in topics
+        ]
+    if foundations:
+        entries.append((f"{base_url}/foundations", today, "weekly"))
+        entries += [
+            (f"{base_url}/foundations/{slug}", lastmod, "monthly")
+            for slug, lastmod in foundations
         ]
     entries += [(f"{base_url}/daily/{d}", d, None) for d in days]
     # Weekly recaps: lastmod = the week's end date (Sunday) when derivable.
@@ -3524,17 +3886,30 @@ def main() -> None:
     wiki = load_wiki()
     topic_pages = render_topic_pages(base_url, wiki)
     has_map = render_map_page(base_url, wiki)
-    write_sitemap(base_url, days, weeks, story_pages, storyline_pages, topic_pages)
+    foundations = load_foundations()
+    foundation_pages = render_foundation_pages(base_url, foundations)
+    has_foundations = render_foundations_page(base_url, foundations)
+    write_sitemap(
+        base_url,
+        days,
+        weeks,
+        story_pages,
+        storyline_pages,
+        topic_pages,
+        foundation_pages,
+    )
     write_robots(base_url)
     print(
         f"static pages rendered: {len(days)} daily, {len(weeks)} weekly, "
         f"{len(story_pages) + noindexed} story ({noindexed} noindex), "
         f"{len(storyline_details)} storyline ({len(storyline_pages)} active), "
-        f"{len(topic_pages)} topic ({'map' if has_map else 'no map'}) "
-        "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/"
+        f"{len(topic_pages)} topic ({'map' if has_map else 'no map'}), "
+        f"{len(foundation_pages)} foundation ({'index' if has_foundations else 'no index'}) "
+        "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/, web/foundations/"
     )
-    n_urls = 5 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
+    n_urls = 7 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
     n_urls += (1 + len(topic_pages)) if topic_pages else 0
+    n_urls += (1 + len(foundation_pages)) if foundation_pages else 0
     print(f"sitemap: web/sitemap.xml ({n_urls} urls), robots: web/robots.txt")
     if not days and not weeks and not story_pages and not storyline_pages:
         print("warning: no recaps or stories found; nothing rendered", file=sys.stderr)

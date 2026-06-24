@@ -1,0 +1,128 @@
+{
+  "generated_at": "2026-06-24T16:26:16.686719+00:00",
+  "clusters": [
+    {
+      "slug": "prompting",
+      "label": "Prompting and instruction following",
+      "concepts": [
+        "prompt-reliability"
+      ]
+    }
+  ],
+  "concepts": {
+    "prompt-reliability": {
+      "slug": "prompt-reliability",
+      "title": "What makes a prompt reliable?",
+      "question": "What makes a prompt reliable?",
+      "summary": "Reliable prompts reduce ambiguity, constrain outputs, and make failures measurable.",
+      "status": "active",
+      "cluster": "prompting",
+      "cluster_label": "Prompting and instruction following",
+      "updated": "2026-06-25",
+      "audience": "strong-software-engineer",
+      "math_depth": "intuition",
+      "sections": [
+        {
+          "heading": "Builder consequence",
+          "html": "<p>Reliable prompts are interfaces, not prose. If an agent step matters, write the prompt like a contract: define the role of the step, the available inputs, the required output shape, the decision rules, and the failure behavior you will test.</p>"
+        },
+        {
+          "heading": "Short answer",
+          "html": "<p>A good prompt reduces ambiguity in the model&#x27;s continuation while preserving the information needed to solve the task. Instructions set the goal, examples show the local pattern, schemas constrain the output channel, and evals tell you whether the contract survives model, context, and data changes.</p>"
+        },
+        {
+          "heading": "Builder model",
+          "html": "<p>Treat every important prompt as a small API. The input is the context you pass in, the implementation is the model&#x27;s learned distribution, and the output contract is what downstream code or humans consume. Reliability improves when the prompt makes the desired continuation easier than nearby wrong continuations, then verifies that behavior with representative cases.</p>"
+        },
+        {
+          "heading": "Mechanism",
+          "html": "<p>An autoregressive language model predicts the next token conditioned on the tokens before it. A prompt is therefore not just an instruction; it is the conditioning environment for all later tokens. Clear task framing, examples, delimiters, and output schemas change which continuations are likely.</p>\n<p>Few-shot examples work because they place a pattern directly in context. Chain-of-thought examples can help on multi-step problems because they demonstrate an intermediate representation before the final answer. Self-consistency helps when the model can reach the same answer through multiple sampled paths. Long context is not automatically reliable context: relevant information can be harder to use when it is buried in the middle.</p>"
+        },
+        {
+          "heading": "Math intuition",
+          "html": "<p>Think of the model as assigning probability mass across possible next-token paths. A vague prompt spreads mass across many plausible completions: explanation, refusal, partial answer, wrong format, hidden assumption. A reliable prompt concentrates mass around the acceptable region.</p>\n<p>Examples act like local coordinates: they show the model what kind of mapping you want. A schema narrows the output subspace. Delimiters reduce accidental mixing between instructions, retrieved text, and user data. Evals estimate whether the probability mass stays in the right region across the cases you actually care about.</p>"
+        },
+        {
+          "heading": "Evidence",
+          "html": "<ul><li>Theory/paper-backed: &quot;Language Models are Few-Shot Learners&quot; shows that large language models can adapt to new tasks from instructions and examples placed directly in context.</li><li>Benchmark/result-backed: chain-of-thought prompting and self-consistency report improvements on reasoning benchmarks when prompts demonstrate intermediate reasoning or sample multiple reasoning paths.</li><li>Benchmark/result-backed: &quot;Lost in the Middle&quot; shows that adding more context can reduce reliability when the relevant evidence is positioned poorly.</li><li>Editorial inference: for production agents, these findings imply that prompt quality is inseparable from interface design and evaluation.</li></ul>"
+        },
+        {
+          "heading": "How to apply",
+          "html": "<p>Write the prompt contract before polishing wording. Specify the task, the input fields, what the model must ignore, the output schema, and what to do when evidence is missing. Put volatile or untrusted content behind clear delimiters. Keep decisive instructions close to the work they govern, especially when the context is long.</p>\n<p>For agent systems, pair the prompt with a small eval set. Include clean successes, missing-information cases, adversarial or irrelevant context, and format-stability checks. Change one prompt dimension at a time, then compare outputs against the contract. If downstream code parses the answer, schema adherence is part of correctness, not formatting polish.</p>"
+        },
+        {
+          "heading": "Failure modes",
+          "html": "<ul><li>Prompt-tip copying: borrowing a clever phrase without testing whether it changes behavior on your task.</li><li>Context stuffing: adding more retrieved text until the decisive evidence is harder to find.</li><li>Hidden contracts: expecting JSON, citations, or tool arguments without making those constraints explicit.</li><li>No negative cases: testing only easy examples, so the prompt looks reliable until the first ambiguous production input.</li><li>Security confusion: relying on prompt wording to control untrusted instructions instead of using sandboxing, permissions, and output validation.</li></ul>"
+        },
+        {
+          "heading": "Related",
+          "html": "<p>Use <a href=\"/topic/agent-evaluation\">agent evaluation</a> to test whether prompt changes helped, <a href=\"/topic/context-compaction\">context compaction</a> to keep the working set usable, and <a href=\"/topic/prompt-injection\">prompt injection</a> when the prompt includes untrusted text or tool output.</p>"
+        }
+      ],
+      "evidence": [
+        {
+          "id": "brown-2020-language-models",
+          "kind": "theory-paper",
+          "tier": "theory/paper-backed",
+          "title": "Language Models are Few-Shot Learners",
+          "note": "Shows that task behavior can be specified through instructions and examples in context, without gradient updates.",
+          "url": "https://arxiv.org/abs/2005.14165"
+        },
+        {
+          "id": "wei-2022-chain-of-thought",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+          "note": "Reports that exemplars with intermediate reasoning improve performance on arithmetic, commonsense, and symbolic reasoning tasks.",
+          "url": "https://arxiv.org/abs/2201.11903"
+        },
+        {
+          "id": "wang-2022-self-consistency",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+          "note": "Shows that sampling multiple reasoning paths and selecting a consistent answer can improve reasoning benchmark accuracy.",
+          "url": "https://arxiv.org/abs/2203.11171"
+        },
+        {
+          "id": "liu-2023-lost-in-the-middle",
+          "kind": "benchmark-result",
+          "tier": "benchmark/result-backed",
+          "title": "Lost in the Middle: How Language Models Use Long Contexts",
+          "note": "Finds that long-context models can perform worse when relevant information appears in the middle of the context.",
+          "url": "https://arxiv.org/abs/2307.03172"
+        },
+        {
+          "id": "prompt-reliability-editorial-synthesis",
+          "kind": "editorial-inference",
+          "tier": "editorial inference",
+          "title": "LLM Digest synthesis",
+          "note": "For agent builders, prompt reliability should be treated as an interface and evaluation problem, not a copywriting problem."
+        }
+      ],
+      "related_topics": [
+        {
+          "slug": "agent-evaluation",
+          "title": "Measuring whether an agent actually worked is hard"
+        },
+        {
+          "slug": "context-compaction",
+          "title": "Context compaction: summarize, compress, and curate the working set"
+        },
+        {
+          "slug": "prompt-injection",
+          "title": "Untrusted input and tools can hijack an agent"
+        }
+      ],
+      "related_playbook_cards": [],
+      "related_storylines": [],
+      "covers_evidence": [
+        "brown-2020-language-models",
+        "wei-2022-chain-of-thought",
+        "wang-2022-self-consistency",
+        "liu-2023-lost-in-the-middle",
+        "prompt-reliability-editorial-synthesis"
+      ]
+    }
+  }
+}
