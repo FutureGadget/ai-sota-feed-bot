@@ -5,113 +5,113 @@ Focus: AI Platform Engineering
 ## 1. Agent identity: a new access model for autonomous, team-wide AI | Claude
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/agent-identity-access-model
-- Score: 3.038 | Reliability: 1.0
+- Score: 3.035 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.24623v1
-- Score: 3.318 | Reliability: 1.0
+- Score: 3.317 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. AI Is Moving up the Software Lifecycle: From Code Review to PRD Governance
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/ai-prd-code-review-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.02 | Reliability: 1.0
+- Score: 3.013 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 4. llama_index v0.14.23
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.971 | Reliability: 1.0
+- Score: 2.979 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. Introducing computer use in Gemini 3.5 Flash
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.874 | Reliability: 1.0
+- Score: 2.87 | Reliability: 1.0
 - Why it matters: 
 
-## 6. DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference
-- Type: paper | Source: hackernews_ai
-- URL: https://arxiv.org/abs/2602.21548
-- Score: 2.828 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 6. claude-code v2.1.191
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
+- Score: 2.772 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 7. Grad Detect: Gradient-Based Hallucination Detection in LLMs
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.24790v1
-- Score: 2.755 | Reliability: 1.0
+- Score: 2.753 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 8. OpenAI and Broadcom unveil LLM-optimized inference chip
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-broadcom-jalapeno-inference-chip
-- Score: 2.713 | Reliability: 1.0
+- Score: 2.71 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Accuracy and Satisfaction in Multi-Turn LLM Dialogues for NFR Assessment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.24834v1
-- Score: 2.702 | Reliability: 1.0
+- Score: 2.7 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 10. Google OpenRL is an Experimental Self-hosted API for LLM Post-Training Fine-tuning
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/google-open-rl-fine-tuning/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.66 | Reliability: 1.0
+- Score: 2.653 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Why the Frontier Ecosystem must be Open — Matei Zaharia and Reynold Xin, Databricks
+## 11. Same flaw, opposite verdict: what counts as a vulnerability in AI agents?
+- Type: news | Source: hackernews_ai
+- URL: https://medium.com/@nikrig/same-flaw-opposite-verdict-ai-agents-cant-agree-what-counts-as-a-security-vulnerability-995060e5b0a5
+- Score: 2.546 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 12. Why the Frontier Ecosystem must be Open — Matei Zaharia and Reynold Xin, Databricks
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/databricks
-- Score: 2.545 | Reliability: 1.0
+- Score: 2.538 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. FlowPipe: LLM-Enhanced Conditional Generative Flow Networks for Data Preparation Pipeline Construction
+## 13. FlowPipe: LLM-Enhanced Conditional Generative Flow Networks for Data Preparation Pipeline Construction
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.24679v1
-- Score: 2.52 | Reliability: 1.0
+- Score: 2.518 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 13. codex 0.143.0-alpha.15
+## 14. codex 0.143.0-alpha.15
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.15
-- Score: 2.446 | Reliability: 1.0
+- Score: 2.455 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 14. claude-agent-sdk-python v0.2.109
+## 15. claude-agent-sdk-python v0.2.109
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.109
-- Score: 2.428 | Reliability: 1.0
+- Score: 2.437 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 15. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
+## 16. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.402 | Reliability: 1.0
+- Score: 2.401 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
-## 16. Quoting Tom MacWright
+## 17. Quoting Tom MacWright
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/24/tom-macwright/#atom-everything
-- Score: 2.379 | Reliability: 1.0
-- Why it matters: 
-
-## 17. claude-code v2.1.190
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.190
-- Score: 2.252 | Reliability: 1.0
+- Score: 2.371 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. Build a healthcare appointment agent with Amazon Nova 2 Sonic
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/build-a-healthcare-appointment-agent-with-amazon-nova-2-sonic/
-- Score: 2.191 | Reliability: 1.0
+- Score: 2.178 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 19. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0rc1
-- Score: 1.936 | Reliability: 1.0
+- Score: 1.932 | Reliability: 1.0
 - Why it matters:
