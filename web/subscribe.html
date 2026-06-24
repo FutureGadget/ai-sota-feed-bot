@@ -93,10 +93,14 @@
       background:color-mix(in srgb,var(--accent) 85%,#000); }
     button[disabled] { opacity:.6; cursor:default; }
     .external-signup { display:inline-flex; align-items:center; }
-    .pref { display:flex; align-items:flex-start; gap:.5rem; margin:.85rem 0 0; font-size:.9rem; color:var(--brief-ink); }
-    .pref input[type="checkbox"] { margin-top:.18rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
-    .pref label { cursor:pointer; }
-    .pref .pref-note { display:block; color:var(--muted); font-size:.82rem; }
+    .pref { margin:.95rem 0 0; padding:0; border:0; min-width:0; }
+    .pref legend { padding:0; margin:0 0 .5rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .pref-opt { display:flex; align-items:flex-start; gap:.55rem; margin:.45rem 0 0;
+      font-size:.92rem; color:var(--brief-ink); cursor:pointer; }
+    .pref-opt input[type="radio"] { margin-top:.2rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
+    .pref-opt:has(input:disabled) { cursor:default; opacity:.7; }
+    .pref-note { display:block; color:var(--muted); font-size:.82rem; }
     .message { margin:.8rem 0 0; font-size:.92rem; color:var(--muted); }
     .message[data-state="ok"] { color:var(--accent); font-weight:600; }
     .message[data-state="err"] { color:var(--err); }
@@ -171,7 +175,7 @@
 
     <section class="signup" aria-labelledby="signupTitle">
       <h2 id="signupTitle">Get the email digest</h2>
-      <p>The daily brief plus the Friday recap. Unsubscribe anytime.</p>
+      <p>The daily brief plus the <span data-weekly-day>weekly</span> recap. Unsubscribe anytime.</p>
       <div id="signupSurface">
         <p class="message" role="status">Checking subscription availability…</p>
       </div>
@@ -180,7 +184,7 @@
 
     <section class="deliveries" aria-label="What you receive">
       <div class="delivery">
-        <p class="delivery-when">Daily · every morning</p>
+        <p class="delivery-when">Daily · every <span data-daily-time>morning</span></p>
         <div class="delivery-what">
           <h3>The daily brief</h3>
           <p>The day's highest-signal updates, ranked and deduplicated — read it and you're caught up.
@@ -188,7 +192,7 @@
         </div>
       </div>
       <div class="delivery">
-        <p class="delivery-when">Weekly · Fridays</p>
+        <p class="delivery-when">Weekly · <span data-weekly-day-plural>weekends</span></p>
         <div class="delivery-what">
           <h3>The weekly recap</h3>
           <p>The week's pattern report: what shifted and what you missed, in one read.
@@ -214,6 +218,39 @@
   <script>
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
     const NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
+
+    // The email-digest workflow sends on fixed UTC crons (daily brief 01:30 UTC;
+    // weekly recap Saturday 05:30 UTC — see .github/workflows/email-digest.yml).
+    // The weekday/time a reader actually receives mail depends on their timezone
+    // — e.g. Sat 05:30 UTC is Sat 14:30 in Seoul but Sat 01:30 in New York — so
+    // derive reader-local labels instead of hardcoding a UTC-centric weekday/time.
+    // English weekday names (the copy is English) with the browser's own timezone.
+    const SEND_SCHEDULE = (() => {
+      try {
+        // The upcoming Saturday 05:30 UTC (any one works; using a real upcoming
+        // instant respects the reader's current daylight-saving offset).
+        const weekly = new Date();
+        weekly.setUTCHours(5, 30, 0, 0);
+        let add = (6 - weekly.getUTCDay() + 7) % 7;
+        if (add === 0 && Date.now() > weekly.getTime()) add = 7;
+        weekly.setUTCDate(weekly.getUTCDate() + add);
+        const weeklyDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(weekly);
+        // Daily brief at 01:30 UTC — the reader-local hour picks the time word.
+        const daily = new Date();
+        daily.setUTCHours(1, 30, 0, 0);
+        const h = daily.getHours();
+        const dailyTime = (h < 5 || h >= 22) ? 'night' : h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
+        return { weeklyDay, weeklyDayPlural: weeklyDay + 's', dailyTime };
+      } catch {
+        return { weeklyDay: 'weekly', weeklyDayPlural: 'weekends', dailyTime: 'morning' };
+      }
+    })();
+
+    function localizeSchedule() {
+      document.querySelectorAll('[data-weekly-day]').forEach((el) => { el.textContent = SEND_SCHEDULE.weeklyDay; });
+      document.querySelectorAll('[data-weekly-day-plural]').forEach((el) => { el.textContent = SEND_SCHEDULE.weeklyDayPlural; });
+      document.querySelectorAll('[data-daily-time]').forEach((el) => { el.textContent = SEND_SCHEDULE.dailyTime; });
+    }
 
     function applyTheme(theme) {
       document.documentElement.setAttribute('data-theme', theme);
@@ -247,12 +284,21 @@
         <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">Subscribe</button>
       </form>
-      <div class="pref">
-        <input type="checkbox" id="weeklyOnly" name="weekly_only" form="subscribeForm" />
-        <label for="weeklyOnly">Weekly recap only — less email
-          <span class="pref-note">Default is the daily brief plus the Friday recap. Check this to receive the Friday recap only.</span>
+      <fieldset class="pref">
+        <legend>What you'll receive</legend>
+        <label class="pref-opt">
+          <input type="radio" name="cadence" value="both" form="subscribeForm" checked />
+          <span>Daily brief + ${SEND_SCHEDULE.weeklyDay} recap
+            <span class="pref-note">The full digest — one email every ${SEND_SCHEDULE.dailyTime} plus the weekly recap.</span>
+          </span>
         </label>
-      </div>
+        <label class="pref-opt">
+          <input type="radio" name="cadence" value="weekly" form="subscribeForm" />
+          <span>${SEND_SCHEDULE.weeklyDay} recap only — less email
+            <span class="pref-note">Skip the daily brief; get just the weekly recap on ${SEND_SCHEDULE.weeklyDayPlural}.</span>
+          </span>
+        </label>
+      </fieldset>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy">No account required. Every email includes an unsubscribe link.</p>`;
     }
@@ -268,7 +314,7 @@
     async function submitForm(form) {
       const emailInput = form.elements.email;
       const button = form.querySelector('button[type="submit"]');
-      const weeklyOnly = !!(form.elements.weekly_only && form.elements.weekly_only.checked);
+      const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
       const email = String(emailInput.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setMessage('Please enter a valid email address.', 'err');
@@ -286,11 +332,11 @@
         if (response.ok) {
           markSubscribed();
           emailInput.disabled = true;
-          if (form.elements.weekly_only) form.elements.weekly_only.disabled = true;
+          if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
           button.remove();
           setMessage(
             weeklyOnly
-              ? "You’re subscribed to the weekly recap. The next Friday recap will arrive by email."
+              ? `You’re subscribed to the weekly recap. The next ${SEND_SCHEDULE.weeklyDay} recap will arrive by email.`
               : "You’re subscribed. The next brief will arrive by email.",
             'ok');
           return;
@@ -338,6 +384,7 @@
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       applyTheme(current === 'dark' ? 'light' : 'dark');
     });
+    localizeSchedule();
     initSignup();
   </script>
 </body>

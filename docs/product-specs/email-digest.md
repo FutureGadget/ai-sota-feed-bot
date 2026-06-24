@@ -157,9 +157,27 @@ is no wiki high-water mark.
     is filesystem-routed (no rewrite); a `functions` entry excludes `data/**`.
   - *External page (e.g. Buttondown):* set `DIGEST_EMAIL_SIGNUP_URL` and the menu
     links out instead. The in-page form is suppressed when this is set.
-- **Per-digest selection (Resend Topics).** The `/subscribe` form carries a
-  single **"Weekly recap only — less email"** checkbox (default off = both
-  digests). Daily and weekly are modelled as two Resend **Topics**
+- **Per-digest selection (Resend Topics).** The `/subscribe` form offers an
+  explicit two-way cadence choice (radio buttons): **"Daily brief + \<weekday\>
+  recap"** (default) or **"\<weekday\> recap only — less email"**. The selection
+  maps to the same `weekly_only` boolean as before (the second option sets it
+  true); explicit radios replace the prior opt-down checkbox, whose unchecked
+  state was easy to misread.
+  - *Timezone-adaptive labels.* The recap weekday and the daily time-of-day are
+    rendered client-side from the reader's own timezone, not hardcoded. The
+    sends are fixed UTC crons (daily 01:30 UTC; weekly **Saturday 05:30 UTC** —
+    see `.github/workflows/email-digest.yml`), but that instant is a different
+    local weekday/time per reader (Sat 05:30 UTC is Sat 14:30 in Seoul yet Fri
+    22:30 in Los Angeles), so a hardcoded weekday would be wrong somewhere.
+    `web/subscribe.html` computes the upcoming Saturday-05:30-UTC instant and the
+    daily-01:30-UTC instant, formats the local weekday (English,
+    `Intl.DateTimeFormat`) and a time-of-day word (morning/afternoon/evening/
+    night from the local hour), and fills the `[data-weekly-day]`,
+    `[data-weekly-day-plural]`, and `[data-daily-time]` spans plus the
+    form/success copy. Falls back to neutral "weekly"/"weekends"/"morning" if
+    `Intl` throws. **Note:** these instants mirror the workflow crons — if the
+    `email-digest.yml` schedule changes, update `SEND_SCHEDULE`.
+  Daily and weekly are modelled as two Resend **Topics**
   (`EMAIL_TOPIC_ID_DAILY`, `EMAIL_TOPIC_ID_WEEKLY`):
   - *Signup* (`api/subscribe.js`) opts the contact into the **weekly** topic
     always, and into the **daily** topic with `status: opt_in` unless
