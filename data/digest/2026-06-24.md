@@ -5,83 +5,89 @@ Focus: AI Platform Engineering
 ## 1. Agent identity: a new access model for autonomous, team-wide AI | Claude
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/agent-identity-access-model
-- Score: 3.09 | Reliability: 1.0
+- Score: 3.086 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.24623v1
-- Score: 3.366 | Reliability: 1.0
+- Score: 3.365 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. Lightweight Transformer Models for On-Device Fault Detection: A Benchmark Study on Resource-Constrained Deployment
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.24173v1
-- Score: 2.974 | Reliability: 1.0
+- Score: 2.972 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 4. Grad Detect: Gradient-Based Hallucination Detection in LLMs
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.24790v1
-- Score: 2.795 | Reliability: 1.0
+- Score: 2.794 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 5. [AINews] Claude Tag: Multiplayer, Proactive, Persistent Agents in Slack
+## 5. Introducing Claude Tag
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/introducing-claude-tag
+- Score: 2.792 | Reliability: 1.0
+- Why it matters: 
+
+## 6. [AINews] Claude Tag: Multiplayer, Proactive, Persistent Agents in Slack
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-claude-tag-multiplayer-proactive
-- Score: 2.711 | Reliability: 1.0
+- Score: 2.705 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery
+## 7. How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/gpt-5-immunology-mystery
-- Score: 2.674 | Reliability: 1.0
+- Score: 2.67 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Ship an Agent Skill That Installs Itself with Your Library
+## 8. Show HN: Stupify – anti-slop code review for AI agents
 - Type: news | Source: hackernews_ai
-- URL: https://stenbrinke.nl/blog/ship-an-agent-skill-that-installs-itself
-- Score: 2.537 | Reliability: 1.0
+- URL: https://github.com/Octember/stupify
+- Score: 2.542 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. Presentation: Rules for Understanding Language Models
+## 9. Presentation: Rules for Understanding Language Models
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/5-principles-llm-behavior/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.5 | Reliability: 1.0
+- Score: 2.494 | Reliability: 1.0
 - Why it matters: 
 
-## 9. claude-code v2.1.187
+## 10. claude-code v2.1.187
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.187
-- Score: 2.47 | Reliability: 1.0
+- Score: 2.465 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
-
-## 10. codex 0.143.0-alpha.14
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.14
-- Score: 2.375 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
 
 ## 11. Accuracy and Satisfaction in Multi-Turn LLM Dialogues for NFR Assessment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.24834v1
-- Score: 2.722 | Reliability: 1.0
+- Score: 2.72 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 12. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.442 | Reliability: 1.0
+- Score: 2.44 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
-## 13. claude-agent-sdk-python v0.2.108
+## 13. codex 0.143.0-alpha.14
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.14
+- Score: 2.371 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 14. claude-agent-sdk-python v0.2.108
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.108
-- Score: 2.338 | Reliability: 1.0
+- Score: 2.333 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
+## 15. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0rc1
-- Score: 1.993 | Reliability: 1.0
+- Score: 1.989 | Reliability: 1.0
 - Why it matters:
