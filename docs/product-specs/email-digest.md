@@ -165,15 +165,18 @@ is no wiki high-water mark.
   state was easy to misread.
   - *Timezone-adaptive labels.* The recap weekday and the daily time-of-day are
     rendered client-side from the reader's own timezone, not hardcoded. The
-    sends are fixed UTC crons (daily 22:30 UTC; weekly **Friday 23:00 UTC**), but
-    Friday 23:00 UTC is **Saturday** morning in Seoul (KST = UTC+9), so the copy
-    would otherwise be wrong east of UTC. `web/subscribe.html` computes the
-    upcoming Friday-23:00-UTC instant and the daily-22:30-UTC instant, formats
-    the local weekday (English, `Intl.DateTimeFormat`) and a time-of-day word
-    (morning/afternoon/evening/night from the local hour), and fills the
-    `[data-weekly-day]`, `[data-weekly-day-plural]`, and `[data-daily-time]`
-    spans plus the form/success copy. Falls back to neutral "weekly"/"weekends"/
-    "morning" if `Intl` throws.
+    sends are fixed UTC crons (daily 01:30 UTC; weekly **Saturday 05:30 UTC** —
+    see `.github/workflows/email-digest.yml`), but that instant is a different
+    local weekday/time per reader (Sat 05:30 UTC is Sat 14:30 in Seoul yet Fri
+    22:30 in Los Angeles), so a hardcoded weekday would be wrong somewhere.
+    `web/subscribe.html` computes the upcoming Saturday-05:30-UTC instant and the
+    daily-01:30-UTC instant, formats the local weekday (English,
+    `Intl.DateTimeFormat`) and a time-of-day word (morning/afternoon/evening/
+    night from the local hour), and fills the `[data-weekly-day]`,
+    `[data-weekly-day-plural]`, and `[data-daily-time]` spans plus the
+    form/success copy. Falls back to neutral "weekly"/"weekends"/"morning" if
+    `Intl` throws. **Note:** these instants mirror the workflow crons — if the
+    `email-digest.yml` schedule changes, update `SEND_SCHEDULE`.
   Daily and weekly are modelled as two Resend **Topics**
   (`EMAIL_TOPIC_ID_DAILY`, `EMAIL_TOPIC_ID_WEEKLY`):
   - *Signup* (`api/subscribe.js`) opts the contact into the **weekly** topic
