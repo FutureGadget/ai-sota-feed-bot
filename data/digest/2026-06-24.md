@@ -11,107 +11,107 @@ Focus: AI Platform Engineering
 ## 2. Privacy-Preserving RAG via Multi-Agent Semantic Rewriting: Achieving Confidentiality Without Compromising Contextual Fidelity
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.24623v1
-- Score: 3.315 | Reliability: 1.0
+- Score: 3.314 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. AI Is Moving up the Software Lifecycle: From Code Review to PRD Governance
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/ai-prd-code-review-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.006 | Reliability: 1.0
+- Score: 3.005 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 4. llama_index v0.14.23
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.978 | Reliability: 1.0
+- Score: 2.976 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. Introducing computer use in Gemini 3.5 Flash
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.865 | Reliability: 1.0
+- Score: 2.864 | Reliability: 1.0
 - Why it matters: 
 
 ## 6. claude-code v2.1.191
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
-- Score: 2.77 | Reliability: 1.0
+- Score: 2.768 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. Grad Detect: Gradient-Based Hallucination Detection in LLMs
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.24790v1
-- Score: 2.752 | Reliability: 1.0
+- Score: 2.75 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 8. OpenAI and Broadcom unveil LLM-optimized inference chip
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-broadcom-jalapeno-inference-chip
-- Score: 2.706 | Reliability: 1.0
+- Score: 2.705 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Accuracy and Satisfaction in Multi-Turn LLM Dialogues for NFR Assessment
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.24834v1
-- Score: 2.698 | Reliability: 1.0
+- Score: 2.697 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 10. Google OpenRL is an Experimental Self-hosted API for LLM Post-Training Fine-tuning
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/google-open-rl-fine-tuning/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.646 | Reliability: 1.0
+- Score: 2.644 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Maturana: Hardware-isolated, zero-trust agent harness
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/ajensenwaud/maturana
-- Score: 2.533 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 12. Why the Frontier Ecosystem must be Open — Matei Zaharia and Reynold Xin, Databricks
+## 11. Why the Frontier Ecosystem must be Open — Matei Zaharia and Reynold Xin, Databricks
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/databricks
-- Score: 2.531 | Reliability: 1.0
+- Score: 2.529 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 12. Maturana: Hardware-isolated, zero-trust agent harness
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/ajensenwaud/maturana
+- Score: 2.526 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
 ## 13. FlowPipe: LLM-Enhanced Conditional Generative Flow Networks for Data Preparation Pipeline Construction
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.24679v1
-- Score: 2.516 | Reliability: 1.0
+- Score: 2.515 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 14. claude-agent-sdk-python v0.2.110
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
-- Score: 2.467 | Reliability: 1.0
+- Score: 2.464 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 15. codex 0.143.0-alpha.15
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.15
-- Score: 2.454 | Reliability: 1.0
+- Score: 2.452 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 16. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.399 | Reliability: 1.0
+- Score: 2.398 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
 ## 17. Quoting Tom MacWright
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/24/tom-macwright/#atom-everything
-- Score: 2.365 | Reliability: 1.0
+- Score: 2.363 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. Build a healthcare appointment agent with Amazon Nova 2 Sonic
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/build-a-healthcare-appointment-agent-with-amazon-nova-2-sonic/
-- Score: 2.165 | Reliability: 1.0
+- Score: 2.163 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 19. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0rc1
-- Score: 1.927 | Reliability: 1.0
+- Score: 1.926 | Reliability: 1.0
 - Why it matters:
