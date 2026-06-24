@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75]
-updated: 2026-06-23
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac]
+updated: 2026-06-24
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac]
 ---
 
 ## TL;DR
@@ -20,7 +20,14 @@ tools, or escalate privileges. Because the agent has real credentials and can
 act, a successful injection is not a bad answer — it's an unauthorized action.
 
 ## State of the art
-There is no clean fix, only layered mitigation, and each layer has known holes.
+The root cause is now usefully framed as **role confusion**: an LLM has no
+reliable channel that separates "instructions from my operator" from "data I was
+asked to process," so text arriving as a tool result or a fetched page can assume
+the operator's role and be obeyed. Naming it this way clarifies why prompt hygiene
+can't fix it — the model is doing exactly what it was built to do, treating
+in-context text as authoritative — and why the durable controls live in
+*authorization* rather than in detecting "malicious" strings. There is no clean
+fix, only layered mitigation, and each layer has known holes.
 **Guardrail models** that screen inputs/outputs are the common defense, but
 recent work shows the very reasoning that makes them effective also makes them a
 target — "From Shield to Target" demonstrates denial-of-service attacks that
@@ -41,7 +48,12 @@ Red-teaming practitioners (Gray Swan, with OpenAI's Zico Kolter) push the same
 point from the offensive side: agent security is *not* "cybersecurity with AI
 sprinkled on" — the attack surface is the model's behavior under adversarial
 input, so it needs dedicated red-teaming of the agent's decisions and tool use,
-not just the perimeter around it.
+not just the perimeter around it. A subtler erosion comes from the agent's own
+plumbing: "Governance Decay" shows that the [context compaction](/topic/context-compaction)
+used to keep long sessions affordable can silently evict the safety and
+governance constraints stated up front, so a guardrail that held at turn one is
+simply gone by turn fifty — meaning the defenses against injection have to be
+pinned outside the compactible window, not trusted to survive summarization.
 
 ## What's new
 The emphasis is moving up the stack from "filter the prompt" to "govern the
@@ -56,6 +68,10 @@ so blast-radius limiting is becoming a configurable boundary, not just advice.
 And on the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that
 agent security is a distinct discipline from classic cybersecurity, requiring
 adversarial testing of the agent's own behavior rather than perimeter defense.
+Two framings sharpened this week: injection is fundamentally **role confusion**
+(the model can't separate operator instructions from in-context data), and the
+agent's own context-management layer is part of the attack surface — Governance
+Decay shows compaction can erase the safety constraints that were supposed to hold.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

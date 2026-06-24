@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8]
-updated: 2026-06-22
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2]
+updated: 2026-06-24
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2]
 ---
 
 ## TL;DR
@@ -35,15 +35,22 @@ associative stores build the structure from co-occurrence rather than embeddings
 keeping the LLM out of the *write* path as well as the read path). The shared
 claim is that for an agent's facts-and-preferences memory, exact, structured,
 temporally aware recall often beats fuzzy similarity — and can be built and
-updated without per-turn LLM cost.
+updated without per-turn LLM cost. A complementary critique targets the *query*
+side: "Root Memories" shows similarity-based retrieval misses memories that are
+**logically** rather than lexically relevant — the fact you need to answer is
+implied by what's stored, not embedded near the question — so recall has to reason
+over stored memories, not just rank them by distance, or it silently drops the
+load-bearing one.
 
 ## What's new
-The "is a vector DB even the right primitive" question is now live: alongside
-hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores
-(Memharness), algebraic/vector-symbolic memory positioned explicitly as a
-RAG alternative (VSA), and graph-based associative memory grown from Hebbian
-co-occurrence (FERNme) — argue that structured, exact recall can outperform
-embedding similarity for agent memory, and can be updated with ~zero LLM calls.
+The critique of pure similarity now hits the query side too: "Root Memories"
+benchmarks shows semantic-similarity retrieval misses *logically* critical
+memories (relevant by implication, not embedding distance), arguing recall must
+reason over stored facts rather than rank them by nearest-neighbor. That sharpens
+the live "is a vector DB even the right primitive" question already raised by
+non-vector designs — bi-temporal SQLite (Memharness), algebraic/vector-symbolic
+memory as an explicit RAG alternative (VSA), and Hebbian co-occurrence graphs
+(FERNme) — all arguing structured, exact recall can beat embedding similarity.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall

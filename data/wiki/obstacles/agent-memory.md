@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6]
-updated: 2026-06-23
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2]
+updated: 2026-06-24
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2]
 ---
 
 ## TL;DR
@@ -27,7 +27,11 @@ and is a useful reference architecture. The hard questions are no longer "should
 the agent have memory" but **what to write, when to write it, and how to recall
 the right slice cheaply** — which is where the two linked solutions diverge:
 retrieval from an external store (vector/graph knowledge bases) versus keeping
-the working set small via compaction. The market is splitting along a build-vs-buy
+the working set small via compaction. Recall itself is getting scrutinized:
+"Root Memories" shows similarity-based retrieval misses memories that are
+*logically* relevant rather than lexically close to the query, so the recall step
+has to reason over what's stored, not just embed-and-rank
+(see [vector/graph retrieval](/topic/vector-kb)). The market is splitting along a build-vs-buy
 seam: managed offerings (e.g. Cloudflare's persistent Agent Memory service) move
 memory toward buy-able infrastructure, while a parallel wave of **local-first,
 single-file, developer-owned stores** — bi-temporal memory in one SQLite file

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-23T02:09:43.640383+00:00",
+ "generated_at": "2026-06-24T02:10:04.554613+00:00",
  "areas": [
   {
    "area": "memory",
@@ -66,7 +66,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Cost is being attacked on two fronts: <strong>making it visible</strong> and <strong>making it smaller</strong>. Visibility is moving from a monthly surprise to a first-class signal — enterprise platforms now ship usage analytics and hard spend controls (OpenAI&#x27;s enterprise spend caps), and developer tooling attributes cost down to the unit of work, e.g. showing how many agent tokens a single pull request consumed (Prtokens). The reduction side is the sum of the other obstacles&#x27; solutions: keeping the working set small via <a href=\"/topic/context-compaction\">context compaction</a> attacks the per-step token bill directly (the cost scales with context size); choosing a cheaper <a href=\"/topic/agent-orchestration\">orchestration</a> topology matters because the coordination structure dominates spend — Stanford&#x27;s DeLM reports cutting multi-agent task cost ~50% by dropping the central orchestrator; and even evaluation is a cost line item, which is why teams fine-tune small judges to cut trace-judging cost ~100×. Infra-level levers help too: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is the <strong>context cost of instructions themselves</strong> — every skill, hook, or subagent you add to steer an agent consumes context budget, so steering and cost are the same knob viewed from two sides. The flip side of that knob is the biggest single lever: <strong>spending context to downshift the model</strong>. Cheap models are far cheaper per token but ignore architecture rules — ANMA reports Claude Haiku 4.5 violating its constraints in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit boundary contracts (YAML rules plus <code>CLAUDE.md</code>, hooks, and CI checks) — so a bit of contract overhead can make a cheaper model reliable enough to replace a frontier one on the bulk of the work.</p>"
+     "html": "<p>Cost is being attacked on two fronts: <strong>making it visible</strong> and <strong>making it smaller</strong>. Visibility is moving from a monthly surprise to a first-class signal — enterprise platforms now ship usage analytics and hard spend controls (OpenAI&#x27;s enterprise spend caps), and developer tooling attributes cost down to the unit of work, e.g. showing how many agent tokens a single pull request consumed (Prtokens). The reduction side is the sum of the other obstacles&#x27; solutions: keeping the working set small via <a href=\"/topic/context-compaction\">context compaction</a> attacks the per-step token bill directly (the cost scales with context size); choosing a cheaper <a href=\"/topic/agent-orchestration\">orchestration</a> topology matters because the coordination structure dominates spend — Stanford&#x27;s DeLM reports cutting multi-agent task cost ~50% by dropping the central orchestrator; and even evaluation is a cost line item, which is why teams fine-tune small judges to cut trace-judging cost ~100×. Infra-level levers help too: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency, and inside the model, KV-cache reuse cuts a cost specific to <strong>multimodal</strong> agents that re-read the same frames or screenshots each step — Kamera&#x27;s position-invariant cache reuses those visual tokens across context shifts instead of re-encoding them every look-back. A subtler driver is the <strong>context cost of instructions themselves</strong> — every skill, hook, or subagent you add to steer an agent consumes context budget, so steering and cost are the same knob viewed from two sides. The flip side of that knob is the biggest single lever: <strong>spending context to downshift the model</strong>. Cheap models are far cheaper per token but ignore architecture rules — ANMA reports Claude Haiku 4.5 violating its constraints in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit boundary contracts (YAML rules plus <code>CLAUDE.md</code>, hooks, and CI checks) — so a bit of contract overhead can make a cheaper model reliable enough to replace a frontier one on the bulk of the work.</p>"
     },
     {
      "heading": "What's new",
@@ -121,9 +121,13 @@
     {
      "sid": "c32171008fef614c",
      "title": "Show HN: ANMA, boundary contracts for cheaper AI coding agents"
+    },
+    {
+     "sid": "1c2693c60a919d8d",
+     "title": "Kamera: Unified Position-Invariant Multimodal KV Cache for Training-Free Reuse"
     }
    ],
-   "updated": "2026-06-22"
+   "updated": "2026-06-24"
   },
   "agent-evaluation": {
    "slug": "agent-evaluation",
@@ -221,7 +225,7 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0), graph-based associative memory built with ~zero LLM calls (FERNme) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest. A second, cost-driven theme is <strong>cheap, mechanical writes</strong>: rather than calling an LLM to decide what to store, newer stores build the memory structure deterministically — FERNme forms associative memory tags from fuzzy edges and a Hebbian co-occurrence rule, and local-first stores like PMB index writes with a hybrid BM25-plus-vector retriever in a single SQLite file — so persisting and recalling what an agent learns stops being a per-turn token bill. A third, newer theme is <strong>memory integrity</strong>: persistent memory is also a persistent attack surface. A reproducible benchmark shows agent-memory systems readily admit *poisoned facts* — adversarial or wrong entries that get written once and then retrieved as trusted context on every later turn — which makes write-time validation and provenance, not just recall quality, part of the memory-engineering job (and ties memory to <a href=\"/topic/prompt-injection\">prompt injection</a>).</p>"
+     "html": "<p>The field has converged on <strong>memory as a tiered system</strong> rather than a single store: short-term/working memory (the live context window), episodic memory (a log of past interactions), and long-term/semantic memory (durable facts and preferences). LinkedIn&#x27;s cognitive-memory writeup frames this split explicitly and is a useful reference architecture. The hard questions are no longer &quot;should the agent have memory&quot; but <strong>what to write, when to write it, and how to recall the right slice cheaply</strong> — which is where the two linked solutions diverge: retrieval from an external store (vector/graph knowledge bases) versus keeping the working set small via compaction. Recall itself is getting scrutinized: &quot;Root Memories&quot; shows similarity-based retrieval misses memories that are *logically* relevant rather than lexically close to the query, so the recall step has to reason over what&#x27;s stored, not just embed-and-rank (see <a href=\"/topic/vector-kb\">vector/graph retrieval</a>). The market is splitting along a build-vs-buy seam: managed offerings (e.g. Cloudflare&#x27;s persistent Agent Memory service) move memory toward buy-able infrastructure, while a parallel wave of <strong>local-first, single-file, developer-owned stores</strong> — bi-temporal memory in one SQLite file (Memharness), local-first encrypted memory over MCP (Cortex), curated file-based project memory (Brain2.0), graph-based associative memory built with ~zero LLM calls (FERNme) — treats memory as a component you install and own rather than a service you rent. A recurring design theme in this wave is <strong>richer temporal modeling</strong>: bi-temporal stores track both when a fact was true and when the agent learned it, so recall can reason about staleness instead of returning whatever embeds nearest. A second, cost-driven theme is <strong>cheap, mechanical writes</strong>: rather than calling an LLM to decide what to store, newer stores build the memory structure deterministically — FERNme forms associative memory tags from fuzzy edges and a Hebbian co-occurrence rule, and local-first stores like PMB index writes with a hybrid BM25-plus-vector retriever in a single SQLite file — so persisting and recalling what an agent learns stops being a per-turn token bill. A third, newer theme is <strong>memory integrity</strong>: persistent memory is also a persistent attack surface. A reproducible benchmark shows agent-memory systems readily admit *poisoned facts* — adversarial or wrong entries that get written once and then retrieved as trusted context on every later turn — which makes write-time validation and provenance, not just recall quality, part of the memory-engineering job (and ties memory to <a href=\"/topic/prompt-injection\">prompt injection</a>).</p>"
     },
     {
      "heading": "What's new",
@@ -289,9 +293,13 @@
     {
      "sid": "fbb59a181d9a71e6",
      "title": "Show HN: PMB – local-first memory for AI coding agents over MCP"
+    },
+    {
+     "sid": "0657f60e37a5d3d2",
+     "title": "Towards Root Memories: Benchmarking and Enhancing Implicit Logical Memory Retrieval for Personalized LLMs"
     }
    ],
-   "updated": "2026-06-23"
+   "updated": "2026-06-24"
   },
   "model-drift": {
    "slug": "model-drift",
@@ -433,11 +441,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius — and the operational framing is consolidating around <strong>agent-as-identity</strong>: an autonomous agent holds credentials and takes actions, so it is a non-human identity that needs the same lifecycle, scoping, and audit as a service account. Security teams warn that most organizations don&#x27;t yet treat agents that way, leaving an ungoverned class of actors with standing privileges that injection can borrow. Red-teaming practitioners (Gray Swan, with OpenAI&#x27;s Zico Kolter) push the same point from the offensive side: agent security is *not* &quot;cybersecurity with AI sprinkled on&quot; — the attack surface is the model&#x27;s behavior under adversarial input, so it needs dedicated red-teaming of the agent&#x27;s decisions and tool use, not just the perimeter around it.</p>"
+     "html": "<p>The root cause is now usefully framed as <strong>role confusion</strong>: an LLM has no reliable channel that separates &quot;instructions from my operator&quot; from &quot;data I was asked to process,&quot; so text arriving as a tool result or a fetched page can assume the operator&#x27;s role and be obeyed. Naming it this way clarifies why prompt hygiene can&#x27;t fix it — the model is doing exactly what it was built to do, treating in-context text as authoritative — and why the durable controls live in *authorization* rather than in detecting &quot;malicious&quot; strings. There is no clean fix, only layered mitigation, and each layer has known holes. <strong>Guardrail models</strong> that screen inputs/outputs are the common defense, but recent work shows the very reasoning that makes them effective also makes them a target — &quot;From Shield to Target&quot; demonstrates denial-of-service attacks that weaponize a guardrail against the agent it protects. Sandboxing is necessary but not sufficient: a coding-agent sandbox contains code execution yet does nothing about <strong>credential authorization</strong> — the agent inside the sandbox still holds tokens that injected instructions can abuse. The threat compounds in multi-agent systems, where one compromised agent&#x27;s output is another&#x27;s trusted input; new benchmarks (Deep-XPIA) are emerging specifically to measure cross-agent (indirect) prompt-injection exposure. The durable lesson is <strong>least privilege</strong>: scope what the agent can touch so a hijack has a small blast radius — and the operational framing is consolidating around <strong>agent-as-identity</strong>: an autonomous agent holds credentials and takes actions, so it is a non-human identity that needs the same lifecycle, scoping, and audit as a service account. Security teams warn that most organizations don&#x27;t yet treat agents that way, leaving an ungoverned class of actors with standing privileges that injection can borrow. Red-teaming practitioners (Gray Swan, with OpenAI&#x27;s Zico Kolter) push the same point from the offensive side: agent security is *not* &quot;cybersecurity with AI sprinkled on&quot; — the attack surface is the model&#x27;s behavior under adversarial input, so it needs dedicated red-teaming of the agent&#x27;s decisions and tool use, not just the perimeter around it. A subtler erosion comes from the agent&#x27;s own plumbing: &quot;Governance Decay&quot; shows that the <a href=\"/topic/context-compaction\">context compaction</a> used to keep long sessions affordable can silently evict the safety and governance constraints stated up front, so a guardrail that held at turn one is simply gone by turn fifty — meaning the defenses against injection have to be pinned outside the compactible window, not trusted to survive summarization.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The emphasis is moving up the stack from &quot;filter the prompt&quot; to &quot;govern the actor&quot;: guardrails can be turned into a DoS vector and sandboxes don&#x27;t solve credential authorization, while a parallel push reframes every agent as a first-class <strong>identity</strong> to be provisioned, scoped, and audited like a service account — closing the gap injection exploits when agents hold ambient privilege. The least-privilege controls are now landing as concrete harness primitives — per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>) and approval-gated writes that respect the caller&#x27;s permissions (datasette-agent) — so blast-radius limiting is becoming a configurable boundary, not just advice. And on the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that agent security is a distinct discipline from classic cybersecurity, requiring adversarial testing of the agent&#x27;s own behavior rather than perimeter defense.</p>"
+     "html": "<p>The emphasis is moving up the stack from &quot;filter the prompt&quot; to &quot;govern the actor&quot;: guardrails can be turned into a DoS vector and sandboxes don&#x27;t solve credential authorization, while a parallel push reframes every agent as a first-class <strong>identity</strong> to be provisioned, scoped, and audited like a service account — closing the gap injection exploits when agents hold ambient privilege. The least-privilege controls are now landing as concrete harness primitives — per-parameter permission rules (Claude Code&#x27;s <code>Tool(param:value)</code>) and approval-gated writes that respect the caller&#x27;s permissions (datasette-agent) — so blast-radius limiting is becoming a configurable boundary, not just advice. And on the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that agent security is a distinct discipline from classic cybersecurity, requiring adversarial testing of the agent&#x27;s own behavior rather than perimeter defense. Two framings sharpened this week: injection is fundamentally <strong>role confusion</strong> (the model can&#x27;t separate operator instructions from in-context data), and the agent&#x27;s own context-management layer is part of the attack surface — Governance Decay shows compaction can erase the safety constraints that were supposed to hold.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -480,9 +488,17 @@
     {
      "sid": "0ef52ef7cd8a9e75",
      "title": "Red-Teaming after Mythos — Zico Kolter & Matt Fredrikson, Gray Swan"
+    },
+    {
+     "sid": "f26c96cfcb192832",
+     "title": "Prompt Injection as Role Confusion"
+    },
+    {
+     "sid": "9c19b2212d6264ac",
+     "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents"
     }
    ],
-   "updated": "2026-06-23"
+   "updated": "2026-06-24"
   },
   "tool-use": {
    "slug": "tool-use",
@@ -555,11 +571,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off. A third theme is <strong>the harness is part of what you benchmark</strong>: a cross-harness study reports a deliberately simple agent loop reaching SOTA across 21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate scaffolding often adds cost and variance without adding capability — so the benchmark should hold the harness fixed and let it earn its complexity.</p>"
+     "html": "<p>Two themes dominate. First, <strong>benchmark what the agent did</strong>, not just its answer: rubric-style suites score whether the right tools were called and the task was actually completed, and structural benchmarks probe specific failure axes (e.g. DPBench on the determinants of multi-agent coordination). Second, <strong>measure capability on your own tooling and out of distribution</strong>: Hugging Face&#x27;s &quot;is it agentic enough&quot; workbench benchmarks open models against the caller&#x27;s actual tools, and &quot;Running the Gauntlet&quot; shows agents that top familiar leaderboards degrade sharply in unfamiliar environments — so a high public score is weak evidence for your workload. Reusable eval workbenches (olmo-eval) package this into the model/agent development loop so benchmarking is a standing harness, not a one-off. A third theme is <strong>the harness is part of what you benchmark</strong>: a cross-harness study reports a deliberately simple agent loop reaching SOTA across 21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate scaffolding often adds cost and variance without adding capability — so the benchmark should hold the harness fixed and let it earn its complexity. A fourth theme makes the &quot;build it from your own environment&quot; push concrete: rather than synthetic tasks, the newest suites are <strong>mined from real sessions</strong> — EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions where an agent reads heterogeneous files, calls tools, and has to deliver a business artifact, so the benchmark inherits the messiness of production instead of approximating it. The flip side of trusting a benchmark is <strong>reproducibility</strong>: because agent runs touch the network, filesystem, and shifting tool versions, a score only means something if the environment is fixed — Proctor packages coding-agent benchmarks as *signed, isolated bundles* so a run can be reproduced (and a leaderboard claim audited) rather than taken on faith.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The harness is now treated as a benchmark variable in its own right: a cross-harness study finds a *simple* agent loop hitting SOTA across 21 models on SWE-pro/Terminal-Bench suites, arguing elaborate scaffolding mostly adds cost and variance. That joins the standing skepticism of leaderboard scores — agents collapse &quot;beyond familiar environments,&quot; and workbenches that benchmark on *your* tools push teams toward task suites grounded in their own environment.</p>"
+     "html": "<p>Two moves toward trustworthy agent benchmarks: suites mined from <strong>real sessions</strong> (EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions — heterogeneous files, tool calls, a real artifact to deliver) so the benchmark inherits production messiness, and <strong>reproducible packaging</strong> (Proctor ships coding-agent benchmarks as signed, isolated bundles) so a score can be re-run and a leaderboard claim audited. Both reinforce the standing lessons that public scores over-state real-workload performance and that the harness itself is a benchmark variable.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -615,9 +631,17 @@
     {
      "sid": "3abcf8c08cb66506",
      "title": "Simplicity always wins:SOTA on swe-pro,tb2,-verif on 21 models with simple-agent"
+    },
+    {
+     "sid": "e214c4d6ded906fa",
+     "title": "EnterpriseClawBench: Benchmarking Agents from Real Workplace Sessions"
+    },
+    {
+     "sid": "4500a2b43ff7ed73",
+     "title": "Show HN: Proctor – signed isolation bundles for AI coding-agent benchmarks"
     }
    ],
-   "updated": "2026-06-23"
+   "updated": "2026-06-24"
   },
   "agent-orchestration": {
    "slug": "agent-orchestration",
@@ -775,15 +799,15 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href=\"/topic/vector-kb\">vector/graph KB</a>, and rehydrate on demand. A complementary, cheaper move is compaction at the <strong>input boundary</strong> — shrinking a tool result *before* it ever enters the context, not summarizing it afterward. Coding agents read verbose build/test logs, so deterministic pre-compactors that strip noise from that output (Logslim) cut the per-step token bill with no model call and no lossy summarization of the agent&#x27;s own reasoning.</p>"
+     "html": "<p>&quot;Context engineering and memory management&quot; has emerged as a discipline of its own — treating the prompt as a managed working set rather than an append-only log. Techniques range from rolling summarization to LLM-guided compression of long-term memory (MemRefine) and memory systems that explicitly model <strong>association, forgetting, and synthesis</strong> rather than storing everything. Compaction is increasingly paired with an external store: compress the working set, offload the rest to a <a href=\"/topic/vector-kb\">vector/graph KB</a>, and rehydrate on demand. A complementary, cheaper move is compaction at the <strong>input boundary</strong> — shrinking a tool result *before* it ever enters the context, not summarizing it afterward. Coding agents read verbose build/test logs, so deterministic pre-compactors that strip noise from that output (Logslim) cut the per-step token bill with no model call and no lossy summarization of the agent&#x27;s own reasoning. The newest finding is that compaction is not just lossy but <strong>safety-critical</strong>: &quot;Governance Decay&quot; shows that summarizing, evicting, or compressing context in a long-horizon agent can silently drop the very safety/governance constraints that were stated up front, so a later step acts as if rules it was given hours ago no longer apply — the compactor is a security surface, not just a cost optimization.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Compression is getting smarter than naive summarization — LLM-guided methods (MemRefine) and forgetting/synthesis-aware memory systems aim to preserve signal density rather than just shrink token count — and compaction is moving to the tool-output boundary, deterministically trimming verbose build/test logs before the agent reads them (Logslim) so the cheapest tokens are the ones never added.</p>"
+     "html": "<p>Compaction now has a documented <strong>safety</strong> failure mode: &quot;Governance Decay&quot; shows that context summarization/eviction in long-running agents can silently erase the safety and governance constraints set earlier in the session, reframing the compactor as a security-critical layer that needs constraint-preserving guarantees — not just a token-saving one. That sits alongside smarter compression (LLM-guided MemRefine, forgetting/synthesis-aware stores) and input-boundary trimming of verbose tool output (Logslim).</p>"
     },
     {
      "heading": "Trade-offs",
-     "html": "<p>Cheap on infra (no external store) and keeps everything the model needs in one place, but summarization is lossy and irreversible — a detail dropped early can&#x27;t be recovered later, and aggressive compaction can quietly degrade task fidelity. Best for single-session, long-horizon tasks where recency dominates and the full history isn&#x27;t needed verbatim.</p>"
+     "html": "<p>Cheap on infra (no external store) and keeps everything the model needs in one place, but summarization is lossy and irreversible — a detail dropped early can&#x27;t be recovered later, and aggressive compaction can quietly degrade task fidelity. Best for single-session, long-horizon tasks where recency dominates and the full history isn&#x27;t needed verbatim. The sharpest failure mode is <strong>not</strong> lost task detail but lost *constraints*: Governance Decay shows compaction can quietly evict the safety/policy rules an agent was given up front, so over a long session it drifts out of its guardrails — which means anything load-bearing (permissions, safety limits, the user&#x27;s hard &quot;do not&quot;) must be pinned outside the compactible window, not left to survive summarization (see <a href=\"/topic/prompt-injection\">prompt injection</a>).</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -818,9 +842,13 @@
     {
      "sid": "c763e01254fa7c5c",
      "title": "Logslim – compact test/build output before your AI agent reads it"
+    },
+    {
+     "sid": "9c19b2212d6264ac",
+     "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents"
     }
    ],
-   "updated": "2026-06-22"
+   "updated": "2026-06-24"
   },
   "cost-controls": {
    "slug": "cost-controls",
@@ -836,11 +864,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>The tooling is maturing from &quot;read the monthly bill&quot; toward continuous FinOps for agents. Platform vendors ship <strong>usage analytics plus enforceable spend controls</strong> (OpenAI&#x27;s enterprise spend caps and analytics) so an org can set ceilings rather than discover overruns. Developer tooling pushes <strong>attribution</strong> down to the unit of work — Prtokens surfaces how many agent tokens a single pull request burned, making cost a number on the artifact instead of an aggregate. <strong>Caching</strong> removes repeated fixed cost: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency, and prompt/result caching trims repeated context. The load-bearing idea is that you cannot control what you don&#x27;t meter, so per-task metering and budgets are the foundation the architectural savings build on.</p>"
+     "html": "<p>The tooling is maturing from &quot;read the monthly bill&quot; toward continuous FinOps for agents. Platform vendors ship <strong>usage analytics plus enforceable spend controls</strong> (OpenAI&#x27;s enterprise spend caps and analytics) so an org can set ceilings rather than discover overruns. Developer tooling pushes <strong>attribution</strong> down to the unit of work — Prtokens surfaces how many agent tokens a single pull request burned, making cost a number on the artifact instead of an aggregate. <strong>Caching</strong> removes repeated fixed cost: container/image caching (Amazon SageMaker) cuts cold-start scaling cost and latency, and prompt/result caching trims repeated context. The caching frontier is moving inside the model&#x27;s own KV cache for <strong>multimodal</strong> agents that re-examine the same frames, screenshots, and rendered artifacts every look-back — Kamera proposes a position-invariant KV cache so those repeated visual tokens are reused across context shifts instead of re-encoded from scratch, turning redundant re-encoding (a hidden, fast-growing cost in agents that loop over visual state) into a cache hit, training-free. The load-bearing idea is that you cannot control what you don&#x27;t meter, so per-task metering and budgets are the foundation the architectural savings build on.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>Cost controls are shifting left: from a monthly finance review to per-task, per-PR metering with enforceable caps (OpenAI spend controls, Prtokens attribution) and caching that removes repeated fixed cost — turning agent cost into a CI/ops signal you watch live rather than reconcile after the fact.</p>"
+     "html": "<p>Cost controls are shifting left: from a monthly finance review to per-task, per-PR metering with enforceable caps (OpenAI spend controls, Prtokens attribution) and caching that removes repeated fixed cost — turning agent cost into a CI/ops signal you watch live rather than reconcile after the fact. Caching is also reaching inside the model: Kamera&#x27;s position-invariant KV cache lets multimodal agents reuse the encoding of frames/screenshots they re-read every step, cutting the redundant re-encode cost of visual look-backs without retraining.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -875,9 +903,13 @@
     {
      "sid": "4235792e910ea51a",
      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+     "sid": "1c2693c60a919d8d",
+     "title": "Kamera: Unified Position-Invariant Multimodal KV Cache for Training-Free Reuse"
     }
    ],
-   "updated": "2026-06-20"
+   "updated": "2026-06-24"
   },
   "llm-as-judge": {
    "slug": "llm-as-judge",
@@ -1027,11 +1059,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup, and graph-based associative stores build the structure from co-occurrence rather than embeddings (FERNme grows a memory graph with fuzzy edges and a Hebbian co-occurrence rule, keeping the LLM out of the *write* path as well as the read path). The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity — and can be built and updated without per-turn LLM cost.</p>"
+     "html": "<p>Pure top-k vector similarity is increasingly treated as a floor, not the answer: practitioners report that <strong>hybrid retrieval</strong> (dense vectors + lexical/keyword + metadata filters, often with a rerank pass) is needed for production recall, and that <strong>knowledge graphs</strong> capture connected facts that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory layers with different stances on graph vs. vector vs. hybrid. Strong results are achievable without an LLM in the recall path (a local store hitting high LongMemEval recall), underscoring that retrieval quality is an engineering problem, not a model-scale one. The category is also being challenged from outside vectors entirely: bi-temporal relational stores (Memharness, a single SQLite file) lean on time and structure rather than embeddings, vector-symbolic / algebraic memory (VSA) proposes binding and bundling operations *instead of* RAG-style nearest-neighbour lookup, and graph-based associative stores build the structure from co-occurrence rather than embeddings (FERNme grows a memory graph with fuzzy edges and a Hebbian co-occurrence rule, keeping the LLM out of the *write* path as well as the read path). The shared claim is that for an agent&#x27;s facts-and-preferences memory, exact, structured, temporally aware recall often beats fuzzy similarity — and can be built and updated without per-turn LLM cost. A complementary critique targets the *query* side: &quot;Root Memories&quot; shows similarity-based retrieval misses memories that are <strong>logically</strong> rather than lexically relevant — the fact you need to answer is implied by what&#x27;s stored, not embedded near the question — so recall has to reason over stored memories, not just rank them by distance, or it silently drops the load-bearing one.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The &quot;is a vector DB even the right primitive&quot; question is now live: alongside hybrid retrieval and graphs, non-vector designs — bi-temporal SQLite stores (Memharness), algebraic/vector-symbolic memory positioned explicitly as a RAG alternative (VSA), and graph-based associative memory grown from Hebbian co-occurrence (FERNme) — argue that structured, exact recall can outperform embedding similarity for agent memory, and can be updated with ~zero LLM calls.</p>"
+     "html": "<p>The critique of pure similarity now hits the query side too: &quot;Root Memories&quot; benchmarks shows semantic-similarity retrieval misses *logically* critical memories (relevant by implication, not embedding distance), arguing recall must reason over stored facts rather than rank them by nearest-neighbor. That sharpens the live &quot;is a vector DB even the right primitive&quot; question already raised by non-vector designs — bi-temporal SQLite (Memharness), algebraic/vector-symbolic memory as an explicit RAG alternative (VSA), and Hebbian co-occurrence graphs (FERNme) — all arguing structured, exact recall can beat embedding similarity.</p>"
     },
     {
      "heading": "Trade-offs",
@@ -1074,9 +1106,13 @@
     {
      "sid": "eb5267262e7d31c8",
      "title": "Show HN: FERNme – agent memory that updates with ~zero LLM calls"
+    },
+    {
+     "sid": "0657f60e37a5d3d2",
+     "title": "Towards Root Memories: Benchmarking and Enhancing Implicit Logical Memory Retrieval for Personalized LLMs"
     }
    ],
-   "updated": "2026-06-22"
+   "updated": "2026-06-24"
   },
   "version-pinning": {
    "slug": "version-pinning",

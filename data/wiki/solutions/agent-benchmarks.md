@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506]
-updated: 2026-06-23
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73]
+updated: 2026-06-24
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73]
 ---
 
 ## TL;DR
@@ -31,15 +31,27 @@ a one-off. A third theme is **the harness is part of what you benchmark**: a
 cross-harness study reports a deliberately simple agent loop reaching SOTA across
 21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate
 scaffolding often adds cost and variance without adding capability — so the
-benchmark should hold the harness fixed and let it earn its complexity.
+benchmark should hold the harness fixed and let it earn its complexity. A fourth
+theme makes the "build it from your own environment" push concrete: rather than
+synthetic tasks, the newest suites are **mined from real sessions** —
+EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions
+where an agent reads heterogeneous files, calls tools, and has to deliver a
+business artifact, so the benchmark inherits the messiness of production instead
+of approximating it. The flip side of trusting a benchmark is **reproducibility**:
+because agent runs touch the network, filesystem, and shifting tool versions, a
+score only means something if the environment is fixed — Proctor packages
+coding-agent benchmarks as *signed, isolated bundles* so a run can be reproduced
+(and a leaderboard claim audited) rather than taken on faith.
 
 ## What's new
-The harness is now treated as a benchmark variable in its own right: a
-cross-harness study finds a *simple* agent loop hitting SOTA across 21 models on
-SWE-pro/Terminal-Bench suites, arguing elaborate scaffolding mostly adds cost and
-variance. That joins the standing skepticism of leaderboard scores — agents
-collapse "beyond familiar environments," and workbenches that benchmark on *your*
-tools push teams toward task suites grounded in their own environment.
+Two moves toward trustworthy agent benchmarks: suites mined from **real sessions**
+(EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions
+— heterogeneous files, tool calls, a real artifact to deliver) so the benchmark
+inherits production messiness, and **reproducible packaging** (Proctor ships
+coding-agent benchmarks as signed, isolated bundles) so a score can be re-run and
+a leaderboard claim audited. Both reinforce the standing lessons that public
+scores over-state real-workload performance and that the harness itself is a
+benchmark variable.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static target:

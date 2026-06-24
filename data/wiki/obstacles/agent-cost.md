@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c]
-updated: 2026-06-22
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d]
+updated: 2026-06-24
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d]
 ---
 
 ## TL;DR
@@ -34,7 +34,11 @@ because the coordination structure dominates spend — Stanford's DeLM reports
 cutting multi-agent task cost ~50% by dropping the central orchestrator; and even
 evaluation is a cost line item, which is why teams fine-tune small judges to cut
 trace-judging cost ~100×. Infra-level levers help too: container/image caching
-(Amazon SageMaker) cuts cold-start scaling cost and latency. A subtler driver is
+(Amazon SageMaker) cuts cold-start scaling cost and latency, and inside the model,
+KV-cache reuse cuts a cost specific to **multimodal** agents that re-read the same
+frames or screenshots each step — Kamera's position-invariant cache reuses those
+visual tokens across context shifts instead of re-encoding them every look-back.
+A subtler driver is
 the **context cost of instructions themselves** — every skill, hook, or subagent
 you add to steer an agent consumes context budget, so steering and cost are the
 same knob viewed from two sides. The flip side of that knob is the biggest single
