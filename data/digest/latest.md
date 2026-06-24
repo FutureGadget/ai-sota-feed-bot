@@ -53,7 +53,7 @@ Focus: AI Platform Engineering
 ## 9. OPFS + Pyodide test harness
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/23/opfs-pyodide/#atom-everything
-- Score: 2.649 | Reliability: 1.0
+- Score: 2.648 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness, claude code.
 
 ## 10. How Omio is building the future of conversational travel
