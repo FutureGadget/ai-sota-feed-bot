@@ -44,6 +44,7 @@
   });
 
   const groupNavigation = () => {
+    let fallbackLinks = null;
     const groups = [
       ["Catch up", ["/", "/daily", "/weekly"]],
       ["Follow", ["/storylines"]],
@@ -58,12 +59,17 @@
       heading.textContent = label;
       const links = document.createElement("div");
       links.className = "site-nav-group-links";
+      if (label === "More") fallbackLinks = links;
       destinations.forEach((destination) => {
         const link = nav.querySelector(`[data-site-destination="${destination}"]`);
         if (link) links.append(link);
       });
       section.append(heading, links);
       nav.append(section);
+    });
+    const ungrouped = Array.from(nav.querySelectorAll(":scope > a[data-site-destination]"));
+    ungrouped.forEach((link) => {
+      if (fallbackLinks) fallbackLinks.append(link);
     });
   };
   groupNavigation();

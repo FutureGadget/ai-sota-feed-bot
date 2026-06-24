@@ -7,6 +7,7 @@ from pipeline import render_static_pages as render
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE_CHROME_VERSION = render.SITE_CHROME_ASSET_VERSION
 SHELLS = (
     "index.html",
     "daily.html",
@@ -56,8 +57,8 @@ class SiteChromeContractTest(unittest.TestCase):
         for filename in SHELLS:
             with self.subTest(filename=filename):
                 html = (ROOT / "web" / filename).read_text(encoding="utf-8")
-                self.assertIn('href="/site-chrome.css"', html)
-                self.assertIn('src="/site-chrome.js"', html)
+                self.assertIn(f'href="/site-chrome.css?v={SITE_CHROME_VERSION}"', html)
+                self.assertIn(f'src="/site-chrome.js?v={SITE_CHROME_VERSION}"', html)
                 self.assertIn('class="site-chrome"', html)
                 self.assertIn("data-site-browse-open", html)
                 self.assertIn("data-site-more-open", html)
@@ -117,8 +118,8 @@ class SiteChromeContractTest(unittest.TestCase):
             body_html="",
         )
 
-        self.assertIn('href="/site-chrome.css"', html)
-        self.assertIn('src="/site-chrome.js"', html)
+        self.assertIn(f'href="/site-chrome.css?v={SITE_CHROME_VERSION}"', html)
+        self.assertIn(f'src="/site-chrome.js?v={SITE_CHROME_VERSION}"', html)
         self.assertIn('class="site-chrome"', html)
         self.assertIn('data-site-section="/daily"', html)
         self.assertIn('class="site-context"', html)
@@ -138,6 +139,11 @@ class SiteChromeContractTest(unittest.TestCase):
             "/playbook/",
         ):
             self.assertIn(prefix, js)
+
+    def test_browse_dialog_keeps_foundations_inside_build_group(self) -> None:
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+        self.assertIn('["Build", ["/playbook", "/map", "/foundations"]]', js)
+        self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)
 
 
 if __name__ == "__main__":
