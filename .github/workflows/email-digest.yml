@@ -6,12 +6,12 @@ name: AI Feed Email Digest
 # (or config/email.yaml enabled:false) publish_email.py is a clean no-op and the
 # cursor commit finds nothing to push.
 #
-#   - daily brief:   every day 22:30 UTC (07:30 KST)
-#   - weekly recap:  Friday 23:00 UTC (08:00 KST Sat) — the recap week ends Sat
+#   - daily brief:   every day 01:30 UTC (10:30 KST), after daily-recap at 09:00 KST
+#   - weekly recap:  Saturday 05:30 UTC (14:30 KST), after weekly-recap at 13:00 KST
 on:
   schedule:
-    - cron: "30 22 * * *"  # daily brief — 07:30 KST
-    - cron: "0 23 * * 5"   # weekly recap — Fri 23:00 UTC
+    - cron: "30 1 * * *"  # daily brief — 10:30 KST, after daily recap
+    - cron: "30 5 * * 6"  # weekly recap — 14:30 KST Sat, after weekly recap
   workflow_dispatch:
     inputs:
       kind:
@@ -67,7 +67,7 @@ jobs:
           # --kind weekly (github.event.schedule carries the cron expression).
           KIND="$INPUT_KIND"
           if [ -z "$KIND" ]; then
-            if [ "$SCHEDULE" = "0 23 * * 5" ]; then KIND="weekly"; else KIND="daily"; fi
+            if [ "$SCHEDULE" = "30 5 * * 6" ]; then KIND="weekly"; else KIND="daily"; fi
           fi
           DRY=""
           if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi

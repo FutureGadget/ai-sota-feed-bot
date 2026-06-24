@@ -34,7 +34,7 @@ This serves all three positioning pillars at once:
 
 ## Contents
 
-### Daily brief (evening cron)
+### Daily brief (post-recap morning cron)
 
 Sourced from **`data/daily/latest.json`** — the *same curated recap the `/daily`
 page serves* (decided 2026-06-23; previously the raw ranked feed
@@ -66,11 +66,11 @@ evergreen, so it would dilute finishability.
 compares `data/email/state.json` → `daily.last_sent_date` to the recap's own
 `date`: the latest committed recap sends once and re-sends only when a *newer*
 recap appears. If no new recap exists (the agent routine has not run), the send
-is a **clean no-op** — it never falls back to mailing the raw feed. The evening
-cron (22:30 UTC) typically sends the prior day's just-completed recap, which is
-the finished, deduped, categorized artifact rather than a mid-day snapshot.
+is a **clean no-op** — it never falls back to mailing the raw feed. The cron
+runs at 01:30 UTC (10:30 KST), after the 09:00 KST daily recap routine, so the
+email normally sends the prior UTC day's just-completed curated recap.
 
-### Weekly recap (Friday cron)
+### Weekly recap (post-recap Saturday cron)
 
 Sourced from `data/weekly/<week>.json` (the `/weekly` page as a push):
 
@@ -177,8 +177,9 @@ is no wiki high-water mark.
   It renders email-safe HTML and calls the provider's
   **broadcast** endpoint (the provider fans out and appends the unsubscribe
   footer).
-- **Schedule.** `.github/workflows/email-digest.yml` — a **daily** morning cron
-  (brief) and a **Friday** cron (recap). Secrets-gated; no-ops without keys.
+- **Schedule.** `.github/workflows/email-digest.yml` — a **daily** post-recap
+  morning cron (brief) and a **Saturday** post-recap cron (weekly recap).
+  Secrets-gated; no-ops without keys.
 - **Attribution.** Every email link carries `?utm_source=email` (or routes
   through `/s?u=`) so clicks attribute into the existing PostHog / CTR →
   `auto_tune` loop. Otherwise we go blind on the best channel.

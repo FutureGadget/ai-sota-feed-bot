@@ -58,9 +58,9 @@ Greppable run signals from `publish/publish_email.py`:
 
 ## Cadence
 
-- Daily brief: `30 22 * * *` (07:30 KST).
-- Weekly recap: `0 23 * * 5` (Fri 23:00 UTC) — mapped to `--kind weekly` via
-  `github.event.schedule`.
+- Daily brief: `30 1 * * *` (10:30 KST), after the 09:00 KST daily recap routine.
+- Weekly recap: `30 5 * * 6` (Sat 14:30 KST), after the 13:00 KST weekly
+  recap routine — mapped to `--kind weekly` via `github.event.schedule`.
 
 Both read whatever the hourly pipeline already committed; they never run on the
 hourly schedule.

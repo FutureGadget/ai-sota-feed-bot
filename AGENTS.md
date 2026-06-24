@@ -38,7 +38,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-full-publish.yml` | hourly cron (`37 * * * *`) + external ticker | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
-| `email-digest.yml` | daily 22:30 UTC | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
+| `email-digest.yml` | daily 01:30 UTC; weekly Sat 05:30 UTC | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
 
 The GitHub `schedule` is best-effort (deprioritized at `:00`, drops hours), so
 `feed-full-publish.yml` also runs at `37 * * * *` and is triggered for *real*
