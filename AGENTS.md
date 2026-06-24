@@ -8,7 +8,7 @@ trial-and-error.
 Build and operate an AI Platform Engineer-focused news intelligence bot
 (collect → rank → digest → publish) plus a reader-facing website at
 https://www.llm-digest.com (feed, daily/weekly recaps, story permalinks,
-storylines).
+storylines, Agent Builder Foundations).
 
 ## System At A Glance
 Two-tier deterministic pipeline (LLM currently **disabled** — see Gotchas):
@@ -22,6 +22,7 @@ pipeline/build_digest.py  (Tier-0)     -> data/processed/latest.json + data/dige
    (TIER0_INPUT=tier1; full ranking via pipeline/ranking.py; incremental no-delta skip)
 pipeline/story_store.py sync           -> data/stories/ (durable, append-only store)
 pipeline/render_static_pages.py        -> web/{daily,weekly,story}/*.html + sitemap.xml
+pipeline/build_foundations.py          -> data/foundations/index.json (deterministic concept compiler)
 
 Claude Code storyline routine (every 5h, outside GitHub Actions):
 pipeline/build_storylines.py           -> data/storylines/ (deterministic threads)
@@ -81,6 +82,13 @@ same MIN_ITEMS/DAYS/SOURCES floor** (the deterministic gate — no link bypasses
 it) and badges the result `via_scout`. The agent never decides what becomes a
 storyline; it only proposes links the floor then judges.
 
+Agent Builder **Foundations** works like the wiki/playbook agent loop:
+`.agents/skills/foundations-curator/` writes durable concept pages under
+`data/foundations/concepts/*.md`; `pipeline/build_foundations.py` validates
+evidence tiers and compiles `data/foundations/index.json`; `render_static_pages.py`
+serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
+`.agents/routines/foundations-curator-weekly/`.
+
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
   releases, normalization, dedupe, crawl cooldown per source)
@@ -95,6 +103,8 @@ storyline; it only proposes links the floor then judges.
   - `build_wiki.py` — compiles the agent-engineering wiki markdown pages
     (`data/wiki/`) into the served `data/wiki/index.json` (deterministic; LLM
     synthesis is the `wiki-curator` routine's job)
+  - `build_foundations.py` — compiles Agent Builder Foundations concept pages
+    (`data/foundations/concepts/`) into the served `data/foundations/index.json`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
@@ -103,7 +113,8 @@ storyline; it only proposes links the floor then judges.
   `/weekly` recap; secrets-gated no-op; reads/advances the
   `data/email/state.json` cursor — daily guard keys off the recap's `date`)
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
-  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `client-config.js`,
+  `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `foundations.js`,
+  `client-config.js`,
   `subscribe.js` (POST → Resend contacts for the email digest; reads no `data/`).
   The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
@@ -115,7 +126,8 @@ storyline; it only proposes links the floor then judges.
   controls remain visible. Generated pages receive the same chrome through
   `pipeline/render_static_pages.py`.
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
-  `web/storyline/`, `web/topic/`, `web/map.html`, `sitemap.xml` (from
+  `web/storyline/`, `web/topic/`, `web/foundations/`, `web/map.html`,
+  `web/foundations.html`, `sitemap.xml` (from
   `render_static_pages.py`). Brand assets:
   `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
   `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
@@ -134,6 +146,8 @@ storyline; it only proposes links the floor then judges.
     `llm.yaml` (**enabled: false**), `user_preferences.yaml`, `config/prompts/`
   - `wiki_schema.md` — contract for the agent-engineering wiki (obstacle areas,
     page format, ingest/lint/query ops, `build_wiki.py` invariants)
+  - `foundations_schema.md` — contract for Agent Builder Foundations concept
+    pages, evidence tiers, and `build_foundations.py` invariants
 - `scripts/` — `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
@@ -149,7 +163,9 @@ storyline; it only proposes links the floor then judges.
   `/map` and `/topic/<slug>`), `playbook/` (writes dated **Playbook editions** —
   actionable problem→apply→result cards for agent builders — to
   `data/playbook/<date>.json`, validated by `build_playbook_index.py`; serves
-  `/playbook`), `add-source/` (add a feed source
+  `/playbook`), `foundations-curator/` (writes durable evidence-tiered concept
+  explanations to `data/foundations/concepts/*.md`, validated by
+  `build_foundations.py`; serves `/foundations`), `add-source/` (add a feed source
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
   gates and reaches the feed)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
@@ -195,6 +211,10 @@ storyline; it only proposes links the floor then judges.
   `build_wiki.py`; the only file served/bundled), `index.md` (catalog), `log.md`
   (append-only activity), `input/` ingest bundles. Schema: `config/wiki_schema.md`
 - `data/daily/`, `data/weekly/` — recap JSONs + `input/` bundles + indices
+- `data/foundations/` — Agent Builder Foundations: `concepts/*.md` source pages
+  (agent-curated source of truth), `index.json` compiled by
+  `build_foundations.py`, and `input/` bundles for the curator routine. Served at
+  `/foundations` and `/foundations/<slug>`. Schema: `config/foundations_schema.md`
 - `data/playbook/` — agent-written **Playbook editions** (`<date>.json`:
   actionable problem→apply→result cards) + `index.json`/`latest.json` +
   `source-index.json` (source-backed cards keyed by story sid) + `input/`
@@ -223,11 +243,13 @@ storyline; it only proposes links the floor then judges.
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
 `/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
 (email digest signup) · `/map` (wiki index) · `/topic/<slug>` (wiki node) ·
+`/foundations` / `/foundations/<slug>` (evidence-tiered concept explanations) ·
 `/playbook` (actionable agent-builder cards) ·
 `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/topics`, `/api/playbook`, `/api/client-config`, `/api/updates`
+`/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`,
+`/api/client-config`, `/api/updates`
 (lightweight freshness signals powering the nav "new updates" dots),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,
 503 when unconfigured).

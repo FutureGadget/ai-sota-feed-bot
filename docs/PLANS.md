@@ -11,3 +11,8 @@
 - Replace mobile scrolling header rails with one shared site chrome across all
   reader-facing pages in a single release:
   `docs/exec-plans/active/2026-06-23-mobile-site-chrome.md`
+
+## Active product expansion
+
+- Add Agent Builder Foundations as the portal's authority layer:
+  `docs/exec-plans/active/2026-06-25-agent-builder-foundations.md`

@@ -28,6 +28,7 @@
     if (pathname === "/storylines" || pathname.startsWith("/storyline/")) return "/storylines";
     if (pathname === "/playbook" || pathname.startsWith("/playbook/")) return "/playbook";
     if (pathname === "/map" || pathname.startsWith("/topic/")) return "/map";
+    if (pathname === "/foundations" || pathname.startsWith("/foundations/")) return "/foundations";
     if (pathname === "/voices") return "/voices";
     if (pathname === "/subscribe") return "/subscribe";
     return "";
@@ -46,7 +47,7 @@
     const groups = [
       ["Catch up", ["/", "/daily", "/weekly"]],
       ["Follow", ["/storylines"]],
-      ["Build", ["/playbook", "/map"]],
+      ["Build", ["/playbook", "/map", "/foundations"]],
       ["More", ["/voices", "/subscribe"]],
     ];
     groups.forEach(([label, destinations]) => {

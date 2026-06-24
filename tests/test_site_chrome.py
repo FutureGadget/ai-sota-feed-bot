@@ -23,6 +23,7 @@ DESTINATIONS = (
     ("/storylines", "Storylines"),
     ("/playbook", "Playbook"),
     ("/map", "Knowledge map"),
+    ("/foundations", "Foundations"),
     ("/voices", "Voices"),
     ("/subscribe", "Email digest"),
 )
@@ -132,6 +133,7 @@ class SiteChromeContractTest(unittest.TestCase):
             "/weekly/",
             "/storyline/",
             "/topic/",
+            "/foundations/",
             "/story/",
             "/playbook/",
         ):

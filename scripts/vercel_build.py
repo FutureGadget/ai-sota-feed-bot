@@ -20,6 +20,9 @@ def main() -> None:
     wiki = subprocess.run([sys.executable, "pipeline/build_wiki.py"], cwd=ROOT)
     if wiki.returncode != 0:
         print("warning: build_wiki.py failed; using committed index.json", file=sys.stderr)
+    foundations = subprocess.run([sys.executable, "pipeline/build_foundations.py"], cwd=ROOT)
+    if foundations.returncode != 0:
+        print("warning: build_foundations.py failed; using committed index.json", file=sys.stderr)
     subprocess.run(
         [sys.executable, "pipeline/render_static_pages.py"],
         cwd=ROOT,

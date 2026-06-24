@@ -20,6 +20,8 @@ Git-backed AI platform engineering news intelligence.
 - Builds a Markdown digest
 - Publishes the feed and versioned digest artifacts through the website
 - Publishes a weekly "What happened in AI this week" recap at `/weekly` (see below)
+- Publishes Agent Builder Foundations at `/foundations`: durable,
+  evidence-tiered explanations of the mechanisms behind reliable agents
 
 ## Weekly recap (`/weekly`)
 A reader-facing weekly summary page rendered from `data/weekly/<week>.json`.
@@ -60,6 +62,19 @@ token pair, and a thread only ships when it has ≥3 items across ≥2 days from
   the feed when they gain items. Slugs are carried over between runs by member
   overlap so follows and shared links survive recluster jitter, and detail
   JSONs are never pruned so old `/storyline/<slug>` links keep working.
+
+## Agent Builder Foundations (`/foundations`)
+Durable concept explanations for serious agent builders. Foundation pages live
+under `data/foundations/concepts/*.md`, compile through
+`pipeline/build_foundations.py` into `data/foundations/index.json`, and render
+to `/foundations` plus `/foundations/<slug>`.
+
+- Page: `/foundations`. Detail: `/foundations/<slug>`. API:
+  `/api/foundations[?slug=]`.
+- Schema: `config/foundations_schema.md`.
+- Agent routine: `.agents/skills/foundations-curator/` with scheduler config in
+  `.agents/routines/foundations-curator-weekly/`.
+- First concept: `prompt-reliability`, answering "What makes a prompt reliable?"
 
 ## Quick start
 ```bash
