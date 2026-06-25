@@ -5,25 +5,25 @@ Focus: AI Platform Engineering
 ## 1. Show HN: MAVS-GC – An Open-Source Governance Architecture for AI Systems
 - Type: news | Source: hackernews_ai
 - URL: https://docs.google.com/document/d/1h7qpDgLv2PyIB6ZlLED5qGDeUbnNbITzNEspmsxA7ZE/edit?usp=sharing
-- Score: 3.247 | Reliability: 1.0
+- Score: 3.245 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 2. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.25819v1
-- Score: 3.122 | Reliability: 1.0
+- Score: 3.121 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 3. How agents are transforming work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/how-agents-are-transforming-work
-- Score: 3.098 | Reliability: 1.0
+- Score: 3.097 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Constraint Tax in Open-Weight LLMs: An Empirical Study of Tool Calling Suppression Under Structured Output Constraints
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.25605v1
-- Score: 3.045 | Reliability: 1.0
+- Score: 3.044 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 5. llama_index v0.14.23
@@ -41,7 +41,7 @@ Focus: AI Platform Engineering
 ## 7. Introducing computer use in Gemini 3.5 Flash
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.855 | Reliability: 1.0
+- Score: 2.854 | Reliability: 1.0
 - Why it matters: 
 
 ## 8. simonw/browser-compat-db
@@ -59,7 +59,7 @@ Focus: AI Platform Engineering
 ## 10. [AINews] It's Meta-Harness Summer
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-its-meta-harness-summer
-- Score: 2.687 | Reliability: 1.0
+- Score: 2.686 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
 ## 11. codex 0.142.2
@@ -77,13 +77,13 @@ Focus: AI Platform Engineering
 ## 13. RevengeBench: Reverse Engineering Code-Space Policies from Behavioral Experiments
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.26094v1
-- Score: 2.638 | Reliability: 1.0
+- Score: 2.637 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 14. AI Snitches Get Glitches: Towards Evading Agentic Surveillance
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.25836v1
-- Score: 2.558 | Reliability: 1.0
+- Score: 2.557 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 15. claude-agent-sdk-python v0.2.110
@@ -95,7 +95,7 @@ Focus: AI Platform Engineering
 ## 16. Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel
-- Score: 2.236 | Reliability: 1.0
+- Score: 2.235 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
