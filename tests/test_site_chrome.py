@@ -66,6 +66,13 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertIn('class="site-actions-fallback', html)
                 assert_destination_order(self, html)
 
+    def test_subscribe_is_visible_header_action(self) -> None:
+        for filename in SHELLS:
+            with self.subTest(filename=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn('class="site-subscribe-action"', html)
+                self.assertIn('data-subscribe-placement="header"', html)
+
     def test_update_indicators_target_navigation_after_it_moves_to_browse(self) -> None:
         for filename in (
             "index.html",
@@ -123,6 +130,8 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn('class="site-chrome"', html)
         self.assertIn('data-site-section="/daily"', html)
         self.assertIn('class="site-context"', html)
+        self.assertIn('class="site-subscribe-action"', html)
+        self.assertIn('data-subscribe-placement="header"', html)
         self.assertIn('href="/daily/2026-06-21"', html)
         self.assertIn('class="site-context-disabled"', html)
         assert_destination_order(self, html)

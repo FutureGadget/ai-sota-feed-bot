@@ -43,6 +43,18 @@
     }
   });
 
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-subscribe-channel]");
+    if (!link || event.__llmDigestSubscribeTracked) return;
+    event.__llmDigestSubscribeTracked = true;
+    try {
+      window.posthog?.capture?.("subscribe_click", {
+        channel: link.dataset.subscribeChannel || null,
+        placement: link.dataset.subscribePlacement || null,
+      });
+    } catch {}
+  });
+
   const groupNavigation = () => {
     let fallbackLinks = null;
     const groups = [

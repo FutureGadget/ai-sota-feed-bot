@@ -86,8 +86,13 @@ Typical More actions:
 
 - Share this page
 - View as JSON
-- Subscribe to the email digest
 - Switch theme
+
+`Subscribe` is the exception: it is a persistent visible header action because
+email is the primary retention channel. The link always goes to `/subscribe`;
+inline forms and modal signup are intentionally out of scope for the chrome.
+Finish-line subscription CTAs may appear after primary reading content on feed,
+recap, story, and storyline pages.
 
 Action labels describe the result. Examples:
 
@@ -240,19 +245,19 @@ it must not be duplicated in the site bar.
 
 | Surface | Source of truth | Visible primary action | Visible context | More actions |
 |---|---|---|---|---|
-| Live feed `/` | `web/index.html` | Search | Lens + timeframe controls | Theme, Email digest |
-| Daily `/daily` | `web/daily.html` | None | Day picker | Share when available, JSON, Theme, Email digest |
-| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | None | Day picker | Share, JSON, Theme, Email digest |
-| Weekly `/weekly` | `web/weekly.html` | None | Week picker; Detailed/Scan remains with content | Share when available, JSON, Theme, Email digest |
-| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | None | Week picker; Detailed/Scan remains with content | Share, JSON, Theme, Email digest |
-| Storylines `/storylines` | `web/storyline.html` | None | Existing All/Following filters remain with content | Share when available, JSON, Theme, Email digest |
-| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Follow may remain in content | None | Share, JSON, Theme, Email digest |
-| Playbook `/playbook[/<date>]` | `web/playbook.html` | None | Edition picker | JSON, Theme, Email digest |
-| Knowledge map `/map` | `pipeline/render_static_pages.py` | None | Existing area navigation remains with content | Share, JSON, Theme, Email digest |
-| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | None | Existing graph links remain with content | Share, Theme, Email digest |
-| Voices `/voices` | `web/voices.html` | None | Existing page filters, if any, remain with content | Theme, Email digest |
-| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Original source remains in content | None | Share, Theme, Email digest |
-| Subscribe `/subscribe` | `web/subscribe.html` | None | Subscription form remains in content | Theme |
+| Live feed `/` | `web/index.html` | Search, Subscribe | Lens + timeframe controls | Theme |
+| Daily `/daily` | `web/daily.html` | Subscribe | Day picker | Share when available, JSON, Theme |
+| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | Subscribe | Day picker | Share, JSON, Theme |
+| Weekly `/weekly` | `web/weekly.html` | Subscribe | Week picker; Detailed/Scan remains with content | Share when available, JSON, Theme |
+| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | Subscribe | Week picker; Detailed/Scan remains with content | Share, JSON, Theme |
+| Storylines `/storylines` | `web/storyline.html` | Subscribe | Existing All/Following filters remain with content | Share when available, JSON, Theme |
+| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe; Follow may remain in content | None | Share, JSON, Theme |
+| Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe | Edition picker | JSON, Theme |
+| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe | Existing area navigation remains with content | Share, JSON, Theme |
+| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe | Existing graph links remain with content | Share, Theme |
+| Voices `/voices` | `web/voices.html` | Subscribe | Existing page filters, if any, remain with content | Theme |
+| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe; original source remains in content | None | Share, Theme |
+| Subscribe `/subscribe` | `web/subscribe.html` | Subscribe | Subscription form remains in content | Theme |
 
 Generated HTML under `web/daily/`, `web/weekly/`, `web/story/`,
 `web/storyline/`, `web/topic/`, and `web/map.html` is never hand-edited.
