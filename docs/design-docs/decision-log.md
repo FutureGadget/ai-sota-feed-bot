@@ -1,5 +1,13 @@
 # Decision Log
 
+## 2026-06-25 (Move all workflow scheduling to cron-job.org, remove GH schedule)
+- **Decision:** Remove `schedule:` triggers from both `feed-full-publish.yml` and `email-digest.yml`. All workflow scheduling is now handled exclusively by cron-job.org external tickers hitting `workflow_dispatch` endpoints. Added two new cron-job.org jobs for email digest (daily 01:30 UTC, weekly Saturday 05:30 UTC).
+- **Context / Problem:** GitHub Actions `schedule` is best-effort — runs are deprioritized under load and whole hours can be silently dropped. The hourly feed was already supplemented by a cron-job.org ticker; the email digest was still relying solely on GH schedule. Rather than running both triggers in parallel, consolidate on the reliable one.
+- **Rationale:** Simplifies the scheduling model (one source of truth: cron-job.org dashboard). The email script's idempotency guard (cursor in `data/email/state.json`) and the feed pipeline's lock dir + no-delta skip make manual or duplicate dispatches safe.
+- **Impact:** No code-level changes to `publish_email.py` or `run_full.sh`. The `workflow_dispatch` input for email digest passes `{"inputs":{"kind":"daily|weekly"}}` so mode selection bypasses the old cron-expression sniffing. All three cron-job.org jobs reuse the same GitHub PAT.
+- **Rollback:** Re-add `schedule:` blocks to the workflow files (the `workflow_dispatch` trigger coexists safely).
+
+
 ## 2026-06-25 (Make daily email category headers unmistakable)
 - **Decision:** Render daily email recap category headers as explicit table-based email sections with a `Theme N · X items` label, category name, and category summary, instead of a small bare heading. Add regression coverage for both the HTML body and the plain-text alternative.
 - **Context / Problem:** The daily email already rendered the same recap categories as `/daily`, but the category boundary was only a small inline-styled heading close in size to article titles. In email clients, that can read as missing compared with the stronger category headers on the web page.

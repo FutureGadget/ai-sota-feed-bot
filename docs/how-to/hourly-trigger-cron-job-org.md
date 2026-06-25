@@ -1,7 +1,10 @@
-# Reliable Hourly Trigger via cron-job.org
+# Reliable Workflow Triggers via cron-job.org
 
-This runbook sets up an external, free, reliable hourly trigger for the
-`feed-full-publish.yml` GitHub Actions workflow using [cron-job.org](https://cron-job.org).
+This runbook sets up external, free, reliable cron triggers for GitHub Actions
+workflows using [cron-job.org](https://cron-job.org). Currently used for:
+
+- **Hourly feed publish** (`feed-full-publish.yml`) — every hour
+- **Email digest** (`email-digest.yml`) — daily at 01:30 UTC + weekly Saturday at 05:30 UTC
 
 ## Why this exists
 GitHub Actions `schedule` events are **best-effort**: scheduled runs are queued
@@ -16,9 +19,8 @@ schedule queue.
   (hourly expressions fail at deploy); hourly needs the $20/mo Pro plan.
 - **cron-job.org** is free, requires no infrastructure, and fires reliably.
 
-The GitHub `schedule` (`37 * * * *`) stays as a baseline fallback — having both
-is harmless because the pipeline short-circuits on no-delta and is guarded by a
-lock dir + concurrency group, so overlapping triggers no-op cleanly.
+The GitHub `schedule:` trigger has been **removed** from both workflows —
+cron-job.org is the sole trigger. The workflows only expose `workflow_dispatch`.
 
 ---
 
@@ -99,6 +101,67 @@ PAT scoped to *only this repo* with the minimum permission.
   Nothing in the repo references this trigger, so there is no code to revert —
   the workflow's own `schedule:` keeps it running best-effort.
 
+---
+
+## Email Digest Trigger
+
+The email digest workflow (`email-digest.yml`) has its own `schedule:` cron
+(daily `30 1 * * *`, weekly `30 5 * * 6`) but is subject to the same GH
+best-effort scheduling risk. Adding cron-job.org triggers guarantees the email
+sends reliably. The workflow's idempotency guard (cursor in
+`data/email/state.json`) makes duplicate triggers safe — the script no-ops
+when the recap has already been sent.
+
+### Job 1: Daily email digest (01:30 UTC)
+
+1. **Title:** `llm-digest daily email`
+2. **URL:**
+   ```
+   https://api.github.com/repos/FutureGadget/ai-sota-feed-bot/actions/workflows/email-digest.yml/dispatches
+   ```
+3. **Schedule:** Every day at 01:30 UTC
+   (cron-job.org pattern: minutes = `30`, hours = `1`).
+4. **Request method:** `POST`
+5. **Headers:** same four as the hourly feed job (reuse the same PAT).
+6. **Request body:**
+   ```json
+   {"ref":"main","inputs":{"kind":"daily"}}
+   ```
+7. Save and enable.
+
+### Job 2: Weekly email digest (05:30 UTC Saturday)
+
+1. **Title:** `llm-digest weekly email`
+2. **URL:** same as Job 1.
+3. **Schedule:** Every Saturday at 05:30 UTC
+   (cron-job.org pattern: minutes = `30`, hours = `5`, day of week = `6`/Saturday).
+4. **Request method:** `POST`
+5. **Headers:** same four.
+6. **Request body:**
+   ```json
+   {"ref":"main","inputs":{"kind":"weekly"}}
+   ```
+7. Save and enable.
+
+### Verify
+
+Same procedure as the hourly feed job:
+1. **Run now** on each job → expect HTTP **204**.
+2. In GitHub → Actions → **AI Feed Email Digest**, confirm new
+   `workflow_dispatch` runs appear.
+3. The `inputs.kind` value drives mode selection, bypassing the cron-expression
+   sniffing in the workflow (the `INPUT_KIND` env var takes priority).
+
+### Notes
+
+- The same GitHub PAT works for all three jobs (it has Actions:write on the repo).
+- The GH `schedule:` entries have been **removed** from both workflows.
+  cron-job.org is the sole trigger. If you need to pause email sends, disable
+  the jobs on cron-job.org (or trigger manually via `workflow_dispatch`).
+
+---
+
 ## Related
-- `.github/workflows/feed-full-publish.yml` — the dispatched workflow.
+- `.github/workflows/feed-full-publish.yml` — the hourly feed workflow.
+- `.github/workflows/email-digest.yml` — the email digest workflow.
 - `docs/design-docs/decision-log.md` — 2026-06-14 entries (cron `:37` move; this trigger).

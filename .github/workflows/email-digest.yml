@@ -9,9 +9,6 @@ name: AI Feed Email Digest
 #   - daily brief:   every day 01:30 UTC (10:30 KST), after daily-recap at 09:00 KST
 #   - weekly recap:  Saturday 05:30 UTC (14:30 KST), after weekly-recap at 13:00 KST
 on:
-  schedule:
-    - cron: "30 1 * * *"  # daily brief — 10:30 KST, after daily recap
-    - cron: "30 5 * * 6"  # weekly recap — 14:30 KST Sat, after weekly recap
   workflow_dispatch:
     inputs:
       kind:
