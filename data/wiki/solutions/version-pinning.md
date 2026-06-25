@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c]
-updated: 2026-06-21
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
+updated: 2026-06-25
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
 ---
 
 ## TL;DR
@@ -30,7 +30,11 @@ an operator can schedule the migration instead of discovering it as an outage.
 SDK release whose only change is bumping the bundled CLI shows that pinning your
 direct dependency is not enough when that dependency vendors an executable; the
 version you actually run can move at a patch bump, so the pin has to reach the
-whole chain (SDK → bundled CLI → model). The honest current state is that the
+whole chain (SDK → bundled CLI → model). A single recent week makes the point
+quantitatively: the SDK went 0.2.105 → 0.2.110 with each release advancing only
+the vendored CLI (2.1.183 → 2.1.191), so a lockfile that pinned `claude-agent-sdk`
+but not its bundled binary would have let the executable drift roughly daily —
+exactly the gap a chain-deep pin closes. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 

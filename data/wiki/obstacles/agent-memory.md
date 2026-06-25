@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2]
-updated: 2026-06-24
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec]
+updated: 2026-06-25
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec]
 ---
 
 ## TL;DR
@@ -38,7 +38,12 @@ single-file, developer-owned stores** — bi-temporal memory in one SQLite file
 (Memharness), local-first encrypted memory over MCP (Cortex), curated
 file-based project memory (Brain2.0), graph-based associative memory built with
 ~zero LLM calls (FERNme) — treats memory as a component you install
-and own rather than a service you rent. A recurring design theme in this wave is
+and own rather than a service you rent. As that wave matures the question shifts
+from "where does memory live" to **"how does it follow the agent"**: a durable,
+S3-backed filesystem that mounts the same memory markdowns across a laptop and
+the cloud treats the store as a *portable substrate* you sync between runtimes
+rather than a per-platform silo — the build-it-yourself answer to the
+cross-platform consistency that managed services sell. A recurring design theme in this wave is
 **richer temporal modeling**: bi-temporal stores track both when a fact was true
 and when the agent learned it, so recall can reason about staleness instead of
 returning whatever embeds nearest. A second, cost-driven theme is **cheap,
@@ -53,17 +58,27 @@ agent-memory systems readily admit *poisoned facts* — adversarial or wrong
 entries that get written once and then retrieved as trusted context on every
 later turn — which makes write-time validation and provenance, not just recall
 quality, part of the memory-engineering job (and ties memory to
-[prompt injection](/topic/prompt-injection)).
+[prompt injection](/topic/prompt-injection)). Underneath the architecture debate
+the practitioner consensus is also consolidating: vendor guides now lay out the
+same tiered split (short-term context plus durable long-term store) as settled
+practice and add a feedback loop on top — analyze the agent's own *traces* to
+decide what is worth remembering and to let it improve across runs — so memory is
+increasingly framed as something the agent curates from its own history, not just
+a place facts are dumped.
 
 ## What's new
-Memory **integrity** has joined cost and recall as a first-class concern: a
-reproducible benchmark shows agent-memory systems readily admit *poisoned facts*
-that are then retrieved as trusted context forever, making write-time validation
-and provenance part of the design. The local-first wave keeps widening too —
-FERNme's ~zero-LLM-call associative graph and PMB's single-file hybrid BM25+vector
-store join bi-temporal SQLite (Memharness) and encrypted memory over MCP (Cortex)
-in treating memory as an installable, developer-owned component, not a metered
-service.
+Two practical signals this run. Memory is being treated as a **portable
+substrate**: a durable, S3-backed filesystem mounts the same memory markdowns
+across laptop and cloud, answering the cross-platform consistency that managed
+services sell with a build-it-yourself, sync-anywhere store. And the
+practitioner framing is consolidating — vendor guides present the tiered
+short-term/long-term split as settled practice and add **trace-driven curation**
+(mine the agent's own traces to decide what to remember and improve across runs),
+reframing memory as something the agent curates from its history rather than a
+passive dump. These sit on top of the now-established concerns of memory
+**integrity** (poisoned facts retrieved as trusted context forever) and the
+local-first wave (FERNme, PMB, Memharness, Cortex) treating memory as an
+installable, developer-owned component rather than a metered service.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

@@ -7,9 +7,9 @@ status: active
 solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897]
-updated: 2026-06-21
-covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897]
+evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7]
+updated: 2026-06-25
+covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7]
 ---
 
 ## TL;DR
@@ -29,7 +29,12 @@ parent checkpoint namespace — a regression introduced two releases earlier in
 checkpointing without touching their own code. **Agent SDKs** move almost daily:
 the Claude Agent SDK for Python ships releases whose entire changelog is "updated
 the bundled Claude CLI," so the executable your agent runs on changes underneath a
-patch-level dependency bump. **Models** get deprecated out from under running
+patch-level dependency bump. That cadence has not let up: in a single recent week
+the SDK rolled from 0.2.105 through 0.2.110, every release doing nothing but
+advancing the bundled CLI (2.1.183 → 2.1.191), while the CLI itself shipped its
+own stream of patch releases (claude-code 2.1.190, "bug fixes and reliability
+improvements") — so a team that pinned only the SDK version still saw the binary
+under it move roughly daily. **Models** get deprecated out from under running
 agents — Claude Code now emits a warning when the requested model is deprecated,
 making model-upgrade drift an explicit, surfaced signal rather than a silent
 behavior change — and the same release hardened auto-mode safety (blocking
@@ -42,11 +47,15 @@ supports declaring *compatible API version ranges* — but the default posture i
 still "track latest," which is exactly how drift gets in.
 
 ## What's new
-Drift is being made visible at the seams: Claude Code now *warns* on a deprecated
-model instead of failing opaquely, and LangGraph's CLI lets you declare
-compatible API version ranges rather than implicitly tracking latest — early
-signs that the tooling is starting to treat the model/SDK/runtime substrate as a
-versioned contract instead of a rolling stream.
+Fresh evidence that the bundled-CLI drift is structural, not a one-off: across a
+single week the Claude Agent SDK for Python went 0.2.105 → 0.2.110 with every
+release just bumping the vendored CLI (2.1.183 → 2.1.191), alongside the CLI's own
+patch stream (claude-code 2.1.190) — concrete proof that pinning a direct
+dependency leaves the executable underneath moving almost daily. The
+countervailing signal still holds: drift is being made visible at the seams
+(Claude Code warns on deprecated models, LangGraph's CLI declares compatible API
+version ranges), early steps toward treating the substrate as a versioned
+contract rather than a rolling stream.
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you

@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0]
-updated: 2026-06-22
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d]
+updated: 2026-06-25
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d]
 ---
 
 ## TL;DR
@@ -49,18 +49,24 @@ of handing an agent your real account keys (worth noting, as Simon Willison does
 that the "for AI agents" framing is partly marketing — it is a general ephemeral
 scoped-account feature, which is exactly the short-lived least-privilege
 primitive agents need). Least privilege plus human approval on the few actions
-that really matter is the most durable control.
+that really matter is the most durable control. The execution-sandbox layer
+itself is commoditizing into **open-source, drop-in primitives**: tools like the
+open-source Workdir give an agent a disposable, isolated working directory out of
+the box, so process isolation is becoming something you install rather than
+build — which lowers the bar to running untrusted agent code in a box, even as the
+credential-authorization gap above means the box alone is still not the boundary.
 
 ## What's new
-The controls are turning from principles into shipped primitives: per-parameter
-permission rules (Claude Code's `Tool(param:value)`, e.g. blocking Opus
-subagents), approval-gated writes that honor the caller's permissions
-(datasette-agent), identity-based sandboxes that keep infra secrets out of
-the agent's reach entirely (Cordium), and ephemeral cloud accounts an agent can
-run under without standing keys (Cloudflare's temporary accounts) — converging,
-alongside OS-enforced containers and agent-as-identity, on scoped, centrally
-governed, short-lived, revocable permissions rather than guardrails or process
-sandboxes alone.
+The controls keep turning from principles into shipped primitives, now reaching
+the base execution-sandbox layer itself: open-source, drop-in sandboxes
+(Workdir) hand an agent a disposable isolated working directory out of the box,
+commoditizing process isolation the way per-parameter permission rules (Claude
+Code's `Tool(param:value)`), approval-gated writes (datasette-agent),
+identity-based sandboxes that keep infra secrets out of the agent's reach
+(Cordium), and ephemeral cloud accounts (Cloudflare) already did for the
+authorization layers above them — all converging, alongside OS-enforced
+containers and agent-as-identity, on scoped, centrally governed, short-lived,
+revocable permissions rather than guardrails or process sandboxes alone.
 
 ## Trade-offs
 More isolation and tighter scopes mean more friction: approval gates add latency
