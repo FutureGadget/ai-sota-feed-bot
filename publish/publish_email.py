@@ -443,13 +443,12 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
     # Themed categories: each article links to its /story/<sid> permalink, carries
     # its source and one-line recap summary, and keeps the one-tap feedback row.
     cat_html: list[str] = []
-    for c in cats:
+    for idx, c in enumerate(cats, 1):
         name = html.escape(clean(c.get("name", ""), 80))
         csum = html.escape(clean(c.get("summary", ""), 220))
         arts: list[str] = []
-        for a in c.get("articles") or []:
-            if not isinstance(a, dict):
-                continue
+        raw_articles = [a for a in (c.get("articles") or []) if isinstance(a, dict)]
+        for a in raw_articles:
             url = a.get("url", "")
             title = html.escape(clean(a.get("title", ""), 140))
             src = html.escape(clean(source_name(a.get("source", "")), 40))
@@ -464,9 +463,17 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
                 + feedback_row(cfg, url)
                 + "</td></tr>"
             )
+        article_count = len(raw_articles)
+        item_label = "item" if article_count == 1 else "items"
         cat_html.append(
-            f'<h2 style="font-size:15px;margin:24px 0 2px;color:#111">{name}</h2>'
-            + (f'<div style="font-size:13px;color:#666;margin:0 0 2px">{csum}</div>' if csum else "")
+            '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+            'style="margin:24px 0 2px;border-top:1px solid #d8dee4;background:#f6f8fa">'
+            '<tr><td style="padding:10px 12px">'
+            f'<div style="font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;'
+            f'color:#57606a">Theme {idx} · {article_count} {item_label}</div>'
+            f'<div style="font-size:16px;font-weight:700;line-height:1.35;color:#111;margin-top:2px">{name}</div>'
+            + (f'<div style="font-size:13px;line-height:1.45;color:#555;margin-top:3px">{csum}</div>' if csum else "")
+            + "</td></tr></table>"
             + f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(arts)}</table>'
         )
     cats_html = "".join(cat_html)

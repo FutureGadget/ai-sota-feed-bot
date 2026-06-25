@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-06-25 (Make daily email category headers unmistakable)
+- **Decision:** Render daily email recap category headers as explicit table-based email sections with a `Theme N · X items` label, category name, and category summary, instead of a small bare heading. Add regression coverage for both the HTML body and the plain-text alternative.
+- **Context / Problem:** The daily email already rendered the same recap categories as `/daily`, but the category boundary was only a small inline-styled heading close in size to article titles. In email clients, that can read as missing compared with the stronger category headers on the web page.
+- **Rationale:** Table-based blocks with inline styles survive email-client sanitization better and make the themed category structure visually obvious without changing the recap data or article order. The text-alternative test guards clients that choose the `text` part.
+- **Impact:** `publish/publish_email.py` daily rendering only, plus `tests/test_publish_email.py`. No provider, workflow, API, recap JSON, or web-page rendering change.
+- **Rollback:** Revert the renderer block and remove the email regression tests; the email returns to the prior bare category headings.
+
 ## 2026-06-24 (Prune duplicate storyline file to fix static story links mapping bug)
 - **Decision:** Delete `data/storylines/claude-fable-2026-06-09.json` and its corresponding tracked static HTML file `web/storyline/claude-fable-2026-06-09.html` from the repository.
 - **Context / Problem:** During the initial Fable 5 launch on Jun 13, the pipeline generated a storyline under the slug `claude-fable-2026-06-09` due to a naming collision / carry-over slug mismatch. Later, the pipeline normalized the active thread's slug to `claude-fable`. However, because both JSON files remained in the `data/storylines/` directory, `render_static_pages.py` processed both files. The `storyline_membership` logic maps each story SID to a storyline slug on a first-match basis. Because files are loaded in sorted alphabetical order, `claude-fable-2026-06-09` sorted before `claude-fable`, causing all Fable 5 launch, suspension, and Bedrock re-enable stories to map to the old `claude-fable-2026-06-09` slug. This linked those stories to a 663-byte empty HTML page with no narrative narrative sidecar, instead of the rich, narrated `claude-fable.html` page.
