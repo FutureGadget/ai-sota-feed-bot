@@ -86,6 +86,98 @@
   };
   groupNavigation();
 
+  // Move themeToggle to site-bar-actions
+  const themeToggle = document.getElementById("themeToggle");
+  const siteBarActions = chrome.querySelector(".site-bar-actions");
+  if (themeToggle && siteBarActions) {
+    const applyThemeIcon = () => {
+      const currentTheme = root.getAttribute("data-theme") || "light";
+      themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
+      themeToggle.setAttribute("title", currentTheme === "dark" ? "Use light theme" : "Use dark theme");
+      themeToggle.setAttribute("aria-label", currentTheme === "dark" ? "Use light theme" : "Use dark theme");
+    };
+    applyThemeIcon();
+    if (typeof MutationObserver !== "undefined") {
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.attributeName === "data-theme") {
+            applyThemeIcon();
+          }
+        });
+      });
+      observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+    }
+    siteBarActions.insertBefore(themeToggle, browseButton);
+  }
+
+  // Add dynamic shortcut links
+  const shortcutData = [
+    { href: "/daily", icon: "📅", title: "Daily recap" },
+    { href: "/weekly", icon: "🗓️", title: "Weekly recap" },
+    { href: "/storylines", icon: "🧵", title: "Storylines" },
+    { href: "/playbook", icon: "🛠️", title: "Playbook" },
+    { href: "/map", icon: "🗺️", title: "Knowledge map" },
+    { href: "/foundations", icon: "🧱", title: "Foundations" }
+  ];
+
+  const shortcuts = [];
+  if (siteBarActions) {
+    shortcutData.forEach((data) => {
+      const a = document.createElement("a");
+      a.href = data.href;
+      a.title = data.title;
+      a.setAttribute("aria-label", data.title);
+      a.className = "site-shortcut";
+      a.textContent = data.icon;
+      if (data.href === current) {
+        a.setAttribute("aria-current", "page");
+      }
+      siteBarActions.insertBefore(a, browseButton);
+      shortcuts.push(a);
+    });
+  }
+
+  // Handle dynamic shortcuts overflow
+  const siteBar = chrome.querySelector(".site-bar");
+  const brand = chrome.querySelector(".site-brand");
+  if (siteBar && brand && siteBarActions && shortcuts.length) {
+    let lastWidth = 0;
+    const updateShortcuts = () => {
+      const siteBarWidth = siteBar.getBoundingClientRect().width;
+      if (Math.abs(siteBarWidth - lastWidth) < 1) return;
+      lastWidth = siteBarWidth;
+
+      shortcuts.forEach((s) => {
+        s.style.display = "inline-flex";
+      });
+
+      const brandWidth = brand.getBoundingClientRect().width;
+      const gap = parseFloat(window.getComputedStyle(siteBar).gap) || 12;
+      const maxActionsWidth = siteBarWidth - brandWidth - gap;
+
+      let actionsWidth = siteBarActions.getBoundingClientRect().width;
+
+      for (let i = shortcuts.length - 1; i >= 0; i--) {
+        if (actionsWidth > maxActionsWidth) {
+          shortcuts[i].style.display = "none";
+          actionsWidth = siteBarActions.getBoundingClientRect().width;
+        } else {
+          break;
+        }
+      }
+    };
+
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(() => {
+        requestAnimationFrame(updateShortcuts);
+      });
+      observer.observe(siteBar);
+    } else {
+      window.addEventListener("resize", updateShortcuts);
+    }
+    updateShortcuts();
+  }
+
   const createDialog = ({ className, title, trigger, content }) => {
     const dialog = document.createElement("dialog");
     dialog.className = `site-dialog ${className}`;
