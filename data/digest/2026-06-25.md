@@ -2,104 +2,134 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: MAVS-GC – An Open-Source Governance Architecture for AI Systems
-- Type: news | Source: hackernews_ai
-- URL: https://docs.google.com/document/d/1h7qpDgLv2PyIB6ZlLED5qGDeUbnNbITzNEspmsxA7ZE/edit?usp=sharing
-- Score: 3.193 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 1. How agents are transforming work
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-agents-are-transforming-work
+- Score: 3.045 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 2. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2606.25819v1
-- Score: 3.116 | Reliability: 1.0
+- Score: 3.105 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 3. How agents are transforming work
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-agents-are-transforming-work
-- Score: 3.087 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Constraint Tax in Open-Weight LLMs: An Empirical Study of Tool Calling Suppression Under Structured Output Constraints
+## 3. Constraint Tax in Open-Weight LLMs: An Empirical Study of Tool Calling Suppression Under Structured Output Constraints
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.25605v1
-- Score: 3.039 | Reliability: 1.0
+- Score: 3.028 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 5. llama_index v0.14.23
+## 4. Agent identity: a new access model for autonomous, team-wide AI | Claude
+- Type: news | Source: claude_blog
+- URL: https://claude.com/blog/agent-identity-access-model
+- Score: 2.973 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 5. Lessons from Anthropic on building effective human-agent teams | Claude
+- Type: news | Source: claude_blog
+- URL: https://claude.com/blog/building-effective-human-agent-teams
+- Score: 2.973 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. AI Is Moving up the Software Lifecycle: From Code Review to PRD Governance
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/ai-prd-code-review-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.939 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 7. llama_index v0.14.23
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.888 | Reliability: 1.0
+- Score: 2.883 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Introducing computer use in Gemini 3.5 Flash
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.845 | Reliability: 1.0
-- Why it matters: 
-
-## 7. Cloudflare Ships Agent Skills for Zero Trust Deployment and Migration
+## 8. Cloudflare Ships Agent Skills for Zero Trust Deployment and Migration
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/cloudflare-one-stack-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.841 | Reliability: 1.0
+- Score: 2.82 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. simonw/browser-compat-db
+## 9. simonw/browser-compat-db
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/24/browser-compat-db/#atom-everything
-- Score: 2.827 | Reliability: 1.0
+- Score: 2.807 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex, claude code.
 
-## 9. claude-code v2.1.191
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
-- Score: 2.677 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. [AINews] It's Meta-Harness Summer
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-its-meta-harness-summer
-- Score: 2.669 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
-
-## 11. codex 0.142.2
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.2
-- Score: 2.661 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 12. Grab Builds Secure Agentic AI Workload Platform
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/grab-ai-platform/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.647 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 13. RevengeBench: Reverse Engineering Code-Space Policies from Behavioral Experiments
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2606.26094v1
-- Score: 2.632 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 14. AI Snitches Get Glitches: Towards Evading Agentic Surveillance
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2606.25836v1
-- Score: 2.552 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 15. claude-agent-sdk-python v0.2.110
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
-- Score: 2.373 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 16. Accelerating Transformers Fine-Tuning with NVIDIA NeMo AutoModel
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/nvidia/accelerating-fine-tuning-nvidia-nemo-automodel
-- Score: 2.229 | Reliability: 1.0
+## 10. Introducing computer use in Gemini 3.5 Flash
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
+- Score: 2.802 | Reliability: 1.0
 - Why it matters: 
 
-## 17. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
+## 11. claude-code v2.1.191
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
+- Score: 2.673 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 12. codex 0.142.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.2
+- Score: 2.656 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 13. [AINews] It's Meta-Harness Summer
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-its-meta-harness-summer
+- Score: 2.65 | Reliability: 1.0
+- Why it matters: Matches feed focus: harness.
+
+## 14. OpenAI and Broadcom unveil LLM-optimized inference chip
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/openai-broadcom-jalapeno-inference-chip
+- Score: 2.646 | Reliability: 1.0
+- Why it matters: 
+
+## 15. How GPT-5 helped immunologist Derya Unutmaz solve a 3-year-old mystery
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/gpt-5-immunology-mystery
+- Score: 2.626 | Reliability: 1.0
+- Why it matters: 
+
+## 16. RevengeBench: Reverse Engineering Code-Space Policies from Behavioral Experiments
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.26094v1
+- Score: 2.621 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 17. AI Snitches Get Glitches: Towards Evading Agentic Surveillance
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2606.25836v1
+- Score: 2.541 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 18. How to Build Memory into AI Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/how-to-give-your-agent-memory
+- Score: 2.512 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 19. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/ibm-research/cuga-apps
+- Score: 2.392 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
+
+## 20. claude-agent-sdk-python v0.2.110
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
+- Score: 2.369 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 21. v0.24.0rc1: [CI/Build] Fix topk histogram build on SM75 (#46550)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0rc1
-- Score: 1.857 | Reliability: 1.0
+- Score: 1.855 | Reliability: 1.0
+- Why it matters: 
+
+## 22. Huntington Bank: Redacting sensitive data from 400M+ documents with AWS
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/huntington-bank-redacting-sensitive-data-from-400m-documents-with-aws/
+- Score: 1.478 | Reliability: 1.0
 - Why it matters:
