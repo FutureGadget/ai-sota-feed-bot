@@ -23,7 +23,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260625-foundations-nav" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260625-subscribe-nav" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -31,7 +31,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260625-foundations-nav"></script>
+  <script defer src="/site-chrome.js?v=20260625-subscribe-nav"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -99,7 +99,6 @@
       flex-shrink: 0;
     }
     .topbar-actions button,
-    .topbar-actions a#subscribeToggle,
     .topbar-actions select {
       font-size: 0.92rem;
       padding: 0.3rem 0.5rem;
@@ -107,16 +106,6 @@
       border-radius: 8px;
       background: var(--card);
       cursor: pointer;
-    }
-    #subscribeToggle {
-      display: inline-flex;
-      align-items: center;
-      white-space: nowrap;
-      text-decoration: none;
-      color: inherit;
-    }
-    .subscribe-toggle-icon {
-      margin-right: 0.22rem;
     }
     #meta {
       margin: 0.35rem 0 0;
@@ -809,6 +798,22 @@
       opacity: 0.85;
       margin-top: 0.2rem;
     }
+    .end-marker .end-marker-cta {
+      display: inline-flex;
+      margin-top: 0.75rem;
+      padding: 0.42rem 0.7rem;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      border-radius: 999px;
+      color: var(--accent);
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .end-marker .end-marker-cta:hover {
+      border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      text-decoration: none;
+    }
     /* Loading placeholder. JS-injected before the feed fetch resolves so the
        footer starts below the fold — without it the empty #list lets the
        footer sit in the first viewport, then ~200 cards shove it down (CLS).
@@ -888,7 +893,7 @@
     main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
     .topbar h1 { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.7rem; letter-spacing:-.025em; }
-    .topbar-actions button, .topbar-actions a#subscribeToggle, .topbar-actions select {
+    .topbar-actions button, .topbar-actions select {
       border-radius:3px; background:transparent; min-height:40px; }
     .quicknav { margin-top:.8rem; padding:.65rem 0; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -1062,6 +1067,7 @@
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">Search</button>
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
           <button type="button" data-site-browse-open>Browse</button>
           <button type="button" data-site-more-open aria-label="More actions">More</button>
         </div>
@@ -1079,10 +1085,9 @@
         <a href="/map" data-site-destination="/map">Knowledge map</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
-        <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="topbar">Email digest</a>
+        <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <a id="subscribeToggle" href="/subscribe" aria-label="Subscribe to the email digest" title="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="topbar"><span aria-hidden="true">✉️</span> Subscribe</a>
         <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
       </div>
 
@@ -2624,6 +2629,7 @@
         <div class="end-marker">
           <div class="end-marker-title">✓ You're all caught up</div>
           <div class="end-marker-sub">${esc(sub)}</div>
+          <a class="end-marker-cta" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="feed_finish">Get the next brief by email</a>
         </div>`;
     }
 
@@ -3050,9 +3056,9 @@
       });
     }
 
-    // Subscribe CTAs live in several places (quicknav, catch-up brief, footer,
-    // topbar button, returning-visitor nudge); document-level listeners
-    // attribute clicks by placement.
+    // Subscribe CTAs live in several places (header, Browse nav, finish line,
+    // footer, returning-visitor nudge); document-level listeners attribute
+    // clicks by placement.
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-digest-cta]');
       if (a) posthogCapture('digest_subscribe_click', { placement: a.dataset.digestCta });
@@ -3061,6 +3067,7 @@
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-subscribe-channel]');
       if (!a) return;
+      e.__llmDigestSubscribeTracked = true;
       posthogCapture('subscribe_click', {
         channel: a.dataset.subscribeChannel || null,
         placement: a.dataset.subscribePlacement || null,

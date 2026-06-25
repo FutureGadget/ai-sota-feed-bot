@@ -37,6 +37,55 @@ class SubscriptionSurfaceTest(unittest.TestCase):
         self.assertNotIn("🔔 RSS", combined)
         self.assertIn('href="/subscribe"', combined)
 
+    def test_finish_line_ctas_have_placement_tracking(self) -> None:
+        combined = "\n".join(
+            path.read_text(encoding="utf-8")
+            for path in (
+                ROOT / "web" / "index.html",
+                ROOT / "web" / "daily.html",
+                ROOT / "web" / "weekly.html",
+                ROOT / "pipeline" / "render_static_pages.py",
+            )
+        )
+
+        for placement in ("feed_finish", "daily_end", "weekly_end"):
+            with self.subTest(placement=placement):
+                self.assertIn(f'data-subscribe-placement="{placement}"', combined)
+
+        story = {
+            "sid": "abc123",
+            "url": "https://example.com/story",
+            "title": "Example story",
+            "source": "Example",
+            "published": "2026-06-25T00:00:00Z",
+            "summary_1line": "A short summary.",
+        }
+        story_html = render.render_story_body(story, {"abc123": story})
+        self.assertIn('data-subscribe-placement="story_end"', story_html)
+
+        storyline_html = render.render_storyline_body(
+            {
+                "slug": "example-thread",
+                "label": "Example thread",
+                "days": [
+                    {
+                        "date": "2026-06-25",
+                        "items": [
+                            {
+                                "sid": "abc123",
+                                "url": "https://example.com/story",
+                                "title": "Example story",
+                                "source": "Example",
+                                "published": "2026-06-25T00:00:00Z",
+                            }
+                        ],
+                    }
+                ],
+            },
+            {"abc123"},
+        )
+        self.assertIn('data-subscribe-placement="storyline_end"', storyline_html)
+
     def test_sitemap_includes_subscribe(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(render, "WEB_DIR", Path(tmp)):

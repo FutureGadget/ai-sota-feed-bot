@@ -46,6 +46,10 @@
 .site-bar-actions > a,
 .site-actions-fallback > button,
 .site-actions-fallback > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   min-height: 44px;
   padding: 0.5rem 0.65rem;
   border: 1px solid var(--border);
@@ -68,6 +72,20 @@
   color: var(--accent);
   background: transparent;
   text-decoration: none;
+}
+
+.site-bar-actions > .site-subscribe-action {
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--border));
+  color: var(--accent);
+  background: var(--feed-wash, var(--brief-wash, transparent));
+  font-weight: 700;
+}
+
+.site-bar-actions > .site-subscribe-action:hover,
+.site-bar-actions > .site-subscribe-action[aria-current="page"] {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 13%, transparent);
 }
 
 [data-site-browse-open],
@@ -348,8 +366,7 @@
   box-shadow: inset 3px 0 0 var(--accent);
 }
 
-.site-dialog #themeToggle,
-.site-dialog #subscribeToggle {
+.site-dialog #themeToggle {
   min-height: 48px;
   border-right: 0;
   border-bottom: 1px solid var(--border);
@@ -378,6 +395,11 @@
     padding-right: 0.55rem;
     padding-left: 0.55rem;
     font-size: 0.64rem;
+  }
+
+  .site-bar-actions > .site-subscribe-action {
+    padding-right: 0.6rem;
+    padding-left: 0.6rem;
   }
 
   .site-page-heading {
