@@ -1,1 +1,135 @@
-{}
+{
+  "1c2693c60a919d8d": {
+    "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
+    "kind": "source-backed",
+    "title": "Stop re-encoding the same frames: reuse multimodal KV cache across look-backs",
+    "area": "Cost & latency",
+    "problem": "Multimodal agents re-examine the same video frames, UI screenshots, and rendered artifacts every time the context window slides or reasoning iterates — and standard prefix caches only reuse content at a fixed leading position, so each look-back re-encodes from scratch. Naively reusing the cache instead drops cross-chunk conditioning and halves multi-hop reasoning accuracy.",
+    "apply": "For agents that repeatedly revisit the same visual artifacts, adopt position-invariant KV reuse: cache each image/frame chunk position-free, then on reuse re-rotate it (RoPE) to the target position and apply a small low-rank conditioning patch that restores cross-chunk binding. That lets you reorder cached chunks, relocate survivors of a sliding window by rotation only, and rehydrate evicted chunks from their patch — all without re-encoding — instead of paying full re-prefill on every look-back.",
+    "result": "Kamera's rank-m patch reconstructed re-prefill KV to within bf16 rounding across six backbone models (MLA, GQA, MHA) and recovered full task accuracy on multi-hop benchmarks (MM-NIAH, two-page document QA), where naive cache reuse otherwise cut multi-hop accuracy in half — concentrating the savings on redundant vision/video streams.",
+    "effort": "high",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2606.23581v1",
+    "source_sid": "1c2693c60a919d8d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Training-free patch reconstructs KV to bf16 rounding and recovers full multi-hop accuracy across six model backbones."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "9c19b2212d6264ac": {
+    "id": "pb-pin-governance-constraints-past-compaction",
+    "kind": "source-backed",
+    "title": "Pin governance constraints so compaction can't silently delete them",
+    "area": "Safety",
+    "problem": "Long-running agents summarize or evict context to stay under the token budget. When a policy or guardrail scrolls out of the live window, the agent stops obeying it — and there's no error, the rule just quietly vanishes from context.",
+    "apply": "Treat governance constraints as non-evictable. Store hard rules (allowed tools, forbidden actions, approval gates) in a pinned region that your compaction/summarization step is forbidden to touch, and re-inject the verbatim constraint text into every post-compaction prompt rather than trusting the summary to carry it. Add a regression check that runs a prohibited action after a forced compaction and asserts the agent still refuses.",
+    "result": "In the paper's 1,323-episode benchmark, prohibited-action violations rose from 0% with the policy in full context to 30% after compaction (59% on some models); when the constraint survived the summary violations stayed at 0%, and their training-free Constraint Pinning restored violations to 0%.",
+    "effort": "medium",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2606.22528v1",
+    "source_sid": "9c19b2212d6264ac",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Measured across 1,323 episodes and seven model families; pinning restores violation rate to 0% in their benchmark."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "a44d7493026627ec": {
+    "id": "pb-close-the-trace-to-memory-loop",
+    "kind": "source-backed",
+    "title": "Turn agent traces into durable memory with a capture → analyze → update loop",
+    "area": "Memory",
+    "problem": "Agents that start every run from a blank slate keep repeating the same mistakes and need the same corrections, because nothing learned in one trajectory persists into the next. Dumping whole conversation histories into a memory store instead bloats context and buries the few durable lessons under noise.",
+    "apply": "Build an explicit three-step loop. Capture full traces (decisions, tool calls, outcomes). Analyze them to surface recurring failures and reusable patterns. Then selectively extract only durable context — semantic facts/preferences, episodic examples, and procedural rules/workflows — into long-term memory, leaving raw history behind. Critically, make agents actually reload updated memory at runtime (cached prompts and tool definitions need an explicit refresh), and gate memory writes behind an eval so a bad update can't silently regress behavior.",
+    "result": "LangChain reports that closing this trace-to-memory loop lets agents learn from previous runs, reducing user corrections and improving consistency across interactions; it stresses selective extraction (not all trace data becomes memory) and runtime refresh so updated context is actually loaded.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-to-give-your-agent-memory",
+    "source_sid": "a44d7493026627ec",
+    "topic_url": "/topic/memory",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor how-to guide (LangChain/LangSmith); the payoff is described as a claim, the apply steps are framework-neutral."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "c4fa725d5c123b2d": {
+    "id": "pb-measure-reasoning-tokens-on-quantized-models",
+    "kind": "source-backed",
+    "title": "Measure reasoning-token usage, not just latency, before shipping a quantized reasoner",
+    "area": "Cost & latency",
+    "problem": "Low-bit (INT4/INT3) quantization is sold as cheaper inference, but for reasoning models the savings can evaporate: the quantized model often produces a longer chain of thought to reach the same answer, so the per-token speedup is offset by generating more tokens. Accuracy charts and per-token latency both miss this hidden test-time compute cost.",
+    "apply": "When you evaluate a quantized reasoning model for an agent step, report total reasoning-token usage alongside accuracy and end-to-end latency on your own workload — not just per-token throughput. Compare full-precision vs quantized on tokens-to-answer for representative tasks before assuming the smaller model is cheaper, and prefer quantization-aware training over naive post-training quantization where you control the model.",
+    "result": "The paper shows low-bit post-training quantization can preserve final-answer accuracy while inflating reasoning-token usage, offsetting the expected per-token speedup, and finds quantization-aware training reduces both accuracy degradation and token inflation — so the authors recommend reporting reasoning-token count whenever you evaluate a quantized reasoner.",
+    "effort": "low",
+    "source": "arxiv_cs_lg",
+    "source_url": "http://arxiv.org/abs/2606.25519v1",
+    "source_sid": "c4fa725d5c123b2d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Token inflation measured as a hidden cost of low-bit reasoning models; quantization-aware training mitigates it."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "c579e90dd1110817": {
+    "id": "pb-audit-llm-judges-for-position-and-language-bias",
+    "kind": "source-backed",
+    "title": "Audit your LLM judge for position and language bias before trusting its scores",
+    "area": "Evals",
+    "problem": "If you grade agent runs with an LLM-as-a-judge, the judge carries systematic biases that raw accuracy hides: it favors whichever answer sits in slot A, prefers longer responses, flips its verdict when you swap the order, and degrades sharply on lower-resource languages. A judge that looks accurate in aggregate can be near-random where it matters.",
+    "apply": "Stop reporting judge accuracy alone. For every pairwise comparison, run it twice with the candidate order swapped and only count verdicts that are order-consistent; control for response length so verbosity doesn't leak in as quality; and run a per-language reliability check before you trust scores on non-English trajectories. Use a degradation-based gold set (perturb a known-good answer to build ground-truth pairs) so you can measure these biases without human annotation.",
+    "result": "BabelJudge measured position bias, verbosity bias, order inconsistency, and cross-lingual degradation: for Qwen2.5-7B-Instruct, bias-penalized reliability fell from 0.714 (Hindi) to 0.550 (Swahili) and order consistency collapsed to 0.480 — near-random under slot swaps — even though raw accuracy (0.835 vs 0.660) masked the gap.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2606.22329v1",
+    "source_sid": "c579e90dd1110817",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Four failure modes quantified with bias-penalized scoring on a degradation-built gold set; raw accuracy understates the reliability gap."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "d0a3b1456466205e": {
+    "id": "pb-decouple-tool-calls-from-json-schema-constraint",
+    "kind": "source-backed",
+    "title": "Don't force a JSON schema and tool-calling in the same decode pass",
+    "area": "Tool use",
+    "problem": "Enabling structured-output (JSON Schema) constraints and tool calling together can make a model stop invoking tools entirely, even while it still produces schema-valid text. Grammar-based token masking from the schema makes the tool-invocation tokens unreachable during decoding, so the agent silently goes inert instead of acting.",
+    "apply": "Split the work into two passes: let the model decide and emit tool calls in an unconstrained (or tool-grammar-only) decode, run the tools, then apply the JSON Schema constraint only to the final response-formatting pass. Never compile a response schema that masks the tokens your tool-call channel needs. If you're on a single-pass framework, verify on your own open-weight models that tools still fire with the schema attached before shipping.",
+    "result": "The paper reports a reproducible production phenomenon: multiple open-weight models ceased invoking tools when JSON Schema and tool calling were enabled jointly, and a transparent two-pass execution that decouples tool execution from schema-constrained generation restored tool invocation while preserving structured-output guarantees, with no retraining.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2606.25605v1",
+    "source_sid": "d0a3b1456466205e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Reproducible tool-suppression phenomenon observed in a production agent across multiple open-weight model families."
+    },
+    "edition_date": "2026-06-26"
+  },
+  "ebc3627096b332c8": {
+    "id": "pb-build-explicit-recovery-paths-for-flaky-tools",
+    "kind": "source-backed",
+    "title": "Engineer recovery paths for flaky tools, not just happy-path calls",
+    "area": "Reliability",
+    "problem": "Agents benchmarked on clean, trustworthy tools fall over when the real environment misbehaves — spec drift, malformed outputs, execution failures, stale data, or two sources that disagree. The failures trace to weak hazard diagnosis and ineffective recovery, not to running out of tool budget or thinking time.",
+    "apply": "Stop assuming tools succeed. For each tool, define an explicit recovery policy: detect the hazard (timeout, schema mismatch, empty/contradictory result), then retry, fall back to an alternate tool/source, verify the output, or cross-check two sources before trusting it. Inject these recovery hints into the system prompt and test them by deliberately corrupting tool responses in a staging harness — measure task completion under faults, not just function-call accuracy.",
+    "result": "On ToolBench-X, which injects five recoverable hazard types into otherwise-solvable tasks, agents that did well with reliable tools showed a substantial reliability gap under faults; targeted recovery hints recovered many failed tasks while simply scaling test-time compute helped far less.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2606.25819v1",
+    "source_sid": "ebc3627096b332c8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Benchmarked across five injected hazard types; recovery hints outperform test-time scaling for closing the reliability gap."
+    },
+    "edition_date": "2026-06-26"
+  }
+}
