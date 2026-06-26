@@ -2,140 +2,104 @@
 
 Focus: AI Platform Engineering
 
-## 1. How agents are transforming work
+## 1. Show HN: DeepSeek Flash inverted the economics of agent products
+- Type: news | Source: hackernews_ai
+- URL: https://www.rtrvr.ai/blog/code-as-plan-deepseek-flash-text-only-browser-agent
+- Score: 3.168 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
+
+## 2. How agents are transforming work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/how-agents-are-transforming-work
-- Score: 3.02 | Reliability: 1.0
+- Score: 3.038 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
+## 3. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.25819v1
-- Score: 2.975 | Reliability: 1.0
+- Score: 2.972 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 3. Agent identity: a new access model for autonomous, team-wide AI | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/agent-identity-access-model
-- Score: 2.901 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. Lessons from Anthropic on building effective human-agent teams | Claude
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/building-effective-human-agent-teams
-- Score: 2.901 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. AI Is Moving up the Software Lifecycle: From Code Review to PRD Governance
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/ai-prd-code-review-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.901 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 6. llama_index v0.14.23
+## 4. llama_index v0.14.23
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.811 | Reliability: 1.0
+- Score: 2.804 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Helping build shared standards for advanced AI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-build-shared-standards-for-advanced-ai
-- Score: 2.804 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 8. Cloudflare Ships Agent Skills for Zero Trust Deployment and Migration
+## 5. Cloudflare Ships Agent Skills for Zero Trust Deployment and Migration
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/cloudflare-one-stack-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.769 | Reliability: 1.0
+- Score: 2.778 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 9. simonw/browser-compat-db
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/24/browser-compat-db/#atom-everything
-- Score: 2.761 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex, claude code.
-
-## 10. Introducing Claude Tag
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/introducing-claude-tag
-- Score: 2.7 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Introducing computer use in Gemini 3.5 Flash
+## 6. Introducing computer use in Gemini 3.5 Flash
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.755 | Reliability: 1.0
+- Score: 2.773 | Reliability: 1.0
 - Why it matters: 
 
-## 12. OpenAI and Broadcom unveil LLM-optimized inference chip
+## 7. OpenAI and Broadcom unveil LLM-optimized inference chip
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/openai-broadcom-jalapeno-inference-chip
-- Score: 2.626 | Reliability: 1.0
+- Score: 2.645 | Reliability: 1.0
 - Why it matters: 
 
-## 13. claude-code v2.1.191
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
-- Score: 2.595 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 14. [AINews] It's Meta-Harness Summer
+## 8. [AINews] It's Meta-Harness Summer
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-its-meta-harness-summer
-- Score: 2.594 | Reliability: 1.0
+- Score: 2.603 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness.
 
-## 15. RevengeBench: Reverse Engineering Code-Space Policies from Behavioral Experiments
+## 9. claude-code v2.1.191
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
+- Score: 2.589 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. RevengeBench: Reverse Engineering Code-Space Policies from Behavioral Experiments
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.26094v1
-- Score: 2.572 | Reliability: 1.0
+- Score: 2.569 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 16. AI and Liability
+## 11. AI and Liability
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/25/ai-and-liability/#atom-everything
-- Score: 2.525 | Reliability: 1.0
+- Score: 2.533 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. AI Snitches Get Glitches: Towards Evading Agentic Surveillance
+## 12. AI Snitches Get Glitches: Towards Evading Agentic Surveillance
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.25836v1
-- Score: 2.496 | Reliability: 1.0
+- Score: 2.493 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 18. codex 0.143.0-alpha.25
+## 13. codex 0.143.0-alpha.25
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.25
-- Score: 2.394 | Reliability: 1.0
+- Score: 2.386 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 19. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
+## 14. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.345 | Reliability: 1.0
+- Score: 2.343 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
-## 20. claude-agent-sdk-python v0.2.110
+## 15. claude-agent-sdk-python v0.2.110
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
-- Score: 2.294 | Reliability: 1.0
+- Score: 2.288 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. DeepSeek is doubling its headcount and the real question is whether its famous efficiency survives the growth - Startup Fortune
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMi0wFBVV95cUxPTGhpOEVvQldlV0RKYnRPQmR0MnhBMmJWUGdMempMZ1ZTcE1sTU4wZFhKLXZLUWNFdnRCc001ZW5nLUJkS0NzZ21pY095bC1kWGxVSlVDb0FPWGR3VW50UTlXVGpOWmpSZTVjcGVMR3M5UzlNX1FXTDYxTXBfN1FXYlR0WXdJSXhiRU9VWl9YVi1mWjU4S29KUE9rM1BQaXFYbXFpRTFoYzhJMndoZ25jSDYwem1RLTlrRmpJOEdEd1BlYkE5ZkNsdjVReEtEcS05SnFZ?oc=5
-- Score: 2.15 | Reliability: 1.0
-- Why it matters: 
-
-## 22. v0.24.0rc2: Fix P/D with DP Supervisor (#46628)
+## 16. v0.24.0rc2: Fix P/D with DP Supervisor (#46628)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0rc2
-- Score: 1.994 | Reliability: 1.0
+- Score: 1.988 | Reliability: 1.0
 - Why it matters: 
 
-## 23. Build a healthcare appointment agent with Amazon Nova 2 Sonic
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/build-a-healthcare-appointment-agent-with-amazon-nova-2-sonic/
-- Score: 1.893 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+## 17. Our latest Google Finance upgrades, including a new app
+- Type: news | Source: google_ai_blog
+- URL: https://blog.google/products-and-platforms/products/search/google-finance-updates-june-2026/
+- Score: 1.854 | Reliability: 1.0
+- Why it matters:
