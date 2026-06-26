@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d]
-updated: 2026-06-25
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46]
+updated: 2026-06-26
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46]
 ---
 
 ## TL;DR
@@ -55,16 +55,27 @@ open-source Workdir give an agent a disposable, isolated working directory out o
 the box, so process isolation is becoming something you install rather than
 build — which lowers the bar to running untrusted agent code in a box, even as the
 credential-authorization gap above means the box alone is still not the boundary.
+These pieces are now being assembled into **enterprise platforms** rather than
+left as à-la-carte primitives: Grab's security team built Palana, a
+Kubernetes-native secure execution platform whose stated premise is that
+model-driven agents — unlike deterministic software — exhibit unpredictable
+tool-use and code-writing, so they need a purpose-built isolation-plus-governance
+substrate to run safely in production. It is the same controls (sandboxed
+execution, scoped access, central governance) packaged as paved-road
+infrastructure a platform team operates, signalling that "how do we run
+autonomous agents safely at all" is becoming an owned platform surface, not a
+per-team improvisation.
 
 ## What's new
-The controls keep turning from principles into shipped primitives, now reaching
-the base execution-sandbox layer itself: open-source, drop-in sandboxes
-(Workdir) hand an agent a disposable isolated working directory out of the box,
-commoditizing process isolation the way per-parameter permission rules (Claude
-Code's `Tool(param:value)`), approval-gated writes (datasette-agent),
-identity-based sandboxes that keep infra secrets out of the agent's reach
-(Cordium), and ephemeral cloud accounts (Cloudflare) already did for the
-authorization layers above them — all converging, alongside OS-enforced
+The controls are being assembled into operated **platforms**, not just shipped
+primitives: Grab built Palana, a Kubernetes-native secure execution platform for
+running autonomous agents safely in production — sandboxed execution plus scoped
+access and central governance as paved-road infrastructure. That sits on top of
+the now-commoditized base layer (open-source drop-in sandboxes like Workdir) and
+the authorization primitives — per-parameter permission rules (Claude Code's
+`Tool(param:value)`), approval-gated writes (datasette-agent), identity-based
+sandboxes that keep infra secrets out of the agent's reach (Cordium), and
+ephemeral cloud accounts (Cloudflare) — all converging, alongside OS-enforced
 containers and agent-as-identity, on scoped, centrally governed, short-lived,
 revocable permissions rather than guardrails or process sandboxes alone.
 

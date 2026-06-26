@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d]
-updated: 2026-06-24
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d]
+updated: 2026-06-26
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d]
 ---
 
 ## TL;DR
@@ -47,7 +47,16 @@ per token but ignore architecture rules — ANMA reports Claude Haiku 4.5 violat
 its constraints in 13 of 19 runs unguided, but 0 of 20 once wrapped in explicit
 boundary contracts (YAML rules plus `CLAUDE.md`, hooks, and CI checks) — so a bit
 of contract overhead can make a cheaper model reliable enough to replace a
-frontier one on the bulk of the work.
+frontier one on the bulk of the work. The cheaper-model lever has a hidden
+counterweight, though: **a lower per-token price can be eaten by a higher token
+count.** "Quantization Inflates Reasoning" shows that low-bit post-training
+quantization — the standard way to cut inference cost — makes reasoning models
+emit *more* tokens to reach the same answer, so final-answer accuracy and
+per-token latency both miss the real bill; the cost that matters for an agent is
+price-per-token times the tokens the run actually spends, and a quantized model
+can claw back its discount in inflated reasoning traces. The lesson generalizes:
+every downshift (smaller model, quantized model, cheaper judge) has to be costed
+on *total tokens emitted in the loop*, not the sticker price per token.
 
 ## What's new
 Cost is becoming an explicit, measured surface rather than an after-the-fact
@@ -56,7 +65,10 @@ invoice: enterprise spend caps and usage analytics, per-PR token-cost attributio
 decentralized topologies (DeLM, ~50% off), cheap fine-tuned judges (~100× off),
 and contract layers that make a cheaper model obey rules well enough to downshift
 to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a smaller model
-alone.
+alone. A caution lands on the model-downshift lever: "Quantization Inflates
+Reasoning" finds that low-bit quantization cuts per-token cost but inflates the
+*token count* reasoning models emit, so the saving is partly illusory unless you
+cost the run on total tokens spent rather than the per-token price.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product. The

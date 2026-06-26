@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73]
-updated: 2026-06-24
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79]
+updated: 2026-06-26
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79]
 ---
 
 ## TL;DR
@@ -41,17 +41,31 @@ of approximating it. The flip side of trusting a benchmark is **reproducibility*
 because agent runs touch the network, filesystem, and shifting tool versions, a
 score only means something if the environment is fixed — Proctor packages
 coding-agent benchmarks as *signed, isolated bundles* so a run can be reproduced
-(and a leaderboard claim audited) rather than taken on faith.
+(and a leaderboard claim audited) rather than taken on faith. Two further moves
+sharpen what a benchmark should stress. The first is **adversarial tool
+environments**: rather than assuming tools behave, "Beyond Function Calling"
+scores agents when tools time out, error, or return malformed results, exposing
+agents that pass clean tool suites but cannot recover when the environment
+misbehaves — the benchmark targets the *failure recovery* path, not the
+happy path. The second is **held-out, hard-to-memorize tasks**: practitioners are
+reaching for novel environments a model can't have trained on (a Sherlock Holmes
+deduction board game run as an LLM-agent eval) precisely because familiar
+leaderboards leak into training. Both answer a gap practitioners keep voicing —
+public threads asking "what benchmarks actually compare agent *harnesses*"
+(beyond Terminal-Bench) — that the standard model leaderboards don't fill.
 
 ## What's new
-Two moves toward trustworthy agent benchmarks: suites mined from **real sessions**
-(EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions
-— heterogeneous files, tool calls, a real artifact to deliver) so the benchmark
-inherits production messiness, and **reproducible packaging** (Proctor ships
-coding-agent benchmarks as signed, isolated bundles) so a score can be re-run and
-a leaderboard claim audited. Both reinforce the standing lessons that public
-scores over-state real-workload performance and that the harness itself is a
-benchmark variable.
+Benchmarks are being pushed toward the failure paths and the held-out tasks that
+public leaderboards miss: "Beyond Function Calling" scores agents under
+**unreliable tool environments** (time-outs, errors, malformed results) to test
+recovery rather than the happy path, and practitioners are reaching for novel,
+hard-to-memorize environments (a Sherlock Holmes deduction game as an agent eval)
+because familiar suites leak into training — answering the recurring "what
+benchmarks actually compare agent *harnesses*" gap. This builds on suites mined
+from **real sessions** (EnterpriseClawBench) and **reproducible packaging**
+(Proctor's signed, isolated bundles), all reinforcing that public scores
+over-state real-workload performance and that the harness itself is a benchmark
+variable.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static target:

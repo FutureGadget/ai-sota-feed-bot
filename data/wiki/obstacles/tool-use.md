@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d]
-updated: 2026-06-20
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e]
+updated: 2026-06-26
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e]
 ---
 
 ## TL;DR
@@ -34,14 +34,30 @@ runtimes — Azure Functions' agents runtime defines an agent in an `.agent.md`
 file with YAML triggers, MCP server access, 1,400+ connectors, and sandboxed
 execution. Running this in production surfaces classic distributed-systems
 problems — bursty, stateful multi-tenancy and securing the execution sandbox —
-that the model's tool-calling ability does nothing to solve.
+that the model's tool-calling ability does nothing to solve. But standardizing
+the *wire* does not make the *calling behavior* reliable, and that is emerging as
+a separate, measurable failure axis. "Beyond Function Calling" benchmarks agents
+against **tool-environment unreliability** — tools that time out, error, or
+return malformed or inconsistent results — and finds that agents which look
+competent on clean tool suites degrade sharply when the environment misbehaves,
+so a passing schema test is no evidence the agent recovers when the tool itself
+does. A second, sharper finding is an *interaction* bug in the harness:
+the "Constraint Tax" study shows that demanding structured (JSON-schema) output
+and tool calling **jointly** suppresses tool calling in open-weight models — the
+two core agent capabilities interfere, so forcing a clean output contract can
+quietly stop the agent from calling the tool it needed.
 
 ## What's new
-Tool use is standardizing *and* becoming a managed platform primitive: WebMCP in
-Chrome origin trials (in-page tools), GA infrastructure MCP servers (HashiCorp
-Terraform), and cloud serverless agent runtimes that bundle MCP access plus
-1,400+ connectors and sandboxing (Azure Functions) push past one-off
-integrations toward a discoverable, hosted connector surface.
+The reliability of the *calling behavior* — not just the integration — is now
+being measured. "Beyond Function Calling" benchmarks agents under
+**tool-environment unreliability** (tools that time out, error, or return
+malformed results) and finds sharp degradation that clean tool suites hide, and
+the "Constraint Tax" study shows that jointly demanding structured output and
+tool calling **suppresses** tool calls in open-weight models — an interaction bug
+in the harness, not the protocol. This sits alongside the standardization push:
+WebMCP in Chrome origin trials (in-page tools), GA infrastructure MCP servers
+(HashiCorp Terraform), and cloud serverless agent runtimes bundling MCP access,
+1,400+ connectors, and sandboxing (Azure Functions).
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed
