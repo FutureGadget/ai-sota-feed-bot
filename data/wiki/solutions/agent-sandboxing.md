@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46]
-updated: 2026-06-26
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd]
+updated: 2026-06-27
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd]
 ---
 
 ## TL;DR
@@ -64,20 +64,33 @@ substrate to run safely in production. It is the same controls (sandboxed
 execution, scoped access, central governance) packaged as paved-road
 infrastructure a platform team operates, signalling that "how do we run
 autonomous agents safely at all" is becoming an owned platform surface, not a
-per-team improvisation.
+per-team improvisation. The newest layer to harden is the **network perimeter**:
+because an agent connects across tools and datasets, scoping its credentials is
+not enough if it can still reach an arbitrary egress endpoint, so cloud providers
+are extending data-exfiltration perimeters to cover agents directly — Google
+Cloud's VPC Service Controls now adds agentic-AI guardrails that draw a
+network-level boundary around the data an agent can touch, so a hijacked agent
+holding valid tokens still cannot move protected data out of the perimeter. This
+is the egress-control complement to credential scoping: identity limits *what the
+agent is allowed to do*, the network perimeter limits *where data can go* even
+when an action is authorized.
 
 ## What's new
-The controls are being assembled into operated **platforms**, not just shipped
-primitives: Grab built Palana, a Kubernetes-native secure execution platform for
-running autonomous agents safely in production — sandboxed execution plus scoped
-access and central governance as paved-road infrastructure. That sits on top of
-the now-commoditized base layer (open-source drop-in sandboxes like Workdir) and
-the authorization primitives — per-parameter permission rules (Claude Code's
-`Tool(param:value)`), approval-gated writes (datasette-agent), identity-based
-sandboxes that keep infra secrets out of the agent's reach (Cordium), and
-ephemeral cloud accounts (Cloudflare) — all converging, alongside OS-enforced
-containers and agent-as-identity, on scoped, centrally governed, short-lived,
-revocable permissions rather than guardrails or process sandboxes alone.
+The control stack is extending to the **network perimeter**: Google Cloud's VPC
+Service Controls now adds agentic-AI guardrails so a hijacked agent with valid
+credentials still cannot exfiltrate protected data past a network boundary — the
+egress complement to credential scoping. That joins the move to assemble controls
+into operated **platforms**, not just shipped primitives: Grab built Palana, a
+Kubernetes-native secure execution platform for running autonomous agents safely
+in production — sandboxed execution plus scoped access and central governance as
+paved-road infrastructure. These sit on top of the now-commoditized base layer
+(open-source drop-in sandboxes like Workdir) and the authorization primitives —
+per-parameter permission rules (Claude Code's `Tool(param:value)`), approval-gated
+writes (datasette-agent), identity-based sandboxes that keep infra secrets out of
+the agent's reach (Cordium), and ephemeral cloud accounts (Cloudflare) — all
+converging, alongside OS-enforced containers and agent-as-identity, on scoped,
+centrally governed, short-lived, revocable permissions rather than guardrails or
+process sandboxes alone.
 
 ## Trade-offs
 More isolation and tighter scopes mean more friction: approval gates add latency

@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2]
-updated: 2026-06-24
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93]
+updated: 2026-06-27
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93]
 ---
 
 ## TL;DR
@@ -22,7 +22,13 @@ practitioners report that **hybrid retrieval** (dense vectors + lexical/keyword 
 metadata filters, often with a rerank pass) is needed for production recall, and
 that **knowledge graphs** capture connected facts that flat embeddings miss. The
 open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory
-layers with different stances on graph vs. vector vs. hybrid. Strong results are
+layers with different stances on graph vs. vector vs. hybrid. A parallel move puts
+that layer on a **commodity datastore you already run**: BetterDB ships an open
+(MIT) Valkey-native context layer that folds agent memory, semantic plus
+multi-tier caching, and typed retrieval onto a single Valkey/Redis instance,
+local or hosted — collapsing the "buy a separate vector DB" hop into the cache you
+already operate, and tying memory and caching into one substrate rather than two
+systems to keep consistent. Strong results are
 achievable without an LLM in the recall path (a local store hitting high
 LongMemEval recall), underscoring that retrieval quality is an engineering
 problem, not a model-scale one. The category is also being challenged from
@@ -50,7 +56,11 @@ reason over stored facts rather than rank them by nearest-neighbor. That sharpen
 the live "is a vector DB even the right primitive" question already raised by
 non-vector designs — bi-temporal SQLite (Memharness), algebraic/vector-symbolic
 memory as an explicit RAG alternative (VSA), and Hebbian co-occurrence graphs
-(FERNme) — all arguing structured, exact recall can beat embedding similarity.
+(FERNme) — all arguing structured, exact recall can beat embedding similarity. A
+quieter trend runs the other way on infrastructure: rather than a new store,
+BetterDB puts memory + semantic/multi-tier caching + typed retrieval on a
+commodity Valkey/Redis instance you already operate, so the memory layer rides
+existing ops instead of adding a dedicated vector database.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall

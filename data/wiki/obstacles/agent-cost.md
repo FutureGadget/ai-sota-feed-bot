@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d]
-updated: 2026-06-26
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365]
+updated: 2026-06-27
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365]
 ---
 
 ## TL;DR
@@ -34,8 +34,11 @@ because the coordination structure dominates spend — Stanford's DeLM reports
 cutting multi-agent task cost ~50% by dropping the central orchestrator; and even
 evaluation is a cost line item, which is why teams fine-tune small judges to cut
 trace-judging cost ~100×. Infra-level levers help too: container/image caching
-(Amazon SageMaker) cuts cold-start scaling cost and latency, and inside the model,
-KV-cache reuse cuts a cost specific to **multimodal** agents that re-read the same
+(Amazon SageMaker) cuts cold-start scaling cost and latency; **prompt caching**
+the agent loop's stable prefix is becoming a framework default (LangChain's Deep
+Agents reports up to ~80% token-cost cuts across providers with no config), since
+an agent re-sends its system prompt, tool schemas, and prior steps every turn; and
+inside the model, KV-cache reuse cuts a cost specific to **multimodal** agents that re-read the same
 frames or screenshots each step — Kamera's position-invariant cache reuses those
 visual tokens across context shifts instead of re-encoding them every look-back.
 A subtler driver is

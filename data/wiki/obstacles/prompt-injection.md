@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac]
-updated: 2026-06-24
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd]
+updated: 2026-06-27
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd]
 ---
 
 ## TL;DR
@@ -72,6 +72,12 @@ Two framings sharpened this week: injection is fundamentally **role confusion**
 (the model can't separate operator instructions from in-context data), and the
 agent's own context-management layer is part of the attack surface — Governance
 Decay shows compaction can erase the safety constraints that were supposed to hold.
+The defensive primitives keep moving down the stack: the **network egress
+perimeter** is now landing as a managed control, with Google Cloud's VPC Service
+Controls extending its data-exfiltration boundary to agents so a hijacked agent
+holding valid credentials still cannot move protected data out — limiting *where
+data can go*, not just what the agent is authorized to do (see
+[sandboxing](/topic/agent-sandboxing)).
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary
