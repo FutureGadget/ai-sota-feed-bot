@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec]
-updated: 2026-06-25
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a]
+updated: 2026-06-28
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a]
 ---
 
 ## TL;DR
@@ -58,7 +58,12 @@ agent-memory systems readily admit *poisoned facts* — adversarial or wrong
 entries that get written once and then retrieved as trusted context on every
 later turn — which makes write-time validation and provenance, not just recall
 quality, part of the memory-engineering job (and ties memory to
-[prompt injection](/topic/prompt-injection)). Underneath the architecture debate
+[prompt injection](/topic/prompt-injection)). Integrity is one slice of a
+broader move to **make memory quality measurable**: a dedicated benchmark for the
+*failure modes* of agent memory — not just poisoning but forgetting, stale
+recall, and retrieval that returns the wrong slice — turns "did the memory layer
+help" into a number you can regress on, the same trajectory evaluation took
+([agent benchmarks](/topic/agent-benchmarks)). Underneath the architecture debate
 the practitioner consensus is also consolidating: vendor guides now lay out the
 same tiered split (short-term context plus durable long-term store) as settled
 practice and add a feedback loop on top — analyze the agent's own *traces* to
@@ -67,18 +72,17 @@ increasingly framed as something the agent curates from its own history, not jus
 a place facts are dumped.
 
 ## What's new
-Two practical signals this run. Memory is being treated as a **portable
-substrate**: a durable, S3-backed filesystem mounts the same memory markdowns
-across laptop and cloud, answering the cross-platform consistency that managed
-services sell with a build-it-yourself, sync-anywhere store. And the
-practitioner framing is consolidating — vendor guides present the tiered
-short-term/long-term split as settled practice and add **trace-driven curation**
-(mine the agent's own traces to decide what to remember and improve across runs),
-reframing memory as something the agent curates from its history rather than a
-passive dump. These sit on top of the now-established concerns of memory
-**integrity** (poisoned facts retrieved as trusted context forever) and the
-local-first wave (FERNme, PMB, Memharness, Cortex) treating memory as an
-installable, developer-owned component rather than a metered service.
+Memory quality is starting to get **benchmarked, not just architected**: a new
+suite targets the *failure modes* of agent memory (forgetting, stale or wrong
+recall, poisoned entries), making "does the memory layer actually help" a number
+you can track instead of a design claim — extending the earlier poisoned-facts
+benchmark from integrity to the full failure surface. That sits on top of the
+prior run's signals — memory as a **portable substrate** (an S3-backed filesystem
+mounting the same markdowns across laptop and cloud) and **trace-driven curation**
+(mine the agent's own traces to decide what to remember) — and the now-established
+concerns of memory **integrity** and the local-first wave (FERNme, PMB,
+Memharness, Cortex) treating memory as an installable, developer-owned component
+rather than a metered service.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

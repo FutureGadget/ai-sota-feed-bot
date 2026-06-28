@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e]
-updated: 2026-06-26
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c]
+updated: 2026-06-28
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c]
 ---
 
 ## TL;DR
@@ -26,7 +26,13 @@ Model Context Protocol (MCP) standardizes how tools are described, discovered,
 and called, so a Terraform server, a Webex server, or a browser can expose
 capabilities to any MCP-speaking agent. The argument has sharpened from "wrap
 your REST API" to "agents need *infrastructure*, not SMS APIs" — purpose-built,
-agent-native endpoints rather than human-oriented ones bolted on. The actuation
+agent-native endpoints rather than human-oriented ones bolted on. But most
+enterprises can't rebuild their service estate agent-native, so a pragmatic
+**brownfield** pattern is emerging alongside the greenfield one: *agentic
+overlays* — thin wrapper layers (AWS) that sit in front of existing REST services
+and expose them as agent-callable capabilities without touching the underlying
+system, trading the purity of agent-native endpoints for adopting what already
+runs in production. The actuation
 surface is widening too: WebMCP is entering Chrome origin trials so sites can
 expose JavaScript functions and HTML forms directly to in-browser agents, and
 cloud platforms are folding the whole tool-calling loop into their serverless
@@ -54,7 +60,11 @@ being measured. "Beyond Function Calling" benchmarks agents under
 malformed results) and finds sharp degradation that clean tool suites hide, and
 the "Constraint Tax" study shows that jointly demanding structured output and
 tool calling **suppresses** tool calls in open-weight models — an interaction bug
-in the harness, not the protocol. This sits alongside the standardization push:
+in the harness, not the protocol. On the integration side, a **brownfield**
+counterpoint to "rebuild services agent-native" is gaining traction: *agentic
+overlays* (AWS) wrap existing REST services as agent-callable capabilities
+without rewriting them, a retrofit path for the service estates most teams
+actually have. This sits alongside the standardization push:
 WebMCP in Chrome origin trials (in-page tools), GA infrastructure MCP servers
 (HashiCorp Terraform), and cloud serverless agent runtimes bundling MCP access,
 1,400+ connectors, and sandboxing (Azure Functions).

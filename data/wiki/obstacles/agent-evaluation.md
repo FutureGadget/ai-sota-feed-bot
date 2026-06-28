@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd]
-updated: 2026-06-26
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e]
+updated: 2026-06-28
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e]
 ---
 
 ## TL;DR
@@ -27,6 +27,12 @@ agent call the right tools, recover from errors, and avoid loops. Tooling like
 rubric-style checks ("test what your LLM agent *did*, not just what it said")
 and failure-detection systems that emit categorized failures with causal chains
 (AWS's Strands Evals) reflect this shift toward structured, step-level verdicts.
+The labels themselves are moving the same way: OpenRCA 2.0 reframes root-cause
+analysis — a holistic test of long-context, multi-step reasoning, and tool use —
+from **outcome labels to causal process supervision**, scoring whether the agent
+reasoned through the right intermediate steps rather than only whether it landed
+the final answer, which is what trajectory-aware grading needs to train and audit
+a judge against.
 The second is **outcome evaluation under distribution shift**: a recurring
 finding is that agents look strong on familiar benchmarks and degrade sharply
 when "run beyond familiar environments," so static leaderboards over-state
@@ -54,7 +60,11 @@ pass/fail test gate — reframing eval for code agents as "is this change good,"
 not just "does it run."
 
 ## What's new
-Scrutiny has turned on the eval machinery itself: BabelJudge shows trajectory
+Process-level grading is getting first-class *labels*: OpenRCA 2.0 moves
+root-cause-analysis evaluation from outcome labels to **causal process
+supervision**, scoring the intermediate reasoning steps rather than just the
+final verdict — the dataset side of the shift to trajectory-aware eval. Scrutiny
+has also turned on the eval machinery itself: BabelJudge shows trajectory
 judges carry measurable position/language bias under the hood, and practitioner
 post-mortems (financial-agent evals, the missed Linear failure) argue that a
 green eval suite routinely hides the failure that matters — so "build a judge"

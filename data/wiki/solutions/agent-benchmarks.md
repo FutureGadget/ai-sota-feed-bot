@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79]
-updated: 2026-06-26
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a]
+updated: 2026-06-28
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a]
 ---
 
 ## TL;DR
@@ -52,11 +52,24 @@ reaching for novel environments a model can't have trained on (a Sherlock Holmes
 deduction board game run as an LLM-agent eval) precisely because familiar
 leaderboards leak into training. Both answer a gap practitioners keep voicing —
 public threads asking "what benchmarks actually compare agent *harnesses*"
-(beyond Terminal-Bench) — that the standard model leaderboards don't fill.
+(beyond Terminal-Bench) — that the standard model leaderboards don't fill. A
+final move is **subsystem-specific benchmarks** that isolate one capability
+instead of scoring end-to-end task success: a suite for the *failure modes of
+agent memory* (forgetting, stale recall, poisoned entries) and OpenRCA 2.0's
+shift from outcome labels to **causal process supervision** for root-cause
+analysis both grade an inner subsystem — the memory layer, the reasoning
+trajectory — so a regression can be localized to the part that broke rather than
+inferred from a fallen aggregate score.
 
 ## What's new
-Benchmarks are being pushed toward the failure paths and the held-out tasks that
-public leaderboards miss: "Beyond Function Calling" scores agents under
+Benchmarks are getting **subsystem-specific** — isolating one capability rather
+than scoring a whole task: a new suite targets the *failure modes of agent
+memory* (forgetting, stale recall, poisoning) and OpenRCA 2.0 grades root-cause
+analysis with **causal process supervision** (labels on the reasoning steps, not
+just the outcome), so a regression localizes to the memory layer or the
+trajectory instead of a fallen aggregate. This complements the push toward
+failure paths and held-out tasks that public leaderboards miss: "Beyond Function
+Calling" scores agents under
 **unreliable tool environments** (time-outs, errors, malformed results) to test
 recovery rather than the happy path, and practitioners are reaching for novel,
 hard-to-memorize environments (a Sherlock Holmes deduction game as an agent eval)
