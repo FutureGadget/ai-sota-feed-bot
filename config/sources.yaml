@@ -124,3 +124,28 @@ sources:
   - name: search_llm_ops_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28LLM+inference+optimization+OR+serving+latency+OR+vLLM+OR+Triton%29&hl=en-US&gl=US&ceid=US:en"
+  - name: vllm_blog
+    type: rss
+    # vLLM project's own technical blog (deep inference-engineering writeups:
+    # speculative decoding, semantic routing, day-0 model support) — distinct
+    # from vllm_releases, which is just GitHub changelog entries.
+    url: "https://vllm.ai/blog/rss.xml"
+  - name: modal_blog
+    type: rss
+    # Modal (serverless GPU platform) engineering blog — deep inference/serving
+    # latency posts (speculative decoding, FlashAttention, sandbox cold starts).
+    url: "https://modal.com/blog/atom.xml"
+  - name: hamel_husain
+    type: rss
+    # Practitioner blog focused on LLM evals — direct match for the eval/
+    # observability lens (e.g. "LLM Evals: Everything You Need to Know").
+    url: "https://hamel.dev/index.xml"
+  - name: eugene_yan
+    type: rss
+    # Applied ML practitioner blog (evals, agents, RAG) — low volume, high signal.
+    url: "https://eugeneyan.com/rss/"
+  - name: github_blog_ai_ml
+    type: rss
+    # GitHub Engineering's AI/ML category — agent tooling/harness engineering
+    # (Copilot agentic harness evals, context handling, model routing).
+    url: "https://github.blog/ai-and-ml/feed/"
