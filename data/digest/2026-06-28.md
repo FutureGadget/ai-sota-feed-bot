@@ -2,73 +2,103 @@
 
 Focus: AI Platform Engineering
 
-## 1. Show HN: role-model, a router for hybrid local/cloud AI
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/try-works/role-model
-- Score: 3.702 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 1. Evaluating performance and efficiency of the GitHub Copilot agentic harness across models and tasks
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/
+- Score: 3.096 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, eval.
 
-## 2. Paved with True Intents: Intent-Aware Training Improves LLM Safety Classification Across Training Regimes
+## 2. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.25819v1
+- Score: 2.961 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 3. Paved with True Intents: Intent-Aware Training Improves LLM Safety Classification Across Training Regimes
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.27210v1
 - Score: 2.9 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 3. Adaptive Utility driven Resource Orchestration for Resilient AI (AURORA-AI)
+## 4. Adaptive Utility driven Resource Orchestration for Resilient AI (AURORA-AI)
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.27005v1
-- Score: 2.813 | Reliability: 1.0
+- Score: 2.814 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. AWS Previews FinOps Agent for Cost Analysis and Optimization
+## 5. Incident Report: CVE-2026-LGTM
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/26/incident-report/#atom-everything
+- Score: 2.803 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. AWS Previews FinOps Agent for Cost Analysis and Optimization
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/aws-finops-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
 - Score: 2.798 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. Release 2.70.0 corresponding to NGC container 26.06
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.70.0
-- Score: 2.748 | Reliability: 1.0
+## 7. Vercel Introduces Eve, an Open-Source Framework for Building AI Agents
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/vercel-eve-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.747 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. OpenRCA 2.0: From Outcome Labels to Causal Process Supervision
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.27154v1
-- Score: 2.637 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 8. Release 2.70.0 corresponding to NGC container 26.06
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.70.0
+- Score: 2.744 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 7. Previewing GPT-5.6 Sol: a next-generation model
+## 9. What happened after 2,000 people tried to hack my AI assistant
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/26/hack-my-ai-assistant/#atom-everything
+- Score: 2.633 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 10. Previewing GPT-5.6 Sol: a next-generation model
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/previewing-gpt-5-6-sol
-- Score: 2.567 | Reliability: 1.0
+- Score: 2.564 | Reliability: 1.0
 - Why it matters: 
 
-## 8. [AINews] OpenAI GPT-5.6 Sol / Terra / Luna — restricted to trusted partners
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-openai-gpt-56-sol-terra-luna
-- Score: 2.387 | Reliability: 1.0
-- Why it matters: 
+## 11. June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/june-2026-langchain-newsletter
+- Score: 2.631 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 9. claude-code v2.1.195
+## 12. Using Local Coding Agents
+- Type: news | Source: sebastian_raschka
+- URL: https://magazine.sebastianraschka.com/p/using-local-coding-agents
+- Score: 2.586 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, codex.
+
+## 13. Prompt Caching with Deep Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/deep-agents-prompt-caching
+- Score: 2.487 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 14. claude-code v2.1.195
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.195
-- Score: 2.358 | Reliability: 1.0
+- Score: 2.353 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 10. codex 0.142.3
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.3
-- Score: 2.299 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search
+## 15. Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.27291v1
-- Score: 2.339 | Reliability: 1.0
+- Score: 2.34 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 12. Run a vLLM Server on HF Jobs in One Command
+## 16. codex 0.142.3
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.3
+- Score: 2.294 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 17. Run a vLLM Server on HF Jobs in One Command
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/vllm-jobs
 - Score: 2.113 | Reliability: 1.0
