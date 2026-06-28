@@ -5,137 +5,89 @@ Focus: AI Platform Engineering
 ## 1. How agents are transforming work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/how-agents-are-transforming-work
-- Score: 2.865 | Reliability: 1.0
+- Score: 2.896 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Paved with True Intents: Intent-Aware Training Improves LLM Safety Classification Across Training Regimes
+## 2. Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.25819v1
+- Score: 2.963 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 3. Paved with True Intents: Intent-Aware Training Improves LLM Safety Classification Across Training Regimes
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.27210v1
-- Score: 2.899 | Reliability: 1.0
+- Score: 2.903 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 3. Adaptive Utility driven Resource Orchestration for Resilient AI (AURORA-AI)
+## 4. Adaptive Utility driven Resource Orchestration for Resilient AI (AURORA-AI)
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.27005v1
-- Score: 2.812 | Reliability: 1.0
+- Score: 2.816 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Agent identity: a new access model for autonomous, team-wide AI | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/agent-identity-access-model
-- Score: 2.783 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Lessons from Anthropic on building effective human-agent teams | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/building-effective-human-agent-teams
-- Score: 2.783 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. Release 2.70.0 corresponding to NGC container 26.06
+## 5. Release 2.70.0 corresponding to NGC container 26.06
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.70.0
-- Score: 2.783 | Reliability: 1.0
+- Score: 2.778 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Incident Report: CVE-2026-LGTM
+## 6. Incident Report: CVE-2026-LGTM
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/26/incident-report/#atom-everything
-- Score: 2.726 | Reliability: 1.0
+- Score: 2.722 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. Helping build shared standards for advanced AI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-build-shared-standards-for-advanced-ai
-- Score: 2.676 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 9. Vercel Introduces Eve, an Open-Source Framework for Building AI Agents
+## 7. Vercel Introduces Eve, an Open-Source Framework for Building AI Agents
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/vercel-eve-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.67 | Reliability: 1.0
+- Score: 2.666 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 10. Introducing Claude Tag
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/introducing-claude-tag
-- Score: 2.613 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Dapr 1.18 Introduces Verifiable Execution, Bringing Cryptographic Trust to AI Agents and Workflows
+## 8. Dapr 1.18 Introduces Verifiable Execution, Bringing Cryptographic Trust to AI Agents and Workflows
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/dapr-1-18-cryptographic-ai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.663 | Reliability: 1.0
+- Score: 2.66 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. llama_index v0.14.23
-- Type: release | Source: llamaindex_releases
-- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.629 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Introducing computer use in Gemini 3.5 Flash
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-computer-use-in-gemini-3-5-flash/
-- Score: 2.61 | Reliability: 1.0
-- Why it matters: 
-
-## 14. Securing agentic AI with perimeter guardrails: What's new in VPC Service Controls
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/identity-security/securing-agentic-ai-whats-new-in-vpc-service-controls/
-- Score: 2.6 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 15. What happened after 2,000 people tried to hack my AI assistant
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/26/hack-my-ai-assistant/#atom-everything
-- Score: 2.557 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 16. Previewing GPT-5.6 Sol: a next-generation model
+## 9. Previewing GPT-5.6 Sol: a next-generation model
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/previewing-gpt-5-6-sol
-- Score: 2.544 | Reliability: 1.0
+- Score: 2.575 | Reliability: 1.0
 - Why it matters: 
 
-## 17. claude-code v2.1.191
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
-- Score: 2.411 | Reliability: 1.0
+## 10. What happened after 2,000 people tried to hack my AI assistant
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/26/hack-my-ai-assistant/#atom-everything
+- Score: 2.553 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. Prompt Caching with Deep Agents
+## 11. claude-code v2.1.195
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.195
+- Score: 2.431 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
+
+## 12. Prompt Caching with Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/deep-agents-prompt-caching
-- Score: 2.411 | Reliability: 1.0
+- Score: 2.408 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 19. Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2606.27291v1
-- Score: 2.339 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 20. codex 0.143.0-alpha.29
+## 13. codex 0.143.0-alpha.29
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.29
-- Score: 2.315 | Reliability: 1.0
+- Score: 2.373 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 21. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
+## 14. Designing Reward Signals for Portable Query Generation: A Case Study in Industrial Semantic Job Search
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.27291v1
+- Score: 2.343 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 15. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.274 | Reliability: 1.0
+- Score: 2.278 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
-
-## 22. claude-agent-sdk-python v0.2.110
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
-- Score: 2.108 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 23. Production-grade AI agents for financial compliance: Lessons from Stripe
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/production-grade-ai-agents-for-financial-compliance-lessons-from-stripe/
-- Score: 1.837 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
