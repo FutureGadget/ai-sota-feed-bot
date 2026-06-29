@@ -2,146 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. Evaluating performance and efficiency of the GitHub Copilot agentic harness across models and tasks
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/evaluating-performance-and-efficiency-of-the-github-copilot-agentic-harness-across-models-and-tasks/
-- Score: 3.045 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, eval.
+## 1. Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/29/ornith/#atom-everything
+- Score: 3.337 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness.
 
-## 2. Micro-Agent: Beat Frontier Models with Collaboration inside Model API
+## 2. Cloud CISO Perspectives: How Google Cloud Security uses AI internally
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/identity-security/cloud-ciso-perspectives-how-google-cloud-security-uses-ai-internally/
+- Score: 3.052 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, harness, evaluation.
+
+## 3. Micro-Agent: Beat Frontier Models with Collaboration inside Model API
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-06-29-micro-agent-frontier-models
-- Score: 2.929 | Reliability: 1.0
+- Score: 3.009 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. AI Is Moving up the Software Lifecycle: from Code Review to PRD Governance
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/ai-prd-code-review-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.834 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 4. HAT-4D: Lifting Monocular Video for 4D Multi-Object Interactions via Human-Agent Collaboration
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2606.28215v1
+- Score: 2.888 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 4. How agents are transforming work
+## 5. Mapping Europe’s AI Workforce Opportunity
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-agents-are-transforming-work
-- Score: 2.825 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Daybreak: Tools for securing every organization in the world
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/daybreak-securing-the-world
-- Score: 2.797 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+- URL: https://openai.com/index/mapping-ai-jobs-transition-eu
+- Score: 2.87 | Reliability: 1.0
+- Why it matters: 
 
 ## 6. Inside Target’s LLM-Based System for Semantic Matching in Marketing Forecast Pipelines
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/06/target-ai-campaign-forecasting/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.778 | Reliability: 1.0
+- Score: 2.843 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 7. Mapping Europe’s AI Workforce Opportunity
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/mapping-ai-jobs-transition-eu
-- Score: 2.753 | Reliability: 1.0
-- Why it matters: 
+## 7. AI Tools Accelerates Coding, but Not Overall Software Delivery, GitLab Research Finds
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/ai-coding-outpaces-governance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.832 | Reliability: 1.0
+- Why it matters: Matches feed focus: software delivery.
 
-## 8. Agent identity: a new access model for autonomous, team-wide AI | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/agent-identity-access-model
-- Score: 2.748 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 8. Towards Automating Scientific Review with Google's Paper Assistant Tool
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2606.28277v1
+- Score: 2.811 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
 
-## 9. Lessons from Anthropic on building effective human-agent teams | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/building-effective-human-agent-teams
-- Score: 2.748 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Introducing Claude Tag
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/introducing-claude-tag
-- Score: 2.592 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Incident Report: CVE-2026-LGTM
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/26/incident-report/#atom-everything
-- Score: 2.747 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. simonw/browser-compat-db
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/24/browser-compat-db/#atom-everything
-- Score: 2.678 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex, claude code.
-
-## 13. Helping build shared standards for advanced AI
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/helping-build-shared-standards-for-advanced-ai
-- Score: 2.646 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 14. Achieve state-of-the-art inference latencies with speculative decoding
-- Type: news | Source: modal_blog
-- URL: https://modal.com/blog/achieve-sota-specdec
-- Score: 2.633 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Engineering TTS Inference in vLLM-Omni
-- Type: news | Source: vllm_blog
-- URL: https://vllm.ai/blog/2026-06-23-vllm-omni-tts
-- Score: 2.626 | Reliability: 1.0
-- Why it matters: 
-
-## 16. llama_index v0.14.23
-- Type: release | Source: llamaindex_releases
-- URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.23
-- Score: 2.57 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 17. Release 2.70.0 corresponding to NGC container 26.06
-- Type: release | Source: triton_releases
-- URL: https://github.com/triton-inference-server/server/releases/tag/v2.70.0
-- Score: 2.555 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. Show HN: Ploof – The agent-native CLI for generating images, video, and audio
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/miketromba/ploof
-- Score: 2.546 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 19. Securing agentic AI with perimeter guardrails: What's new in VPC Service Controls
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/identity-security/securing-agentic-ai-whats-new-in-vpc-service-controls/
-- Score: 2.466 | Reliability: 1.0
+## 9. From Detection to Action: Using LLM Agents for Fault-Tolerant Control
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2606.28011v1
+- Score: 2.726 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 20. codex 0.142.4
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.4
-- Score: 2.36 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 21. claude-code v2.1.191
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.191
-- Score: 2.35 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 22. Xcode 26.6 Adds Gemini to Apple’s Coding Assistant - AppleMagazine - AppleMagazine
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMiVkFVX3lxTFBPNzExaEZ5VXdSZmFpd3ZTdDM2bDMzQWVWZGRPWGFxQ29nZUFTaGo5eTFaUjFtRVdfSzE4UnR2YlNLcnF0VXRUV3doZUpJSDhvbVJYMVhR0gFWQVVfeXFMUE83MTFoRnlVd1JmYWl3dlN0MzZsMzNBZVZkZE9YYXFDb2dlQVNoajl5MVpSMW1FV19LMThSdHZiU0tycXRVdFRXd2hlSklIOG9tUlgxWFE?oc=5
-- Score: 2.32 | Reliability: 1.0
+## 10. HP Inc. launches Frontier strategic partnership with OpenAI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/hp-frontier-partnership
+- Score: 2.482 | Reliability: 1.0
 - Why it matters: 
 
-## 23. Build real agentic apps using CUGA: two dozen working examples on a lightweight harness
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/ibm-research/cuga-apps
-- Score: 2.117 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
+## 11. Using Local Coding Agents
+- Type: news | Source: sebastian_raschka
+- URL: https://magazine.sebastianraschka.com/p/using-local-coding-agents
+- Score: 2.605 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, codex.
 
-## 24. claude-agent-sdk-python v0.2.110
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.110
-- Score: 2.047 | Reliability: 1.0
+## 12. Quoting Jon Udell
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/28/jon-udell/#atom-everything
+- Score: 2.542 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 13. Relay – open-source coding agent for non-mainstream/Chinese LLM providers
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/LeventeNagy/relay-coding-agent
+- Score: 2.536 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 14. codex 0.142.4
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.142.4
+- Score: 2.463 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 15. An Empirical Analysis of Factual Errors in Human-Written Text and its Application
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2606.27959v1
+- Score: 2.461 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 16. Latest open artifacts (#22): Zyphra, Cohere, and Poolside are expanding the breadth of the ecosystem
+- Type: news | Source: interconnects
+- URL: https://www.interconnects.ai/p/artifacts-22-zyphra-cohere-and-poolside
+- Score: 2.459 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Xcode 26.6 Adds Gemini to Apple’s Coding Assistant - AppleMagazine - AppleMagazine
+- Type: news | Source: search_agent_engineering_news
+- URL: https://news.google.com/rss/articles/CBMiVkFVX3lxTFBPNzExaEZ5VXdSZmFpd3ZTdDM2bDMzQWVWZGRPWGFxQ29nZUFTaGo5eTFaUjFtRVdfSzE4UnR2YlNLcnF0VXRUV3doZUpJSDhvbVJYMVhR0gFWQVVfeXFMUE83MTFoRnlVd1JmYWl3dlN0MzZsMzNBZVZkZE9YYXFDb2dlQVNoajl5MVpSMW1FV19LMThSdHZiU0tycXRVdFRXd2hlSklIOG9tUlgxWFE?oc=5
+- Score: 2.296 | Reliability: 1.0
+- Why it matters: 
+
+## 18. Claude Meets Blackwell Ultra: Anthropic’s Models Now Run on NVIDIA GB300 in Azure
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/anthropic-nvidia-gb300-blackwell-ultra-microsoft-azure/
+- Score: 2.108 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 19. v0.24.0: [KV-Offloading] Fix tensors_per_block stride (#46888)
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0
+- Score: 1.829 | Reliability: 1.0
+- Why it matters:
