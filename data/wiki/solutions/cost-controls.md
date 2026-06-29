@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365]
-updated: 2026-06-27
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc]
+updated: 2026-06-29
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc]
 ---
 
 ## TL;DR
@@ -24,7 +24,11 @@ agents. Platform vendors ship **usage analytics plus enforceable spend controls*
 (OpenAI's enterprise spend caps and analytics) so an org can set ceilings rather
 than discover overruns. Developer tooling pushes **attribution** down to the unit
 of work — Prtokens surfaces how many agent tokens a single pull request burned,
-making cost a number on the artifact instead of an aggregate. **Caching** removes
+making cost a number on the artifact instead of an aggregate. The analysis step
+itself is being delivered as a managed agent: AWS's FinOps Agent (public preview)
+automates the FinOps loop — investigating cost anomalies and correlating spend
+changes with account activity — so anomaly triage is continuous and queryable
+rather than a manual monthly dig. **Caching** removes
 repeated fixed cost: container/image caching (Amazon SageMaker) cuts cold-start
 scaling cost and latency, and prompt/result caching trims repeated context.
 Prompt caching in particular is becoming an automatic, framework-level default
@@ -46,8 +50,10 @@ metering and budgets are the foundation the architectural savings build on.
 ## What's new
 Cost controls are shifting left: from a monthly finance review to per-task,
 per-PR metering with enforceable caps (OpenAI spend controls, Prtokens
-attribution) and caching that removes repeated fixed cost — turning agent cost
-into a CI/ops signal you watch live rather than reconcile after the fact. Prompt
+attribution), now-managed *agentic* anomaly triage (AWS FinOps Agent correlates
+spend changes with account activity), and caching that removes repeated fixed
+cost — turning agent cost into a CI/ops signal you watch live rather than
+reconcile after the fact. Prompt
 caching is moving from a manual optimization to a framework default that captures
 the agent loop's stable prefix automatically (Deep Agents: up to ~80% token-cost
 cut across providers, zero config). Caching is also reaching inside the model:

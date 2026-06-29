@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02]
-updated: 2026-06-23
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
+updated: 2026-06-29
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
 ---
 
 ## TL;DR
@@ -33,15 +33,25 @@ quieter axis is the **runtime substrate**: writeups from teams building
 orchestration libraries report that the load-bearing design is workspace,
 runtime, and directory layout — where each sub-agent runs, what filesystem and
 state it sees, how outputs are isolated and collected — i.e. orchestration is as
-much an execution-environment problem as a control-flow one.
+much an execution-environment problem as a control-flow one. A fourth axis is now
+appearing as **shipping tooling rather than research**: practitioner orchestrators
+that make the wiring tangible — multi-model routing built into a terminal coding
+agent (Kimchi, sending refactors and codegen to different models), visual
+sub-agent wiring for Claude Code (rondoflow), and transparency-first multi-agent
+runners that expose each agent's actions (OpenOrb). They are early and uneven, but
+they confirm where the value sits: the routing, handoff, and observability layer
+between agents, not the agents themselves.
 
 ## What's new
-Beyond topology and dynamism, orchestration is increasingly framed as a
-**runtime-substrate** problem: library authors report that workspace, runtime,
-and per-agent directory isolation are the load-bearing design, not the role
-graph. That complements the move from "add more agents" to "design the
-coordination" — decentralized topologies (DeLM) and per-task generated harnesses
-(Anthropic) displacing the single-coordinator star.
+Orchestration is showing up as **shipping practitioner tooling**, not just
+patterns: multi-model routing inside a terminal coding agent (Kimchi), visual
+sub-agent wiring for Claude Code (rondoflow), and transparency-first multi-agent
+runners (OpenOrb) — all putting the engineering into the routing/handoff/wiring
+layer between agents. That sits on top of the framing of orchestration as a
+**runtime-substrate** problem (workspace, runtime, and per-agent directory
+isolation as the load-bearing design) and the move from "add more agents" to
+"design the coordination" — decentralized topologies (DeLM) and per-task
+generated harnesses (Anthropic) displacing the single-coordinator star.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

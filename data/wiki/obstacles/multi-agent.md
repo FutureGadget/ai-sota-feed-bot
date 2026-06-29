@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02]
-updated: 2026-06-23
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
+updated: 2026-06-29
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
 ---
 
 ## TL;DR
@@ -34,7 +34,13 @@ execution harness per task to coordinate sub-agents instead of committing to one
 fixed shape. Meanwhile practitioners are still hunting for frameworks where
 *heterogeneous* models genuinely collaborate (route refactors to one model,
 codegen to another), which is really a routing-and-handoff problem, not a model
-problem. A sharper version of the
+problem — and that hunt is now materializing as shipping tooling: coding agents
+with built-in multi-model orchestration (Kimchi routes a terminal coding agent
+across models), visual orchestration UIs that let you wire sub-agents by hand for
+Claude Code (rondoflow), and transparency-first multi-agent tools (OpenOrb) that
+surface what each agent did. The common thread is that the hard, load-bearing
+work has moved out of the agents and into the *routing, wiring, and
+visibility* layer between them. A sharper version of the
 "is it worth it" question is now visible at both ends: Sakana's Fugu *collapses* a
 multi-agent system into a single distilled model — trading the coordination layer
 away entirely once the division of labor is known — while practitioners building
@@ -45,13 +51,19 @@ control is the dominant variable — and sometimes the cheapest topology is no
 topology at all.
 
 ## What's new
-The "does multi-agent even pay" question is sharpening from both ends: Sakana's
-Fugu distills a whole multi-agent system into one model (delete the coordination
-layer), and orchestration-library authors report the hard part is workspace/
-runtime/directory plumbing, not agent cleverness. That reinforces the earlier
-finding that *topology*, not agent count, drives quality and cost — DPBench
-formalizes the structural determinants, DeLM cuts task cost ~50% by dropping the
-central orchestrator, and Anthropic generates execution harnesses per task.
+The "design the coordination, not the agents" thesis is now visible in shipping
+tooling: a wave of practitioner orchestration tools puts the engineering into the
+layer *between* agents — multi-model routing inside a terminal coding agent
+(Kimchi), visual sub-agent wiring for Claude Code (rondoflow), and
+transparency-first multi-agent runners (OpenOrb) — concrete evidence for the
+earlier finding that the routing/handoff/plumbing layer, not agent cleverness, is
+the load-bearing work. That sits alongside the "does multi-agent even pay"
+question sharpening from both ends (Sakana's Fugu distills a multi-agent system
+into one model; library authors report workspace/runtime/directory plumbing is
+the hard part) and the standing result that *topology*, not agent count, drives
+quality and cost — DPBench formalizes the structural determinants, DeLM cuts task
+cost ~50% by dropping the central orchestrator, and Anthropic generates execution
+harnesses per task.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

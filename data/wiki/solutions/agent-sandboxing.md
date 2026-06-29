@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd]
-updated: 2026-06-27
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3]
+updated: 2026-06-29
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3]
 ---
 
 ## TL;DR
@@ -55,6 +55,11 @@ open-source Workdir give an agent a disposable, isolated working directory out o
 the box, so process isolation is becoming something you install rather than
 build — which lowers the bar to running untrusted agent code in a box, even as the
 credential-authorization gap above means the box alone is still not the boundary.
+The same drop-in commoditization is reaching the **tool-call boundary**: Cerberus
+is a local firewall that sits in front of an agent's tool calls, mediating and
+blocking them at the dev machine rather than inside a cloud platform — bringing
+egress/action gating down to a single installable proxy, the local-dev counterpart
+to the network perimeters and platform governance below.
 These pieces are now being assembled into **enterprise platforms** rather than
 left as à-la-carte primitives: Grab's security team built Palana, a
 Kubernetes-native secure execution platform whose stated premise is that
@@ -84,7 +89,9 @@ into operated **platforms**, not just shipped primitives: Grab built Palana, a
 Kubernetes-native secure execution platform for running autonomous agents safely
 in production — sandboxed execution plus scoped access and central governance as
 paved-road infrastructure. These sit on top of the now-commoditized base layer
-(open-source drop-in sandboxes like Workdir) and the authorization primitives —
+(open-source drop-in sandboxes like Workdir, and local tool-call firewalls like
+Cerberus that gate an agent's actions from a single installable proxy) and the
+authorization primitives —
 per-parameter permission rules (Claude Code's `Tool(param:value)`), approval-gated
 writes (datasette-agent), identity-based sandboxes that keep infra secrets out of
 the agent's reach (Cordium), and ephemeral cloud accounts (Cloudflare) — all

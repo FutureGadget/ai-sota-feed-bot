@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365]
-updated: 2026-06-27
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc]
+updated: 2026-06-29
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc]
 ---
 
 ## TL;DR
@@ -26,7 +26,11 @@ smaller**. Visibility is moving from a monthly surprise to a first-class signal 
 enterprise platforms now ship usage analytics and hard spend controls (OpenAI's
 enterprise spend caps), and developer tooling attributes cost down to the unit of
 work, e.g. showing how many agent tokens a single pull request consumed
-(Prtokens). The reduction side is the sum of the other obstacles' solutions:
+(Prtokens). Visibility is even being automated *as an agent*: AWS's FinOps Agent
+(public preview) investigates cost anomalies and correlates spend changes with
+account activity, turning the after-the-fact bill review into a continuous,
+queryable analysis — cost analysis is itself becoming an agentic product. The
+reduction side is the sum of the other obstacles' solutions:
 keeping the working set small via [context compaction](/topic/context-compaction)
 attacks the per-step token bill directly (the cost scales with context size);
 choosing a cheaper [orchestration](/topic/agent-orchestration) topology matters
@@ -64,7 +68,9 @@ on *total tokens emitted in the loop*, not the sticker price per token.
 ## What's new
 Cost is becoming an explicit, measured surface rather than an after-the-fact
 invoice: enterprise spend caps and usage analytics, per-PR token-cost attribution
-(Prtokens), and a growing recognition that the cheapest lever is architectural —
+(Prtokens), now-managed *agentic* cost analysis (AWS FinOps Agent investigates
+anomalies and correlates spend with activity), and a growing recognition that the
+cheapest lever is architectural —
 decentralized topologies (DeLM, ~50% off), cheap fine-tuned judges (~100× off),
 and contract layers that make a cheaper model obey rules well enough to downshift
 to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a smaller model
