@@ -4,7 +4,7 @@ This runbook sets up external, free, reliable cron triggers for GitHub Actions
 workflows using [cron-job.org](https://cron-job.org). Currently used for:
 
 - **Hourly feed publish** (`feed-full-publish.yml`) — every hour
-- **Email digest** (`email-digest.yml`) — daily at 01:30 UTC + weekly Saturday at 05:30 UTC
+- **Email digest** (`email-digest.yml`) — daily at 23:00 UTC (08:00 KST) + weekly Friday at 23:00 UTC (Saturday 08:00 KST)
 
 ## Why this exists
 GitHub Actions `schedule` events are **best-effort**: scheduled runs are queued
@@ -105,22 +105,22 @@ PAT scoped to *only this repo* with the minimum permission.
 
 ## Email Digest Trigger
 
-The email digest workflow (`email-digest.yml`) has its own `schedule:` cron
-(daily `30 1 * * *`, weekly `30 5 * * 6`) but is subject to the same GH
-best-effort scheduling risk. Adding cron-job.org triggers guarantees the email
-sends reliably. The workflow's idempotency guard (cursor in
+The email digest workflow (`email-digest.yml`) is dispatched on UTC crons
+(daily `0 23 * * *`, weekly `0 23 * * 5`) chosen so the mail lands at 08:00 KST
+(Seoul morning). cron-job.org is the sole trigger; adding these jobs guarantees
+the email sends reliably. The workflow's idempotency guard (cursor in
 `data/email/state.json`) makes duplicate triggers safe — the script no-ops
 when the recap has already been sent.
 
-### Job 1: Daily email digest (01:30 UTC)
+### Job 1: Daily email digest (23:00 UTC -> 08:00 KST)
 
 1. **Title:** `llm-digest daily email`
 2. **URL:**
    ```
    https://api.github.com/repos/FutureGadget/ai-sota-feed-bot/actions/workflows/email-digest.yml/dispatches
    ```
-3. **Schedule:** Every day at 01:30 UTC
-   (cron-job.org pattern: minutes = `30`, hours = `1`).
+3. **Schedule:** Every day at 23:00 UTC
+   (cron-job.org pattern: minutes = `0`, hours = `23`).
 4. **Request method:** `POST`
 5. **Headers:** same four as the hourly feed job (reuse the same PAT).
 6. **Request body:**
@@ -129,12 +129,12 @@ when the recap has already been sent.
    ```
 7. Save and enable.
 
-### Job 2: Weekly email digest (05:30 UTC Saturday)
+### Job 2: Weekly email digest (Friday 23:00 UTC -> Saturday 08:00 KST)
 
 1. **Title:** `llm-digest weekly email`
 2. **URL:** same as Job 1.
-3. **Schedule:** Every Saturday at 05:30 UTC
-   (cron-job.org pattern: minutes = `30`, hours = `5`, day of week = `6`/Saturday).
+3. **Schedule:** Every Friday at 23:00 UTC
+   (cron-job.org pattern: minutes = `0`, hours = `23`, day of week = `5`/Friday).
 4. **Request method:** `POST`
 5. **Headers:** same four.
 6. **Request body:**

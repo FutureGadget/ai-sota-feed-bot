@@ -4,7 +4,10 @@ name: "[News Feed Management] Daily recap"
 description: Curate and publish the previous UTC day's AI news recap.
 
 schedule:
-  cron: "0 9 * * *"
+  # 06:00 KST — built ahead of the 08:00 KST email send (23:00 UTC) so the
+  # curated recap is committed before the digest goes out. Runs before the UTC
+  # date rollover (09:00 KST), so it covers the last *complete* UTC day.
+  cron: "0 6 * * *"
   timezone: Asia/Seoul
   enabled: true
 
