@@ -220,25 +220,25 @@
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
     const NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
 
-    // The email-digest workflow sends on fixed UTC crons (daily brief 01:30 UTC;
-    // weekly recap Saturday 05:30 UTC — see .github/workflows/email-digest.yml).
+    // The email-digest workflow sends on fixed UTC crons (daily brief 23:00 UTC;
+    // weekly recap Friday 23:00 UTC — see .github/workflows/email-digest.yml).
     // The weekday/time a reader actually receives mail depends on their timezone
-    // — e.g. Sat 05:30 UTC is Sat 14:30 in Seoul but Sat 01:30 in New York — so
+    // — e.g. Fri 23:00 UTC is Sat 08:00 in Seoul but Fri 15:00 in Los Angeles — so
     // derive reader-local labels instead of hardcoding a UTC-centric weekday/time.
     // English weekday names (the copy is English) with the browser's own timezone.
     const SEND_SCHEDULE = (() => {
       try {
-        // The upcoming Saturday 05:30 UTC (any one works; using a real upcoming
+        // The upcoming Friday 23:00 UTC (any one works; using a real upcoming
         // instant respects the reader's current daylight-saving offset).
         const weekly = new Date();
-        weekly.setUTCHours(5, 30, 0, 0);
-        let add = (6 - weekly.getUTCDay() + 7) % 7;
+        weekly.setUTCHours(23, 0, 0, 0);
+        let add = (5 - weekly.getUTCDay() + 7) % 7;
         if (add === 0 && Date.now() > weekly.getTime()) add = 7;
         weekly.setUTCDate(weekly.getUTCDate() + add);
         const weeklyDay = new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(weekly);
-        // Daily brief at 01:30 UTC — the reader-local hour picks the time word.
+        // Daily brief at 23:00 UTC — the reader-local hour picks the time word.
         const daily = new Date();
-        daily.setUTCHours(1, 30, 0, 0);
+        daily.setUTCHours(23, 0, 0, 0);
         const h = daily.getHours();
         const dailyTime = (h < 5 || h >= 22) ? 'night' : h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening';
         return { weeklyDay, weeklyDayPlural: weeklyDay + 's', dailyTime };

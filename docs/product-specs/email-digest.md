@@ -67,8 +67,11 @@ compares `data/email/state.json` → `daily.last_sent_date` to the recap's own
 `date`: the latest committed recap sends once and re-sends only when a *newer*
 recap appears. If no new recap exists (the agent routine has not run), the send
 is a **clean no-op** — it never falls back to mailing the raw feed. The cron
-runs at 01:30 UTC (10:30 KST), after the 09:00 KST daily recap routine, so the
-email normally sends the prior UTC day's just-completed curated recap.
+runs at 23:00 UTC (08:00 KST next morning), after the 06:00 KST daily recap
+routine, so the email lands in the reader's inbox by 8am Seoul time. Because
+08:00 KST is *before* the UTC date rollover (09:00 KST), the recap built that
+morning covers the last *complete* UTC day — i.e. the brief intentionally trails
+the freshest possible UTC day by one, in exchange for the earlier delivery slot.
 
 ### Weekly recap (post-recap Saturday cron)
 
@@ -165,12 +168,12 @@ is no wiki high-water mark.
   state was easy to misread.
   - *Timezone-adaptive labels.* The recap weekday and the daily time-of-day are
     rendered client-side from the reader's own timezone, not hardcoded. The
-    sends are fixed UTC crons (daily 01:30 UTC; weekly **Saturday 05:30 UTC** —
+    sends are fixed UTC crons (daily 23:00 UTC; weekly **Friday 23:00 UTC** —
     see `.github/workflows/email-digest.yml`), but that instant is a different
-    local weekday/time per reader (Sat 05:30 UTC is Sat 14:30 in Seoul yet Fri
-    22:30 in Los Angeles), so a hardcoded weekday would be wrong somewhere.
-    `web/subscribe.html` computes the upcoming Saturday-05:30-UTC instant and the
-    daily-01:30-UTC instant, formats the local weekday (English,
+    local weekday/time per reader (Fri 23:00 UTC is Sat 08:00 in Seoul yet Fri
+    15:00 in Los Angeles), so a hardcoded weekday would be wrong somewhere.
+    `web/subscribe.html` computes the upcoming Friday-23:00-UTC instant and the
+    daily-23:00-UTC instant, formats the local weekday (English,
     `Intl.DateTimeFormat`) and a time-of-day word (morning/afternoon/evening/
     night from the local hour), and fills the `[data-weekly-day]`,
     `[data-weekly-day-plural]`, and `[data-daily-time]` spans plus the

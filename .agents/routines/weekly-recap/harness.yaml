@@ -4,7 +4,9 @@ name: "[News Feed Management] Update Weekly AI Feed Summary page"
 description: Curate and publish the current ISO week's AI recap.
 
 schedule:
-  cron: "0 13 * * 6"
+  # Saturday 06:00 KST — built ahead of the Saturday 08:00 KST weekly email send
+  # (Friday 23:00 UTC) so the curated recap is committed before it goes out.
+  cron: "0 6 * * 6"
   timezone: Asia/Seoul
   enabled: true
 
