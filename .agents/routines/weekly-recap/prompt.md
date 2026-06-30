@@ -8,15 +8,6 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/weekly-summary/SKILL.md`
 
-This routine runs Friday 21:00 UTC (06:00 KST Saturday), ahead of the Friday
-23:00 UTC weekly email send. The input bundle below is a 7-day trailing
-window, not a strict Monday-Sunday slice: it deliberately reaches back into
-the *previous* week's Saturday/Sunday, since the routine always runs before
-the current week's own weekend happens and the previous week's run could
-never have captured its own weekend either. Those days' articles land under
-this week's id instead of their own — expected, not a bug to "fix" by
-aligning the window to the calendar week.
-
 ## Run the routine
 
 1. Build the news-only input bundle for the ISO week containing the current

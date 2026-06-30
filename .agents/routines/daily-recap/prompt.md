@@ -8,22 +8,14 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/daily-summary/SKILL.md`
 
-This routine is scheduled just after 00:00 UTC, so "yesterday in UTC" is the
-day that has just fully completed. Anchor every date to UTC — never to the
-machine's local timezone — so the recap date matches the UTC-keyed feed data.
-
 ## Run the routine
 
-1. Determine yesterday's UTC calendar date as `YYYY-MM-DD` (the most recent
-   fully-complete UTC day). Use UTC explicitly; do not derive the date from the
-   machine's local timezone.
+1. Determine yesterday's UTC calendar date as `YYYY-MM-DD`. Use UTC explicitly;
+   do not derive the date from the machine's local timezone.
 
-   Backfill guard: also check whether the two UTC days *before* yesterday have a
-   `data/daily/<date>.json`. If a recent complete UTC day is missing its recap
-   (e.g. a prior run was skipped), process those missing days first, oldest
-   first, by repeating steps 2–6 for each — one recap per date — before
-   processing yesterday. Never skip a complete UTC day just because the routine
-   ran late; never invent a recap for a day with no genuine articles.
+   Also check whether the two UTC days before yesterday are missing
+   `data/daily/<date>.json`. If so, process those dates first, oldest first
+   (repeat steps 2–6 for each) before processing yesterday.
 2. Build the input bundle for that date:
 
    ```bash
@@ -69,13 +61,13 @@ web/sitemap.xml
 web/robots.txt
 ```
 
-Create one data-only commit. When a single date was published, use:
+Create one data-only commit. For a single date:
 
 ```text
 daily recap: <date>
 ```
 
-When the backfill guard published more than one date in this run, list them:
+For more than one date published in this run:
 
 ```text
 daily recap: <oldest-date>..<newest-date>
