@@ -18,6 +18,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it
   → solutions: version-pinning, agent-benchmarks
 
+### latency
+- [agent-latency](obstacles/agent-latency.md) — Agent loops multiply per-call latency into slow, expensive runs
+  → solutions: speculative-decoding, context-compaction
+
 ### memory
 - [agent-memory](obstacles/agent-memory.md) — Agents forget across steps and sessions
   → solutions: vector-kb, context-compaction
@@ -42,5 +46,6 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [cost-controls](solutions/cost-controls.md) — Budgets, metering, and per-task cost attribution
 - [llm-as-judge](solutions/llm-as-judge.md) — Model-graded evaluation of traces and outputs
 - [mcp](solutions/mcp.md) — Model Context Protocol: a standard interface for agent tools
+- [speculative-decoding](solutions/speculative-decoding.md) — Draft cheaply, verify in parallel to cut decode latency
 - [vector-kb](solutions/vector-kb.md) — External knowledge base: vector and graph retrieval
 - [version-pinning](solutions/version-pinning.md) — Version pinning, compatibility ranges, and staged upgrades

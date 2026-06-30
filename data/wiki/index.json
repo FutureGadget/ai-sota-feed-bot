@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-29T02:11:28.808844+00:00",
+ "generated_at": "2026-06-30T02:07:20.313321+00:00",
  "areas": [
   {
    "area": "memory",
@@ -34,6 +34,13 @@
    "label": "Cost",
    "obstacles": [
     "agent-cost"
+   ]
+  },
+  {
+   "area": "latency",
+   "label": "Latency & throughput",
+   "obstacles": [
+    "agent-latency"
    ]
   },
   {
@@ -230,6 +237,75 @@
     }
    ],
    "updated": "2026-06-28"
+  },
+  "agent-latency": {
+   "slug": "agent-latency",
+   "kind": "obstacle",
+   "title": "Agent loops multiply per-call latency into slow, expensive runs",
+   "area": "latency",
+   "status": "active",
+   "summary": "A chatbot waits on one model call; an agent waits on *many*, in sequence —\nplan, call a tool, read the result, decide again — so the wall-clock a user\nfeels is the per-token decode latency multiplied by the loop length, and a\nserving stack tuned for single-shot throughput can still leave an agent feeling\nslow. Latency is the run-time twin of [cost](/topic/agent-cost): the same loop\nthat runs up the bill also runs out the clock.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>A chatbot waits on one model call; an agent waits on *many*, in sequence — plan, call a tool, read the result, decide again — so the wall-clock a user feels is the per-token decode latency multiplied by the loop length, and a serving stack tuned for single-shot throughput can still leave an agent feeling slow. Latency is the run-time twin of <a href=\"/topic/agent-cost\">cost</a>: the same loop that runs up the bill also runs out the clock.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Latency for agents is being attacked at the <strong>serving layer</strong> and the <strong>workload-shape layer</strong> at once. The serving engines that host agent traffic are competing hard on decode latency and throughput — vLLM&#x27;s v0.24.0 line keeps adding fast model support and quantized indexers, Modular&#x27;s 26.4 ships state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched explicitly on &quot;low-latency inference at scale&quot; — but raw engine speed only moves one term in the agent&#x27;s latency budget. The newer recognition is that <strong>agent workloads do not look like chat</strong>: coding agents issue bursty, long-context, tool-interleaved requests, and characterizing that shape is now its own research target (TraceLab profiles real coding-agent workloads for LLM serving so the server can be tuned to them rather than to a generic chat trace). That work is surfacing agent-specific bottlenecks the chat era never hit — DualPath finds the binding constraint in agentic inference is <strong>storage bandwidth</strong>, not compute, because the agent&#x27;s growing KV/context state has to be streamed back each step. The other lever is the model itself: latency-first small models (Kog&#x27;s Laneformer 2B, built for its inference engine) trade frontier breadth for predictable speed on the bulk of an agent&#x27;s calls, the same downshift logic that drives cost. Latency also has a hard product floor in interactive modes — a voice agent that pauses too long gets hung up on, which is why low-latency voice stacks (Loka on Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint, not a tuning afterthought.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>The framing is shifting from &quot;make the model faster&quot; to &quot;make the *agent workload* faster.&quot; TraceLab characterizes real coding-agent serving traces so engines can be tuned to bursty long-context tool loops, and DualPath identifies storage bandwidth — not GPU compute — as the bottleneck in agentic inference, because the per-step context state has to be moved, not just computed. Alongside, latency-first small models (Kog Laneformer 2B) and low-latency interactive stacks (Loka&#x27;s Nova 2 Sonic voice agent) show the field treating round-trip time as an architecture constraint rather than a knob.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>Latency is where the agent&#x27;s architecture meets the user&#x27;s patience and the GPU&#x27;s bill — the three trade against each other directly. The job is to budget latency across the *whole loop*, not per call: count the sequential model hops, push what you can to a faster or smaller model, cut the tokens that have to be decoded and streamed each step (compaction, KV reuse), and pick a serving engine tuned to the bursty, long-context shape agents actually produce rather than to a chat benchmark. Interactive modes (voice, live coding) set a hard ceiling, so the deliverable is a latency budget you can reason about per task, not a one-time inference optimization.</p>"
+    }
+   ],
+   "solutions": [
+    {
+     "slug": "context-compaction",
+     "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+     "slug": "speculative-decoding",
+     "title": "Speculative decoding: draft cheaply, verify in parallel"
+    }
+   ],
+   "obstacles": [],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "0ca61ed96ddd38e5",
+     "title": "TraceLab: Characterizing Coding Agent Workloads for LLM Serving"
+    },
+    {
+     "sid": "e313a171aa375adf",
+     "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
+    },
+    {
+     "sid": "537f21de13e2a85a",
+     "title": "Kog Laneformer 2B: The Latency-First Model Behind Kog Inference Engine"
+    },
+    {
+     "sid": "c66b542cadbb4592",
+     "title": "How Loka Built a Natural, Low-Latency Voice Agent with Amazon Nova 2 Sonic"
+    },
+    {
+     "sid": "6cc910fb018354bf",
+     "title": "vllm v0.24.0"
+    },
+    {
+     "sid": "e2f43565cf7c0d8e",
+     "title": "Modular 26.4: SOTA Moe Serving, Model Bringup via Agent Skills, Mojo 1.0 Beta 2"
+    },
+    {
+     "sid": "dca39fe0489bebd0",
+     "title": "NVIDIA and AWS Collaborate to Bring AI to Production at Scale"
+    }
+   ],
+   "updated": "2026-06-30"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -937,6 +1013,10 @@
      "title": "Agent token costs are unpredictable and easily run away"
     },
     {
+     "slug": "agent-latency",
+     "title": "Agent loops multiply per-call latency into slow, expensive runs"
+    },
+    {
      "slug": "agent-memory",
      "title": "Agents forget across steps and sessions"
     }
@@ -1168,6 +1248,55 @@
     }
    ],
    "updated": "2026-06-23"
+  },
+  "speculative-decoding": {
+   "slug": "speculative-decoding",
+   "kind": "solution",
+   "title": "Speculative decoding: draft cheaply, verify in parallel",
+   "area": null,
+   "status": "active",
+   "summary": "Generate several candidate tokens cheaply with a small *draft* model (or a\nlightweight head), then let the full model verify them in a single parallel\nforward pass — accepted tokens come \"for free,\" so latency drops without\nchanging the output distribution. It attacks the one term raw engine tuning\ncan't: the strictly sequential, one-token-at-a-time decode that dominates an\nagent's wall-clock.",
+   "sections": [
+    {
+     "heading": "TL;DR",
+     "html": "<p>Generate several candidate tokens cheaply with a small *draft* model (or a lightweight head), then let the full model verify them in a single parallel forward pass — accepted tokens come &quot;for free,&quot; so latency drops without changing the output distribution. It attacks the one term raw engine tuning can&#x27;t: the strictly sequential, one-token-at-a-time decode that dominates an agent&#x27;s wall-clock.</p>"
+    },
+    {
+     "heading": "State of the art",
+     "html": "<p>Speculative decoding has moved from a research trick to a serving default, and the recent work is about making the draft step both cheap and accurate enough that the acceptance rate justifies the extra verify compute. Modal and Decagon report state-of-the-art inference latencies in production by tuning the draft/verify pair to their workload, framing it as a practical, deployable win rather than a benchmark curiosity. On the hardware side, NVIDIA&#x27;s DFlash pushes the technique into the silicon — up to ~15× inference-performance gains on Blackwell — showing the draft-and-verify pattern is being co-designed with the accelerator, not just layered on top in software. The throughline is that the gains are largest exactly where agents hurt most: long, latency-sensitive decode loops where shaving sequential steps compounds across every turn of the agent.</p>"
+    },
+    {
+     "heading": "What's new",
+     "html": "<p>Speculative decoding is being reported as a shipping production win, not a paper: Modal/Decagon document state-of-the-art latencies from a tuned draft/verify setup, and NVIDIA&#x27;s DFlash claims up to ~15× on Blackwell by pushing speculation into the hardware path — evidence the technique is now a co-designed default of the serving stack rather than an optional optimization.</p>"
+    },
+    {
+     "heading": "Trade-offs",
+     "html": "<p>Lossless by construction — the full model still verifies every token, so quality is unchanged — but the win is entirely a function of <strong>acceptance rate</strong>: if the draft and target disagree often (out-of-distribution inputs, a poorly matched draft model), you pay for the draft *and* the verify and can come out slower. It costs extra memory and serving complexity (a second model or draft head to host and keep in sync), and the speedup is real on decode-bound, long-output work but marginal on short replies or prefill-bound prompts. Best treated as a serving-layer knob tuned to the actual workload — which is why workload characterization (<a href=\"/topic/agent-latency\">agent-latency</a>) and speculation are complementary, not alternatives.</p>"
+    },
+    {
+     "heading": "Why it matters for platform engineers",
+     "html": "<p>It is one of the few latency levers that doesn&#x27;t force a quality trade — the output is identical to greedy/sampled decoding from the target model, so it&#x27;s safe to enable broadly once the draft pairing is tuned. For agent traffic, where the same sequential decode is paid on every loop step, the per-call saving compounds across the run, making it a high-leverage default to validate against your own traces before reaching for a smaller, lossy model.</p>"
+    }
+   ],
+   "solutions": [],
+   "obstacles": [
+    {
+     "slug": "agent-latency",
+     "title": "Agent loops multiply per-call latency into slow, expensive runs"
+    }
+   ],
+   "related_storylines": [],
+   "evidence": [
+    {
+     "sid": "62173e9d865bdec2",
+     "title": "Achieve state-of-the-art inference latencies with speculative decoding"
+    },
+    {
+     "sid": "99bd515fd5fd8083",
+     "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer"
+    }
+   ],
+   "updated": "2026-06-30"
   },
   "vector-kb": {
    "slug": "vector-kb",
