@@ -1,37 +1,34 @@
 {
   "slug": "deep-research",
-  "generated_at": "2026-06-19T15:20:00Z",
+  "generated_at": "2026-06-30T15:35:14Z",
   "covers_last_updated": "2026-06-18T11:47:13+00:00",
-  "covers_member_sids": ["c5cd09a4f478ae3e", "2f2101adc8737656", "0221a891a5b9e026", "b453c7e259c052f6"],
-  "tldr": "Through mid-June, deep research agents kept getting redefined faster than they could be standardized. An arXiv paper argued that benchmarks only grade a single-shot report and miss whether an agent improves under feedback, and ran a multi-turn process-level evaluation. AWS then shipped a build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. DRFLOW moved the target toward predicting a personalized, enterprise-style workflow rather than just a report, and the latest beat, ScaffoldAgent, attacks the long-form report itself — utility-guided dynamic outline optimization for open-ended deep research.",
-  "whats_new": "The newest item, ScaffoldAgent (Jun 18), shifts the focus from what to evaluate back to how to generate: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report, and makes the outline the optimization target with a utility-guided, dynamically optimized scaffold — a generation-side answer after a run of benchmark-side papers.",
-  "why_it_matters": "How you evaluate and structure a deep research agent is still unsettled: report quality, improvement under process-level feedback, personalized workflow prediction, and outline-driven coherence are four different bars, and the one you pick changes what you build. AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
+  "covers_member_sids": [
+    "2f2101adc8737656",
+    "0221a891a5b9e026",
+    "b453c7e259c052f6"
+  ],
+  "tldr": "In mid-June the target for deep research agents kept moving. AWS shipped a build pattern — an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. Then DRFLOW argued the real enterprise goal is predicting a personalized workflow, not generating a report, shifting what the agent is even supposed to optimize.",
+  "whats_new": "The newest item, ScaffoldAgent (Jun 18), moves the focus back to generation: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report and makes the outline the optimization target via utility-guided, dynamically optimized scaffolding.",
+  "why_it_matters": "What a deep research agent should be graded on is still unsettled — personalized workflow prediction versus outline-driven long-form coherence pull the design in different directions — and the criterion you pick changes what you build; AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
   "status": {
     "state": "Active research",
     "tone": "rising",
     "changed": "2026-06-18",
-    "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — evaluation, workflow prediction, and now report-generation structure."
+    "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — from build patterns to workflow prediction to report-generation structure."
   },
   "beats": [
     {
-      "kicker": "EVAL GAP",
-      "tone": "launch",
-      "headline": "Single-shot benchmarks miss whether agents improve under feedback",
-      "summary": "Reframes evaluation around multi-turn, process-level feedback rather than one-shot report scoring.",
-      "sids": ["c5cd09a4f478ae3e"]
-    },
-    {
       "kicker": "BUILD PATTERN",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "AWS ships an end-to-end research agent on Deep Agents + Bedrock AgentCore",
-      "summary": "Moves from critique to construction with isolated execution for multi-step workflows.",
+      "summary": "A concrete walkthrough builds a competitive research agent with isolated execution for multi-step workflows.",
       "sids": ["2f2101adc8737656"]
     },
     {
       "kicker": "NEW TARGET",
       "tone": "turn",
       "headline": "DRFLOW benchmarks personalized workflow prediction, not report generation",
-      "summary": "Argues enterprise work needs the agent to predict a personalized workflow, not just summarize.",
+      "summary": "Argues enterprise tasks need the agent to predict a personalized workflow rather than summarize.",
       "sids": ["0221a891a5b9e026"]
     },
     {
@@ -43,14 +40,13 @@
     }
   ],
   "open_questions": [
-    "Do these competing criteria — feedback improvement, workflow prediction, outline quality — converge into one benchmark, or stay fragmented?",
-    "Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on the multi-turn feedback test?",
+    "Do these competing criteria — personalized workflow prediction versus outline-driven report quality — converge into one benchmark, or stay fragmented?",
+    "Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on open-ended deep research?",
     "Will production stacks like Deep Agents + Bedrock AgentCore adopt any of these academic evaluation criteria?"
   ],
-  "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — feedback-driven report quality, personalized workflow prediction, or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
+  "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — personalized workflow prediction or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
   "day_captions": {
-    "c5cd09a4f478ae3e": "Sets the evaluation gap: benchmarks score only single-shot output, so it runs a multi-turn test of whether agents improve their reports under process-level feedback.",
-    "2f2101adc8737656": "Shifts from critique to construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.",
+    "2f2101adc8737656": "Anchors the thread in construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.",
     "0221a891a5b9e026": "Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.",
     "b453c7e259c052f6": "Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports."
   }

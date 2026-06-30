@@ -1,0 +1,110 @@
+{
+ "slug": "speculative-decoding",
+ "label": "Speculative Decoding",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-06-17T05:37:40+00:00",
+ "last_updated": "2026-06-24T00:00:00+00:00",
+ "generated_at": "2026-06-30T15:36:58.928996+00:00",
+ "sources": [
+  "latent_space",
+  "modal_blog",
+  "search_llm_ops_news"
+ ],
+ "days": [
+  {
+   "date": "2026-06-17",
+   "items": [
+    {
+     "title": "[AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding",
+     "url": "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
+     "source": "latent_space",
+     "type": "news",
+     "summary_1line": "We have a new top open model in the world!",
+     "sid": "ffc4c951795ec8c0",
+     "published": "2026-06-17T05:37:40+00:00",
+     "editor_note": "Introduces speculative decoding into the news cycle via IndexShare, bundled with the GLM-5.2 open-model release."
+    }
+   ]
+  },
+  {
+   "date": "2026-06-23",
+   "items": [
+    {
+     "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer",
+     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+     "source": "search_llm_ops_news",
+     "type": "news",
+     "summary_1line": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding NVIDIA Developer",
+     "sid": "99bd515fd5fd8083",
+     "published": "2026-06-23T15:14:05+00:00",
+     "editor_note": "Adds the hardware-vendor angle — NVIDIA's DFlash speculative decoding cited for up to 15x inference throughput on Blackwell."
+    }
+   ]
+  },
+  {
+   "date": "2026-06-24",
+   "items": [
+    {
+     "title": "Achieve state-of-the-art inference latencies with speculative decoding",
+     "url": "https://modal.com/blog/achieve-sota-specdec",
+     "source": "modal_blog",
+     "type": "news",
+     "summary_1line": "How Modal and Decagon worked together to cut inference latency - and you can too.",
+     "sid": "62173e9d865bdec2",
+     "published": "2026-06-24T00:00:00+00:00",
+     "editor_note": "Closes the loop with a production recipe: Modal and Decagon report state-of-the-art inference latency using speculative decoding."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "In mid-June speculative decoding moved from a research trick toward a default inference-latency lever. It surfaced alongside the GLM-5.2 open-model release as IndexShare, then NVIDIA reported DFlash speculative decoding lifting throughput up to 15x on Blackwell — pulling the technique into both the open-model and hardware-vendor conversations within a week.",
+  "stale": false,
+  "whats_new": "Modal and Decagon published a joint walkthrough showing how speculative decoding cut their inference latency to state-of-the-art levels, moving the technique from benchmark claims into a reproducible production serving recipe.",
+  "why_it_matters": "Speculative decoding is converging across open models, NVIDIA hardware, and serving platforms in the same window, so it is becoming a mainstream knob for inference latency and cost rather than a niche optimization — worth evaluating before hand-rolling latency fixes.",
+  "take_for_builders": "If inference latency or cost is your bottleneck, treat speculative decoding as a first-class option now: check whether your serving stack (Modal-style draft/verify) or GPU path (Blackwell/DFlash) supports it before building custom latency hacks, and benchmark on your own traffic rather than trusting the headline multipliers.",
+  "status": {
+   "state": "Active",
+   "tone": "rising",
+   "changed": "2026-06-24",
+   "detail": "Speculative decoding is being adopted near-simultaneously across an open model release, GPU vendor tooling, and a serving platform."
+  },
+  "beats": [
+   {
+    "kicker": "OPEN MODEL",
+    "tone": "launch",
+    "headline": "GLM-5.2 ships with IndexShare for speculative decoding",
+    "summary": "The technique surfaces in the AINews roundup alongside GLM-5.2's release as a top open frontend-coding model.",
+    "sids": [
+     "ffc4c951795ec8c0"
+    ]
+   },
+   {
+    "kicker": "HARDWARE",
+    "tone": "rising",
+    "headline": "NVIDIA reports DFlash speculative decoding up to 15x faster on Blackwell",
+    "summary": "The GPU vendor frames speculative decoding as a major inference throughput lever on Blackwell.",
+    "sids": [
+     "99bd515fd5fd8083"
+    ]
+   },
+   {
+    "kicker": "PRODUCTION",
+    "tone": "now",
+    "headline": "Modal and Decagon hit state-of-the-art inference latency with speculative decoding",
+    "summary": "A serving-platform write-up turns the technique into a concrete, reproducible latency recipe.",
+    "sids": [
+     "62173e9d865bdec2"
+    ]
+   }
+  ],
+  "open_questions": [
+   "How portable are these speedups across model families and prompt mixes, versus the cherry-picked workloads in vendor posts?",
+   "Are the 15x (Blackwell/DFlash) and 'state-of-the-art' (Modal/Decagon) figures vendor-reported or independently confirmed?",
+   "Does speculative decoding's accuracy/quality trade-off hold up under agentic, multi-turn workloads?"
+  ],
+  "generated_at": "2026-06-30T15:35:14Z"
+ }
+}

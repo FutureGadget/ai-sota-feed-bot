@@ -1,42 +1,83 @@
 {
- "generated_at": "2026-06-24T23:13:42.289264+00:00",
+ "generated_at": "2026-06-30T15:36:58.928996+00:00",
  "window_days": 21,
  "storylines": [
   {
-   "slug": "claude-stop",
-   "label": "Claude Stop",
-   "item_count": 3,
-   "day_count": 3,
+   "slug": "nvidia-blackwell",
+   "label": "NVIDIA Blackwell",
+   "item_count": 4,
+   "day_count": 4,
    "source_count": 2,
-   "first_seen": "2026-06-06T02:21:42+00:00",
-   "last_updated": "2026-06-22T12:55:00+00:00",
-   "latest_title": "Claude Code Loop Engineering: Stop Prompting, Start Designing Autonomous Agent Workflows - Tech Times",
+   "first_seen": "2026-06-12T21:00:08+00:00",
+   "last_updated": "2026-06-29T17:00:19+00:00",
+   "latest_title": "Claude Meets Blackwell Ultra: Anthropic’s Models Now Run on NVIDIA GB300 in Azure",
    "days": [
-    "2026-06-06",
-    "2026-06-08",
-    "2026-06-22"
+    "2026-06-12",
+    "2026-06-16",
+    "2026-06-23",
+    "2026-06-29"
    ],
    "member_sids": [
-    "c1dbb940627539f5",
-    "fa8cb121f930b1c9",
-    "06b7abc6faa91ca3"
+    "4012e39a8871c7b4",
+    "e8dbce4d8e30e837",
+    "99bd515fd5fd8083",
+    "0d320457f7e21f46"
    ],
    "member_urls": [
-    "https://github.com/param087/agent-ml-skills",
-    "https://github.com/albertobarnabo/lean",
-    "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNS20xZTRjNHVPVWRDMU1CaGZORzZLOHRaU01hR0ticXhzSDJBNEgwVXlqcmlxem5Gc3V4bFRRSjVDUktwcjQ1VlFWZnJkd1pGUXA0X1BiVUxOeTYxc3BFLWYtVnlzcUx3d1lBUi01Ui1CU2t0LVQ1NEZMemhGMGJLN3l3MkpaeEVpSE52eTd4SVhPdm45SVVzRE9wbmFZcjVNcEVZSUhtclZvOWxESHRleTc1TldOUk5wSnhpVlpjOGo3T3pKU2d0aGtQY3FaMGFMSmhFWjhfTjg?oc=5"
+    "https://blogs.nvidia.com/blog/nvidia-blackwell-agentperf-artificial-analysis",
+    "https://blogs.nvidia.com/blog/blackwell-mlperf-training-6-0",
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+    "https://blogs.nvidia.com/blog/anthropic-nvidia-gb300-blackwell-ultra-microsoft-azure"
    ],
    "editorial": {
-    "tldr": "Through June, practitioners kept publishing small, shareable guardrails to keep coding agents (Claude Code, Codex, Cursor) from common failure modes — first a skill pack aimed at stopping them making ML mistakes (Jun 6), then two Claude Code skills to curb over-engineering (Jun 8). The throughline is bolting reusable constraints onto agents instead of re-prompting each task.",
+    "tldr": "Through June, NVIDIA positioned Blackwell as the substrate for agentic AI: it topped the first agentic-infrastructure benchmark (AgentPerf from Artificial Analysis) and swept MLPerf Training 6.0. Attention then moved from training to inference, where DFlash speculative decoding was reported to lift throughput up to 15x on Blackwell.",
     "stale": false,
-    "whats_new": "A Jun 22 \"loop engineering\" writeup argues teams should stop one-off prompting and instead design repeatable autonomous agent workflows for Claude Code — the latest in a run of practitioner techniques for steering coding agents.",
-    "why_it_matters": "For platform teams the reliability lever on coding agents is increasingly external scaffolding — skills, guardrails, and workflow design — not better one-shot prompts; these are reusable, version-controllable artifacts you can standardize across a team.",
-    "take_for_builders": "If you run Claude Code/Codex/Cursor in production, evaluate packaging your own house rules as reusable \"skills\" and codifying repeatable agent loops, rather than leaning on ad-hoc prompts per task.",
+    "whats_new": "Anthropic's Claude models are now generally available in Microsoft Foundry on Azure running on NVIDIA GB300 Blackwell Ultra GPUs, putting a frontier model on Blackwell Ultra as a managed Azure option.",
+    "why_it_matters": "Blackwell is consolidating as the default place agentic workloads land — training, inference, and now a frontier model GA on Azure — so where you can run Claude, what inference speedups you can claim, and which benchmark you trust increasingly track NVIDIA's stack.",
+    "take_for_builders": "If you run Claude and live on Azure, GB300 Blackwell Ultra via Microsoft Foundry is now a GA inference target worth benchmarking against your current path; if inference latency is the constraint, check whether your serving stack can use DFlash-style speculative decoding before assuming the headline speedups.",
     "status": {
-     "state": "Developing",
+     "state": "Shipping",
+     "tone": "now",
+     "changed": "2026-06-29",
+     "detail": "Blackwell moves from benchmark leadership to powering a generally available Claude deployment on Azure GB300 Blackwell Ultra."
+    }
+   }
+  },
+  {
+   "slug": "speculative-decoding",
+   "label": "Speculative Decoding",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-06-17T05:37:40+00:00",
+   "last_updated": "2026-06-24T00:00:00+00:00",
+   "latest_title": "Achieve state-of-the-art inference latencies with speculative decoding",
+   "days": [
+    "2026-06-17",
+    "2026-06-23",
+    "2026-06-24"
+   ],
+   "member_sids": [
+    "ffc4c951795ec8c0",
+    "99bd515fd5fd8083",
+    "62173e9d865bdec2"
+   ],
+   "member_urls": [
+    "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+    "https://modal.com/blog/achieve-sota-specdec"
+   ],
+   "editorial": {
+    "tldr": "In mid-June speculative decoding moved from a research trick toward a default inference-latency lever. It surfaced alongside the GLM-5.2 open-model release as IndexShare, then NVIDIA reported DFlash speculative decoding lifting throughput up to 15x on Blackwell — pulling the technique into both the open-model and hardware-vendor conversations within a week.",
+    "stale": false,
+    "whats_new": "Modal and Decagon published a joint walkthrough showing how speculative decoding cut their inference latency to state-of-the-art levels, moving the technique from benchmark claims into a reproducible production serving recipe.",
+    "why_it_matters": "Speculative decoding is converging across open models, NVIDIA hardware, and serving platforms in the same window, so it is becoming a mainstream knob for inference latency and cost rather than a niche optimization — worth evaluating before hand-rolling latency fixes.",
+    "take_for_builders": "If inference latency or cost is your bottleneck, treat speculative decoding as a first-class option now: check whether your serving stack (Modal-style draft/verify) or GPU path (Blackwell/DFlash) supports it before building custom latency hacks, and benchmark on your own traffic rather than trusting the headline multipliers.",
+    "status": {
+     "state": "Active",
      "tone": "rising",
-     "changed": "2026-06-22",
-     "detail": "An ongoing practitioner thread on steering coding agents with reusable skills and workflow design rather than ad-hoc prompts."
+     "changed": "2026-06-24",
+     "detail": "Speculative decoding is being adopted near-simultaneously across an open model release, GPU vendor tooling, and a serving platform."
     }
    }
   },
@@ -118,42 +159,39 @@
   },
   {
    "slug": "deep-research",
-   "label": "Deep Research",
-   "item_count": 4,
-   "day_count": 4,
-   "source_count": 4,
-   "first_seen": "2026-06-08T17:08:36+00:00",
+   "label": "Research Deep",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-06-15T13:56:33+00:00",
    "last_updated": "2026-06-18T11:47:13+00:00",
    "latest_title": "ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research",
    "days": [
-    "2026-06-08",
     "2026-06-15",
     "2026-06-16",
     "2026-06-18"
    ],
    "member_sids": [
-    "c5cd09a4f478ae3e",
     "2f2101adc8737656",
     "0221a891a5b9e026",
     "b453c7e259c052f6"
    ],
    "member_urls": [
-    "http://arxiv.org/abs/2606.09748v1",
     "https://aws.amazon.com/blogs/machine-learning/build-context-rich-research-agents-with-deep-agents-and-bedrock-agentcore",
     "http://arxiv.org/abs/2606.18191v1",
     "http://arxiv.org/abs/2606.20122v1"
    ],
    "editorial": {
-    "tldr": "Through mid-June, deep research agents kept getting redefined faster than they could be standardized. An arXiv paper argued that benchmarks only grade a single-shot report and miss whether an agent improves under feedback, and ran a multi-turn process-level evaluation. AWS then shipped a build pattern: an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. DRFLOW moved the target toward predicting a personalized, enterprise-style workflow rather than just a report, and the latest beat, ScaffoldAgent, attacks the long-form report itself — utility-guided dynamic outline optimization for open-ended deep research.",
+    "tldr": "In mid-June the target for deep research agents kept moving. AWS shipped a build pattern — an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. Then DRFLOW argued the real enterprise goal is predicting a personalized workflow, not generating a report, shifting what the agent is even supposed to optimize.",
     "stale": false,
-    "whats_new": "The newest item, ScaffoldAgent (Jun 18), shifts the focus from what to evaluate back to how to generate: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report, and makes the outline the optimization target with a utility-guided, dynamically optimized scaffold — a generation-side answer after a run of benchmark-side papers.",
-    "why_it_matters": "How you evaluate and structure a deep research agent is still unsettled: report quality, improvement under process-level feedback, personalized workflow prediction, and outline-driven coherence are four different bars, and the one you pick changes what you build. AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
-    "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — feedback-driven report quality, personalized workflow prediction, or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
+    "whats_new": "The newest item, ScaffoldAgent (Jun 18), moves the focus back to generation: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report and makes the outline the optimization target via utility-guided, dynamically optimized scaffolding.",
+    "why_it_matters": "What a deep research agent should be graded on is still unsettled — personalized workflow prediction versus outline-driven long-form coherence pull the design in different directions — and the criterion you pick changes what you build; AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
+    "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — personalized workflow prediction or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
     "status": {
      "state": "Active research",
      "tone": "rising",
      "changed": "2026-06-18",
-     "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — evaluation, workflow prediction, and now report-generation structure."
+     "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — from build patterns to workflow prediction to report-generation structure."
     }
    }
   }
