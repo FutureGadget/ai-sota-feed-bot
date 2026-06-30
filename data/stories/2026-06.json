@@ -1817,6 +1817,23 @@
   "url": "https://tenureai.dev/writing/why-most-ai-evals-would-miss-the-linear-sales-email-failure",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "28627c9767ffadd1": {
+  "first_seen": "2026-06-30T05:01:49.636252+00:00",
+  "id": "3fcc8999abb9d05d",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-06-29T12:04:01+00:00",
+  "sid": "28627c9767ffadd1",
+  "source": "arxiv_cs_cl",
+  "summary": "Current multimodal fusion approaches, particularly those based on static Mixture-of-Experts (MoE) architectures, often struggle to provide the adaptive and efficient collaborative reasoning required by complex real-world applications. We introduce the Dynamic Agent-based Interaction Network (DAIN), which reconceptualizes multimodal fusion as a dynamic, multi-agent collaborative process. DAIN employs a context-aware Meta-Controller that dynamically schedules sparse activation of specialized interaction agents and orchestrates compressed inter-agent communication for consensus-building. The framework is guided by a multi-objective loss function that jointly optimizes task accuracy, agent specialization, and operational efficiency through sparse activation and communication regularization. Comprehensive evaluations across five diverse benchmarks -- ADNI, MIMIC-IV, MM-IMDB, CMU-MOSI, and ENRICO -- establish DAIN as a new state-of-the-art, delivering significant performance improvements including a 2.6\\% accuracy gain on ADNI. Ablation studies verify the critical roles of both dynamic scheduling and agent communication. Furthermore, DAIN offers enhanced interpretability by exposing context-dependent agent roles and collaboration patterns while maintaining computational efficiency through sample-wise sparse agent activation. Our work demonstrates the promise of dynamic, agent-based paradigms for multimodal reasoning.",
+  "summary_1line": "Current multimodal fusion approaches, particularly those based on static Mixture-of-Experts (MoE) architectures, often struggle to provide the adaptive and efficient collaborative reasoning required by complex real-wo...",
+  "title": "DAIN: Dynamic Agent-Based Interaction Network for Efficient and Collaborative Multimodal Reasoning",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30189v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "28be9ca5c1438ec3": {
   "first_seen": "2026-06-13T10:26:57.661146+00:00",
   "id": "e411d72e0ce2cf69",
@@ -4907,6 +4924,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2606.12900v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "6ee798815cdcc570": {
+  "first_seen": "2026-06-30T05:01:49.636252+00:00",
+  "id": "6c2c8700ee71dc02",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-06-30T01:53:15+00:00",
+  "sid": "6ee798815cdcc570",
+  "source": "hackernews_ai",
+  "summary": "Hey Guys, I would like to showcase Tiny Agents, which is an entirely Rust-based RLM. RLMs are a recent and fantastic new innovation on how LLMs can be reimagined by designing the LLM agent itself to define how it will orchestrate or create its own sub-agent. I also could not find any good LLM harness workflow in Rust, so I built this one, taking massive inspiration from LangGraph and LangChain but also incorporating a Rust-based transpiler to build on-demand LLM graphs all in Rust following the RLM idea. This is the harness that we are currently using in production in openhuman.",
+  "summary_1line": "Hey Guys, I would like to showcase Tiny Agents, which is an entirely Rust-based RLM. RLMs are a recent and fantastic new innovation on how LLMs can be reimagined by designing the LLM agent itself to define how it will...",
+  "title": "Show HN: TinyAgents – a Rust based recursive LLM harness",
+  "type": "news",
+  "url": "https://github.com/tinyhumansai/tinyagents",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "6f5e0f913ec4c534": {
   "first_seen": "2026-06-03T03:56:31.775573+00:00",
@@ -8259,7 +8293,7 @@
   ],
   "published": "2026-06-29T10:29:51+00:00",
   "sid": "c54c0758c14bd2c6",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_llm_reliability",
   "summary": "Retrieval-Augmented Generation (RAG) mitigates hallucinations in Large Language Models (LLMs) by grounding the generation process on external knowledge. However, standard RAG approaches struggle with multi-hop reasoning. While recent graph-based RAG methods improve the retrieval of interconnected chunks, they often rely on computationally expensive and error-prone LLM-based extraction pipelines. To address these issues, we propose TIGRAG (Token-Induced GraphRAG), an efficient graph-augmented RAG framework based on a token co-occurrence Knowledge Graph. TIGRAG directly models topological relationships between tokens using sliding-window co-occurrence statistics, thus enabling scalable graph construction. During inference, it combines graph-based semantic expansion and neural reranking to retrieve interconnected evidence for multi-hop reasoning. Specifically, it introduces an iterative entity-driven retrieval strategy that progressively expands the query using bridging entities extracted from previously retrieved contexts. We evaluated TIGRAG on three widely adopted multi-hop Question Answering (QA) benchmarks. Experimental results demonstrated that our framework consistently outperforms dense retrieval and graph-based RAG methods in both retrieval and downstream QA tasks, while substantially reducing indexing time, inference latency, and prompt footprint.",
   "summary_1line": "Retrieval-Augmented Generation (RAG) mitigates hallucinations in Large Language Models (LLMs) by grounding the generation process on external knowledge. However, standard RAG approaches struggle with multi-hop reasoni...",
   "title": "Efficient Retrieval-Augmented Generation via Token Co-occurrence Graphs",
@@ -8997,6 +9031,24 @@
   "type": "news",
   "url": "https://openai.com/index/supporting-eu-trustworthy-ai-ecosystem"
  },
+ "d3e345ae085932a6": {
+  "first_seen": "2026-06-30T05:01:49.636252+00:00",
+  "id": "f972303c07e6512f",
+  "matched_topics": [
+   "agentic",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-06-29T16:59:05+00:00",
+  "sid": "d3e345ae085932a6",
+  "source": "arxiv_cs_lg",
+  "summary": "Coding agents are rapidly becoming a major application of agentic LLMs, but serving them efficiently remains challenging. Progress on this challenge requires understanding real workload patterns, yet the data needed for such analysis is largely absent. Existing public traces and benchmarks do not capture real, day-to-day coding-agent usage across multiple agents and model families for serving-system analysis. To help fill this gap, we collect and release a trace of roughly 4,300 coding-agent sessions, containing about 350,000 LLM steps and 430,000 tool calls from our own day-to-day use of Claude Code and Codex. Our analysis shows that coding-agent workloads feature long autonomous loops, long contexts with short outputs, diverse and heavily-tailed tool calls, and high but imperfect prefix cache hit rates. These findings point to concrete opportunities for optimizing serving, including lower-overhead tool calling, append-length-aware prefill, semantic-aware tool-latency prediction, and improved KV-cache management around human-paced gaps. We release the dataset, trace collection pipeline, and analysis code at https://github.com/uw-syfi/TraceLab.git; the project website is https://tracelab.cs.washington.edu.",
+  "summary_1line": "Coding agents are rapidly becoming a major application of agentic LLMs, but serving them efficiently remains challenging. Progress on this challenge requires understanding real workload patterns, yet the data needed f...",
+  "title": "TraceLab: Characterizing Coding Agent Workloads for LLM Serving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30560v1",
+  "why_it_matters": "Matches feed focus: agentic, codex, claude code."
+ },
  "d46568f6f6a488d8": {
   "first_seen": "2026-06-10T22:00:40.733562+00:00",
   "id": "449ba30ded79e4e8",
@@ -9630,6 +9682,23 @@
   "type": "news",
   "url": "https://hezo.ai",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e42bb42a72fb81a4": {
+  "first_seen": "2026-06-30T05:01:49.636252+00:00",
+  "id": "7e3128976d3574bd",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-06-29T16:51:06+00:00",
+  "sid": "e42bb42a72fb81a4",
+  "source": "arxiv_cs_ai",
+  "summary": "The rapid integration of Large Language Models (LLMs) has driven the evolution of Multi-Agent Systems (MAS), where specialized agents collaborate to execute complex workflows. Effective orchestration in these environments requires robust routing mechanisms to efficiently allocate tasks to the most suitable agent. However, existing routers fundamentally rely on unverified proxies, ranging from textual self-descriptions to static surrogate representations, to gauge an agent's competence. This reliance on non-empirical data creates a critical gap between an agent's projected profile and its actual operational capabilities, introducing severe security vulnerabilities. Malicious agents can easily misrepresent their proficiencies or harbor covert backdoors that evade both standard external analysis and static representation-learning techniques. In this work, we introduce ANTAP (Automatic Non-Textual Agent Picker), an evaluation-driven routing architecture that discards indirect proxies in favor of active capability testing. By dynamically querying agents to ascertain their true competencies empirically, ANTAP distills performance into fixed behavioral operators within a shared semantic space. At inference time, routing is performed via a purely non-textual algebraic projection, establishing a \"linguistic firewall\" that renders metadata-based attacks inexpressible. In our experiments, ANTAP achieves near-zero ASR against description-based injection attacks, compared to 67.3\\% and ab",
+  "summary_1line": "The rapid integration of Large Language Models (LLMs) has driven the evolution of Multi-Agent Systems (MAS), where specialized agents collaborate to execute complex workflows. Effective orchestration in these environm...",
+  "title": "Linguistic Firewall: Geometry as Defense in Multi-Agent Systems Routing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30555v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "e464b7a63a6a0397": {
   "also_covered": [
