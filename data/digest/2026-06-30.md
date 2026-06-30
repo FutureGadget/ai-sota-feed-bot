@@ -5,95 +5,95 @@ Focus: AI Platform Engineering
 ## 1. vllm v0.24.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.24.0
-- Score: 3.392 | Reliability: 1.0
+- Score: 3.385 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 2. Ornith-1.0: Self-Scaffolding LLMs for Agentic Coding
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jun/29/ornith/#atom-everything
-- Score: 3.312 | Reliability: 1.0
+- Score: 3.322 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness.
 
-## 3. TraceLab: Characterizing Coding Agent Workloads for LLM Serving
+## 3. Elastic Open-Sources Atlas Agent Memory Based on Cognitive Science
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/elastic-atlas-agent-memory/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 3.205 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 4. TraceLab: Characterizing Coding Agent Workloads for LLM Serving
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2606.30560v1
-- Score: 3.108 | Reliability: 1.0
+- Score: 3.104 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex, claude code.
 
-## 4. Linguistic Firewall: Geometry as Defense in Multi-Agent Systems Routing
+## 5. Linguistic Firewall: Geometry as Defense in Multi-Agent Systems Routing
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2606.30555v1
-- Score: 3.097 | Reliability: 1.0
+- Score: 3.093 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 5. Introducing Dynamic Subagents in Deep Agents
+## 6. Introducing Dynamic Subagents in Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/introducing-dynamic-subagents-in-deep-agents
-- Score: 3.081 | Reliability: 1.0
+- Score: 3.09 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Efficient Retrieval-Augmented Generation via Token Co-occurrence Graphs
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2606.30093v1
-- Score: 2.964 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 7. Inside Target’s LLM-Based System for Semantic Matching in Marketing Forecast Pipelines
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/06/target-ai-campaign-forecasting/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.818 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 8. HTML table extractor
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jun/29/html-table-extractor/#atom-everything
-- Score: 2.686 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 9. How Candidly Built State Aware Agent Harnesses With Langsmith
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/how-candidly-built-state-aware-agent-harnesses-with-langsmith
-- Score: 2.569 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 10. Show HN: AgentShare Agent Readiness – Scan and optimize your site for AI bots
-- Type: news | Source: hackernews_ai
-- URL: https://chromewebstore.google.com/detail/agentshare-agent-readines/nimndnhajfkicbnipbfdkmgencjejjed
-- Score: 2.542 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 11. DAIN: Dynamic Agent-Based Interaction Network for Efficient and Collaborative Multimodal Reasoning
+## 7. DAIN: Dynamic Agent-Based Interaction Network for Efficient and Collaborative Multimodal Reasoning
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2606.30189v1
-- Score: 2.887 | Reliability: 1.0
+- Score: 2.883 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
+
+## 8. Show HN: GSV – a personal AI computer that unifies your machines
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/deathbyknowledge/gsv
+- Score: 2.88 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. Inside Target’s LLM-Based System for Semantic Matching in Marketing Forecast Pipelines
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/06/target-ai-campaign-forecasting/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.828 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 10. HTML table extractor
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/29/html-table-extractor/#atom-everything
+- Score: 2.695 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 11. How Candidly Built State Aware Agent Harnesses With Langsmith
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/how-candidly-built-state-aware-agent-harnesses-with-langsmith
+- Score: 2.579 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
 ## 12. langgraph==1.2.7
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.7
-- Score: 2.448 | Reliability: 1.0
+- Score: 2.44 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. codex 0.143.0-alpha.31
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.31
-- Score: 2.346 | Reliability: 1.0
+- Score: 2.338 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 14. DiScoFormer: One transformer for density and score, across distributions
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/allenai/discoformer
-- Score: 2.237 | Reliability: 1.0
+- Score: 2.233 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. claude-code v2.1.196
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.196
-- Score: 2.174 | Reliability: 1.0
+- Score: 2.165 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 16. Unlocking Britain’s next era of productivity: Building a nation of AI trailblazers
 - Type: news | Source: google_ai_blog
 - URL: https://blog.google/company-news/inside-google/around-the-globe/google-europe/united-kingdom/unlocking-britains-next-era-of-productivity-building-a-nation-of-ai-trailblazers/
-- Score: 1.735 | Reliability: 1.0
+- Score: 1.722 | Reliability: 1.0
 - Why it matters:
