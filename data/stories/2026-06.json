@@ -1586,6 +1586,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.140.0-alpha.16",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "21a22ce8e1121171": {
+  "first_seen": "2026-06-30T21:02:04.117656+00:00",
+  "id": "0ed854f568fb7553",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-29T16:51:31+00:00",
+  "sid": "21a22ce8e1121171",
+  "source": "arxiv_llm_reliability",
+  "summary": "Traditional automatic evaluation methods have been shown to be unsuitable for modern Chinese poetry because of the distinct nature of this literary genre. Human evaluation remains reliable, but is expensive and not applicable to large-scale data. In this paper, we propose Poller (Poetry LLM Evaluator), a novel method leveraging large language models (LLMs) to evaluate the poetry understanding task. Specifically, our method requires LLMs to play the role of a poem's author with detailed information, thereby emulating human evaluation and judgment by adopting the poet's perspective. We conducted comprehensive experiments on multiple LLMs, evaluating the interpretations of poems across eight specialized dimensions. Experimental results demonstrate that our method effectively reduces the evaluation error between LLMs and humans. Especially for specific dimension evaluation, Poller-based LLMs achieve a 94.55% and 89.53% error reduction for rhetorical techniques and defamiliarization, respectively, compared to baseline methods. These performances are unattainable by conventional LLM evaluation methods. Experimental results from multiple LLMs across various dimensions validate the efficacy of our method. This work bridges the gap between automated efficiency and human expertise, establishing a foundation for automated evaluation in poetry-related tasks.",
+  "summary_1line": "Traditional automatic evaluation methods have been shown to be unsuitable for modern Chinese poetry because of the distinct nature of this literary genre. Human evaluation remains reliable, but is expensive and not ap...",
+  "title": "Poller: Are LLMs Suitable for Evaluating the Poetry Understanding Task?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30556v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "222b05c1a820c27f": {
   "first_seen": "2026-06-30T11:01:49.750813+00:00",
   "id": "e6f7a1b54ca80db7",
@@ -9233,6 +9249,22 @@
   "type": "release",
   "url": "https://github.com/Byron2306/EdgeK-BEAST",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "cf0a37dd32efaf51": {
+  "first_seen": "2026-06-30T21:02:04.117656+00:00",
+  "id": "7a6529cae93f6bcf",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-06-30T20:52:04+00:00",
+  "sid": "cf0a37dd32efaf51",
+  "source": "hackernews_ai",
+  "summary": "The most common failures for production agents are behavioral: looping, reasoning leakage, user frustration, and more. Using a frontier model like GPT or Sonnet to judge every turn is too expensive and slow to run at scale. How it works: We use a modern LLM with hybrid attention and remove the decode step. We built an inference engine that lets prefill compute be 99% reused from reflex to reflex, similar in spirit to older 2019-era BERT/HYDRA + older multiple-head techniques. We took the same high-level idea and did the hard work to make it work with a modern architecture and attention. On it, we can run inference in under 30ms and serve the full request in under 90ms. If you run 4 reflexes or 100, the extra overhead is less than 2ms. Why does optimizing this matter? If you’re even a medium-sized startup, you’re dealing with tens of thousands of agent runs and millions of turns. If you want to track things like user frustration rates over time, frontier LLM-as-judge does not scale. I built a similar stack at Tesla. When ML engineers needed to sample data across petabytes for signals like `is_camera_obfuscated=true`, along with 200 other things, you need to 1) spin them up quickly 2) run at scale efficiently What it is not: A dashboard. In my experience, 99% of dashboards go unused. This is purely API-based and made for devs who want to track agent behavior themselves and trigger their own alerts and build on it. You can vibetrain a custom reflex in our dashboard, and then let",
+  "summary_1line": "The most common failures for production agents are behavioral: looping, reasoning leakage, user frustration, and more. Using a frontier model like GPT or Sonnet to judge every turn is too expensive and slow to run at...",
+  "title": "Show HN: Morph Reflexes – Multi-head classifiers for agent traces",
+  "type": "news",
+  "url": "https://news.ycombinator.com/item?id=48739038",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "cf20d7464c411926": {
   "first_seen": "2026-06-30T03:01:47.701045+00:00",
