@@ -109,6 +109,23 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.174",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "017ec09d2fc5bdf7": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "7aa7f49f1fc9fabe",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-06-29T13:07:41+00:00",
+  "sid": "017ec09d2fc5bdf7",
+  "source": "arxiv_llm_reliability",
+  "summary": "In contemporary societies, the threat of disinformation has reached alarming levels, exacerbated by the proliferation of electronic communication, social media, and advancements in artificial intelligence. As a result, there is an urgent need to develop effective countermeasures to mitigate this menace. However, the sheer scale of the problem renders manual fact-checking and human-based verification inadequate, underscoring the necessity for automated methods to detect and debunk disinformation. This article proposes a novel approach based on a multi-agent system that emulates the decision-making processes of human annotators engaged in disinformation detection tasks. By incorporating a consensus mechanism, diversity in cognition and diversity in knowledge, and also hierarchical structure, inspired by human annotators' behavior, the proposed method achieves superior results compared to individual Large Language Models (LLMs), including GPT 4 and GPT 3.5. The system leverages open models (e.g., LLaMA, Kimi, Qwen, Deepseek and LLaMA-Nemotron) to ensure greater transparency. The evaluation of the proposed method encompasses datasets in languages with varying resource availability, including English (high-resource), Polish (medium-resource), Slovak (low-resource) and Bulgarian (low-resource). Experiments were conducted on tasks such as direct disinformation detection, identification of texts worthy of verification, and detection of texts containing verifiable factual claims.",
+  "summary_1line": "In contemporary societies, the threat of disinformation has reached alarming levels, exacerbated by the proliferation of electronic communication, social media, and advancements in artificial intelligence. As a result...",
+  "title": "Multi-Agentic System Leveraging Open-Source LLMs to Mitigate Disinformation Threats",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30259v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "01c9ce7954a3ff4c": {
   "first_seen": "2026-06-19T15:01:37.090239+00:00",
   "id": "dd23fad4c24ede9d",
@@ -619,6 +636,18 @@
   "type": "research",
   "url": "https://huggingface.co/blog/ibm-research/cuga-apps",
   "why_it_matters": "Matches feed focus: agentic, harness."
+ },
+ "0b8dc2473cab870c": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "a7ea7ed7b29ee8a7",
+  "published": "2026-06-30T00:00:00+00:00",
+  "sid": "0b8dc2473cab870c",
+  "source": "openai_blog",
+  "summary": "Introducing GeneBench-Pro, a new benchmark testing AI performance in genomics, biology, and scientific research using complex, real-world datasets.",
+  "summary_1line": "Introducing GeneBench-Pro, a new benchmark testing AI performance in genomics, biology, and scientific research using complex, real-world datasets.",
+  "title": "Introducing GeneBench-Pro",
+  "type": "news",
+  "url": "https://openai.com/index/introducing-genebench-pro"
  },
  "0c2fccc3d5914b16": {
   "first_seen": "2026-06-19T09:01:37.071123+00:00",
@@ -4537,6 +4566,17 @@
   "type": "news",
   "url": "https://openai.com/index/ai-chemist-improves-reaction"
  },
+ "617f45738c65d6ba": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "7b6e5ae9ecf83a36",
+  "published": "2026-06-30T00:00:00+00:00",
+  "sid": "617f45738c65d6ba",
+  "source": "openai_blog",
+  "summary_1line": "Inside Genebench-Pro",
+  "title": "Inside Genebench-Pro",
+  "type": "news",
+  "url": "https://openai.com/index/genebench-pro/case-studies"
+ },
  "61a5c70b3cae54c5": {
   "first_seen": "2026-06-30T15:01:47.621681+00:00",
   "id": "2dba284c86fcfd7b",
@@ -4685,6 +4725,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.142.0-alpha.10",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "648e4fc20120543d": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "3928d15d5331a417",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-06-29T15:33:04+00:00",
+  "sid": "648e4fc20120543d",
+  "source": "arxiv_cs_cl",
+  "summary": "We study retrieval over catalogs of structured metadata, where each record is a small schema whose fields answer different kinds of query. Embedding a record with a text encoder first serializes its fields into a string, which forces a choice of field order. We show this choice, usually treated as an implementation detail, silently controls retrieval quality once the encoder is fine-tuned. A standard fine-tune loses 7.4 nDCG@10 points when the index is rebuilt under a different field order, because it reads absolute position instead of the field labels. We propose permutation-invariant fine-tuning ($\\textbf{PI-FT}$), which serializes each record under a freshly sampled field order with random field dropout, so meaning binds to the labels rather than to position. The change is about two lines in the data loader; it costs negligible in-distribution accuracy and cuts the order-change penalty to 0.2 points. We study this in the discovery of development statistics, a catalog of nearly 10,000 indicators that should be searchable in many languages by a model small enough to self-host. As AI assistants and agents increasingly mediate access to public data and statistics, this retrieval step decides whether an answer is grounded in the right indicator or series, making discoverability a precondition for disseminating data through AI. Because usage logs cannot provide training signal for indicators no one has searched, we generate the queries instead. $\\textbf{DevDataBench}$ is a fully",
+  "summary_1line": "We study retrieval over catalogs of structured metadata, where each record is a small schema whose fields answer different kinds of query. Embedding a record with a text encoder first serializes its fields into a stri...",
+  "title": "Field Order Should Not Matter: Permutation-Invariant Embedding Model Fine-Tuning for Structured Metadata Retrieval",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.30473v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "64a2327ccedd0135": {
   "first_seen": "2026-06-16T03:01:34.193737+00:00",
@@ -6154,6 +6211,17 @@
   "type": "news",
   "url": "https://www.infoq.com/news/2026/06/terraform-mcp-server-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8cc1837ba6892f6f": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "4ddfeca01e75f5af",
+  "published": "2026-06-30T16:02:40+00:00",
+  "sid": "8cc1837ba6892f6f",
+  "source": "google_deepmind_blog",
+  "summary_1line": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+  "title": "Start building with Nano Banana 2 Lite and Gemini Omni Flash",
+  "type": "news",
+  "url": "https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash"
  },
  "8d09eb6c881a8b6b": {
   "first_seen": "2026-06-16T06:01:28.106007+00:00",
@@ -7874,6 +7942,24 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/context-intelligence-for-your-data-and-ai-agents-at-scale",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b5df426afab20710": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "7ab56c5b6c708291",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/google_ai_this_month.max-600x600.jpg",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-06-30T16:00:00+00:00",
+  "sid": "b5df426afab20710",
+  "source": "google_cloud_blog",
+  "summary": "Editor’s note : Want to keep up with the latest from Google Cloud? Check back here for a monthly recap of our latest updates, announcements, resources, events, learning opportunities, and more. Our main focus in June was helping your teams build, scale, and secure AI. Today, we’re sharing a fresh roundup of updates designed to help you run smarter, more secure applications while keeping everything under your control. We even shared a cool virtual shopping demo at Cannes to show how retailers can make product discovery more exciting. Let’s dive in! Top announcements Introducing the Open Knowledge Format : We introduced the Open Knowledge Format (OKF), an open specification that formalizes the LLM-wiki pattern into a portable, interoperable format. This is a vendor-neutral, agent- and human-friendly standard for representing the metadata, context, and curated knowledge that modern AI systems need. Collaboration with Apple on its expanded Private Cloud Compute (PCC) systems : Our collaboration with Apple is built on a foundation of deep commitment to privacy that leverages Google Cloud's security and privacy technologies. At the heart of this collaboration is our Confidential Computing portfolio and our Titanium security architecture. Claude Fable 5: Available on Google Cloud: Claude Fable 5, Anthropic’s latest frontier model, is now generally available on Google Cloud. This launch is the latest proof point of our ongoing commitment to bring the industry's latest models straight",
+  "summary_1line": "Editor’s note : Want to keep up with the latest from Google Cloud? Check back here for a monthly recap of our latest updates, announcements, resources, events, learning opportunities, and more. Our main focus in June...",
+  "title": "What Google Cloud announced in AI this month",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/ai-machine-learning/what-google-cloud-announced-in-ai-this-month",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "b615c94606ab7046": {
   "first_seen": "2026-06-18T23:23:20.207271+00:00",
   "id": "9e37b140b985790d",
@@ -8111,6 +8197,21 @@
   "title": "A Harness For Every Task Dynamic Workflows In Claude Code",
   "type": "news",
   "url": "https://claude.com/blog/a-harness-for-every-task-dynamic-workflows-in-claude-code"
+ },
+ "bbc9b11398e5a4c1": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "165c383d4cc9815b",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-06-30T16:29:16+00:00",
+  "sid": "bbc9b11398e5a4c1",
+  "source": "hackernews_ai",
+  "summary_1line": "Reducing Feedback Latency with Local CI for Developers and AI Agents",
+  "title": "Reducing Feedback Latency with Local CI for Developers and AI Agents",
+  "type": "news",
+  "url": "https://www.moderntreasury.com/journal/reducing-feedback-latency-with-local-ci-for-developers-and-ai-agents",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "bc06fa03821eb9c3": {
   "first_seen": "2026-06-10T19:33:59.347168+00:00",
@@ -10089,6 +10190,23 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.104",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e6d9181f4de8be94": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "5b9f76277898950b",
+  "matched_topics": [
+   "agentic",
+   "codex"
+  ],
+  "published": "2026-06-30T16:54:26+00:00",
+  "sid": "e6d9181f4de8be94",
+  "source": "simon_willison",
+  "summary": "shot-scraper video is a new command introduced in today's shot-scraper 1.10 release which accepts a storyboard.yml file defining a routine to run against a web application and uses Playwright to record a video of that routine. I've written before about the importance of having coding agents produce demos of their work; this is my latest attempt at enabling them to do that. Here's an example video created using shot-scraper video , exercising a still in development feature adding the ability to create new tables in Datasette from pasted CSV, TSV or JSON data: That video was created by running this command : shot-scraper video datasette-bulk-insert-storyboard.yml \\ --auth datasette-demo-auth.json --mp4 (That --auth JSON file contains a cookie , as described here in the documentation.) Here's the datasette-bulk-insert-storyboard.yml file: output : /tmp/datasette-bulk-insert-demo.webm server : - uv - --directory - /Users/simon/Dropbox/dev/datasette - run - datasette - -p - 6419 - --root - --secret - \" 1 \" - /tmp/demo.db url : http://127.0.0.1:6419/demo/tasks viewport : width : 1280 height : 720 cursor : true wait_for : ' button[data-table-action=\"insert-row\"] ' javascript : | (() => { let clipboardText = \"\"; Object.defineProperty(navigator, \"clipboard\", { configurable: true, get: () => ({ writeText: async (text) => { clipboardText = String(text); }, readText: async () => clipboardText, }), }); })(); scenes : - name : Bulk insert existing table rows do : - pause : 0.8 - click : ' ",
+  "summary_1line": "shot-scraper video is a new command introduced in today's shot-scraper 1.10 release which accepts a storyboard.yml file defining a routine to run against a web application and uses Playwright to record a video of that...",
+  "title": "Have your agent record video demos of its work with shot-scraper video",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jun/30/shot-scraper-video/#atom-everything",
+  "why_it_matters": "Matches feed focus: agentic, codex."
+ },
  "e6dd57f90986c757": {
   "first_seen": "2026-06-29T17:02:01.026243+00:00",
   "id": "3fba231fe98f7908",
@@ -10494,6 +10612,18 @@
   "title": "claude-code v2.1.190",
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.190"
+ },
+ "f1f7d4f8001b4288": {
+  "first_seen": "2026-06-30T17:01:54.589026+00:00",
+  "id": "dc1d07269cbf2ae9",
+  "published": "2026-06-30T00:00:00+00:00",
+  "sid": "f1f7d4f8001b4288",
+  "source": "openai_blog",
+  "summary": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug.",
+  "summary_1line": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug.",
+  "title": "Core dump epidemiology: fixing an 18-year-old bug",
+  "type": "news",
+  "url": "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug"
  },
  "f224fd3ee249fa97": {
   "first_seen": "2026-06-24T00:01:40.790199+00:00",
