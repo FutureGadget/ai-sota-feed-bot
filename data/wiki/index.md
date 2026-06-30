@@ -30,6 +30,14 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability
   → solutions: agent-orchestration, agent-benchmarks
 
+### observability
+- [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did
+  → solutions: agent-tracing
+
+### planning
+- [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps
+  → solutions: agent-orchestration
+
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent
   → solutions: agent-sandboxing
@@ -42,6 +50,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-benchmarks](solutions/agent-benchmarks.md) — Fixed tasks that exercise real tool use
 - [agent-orchestration](solutions/agent-orchestration.md) — Orchestration patterns: topologies, handoffs, and harnesses
 - [agent-sandboxing](solutions/agent-sandboxing.md) — Sandboxing, scoped credentials, and guardrails
+- [agent-tracing](solutions/agent-tracing.md) — Tracing and trace analysis for agent runs
 - [context-compaction](solutions/context-compaction.md) — Summarize, compress, and curate the working set
 - [cost-controls](solutions/cost-controls.md) — Budgets, metering, and per-task cost attribution
 - [llm-as-judge](solutions/llm-as-judge.md) — Model-graded evaluation of traces and outputs

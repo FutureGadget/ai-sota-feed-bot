@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a]
-updated: 2026-06-28
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
+updated: 2026-06-30
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
 ---
 
 ## TL;DR
@@ -31,7 +31,11 @@ a one-off. A third theme is **the harness is part of what you benchmark**: a
 cross-harness study reports a deliberately simple agent loop reaching SOTA across
 21 models on SWE-pro and Terminal-Bench-style suites, evidence that elaborate
 scaffolding often adds cost and variance without adding capability — so the
-benchmark should hold the harness fixed and let it earn its complexity. A fourth
+benchmark should hold the harness fixed and let it earn its complexity. Vendors are
+running this in-house: GitHub's evaluation of its Copilot agentic harness across
+20+ models and many tasks scores results *and* token efficiency together, treating
+the scaffold as a benchmark variable and elevating cost-per-solved-task to a
+first-class metric alongside accuracy. A fourth
 theme makes the "build it from your own environment" push concrete: rather than
 synthetic tasks, the newest suites are **mined from real sessions** —
 EnterpriseClawBench builds enterprise-agent tasks from actual workplace sessions
@@ -59,7 +63,13 @@ agent memory* (forgetting, stale recall, poisoned entries) and OpenRCA 2.0's
 shift from outcome labels to **causal process supervision** for root-cause
 analysis both grade an inner subsystem — the memory layer, the reasoning
 trajectory — so a regression can be localized to the part that broke rather than
-inferred from a fallen aggregate score.
+inferred from a fallen aggregate score. A microservice-failure-diagnosis benchmark
+(AgentOps) extends the same process-over-outcome grading to ops agents, scoring the
+diagnosis path over multimodal trace data and pulling benchmarking toward
+[observability](/topic/agent-observability). On the meta side, eval *transparency*
+is improving too: Hugging Face now surfaces community "Every Eval Ever" results
+directly on model pages, making the spread of scores visible rather than relying on
+a single headline number.
 
 ## What's new
 Benchmarks are getting **subsystem-specific** — isolating one capability rather
@@ -74,11 +84,15 @@ Calling" scores agents under
 recovery rather than the happy path, and practitioners are reaching for novel,
 hard-to-memorize environments (a Sherlock Holmes deduction game as an agent eval)
 because familiar suites leak into training — answering the recurring "what
-benchmarks actually compare agent *harnesses*" gap. This builds on suites mined
-from **real sessions** (EnterpriseClawBench) and **reproducible packaging**
-(Proctor's signed, isolated bundles), all reinforcing that public scores
-over-state real-workload performance and that the harness itself is a benchmark
-variable.
+benchmarks actually compare agent *harnesses*" gap. Vendors now run harness
+benchmarking in-house (GitHub scores its Copilot agentic harness across 20+ models
+on results *and* token efficiency), the process-over-outcome grading reaches ops
+agents (a microservice-failure-diagnosis AgentOps benchmark), and eval results are
+getting more transparent (Hugging Face's "Every Eval Ever" on model pages). This
+builds on suites mined from **real sessions** (EnterpriseClawBench) and
+**reproducible packaging** (Proctor's signed, isolated bundles), all reinforcing
+that public scores over-state real-workload performance and that the harness itself
+is a benchmark variable.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static target:

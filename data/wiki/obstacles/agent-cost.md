@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc]
-updated: 2026-06-29
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
+updated: 2026-06-30
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
 ---
 
 ## TL;DR
@@ -37,7 +37,12 @@ choosing a cheaper [orchestration](/topic/agent-orchestration) topology matters
 because the coordination structure dominates spend — Stanford's DeLM reports
 cutting multi-agent task cost ~50% by dropping the central orchestrator; and even
 evaluation is a cost line item, which is why teams fine-tune small judges to cut
-trace-judging cost ~100×. Infra-level levers help too: container/image caching
+trace-judging cost ~100×. Infra-level levers help too, and the
+serving stack is increasingly pitched as a cost lever in its own right: vendors now
+frame the buying decision as **cost per useful token** — tokens per dollar and per
+watt — rather than peak chip specs (NVIDIA's inference-software writeup), a reminder
+that for self-hosted agents the inference stack sets the floor price every other
+optimization multiplies against. Container/image caching
 (Amazon SageMaker) cuts cold-start scaling cost and latency; **prompt caching**
 the agent loop's stable prefix is becoming a framework default (LangChain's Deep
 Agents reports up to ~80% token-cost cuts across providers with no config), since
@@ -77,7 +82,10 @@ to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a smaller model
 alone. A caution lands on the model-downshift lever: "Quantization Inflates
 Reasoning" finds that low-bit quantization cuts per-token cost but inflates the
 *token count* reasoning models emit, so the saving is partly illusory unless you
-cost the run on total tokens spent rather than the per-token price.
+cost the run on total tokens spent rather than the per-token price. For self-hosted
+stacks the floor price is itself moving: vendors now frame inference as **cost per
+useful token** (per dollar and per watt) rather than peak chip specs (NVIDIA),
+making the serving stack a cost lever every other optimization multiplies against.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product. The

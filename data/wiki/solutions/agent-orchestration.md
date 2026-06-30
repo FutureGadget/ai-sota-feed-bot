@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
-updated: 2026-06-29
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
+updated: 2026-06-30
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
 ---
 
 ## TL;DR
@@ -26,7 +26,11 @@ structure is the dominant determinant of whether coordination helps at all.
 **Dynamism**: orchestration is moving from hand-wired graphs toward *generated*
 control flow — Anthropic's Claude Code Dynamic Workflows generate a custom
 execution harness per task to coordinate sub-agents rather than committing to one
-static shape. Across both axes the durable lesson is that the value lives in the
+static shape — and, more concretely, toward orchestrating sub-agents **in code
+rather than tool calls**: LangChain's dynamic subagents in Deep Agents drive
+fan-out from a program so coverage is guaranteed by control flow instead of by the
+model emitting one tool call per worker, making the coordination layer ordinary
+deterministic, testable code wrapped around non-deterministic agents. Across both axes the durable lesson is that the value lives in the
 **interface contracts** between agents — structured handoffs, compact wire
 formats, explicit roles — not in the number of agents you spin up. A third,
 quieter axis is the **runtime substrate**: writeups from teams building
@@ -43,11 +47,15 @@ they confirm where the value sits: the routing, handoff, and observability layer
 between agents, not the agents themselves.
 
 ## What's new
-Orchestration is showing up as **shipping practitioner tooling**, not just
-patterns: multi-model routing inside a terminal coding agent (Kimchi), visual
-sub-agent wiring for Claude Code (rondoflow), and transparency-first multi-agent
-runners (OpenOrb) — all putting the engineering into the routing/handoff/wiring
-layer between agents. That sits on top of the framing of orchestration as a
+Generated orchestration is sharpening into **code-driven** orchestration:
+LangChain's dynamic subagents in Deep Agents coordinate fan-out from a program, so
+coverage is guaranteed by control flow rather than the model issuing a tool call
+per worker — the deterministic-wrapper answer to "did every sub-task actually
+run." That lands alongside orchestration showing up as **shipping practitioner
+tooling**, not just patterns: multi-model routing inside a terminal coding agent
+(Kimchi), visual sub-agent wiring for Claude Code (rondoflow), and
+transparency-first multi-agent runners (OpenOrb) — all putting the engineering into
+the routing/handoff/wiring layer between agents. That sits on top of the framing of orchestration as a
 **runtime-substrate** problem (workspace, runtime, and per-agent directory
 isolation as the load-bearing design) and the move from "add more agents" to
 "design the coordination" — decentralized topologies (DeLM) and per-task

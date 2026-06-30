@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a]
-updated: 2026-06-28
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44]
+updated: 2026-06-30
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44]
 ---
 
 ## TL;DR
@@ -23,7 +23,13 @@ The field has converged on **memory as a tiered system** rather than a single
 store: short-term/working memory (the live context window), episodic memory (a
 log of past interactions), and long-term/semantic memory (durable facts and
 preferences). LinkedIn's cognitive-memory writeup frames this split explicitly
-and is a useful reference architecture. The hard questions are no longer "should
+and is a useful reference architecture — and the tiered model now has an open,
+production-grade instance: Elastic's Atlas implements three memory categories on
+top of Elasticsearch (infra many teams already run), exposes them to agents over
+[MCP](/topic/mcp), keeps per-user memory isolated, and reports evaluation numbers
+rather than a demo, pushing "cognitive memory" from reference diagram to shippable
+component. Practitioners read this as memory *leaving the "remember this" demo
+phase* and becoming a real engineering layer. The hard questions are no longer "should
 the agent have memory" but **what to write, when to write it, and how to recall
 the right slice cheaply** — which is where the two linked solutions diverge:
 retrieval from an external store (vector/graph knowledge bases) versus keeping
@@ -72,17 +78,19 @@ increasingly framed as something the agent curates from its own history, not jus
 a place facts are dumped.
 
 ## What's new
-Memory quality is starting to get **benchmarked, not just architected**: a new
-suite targets the *failure modes* of agent memory (forgetting, stale or wrong
-recall, poisoned entries), making "does the memory layer actually help" a number
-you can track instead of a design claim — extending the earlier poisoned-facts
-benchmark from integrity to the full failure surface. That sits on top of the
-prior run's signals — memory as a **portable substrate** (an S3-backed filesystem
-mounting the same markdowns across laptop and cloud) and **trace-driven curation**
-(mine the agent's own traces to decide what to remember) — and the now-established
-concerns of memory **integrity** and the local-first wave (FERNme, PMB,
-Memharness, Cortex) treating memory as an installable, developer-owned component
-rather than a metered service.
+The tiered "cognitive memory" model just got a **major-vendor open
+implementation**: Elastic's Atlas puts short/episodic/long-term memory on
+Elasticsearch, serves it to agents over [MCP](/topic/mcp), isolates it per user,
+and ships with evaluation numbers — the clearest sign yet that memory is, in
+practitioners' words, *leaving the "remember this" demo phase* and becoming a
+production layer built on infra teams already operate (the same "ride an existing
+substrate" instinct shows up at the quirky end too, with agents that repurpose an
+email outbox as their memory store). That lands on top of memory quality getting
+**benchmarked, not just architected** (a suite for the full failure surface —
+forgetting, stale/wrong recall, poisoned entries), memory as a **portable
+substrate** (an S3-backed filesystem mounting the same markdowns across laptop and
+cloud), **trace-driven curation**, and the established concerns of **integrity**
+and the local-first wave (FERNme, PMB, Memharness, Cortex).
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

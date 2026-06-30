@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c]
-updated: 2026-06-28
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5]
+updated: 2026-06-30
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5]
 ---
 
 ## TL;DR
@@ -51,7 +51,12 @@ does. A second, sharper finding is an *interaction* bug in the harness:
 the "Constraint Tax" study shows that demanding structured (JSON-schema) output
 and tool calling **jointly** suppresses tool calling in open-weight models — the
 two core agent capabilities interfere, so forcing a clean output contract can
-quietly stop the agent from calling the tool it needed.
+quietly stop the agent from calling the tool it needed. A third axis is **tool
+selection at scale**: once an agent can reach dozens of connectors, putting every
+tool schema in the prompt both burns context budget and degrades which tool the
+model picks, so harnesses are moving to *search* the tool catalog instead of
+listing it — OpenAI's Codex now uses [MCP](/topic/mcp) tool search by default,
+turning tool discovery into a retrieval step rather than a context dump.
 
 ## What's new
 The reliability of the *calling behavior* — not just the integration — is now
@@ -60,7 +65,11 @@ being measured. "Beyond Function Calling" benchmarks agents under
 malformed results) and finds sharp degradation that clean tool suites hide, and
 the "Constraint Tax" study shows that jointly demanding structured output and
 tool calling **suppresses** tool calls in open-weight models — an interaction bug
-in the harness, not the protocol. On the integration side, a **brownfield**
+in the harness, not the protocol. A new selection axis also surfaced: with agents
+reaching dozens of connectors, harnesses now **search** the tool catalog instead of
+loading every schema — Codex makes MCP tool search the default — so tool discovery
+becomes a retrieval step that protects both context budget and selection accuracy.
+On the integration side, a **brownfield**
 counterpoint to "rebuild services agent-native" is gaining traction: *agentic
 overlays* (AWS) wrap existing REST services as agent-callable capabilities
 without rewriting them, a retrofit path for the service estates most teams

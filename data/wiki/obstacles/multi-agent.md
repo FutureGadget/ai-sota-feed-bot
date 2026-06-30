@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
-updated: 2026-06-29
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4]
+updated: 2026-06-30
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4]
 ---
 
 ## TL;DR
@@ -31,7 +31,16 @@ coordinating agent is both a token bottleneck and a single point of failure.
 Orchestration itself is becoming dynamic rather than hand-wired — Anthropic's
 writeup on Claude Code's Dynamic Workflows describes generating a custom
 execution harness per task to coordinate sub-agents instead of committing to one
-fixed shape. Meanwhile practitioners are still hunting for frameworks where
+fixed shape. The sharper version of that move is **orchestrating sub-agents with
+code rather than tool calls**: LangChain's dynamic subagents in Deep Agents drive
+fan-out and coordination from a program, so coverage is *guaranteed* by control
+flow instead of hoped-for from the model emitting one tool call per worker —
+turning the coordination layer into ordinary (testable, deterministic) code around
+non-deterministic agents. The flip side of caring about communication structure is
+that the structure is also an **attack surface**: the "Linguistic Firewall" work
+treats routing in a multi-agent system as a geometry problem and defends it,
+because a compromised or adversarial agent in the mesh can steer the others — so
+robust handoffs are a security property, not just a quality one. Meanwhile practitioners are still hunting for frameworks where
 *heterogeneous* models genuinely collaborate (route refactors to one model,
 codegen to another), which is really a routing-and-handoff problem, not a model
 problem — and that hunt is now materializing as shipping tooling: coding agents
@@ -51,13 +60,19 @@ control is the dominant variable — and sometimes the cheapest topology is no
 topology at all.
 
 ## What's new
-The "design the coordination, not the agents" thesis is now visible in shipping
-tooling: a wave of practitioner orchestration tools puts the engineering into the
-layer *between* agents — multi-model routing inside a terminal coding agent
-(Kimchi), visual sub-agent wiring for Claude Code (rondoflow), and
-transparency-first multi-agent runners (OpenOrb) — concrete evidence for the
-earlier finding that the routing/handoff/plumbing layer, not agent cleverness, is
-the load-bearing work. That sits alongside the "does multi-agent even pay"
+"Design the coordination, not the agents" is moving from runtime wiring toward
+**code-driven orchestration**: LangChain's dynamic subagents in Deep Agents
+coordinate fan-out from a program (so coverage is guaranteed by control flow, not
+by the model issuing one tool call per worker), extending the per-task generated
+harness into ordinary testable code around the agents. A security dimension also
+surfaced — the "Linguistic Firewall" work defends multi-agent *routing* as a
+geometry problem, framing the communication structure as an attack surface a
+hostile agent can exploit, not just a cost/quality knob. These sit alongside the
+wave of practitioner orchestration tools putting the engineering into the layer
+*between* agents — multi-model routing inside a terminal coding agent (Kimchi),
+visual sub-agent wiring for Claude Code (rondoflow), and transparency-first
+multi-agent runners (OpenOrb) — concrete evidence for the earlier finding that the
+routing/handoff/plumbing layer, not agent cleverness, is the load-bearing work. That sits alongside the "does multi-agent even pay"
 question sharpening from both ends (Sakana's Fugu distills a multi-agent system
 into one model; library authors report workspace/runtime/directory plumbing is
 the hard part) and the standing result that *topology*, not agent count, drives

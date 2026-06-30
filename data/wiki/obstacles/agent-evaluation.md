@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e]
-updated: 2026-06-28
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
+updated: 2026-06-30
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
 ---
 
 ## TL;DR
@@ -49,7 +49,19 @@ trajectory judge needs its own validation before you trust its verdicts. Second,
 hard-won practitioner write-ups (three years of evals for financial agents; a
 post-mortem on why most evals would miss a real Linear sales-email failure)
 converge on the same warning: an eval suite passes while the agent fails the way
-that actually matters, because the suite never encoded the real-world failure.
+that actually matters, because the suite never encoded the real-world failure. The
+constructive counter-reframe lands from the same camp: "*it's hard to eval*" is a
+**product smell**, not an excuse — if you can't specify what good output is, that
+is a fuzzy-spec problem to fix, and the discipline of writing the eval forces the
+product clarity, rather than the difficulty proving eval impossible. The unit under
+test is also widening from a single agent to the whole **harness**: GitHub's
+evaluation of its Copilot agentic harness across 20+ models and many tasks grades
+the harness's results *and* token efficiency together, treating the
+agent+model+scaffold as the thing you benchmark and making cost-per-solved-task a
+first-class eval metric. And eval is converging with [observability](/topic/agent-observability):
+a multi-dataset benchmark for LLM agents in microservice failure diagnosis (AgentOps)
+scores process over outcome on multimodal trace data — grading the diagnosis path,
+not just the verdict — so the trace becomes the shared substrate for both.
 A third front opens on the *output* of coding agents specifically: as agents
 write more of the code, "tests passing" stops being sufficient evidence to merge,
 because a green suite says nothing about the structural quality or robustness of
@@ -72,10 +84,18 @@ is giving way to "validate the judge and the suite against real failures." A new
 angle targets coding agents' *output*: with agents writing more code, "tests
 passing" no longer proves the change is good, so Topos scores the **structural
 quality of agent-written programs** directly, treating review-grade signal as the
-eval rather than a pass/fail gate. This sits alongside the earlier shift to
-graded *process* — trace judges that score trajectories at ~1/100th frontier cost
-and root-cause failure detectors — and mounting evidence that familiar-benchmark
-scores collapse out of distribution.
+eval rather than a pass/fail gate. Two reframes land this round: the constructive
+"*it's hard to eval is a product smell*" argument (inability to eval signals a
+fuzzy spec to fix, not an impossible task), and the **unit of eval widening to the
+whole harness** — GitHub benchmarks its Copilot agentic harness across 20+ models
+scoring results *and* token efficiency, while a microservice-failure-diagnosis
+benchmark (AgentOps) grades the diagnosis *process* on trace data, pulling eval and
+[observability](/topic/agent-observability) onto the same substrate. Eval
+transparency is moving too: Hugging Face now surfaces community "Every Eval Ever"
+results on model pages. This sits alongside the earlier shift to graded *process* —
+trace judges that score trajectories at ~1/100th frontier cost and root-cause
+failure detectors — and mounting evidence that familiar-benchmark scores collapse
+out of distribution.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell a

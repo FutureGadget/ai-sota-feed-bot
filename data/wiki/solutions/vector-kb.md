@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93]
-updated: 2026-06-27
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d]
+updated: 2026-06-30
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d]
 ---
 
 ## TL;DR
@@ -28,7 +28,17 @@ that layer on a **commodity datastore you already run**: BetterDB ships an open
 multi-tier caching, and typed retrieval onto a single Valkey/Redis instance,
 local or hosted — collapsing the "buy a separate vector DB" hop into the cache you
 already operate, and tying memory and caching into one substrate rather than two
-systems to keep consistent. Strong results are
+systems to keep consistent. The same "ride infrastructure you already run" move is
+now coming from incumbents: Elastic's Atlas builds tiered agent memory directly on
+Elasticsearch and serves it over [MCP](/topic/mcp), so the retrieval store is the
+search cluster the team already operates rather than a new dependency. Retrieval
+quality, meanwhile, is increasingly treated as a *data-and-embedding* problem, not
+just an index choice: a production deployment at Target replaces rule-based
+campaign matching with embeddings plus vector search plus an LLM rerank, and
+permutation-invariant embedding fine-tuning fixes a concrete failure where field
+order in serialized structured records skews similarity — both pointing at recall
+quality being earned in how records are embedded and ranked, not in the vector DB
+brand. Strong results are
 achievable without an LLM in the recall path (a local store hitting high
 LongMemEval recall), underscoring that retrieval quality is an engineering
 problem, not a model-scale one. The category is also being challenged from
@@ -59,8 +69,12 @@ memory as an explicit RAG alternative (VSA), and Hebbian co-occurrence graphs
 (FERNme) — all arguing structured, exact recall can beat embedding similarity. A
 quieter trend runs the other way on infrastructure: rather than a new store,
 BetterDB puts memory + semantic/multi-tier caching + typed retrieval on a
-commodity Valkey/Redis instance you already operate, so the memory layer rides
-existing ops instead of adding a dedicated vector database.
+commodity Valkey/Redis instance you already operate, and Elastic's Atlas builds
+tiered memory on Elasticsearch served over MCP — both letting the memory layer
+ride existing ops instead of adding a dedicated vector database. And a pair of
+production/data signals (Target's embeddings-plus-rerank campaign matcher,
+permutation-invariant embedding tuning for structured records) reinforce that
+recall quality is won in embedding and ranking choices, not in the store itself.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall
