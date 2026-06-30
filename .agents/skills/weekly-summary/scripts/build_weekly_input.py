@@ -65,22 +65,18 @@ def main() -> None:
     if args.week:
         week = args.week
         start_d, end_d = week_bounds(week)
-    elif args.end is not None or args.days != 7:
-        # Explicit trailing-window mode: --end and/or a non-default --days was
-        # given, so honor it as a literal lookback window (not ISO-week-aligned).
+    else:
+        # Default mode: a 7-day trailing window ending today, not strictly
+        # Monday-Sunday. Because the production routine always runs Friday
+        # (before the weekend happens), this deliberately reaches back into
+        # the previous week's Saturday/Sunday so those days' articles — which
+        # the previous week's own run could never have captured — get swept
+        # into this week's recap instead of being silently lost. They land
+        # under this week's id rather than their own; that's an accepted
+        # trade-off for not dropping a week's worth of weekend coverage.
         end_d = date.fromisoformat(args.end) if args.end else datetime.now(timezone.utc).date()
         week = iso_week_id(end_d)
         start_d = end_d - timedelta(days=args.days - 1)
-    else:
-        # Default mode (no flags): the ISO week (Monday-Sunday) containing
-        # today, per the documented usage above. Anchoring start_d to Monday
-        # (instead of a blind 7-day lookback, which lands on the *previous*
-        # week's Saturday when run mid-week) avoids two bugs: pulling last
-        # week's leftover weekend articles into this week's bundle, and
-        # writing a non-Monday-Sunday 'start'/'end' into the published recap.
-        end_d = datetime.now(timezone.utc).date()
-        week = iso_week_id(end_d)
-        start_d, _ = week_bounds(week)
 
     start_dt = datetime.combine(start_d, time.min, tzinfo=timezone.utc)
     end_dt = datetime.combine(end_d, time.max, tzinfo=timezone.utc)
