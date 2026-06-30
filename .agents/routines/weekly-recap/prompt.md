@@ -8,6 +8,13 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/weekly-summary/SKILL.md`
 
+This routine runs Friday 21:00 UTC (06:00 KST Saturday), ahead of the Friday
+23:00 UTC weekly email send. The input bundle below is Monday-Sunday aligned
+to the current ISO week, but since the run happens mid-Friday, the published
+recap genuinely only covers Monday through the portion of Friday already
+collected by run time — Saturday/Sunday of the current week are not yet
+available and are not included. This is expected, not a bug to work around.
+
 ## Run the routine
 
 1. Build the news-only input bundle for the ISO week containing the current
