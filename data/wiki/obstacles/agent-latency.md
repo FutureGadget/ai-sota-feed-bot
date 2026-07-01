@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0]
-updated: 2026-06-30
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1]
+updated: 2026-07-01
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1]
 ---
 
 ## TL;DR
@@ -34,7 +34,15 @@ target (TraceLab profiles real coding-agent workloads for LLM serving so the
 server can be tuned to them rather than to a generic chat trace). That work is
 surfacing agent-specific bottlenecks the chat era never hit — DualPath finds the
 binding constraint in agentic inference is **storage bandwidth**, not compute,
-because the agent's growing KV/context state has to be streamed back each step.
+because the agent's growing KV/context state has to be streamed back each step —
+and one direct answer is shrinking that state: RaBitQCache uses randomized
+rotated binary quantization to compress the KV cache and an adaptive top-p token
+budget instead of a fixed top-k, cutting the memory-I/O DualPath identifies as the
+bottleneck while holding generation quality. The dev-loop side of latency counts
+too: local CI (running checks on the developer's machine instead of round-tripping
+to a remote runner) cuts the feedback loop for both human developers and coding
+agents, since round-trip time to a CI runner is on the same wall-clock budget as
+each model call.
 The other lever is the model itself: latency-first small models (Kog's Laneformer
 2B, built for its inference engine) trade frontier breadth for predictable speed
 on the bulk of an agent's calls, the same downshift logic that drives cost.
@@ -48,10 +56,14 @@ The framing is shifting from "make the model faster" to "make the *agent
 workload* faster." TraceLab characterizes real coding-agent serving traces so
 engines can be tuned to bursty long-context tool loops, and DualPath identifies
 storage bandwidth — not GPU compute — as the bottleneck in agentic inference,
-because the per-step context state has to be moved, not just computed. Alongside,
-latency-first small models (Kog Laneformer 2B) and low-latency interactive stacks
-(Loka's Nova 2 Sonic voice agent) show the field treating round-trip time as an
-architecture constraint rather than a knob.
+because the per-step context state has to be moved, not just computed. RaBitQCache
+now gives that bottleneck a direct mitigation: quantizing the KV cache with an
+adaptive token budget cuts the memory-I/O DualPath flags, without a fixed
+top-k retrieval's static waste. Alongside, latency-first small models (Kog
+Laneformer 2B) and low-latency interactive stacks (Loka's Nova 2 Sonic voice
+agent) show the field treating round-trip time as an architecture constraint
+rather than a knob, and the same instinct is reaching the dev loop itself — local
+CI cuts feedback latency for developers and agents alike.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

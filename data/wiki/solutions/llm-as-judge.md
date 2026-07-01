@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df]
-updated: 2026-06-30
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51]
+updated: 2026-07-01
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51]
 ---
 
 ## TL;DR
@@ -39,7 +39,13 @@ encoder-based classifiers against decoder (generative) judges and finds that for
 guardrail-style verdicts a cheaper, lower-latency encoder can often match the
 generative judge — so the choice isn't only frontier-vs-fine-tuned-decoder but
 also decoder-vs-encoder when you need a fast, inline safety check rather than a
-free-text explanation.
+free-text explanation. The cheap-judge trend now goes further than one classifier
+per signal: Morph Reflexes reads an agent trace once through a shared backbone
+and scores *many* behavioral signals (looping, reasoning leakage, user
+frustration) with separate classifier heads off the same forward pass, reusing
+KV-cache and compute across heads to hit sub-30ms inference and under 2ms of
+marginal latency per additional signal — turning "judge every behavioral failure
+mode" from N separate model calls into one shared-compute read of the trace.
 
 ## What's new
 Judge auditing is catching up with judge adoption: BabelJudge puts numbers on
@@ -51,7 +57,11 @@ traces to recover near-frontier quality at a fraction of the cost — which now
 extends to judge *architecture*: "Do Encoders Suffice?" finds an encoder
 classifier can match a decoder judge for high-volume safety verdicts, a cheaper,
 lower-latency option when you need an inline guardrail rather than a written
-rationale.
+rationale. Morph Reflexes pushes the same architecture lever further by sharing
+one backbone's compute across many classifier heads instead of running separate
+small models per behavioral signal, reporting sub-30ms and near-zero marginal
+latency per extra signal — multi-signal trace judging as a shared-compute
+problem, not a per-signal model-count problem.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,

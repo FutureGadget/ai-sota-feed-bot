@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
-updated: 2026-06-30
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+updated: 2026-07-01
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
 ---
 
 ## TL;DR
@@ -38,8 +38,12 @@ finding is that agents look strong on familiar benchmarks and degrade sharply
 when "run beyond familiar environments," so static leaderboards over-state
 real-world capability. Because human grading doesn't scale to long traces, the
 field leans on **LLM-as-judge** scoring (now being cost-reduced by fine-tuning
-small judges on production traces) and on **agent benchmarks** that exercise an
-agent against its own tooling. The frontier edge is *pre*-deployment prediction —
+small judges on production traces, and pushed further by shared-backbone
+multi-head classifiers — Morph Reflexes reads a trace once and scores several
+behavioral failure modes off the same forward pass for sub-30ms latency) and on
+**agent benchmarks** that exercise an agent against its own tooling — including
+domain-narrow suites (ScarfBench, on enterprise Java migration) and long-horizon
+autonomy labs (Emergence World) that push past single bounded tasks. The frontier edge is *pre*-deployment prediction —
 simulating deployment on real conversation data to forecast behavior before
 release rather than measuring it after an incident. Two countercurrents now
 temper the optimism. First, the judge itself is under audit: BabelJudge measures
@@ -92,7 +96,12 @@ scoring results *and* token efficiency, while a microservice-failure-diagnosis
 benchmark (AgentOps) grades the diagnosis *process* on trace data, pulling eval and
 [observability](/topic/agent-observability) onto the same substrate. Eval
 transparency is moving too: Hugging Face now surfaces community "Every Eval Ever"
-results on model pages. This sits alongside the earlier shift to graded *process* —
+results on model pages. The cheap-judge cost lever gets sharper too: Morph
+Reflexes shares one backbone's compute across many trace-classifier heads instead
+of running a separate small model per behavioral signal, and two new benchmarks
+push the domain axis (ScarfBench's enterprise Java-migration task) and the
+horizon axis (Emergence World's long-horizon autonomy lab) further than existing
+suites reach. This sits alongside the earlier shift to graded *process* —
 trace judges that score trajectories at ~1/100th frontier cost and root-cause
 failure detectors — and mounting evidence that familiar-benchmark scores collapse
 out of distribution.

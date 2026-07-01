@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44]
-updated: 2026-06-30
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
+updated: 2026-07-01
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
 ---
 
 ## TL;DR
@@ -49,7 +49,13 @@ from "where does memory live" to **"how does it follow the agent"**: a durable,
 S3-backed filesystem that mounts the same memory markdowns across a laptop and
 the cloud treats the store as a *portable substrate* you sync between runtimes
 rather than a per-platform silo — the build-it-yourself answer to the
-cross-platform consistency that managed services sell. A recurring design theme in this wave is
+cross-platform consistency that managed services sell. The same portability
+instinct now extends to **sharing memory across agents, not just across runtimes**:
+Sibyl is a self-hosted, multi-user memory system (built on SurrealDB) that many
+parallel coding agents on the same machine or team read and write through a CLI
+or MCP, reporting 96.96% strict recall@5 on LongMemEval-S with no LLM in the
+retrieval path — evidence that a shared, developer-owned memory substrate can
+both scale to many concurrent agents and stay cheap to query. A recurring design theme in this wave is
 **richer temporal modeling**: bi-temporal stores track both when a fact was true
 and when the agent learned it, so recall can reason about staleness instead of
 returning whatever embeds nearest. A second, cost-driven theme is **cheap,
@@ -85,7 +91,11 @@ and ships with evaluation numbers — the clearest sign yet that memory is, in
 practitioners' words, *leaving the "remember this" demo phase* and becoming a
 production layer built on infra teams already operate (the same "ride an existing
 substrate" instinct shows up at the quirky end too, with agents that repurpose an
-email outbox as their memory store). That lands on top of memory quality getting
+email outbox as their memory store). Portability is widening from **across
+runtimes to across agents**: Sibyl is a self-hosted, multi-user memory store built
+for many parallel coding agents to share, with a no-LLM retrieval path scoring
+competitively on LongMemEval — the developer-owned counterpart to Atlas's
+managed, per-user isolation model. That lands on top of memory quality getting
 **benchmarked, not just architected** (a suite for the full failure surface —
 forgetting, stale/wrong recall, poisoned entries), memory as a **portable
 substrate** (an S3-backed filesystem mounting the same markdowns across laptop and

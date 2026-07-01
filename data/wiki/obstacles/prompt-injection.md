@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd]
-updated: 2026-06-27
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
+updated: 2026-07-01
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
 ---
 
 ## TL;DR
@@ -54,6 +54,18 @@ used to keep long sessions affordable can silently evict the safety and
 governance constraints stated up front, so a guardrail that held at turn one is
 simply gone by turn fifty — meaning the defenses against injection have to be
 pinned outside the compactible window, not trusted to survive summarization.
+Industry framings are converging on where the ReAct loop actually breaks:
+practitioner guidance now locates the vulnerabilities separately in **context**
+(what gets read in), **reasoning** (what the model decides), and **tool
+execution** (what it's allowed to do), naming memory poisoning and rogue tool
+execution as the concrete failure modes and recommending defense-in-depth —
+layered controls plus an LLM-as-judge critic reviewing the agent's own decisions
+— structured against a named threat model (MAESTRO) rather than ad hoc rules.
+Model providers are also treating jailbreak resistance as an ongoing, versioned
+release concern, not a one-time hardening pass: Anthropic's redeployment of
+Claude Fable 5 ships updated cybersecurity safeguards alongside a new
+industry jailbreak framework, evidence that the red-teaming
+push (Gray Swan, Kolter) is feeding back into shipped model updates.
 
 ## What's new
 The emphasis is moving up the stack from "filter the prompt" to "govern the
@@ -77,7 +89,13 @@ perimeter** is now landing as a managed control, with Google Cloud's VPC Service
 Controls extending its data-exfiltration boundary to agents so a hijacked agent
 holding valid credentials still cannot move protected data out — limiting *where
 data can go*, not just what the agent is authorized to do (see
-[sandboxing](/topic/agent-sandboxing)).
+[sandboxing](/topic/agent-sandboxing)). Practitioner guidance is now naming the
+**ReAct loop's three attack points** explicitly — context, reasoning, tool
+execution — and pairing memory-poisoning and rogue-tool-execution risks with a
+named threat model (MAESTRO) and an LLM-judge critic reviewing agent decisions,
+while providers ship jailbreak-hardening as a **release-cycle concern**
+(Anthropic's Fable 5 redeploy bundling a new industry jailbreak framework), not a
+one-time model property.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

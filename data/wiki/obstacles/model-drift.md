@@ -7,9 +7,9 @@ status: active
 solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7]
-updated: 2026-06-25
-covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7]
+evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da]
+updated: 2026-07-01
+covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da]
 ---
 
 ## TL;DR
@@ -42,7 +42,11 @@ destructive git commands), a reminder that the harness's *defaults* drift too.
 **Serving runtimes** drift in performance and output: vLLM v0.23.0 is another
 "hardening and optimization pass" on DeepSeek-V4 across backends, the kind of
 change that can move latency, throughput, and sampling behavior without a model
-swap. The field is starting to give operators levers — LangGraph's CLI now
+swap, and the drift can be outright breaking, not just behavioral — Triton
+Inference Server's 2.70.0 release drops Windows support entirely and changes how
+its Python client handles BF16 (now requiring `ml_dtypes`), so a runtime bump can
+remove a deployment target or break client code that never touched the model. The
+field is starting to give operators levers — LangGraph's CLI now
 supports declaring *compatible API version ranges* — but the default posture is
 still "track latest," which is exactly how drift gets in.
 
@@ -55,7 +59,10 @@ dependency leaves the executable underneath moving almost daily. The
 countervailing signal still holds: drift is being made visible at the seams
 (Claude Code warns on deprecated models, LangGraph's CLI declares compatible API
 version ranges), early steps toward treating the substrate as a versioned
-contract rather than a rolling stream.
+contract rather than a rolling stream. A fresh example shows the runtime layer
+can drift into a **breaking** change, not just a behavioral one: Triton's 2.70.0
+release removes Windows support and changes Python-client BF16 handling, the kind
+of bump a pinned major-version dependency doesn't protect against.
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you

@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1]
-updated: 2026-06-30
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
+updated: 2026-07-01
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
 ---
 
 ## TL;DR
@@ -36,7 +36,13 @@ tasks better than zero-shot decomposition, and DAIN's dynamic agent-interaction
 network adapts the collaboration/reasoning structure to the task instead of running
 a fixed plan. The through-line is that robust planning comes from *structure around
 the loop* — explicit decomposition, clarification gates, learned priors, and a
-harness that can re-plan — not from a single cleverer prompt.
+harness that can re-plan — not from a single cleverer prompt. That the loop
+itself is now the industry's shared vocabulary for this problem showed up at the
+AI Engineer World's Fair, where "loops" and "software factories" — production
+setups that wrap a planning loop in enough infrastructure to run it repeatedly and
+reliably — were a dominant theme alongside forward-deployed engineering, evidence
+that planning-as-harness-problem has moved from research framing to mainstream
+practitioner conversation.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

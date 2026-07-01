@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
-updated: 2026-06-30
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+updated: 2026-07-01
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
 ---
 
 ## TL;DR
@@ -69,7 +69,13 @@ diagnosis path over multimodal trace data and pulling benchmarking toward
 [observability](/topic/agent-observability). On the meta side, eval *transparency*
 is improving too: Hugging Face now surfaces community "Every Eval Ever" results
 directly on model pages, making the spread of scores visible rather than relying on
-a single headline number.
+a single headline number. The domain-specific and long-horizon fronts are both
+advancing: ScarfBench narrows to a single high-stakes enterprise task (migrating
+Java frameworks) rather than a generic coding benchmark, following the "mined from
+real work" pattern EnterpriseClawBench set; and Emergence World is built
+specifically to grade **long-horizon autonomy** — sustained multi-step operation
+rather than a single bounded task — the harder distribution-shift edge the
+"familiar leaderboards degrade out of distribution" finding already flags.
 
 ## What's new
 Benchmarks are getting **subsystem-specific** — isolating one capability rather
@@ -92,7 +98,11 @@ getting more transparent (Hugging Face's "Every Eval Ever" on model pages). This
 builds on suites mined from **real sessions** (EnterpriseClawBench) and
 **reproducible packaging** (Proctor's signed, isolated bundles), all reinforcing
 that public scores over-state real-workload performance and that the harness itself
-is a benchmark variable.
+is a benchmark variable. Two more entries push the frontier further: ScarfBench
+narrows to a single enterprise domain (Java framework migration) instead of
+generic coding, and Emergence World targets **long-horizon autonomy**
+specifically, grading sustained multi-step operation rather than one bounded
+task.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static target:
