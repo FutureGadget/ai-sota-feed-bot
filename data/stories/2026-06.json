@@ -6616,6 +6616,19 @@
   "url": "http://arxiv.org/abs/2606.15684v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "9855821129029297": {
+  "first_seen": "2026-07-01T00:01:56.705822+00:00",
+  "id": "e15befe59ec6e1ff",
+  "image_url": "https://substackcdn.com/image/fetch/$s_!9BC6!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F9842112b-570d-48b7-92f3-7cbb05681776_1280x720.jpeg",
+  "published": "2026-06-30T23:39:29+00:00",
+  "sid": "9855821129029297",
+  "source": "latent_space",
+  "summary": "After two packed AIEWF workshops, Ahmad Osman makes the case that local AI is catching up fast — from laptops and phones to enterprise-grade infrastructure.",
+  "summary_1line": "After two packed AIEWF workshops, Ahmad Osman makes the case that local AI is catching up fast — from laptops and phones to enterprise-grade infrastructure.",
+  "title": "Ahmad Osman on why local AI is catching up",
+  "type": "news",
+  "url": "https://www.latent.space/p/ahmad-osman-local-ai"
+ },
  "9855e9041d71a734": {
   "first_seen": "2026-06-28T00:01:56.862805+00:00",
   "id": "68462dd79ac721f6",
@@ -9272,7 +9285,7 @@
   "published": "2026-06-30T20:52:04+00:00",
   "sid": "cf0a37dd32efaf51",
   "source": "hackernews_ai",
-  "summary": "The most common failures for production agents are behavioral: looping, reasoning leakage, user frustration, and more. Using a frontier model like GPT or Sonnet to judge every turn is too expensive and slow to run at scale. How it works: We use a modern LLM with hybrid attention and remove the decode step. We built an inference engine that lets prefill compute be 99% reused from reflex to reflex, similar in spirit to older 2019-era BERT/HYDRA + older multiple-head techniques. We took the same high-level idea and did the hard work to make it work with a modern architecture and attention. On it, we can run inference in under 30ms and serve the full request in under 90ms. If you run 4 reflexes or 100, the extra overhead is less than 2ms. Why does optimizing this matter? If you’re even a medium-sized startup, you’re dealing with tens of thousands of agent runs and millions of turns. If you want to track things like user frustration rates over time, frontier LLM-as-judge does not scale. I built a similar stack at Tesla. When ML engineers needed to sample data across petabytes for signals like `is_camera_obfuscated=true`, along with 200 other things, you need to 1) spin them up quickly 2) run at scale efficiently What it is not: A dashboard. In my experience, 99% of dashboards go unused. This is purely API-based and made for devs who want to track agent behavior themselves and trigger their own alerts and build on it. You can vibetrain a custom reflex in our dashboard, and then let",
+  "summary": "The most common failures for production agents are behavioral: looping, reasoning leakage, user frustration, and more. Using a frontier model like GPT or Sonnet to judge every turn is too expensive and slow to run at scale. What Reflexes are: semantic signals from agent traces, served fast and cheap over API. Built on custom kernels and a custom inference engine forked from vLLM. Under the hood, it is a small LLM architected around multi-head inference. Small models need to be trained for specific tasks, but running 50 separate small models on the same input for 50 tasks makes no sense. How it works: We use a modern LLM with hybrid attention and remove the decode step. We built an inference engine that lets prefill compute be 99% reused from reflex to reflex, similar in spirit to older 2019-era BERT/HYDRA and older multiple-head techniques. we built the inference engine to reuse the KV/cache across inputs and compute across all reflexes. One shared backbone reads the trace once, then many heads classify different signals. Our inference engine reuses the same KV/cache and compute across all reflexes, giving us sub-30ms inference with less than 0.1% overhead for each additional reflex. We took the same high-level idea and did the hard work to make it work with a modern architecture and attention. On it, we can run inference in under 30ms and serve the full request in under 90ms. If you run 4 reflexes or 100, the extra overhead is less than 2ms. Why does optimizing this matter? ",
   "summary_1line": "The most common failures for production agents are behavioral: looping, reasoning leakage, user frustration, and more. Using a frontier model like GPT or Sonnet to judge every turn is too expensive and slow to run at...",
   "title": "Show HN: Morph Reflexes – Multi-head classifiers for agent traces",
   "type": "news",
