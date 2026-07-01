@@ -1,19 +1,16 @@
 schema_version: 1
 id: daily-recap
 name: "[News Feed Management] Daily recap"
-description: Curate and publish the previous UTC day's AI news recap.
+description: Curate and publish the next unpublished UTC day's AI news recap.
 
 schedule:
-  # 00:30 UTC — runs just AFTER the UTC date rollover so the recap's
-  # "yesterday in UTC" is the day that just finished. The previous 06:00 KST
-  # slot was 21:00 UTC of the *prior* UTC day (3h before the 00:00 UTC / 09:00
-  # KST rollover), so "yesterday in UTC" resolved one day too far back and a
-  # day's recap was perpetually skipped/lagged. Scheduling in UTC (not KST)
-  # keeps this aligned with the UTC-keyed recap date and removes the foot-gun.
-  # Still hours ahead of the 23:00 UTC daily email send, so the curated recap is
-  # committed before the digest goes out.
-  cron: "30 0 * * *"
-  timezone: UTC
+  # 06:00 KST — built ahead of the 08:00 KST email send (23:00 UTC) so the
+  # curated recap is committed before the digest goes out. The prompt picks
+  # its target date from the latest published recap (not from "yesterday in
+  # UTC" relative to run time), so it is self-healing across missed runs
+  # regardless of exactly when in the day this fires.
+  cron: "0 6 * * *"
+  timezone: Asia/Seoul
   enabled: true
 
 execution:

@@ -1,6 +1,6 @@
 # Daily recap publishing
 
-Publish the curated recap for yesterday in UTC.
+Publish the curated recap for the next unpublished UTC calendar day.
 
 Before acting, read these contracts completely:
 
@@ -10,12 +10,15 @@ Before acting, read these contracts completely:
 
 ## Run the routine
 
-1. Determine yesterday's UTC calendar date as `YYYY-MM-DD`. Use UTC explicitly;
-   do not derive the date from the machine's local timezone.
+1. Determine the target date:
 
-   Also check whether the two UTC days before yesterday are missing
-   `data/daily/<date>.json`. If so, process those dates first, oldest first
-   (repeat steps 2–6 for each) before processing yesterday.
+   - Find the latest existing `data/daily/YYYY-MM-DD.json` file (highest date;
+     ignore `index.json`/`latest.json`). Set the target date to that date plus
+     one calendar day.
+   - If no such file exists, set the target date to yesterday's UTC calendar
+     date.
+   - Determine today's UTC calendar date. If the target date is today or
+     later, stop successfully — there is nothing to publish yet.
 2. Build the input bundle for that date:
 
    ```bash
@@ -61,16 +64,10 @@ web/sitemap.xml
 web/robots.txt
 ```
 
-Create one data-only commit. For a single date:
+Create one data-only commit:
 
 ```text
 daily recap: <date>
-```
-
-For more than one date published in this run:
-
-```text
-daily recap: <oldest-date>..<newest-date>
 ```
 
 Publish directly to `origin/main` using the shared rebase-and-retry contract in
@@ -83,6 +80,6 @@ further input. Do not leave the routine complete with an unmerged pull request.
 Never force-push or bypass failed validation. If the fallback cannot be
 completed, report the blocker and the unmerged branch or pull request.
 
-Report every UTC recap date published in this run (including any backfilled
-days), input article count, published article and category counts, validation
-result, commit SHA or no-op reason, and final publication result.
+Report the target date, input article count, published article and category
+counts, validation result, commit SHA or no-op reason, and final publication
+result.
