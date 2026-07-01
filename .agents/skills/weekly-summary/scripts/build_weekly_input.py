@@ -66,6 +66,14 @@ def main() -> None:
         week = args.week
         start_d, end_d = week_bounds(week)
     else:
+        # Default mode: a 7-day trailing window ending today, not strictly
+        # Monday-Sunday. Because the production routine always runs Friday
+        # (before the weekend happens), this deliberately reaches back into
+        # the previous week's Saturday/Sunday so those days' articles — which
+        # the previous week's own run could never have captured — get swept
+        # into this week's recap instead of being silently lost. They land
+        # under this week's id rather than their own; that's an accepted
+        # trade-off for not dropping a week's worth of weekend coverage.
         end_d = date.fromisoformat(args.end) if args.end else datetime.now(timezone.utc).date()
         week = iso_week_id(end_d)
         start_d = end_d - timedelta(days=args.days - 1)

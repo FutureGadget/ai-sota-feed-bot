@@ -4,8 +4,15 @@ name: "[News Feed Management] Update Weekly AI Feed Summary page"
 description: Curate and publish the current ISO week's AI recap.
 
 schedule:
-  # Saturday 06:00 KST — built ahead of the Saturday 08:00 KST weekly email send
-  # (Friday 23:00 UTC) so the curated recap is committed before it goes out.
+  # Saturday 06:00 KST (= Friday 21:00 UTC) — built ahead of the Saturday 08:00
+  # KST weekly email send (Friday 23:00 UTC) so the curated recap is committed
+  # before it goes out.
+  #
+  # Unlike the daily recap, the KST→UTC offset is harmless here: Friday is
+  # mid-ISO-week (ISO weeks roll over Monday 00:00 UTC), so running 3h before the
+  # UTC date rollover never shifts the "current ISO week" the routine targets.
+  # Keep this on KST/Friday — it is deliberately tied to the Friday weekly email,
+  # not to a UTC day boundary.
   cron: "0 6 * * 6"
   timezone: Asia/Seoul
   enabled: true

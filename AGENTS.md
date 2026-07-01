@@ -327,6 +327,10 @@ Implications for any change in this repo:
 - If you add a new feature or a new document category, update docs index/links
   in the same PR.
 - Follow git hygiene: commit code/config/docs separately from generated runtime data.
+- Keep agent-facing prompts (`.agents/routines/*/prompt.md`, `.agents/skills/*/SKILL.md`)
+  imperative: state what to do, not why. Rationale belongs in
+  `docs/design-docs/decision-log.md` (or a code comment next to the logic it
+  explains) — not in the prompt the agent reads on every run.
 
 ## Documentation Contract
 When implementing a feature:

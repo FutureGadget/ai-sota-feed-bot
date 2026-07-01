@@ -21,6 +21,13 @@ The daily recap pipeline has three artifacts under ``data/daily/``:
     Index of available recaps + a copy of the most recent one, rebuilt from the
     ``<date>.json`` files by ``build_daily_index.py``.
 
+- ``state.json``
+    Cursor for ``build_daily_input.py``'s automatic (no ``--date``) mode:
+    ``last_checked_date`` (the latest UTC day already published or confirmed
+    to have no genuine articles) and ``skipped_dates`` (an audit trail of
+    confirmed-empty days). Advanced only by the automatic mode, never by an
+    explicit ``--date`` call.
+
 This mirrors the weekly recap feature, but the unit is a single calendar day
 (``YYYY-MM-DD``) instead of an ISO week.
 """
@@ -47,6 +54,7 @@ def _find_repo_root(start: Path) -> Path:
 ROOT = _find_repo_root(Path(__file__).resolve())
 DAILY_DIR = ROOT / "data" / "daily"
 DAILY_INPUT_DIR = DAILY_DIR / "input"
+DAILY_STATE_PATH = DAILY_DIR / "state.json"
 PROCESSED_RUNS_DIR = ROOT / "data" / "processed" / "runs"
 PROCESSED_RUNS_INDEX = ROOT / "data" / "processed" / "runs_index.json"
 
@@ -125,6 +133,49 @@ def day_bounds(day_id: str) -> tuple[date, date]:
     """
     d = date.fromisoformat(day_id)
     return d, d
+
+
+def latest_published_date() -> str | None:
+    """The highest published recap date id under ``data/daily/``, or ``None``."""
+    if not DAILY_DIR.is_dir():
+        return None
+    dates = [p.stem for p in DAILY_DIR.glob("*.json") if DATE_FILE_RE.match(p.name)]
+    return max(dates) if dates else None
+
+
+def read_state() -> dict[str, Any]:
+    state = load_json(DAILY_STATE_PATH, {})
+    return state if isinstance(state, dict) else {}
+
+
+def record_skipped_date(day: str) -> None:
+    """Advance the state cursor past a confirmed-empty UTC day.
+
+    Called only by ``build_daily_input.py``'s automatic mode when a target day
+    has no genuine articles, so the next run advances past it instead of
+    recomputing the same empty target forever.
+    """
+    state = read_state()
+    last = state.get("last_checked_date")
+    if not last or day > last:
+        state["last_checked_date"] = day
+    skipped = set(state.get("skipped_dates") or [])
+    skipped.add(day)
+    state["skipped_dates"] = sorted(skipped)
+    write_json(DAILY_STATE_PATH, state)
+
+
+def next_target_date(today: date) -> date:
+    """The next UTC calendar day the automatic routine should attempt.
+
+    One day past the later of the latest published recap and the state
+    cursor's ``last_checked_date`` (which also advances past confirmed-empty
+    days); falls back to yesterday when neither exists yet.
+    """
+    candidates = [d for d in (latest_published_date(), read_state().get("last_checked_date")) if d]
+    if candidates:
+        return date.fromisoformat(max(candidates)) + timedelta(days=1)
+    return today - timedelta(days=1)
 
 
 def category_for_type(item_type: str | None) -> str:

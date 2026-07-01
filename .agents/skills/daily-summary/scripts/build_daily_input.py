@@ -7,7 +7,7 @@ A Claude Code routine reads this bundle, summarizes/categorizes the articles,
 and writes the published recap to ``data/daily/<date>.json``.
 
 Usage:
-    python build_daily_input.py                 # today (UTC)
+    python build_daily_input.py                 # next unprocessed UTC day
     python build_daily_input.py --date 2026-06-07
     python build_daily_input.py --date 2026-06-07 --days 1
 """
@@ -25,14 +25,20 @@ from daily_common import (
     collect_day_articles,
     date_id,
     fmt_day,
+    next_target_date,
     recap_article_urls,
+    record_skipped_date,
     write_json,
 )
 
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--date", help="Calendar date YYYY-MM-DD (default: today, UTC)")
+    ap.add_argument(
+        "--date",
+        help="Calendar date YYYY-MM-DD (default: the next unprocessed UTC day - "
+        "one day past the latest published recap or confirmed-empty day)",
+    )
     ap.add_argument(
         "--days",
         type=int,
@@ -63,7 +69,26 @@ def main() -> None:
     types_raw = args.types.strip().lower()
     include_types = None if types_raw in ("", "all", "*") else {t.strip() for t in types_raw.split(",") if t.strip()}
 
-    end_d = date.fromisoformat(args.date) if args.date else datetime.now(timezone.utc).date()
+    today = datetime.now(timezone.utc).date()
+    if args.date:
+        end_d = date.fromisoformat(args.date)
+    else:
+        end_d = next_target_date(today)
+        if end_d >= today:
+            print(
+                json.dumps(
+                    {
+                        "due": False,
+                        "target_date": date_id(end_d),
+                        "today_utc": date_id(today),
+                        "reason": "target date is not a complete UTC day yet",
+                    },
+                    ensure_ascii=False,
+                    indent=2,
+                )
+            )
+            return
+
     day = date_id(end_d)
     start_d = end_d - timedelta(days=args.days - 1)
 
@@ -113,9 +138,18 @@ def main() -> None:
     # below). If it already exists, the routine should NOT re-write it.
     already_published = (DAILY_DIR / f"{day}.json").exists()
 
+    empty = len(articles) == 0
+    if empty and not args.date:
+        # Automatic mode found nothing to publish for the target day. Advance
+        # the state cursor past it so the next run doesn't recompute this same
+        # empty target forever - an explicit --date call never mutates it.
+        record_skipped_date(day)
+
     print(
         json.dumps(
             {
+                "due": True,
+                "empty": empty,
                 "date": day,
                 "range": bundle["range_label"],
                 "included_types": bundle["included_types"],
