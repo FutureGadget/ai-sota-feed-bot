@@ -124,7 +124,10 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   top-level `site-chrome.css` + `site-chrome.js`: semantic fallback links are
   progressively moved into Browse/More dialogs, while date/week/edition
   controls remain visible. Generated pages receive the same chrome through
-  `pipeline/render_static_pages.py`.
+  `pipeline/render_static_pages.py`. `nav-updates.js` (shared, deferred) owns
+  the "new updates" freshness signal: nav "New" pills for unread editorial
+  sections plus the feed-only "Fresh from the Editor's Desk" chip strip for
+  returning readers (spec: `docs/product-specs/nav-update-indicators.md`).
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
   `web/storyline/`, `web/topic/`, `web/foundations/`, `web/map.html`,
   `web/foundations.html`, `sitemap.xml` (from
@@ -250,7 +253,8 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`,
 `/api/client-config`, `/api/updates`
-(lightweight freshness signals powering the nav "new updates" dots),
+(lightweight freshness signals powering the nav "new updates" pills and
+the feed's "Fresh from the Editor's Desk" strip),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,
 503 when unconfigured).
 

@@ -73,7 +73,9 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertIn('class="site-subscribe-action"', html)
                 self.assertIn('data-subscribe-placement="header"', html)
 
-    def test_update_indicators_target_navigation_after_it_moves_to_editor_desk(self) -> None:
+    def test_update_indicators_are_the_shared_script_everywhere(self) -> None:
+        # One copy of the freshness logic: every shell that shows indicators
+        # loads /nav-updates.js instead of embedding a private fork of it.
         for filename in (
             "index.html",
             "daily.html",
@@ -81,42 +83,41 @@ class SiteChromeContractTest(unittest.TestCase):
             "storyline.html",
             "playbook.html",
             "voices.html",
+            "map.html",
+            "foundations.html",
         ):
             with self.subTest(filename=filename):
                 html = (ROOT / "web" / filename).read_text(encoding="utf-8")
-                self.assertIn(
-                    "querySelectorAll('.site-nav-fallback a[href]')",
-                    html,
-                )
-        self.assertIn(
-            "querySelectorAll('.site-nav-fallback a[href]')",
-            render.NAV_UPDATES_JS,
+                self.assertIn('src="/nav-updates.js', html)
+                self.assertNotIn("ai_feed_seen_daily_v1", html)
+        self.assertIn('src="/nav-updates.js', render.NAV_UPDATES_TAG)
+
+    def test_update_indicator_script_keeps_core_invariants(self) -> None:
+        js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        # Decorates the semantic nav Editor's Desk adopts.
+        self.assertIn("querySelectorAll('.site-nav-fallback a[href]')", js)
+        # Skips the current section before decorating, then marks it seen.
+        self.assertIn("var cur = currentSection();", js)
+        self.assertIn("if (section === cur) return;", js)
+        self.assertLess(
+            js.index("var cur = currentSection();"),
+            js.index("Object.keys(ROUTE).forEach"),
         )
+        # Every editorial section has a seen marker and a route, foundations
+        # included (it was missing before the shared script existed).
+        for section in ("daily", "weekly", "storylines", "playbook", "map", "foundations"):
+            self.assertIn(f"ai_feed_seen_{section}_v1", js)
+        self.assertIn("'/foundations': 'foundations'", js)
 
-    def test_update_indicators_skip_the_current_section_before_decorating(self) -> None:
-        for filename in (
-            "index.html",
-            "daily.html",
-            "weekly.html",
-            "storyline.html",
-            "playbook.html",
-            "voices.html",
-        ):
-            with self.subTest(filename=filename):
-                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
-                self.assertIn("var cur = currentSection();", html)
-                self.assertIn("if (section === cur) return;", html)
-                self.assertLess(
-                    html.index("var cur = currentSection();"),
-                    html.index("Object.keys(ROUTE).forEach"),
-                )
-                self.assertLess(
-                    html.index("if (section === cur) return;"),
-                    html.index("if (signal && isUnread(section, signal)"),
-                )
-
-        self.assertIn("var cur = currentSection();", render.NAV_UPDATES_JS)
-        self.assertIn("if (section === cur) return;", render.NAV_UPDATES_JS)
+    def test_feed_strip_is_gated_to_returning_readers(self) -> None:
+        js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        # The "Fresh from the Editor's Desk" strip renders only on the feed,
+        # only for sections with an existing seen marker (a reader who has
+        # engaged before), and stays dismissible for the session.
+        self.assertIn("isFeedPage()", js)
+        self.assertIn("if (getItem(SEEN[section])) stripEligible.push(section);", js)
+        self.assertIn("ai_feed_whats_new_dismissed_v1", js)
+        self.assertIn("whats-new-chip", js)
 
     def test_dynamic_archive_surfaces_keep_visible_direction_controls(self) -> None:
         for filename in ("daily.html", "weekly.html", "playbook.html"):

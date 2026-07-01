@@ -1,12 +1,26 @@
-# Nav "new updates" indicators
+# "New updates" indicators (nav pills + feed strip)
 
-A small **"New" pill** on the navigation links to **Daily recap**, **Weekly
-recap**, **Storylines**, **Playbook**, and **Knowledge map** tells a returning
-reader, at a glance, which of those sections has something new since they last
-looked — without opening each page to check.
+One shared freshness signal tells a returning reader which editorial sections —
+**Daily recap**, **Weekly recap**, **Storylines**, **Playbook**, **Knowledge
+map**, and **Foundations** — have something new since they last looked, without
+opening each page to check. It surfaces in two places:
+
+1. A small **"New" pill** on each section's navigation link (the semantic nav
+   that shared chrome moves into the Editor's Desk dialog; visible pills roll
+   up into a count on the Desk trigger).
+2. A one-line **"Fresh from the Editor's Desk" strip** at the top of the live
+   feed that *names* the unread sections as directly clickable chips — the
+   count on the Desk trigger says "6", the strip says *what*.
 
 This serves the "memory / catch-up" pillar of the product positioning: the
-reader should be able to tell what they missed, not just see four static links.
+reader should be able to tell what they missed while they're already reading,
+not discover it behind a dialog.
+
+All logic lives in one shared script, **`web/nav-updates.js`**, loaded with
+`defer` by every hand-edited shell and by the generated static pages
+(`pipeline/render_static_pages.py`, `NAV_UPDATES_TAG`). There are no inline
+copies anymore — a regression test (`tests/test_site_chrome.py`) enforces
+this.
 
 ### Visual treatment (why a pill, not a red dot)
 
@@ -26,19 +40,24 @@ Vercel) and reserves red for action-required counts. The accent-text-on-tint
 treatment keeps adequate contrast in both light and dark themes, unlike
 white-on-accent.
 
+The feed strip uses the same accent-tinted chip language, on a faint accent
+panel with a 3px accent left border (matching the feed's catch-up box), so it
+reads as "the same calm newness signal, promoted one level".
+
 ## Behaviour
 
-Each section's dot appears when the section is **unread** (its latest content is
-newer than what the reader last saw) — but Daily, Weekly, and Playbook add a
-**time-aware freshness gate** on top of read history:
+Each section's indicator appears when the section is **unread** (its latest
+content is newer than what the reader last saw) — but Daily, Weekly, and
+Playbook add a **time-aware freshness gate** on top of read history:
 
-| Section | Dot shows when… | Time gate? |
+| Section | Indicator shows when… | Time gate? |
 |---|---|---|
 | Daily recap | latest recap is newer than last seen **and** the recap is current | yes |
 | Weekly recap | latest recap is newer than last seen **and** the recap is current | yes |
 | Storylines | any thread moved since last seen | no — read history only |
 | Playbook | latest edition is newer than last seen **and** the edition is current | yes |
 | Knowledge map | any wiki page edited since last seen | no — read history only |
+| Foundations | any concept page edited since last seen | no — read history only |
 
 ### Why dated editions need the time gate
 
@@ -55,10 +74,40 @@ latest artifact actually covers a **recent** period:
 - **Playbook** is fresh when its edition `date` is within ten days
   (`age <= 10` days). Older → no dot.
 
-Storylines and the knowledge map have no fixed cadence — a thread can go quiet
-for a week and then move, and a wiki page is "current" until it's edited again —
-so a dot there means purely "there's something you haven't seen," with no
-staleness notion.
+Storylines, the knowledge map, and Foundations have no fixed cadence — a
+thread can go quiet for a week and then move, and a wiki/concept page is
+"current" until it's edited again — so an indicator there means purely
+"there's something you haven't seen," with no staleness notion.
+
+## The "Fresh from the Editor's Desk" strip (feed only)
+
+The strip is the answer to "the reader is *on the feed*, where do they
+naturally click into editorial content?" It renders once, directly above the
+story list, and only when there is something to say:
+
+- **Feed page only** (`/`). Section pages keep the nav pills; the strip never
+  follows the reader around the site.
+- **Returning readers only.** A chip appears for a section only when that
+  section is unread + fresh **and already has a "seen" marker** — i.e. the
+  reader has visited it before. A first-time visitor (or a reader who never
+  opens, say, Playbook) is introduced to sections through the Editor's Desk
+  pills and the contextual in-feed cards; the strip never nags about a section
+  the reader hasn't engaged with, so it cannot become a permanent banner.
+- **Self-clearing.** Chips link straight to their section; arriving there
+  records the "seen" marker, so the chip is gone on the next feed visit. When
+  everything is read, the strip doesn't render at all — the caught-up state is
+  *empty*, matching the finishable-feed promise.
+- **Dismissible.** The × hides the strip for the browser session
+  (`sessionStorage`), without marking anything as read.
+- **Day-aware daily label.** The daily chip reads "Today's recap" /
+  "Yesterday's recap" instead of a generic "Daily recap", so the chip itself
+  carries the information scent.
+- **No double-promotion.** When the strip is showing the daily chip, the
+  feed's deeper Editor's Desk "Today's recap is ready" insert is suppressed
+  (`web/index.html` checks `window.llmDigestUpdates.stripSections`).
+
+PostHog events (all optional/no-op without PostHog): `whats_new_view`
+(`sections`), `whats_new_click` (`section`), `whats_new_dismiss` (`sections`).
 
 ## How it works
 
@@ -66,12 +115,13 @@ staleness notion.
   signals read from the small index files:
   ```json
   {
-    "now": "2026-06-19T00:48:05Z",
-    "daily":      { "date": "2026-06-18", "generated_at": "2026-06-19T00:10:00Z" },
-    "weekly":     { "week": "2026-W24", "end": "2026-06-13", "generated_at": "..." },
-    "storylines": { "generated_at": "...", "last_updated": "2026-06-16T17:22:07Z" },
-    "playbook":   { "date": "2026-06-18", "generated_at": "..." },
-    "map":        { "updated": "2026-06-18" }
+    "now": "2026-07-01T23:35:45Z",
+    "daily":       { "date": "2026-07-01", "generated_at": "2026-07-01T23:10:00Z" },
+    "weekly":      { "week": "2026-W26", "end": "2026-06-27", "generated_at": "..." },
+    "storylines":  { "generated_at": "...", "last_updated": "2026-07-01T04:46:21Z" },
+    "playbook":    { "date": "2026-06-26", "generated_at": "..." },
+    "map":         { "updated": "2026-07-01" },
+    "foundations": { "updated": "2026-07-01" }
   }
   ```
   The signals are chosen to be **content-based**, so they don't flicker on every
@@ -84,26 +134,30 @@ staleness notion.
   - playbook uses the latest edition `generated_at` and gates freshness by its
     edition `date`;
   - map uses the max per-node `updated` date (a real page edit — **not** the
-    wiki `index.json` `generated_at`, which every Vercel build regenerates).
+    wiki `index.json` `generated_at`, which every Vercel build regenerates);
+  - foundations uses the max per-concept `updated` date, for the same reason.
 
-- A small inline script in each shell
-  (`web/{index,daily,weekly,storyline,playbook,voices}.html`) and in the
-  static-render template (`pipeline/render_static_pages.py`,
-  `NAV_UPDATES_JS`) fetches `/api/updates`, compares each signal against a
-  per-section "seen" marker in `localStorage`, applies the freshness gate for
-  daily/weekly/playbook, skips decorating the current section before marking it
-  seen, and decorates matching `.site-nav-fallback` links. Shared site chrome
-  moves that same semantic navigation node into Editor's Desk and rolls visible
-  pills up onto the trigger, so the signal remains visible without duplicating
-  freshness logic.
+- **`web/nav-updates.js`** (shared, deferred) fetches `/api/updates` once,
+  compares each signal against a per-section "seen" marker in `localStorage`,
+  applies the freshness gate for daily/weekly/playbook, skips decorating the
+  current section before marking it seen, decorates matching
+  `.site-nav-fallback` links, and renders the feed strip. Shared site chrome
+  moves that same semantic navigation node into Editor's Desk and rolls
+  visible pills up onto the trigger, so the signal remains visible without
+  duplicating freshness logic.
+
+- **`window.llmDigestUpdates`** exposes the fetch (`promise`), the raw payload
+  (`data`), read-state helpers (`unread(section)`, `fresh(section)`), and
+  `stripSections` — the feed page's Editor's Desk inserts consume these
+  instead of fetching `/api/updates` again or re-implementing "unread".
 
 - **Read tracking:** when the reader is *on* a section page
   (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`,
-  `/playbook[/…]`, `/map` or `/topic/<slug>`), the script records that section's
-  current signal as the new "seen" marker, so the pill clears immediately and
-  remains cleared on the next page they visit.
+  `/playbook[/…]`, `/map` or `/topic/<slug>`, `/foundations[/…]`), the script
+  records that section's current signal as the new "seen" marker, so the
+  indicator clears immediately and remains cleared on the next page they visit.
 
-### localStorage keys
+### Storage keys
 
 | Key | Stores |
 |---|---|
@@ -112,23 +166,33 @@ staleness notion.
 | `ai_feed_seen_storylines_v1` | max thread `last_updated` last seen |
 | `ai_feed_seen_playbook_v1` | playbook `generated_at` last seen |
 | `ai_feed_seen_map_v1` | max wiki node `updated` last seen |
+| `ai_feed_seen_foundations_v1` | max concept `updated` last seen |
+| `ai_feed_whats_new_dismissed_v1` | (sessionStorage) strip hidden this session |
 
 All read/writes are wrapped in try/catch — private-mode / disabled storage just
-means dots fall back to "always show when unread."
+means indicators fall back to "always show when unread" and the strip stays
+gated off (no seen markers → no chips).
 
 ## Design notes
 
 - **No server-side state.** Like the rest of the site (saved items, follows,
   pinned topics), "what have I seen" lives entirely in the reader's browser.
-- **Defensive.** If `/api/updates` fails or returns nothing, no dots render and
-  nothing else on the page is affected.
+- **Defensive.** If `/api/updates` fails, returns nothing, or the script
+  doesn't load, no indicators render and nothing else on the page is affected
+  (the feed's desk inserts skip their freshness-dependent cards).
 - **Tuning.** The staleness thresholds are the `DAILY_FRESH_MAX_AGE` (1),
   `WEEKLY_FRESH_MAX_AGE` (8), and `PLAYBOOK_FRESH_MAX_AGE` (10) constants in
-  the inline script / `NAV_UPDATES_JS`.
+  `web/nav-updates.js`.
 
 ## Tests / validation
 
-- `node --check api/updates.js`; the handler was run against the live data
-  tree and returns the five sections.
-- `python3 pipeline/render_static_pages.py` renders generated pages with the
-  indicator script embedded (no stray escaping from the raw-string constant).
+- `tests/test_site_chrome.py` — shells load the shared script and embed no
+  private fork of it; the script keeps the core invariants (decorates the
+  semantic nav, skips-then-marks the current section, covers all six sections
+  including foundations, gates the strip to returning readers).
+- `node --check` on `api/updates.js` and `web/nav-updates.js`; the handler run
+  against the live data tree returns all six sections.
+- Playwright pass against a local static+API server covering: first visit (no
+  strip, pills in the Desk dialog), returning reader (strip with day-aware
+  chips), chip click → seen marker → chip cleared, session dismiss, mobile +
+  dark theme rendering, and no strip outside the feed.

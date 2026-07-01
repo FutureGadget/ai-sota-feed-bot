@@ -76,10 +76,24 @@ function latestMap() {
   return { updated: updated || null };
 }
 
+function latestFoundations() {
+  const idx = readJsonSafe(path.join(DATA, 'foundations', 'index.json'), null);
+  if (!idx || !idx.concepts || typeof idx.concepts !== 'object') return null;
+  // Per-concept `updated` (YYYY-MM-DD) reflects real page edits and survives
+  // rebuilds; `index.generated_at` changes on every compile, so we ignore it.
+  let updated = '';
+  for (const c of Object.values(idx.concepts)) {
+    const u = c && typeof c.updated === 'string' ? c.updated : '';
+    if (u && u > updated) updated = u;
+  }
+  return { updated: updated || null };
+}
+
 // GET /api/updates -> lightweight freshness signals powering the nav "new
-// updates" dots. Daily/weekly/playbook carry period fields so the client can
-// apply a time-aware staleness gate; storylines/map expose
-// content-based timestamps for pure read-history comparison.
+// updates" dots and the feed's "New for you" strip. Daily/weekly/playbook
+// carry period fields so the client can apply a time-aware staleness gate;
+// storylines/map/foundations expose content-based timestamps for pure
+// read-history comparison.
 export default function handler(req, res) {
   try {
     return res.status(200).json({
@@ -89,6 +103,7 @@ export default function handler(req, res) {
       storylines: latestStorylines(),
       playbook: latestPlaybook(),
       map: latestMap(),
+      foundations: latestFoundations(),
     });
   } catch (e) {
     return res.status(500).json({ error: 'updates_read_failed', detail: String(e) });
