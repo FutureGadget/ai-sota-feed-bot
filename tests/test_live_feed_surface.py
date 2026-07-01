@@ -31,6 +31,11 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("@media (max-width:640px)", self.html)
         self.assertIn("prefers-reduced-motion", self.html)
 
+    def test_editor_desk_playbook_inserts_match_source_urls(self) -> None:
+        self.assertIn("function playbookCardForItem(it)", self.html)
+        self.assertIn("normStorylineUrl(card?.source_url) === url", self.html)
+        self.assertNotIn("playbookSources[itemKey(it)]", self.html)
+
 
 if __name__ == "__main__":
     unittest.main()

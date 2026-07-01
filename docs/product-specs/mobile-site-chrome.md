@@ -38,7 +38,8 @@ navigation models.
 - **Orientation stays visible.** Page identity and date/week/edition context
   take priority over utilities.
 - **Breadth is progressively disclosed.** The full destination list belongs in
-  Browse; occasional actions belong in More actions.
+  Editor's Desk, alongside page-specific actions that do not deserve a separate
+  top-level mobile button.
 - **One site, not adjacent microsites.** Destination order, names, interaction,
   and visual treatment are consistent across surfaces.
 - **Content keeps priority.** Navigation must not become a large dashboard or
@@ -50,7 +51,7 @@ navigation models.
 
 ### Global destinations
 
-Browse presents the same destinations in the same order everywhere:
+Editor's Desk presents the same destinations in the same order everywhere:
 
 | Group | Destination | Route | Label |
 |---|---|---|---|
@@ -58,8 +59,9 @@ Browse presents the same destinations in the same order everywhere:
 | Catch up | Daily recap | `/daily` | Daily recap |
 | Catch up | Weekly recap | `/weekly` | Weekly recap |
 | Follow | Storylines | `/storylines` | Storylines |
-| Build | Playbook | `/playbook` | Playbook |
-| Build | Knowledge map | `/map` | Knowledge map |
+| Apply | Playbook | `/playbook` | Playbook |
+| Understand | Knowledge map | `/map` | Knowledge map |
+| Understand | Foundations | `/foundations` | Foundations |
 | More | Voices | `/voices` | Voices |
 | More | Email digest | `/subscribe` | Email digest |
 
@@ -73,31 +75,35 @@ inherit their parent destination:
 - `/story/<sid>` → Live feed
 - `/playbook/<date>` → Playbook
 
-The existing navigation update indicators remain supported inside Browse for
-Daily recap, Weekly recap, Storylines, and Knowledge map.
+The existing navigation update indicators remain supported inside Editor's Desk
+for Daily recap, Weekly recap, Storylines, Playbook, and Knowledge map. The
+Editor's Desk trigger rolls those visible `New` pills up into a compact count,
+so mobile readers can tell there is something worth opening without inspecting
+the drawer.
 
 ### Page actions
 
 Page utilities must not compete with global navigation or contextual pickers.
-They appear in a **More actions** disclosure unless the surface contract below
-keeps one action visible.
+They appear in the **Editor's Desk** disclosure unless the surface contract
+below keeps one action visible.
 
-Typical More actions:
+Typical drawer actions:
 
 - Share this page
 - View as JSON
-- Switch theme
 
-`Subscribe` is the exception: it is a persistent visible header action because
-email is the primary retention channel. The link always goes to `/subscribe`;
-inline forms and modal signup are intentionally out of scope for the chrome.
-Finish-line subscription CTAs may appear after primary reading content on feed,
-recap, story, and storyline pages.
+`Subscribe` is a persistent visible header action because email is the primary
+retention channel. The theme toggle is also visible in the header as a compact
+icon-only utility whose icon flips with the current theme; its `aria-label` and
+hover title name the target theme. The link always goes to `/subscribe`; inline
+forms and modal signup are intentionally out of scope for the chrome. Finish-line
+subscription CTAs may appear after primary reading content on feed, recap, story,
+and storyline pages.
 
 Action labels describe the result. Examples:
 
 - `View daily recap as JSON`
-- `Use light theme`
+- `Switch to light theme`
 - `Share this storyline`
 
 An unexplained ellipsis is not sufficient as the accessible name.
@@ -105,7 +111,7 @@ An unexplained ellipsis is not sufficient as the accessible name.
 ### Context controls
 
 Controls that change the current content context remain visible on the page;
-they do not move into Browse or More actions.
+they do not move into Editor's Desk.
 
 - Daily: previous day, current day picker, next day
 - Weekly: previous week, current week picker, next week
@@ -126,8 +132,7 @@ All pages use the same semantic hierarchy:
     <a class="site-brand" href="/">LLM Digest</a>
     <div class="site-bar-actions">
       <!-- Optional surface-primary action, such as feed search -->
-      <button type="button">Browse</button>
-      <button type="button" aria-label="More actions">More</button>
+      <button type="button">Editor's Desk</button>
     </div>
   </div>
 
@@ -149,7 +154,7 @@ At widths up to and including `640px`:
 
 - The first row contains the compact brand/home link and no more than three
   actions.
-- `Browse` is visibly labeled; it is not an icon-only hamburger.
+- `Editor's Desk` is visibly labeled; it is not an icon-only hamburger.
 - The page title and supporting status appear beneath the site bar.
 - A contextual picker, when present, appears immediately after the page title
   and before page content.
@@ -161,7 +166,7 @@ Reference structure:
 
 ```text
 ┌──────────────────────────────────┐
-│ 📰 LLM Digest       Browse  More │
+│ 📰 LLM Digest     Subscribe Desk │
 ├──────────────────────────────────┤
 │ AI Daily Recap                   │
 │ 15 articles · 5 categories      │
@@ -177,9 +182,9 @@ Destinations may be displayed inline when space permits, but their order,
 labels, current-page state, update indicators, and action hierarchy must match
 the mobile system. Desktop must not retain a conflicting destination order.
 
-## Browse behavior
+## Editor's Desk behavior
 
-On mobile, Browse opens an accessible modal navigation surface. Its visual
+On mobile, Editor's Desk opens an accessible modal navigation surface. Its visual
 treatment may be a bottom sheet at ordinary text sizes, but it must be able to
 expand or scroll like a full-height dialog when content, viewport height, or
 text zoom requires it.
@@ -187,35 +192,22 @@ text zoom requires it.
 Required behavior:
 
 - Use a native `<dialog>` when practical, with a robust fallback.
-- Provide a visible `Browse` heading and visible `Close` button.
+- Provide a visible `Editor's Desk` heading and visible `Close` button.
 - Move focus into the dialog when it opens.
 - Keep focus within the dialog while open.
 - Close on Escape, Close, or backdrop interaction.
-- Restore focus to the Browse button after closing.
+- Restore focus to the Editor's Desk button after closing.
 - Prevent background interaction and background scrolling without losing the
   reader's previous scroll position.
 - Make the dialog content independently scrollable.
 - Respect `env(safe-area-inset-bottom)`.
 - Do not require drag or swipe gestures.
 - Respect `prefers-reduced-motion`.
-- Do not nest another disclosure inside Browse.
+- Do not nest another disclosure inside Editor's Desk.
 
-Browse contains ordinary navigation links, not ARIA tabs. Each full destination
-row is tappable.
-
-## More actions behavior
-
-More actions opens a simple popover or dialog containing ordinary links and
-buttons. Full ARIA menu semantics are unnecessary unless the complete menu
-keyboard interaction pattern is implemented.
-
-Required behavior:
-
-- Visible focus enters the action surface when opened.
-- Escape and outside interaction close it.
-- Focus returns to the triggering button.
-- Actions remain available in the non-JavaScript fallback.
-- The current theme action states the theme that will be applied.
+Editor's Desk contains ordinary navigation links, not ARIA tabs. Each full
+destination row is tappable and includes a short purpose line. Settings/actions
+such as theme, JSON, and share sit below the destination groups.
 
 ## Context picker behavior
 
@@ -243,21 +235,21 @@ it must not be duplicated in the site bar.
 
 ## Surface contract
 
-| Surface | Source of truth | Visible primary action | Visible context | More actions |
+| Surface | Source of truth | Visible primary action | Visible context | Editor's Desk actions |
 |---|---|---|---|---|
-| Live feed `/` | `web/index.html` | Search, Subscribe | Lens + timeframe controls | Theme |
-| Daily `/daily` | `web/daily.html` | Subscribe | Day picker | Share when available, JSON, Theme |
-| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | Subscribe | Day picker | Share, JSON, Theme |
-| Weekly `/weekly` | `web/weekly.html` | Subscribe | Week picker; Detailed/Scan remains with content | Share when available, JSON, Theme |
-| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | Subscribe | Week picker; Detailed/Scan remains with content | Share, JSON, Theme |
-| Storylines `/storylines` | `web/storyline.html` | Subscribe | Existing All/Following filters remain with content | Share when available, JSON, Theme |
-| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe; Follow may remain in content | None | Share, JSON, Theme |
-| Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe | Edition picker | JSON, Theme |
-| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe | Existing area navigation remains with content | Share, JSON, Theme |
-| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe | Existing graph links remain with content | Share, Theme |
-| Voices `/voices` | `web/voices.html` | Subscribe | Existing page filters, if any, remain with content | Theme |
-| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe; original source remains in content | None | Share, Theme |
-| Subscribe `/subscribe` | `web/subscribe.html` | Subscribe | Subscription form remains in content | Theme |
+| Live feed `/` | `web/index.html` | Search, Subscribe, Theme icon | Lens + timeframe controls | None |
+| Daily `/daily` | `web/daily.html` | Subscribe, Theme icon | Day picker | Share when available, JSON |
+| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Day picker | Share, JSON |
+| Weekly `/weekly` | `web/weekly.html` | Subscribe, Theme icon | Week picker; Detailed/Scan remains with content | Share when available, JSON |
+| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Week picker; Detailed/Scan remains with content | Share, JSON |
+| Storylines `/storylines` | `web/storyline.html` | Subscribe, Theme icon | Existing All/Following filters remain with content | Share when available, JSON |
+| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; Follow may remain in content | None | Share, JSON |
+| Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe, Theme icon | Edition picker | JSON |
+| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing area navigation remains with content | Share, JSON |
+| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing graph links remain with content | Share |
+| Voices `/voices` | `web/voices.html` | Subscribe, Theme icon | Existing page filters, if any, remain with content | None |
+| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; original source remains in content | None | Share |
+| Subscribe `/subscribe` | `web/subscribe.html` | Subscribe, Theme icon | Subscription form remains in content | None |
 
 Generated HTML under `web/daily/`, `web/weekly/`, `web/story/`,
 `web/storyline/`, `web/topic/`, and `web/map.html` is never hand-edited.
@@ -276,9 +268,9 @@ Before enhancement:
 
 After enhancement:
 
-- Shared JavaScript may place or clone destination links into Browse.
+- Shared JavaScript may place or clone destination links into Editor's Desk.
 - The fallback navigation is hidden only after enhancement succeeds.
-- A script error leaves usable navigation rather than an inert Browse button.
+- A script error leaves usable navigation rather than an inert Editor's Desk button.
 
 ## Visual contract
 
@@ -305,7 +297,7 @@ root without adding another build-path exception.
 
 `pipeline/render_static_pages.py` owns generated-page markup and must reference
 the same shared assets as the hand-written shells. A shared renderer helper
-should own generated header markup, Browse destinations, context controls, and
+should own generated header markup, Editor's Desk destinations, context controls, and
 action placement.
 
 Hand-written shells may contain minimal semantic fallback markup, but shared
@@ -313,13 +305,14 @@ CSS and JavaScript own presentation and interaction. Destination names and
 order must be validated against the canonical information architecture above
 to prevent drift.
 
-The existing navigation-update script must recognize links inside Browse and
-must preserve current read/freshness behavior.
+The existing navigation-update script must recognize links inside Editor's
+Desk, must preserve current read/freshness behavior, and the shared chrome may
+count decorated links to badge the Editor's Desk trigger.
 
 ## Tech stack
 
 - Static HTML and CSS for document structure and fallback navigation
-- Vanilla browser JavaScript for Browse, More actions, and focus management
+- Vanilla browser JavaScript for Editor's Desk and focus management
 - Python (`pipeline/render_static_pages.py`) for generated pages
 - Python `unittest` surface-contract tests under `tests/`
 - Vercel static build and rewrites through `scripts/vercel_build.py` and
@@ -346,12 +339,12 @@ Use semantic HTML and small progressive-enhancement functions. State belongs in
 the URL or existing storage contracts; do not introduce a global client store.
 
 ```js
-const browseButton = document.querySelector('[data-site-browse-open]');
-const browseDialog = document.querySelector('[data-site-browse-dialog]');
+const deskButton = document.querySelector('[data-site-browse-open]');
+const deskDialog = document.querySelector('[data-site-browse-dialog]');
 
-if (browseButton && browseDialog instanceof HTMLDialogElement) {
-  browseButton.addEventListener('click', () => browseDialog.showModal());
-  browseDialog.addEventListener('close', () => browseButton.focus());
+if (deskButton && deskDialog instanceof HTMLDialogElement) {
+  deskButton.addEventListener('click', () => deskDialog.showModal());
+  deskDialog.addEventListener('close', () => deskButton.focus());
   document.documentElement.classList.add('site-chrome-enhanced');
 }
 ```
@@ -380,13 +373,13 @@ all static outputs.
 ### Automated checks
 
 - Assert every in-scope source template references the shared chrome assets.
-- Assert Browse contains every canonical destination in the required order.
+- Assert Editor's Desk contains every canonical destination in the required order.
 - Assert parent-route current-state mapping covers detail routes.
 - Assert no mobile rule applies `overflow-x:auto` to global header navigation
   or page-action navigation.
-- Assert rendered static pages contain the shared app bar, Browse navigation,
+- Assert rendered static pages contain the shared app bar, Editor's Desk navigation,
   current destination, and expected context picker.
-- Preserve navigation-update indicator tests and extend selectors to Browse.
+- Preserve navigation-update indicator tests and extend selectors to Editor's Desk.
 - Run `python3 pipeline/render_static_pages.py` and
   `python3 scripts/vercel_build.py` without errors.
 
@@ -423,7 +416,7 @@ The release fails if any representative route:
 
 - horizontally scrolls because of its header;
 - clips a destination, action, or current picker value;
-- lacks Browse or the fallback global navigation;
+- lacks Editor's Desk or the fallback global navigation;
 - uses a different destination order;
 - loses its page-specific picker or primary action;
 - has an inert disclosure when JavaScript fails;
@@ -436,9 +429,8 @@ The release fails if any representative route:
 No analytics dependency is required to ship the change. If existing PostHog
 event infrastructure is extended, record:
 
-- `site_browse_opened`
-- `site_browse_destination_selected`
-- `site_more_actions_opened`
+- `site_editor_desk_opened`
+- `site_editor_desk_destination_selected`
 - `site_context_changed`
 
 Useful post-release signals:
@@ -474,7 +466,7 @@ Useful post-release signals:
 ### Never
 
 - Reintroduce horizontally scrolling global navigation.
-- Hide day/week/edition selection behind Browse or More actions.
+- Hide day/week/edition selection behind Editor's Desk.
 - Make JavaScript the only route to another site surface.
 - Hand-edit generated HTML.
 - Use icon or color alone to communicate destination or state.
@@ -485,14 +477,15 @@ Useful post-release signals:
 The specification is satisfied when:
 
 1. Every in-scope route uses the shared site bar, page-heading hierarchy,
-   Browse model, and action hierarchy in one production release.
+   Editor's Desk model, and action hierarchy in one production release.
 2. No mobile header requires horizontal scrolling at 320px.
 3. Daily, Weekly, and Playbook context pickers are visible before content.
-4. Browse exposes all eight canonical destinations in a stable order.
+4. Editor's Desk exposes all canonical destinations in a stable order.
 5. Detail pages mark the correct parent destination as current.
 6. Search remains directly available on the Live feed.
-7. JSON, Share, Theme, and Email actions remain reachable where applicable.
-8. Navigation update indicators work inside Browse.
+7. JSON, Share, Theme, and Email actions remain reachable where applicable;
+   Theme is a compact header icon rather than Editor's Desk content.
+8. Navigation update indicators work inside Editor's Desk.
 9. Core navigation remains usable without JavaScript.
 10. Keyboard, screen-reader, text-zoom, reduced-motion, theme, and safe-area
     checks pass.
@@ -523,4 +516,4 @@ generated-page renderer together; a partial rollback is not allowed.
 
 None block implementation. Whether Share remains directly visible on high-share
 recap and storyline pages can be evaluated after the shared hierarchy ships;
-the initial contract places it in More actions.
+the current contract places it in Editor's Desk.

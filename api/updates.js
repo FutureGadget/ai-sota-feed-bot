@@ -77,9 +77,9 @@ function latestMap() {
 }
 
 // GET /api/updates -> lightweight freshness signals powering the nav "new
-// updates" dots. Daily/weekly carry the period (date/end) so the client can
-// apply a time-aware staleness gate; storylines/map expose content-based
-// timestamps for pure read-history comparison.
+// updates" dots. Daily/weekly/playbook carry period fields so the client can
+// apply a time-aware staleness gate; storylines/map expose
+// content-based timestamps for pure read-history comparison.
 export default function handler(req, res) {
   try {
     return res.status(200).json({

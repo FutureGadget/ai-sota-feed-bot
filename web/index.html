@@ -23,7 +23,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260625-nav-mobile-left" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260702-theme-icon" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -31,7 +31,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260625-nav-mobile-left"></script>
+  <script defer src="/site-chrome.js?v=20260702-theme-icon"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -720,6 +720,66 @@
     .catchup-more a:hover {
       text-decoration: underline;
     }
+    .editor-desk {
+      border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--border));
+      border-left: 3px solid var(--accent);
+      background: color-mix(in srgb, var(--accent) 6%, var(--card));
+      border-radius: 8px;
+      padding: 0.75rem 0.9rem;
+    }
+    .editor-desk-head {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .editor-desk-kicker {
+      color: var(--accent);
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .editor-desk-title {
+      font-weight: 700;
+    }
+    .editor-desk-copy {
+      margin: 0.4rem 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.48;
+    }
+    .editor-desk-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 0.55rem;
+    }
+    .editor-desk-actions a,
+    .editor-desk-actions button {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 0.28rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: inherit;
+      font-size: 0.86rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .editor-desk-actions a {
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .editor-desk-actions button {
+      border-color: transparent;
+      color: var(--muted);
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -1068,8 +1128,7 @@
         <div class="site-bar-actions">
           <button id="searchToggle" type="button" aria-label="Search the feed" aria-expanded="false">Search</button>
           <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
-          <button type="button" data-site-browse-open>Browse</button>
-          <button type="button" data-site-more-open aria-label="More actions">More</button>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
       <div class="site-page-heading">
@@ -1088,7 +1147,7 @@
         <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Theme</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
       <section class="feed-hero">
@@ -1162,7 +1221,8 @@
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
       if (btn) {
-        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
+        btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
         btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
       }
     }
@@ -2264,18 +2324,191 @@
         storylineNoticeCaptured = true;
         posthogCapture('storyline_notice_view', { count: updated.length });
       }
-      const bullets = updated.map((sl) =>
-        `<li><a href="/storyline/${esc(sl.slug)}" data-storyline-notice="${esc(sl.slug)}">${esc(sl.label || sl.slug)}</a> <span class="catchup-summary">— ${esc(sl.latest_title || '')} (updated ${esc(fmtRelTime(sl.last_updated))})</span></li>`
-      ).join('');
+      const first = updated[0];
+      const more = updated.length > 1 ? ` + ${updated.length - 1} more` : '';
       return `
-        <section class="catchup" aria-label="Updates in storylines you follow">
-          <div class="catchup-head">
-            <strong>📈 Your storylines moved</strong>
-            <span class="catchup-sub">${updated.length} ${updated.length === 1 ? 'storyline you follow has' : 'storylines you follow have'} new updates</span>
+        <section class="editor-desk" aria-label="Editor's Desk storyline update">
+          <div class="editor-desk-head">
+            <span class="editor-desk-kicker">Editor's Desk</span>
+            <span class="editor-desk-title">A storyline you follow moved${esc(more)}</span>
             <button type="button" class="catchup-dismiss" data-storyline-notice-dismiss="1" aria-label="Mark storyline updates as seen" title="Mark as seen">×</button>
           </div>
-          <ul>${bullets}</ul>
+          <p class="editor-desk-copy">${esc(first.latest_title || first.label || first.slug)}${first.last_updated ? ` · updated ${esc(fmtRelTime(first.last_updated))}` : ''}</p>
+          <div class="editor-desk-actions">
+            <a href="/storyline/${esc(first.slug)}" data-storyline-notice="${esc(first.slug)}" data-editor-desk-link="storyline">Follow the thread</a>
+          </div>
         </section>`;
+    }
+
+    // Editor's Desk inserts are contextual, sparse bridges from the live feed
+    // to the site's memory/action surfaces. They never appear before the first
+    // few ranked stories and are capped so the feed remains the primary path.
+    const EDITOR_DESK_DISMISS_PREFIX = 'ai_feed_editor_desk_dismissed_v1:';
+    const EDITOR_DESK_SEEN = {
+      daily: 'ai_feed_seen_daily_v1',
+      weekly: 'ai_feed_seen_weekly_v1',
+      storylines: 'ai_feed_seen_storylines_v1',
+      playbook: 'ai_feed_seen_playbook_v1',
+      map: 'ai_feed_seen_map_v1',
+    };
+    let editorDeskData = { updates: null, playbookSources: {} };
+    let editorDeskPromise = null;
+
+    function ensureEditorDeskData() {
+      if (!editorDeskPromise) {
+        editorDeskPromise = Promise.all([
+          fetch('/api/updates', { headers: { accept: 'application/json' } })
+            .then((r) => r.ok ? r.json() : null)
+            .catch(() => null),
+          fetch('/api/playbook?sources=1', { headers: { accept: 'application/json' } })
+            .then((r) => r.ok ? r.json() : {})
+            .catch(() => ({})),
+        ]).then(([updates, playbookSources]) => {
+          editorDeskData = {
+            updates,
+            playbookSources: playbookSources && typeof playbookSources === 'object' && !Array.isArray(playbookSources)
+              ? playbookSources
+              : {},
+          };
+        });
+      }
+      return editorDeskPromise;
+    }
+
+    function isEditorDeskDismissed(id) {
+      try {
+        return sessionStorage.getItem(EDITOR_DESK_DISMISS_PREFIX + id) === '1';
+      } catch {
+        return false;
+      }
+    }
+
+    function dismissEditorDesk(id) {
+      try {
+        sessionStorage.setItem(EDITOR_DESK_DISMISS_PREFIX + id, '1');
+      } catch {}
+    }
+
+    function editorDeskSignalOf(updates, section) {
+      if (section === 'daily') return updates?.daily?.generated_at || '';
+      if (section === 'weekly') return updates?.weekly?.generated_at || '';
+      if (section === 'storylines') return updates?.storylines?.last_updated || '';
+      if (section === 'playbook') return updates?.playbook?.generated_at || '';
+      if (section === 'map') return updates?.map?.updated || '';
+      return '';
+    }
+
+    function editorDeskMs(s) {
+      const t = s ? Date.parse(s) : NaN;
+      return Number.isFinite(t) ? t : NaN;
+    }
+
+    function editorDeskUnread(section) {
+      const signal = editorDeskSignalOf(editorDeskData.updates, section);
+      if (!signal) return false;
+      let seen = '';
+      try {
+        seen = localStorage.getItem(EDITOR_DESK_SEEN[section]) || '';
+      } catch {}
+      if (!seen) return true;
+      const a = editorDeskMs(signal);
+      const b = editorDeskMs(seen);
+      if (Number.isFinite(a) && Number.isFinite(b)) return a > b;
+      return String(signal) > String(seen);
+    }
+
+    function editorDeskDayAge(nowIso, dateStr) {
+      if (!dateStr) return Infinity;
+      const now = new Date(nowIso);
+      const d = new Date(dateStr.length === 10 ? `${dateStr}T00:00:00Z` : dateStr);
+      if (Number.isNaN(now.getTime()) || Number.isNaN(d.getTime())) return Infinity;
+      const a = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
+      const b = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+      return Math.round((a - b) / 86400000);
+    }
+
+    function editorDeskDailyIsFresh() {
+      const u = editorDeskData.updates;
+      return Boolean(u?.daily?.date) && editorDeskDayAge(u.now, u.daily.date) <= 1;
+    }
+
+    function shortDeskText(v, max = 150) {
+      const text = cleanText(v);
+      return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
+    }
+
+    function playbookCardForItem(it) {
+      const sources = editorDeskData.playbookSources || {};
+      const direct = sources[itemKey(it)];
+      if (direct) return direct;
+      const url = normStorylineUrl(it.url);
+      if (!url) return null;
+      return Object.values(sources).find((card) => normStorylineUrl(card?.source_url) === url) || null;
+    }
+
+    function editorDeskCardHtml({ id, title, copy, href, cta, kind }) {
+      if (isEditorDeskDismissed(id)) return '';
+      return `
+        <section class="editor-desk" aria-label="Editor's Desk">
+          <div class="editor-desk-head">
+            <span class="editor-desk-kicker">Editor's Desk</span>
+            <span class="editor-desk-title">${esc(title)}</span>
+            <button type="button" class="catchup-dismiss" data-editor-desk-dismiss="${esc(id)}" aria-label="Dismiss Editor's Desk note" title="Dismiss">×</button>
+          </div>
+          ${copy ? `<p class="editor-desk-copy">${esc(copy)}</p>` : ''}
+          <div class="editor-desk-actions">
+            <a href="${esc(href)}" data-editor-desk-link="${esc(kind)}">${esc(cta)}</a>
+          </div>
+        </section>`;
+    }
+
+    function editorDeskInserts(visible) {
+      const inserts = [];
+      const followedNotice = storylineNoticeHtml();
+      if (followedNotice) inserts.push({ after: 6, html: followedNotice });
+
+      const playbookMatch = visible
+        .map((it, i) => ({ it, i, card: playbookCardForItem(it) }))
+        .find(({ i, card }) => i >= 3 && card && !isEditorDeskDismissed(`playbook:${card.id || card.source_sid || itemKey(card)}`));
+      if (playbookMatch) {
+        const card = playbookMatch.card;
+        inserts.push({
+          after: Math.max(8, playbookMatch.i + 1),
+          html: editorDeskCardHtml({
+            id: `playbook:${card.id || card.source_sid || itemKey(playbookMatch.it)}`,
+            title: `Playbook takeaway: ${card.title || 'apply this pattern'}`,
+            copy: shortDeskText(card.apply || card.problem || card.result),
+            href: card.edition_date ? `/playbook/${encodeURIComponent(card.edition_date)}` : '/playbook',
+            cta: 'Read the card',
+            kind: 'playbook',
+          }),
+        });
+      }
+
+      if (editorDeskUnread('daily') && editorDeskDailyIsFresh() && !isEditorDeskDismissed('daily')) {
+        inserts.push({
+          after: 12,
+          html: editorDeskCardHtml({
+            id: 'daily',
+            title: "Today's recap is ready",
+            copy: 'The live feed stays ranked; the recap compresses the day into a finishable brief when you want the editorial version.',
+            href: '/daily',
+            cta: 'Read the recap',
+            kind: 'daily',
+          }),
+        });
+      }
+
+      const used = new Set();
+      return inserts
+        .filter((insert) => insert.html)
+        .sort((a, b) => a.after - b.after)
+        .filter((insert) => {
+          if (used.has(insert.after)) insert.after += 3;
+          used.add(insert.after);
+          return true;
+        })
+        .slice(0, 2);
     }
 
     function sourceDisplayName(slug) {
@@ -2717,7 +2950,13 @@
         // after the 3rd story; catch-up stays pinned on top.
         const promo = onboardingHtml() || subscribeNudgeHtml();
         if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
-        cards.unshift(catchupHtml(items), storylineNoticeHtml());
+        const editorInserts = editorDeskInserts(visible);
+        let editorOffset = 0;
+        for (const insert of editorInserts) {
+          cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
+          editorOffset += 1;
+        }
+        cards.unshift(catchupHtml(items));
         // Finish line for the Brief default — make the "finishable" promise
         // visible. Only on the Brief lens (not the firehose/topic views).
         if (activeSection() === 'brief') {
@@ -2733,7 +2972,7 @@
         renderSavedView();
         return;
       }
-      let [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines()]);
+      let [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines(), ensureEditorDeskData()]);
       if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
         res = await fetch('/data/processed/latest.json', { cache: 'no-store' });
       }
@@ -2874,11 +3113,29 @@
           return;
         }
 
+        const editorDismiss = e.target.closest('button[data-editor-desk-dismiss]');
+        if (editorDismiss) {
+          const id = editorDismiss.dataset.editorDeskDismiss || '';
+          if (id) dismissEditorDesk(id);
+          posthogCapture('editor_desk_dismiss', { id });
+          renderFeedList();
+          return;
+        }
+
         const slLink = e.target.closest('a[data-storyline-badge], a[data-storyline-notice]');
         if (slLink) {
           posthogCapture('storyline_open', {
             slug: slLink.dataset.storylineBadge || slLink.dataset.storylineNotice || '',
             placement: slLink.dataset.storylineBadge ? 'card_badge' : 'follow_notice',
+          });
+          return;
+        }
+
+        const editorLink = e.target.closest('a[data-editor-desk-link]');
+        if (editorLink) {
+          posthogCapture('editor_desk_open', {
+            kind: editorLink.dataset.editorDeskLink || '',
+            href: editorLink.getAttribute('href') || '',
           });
           return;
         }
@@ -3056,8 +3313,8 @@
       });
     }
 
-    // Subscribe CTAs live in several places (header, Browse nav, finish line,
-    // footer, returning-visitor nudge); document-level listeners attribute
+    // Subscribe CTAs live in several places (header, Editor's Desk, finish
+    // line, footer, returning-visitor nudge); document-level listeners attribute
     // clicks by placement.
     document.addEventListener('click', (e) => {
       const a = e.target.closest('a[data-digest-cta]');
@@ -3203,12 +3460,13 @@
           .then(function (u) {
             if (!u) return;
             injectStyle();
+            var cur = currentSection();
             Object.keys(ROUTE).forEach(function (route) {
               var section = ROUTE[route];
               var signal = signalOf(u, section);
+              if (section === cur) return;
               if (signal && isUnread(section, signal) && isFresh(section, u)) decorate(section);
             });
-            var cur = currentSection();
             if (cur) {
               var sig = signalOf(u, cur);
               if (sig) setItem(SEEN[cur], sig);
