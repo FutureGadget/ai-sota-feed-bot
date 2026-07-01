@@ -70,8 +70,8 @@ class PlaybookSurfaceTest(unittest.TestCase):
         self.assertIn("/data/playbook/${encodeURIComponent(date)}.json", self.html)
 
     def test_preserves_nav_update_indicator(self) -> None:
-        self.assertIn("ai_feed_seen_playbook_v1", self.html)
-        self.assertIn("/api/updates", self.html)
+        # Freshness/read-tracking logic is the shared script, not an inline fork.
+        self.assertIn('src="/nav-updates.js', self.html)
 
     def test_quality_floor(self) -> None:
         # Visible keyboard focus, reduced motion, theme toggle, mascot opt-out.
