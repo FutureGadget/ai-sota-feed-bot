@@ -40,6 +40,11 @@ from datetime import date, datetime, time, timedelta, timezone
 from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo
+
+# The daily-recap routine's schedule is anchored to KST (06:00 Asia/Seoul),
+# not UTC, so publish-timing decisions compare against the KST calendar date.
+KST = ZoneInfo("Asia/Seoul")
 
 
 def _find_repo_root(start: Path) -> Path:
@@ -176,6 +181,25 @@ def next_target_date(today: date) -> date:
     if candidates:
         return date.fromisoformat(max(candidates)) + timedelta(days=1)
     return today - timedelta(days=1)
+
+
+def now_kst_date() -> date:
+    """Current calendar date in KST (Asia/Seoul)."""
+    return datetime.now(timezone.utc).astimezone(KST).date()
+
+
+def is_target_due(end_d: date, today_kst: date) -> bool:
+    """Whether the automatic-mode target date should be built yet.
+
+    Gated on the KST calendar date rather than the UTC calendar date: the
+    daily-recap routine runs on a 06:00 KST schedule, and KST is 9h ahead of
+    UTC, so the KST calendar turns over to the day after ``end_d`` hours
+    before ``end_d`` itself finishes as a UTC day. Requiring the UTC day to
+    fully elapse first meant every recap published one KST day later than
+    necessary; the routine's own publish clock is KST, so that is what
+    "has this target day arrived" should be measured against.
+    """
+    return end_d <= today_kst
 
 
 def category_for_type(item_type: str | None) -> str:
