@@ -182,6 +182,25 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn('"Editor\'s Desk"', js)
         self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)
 
+    def test_theme_toggle_is_compact_header_action_not_editor_desk_content(self) -> None:
+        css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+
+        self.assertIn('actions?.querySelector("#themeToggle")', js)
+        self.assertIn('themeButton.classList.add("site-theme-toggle")', js)
+        self.assertIn("browseButton.before(themeButton)", js)
+        self.assertIn(".site-bar-actions > .site-theme-toggle", css)
+        self.assertNotIn(".site-dialog #themeToggle", css)
+
+        for filename in SHELLS:
+            with self.subTest(filename=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn('id="themeToggle"', html)
+                self.assertIn('title="Toggle theme"', html)
+                self.assertIn("btn.textContent = theme === 'dark' ? '☀️' : '🌙';", html)
+                self.assertNotIn("Use light theme", html)
+                self.assertNotIn("Use dark theme", html)
+
 
 if __name__ == "__main__":
     unittest.main()

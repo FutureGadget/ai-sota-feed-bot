@@ -38,7 +38,7 @@ navigation models.
 - **Orientation stays visible.** Page identity and date/week/edition context
   take priority over utilities.
 - **Breadth is progressively disclosed.** The full destination list belongs in
-  Editor's Desk, alongside settings/actions that do not deserve a separate
+  Editor's Desk, alongside page-specific actions that do not deserve a separate
   top-level mobile button.
 - **One site, not adjacent microsites.** Destination order, names, interaction,
   and visual treatment are consistent across surfaces.
@@ -91,18 +91,19 @@ Typical drawer actions:
 
 - Share this page
 - View as JSON
-- Switch theme
 
-`Subscribe` is the exception: it is a persistent visible header action because
-email is the primary retention channel. The link always goes to `/subscribe`;
-inline forms and modal signup are intentionally out of scope for the chrome.
-Finish-line subscription CTAs may appear after primary reading content on feed,
-recap, story, and storyline pages.
+`Subscribe` is a persistent visible header action because email is the primary
+retention channel. The theme toggle is also visible in the header as a compact
+icon-only utility whose icon flips with the current theme; its `aria-label` and
+hover title name the target theme. The link always goes to `/subscribe`; inline
+forms and modal signup are intentionally out of scope for the chrome. Finish-line
+subscription CTAs may appear after primary reading content on feed, recap, story,
+and storyline pages.
 
 Action labels describe the result. Examples:
 
 - `View daily recap as JSON`
-- `Use light theme`
+- `Switch to light theme`
 - `Share this storyline`
 
 An unexplained ellipsis is not sufficient as the accessible name.
@@ -236,19 +237,19 @@ it must not be duplicated in the site bar.
 
 | Surface | Source of truth | Visible primary action | Visible context | Editor's Desk actions |
 |---|---|---|---|---|
-| Live feed `/` | `web/index.html` | Search, Subscribe | Lens + timeframe controls | Theme |
-| Daily `/daily` | `web/daily.html` | Subscribe | Day picker | Share when available, JSON, Theme |
-| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | Subscribe | Day picker | Share, JSON, Theme |
-| Weekly `/weekly` | `web/weekly.html` | Subscribe | Week picker; Detailed/Scan remains with content | Share when available, JSON, Theme |
-| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | Subscribe | Week picker; Detailed/Scan remains with content | Share, JSON, Theme |
-| Storylines `/storylines` | `web/storyline.html` | Subscribe | Existing All/Following filters remain with content | Share when available, JSON, Theme |
-| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe; Follow may remain in content | None | Share, JSON, Theme |
-| Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe | Edition picker | JSON, Theme |
-| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe | Existing area navigation remains with content | Share, JSON, Theme |
-| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe | Existing graph links remain with content | Share, Theme |
-| Voices `/voices` | `web/voices.html` | Subscribe | Existing page filters, if any, remain with content | Theme |
-| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe; original source remains in content | None | Share, Theme |
-| Subscribe `/subscribe` | `web/subscribe.html` | Subscribe | Subscription form remains in content | Theme |
+| Live feed `/` | `web/index.html` | Search, Subscribe, Theme icon | Lens + timeframe controls | None |
+| Daily `/daily` | `web/daily.html` | Subscribe, Theme icon | Day picker | Share when available, JSON |
+| Daily archive `/daily/<date>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Day picker | Share, JSON |
+| Weekly `/weekly` | `web/weekly.html` | Subscribe, Theme icon | Week picker; Detailed/Scan remains with content | Share when available, JSON |
+| Weekly archive `/weekly/<week>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Week picker; Detailed/Scan remains with content | Share, JSON |
+| Storylines `/storylines` | `web/storyline.html` | Subscribe, Theme icon | Existing All/Following filters remain with content | Share when available, JSON |
+| Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; Follow may remain in content | None | Share, JSON |
+| Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe, Theme icon | Edition picker | JSON |
+| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing area navigation remains with content | Share, JSON |
+| Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing graph links remain with content | Share |
+| Voices `/voices` | `web/voices.html` | Subscribe, Theme icon | Existing page filters, if any, remain with content | None |
+| Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; original source remains in content | None | Share |
+| Subscribe `/subscribe` | `web/subscribe.html` | Subscribe, Theme icon | Subscription form remains in content | None |
 
 Generated HTML under `web/daily/`, `web/weekly/`, `web/story/`,
 `web/storyline/`, `web/topic/`, and `web/map.html` is never hand-edited.
@@ -482,7 +483,8 @@ The specification is satisfied when:
 4. Editor's Desk exposes all canonical destinations in a stable order.
 5. Detail pages mark the correct parent destination as current.
 6. Search remains directly available on the Live feed.
-7. JSON, Share, Theme, and Email actions remain reachable where applicable.
+7. JSON, Share, Theme, and Email actions remain reachable where applicable;
+   Theme is a compact header icon rather than Editor's Desk content.
 8. Navigation update indicators work inside Editor's Desk.
 9. Core navigation remains usable without JavaScript.
 10. Keyboard, screen-reader, text-zoom, reduced-motion, theme, and safe-area

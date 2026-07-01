@@ -9,6 +9,7 @@
   const actions = chrome?.querySelector(".site-actions-fallback");
   const browseButton = chrome?.querySelector("[data-site-browse-open]");
   const moreButton = chrome?.querySelector("[data-site-more-open]");
+  const themeButton = actions?.querySelector("#themeToggle");
 
   if (
     !chrome ||
@@ -22,6 +23,11 @@
   browseButton.setAttribute("aria-label", "Open Editor's Desk");
   browseButton.innerHTML = '<span class="site-desk-full">Editor\'s Desk</span><span class="site-desk-short">Desk</span>';
   if (moreButton) moreButton.hidden = true;
+  if (themeButton) {
+    themeButton.classList.add("site-theme-toggle");
+    themeButton.setAttribute("title", themeButton.getAttribute("aria-label") || "Toggle theme");
+    browseButton.before(themeButton);
+  }
 
   const parentSection = (pathname) => {
     if (pathname === "/" || pathname.startsWith("/story/")) return "/";

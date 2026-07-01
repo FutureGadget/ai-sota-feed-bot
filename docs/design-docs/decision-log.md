@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-07-02 (Keep theme outside Editor's Desk as an icon utility)
+- **Decision:** Move the theme toggle out of Editor's Desk during shared chrome enhancement and render it as a compact icon-only header button. The icon flips between sun and moon based on the active theme, while `aria-label` and `title` keep the full target action available to assistive tech and hover users. Page-specific JSON/share actions remain in Editor's Desk.
+- **Context / Problem:** After collapsing Browse/More into Editor's Desk, the only action in the Desk on the live feed was "Use light theme", which made the drawer feel like a miscellaneous settings menu rather than an editorial navigation surface.
+- **Rationale:** Theme switching is a persistent utility, not editorial content. A 44px icon button keeps it reachable without adding another text-heavy top-level control, and it lets Editor's Desk stay focused on "where should I read next?"
+- **Impact:** Updated shared chrome JS/CSS, hand-authored shell theme labels, generated-page renderer template, mobile chrome product spec, and regression tests. No localStorage contract change; the existing `theme` key and click handler remain intact.
+- **Rollback:** Revert the chrome relocation and label changes; theme will again remain in `.site-actions-fallback` and be moved into Editor's Desk with other page actions.
+
 ## 2026-06-30 (Deliver daily + weekly digest email at 08:00 KST)
 - **Decision:** Target an **08:00 KST** inbox time for both digests. Move the recap routines that produce the digests *before* that send: `daily-recap` from `0 9 * * *` (09:00 KST) to `0 6 * * *` (06:00 KST), and `weekly-recap` from `0 13 * * 6` (Sat 13:00 KST) to `0 6 * * 6` (Sat 06:00 KST). The email sends move to `0 23 * * *` (23:00 UTC → 08:00 KST next morning) for the daily brief and `0 23 * * 5` (Fri 23:00 UTC → Sat 08:00 KST) for the weekly recap. The workflow's legacy cron-to-kind mapping now treats `0 23 * * 5` as the weekly send.
 - **Context / Problem:** The owner wants the brief waiting in the inbox first thing (08:00 Seoul) rather than mid-morning (the prior 10:30 KST daily / 14:30 KST weekly sends). The 2026-06-24 ADR fixed an ordering bug by pushing the *email* later; this change instead takes that ADR's stated alternative — pull the *recap routines* earlier — so the recap is committed ~2h before the send and the ordering still holds.

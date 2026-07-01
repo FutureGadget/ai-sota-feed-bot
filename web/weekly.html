@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260702-editor-desk" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260702-theme-icon" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -28,7 +28,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260702-editor-desk"></script>
+  <script defer src="/site-chrome.js?v=20260702-theme-icon"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -387,7 +387,7 @@
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a id="jsonLink" href="/api/weekly">View weekly recap as JSON</a>
-        <button id="themeToggle" type="button" aria-label="Toggle theme">🌙 Dark</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
       <div class="site-context" aria-label="Choose weekly recap">
         <a id="archivePrev" href="/weekly" aria-label="Previous week">‹</a>
@@ -417,8 +417,9 @@
       localStorage.setItem('theme', theme);
       const btn = document.getElementById('themeToggle');
       if (btn) {
-        btn.textContent = theme === 'dark' ? '☀️ Use light theme' : '🌙 Use dark theme';
-        btn.setAttribute('aria-label', theme === 'dark' ? 'Use light theme' : 'Use dark theme');
+        btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
       }
     }
     function initThemeToggle() {
