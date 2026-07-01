@@ -50,6 +50,10 @@ available to each function.
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
   bundles the agent reads (excluded from deploys)
+- `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
+  `last_checked_date` (latest UTC day published or confirmed empty) and
+  `skipped_dates` (audit trail of confirmed-empty days). Only the script's
+  no-`--date` mode advances it; excluded from deploys
 - `data/playbook/<YYYY-MM-DD>.json` — agent-written **Playbook editions**: a
   batch of actionable cards for agent builders. Every card has
   `{id, kind, title, problem, apply, result}`. `source-backed` cards additionally

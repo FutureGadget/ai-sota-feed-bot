@@ -5,10 +5,11 @@ description: Curate and publish the next unpublished UTC day's AI news recap.
 
 schedule:
   # 06:00 KST — built ahead of the 08:00 KST email send (23:00 UTC) so the
-  # curated recap is committed before the digest goes out. The prompt picks
-  # its target date from the latest published recap (not from "yesterday in
-  # UTC" relative to run time), so it is self-healing across missed runs
-  # regardless of exactly when in the day this fires.
+  # curated recap is committed before the digest goes out. build_daily_input.py
+  # picks its target date from data/daily/state.json + the latest published
+  # recap (not from "yesterday in UTC" relative to run time), so it is
+  # self-healing across missed runs regardless of exactly when in the day this
+  # fires.
   cron: "0 6 * * *"
   timezone: Asia/Seoul
   enabled: true
