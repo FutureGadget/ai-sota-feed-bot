@@ -1,9 +1,9 @@
 # Nav "new updates" indicators
 
 A small **"New" pill** on the navigation links to **Daily recap**, **Weekly
-recap**, **Storylines**, and **Knowledge map** tells a returning reader, at a
-glance, which of those sections has something new since they last looked —
-without opening each page to check.
+recap**, **Storylines**, **Playbook**, and **Knowledge map** tells a returning
+reader, at a glance, which of those sections has something new since they last
+looked — without opening each page to check.
 
 This serves the "memory / catch-up" pillar of the product positioning: the
 reader should be able to tell what they missed, not just see four static links.
@@ -29,28 +29,31 @@ white-on-accent.
 ## Behaviour
 
 Each section's dot appears when the section is **unread** (its latest content is
-newer than what the reader last saw) — but Daily and Weekly add a **time-aware
-freshness gate** on top of read history:
+newer than what the reader last saw) — but Daily, Weekly, and Playbook add a
+**time-aware freshness gate** on top of read history:
 
 | Section | Dot shows when… | Time gate? |
 |---|---|---|
 | Daily recap | latest recap is newer than last seen **and** the recap is current | yes |
 | Weekly recap | latest recap is newer than last seen **and** the recap is current | yes |
 | Storylines | any thread moved since last seen | no — read history only |
+| Playbook | latest edition is newer than last seen **and** the edition is current | yes |
 | Knowledge map | any wiki page edited since last seen | no — read history only |
 
-### Why Daily/Weekly need the time gate
+### Why dated editions need the time gate
 
-A daily recap that hasn't been produced for two days is **stale**, not fresh —
-even if you personally never opened the last one. Showing a "new!" dot for stale
-data would be misleading (it implies there's fresh catch-up waiting when there
-isn't). So Daily/Weekly only light up when the latest recap actually covers a
-**recent** period:
+A daily recap or Playbook edition that has not been produced recently is
+**stale**, not fresh — even if you personally never opened the last one. Showing
+a "new!" dot for stale data would be misleading (it implies there's fresh
+catch-up waiting when there isn't). So dated editions only light up when the
+latest artifact actually covers a **recent** period:
 
 - **Daily** is fresh when its `date` covers today or yesterday
   (`age <= 1` day). A recap older than that is considered stale → no dot.
 - **Weekly** is fresh when its `end` date is within the last completed week plus
   a one-day grace (`age <= 8` days). Older → no dot.
+- **Playbook** is fresh when its edition `date` is within ten days
+  (`age <= 10` days). Older → no dot.
 
 Storylines and the knowledge map have no fixed cadence — a thread can go quiet
 for a week and then move, and a wiki page is "current" until it's edited again —
@@ -67,6 +70,7 @@ staleness notion.
     "daily":      { "date": "2026-06-18", "generated_at": "2026-06-19T00:10:00Z" },
     "weekly":     { "week": "2026-W24", "end": "2026-06-13", "generated_at": "..." },
     "storylines": { "generated_at": "...", "last_updated": "2026-06-16T17:22:07Z" },
+    "playbook":   { "date": "2026-06-18", "generated_at": "..." },
     "map":        { "updated": "2026-06-18" }
   }
   ```
@@ -77,6 +81,8 @@ staleness notion.
   - storylines uses the max thread `last_updated` (moves only when a thread gets
     new material — **not** the index `generated_at`, which the 5-hourly rebuild
     bumps every run);
+  - playbook uses the latest edition `generated_at` and gates freshness by its
+    edition `date`;
   - map uses the max per-node `updated` date (a real page edit — **not** the
     wiki `index.json` `generated_at`, which every Vercel build regenerates).
 
@@ -85,14 +91,17 @@ staleness notion.
   static-render template (`pipeline/render_static_pages.py`,
   `NAV_UPDATES_JS`) fetches `/api/updates`, compares each signal against a
   per-section "seen" marker in `localStorage`, applies the freshness gate for
-  daily/weekly, and decorates matching `.site-nav-fallback` links. Shared site
-  chrome moves that same semantic navigation node into Browse, so the pill
-  remains visible without duplicating freshness logic.
+  daily/weekly/playbook, skips decorating the current section before marking it
+  seen, and decorates matching `.site-nav-fallback` links. Shared site chrome
+  moves that same semantic navigation node into Editor's Desk and rolls visible
+  pills up onto the trigger, so the signal remains visible without duplicating
+  freshness logic.
 
 - **Read tracking:** when the reader is *on* a section page
-  (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`, `/map` or
-  `/topic/<slug>`), the script records that section's current signal as the new
-  "seen" marker, so the pill clears on the next page they visit.
+  (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`,
+  `/playbook[/…]`, `/map` or `/topic/<slug>`), the script records that section's
+  current signal as the new "seen" marker, so the pill clears immediately and
+  remains cleared on the next page they visit.
 
 ### localStorage keys
 
@@ -101,6 +110,7 @@ staleness notion.
 | `ai_feed_seen_daily_v1` | daily `generated_at` last seen |
 | `ai_feed_seen_weekly_v1` | weekly `generated_at` last seen |
 | `ai_feed_seen_storylines_v1` | max thread `last_updated` last seen |
+| `ai_feed_seen_playbook_v1` | playbook `generated_at` last seen |
 | `ai_feed_seen_map_v1` | max wiki node `updated` last seen |
 
 All read/writes are wrapped in try/catch — private-mode / disabled storage just
@@ -112,12 +122,13 @@ means dots fall back to "always show when unread."
   pinned topics), "what have I seen" lives entirely in the reader's browser.
 - **Defensive.** If `/api/updates` fails or returns nothing, no dots render and
   nothing else on the page is affected.
-- **Tuning.** The staleness thresholds are the `DAILY_FRESH_MAX_AGE` (1) and
-  `WEEKLY_FRESH_MAX_AGE` (8) constants in the inline script / `NAV_UPDATES_JS`.
+- **Tuning.** The staleness thresholds are the `DAILY_FRESH_MAX_AGE` (1),
+  `WEEKLY_FRESH_MAX_AGE` (8), and `PLAYBOOK_FRESH_MAX_AGE` (10) constants in
+  the inline script / `NAV_UPDATES_JS`.
 
 ## Tests / validation
 
 - `node --check api/updates.js`; the handler was run against the live data
-  tree and returns the four sections.
+  tree and returns the five sections.
 - `python3 pipeline/render_static_pages.py` renders generated pages with the
   indicator script embedded (no stray escaping from the raw-string constant).

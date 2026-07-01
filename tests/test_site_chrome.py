@@ -61,7 +61,7 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertIn(f'src="/site-chrome.js?v={SITE_CHROME_VERSION}"', html)
                 self.assertIn('class="site-chrome"', html)
                 self.assertIn("data-site-browse-open", html)
-                self.assertIn("data-site-more-open", html)
+                self.assertIn("Open Editor's Desk", html)
                 self.assertIn('class="site-nav-fallback', html)
                 self.assertIn('class="site-actions-fallback', html)
                 assert_destination_order(self, html)
@@ -73,7 +73,7 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertIn('class="site-subscribe-action"', html)
                 self.assertIn('data-subscribe-placement="header"', html)
 
-    def test_update_indicators_target_navigation_after_it_moves_to_browse(self) -> None:
+    def test_update_indicators_target_navigation_after_it_moves_to_editor_desk(self) -> None:
         for filename in (
             "index.html",
             "daily.html",
@@ -92,6 +92,31 @@ class SiteChromeContractTest(unittest.TestCase):
             "querySelectorAll('.site-nav-fallback a[href]')",
             render.NAV_UPDATES_JS,
         )
+
+    def test_update_indicators_skip_the_current_section_before_decorating(self) -> None:
+        for filename in (
+            "index.html",
+            "daily.html",
+            "weekly.html",
+            "storyline.html",
+            "playbook.html",
+            "voices.html",
+        ):
+            with self.subTest(filename=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn("var cur = currentSection();", html)
+                self.assertIn("if (section === cur) return;", html)
+                self.assertLess(
+                    html.index("var cur = currentSection();"),
+                    html.index("Object.keys(ROUTE).forEach"),
+                )
+                self.assertLess(
+                    html.index("if (section === cur) return;"),
+                    html.index("if (signal && isUnread(section, signal)"),
+                )
+
+        self.assertIn("var cur = currentSection();", render.NAV_UPDATES_JS)
+        self.assertIn("if (section === cur) return;", render.NAV_UPDATES_JS)
 
     def test_dynamic_archive_surfaces_keep_visible_direction_controls(self) -> None:
         for filename in ("daily.html", "weekly.html", "playbook.html"):
@@ -149,9 +174,12 @@ class SiteChromeContractTest(unittest.TestCase):
         ):
             self.assertIn(prefix, js)
 
-    def test_browse_dialog_keeps_foundations_inside_build_group(self) -> None:
+    def test_editor_desk_dialog_groups_navigation_and_actions(self) -> None:
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
-        self.assertIn('["Build", ["/playbook", "/map", "/foundations"]]', js)
+        self.assertIn('["Apply", ["/playbook"]]', js)
+        self.assertIn('["Understand", ["/map", "/foundations"]]', js)
+        self.assertIn("site-actions-group", js)
+        self.assertIn('"Editor\'s Desk"', js)
         self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)
 
 

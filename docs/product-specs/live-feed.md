@@ -17,6 +17,24 @@ Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
 may appear as supporting context.
 
+## Editor's Desk inserts
+
+Editor's Desk notes may appear between ranked feed items when another site
+surface helps the reader understand the story they are already reading. These
+are editorial utility inserts, not generic cross-promotion.
+
+Rules:
+
+- No Editor's Desk insert appears before the early ranked stories.
+- At most two Editor's Desk inserts appear in one feed render.
+- Inserts are dismissible for the current browser session.
+- Storyline inserts explain a followed/developing thread.
+- Playbook inserts require a source-backed card for the surrounding story.
+- Daily recap inserts are allowed only when the latest recap is fresh and
+  unread.
+- Knowledge map and Foundations should appear only when a story maps to a
+  concrete topic/concept, not as generic destination ads.
+
 ## "New since your last visit"
 
 The **New** badge, the meta-line "N new since your last visit" count, and the

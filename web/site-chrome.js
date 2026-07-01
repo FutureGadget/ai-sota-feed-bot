@@ -13,13 +13,15 @@
   if (
     !chrome ||
     !nav ||
-    !actions ||
     !browseButton ||
-    !moreButton ||
     typeof HTMLDialogElement === "undefined"
   ) {
     return;
   }
+
+  browseButton.setAttribute("aria-label", "Open Editor's Desk");
+  browseButton.innerHTML = '<span class="site-desk-full">Editor\'s Desk</span><span class="site-desk-short">Desk</span>';
+  if (moreButton) moreButton.hidden = true;
 
   const parentSection = (pathname) => {
     if (pathname === "/" || pathname.startsWith("/story/")) return "/";
@@ -60,9 +62,21 @@
     const groups = [
       ["Catch up", ["/", "/daily", "/weekly"]],
       ["Follow", ["/storylines"]],
-      ["Build", ["/playbook", "/map", "/foundations"]],
+      ["Apply", ["/playbook"]],
+      ["Understand", ["/map", "/foundations"]],
       ["More", ["/voices", "/subscribe"]],
     ];
+    const descriptions = {
+      "/": "Ranked stories, finite reading",
+      "/daily": "What changed today",
+      "/weekly": "What you missed this week",
+      "/storylines": "Developing stories over time",
+      "/playbook": "Actionable engineering lessons",
+      "/map": "Problems mapped to solutions",
+      "/foundations": "Durable concept explainers",
+      "/voices": "Practitioner voices worth following",
+      "/subscribe": "Get the brief by email",
+    };
     groups.forEach(([label, destinations]) => {
       const section = document.createElement("section");
       section.className = "site-nav-group";
@@ -74,7 +88,21 @@
       if (label === "More") fallbackLinks = links;
       destinations.forEach((destination) => {
         const link = nav.querySelector(`[data-site-destination="${destination}"]`);
-        if (link) links.append(link);
+        if (link) {
+          const desc = descriptions[destination];
+          if (desc && !link.querySelector(".site-nav-desc")) {
+            const labelText = link.textContent.trim();
+            link.textContent = "";
+            const text = document.createElement("span");
+            text.className = "site-nav-text";
+            text.textContent = labelText;
+            const sub = document.createElement("span");
+            sub.className = "site-nav-desc";
+            sub.textContent = desc;
+            link.append(text, sub);
+          }
+          links.append(link);
+        }
       });
       section.append(heading, links);
       nav.append(section);
@@ -130,23 +158,46 @@
     return dialog;
   };
 
+  const deskContent = document.createElement("div");
+  deskContent.className = "site-desk-content";
+  deskContent.append(nav);
+  if (actions && actions.children.length) {
+    const section = document.createElement("section");
+    section.className = "site-nav-group site-actions-group";
+    const heading = document.createElement("p");
+    heading.className = "site-nav-group-label";
+    heading.textContent = "Settings";
+    section.append(heading, actions);
+    deskContent.append(section);
+  }
+
   createDialog({
     className: "site-browse-dialog",
-    title: "Browse LLM Digest",
+    title: "Editor's Desk",
     trigger: browseButton,
-    content: nav,
+    content: deskContent,
   });
 
-  if (actions.children.length) {
-    createDialog({
-      className: "site-actions-dialog",
-      title: "More actions",
-      trigger: moreButton,
-      content: actions,
-    });
-  } else {
-    moreButton.hidden = true;
-  }
+  const updateDeskCount = () => {
+    const count = nav.querySelectorAll(".nav-update-dot").length;
+    browseButton.querySelector(".site-desk-count")?.remove();
+    browseButton.querySelector(".nav-update-sr")?.remove();
+    if (!count) return;
+    const badge = document.createElement("span");
+    badge.className = "site-desk-count";
+    badge.textContent = String(count);
+    badge.setAttribute("aria-hidden", "true");
+    browseButton.append(badge);
+    const sr = document.createElement("span");
+    sr.className = "nav-update-sr";
+    sr.textContent = ` (${count} new ${count === 1 ? "section" : "sections"})`;
+    browseButton.append(sr);
+  };
+  updateDeskCount();
+  new MutationObserver(updateDeskCount).observe(nav, {
+    childList: true,
+    subtree: true,
+  });
 
   root.classList.add("site-chrome-enhanced");
 })();
