@@ -1,123 +1,96 @@
 {
   "slug": "claude-fable",
-  "generated_at": "2026-07-01T00:03:29+00:00",
-  "covers_last_updated": "2026-06-20T09:03:00+00:00",
+  "generated_at": "2026-07-01T05:05:08+00:00",
+  "covers_last_updated": "2026-06-30T16:00:00+00:00",
   "covers_member_sids": [
-    "d232148f3de4820c",
-    "e11fcea9cd94bb20",
     "c9ab8f8aa14fe295",
     "001317287cdd9d97",
     "e464b7a63a6a0397",
+    "e11fcea9cd94bb20",
     "1a3926308e38dbe8",
     "575139a8c2fbbeb4",
-    "679c5fff40623508"
+    "679c5fff40623508",
+    "fdd9745edc3aad4e"
   ],
-  "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 on Jun 9-10 — a long-horizon model shipped \"made safe for general use\" but with usage terms coverage flagged as controversial, and a day-two hands-on called it \"relentlessly proactive.\" Then on Jun 12-13 the story turned: a US export-control directive citing national security suspended all access, and a Jun 15 recap framed the takedown as temporary.",
-  "whats_new": "Access is partially restored: Fable 5 and Mythos 5 are usable on Amazon Bedrock again, but require opting into provider_data_share — prompts and outputs go to Anthropic for 30-day retention with human review, a break from how previous Bedrock models kept inference data private.",
-  "why_it_matters": "A flagship can swing from GA launch to government-ordered suspension and back to a conditional, data-sharing-only return within days. The Bedrock terms make the catch concrete: regaining access can mean surrendering prompt/output confidentiality, which matters for anything handling sensitive data.",
+  "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 as long-horizon models \"made safe for general use,\" and an early hands-on called Fable \"relentlessly proactive.\" Days later a US export-control directive citing national security suspended all access, framed by outside recaps as temporary; the models then returned only on Amazon Bedrock, gated behind a provider_data_share opt-in that ships prompts and outputs to Anthropic for 30-day retention with human review.",
+  "whats_new": "Anthropic is redeploying Claude Fable 5 starting July 1 after the US lifted its export-control directive, shipping updated cybersecurity safeguards and a new industry jailbreak framework alongside the return.",
+  "why_it_matters": "A frontier tier went from GA launch to a government-ordered suspension, to a conditional data-sharing-only return, to full redeployment inside three weeks — proof that access to a flagship can be revoked or re-priced in data-confidentiality terms with only days of notice.",
   "status": {
-    "state": "On Bedrock · data-sharing required",
+    "state": "Redeploying · export controls lifted",
     "tone": "rising",
-    "changed": "2026-06-20",
-    "reenable": "available via provider_data_share opt-in",
-    "detail": "Fable 5 and Mythos 5 launched \"made safe for general use,\" were pulled by a US export-control directive, then returned on Amazon Bedrock — but only with provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review.",
+    "changed": "2026-06-30",
+    "reenable": "redeploy begins July 1",
+    "detail": "Fable 5 and Mythos 5 launched \"made safe for general use,\" were suspended by a US export-control directive, returned on Amazon Bedrock only under a data-sharing opt-in, and are now being redeployed from July 1 after the controls were lifted, with updated cybersecurity safeguards.",
     "track": [
-      {
-        "label": "available",
-        "detail": "Jun 9–13",
-        "tone": "launch",
-        "weight": 40
-      },
-      {
-        "label": "suspended",
-        "detail": "Jun 13–20",
-        "tone": "alert",
-        "weight": 38
-      },
-      {
-        "label": "on Bedrock w/ data-sharing",
-        "detail": "Jun 20 → now",
-        "tone": "now",
-        "weight": 22
-      }
+      { "label": "available", "detail": "Jun 9–13", "tone": "launch", "weight": 34 },
+      { "label": "suspended", "detail": "Jun 13–20", "tone": "alert", "weight": 30 },
+      { "label": "Bedrock w/ data-sharing", "detail": "Jun 20–30", "tone": "now", "weight": 20 },
+      { "label": "redeploying", "detail": "Jun 30 → now", "tone": "rising", "weight": 16 }
     ]
   },
   "provenance": {
-    "001317287cdd9d97": {
-      "verified": 3
-    },
-    "1a3926308e38dbe8": {
-      "verified": 3
-    },
-    "575139a8c2fbbeb4": {
-      "verified": 3
-    },
-    "679c5fff40623508": {
-      "surfaced_by": "scout",
-      "status_update": true
-    }
+    "001317287cdd9d97": { "verified": 2 },
+    "679c5fff40623508": { "surfaced_by": "scout", "status_update": true },
+    "fdd9745edc3aad4e": { "status_update": true }
   },
   "beats": [
     {
       "kicker": "LAUNCH",
       "tone": "launch",
-      "headline": "Claude Fable 5 + Mythos 5 ship — \"made safe\" but with controversial terms",
-      "summary": "Anthropic ships the Mythos-class models on Jun 9-10, billed as made safe for general use; launch coverage flags controversial usage terms marring the release.",
-      "sids": [
-        "d232148f3de4820c"
-      ]
+      "headline": "Claude Fable 5 + Mythos 5 ship — \"made safe for general use\"",
+      "summary": "Anthropic ships the Mythos-class Fable 5 and the unguarded Mythos 5, billed as made safe for general use.",
+      "sids": ["e11fcea9cd94bb20"]
     },
     {
-      "kicker": "Hands-on",
+      "kicker": "HANDS-ON",
       "tone": "rising",
       "headline": "A powerful but \"relentlessly proactive\" beast",
-      "summary": "After two days, the first sustained hands-on reads Fable 5 as relentlessly proactive, deploying every trick it knows to reach a goal.",
-      "sids": [
-        "c9ab8f8aa14fe295"
-      ]
+      "summary": "The first sustained hands-on reads Fable 5 as relentlessly proactive, deploying every trick it knows to reach a goal.",
+      "sids": ["c9ab8f8aa14fe295"]
     },
     {
-      "kicker": "The Turn",
+      "kicker": "THE TURN",
       "tone": "turn",
       "headline": "US export-control directive suspends access",
-      "summary": "On national-security grounds the US government orders access to Fable 5 and Mythos 5 suspended; coverage reframes the launch as \"too dangerous to release.\"",
-      "sids": [
-        "001317287cdd9d97",
-        "1a3926308e38dbe8"
-      ]
+      "summary": "Citing national security, the US government orders access to Fable 5 and Mythos 5 suspended; coverage recasts the launch as \"too dangerous to release.\"",
+      "sids": ["001317287cdd9d97", "1a3926308e38dbe8"]
     },
     {
-      "kicker": "Suspended",
+      "kicker": "SUSPENDED",
       "tone": "alert",
       "headline": "Reframed as a temporary suspension — no re-enable date",
       "summary": "An outside recap ties the takedown to the export-control directive and frames it as temporary rather than permanent.",
-      "sids": [
-        "575139a8c2fbbeb4"
-      ]
+      "sids": ["575139a8c2fbbeb4"]
     },
     {
-      "kicker": "Now",
+      "kicker": "CONDITIONAL RETURN",
       "tone": "now",
       "headline": "Back on Bedrock — but only with data-sharing opted in",
-      "summary": "Fable 5 and Mythos 5 return on Amazon Bedrock, gated behind provider_data_share: prompts and outputs go to Anthropic for 30-day retention with human review.",
-      "sids": [
-        "679c5fff40623508"
-      ]
+      "summary": "Fable 5 and Mythos 5 return on Amazon Bedrock gated behind provider_data_share: prompts and outputs go to Anthropic for 30-day retention with human review.",
+      "sids": ["679c5fff40623508"]
+    },
+    {
+      "kicker": "REDEPLOY",
+      "tone": "rising",
+      "headline": "Export controls lifted — redeploying July 1 with new safeguards",
+      "summary": "With the export directive lifted, Anthropic redeploys Fable 5 from July 1, adding updated cybersecurity safeguards and a new industry jailbreak framework.",
+      "sids": ["fdd9745edc3aad4e"]
     }
   ],
   "open_questions": [
-    "Is the Bedrock data-sharing requirement temporary, or the permanent condition of access?",
-    "Is Fable 5 / Mythos 5 returning anywhere outside Bedrock, on standard private-inference terms?",
-    "Does the export-control directive still apply, or has it been lifted for the Bedrock path?",
-    "How is the 30-day retention with human review reconciled with enterprise data-governance commitments?"
+    "Does the July 1 redeployment restore standard private-inference terms, or does the Bedrock provider_data_share requirement persist?",
+    "What exactly changed in the \"updated cybersecurity safeguards\" that satisfied the export-control review?",
+    "Will the new industry jailbreak framework be adopted by other frontier labs, or is it Anthropic-only?",
+    "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?"
   ],
-  "take_for_builders": "If you re-enable Fable 5 / Mythos 5 on Bedrock, read the provider_data_share terms first: access now means prompts and outputs are retained by Anthropic for 30 days with human review. Keep a fallback model wired in rather than hard-coding a single flagship tier.",
+  "take_for_builders": "If you paused Fable 5 / Mythos 5 during the suspension, confirm the July 1 redeploy terms before re-enabling — check whether Bedrock still forces provider_data_share (30-day retention, human review) — and keep a fallback tier wired so a single-flagship dependency can't strand you again.",
   "day_captions": {
-    "d232148f3de4820c": "Launch: Anthropic ships Claude Fable 5 and the unguarded Mythos 5 model, billed as made safe for general use, alongside controversial usage terms — the event that starts the thread.",
-    "c9ab8f8aa14fe295": "First sustained hands-on — after two days, Fable 5 reads as 'relentlessly proactive,' deploying any trick it knows to reach a goal.",
-    "001317287cdd9d97": "The turn — Anthropic's statement surfaces a US government export-control directive ordering access to Fable 5 and Mythos 5 suspended.",
-    "1a3926308e38dbe8": "Industry reaction recasts the launch as models officially 'too dangerous to release.'",
-    "575139a8c2fbbeb4": "Outside recap; first to frame the suspension as temporary and tie it to the US export-control directive.",
-    "679c5fff40623508": "Access returns on Amazon Bedrock, but gated behind provider_data_share — prompts and outputs sent to Anthropic for 30-day retention with human review, unlike prior Bedrock models."
+    "e11fcea9cd94bb20": "The launch itself — Anthropic ships Fable 5 and the Mythos-class Mythos 5, billed as \"made safe for general use.\"",
+    "c9ab8f8aa14fe295": "First sustained hands-on — after two days, Fable 5 reads as \"relentlessly proactive,\" deploying any trick it knows to reach a goal.",
+    "001317287cdd9d97": "The turn — a US government export-control directive, citing national security, orders all access to Fable 5 and Mythos 5 suspended.",
+    "1a3926308e38dbe8": "Industry reaction recasts the launch as models officially \"too dangerous to release.\"",
+    "575139a8c2fbbeb4": "First recap to frame the takedown as a temporary suspension tied to the US export directive.",
+    "679c5fff40623508": "Access returns on Amazon Bedrock — but only via provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review, unlike prior Bedrock models.",
+    "fdd9745edc3aad4e": "Export controls lifted — Anthropic redeploys Fable 5 starting July 1 with updated cybersecurity safeguards and a new industry jailbreak framework."
   }
 }
