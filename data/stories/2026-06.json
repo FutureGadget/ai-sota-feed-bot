@@ -572,6 +572,22 @@
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.99",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0933879c19d86a9c": {
+  "first_seen": "2026-07-01T02:01:52.358301+00:00",
+  "id": "0356630d54a68d0e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-06-30T11:32:14+00:00",
+  "sid": "0933879c19d86a9c",
+  "source": "arxiv_cs_lg",
+  "summary": "Long-context Large Language Model inference is severely bottlenecked by the massive Key-Value (KV) cache, yet existing sparse attention methods often suffer from static fixed-budget (Top-k) retrieval or rely on proxy scores that are computationally expensive and biased. To address these limitations, we propose RaBitQCache, a novel sparse attention framework that utilizes randomized rotated binary quantization and high-throughput binary-INT4 arithmetic to efficiently estimate attention weights. Our proxy score serves as an unbiased estimator with a proven error bound, enabling adaptive Top-p retrieval that dynamically adjusts the token budget based on actual attention sparsity. We further implement a hardware-aware system with asynchronous pipelining and lazy updates to mask overhead. Evaluations demonstrate that RaBitQCache significantly accelerates inference and reduces memory I/O while preserving generation quality compared to state-of-the-art baselines. Code is available at https://github.com/Sakuraaa0/RaBitQCache.git.",
+  "summary_1line": "Long-context Large Language Model inference is severely bottlenecked by the massive Key-Value (KV) cache, yet existing sparse attention methods often suffer from static fixed-budget (Top-k) retrieval or rely on proxy...",
+  "title": "RaBitQCache: Rotated Binary Quantization for KVCache in Long Context LLM Inference",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.31519v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "0971e4ffff50b51c": {
   "first_seen": "2026-06-20T22:01:39.139326+00:00",
   "id": "0cda9bbf0d4cea1a",
@@ -3306,6 +3322,23 @@
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.23.0"
  },
+ "445959c4a3e18d08": {
+  "first_seen": "2026-07-01T02:01:52.358301+00:00",
+  "id": "d19640f337552737",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-06-30T14:51:13+00:00",
+  "sid": "445959c4a3e18d08",
+  "source": "arxiv_cs_ai",
+  "summary": "Autonomous wet-lab experimentation requires more than plausible protocol text: biological intent, quantitative procedures, device constraints and experimental feedback must remain aligned from protocol and SOP design to code and physical execution. We developed ProtoPilot, a self-evolving multi-agent system, together with an expert-grounded benchmark and evaluation framework for testing this conversion as an experimental automation problem. The framework spans 294 synthetic-biology and molecular-biology tasks derived from 98 gold-standard protocols, wet-lab expert rubrics, device-level validity gates and real experimental tests. ProtoPilot incorporates layer-wise verifiability, multi-agent orchestration and a runtime-updated skill library to generate protocols, expand SOPs, synthesize SDK-compliant code and revise workflows from wet-lab feedback. It achieved a Top@3 expert-preference rate of 90.2%, an overall protocol-to-code gate pass rate of 89.5% and an Opentrons pass rate of 88.24%, compared with 32.35% for OpenTrons-AI. Wet-lab validation produced interpretable readouts, Sanger-confirmed products and feedback-corrected PCA-assembled DNA targets, establishing a verifiable route to autonomous experimentation. Together, these results show that the evaluation framework captures execution-relevant requirements for autonomous wet-lab automation, and that ProtoPilot can meet them by converting protocol and code generation into validated execution and feedback-guided revision.",
+  "summary_1line": "Autonomous wet-lab experimentation requires more than plausible protocol text: biological intent, quantitative procedures, device constraints and experimental feedback must remain aligned from protocol and SOP design...",
+  "title": "A Self-Evolving Agentic System for Automated Generation and Execution of Biological Protocols",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.31763v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "44c5c0c45647de19": {
   "first_seen": "2026-06-16T17:37:50.306867+00:00",
   "id": "1315239d36f0a3e3",
@@ -4362,6 +4395,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Jun/9/agentsview-custom-model-price/#atom-everything"
  },
+ "5a5b80258f0f8836": {
+  "first_seen": "2026-07-01T02:01:52.358301+00:00",
+  "id": "f1b0cd78c66cffbd",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-06-30T10:54:16+00:00",
+  "sid": "5a5b80258f0f8836",
+  "source": "arxiv_llm_reliability",
+  "summary": "Autonomous research agents can now draft hypotheses, write code, run experiments, and produce papers, but they remain brittle when experiments fail. Under the prevailing paradigm, failure recovery is usually delegated to a single free-form reflection: a rich trajectory of metrics, logs, and design choices is compressed into one verbal critique, which often leads either to localized trial-and-error or to hard pivots that discard useful context. We propose SAGE, a Self-correcting, Autonomous, Grounded Experimenter, to tackle this failure-recovery bottleneck. Its core mechanism, Multi-Hypothesis Failure Attribution (MHFA), treats recovery as a structured causal diagnosis. By analyzing dynamic trajectory features, MHFA systematically generates multiple evidence-grounded explanations for a failure, independently evaluates their severity, and deterministically routes the verified root cause to the correct intervention level (hypothesis, experimental design, or implementation). To guarantee scientific honesty, SAGE further employs a grounded reporting mechanism that explicitly constrains drafted results to actual measured values, redacting hallucinated numbers. On a 12-topic, 5-domain benchmark, SAGE increases metrics-bearing outputs from 42% to 92% over a reflection baseline, improves artifact quality from 5.00 to 6.75/10, and blindly outscores AI-Scientist-v2 (52.0 vs. 48.2), with gains concentrated in code development and execution. While fully autonomous scientific writing and g",
+  "summary_1line": "Autonomous research agents can now draft hypotheses, write code, run experiments, and produce papers, but they remain brittle when experiments fail. Under the prevailing paradigm, failure recovery is usually delegated...",
+  "title": "One Reflection Is Not Enough: Self-Correcting Autonomous Research via Multi-Hypothesis Failure Attribution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.31478v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "5a90684f62fa718c": {
   "first_seen": "2026-06-08T14:47:49.814058+00:00",
   "id": "d7ea091b848439c1",
@@ -4504,6 +4554,24 @@
   "title": "Mitigating the LLM Rerun Crisis for Minimized-Inference-Cost Web Automation",
   "type": "paper",
   "url": "https://arxiv.org/abs/2604.09718"
+ },
+ "5cf5e917a8e763bf": {
+  "first_seen": "2026-07-01T02:01:52.358301+00:00",
+  "id": "18639706d5b7df4b",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-06-30T14:05:28+00:00",
+  "sid": "5cf5e917a8e763bf",
+  "source": "arxiv_cs_cl",
+  "summary": "The wave of AI-native applications is moving shopping beyond page- and feed-based browsing toward intent-driven experiences orchestrated by LLM agents. A common design wraps an LLM around existing search and recommendation pipelines, forcing complex intents through low-bandwidth retrieval or ranking interfaces and leaving a gap between language understanding and item-space fulfillment. Generative recommendation gives LLMs a direct item-space interface through semantic IDs (SIDs), but existing models mainly generate candidates for retrieval rather than translate flexible intents into item-space outcomes. We propose ShopX to address this bottleneck by unifying intent understanding, execution planning, and flexible SID-native item-space operations into a single foundation model. We deploy ShopX in agentic shopping workflows through a model-native item-fulfillment framework with a serving harness that defines a model-facing action protocol and exposes support surfaces for context access, catalog grounding, and state management. Within this framework, ShopX plans and composes SID-based item-space operations such as SID beam-search retrieval, listwise ranking, or product bundling. This model-centric design reduces lossy hand-offs between agent orchestration and item-space execution. To build ShopX, we design semantically recoverable, LLM-operable SIDs and a training recipe that equips a general LLM for flexible multi-turn item-space fulfillment while retaining the knowledge and ins",
+  "summary_1line": "The wave of AI-native applications is moving shopping beyond page- and feed-based browsing toward intent-driven experiences orchestrated by LLM agents. A common design wraps an LLM around existing search and recommend...",
+  "title": "ShopX: A Foundation Model for Intent-to-Item Fulfillment in Agentic Shopping",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2606.31693v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
  },
  "5d2de9152522b89c": {
   "first_seen": "2026-06-25T21:01:52.144348+00:00",
@@ -10897,6 +10965,22 @@
   "title": "Operation-Guided Progressive Human-to-AI Text Transformation Benchmark for Multi-Granularity AI-Text Detection",
   "type": "paper",
   "url": "http://arxiv.org/abs/2606.06481v1"
+ },
+ "f4058e5bde4667bf": {
+  "first_seen": "2026-07-01T02:01:52.358301+00:00",
+  "id": "552876154374062f",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-06-30T18:40:09+00:00",
+  "sid": "f4058e5bde4667bf",
+  "source": "aws_ml_blog",
+  "summary": "Today, we’re excited to announce the availability of Anthropic’s most advanced Sonnet model, Claude Sonnet 5, on Amazon Bedrock and Claude Platform on AWS. Claude Sonnet 5 is the first Sonnet model of Anthropic’s latest generation and represents a meaningful step forward. It delivers top-tier intelligence at Sonnet pricing for coding, agents, and everyday professional […]",
+  "summary_1line": "Today, we’re excited to announce the availability of Anthropic’s most advanced Sonnet model, Claude Sonnet 5, on Amazon Bedrock and Claude Platform on AWS. Claude Sonnet 5 is the first Sonnet model of Anthropic’s late...",
+  "title": "Introducing Claude Sonnet 5 on AWS: Anthropic’s most capable Sonnet model",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-sonnet-5-on-aws-anthropics-most-capable-sonnet-model",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "f472926ede32221b": {
   "first_seen": "2026-06-13T14:59:03.855946+00:00",
