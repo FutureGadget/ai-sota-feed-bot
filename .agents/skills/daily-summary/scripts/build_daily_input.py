@@ -25,7 +25,9 @@ from daily_common import (
     collect_day_articles,
     date_id,
     fmt_day,
+    is_target_due,
     next_target_date,
+    now_kst_date,
     recap_article_urls,
     record_skipped_date,
     write_json,
@@ -74,14 +76,16 @@ def main() -> None:
         end_d = date.fromisoformat(args.date)
     else:
         end_d = next_target_date(today)
-        if end_d >= today:
+        today_kst = now_kst_date()
+        if not is_target_due(end_d, today_kst):
             print(
                 json.dumps(
                     {
                         "due": False,
                         "target_date": date_id(end_d),
                         "today_utc": date_id(today),
-                        "reason": "target date is not a complete UTC day yet",
+                        "today_kst": date_id(today_kst),
+                        "reason": "target date has not arrived yet in KST",
                     },
                     ensure_ascii=False,
                     indent=2,

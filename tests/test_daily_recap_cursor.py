@@ -71,6 +71,19 @@ class DailyRecapCursorTest(unittest.TestCase):
         self.assertEqual(state["last_checked_date"], "2026-06-20")
         self.assertEqual(state["skipped_dates"], ["2026-06-10", "2026-06-20"])
 
+    def test_target_due_when_kst_date_is_one_past_latest_published(self) -> None:
+        # 06:00 KST on 2026-07-01 is still 2026-06-30 in UTC. If the latest
+        # published recap is 2026-06-30, the target (2026-06-30 + 1 =
+        # 2026-07-01) must be due because the KST calendar has already
+        # turned over to it, even though the UTC day hasn't.
+        self.assertTrue(self.dc.is_target_due(date(2026, 7, 1), date(2026, 7, 1)))
+
+    def test_target_not_due_before_its_kst_date_arrives(self) -> None:
+        self.assertFalse(self.dc.is_target_due(date(2026, 7, 2), date(2026, 7, 1)))
+
+    def test_target_due_once_kst_date_has_passed_it(self) -> None:
+        self.assertTrue(self.dc.is_target_due(date(2026, 6, 30), date(2026, 7, 1)))
+
 
 if __name__ == "__main__":
     unittest.main()

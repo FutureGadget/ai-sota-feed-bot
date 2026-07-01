@@ -20,7 +20,8 @@ instead of an ISO week.
 python .agents/skills/daily-summary/scripts/build_daily_input.py
 # Targets the next unprocessed UTC day (one day past the latest published
 # recap or confirmed-empty day in data/daily/state.json; prints "due": false
-# and writes nothing if that day hasn't fully elapsed yet). Override with:
+# and writes nothing until that date has arrived in KST — the routine's own
+# 06:00 KST publish clock, not the UTC calendar). Override with:
 #   --date 2026-06-07         (a specific calendar day; never touches state.json)
 #   --days 1                  (lookback window ending on --date; default 1)
 #   --types news,release      (default: news only; use 'all' for everything)
