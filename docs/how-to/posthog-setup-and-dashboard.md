@@ -5,7 +5,9 @@ This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify inge
 ## Scope
 - PostHog is the analytics/dashboard layer for web feed telemetry.
 - Current captured web events:
-  - `page_view`
+  - `$pageview` (standard posthog-js pageview; powers PostHog **Web
+    Analytics** — visitors, sessions, top pages, channels. Superseded the
+    legacy custom `page_view` on 2026-07-03)
   - `feed_view`
   - `impression_batch`
   - `click`
@@ -41,7 +43,7 @@ In PostHog, open **Activity / Live events** and perform test actions on the feed
 - click 1–3 article links
 
 Expected events:
-- `page_view`
+- `$pageview`
 - `feed_view`
 - `impression_batch`
 - `click`
@@ -60,8 +62,10 @@ If dashboard seems empty but integration is live:
 Create a dashboard with these insights:
 
 1. **Page views (daily)**
-   - Event: `page_view`
+   - Event: `$pageview`
    - Interval: day
+   - (Or just use the built-in **Web Analytics** product, which now counts
+     `$pageview` automatically.)
 
 2. **Feed views (daily)**
    - Event: `feed_view`
@@ -92,11 +96,12 @@ Create a dashboard with these insights:
 ## 4) Operational notes
 - PostHog is the source of truth for product analytics visibility.
 - The one metric the project is currently judged against — **weekly
-  returning readers** — is computed from `page_view` events by
+  returning readers** — is computed from pageview events
+  (`event IN ('$pageview', 'page_view')`, bridging the 2026-07-03 rename) by
   `pipeline/north_star_metric.py` (same HogQL query pattern as the panels
   above) and does not need a PostHog dashboard panel to be useful; see
   `docs/status/north-star-metric.md`. Cross-check it in PostHog itself with a
-  built-in **Retention** insight (event: `page_view`, weekly granularity) if
+  built-in **Retention** insight (event: `$pageview`, weekly granularity) if
   you want a visual sanity check against the rollup's numbers.
 
 ---

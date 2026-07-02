@@ -16,11 +16,16 @@ number.
 For a completed ISO week `W` (Monday 00:00 UTC through the following Monday
 00:00 UTC):
 
-- **returning reader** — a PostHog `distinct_id` with a `page_view` event in
-  week `W` that also had a `page_view` event in week `W-1`.
-- **total_readers** — all distinct `distinct_id`s with a `page_view` in week
+- **returning reader** — a PostHog `distinct_id` with a pageview event in
+  week `W` that also had a pageview event in week `W-1`.
+- **total_readers** — all distinct `distinct_id`s with a pageview in week
   `W`.
 - **returning_rate** — `returning_readers / total_readers`.
+
+"Pageview" here means the standard posthog-js `$pageview` (emitted by
+`web/posthog-client.js` so PostHog Web Analytics also activates) **plus** the
+legacy custom `page_view`. The query matches both names so the 2026-07-03
+rename from the custom event to the standard one leaves no gap in the history.
 
 The identity used is the client-side anonymous id
 (`localStorage["ai_feed_anon_user_id"]`, created by `web/posthog-client.js`),
@@ -30,7 +35,7 @@ other PostHog-derived metric in this repo (see `pipeline/feedback.py`,
 `pipeline/auto_tune.py`).
 
 `web/posthog-client.js` is loaded by every hand-authored shell and by the static
-page renderer template, so `page_view` coverage is site-wide: feed, recap,
+page renderer template, so pageview coverage is site-wide: feed, recap,
 story, storyline, wiki/topic, Foundations, Playbook, Voices, and Subscribe
 surfaces all emit the same event when PostHog is enabled.
 
@@ -55,7 +60,8 @@ The current (in-progress) week is never scored — only completed weeks.
 `POST /api/projects/{project_id}/query` pattern already used by
 `feedback.py::cmd_sync_posthog` and `auto_tune.py::cmd_sync_ctr` (same
 `POSTHOG_PERSONAL_API_KEY` / `POSTHOG_PROJECT_ID` / `POSTHOG_API_HOST` env
-vars), pulling `(week_start, distinct_id)` pairs for `page_view` events over
+vars), pulling `(week_start, distinct_id)` pairs for pageview events
+(`event IN ('$pageview', 'page_view')`) over
 the last `WEEKS_LOOKBACK` (16) weeks, then classifies readers per week in
 Python. It no-ops cleanly when PostHog credentials aren't configured.
 
