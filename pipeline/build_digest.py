@@ -18,6 +18,12 @@ from enrich import enrich_items, record_duplicate
 from llm_label import label_items, load_cfg as load_llm_cfg
 from llm_rerank import rerank_candidates
 
+# Optional server-side operational telemetry. Never fatal.
+try:
+    import telemetry
+except Exception:
+    telemetry = None
+
 ROOT = Path(__file__).resolve().parents[1]
 
 # Keep the on-disk run snapshots bounded to the same window the index retains.
@@ -773,6 +779,16 @@ def run():
             print(f"tier0_incremental prev_run_at={prev_run_at.isoformat()} delta_items={delta_count} total_items={len(items)}")
             if skip_no_delta and delta_count == 0:
                 print("tier0_incremental_skip=true reason=no_delta")
+                if telemetry is not None:
+                    telemetry.capture(
+                        "feed_build_skipped",
+                        {
+                            "reason": "no_delta",
+                            "delta_count": delta_count,
+                            "total_items": len(items),
+                            "input_mode": input_mode,
+                        },
+                    )
                 return
 
     items = enrich_items(items)
@@ -823,6 +839,16 @@ def run():
 
         run_at_iso, run_file = write_run_snapshot(ranked_items)
         print(f"digest_items={len(ranked_items)} file={out} run_at={run_at_iso} run_file={run_file}")
+        if telemetry is not None:
+            telemetry.capture(
+                "feed_build_completed",
+                {
+                    "digest_items": len(ranked_items),
+                    "input_mode": input_mode,
+                    "run_at": run_at_iso,
+                    "date": date_str,
+                },
+            )
         return
     except Exception as e:
         print(f"ranking_pipeline_error err={e}")

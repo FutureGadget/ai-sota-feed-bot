@@ -7,6 +7,12 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
+# Optional server-side operational telemetry. Never fatal.
+try:
+    import telemetry
+except Exception:
+    telemetry = None
+
 ROOT = Path(__file__).resolve().parents[1]
 RUNS_FILE = ROOT / "data" / "health" / "ingest_runs.jsonl"
 HEALTH_FILE = ROOT / "data" / "health" / "source_health.json"
@@ -120,6 +126,7 @@ def update_circuit(health: dict[str, Any]) -> dict[str, Any]:
     state = load_circuit()
     src_state = state.get("sources", {})
 
+    newly_opened: list[dict[str, Any]] = []
     for src, h in health.get("sources", {}).items():
         ent = src_state.get(src, {"state": "closed", "open_until": None, "reason": None})
         fail_streak = int(h.get("consecutive_failures", 0))
@@ -131,6 +138,16 @@ def update_circuit(health: dict[str, Any]) -> dict[str, Any]:
             ent["state"] = "open"
             ent["open_until"] = (now + timedelta(hours=OPEN_HOURS)).isoformat()
             ent["reason"] = f"fail_streak_{fail_streak}"
+            newly_opened.append(
+                {
+                    "source": src,
+                    "fail_streak": fail_streak,
+                    "open_until": ent["open_until"],
+                    "success_rate": h.get("success_rate"),
+                    "consecutive_failures": h.get("consecutive_failures"),
+                    "reliability": h.get("reliability"),
+                }
+            )
         elif ent.get("state") == "open":
             if open_until and parse_ts(open_until) <= now:
                 ent["state"] = "closed"
@@ -148,6 +165,12 @@ def update_circuit(health: dict[str, Any]) -> dict[str, Any]:
     state["generated_at"] = now.isoformat()
     state["sources"] = src_state
     save_circuit(state)
+
+    if newly_opened and telemetry is not None:
+        telemetry.capture_batch(
+            [("circuit_breaker_opened", info) for info in newly_opened]
+        )
+
     return state
 
 

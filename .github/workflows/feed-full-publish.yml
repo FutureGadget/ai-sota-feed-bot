@@ -42,4 +42,8 @@ jobs:
       - name: Run full publish
         env:
           AUTO_PUSH_RUNTIME: "1"
+          # Server-side operational telemetry (pipeline/telemetry.py). Optional:
+          # when the project write key is unset the capture calls no-op cleanly.
+          POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}
+          POSTHOG_API_HOST: ${{ secrets.POSTHOG_API_HOST }}
         run: bash skills/ai-feed-digest-local/scripts/run_full.sh

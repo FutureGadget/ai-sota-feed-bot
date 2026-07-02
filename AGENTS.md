@@ -121,6 +121,14 @@ in `ops_daily_summary.py`'s log line.
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)
+  - `telemetry.py` — server-side operational telemetry: captures pipeline
+    events to PostHog over the HTTP ingestion API (`collect_run_completed`,
+    `collect_source_failed`, `feed_build_completed`, `feed_build_skipped`,
+    `circuit_breaker_opened`) so the feed-pipeline health scout can see cadence,
+    build-skip rate, source-failure clusters, and circuit trips. Optional +
+    non-fatal (no-ops without `POSTHOG_PROJECT_API_KEY`); uses `requests` and
+    the project write key (`phc_…`), NOT the personal API key the read-side
+    helpers use
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
 - `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
