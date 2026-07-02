@@ -128,7 +128,8 @@ Current web app behavior:
 PostHog env vars (optional):
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<project key>`
-- `POSTHOG_HOST=https://us.i.posthog.com` (or EU host)
+- `POSTHOG_HOST=https://bc25ea7c958239b77b46.cf-prod-us-proxy.proxyhog.com.llm-digest.com` (browser ingest proxy; defaults to this first-party proxy)
+- `POSTHOG_UI_HOST=https://us.posthog.com`
 
 ## Reader feedback loop (v1.3)
 Reader taps land in `data/feedback/events.jsonl` via a daily PostHog sync

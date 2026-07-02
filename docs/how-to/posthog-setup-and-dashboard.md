@@ -19,9 +19,13 @@ Set these env vars on Vercel:
 
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<PostHog project key>`
-- `POSTHOG_HOST=https://us.i.posthog.com` (or `https://eu.i.posthog.com`)
+- `POSTHOG_HOST=https://bc25ea7c958239b77b46.cf-prod-us-proxy.proxyhog.com.llm-digest.com` (browser ingest proxy; defaults to this first-party proxy)
+- `POSTHOG_UI_HOST=https://us.posthog.com`
 
 Then redeploy production.
+
+If the proxy CNAME has not propagated yet, keep the PR unmerged or temporarily
+override `POSTHOG_HOST` back to a direct PostHog ingest host before deploying.
 
 ---
 

@@ -1,3 +1,13 @@
+const DEFAULT_POSTHOG_HOST = 'https://bc25ea7c958239b77b46.cf-prod-us-proxy.proxyhog.com.llm-digest.com';
+const DEFAULT_POSTHOG_UI_HOST = 'https://us.posthog.com';
+
+function normalizeHttpsUrl(value, fallback) {
+  const raw = String(value || '').trim();
+  if (!raw) return fallback;
+  if (/^https:\/\//i.test(raw)) return raw;
+  return `https://${raw.replace(/^\/+/, '')}`;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
@@ -6,7 +16,8 @@ export default async function handler(req, res) {
 
   const defaultPostHogKey = 'phc_frYL2od402eAmmxvKFZXbb4pbLNCZpI82mPW9VVAOHu';
   const key = String(process.env.POSTHOG_PROJECT_API_KEY || defaultPostHogKey).trim();
-  const host = String(process.env.POSTHOG_HOST || 'https://us.i.posthog.com').trim();
+  const host = normalizeHttpsUrl(process.env.POSTHOG_HOST, DEFAULT_POSTHOG_HOST);
+  const uiHost = normalizeHttpsUrl(process.env.POSTHOG_UI_HOST, DEFAULT_POSTHOG_UI_HOST);
   const enabledFlag = String(process.env.POSTHOG_ENABLED || '1').trim().toLowerCase();
   const enabled = !['0', 'false', 'off'].includes(enabledFlag) && !!key;
 
@@ -22,6 +33,7 @@ export default async function handler(req, res) {
     posthog: {
       enabled,
       host,
+      ui_host: uiHost,
       defaults: '2026-05-30',
       project_api_key: enabled ? key : null,
     },

@@ -123,7 +123,13 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn("var thresholds = [25, 50, 75, 90, 100]", js)
         self.assertIn("autocapture: false", js)
         self.assertIn("person_profiles: 'identified_only'", js)
+        self.assertIn("DEFAULT_POSTHOG_HOST = 'https://bc25ea7c958239b77b46.cf-prod-us-proxy.proxyhog.com.llm-digest.com'", js)
+        self.assertIn("ui_host: ph.ui_host || DEFAULT_POSTHOG_UI_HOST", js)
         self.assertIn('src="/posthog-client.js', render.POSTHOG_CLIENT_TAG)
+
+        config_js = (ROOT / "api" / "client-config.js").read_text(encoding="utf-8")
+        self.assertIn("cf-prod-us-proxy.proxyhog.com.llm-digest.com", config_js)
+        self.assertIn("DEFAULT_POSTHOG_UI_HOST = 'https://us.posthog.com'", config_js)
 
     def test_update_indicator_script_keeps_core_invariants(self) -> None:
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
