@@ -93,7 +93,20 @@ def _clean_text_oneline(text: str, max_chars: int = 220) -> str:
 
 def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     t = (item.get("title", "") + " " + item.get("summary", "")).lower()
-    platform_tokens = ["inference", "latency", "throughput", "quantization", "rag", "eval", "agent", "benchmark", "serving"]
+    platform_tokens = [
+        "inference",
+        "latency",
+        "throughput",
+        "quantization",
+        "rag",
+        "eval",
+        "agent",
+        "coding agent",
+        "repo documentation",
+        "codebase documentation",
+        "benchmark",
+        "serving",
+    ]
     hype_tokens = ["game changing", "revolutionary", "unbelievable", "customer story"]
 
     p = sum(1 for k in platform_tokens if re.search(rf"\b{re.escape(k)}\b", t))
@@ -280,8 +293,20 @@ def save_cache_file(path: Path, cache: dict[str, Any]) -> None:
 
 def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     t = (item.get("title", "") + " " + item.get("summary", "")).lower()
-    platform_tokens = ["agent", "eval", "benchmark", "inference", "latency", "serving", "orchestration", "automation"]
-    evidence_tokens = ["benchmark", "code", "github", "dataset", "ablation", "reproduc"]
+    platform_tokens = [
+        "agent",
+        "coding agent",
+        "repo documentation",
+        "codebase documentation",
+        "eval",
+        "benchmark",
+        "inference",
+        "latency",
+        "serving",
+        "orchestration",
+        "automation",
+    ]
+    evidence_tokens = ["benchmark", "code", "github", "documentation", "dataset", "ablation", "reproduc"]
     hype_tokens = ["revolutionary", "game changing", "breakthrough", "unprecedented"]
 
     p = sum(1 for k in platform_tokens if k in t)
@@ -416,5 +441,4 @@ def label_items(items: list[dict[str, Any]], budget: int = 40, rubric_version: s
 
     save_cache_file(CACHE_FILE_V2, cache)
     return out, {"llm_called": llm_called, "cache_hits": cache_hits}
-
 
