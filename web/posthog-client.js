@@ -176,7 +176,10 @@
         defaults: ph.defaults || '2026-05-30',
         person_profiles: 'identified_only',
         autocapture: false,
-        capture_pageview: false,
+        // Emit the standard `$pageview` (SPA-aware) so PostHog Web Analytics
+        // counts visitors/sessions/pages. It carries $current_url/$pathname/
+        // $referrer automatically, so no custom `page_view` event is needed.
+        capture_pageview: 'history_change',
         capture_pageleave: true,
         persistence: 'localStorage+cookie',
         loaded: function (sdk) {
@@ -184,10 +187,6 @@
           sdk.identify(anon);
           window.__posthogEnabled = true;
           enabled = true;
-          sdk.capture('page_view', {
-            path: window.location.pathname,
-            referrer: document.referrer || null,
-          });
           startScrollDepthTracking();
           flushPending();
         },

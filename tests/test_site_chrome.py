@@ -114,11 +114,13 @@ class SiteChromeContractTest(unittest.TestCase):
         js = (ROOT / "web" / "posthog-client.js").read_text(encoding="utf-8")
         self.assertIn("ai_feed_anon_user_id", js)
         self.assertIn("sdk.identify(anon)", js)
-        self.assertIn("sdk.capture('page_view'", js)
+        # Standard $pageview capture (not a hand-rolled custom event) so PostHog
+        # Web Analytics counts visitors/sessions/pages.
+        self.assertIn("capture_pageview: 'history_change'", js)
+        self.assertNotIn("sdk.capture('page_view'", js)
         self.assertIn("capture('scroll_depth'", js)
         self.assertIn("startScrollDepthTracking()", js)
         self.assertIn("var thresholds = [25, 50, 75, 90, 100]", js)
-        self.assertIn("capture_pageview: false", js)
         self.assertIn("autocapture: false", js)
         self.assertIn("person_profiles: 'identified_only'", js)
         self.assertIn('src="/posthog-client.js', render.POSTHOG_CLIENT_TAG)

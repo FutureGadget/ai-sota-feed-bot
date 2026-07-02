@@ -8,8 +8,10 @@ scoreboard until the window ends.
 
 Definition: for a completed ISO week W (Monday 00:00 UTC through the
 following Monday 00:00 UTC), a *returning reader* is a `distinct_id` seen in
-a `page_view` event during week W that was also seen in a `page_view` event
-during week W-1. `returning_rate = returning / total_readers` for week W.
+a pageview event during week W that was also seen in a pageview event
+during week W-1. Pageviews are the standard posthog-js `$pageview` plus the
+legacy custom `page_view` (bridged so the rename leaves no gap).
+`returning_rate = returning / total_readers` for week W.
 The in-progress (current) week is never scored — only completed weeks.
 
 data/metrics/weekly_returning_readers.json holds the durable history, one
@@ -17,7 +19,7 @@ row per completed week, merged forward on every sync (never rewritten from
 scratch beyond the query lookback window).
 
 Commands:
-  sync     pull page_view events from PostHog and recompute recent weeks
+  sync     pull pageview events from PostHog and recompute recent weeks
   summary  print the tracked history as a table (most recent last)
 
 sync reads POSTHOG_PERSONAL_API_KEY, POSTHOG_PROJECT_ID and optional
@@ -125,7 +127,10 @@ def cmd_sync(args: argparse.Namespace) -> int:
     since = monday_of(utc_now()) - timedelta(weeks=WEEKS_LOOKBACK)
     hogql = (
         "SELECT toStartOfWeek(timestamp, 1) AS week_start, distinct_id FROM events "
-        "WHERE event = 'page_view' "
+        # `$pageview` is the standard posthog-js pageview (now emitted by the web
+        # client so Web Analytics activates); `page_view` is the legacy custom
+        # event. Match both so the rollup bridges the rename with no gap.
+        "WHERE event IN ('$pageview', 'page_view') "
         f"AND timestamp >= toDateTime('{since.strftime('%Y-%m-%d %H:%M:%S')}') "
         "GROUP BY week_start, distinct_id "
         f"ORDER BY week_start LIMIT {SYNC_LIMIT}"
@@ -189,7 +194,7 @@ def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = parser.add_subparsers(dest="command", required=True)
 
-    p_sync = sub.add_parser("sync", help="pull page_view events from PostHog and recompute recent weeks")
+    p_sync = sub.add_parser("sync", help="pull pageview events from PostHog and recompute recent weeks")
     p_sync.set_defaults(func=cmd_sync)
 
     p_summary = sub.add_parser("summary", help="print tracked weekly history")

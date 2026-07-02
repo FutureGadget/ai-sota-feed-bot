@@ -96,7 +96,8 @@ Source of truth is markdown; `index.json` is the only file served/bundled.
 - `data/metrics/weekly_returning_readers.json` — `{generated_at, weeks: [...]}`,
   one row per completed ISO week (`week_start`, `total_readers`,
   `returning_readers`, `new_readers`, `returning_rate`), merged forward by
-  `pipeline/north_star_metric.py sync` from PostHog `page_view` events. See
+  `pipeline/north_star_metric.py sync` from PostHog pageview events
+  (`$pageview` and legacy `page_view`). See
   `docs/status/north-star-metric.md`.
 
 ## Ops
