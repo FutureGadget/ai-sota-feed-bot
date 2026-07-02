@@ -22,11 +22,17 @@ For a completed ISO week `W` (Monday 00:00 UTC through the following Monday
   `W`.
 - **returning_rate** — `returning_readers / total_readers`.
 
-The identity used is the client-side anonymous id (`getAnonUserId()`,
-`web/index.html`), persisted in `localStorage` and passed to
-`posthog.identify()`. It survives repeat visits on the same browser but not
-across devices — same caveat as every other PostHog-derived metric in this
-repo (see `pipeline/feedback.py`, `pipeline/auto_tune.py`).
+The identity used is the client-side anonymous id
+(`localStorage["ai_feed_anon_user_id"]`, created by `web/posthog-client.js`),
+persisted in `localStorage` and passed to `posthog.identify()`. It survives
+repeat visits on the same browser but not across devices — same caveat as every
+other PostHog-derived metric in this repo (see `pipeline/feedback.py`,
+`pipeline/auto_tune.py`).
+
+`web/posthog-client.js` is loaded by every hand-authored shell and by the static
+page renderer template, so `page_view` coverage is site-wide: feed, recap,
+story, storyline, wiki/topic, Foundations, Playbook, Voices, and Subscribe
+surfaces all emit the same event when PostHog is enabled.
 
 The current (in-progress) week is never scored — only completed weeks.
 

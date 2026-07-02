@@ -8,6 +8,7 @@ from pipeline import render_static_pages as render
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE_CHROME_VERSION = render.SITE_CHROME_ASSET_VERSION
+POSTHOG_CLIENT_VERSION = render.POSTHOG_CLIENT_ASSET_VERSION
 SHELLS = (
     "index.html",
     "daily.html",
@@ -92,6 +93,33 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertNotIn("ai_feed_seen_daily_v1", html)
         self.assertIn('src="/nav-updates.js', render.NAV_UPDATES_TAG)
 
+    def test_posthog_page_view_init_is_shared_site_wide(self) -> None:
+        for filename in (
+            "index.html",
+            "daily.html",
+            "weekly.html",
+            "storyline.html",
+            "playbook.html",
+            "voices.html",
+            "subscribe.html",
+            "map.html",
+            "foundations.html",
+        ):
+            with self.subTest(filename=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn(f'src="/posthog-client.js?v={POSTHOG_CLIENT_VERSION}"', html)
+                self.assertNotIn("async function initClientConfig()", html)
+                self.assertNotIn("posthog-array-js", html)
+
+        js = (ROOT / "web" / "posthog-client.js").read_text(encoding="utf-8")
+        self.assertIn("ai_feed_anon_user_id", js)
+        self.assertIn("sdk.identify(anon)", js)
+        self.assertIn("sdk.capture('page_view'", js)
+        self.assertIn("capture_pageview: false", js)
+        self.assertIn("autocapture: false", js)
+        self.assertIn("person_profiles: 'identified_only'", js)
+        self.assertIn('src="/posthog-client.js', render.POSTHOG_CLIENT_TAG)
+
     def test_update_indicator_script_keeps_core_invariants(self) -> None:
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
         # Decorates the semantic nav Editor's Desk adopts.
@@ -153,6 +181,7 @@ class SiteChromeContractTest(unittest.TestCase):
 
         self.assertIn(f'href="/site-chrome.css?v={SITE_CHROME_VERSION}"', html)
         self.assertIn(f'src="/site-chrome.js?v={SITE_CHROME_VERSION}"', html)
+        self.assertIn(f'src="/posthog-client.js?v={POSTHOG_CLIENT_VERSION}"', html)
         self.assertIn('class="site-chrome"', html)
         self.assertIn('data-site-section="/daily"', html)
         self.assertIn('class="site-context"', html)

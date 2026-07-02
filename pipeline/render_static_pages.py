@@ -343,11 +343,13 @@ PAGE_JS = """\
 # "New updates" nav indicators for generated pages — same shared script as the
 # hand-edited shells (see docs/product-specs/nav-update-indicators.md).
 NAV_UPDATES_TAG = '<script src="/nav-updates.js?v=20260701" defer></script>'
+POSTHOG_CLIENT_ASSET_VERSION = "20260702-shared"
+POSTHOG_CLIENT_TAG = f'<script src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
 
 # Follow button for static storyline pages. Mirrors the localStorage contract
 # in web/storyline.html (FOLLOWS_KEY ai_feed_storyline_follows_v1) so a follow
 # made on a static page is recognized by the dynamic /storylines list and vice
-# versa. PostHog capture is intentionally omitted (optional/secret-gated).
+# versa.
 STORYLINE_FOLLOW_JS = """\
     (function () {
       var KEY = 'ai_feed_storyline_follows_v1';
@@ -1011,6 +1013,7 @@ def render_head(
   <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v={SITE_CHROME_ASSET_VERSION}" />
+  {POSTHOG_CLIENT_TAG}
   <script defer src="/site-chrome.js?v={SITE_CHROME_ASSET_VERSION}"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
