@@ -8,11 +8,18 @@ JSON the pipeline already commits (``data/daily/<date>.json``,
 static, indexable pages:
 
 - ``web/daily/<date>.html``    served at ``/daily/<date>``
+- ``web/daily/index.html``     the latest edition, served at bare ``/daily``
 - ``web/weekly/<week>.html``   served at ``/weekly/<week>``
+- ``web/weekly/index.html``    the latest edition, served at bare ``/weekly``
 - ``web/story/<sid>.html``     served at ``/story/<sid>``
 - ``web/storyline/<slug>.html`` served at ``/storyline/<slug>``
+- ``web/og/<kind>-<ident>.png`` per-edition share cards (see ``og_cards.py``)
 - ``web/sitemap.xml``          served at ``/sitemap.xml``
 - ``web/robots.txt``           served at ``/robots.txt``
+
+It also splices a crawler-visible snapshot of the top ranked items into the
+marker region inside ``web/index.html`` (see ``seed_feed_shell``), so the /
+feed no longer unfurls or indexes as an empty "Loading…" shell.
 
 Story pages are the durable landing target for shares (``api/share.js``
 redirects there) and give every story that made the published feed an
@@ -47,9 +54,11 @@ summaries are capped fallbacks, not flattened article bodies.
 
 Stale pages whose recap/story/storyline JSON no longer exists are pruned.
 
-Stdlib only, like the rest of the recap tooling. Run after rebuilding the
-recap indexes (build_daily_index.py / build_weekly_index.py do this
-automatically):
+Stdlib only, like the rest of the recap tooling — except the optional Pillow
+dependency inside ``og_cards.py``, which degrades to the committed/default
+share cards when absent (Vercel builds and agent routines run without it).
+Run after rebuilding the recap indexes (build_daily_index.py /
+build_weekly_index.py do this automatically):
 
     python pipeline/render_static_pages.py [--base-url https://example.com]
 """
@@ -68,6 +77,7 @@ from pathlib import Path
 from urllib.parse import quote, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import og_cards  # noqa: E402
 from build_storylines import WEAK as STORYLINE_WEAK, title_tokens  # noqa: E402
 from story_store import load_store, parse_dt, story_sid  # noqa: E402
 
@@ -1302,13 +1312,22 @@ def render_daily_pages(
         (f"/daily/{r['date']}", f"{r['date']} · {squeeze(r.get('title'))}") for r in recaps
     ]
     ids = []
-    for recap in recaps:
+
+    def build(recap: dict, canonical: str, trail: list[tuple[str, str]]) -> str:
         day = str(recap["date"])
-        canonical = f"{base_url}/daily/{day}"
+        cats = recap.get("categories") or []
+        total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
         title = squeeze(recap.get("title")) or f"AI Daily Recap — {day}"
         description = recap_description(recap)
         published = iso_or_none(recap.get("generated_at"))
-        html = render_page(
+        og_rel = og_cards.ensure(
+            "daily",
+            day,
+            kicker="The finishable daily brief",
+            title=title,
+            stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
+        )
+        return render_page(
             title=title,
             description=description,
             canonical=canonical,
@@ -1334,6 +1353,7 @@ def render_daily_pages(
                 "Want this in your inbox tomorrow?",
                 "Get the finishable daily brief and weekly recap.",
             ),
+            image=f"{base_url}{og_rel}" if og_rel else "",
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -1343,16 +1363,31 @@ def render_daily_pages(
                     published=published,
                     base_url=base_url,
                 ),
-                breadcrumb_node(
-                    base_url,
-                    [("Home", "/"), ("Daily recaps", "/daily"), (day, f"/daily/{day}")],
-                ),
+                breadcrumb_node(base_url, trail),
             ],
             extra_css=DAILY_RECAP_CSS,
+        )
+
+    for recap in recaps:
+        day = str(recap["date"])
+        html = build(
+            recap,
+            f"{base_url}/daily/{day}",
+            [("Home", "/"), ("Daily recaps", "/daily"), (day, f"/daily/{day}")],
         )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{day}.html").write_text(html, encoding="utf-8")
         ids.append(day)
+    # The bare /daily URL is the one people share and search lands on; serve it
+    # the latest edition pre-rendered (canonical to itself — it's the hub whose
+    # content rotates daily) instead of the client-rendered shell.
+    if recaps:
+        html = build(
+            recaps[0],
+            f"{base_url}/daily",
+            [("Home", "/"), ("Daily recaps", "/daily")],
+        )
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
     prune_orphans(out_dir, DATE_HTML_RE, {f"{i}.html" for i in ids})
     return ids
 
@@ -1750,16 +1785,25 @@ def render_weekly_pages(
         (f"/weekly/{r['week']}", f"{r['week']} · {squeeze(r.get('title'))}") for r in recaps
     ]
     ids = []
-    for recap in recaps:
+
+    def build(recap: dict, canonical: str, trail: list[tuple[str, str]]) -> str:
         week = str(recap["week"])
-        canonical = f"{base_url}/weekly/{week}"
-        recap_range = " – ".join(
-            s for s in (str(recap.get("start") or ""), str(recap.get("end") or "")) if s
-        )
+        cats = recap.get("categories") or []
+        total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
+        start = str(recap.get("start") or "")
+        end = str(recap.get("end") or "")
         title = squeeze(recap.get("title")) or f"AI Weekly Recap — {week}"
         description = recap_description(recap)
         published = iso_or_none(recap.get("generated_at"))
-        html = render_page(
+        og_stats = " · ".join(s for s in (f"{start} → {end}" if start and end else week, f"{total} articles") if s)
+        og_rel = og_cards.ensure(
+            "weekly",
+            week,
+            kicker="Weekly pattern report",
+            title=title,
+            stats=og_stats,
+        )
+        return render_page(
             title=title,
             description=description,
             canonical=canonical,
@@ -1785,6 +1829,7 @@ def render_weekly_pages(
                 "Get next week’s recap by email.",
                 "Plus the finishable daily brief every day.",
             ),
+            image=f"{base_url}{og_rel}" if og_rel else "",
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -1794,17 +1839,30 @@ def render_weekly_pages(
                     published=published,
                     base_url=base_url,
                 ),
-                breadcrumb_node(
-                    base_url,
-                    [("Home", "/"), ("Weekly recaps", "/weekly"), (week, f"/weekly/{week}")],
-                ),
+                breadcrumb_node(base_url, trail),
             ],
             extra_js=WEEKLY_RECAP_JS,
             extra_css=WEEKLY_RECAP_CSS,
         )
+
+    for recap in recaps:
+        week = str(recap["week"])
+        html = build(
+            recap,
+            f"{base_url}/weekly/{week}",
+            [("Home", "/"), ("Weekly recaps", "/weekly"), (week, f"/weekly/{week}")],
+        )
         out_dir.mkdir(parents=True, exist_ok=True)
         (out_dir / f"{week}.html").write_text(html, encoding="utf-8")
         ids.append(week)
+    # Pre-rendered latest edition for the bare /weekly URL (see render_daily_pages).
+    if recaps:
+        html = build(
+            recaps[0],
+            f"{base_url}/weekly",
+            [("Home", "/"), ("Weekly recaps", "/weekly")],
+        )
+        (out_dir / "index.html").write_text(html, encoding="utf-8")
     prune_orphans(out_dir, WEEK_HTML_RE, {f"{i}.html" for i in ids})
     return ids
 
@@ -2860,6 +2918,13 @@ def render_storyline_pages(
             f"{sl.get('source_count', 0)} sources",
             f"{sl.get('day_count', 0)} days",
         ]
+        og_rel = og_cards.ensure(
+            "storyline",
+            slug,
+            kicker="AI storyline · what happened next",
+            title=label,
+            stats=" · ".join(meta_bits),
+        )
         html = render_page(
             title=title,
             description=description,
@@ -2874,6 +2939,7 @@ def render_storyline_pages(
             title_html=storyline_hero(sl),
             intro_html="",
             body_html=render_storyline_body(sl, story_sids),
+            image=f"{base_url}{og_rel}" if og_rel else "",
             json_ld=[
                 article_node(
                     type_="NewsArticle",
@@ -3691,6 +3757,98 @@ def render_foundations_page(base_url: str, foundations: dict) -> bool:
     return True
 
 
+FEED_SEED_START = "<!-- feed-seed:start -->"
+FEED_SEED_END = "<!-- feed-seed:end -->"
+FEED_SEED_MAX_ITEMS = 12
+
+
+def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
+    """Splice the latest ranked feed items into the / shell as static markup.
+
+    web/index.html is client-rendered, so crawlers, link unfurlers, and no-JS
+    readers see an empty shell. This writes the top items from the committed
+    feed snapshot (data/processed/latest.json) into the marker region inside
+    <section id="list">; the feed JS overwrites the region on boot, so readers
+    with JS never diverge from the live feed. Idempotent: only rewrites the
+    shell when the seed content actually changed.
+    """
+    shell = WEB_DIR / "index.html"
+    if not shell.exists():
+        return 0
+    items = load_json(ROOT / "data" / "processed" / "latest.json")
+    if not isinstance(items, list):
+        return 0
+
+    def score(it: dict) -> float:
+        try:
+            return float(it.get("final_score") or 0)
+        except (TypeError, ValueError):
+            return 0.0
+
+    ranked = sorted(
+        (i for i in items if isinstance(i, dict) and i.get("title")),
+        key=score,
+        reverse=True,
+    )
+    cards = []
+    for it in ranked:
+        url = safe_http_url(it.get("url"))
+        if url == "#":
+            continue
+        title = squeeze(str(it.get("title")))
+        summary = squeeze(str(it.get("summary_1line") or it.get("summary") or ""))
+        if summary.lower().rstrip(".") == title.lower().rstrip("."):
+            summary = ""  # echoing the headline reads as duplication
+        sid = story_sid(url)
+        perma = (
+            f' <a href="/story/{sid}">Context &amp; related coverage →</a>'
+            if sid in story_sids
+            else ""
+        )
+        published = parse_dt(it.get("published"))
+        meta = " · ".join(
+            x
+            for x in (source_domain(url), published.date().isoformat() if published else "")
+            if x
+        )
+        body = f"<p>{escape(clip(summary, 240))}{perma}</p>" if summary or perma else ""
+        cards.append(
+            '<article class="seed-item">'
+            f'<p class="seed-meta">{escape(meta)}</p>'
+            f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
+            f"{body}</article>"
+        )
+        if len(cards) == FEED_SEED_MAX_ITEMS:
+            break
+    if not cards:
+        return 0
+    block = (
+        f"{FEED_SEED_START}\n"
+        "      <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.\n"
+        "           Crawler/no-JS-visible feed snapshot; the feed JS replaces this region on boot.\n"
+        "           Do not hand-edit between these markers. -->\n"
+        '      <div class="feed-seed">\n'
+        "        <h2>Today's top signals</h2>\n        "
+        + "\n        ".join(cards)
+        + '\n        <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>\n'
+        "      </div>\n"
+        f"      {FEED_SEED_END}"
+    )
+    html = shell.read_text(encoding="utf-8")
+    start = html.find(FEED_SEED_START)
+    end = html.find(FEED_SEED_END)
+    if start == -1 or end == -1 or end < start:
+        print(
+            "warning: feed-seed markers missing in web/index.html; seed skipped",
+            file=sys.stderr,
+        )
+        return 0
+    new_html = html[:start] + block + html[end + len(FEED_SEED_END):]
+    if new_html != html:
+        shell.write_text(new_html, encoding="utf-8")
+    return len(cards)
+
+
 def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
     if not out_dir.is_dir():
         return
@@ -3824,6 +3982,8 @@ def main() -> None:
         foundation_pages,
     )
     write_robots(base_url)
+    seeded = seed_feed_shell(base_url, story_sids)
+    og_cards.prune()
     print(
         f"static pages rendered: {len(days)} daily, {len(weeks)} weekly, "
         f"{len(story_pages) + noindexed} story ({noindexed} noindex), "
@@ -3832,6 +3992,7 @@ def main() -> None:
         f"{len(foundation_pages)} foundation ({'index' if has_foundations else 'no index'}) "
         "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/, web/foundations/"
     )
+    print(f"feed_seed_items={seeded} og_cards_dir=web/og")
     n_urls = 7 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
     n_urls += (1 + len(topic_pages)) if topic_pages else 0
     n_urls += (1 + len(foundation_pages)) if foundation_pages else 0
