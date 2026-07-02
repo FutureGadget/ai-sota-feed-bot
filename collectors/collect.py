@@ -5,6 +5,7 @@ import html
 import json
 import os
 import re
+import sys
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -18,6 +19,14 @@ import yaml
 from dateutil import parser as dt_parser
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# Optional server-side operational telemetry (pipeline/telemetry.py). Never let
+# an import or capture failure break collection.
+sys.path.insert(0, str(ROOT / "pipeline"))
+try:
+    import telemetry
+except Exception:
+    telemetry = None
 
 
 def load_sources():
@@ -638,6 +647,35 @@ def run():
     skipped = sum(1 for s in source_stats if str(s.get("status", "")).startswith("skipped_"))
     errors = sum(1 for s in source_stats if s["status"] == "error")
     print(f"sources_ok={ok} sources_error={errors} sources_skipped={skipped} sources_total={len(source_stats)}")
+
+    if telemetry is not None:
+        events = [
+            (
+                "collect_run_completed",
+                {
+                    "items_collected": len(all_items),
+                    "sources_ok": ok,
+                    "sources_error": errors,
+                    "sources_skipped": skipped,
+                    "sources_total": len(source_stats),
+                    "ingest_batch_id": ingest_batch_id,
+                    "wrote_new": wrote_new,
+                },
+            )
+        ]
+        for s in source_stats:
+            if s.get("status") == "error":
+                events.append(
+                    (
+                        "collect_source_failed",
+                        {
+                            "source": s.get("source"),
+                            "url": s.get("url"),
+                            "error": s.get("error"),
+                        },
+                    )
+                )
+        telemetry.capture_batch(events)
 
 
 if __name__ == "__main__":
