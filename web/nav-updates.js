@@ -133,7 +133,10 @@
   }
 
   function capture(event, props) {
-    try { if (window.posthog && window.posthog.capture) window.posthog.capture(event, props); } catch (e) {}
+    try {
+      if (window.aiFeedPostHog && window.aiFeedPostHog.capture) window.aiFeedPostHog.capture(event, props);
+      else if (window.posthog && window.posthog.capture) window.posthog.capture(event, props);
+    } catch (e) {}
   }
 
   // Chip label per section — daily gets a day-aware label so the chip itself

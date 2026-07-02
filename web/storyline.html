@@ -21,6 +21,7 @@
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260702-theme-icon" />
+  <script src="/posthog-client.js?v=20260702-shared"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -308,7 +309,7 @@
     }
 
     function posthogCapture(event, properties = {}) {
-      try { window.posthog?.capture?.(event, properties); } catch {}
+      try { window.aiFeedPostHog?.capture?.(event, properties); } catch {}
     }
 
     // Follows are shared with the feed page (same key): the feed shows a

@@ -56,10 +56,12 @@
     if (!link || event.__llmDigestSubscribeTracked) return;
     event.__llmDigestSubscribeTracked = true;
     try {
-      window.posthog?.capture?.("subscribe_click", {
+      const props = {
         channel: link.dataset.subscribeChannel || null,
         placement: link.dataset.subscribePlacement || null,
-      });
+      };
+      if (window.aiFeedPostHog?.capture) window.aiFeedPostHog.capture("subscribe_click", props);
+      else window.posthog?.capture?.("subscribe_click", props);
     } catch {}
   });
 

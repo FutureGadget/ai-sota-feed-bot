@@ -24,6 +24,7 @@
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260702-theme-icon" />
+  <script src="/posthog-client.js?v=20260702-shared"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -2071,11 +2072,6 @@
       return '#';
     }
 
-    function randomId(prefix = 'id') {
-      if (window.crypto?.randomUUID) return `${prefix}_${window.crypto.randomUUID()}`;
-      return `${prefix}_${Math.random().toString(36).slice(2)}_${Date.now()}`;
-    }
-
     // Daily digest subscription (growth loop): email is the primary channel.
     // The canonical CTA links to the dedicated /subscribe page.
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
@@ -2143,90 +2139,12 @@
       banner.hidden = false;
     }
 
-    async function initClientConfig() {
-      try {
-        const res = await fetch('/api/client-config');
-        if (!res.ok) return;
-        const cfg = await res.json();
-
-        const ph = cfg?.posthog || {};
-        if (!ph.enabled || !ph.project_api_key) return;
-
-        (function(document, posthog){
-          if (posthog.__SV) return;
-          window.posthog = posthog;
-          posthog._i = posthog._i || [];
-          posthog.__SV = 1;
-          posthog.init = function(apiKey, options, name){
-            const target = name ? (posthog[name] = []) : posthog;
-            target.people = target.people || [];
-            const methods = ['capture','identify','alias','people.set','people.set_once','register','register_once','unregister','reset','isFeatureEnabled'];
-            const factory = function(method){
-              return function(){
-                target.push([method].concat(Array.prototype.slice.call(arguments, 0)));
-              };
-            };
-            for (const m of methods) {
-              const parts = m.split('.');
-              if (parts.length === 2) {
-                target[parts[0]][parts[1]] = factory(m);
-              } else {
-                target[m] = factory(m);
-              }
-            }
-            posthog._i.push([apiKey, options, name]);
-          };
-        })(document, window.posthog || []);
-
-        window.posthog.init(ph.project_api_key, {
-          api_host: ph.host || 'https://us.i.posthog.com',
-          person_profiles: 'identified_only',
-          autocapture: false,
-          capture_pageview: false,
-          capture_pageleave: true,
-          persistence: 'localStorage+cookie',
-          loaded: (sdk) => {
-            const anon = getAnonUserId();
-            sdk.identify(anon);
-            sdk.capture('page_view', {
-              path: window.location.pathname,
-              referrer: document.referrer || null,
-            });
-            window.__posthogEnabled = true;
-          },
-        });
-
-        if (!document.getElementById('posthog-array-js')) {
-          const s = document.createElement('script');
-          s.id = 'posthog-array-js';
-          s.async = true;
-          s.crossOrigin = 'anonymous';
-          s.src = (ph.host || 'https://us.i.posthog.com').replace('.i.posthog.com', '-assets.i.posthog.com') + '/static/array.js';
-          s.onerror = () => console.debug('posthog_loader_failed');
-          document.head.appendChild(s);
-        }
-      } catch (e) {
-        console.debug('posthog_init_failed', e);
-      }
-    }
-
     function posthogCapture(event, properties = {}) {
-      if (!window.__posthogEnabled || !window.posthog) return;
       try {
-        window.posthog.capture(event, properties);
+        window.aiFeedPostHog?.capture?.(event, properties);
       } catch (e) {
         console.debug('posthog_capture_failed', e);
       }
-    }
-
-    function getAnonUserId() {
-      const key = 'ai_feed_anon_user_id';
-      let v = localStorage.getItem(key);
-      if (!v) {
-        v = randomId('anon');
-        localStorage.setItem(key, v);
-      }
-      return v;
     }
 
     function captureEvents(events) {
@@ -3344,7 +3262,6 @@
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
-    initClientConfig();
     // Reserve the feed's vertical space before the fetch resolves so the
     // footer starts below the fold and doesn't jump on first render (CLS).
     document.getElementById('list').innerHTML = skeletonHtml();
