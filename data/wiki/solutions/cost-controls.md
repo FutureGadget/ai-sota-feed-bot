@@ -19,61 +19,82 @@ agent, complementing the architectural levers (compaction, topology, cheap
 judges) that reduce the underlying token count.
 
 ## State of the art
-The tooling is maturing from "read the monthly bill" toward continuous FinOps for
-agents. Platform vendors ship **usage analytics plus enforceable spend controls**
-(OpenAI's enterprise spend caps and analytics) so an org can set ceilings rather
-than discover overruns. Developer tooling pushes **attribution** down to the unit
-of work — Prtokens surfaces how many agent tokens a single pull request burned,
-making cost a number on the artifact instead of an aggregate. The analysis step
-itself is being delivered as a managed agent: AWS's FinOps Agent (public preview)
-automates the FinOps loop — investigating cost anomalies and correlating spend
-changes with account activity — so anomaly triage is continuous and queryable
-rather than a manual monthly dig. **Caching** removes
-repeated fixed cost: container/image caching (Amazon SageMaker) cuts cold-start
-scaling cost and latency, and prompt/result caching trims repeated context.
-Prompt caching in particular is becoming an automatic, framework-level default
-rather than a hand-tuned optimization — LangChain's Deep Agents reports cutting
-LLM token cost by up to ~80% across every major provider with **no extra
-config**, because an agent loop re-sends a large, stable prefix (system prompt,
-tool schemas, prior steps) every turn, which is exactly the input a provider
-prompt cache is built to discount. That makes "cache the stable prefix" a default
-the framework owns, not a knob each team has to discover. The
-caching frontier is moving inside the model's own KV cache for **multimodal**
-agents that re-examine the same frames, screenshots, and rendered artifacts every
-look-back — Kamera proposes a position-invariant KV cache so those repeated visual
-tokens are reused across context shifts instead of re-encoded from scratch,
-turning redundant re-encoding (a hidden, fast-growing cost in agents that loop
-over visual state) into a cache hit, training-free. The
-load-bearing idea is that you cannot control what you don't meter, so per-task
-metering and budgets are the foundation the architectural savings build on.
+The tooling is maturing from "read the monthly bill" toward continuous FinOps
+for agents.
+
+Platform vendors ship **usage analytics plus enforceable spend controls**
+(OpenAI's enterprise spend caps and analytics) so an org can set ceilings
+rather than discover overruns.
+
+Developer tooling pushes **attribution** down to the unit of work — Prtokens
+surfaces how many agent tokens a single pull request burned, making cost a
+number on the artifact instead of an aggregate.
+
+The analysis step itself is being delivered as a **managed agent**: AWS's
+FinOps Agent (public preview) automates the FinOps loop — investigating cost
+anomalies and correlating spend changes with account activity — so anomaly
+triage is continuous and queryable rather than a manual monthly dig.
+
+**Caching** removes repeated fixed cost: container/image caching (Amazon
+SageMaker) cuts cold-start scaling cost and latency, and prompt/result
+caching trims repeated context. Prompt caching in particular is becoming an
+automatic, framework-level default rather than a hand-tuned optimization —
+LangChain's Deep Agents reports cutting LLM token cost by up to ~80% across
+every major provider with no extra config, because an agent loop re-sends a
+large, stable prefix (system prompt, tool schemas, prior steps) every turn,
+which is exactly the input a provider prompt cache is built to discount. That
+makes "cache the stable prefix" a default the framework owns, not a knob
+each team has to discover.
+
+The caching frontier is moving inside the model's own KV cache for
+**multimodal** agents that re-examine the same frames, screenshots, and
+rendered artifacts every look-back — Kamera proposes a position-invariant KV
+cache so those repeated visual tokens are reused across context shifts
+instead of re-encoded from scratch, turning redundant re-encoding (a hidden,
+fast-growing cost in agents that loop over visual state) into a cache hit,
+training-free.
+
+The load-bearing idea is that you cannot control what you don't meter, so
+per-task metering and budgets are the foundation the architectural savings
+build on.
 
 ## What's new
-Cost controls are shifting left: from a monthly finance review to per-task,
-per-PR metering with enforceable caps (OpenAI spend controls, Prtokens
-attribution), now-managed *agentic* anomaly triage (AWS FinOps Agent correlates
-spend changes with account activity), and caching that removes repeated fixed
-cost — turning agent cost into a CI/ops signal you watch live rather than
-reconcile after the fact. Prompt
-caching is moving from a manual optimization to a framework default that captures
-the agent loop's stable prefix automatically (Deep Agents: up to ~80% token-cost
-cut across providers, zero config). Caching is also reaching inside the model:
-Kamera's position-invariant KV cache lets multimodal agents reuse the encoding of
-frames/screenshots they re-read every step, cutting the redundant re-encode cost
-of visual look-backs without retraining.
+Cost controls are **shifting left**: from a monthly finance review to
+per-task, per-PR metering with enforceable caps (OpenAI spend controls,
+Prtokens attribution), now-managed agentic anomaly triage (AWS FinOps Agent
+correlates spend changes with account activity), and caching that removes
+repeated fixed cost — turning agent cost into a CI/ops signal you watch live
+rather than reconcile after the fact.
+
+**Prompt caching** is moving from a manual optimization to a framework
+default that captures the agent loop's stable prefix automatically (Deep
+Agents: up to ~80% token-cost cut across providers, zero config).
+
+Caching is also reaching **inside the model**: Kamera's position-invariant
+KV cache lets multimodal agents reuse the encoding of frames/screenshots
+they re-read every step, cutting the redundant re-encode cost of visual
+look-backs without retraining.
 
 ## Trade-offs
-Metering and attribution add plumbing (token accounting, tagging by task/user)
-and only become actionable if someone owns the budgets. Hard caps protect spend
-but can fail a legitimate long task at the worst moment, so they need graceful
-degradation, not a hard kill. Caching saves money only when inputs actually
-repeat and adds an invalidation/staleness problem of its own. And these controls
-*bound* cost without lowering it — the real reductions come from the architecture
-([compaction](/topic/context-compaction), [orchestration](/topic/agent-orchestration),
-cheap judges), so controls are the floor, not the fix.
+Metering and attribution add plumbing (token accounting, tagging by
+task/user) and only become actionable if someone owns the budgets.
+
+Hard caps protect spend but can fail a legitimate long task at the worst
+moment, so they need graceful degradation, not a hard kill.
+
+Caching saves money only when inputs actually repeat and adds an
+invalidation/staleness problem of its own.
+
+And these controls *bound* cost without lowering it — the real reductions
+come from the architecture ([compaction](/topic/context-compaction),
+[orchestration](/topic/agent-orchestration), cheap judges), so controls are
+the floor, not the fix.
 
 ## Why it matters for platform engineers
-This is FinOps for agents: the difference between a product with a known unit
-economics story and one that quietly loses money per request. The actionable
-stance is to meter every run, attribute cost to task and user, set budgets and
-caps with sane fallback, and cache the repeatable — then use that visibility to
-justify the architectural changes that actually move the bill.
+This is FinOps for agents: the difference between a product with a known
+unit economics story and one that quietly loses money per request.
+
+The actionable stance is to meter every run, attribute cost to task and
+user, set budgets and caps with sane fallback, and cache the repeatable —
+then use that visibility to justify the architectural changes that actually
+move the bill.

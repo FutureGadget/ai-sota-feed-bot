@@ -17,90 +17,119 @@ relations — and retrieve only the relevant slice at each step. This is how an
 agent "remembers" more than fits in a prompt.
 
 ## State of the art
-Pure top-k vector similarity is increasingly treated as a floor, not the answer:
-practitioners report that **hybrid retrieval** (dense vectors + lexical/keyword +
-metadata filters, often with a rerank pass) is needed for production recall, and
-that **knowledge graphs** capture connected facts that flat embeddings miss. The
-open ecosystem (Letta, Mem0, Graphiti, Cognee) packages these as agent-memory
-layers with different stances on graph vs. vector vs. hybrid. A parallel move puts
-that layer on a **commodity datastore you already run**: BetterDB ships an open
-(MIT) Valkey-native context layer that folds agent memory, semantic plus
-multi-tier caching, and typed retrieval onto a single Valkey/Redis instance,
-local or hosted — collapsing the "buy a separate vector DB" hop into the cache you
-already operate, and tying memory and caching into one substrate rather than two
-systems to keep consistent. The same "ride infrastructure you already run" move is
-now coming from incumbents: Elastic's Atlas builds tiered agent memory directly on
-Elasticsearch and serves it over [MCP](/topic/mcp), so the retrieval store is the
-search cluster the team already operates rather than a new dependency. Retrieval
-quality, meanwhile, is increasingly treated as a *data-and-embedding* problem, not
-just an index choice: a production deployment at Target replaces rule-based
-campaign matching with embeddings plus vector search plus an LLM rerank, and
-permutation-invariant embedding fine-tuning fixes a concrete failure where field
-order in serialized structured records skews similarity — both pointing at recall
-quality being earned in how records are embedded and ranked, not in the vector DB
-brand. Strong results are
-achievable without an LLM in the recall path (a local store hitting high
-LongMemEval recall), underscoring that retrieval quality is an engineering
-problem, not a model-scale one. The category is also being challenged from
-outside vectors entirely: bi-temporal relational stores (Memharness, a single
-SQLite file) lean on time and structure rather than embeddings,
-vector-symbolic / algebraic memory (VSA) proposes binding and bundling
-operations *instead of* RAG-style nearest-neighbour lookup, and graph-based
-associative stores build the structure from co-occurrence rather than embeddings
-(FERNme grows a memory graph with fuzzy edges and a Hebbian co-occurrence rule,
-keeping the LLM out of the *write* path as well as the read path). The shared
-claim is that for an agent's facts-and-preferences memory, exact, structured,
-temporally aware recall often beats fuzzy similarity — and can be built and
-updated without per-turn LLM cost. A complementary critique targets the *query*
-side: "Root Memories" shows similarity-based retrieval misses memories that are
-**logically** rather than lexically relevant — the fact you need to answer is
-implied by what's stored, not embedded near the question — so recall has to reason
-over stored memories, not just rank them by distance, or it silently drops the
-load-bearing one. The vector-vs-graph split now has a cheaper way to get the graph:
-TIGRAG builds its knowledge graph from **token co-occurrence statistics** (a
-sliding-window count over the corpus) instead of an LLM-extraction pipeline, then
-combines that graph with neural reranking for multi-hop retrieval — matching or
-beating dense and LLM-extracted GraphRAG on multi-hop QA while cutting indexing
-time, inference latency, and prompt footprint, which weakens the standard
-objection that graph construction is too slow and expensive to run at production
-scale.
+Pure top-k vector similarity is increasingly treated as a floor, not the
+answer: practitioners report that **hybrid retrieval** (dense vectors +
+lexical/keyword + metadata filters, often with a rerank pass) is needed for
+production recall, and that **knowledge graphs** capture connected facts
+that flat embeddings miss. The open ecosystem (Letta, Mem0, Graphiti,
+Cognee) packages these as agent-memory layers with different stances on
+graph vs. vector vs. hybrid.
+
+A parallel move puts that layer on a **commodity datastore you already
+run**: BetterDB ships an open (MIT) Valkey-native context layer that folds
+agent memory, semantic plus multi-tier caching, and typed retrieval onto a
+single Valkey/Redis instance, local or hosted — collapsing the "buy a
+separate vector DB" hop into the cache you already operate, and tying memory
+and caching into one substrate rather than two systems to keep consistent.
+
+The same "ride infrastructure you already run" move is now coming from
+**incumbents**: Elastic's Atlas builds tiered agent memory directly on
+Elasticsearch and serves it over [MCP](/topic/mcp), so the retrieval store
+is the search cluster the team already operates rather than a new
+dependency.
+
+Retrieval quality, meanwhile, is increasingly treated as a
+**data-and-embedding** problem, not just an index choice: a production
+deployment at Target replaces rule-based campaign matching with embeddings
+plus vector search plus an LLM rerank, and permutation-invariant embedding
+fine-tuning fixes a concrete failure where field order in serialized
+structured records skews similarity — both pointing at recall quality being
+earned in how records are embedded and ranked, not in the vector DB brand.
+
+Strong results are achievable **without an LLM in the recall path** (a
+local store hitting high LongMemEval recall), underscoring that retrieval
+quality is an engineering problem, not a model-scale one.
+
+The category is also being challenged from **outside vectors entirely**,
+with the shared claim that exact, structured, temporally aware recall often
+beats fuzzy similarity — and can be built and updated without per-turn LLM
+cost:
+
+- bi-temporal relational stores (Memharness, a single SQLite file) lean on
+  time and structure rather than embeddings
+- vector-symbolic / algebraic memory (VSA) proposes binding and bundling
+  operations *instead of* RAG-style nearest-neighbour lookup
+- graph-based associative stores build the structure from co-occurrence
+  rather than embeddings (FERNme grows a memory graph with fuzzy edges and a
+  Hebbian co-occurrence rule, keeping the LLM out of the *write* path as
+  well as the read path)
+
+A complementary critique targets the *query* side: "Root Memories" shows
+similarity-based retrieval misses memories that are **logically** rather
+than lexically relevant — the fact you need to answer is implied by what's
+stored, not embedded near the question — so recall has to reason over
+stored memories, not just rank them by distance, or it silently drops the
+load-bearing one.
+
+The vector-vs-graph split now has a **cheaper way to get the graph**:
+TIGRAG builds its knowledge graph from token co-occurrence statistics (a
+sliding-window count over the corpus) instead of an LLM-extraction pipeline,
+then combines that graph with neural reranking for multi-hop retrieval —
+matching or beating dense and LLM-extracted GraphRAG on multi-hop QA while
+cutting indexing time, inference latency, and prompt footprint, which
+weakens the standard objection that graph construction is too slow and
+expensive to run at production scale.
 
 ## What's new
 Graph construction just got a **cheap, mechanical path**: TIGRAG derives its
-knowledge graph from token co-occurrence statistics rather than an LLM-extraction
-pipeline, then layers graph-based expansion and reranking on top — beating dense
-and LLM-extracted GraphRAG baselines on multi-hop QA while indexing faster and
-cheaper, the same "skip the per-write LLM call" instinct already seen in agent
-memory (FERNme, PMB). A practitioner framing of the same split now has a name for
-why plain vector RAG plateaus: enterprise GraphRAG guidance argues traditional
-vector retrieval falls short on **global context, multi-hop reasoning, and
-provenance** specifically, and that the fix is pushing structure down into the
-data layer rather than adding more orchestration logic on top — reinforcing that
-the graph-vs-vector choice is about what vector similarity structurally cannot
-answer, not implementation taste. The critique of pure similarity also hits the
-query side: "Root Memories" benchmarks shows semantic-similarity retrieval misses
-*logically* critical memories (relevant by implication, not embedding distance),
-arguing recall must reason over stored facts rather than rank them by
-nearest-neighbor. That sharpens the live "is a vector DB even the right
-primitive" question already raised by non-vector designs — bi-temporal SQLite
-(Memharness), algebraic/vector-symbolic memory as an explicit RAG alternative
-(VSA), and Hebbian co-occurrence graphs (FERNme) — all arguing structured, exact
-recall can beat embedding similarity. A quieter trend runs the other way on
-infrastructure: rather than a new store, BetterDB puts memory + semantic/multi-tier
-caching + typed retrieval on a commodity Valkey/Redis instance you already
-operate, and Elastic's Atlas builds tiered memory on Elasticsearch served over MCP
-— both letting the memory layer ride existing ops instead of adding a dedicated
-vector database. And a pair of production/data signals (Target's
-embeddings-plus-rerank campaign matcher, permutation-invariant embedding tuning
-for structured records) reinforce that recall quality is won in embedding and
-ranking choices, not in the store itself.
+knowledge graph from token co-occurrence statistics rather than an
+LLM-extraction pipeline, then layers graph-based expansion and reranking on
+top — beating dense and LLM-extracted GraphRAG baselines on multi-hop QA
+while indexing faster and cheaper, the same "skip the per-write LLM call"
+instinct already seen in agent memory (FERNme, PMB).
+
+A practitioner framing of the same split now has a name for why plain
+vector RAG plateaus: enterprise GraphRAG guidance argues traditional vector
+retrieval falls short on **global context, multi-hop reasoning, and
+provenance** specifically, and that the fix is pushing structure down into
+the data layer rather than adding more orchestration logic on top —
+reinforcing that the graph-vs-vector choice is about what vector similarity
+structurally cannot answer, not implementation taste.
+
+The critique of pure similarity also hits the **query side**: "Root
+Memories" benchmarks show semantic-similarity retrieval misses *logically*
+critical memories (relevant by implication, not embedding distance), arguing
+recall must reason over stored facts rather than rank them by
+nearest-neighbor.
+
+That sharpens the live "is a vector DB even the right primitive" question
+already raised by non-vector designs — all arguing structured, exact recall
+can beat embedding similarity:
+
+- bi-temporal SQLite (Memharness)
+- algebraic/vector-symbolic memory as an explicit RAG alternative (VSA)
+- Hebbian co-occurrence graphs (FERNme)
+
+A quieter trend runs the other way on **infrastructure**: rather than a new
+store, BetterDB puts memory + semantic/multi-tier caching + typed retrieval
+on a commodity Valkey/Redis instance you already operate, and Elastic's
+Atlas builds tiered memory on Elasticsearch served over MCP — both letting
+the memory layer ride existing ops instead of adding a dedicated vector
+database.
+
+And a pair of **production/data signals** (Target's embeddings-plus-rerank
+campaign matcher, permutation-invariant embedding tuning for structured
+records) reinforce that recall quality is won in embedding and ranking
+choices, not in the store itself.
 
 ## Trade-offs
-Adds a retrieval hop (latency) and an index to keep fresh and consistent; recall
-quality is only as good as chunking, embeddings, and reranking, and is hard to
-evaluate. Graphs add modeling and maintenance cost but answer multi-hop/connected
-queries vectors can't. Best when the durable knowledge is large, queried
-sparsely, and changes slower than every turn.
+Adds a retrieval hop (latency) and an index to keep fresh and consistent;
+recall quality is only as good as chunking, embeddings, and reranking, and
+is hard to evaluate. Graphs add modeling and maintenance cost but answer
+multi-hop/connected queries vectors can't.
+
+Best when the durable knowledge is large, queried sparsely, and changes
+slower than every turn.
 
 ## Why it matters for platform engineers
 This is the "buy a database for your agent's brain" path: it scales memory well
