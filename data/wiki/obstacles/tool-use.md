@@ -26,64 +26,79 @@ Model Context Protocol (MCP) standardizes how tools are described, discovered,
 and called, so a Terraform server, a Webex server, or a browser can expose
 capabilities to any MCP-speaking agent. The argument has sharpened from "wrap
 your REST API" to "agents need *infrastructure*, not SMS APIs" — purpose-built,
-agent-native endpoints rather than human-oriented ones bolted on. But most
-enterprises can't rebuild their service estate agent-native, so a pragmatic
-**brownfield** pattern is emerging alongside the greenfield one: *agentic
-overlays* — thin wrapper layers (AWS) that sit in front of existing REST services
-and expose them as agent-callable capabilities without touching the underlying
-system, trading the purity of agent-native endpoints for adopting what already
-runs in production. The actuation
-surface is widening too: WebMCP is entering Chrome origin trials so sites can
-expose JavaScript functions and HTML forms directly to in-browser agents, and
-cloud platforms are folding the whole tool-calling loop into their serverless
-runtimes — Azure Functions' agents runtime defines an agent in an `.agent.md`
-file with YAML triggers, MCP server access, 1,400+ connectors, and sandboxed
-execution. Running this in production surfaces classic distributed-systems
-problems — bursty, stateful multi-tenancy and securing the execution sandbox —
-that the model's tool-calling ability does nothing to solve. But standardizing
-the *wire* does not make the *calling behavior* reliable, and that is emerging as
-a separate, measurable failure axis. "Beyond Function Calling" benchmarks agents
-against **tool-environment unreliability** — tools that time out, error, or
-return malformed or inconsistent results — and finds that agents which look
-competent on clean tool suites degrade sharply when the environment misbehaves,
-so a passing schema test is no evidence the agent recovers when the tool itself
-does. A second, sharper finding is an *interaction* bug in the harness:
-the "Constraint Tax" study shows that demanding structured (JSON-schema) output
-and tool calling **jointly** suppresses tool calling in open-weight models — the
-two core agent capabilities interfere, so forcing a clean output contract can
-quietly stop the agent from calling the tool it needed. A third axis is **tool
-selection at scale**: once an agent can reach dozens of connectors, putting every
-tool schema in the prompt both burns context budget and degrades which tool the
-model picks, so harnesses are moving to *search* the tool catalog instead of
-listing it — OpenAI's Codex now uses [MCP](/topic/mcp) tool search by default,
-turning tool discovery into a retrieval step rather than a context dump.
+agent-native endpoints rather than human-oriented ones bolted on.
+
+But most enterprises can't rebuild their service estate agent-native, so a
+pragmatic **brownfield** pattern is emerging alongside the greenfield one:
+agentic overlays — thin wrapper layers (AWS) that sit in front of existing
+REST services and expose them as agent-callable capabilities without touching
+the underlying system, trading the purity of agent-native endpoints for
+adopting what already runs in production.
+
+The **actuation surface** is widening too: WebMCP is entering Chrome origin
+trials so sites can expose JavaScript functions and HTML forms directly to
+in-browser agents, and cloud platforms are folding the whole tool-calling loop
+into their serverless runtimes — Azure Functions' agents runtime defines an
+agent in an `.agent.md` file with YAML triggers, MCP server access, 1,400+
+connectors, and sandboxed execution. Running this in production surfaces
+classic distributed-systems problems — bursty, stateful multi-tenancy and
+securing the execution sandbox — that the model's tool-calling ability does
+nothing to solve.
+
+Standardizing the *wire* does not make the *calling behavior* reliable, and
+that is emerging as a separate, measurable failure axis. "Beyond Function
+Calling" benchmarks agents against **tool-environment unreliability** — tools
+that time out, error, or return malformed or inconsistent results — and finds
+that agents which look competent on clean tool suites degrade sharply when
+the environment misbehaves, so a passing schema test is no evidence the agent
+recovers when the tool itself does.
+
+A second, sharper finding is an *interaction* bug in the harness: the
+**"Constraint Tax"** study shows that demanding structured (JSON-schema)
+output and tool calling jointly suppresses tool calling in open-weight
+models — the two core agent capabilities interfere, so forcing a clean output
+contract can quietly stop the agent from calling the tool it needed.
+
+A third axis is **tool selection at scale**: once an agent can reach dozens
+of connectors, putting every tool schema in the prompt both burns context
+budget and degrades which tool the model picks, so harnesses are moving to
+*search* the tool catalog instead of listing it — OpenAI's Codex now uses
+[MCP](/topic/mcp) tool search by default, turning tool discovery into a
+retrieval step rather than a context dump.
 
 ## What's new
 The reliability of the *calling behavior* — not just the integration — is now
 being measured. "Beyond Function Calling" benchmarks agents under
 **tool-environment unreliability** (tools that time out, error, or return
-malformed results) and finds sharp degradation that clean tool suites hide, and
-the "Constraint Tax" study shows that jointly demanding structured output and
-tool calling **suppresses** tool calls in open-weight models — an interaction bug
-in the harness, not the protocol. A new selection axis also surfaced: with agents
-reaching dozens of connectors, harnesses now **search** the tool catalog instead of
-loading every schema — Codex makes MCP tool search the default — so tool discovery
-becomes a retrieval step that protects both context budget and selection accuracy.
-On the integration side, a **brownfield**
-counterpoint to "rebuild services agent-native" is gaining traction: *agentic
-overlays* (AWS) wrap existing REST services as agent-callable capabilities
-without rewriting them, a retrofit path for the service estates most teams
-actually have. This sits alongside the standardization push:
-WebMCP in Chrome origin trials (in-page tools), GA infrastructure MCP servers
-(HashiCorp Terraform), and cloud serverless agent runtimes bundling MCP access,
-1,400+ connectors, and sandboxing (Azure Functions).
+malformed results) and finds sharp degradation that clean tool suites hide,
+and the "Constraint Tax" study shows that jointly demanding structured output
+and tool calling **suppresses** tool calls in open-weight models — an
+interaction bug in the harness, not the protocol.
+
+A new **selection axis** also surfaced: with agents reaching dozens of
+connectors, harnesses now search the tool catalog instead of loading every
+schema — Codex makes MCP tool search the default — so tool discovery becomes
+a retrieval step that protects both context budget and selection accuracy.
+
+On the integration side, a **brownfield** counterpoint to "rebuild services
+agent-native" is gaining traction: agentic overlays (AWS) wrap existing REST
+services as agent-callable capabilities without rewriting them, a retrofit
+path for the service estates most teams actually have.
+
+This sits alongside the standardization push: WebMCP in Chrome origin trials
+(in-page tools), GA infrastructure MCP servers (HashiCorp Terraform), and
+cloud serverless agent runtimes bundling MCP access, 1,400+ connectors, and
+sandboxing (Azure Functions).
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed
 systems — auth, rate limits, retries, multi-tenancy, sandboxing — and it is
-where most production incidents live, not in the model. A protocol like MCP
-reduces N×M custom connectors to a common interface, but it also makes the
-**authorization and blast-radius** question central: every tool you expose is a
-new permission and a new attack surface (see [prompt injection](/topic/prompt-injection)).
+where most production incidents live, not in the model.
+
+A protocol like MCP reduces N×M custom connectors to a common interface, but
+it also makes the **authorization and blast-radius** question central: every
+tool you expose is a new permission and a new attack surface (see
+[prompt injection](/topic/prompt-injection)).
+
 The build-vs-buy decision is increasingly "adopt the protocol and govern the
 connectors" rather than "write another API wrapper."
