@@ -7,6 +7,7 @@ Before acting, read these contracts completely:
 1. `.agents/routines/COMMON.md`
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/daily-summary/SKILL.md`
+4. `.agents/skills/writing-style/SKILL.md`
 
 ## Run the routine
 

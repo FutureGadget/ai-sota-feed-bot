@@ -8,6 +8,7 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/storyline-scout/SKILL.md`
 4. `.agents/skills/storyline-editor/SKILL.md`
+5. `.agents/skills/writing-style/SKILL.md`
 
 Do not create a branch or pull request.
 

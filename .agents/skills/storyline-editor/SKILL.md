@@ -22,6 +22,11 @@ Write for the person who skimmed the headline last Tuesday and wants the
 through-line, not hype. The quality bar is "would the owner read this and feel
 caught up in 20 seconds".
 
+Prose bar: every field you write below (`tldr`, `whats_new`, `why_it_matters`,
+`beats[].headline`/`summary`, `open_questions`, `take_for_builders`,
+`day_captions`) follows `.agents/skills/writing-style/SKILL.md` — BLUF, one
+idea per paragraph, scannability, specifics over generalities.
+
 All scripts live next to this file in `scripts/` and locate the repo root
 automatically, so they run from anywhere. This routine mirrors `daily-summary`
 and `weekly-summary`, but the unit is a **storyline** (a slug like

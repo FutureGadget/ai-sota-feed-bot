@@ -1,7 +1,8 @@
 # Weekly Agent Builder's Playbook
 
-Read `.agents/routines/COMMON.md` and
-`.agents/skills/playbook/SKILL.md` completely, then execute the Playbook
+Read `.agents/routines/COMMON.md`,
+`.agents/skills/playbook/SKILL.md`, and
+`.agents/skills/writing-style/SKILL.md` completely, then execute the Playbook
 routine with these requirements:
 
 1. Build the input bundle with a seven-day lookback:

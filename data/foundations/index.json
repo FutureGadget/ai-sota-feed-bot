@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-01T10:08:29.070329+00:00",
+  "generated_at": "2026-07-02T01:04:47.786716+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -32,7 +32,7 @@
       "status": "active",
       "cluster": "safety",
       "cluster_label": "Safety and control",
-      "updated": "2026-07-01",
+      "updated": "2026-07-02",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -50,7 +50,7 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p>A long-horizon agent keeps a token budget. To stay under it, agents typically evict old turns, replace them with a running summary, or roll both together, with a summarization model or heuristic deciding what to keep — usually optimizing for task continuity, not rule preservation. The Governance Decay study formalizes this with ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading, and measures how often a stated policy constraint is honored after the surrounding context has been compacted. The result: violation is 0% when the constraint sits in full, uncompacted context; it climbs to 30% after ordinary compaction, up to 59% depending on the model; when the compacted summary happens to retain the constraint&#x27;s wording violation stays 0%, but when it&#x27;s dropped violation reaches 38%. The paper also demonstrates a Compaction-Eviction Attack: adversarial in-context content specifically crafted to bias the summarizer toward omitting a legitimate policy, and optimized versions of this attack defeat every model they evaluate — turning the compactor into an active adversarial target, not just a source of accidental loss. Their proposed fix, Constraint Pinning, is training-free: it quarantines governance constraints so they are excluded from whatever the compaction step is allowed to touch, and this alone restores violation to 0% in their benchmark.</p>\n<p>This mechanism generalizes beyond safety text specifically. The same compaction step is where ordinary memory quality degrades too — the tiered architecture practitioners converge on (short-term working context, episodic history, long-term semantic store) moves information through a lossy transform at every tier (summarize, embed-and-retrieve, or forget), and none of those transforms natively distinguish &quot;detail that doesn&#x27;t matter anymore&quot; from &quot;detail the system depends on.&quot;</p>"
+          "html": "<p>A long-horizon agent keeps a token budget. To stay under it, agents typically evict old turns, replace them with a running summary, or roll both together — a summarization model or heuristic decides what to keep, usually optimizing for task continuity, not rule preservation.</p>\n<p>The Governance Decay study measures how often a stated policy constraint survives this process, using ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading. The results:</p>\n<ul><li><strong>0% violation</strong> when the constraint sits in full, uncompacted context</li><li><strong>30% violation</strong> after ordinary compaction (up to 59% for some models)</li><li><strong>0% violation</strong> when the compacted summary happens to retain the constraint&#x27;s wording</li><li><strong>38% violation</strong> when the wording is dropped</li></ul>\n<p>The paper also demonstrates a Compaction-Eviction Attack: adversarial in-context content crafted to bias the summarizer toward omitting a legitimate policy. Optimized versions of this attack defeat every model they evaluate, turning the compactor into an active adversarial target, not just a source of accidental loss.</p>\n<p>Their proposed fix, Constraint Pinning, is training-free: it quarantines governance constraints so the compaction step can&#x27;t touch them. That alone restores violation to 0% in their benchmark.</p>\n<p>This mechanism generalizes beyond safety text. The tiered memory architecture practitioners converge on — short-term working context, episodic history, long-term semantic store — moves information through a lossy transform at every tier: summarize, embed-and-retrieve, or forget. None of those transforms natively distinguishes a detail that no longer matters from a detail the system depends on.</p>"
         },
         {
           "heading": "Evidence",
@@ -58,7 +58,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<p>Identify every hard constraint your agent depends on (forbidden tools, approval gates, hard user &quot;do nots&quot;, compliance rules) and store them outside the compactible window — in a pinned system block your summarization step is not allowed to rewrite or evict — then re-inject the verbatim text into every post-compaction prompt rather than trusting the running summary to carry it forward. Add a regression test that forces a compaction cycle mid-session and then attempts the prohibited action, asserting the agent still refuses; this check is cheap and training-free, but only catches the failure if you actually run it, since governance decay is invisible until you specifically probe for it. Treat your compaction/summarization component as untrusted input in the same sense as an injected tool result: if an attacker can influence what enters context (a tool response, a retrieved document), assume they can try to bias the summarizer into dropping a constraint, and make sure the pinned region cannot be edited by anything the compactor reads. When you evaluate any memory architecture — a tiered store, external retrieval, or a vendor-shipped memory service — require a measured evaluation number instead of accepting an unverified &quot;we added memory&quot; claim.</p>"
+          "html": "<p>Four changes close this gap:</p>\n<ul><li><strong>Pin hard constraints outside the compactible window.</strong> Identify every rule your agent depends on (forbidden tools, approval gates, hard user &quot;do nots&quot;, compliance rules), store them in a pinned system block your summarization step cannot rewrite or evict, and re-inject the verbatim text into every post-compaction prompt instead of trusting the running summary to carry it forward.</li><li><strong>Add a compaction regression test.</strong> Force a compaction cycle mid-session, then attempt the prohibited action and assert the agent still refuses. The check is cheap and training-free, but only catches the failure if you actually run it — governance decay is invisible until you specifically probe for it.</li><li><strong>Treat the compactor as untrusted input.</strong> If an attacker can influence what enters context (a tool response, a retrieved document), assume they can bias the summarizer into dropping a constraint the same way they&#x27;d exploit an injected tool result. Make sure the pinned region cannot be edited by anything the compactor reads.</li><li><strong>Require a measured number from any memory architecture.</strong> Whether it&#x27;s a tiered store, external retrieval, or a vendor-shipped memory service, demand an evaluation number before you trust an unverified &quot;we added memory&quot; claim.</li></ul>"
         },
         {
           "heading": "Failure modes",
@@ -136,7 +136,7 @@
       "status": "active",
       "cluster": "evaluation",
       "cluster_label": "Evals and reliability",
-      "updated": "2026-06-28",
+      "updated": "2026-07-02",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -154,7 +154,7 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p>An LLM judge scores a response (or a multi-step trajectory) by generating a verdict conditioned on the response, a rubric, and often a second response to compare against. Because the verdict is itself a model output, it inherits model-level artifacts: the judge can prefer whichever candidate is shown first (position bias), prefer longer text as a proxy for thoroughness (verbosity bias), and lose calibration outside the language or domain it was tuned on (cross-lingual or distribution-shift degradation). Swapping the order of the two responses being compared is a direct probe for this: if the verdict flips depending on which slot a response sits in, the judge is responding to position, not content.</p>\n<p>For agent trajectories specifically, the judge has to score a sequence of tool calls and intermediate decisions, not a single text block, which multiplies the places a bias can hide — a judge can be well-calibrated on final-answer correctness while being unreliable on whether the agent reached that answer through a sound or broken path. Cheaper judge architectures (fine-tuned encoders, distilled small LLMs) trade a wider rubric-following ability for speed and cost, but they are exposed to the same validation requirement: their accuracy has to be measured against the failure modes you care about, not just against the cases used to tune them.</p>"
+          "html": "<p>An LLM judge scores a response (or a multi-step trajectory) by generating a verdict conditioned on the response, a rubric, and often a second response to compare against. Because the verdict is itself a model output, it inherits model-level artifacts:</p>\n<ul><li><strong>Position bias</strong> — the judge prefers whichever candidate is shown first.</li><li><strong>Verbosity bias</strong> — the judge prefers longer text as a proxy for thoroughness.</li><li><strong>Cross-lingual / distribution-shift degradation</strong> — the judge loses calibration outside the language or domain it was tuned on.</li></ul>\n<p>Swapping the order of the two responses being compared is a direct probe for position bias: if the verdict flips depending on which slot a response sits in, the judge is responding to position, not content.</p>\n<p>For agent trajectories specifically, the judge has to score a sequence of tool calls and intermediate decisions, not a single text block, which multiplies the places a bias can hide — a judge can be well-calibrated on final-answer correctness while being unreliable on whether the agent reached that answer through a sound or broken path. Cheaper judge architectures (fine-tuned encoders, distilled small LLMs) trade a wider rubric-following ability for speed and cost, but they are exposed to the same validation requirement: their accuracy has to be measured against the failure modes you care about, not just against the cases used to tune them.</p>"
         },
         {
           "heading": "Evidence",
@@ -162,7 +162,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<p>Before trusting a judge&#x27;s verdicts, run an order-swap test on every pairwise comparison and only count verdicts that agree both ways; separately track response length against verdict to catch verbosity bias; and if you operate in more than one language or domain, measure judge reliability per slice instead of reporting one pooled number. Build the judge&#x27;s own held-out set from real production failures your team has actually seen, not from synthetic cases the judge would obviously get right — a judge that is accurate on easy cases and silent on the hard one you cared about is failing at its job. If cost matters, validate a cheaper judge (fine-tuned encoder or distilled small model) against the same held-out set before swapping it in, and re-run that validation whenever you change the underlying model, prompt, or rubric.</p>"
+          "html": "<p>Before trusting a judge&#x27;s verdicts, run these checks:</p>\n<ul><li><strong>Order-swap test.</strong> Run every pairwise comparison both ways and only count verdicts that agree.</li><li><strong>Verbosity check.</strong> Track response length against verdict to catch verbosity bias.</li><li><strong>Per-slice reliability.</strong> If you operate in more than one language or domain, measure judge reliability per slice instead of reporting one pooled number.</li><li><strong>Held-out set from real failures.</strong> Build it from production failures your team has actually seen, not synthetic cases the judge would obviously get right — a judge that&#x27;s accurate on easy cases and silent on the hard one you cared about is failing at its job.</li><li><strong>Re-validate before swapping in a cheaper judge.</strong> If cost matters, validate a fine-tuned encoder or distilled small model against the same held-out set before shipping it, and re-run validation whenever the underlying model, prompt, or rubric changes.</li></ul>"
         },
         {
           "heading": "Failure modes",
@@ -244,7 +244,7 @@
       "status": "active",
       "cluster": "prompting",
       "cluster_label": "Prompting and instruction following",
-      "updated": "2026-06-25",
+      "updated": "2026-07-02",
       "audience": "strong-software-engineer",
       "math_depth": "intuition",
       "sections": [
@@ -262,7 +262,7 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p>An autoregressive language model predicts the next token conditioned on the tokens before it. A prompt is therefore not just an instruction; it is the conditioning environment for all later tokens. Clear task framing, examples, delimiters, and output schemas change which continuations are likely.</p>\n<p>Few-shot examples work because they place a pattern directly in context. Chain-of-thought examples can help on multi-step problems because they demonstrate an intermediate representation before the final answer. Self-consistency helps when the model can reach the same answer through multiple sampled paths. Long context is not automatically reliable context: relevant information can be harder to use when it is buried in the middle.</p>"
+          "html": "<p>An autoregressive language model predicts the next token conditioned on the tokens before it. A prompt is therefore not just an instruction; it is the conditioning environment for all later tokens. Clear task framing, examples, delimiters, and output schemas change which continuations are likely.</p>\n<p>Four techniques work for the same underlying reason — they narrow which continuations the model finds likely:</p>\n<ul><li><strong>Few-shot examples</strong> place a pattern directly in context.</li><li><strong>Chain-of-thought examples</strong> demonstrate an intermediate representation before the final answer, which helps on multi-step problems.</li><li><strong>Self-consistency</strong> helps when the model can reach the same answer through multiple sampled paths.</li><li><strong>Long context is not automatically reliable context</strong> — relevant information can be harder to use when it is buried in the middle.</li></ul>"
         },
         {
           "heading": "Math intuition",
@@ -274,7 +274,7 @@
         },
         {
           "heading": "How to apply",
-          "html": "<p>Write the prompt contract before polishing wording. Specify the task, the input fields, what the model must ignore, the output schema, and what to do when evidence is missing. Put volatile or untrusted content behind clear delimiters. Keep decisive instructions close to the work they govern, especially when the context is long.</p>\n<p>For agent systems, pair the prompt with a small eval set. Include clean successes, missing-information cases, adversarial or irrelevant context, and format-stability checks. Change one prompt dimension at a time, then compare outputs against the contract. If downstream code parses the answer, schema adherence is part of correctness, not formatting polish.</p>"
+          "html": "<p>Write the prompt contract before polishing wording:</p>\n<ul><li>Specify the task, the input fields, what the model must ignore, the output schema, and what to do when evidence is missing.</li><li>Put volatile or untrusted content behind clear delimiters.</li><li>Keep decisive instructions close to the work they govern, especially when the context is long.</li></ul>\n<p>For agent systems, pair the prompt with a small eval set that includes clean successes, missing-information cases, adversarial or irrelevant context, and format-stability checks. Change one prompt dimension at a time, then compare outputs against the contract. If downstream code parses the answer, schema adherence is part of correctness, not formatting polish.</p>"
         },
         {
           "heading": "Failure modes",

@@ -9,6 +9,7 @@ Before acting, read these contracts completely:
 2. `AGENTS.md`, especially **Product Positioning**
 3. `.agents/skills/wiki-curator/SKILL.md`
 4. `config/wiki_schema.md`
+5. `.agents/skills/writing-style/SKILL.md`
 
 The schema is authoritative if it disagrees with the skill.
 
