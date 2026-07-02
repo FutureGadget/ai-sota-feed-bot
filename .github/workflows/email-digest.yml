@@ -75,11 +75,19 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- data/email/state.json; then
+          # The cursor file is absent until the first successful send in a
+          # checkout (publish_email.py writes it only after sending), and
+          # `git diff` never reports untracked files — so stage first and
+          # check the index, or the cursor is never committed at all.
+          if [ ! -f data/email/state.json ]; then
             echo "no cursor change to commit"
             exit 0
           fi
           git add data/email/state.json
+          if git diff --cached --quiet -- data/email/state.json; then
+            echo "no cursor change to commit"
+            exit 0
+          fi
           git commit -m "chore(data): advance email digest cursor $(date -u +%F)"
           # main is busy with hourly bot commits — rebase + retry on push.
           for i in 1 2 3 4; do
