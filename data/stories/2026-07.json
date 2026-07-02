@@ -428,7 +428,7 @@
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-07-01T15:38:16+00:00",
+  "published": "2026-07-01T17:04:24+00:00",
   "sid": "8688a4c832b1b52a",
   "source": "langchain_blog",
   "summary": "Recursive language models (RLMs) fix context rot by having agents write code that dispatches subagents over context chunks instead of pumping everything in one context window. Deep Agents now implements this through dynamic subagents and a lightweight code interpreter, letting agents programmatically fan out work like grep, map, and reduce over large inputs. We benchmark the approach on OOLONG, a long-context reasoning task, and show it holds up where turn-by-turn agents start to break down.",
@@ -519,6 +519,22 @@
   "type": "news",
   "url": "https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "9ae3d20f85fa904c": {
+  "first_seen": "2026-07-02T21:01:58.062649+00:00",
+  "id": "e55e68902996963d",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-02T19:22:51+00:00",
+  "sid": "9ae3d20f85fa904c",
+  "source": "hackernews_ai",
+  "summary": "I work on agent infra at Featherless. This is MIT and works with any OpenAI-compatible endpoint, not just ours. I kept rebuilding the same loop: call model, run tools, feed results back, stop. Every framework I tried either owned the UI, owned the control flow, or dragged a dependency tree. So I pulled the loop out and put every piece behind an interface: memory, model, tools, stop condition. The loop depends only on the interfaces. It never writes to a screen. It emits one typed event stream, so a trace is just data, and you render it however you want. The landing page scrubs one run and rebuilds a CLI, a DOM timeline, and raw JSONL from the same stream. One dependency (zod). Same build runs in Node, Bun, Deno, and a browser tab. Every seam is tested in isolation with deterministic doubles, no network. Why not the Vercel AI SDK, pi, or LangGraph: AI SDK owns more of the surface and has been awkward with self-hosted tool calling. pi is a great coding-agent toolkit but it's shaped around being a coding agent and ships a TUI. LangGraph is a heavier graph framework. This is the layer under all of those: the bare loop you'd build any of them on. Happy to be told where the seams are wrong. If anyone finds any problems let me know this field moves at break neck speed so let me know if I am missing anything.",
+  "summary_1line": "I work on agent infra at Featherless. This is MIT and works with any OpenAI-compatible endpoint, not just ours. I kept rebuilding the same loop: call model, run tools, feed results back, stop. Every framework I tried...",
+  "title": "Show HN: A provider-agnostic agent loop built on ports and adapters",
+  "type": "news",
+  "url": "https://openagentloops.featherless.ai",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "9bf2f6419fda7872": {
   "first_seen": "2026-07-02T18:01:53.090447+00:00",
@@ -687,6 +703,22 @@
   "url": "https://github.com/fred-terzi/totem-llm",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b9086a1bf41daf62": {
+  "first_seen": "2026-07-02T21:01:58.062649+00:00",
+  "id": "d1562b3c3ab1db12",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-07-02T20:57:17+00:00",
+  "sid": "b9086a1bf41daf62",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.143.0-alpha.34",
+  "summary_1line": "Release 0.143.0-alpha.34",
+  "title": "codex rust-v0.143.0-alpha.34",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.34",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "bb53999f247d993c": {
   "first_seen": "2026-07-01T20:01:58.749727+00:00",
   "id": "5a6bad61d9851e5c",
@@ -772,7 +804,7 @@
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-07-01T17:58:04+00:00",
+  "published": "2026-07-02T17:39:30+00:00",
   "sid": "ee2eab4f35a2124a",
   "source": "langchain_blog",
   "summary": "OpenWiki generates and maintains codebase documentation so coding agents can find the repo context they need without loading everything into one instruction file.",
