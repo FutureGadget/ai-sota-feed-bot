@@ -1,32 +1,68 @@
 {
-  "prefilter_in": 1039,
+  "prefilter_in": 1003,
   "prefilter_out": 140,
   "prefilter_reasons": {
-    "hard_exclude": 22,
-    "off_topic": 27,
+    "hard_exclude": 21,
+    "off_topic": 28,
     "freshness_window": 725,
-    "pool_cap": 125
+    "pool_cap": 89
   },
   "slots": {
     "frontier_official": {
-      "candidates": 4,
-      "llm_scored": 4,
-      "cache_hits": 4,
+      "candidates": 12,
+      "llm_scored": 12,
+      "cache_hits": 12,
       "llm_called": 0,
-      "selected": 4,
-      "reject_source_cap": 0,
-      "reject_slot_cap": 0
+      "selected": 7,
+      "reject_source_cap": 1,
+      "reject_slot_cap": 4
     },
     "agent_tooling_releases": {
+      "candidates": 7,
+      "llm_scored": 7,
+      "cache_hits": 7,
+      "llm_called": 0,
+      "selected": 3,
+      "reject_source_cap": 4,
+      "reject_slot_cap": 0
+    },
+    "infra_runtime_releases": {
       "candidates": 3,
       "llm_scored": 3,
       "cache_hits": 3,
       "llm_called": 0,
-      "selected": 2,
-      "reject_source_cap": 1,
-      "reject_slot_cap": 0
+      "selected": 1,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 2
     },
-    "infra_runtime_releases": {
+    "vendor_general_updates": {
+      "candidates": 10,
+      "llm_scored": 10,
+      "cache_hits": 10,
+      "llm_called": 0,
+      "selected": 1,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 9
+    },
+    "cloud_platform_updates": {
+      "candidates": 4,
+      "llm_scored": 4,
+      "cache_hits": 2,
+      "llm_called": 0,
+      "selected": 1,
+      "reject_source_cap": 0,
+      "reject_slot_cap": 3
+    },
+    "practitioner_analysis": {
+      "candidates": 38,
+      "llm_scored": 38,
+      "cache_hits": 38,
+      "llm_called": 0,
+      "selected": 8,
+      "reject_source_cap": 5,
+      "reject_slot_cap": 25
+    },
+    "community_signal": {
       "candidates": 0,
       "llm_scored": 0,
       "cache_hits": 0,
@@ -35,49 +71,13 @@
       "reject_source_cap": 0,
       "reject_slot_cap": 0
     },
-    "vendor_general_updates": {
-      "candidates": 6,
-      "llm_scored": 6,
-      "cache_hits": 6,
-      "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 0,
-      "reject_slot_cap": 5
-    },
-    "cloud_platform_updates": {
-      "candidates": 2,
-      "llm_scored": 2,
-      "cache_hits": 0,
-      "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 0,
-      "reject_slot_cap": 1
-    },
-    "practitioner_analysis": {
-      "candidates": 24,
-      "llm_scored": 24,
-      "cache_hits": 23,
-      "llm_called": 0,
-      "selected": 8,
-      "reject_source_cap": 6,
-      "reject_slot_cap": 10
-    },
-    "community_signal": {
-      "candidates": 29,
-      "llm_scored": 29,
-      "cache_hits": 25,
-      "llm_called": 0,
-      "selected": 1,
-      "reject_source_cap": 28,
-      "reject_slot_cap": 0
-    },
     "research_watch": {
-      "candidates": 72,
-      "llm_scored": 72,
-      "cache_hits": 72,
+      "candidates": 66,
+      "llm_scored": 66,
+      "cache_hits": 66,
       "llm_called": 0,
       "selected": 3,
-      "reject_source_cap": 69,
+      "reject_source_cap": 63,
       "reject_slot_cap": 0
     },
     "overflow": {
@@ -93,20 +93,20 @@
   "llm_budget_total": 8,
   "llm_budget_used": 0,
   "slot_priority": {
-    "frontier_official": 0.778,
-    "agent_tooling_releases": 0.484,
-    "infra_runtime_releases": -0.1,
-    "vendor_general_updates": 0.227,
-    "cloud_platform_updates": 0.407,
-    "practitioner_analysis": 0.551,
-    "community_signal": 0.464,
-    "research_watch": 0.375,
+    "frontier_official": 0.764,
+    "agent_tooling_releases": 0.43,
+    "infra_runtime_releases": 0.418,
+    "vendor_general_updates": 0.221,
+    "cloud_platform_updates": 0.401,
+    "practitioner_analysis": 0.517,
+    "community_signal": 0.0,
+    "research_watch": 0.368,
     "overflow": -0.2
   },
   "merge": {
-    "floor_selected": 10,
-    "headroom_selected": 10,
-    "skip_duplicate": 10,
+    "floor_selected": 9,
+    "headroom_selected": 15,
+    "skip_duplicate": 9,
     "skip_slot_max": 0
   },
   "top_band": {
@@ -122,7 +122,7 @@
   },
   "final_summary_pass": {
     "llm_called": 0,
-    "cache_hits": 18,
-    "items": 20
+    "cache_hits": 23,
+    "items": 24
   }
 }
