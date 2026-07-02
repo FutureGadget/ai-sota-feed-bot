@@ -5,89 +5,119 @@ Focus: AI Platform Engineering
 ## 1. How to Use RLMs in Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-to-use-rlms-in-deep-agents
-- Score: 3.058 | Reliability: 1.0
+- Score: 3.047 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. How Pendo uses LangSmith to trace Novus from user behavior to code fixes
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-pendo-used-langsmith-to-trace-novus-from-user-behavior-to-code-fixes
-- Score: 2.929 | Reliability: 1.0
+- Score: 2.918 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. QuasiMoTTo: Quasi-Monte Carlo Test-Time Scaling
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.01179v1
-- Score: 2.921 | Reliability: 1.0
+- Score: 2.918 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 4. Autonomous Scientific Discovery via Iterative Meta-Reflection
+## 4. Introducing Claude Sonnet 5
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/claude-sonnet-5
+- Score: 2.891 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 5. Autonomous Scientific Discovery via Iterative Meta-Reflection
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.01131v1
-- Score: 2.783 | Reliability: 1.0
+- Score: 2.78 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 5. MemSyco-Bench: Benchmarking Sycophancy in Agent Memory
+## 6. MemSyco-Bench: Benchmarking Sycophancy in Agent Memory
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.01071v1
-- Score: 2.766 | Reliability: 1.0
+- Score: 2.763 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 6. Presentation: Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs
+## 7. AlloyDB AI Functions - now with revolutionary performance boosts and cost savings
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/databases/boost-performance-and-lower-costs-with-alloydb-ai-functions/
+- Score: 2.723 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 8. Redeploying Claude Fable 5
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/redeploying-fable-5
+- Score: 2.688 | Reliability: 1.0
+- Why it matters: 
+
+## 9. Presentation: Graph RAG: Building Smarter Retrieval Workflows with Knowledge Graphs
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/graph-rag-llm/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.653 | Reliability: 1.0
+- Score: 2.641 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 7. Agents.md is lying to your agent – and nothing checks it
-- Type: news | Source: hackernews_ai
-- URL: https://hunch-pi.vercel.app/blog/post?slug=agents-md-is-lying-to-your-agent
-- Score: 2.544 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. Autoresearch: The feedback loop behind self-improving agents
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/autoresearch-introspection
-- Score: 2.467 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 9. How Cursor deploys AI inside the enterprise
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/cursor-forward-deployed-engineers
-- Score: 2.459 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Presentation: The Infrastructure Challenge Behind Production AI
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/ai-infrastructure-scaling-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.448 | Reliability: 1.0
+## 10. Start building with Nano Banana 2 Lite and Gemini Omni Flash
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/start-building-with-nano-banana-2-lite-and-gemini-omni-flash/
+- Score: 2.545 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/scarfbench
-- Score: 2.737 | Reliability: 1.0
+- Score: 2.734 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 12. TiRex-2: Generalizing TiRex to Multivariate Data and Streaming
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.01204v1
-- Score: 2.703 | Reliability: 1.0
+- Score: 2.7 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 13. codex 0.143.0-alpha.33
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.33
-- Score: 2.383 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 13. What's new in Claude Sonnet 5
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/30/claude-sonnet-5/#atom-everything
+- Score: 2.6 | Reliability: 1.0
+- Why it matters: 
 
-## 14. claude-code v2.1.198
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.198
-- Score: 2.181 | Reliability: 1.0
+## 14. Have your agent record video demos of its work with shot-scraper video
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jun/30/shot-scraper-video/#atom-everything
+- Score: 2.594 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, codex.
+
+## 15. Autoresearch: The feedback loop behind self-improving agents
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/autoresearch-introspection
+- Score: 2.456 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 15. NVIDIA Unlocks AI Compute at Scale, Inviting Partners to Power the AI Infrastructure Buildout
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/nvidia-unlocks-ai-compute-at-scale-capital-partners-to-power-ai-infrastructure-buildout/
-- Score: 1.665 | Reliability: 1.0
-- Why it matters:
+## 16. How Cursor deploys AI inside the enterprise
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/cursor-forward-deployed-engineers
+- Score: 2.448 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 17. Presentation: The Infrastructure Challenge Behind Production AI
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/ai-infrastructure-scaling-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.437 | Reliability: 1.0
+- Why it matters: 
+
+## 18. codex 0.143.0-alpha.33
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.33
+- Score: 2.376 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 19. claude-code v2.1.198
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.198
+- Score: 2.174 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 20. Structured memory filtering with metadata in AgentCore Memory
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory/
+- Score: 1.917 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
