@@ -38,7 +38,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 |---|---|---|
 | `feed-full-publish.yml` | cron-job.org external ticker (hourly) | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
-| `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply` |
+| `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
 | `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
 
 Both `feed-full-publish.yml` and `email-digest.yml` have **no GitHub `schedule:`
@@ -89,6 +89,16 @@ evidence tiers and compiles `data/foundations/index.json`; `render_static_pages.
 serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
 `.agents/routines/foundations-curator-weekly/`.
 
+**North star metric (2026-07-02, 60-day window):** every product decision is
+judged against **weekly returning readers** and nothing else — see
+`docs/status/north-star-metric.md` for the definition and
+`docs/design-docs/decision-log.md` (2026-07-02) for the rationale.
+`pipeline/north_star_metric.py sync` pulls `page_view` events from PostHog
+(same HogQL pattern as `feedback.py`/`auto_tune.py`) into
+`data/metrics/weekly_returning_readers.json`; `summary` prints the tracked
+history. Runs daily inside `feedback-sync.yml`; the latest week also shows up
+in `ops_daily_summary.py`'s log line.
+
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
   releases, normalization, dedupe, crawl cooldown per source)
@@ -109,6 +119,8 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   - `build_foundations.py` — compiles Agent Builder Foundations concept pages
     (`data/foundations/concepts/`) into the served `data/foundations/index.json`
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
+  - `north_star_metric.py` — weekly returning readers rollup (the one metric;
+    PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
 - `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
@@ -192,7 +204,7 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
 - `data/` — generated runtime artifacts (committed by bots; see Data Artifacts)
 - `docs/` — living documentation:
   - `docs/status/` — operational snapshots (`current-system-state.md`,
-    `git-hygiene.md`, `tuning-governance.md`)
+    `git-hygiene.md`, `tuning-governance.md`, `north-star-metric.md`)
   - `docs/how-to/` — playbooks (source/filter debugging, PostHog setup)
   - `docs/deploy/` — Vercel deployment notes
   - `docs/product-specs/` — behavior specs (feedback-loop, llm-ranking, onboarding)
@@ -236,6 +248,9 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   bundles (excluded from deploys). Served at `/playbook`; source-backed cards
   may appear inline in capped daily/weekly recap overlays
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
+- `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
+  the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:
+  `docs/status/north-star-metric.md`
 - `data/health/` — `source_health.json`, `circuit_breaker.json`,
   `alerts_state.json`, `ingest_runs.jsonl`
 - `data/email/state.json` — email-digest send cursor (high-water marks for

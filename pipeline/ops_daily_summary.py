@@ -96,6 +96,13 @@ def main() -> None:
         "ingest_status_counts_24h": ingest_statuses_last_24h(ingest_rows),
     }
 
+    north_star = load_json(ROOT / "data" / "metrics" / "weekly_returning_readers.json", None)
+    if isinstance(north_star, dict) and north_star.get("weeks"):
+        latest_week = sorted(north_star["weeks"], key=lambda r: str(r.get("week_start")))[-1]
+        summary["north_star_weekly_returning_readers"] = latest_week
+    else:
+        summary["north_star_weekly_returning_readers"] = None
+
     tune = load_json(ROOT / "data" / "feedback" / "source_adjustments.json", None)
     if isinstance(tune, dict):
         adjustments = tune.get("adjustments") or {}
@@ -109,12 +116,15 @@ def main() -> None:
         summary["source_tuning"] = None
 
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+    ns = summary["north_star_weekly_returning_readers"]
     print(
         "ops_summary "
         f"processed_24h={summary['processed_runs_24h']} "
         f"tier1_24h={summary['tier1_runs_24h']} "
         f"latest_processed_items={summary['latest_processed_item_count']} "
-        f"latest_tier1_items={summary['latest_tier1_item_count']}"
+        f"latest_tier1_items={summary['latest_tier1_item_count']} "
+        f"weekly_returning_readers={ns['returning_readers'] if ns else None} "
+        f"weekly_returning_rate={ns['returning_rate'] if ns else None}"
     )
 
 
