@@ -5,9 +5,9 @@ title: "Context compaction: summarize, compress, and curate the working set"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac]
-updated: 2026-06-24
-covers_evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac]
+evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac, 8688a4c832b1b52a]
+updated: 2026-07-02
+covers_evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac, 8688a4c832b1b52a]
 ---
 
 ## TL;DR
@@ -34,15 +34,22 @@ The newest finding is that compaction is not just lossy but **safety-critical**:
 long-horizon agent can silently drop the very safety/governance constraints that
 were stated up front, so a later step acts as if rules it was given hours ago no
 longer apply — the compactor is a security surface, not just a cost optimization.
+A structurally different move than compressing the window is **not filling it at
+all**: Deep Agents' recursive-language-model (RLM) pattern has the agent write
+code that dispatches subagents over chunks of context instead of loading
+everything into one window, fixing "context rot" by keeping any single call's
+context small rather than summarizing a large one after the fact — a
+complement to compaction, not a replacement, since each dispatched chunk still
+benefits from being kept lean (see [agent memory](/topic/agent-memory)).
 
 ## What's new
-Compaction now has a documented **safety** failure mode: "Governance Decay" shows
-that context summarization/eviction in long-running agents can silently erase the
-safety and governance constraints set earlier in the session, reframing the
-compactor as a security-critical layer that needs constraint-preserving
-guarantees — not just a token-saving one. That sits alongside smarter compression
-(LLM-guided MemRefine, forgetting/synthesis-aware stores) and input-boundary
-trimming of verbose tool output (Logslim).
+The latest architectural move sidesteps compaction rather than improving it:
+Deep Agents' recursive-language-model (RLM) pattern has the agent dispatch
+subagents over context chunks via generated code, so no single call ever holds
+the full window — fixing context rot by avoiding the summarization step rather
+than compressing it. That sits alongside the standing safety finding that
+compaction can silently erase governance constraints ("Governance Decay") and
+input-boundary trimming (Logslim).
 
 ## Trade-offs
 Cheap on infra (no external store) and keeps everything the model needs in one
@@ -55,7 +62,11 @@ the safety/policy rules an agent was given up front, so over a long session it
 drifts out of its guardrails — which means anything load-bearing (permissions,
 safety limits, the user's hard "do not") must be pinned outside the compactible
 window, not left to survive summarization (see
-[prompt injection](/topic/prompt-injection)).
+[prompt injection](/topic/prompt-injection)). The RLM chunk-dispatch
+alternative avoids that summarization risk but trades it for orchestration
+overhead — each chunk read becomes its own subagent call, so the cost shifts
+from lossy-summary risk to sub-call multiplication (see
+[agent cost](/topic/agent-cost)).
 
 ## Why it matters for platform engineers
 Often the highest-leverage first move: it directly attacks token cost and latency

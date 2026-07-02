@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
-updated: 2026-07-01
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, 9283a6f418d96ab7, f42a28fa00ccf0ea, 495bc8d2b48db179, 8688a4c832b1b52a]
+updated: 2026-07-02
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, 9283a6f418d96ab7, f42a28fa00ccf0ea, 495bc8d2b48db179, 8688a4c832b1b52a]
 ---
 
 ## TL;DR
@@ -45,6 +45,14 @@ lexically close to the query, so the recall step has to reason over what's
 stored, not just embed-and-rank (see
 [vector/graph retrieval](/topic/vector-kb)).
 
+The case for structure over raw similarity now has a **production
+instance**: AWS AgentCore Memory ships structured metadata filtering across
+configuration, ingestion, and retrieval, so a query narrows by exact field
+(user, session, entity type) before similarity ranking ever runs, with
+documented patterns for multi-agent and multi-tenant isolation — turning
+"recall must reason over structure" from a research argument into a shipped
+enterprise feature.
+
 The market is splitting along a **build-vs-buy** seam: managed offerings
 (e.g. Cloudflare's persistent Agent Memory service) move memory toward
 buy-able infrastructure, while a parallel wave of local-first, single-file,
@@ -55,6 +63,7 @@ rather than a service you rent:
 - local-first encrypted memory over MCP (Cortex)
 - curated file-based project memory (Brain2.0)
 - graph-based associative memory built with ~zero LLM calls (FERNme)
+- layered project/session/docs memory purpose-built for coding agents (Knotic)
 
 As that wave matures the question shifts from "where does memory live" to
 **"how does it follow the agent"**: a durable, S3-backed filesystem that
@@ -97,7 +106,11 @@ measurable**: a dedicated benchmark for the *failure modes* of agent memory
 — not just poisoning but forgetting, stale recall, and retrieval that
 returns the wrong slice — turns "did the memory layer help" into a number
 you can regress on, the same trajectory evaluation took
-([agent benchmarks](/topic/agent-benchmarks)).
+([agent benchmarks](/topic/agent-benchmarks)). That failure surface now has
+a fourth axis: MemSyco-Bench shows retrieved memories can push an agent
+toward **sycophancy**, biasing it to agree with a stored preference instead
+of giving the correct answer — a failure in how memory shapes the response,
+not just what gets recalled.
 
 Underneath the architecture debate the practitioner consensus is also
 consolidating: vendor guides now lay out the same tiered split (short-term
@@ -108,28 +121,18 @@ framed as something the agent curates from its own history, not just a
 place facts are dumped.
 
 ## What's new
-The tiered "cognitive memory" model just got a **major-vendor open
-implementation**: Elastic's Atlas puts short/episodic/long-term memory on
-Elasticsearch, serves it to agents over [MCP](/topic/mcp), isolates it per
-user, and ships with evaluation numbers — the clearest sign yet that memory
-is, in practitioners' words, *leaving the "remember this" demo phase* and
-becoming a production layer built on infra teams already operate. (The same
-"ride an existing substrate" instinct shows up at the quirky end too, with
-agents that repurpose an email outbox as their memory store.)
-
-Portability is widening from **across runtimes to across agents**: Sibyl is
-a self-hosted, multi-user memory store built for many parallel coding agents
-to share, with a no-LLM retrieval path scoring competitively on LongMemEval
-— the developer-owned counterpart to Atlas's managed, per-user isolation
-model.
-
-That lands on top of several already-moving threads: memory quality getting
-**benchmarked, not just architected** (a suite covering the full failure
-surface — forgetting, stale/wrong recall, poisoned entries), memory as a
-**portable substrate** (an S3-backed filesystem mounting the same markdowns
-across laptop and cloud), **trace-driven curation**, and the established
-concerns of **integrity** and the local-first wave (FERNme, PMB, Memharness,
-Cortex).
+Structured, filterable retrieval lands as a **shipped enterprise feature**:
+AWS AgentCore Memory exposes metadata filters across ingestion and
+retrieval so a query narrows by field before similarity ever runs — the
+production counterpart to this week's structured-retrieval research (see
+[vector/graph retrieval](/topic/vector-kb)). Memory-quality benchmarking
+gains a fourth failure axis — MemSyco-Bench shows retrieved memories can
+induce sycophancy, not just wrong or stale recall — and Deep Agents'
+recursive-language-model pattern offers an alternative to flat
+summarization: dispatch subagents over context chunks instead of compacting
+the whole window (see [context compaction](/topic/context-compaction)). The
+local-first tool wave gains another coding-agent-specific entrant, Knotic's
+layered project/session/docs memory.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

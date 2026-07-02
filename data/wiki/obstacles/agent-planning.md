@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
-updated: 2026-07-01
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9ae3d20f85fa904c, 95606a56512b2041, 2566c8933f2e65d1, 7e29fd14ca16f2a8]
+updated: 2026-07-02
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9ae3d20f85fa904c, 95606a56512b2041, 2566c8933f2e65d1, 7e29fd14ca16f2a8]
 ---
 
 ## TL;DR
@@ -43,6 +43,30 @@ setups that wrap a planning loop in enough infrastructure to run it repeatedly a
 reliably — were a dominant theme alongside forward-deployed engineering, evidence
 that planning-as-harness-problem has moved from research framing to mainstream
 practitioner conversation.
+
+That vocabulary is now producing concrete, minimal reference implementations
+rather than just conference talk: Google published an 8-minute guide to
+building "the smallest agent loop," and a provider-agnostic, MIT-licensed
+open-source loop built on ports-and-adapters architecture strips the loop
+down to its four moving parts — call model, run tools, feed results back,
+stop — explicitly so teams stop re-deriving it inside every framework.
+Alongside the reference-implementation trend, practitioners are naming the
+harder problem the loop alone doesn't solve: "skill engineering" argues
+against one-shot prompt design, framing durable agent capability as
+engineered, reusable skills that a human still has to steer rather than a
+single well-crafted prompt, and "autoresearch" framings describe
+self-improving loops that iterate on their own "recipes" while keeping a
+human at the center rather than replacing them.
+
+## What's new
+The loop framing keeps converging on concrete artifacts: Google shipped a
+minimal reference agent-loop tutorial, and a provider-agnostic, MIT-licensed
+loop implementation strips it to four steps (call model, run tools, feed
+results back, stop) to stop teams re-deriving it per framework. Two
+practitioner essays sharpen what the loop alone doesn't solve — "skill
+engineering" (durable, reusable capability vs. one-shot prompting) and
+"autoresearch" (self-improving loops that still need a human at the
+center).
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

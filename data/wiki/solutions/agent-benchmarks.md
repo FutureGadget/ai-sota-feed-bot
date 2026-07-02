@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
-updated: 2026-07-01
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, 20cd66043e9dab55, f42a28fa00ccf0ea]
+updated: 2026-07-02
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, 20cd66043e9dab55, f42a28fa00ccf0ea]
 ---
 
 ## TL;DR
@@ -75,7 +75,22 @@ regression can be localized to the part that broke rather than inferred from
 a fallen aggregate score. A microservice-failure-diagnosis benchmark
 (AgentOps) extends the same process-over-outcome grading to ops agents,
 scoring the diagnosis path over multimodal trace data and pulling
-benchmarking toward [observability](/topic/agent-observability).
+benchmarking toward [observability](/topic/agent-observability). The
+subsystem list now has a fourth entry: MemSyco-Bench isolates whether
+retrieved memories bias the agent toward sycophantic agreement rather than
+a correct answer, a failure mode distinct from forgetting or poisoning (see
+[agent memory](/topic/agent-memory)).
+
+**Constructing and trusting the benchmark itself** is now its own line of
+work, not a solved prerequisite: Reap automates curating coding-agent
+benchmark tasks instead of hand-authoring them, addressing the same upkeep
+cost that makes fixed suites expensive to maintain over time. A validity
+critique of repository-level performance-optimization benchmarks (GSO,
+SWE-Perf, SWE-fficiency) questions whether runtime-comparison suites
+actually measure coding-agent capability or are instead artifacts of the
+patch-application harness — the same "is the harness what you're measuring"
+skepticism already raised for tool-reliability suites, now applied to
+performance benchmarks.
 
 Eval **transparency** is improving too, on the meta side: Hugging Face now
 surfaces community "Every Eval Ever" results directly on model pages, making
@@ -90,6 +105,15 @@ single bounded task — the harder distribution-shift edge the "familiar
 leaderboards degrade out of distribution" finding already flags.
 
 ## What's new
+Benchmark **construction and trust** are getting scrutinized as their own
+problem: Reap automates curating coding-agent benchmark tasks instead of
+hand-authoring them, while a validity critique of repository-level
+performance-optimization suites (GSO, SWE-Perf, SWE-fficiency) questions
+whether they measure real coding-agent capability or artifacts of the
+patch-harness. The subsystem-specific axis gains a fourth failure mode too
+— MemSyco-Bench targets memory-induced sycophancy (see
+[agent memory](/topic/agent-memory)).
+
 **Subsystem-specific** grading is on the rise — isolating one capability
 rather than scoring a whole task: a new suite targets the failure modes of
 agent memory (forgetting, stale recall, poisoning) and OpenRCA 2.0 grades

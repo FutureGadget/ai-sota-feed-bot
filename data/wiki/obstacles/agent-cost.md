@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
-updated: 2026-06-30
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, c0c3ec4a6aba7980]
+updated: 2026-07-02
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, c0c3ec4a6aba7980]
 ---
 
 ## TL;DR
@@ -85,7 +85,27 @@ The lesson generalizes: every downshift (smaller model, quantized model,
 cheaper judge) has to be costed on *total tokens emitted in the loop*, not
 the sticker price per token.
 
+**Test-time compute efficiency** is emerging as its own lever, distinct
+from model downshift: QuasiMoTTo replaces independent random sampling in
+parallel-attempt scaling with quasi-Monte Carlo sampling, covering the
+solution space more evenly so fewer parallel attempts are needed to reach
+the same accuracy — the same "total tokens spent, not sticker price"
+accounting the quantization caution above already argues for. A second
+lever collaborates *inside* one model API instead of downshifting to a
+smaller one: vLLM's Semantic Router turns routing itself into a bounded
+"micro-agent" runtime (confidence scoring, rating, fusion across calls)
+that reportedly beats frontier single-call performance by combining
+cheaper calls rather than paying for one expensive one.
+
 ## What's new
+Two new levers target the *how many calls* side of cost rather than the
+per-token price: QuasiMoTTo swaps random sampling for quasi-Monte Carlo
+coverage in parallel-attempt scaling so fewer samples reach the same
+accuracy, and vLLM's Semantic Router collaborates across cheaper calls
+inside one model API to beat frontier single-call performance — both
+extend the "cost is total tokens spent, not price per token" accounting
+already established by the quantization caution.
+
 Cost is becoming an explicit, **measured surface** rather than an
 after-the-fact invoice: enterprise spend caps and usage analytics, per-PR
 token-cost attribution (Prtokens), and now-managed agentic cost analysis

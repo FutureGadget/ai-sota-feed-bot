@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
-updated: 2026-07-01
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, 7a882200fe85650f, d69dea0504b4b512, 8db233accb157cb2]
+updated: 2026-07-02
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, 7a882200fe85650f, d69dea0504b4b512, 8db233accb157cb2]
 ---
 
 ## TL;DR
@@ -81,7 +81,29 @@ redeployment of Claude Fable 5 ships updated cybersecurity safeguards
 alongside a new industry jailbreak framework, evidence that the red-teaming
 push (Gray Swan, Kolter) is feeding back into shipped model updates.
 
+A parallel control targets the agent's **output** rather than its input:
+SonarQube now plugs trusted code verification into Claude Code, Copilot,
+Codex, Cursor, and other coding-agent tools, checking what an agent wrote
+rather than screening what it read — the output-side complement to input
+guardrails. The supply chain is a second output-adjacent surface: a CLI
+(deptrust) checks package versions an agent is about to add against known
+vulnerabilities across a dozen-plus ecosystems, so a hijacked or careless
+agent can't quietly introduce a vulnerable dependency. The threat model is
+also widening to agents built for **offense**: guardrails purpose-built for
+offensive AI agents (red-team/pentest use) acknowledge that an agent
+designed to probe systems needs its own containment, not just agents that
+might be misused by an attacker.
+
 ## What's new
+Controls are extending to the agent's **output**, not just its input:
+SonarQube brings trusted code verification to Claude Code, Copilot, Codex,
+and Cursor, and a new CLI (deptrust) blocks agents from adding
+known-vulnerable dependencies across a dozen-plus package ecosystems —
+closing a supply-chain gap input guardrails don't touch. Guardrails
+purpose-built for offensive/red-team agents also surface, extending
+containment to agents designed to attack, not just agents that might be
+attacked through.
+
 The emphasis is moving up the stack from "filter the prompt" to "**govern the
 actor**": guardrails can be turned into a DoS vector and sandboxes don't
 solve credential authorization, while a parallel push reframes every agent as

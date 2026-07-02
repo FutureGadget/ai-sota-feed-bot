@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4]
-updated: 2026-06-30
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, b71a53d3b8d39831, 20ef04d4cce6eb8c, 1bfbb319ced0695a]
+updated: 2026-07-02
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, b71a53d3b8d39831, 20ef04d4cce6eb8c, 1bfbb319ced0695a]
 ---
 
 ## TL;DR
@@ -42,15 +42,25 @@ trajectory-grading problem over multimodal observability data — so agent
 observability and [evaluation](/topic/agent-evaluation) are converging, with the
 trace as the shared substrate.
 
+Practitioner adoption evidence is accumulating alongside the tooling: Pendo
+used LangSmith to trace its own product agent (Novus) from raw
+user-behavior and session-replay data through to the code fix, a concrete
+case of trace-first debugging closing the loop from symptom to root cause
+in production. The tool surface keeps widening too — Foglamp is a newly
+launched, dedicated agent-observability tool — and the runner layer is
+starting to bundle observability in by default: Harbor's unified stack for
+evaluating long-running agents plugs LangSmith sandboxes and observability
+directly into the eval loop rather than treating tracing as a separate
+integration (see [evaluation](/topic/agent-evaluation)).
+
 ## What's new
-Trace analysis is becoming *agentic*: rather than dashboards a human reads, the new
-tools run a model over the captured traces — HALO's RLM engine mines recurring
-failure modes from Langfuse/OpenInference/JSONL traces, and LangSmith ships a fleet
-on-call copilot that triages alerts and a voice-trace debugger. In parallel,
-offline monitoring of internal agents and a microservice-failure-diagnosis
-benchmark (AgentOps) push the field toward *measuring* whether the monitoring
-layer itself catches the right failures, tying observability tightly to
-trajectory-level eval.
+A concrete practitioner case study lands: Pendo traced its product agent
+from user-behavior data to the actual code fix using LangSmith, evidence of
+trace-first debugging working end-to-end in production. The tool surface
+keeps widening (Foglamp, a new dedicated agent-observability tool) and the
+runner layer is starting to bundle observability by default — Harbor plugs
+LangSmith sandboxes and tracing directly into its eval stack for
+long-running agents.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

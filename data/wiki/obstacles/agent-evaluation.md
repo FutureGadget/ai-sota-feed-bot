@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
-updated: 2026-07-01
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 9bf2f6419fda7872, 1bfbb319ced0695a]
+updated: 2026-07-02
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 9bf2f6419fda7872, 1bfbb319ced0695a]
 ---
 
 ## TL;DR
@@ -89,7 +89,24 @@ code-quality metrics for agent-written programs** — graded signals on the
 code itself rather than a pass/fail test gate — reframing eval for code
 agents as "is this change good," not just "does it run."
 
+Practitioner tooling for the eval *process* is also consolidating into
+shareable formats rather than one-off scripts: QUALITY.md is an open
+specification, agent skill, and CLI for building a holistic
+quality-evaluation process a team can adopt directly, framed explicitly for
+"loop engineering." On the runner side, long-running stateful agents are
+outgrowing single-shot test harnesses — Harbor packages Deep Agents,
+LangSmith sandboxes, and observability into a unified stack built
+specifically to evaluate agents that don't terminate in one call, tying
+evaluation to [observability](/topic/agent-observability) at the runner
+level, not just the trace-analysis level.
+
 ## What's new
+Eval tooling itself is getting **standardized**: QUALITY.md packages a
+holistic quality-evaluation process as an open spec/CLI, and Harbor gives
+long-running, stateful agents (Deep Agents workloads) a purpose-built
+runner that plugs in LangSmith sandboxes and observability rather than
+reusing single-shot test harnesses.
+
 **Process-level grading** is getting first-class labels: OpenRCA 2.0 moves
 root-cause-analysis evaluation from outcome labels to causal process
 supervision, scoring the intermediate reasoning steps rather than just the

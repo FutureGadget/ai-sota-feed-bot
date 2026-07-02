@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372]
-updated: 2026-06-30
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 20ef04d4cce6eb8c]
+updated: 2026-07-02
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 20ef04d4cce6eb8c]
 ---
 
 ## TL;DR
@@ -30,6 +30,22 @@ live traces and adds voice/trace debugging and experiment status tracking, turni
 trace reading into an assistive workflow. The common direction is *trace-in,
 explanation-out*: the trace is no longer just an audit log, it's the input to an
 automated diagnosis loop.
+
+Production evidence for the *analysis* layer is accumulating too: Pendo
+built its debug/evaluate/monitor loop for a product agent directly on
+LangSmith traces, closing the path from raw user-behavior data to a shipped
+code fix. The tool landscape keeps adding dedicated entrants too (Foglamp,
+a newly launched agent-observability/tracing tool), reinforcing trace
+capture and analysis as a category with real production mileage, not just
+vendor demos.
+
+## What's new
+A concrete production case study for the analysis layer: Pendo traced a
+product agent (Novus) from user-behavior and session-replay data through to
+the actual code fix on LangSmith, evidence that trace-first debugging
+closes the loop end to end rather than just surfacing raw spans. The tool
+surface also widened with Foglamp, a newly launched dedicated
+agent-observability tool.
 
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get

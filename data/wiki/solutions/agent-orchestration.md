@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
-updated: 2026-06-30
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, a98baa78edc4ea0a, 9ae3d20f85fa904c]
+updated: 2026-07-02
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, a98baa78edc4ea0a, 9ae3d20f85fa904c]
 ---
 
 ## TL;DR
@@ -45,7 +45,10 @@ building orchestration libraries report that the load-bearing design is
 workspace, runtime, and directory layout — where each sub-agent runs, what
 filesystem and state it sees, how outputs are isolated and collected — i.e.
 orchestration is as much an execution-environment problem as a
-control-flow one.
+control-flow one. A concrete production instance of that lesson: Candidly
+built state-aware agent harnesses on LangSmith specifically to carry
+durable state across steps, the runtime-substrate argument landing as a
+shipped case study rather than a writeup.
 
 A fourth axis is now appearing as **shipping tooling rather than research**:
 practitioner orchestrators that make the wiring tangible —
@@ -53,12 +56,23 @@ practitioner orchestrators that make the wiring tangible —
 - Multi-model routing built into a terminal coding agent (**Kimchi**, sending refactors and codegen to different models)
 - Visual sub-agent wiring for Claude Code (**rondoflow**)
 - Transparency-first multi-agent runners that expose each agent's actions (**OpenOrb**)
+- A provider-agnostic agent loop built on ports-and-adapters architecture
+  (open-source, MIT), for teams that want the coordination loop decoupled
+  from any one model provider (see [agent planning](/topic/agent-planning))
 
 They are early and uneven, but they confirm where the value sits: the
 routing, handoff, and observability layer between agents, not the agents
 themselves.
 
 ## What's new
+Two more practitioner artifacts land on the "ship the harness, not just the
+pattern" axis: Candidly built a state-aware agent harness on LangSmith
+specifically to carry durable state across steps in production, and a
+provider-agnostic, MIT-licensed agent loop (ports-and-adapters
+architecture) decouples the coordination loop from any one model provider
+— both treating the harness as an engineered artifact, not a framework
+default.
+
 Generated orchestration is sharpening into **code-driven** orchestration:
 LangChain's dynamic subagents in Deep Agents coordinate fan-out from a
 program, so coverage is guaranteed by control flow rather than the model

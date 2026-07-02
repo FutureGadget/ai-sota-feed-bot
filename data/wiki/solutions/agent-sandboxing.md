@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61]
-updated: 2026-06-30
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, 7a882200fe85650f, d69dea0504b4b512, 8db233accb157cb2]
+updated: 2026-07-02
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, 7a882200fe85650f, d69dea0504b4b512, 8db233accb157cb2]
 ---
 
 ## TL;DR
@@ -81,11 +81,29 @@ defense in depth rather than trusting any one of them:
   credential scoping (identity limits *what the agent is allowed to do*, the
   network perimeter limits *where data can go* even when an action is
   authorized).
+- **Output verification**: SonarQube plugins bring trusted code verification
+  to Claude Code, Copilot, Codex, Cursor, and other coding-agent tools —
+  checking what the agent produced, the output-side complement to input
+  screening.
+- **Supply-chain guarding**: deptrust is a CLI that checks packages an agent
+  is about to add against known vulnerabilities across npm, PyPI, crates.io,
+  and a dozen more ecosystems, stopping a vulnerable dependency before it
+  lands.
+- **Offense-side containment**: dedicated guardrails for agents built for
+  offensive/red-team use extend the sandboxing discipline to agents whose
+  job is to attack, not just agents that might be attacked through.
 
 Least privilege plus human approval on the few actions that really matter
 remains the most durable control across all of these layers.
 
 ## What's new
+Two new control surfaces round out the stack: output-side verification
+(SonarQube plugins wired into Claude Code, Copilot, Codex, and Cursor)
+checks what a coding agent produced rather than just what it read, and
+supply-chain guarding (deptrust) blocks known-vulnerable dependencies an
+agent is about to add — plus containment purpose-built for offensive/
+red-team agents, not just agents that might be attacked.
+
 The control stack is extending to the **network perimeter**: Google Cloud's VPC
 Service Controls now adds agentic-AI guardrails so a hijacked agent with valid
 credentials still cannot exfiltrate protected data past a network boundary — the

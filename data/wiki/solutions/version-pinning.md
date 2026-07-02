@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
-updated: 2026-06-25
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 246a4c93052ef3c1]
+updated: 2026-07-02
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 246a4c93052ef3c1]
 ---
 
 ## TL;DR
@@ -38,7 +38,21 @@ exactly the gap a chain-deep pin closes. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 
+**Pinning the default matters as much as pinning the version**: when a
+harness release swaps its default model — Claude Code moving to Claude
+Sonnet 5, with a 1M-token context window and different promotional pricing
+— any agent that relied on "whatever the harness defaults to" rather than
+an explicit model id inherits a new context budget and price the day that
+release ships. The pin has to name the model explicitly, not just the
+SDK/CLI version, or "pinned" silently stops meaning what you thought.
+
 ## What's new
+A concrete case for pinning the *model id itself*, not just the SDK/CLI: a
+Claude Code release changed its default model to Claude Sonnet 5 (1M-token
+context, new promotional pricing), so any agent relying on the harness
+default rather than an explicit model pin picked up a different context
+budget and price with no code change of its own.
+
 Two concrete levers landed: declarable compatible API version ranges (LangGraph
 CLI) and explicit deprecation warnings for requested models (Claude Code) —
 moving drift management from "hope the upgrade is safe" toward stating the

@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6]
-updated: 2026-07-01
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 9283a6f418d96ab7, 495bc8d2b48db179]
+updated: 2026-07-02
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 9283a6f418d96ab7, 495bc8d2b48db179]
 ---
 
 ## TL;DR
@@ -45,6 +45,12 @@ plus vector search plus an LLM rerank, and permutation-invariant embedding
 fine-tuning fixes a concrete failure where field order in serialized
 structured records skews similarity — both pointing at recall quality being
 earned in how records are embedded and ranked, not in the vector DB brand.
+AWS's AgentCore Memory ships the enterprise version of the same argument:
+structured metadata filters run across configuration, ingestion, and
+retrieval so a query narrows by exact field (tenant, session, entity)
+before similarity ranking ever runs, validating in production the
+permutation-invariant-embedding finding that structure, not raw similarity,
+carries the precision.
 
 Strong results are achievable **without an LLM in the recall path** (a
 local store hitting high LongMemEval recall), underscoring that retrieval
@@ -63,6 +69,8 @@ cost:
   rather than embeddings (FERNme grows a memory graph with fuzzy edges and a
   Hebbian co-occurrence rule, keeping the LLM out of the *write* path as
   well as the read path)
+- layered, non-vector project/session/docs memory purpose-built for coding
+  agents (Knotic)
 
 A complementary critique targets the *query* side: "Root Memories" shows
 similarity-based retrieval misses memories that are **logically** rather
@@ -81,6 +89,14 @@ weakens the standard objection that graph construction is too slow and
 expensive to run at production scale.
 
 ## What's new
+Metadata-filtered retrieval reaches a **major-vendor production service**:
+AWS AgentCore Memory filters by exact field before similarity ranking runs,
+with documented multi-agent/multi-tenant patterns — the enterprise
+counterpart to this month's structured-retrieval research (permutation-invariant
+embeddings, TIGRAG's co-occurrence graphs). The local-first wave gets a new
+coding-agent-specific entrant too: Knotic layers project/session/docs
+memory without a vector store.
+
 Graph construction just got a **cheap, mechanical path**: TIGRAG derives its
 knowledge graph from token co-occurrence statistics rather than an
 LLM-extraction pipeline, then layers graph-based expansion and reranking on
