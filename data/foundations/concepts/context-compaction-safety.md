@@ -5,7 +5,7 @@ question: "Does compacting an agent's context put its safety rules at risk?"
 summary: "Context compaction is not just a lossy cost optimization — a 1,323-episode benchmark shows it can silently erase the governance constraints a long-running agent was given, and only pinning those constraints outside the compactible window prevents it."
 status: active
 cluster: safety
-updated: 2026-07-01
+updated: 2026-07-02
 audience: "strong-software-engineer"
 related_topics: [context-compaction, agent-memory, prompt-injection]
 related_playbook_cards: [pb-pin-governance-constraints-past-compaction, pb-close-the-trace-to-memory-loop]
@@ -47,9 +47,20 @@ Context compaction can silently erase safety and governance constraints stated e
 Split what lives in an agent's context into two classes: content that can be safely lost and re-derived (task history, intermediate reasoning, prior tool outputs) and content that is load-bearing and irreversible if lost (permissions, forbidden actions, hard constraints, approval gates). Ordinary summarization treats both classes the same way — it compresses for information density, not for which sentence is a safety rule. Once a governance constraint gets paraphrased away or dropped for space, the agent isn't disobeying a rule it still holds; it genuinely no longer has the rule in front of it. The same threat model as prompt injection applies to your own compactor: an untrusted or adversarial step in the pipeline can remove instructions you rely on, whether by accident or on purpose.
 
 ## Mechanism
-A long-horizon agent keeps a token budget. To stay under it, agents typically evict old turns, replace them with a running summary, or roll both together, with a summarization model or heuristic deciding what to keep — usually optimizing for task continuity, not rule preservation. The Governance Decay study formalizes this with ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading, and measures how often a stated policy constraint is honored after the surrounding context has been compacted. The result: violation is 0% when the constraint sits in full, uncompacted context; it climbs to 30% after ordinary compaction, up to 59% depending on the model; when the compacted summary happens to retain the constraint's wording violation stays 0%, but when it's dropped violation reaches 38%. The paper also demonstrates a Compaction-Eviction Attack: adversarial in-context content specifically crafted to bias the summarizer toward omitting a legitimate policy, and optimized versions of this attack defeat every model they evaluate — turning the compactor into an active adversarial target, not just a source of accidental loss. Their proposed fix, Constraint Pinning, is training-free: it quarantines governance constraints so they are excluded from whatever the compaction step is allowed to touch, and this alone restores violation to 0% in their benchmark.
+A long-horizon agent keeps a token budget. To stay under it, agents typically evict old turns, replace them with a running summary, or roll both together — a summarization model or heuristic decides what to keep, usually optimizing for task continuity, not rule preservation.
 
-This mechanism generalizes beyond safety text specifically. The same compaction step is where ordinary memory quality degrades too — the tiered architecture practitioners converge on (short-term working context, episodic history, long-term semantic store) moves information through a lossy transform at every tier (summarize, embed-and-retrieve, or forget), and none of those transforms natively distinguish "detail that doesn't matter anymore" from "detail the system depends on."
+The Governance Decay study measures how often a stated policy constraint survives this process, using ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading. The results:
+
+- **0% violation** when the constraint sits in full, uncompacted context
+- **30% violation** after ordinary compaction (up to 59% for some models)
+- **0% violation** when the compacted summary happens to retain the constraint's wording
+- **38% violation** when the wording is dropped
+
+The paper also demonstrates a Compaction-Eviction Attack: adversarial in-context content crafted to bias the summarizer toward omitting a legitimate policy. Optimized versions of this attack defeat every model they evaluate, turning the compactor into an active adversarial target, not just a source of accidental loss.
+
+Their proposed fix, Constraint Pinning, is training-free: it quarantines governance constraints so the compaction step can't touch them. That alone restores violation to 0% in their benchmark.
+
+This mechanism generalizes beyond safety text. The tiered memory architecture practitioners converge on — short-term working context, episodic history, long-term semantic store — moves information through a lossy transform at every tier: summarize, embed-and-retrieve, or forget. None of those transforms natively distinguishes a detail that no longer matters from a detail the system depends on.
 
 ## Evidence
 - Benchmark/result-backed: Governance Decay / ConstraintRot measures constraint-violation rate across 1,323 episodes and seven model families: 0% with the policy in full context, 30% after ordinary compaction (up to 59% for some models), 0% when the constraint survives the summary, 38% when it's dropped; a Compaction-Eviction Attack defeats every evaluated model, and training-free Constraint Pinning restores violation to 0%.
@@ -58,7 +69,12 @@ This mechanism generalizes beyond safety text specifically. The same compaction 
 - Editorial inference: treat any lossy transform in the memory pipeline as a place a safety-relevant fact can silently vanish, and test for it adversarially, not just on the happy path.
 
 ## How to apply
-Identify every hard constraint your agent depends on (forbidden tools, approval gates, hard user "do nots", compliance rules) and store them outside the compactible window — in a pinned system block your summarization step is not allowed to rewrite or evict — then re-inject the verbatim text into every post-compaction prompt rather than trusting the running summary to carry it forward. Add a regression test that forces a compaction cycle mid-session and then attempts the prohibited action, asserting the agent still refuses; this check is cheap and training-free, but only catches the failure if you actually run it, since governance decay is invisible until you specifically probe for it. Treat your compaction/summarization component as untrusted input in the same sense as an injected tool result: if an attacker can influence what enters context (a tool response, a retrieved document), assume they can try to bias the summarizer into dropping a constraint, and make sure the pinned region cannot be edited by anything the compactor reads. When you evaluate any memory architecture — a tiered store, external retrieval, or a vendor-shipped memory service — require a measured evaluation number instead of accepting an unverified "we added memory" claim.
+Four changes close this gap:
+
+- **Pin hard constraints outside the compactible window.** Identify every rule your agent depends on (forbidden tools, approval gates, hard user "do nots", compliance rules), store them in a pinned system block your summarization step cannot rewrite or evict, and re-inject the verbatim text into every post-compaction prompt instead of trusting the running summary to carry it forward.
+- **Add a compaction regression test.** Force a compaction cycle mid-session, then attempt the prohibited action and assert the agent still refuses. The check is cheap and training-free, but only catches the failure if you actually run it — governance decay is invisible until you specifically probe for it.
+- **Treat the compactor as untrusted input.** If an attacker can influence what enters context (a tool response, a retrieved document), assume they can bias the summarizer into dropping a constraint the same way they'd exploit an injected tool result. Make sure the pinned region cannot be edited by anything the compactor reads.
+- **Require a measured number from any memory architecture.** Whether it's a tiered store, external retrieval, or a vendor-shipped memory service, demand an evaluation number before you trust an unverified "we added memory" claim.
 
 ## Failure modes
 - Compaction as a black box: trusting a summarizer to preserve "the important parts" without testing whether governance-relevant text specifically survives.

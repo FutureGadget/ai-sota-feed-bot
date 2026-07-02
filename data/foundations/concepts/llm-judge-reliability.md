@@ -5,7 +5,7 @@ question: "Can you trust an LLM-as-judge score?"
 summary: "An LLM judge is a measurement instrument with its own biases, not ground truth — validate it the same way you validate the agent it grades."
 status: active
 cluster: evaluation
-updated: 2026-06-28
+updated: 2026-07-02
 audience: "strong-software-engineer"
 related_topics: [agent-evaluation, llm-as-judge]
 related_playbook_cards: [pb-audit-llm-judges-for-position-and-language-bias]
@@ -53,7 +53,13 @@ LLM-as-judge accuracy on a held-out set is necessary but not sufficient. Judges 
 A judge is a classifier with a prompt instead of a training loop, and classifiers have failure modes that don't show up in a single aggregate accuracy number. Two judge designs exist on a spectrum: a frontier LLM prompted to grade (flexible, expensive, occasionally biased in subtle ways) and a small fine-tuned classifier — encoder or distilled LLM — trained on production-labeled examples (cheap, fast, narrower, and only as good as the labels it learned from). Both need the same thing an agent needs: a held-out test set built from real failures, not just the cases the judge was tuned to recognize.
 
 ## Mechanism
-An LLM judge scores a response (or a multi-step trajectory) by generating a verdict conditioned on the response, a rubric, and often a second response to compare against. Because the verdict is itself a model output, it inherits model-level artifacts: the judge can prefer whichever candidate is shown first (position bias), prefer longer text as a proxy for thoroughness (verbosity bias), and lose calibration outside the language or domain it was tuned on (cross-lingual or distribution-shift degradation). Swapping the order of the two responses being compared is a direct probe for this: if the verdict flips depending on which slot a response sits in, the judge is responding to position, not content.
+An LLM judge scores a response (or a multi-step trajectory) by generating a verdict conditioned on the response, a rubric, and often a second response to compare against. Because the verdict is itself a model output, it inherits model-level artifacts:
+
+- **Position bias** — the judge prefers whichever candidate is shown first.
+- **Verbosity bias** — the judge prefers longer text as a proxy for thoroughness.
+- **Cross-lingual / distribution-shift degradation** — the judge loses calibration outside the language or domain it was tuned on.
+
+Swapping the order of the two responses being compared is a direct probe for position bias: if the verdict flips depending on which slot a response sits in, the judge is responding to position, not content.
 
 For agent trajectories specifically, the judge has to score a sequence of tool calls and intermediate decisions, not a single text block, which multiplies the places a bias can hide — a judge can be well-calibrated on final-answer correctness while being unreliable on whether the agent reached that answer through a sound or broken path. Cheaper judge architectures (fine-tuned encoders, distilled small LLMs) trade a wider rubric-following ability for speed and cost, but they are exposed to the same validation requirement: their accuracy has to be measured against the failure modes you care about, not just against the cases used to tune them.
 
@@ -65,7 +71,13 @@ For agent trajectories specifically, the judge has to score a sequence of tool c
 - Editorial inference: the practical implication is that "judge accuracy" is a claim that needs the same skepticism and held-out testing as any other model output the agent produces.
 
 ## How to apply
-Before trusting a judge's verdicts, run an order-swap test on every pairwise comparison and only count verdicts that agree both ways; separately track response length against verdict to catch verbosity bias; and if you operate in more than one language or domain, measure judge reliability per slice instead of reporting one pooled number. Build the judge's own held-out set from real production failures your team has actually seen, not from synthetic cases the judge would obviously get right — a judge that is accurate on easy cases and silent on the hard one you cared about is failing at its job. If cost matters, validate a cheaper judge (fine-tuned encoder or distilled small model) against the same held-out set before swapping it in, and re-run that validation whenever you change the underlying model, prompt, or rubric.
+Before trusting a judge's verdicts, run these checks:
+
+- **Order-swap test.** Run every pairwise comparison both ways and only count verdicts that agree.
+- **Verbosity check.** Track response length against verdict to catch verbosity bias.
+- **Per-slice reliability.** If you operate in more than one language or domain, measure judge reliability per slice instead of reporting one pooled number.
+- **Held-out set from real failures.** Build it from production failures your team has actually seen, not synthetic cases the judge would obviously get right — a judge that's accurate on easy cases and silent on the hard one you cared about is failing at its job.
+- **Re-validate before swapping in a cheaper judge.** If cost matters, validate a fine-tuned encoder or distilled small model against the same held-out set before shipping it, and re-run validation whenever the underlying model, prompt, or rubric changes.
 
 ## Failure modes
 - Aggregate accuracy worship: reporting one pooled accuracy number and missing that it hides a collapse in a specific slice (language, position, length band).

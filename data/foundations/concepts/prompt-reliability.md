@@ -5,7 +5,7 @@ question: "What makes a prompt reliable?"
 summary: "Reliable prompts reduce ambiguity, constrain outputs, and make failures measurable."
 status: active
 cluster: prompting
-updated: 2026-06-25
+updated: 2026-07-02
 audience: "strong-software-engineer"
 math_depth: intuition
 related_topics: [agent-evaluation, context-compaction, prompt-injection]
@@ -56,7 +56,12 @@ Treat every important prompt as a small API. The input is the context you pass i
 ## Mechanism
 An autoregressive language model predicts the next token conditioned on the tokens before it. A prompt is therefore not just an instruction; it is the conditioning environment for all later tokens. Clear task framing, examples, delimiters, and output schemas change which continuations are likely.
 
-Few-shot examples work because they place a pattern directly in context. Chain-of-thought examples can help on multi-step problems because they demonstrate an intermediate representation before the final answer. Self-consistency helps when the model can reach the same answer through multiple sampled paths. Long context is not automatically reliable context: relevant information can be harder to use when it is buried in the middle.
+Four techniques work for the same underlying reason — they narrow which continuations the model finds likely:
+
+- **Few-shot examples** place a pattern directly in context.
+- **Chain-of-thought examples** demonstrate an intermediate representation before the final answer, which helps on multi-step problems.
+- **Self-consistency** helps when the model can reach the same answer through multiple sampled paths.
+- **Long context is not automatically reliable context** — relevant information can be harder to use when it is buried in the middle.
 
 ## Math intuition
 Think of the model as assigning probability mass across possible next-token paths. A vague prompt spreads mass across many plausible completions: explanation, refusal, partial answer, wrong format, hidden assumption. A reliable prompt concentrates mass around the acceptable region.
@@ -70,9 +75,13 @@ Examples act like local coordinates: they show the model what kind of mapping yo
 - Editorial inference: for production agents, these findings imply that prompt quality is inseparable from interface design and evaluation.
 
 ## How to apply
-Write the prompt contract before polishing wording. Specify the task, the input fields, what the model must ignore, the output schema, and what to do when evidence is missing. Put volatile or untrusted content behind clear delimiters. Keep decisive instructions close to the work they govern, especially when the context is long.
+Write the prompt contract before polishing wording:
 
-For agent systems, pair the prompt with a small eval set. Include clean successes, missing-information cases, adversarial or irrelevant context, and format-stability checks. Change one prompt dimension at a time, then compare outputs against the contract. If downstream code parses the answer, schema adherence is part of correctness, not formatting polish.
+- Specify the task, the input fields, what the model must ignore, the output schema, and what to do when evidence is missing.
+- Put volatile or untrusted content behind clear delimiters.
+- Keep decisive instructions close to the work they govern, especially when the context is long.
+
+For agent systems, pair the prompt with a small eval set that includes clean successes, missing-information cases, adversarial or irrelevant context, and format-stability checks. Change one prompt dimension at a time, then compare outputs against the contract. If downstream code parses the answer, schema adherence is part of correctness, not formatting polish.
 
 ## Failure modes
 - Prompt-tip copying: borrowing a clever phrase without testing whether it changes behavior on your task.
