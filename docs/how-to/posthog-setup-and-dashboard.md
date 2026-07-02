@@ -91,6 +91,13 @@ Create a dashboard with these insights:
 
 ## 4) Operational notes
 - PostHog is the source of truth for product analytics visibility.
+- The one metric the project is currently judged against — **weekly
+  returning readers** — is computed from `page_view` events by
+  `pipeline/north_star_metric.py` (same HogQL query pattern as the panels
+  above) and does not need a PostHog dashboard panel to be useful; see
+  `docs/status/north-star-metric.md`. Cross-check it in PostHog itself with a
+  built-in **Retention** insight (event: `page_view`, weekly granularity) if
+  you want a visual sanity check against the rollup's numbers.
 
 ---
 

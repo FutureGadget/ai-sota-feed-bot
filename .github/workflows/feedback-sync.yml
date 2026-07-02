@@ -50,6 +50,16 @@ jobs:
       - name: Recompute source weight adjustments
         run: .venv/bin/python pipeline/auto_tune.py apply
 
+      - name: Sync weekly returning readers (the one metric)
+        env:
+          POSTHOG_PERSONAL_API_KEY: ${{ secrets.POSTHOG_PERSONAL_API_KEY }}
+          POSTHOG_PROJECT_ID: ${{ secrets.POSTHOG_PROJECT_ID }}
+          POSTHOG_API_HOST: ${{ vars.POSTHOG_API_HOST }}
+        run: .venv/bin/python pipeline/north_star_metric.py sync
+
+      - name: Print weekly returning readers summary
+        run: .venv/bin/python pipeline/north_star_metric.py summary --weeks 8
+
       - name: Commit synced feedback and tuning
         run: |
           bash scripts/git_commit_runtime.sh "chore(data): sync reader feedback + source tuning $(date -u +%F)"
