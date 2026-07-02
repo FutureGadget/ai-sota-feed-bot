@@ -22,47 +22,34 @@ changed. Drift is the run-time obstacle of maintenance: keeping a working agent
 working as everything beneath it shifts.
 
 ## State of the art
-The substrate churns on three layers and each is a drift source. **Frameworks**
-ship fast and regress: LangGraph 1.2.6 had to fix nested subgraphs inheriting the
-parent checkpoint namespace — a regression introduced two releases earlier in
-1.2.3 — meaning anyone who upgraded into that window silently got broken
-checkpointing without touching their own code. **Agent SDKs** move almost daily:
-the Claude Agent SDK for Python ships releases whose entire changelog is "updated
-the bundled Claude CLI," so the executable your agent runs on changes underneath a
-patch-level dependency bump. That cadence has not let up: in a single recent week
-the SDK rolled from 0.2.105 through 0.2.110, every release doing nothing but
-advancing the bundled CLI (2.1.183 → 2.1.191), while the CLI itself shipped its
-own stream of patch releases (claude-code 2.1.190, "bug fixes and reliability
-improvements") — so a team that pinned only the SDK version still saw the binary
-under it move roughly daily. **Models** get deprecated out from under running
-agents — Claude Code now emits a warning when the requested model is deprecated,
-making model-upgrade drift an explicit, surfaced signal rather than a silent
-behavior change — and the same release hardened auto-mode safety (blocking
-destructive git commands), a reminder that the harness's *defaults* drift too.
-**Serving runtimes** drift in performance and output: vLLM v0.23.0 is another
-"hardening and optimization pass" on DeepSeek-V4 across backends, the kind of
-change that can move latency, throughput, and sampling behavior without a model
-swap, and the drift can be outright breaking, not just behavioral — Triton
-Inference Server's 2.70.0 release drops Windows support entirely and changes how
-its Python client handles BF16 (now requiring `ml_dtypes`), so a runtime bump can
-remove a deployment target or break client code that never touched the model. The
-field is starting to give operators levers — LangGraph's CLI now
-supports declaring *compatible API version ranges* — but the default posture is
-still "track latest," which is exactly how drift gets in.
+The substrate churns across several layers, and each is a drift source:
+
+- **Frameworks** ship fast and regress: LangGraph 1.2.6 had to fix nested subgraphs inheriting the parent checkpoint namespace — a regression introduced two releases earlier in 1.2.3 — meaning anyone who upgraded into that window silently got broken checkpointing without touching their own code.
+- **Agent SDKs** move almost daily: the Claude Agent SDK for Python ships releases whose entire changelog is "updated the bundled Claude CLI," so the executable your agent runs on changes underneath a patch-level dependency bump. That cadence has not let up: in a single recent week the SDK rolled from 0.2.105 through 0.2.110, every release doing nothing but advancing the bundled CLI (2.1.183 → 2.1.191), while the CLI itself shipped its own stream of patch releases (claude-code 2.1.190, "bug fixes and reliability improvements") — so a team that pinned only the SDK version still saw the binary under it move roughly daily.
+- **Models** get deprecated out from under running agents — Claude Code now emits a warning when the requested model is deprecated, making model-upgrade drift an explicit, surfaced signal rather than a silent behavior change — and the same release hardened auto-mode safety (blocking destructive git commands), a reminder that the harness's *defaults* drift too.
+- **Serving runtimes** drift in performance and output: vLLM v0.23.0 is another "hardening and optimization pass" on DeepSeek-V4 across backends, the kind of change that can move latency, throughput, and sampling behavior without a model swap, and the drift can be outright breaking, not just behavioral — Triton Inference Server's 2.70.0 release drops Windows support entirely and changes how its Python client handles BF16 (now requiring `ml_dtypes`), so a runtime bump can remove a deployment target or break client code that never touched the model.
+
+The field is starting to give operators levers — LangGraph's CLI now supports
+declaring *compatible API version ranges* — but the default posture is still
+"track latest," which is exactly how drift gets in.
 
 ## What's new
-Fresh evidence that the bundled-CLI drift is structural, not a one-off: across a
-single week the Claude Agent SDK for Python went 0.2.105 → 0.2.110 with every
-release just bumping the vendored CLI (2.1.183 → 2.1.191), alongside the CLI's own
-patch stream (claude-code 2.1.190) — concrete proof that pinning a direct
-dependency leaves the executable underneath moving almost daily. The
-countervailing signal still holds: drift is being made visible at the seams
-(Claude Code warns on deprecated models, LangGraph's CLI declares compatible API
-version ranges), early steps toward treating the substrate as a versioned
-contract rather than a rolling stream. A fresh example shows the runtime layer
-can drift into a **breaking** change, not just a behavioral one: Triton's 2.70.0
-release removes Windows support and changes Python-client BF16 handling, the kind
-of bump a pinned major-version dependency doesn't protect against.
+Fresh evidence that the bundled-CLI drift is structural, not a one-off:
+across a single week the Claude Agent SDK for Python went 0.2.105 → 0.2.110
+with every release just bumping the vendored CLI (2.1.183 → 2.1.191),
+alongside the CLI's own patch stream (claude-code 2.1.190) — concrete proof
+that pinning a direct dependency leaves the executable underneath moving
+almost daily.
+
+The countervailing signal still holds: drift is being made visible at the
+seams (Claude Code warns on deprecated models, LangGraph's CLI declares
+compatible API version ranges), early steps toward treating the substrate as
+a versioned contract rather than a rolling stream.
+
+A fresh example shows the runtime layer can drift into a **breaking**
+change, not just a behavioral one: Triton's 2.70.0 release removes Windows
+support and changes Python-client BF16 handling, the kind of bump a pinned
+major-version dependency doesn't protect against.
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you
