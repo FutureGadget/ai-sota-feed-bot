@@ -56,6 +56,15 @@ def main() -> None:
         shutil.copytree(mascot_src, PUBLIC_DIR / "mascot", dirs_exist_ok=True)
         print(f"vercel root assets staged: mascot/ -> {PUBLIC_DIR / 'mascot'}")
 
+    # Per-edition OG cards (web/og/*.png, see pipeline/og_cards.py) are
+    # referenced root-relative as /og/<name>.png in each page's og:image.
+    # Same rule as the mascot: extensioned requests bypass the /web/* rewrites,
+    # so the directory must physically exist under the public root.
+    og_src = ROOT / "web" / "og"
+    if og_src.is_dir():
+        shutil.copytree(og_src, PUBLIC_DIR / "og", dirs_exist_ok=True)
+        print(f"vercel root assets staged: og/ -> {PUBLIC_DIR / 'og'}")
+
 
 if __name__ == "__main__":
     main()

@@ -99,7 +99,10 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
   - `llm_label.py`, `llm_rerank.py` — no-op placeholders while LLM disabled
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
-    stories, threads, static SEO pages
+    stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and
+    `/weekly` and the crawler-visible feed seed in `web/index.html`)
+  - `og_cards.py` — per-edition Open Graph share cards → `web/og/*.png`
+    (Pillow-optional; no-ops gracefully where Pillow is absent)
   - `build_wiki.py` — compiles the agent-engineering wiki markdown pages
     (`data/wiki/`) into the served `data/wiki/index.json` (deterministic; LLM
     synthesis is the `wiki-curator` routine's job)
@@ -131,7 +134,14 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
   `web/storyline/`, `web/topic/`, `web/foundations/`, `web/map.html`,
   `web/foundations.html`, `sitemap.xml` (from
-  `render_static_pages.py`). Brand assets:
+  `render_static_pages.py`). The bare `/daily` and `/weekly` URLs serve the
+  pre-rendered latest edition (`web/daily/index.html`, `web/weekly/index.html`),
+  not the client shells, so shares/crawlers see content; the `index.html` feed
+  shell contains a generated `<!-- feed-seed:start/end -->` region (crawler/
+  no-JS snapshot of the top ranked items — hand-edit outside the markers only).
+  `web/og/` holds per-edition Open Graph share cards from `pipeline/og_cards.py`
+  (Pillow-optional; degrades to the committed/default card where absent).
+  Brand assets:
   `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
   `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
   `mascot/mascot.js` — "Bubble Buddy", the decorative WebGL/Three.js mascot
