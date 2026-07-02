@@ -37,6 +37,11 @@ enough only if a strong engineer can:
 Explanation stays careful and source-grounded. The application layer can be
 opinionated: tell builders what to do, what to test, and what mistake to avoid.
 
+Prose bar: every section of a concept page follows
+`.agents/skills/writing-style/SKILL.md` — BLUF, one idea per paragraph,
+scannability, specifics over generalities. `Builder consequence` and
+`Short answer` carry the BLUF; don't bury them under scene-setting.
+
 ## Evidence Tiers
 
 Every material claim must map to an explicit tier:

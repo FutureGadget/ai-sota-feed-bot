@@ -8,6 +8,10 @@ articles into a reader-facing recap published at `/daily`. The page renders
 straight from a JSON file you write and commit — committing to the repo *is*
 posting.
 
+Prose bar: every field you write below (`intro`, `highlights`, category
+`summary`, article `summary`) follows `.agents/skills/writing-style/SKILL.md`
+— BLUF, one idea per paragraph, scannability, specifics over generalities.
+
 All scripts live next to this file in `scripts/` and can be run from anywhere
 (they locate the repo root automatically). This routine mirrors the
 `weekly-summary` skill, but the unit is a single calendar day (`YYYY-MM-DD`)

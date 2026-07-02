@@ -21,6 +21,10 @@ Audience + quality bar: "would the owner read this `/topic` page and understand
 the state of this problem in 60 seconds, and trust it because every claim links
 to a real source." Anti-hype, platform-engineer lens, no invented sources.
 
+Prose bar: **State of the art**, **What's new**, and every other prose section
+you write follow `.agents/skills/writing-style/SKILL.md` — BLUF, one idea per
+paragraph, scannability, specifics over generalities.
+
 ## How it fits the system (read once)
 
 - **Raw sources** = `data/raw/`, the durable `data/stories/`, and `data/storylines/`.

@@ -170,7 +170,9 @@ serves `/foundations` and `/foundations/<slug>`. The scheduled routine config is
   explanations to `data/foundations/concepts/*.md`, validated by
   `build_foundations.py`; serves `/foundations`), `add-source/` (add a feed source
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
-  gates and reaches the feed)
+  gates and reaches the feed), `writing-style/` (no scripts — the shared prose
+  contract referenced by the reader-facing content skills above: BLUF, one
+  idea per paragraph, scannability, specifics over generalities)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
 - `.agents/routines/` — repository-owned external scheduler definitions.
   Each routine directory separates scheduler-only `harness.yaml` metadata from

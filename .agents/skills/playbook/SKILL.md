@@ -19,6 +19,11 @@ retrieval, cost/latency, reliability, safety) — never framework churn, prompt
 listicles, or generic AI news. If an article has no applicable takeaway for an
 agent builder, **skip it**. Curate hard; 4–8 strong cards beat 20 weak ones.
 
+Prose bar: `problem`, `apply`, and `result` on every card follow
+`.agents/skills/writing-style/SKILL.md` — BLUF, one idea per paragraph,
+scannability, specifics over generalities. This matters most here: these
+fields are capped to 1–2 tight sentences, so every word has to earn its place.
+
 This routine is the **only editorial author** of Playbook takeaways. Daily and
 weekly recap agents never rewrite `problem`, `apply`, or `result`; deterministic
 code joins validated cards into recaps by the source article's durable SID.
