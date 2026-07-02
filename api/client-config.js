@@ -4,9 +4,11 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'method_not_allowed' });
   }
 
-  const key = String(process.env.POSTHOG_PROJECT_API_KEY || '').trim();
+  const defaultPostHogKey = 'phc_frYL2od402eAmmxvKFZXbb4pbLNCZpI82mPW9VVAOHu';
+  const key = String(process.env.POSTHOG_PROJECT_API_KEY || defaultPostHogKey).trim();
   const host = String(process.env.POSTHOG_HOST || 'https://us.i.posthog.com').trim();
-  const enabled = String(process.env.POSTHOG_ENABLED || '').trim() === '1' && !!key;
+  const enabledFlag = String(process.env.POSTHOG_ENABLED || '1').trim().toLowerCase();
+  const enabled = !['0', 'false', 'off'].includes(enabledFlag) && !!key;
 
   // Optional external email-digest signup page (e.g. an RSS-to-email form); the
   // subscribe menu shows an outbound email link only when this is configured.
@@ -20,6 +22,7 @@ export default async function handler(req, res) {
     posthog: {
       enabled,
       host,
+      defaults: '2026-05-30',
       project_api_key: enabled ? key : null,
     },
     digest: {
