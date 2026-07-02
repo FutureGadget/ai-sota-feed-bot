@@ -107,17 +107,8 @@ sources:
     type: rss
     url: "https://www.latent.space/feed"
   - name: langchain_blog
-    type: sitemap
-    url: "https://www.langchain.com/sitemap.xml"
-    include_prefixes:
-      - "https://www.langchain.com/blog/"
-    extract_published_from_page: true
-    page_meta_cache_ttl_hours: 24
-    # Sitemap ships no <lastmod>, so publish dates are discovered per page and
-    # cached permanently. ~450 blog URLs; a budget above that count warms the
-    # cold cache in a single run so the newest posts surface immediately
-    # (steady state then fetches only genuinely-new posts).
-    page_meta_fetch_budget: 600
+    type: rss
+    url: "https://www.langchain.com/blog/rss.xml"
   - name: search_agent_engineering_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28agentic+coding+OR+coding+agent+OR+agent+harness+OR+claude+code+OR+openai+codex%29&hl=en-US&gl=US&ceid=US:en"
