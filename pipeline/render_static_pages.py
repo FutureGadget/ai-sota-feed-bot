@@ -343,7 +343,7 @@ PAGE_JS = """\
 # "New updates" nav indicators for generated pages — same shared script as the
 # hand-edited shells (see docs/product-specs/nav-update-indicators.md).
 NAV_UPDATES_TAG = '<script src="/nav-updates.js?v=20260701" defer></script>'
-POSTHOG_CLIENT_ASSET_VERSION = "20260702-shared"
+POSTHOG_CLIENT_ASSET_VERSION = "20260703-scroll-depth"
 POSTHOG_CLIENT_TAG = f'<script src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
 
 # Follow button for static storyline pages. Mirrors the localStorage contract
