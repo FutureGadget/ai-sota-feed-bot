@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4]
-updated: 2026-06-30
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e]
+updated: 2026-07-03
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e]
 ---
 
 ## TL;DR
@@ -71,36 +71,22 @@ The durable lesson: who talks to whom, in what format, and under whose
 control is the dominant variable — and sometimes the cheapest topology is no
 topology at all.
 
+A newer thread ties coordination quality directly to **uncertainty**: UA-ChatDev
+has role-based software-development agents track and act on their own
+confidence, so a low-confidence step triggers deliberation or hand-off rather
+than confidently propagating a mistake to the next role — coordination
+reliability as a function of agents knowing what they don't know, not just of
+topology.
+
 ## What's new
-"Design the coordination, not the agents" is moving from runtime wiring
-toward **code-driven orchestration**: LangChain's dynamic subagents in Deep
-Agents coordinate fan-out from a program (so coverage is guaranteed by
-control flow, not by the model issuing one tool call per worker), extending
-the per-task generated harness into ordinary testable code around the
-agents.
-
-A **security** dimension also surfaced — the "Linguistic Firewall" work
-defends multi-agent *routing* as a geometry problem, framing the
-communication structure as an attack surface a hostile agent can exploit,
-not just a cost/quality knob.
-
-These sit alongside a wave of practitioner orchestration tools putting the
-engineering into the layer *between* agents:
-
-- Multi-model routing inside a terminal coding agent (**Kimchi**)
-- Visual sub-agent wiring for Claude Code (**rondoflow**)
-- Transparency-first multi-agent runners (**OpenOrb**)
-
-— concrete evidence for the earlier finding that the routing/handoff/plumbing
-layer, not agent cleverness, is the load-bearing work.
-
-That sits alongside the "does multi-agent even pay" question sharpening from
-both ends (Sakana's Fugu distills a multi-agent system into one model;
-library authors report workspace/runtime/directory plumbing is the hard
-part) and the standing result that *topology*, not agent count, drives
-quality and cost — DPBench formalizes the structural determinants, DeLM cuts
-task cost ~50% by dropping the central orchestrator, and Anthropic generates
-execution harnesses per task.
+Coordination reliability gets an **uncertainty-aware** treatment: UA-ChatDev
+has role-based agents track confidence and use it to trigger deliberation
+before a shaky step gets handed to the next agent, addressing the
+handoff-propagates-mistakes failure mode from inside the agents rather than
+from the routing layer around them — a complement to last round's
+**code-driven orchestration** shift (LangChain's dynamic subagents
+guaranteeing fan-out coverage via control flow) and the **security** framing
+of routing as an attack surface (Linguistic Firewall).
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

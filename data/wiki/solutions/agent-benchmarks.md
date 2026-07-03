@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
-updated: 2026-07-01
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012]
+updated: 2026-07-03
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012]
 ---
 
 ## TL;DR
@@ -89,37 +89,30 @@ grade long-horizon autonomy — sustained multi-step operation rather than a
 single bounded task — the harder distribution-shift edge the "familiar
 leaderboards degrade out of distribution" finding already flags.
 
+**Benchmark upkeep is being automated**, addressing the standing trade-off
+that a hand-built benchmark is real work to author and maintain: Reap
+automates curation of coding-agent benchmark tasks rather than requiring a
+team to hand-pick and refresh them. A new **environment-readiness** angle
+also appears: AeroScore scores how well existing documentation portals
+support AI agents in the first place, evaluating the environment an agent
+has to operate in rather than the agent itself — a precondition check that
+sits upstream of any task benchmark. On the subsystem-specific front,
+TestEvo-Bench adds an executable, live benchmark for test-and-code
+co-evolution, isolating whether an agent keeps tests in sync with the code
+it changes. And a new capability frontier opens on program understanding:
+MirrorCode benchmarks agents rebuilding entire programs from behavior alone
+(black-box reconstruction), pushing past "modify existing code" into
+"reconstruct it from how it behaves."
+
 ## What's new
-**Subsystem-specific** grading is on the rise — isolating one capability
-rather than scoring a whole task: a new suite targets the failure modes of
-agent memory (forgetting, stale recall, poisoning) and OpenRCA 2.0 grades
-root-cause analysis with causal process supervision (labels on the reasoning
-steps, not just the outcome), so a regression localizes to the memory layer
-or the trajectory instead of a fallen aggregate.
-
-This complements a push toward **failure paths and held-out tasks** that
-public leaderboards miss: "Beyond Function Calling" scores agents under
-unreliable tool environments (time-outs, errors, malformed results) to test
-recovery rather than the happy path, and practitioners are reaching for
-novel, hard-to-memorize environments (a Sherlock Holmes deduction game as an
-agent eval) because familiar suites leak into training — answering the
-recurring "what benchmarks actually compare agent *harnesses*" gap.
-
-Vendors now run **harness benchmarking in-house**: GitHub scores its Copilot
-agentic harness across 20+ models on results *and* token efficiency, the
-process-over-outcome grading reaches ops agents (a microservice-failure-
-diagnosis AgentOps benchmark), and eval results are getting more transparent
-(Hugging Face's "Every Eval Ever" on model pages).
-
-This builds on suites mined from **real sessions** (EnterpriseClawBench) and
-**reproducible packaging** (Proctor's signed, isolated bundles), all
-reinforcing that public scores over-state real-workload performance and that
-the harness itself is a benchmark variable.
-
-Two more entries push the frontier further: **ScarfBench** narrows to a
-single enterprise domain (Java framework migration) instead of generic
-coding, and **Emergence World** targets long-horizon autonomy specifically,
-grading sustained multi-step operation rather than one bounded task.
+Benchmark **construction and upkeep** are getting first-class tooling: Reap
+automates curation of coding-agent benchmark tasks, addressing the standing
+"real work to author and maintain" trade-off directly. Two new fronts also
+open: **environment readiness** (AeroScore scores whether documentation
+portals are agent-ready, checking the environment rather than the agent) and
+a program-understanding capability edge (MirrorCode benchmarks rebuilding
+programs from behavior alone). TestEvo-Bench extends the subsystem-specific
+trend to test-and-code co-evolution.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static

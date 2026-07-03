@@ -7,9 +7,9 @@ status: active
 solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da]
-updated: 2026-07-01
-covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da]
+evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2]
+updated: 2026-07-03
+covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2]
 ---
 
 ## TL;DR
@@ -41,6 +41,11 @@ alongside the CLI's own patch stream (claude-code 2.1.190) — concrete proof
 that pinning a direct dependency leaves the executable underneath moving
 almost daily.
 
+A new mitigation targets **vulnerability drift** specifically: deptrust checks
+an agent's resolved dependency versions across a dozen package ecosystems
+against known-vulnerability databases, catching the case where drift moves a
+project into an unsafe version rather than just a behaviorally different one.
+
 The countervailing signal still holds: drift is being made visible at the
 seams (Claude Code warns on deprecated models, LangGraph's CLI declares
 compatible API version ranges), early steps toward treating the substrate as
@@ -50,6 +55,14 @@ A fresh example shows the runtime layer can drift into a **breaking**
 change, not just a behavioral one: Triton's 2.70.0 release removes Windows
 support and changes Python-client BF16 handling, the kind of bump a pinned
 major-version dependency doesn't protect against.
+
+Drift can also be silently **into a vulnerable version**, not just a
+behaviorally different one: deptrust is a CLI that checks an agent's
+resolved package versions against known-vulnerability databases across a
+dozen ecosystems (npm, PyPI, crates.io, Go modules, and more) — a
+supply-chain-security check aimed specifically at what agents pull in as
+they write and modify dependency manifests, extending the drift discipline
+from "did behavior change" to "did the substrate become unsafe."
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you

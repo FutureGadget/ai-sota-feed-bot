@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
-updated: 2026-07-01
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab]
+updated: 2026-07-03
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab]
 ---
 
 ## TL;DR
@@ -43,6 +43,47 @@ setups that wrap a planning loop in enough infrastructure to run it repeatedly a
 reliably — were a dominant theme alongside forward-deployed engineering, evidence
 that planning-as-harness-problem has moved from research framing to mainstream
 practitioner conversation.
+
+"The loop" is now solidifying into an engineered, reusable artifact rather than
+a one-off prompt pattern. A provider-agnostic reference implementation built on
+ports-and-adapters (call model, run tools, feed results back, stop) treats the
+loop itself as portable infrastructure any OpenAI-compatible backend can plug
+into, and QUALITY.md proposes an open spec, agent skill, and CLI for grading
+"loop engineering" quality directly — naming and measuring the harness-quality
+axis rather than leaving it implicit. Self-improving variants are also
+emerging: an "autoresearch" pattern has agents iterate on their own task
+*recipes* across runs, closing a feedback loop over the plan itself rather than
+just over individual steps, though practitioners are explicit that humans stay
+central to steering it — the case against one-shot AI design argues skill
+engineering (iterative, human-curated task specs) beats hoping a single prompt
+gets the plan right.
+
+The "know when to ask vs. proceed" thread also gains a metacognitive angle:
+CoMet targets uncertainty estimation directly — decomposing *what kind* of
+uncertainty a multimodal model has, since "knowing what you don't know" is
+exactly the signal a planning loop needs to decide whether to ask a
+clarifying question or charge ahead, extending DiscoBench's clarification-aware
+benchmark with a mechanism for producing that signal in the first place.
+
+Training is starting to target planning **directly**, not just the harness
+around it: OpenAI's Agent RFT fine-tunes reasoning models against reward
+signals from real tool interactions, using reinforcement learning to solve the
+credit-assignment problem — which of the many steps in a long trajectory
+actually caused success or failure — rather than relying entirely on prompting
+or a hand-built harness to keep the loop on track.
+
+## What's new
+Training is starting to target planning directly: OpenAI's Agent RFT
+fine-tunes reasoning models against tool-interaction reward signals, using RL
+to solve credit assignment across a long trajectory rather than leaning only
+on harness engineering. Alongside it, "the loop" is solidifying into
+reusable, gradeable infrastructure — a provider-agnostic ports-and-adapters
+reference loop, an open spec for grading loop-engineering quality
+(QUALITY.md), and self-improving "autoresearch" loops that iterate on their
+own task recipes — while practitioners push back that human steering (skill
+engineering) still beats one-shot design. CoMet adds a metacognitive signal
+(decomposed uncertainty estimation) to the "ask vs. proceed" question
+DiscoBench already benchmarks.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

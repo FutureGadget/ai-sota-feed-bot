@@ -123,7 +123,7 @@ Current web app behavior:
   the story (widening the window once to 30 days if needed; pinned topics are
   suspended so they can't hide it). Events: `item_share`, `share_landing`
 - Uses per-item batch/run context for telemetry (`ingest_batch_id` preferred, fallback to run timestamp)
-- PostHog tracking for dashboarding (`page_view`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
+- PostHog tracking for dashboarding (`$pageview`, `feed_view`, `impression_batch`, `click`, `item_feedback`)
 
 PostHog env vars (optional):
 - `POSTHOG_ENABLED=1`

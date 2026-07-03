@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
-updated: 2026-07-01
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c]
+updated: 2026-07-03
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c]
 ---
 
 ## TL;DR
@@ -89,47 +89,34 @@ code-quality metrics for agent-written programs** — graded signals on the
 code itself rather than a pass/fail test gate — reframing eval for code
 agents as "is this change good," not just "does it run."
 
+A fourth front pushes back on **LLM-as-judge itself**: rather than fine-tuning
+or auditing the judge, a deterministic-replacement approach for stateful agent
+evaluation skips model-graded scoring altogether for the class of tasks where
+state transitions can be checked directly — a reminder that "judge with
+another LLM" is a default, not the only option, when the task admits a
+programmatic check. A parallel critique targets the **benchmarks** rather
+than the judge: performance-optimization suites (GSO, SWE-Perf, SWE-fficiency)
+that score coding agents by comparing runtime against baselines turn out to
+have their own reliability problems as measurement instruments, sharpening
+the standing "familiar benchmarks over-state capability" finding into "the
+benchmark's own numbers can be noisy," not just non-representative.
+Consolidation is showing up on the tooling side too: Harbor pairs LangSmith's
+sandboxes and observability with Deep Agents into one stack specifically for
+evaluating long-running, stateful agents, and practitioner write-ups (Pendo
+tracing its Novus product agent from user behavior to code fixes with
+LangSmith) show eval, tracing, and monitoring converging into one workflow
+rather than three separate tools.
+
 ## What's new
-**Process-level grading** is getting first-class labels: OpenRCA 2.0 moves
-root-cause-analysis evaluation from outcome labels to causal process
-supervision, scoring the intermediate reasoning steps rather than just the
-final verdict — the dataset side of the shift to trajectory-aware eval.
-
-Scrutiny has also turned on the **eval machinery itself**: BabelJudge shows
-trajectory judges carry measurable position/language bias under the hood,
-and practitioner post-mortems (financial-agent evals, the missed Linear
-failure) argue that a green eval suite routinely hides the failure that
-matters — so "build a judge" is giving way to "validate the judge and the
-suite against real failures."
-
-A new angle targets **coding agents' output**: with agents writing more
-code, "tests passing" no longer proves the change is good, so Topos scores
-the structural quality of agent-written programs directly, treating
-review-grade signal as the eval rather than a pass/fail gate.
-
-Two reframes land this round: the constructive "*it's hard to eval is a
-product smell*" argument (inability to eval signals a fuzzy spec to fix, not
-an impossible task), and the **unit of eval widening to the whole harness**
-— GitHub benchmarks its Copilot agentic harness across 20+ models scoring
-results and token efficiency, while a microservice-failure-diagnosis
-benchmark (AgentOps) grades the diagnosis process on trace data, pulling
-eval and [observability](/topic/agent-observability) onto the same
-substrate.
-
-Eval **transparency** is moving too: Hugging Face now surfaces community
-"Every Eval Ever" results on model pages.
-
-The **cheap-judge cost lever** gets sharper too: Morph Reflexes shares one
-backbone's compute across many trace-classifier heads instead of running a
-separate small model per behavioral signal, and two new benchmarks push the
-domain axis (ScarfBench's enterprise Java-migration task) and the horizon
-axis (Emergence World's long-horizon autonomy lab) further than existing
-suites reach.
-
-This sits alongside the earlier shift to graded process — trace judges that
-score trajectories at ~1/100th frontier cost and root-cause failure
-detectors — and mounting evidence that familiar-benchmark scores collapse
-out of distribution.
+A **deterministic alternative to LLM-as-judge** lands for stateful agent
+evaluation — checking state transitions directly instead of asking a model to
+grade them — alongside a **reliability critique of the benchmarks themselves**:
+popular performance-optimization suites (GSO, SWE-Perf, SWE-fficiency) turn out
+to be noisy measurement instruments, not just narrow ones. Tooling is
+consolidating in response — a unified Harbor stack pairs sandboxes,
+observability, and Deep Agents specifically for stateful long-running eval,
+and practitioners report eval, tracing, and monitoring converging into one
+workflow (Pendo/LangSmith).
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61]
-updated: 2026-06-30
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f]
+updated: 2026-07-03
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f]
 ---
 
 ## TL;DR
@@ -81,39 +81,31 @@ defense in depth rather than trusting any one of them:
   credential scoping (identity limits *what the agent is allowed to do*, the
   network perimeter limits *where data can go* even when an action is
   authorized).
+- **Secure defaults at the harness level**: Claude Code changed its default
+  permission mode to "Manual" across the CLI, VS Code, and JetBrains, shipping
+  least privilege as the out-of-the-box behavior rather than an opt-in a team
+  has to discover and turn on.
+- **External output verification**: SonarQube plugins now run trusted static
+  analysis over code written by Claude Code, Copilot, Codex, and Cursor,
+  adding an independent, non-model check on what the sandbox lets an agent
+  produce — a control on the agent's *output*, complementing the controls
+  above on its execution and credentials.
 
 Least privilege plus human approval on the few actions that really matter
 remains the most durable control across all of these layers.
 
 ## What's new
-The control stack is extending to the **network perimeter**: Google Cloud's VPC
-Service Controls now adds agentic-AI guardrails so a hijacked agent with valid
-credentials still cannot exfiltrate protected data past a network boundary — the
-egress complement to credential scoping.
+Two controls extend the "assume compromise" stack in different directions:
+**secure-by-default harness configuration** (Claude Code's default permission
+mode moving to "Manual" across its CLI and IDE integrations) closes the gap
+between what a default setup permits and what a user actually intended, while
+**independent output verification** (SonarQube's trusted static-analysis
+plugins for Claude Code, Copilot, Codex, and Cursor) adds a non-model check on
+what an agent produces rather than only on what it's allowed to do.
 
-That joins a move to assemble controls into operated **platforms**, not just
-shipped primitives: Grab built Palana, a Kubernetes-native secure execution
-platform for running autonomous agents safely in production — sandboxed
-execution plus scoped access and central governance as paved-road
-infrastructure.
-
-Underneath both sits a now-commoditized **base layer**: open-source drop-in
-sandboxes like Workdir, and local tool-call firewalls like Cerberus that gate
-an agent's actions from a single installable proxy.
-
-The **authorization primitives** feeding all of this keep multiplying:
-
-- per-parameter permission rules (Claude Code's `Tool(param:value)`)
-- harness-level secret hiding (Claude Code's `sandbox.credentials` blocks
-  sandboxed commands from reading credential files and secret env vars)
-- approval-gated writes (datasette-agent)
-- identity-based sandboxes that keep infra secrets out of the agent's reach
-  (Cordium)
-- ephemeral cloud accounts (Cloudflare)
-
-All of it, alongside OS-enforced containers and agent-as-identity, is
-converging on the same target: scoped, centrally governed, short-lived,
-revocable permissions rather than guardrails or process sandboxes alone.
+That builds on the network-perimeter control (Google Cloud VPC Service
+Controls), operated platforms (Grab's Palana), and the commoditized base
+layer of drop-in sandboxes and tool-call firewalls (Workdir, Cerberus).
 
 ## Trade-offs
 More isolation and tighter scopes mean more **friction**: approval gates add

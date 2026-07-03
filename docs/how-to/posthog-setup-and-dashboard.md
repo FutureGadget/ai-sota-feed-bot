@@ -32,7 +32,10 @@ The proxy Worker itself lives in `infra/llm-digest-proxy-worker/` (see
 `src/index.js`); it forwards `/static/*` and `/array/*` to PostHog's asset
 host (cached at the edge) and everything else to the ingest API, stripping
 cookies and setting `X-Forwarded-For`. Custom domain `assets.llm-digest.com`
-is configured via `routes` in `wrangler.jsonc`.
+is configured via `routes` in `wrangler.jsonc`. The Worker also owns CORS for
+the proxy: it answers browser preflights and adds `Access-Control-Allow-Origin`
+for `https://www.llm-digest.com`, `https://llm-digest.com`, and localhost
+development origins on both cached asset responses and ingest responses.
 
 ---
 
@@ -65,6 +68,8 @@ If dashboard seems empty but integration is live:
 - Event filters active
 - Viewing wrong project
 - Region mismatch (`us` vs `eu` host)
+- Proxy CORS regression: browser console shows `assets.llm-digest.com/array/...`
+  blocked even though the request has `200 OK`
 - Browser extension/adblock blocking analytics domains
 
 ---

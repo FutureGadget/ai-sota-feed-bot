@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1]
-updated: 2026-07-01
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6]
+updated: 2026-07-03
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6]
 ---
 
 ## TL;DR
@@ -51,6 +51,13 @@ pauses too long gets hung up on, which is why low-latency voice stacks (Loka on
 Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint,
 not a tuning afterthought.
 
+The serving layer itself is starting to absorb **agentic behavior**: vLLM's
+Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
+"micro-agent" runtime — confidence scoring, ratings, and workflow fusion happen
+*inside* the serving layer rather than in a separate orchestration hop above
+it, collapsing a round-trip that would otherwise cost a full extra model call
+and its latency.
+
 ## What's new
 The framing is shifting from "make the model faster" to "make the *agent
 workload* faster." TraceLab characterizes real coding-agent serving traces so
@@ -59,11 +66,15 @@ storage bandwidth — not GPU compute — as the bottleneck in agentic inference
 because the per-step context state has to be moved, not just computed. RaBitQCache
 now gives that bottleneck a direct mitigation: quantizing the KV cache with an
 adaptive token budget cuts the memory-I/O DualPath flags, without a fixed
-top-k retrieval's static waste. Alongside, latency-first small models (Kog
-Laneformer 2B) and low-latency interactive stacks (Loka's Nova 2 Sonic voice
-agent) show the field treating round-trip time as an architecture constraint
-rather than a knob, and the same instinct is reaching the dev loop itself — local
-CI cuts feedback latency for developers and agents alike.
+top-k retrieval's static waste. A newer move pushes lightweight agentic logic
+*into* the serving layer itself — vLLM's Semantic Router runs confidence
+scoring and workflow routing as a bounded micro-agent inside the serving
+process, avoiding a separate orchestration round-trip's latency cost.
+Alongside, latency-first small models (Kog Laneformer 2B) and low-latency
+interactive stacks (Loka's Nova 2 Sonic voice agent) show the field treating
+round-trip time as an architecture constraint rather than a knob, and the same
+instinct is reaching the dev loop itself — local CI cuts feedback latency for
+developers and agents alike.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the
