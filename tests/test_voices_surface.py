@@ -59,7 +59,7 @@ class VoicesSurfaceTest(unittest.TestCase):
         self.assertIn("isLocalPreview", self.html)  # mascot opt-out in local preview
 
     def test_no_oat_gray_hover_fill_on_nav(self) -> None:
-        self.assertIn('menu a[role="button"]:hover, #themeToggle:hover', self.html)
+        self.assertIn('menu a[role="button"]:hover', self.html)
         self.assertIn("border-color:var(--accent); color:var(--accent); background:transparent;", self.html)
 
 

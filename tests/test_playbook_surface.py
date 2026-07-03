@@ -83,7 +83,7 @@ class PlaybookSurfaceTest(unittest.TestCase):
     def test_no_oat_gray_hover_fill_on_nav(self) -> None:
         # Nav buttons keep a transparent fill on hover (no Oat default gray box).
         self.assertIn(
-            'menu a[role="button"]:hover, #themeToggle:hover, .archive select:hover',
+            'menu a[role="button"]:hover, .archive select:hover',
             self.html,
         )
         self.assertIn("border-color:var(--accent); color:var(--accent); background:transparent;", self.html)

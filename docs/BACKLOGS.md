@@ -31,7 +31,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 | BL-004 | Agent Skill Lab | needs-spec | high | Experiment methodology and artifact format |
 | BL-005 | Harness Field Tests | idea | high | BL-004 methodology and product access |
 | BL-006 | Benchmark Decoder | idea | medium | Editorial rubric and benchmark source policy |
-| BL-007 | Cost efficiency & productivity coverage lens | needs-spec | medium | Wiki-curator routine; CTR/topic-view signals |
+| BL-007 | Cost efficiency & productivity coverage lens | ready | medium | Wiki-curator routine; CTR/topic-view signals |
 
 ## BL-001 — Agent-managed source pipeline
 
@@ -195,7 +195,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 
 ## BL-007 — Cost efficiency & productivity coverage lens
 
-- **Status:** needs-spec (one-pager:
+- **Status:** ready (one-pager:
   `docs/ideas/cost-efficiency-productivity-topic.md`)
 - **Priority:** medium
 - **Outcome:** Readers who own the "does this agent pay for itself, and how do
