@@ -1,13 +1,13 @@
 {
  "slug": "claude-fable",
  "label": "Claude Fable",
- "item_count": 6,
- "day_count": 5,
+ "item_count": 8,
+ "day_count": 7,
  "source_count": 4,
  "first_seen": "2026-06-12T23:38:00+00:00",
- "last_updated": "2026-06-30T16:00:00+00:00",
+ "last_updated": "2026-07-02T21:07:00+00:00",
  "via_scout": true,
- "generated_at": "2026-07-03T00:05:07.464167+00:00",
+ "generated_at": "2026-07-03T05:03:58.138271+00:00",
  "sources": [
   "anthropic_newsroom",
   "infoq_ai_ml",
@@ -66,6 +66,21 @@
    ]
   },
   {
+   "date": "2026-06-16",
+   "items": [
+    {
+     "title": "The Fable 5 Export Controls Harm US Cyber Defense",
+     "url": "https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything",
+     "source": "simon_willison",
+     "type": "news",
+     "summary_1line": "The Fable 5 Export Controls Harm US Cyber Defense I quoted The Atlantic quoting Kate Moussouris earlier, when I should have gone straight to the source. Here she is confirming that the \"jailbreak\" that got Claude Fabl...",
+     "sid": "5d3028816a29c80e",
+     "published": "2026-06-16T05:20:29+00:00",
+     "editor_note": "Commentary argues the export controls themselves harmed US cyber defense, tracing the suspension to a specific jailbreak."
+    }
+   ]
+  },
+  {
    "date": "2026-06-20",
    "items": [
     {
@@ -104,44 +119,64 @@
      "editor_note": "Export controls lifted — Anthropic redeploys Fable 5 starting July 1 with updated cybersecurity safeguards and a new industry jailbreak framework."
     }
    ]
+  },
+  {
+   "date": "2026-07-02",
+   "items": [
+    {
+     "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+     "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
+     "source": "anthropic_newsroom",
+     "type": "news",
+     "summary_1line": "What is and isn't blocked by our cyber classifiers, and a first draft of our jailbreak severity framework",
+     "sid": "aaef033dfabe2831",
+     "published": "2026-07-02T21:07:00+00:00",
+     "editor_note": "Anthropic publishes the specifics: what its cyber classifiers block, and a first-draft jailbreak severity framework."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 as long-horizon models \"made safe for general use.\" Days later a US export-control directive citing national security suspended all access, recast by outside coverage as models \"officially too dangerous to release\"; the models then returned only on Amazon Bedrock, gated behind a provider_data_share opt-in that ships prompts and outputs to Anthropic for 30-day retention with human review.",
+  "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 as long-horizon models \"made safe for general use,\" but a US export-control directive citing national security suspended all access days later — critics argued the controls themselves weakened US cyber defense. The models returned gated on Amazon Bedrock behind a data-sharing opt-in, then redeployed from July 1 once the controls lifted, backed by updated cybersecurity safeguards.",
   "stale": false,
-  "whats_new": "Anthropic is redeploying Claude Fable 5 starting July 1 after the US lifted its export-control directive, shipping updated cybersecurity safeguards and a new industry jailbreak framework alongside the return.",
-  "why_it_matters": "A frontier tier went from GA launch to a government-ordered suspension, to a conditional data-sharing-only return, to full redeployment inside three weeks — proof that access to a flagship can be revoked or re-priced in data-confidentiality terms with only days of notice.",
-  "take_for_builders": "If you paused Fable 5 / Mythos 5 during the suspension, confirm the July 1 redeploy terms before re-enabling — check whether Bedrock still forces provider_data_share (30-day retention, human review) — and keep a fallback tier wired so a single-flagship dependency can't strand you again.",
+  "whats_new": "Anthropic published details on Fable 5's cyber safeguards — what its classifiers do and don't block — plus a first-draft jailbreak severity framework, two days into the post-suspension redeploy.",
+  "why_it_matters": "The classifier scope and jailbreak severity framework are the concrete terms of \"made safe for general use\" — the thing platform engineers need to evaluate before trusting Fable 5 in security-sensitive flows, and the direct response to the critique that the export controls themselves weakened US cyber defense.",
+  "take_for_builders": "Read Anthropic's classifier scope and jailbreak severity framework before trusting Fable 5 in security-sensitive flows, confirm whether Bedrock still forces provider_data_share (30-day retention, human review), and keep a fallback model wired so a single-flagship dependency can't strand you again.",
   "status": {
-   "state": "Redeploying · export controls lifted",
-   "tone": "rising",
-   "changed": "2026-06-30",
-   "reenable": "redeploy begins July 1",
-   "detail": "Fable 5 and Mythos 5 launched \"made safe for general use,\" were suspended by a US export-control directive, returned on Amazon Bedrock only under a data-sharing opt-in, and are now being redeployed from July 1 after the controls were lifted, with updated cybersecurity safeguards.",
+   "state": "Redeployed · safeguards published",
+   "tone": "now",
+   "changed": "2026-07-02",
+   "detail": "Fable 5 and Mythos 5 launched \"made safe for general use,\" were suspended by a US export-control directive, returned on Amazon Bedrock only under a data-sharing opt-in, redeployed from July 1 after the controls were lifted, and on July 2 Anthropic detailed the cyber classifiers and jailbreak severity framework behind that redeploy.",
    "track": [
     {
      "label": "available",
      "detail": "Jun 9–13",
      "tone": "launch",
-     "weight": 34
+     "weight": 30
     },
     {
      "label": "suspended",
      "detail": "Jun 13–20",
      "tone": "alert",
-     "weight": 30
+     "weight": 26
     },
     {
      "label": "Bedrock w/ data-sharing",
      "detail": "Jun 20–30",
      "tone": "now",
-     "weight": 20
+     "weight": 18
     },
     {
-     "label": "redeploying",
-     "detail": "Jun 30 → now",
+     "label": "redeployed",
+     "detail": "Jun 30 – Jul 1",
      "tone": "rising",
-     "weight": 16
+     "weight": 14
+    },
+    {
+     "label": "safeguards published",
+     "detail": "Jul 1 → now",
+     "tone": "now",
+     "weight": 12
     }
    ]
   },
@@ -166,12 +201,13 @@
     ]
    },
    {
-    "kicker": "SUSPENDED",
+    "kicker": "FRICTION",
     "tone": "alert",
-    "headline": "Reframed as a temporary suspension — no re-enable date",
-    "summary": "An outside recap ties the takedown to the export-control directive and frames it as temporary rather than permanent.",
+    "headline": "Critics say the controls themselves harm US cyber defense",
+    "summary": "A recap frames the takedown as temporary; commentary argues the export controls weakened US cyber defense, pointing to the underlying jailbreak that triggered the suspension.",
     "sids": [
-     "575139a8c2fbbeb4"
+     "575139a8c2fbbeb4",
+     "5d3028816a29c80e"
     ]
    },
    {
@@ -191,12 +227,21 @@
     "sids": [
      "fdd9745edc3aad4e"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Anthropic details what the cyber classifiers block",
+    "summary": "Two days into redeploy, Anthropic publishes what is and isn't blocked by Fable 5's cyber classifiers, plus a first draft of an industry jailbreak severity framework.",
+    "sids": [
+     "aaef033dfabe2831"
+    ]
    }
   ],
   "open_questions": [
    "Does the July 1 redeployment restore standard private-inference terms, or does the Bedrock provider_data_share requirement persist?",
-   "What exactly changed in the \"updated cybersecurity safeguards\" that satisfied the export-control review?",
-   "Will the new industry jailbreak framework be adopted by other frontier labs, or is it Anthropic-only?",
+   "Do the published cyber classifiers close the specific jailbreak that triggered the export-control suspension, or does exposure remain?",
+   "Will other frontier labs adopt the first-draft jailbreak severity framework, or does it stay Anthropic-only?",
    "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?"
   ],
   "provenance": {
@@ -209,8 +254,15 @@
    },
    "fdd9745edc3aad4e": {
     "status_update": true
+   },
+   "5d3028816a29c80e": {
+    "surfaced_by": "scout"
+   },
+   "aaef033dfabe2831": {
+    "surfaced_by": "scout",
+    "status_update": true
    }
   },
-  "generated_at": "2026-07-03T00:10:00+00:00"
+  "generated_at": "2026-07-03T05:10:00+00:00"
  }
 }
