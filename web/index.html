@@ -306,11 +306,23 @@
     }
     .card-top {
       display: flex;
-      align-items: center;
-      flex-wrap: wrap;
+      align-items: flex-start;
       gap: 0.4rem;
       margin-bottom: 0.4rem;
       min-width: 0;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+    .card-actions {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
     }
     .card-top .src {
       font-size: 0.84rem;
@@ -392,9 +404,6 @@
       line-height: 1;
       padding: 0 0.2rem;
       color: var(--muted);
-    }
-    .save-btn {
-      margin-left: auto;
     }
     .save-btn:hover,
     .save-btn[aria-pressed="true"] {
@@ -1030,7 +1039,8 @@
     .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
       font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.65rem;
       line-height:1; font-weight:700; color:color-mix(in srgb,var(--muted) 55%,transparent); }
-    .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.45rem .7rem; }
+    .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.5rem; }
+    .card-meta { gap:.45rem .7rem; }
     .card-top .src, .when { font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.64rem; font-weight:500; color:var(--muted); }
     .card-top .src { color:var(--fg); font-weight:700; letter-spacing:.04em; }
@@ -1039,7 +1049,6 @@
       font-size:.62rem; }
     .card-top .badge::before { content:"· "; color:var(--border); }
     a.badge-storyline { border:0; background:transparent; color:var(--accent); }
-    .save-btn { margin-left:auto; }
     .card-main { gap:1rem; }
     article h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.28rem; line-height:1.22; }
@@ -2532,18 +2541,22 @@
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
           ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
-            <span class="src">${source}</span>
-            ${published ? `<span class="when">${esc(published)}</span>` : ''}
-            ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
-            ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
-            ${isNew ? `<span class="badge badge-new">New</span>` : ''}
-            ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-            ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">⬆️ Climbing</span>` : ''}
-            ${storylineBadge}
-            ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
-            <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
-            <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
-            ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎' : '✕'}</button>` : ''}
+            <div class="card-meta">
+              <span class="src">${source}</span>
+              ${published ? `<span class="when">${esc(published)}</span>` : ''}
+              ${type !== 'news' ? `<span class="badge">${typeLabel}</span>` : ''}
+              ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+              ${isNew ? `<span class="badge badge-new">New</span>` : ''}
+              ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
+              ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">⬆️ Climbing</span>` : ''}
+              ${storylineBadge}
+              ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
+            </div>
+            <div class="card-actions">
+              <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
+              <button type="button" class="share-btn" data-share-id="${itemId}" aria-label="Share this story" title="Share">📤</button>
+              ${hideable ? `<button type="button" class="hide-btn" data-hide-id="${itemId}" aria-pressed="${hidden ? 'true' : 'false'}" aria-label="${hidden ? 'Restore this story to the feed' : 'Hide this story from the feed'}" title="${hidden ? 'Restore to feed' : 'Hide from feed'}">${hidden ? '↩︎' : '✕'}</button>` : ''}
+            </div>
           </div>
           <div class="card-main">
             <div class="card-text">
