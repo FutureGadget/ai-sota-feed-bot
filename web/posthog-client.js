@@ -172,7 +172,8 @@
       installPostHogSnippet();
 
       window.posthog.init(ph.project_api_key, {
-        api_host: ph.host || 'https://us.i.posthog.com',
+        api_host: ph.host || 'https://assets.llm-digest.com',
+        ui_host: ph.ui_host || 'https://us.posthog.com',
         defaults: ph.defaults || '2026-05-30',
         person_profiles: 'identified_only',
         autocapture: false,

@@ -19,9 +19,20 @@ Set these env vars on Vercel:
 
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<PostHog project key>`
-- `POSTHOG_HOST=https://us.i.posthog.com` (or `https://eu.i.posthog.com`)
+- `POSTHOG_HOST=https://assets.llm-digest.com` (default; reverse-proxied
+  through the `llm-digest-proxy-worker` Cloudflare Worker in `infra/` so
+  ingestion/asset requests are first-party and less adblock-prone — set to
+  `https://us.i.posthog.com`/`https://eu.i.posthog.com` to bypass the proxy)
+- `POSTHOG_UI_HOST=https://us.posthog.com` (default; must stay PostHog's real
+  domain, never the proxy, so in-app features like the toolbar link correctly)
 
 Then redeploy production.
+
+The proxy Worker itself lives in `infra/llm-digest-proxy-worker/` (see
+`src/index.js`); it forwards `/static/*` and `/array/*` to PostHog's asset
+host (cached at the edge) and everything else to the ingest API, stripping
+cookies and setting `X-Forwarded-For`. Custom domain `assets.llm-digest.com`
+is configured via `routes` in `wrangler.jsonc`.
 
 ---
 
