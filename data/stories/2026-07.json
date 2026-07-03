@@ -190,6 +190,23 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.198",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "4512b99df01e1a58": {
+  "first_seen": "2026-07-03T01:02:00.285878+00:00",
+  "id": "64cff09abfc285cc",
+  "image_url": "https://substackcdn.com/image/fetch/$s_!-oUP!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faba6a476-7db8-4211-967c-a4f1ca928e66_1280x720.jpeg",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-03T00:08:18+00:00",
+  "sid": "4512b99df01e1a58",
+  "source": "latent_space",
+  "summary": "The Vercel Chief of Software explains how its agent framework, eve, was created — and why skills, sandboxes and agent-readable websites now matter.",
+  "summary_1line": "The Vercel Chief of Software explains how its agent framework, eve, was created — and why skills, sandboxes and agent-readable websites now matter.",
+  "title": "Vercel's Andrew Qu on why agents are a new kind of software",
+  "type": "news",
+  "url": "https://www.latent.space/p/vercel-agents-new-software",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "495bc8d2b48db179": {
   "first_seen": "2026-07-02T14:02:04.579678+00:00",
   "id": "4a6e8c74220cb6f5",
@@ -294,7 +311,7 @@
   ],
   "published": "2026-07-01T17:10:08+00:00",
   "sid": "5bd881e763537559",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_cs_lg",
   "summary": "Scaling inference compute, by generating many parallel attempts per problem, is a costly but reliable lever for improving language model capabilities. By default these attempts are generated independently, wasting inference compute on redundant solutions. This waste seems unavoidable. After all, independence is what makes parallel sampling trivial to scale. However, this tradeoff is not fundamental: there is a rich design space of samplers that generate correlated but exact samples entirely in parallel. We explore this design space as an avenue for improving sample efficiency in scaling inference compute and reinforcement learning (RL). Concretely, we introduce QuasiMoTTo, which uses correlated samples as a drop-in replacement for i.i.d. samples. To generate these samples, QuasiMoTTo uses a reparameterization of autoregressive sampling as inverse-CDF sampling and draws the underlying uniforms with quasi-Monte Carlo (QMC); because QMC spreads the uniforms out more evenly than i.i.d., the resulting samples cover the output space with far less redundancy. Even though the batch is correlated, each sample is marginally distributed according to the language model, so we can use the batch for policy-gradient training. Our empirical analysis focuses on understanding how efficiently QuasiMoTTo can turn compute into performance. To evaluate correlated samplers, whose dependence breaks standard pass@k estimators, we first develop an unbiased bootstrap estimator. Across four reasoning be",
   "summary_1line": "Scaling inference compute, by generating many parallel attempts per problem, is a costly but reliable lever for improving language model capabilities. By default these attempts are generated independently, wasting inf...",
   "title": "QuasiMoTTo: Quasi-Monte Carlo Test-Time Scaling",
@@ -659,7 +676,7 @@
   "published": "2026-07-02T19:33:12+00:00",
   "sid": "aa700a0b090cbd98",
   "source": "simon_willison",
-  "summary": "Release: llm-coding-agent 0.1a0 Another Fable 5 experiment. Now that my LLM library has evolved into more of an agent framework it's time to see what a simple coding agent would look like built on it. I started a new Python library using my python-lib-template-repository GitHub template repository, then ran these two prompts (here's the Claude Code for web transcript ): Write a spec.md for this project - it will depend on the latest “llm” alpha from PyPI and implement a Claude code style coding agent complete with tools for reading and editing files and executing commands Then: Commit the spec, then build it using red/green TDD in a series of sensible commits (each with passing tests and updated docs) - occasionally manually test it using the OpenAI API key in your environment Here's the resulting README file and the sequence of commits . I've shipped a slop-alpha to PyPI, so you can run the new agent like this: uvx --prerelease=allow --with llm-coding-agent llm code It's pretty good for a first attempt! Here's the (Fable-authored) README , which lists recipes like llm code --yolo and llm code --allow \"pytest*\" --allow \"git diff*\" . It also presents a Python API based around a CodingAgent(model=\"gpt-5.5\", root=\"/path\", approve=True).run(\"Fix the failing test in tests/test_parser.py\") class which I didn't ask for but I'm delighted to see implemented. Here's the suite of tools it implemented , listed using uvx ... llm tools : CodingTools_edit_file(path: str, old_string: str, ne",
+  "summary": "Release: llm-coding-agent 0.1a0 Another Fable 5 experiment. Now that my LLM library has evolved into more of an agent framework it's time to see what a simple coding agent would look like built on it. I started a new Python library using my python-lib-template-repository GitHub template repository, then ran these two prompts (here's the Claude Code for web transcript ): Write a spec.md for this project - it will depend on the latest “llm” alpha from PyPI and implement a Claude code style coding agent complete with tools for reading and editing files and executing commands Then: Commit the spec, then build it using red/green TDD in a series of sensible commits (each with passing tests and updated docs) - occasionally manually test it using the OpenAI API key in your environment Here's the spec , the resulting README file , and the sequence of commits . I've shipped a slop-alpha to PyPI, so you can run the new agent like this: uvx --prerelease=allow --with llm-coding-agent llm code It's pretty good for a first attempt! Here's the (Fable-authored) README , which lists recipes like llm code --yolo and llm code --allow \"pytest*\" --allow \"git diff*\" . It also presents a Python API based around a CodingAgent(model=\"gpt-5.5\", root=\"/path\", approve=True).run(\"Fix the failing test in tests/test_parser.py\") class which I didn't ask for but I'm delighted to see implemented. Here's the suite of tools it implemented , listed using uvx ... llm tools : CodingTools_edit_file(path: str, old_st",
   "summary_1line": "Release: llm-coding-agent 0.1a0 Another Fable 5 experiment. Now that my LLM library has evolved into more of an agent framework it's time to see what a simple coding agent would look like built on it. I started a new...",
   "title": "llm-coding-agent 0.1a0",
   "type": "news",
@@ -678,6 +695,18 @@
   "title": "Forward Deployed Engineers and the future of software engineering",
   "type": "news",
   "url": "https://www.latent.space/p/forward-deployed-engineers-aiewf"
+ },
+ "aaef033dfabe2831": {
+  "first_seen": "2026-07-03T01:02:00.285878+00:00",
+  "id": "4a6536d5c1cc9a77",
+  "published": "2026-07-02T21:07:00+00:00",
+  "sid": "aaef033dfabe2831",
+  "source": "anthropic_newsroom",
+  "summary": "What is and isn't blocked by our cyber classifiers, and a first draft of our jailbreak severity framework",
+  "summary_1line": "What is and isn't blocked by our cyber classifiers, and a first draft of our jailbreak severity framework",
+  "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+  "type": "news",
+  "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework"
  },
  "adf0c517120be6bc": {
   "first_seen": "2026-07-02T03:01:38.121335+00:00",
