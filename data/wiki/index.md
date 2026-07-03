@@ -9,6 +9,8 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 ### cost
 - [agent-cost](obstacles/agent-cost.md) — Agent token costs are unpredictable and easily run away
   → solutions: cost-controls, context-compaction, agent-orchestration
+- [proving-agent-roi](obstacles/proving-agent-roi.md) — Proving agent ROI and measuring cost efficiency is hard
+  → solutions: cost-controls, llm-as-judge
 
 ### evaluation
 - [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard
