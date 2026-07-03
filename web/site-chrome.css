@@ -427,22 +427,31 @@
 }
 
 @media (max-width: 640px) {
+  /* Brand + actions share one line: the actions never wrap, and the brand
+     text truncates first on very narrow screens. */
   .site-bar {
     margin-left: 0;
     margin-right: 0;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.75rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
   }
 
   .site-brand {
     font-size: 1rem;
-    flex-shrink: 0;
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+
+  .site-brand > span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .site-bar-actions {
     gap: 0.35rem;
-    flex-grow: 1;
-    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+    justify-content: flex-end;
   }
 
   .site-bar-actions > button,
