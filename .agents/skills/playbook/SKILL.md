@@ -125,6 +125,7 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
     scores, or guarantees in an inferred result.
 - Keep the audience bar: "would an AI platform/agent engineer change something
   on Monday because of this card?" If not, cut it.
+- Favor cards that document a measured cost or time delta (e.g., token reduction, latency improvement, or developer productivity hours saved) to support cost-efficiency coverage.
 - `intro` is optional and short — one or two sentences. The cards carry the value.
 
 **How the page renders your fields (write to this hierarchy)**

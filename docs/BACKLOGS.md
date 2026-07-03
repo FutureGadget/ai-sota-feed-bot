@@ -31,6 +31,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 | BL-004 | Agent Skill Lab | needs-spec | high | Experiment methodology and artifact format |
 | BL-005 | Harness Field Tests | idea | high | BL-004 methodology and product access |
 | BL-006 | Benchmark Decoder | idea | medium | Editorial rubric and benchmark source policy |
+| BL-007 | Cost efficiency & productivity coverage lens | ready | medium | Wiki-curator routine; CTR/topic-view signals |
 
 ## BL-001 — Agent-managed source pipeline
 
@@ -191,3 +192,33 @@ the backlog entry. Record meaningful scope or architecture decisions in
   engineers; demonstrate that each maps to a real model, harness, or evaluation
   decision; and test whether an explainer drives meaningful search traffic,
   experiment readership, or subscriptions.
+
+## BL-007 — Cost efficiency & productivity coverage lens
+
+- **Status:** ready (one-pager:
+  `docs/ideas/cost-efficiency-productivity-topic.md`)
+- **Priority:** medium
+- **Outcome:** Readers who own the "does this agent pay for itself, and how do
+  I make it cheaper per task" job find llm-digest.com covering it as a
+  first-class theme — measurement and proof, not just cost reduction.
+- **Scope:**
+  1. One new wiki obstacle page (`proving-agent-roi`) in the existing `cost`
+     area, written by the `wiki-curator` routine through the normal ingest
+     path.
+  2. Playbook selection guidance favoring cards with a measured cost or time
+     delta.
+  3. Later, if engagement proves out: a Foundations concept page and a
+     precise multi-word `topical_bias` keyword micro-tune (separate,
+     deliberate change).
+- **Dependencies:** Wiki-curator routine capacity; enough source flow on the
+  measurement/ROI angle to keep a page fresh; CTR and topic-page-view signals
+  to validate interest.
+- **Guardrails:** No loose "productivity" ranking keyword. The existing
+  anti-hype filters (`hype_keywords`, `off_topic.policy_economics_governance`)
+  stay untouched — enterprise AI-ROI marketing, vendor case studies, and
+  macro-productivity content remain out of scope. No new wiki area, nav
+  entry, or page type.
+- **Promotion criteria:** `/topic/agent-cost` engagement vs. other wiki nodes
+  supports the theme; the curator can source non-marketing evidence for the
+  measurement angle at a 2–3 week refresh cadence; expected effect is framed
+  against weekly returning readers.
