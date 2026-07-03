@@ -18,6 +18,120 @@
     },
     "edition_date": "2026-06-26"
   },
+  "222b05c1a820c27f": {
+    "id": "pb-pair-skill-md-with-a-machine-checkable-contract",
+    "kind": "source-backed",
+    "title": "Pair every SKILL.md with a machine-checkable contract, don't trust the prose alone",
+    "area": "Reliability",
+    "problem": "A skill written as prose in SKILL.md can be skipped, reordered, or substituted by the model at runtime — there's no way to prove a run actually followed the documented steps, which matters once you're managing many skills at scale.",
+    "apply": "Run a doctor-style check against each skill to surface buried instructions and unprovable steps, then convert the must-follow parts — route selection, phase ordering, allowed/forbidden tools, required validations — into a separate machine-checkable contract file the agent consults at runtime, following SkillSpec's `skill.spec.yml` pattern. Keep genuine judgment calls in prose; move only the hard constraints into the contract.",
+    "result": "Splitting judgment from must-follow rules turns a followed-or-not guess into a run you can actually audit, instead of hoping the model executed the SKILL.md instructions in order.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://skillspec.sh",
+    "source_sid": "222b05c1a820c27f",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Tool's own description of its contract format and workflow; auditability payoff stated qualitatively, no measured figures."
+    },
+    "edition_date": "2026-07-03"
+  },
+  "78aa501471a8665a": {
+    "id": "pb-trace-and-cap-coding-agent-spend",
+    "kind": "source-backed",
+    "title": "Trace and cap coding-agent spend before the bill doubles again",
+    "area": "Cost & latency",
+    "problem": "Coding-agent spend is split across Claude Code, Cursor, Copilot, and others, each logging usage in its own format — one team watched its bill grow 6x in two quarters with no way to see what drove it.",
+    "apply": "Route every coding agent's session traces into one standardized log (tool, tokens, cost-per-session, tool-call count) so you can compare providers on identical fields instead of separate dashboards. Then set hard spend caps at the user, team, and org level, flag redundant tool calls that re-fetch the same context, and route routine tasks to a cheaper open-source model instead of a frontier one by default.",
+    "result": "LangChain reports this trace-compare-cap cycle turns invisible per-agent spend into an auditable, capped budget, catching redundant-context reruns before they compound into a doubled bill.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/fix-your-coding-agent-bill",
+    "source_sid": "78aa501471a8665a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (LangChain/LangSmith) post describing a customer's cost blowup and the tracing/governance fix it sells."
+    },
+    "edition_date": "2026-07-03"
+  },
+  "8688a4c832b1b52a": {
+    "id": "pb-dispatch-subagents-over-context-chunks-rlm",
+    "kind": "source-backed",
+    "title": "Stop stuffing context — dispatch subagents over chunks with a recursive-language-model pattern",
+    "area": "Retrieval",
+    "problem": "An agent that has to hold a huge document, log, or dataset in one context window degrades as that window fills up — it ends up tracking a running total in its own context, and the total drifts the longer the task runs.",
+    "apply": "Give the agent a code interpreter and load the large input as a variable instead of pasting it into the prompt. Let the model write orchestration code that dispatches subagent calls over chunks of that variable (fan-out-and-synthesize, loop-until-done) rather than reasoning over the whole thing at once. In LangChain's Deep Agents this is `pip install -U \"deepagents[quickjs]\"` plus `CodeInterpreterMiddleware()`, triggered by prompting with the word \"workflow.\"",
+    "result": "LangChain reports this recursive-dispatch pattern lets an agent process inputs up to two orders of magnitude beyond the model's raw context window, without the running-total drift that plain in-context accumulation causes.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-to-use-rlms-in-deep-agents",
+    "source_sid": "8688a4c832b1b52a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (LangChain) post on the recursive-language-model pattern and its stated context-scaling effect in Deep Agents."
+    },
+    "edition_date": "2026-07-03"
+  },
+  "8db233accb157cb2": {
+    "id": "pb-check-dependency-vulnerabilities-before-agent-installs",
+    "kind": "source-backed",
+    "title": "Make your coding agent check for known vulnerabilities before it installs a dependency",
+    "area": "Safety",
+    "problem": "Coding agents suggest and install package versions without real-time awareness of known vulnerabilities, so an agent can happily add a dependency with a critical CVE or a suspiciously fresh, unvetted release.",
+    "apply": "Wire a vulnerability check into the agent's install path: query OSV and the GitHub Advisory Database for the target package/version across your ecosystems (npm, PyPI, Cargo, Go modules, and more), block critical/high-severity hits, flag medium/unknown for review, and allow low/none — plus flag versions published in the last 72 hours as an extra risk signal. deptrust ships this as an MCP server (`check_package`, `suggest_safe_version`, `compare_versions`) and as a shell pre-command hook that blocks unsafe installs outright.",
+    "result": "The agent gets a concrete allow/review/block signal before a package lands in your codebase, instead of relying on the model's stale training-data knowledge of which versions are safe.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/clidey/deptrust",
+    "source_sid": "8db233accb157cb2",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Tool's own description of its check logic and integration points; the safety payoff is a qualitative, non-benchmarked expectation."
+    },
+    "edition_date": "2026-07-03"
+  },
+  "9283a6f418d96ab7": {
+    "id": "pb-filter-agent-memory-by-metadata-before-vector-search",
+    "kind": "source-backed",
+    "title": "Filter agent memory by metadata before semantic search runs, not after",
+    "area": "Memory",
+    "problem": "Once an agent's memory store accumulates enough history, plain similarity search hits a precision wall — a query like \"billing issues\" pulls back semantically similar but contextually irrelevant tickets, sales chats, and disputes all mixed together.",
+    "apply": "Define indexable metadata keys (department, priority, time range, tenant, source_agent) on your memory resource, tagging each as LLM-inferred or strictly-consistent extraction depending on whether the value is deterministic at write time. Apply those metadata filters as a pre-filter that narrows the candidate set before vector similarity search runs, and combine tenant-level namespaces with metadata filters for multi-tenant or multi-agent deployments instead of standing up a separate memory store per dimension.",
+    "result": "AWS reports this pre-filter-then-search order keeps retrieval precision high as history grows, and lets supervisory agents in multi-agent pipelines track which agent wrote which memory to avoid duplicate escalation work.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/structured-memory-filtering-with-metadata-in-agentcore-memory/",
+    "source_sid": "9283a6f418d96ab7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (AWS) walkthrough of AgentCore Memory's metadata-filtering design and its stated retrieval-precision and multi-tenant benefits."
+    },
+    "edition_date": "2026-07-03"
+  },
+  "979d921c237f1c0b": {
+    "id": "pb-redesign-for-verifiability-before-building-evals",
+    "kind": "source-backed",
+    "title": "Treat \"our product is hard to eval\" as a design flaw, not an excuse to skip evals",
+    "area": "Evals",
+    "problem": "When a team can't build evals because the product is \"hard to eval,\" that difficulty isn't a fact about evals — it's a signal that users can't verify the output either, since artifacts that are hard for you to check are hard for them too.",
+    "apply": "Before building an eval harness, redesign the output itself to be checkable: surface the metric sources and intermediate calculations behind a data agent's answer instead of just the final number, anchor a generated document to a vetted template and highlight only the diff, or have the agent act as a research assistant that cites evidence rather than asserting a finished narrative. Ask what needs verification, what reference point exists, what signal an expert would use, and whether the output can be broken into smaller reviewable units — then build the eval on top of that redesigned output.",
+    "result": "Designing for verifiability pays off twice: users can check the agent's work themselves, and the same structure that makes that possible is what finally makes the output tractable to eval automatically.",
+    "effort": "medium",
+    "source": "hamel_husain",
+    "source_url": "https://hamel.dev/blog/posts/eval-smell/",
+    "source_sid": "979d921c237f1c0b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative design argument, not a benchmarked result; no source-cited numbers apply."
+    },
+    "edition_date": "2026-07-03"
+  },
   "9c19b2212d6264ac": {
     "id": "pb-pin-governance-constraints-past-compaction",
     "kind": "source-backed",
@@ -131,5 +245,24 @@
       "note": "Benchmarked across five injected hazard types; recovery hints outperform test-time scaling for closing the reliability gap."
     },
     "edition_date": "2026-06-26"
+  },
+  "f27164f724f79fa3": {
+    "id": "pb-code-dispatch-subagents-for-coverage-guarantees",
+    "kind": "source-backed",
+    "title": "Replace one-at-a-time subagent tool calls with a code dispatch loop for guaranteed coverage",
+    "area": "Orchestration",
+    "problem": "Calling subagents one at a time through sequential tool calls works at small scale, but breaks down once you need hundreds of subagents or conditional, multi-phase fan-out — the model can quietly decide it's done after covering 75 of 500 items.",
+    "apply": "Have the agent write and run code (parallel dispatch, e.g. a `Promise.all`-style loop) that iterates over every item and spawns one subagent call per item, instead of relying on the model to keep issuing tool calls until it decides to stop. Deep Agents' dynamic subagents implement this as a lightweight in-context JavaScript interpreter the model programs directly.",
+    "result": "LangChain reports coverage becomes a structural guarantee of the dispatch loop rather than a prompt-engineering problem, so fan-out work finishes reliably instead of stopping early on the model's own judgment.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/introducing-dynamic-subagents-in-deep-agents",
+    "source_sid": "f27164f724f79fa3",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (LangChain) engineering post describing Deep Agents' dynamic-subagent dispatch design and its stated coverage guarantee."
+    },
+    "edition_date": "2026-07-03"
   }
 }
