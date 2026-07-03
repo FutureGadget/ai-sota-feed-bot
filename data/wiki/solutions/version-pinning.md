@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
-updated: 2026-06-25
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2]
+updated: 2026-07-03
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2]
 ---
 
 ## TL;DR
@@ -38,11 +38,18 @@ exactly the gap a chain-deep pin closes. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 
+Pinning also has to account for **known-vulnerable** versions, not just
+behavioral drift: deptrust checks an agent's resolved package versions across
+npm, PyPI, crates.io, Go modules, and other ecosystems against vulnerability
+databases, so a pin (or an upgrade) can be validated as safe, not just as
+consistent.
+
 ## What's new
-Two concrete levers landed: declarable compatible API version ranges (LangGraph
-CLI) and explicit deprecation warnings for requested models (Claude Code) —
-moving drift management from "hope the upgrade is safe" toward stating the
-contract and being told before it breaks.
+A pinning check now targets **supply-chain safety** specifically: deptrust
+scans an agent's resolved dependencies across a dozen ecosystems for known
+vulnerabilities, complementing behavioral-regression pinning (compatible API
+version ranges in LangGraph's CLI, Claude Code's deprecation warnings) with a
+security-focused version check.
 
 ## Trade-offs
 Pinning trades freshness and security currency for stability: stay pinned too

@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6]
-updated: 2026-07-01
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7]
+updated: 2026-07-03
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7]
 ---
 
 ## TL;DR
@@ -115,12 +115,28 @@ store, BetterDB puts memory + semantic/multi-tier caching + typed retrieval
 on a commodity Valkey/Redis instance you already operate, and Elastic's
 Atlas builds tiered memory on Elasticsearch served over MCP — both letting
 the memory layer ride existing ops instead of adding a dedicated vector
-database.
+database. That list now includes a general-purpose database vendor directly:
+AlloyDB ships vector/hybrid search and natural-language querying as AI
+functions on the database itself. AWS's AgentCore Memory pushes the same
+"ride what you have" instinct into query shaping — structured metadata
+filtering across ingestion/config/retrieval for multi-tenant enterprise use.
 
 And a pair of **production/data signals** (Target's embeddings-plus-rerank
 campaign matcher, permutation-invariant embedding tuning for structured
 records) reinforce that recall quality is won in embedding and ranking
 choices, not in the store itself.
+
+The "ride infrastructure you already run" pattern now reaches **general-purpose
+databases**: Google's AlloyDB ships AI functions with vector and hybrid search
+plus natural-language querying built into the database itself, alongside
+Elastic (Atlas on Elasticsearch) and BetterDB (Valkey/Redis) — a growing set of
+incumbents making the operational datastore double as the retrieval layer
+instead of adding a dedicated vector DB. On the query-shaping side, AWS's
+AgentCore Memory adds **structured metadata filtering** across ingestion,
+config, and retrieval, letting enterprise multi-tenant deployments narrow
+recall by metadata (tenant, doc type, time range) rather than similarity
+alone — a practical complement to the hybrid dense-plus-lexical retrieval
+already converged on.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent;

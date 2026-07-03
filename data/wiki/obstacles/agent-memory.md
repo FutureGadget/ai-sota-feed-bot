@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
-updated: 2026-07-01
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea]
+updated: 2026-07-03
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea]
 ---
 
 ## TL;DR
@@ -107,29 +107,51 @@ remembering and to let it improve across runs — so memory is increasingly
 framed as something the agent curates from its own history, not just a
 place facts are dumped.
 
+The local-first wave keeps widening: **Knotic** layers memory into
+project/session/docs tiers for coding agents specifically, matching the
+tiered-memory reference architecture at the single-developer scale rather
+than the enterprise one — the same split showing up bottom-up as well as
+top-down.
+
+A second, sharper way to fix context rot is emerging alongside compaction:
+**recursive dispatch**. LangChain's recursive-language-model (RLM) pattern
+in Deep Agents has the agent write code that dispatches sub-agents over
+*chunks* of context instead of pumping the whole history into one window —
+trading a single long-context call for many short-context ones, which sidesteps
+context rot rather than compressing around it (see
+[context compaction](/topic/context-compaction) for the compress-in-place
+alternative).
+
+Memory integrity's failure surface just grew a new axis: **sycophancy**.
+MemSyco-Bench shows that retrieved memories don't just risk being wrong
+(poisoned facts) — they can be *directionally* wrong, reinforcing whatever
+the user or a past turn wanted to hear rather than what's true, which is a
+harder failure to catch than an outright false fact because it looks like
+the memory system working as intended. Formal testbeds for the underlying
+contract are also arriving: AgenticSTS frames long-horizon agent memory as
+"a contract about what each future decision is allowed to see," giving the
+poisoning/sycophancy/forgetting failure modes a shared bounded-memory
+benchmark to run against.
+
 ## What's new
-The tiered "cognitive memory" model just got a **major-vendor open
-implementation**: Elastic's Atlas puts short/episodic/long-term memory on
-Elasticsearch, serves it to agents over [MCP](/topic/mcp), isolates it per
-user, and ships with evaluation numbers — the clearest sign yet that memory
-is, in practitioners' words, *leaving the "remember this" demo phase* and
-becoming a production layer built on infra teams already operate. (The same
-"ride an existing substrate" instinct shows up at the quirky end too, with
-agents that repurpose an email outbox as their memory store.)
+Memory integrity gets a **new failure mode**: MemSyco-Bench shows agent
+memory can be sycophantic, not just poisoned — retrieved context can skew
+toward reinforcing a prior stated preference rather than reporting the
+fact, a subtler corruption than an outright wrong entry.
 
-Portability is widening from **across runtimes to across agents**: Sibyl is
-a self-hosted, multi-user memory store built for many parallel coding agents
-to share, with a no-LLM retrieval path scoring competitively on LongMemEval
-— the developer-owned counterpart to Atlas's managed, per-user isolation
-model.
+**Recursive dispatch** is a new answer to context rot: rather than
+summarizing or retrieving, Deep Agents' RLM pattern has the agent write code
+that fans work out to sub-agents over context chunks, avoiding the
+single-giant-window problem altogether.
 
-That lands on top of several already-moving threads: memory quality getting
-**benchmarked, not just architected** (a suite covering the full failure
-surface — forgetting, stale/wrong recall, poisoned entries), memory as a
-**portable substrate** (an S3-backed filesystem mounting the same markdowns
-across laptop and cloud), **trace-driven curation**, and the established
-concerns of **integrity** and the local-first wave (FERNme, PMB, Memharness,
-Cortex).
+That lands on top of the already-moving threads: the tiered "cognitive
+memory" model's major-vendor implementation (Elastic Atlas on
+Elasticsearch, served over [MCP](/topic/mcp)), portability widening from
+across runtimes (S3-backed filesystem) to across agents (Sibyl's
+self-hosted multi-user store), the local-first wave gaining a
+coding-agent-specific entrant (Knotic's project/session/docs tiers), and a
+new formal bounded-memory testbed (AgenticSTS) to evaluate all of the above
+against.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

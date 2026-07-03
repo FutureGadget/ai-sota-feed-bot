@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
-updated: 2026-06-30
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559]
+updated: 2026-07-03
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559]
 ---
 
 ## TL;DR
@@ -85,29 +85,29 @@ The lesson generalizes: every downshift (smaller model, quantized model,
 cheaper judge) has to be costed on *total tokens emitted in the loop*, not
 the sticker price per token.
 
+**Test-time-scaling cost** is a related but distinct lever from the model
+downshift above: generating many parallel attempts per problem to improve
+answer quality is a reliable but expensive pattern, and by default those
+attempts are independent, wasting inference budget on redundant samples.
+QuasiMoTTo applies quasi-Monte Carlo sampling to spread parallel attempts
+more evenly across the solution space instead of drawing them independently,
+cutting the redundancy tax on a pattern (parallel sampling) that agent
+harnesses increasingly reach for when a single pass isn't reliable enough.
+
 ## What's new
-Cost is becoming an explicit, **measured surface** rather than an
-after-the-fact invoice: enterprise spend caps and usage analytics, per-PR
-token-cost attribution (Prtokens), and now-managed agentic cost analysis
-(AWS FinOps Agent investigates anomalies and correlates spend with
-activity).
+A new lever targets **test-time-scaling waste**: QuasiMoTTo replaces
+independent parallel sampling with quasi-Monte Carlo sampling, cutting the
+redundancy tax on the "generate many attempts" pattern agent harnesses use
+when a single pass isn't reliable enough — an architectural fix for a
+scaling technique that was previously costed as a fixed multiplier per
+attempt.
 
-There's a growing recognition that the **cheapest lever is architectural**:
-decentralized topologies (DeLM, ~50% off), cheap fine-tuned judges (~100×
-off), and contract layers that make a cheaper model obey rules well enough
-to downshift to it (ANMA: Haiku rule-violations 13/19 → 0/20) rather than a
-smaller model alone.
-
-A **caution** lands on the model-downshift lever: "Quantization Inflates
-Reasoning" finds that low-bit quantization cuts per-token cost but inflates
-the token count reasoning models emit, so the saving is partly illusory
-unless you cost the run on total tokens spent rather than the per-token
-price.
-
-For self-hosted stacks the **floor price is itself moving**: vendors now
-frame inference as cost per useful token (per dollar and per watt) rather
-than peak chip specs (NVIDIA), making the serving stack a cost lever every
-other optimization multiplies against.
+That sits alongside the standing shifts: cost becoming an explicit measured
+surface (spend caps, per-PR attribution, managed FinOps agents), the
+cheapest lever being architectural (decentralized topologies, cheap
+fine-tuned judges, rule-contract model downshifts), the quantization caution
+(lower per-token price can be eaten by more emitted tokens), and inference
+priced per useful token rather than peak chip specs.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

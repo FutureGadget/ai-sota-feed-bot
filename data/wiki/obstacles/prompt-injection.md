@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
-updated: 2026-07-01
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a]
+updated: 2026-07-03
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a]
 ---
 
 ## TL;DR
@@ -81,45 +81,37 @@ redeployment of Claude Fable 5 ships updated cybersecurity safeguards
 alongside a new industry jailbreak framework, evidence that the red-teaming
 push (Gray Swan, Kolter) is feeding back into shipped model updates.
 
+That framework is getting concrete follow-through, not just an announcement:
+Anthropic has since published what its cyber classifiers do and don't block
+alongside a first draft of a jailbreak *severity* framework — grading how bad
+a successful jailbreak is, not just detecting one, which lets a provider
+triage and prioritize fixes instead of treating every bypass as equally
+urgent.
+
+The **harness default** is also moving toward stricter authorization: Claude
+Code changed its default permission mode to "Manual" across the CLI, VS Code,
+and JetBrains (and stopped `AskUserQuestion` dialogs from auto-continuing) —
+shipping least-privilege as the out-of-the-box behavior rather than an opt-in
+setting, which matters because most successful injections exploit exactly the
+gap between what a default configuration permits and what a user actually
+intended to authorize.
+
 ## What's new
-The emphasis is moving up the stack from "filter the prompt" to "**govern the
-actor**": guardrails can be turned into a DoS vector and sandboxes don't
-solve credential authorization, while a parallel push reframes every agent as
-a first-class identity to be provisioned, scoped, and audited like a service
-account — closing the gap injection exploits when agents hold ambient
-privilege.
+Jailbreak defense is getting **more granular**: Anthropic followed the Fable 5
+redeploy with a published account of what its cyber classifiers do and don't
+block plus a first-draft jailbreak *severity* framework — grading how bad a
+bypass is, not just whether one occurred. In parallel, a harness default
+shifted toward least privilege out of the box: Claude Code now defaults to
+"Manual" permission mode across its CLI and IDE integrations, closing the
+gap between what a default configuration permits and what a user actually
+authorized — the same gap most successful injections exploit.
 
-The least-privilege controls are now landing as concrete **harness
-primitives** — per-parameter permission rules (Claude Code's
-`Tool(param:value)`) and approval-gated writes that respect the caller's
-permissions (datasette-agent) — so blast-radius limiting is becoming a
-configurable boundary, not just advice.
-
-On the offensive side, red-teamers (Gray Swan, Zico Kolter) are pressing that
-agent security is a **distinct discipline** from classic cybersecurity,
-requiring adversarial testing of the agent's own behavior rather than
-perimeter defense.
-
-Two framings sharpened this week: injection is fundamentally **role
-confusion** (the model can't separate operator instructions from in-context
-data), and the agent's own context-management layer is part of the attack
-surface — Governance Decay shows compaction can erase the safety constraints
-that were supposed to hold.
-
-The defensive primitives keep moving down the stack: the **network egress
-perimeter** is now landing as a managed control, with Google Cloud's VPC
-Service Controls extending its data-exfiltration boundary to agents so a
-hijacked agent holding valid credentials still cannot move protected data out
-— limiting *where data can go*, not just what the agent is authorized to do
-(see [sandboxing](/topic/agent-sandboxing)).
-
-Practitioner guidance is now naming the **ReAct loop's three attack points**
-explicitly — context, reasoning, tool execution — and pairing
-memory-poisoning and rogue-tool-execution risks with a named threat model
-(MAESTRO) and an LLM-judge critic reviewing agent decisions, while providers
-ship jailbreak-hardening as a **release-cycle concern** (Anthropic's Fable 5
-redeploy bundling a new industry jailbreak framework), not a one-time model
-property.
+That builds on the standing shift from "filter the prompt" to "**govern the
+actor**" (agent-as-identity, per-parameter permissions, approval-gated
+writes), the **role confusion** framing of injection's root cause, the
+network-egress perimeter as a managed control (Google Cloud VPC Service
+Controls), and a named threat model for the ReAct loop's three attack points
+(MAESTRO).
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

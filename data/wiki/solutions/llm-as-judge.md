@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51]
-updated: 2026-07-02
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb]
+updated: 2026-07-03
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb]
 ---
 
 ## TL;DR
@@ -52,11 +52,22 @@ language-dependent drift that raw accuracy masks. A fine-tuned or frontier
 judge is only as trustworthy as the bias-and-agreement numbers you can show
 against held-out human labels.
 
+A sharper counterweight asks whether a judge is needed at all: for **stateful**
+agent evaluation, a deterministic-replacement approach checks state
+transitions directly rather than asking a model to grade them — when the task
+admits a programmatic check, skipping the judge removes its bias, cost, and
+non-determinism in one move. The practical reframe is to treat LLM-as-judge as
+the fallback for open-ended, hard-to-specify outputs, not the default for
+every evaluation.
+
 ## What's new
-BabelJudge puts hard numbers on judge bias across languages and
-trajectories, while "Do Encoders Suffice?" and Morph Reflexes both push the
-cost lever into the judge's *architecture* — cheaper encoders and
-shared-backbone multi-signal heads, not just smaller fine-tuned decoders.
+A **deterministic alternative** to LLM-as-judge lands for stateful agent
+evaluation, checking state transitions directly instead of model-graded
+scoring — a reminder that judging is a default, not a requirement, for tasks
+where correctness can be verified programmatically. That sits alongside the
+architecture-level cost lever from last round (cheaper encoders, Morph
+Reflexes' shared-backbone multi-signal heads) and BabelJudge's hard numbers on
+judge bias across languages and trajectories.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,
