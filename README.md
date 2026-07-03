@@ -128,7 +128,11 @@ Current web app behavior:
 PostHog env vars (optional):
 - `POSTHOG_ENABLED=1`
 - `POSTHOG_PROJECT_API_KEY=<project key>`
-- `POSTHOG_HOST=https://us.i.posthog.com` (or EU host)
+- `POSTHOG_HOST=https://assets.llm-digest.com` (default; proxied through the
+  `infra/llm-digest-proxy-worker` Cloudflare Worker — see
+  `docs/how-to/posthog-setup-and-dashboard.md`)
+- `POSTHOG_UI_HOST=https://us.posthog.com` (default; PostHog's real domain,
+  used for in-app links like the toolbar — never the proxy)
 
 ## Reader feedback loop (v1.3)
 Reader taps land in `data/feedback/events.jsonl` via a daily PostHog sync
