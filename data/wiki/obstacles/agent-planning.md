@@ -45,8 +45,11 @@ that planning-as-harness-problem has moved from research framing to mainstream
 practitioner conversation.
 
 That vocabulary is now producing concrete, minimal reference implementations
-rather than just conference talk: Google published an 8-minute guide to
-building "the smallest agent loop," and a provider-agnostic, MIT-licensed
+rather than just conference talk: an 8-minute guide to building "the
+smallest agent loop" (shared as Google's, though the link is a social post
+rather than an official Google channel — treat the specific authorship as
+unconfirmed) walks through the same four-part shape, and a
+provider-agnostic, MIT-licensed
 open-source loop built on ports-and-adapters architecture strips the loop
 down to its four moving parts — call model, run tools, feed results back,
 stop — explicitly so teams stop re-deriving it inside every framework.
@@ -59,8 +62,9 @@ self-improving loops that iterate on their own "recipes" while keeping a
 human at the center rather than replacing them.
 
 ## What's new
-The loop framing keeps converging on concrete artifacts: Google shipped a
-minimal reference agent-loop tutorial, and a provider-agnostic, MIT-licensed
+The loop framing keeps converging on concrete artifacts: a minimal
+reference agent-loop tutorial (shared as Google's; specific authorship
+unconfirmed) walks the same four steps, and a provider-agnostic, MIT-licensed
 loop implementation strips it to four steps (call model, run tools, feed
 results back, stop) to stop teams re-deriving it per framework. Two
 practitioner essays sharpen what the loop alone doesn't solve — "skill

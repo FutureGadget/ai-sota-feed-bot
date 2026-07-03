@@ -45,13 +45,16 @@ lexically close to the query, so the recall step has to reason over what's
 stored, not just embed-and-rank (see
 [vector/graph retrieval](/topic/vector-kb)).
 
-The case for structure over raw similarity now has a **production
-instance**: AWS AgentCore Memory ships structured metadata filtering across
-configuration, ingestion, and retrieval, so a query narrows by exact field
-(user, session, entity type) before similarity ranking ever runs, with
-documented patterns for multi-agent and multi-tenant isolation — turning
-"recall must reason over structure" from a research argument into a shipped
-enterprise feature.
+A related, more mechanical structural lever is shipping in production
+too: AWS AgentCore Memory adds structured metadata filtering across
+configuration, ingestion, and retrieval, so a query narrows by
+business-dimension fields (department, priority, ticket type, and similar)
+before similarity ranking ever runs, with separate namespace-based
+isolation for per-user/per-session/per-tenant boundaries. That's exact-field
+pre-filtering, not the logical reasoning over lexically-distant memories
+Root Memories argues for — but it's the same underlying shift, structure
+narrowing what similarity search has to search over, now as a shipped
+enterprise feature rather than a research argument.
 
 The market is splitting along a **build-vs-buy** seam: managed offerings
 (e.g. Cloudflare's persistent Agent Memory service) move memory toward
@@ -123,9 +126,10 @@ place facts are dumped.
 ## What's new
 Structured, filterable retrieval lands as a **shipped enterprise feature**:
 AWS AgentCore Memory exposes metadata filters across ingestion and
-retrieval so a query narrows by field before similarity ever runs — the
-production counterpart to this week's structured-retrieval research (see
-[vector/graph retrieval](/topic/vector-kb)). Memory-quality benchmarking
+retrieval so a query narrows by business-dimension fields before similarity
+ever runs — a more mechanical, production-ready cousin of this week's
+structured-retrieval research (see [vector/graph retrieval](/topic/vector-kb)).
+Memory-quality benchmarking
 gains a fourth failure axis — MemSyco-Bench shows retrieved memories can
 induce sycophancy, not just wrong or stale recall — and Deep Agents'
 recursive-language-model pattern offers an alternative to flat

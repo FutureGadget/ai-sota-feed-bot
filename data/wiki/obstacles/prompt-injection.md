@@ -85,14 +85,15 @@ A parallel control targets the agent's **output** rather than its input:
 SonarQube now plugs trusted code verification into Claude Code, Copilot,
 Codex, Cursor, and other coding-agent tools, checking what an agent wrote
 rather than screening what it read — the output-side complement to input
-guardrails. The supply chain is a second output-adjacent surface: a CLI
-(deptrust) checks package versions an agent is about to add against known
-vulnerabilities across a dozen-plus ecosystems, so a hijacked or careless
-agent can't quietly introduce a vulnerable dependency. The threat model is
-also widening to agents built for **offense**: guardrails purpose-built for
-offensive AI agents (red-team/pentest use) acknowledge that an agent
-designed to probe systems needs its own containment, not just agents that
-might be misused by an attacker.
+guardrails (see [sandboxing](/topic/agent-sandboxing) for the
+containment side of the same three controls). The supply chain is a second
+output-adjacent surface: a CLI (deptrust) checks package versions an agent
+is about to add against known vulnerabilities across a dozen-plus
+ecosystems, so a careless agent can't quietly introduce a vulnerable
+dependency. The threat model is also widening to agents built for
+**offense**: guardrails purpose-built for offensive AI agents (red-team/
+pentest use) acknowledge that an agent designed to probe systems needs its
+own containment, not just agents that might be misused by an attacker.
 
 ## What's new
 Controls are extending to the agent's **output**, not just its input:

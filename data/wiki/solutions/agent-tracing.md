@@ -29,23 +29,17 @@ same pattern as a product: LangSmith's fleet on-call copilot triages alerts off
 live traces and adds voice/trace debugging and experiment status tracking, turning
 trace reading into an assistive workflow. The common direction is *trace-in,
 explanation-out*: the trace is no longer just an audit log, it's the input to an
-automated diagnosis loop.
-
-Production evidence for the *analysis* layer is accumulating too: Pendo
-built its debug/evaluate/monitor loop for a product agent directly on
-LangSmith traces, closing the path from raw user-behavior data to a shipped
-code fix. The tool landscape keeps adding dedicated entrants too (Foglamp,
-a newly launched agent-observability/tracing tool), reinforcing trace
-capture and analysis as a category with real production mileage, not just
-vendor demos.
+automated diagnosis loop — one production data point for that direction:
+Pendo built its debug/evaluate/monitor loop for a product agent directly on
+LangSmith traces, carrying the path from raw user-behavior data to a
+shipped code fix. The tool landscape gained another dedicated entrant too,
+Foglamp, a newly self-described agent-observability/tracing tool.
 
 ## What's new
-A concrete production case study for the analysis layer: Pendo traced a
-product agent (Novus) from user-behavior and session-replay data through to
-the actual code fix on LangSmith, evidence that trace-first debugging
-closes the loop end to end rather than just surfacing raw spans. The tool
-surface also widened with Foglamp, a newly launched dedicated
-agent-observability tool.
+Pendo's debug/evaluate/monitor loop for its product agent, built directly
+on LangSmith traces, is a concrete production instance of the trace-in,
+explanation-out direction above; Foglamp is a newly self-described entrant
+in the same tool category.
 
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get

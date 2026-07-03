@@ -45,10 +45,12 @@ building orchestration libraries report that the load-bearing design is
 workspace, runtime, and directory layout — where each sub-agent runs, what
 filesystem and state it sees, how outputs are isolated and collected — i.e.
 orchestration is as much an execution-environment problem as a
-control-flow one. A concrete production instance of that lesson: Candidly
-built state-aware agent harnesses on LangSmith specifically to carry
-durable state across steps, the runtime-substrate argument landing as a
-shipped case study rather than a writeup.
+control-flow one. A narrower but related production example: Candidly built
+a single conversational agent that classifies per-turn user engagement and
+persists that state across turns using LangSmith for trace storage, eval
+labeling, and policy versioning — not sub-agent workspace isolation, but the
+same instinct that durable cross-step state needs its own engineered layer,
+here built on an observability platform rather than a filesystem.
 
 A fourth axis is now appearing as **shipping tooling rather than research**:
 practitioner orchestrators that make the wiring tangible —
@@ -66,12 +68,12 @@ themselves.
 
 ## What's new
 Two more practitioner artifacts land on the "ship the harness, not just the
-pattern" axis: Candidly built a state-aware agent harness on LangSmith
-specifically to carry durable state across steps in production, and a
-provider-agnostic, MIT-licensed agent loop (ports-and-adapters
-architecture) decouples the coordination loop from any one model provider
-— both treating the harness as an engineered artifact, not a framework
-default.
+pattern" axis: Candidly built a single agent that persists per-turn
+engagement state across steps in production using LangSmith for trace
+storage, eval labeling, and policy versioning, and a provider-agnostic,
+MIT-licensed agent loop (ports-and-adapters architecture) decouples the
+coordination loop from any one model provider — both treating durable state
+and the loop itself as engineered artifacts, not framework defaults.
 
 Generated orchestration is sharpening into **code-driven** orchestration:
 LangChain's dynamic subagents in Deep Agents coordinate fan-out from a

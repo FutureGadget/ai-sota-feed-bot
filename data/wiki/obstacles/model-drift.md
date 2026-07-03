@@ -38,7 +38,9 @@ The default-model swap itself is now a visible drift event, distinct from
 deprecating an old one: a Claude Code release moved the harness default to
 Claude Sonnet 5 with a 1M-token context window and promotional pricing — an
 unpinned agent's context budget and per-token cost both change the day that
-release ships, with zero code changed on the team's side.
+release ships, with zero code changed on the team's side. It's a concrete
+case for [pinning the model id itself](/topic/version-pinning), not just the
+SDK/CLI version around it.
 
 Fresh evidence that the bundled-CLI drift is structural, not a one-off:
 across a single week the Claude Agent SDK for Python went 0.2.105 → 0.2.110

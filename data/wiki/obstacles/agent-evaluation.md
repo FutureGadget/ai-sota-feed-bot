@@ -89,20 +89,20 @@ code-quality metrics for agent-written programs** — graded signals on the
 code itself rather than a pass/fail test gate — reframing eval for code
 agents as "is this change good," not just "does it run."
 
-Practitioner tooling for the eval *process* is also consolidating into
-shareable formats rather than one-off scripts: QUALITY.md is an open
-specification, agent skill, and CLI for building a holistic
-quality-evaluation process a team can adopt directly, framed explicitly for
-"loop engineering." On the runner side, long-running stateful agents are
-outgrowing single-shot test harnesses — Harbor packages Deep Agents,
-LangSmith sandboxes, and observability into a unified stack built
-specifically to evaluate agents that don't terminate in one call, tying
-evaluation to [observability](/topic/agent-observability) at the runner
-level, not just the trace-analysis level.
+Two independent entrants target the eval *process* itself rather than the
+scoring logic: QUALITY.md is one developer's open specification, agent
+skill, and CLI for a holistic quality-evaluation process a team can adopt
+directly, framed explicitly for "loop engineering." Separately, on the
+runner side, long-running stateful agents are outgrowing single-shot test
+harnesses — Harbor packages Deep Agents, LangSmith sandboxes, and
+observability into a unified stack built specifically to evaluate agents
+that don't terminate in one call, tying evaluation to
+[observability](/topic/agent-observability) at the runner level, not just
+the trace-analysis level.
 
 ## What's new
-Eval tooling itself is getting **standardized**: QUALITY.md packages a
-holistic quality-evaluation process as an open spec/CLI, and Harbor gives
+Two new process-level entrants: QUALITY.md, one developer's open spec/CLI
+for a holistic quality-evaluation process, and Harbor, which gives
 long-running, stateful agents (Deep Agents workloads) a purpose-built
 runner that plugs in LangSmith sandboxes and observability rather than
 reusing single-shot test harnesses.

@@ -91,20 +91,22 @@ parallel-attempt scaling with quasi-Monte Carlo sampling, covering the
 solution space more evenly so fewer parallel attempts are needed to reach
 the same accuracy — the same "total tokens spent, not sticker price"
 accounting the quantization caution above already argues for. A second
-lever collaborates *inside* one model API instead of downshifting to a
-smaller one: vLLM's Semantic Router turns routing itself into a bounded
-"micro-agent" runtime (confidence scoring, rating, fusion across calls)
-that reportedly beats frontier single-call performance by combining
-cheaper calls rather than paying for one expensive one.
+lever restructures calls *inside* one model API instead of downshifting to
+a smaller one: vLLM's Semantic Router turns routing itself into a bounded
+"micro-agent" runtime — confidence-based escalation, capped rating
+ensembles, and fusion across a small panel of calls — that reportedly beats
+frontier single-call performance through that bounded collaboration, not
+because the calls themselves are cheaper.
 
 ## What's new
 Two new levers target the *how many calls* side of cost rather than the
 per-token price: QuasiMoTTo swaps random sampling for quasi-Monte Carlo
 coverage in parallel-attempt scaling so fewer samples reach the same
-accuracy, and vLLM's Semantic Router collaborates across cheaper calls
-inside one model API to beat frontier single-call performance — both
-extend the "cost is total tokens spent, not price per token" accounting
-already established by the quantization caution.
+accuracy, and vLLM's Semantic Router restructures calls inside one model
+API — confidence escalation, rating, fusion across a small panel — to beat
+frontier single-call performance through bounded collaboration rather than
+per-call cost. Both extend the "cost is total tokens spent, not price per
+token" accounting already established by the quantization caution.
 
 Cost is becoming an explicit, **measured surface** rather than an
 after-the-fact invoice: enterprise spend caps and usage analytics, per-PR

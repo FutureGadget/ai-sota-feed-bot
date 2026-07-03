@@ -42,23 +42,24 @@ trajectory-grading problem over multimodal observability data — so agent
 observability and [evaluation](/topic/agent-evaluation) are converging, with the
 trace as the shared substrate.
 
-Practitioner adoption evidence is accumulating alongside the tooling: Pendo
-used LangSmith to trace its own product agent (Novus) from raw
-user-behavior and session-replay data through to the code fix, a concrete
-case of trace-first debugging closing the loop from symptom to root cause
-in production. The tool surface keeps widening too — Foglamp is a newly
-launched, dedicated agent-observability tool — and the runner layer is
-starting to bundle observability in by default: Harbor's unified stack for
-evaluating long-running agents plugs LangSmith sandboxes and observability
-directly into the eval loop rather than treating tracing as a separate
-integration (see [evaluation](/topic/agent-evaluation)).
+One concrete practitioner case shows the debugging payoff: Pendo used
+LangSmith to trace its own product agent (Novus) from raw user-behavior and
+session-replay data through to the code fix — trace-first debugging closing
+the loop from symptom to root cause in a single production example. The
+tool surface keeps widening too, with Foglamp a newly self-described,
+dedicated agent-observability tool, and at least one eval runner is folding
+observability in rather than treating tracing as a separate integration:
+Harbor's unified stack for evaluating long-running agents plugs LangSmith
+sandboxes and observability directly into the eval loop
+(see [evaluation](/topic/agent-evaluation)).
 
 ## What's new
 A concrete practitioner case study lands: Pendo traced its product agent
-from user-behavior data to the actual code fix using LangSmith, evidence of
-trace-first debugging working end-to-end in production. The tool surface
-keeps widening (Foglamp, a new dedicated agent-observability tool) and the
-runner layer is starting to bundle observability by default — Harbor plugs
+from user-behavior data to the actual code fix using LangSmith, one
+production example of trace-first debugging closing the loop end to end.
+The tool surface keeps widening (Foglamp, a new dedicated
+agent-observability tool) and one eval runner (Harbor) is folding
+observability in rather than treating tracing as separate — it plugs
 LangSmith sandboxes and tracing directly into its eval stack for
 long-running agents.
 

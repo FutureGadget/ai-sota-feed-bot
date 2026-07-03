@@ -43,13 +43,14 @@ complement to compaction, not a replacement, since each dispatched chunk still
 benefits from being kept lean (see [agent memory](/topic/agent-memory)).
 
 ## What's new
-The latest architectural move sidesteps compaction rather than improving it:
+A structurally different move complements rather than replaces compaction:
 Deep Agents' recursive-language-model (RLM) pattern has the agent dispatch
-subagents over context chunks via generated code, so no single call ever holds
-the full window — fixing context rot by avoiding the summarization step rather
-than compressing it. That sits alongside the standing safety finding that
-compaction can silently erase governance constraints ("Governance Decay") and
-input-boundary trimming (Logslim).
+subagents over context chunks via generated code, so no single call ever
+holds the full window — fixing context rot by keeping each call's context
+small rather than summarizing a large one after the fact, with each
+dispatched chunk still benefiting from being kept lean. That sits alongside
+the standing safety finding that compaction can silently erase governance
+constraints ("Governance Decay") and input-boundary trimming (Logslim).
 
 ## Trade-offs
 Cheap on infra (no external store) and keeps everything the model needs in one

@@ -45,12 +45,15 @@ plus vector search plus an LLM rerank, and permutation-invariant embedding
 fine-tuning fixes a concrete failure where field order in serialized
 structured records skews similarity — both pointing at recall quality being
 earned in how records are embedded and ranked, not in the vector DB brand.
-AWS's AgentCore Memory ships the enterprise version of the same argument:
+AWS's AgentCore Memory ships a more mechanical, production-scale version of
+the same instinct — structure narrowing what similarity has to search over:
 structured metadata filters run across configuration, ingestion, and
-retrieval so a query narrows by exact field (tenant, session, entity)
-before similarity ranking ever runs, validating in production the
-permutation-invariant-embedding finding that structure, not raw similarity,
-carries the precision.
+retrieval so a query narrows by business-dimension fields (department,
+priority, ticket type, and similar), with separate namespace-based
+isolation per tenant/user/session, before similarity ranking ever runs.
+It's exact-field pre-filtering rather than the embedding-level fix
+permutation-invariant tuning makes, but both land on the same conclusion:
+structure, not raw similarity, carries the precision.
 
 Strong results are achievable **without an LLM in the recall path** (a
 local store hitting high LongMemEval recall), underscoring that retrieval
@@ -69,8 +72,6 @@ cost:
   rather than embeddings (FERNme grows a memory graph with fuzzy edges and a
   Hebbian co-occurrence rule, keeping the LLM out of the *write* path as
   well as the read path)
-- layered, non-vector project/session/docs memory purpose-built for coding
-  agents (Knotic)
 
 A complementary critique targets the *query* side: "Root Memories" shows
 similarity-based retrieval misses memories that are **logically** rather
@@ -90,12 +91,13 @@ expensive to run at production scale.
 
 ## What's new
 Metadata-filtered retrieval reaches a **major-vendor production service**:
-AWS AgentCore Memory filters by exact field before similarity ranking runs,
-with documented multi-agent/multi-tenant patterns — the enterprise
-counterpart to this month's structured-retrieval research (permutation-invariant
-embeddings, TIGRAG's co-occurrence graphs). The local-first wave gets a new
-coding-agent-specific entrant too: Knotic layers project/session/docs
-memory without a vector store.
+AWS AgentCore Memory filters by business-dimension fields before similarity
+ranking runs, with separate namespace-based multi-agent/multi-tenant
+isolation — a more mechanical, production-scale cousin of this month's
+structured-retrieval research (permutation-invariant embeddings, TIGRAG's
+co-occurrence graphs). The local-first wave gets a new coding-agent-specific
+entrant too: Knotic layers project/session/docs memory (its own writeup
+doesn't specify the storage/retrieval technology underneath).
 
 Graph construction just got a **cheap, mechanical path**: TIGRAG derives its
 knowledge graph from token co-occurrence statistics rather than an
