@@ -468,7 +468,15 @@ export default async function handler(req, res) {
       item_count: r.item_count ?? (r.items || []).length,
     }));
 
-    const baseItems = accumulateItems(filteredRuns);
+    // Accumulate over the FULL run history, not just the requested from/to
+    // window. first_seen/last_seen/seen_count must reflect an item's true
+    // feed-arrival time; bounding the scan by the request window makes an
+    // item that drops out of the ranked window and later re-enters look
+    // freshly "new" again (its earliest occurrence inside the window becomes
+    // its computed first_seen), resurfacing old/already-seen stories in the
+    // "New" badge and "Catch me up" brief. filterItemsByPublishWindow below
+    // still applies the requested window to what's actually displayed.
+    const baseItems = accumulateItems(runs);
     const deepRunAt = filteredRuns?.[0]?.run_at || null;
     const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(req.query?.tier1_lookback_hours || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
     const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(req.query?.tier1_max_runs || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
