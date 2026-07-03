@@ -177,6 +177,11 @@
     heading.textContent = "Settings";
     section.append(heading, actions);
     deskContent.append(section);
+  } else if (actions) {
+    // Emptied by the theme-button move above; leftover whitespace text nodes
+    // defeat the CSS :empty guard, so the bordered container would render as
+    // a stray hairline rule.
+    actions.remove();
   }
 
   createDialog({
