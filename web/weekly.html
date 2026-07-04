@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260703-hero-promise" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260704-translate-context" />
   <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
   <script>
     (function () {
@@ -29,7 +29,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260703-hero-promise"></script>
+  <script defer src="/site-chrome.js?v=20260704-translate-context"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -362,8 +362,9 @@
   </style>
 </head>
 <body>
-  <main>
+  <main data-local-translate-surface="weekly">
     <header class="site-chrome" data-site-section="/weekly">
+
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
@@ -390,12 +391,15 @@
         <a id="jsonLink" href="/api/weekly">View weekly recap as JSON</a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
+
+
       <div class="site-context" aria-label="Choose weekly recap">
         <a id="archivePrev" href="/weekly" aria-label="Previous week">‹</a>
         <label class="archive muted"><span>Week</span>
           <select id="archive" aria-label="Choose week"></select>
         </label>
         <a id="archiveNext" href="/weekly" aria-label="Next week">›</a>
+        <span data-translate-ui-slot></span>
       </div>
     </header>
 
@@ -472,11 +476,12 @@
       const tldr = highlights.length
         ? `<div class="tldr">
              <p class="tldr-label">The week in signals</p>
-             <ul>${highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
+             <ul>${highlights.map((h) => `<li data-translate-block>${esc(h)}</li>`).join('')}</ul>
            </div>`
         : '';
-      const body = paras.map((p) => `<p>${esc(p)}</p>`).join('');
+      const body = paras.map((p) => `<p data-translate-block>${esc(p)}</p>`).join('');
       return `<div class="intro">${tldr}<div class="intro-copy">${body}</div></div>`;
+
     }
 
     const PLAYBOOK_CAP = 5;
@@ -561,8 +566,9 @@
             playbookSeen.add(a.url);
           }
           return `
-            <article>
+            <article data-translate-block>
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="weekly-link">${esc(a.title || 'Untitled')}</a></h3>
+
               <div class="art-meta">
                 ${a.source ? `<span class="badge">${esc(a.source)}</span>` : ''}
                 ${date ? `<span class="badge">${esc(date)}</span>` : ''}
@@ -575,9 +581,10 @@
         return `
           <section class="cat" id="${esc(c.slug || c.name)}">
             <div class="cat-head">
-              <h2>${esc(c.name)} <span class="count">${c.articles?.length || 0} supporting item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
-              ${c.summary ? `<p class="cat-summary">${esc(c.summary)}</p>` : '<span></span>'}
+              <h2 data-translate-block>${esc(c.name)} <span class="count">${c.articles?.length || 0} supporting item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
+              ${c.summary ? `<p class="cat-summary" data-translate-block>${esc(c.summary)}</p>` : '<span></span>'}
             </div>
+
             <div class="articles">${arts}</div>
           </section>`;
       }).join('');
@@ -586,12 +593,14 @@
         <section class="weekly-hero">
           <div>
             <p class="weekly-kicker">Weekly pattern report</p>
-            <h2 class="recap-title">${cats.length} shifts that shaped AI this week</h2>
+            <h2 class="recap-title" data-translate-block>${cats.length} shifts that shaped AI this week</h2>
+
           </div>
           <div>
             <p class="recap-range">${esc(recap.start || '')} → ${esc(recap.end || '')}<br>${esc(recap.week || '')} · ${recap.article_count ?? totalArticles} articles reviewed</p>
             <div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>
           </div>
+
         </section>
         ${renderIntro(recap)}
         ${focusWidget}
@@ -736,9 +745,11 @@
         const [recap, sourceCards] = await Promise.all([res.json(), loadPlaybookIndex()]);
         playbookByUrl = sourceCards;
         renderRecap(recap);
-        loadArchive(recap.week);
+        await loadArchive(recap.week);
+        window.llmDigestTranslate?.scan?.();
       } catch (err) {
         console.error(err);
+
         document.getElementById('meta').textContent = 'Recap unavailable';
         document.getElementById('recap').innerHTML =
           '<div class="state">Could not load the weekly recap right now. Please refresh in a moment.</div>';
@@ -761,5 +772,6 @@
        strip — shared logic in /nav-updates.js; see
        docs/product-specs/nav-update-indicators.md. -->
   <script src="/nav-updates.js?v=20260701" defer></script>
+  <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>
