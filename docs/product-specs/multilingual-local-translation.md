@@ -45,6 +45,9 @@ The default label is language-specific, for example `Translate to Korean`. The
 control appears near existing page controls: feed toolbar on `/`, archive/context
 controls on recaps/playbook/storylines, and the generated page context row for
 detail pages. It should not render as a modal, banner, or first-visit prompt.
+On narrow viewports (≤640px) the control must never compete with the
+archive/date controls for width: it wraps to its own full-width row below
+them, and the row is hidden entirely while the slot is empty.
 
 ### Interaction
 

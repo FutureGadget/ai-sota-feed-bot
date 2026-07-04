@@ -520,6 +520,20 @@
     padding-left: 0.65rem;
     font-size: 0.68rem;
   }
+
+  /* Keep the date controls full-width: the translate control gets its own
+     row instead of squeezing the archive select's column. */
+  .site-context {
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+  }
+
+  .site-context [data-translate-ui-slot] {
+    grid-column: 1 / -1;
+  }
+
+  .site-context [data-translate-ui-slot]:empty {
+    display: none;
+  }
 }
 
 @media (min-width: 641px) {
