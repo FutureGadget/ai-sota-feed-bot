@@ -58,7 +58,9 @@ Decide which sids genuinely belong to one story/thread. Rules:
   spawning a duplicate.
 
 ### 3. Write the links file
-Write `data/storylines/scout/links.json` — a JSON array of:
+Merge your confirmed judgments into `data/storylines/scout/links.json` —
+preserve existing valid links and their stable ids; never rewrite the file
+from scratch. A JSON array of:
 ```json
 [
   {
