@@ -109,7 +109,9 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 
 **Editorial guidance**
 - **Preserve `url` exactly** from the bundle — it's the reader's link back to
-  the source. Never invent, shorten, or guess links.
+  the source. Never invent, clean, normalize, shorten, or guess links. Skip an
+  item whose only supplied URL is an ugly redirect or tracking URL rather than
+  rewriting it.
 - Group thematically into 3–6 categories. The bundle is news-only and lands in
   a single "Industry News" bucket, so **you** define the themes — e.g. "Agents
   & Tooling", "Open Models", "Funding & Business", "Safety & Policy", "Research

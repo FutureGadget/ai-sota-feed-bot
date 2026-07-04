@@ -11,40 +11,22 @@ Before acting, read these contracts completely:
 
 ## Run the routine
 
-1. Build the input bundle:
+The daily-summary skill owns the domain steps: build the input bundle, check
+the day isn't already published, write the recap, and validate + rebuild the
+index. Follow it in order, exactly as written, with these overrides:
 
-   ```bash
-   python .agents/skills/daily-summary/scripts/build_daily_input.py
-   ```
+- If the input-bundle step reports `due: false`, stop — nothing changed,
+  nothing to publish yet.
+- If it reports `empty: true`, the target date had no genuine articles. Do
+  not write a recap — the script already recorded the date in
+  `data/daily/state.json`. Skip the skill's remaining editorial steps and go
+  straight to **Commit and publish** below.
+- Skip the skill's own commit/push step — this routine commits and publishes
+  below instead.
 
-   - If the result's `due` is false, stop — nothing changed, nothing to
-     publish yet.
-   - If the result's `empty` is true, the target date had no genuine
-     articles. Do not write a recap; the script already recorded this date in
-     `data/daily/state.json`. Skip to **Commit and publish** below.
+## Final verification
 
-2. Otherwise, read `data/daily/input/latest.json` and use its `date` as the
-   canonical edition date. If `data/daily/<date>.json` already exists, stop
-   successfully and report that the date is already published.
-
-3. Write `data/daily/<date>.json` according to the daily-summary skill:
-
-   - synthesize a concise two- or three-paragraph introduction;
-   - write 3–6 standalone **In 30 seconds** highlights;
-   - organize the strongest articles into 3–6 meaningful thematic categories;
-   - curate rather than dumping every input item;
-   - copy every article URL verbatim from the bundle—never invent, normalize,
-     shorten, or guess links.
-
-4. Validate, rebuild the index, and regenerate the static recap outputs:
-
-   ```bash
-   python .agents/skills/daily-summary/scripts/build_daily_index.py
-   ```
-
-   Fix all errors and repeat until every recap validates.
-
-5. Confirm the changed files contain no placeholder or sample content.
+Confirm the changed files contain no placeholder or sample content.
 
 ## Commit and publish
 

@@ -67,4 +67,8 @@ Harness rules:
 
 `prompt.md` contains only agent-relevant parameters, outputs, stop conditions,
 and reporting requirements. Shared agent execution and publishing behavior
-belongs in `COMMON.md`.
+belongs in `COMMON.md`. Domain-specific task knowledge — steps, commands,
+schemas, thresholds, editorial guidance — belongs in the referenced
+`.agents/skills/*/SKILL.md`: a prompt tells the agent which skills to run in
+what order and what it overrides (e.g. a single combined commit), and never
+restates the skill's steps (see AGENTS.md → Working Rules).

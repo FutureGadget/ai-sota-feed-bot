@@ -37,8 +37,15 @@ available to each function.
   overlaid). Carries a `covers_last_updated` + `covers_member_sids` staleness
   snapshot. Written by the `storyline-editor` routine
 - `data/storylines/input/latest.json` — bundle of storylines needing a narrative
-  (new or stale), each with its timeline; what the agent reads (excluded from
-  deploys)
+  (new or stale), each with its timeline and prior narrative; what the agent
+  reads on the inline path (excluded from deploys)
+- `data/storylines/input/manifest.json` — the same rows without timelines or
+  prior narratives (slug, label, counts, reason, `input_path`); what a fan-out
+  orchestrator reads instead of `latest.json` (excluded from deploys)
+- `data/storylines/input/by-slug/<slug>.json` — one self-contained work item
+  (`{generated_at, window_days, storyline}`) per storyline needing a narrative;
+  what a per-slug subagent reads. Cleared of no-longer-needed slugs on every
+  builder run (excluded from deploys)
 - `data/storylines/scout/candidates.json` — machine-built recall candidates
   (near-miss anchors + co-mention buckets) the `storyline-scout` routine reads;
   includes a `window_sids` validation allowlist so accepted links remain valid

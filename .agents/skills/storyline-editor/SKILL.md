@@ -56,11 +56,20 @@ python .agents/skills/storyline-editor/scripts/build_storyline_input.py
 #   --slug <slug>    target a single storyline
 #   --refresh-all    treat every storyline as needing a (re)write
 ```
-This writes `data/storylines/input/latest.json` — **your reading material**.
-Each entry in `storylines[]` has: `slug`, `label`, the counts
-(`item_count`/`source_count`/`day_count`), `first_seen`/`last_updated`,
-`needs_narrative` + `reason`, and a `timeline[]` of `{date, items[]}` where each
-item carries `sid`, `title`, `url`, `source`, `summary_1line`, `published`.
+This writes three things under `data/storylines/input/`:
+- `latest.json` — the full bundle, **your reading material** for the inline
+  path. Each entry in `storylines[]` has: `slug`, `label`, the counts
+  (`item_count`/`source_count`/`day_count`), `first_seen`/`last_updated`,
+  `needs_narrative` + `reason`, `prior_narrative` (on a refresh), and a
+  `timeline[]` of `{date, items[]}` where each item carries `sid`, `title`,
+  `url`, `source`, `summary_1line`, `published`.
+- `manifest.json` — the same rows without timelines or prior narratives
+  (slug, label, counts, reason, `input_path`). The fan-out path below reads
+  only this.
+- `by-slug/<slug>.json` — one self-contained work item
+  (`{generated_at, window_days, storyline}`) per storyline that needs a
+  narrative; a per-slug subagent reads only its own file. Cleared of
+  no-longer-needed slugs on every run.
 
 If `needs_narrative_count` is 0, **stop** — every storyline is current. Report
 that and exit.
@@ -149,6 +158,12 @@ and write `data/storylines/narratives/<slug>.json`:
   page falls back to `why_it_matters`.
 
 **Editorial guidance**
+- On a refresh (`reason: "stale"`), start from `prior_narrative` and carry the
+  arc forward — extend or re-tone existing beats and update `status` rather
+  than re-deriving the whole story. Treat `open_questions` the same way: keep
+  the prior questions the new items leave open, delete or replace any the new
+  items answered (the answer belongs in `whats_new` or a beat, not the list),
+  and add questions the latest turn raises.
 - `covers_last_updated` and `covers_member_sids` are the **staleness snapshot** —
   copy `last_updated` verbatim and include the `sid` of every item in the
   timeline. Getting these right is what keeps the overlay from re-flagging your
@@ -180,13 +195,32 @@ and write `data/storylines/narratives/<slug>.json`:
   added during reclustering, extend the relevant early beat instead of allowing
   it to appear after the current-state beat as generic context.
 
-### Scaling to many storylines (optional Workflow)
-With a handful of storylines, just write each sidecar inline (above). When the
-bundle has **many** storylines to (re)write, fan out with the **Workflow** tool
-so each storyline is narrated by its own agent against a strict schema —
-schema-validated structured output is more deterministic than free-form
-subagents, and the items are independent (each writes its own sidecar file, so
-no write conflicts). Pattern:
+### Scaling to many storylines (per-slug fan-out)
+With up to ~4 storylines, just read `latest.json` and write each sidecar
+inline (above). When more need work — a recluster or `--refresh-all` can flag
+every thread at once — do **not** read `latest.json`. Fan out instead:
+
+1. Read `data/storylines/input/manifest.json` only.
+2. For each row with `needs_narrative: true`, dispatch one subagent (they can
+   run in parallel — each writes its own sidecar file, so no write conflicts).
+   Give each subagent only:
+   - its work item path `data/storylines/input/by-slug/<slug>.json`,
+   - its output path `data/storylines/narratives/<slug>.json`,
+   - an instruction to read the sidecar schema + editorial guidance sections
+     of this SKILL.md before writing.
+3. Back in the orchestrator, run the validator (step 3 below). Re-dispatch any
+   storyline whose sidecar fails validation, passing the validator errors along;
+   repeat until clean.
+
+The orchestrator never loads a timeline or prior narrative this way — its
+context holds only the manifest, regardless of how many storylines need work.
+
+#### Alternative: Workflow fan-out (ultracode)
+Where the **Workflow** tool is available, each storyline can instead be narrated
+by its own agent against a strict schema — schema-validated structured output
+is more deterministic than free-form subagents. Note the trade-off: this path
+passes the full bundle through the orchestrator as `args`, so prefer the
+per-slug subagent fan-out above when the bundle is large. Pattern:
 
 ```js
 export const meta = {

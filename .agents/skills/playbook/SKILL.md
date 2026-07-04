@@ -106,12 +106,16 @@ Write `data/playbook/<date>.json` (e.g. `data/playbook/2026-06-21.json`):
 - Use `kind: "evergreen"` only for durable wiki guidance that cannot honestly
   be attributed to one input article. It requires `topic_url` and appears on
   `/playbook`, but is deliberately ineligible for recap embedding.
-- Every card needs a stable `id` beginning with `pb-`.
+- Every card needs a stable `id` beginning with `pb-`. When correcting an
+  existing edition, preserve a card's `id` if it still represents the same
+  takeaway.
 - Required per card: `id`, `kind`, `title`, `problem`, `apply`, `result`.
   Optional:
   `area` (use the `area_hints` — Memory, Tool use, Orchestration, Evals,
   Reliability, Cost & latency, Safety, Retrieval), `effort` (`low`/`medium`/
   `high`), `published`, `tags`.
+- Keep `card_count` equal to the number of entries in `cards` — update it
+  whenever cards are added or removed.
 - **`apply` is the heart of the card** — it must be something the reader can do,
   not a restatement of the headline. If you can't name a concrete change, the
   item doesn't belong in the Playbook.
@@ -151,7 +155,9 @@ Validates every edition against the schema and rebuilds
 `data/playbook/index.json` + `data/playbook/latest.json` and the recap lookup
 `data/playbook/source-index.json`. Exits non-zero on a
 malformed edition — fix and re-run until clean. (`--check` validates without
-writing.)
+writing.) These three files are generated — never hand-edit them; edit the
+dated edition file under `data/playbook/<date>.json` and rerun this script
+instead.
 
 ### 5. Post it (commit + push)
 ```bash

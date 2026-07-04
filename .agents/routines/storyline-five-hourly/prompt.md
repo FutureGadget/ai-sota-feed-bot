@@ -12,61 +12,26 @@ Before acting, read these contracts completely:
 
 Do not create a branch or pull request.
 
-## Run the scout
+## Run the routine
 
-Follow the storyline-scout skill in order:
+The two skills own the domain steps. Follow each skill's routine in order,
+exactly as written, with one override: **skip each skill's own commit/push
+step** — this routine makes a single combined commit below.
 
-1. Rebuild storylines and generate scout candidates:
-
-   ```bash
-   python pipeline/build_storylines.py
-   python pipeline/scout_candidates.py
-   ```
-
-2. Read `data/storylines/scout/candidates.json`. Conservatively confirm only
-   clear same-story links or direct developments of one story. Preserve
-   existing valid links and stable link IDs. When uncertain, do not link.
-3. Merge confirmed judgments into
-   `data/storylines/scout/links.json`, preserving valid existing entries.
-4. Validate links and apply them through the deterministic floor:
-
-   ```bash
-   python .agents/skills/storyline-scout/scripts/validate_links.py --check
-   python pipeline/build_storylines.py
-   ```
-
-   Fix errors and repeat until validation passes.
-
-## Run the editor
-
-Follow the storyline-editor skill in order:
-
-1. Build the editor input:
-
-   ```bash
-   python .agents/skills/storyline-editor/scripts/build_storyline_input.py
-   ```
-
-2. Read `data/storylines/input/latest.json`. Create or refresh every narrative
-   marked new or stale under `data/storylines/narratives/`.
-3. Write for AI platform and agent engineers. Include the required TL;DR,
-   latest consequential change, engineering impact, builder action, beats, and
-   concise per-item notes described by the skill. Use only facts supported by
-   the supplied articles and keep provenance claims truthful.
-4. Validate narratives and rebuild the served storyline artifacts:
-
-   ```bash
-   python .agents/skills/storyline-editor/scripts/validate_narratives.py --check
-   python pipeline/build_storylines.py
-   ```
-
-   Fix errors and repeat until validation passes.
+1. Run the **storyline-scout** skill: build candidates, judge them, merge the
+   links file, validate, and apply through the floor.
+2. Run the **storyline-editor** skill: build the input, create or refresh
+   every narrative marked new or stale (using the skill's inline vs per-slug
+   fan-out rule), validate, and overlay. One more override: where the skill
+   says to stop when nothing needs a narrative, skip the remaining editor
+   steps and continue to final verification instead — scout link changes may
+   still need publishing.
 
 ## Final verification
 
 Before committing:
 
-- Run both validators again.
+- Run both skills' validators again.
 - Run `python pipeline/build_storylines.py` successfully.
 - Confirm every changed JSON file parses.
 - Confirm no placeholder, seed, sample, or test content was introduced.

@@ -65,7 +65,8 @@ For each cluster of related new stories:
 - Add the real story `sid`s to `evidence:` and any `related_storylines:` slugs.
 - Refresh `covers_evidence:` (the staleness snapshot — copy the new `evidence`
   list) and `updated:`.
-- Append **one line** to `data/wiki/log.md` and update `data/wiki/index.md`.
+- Append **one line** to `data/wiki/log.md` and update `data/wiki/index.md` —
+  do this for every substantive page change: ingest, lint fix, or correction.
 
 Rules (the validator enforces these — see schema invariants):
 - **Never invent sources.** Every `evidence` sid must exist in

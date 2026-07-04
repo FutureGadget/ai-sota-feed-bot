@@ -370,6 +370,14 @@ Implications for any change in this repo:
   imperative: state what to do, not why. Rationale belongs in
   `docs/design-docs/decision-log.md` (or a code comment next to the logic it
   explains) — not in the prompt the agent reads on every run.
+- Separate routine orchestration from domain knowledge: a routine prompt
+  (`.agents/routines/*/prompt.md`) stays thin — which skills to run in what
+  order, stop conditions, commit/publish policy, and reporting, plus only the
+  overrides it imposes (e.g. one combined commit instead of per-skill commits).
+  Domain-specific task knowledge — steps, commands, schemas, thresholds,
+  editorial guidance — lives in the referenced `.agents/skills/*/SKILL.md`.
+  Never duplicate skill steps into a prompt: duplicated instructions drift, and
+  the skill is the single place a step gets fixed.
 
 ## Documentation Contract
 When implementing a feature:

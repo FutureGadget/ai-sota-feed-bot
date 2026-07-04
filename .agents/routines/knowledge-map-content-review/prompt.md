@@ -52,19 +52,10 @@ data/wiki/obstacles/*.md
 data/wiki/solutions/*.md
 ```
 
-For every substantive correction, keep the page metadata coherent:
-
-- maintain valid, resolvable `evidence` and `related_storylines`;
-- refresh `covers_evidence` when the page's evidence set changes;
-- update `updated`;
-- declare each obstacle↔solution edge from one side, conventionally the
-  obstacle's `solutions`.
-
-Append one concise correction entry to `data/wiki/log.md` and update
-`data/wiki/index.md` when changes are made.
-
-Do not hand-edit `data/wiki/index.json`, `web/map.html`, or `web/topic/*.html`;
-they are generated outputs.
+Keep every correction consistent with the wiki-curator skill's page rules and
+the schema invariants (resolvable `evidence`/`related_storylines`, refreshed
+`covers_evidence` and `updated`, one-sided edge declarations, logging the
+change).
 
 Compile, validate, and render:
 
