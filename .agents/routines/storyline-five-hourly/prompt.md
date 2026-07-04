@@ -47,11 +47,19 @@ Follow the storyline-editor skill in order:
    python .agents/skills/storyline-editor/scripts/build_storyline_input.py
    ```
 
-2. Read `data/storylines/input/latest.json`. Create or refresh every narrative
-   marked new or stale under `data/storylines/narratives/`.
-3. Write for AI platform and agent engineers. Include the required TL;DR,
-   latest consequential change, engineering impact, builder action, beats, and
-   concise per-item notes described by the skill. Use only facts supported by
+2. Read the builder's printed summary. If `needs_narrative_count` is 0, skip to
+   the final verification. If it is 4 or fewer, read
+   `data/storylines/input/latest.json` and write each narrative inline. If it
+   is more than 4, do not read `latest.json`: read
+   `data/storylines/input/manifest.json` and dispatch one subagent per
+   storyline, following the skill's per-slug fan-out — each subagent reads only
+   its own `data/storylines/input/by-slug/<slug>.json` and writes
+   `data/storylines/narratives/<slug>.json`.
+3. Create or refresh every narrative marked new or stale. Write for AI platform
+   and agent engineers. Include the required TL;DR, latest consequential
+   change, engineering impact, builder action, beats, and concise per-item
+   notes described by the skill. On a refresh, carry the prior narrative's arc
+   and open questions forward as the skill directs. Use only facts supported by
    the supplied articles and keep provenance claims truthful.
 4. Validate narratives and rebuild the served storyline artifacts:
 
