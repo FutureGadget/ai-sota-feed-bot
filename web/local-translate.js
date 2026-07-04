@@ -302,6 +302,13 @@
     return 'other';
   }
 
+  // Families with a known built-in page-translation flow we can point readers to
+  const BROWSER_ASSIST_FAMILIES = ['safari-mobile', 'safari-desktop', 'chrome-mobile', 'chrome', 'firefox'];
+
+  function isBrowserAssistFamily(family) {
+    return BROWSER_ASSIST_FAMILIES.includes(family);
+  }
+
   function getBrowserAssistInstruction(targetLang) {
     const browserFamily = getBrowserFamily();
 
@@ -426,7 +433,7 @@
       state = 'ready';
     } else {
       const browserFamily = getBrowserFamily();
-      if (['safari', 'chrome-mobile', 'chrome', 'firefox'].includes(browserFamily)) {
+      if (isBrowserAssistFamily(browserFamily)) {
         available = true;
         mode = 'browser-assist';
         provider = 'browser-assist';
@@ -460,6 +467,7 @@
       shouldSkipElement,
       getBrowserAssistInstruction,
       getBrowserFamily,
+      isBrowserAssistFamily,
       isReadyInPageAvailability,
       detectedLanguage: () => detectedLanguage
     }
