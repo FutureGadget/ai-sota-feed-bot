@@ -1,36 +1,35 @@
 # Weekly Agent Builder's Playbook
 
-Read `.agents/routines/COMMON.md`,
-`.agents/skills/playbook/SKILL.md`, and
-`.agents/skills/writing-style/SKILL.md` completely, then execute the Playbook
-routine with these requirements:
+Publish the Agent Builder's Playbook edition for llm-digest.com.
 
-1. Build the input bundle with a seven-day lookback:
+Before acting, read these contracts completely:
 
-   ```bash
-   python .agents/skills/playbook/scripts/build_playbook_input.py --days 7
-   ```
+1. `.agents/routines/COMMON.md`
+2. `.agents/skills/playbook/SKILL.md`
+3. `.agents/skills/writing-style/SKILL.md`
 
-2. Read the generated `date` and `already_published` result. If that edition
-   already exists, stop successfully and report that it was already published.
-   Do not overwrite it.
-3. Read `data/playbook/input/latest.json` and curate a new
-   `data/playbook/<date>.json` edition according to the Playbook skill. Select
-   only actionable agent-engineering material; 4–8 strong cards are preferred.
-4. Validate and rebuild the served indices:
+## Run the routine
 
-   ```bash
-   python .agents/skills/playbook/scripts/build_playbook_index.py
-   ```
+The Playbook skill owns the domain steps. Follow its routine in order, exactly
+as written, with two overrides:
 
-   Fix edition errors and repeat until validation succeeds.
-5. Stage only `data/playbook/` and commit with:
+1. Build the input bundle with a seven-day lookback instead of the skill's
+   default: `--days 7`.
+2. Skip the skill's own commit/push step — publish using the shared
+   rebase-and-retry contract in `COMMON.md` instead.
 
-   ```text
-   playbook: edition <date>
-   ```
+If the skill's dedup check finds the edition already published, stop
+successfully and report that, without overwriting it.
 
-6. Publish using the shared rebase-and-retry contract in `COMMON.md`.
+## Publish
+
+Stage only `data/playbook/` and commit with:
+
+```text
+playbook: edition <date>
+```
+
+Publish using the shared rebase-and-retry contract in `COMMON.md`.
 
 Report the edition date, number of cards published, commit status, and push
 status.
