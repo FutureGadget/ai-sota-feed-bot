@@ -11,46 +11,23 @@ Before acting, read these contracts completely:
 
 ## Run the routine
 
-1. Build the news-only input bundle for the ISO week containing the current
-   date:
+The weekly-summary skill owns the domain steps. Follow its routine in order,
+exactly as written, with these overrides:
 
-   ```bash
-   python .agents/skills/weekly-summary/scripts/build_weekly_input.py --types news
-   ```
+1. Build the input bundle news-only: pass `--types news` instead of the
+   skill's default type list.
+2. Organize the edition into 4–6 thematic categories rather than the skill's
+   3–6.
+3. Skip the skill's own commit/push step — commit and publish as described
+   below.
 
-2. Read the command result and `data/weekly/input/latest.json`. Use the bundle's
-   `week` value as the canonical ISO week ID.
+Stop successfully without publishing when the skill's dedup check reports the
+week already published, or when the bundle contains no genuine articles. Do
+not fabricate content and do not overwrite an existing edition.
 
-   - If `already_published` is true or `data/weekly/<week>.json` already exists,
-     stop successfully. Report that the week is already published and do not
-     overwrite it.
-   - If the bundle contains no genuine articles, stop successfully without
-     publishing. Do not fabricate content.
+## Final verification
 
-3. Otherwise, read the complete bundle and write
-   `data/weekly/<week>.json` according to the weekly-summary skill:
-
-   - Set `week` to the exact bundle value and preserve its `start` and `end`.
-   - Curate the strongest items; skip duplicates and low-signal posts.
-   - Skip items whose only supplied URL is an ugly redirect or tracking URL.
-     Never rewrite, clean, invent, normalize, or shorten a URL; every included
-     URL must be copied verbatim from the bundle.
-   - Organize the edition into 4–6 meaningful thematic categories derived from
-     the week's actual shifts, not the input category labels.
-   - Write a two- or three-paragraph narrative introduction connecting the
-     dominant shifts and durable engineering implication.
-   - Write 3–6 standalone highlights, a focused 1–2 sentence summary for each
-     category, and one tight `what it is + why it matters` line per article.
-
-4. Validate, rebuild the index, and regenerate static weekly outputs:
-
-   ```bash
-   python .agents/skills/weekly-summary/scripts/build_weekly_index.py
-   ```
-
-   Fix all errors and repeat until every recap validates.
-
-5. Confirm the changed files contain no placeholder or sample content.
+Confirm the changed files contain no placeholder or sample content.
 
 If nothing was published, exit without creating an empty commit.
 
