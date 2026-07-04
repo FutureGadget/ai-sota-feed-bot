@@ -76,6 +76,9 @@ Rules (the validator enforces these — see schema invariants):
 - Keep it on-brand: agent *engineering* obstacles, platform-engineer lens, not
   generic AI news.
 
+Log every substantive change to a page — ingest, lint fix, or correction — with
+one line in `data/wiki/log.md` and an update to `data/wiki/index.md`.
+
 ### 3. Lint (periodic health check)
 Read the current pages and flag/fix:
 - **orphans** — nodes with no edges, **stubs** that never got synthesized,
