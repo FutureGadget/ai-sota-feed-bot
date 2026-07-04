@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260704-translate-context" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260705-pretranslated-pages" />
   <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
   <script>
     (function () {
@@ -29,7 +29,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260704-translate-context"></script>
+  <script defer src="/site-chrome.js?v=20260705-pretranslated-pages"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -193,7 +193,7 @@
   </style>
 </head>
 <body>
-  <main data-local-translate-surface="daily">
+  <main>
     <header class="site-chrome" data-site-section="/daily">
 
       <div class="site-bar">
@@ -229,9 +229,7 @@
         <label class="archive muted"><span>Day</span>
           <select id="archive" aria-label="Choose day"></select>
         </label>
-        <a id="archiveNext" href="/daily" aria-label="Next day">›</a>
-        <span data-translate-ui-slot></span>
-      </div>
+        <a id="archiveNext" href="/daily" aria-label="Next day">›</a>      </div>
     </header>
 
     <section id="recap" aria-live="polite">
@@ -316,10 +314,10 @@
       const tldr = highlights.length
         ? `<div class="tldr">
              <p class="tldr-label">In 30 seconds</p>
-             <ul>${highlights.map((h) => `<li data-translate-block>${esc(h)}</li>`).join('')}</ul>
+             <ul>${highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
            </div>`
         : '';
-      const body = paras.map((p) => `<p data-translate-block>${esc(p)}</p>`).join('');
+      const body = paras.map((p) => `<p>${esc(p)}</p>`).join('');
 
       return `<div class="intro">${tldr}<div class="intro-copy">${body}</div></div>`;
     }
@@ -373,7 +371,7 @@
             playbookSeen.add(a.url);
           }
           return `
-            <article data-translate-block>
+            <article>
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="daily-link">${esc(a.title || 'Untitled')}</a></h3>
 
               <div class="article-copy">
@@ -389,8 +387,8 @@
         return `
           <section class="cat" id="${esc(c.slug || c.name)}">
             <div class="cat-head">
-              <h2 data-translate-block>${esc(c.name)} <span class="count">${c.articles?.length || 0} item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
-              ${c.summary ? `<p class="cat-summary" data-translate-block>${esc(c.summary)}</p>` : '<span></span>'}
+              <h2>${esc(c.name)} <span class="count">${c.articles?.length || 0} item${(c.articles?.length || 0) === 1 ? '' : 's'}</span></h2>
+              ${c.summary ? `<p class="cat-summary">${esc(c.summary)}</p>` : '<span></span>'}
             </div>
 
             <div class="articles">${arts}</div>
@@ -401,7 +399,7 @@
         <section class="daily-hero">
           <div>
             <p class="daily-kicker">The finishable daily brief</p>
-            <h2 class="recap-title" data-translate-block>${esc(recap.title || recap.date)}</h2>
+            <h2 class="recap-title">${esc(recap.title || recap.date)}</h2>
 
           </div>
           <div>
@@ -488,9 +486,7 @@
         const [recap, sourceCards] = await Promise.all([res.json(), loadPlaybookIndex()]);
         playbookByUrl = sourceCards;
         renderRecap(recap);
-        await loadArchive(recap.date);
-        window.llmDigestTranslate?.scan?.();
-      } catch (err) {
+        await loadArchive(recap.date);      } catch (err) {
 
         console.error(err);
         document.getElementById('meta').textContent = 'Recap unavailable';
@@ -515,6 +511,5 @@
        strip — shared logic in /nav-updates.js; see
        docs/product-specs/nav-update-indicators.md. -->
   <script src="/nav-updates.js?v=20260701" defer></script>
-  <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>

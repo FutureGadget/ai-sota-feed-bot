@@ -29,12 +29,15 @@ vercel
 vercel --prod
 ```
 
-## i18n roadmap (summary support)
+## i18n roadmap (pre-translated pages)
 Planned extension:
-- Store per-item summaries by locale (e.g. `summary_i18n.en`, `summary_i18n.ko`).
-- Add `lang` query on feed endpoints:
-  - `/api/feed?lang=ko`
-  - `/api/rss?lang=ko`
-- Fallback chain: requested locale -> English -> original summary.
+- Store generated translation artifacts under `data/i18n/<locale>/`.
+- Render static locale-prefixed pages such as `/ko/daily/<date>` and
+  `/ko/story/<sid>`.
+- Add reciprocal `hreflang` links and localized sitemap entries only for fresh
+  translation artifacts.
+- Prioritize translation candidates by recent page views, then current recaps
+  and updated storyline/foundation pages.
 
-This can be added without changing the current ranking pipeline core.
+APIs and RSS remain English in v1. Localized static pages come first because
+they are shareable, crawlable, and do not depend on live browser translation.
