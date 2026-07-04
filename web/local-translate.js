@@ -376,6 +376,10 @@
   const originalTextMap = new WeakMap();
   const translatedNodes = new Set();
 
+  function isReadyInPageAvailability(value) {
+    return value === 'available' || value === 'readily';
+  }
+
   // Load preferences / detect defaults
   let pref = null;
   try {
@@ -408,7 +412,7 @@
     }
     state = 'checking';
     chromeAvailability = await checkChromeTranslator(targetLanguage);
-    if (chromeAvailability === 'available' || chromeAvailability === 'readily' || chromeAvailability === 'downloadable' || chromeAvailability === 'after-download') {
+    if (isReadyInPageAvailability(chromeAvailability)) {
       available = true;
       mode = 'in-page';
       provider = 'chrome-translator';
@@ -449,6 +453,7 @@
       shouldSkipElement,
       getBrowserAssistInstruction,
       getBrowserFamily,
+      isReadyInPageAvailability,
       detectedLanguage: () => detectedLanguage
     }
   };

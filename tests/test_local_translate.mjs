@@ -65,6 +65,14 @@ test('implementation stays reader-local without keyless third-party translation 
   assert.equal(scriptContent.includes('google-translate'), false);
 });
 
+test('downloadable native language packs do not start in-page translation in v1', () => {
+  assert.equal(_test.isReadyInPageAvailability('available'), true);
+  assert.equal(_test.isReadyInPageAvailability('readily'), true);
+  assert.equal(_test.isReadyInPageAvailability('downloadable'), false);
+  assert.equal(_test.isReadyInPageAvailability('after-download'), false);
+  assert.equal(_test.isReadyInPageAvailability('unsupported'), false);
+});
+
 test('isUrlText helper tests', () => {
   assert.equal(_test.isUrlText('https://example.com/foo', 'https://example.com/foo'), true);
   assert.equal(_test.isUrlText('example.com/foo', 'example.com/foo'), true);
