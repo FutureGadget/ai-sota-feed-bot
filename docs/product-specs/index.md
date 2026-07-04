@@ -13,4 +13,4 @@
 - live-feed.md
 - feed-hide.md
 - mobile-site-chrome.md
-- multilingual-local-translation.md
+- multilingual-pretranslated-pages.md
