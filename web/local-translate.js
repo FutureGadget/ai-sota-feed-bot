@@ -376,23 +376,14 @@
       provider = 'chrome-translator';
       state = 'ready';
     } else {
-      let isDebug = false;
-      try {
-        isDebug = localStorage.getItem('llm_digest_translate_debug') === 'true';
-      } catch (e) {}
-      if (isDebug) {
-        available = true;
-        mode = 'browser-assist';
-        provider = 'browser-assist';
-        state = 'ready';
-      } else {
-        available = false;
-        mode = null;
-        provider = null;
-        state = 'idle';
-      }
+      // Use keyless Google Translate fallback for in-page translation
+      available = true;
+      mode = 'in-page';
+      provider = 'google-translate';
+      state = 'ready';
     }
   }
+
 
 
   // Expose public API
@@ -524,18 +515,55 @@
 
       try {
         if (!session) {
-          if (typeof window.translation === 'undefined' || typeof window.translation.createTranslator !== 'function') {
-            throw new Error('translator_api_unavailable');
+          if (provider === 'chrome-translator') {
+            if (typeof window.translation === 'undefined' || typeof window.translation.createTranslator !== 'function') {
+              throw new Error('translator_api_unavailable');
+            }
+            const chromeSession = await window.translation.createTranslator({
+              sourceLanguage: 'en',
+              targetLanguage: targetLanguage
+            });
+            session = {
+              async translate(text) {
+                return await chromeSession.translate(text);
+              },
+              destroy() {
+                if (chromeSession && typeof chromeSession.destroy === 'function') {
+                  chromeSession.destroy();
+                }
+              }
+            };
+          } else {
+            // Keyless Google Translate session
+            session = {
+              async translate(text) {
+                if (!text.trim()) return text;
+                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLanguage)}&dt=t&q=${encodeURIComponent(text)}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                  throw new Error(`google_translate_http_${response.status}`);
+                }
+                const data = await response.json();
+                if (data && data[0]) {
+                  let result = '';
+                  for (const part of data[0]) {
+                    if (part && part[0]) {
+                      result += part[0];
+                    }
+                  }
+                  return result;
+                }
+                throw new Error('google_translate_malformed_response');
+              },
+              destroy() {}
+            };
           }
-          session = await window.translation.createTranslator({
-            sourceLanguage: 'en',
-            targetLanguage: targetLanguage
-          });
         }
 
-        for (const block of blocks) {
+
+        await Promise.all(Array.from(blocks).map(async (block) => {
           const textNodes = collectTextNodes(block);
-          if (!textNodes.length) continue;
+          if (!textNodes.length) return;
 
           const blockText = textNodes.map(n => n.nodeValue).join(' ').trim().replace(/\s+/g, ' ');
           const cached = await getCachedBlock(surface, path, targetLanguage, blockText);
@@ -551,8 +579,7 @@
             });
             block.setAttribute('lang', targetLanguage);
           } else {
-            const translatedList = [];
-            for (const node of textNodes) {
+            const translatedList = await Promise.all(textNodes.map(async (node) => {
               const originalVal = node.nodeValue;
               if (!originalTextMap.has(node)) {
                 originalTextMap.set(node, originalVal);
@@ -562,12 +589,13 @@
               const restoredVal = restoreGlossary(translatedVal, map);
               node.nodeValue = restoredVal;
               translatedNodes.add(node);
-              translatedList.push(restoredVal);
-            }
+              return restoredVal;
+            }));
             block.setAttribute('lang', targetLanguage);
             await setCachedBlock(surface, path, targetLanguage, blockText, translatedList);
           }
-        }
+        }));
+
 
         if (surfaceEl) surfaceEl.setAttribute('lang', targetLanguage);
         state = 'translated';
