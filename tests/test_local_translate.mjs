@@ -94,6 +94,26 @@ test('getBrowserAssistInstruction helper tests', () => {
   assert.match(instructionEn, /browser's translate/);
 });
 
+test('mobile Safari browser assist matches the real page menu flow', () => {
+  navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1';
+  navigator.platform = 'iPhone';
+  navigator.maxTouchPoints = 5;
+
+  assert.equal(_test.getBrowserFamily(), 'safari-mobile');
+  assert.match(_test.getBrowserAssistInstruction('ko'), /페이지 메뉴/);
+  assert.match(_test.getBrowserAssistInstruction('ko'), /웹 사이트 번역/);
+});
+
+test('Chrome on iOS uses Chrome mobile assist copy', () => {
+  navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.0.0 Mobile/15E148 Safari/604.1';
+  navigator.platform = 'iPhone';
+  navigator.maxTouchPoints = 5;
+
+  assert.equal(_test.getBrowserFamily(), 'chrome-mobile');
+  assert.match(_test.getBrowserAssistInstruction('ko'), /Chrome/);
+  assert.match(_test.getBrowserAssistInstruction('ko'), /더보기/);
+});
+
 
 test('shouldSkipElement helper tests', () => {
   const mockElement = (tagName, className, textContent, dataTrack, parent = null, skip = false, term = false) => {

@@ -289,13 +289,14 @@
   function getBrowserFamily() {
     const ua = navigator.userAgent;
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
-    const isFirefox = /firefox/i.test(ua);
+    const isFirefox = /firefox|fxios/i.test(ua);
     const isChrome = /chrome|crios|chromium/i.test(ua);
+    const isSafari = /safari/i.test(ua) && !/chrome|crios|chromium|android|fxios|edgios/i.test(ua);
     const isMobile = /Mobi|Android/i.test(ua);
 
-    if (isIOS || isSafari) return 'safari';
-    if (isChrome && isMobile) return 'chrome-mobile';
+    if (isSafari && isIOS) return 'safari-mobile';
+    if (isSafari) return 'safari-desktop';
+    if (isChrome && (isMobile || isIOS)) return 'chrome-mobile';
     if (isChrome) return 'chrome';
     if (isFirefox) return 'firefox';
     return 'other';
@@ -304,17 +305,23 @@
   function getBrowserAssistInstruction(targetLang) {
     const browserFamily = getBrowserFamily();
 
-    if (browserFamily === 'safari') {
+    if (browserFamily === 'safari-mobile') {
       return {
-        'ko': `주소창의 'aA' 아이콘을 누르고 '한국어(으)로 번역'을 선택해주세요.`,
-        'ja': `アドレスバーの「あA」アイコンをタップし、「日本語に翻訳」を選択してください。`,
-        'zh-CN': `点击地址栏的“aA”图标，然后选择“翻译成中文”。`
+        'ko': `Safari 주소창의 페이지 메뉴를 열고 '웹 사이트 번역'을 선택한 뒤 한국어를 고르세요.`,
+        'ja': `Safariのアドレスバーにあるページメニューを開き、「Webサイトを翻訳」を選んでから日本語を選択してください。`,
+        'zh-CN': `打开 Safari 地址栏中的页面菜单，选择“翻译网站”，然后选择中文。`
+      }[targetLang] || `Open Safari's page menu in the address bar and choose Translate Website.`;
+    } else if (browserFamily === 'safari-desktop') {
+      return {
+        'ko': `Safari 주소창의 번역 버튼을 누르고 한국어를 선택하세요. 보이지 않으면 보기 메뉴에서 '번역'을 확인하세요.`,
+        'ja': `Safariのアドレスバーにある翻訳ボタンをクリックし、日本語を選択してください。表示されない場合は「表示」メニューの翻訳項目を確認してください。`,
+        'zh-CN': `点击 Safari 地址栏中的翻译按钮并选择中文。如果没有显示，请在“显示”菜单中查找翻译选项。`
       }[targetLang] || `Use Safari's built-in translation features.`;
     } else if (browserFamily === 'chrome-mobile') {
       return {
-        'ko': `메뉴(더보기)를 누르고 '번역...'을 선택해주세요.`,
-        'ja': `メニュー（3点リーダー）をタップし、「翻訳...」を選択してください。`,
-        'zh-CN': `点击菜单（三点），然后选择“翻译...”。`
+        'ko': `Chrome 상단 번역 안내가 보이면 한국어를 누르세요. 보이지 않으면 더보기 메뉴에서 '번역'을 선택하세요.`,
+        'ja': `Chrome上部に翻訳案内が表示されたら日本語をタップしてください。表示されない場合は、その他メニューから「翻訳」を選択してください。`,
+        'zh-CN': `如果 Chrome 顶部显示翻译提示，请点选中文；如果没有，请从更多菜单中选择“翻译”。`
       }[targetLang] || `Use Chrome's built-in translation features.`;
     } else if (browserFamily === 'chrome') {
       return {
