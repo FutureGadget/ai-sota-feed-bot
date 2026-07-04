@@ -345,6 +345,9 @@ PAGE_JS = """\
 NAV_UPDATES_TAG = '<script src="/nav-updates.js?v=20260701" defer></script>'
 POSTHOG_CLIENT_ASSET_VERSION = "20260703-standard-pageview"
 POSTHOG_CLIENT_TAG = f'<script src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
+LOCAL_TRANSLATE_ASSET_VERSION = "20260704-local-translate"
+LOCAL_TRANSLATE_TAG = f'<script src="/local-translate.js?v={LOCAL_TRANSLATE_ASSET_VERSION}" defer></script>'
+
 
 # Follow button for static storyline pages. Mirrors the localStorage contract
 # in web/storyline.html (FOLLOWS_KEY ai_feed_storyline_follows_v1) so a follow
@@ -704,13 +707,14 @@ def render_intro(recap: dict, label: str = "In 30 seconds") -> str:
         return ""
     tldr = ""
     if highlights:
-        items = "".join(f"<li>{escape(h)}</li>" for h in highlights)
+        items = "".join(f"<li data-translate-block>{escape(h)}</li>" for h in highlights)
         tldr = (
             f'<div class="tldr"><p class="tldr-label">{escape(label)}</p>'
             f"<ul>{items}</ul></div>"
         )
-    body = "".join(f"<p>{escape(p)}</p>" for p in paras)
+    body = "".join(f"<p data-translate-block>{escape(p)}</p>" for p in paras)
     return f'<div class="intro">{tldr}{body}</div>'
+
 
 
 def render_playbook_takeaway(card: dict, track: str) -> str:
@@ -818,7 +822,7 @@ def render_categories(
                 playbook_rendered += 1
                 playbook_seen.add(sid)
             arts.append(
-                "<article>"
+                '<article data-translate-block>'
                 f'<h3><a href="{escape(href)}" target="_blank" rel="noopener" data-track="{track}">'
                 f'{escape(squeeze(a.get("title")) or "Untitled")}</a></h3>'
                 f'<div class="art-meta">{src_badge}{pub_badge}{detail_link}{toggle_btn}</div>'
@@ -826,15 +830,16 @@ def render_categories(
             )
         n = len(arts)
         cat_summary = (
-            f'<p class="cat-summary">{escape(squeeze(c.get("summary")))}</p>'
+            f'<p class="cat-summary" data-translate-block>{escape(squeeze(c.get("summary")))}</p>'
             if squeeze(c.get("summary"))
             else ""
         )
         sections.append(
             f'<section class="cat" id="{escape(str(c.get("slug") or c.get("name") or ""))}">'
-            f'<h2>{escape(str(c.get("name") or ""))} <span class="count">{n} item{"" if n == 1 else "s"}</span></h2>'
+            f'<h2 data-translate-block>{escape(str(c.get("name") or ""))} <span class="count">{n} item{"" if n == 1 else "s"}</span></h2>'
             f'{cat_summary}<div class="articles">{"".join(arts)}</div></section>'
         )
+
     if playbook_index:
         capped = max(0, len({
             story_sid(a.get("url"))
@@ -1044,6 +1049,27 @@ def render_page(
     extra_js: str = "",
     extra_css: str = "",
 ) -> str:
+    path = urlsplit(canonical).path
+    surface = "feed"
+    if path.startswith("/daily"):
+        surface = "daily"
+    elif path.startswith("/weekly"):
+        surface = "weekly"
+    elif path.startswith("/story/"):
+        surface = "story"
+    elif path.startswith("/storyline/"):
+        surface = "storylines"
+    elif path.startswith("/playbook"):
+        surface = "playbook"
+    elif path.startswith("/map") or path.startswith("/topic/"):
+        surface = "map"
+    elif path.startswith("/foundations"):
+        surface = "foundations"
+    elif path.startswith("/voices"):
+        surface = "voices"
+
+    surface_attr = f' data-local-translate-surface="{surface}"' if surface in ("daily", "weekly", "story") else ""
+
     section = site_section_for_url(canonical)
     nav = render_site_nav(section)
     json_link = (
@@ -1065,7 +1091,7 @@ def render_page(
 {render_head(title=title, description=description, canonical=canonical, published=published, image=image, og_type=og_type, robots=robots, json_ld=json_ld, extra_css=extra_css)}
 </head>
 <body>
-  <main>
+  <main{surface_attr}>
     <header class="site-chrome" data-site-section="{escape(section)}">
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
@@ -1080,6 +1106,7 @@ def render_page(
       </div>
       {nav}
       <div class="site-actions-fallback" aria-label="Page actions">{json_link}{share_btn}
+        <span data-translate-ui-slot></span>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 {archive}
@@ -1101,6 +1128,8 @@ def render_page(
 {PAGE_JS}{extra_js}  </script>
 
   {NAV_UPDATES_TAG}
+  {LOCAL_TRANSLATE_TAG}
+
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
        skipped under prefers-reduced-motion. Never affects initial load. -->
@@ -1297,11 +1326,12 @@ def daily_hero(recap: dict) -> str:
     return (
         '<section class="daily-hero"><div>'
         '<p class="daily-kicker">The finishable daily brief</p>'
-        f'<h2 class="recap-title">{escape(title)}</h2></div><div>'
+        f'<h2 class="recap-title" data-translate-block>{escape(title)}</h2></div><div>'
         f'<p class="daily-date">{escape(fmt_long_date(day))}<br>'
         f'{total} articles · {len(cats)} categories</p>'
         '<p class="daily-route">read top to bottom · then stop</p></div></section>'
     )
+
 
 
 def render_daily_pages(
@@ -1768,13 +1798,14 @@ def weekly_hero(recap: dict) -> str:
     return (
         '<section class="weekly-hero"><div>'
         '<p class="weekly-kicker">Weekly pattern report</p>'
-        f'<h2 class="recap-title">{len(cats)} shifts that shaped AI this week</h2>'
+        f'<h2 class="recap-title" data-translate-block>{len(cats)} shifts that shaped AI this week</h2>'
         '</div><div>'
         f'<p class="weekly-range">{escape(start)} → {escape(end)}<br>'
         f'{escape(week)} · {total} articles reviewed</p>'
         '<div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>'
         '</div></section>'
     )
+
 
 
 def render_weekly_pages(
@@ -1980,8 +2011,9 @@ def render_story_body(
     if why:
         context_parts.append(
             '<section class="story-context-item"><p class="tldr-label">Why it matters</p>'
-            f"<p>{escape(why)}</p></section>"
+            f"<p data-translate-block>{escape(why)}</p></section>"
         )
+
 
     # Up-link to the storyline this story belongs to. The richest context for a
     # member story lives one hop away in its timeline; surfacing it turns an
@@ -2011,8 +2043,9 @@ def render_story_body(
     if summary:
         parts.append(
             '<div class="story-lead"><div><p class="tldr-label">In brief</p>'
-            f'<p class="story-summary">{escape(summary)}</p></div>{img_html}</div>'
+            f'<p class="story-summary" data-translate-block>{escape(summary)}</p></div>{img_html}</div>'
         )
+
     elif img_html:
         parts.append(f'<div class="story-lead">{img_html}</div>')
 
@@ -2026,17 +2059,19 @@ def render_story_body(
         when = fmt_story_date(story_dt(rec))
         when_bit = f", published {escape(when)}" if when else ""
         parts.append(
-            f'<p class="story-framing">A brief from <strong>'
+            f'<p class="story-framing" data-translate-block>A brief from <strong>'
             f"{escape(source_label(rec, url))}</strong>{when_bit}. "
             "Open the original below for the full text.</p>"
         )
 
+
     if highlights:
-        items = "".join(f"<li>{escape(h)}</li>" for h in highlights)
+        items = "".join(f"<li data-translate-block>{escape(h)}</li>" for h in highlights)
         parts.append(
             '<div class="tldr"><p class="tldr-label">Release highlights</p>'
             f"<ul>{items}</ul></div>"
         )
+
 
     topics = [squeeze(t) for t in rec.get("matched_topics") or [] if squeeze(t)]
     if topics:
@@ -2069,9 +2104,10 @@ def render_story_body(
             src = squeeze(c.get("source"))
             suffix = f' <span class="muted">({escape(src)})</span>' if src else ""
             rows.append(
-                f'<li><a href="{escape(href)}" target="_blank" rel="noopener">'
+                f'<li data-translate-block><a href="{escape(href)}" target="_blank" rel="noopener" data-track="story-covered">'
                 f"{escape(label)}</a>{suffix}</li>"
             )
+
         parts.append(
             '<div class="covered"><p class="tldr-label">Also covered by</p>'
             f'<ul>{"".join(rows)}</ul></div>'
@@ -2086,16 +2122,18 @@ def render_story_body(
                 meta.append(f'<span class="badge">{escape(str(other["source"]))}</span>')
             meta.append(f'<span class="badge">{escape(fmt_story_date(story_dt(other)))}</span>')
             cards.append(
-                "<article>"
+                '<article data-translate-block>'
                 f'<h3><a href="/story/{escape(str(other.get("sid")))}" data-track="story-related">'
                 f'{escape(squeeze(other.get("title")) or "Untitled")}</a></h3>'
                 f'<div class="art-meta">{"".join(meta)}</div></article>'
             )
+
         parts.append(
-            '<section class="cat story-related"><h2>Earlier in this thread '
+            '<section class="cat story-related"><h2 data-translate-block>Earlier in this thread '
             f'<span class="count">{len(cards)} item{"" if len(cards) == 1 else "s"}</span></h2>'
             f'<div class="articles">{"".join(cards)}</div></section>'
         )
+
     parts.append(
         subscribe_cta_html(
             "story_end",
@@ -2198,11 +2236,12 @@ def story_hero(rec: dict) -> str:
     return (
         '<section class="story-hero"><div class="story-hero-copy">'
         '<p class="story-kicker">Source brief</p>'
-        f'<h2 class="recap-title story-title"><a href="{escape(safe_http_url(url))}" '
+        f'<h2 class="recap-title story-title" data-translate-block><a href="{escape(safe_http_url(url))}" '
         f'target="_blank" rel="noopener">{escape(title)}</a></h2></div>'
         f'<p class="story-origin"><strong>{escape(source)}</strong>'
         f'{escape(fmt_story_date(story_dt(rec)))}<br>original source linked</p></section>'
     )
+
 
 
 def render_story_pages(

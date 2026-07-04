@@ -9,6 +9,8 @@ from pipeline import render_static_pages as render
 ROOT = Path(__file__).resolve().parents[1]
 SITE_CHROME_VERSION = render.SITE_CHROME_ASSET_VERSION
 POSTHOG_CLIENT_VERSION = render.POSTHOG_CLIENT_ASSET_VERSION
+LOCAL_TRANSLATE_VERSION = render.LOCAL_TRANSLATE_ASSET_VERSION
+
 SHELLS = (
     "index.html",
     "daily.html",
@@ -187,6 +189,8 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn(f'href="/site-chrome.css?v={SITE_CHROME_VERSION}"', html)
         self.assertIn(f'src="/site-chrome.js?v={SITE_CHROME_VERSION}"', html)
         self.assertIn(f'src="/posthog-client.js?v={POSTHOG_CLIENT_VERSION}"', html)
+        self.assertIn(f'src="/local-translate.js?v={LOCAL_TRANSLATE_VERSION}"', html)
+
         self.assertIn('class="site-chrome"', html)
         self.assertIn('data-site-section="/daily"', html)
         self.assertIn('class="site-context"', html)
@@ -235,6 +239,25 @@ class SiteChromeContractTest(unittest.TestCase):
                 self.assertIn("btn.textContent = theme === 'dark' ? '☀️' : '🌙';", html)
                 self.assertNotIn("Use light theme", html)
                 self.assertNotIn("Use dark theme", html)
+
+    def test_local_translate_is_shared_script_everywhere(self) -> None:
+        for filename in (
+            "index.html",
+            "daily.html",
+            "weekly.html",
+            "storyline.html",
+            "playbook.html",
+            "voices.html",
+            "subscribe.html",
+            "map.html",
+            "foundations.html",
+        ):
+            with self.subTest(filename=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn(f'src="/local-translate.js?v={LOCAL_TRANSLATE_VERSION}"', html)
+                self.assertIn("defer", html)
+        self.assertIn('src="/local-translate.js', render.LOCAL_TRANSLATE_TAG)
+
 
 
 if __name__ == "__main__":
