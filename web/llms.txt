@@ -20,7 +20,6 @@ This file helps LLM agents understand and navigate this site.
 - RSS feed: /rss.xml (alias: /api/rss)
 - Share permalink (redirects to /story/<sid> when one exists, else item OG card + redirect to feed): /s?u=<encoded source url>
 - Sitemap: /sitemap.xml
-- Telemetry ingest: /api/events (POST)
 - Client runtime config: /api/client-config
 
 ## Recommended access path for LLMs
@@ -55,7 +54,6 @@ Response highlights:
 - `items[]`: feed entries with ranking and metadata
 - `available_labels[]`: label counts
 - `tier1_blend`: blend diagnostics
-- `personalization`: optional ranking adjustments by anon user id
 
 ## Common LLM tasks
 - "Top frontier lab updates today": `/api/feed?label=frontier_official&from=<today-start-ISO>&limit=100`
