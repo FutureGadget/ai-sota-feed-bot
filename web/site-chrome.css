@@ -218,7 +218,7 @@
 
 .site-context {
   display: grid;
-  grid-template-columns: 44px minmax(0, 1fr) 44px;
+  grid-template-columns: 44px minmax(0, 1fr) 44px auto;
   align-items: stretch;
   gap: 0.5rem;
   margin: 0.8rem 0 0;
@@ -251,6 +251,11 @@
   border: 1px solid var(--border);
   color: var(--muted);
   opacity: 0.42;
+}
+
+.site-context.site-translate-context {
+  grid-template-columns: minmax(0, auto);
+  justify-content: end;
 }
 
 .site-context > a:hover,

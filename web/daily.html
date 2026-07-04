@@ -20,7 +20,7 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260703-hero-promise" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260704-translate-context" />
   <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
   <script>
     (function () {
@@ -29,7 +29,7 @@
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260703-hero-promise"></script>
+  <script defer src="/site-chrome.js?v=20260704-translate-context"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
@@ -230,6 +230,7 @@
           <select id="archive" aria-label="Choose day"></select>
         </label>
         <a id="archiveNext" href="/daily" aria-label="Next day">›</a>
+        <span data-translate-ui-slot></span>
       </div>
     </header>
 
@@ -405,7 +406,6 @@
           </div>
           <div>
             <p class="recap-range">${esc(fmtLongDate(recap.date))}<br>${recap.article_count ?? totalArticles} articles · ${cats.length} categories</p>
-            <div class="recap-translate-container"><span data-translate-ui-slot></span></div>
             <p class="daily-route">read top to bottom · then stop</p>
           </div>
 
@@ -518,4 +518,3 @@
   <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>
-

@@ -7,40 +7,56 @@
     const style = document.createElement('style');
     style.id = 'llm-digest-translate-styles';
     style.textContent = `
-      .recap-translate-container {
-        margin: 0.25rem 0 0.5rem;
-        display: flex;
-        align-items: center;
+      [data-translate-ui-slot] {
+        display: inline-flex;
+        align-items: stretch;
+        min-width: 0;
+      }
+      .site-context [data-translate-ui-slot] {
+        align-self: stretch;
       }
       .translate-btn {
         display: inline-flex;
         align-items: center;
+        justify-content: center;
         background: transparent;
-        border: none;
-        color: var(--accent);
+        border: 1px solid var(--border);
+        color: var(--fg);
         font-family: ui-monospace, "SFMono-Regular", monospace;
-        font-size: 0.72rem;
-        letter-spacing: 0.02em;
-        line-height: 1.2;
-        text-decoration: underline;
-        text-underline-offset: 3px;
+        font-size: 0.68rem;
+        letter-spacing: 0;
+        line-height: 1;
+        text-decoration: none;
+        white-space: nowrap;
         cursor: pointer;
-        padding: 0;
+        min-height: 44px;
+        padding: 0 0.72rem;
         margin: 0;
-        transition: color 0.12s ease;
+        transition: border-color 0.12s ease, color 0.12s ease, background 0.12s ease;
       }
       .translate-btn:hover {
-        color: var(--fg);
-        text-decoration: underline;
+        border-color: var(--accent);
+        color: var(--accent);
+        background: transparent;
+      }
+      .site-context .translate-btn {
+        height: 100%;
+        width: 100%;
       }
       .translate-instruction-container {
-        margin-top: 0.5rem;
-        padding: 0.8rem 1rem;
+        margin: 0.6rem 0 0;
+        padding: 0.72rem 0.85rem;
         border: 1px solid var(--border);
         background: var(--brief-wash, var(--card));
         color: var(--fg);
         font-size: 0.82rem;
         line-height: 1.5;
+      }
+      @media (max-width: 640px) {
+        .translate-btn {
+          font-size: 0.66rem;
+          padding: 0 0.58rem;
+        }
       }
     `;
     document.head.appendChild(style);
@@ -270,27 +286,43 @@
   }
 
   // Browser assist instruction generation
-  function getBrowserAssistInstruction(targetLang) {
+  function getBrowserFamily() {
     const ua = navigator.userAgent;
     const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
     const isFirefox = /firefox/i.test(ua);
-    const isChrome = /chrome|crios/i.test(ua);
+    const isChrome = /chrome|crios|chromium/i.test(ua);
     const isMobile = /Mobi|Android/i.test(ua);
 
-    if (isIOS || isSafari) {
+    if (isIOS || isSafari) return 'safari';
+    if (isChrome && isMobile) return 'chrome-mobile';
+    if (isChrome) return 'chrome';
+    if (isFirefox) return 'firefox';
+    return 'other';
+  }
+
+  function getBrowserAssistInstruction(targetLang) {
+    const browserFamily = getBrowserFamily();
+
+    if (browserFamily === 'safari') {
       return {
         'ko': `주소창의 'aA' 아이콘을 누르고 '한국어(으)로 번역'을 선택해주세요.`,
         'ja': `アドレスバーの「あA」アイコンをタップし、「日本語に翻訳」を選択してください。`,
         'zh-CN': `点击地址栏的“aA”图标，然后选择“翻译成中文”。`
       }[targetLang] || `Use Safari's built-in translation features.`;
-    } else if (isChrome && isMobile) {
+    } else if (browserFamily === 'chrome-mobile') {
       return {
         'ko': `메뉴(더보기)를 누르고 '번역...'을 선택해주세요.`,
         'ja': `メニュー（3点リーダー）をタップし、「翻訳...」を選択してください。`,
         'zh-CN': `点击菜单（三点），然后选择“翻译...”。`
       }[targetLang] || `Use Chrome's built-in translation features.`;
-    } else if (isFirefox) {
+    } else if (browserFamily === 'chrome') {
+      return {
+        'ko': `주소창의 번역 아이콘을 누르거나 페이지에서 마우스 오른쪽 버튼을 눌러 한국어로 번역하세요.`,
+        'ja': `アドレスバーの翻訳アイコン、またはページの右クリックメニューから日本語に翻訳してください。`,
+        'zh-CN': `点击地址栏的翻译图标，或右键页面并选择翻译成中文。`
+      }[targetLang] || `Use Chrome's built-in translation features.`;
+    } else if (browserFamily === 'firefox') {
       return {
         'ko': `주소창의 번역 아이콘을 눌러주세요.`,
         'ja': `アドレスバーの翻訳アイコンをタップしてください。`,
@@ -308,6 +340,16 @@
 
   // In-page translator session check
   async function checkChromeTranslator(targetLang) {
+    if (window.Translator && typeof window.Translator.availability === 'function') {
+      try {
+        return await window.Translator.availability({
+          sourceLanguage: 'en',
+          targetLanguage: targetLang
+        });
+      } catch (e) {
+        return 'unsupported';
+      }
+    }
     if (typeof window.translation === 'undefined' || typeof window.translation.canTranslate !== 'function') {
       return 'unsupported';
     }
@@ -372,11 +414,18 @@
       provider = 'chrome-translator';
       state = 'ready';
     } else {
-      // Use keyless Google Translate fallback for in-page translation
-      available = true;
-      mode = 'in-page';
-      provider = 'google-translate';
-      state = 'ready';
+      const browserFamily = getBrowserFamily();
+      if (['safari', 'chrome-mobile', 'chrome', 'firefox'].includes(browserFamily)) {
+        available = true;
+        mode = 'browser-assist';
+        provider = 'browser-assist';
+        state = 'ready';
+      } else {
+        available = false;
+        mode = null;
+        provider = null;
+        state = 'idle';
+      }
     }
   }
 
@@ -399,6 +448,7 @@
       isUrlText,
       shouldSkipElement,
       getBrowserAssistInstruction,
+      getBrowserFamily,
       detectedLanguage: () => detectedLanguage
     }
   };
@@ -418,6 +468,8 @@
     if (!available || state === 'idle' || state === 'checking') return;
 
     injectStyles();
+    const hiddenContext = slot.closest('.site-translate-context[hidden]');
+    if (hiddenContext) hiddenContext.hidden = false;
 
     let btn = slot.querySelector('.translate-btn');
     if (!btn) {
@@ -460,6 +512,8 @@
       btn.textContent = 'Translating...';
     } else if (state === 'translated') {
       btn.textContent = 'Show original';
+    } else if (state === 'assist') {
+      btn.textContent = `Translation help`;
     } else if (state === 'error') {
       btn.textContent = `Retry Translate (${targetName})`;
     }
@@ -479,17 +533,25 @@
     const btn = slot ? slot.querySelector('.translate-btn') : null;
 
     if (mode === 'browser-assist') {
-      let instruction = slot ? slot.querySelector('.translate-instruction-container') : null;
+      let instruction = document.querySelector('.translate-instruction-container');
       if (!instruction) {
         instruction = document.createElement('div');
         instruction.className = 'translate-instruction-container';
-        if (slot) slot.appendChild(instruction);
+        instruction.setAttribute('aria-live', 'polite');
+        const anchor = slot ? (slot.closest('.site-context') || slot) : null;
+        if (anchor && anchor.parentNode) {
+          anchor.insertAdjacentElement('afterend', instruction);
+        }
       }
       instruction.textContent = getBrowserAssistInstruction(targetLanguage);
       instruction.style.display = '';
-      state = 'translated';
+      state = 'assist';
       if (btn) updateButtonUI(btn);
-      captureEvent('translate_browser_assist', { surface, target_language: targetLanguage });
+      captureEvent('translate_browser_assist', {
+        surface,
+        browser_family: getBrowserFamily(),
+        target_language: targetLanguage
+      });
       return;
     }
 
@@ -512,47 +574,39 @@
       try {
         if (!session) {
           if (provider === 'chrome-translator') {
-            if (typeof window.translation === 'undefined' || typeof window.translation.createTranslator !== 'function') {
+            if (window.Translator && typeof window.Translator.create === 'function') {
+              const chromeSession = await window.Translator.create({
+                sourceLanguage: 'en',
+                targetLanguage: targetLanguage
+              });
+              session = {
+                async translate(text) {
+                  return await chromeSession.translate(text);
+                },
+                destroy() {
+                  if (chromeSession && typeof chromeSession.destroy === 'function') {
+                    chromeSession.destroy();
+                  }
+                }
+              };
+            } else if (typeof window.translation !== 'undefined' && typeof window.translation.createTranslator === 'function') {
+              const chromeSession = await window.translation.createTranslator({
+                sourceLanguage: 'en',
+                targetLanguage: targetLanguage
+              });
+              session = {
+                async translate(text) {
+                  return await chromeSession.translate(text);
+                },
+                destroy() {
+                  if (chromeSession && typeof chromeSession.destroy === 'function') {
+                    chromeSession.destroy();
+                  }
+                }
+              };
+            } else {
               throw new Error('translator_api_unavailable');
             }
-            const chromeSession = await window.translation.createTranslator({
-              sourceLanguage: 'en',
-              targetLanguage: targetLanguage
-            });
-            session = {
-              async translate(text) {
-                return await chromeSession.translate(text);
-              },
-              destroy() {
-                if (chromeSession && typeof chromeSession.destroy === 'function') {
-                  chromeSession.destroy();
-                }
-              }
-            };
-          } else {
-            // Keyless Google Translate session
-            session = {
-              async translate(text) {
-                if (!text.trim()) return text;
-                const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${encodeURIComponent(targetLanguage)}&dt=t&q=${encodeURIComponent(text)}`;
-                const response = await fetch(url);
-                if (!response.ok) {
-                  throw new Error(`google_translate_http_${response.status}`);
-                }
-                const data = await response.json();
-                if (data && data[0]) {
-                  let result = '';
-                  for (const part of data[0]) {
-                    if (part && part[0]) {
-                      result += part[0];
-                    }
-                  }
-                  return result;
-                }
-                throw new Error('google_translate_malformed_response');
-              },
-              destroy() {}
-            };
           }
         }
 
@@ -601,7 +655,7 @@
         try {
           localStorage.setItem('llm_digest_translate_pref_v1', JSON.stringify({
             targetLanguage,
-            providerId: 'chrome-translator'
+          providerId: 'chrome-translator'
           }));
         } catch (e) {}
 
@@ -621,10 +675,15 @@
           provider,
           target_language: targetLanguage,
           phase: session ? 'translation' : 'session_creation',
-          error_code: err.message || 'unknown'
+          error_code: normalizeErrorCode(err)
         });
       }
     }
+  }
+
+  function normalizeErrorCode(err) {
+    const raw = err && err.message ? String(err.message) : 'unknown';
+    return raw.toLowerCase().replace(/[^a-z0-9_]+/g, '_').slice(0, 80) || 'unknown';
   }
 
   function showOriginal() {

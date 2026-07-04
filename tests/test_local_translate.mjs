@@ -60,6 +60,11 @@ Object.defineProperty(globalThis, 'crypto', {
 
 const { _test } = globalThis.window.llmDigestTranslate;
 
+test('implementation stays reader-local without keyless third-party translation fallback', () => {
+  assert.equal(scriptContent.includes('translate.googleapis.com'), false);
+  assert.equal(scriptContent.includes('google-translate'), false);
+});
+
 test('isUrlText helper tests', () => {
   assert.equal(_test.isUrlText('https://example.com/foo', 'https://example.com/foo'), true);
   assert.equal(_test.isUrlText('example.com/foo', 'example.com/foo'), true);
