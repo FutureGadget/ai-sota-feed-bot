@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab]
-updated: 2026-07-03
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a]
+updated: 2026-07-04
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a]
 ---
 
 ## TL;DR
@@ -70,9 +70,41 @@ around it: OpenAI's Agent RFT fine-tunes reasoning models against reward
 signals from real tool interactions, using reinforcement learning to solve the
 credit-assignment problem — which of the many steps in a long trajectory
 actually caused success or failure — rather than relying entirely on prompting
-or a hand-built harness to keep the loop on track.
+or a hand-built harness to keep the loop on track. AWS SageMaker's multi-turn
+RL best practices name the same credit-assignment job from the infrastructure
+side: build a training environment you can trust, run an external evaluation
+separate from the reward signal, design the reward to actually match the end
+task, and manage state across turns — the operational checklist underneath
+"just fine-tune on tool interactions."
+
+Re-planning on failure is also getting a more structured answer than
+retry-and-hope: rather than a single reflection pass, a multi-hypothesis
+failure-attribution approach has autonomous research agents generate several
+candidate explanations for why an experiment failed, weigh them, and re-plan
+around the most likely cause — treating failure diagnosis itself as a
+planning step, not just a trigger for blind retry.
+
+The "ask vs. proceed" question is also moving from a benchmark score to a
+**live control signal**: Candidly built a per-turn state model (an IO-HMM
+over signals like message length and semantic alignment) that infers whether
+a conversation is Engaged, Detailed, Guided, or Disengaging and steers the
+agent's next-turn behavior accordingly. Closing that loop in production
+halved disengaging turns (23% → 11%) and shifted traffic toward the
+high-resolution Engaged state (53% → 64%) — concrete evidence that inferring
+"is this plan working" mid-episode, not just at the end, is worth the extra
+model.
 
 ## What's new
+Re-planning on failure gets a **multi-hypothesis** upgrade: rather than one
+reflection pass, autonomous research agents now generate and weigh several
+candidate failure explanations before re-planning, and Candidly's production
+IO-HMM state model shows *live* steering pays off directly — halving
+disengaging turns (23% → 11%) by inferring conversation state every turn
+instead of grading the outcome after the fact. AWS's multi-turn RL
+best-practices guide names the operational checklist (trustworthy training
+env, external eval, aligned reward, cross-turn state) underneath training
+approaches like Agent RFT.
+
 Training is starting to target planning directly: OpenAI's Agent RFT
 fine-tunes reasoning models against tool-interaction reward signals, using RL
 to solve credit assignment across a long trajectory rather than leaning only

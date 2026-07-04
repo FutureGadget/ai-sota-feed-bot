@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e]
-updated: 2026-07-03
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67]
+updated: 2026-07-04
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67]
 ---
 
 ## TL;DR
@@ -78,6 +78,17 @@ than confidently propagating a mistake to the next role — coordination
 reliability as a function of agents knowing what they don't know, not just of
 topology.
 
+When multiple *coding* agents work the same repo concurrently, the
+coordination problem becomes concrete conflict avoidance rather than
+abstract topology: one practitioner pattern gives each agent (Claude, Codex)
+its own git branch and its own sandboxed worktree so "no two agents ever
+touch the same branch, and no agent can reach another's files," then runs
+work in frozen, read-only-reviewable rounds and replays each candidate in a
+clean box with a neutral verifier before merging — passing tests first,
+smallest diff second. It's a concrete instance of the durable lesson above:
+isolation plus a control-flow gate, not smarter agents, is what keeps
+parallel coding agents from clobbering each other's work.
+
 ## What's new
 Coordination reliability gets an **uncertainty-aware** treatment: UA-ChatDev
 has role-based agents track confidence and use it to trigger deliberation
@@ -86,7 +97,11 @@ handoff-propagates-mistakes failure mode from inside the agents rather than
 from the routing layer around them — a complement to last round's
 **code-driven orchestration** shift (LangChain's dynamic subagents
 guaranteeing fan-out coverage via control flow) and the **security** framing
-of routing as an attack surface (Linguistic Firewall).
+of routing as an attack surface (Linguistic Firewall). Conflict avoidance
+also gets a concrete recipe for parallel coding agents: per-agent git
+branches plus sandboxed worktrees, with a neutral verifier gating merges —
+isolation as the coordination mechanism, not smarter negotiation between
+agents.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

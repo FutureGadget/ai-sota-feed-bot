@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea]
-updated: 2026-07-03
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c]
+updated: 2026-07-04
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c]
 ---
 
 ## TL;DR
@@ -133,7 +133,27 @@ contract are also arriving: AgenticSTS frames long-horizon agent memory as
 poisoning/sycophancy/forgetting failure modes a shared bounded-memory
 benchmark to run against.
 
+The architecture debate now also has a **brute-force alternative** at the
+model layer: Claude Code shipping Sonnet 5 as its default with a native
+1M-token context window (at $2/$10 per Mtok promotional pricing) means some
+long-horizon tasks can skip compaction and retrieval entirely by just fitting
+more raw history in-window — shrinking, not eliminating, the set of tasks
+where the tiered-memory engineering above is required.
+
+The MCP-as-transport pattern for memory keeps spreading to narrower,
+developer-facing stores: codebase-memory-mcp exposes a codebase's own
+memory (prior findings, decisions, file context) to coding agents over MCP,
+the same "memory over MCP" shape as Atlas but scoped to one repo instead of
+an enterprise platform.
+
 ## What's new
+A native **1M-token context window** (Claude Code's new Sonnet 5 default)
+gives long-horizon agents a way to sidestep memory engineering for some
+tasks by just keeping more raw history in-window, rather than compacting or
+retrieving it — a build-time counterweight to the tiered-memory architecture
+below. Separately, codebase-memory-mcp extends the "memory over MCP" pattern
+down to single-repo, coding-agent scale.
+
 Memory integrity gets a **new failure mode**: MemSyco-Bench shows agent
 memory can be sycophantic, not just poisoned — retrieved context can skew
 toward reinforcing a prior stated preference rather than reporting the

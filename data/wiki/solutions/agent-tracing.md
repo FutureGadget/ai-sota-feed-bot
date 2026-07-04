@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372]
-updated: 2026-06-30
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831]
+updated: 2026-07-04
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831]
 ---
 
 ## TL;DR
@@ -30,6 +30,18 @@ live traces and adds voice/trace debugging and experiment status tracking, turni
 trace reading into an assistive workflow. The common direction is *trace-in,
 explanation-out*: the trace is no longer just an audit log, it's the input to an
 automated diagnosis loop.
+
+Capture itself is starting to commoditize into a **zero-config** setup:
+Foglamp has an agent auto-detect its own LLM calls and instrument them
+without the developer touching config or code, then surfaces cost-per-call,
+latency, and quality/eval scores on a dashboard — the same drop-in
+instinct as commoditized sandboxing tools, applied to observability instead
+of isolation.
+
+## What's new
+Tracing setup is getting a **zero-config** entrant: Foglamp auto-instruments
+an agent's LLM calls without manual integration, trading configurability for
+a one-step setup that surfaces cost, latency, and quality per call.
 
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get
