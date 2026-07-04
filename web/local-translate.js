@@ -7,6 +7,11 @@
     const style = document.createElement('style');
     style.id = 'llm-digest-translate-styles';
     style.textContent = `
+      .recap-translate-container {
+        margin: 0.5rem 0 0.8rem;
+        display: flex;
+        align-items: center;
+      }
       .translate-btn {
         display: inline-flex;
         align-items: center;
@@ -44,6 +49,7 @@
     `;
     document.head.appendChild(style);
   }
+
 
   // Curated glossary for high-value technical terms to preserve
   const CURATED_GLOSSARY = [

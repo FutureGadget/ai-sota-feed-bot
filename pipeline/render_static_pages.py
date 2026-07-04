@@ -1106,9 +1106,9 @@ def render_page(
       </div>
       {nav}
       <div class="site-actions-fallback" aria-label="Page actions">{json_link}{share_btn}
-        <span data-translate-ui-slot></span>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
+
 {archive}
     </header>
 
@@ -1329,8 +1329,10 @@ def daily_hero(recap: dict) -> str:
         f'<h2 class="recap-title" data-translate-block>{escape(title)}</h2></div><div>'
         f'<p class="daily-date">{escape(fmt_long_date(day))}<br>'
         f'{total} articles · {len(cats)} categories</p>'
+        '<div class="recap-translate-container"><span data-translate-ui-slot></span></div>'
         '<p class="daily-route">read top to bottom · then stop</p></div></section>'
     )
+
 
 
 
@@ -1802,9 +1804,11 @@ def weekly_hero(recap: dict) -> str:
         '</div><div>'
         f'<p class="weekly-range">{escape(start)} → {escape(end)}<br>'
         f'{escape(week)} · {total} articles reviewed</p>'
+        '<div class="recap-translate-container"><span data-translate-ui-slot></span></div>'
         '<div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>'
         '</div></section>'
     )
+
 
 
 
@@ -2238,9 +2242,13 @@ def story_hero(rec: dict) -> str:
         '<p class="story-kicker">Source brief</p>'
         f'<h2 class="recap-title story-title" data-translate-block><a href="{escape(safe_http_url(url))}" '
         f'target="_blank" rel="noopener">{escape(title)}</a></h2></div>'
+        '<div>'
         f'<p class="story-origin"><strong>{escape(source)}</strong>'
-        f'{escape(fmt_story_date(story_dt(rec)))}<br>original source linked</p></section>'
+        f'{escape(fmt_story_date(story_dt(rec)))}<br>original source linked</p>'
+        '<div class="recap-translate-container"><span data-translate-ui-slot></span></div>'
+        '</div></section>'
     )
+
 
 
 

@@ -389,9 +389,9 @@
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a id="jsonLink" href="/api/weekly">View weekly recap as JSON</a>
-        <span data-translate-ui-slot></span>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
+
 
       <div class="site-context" aria-label="Choose weekly recap">
         <a id="archivePrev" href="/weekly" aria-label="Previous week">‹</a>
@@ -597,8 +597,10 @@
           </div>
           <div>
             <p class="recap-range">${esc(recap.start || '')} → ${esc(recap.end || '')}<br>${esc(recap.week || '')} · ${recap.article_count ?? totalArticles} articles reviewed</p>
+            <div class="recap-translate-container"><span data-translate-ui-slot></span></div>
             <div class="weekly-mark" aria-hidden="true"><span></span><span></span><span></span></div>
           </div>
+
         </section>
         ${renderIntro(recap)}
         ${focusWidget}

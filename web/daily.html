@@ -220,9 +220,9 @@
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a id="jsonLink" href="/api/daily">View daily recap as JSON</a>
-        <span data-translate-ui-slot></span>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
+
 
       <div class="site-context" aria-label="Choose daily recap">
         <a id="archivePrev" href="/daily" aria-label="Previous day">‹</a>
@@ -405,8 +405,10 @@
           </div>
           <div>
             <p class="recap-range">${esc(fmtLongDate(recap.date))}<br>${recap.article_count ?? totalArticles} articles · ${cats.length} categories</p>
+            <div class="recap-translate-container"><span data-translate-ui-slot></span></div>
             <p class="daily-route">read top to bottom · then stop</p>
           </div>
+
         </section>
         ${renderIntro(recap)}
         ${toc}
