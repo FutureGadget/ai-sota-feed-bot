@@ -95,6 +95,9 @@ Create or update a page only when the evidence supports a durable concept. Thin
 ideas stay in the input bundle or backlog. Prefer one excellent update over many
 weak pages.
 
+Update an existing concept when new evidence changes the mechanism,
+application guidance, or failure-mode treatment.
+
 Good first topics are builder questions:
 
 - What makes a prompt reliable?
