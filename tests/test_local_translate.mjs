@@ -104,6 +104,37 @@ test('mobile Safari browser assist matches the real page menu flow', () => {
   assert.match(_test.getBrowserAssistInstruction('ko'), /웹 사이트 번역/);
 });
 
+test('Safari (mobile and desktop) is browser-assist eligible so the control renders', () => {
+  // Regression: the eligibility list once said 'safari', which getBrowserFamily
+  // never returns — Korean iOS Safari readers got no translation button at all.
+  assert.equal(_test.isBrowserAssistFamily('safari-mobile'), true);
+  assert.equal(_test.isBrowserAssistFamily('safari-desktop'), true);
+  assert.equal(_test.isBrowserAssistFamily('chrome-mobile'), true);
+  assert.equal(_test.isBrowserAssistFamily('chrome'), true);
+  assert.equal(_test.isBrowserAssistFamily('firefox'), true);
+  assert.equal(_test.isBrowserAssistFamily('safari'), false);
+  assert.equal(_test.isBrowserAssistFamily('other'), false);
+});
+
+test('Korean mobile Safari resolves to an available browser-assist provider', async () => {
+  navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1';
+  navigator.platform = 'iPhone';
+  navigator.maxTouchPoints = 5;
+
+  const previousInstance = globalThis.window.llmDigestTranslate;
+  globalThis.window = {};
+  (new Function(scriptContent))();
+  const translate = globalThis.window.llmDigestTranslate;
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  assert.equal(translate.targetLanguage, 'ko');
+  assert.equal(translate.available, true);
+  assert.equal(translate.mode, 'browser-assist');
+  assert.equal(translate.state, 'ready');
+
+  globalThis.window = { llmDigestTranslate: previousInstance };
+});
+
 test('Chrome on iOS uses Chrome mobile assist copy', () => {
   navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/138.0.0.0 Mobile/15E148 Safari/604.1';
   navigator.platform = 'iPhone';
