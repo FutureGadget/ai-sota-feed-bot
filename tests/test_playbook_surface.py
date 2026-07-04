@@ -73,6 +73,21 @@ class PlaybookSurfaceTest(unittest.TestCase):
         # Freshness/read-tracking logic is the shared script, not an inline fork.
         self.assertIn('src="/nav-updates.js', self.html)
 
+    def test_registers_dynamic_translation_surface(self) -> None:
+        self.assertIn('data-local-translate-surface="playbook"', self.html)
+        self.assertIn('data-translate-ui-slot', self.html)
+        self.assertIn('window.llmDigestTranslate?.scan?.();', self.html)
+
+    def test_marks_playbook_reading_content_for_translation(self) -> None:
+        self.assertIn('class="pb-headline" data-translate-block', self.html)
+        self.assertIn('class="pb-thesis" data-translate-block', self.html)
+        self.assertIn('class="pb-intro"', self.html)
+        self.assertIn('<p data-translate-block>${esc(p)}</p>', self.html)
+        self.assertIn('class="pb-title" data-translate-block', self.html)
+        self.assertIn('class="pb-signal" data-translate-block', self.html)
+        self.assertIn('class="pb-apply" data-translate-block', self.html)
+        self.assertIn('class="pb-expected" data-translate-block', self.html)
+
     def test_quality_floor(self) -> None:
         # Visible keyboard focus, reduced motion, theme toggle, mascot opt-out.
         self.assertIn("outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent)", self.html)

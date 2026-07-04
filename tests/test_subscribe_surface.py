@@ -56,6 +56,20 @@ class SubscribeSurfaceTest(unittest.TestCase):
         self.assertIn('name="website" class="hp"', self.html)
         self.assertIn(r"/^[^\s@]+@[^\s@]+\.[^\s@]+$/", self.html)
 
+    def test_collects_language_preference(self) -> None:
+        self.assertIn('name="language"', self.html)
+        self.assertIn('value="en"', self.html)
+        self.assertIn('value="ko"', self.html)
+        self.assertIn('value="ja"', self.html)
+        self.assertIn('value="zh-CN"', self.html)
+        self.assertIn('language: languagePreference', self.html)
+        self.assertIn('Preferred language', self.html)
+
+    def test_registers_local_translation_surface(self) -> None:
+        self.assertIn('data-local-translate-surface="subscribe"', self.html)
+        self.assertIn('data-translate-ui-slot', self.html)
+        self.assertIn('data-translate-block', self.html)
+
     def test_preserves_status_states_and_storage_keys(self) -> None:
         self.assertIn("ai_feed_email_subscribed_v1", self.html)
         self.assertIn("ai_feed_subscribe_nudge_done_v1", self.html)

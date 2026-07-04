@@ -1767,10 +1767,23 @@
     // serves item-specific Open Graph tags to unfurlers, then redirects
     // humans to /?item=<url>. Native share sheet when available, clipboard
     // fallback otherwise.
+    function currentTranslationLanguage() {
+      try {
+        const lang = String(new URLSearchParams(window.location.search).get('lang') || '').trim().toLowerCase();
+        if (lang === 'ko' || lang === 'ja') return lang;
+        if (lang === 'zh-cn') return 'zh-CN';
+      } catch {}
+      return '';
+    }
+
     function sharePermalink(it) {
       const href = safeUrl(it.url || '');
       if (href === '#') return '';
-      return `${window.location.origin}/s?u=${encodeURIComponent(href)}`;
+      const url = new URL('/s', window.location.origin);
+      url.searchParams.set('u', href);
+      const lang = currentTranslationLanguage();
+      if (lang) url.searchParams.set('lang', lang);
+      return url.href;
     }
 
     async function shareItem(btn) {
@@ -3312,4 +3325,3 @@
   <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>
-

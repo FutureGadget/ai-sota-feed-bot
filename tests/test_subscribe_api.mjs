@@ -57,6 +57,29 @@ test('accepts a successful provider response', async () => {
   assert.deepEqual(res.body, { ok: true });
 });
 
+test('stores preferred email language as a contact property', async () => {
+  let payload = null;
+  const res = await invoke({ email: 'reader@example.com', language: 'ko' }, async (url, init) => {
+    payload = JSON.parse(init.body);
+    return new Response('{}', { status: 201 });
+  });
+
+  assert.equal(res.statusCode, 200);
+  assert.equal(payload.email, 'reader@example.com');
+  assert.deepEqual(payload.properties, { preferred_language: 'ko' });
+});
+
+test('defaults unsupported email language preferences to English', async () => {
+  let payload = null;
+  const res = await invoke({ email: 'reader@example.com', language: 'de' }, async (url, init) => {
+    payload = JSON.parse(init.body);
+    return new Response('{}', { status: 201 });
+  });
+
+  assert.equal(res.statusCode, 200);
+  assert.deepEqual(payload.properties, { preferred_language: 'en' });
+});
+
 test('treats duplicate contacts as idempotent success', async () => {
   for (const status of [409, 422]) {
     const res = await invoke({ email: 'reader@example.com' }, async () =>

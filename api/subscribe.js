@@ -15,6 +15,16 @@
 // the client hides the form.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_LANGUAGES = new Set(['en', 'ko', 'ja', 'zh-CN']);
+
+function normalizePreferredLanguage(value) {
+  const raw = String(value || '').trim();
+  const lower = raw.toLowerCase();
+  if (EMAIL_LANGUAGES.has(raw)) return raw;
+  if (lower === 'zh-cn') return 'zh-CN';
+  if (EMAIL_LANGUAGES.has(lower)) return lower;
+  return 'en';
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -44,7 +54,14 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'invalid_email' });
   }
 
-  const payload = { email, unsubscribed: false };
+  const preferredLanguage = normalizePreferredLanguage(body.language || body.preferred_language);
+  const payload = {
+    email,
+    unsubscribed: false,
+    properties: {
+      preferred_language: preferredLanguage,
+    },
+  };
   // Per-digest selection. Daily and weekly are separate Resend Topics so a reader
   // can take "weekly only — less email": opted into the weekly topic, opted OUT
   // of the daily one (Resend then suppresses the daily broadcast for them, and

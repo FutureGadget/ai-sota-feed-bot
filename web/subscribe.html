@@ -51,7 +51,7 @@
     body { margin:0; background:var(--bg); color:var(--fg); line-height:1.55;
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; overflow-x: hidden; }
     a { color: var(--accent); }
-    button, input { color: inherit; font: inherit; }
+    button, input, select { color: inherit; font: inherit; }
     code {
       font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
       padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
@@ -97,6 +97,15 @@
     .pref-opt input[type="radio"] { margin-top:.2rem; width:1rem; height:1rem; accent-color:var(--accent); flex:none; }
     .pref-opt:has(input:disabled) { cursor:default; opacity:.7; }
     .pref-note { display:block; color:var(--muted); font-size:.82rem; }
+    .lang-row { display:grid; grid-template-columns:minmax(8rem,.4fr) minmax(0,1.6fr);
+      gap:.45rem 1rem; align-items:center; margin:1rem 0 0; padding-top:.9rem;
+      border-top:1px solid color-mix(in srgb,var(--border) 70%,transparent); }
+    .lang-row label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
+    .lang-select { width:100%; min-height:42px; padding:.55rem .7rem; border:1px solid var(--border);
+      border-radius:0; background:var(--card); color:var(--fg); font-size:.94rem; }
+    .lang-select:focus { outline:none; border-color:var(--accent);
+      box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 28%,transparent); }
     .message { margin:.8rem 0 0; font-size:.92rem; color:var(--muted); }
     .message[data-state="ok"] { color:var(--accent); font-weight:600; }
     .message[data-state="err"] { color:var(--err); }
@@ -119,20 +128,21 @@
 
     footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
       color:var(--muted); font-size:.85rem; }
-    button:focus-visible, a:focus-visible {
+    button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
     @media (max-width:620px) {
       .hero { margin-top:2rem; }
       .hero h2 { font-size:2.5rem; }
       form { flex-direction:column; }
       button[type="submit"] { width:100%; }
+      .lang-row { grid-template-columns:1fr; }
       .delivery { grid-template-columns:1fr; gap:.4rem; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
-  <main>
+  <main data-local-translate-surface="subscribe">
     <header class="site-chrome" data-site-section="/subscribe">
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
@@ -157,11 +167,12 @@
         <a href="/subscribe" data-site-destination="/subscribe" aria-current="page">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
+        <span data-translate-ui-slot></span>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
     </header>
 
-    <section class="hero">
+    <section class="hero" data-translate-block>
       <p class="hero-kicker">The finishable AI brief · by email</p>
       <h2>Catch up on AI in ten minutes a day.</h2>
       <p class="lede">The model, infrastructure, agent-tooling, and research updates that matter for
@@ -169,7 +180,7 @@
       no hype.</p>
     </section>
 
-    <section class="signup" aria-labelledby="signupTitle">
+    <section class="signup" aria-labelledby="signupTitle" data-translate-block>
       <h2 id="signupTitle">Get the email digest</h2>
       <p>The daily brief plus the <span data-weekly-day>weekly</span> recap. Unsubscribe anytime.</p>
       <div id="signupSurface">
@@ -181,7 +192,7 @@
     <section class="deliveries" aria-label="What you receive">
       <div class="delivery">
         <p class="delivery-when">Daily · every <span data-daily-time>morning</span></p>
-        <div class="delivery-what">
+        <div class="delivery-what" data-translate-block>
           <h3>The daily brief</h3>
           <p>The day's highest-signal updates, ranked and deduplicated — read it and you're caught up.
           <a class="sample" href="/daily">See today's brief →</a></p>
@@ -189,7 +200,7 @@
       </div>
       <div class="delivery">
         <p class="delivery-when">Weekly · <span data-weekly-day-plural>weekends</span></p>
-        <div class="delivery-what">
+        <div class="delivery-what" data-translate-block>
           <h3>The weekly recap</h3>
           <p>The week's pattern report: what shifted and what you missed, in one read.
           <a class="sample" href="/weekly">See this week's recap →</a></p>
@@ -197,7 +208,7 @@
       </div>
       <div class="delivery">
         <p class="delivery-when">Always</p>
-        <div class="delivery-what">
+        <div class="delivery-what" data-translate-block>
           <h3>One transparent ranking</h3>
           <p>The same low-hype ranking everyone sees — no personalized filter bubble, no engagement bait.
           <a class="sample" href="/">See the live feed →</a></p>
@@ -275,6 +286,23 @@
       } catch {}
     }
 
+    function normalizeLanguagePreference(value) {
+      const raw = String(value || '').trim();
+      const lower = raw.toLowerCase();
+      if (raw === 'en' || raw === 'ko' || raw === 'ja' || raw === 'zh-CN') return raw;
+      if (lower === 'zh-cn') return 'zh-CN';
+      if (lower === 'en' || lower === 'ko' || lower === 'ja') return lower;
+      return 'en';
+    }
+
+    function languagePreferenceFromUrl() {
+      try {
+        return normalizeLanguagePreference(new URLSearchParams(window.location.search).get('lang'));
+      } catch {
+        return 'en';
+      }
+    }
+
     function formHtml() {
       return `<form id="subscribeForm" novalidate>
         <input type="email" name="email" required placeholder="you@example.com" aria-label="Email address" autocomplete="email" inputmode="email" />
@@ -296,6 +324,16 @@
           </span>
         </label>
       </fieldset>
+      <div class="lang-row">
+        <label for="languagePreference">Preferred language</label>
+        <select id="languagePreference" name="language" form="subscribeForm" class="lang-select">
+          <option value="en">English</option>
+          <option value="ko">Korean</option>
+          <option value="ja">Japanese</option>
+          <option value="zh-CN">Chinese (Simplified)</option>
+        </select>
+        <span class="pref-note">Saved with your subscription so localized email sends can honor it.</span>
+      </div>
       <p id="formMessage" class="message" role="status" aria-live="polite" hidden></p>
       <p class="privacy">No account required. Every email includes an unsubscribe link.</p>`;
     }
@@ -312,6 +350,7 @@
       const emailInput = form.elements.email;
       const button = form.querySelector('button[type="submit"]');
       const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
+      const languagePreference = normalizeLanguagePreference(form.elements.language && form.elements.language.value);
       const email = String(emailInput.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setMessage('Please enter a valid email address.', 'err');
@@ -324,12 +363,13 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: String(form.elements.website.value || '') }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, language: languagePreference, hp: String(form.elements.website.value || '') }),
         });
         if (response.ok) {
           markSubscribed();
           emailInput.disabled = true;
           if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
+          if (form.elements.language) form.elements.language.disabled = true;
           button.remove();
           setMessage(
             weeklyOnly
@@ -364,6 +404,7 @@
         if (config?.digest?.email_subscribe_enabled) {
           surface.innerHTML = formHtml();
           const form = document.getElementById('subscribeForm');
+          if (form.elements.language) form.elements.language.value = languagePreferenceFromUrl();
           form.addEventListener('submit', (event) => {
             event.preventDefault();
             submitForm(form);
@@ -387,4 +428,3 @@
   <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>
-

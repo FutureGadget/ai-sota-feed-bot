@@ -188,6 +188,16 @@ is no wiki high-water mark.
   - *Send* (`publish_email.py` → `resolve_topic_id(kind)`) scopes each broadcast
     to its kind's topic, so Resend suppresses the daily send for weekly-only
     contacts and the hosted preference page manages the choice thereafter.
+- **Language preference.** The `/subscribe` form also captures a preferred email
+  language: `en`, `ko`, `ja`, or `zh-CN`. `api/subscribe.js` normalizes the
+  value and stores it on the Resend contact as the custom property
+  `preferred_language`. The `/subscribe?lang=<supported>` URL preselects the
+  same language in the form and, where browser-local translation is available,
+  translates the subscription page itself through `local-translate.js`.
+  This is preference capture only: the current `publish_email.py` path still
+  sends one English broadcast to the configured segment/topic. Localized email
+  sends require a future sender change that either renders translated variants
+  by language property or targets language-specific provider segments.
   - *Fallback:* with the per-kind ids unset, both sides fall back to the legacy
     single `EMAIL_TOPIC_ID` (both digests, one topic) — the prior behavior.
     Topics are why the cadence choice never touches *content*: it selects which

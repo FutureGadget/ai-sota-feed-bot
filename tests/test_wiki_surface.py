@@ -120,6 +120,34 @@ class MapBodyTest(unittest.TestCase):
         self.assertIn("1 solution", self.body)
         self.assertIn("1 area", self.body)
 
+    def test_map_body_marks_reading_content_for_translation(self) -> None:
+        self.assertIn('class="wiki-headline" data-translate-block', self.body)
+        self.assertIn('class="wiki-thesis" data-translate-block', self.body)
+        self.assertIn('<h3 data-translate-block><a href="/topic/agent-memory"', self.body)
+        self.assertIn('class="map-summary" data-translate-block', self.body)
+        self.assertIn('<ul data-translate-block><li><a href="/topic/context-compaction"', self.body)
+        self.assertIn('class="map-sol-list" data-translate-block', self.body)
+
+    def test_map_page_registers_translation_surface(self) -> None:
+        html = render.render_page(
+            title="Agent Engineering Wiki — obstacles & solutions",
+            description="A living map of agent-engineering obstacles and solutions.",
+            canonical="https://www.llm-digest.com/map",
+            published=None,
+            h1="Agent Engineering Wiki",
+            meta_line="",
+            json_href="/api/topics",
+            archive="",
+            recap_title="Agent engineering: obstacles & solutions",
+            recap_range="",
+            title_html="<!-- hero is inside the .map body -->",
+            intro_html="",
+            body_html=self.body,
+            extra_css=render.WIKI_PAGE_CSS,
+        )
+        self.assertIn('data-local-translate-surface="map"', html)
+        self.assertIn('data-translate-ui-slot', html)
+
 
 class TopicBodyTest(unittest.TestCase):
     def test_obstacle_readout_hero(self) -> None:
@@ -150,6 +178,33 @@ class TopicBodyTest(unittest.TestCase):
         # Evidence ledger resolves sids to durable /story permalinks.
         self.assertIn("Evidence · 2 sources", body)
         self.assertIn('href="/story/2c8ff757b828dee7"', body)
+
+    def test_topic_body_marks_prose_and_graph_links_for_translation(self) -> None:
+        body = render.render_topic_body(OBSTACLE, NODES)
+        self.assertIn('class="topic-lead" data-translate-block', body)
+        self.assertIn('<ul data-translate-block><li><a href="/topic/context-compaction"', body)
+        self.assertIn('<ul data-translate-block><li><a href="/storyline/deep-research"', body)
+        self.assertIn('class="topic-prose" data-translate-block', body)
+
+    def test_topic_page_registers_translation_surface(self) -> None:
+        html = render.render_page(
+            title="Agents forget across steps and sessions — agent engineering",
+            description="An agent's working memory is its context window.",
+            canonical="https://www.llm-digest.com/topic/agent-memory",
+            published=None,
+            h1="Agent Engineering Wiki",
+            meta_line="",
+            json_href="",
+            archive="",
+            recap_title=OBSTACLE["title"],
+            recap_range="",
+            title_html=render.wiki_topic_hero(OBSTACLE),
+            intro_html="",
+            body_html=render.render_topic_body(OBSTACLE, NODES),
+            extra_css=render.WIKI_PAGE_CSS,
+        )
+        self.assertIn('data-local-translate-surface="map"', html)
+        self.assertIn('data-translate-ui-slot', html)
 
     def test_lead_precedes_xlinks_precedes_sections(self) -> None:
         body = render.render_topic_body(OBSTACLE, NODES)

@@ -88,6 +88,24 @@
   const PRICE_PERCENT_RE = /\$\d+(?:\.\d+)?%?|\b\d+(?:\.\d+)?%/g;
   const DATE_RE = /\b\d{4}-\d{2}-\d{2}\b|\b(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}(?:,\s+\d{4})?\b/gi;
 
+  function normalizeTargetLanguage(value) {
+    const raw = String(value || '').trim();
+    const lower = raw.toLowerCase();
+    if (lower === 'ko') return 'ko';
+    if (lower === 'ja') return 'ja';
+    if (lower === 'zh-cn') return 'zh-CN';
+    return null;
+  }
+
+  function targetLanguageFromSearch(search) {
+    if (!search) return null;
+    try {
+      return normalizeTargetLanguage(new URLSearchParams(search).get('lang'));
+    } catch (e) {
+      return null;
+    }
+  }
+
   function escapeRegExp(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
@@ -375,6 +393,8 @@
   let session = null;
   const originalTextMap = new WeakMap();
   const translatedNodes = new Set();
+  const urlTargetLanguage = targetLanguageFromSearch(window.location && window.location.search);
+  let shouldAutoTranslateFromUrl = Boolean(urlTargetLanguage);
 
   function isReadyInPageAvailability(value) {
     return value === 'available' || value === 'readily';
@@ -400,7 +420,8 @@
     return null;
   })();
 
-  targetLanguage = pref ? pref.targetLanguage : detectedLanguage;
+  const prefTargetLanguage = pref ? normalizeTargetLanguage(pref.targetLanguage) : null;
+  targetLanguage = urlTargetLanguage || prefTargetLanguage || detectedLanguage;
 
   async function resolveProvider() {
     if (!targetLanguage) {
@@ -454,6 +475,8 @@
       getBrowserAssistInstruction,
       getBrowserFamily,
       isReadyInPageAvailability,
+      normalizeTargetLanguage,
+      targetLanguageFromSearch,
       detectedLanguage: () => detectedLanguage
     }
   };
@@ -465,7 +488,7 @@
     const surfaceEl = document.querySelector('[data-local-translate-surface]');
     if (!surfaceEl) return;
     const surface = surfaceEl.getAttribute('data-local-translate-surface');
-    if (!['daily', 'weekly', 'story'].includes(surface)) return;
+    if (!['daily', 'weekly', 'story', 'storylines', 'foundations', 'map', 'playbook', 'subscribe'].includes(surface)) return;
 
     const slot = document.querySelector('[data-translate-ui-slot]');
     if (!slot) return;
@@ -504,6 +527,10 @@
     }
 
     updateButtonUI(btn);
+    if (shouldAutoTranslateFromUrl && state === 'ready') {
+      shouldAutoTranslateFromUrl = false;
+      translate(targetLanguage);
+    }
   }
 
   function updateButtonUI(btn) {
@@ -525,8 +552,9 @@
   }
 
   async function translate(customLang) {
-    if (customLang && ['ko', 'ja', 'zh-CN'].includes(customLang)) {
-      targetLanguage = customLang;
+    const requestedLang = normalizeTargetLanguage(customLang);
+    if (requestedLang) {
+      targetLanguage = requestedLang;
       await resolveProvider();
     }
 

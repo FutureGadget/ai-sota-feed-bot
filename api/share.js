@@ -24,6 +24,7 @@ import path from 'node:path';
 const SITE_BASE_URL = process.env.SITE_BASE_URL || 'https://www.llm-digest.com';
 const SITE_NAME = 'LLM Digest';
 const MAX_RUNS_SCANNED = 60;
+const SUPPORTED_TARGET_LANGUAGES = new Set(['ko', 'ja', 'zh-CN']);
 
 function readJsonSafe(p, fallback) {
   try {
@@ -54,6 +55,20 @@ function parseTargetUrl(raw) {
     if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
   } catch {}
   return null;
+}
+
+function parseTargetLanguage(raw) {
+  const value = String(raw || '').trim();
+  const normalized = value.toLowerCase();
+  if (normalized === 'ko') return 'ko';
+  if (normalized === 'ja') return 'ja';
+  if (normalized === 'zh-cn') return 'zh-CN';
+  return null;
+}
+
+function appendLang(url, lang) {
+  if (!SUPPORTED_TARGET_LANGUAGES.has(lang)) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}lang=${encodeURIComponent(lang)}`;
 }
 
 // Must match pipeline/story_store.py story_sid(): sha256(normalized url)[:16].
@@ -142,6 +157,7 @@ function sharePage({ title, description, canonical, redirect, sourceUrl, sourceN
 export default async function handler(req, res) {
   try {
     const targetUrl = parseTargetUrl(req.query?.u);
+    const targetLanguage = parseTargetLanguage(req.query?.lang);
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
     if (!targetUrl) {
@@ -150,7 +166,7 @@ export default async function handler(req, res) {
           title: `${SITE_NAME} — AI news feed for platform and agent engineers`,
           description: 'A low-hype AI news feed: model releases, research, and tooling — ranked for what changed and why it matters.',
           canonical: `${SITE_BASE_URL}/`,
-          redirect: '/?utm_source=share&utm_medium=social',
+          redirect: appendLang('/?utm_source=share&utm_medium=social', targetLanguage),
         })
       );
       return;
@@ -158,14 +174,14 @@ export default async function handler(req, res) {
 
     const sid = storySid(targetUrl);
     if (storyPageExists(sid)) {
-      res.status(302).setHeader('Location', `/story/${sid}?utm_source=share&utm_medium=social`);
+      res.status(302).setHeader('Location', appendLang(`/story/${sid}?utm_source=share&utm_medium=social`, targetLanguage));
       res.end();
       return;
     }
 
     const item = findItemByUrl(targetUrl);
-    const canonical = `${SITE_BASE_URL}/s?u=${encodeURIComponent(targetUrl)}`;
-    const redirect = `/?item=${encodeURIComponent(targetUrl)}&utm_source=share&utm_medium=social`;
+    const canonical = appendLang(`${SITE_BASE_URL}/s?u=${encodeURIComponent(targetUrl)}`, targetLanguage);
+    const redirect = appendLang(`/?item=${encodeURIComponent(targetUrl)}&utm_source=share&utm_medium=social`, targetLanguage);
 
     if (!item) {
       // Aged out of feed retention: generic card, still land on our feed.

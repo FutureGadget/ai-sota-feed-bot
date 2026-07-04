@@ -62,11 +62,33 @@ class FoundationsSurfaceTest(unittest.TestCase):
         self.assertIn("math intuition", hero)
 
         body = render.render_foundation_body(CONCEPT)
+        self.assertIn('class="foundation-lead" data-translate-block', body)
+        self.assertIn('class="foundation-prose" data-translate-block', body)
         self.assertLess(body.index("Reliable prompts are interfaces"), body.index("Math intuition"))
         self.assertIn("Evidence · 2 sources", body)
         self.assertIn("theory/paper-backed", body)
         self.assertIn("editorial inference", body)
         self.assertIn('href="/topic/agent-evaluation"', body)
+
+    def test_foundations_generated_pages_register_translation_surface(self) -> None:
+        html = render.render_page(
+            title="Agent Builder Foundations",
+            description="Evidence-tiered explanations.",
+            canonical="https://www.llm-digest.com/foundations/prompt-reliability",
+            published=None,
+            h1="Agent Builder Foundations",
+            meta_line="Mechanisms, math intuition, evidence, and application",
+            json_href="/api/foundations?slug=prompt-reliability",
+            archive="",
+            recap_title="What makes a prompt reliable?",
+            recap_range="",
+            title_html=render.foundation_concept_hero(CONCEPT),
+            intro_html="",
+            body_html=render.render_foundation_body(CONCEPT),
+            extra_css=render.FOUNDATIONS_PAGE_CSS,
+        )
+        self.assertIn('data-local-translate-surface="foundations"', html)
+        self.assertIn('data-translate-ui-slot', html)
 
 
 if __name__ == "__main__":

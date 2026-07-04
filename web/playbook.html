@@ -168,7 +168,7 @@
   </style>
 </head>
 <body>
-  <main>
+  <main data-local-translate-surface="playbook">
     <header class="site-chrome" data-site-section="/playbook">
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
@@ -202,6 +202,7 @@
           <select id="archive" aria-label="Choose edition"></select>
         </label>
         <a id="archiveNext" href="/playbook" aria-label="Next edition">›</a>
+        <span data-translate-ui-slot></span>
       </div>
     </header>
 
@@ -292,10 +293,10 @@
             ${effortMeter(c.effort)}
           </div>
           <div class="pb-body">
-            <h2 class="pb-title">${esc(c.title || 'Untitled change')}</h2>
-            ${c.problem ? `<div class="pb-signal"><span class="pb-label">Signal</span><p>${esc(c.problem)}</p></div>` : ''}
-            ${c.apply ? `<div class="pb-apply"><span class="pb-label">Apply</span><p>${esc(c.apply)}</p></div>` : ''}
-            ${c.result ? `<div class="pb-expected"><span class="pb-label">→ Expected</span><p>${esc(c.result)}</p></div>` : ''}
+            <h2 class="pb-title" data-translate-block>${esc(c.title || 'Untitled change')}</h2>
+            ${c.problem ? `<div class="pb-signal" data-translate-block><span class="pb-label">Signal</span><p>${esc(c.problem)}</p></div>` : ''}
+            ${c.apply ? `<div class="pb-apply" data-translate-block><span class="pb-label">Apply</span><p>${esc(c.apply)}</p></div>` : ''}
+            ${c.result ? `<div class="pb-expected" data-translate-block><span class="pb-label">→ Expected</span><p>${esc(c.result)}</p></div>` : ''}
             ${href !== '#' ? `<p class="pb-source"><span>Source</span><a href="${href}" target="_blank" rel="noopener" data-track="playbook-link">${esc(sourceLabel)} →</a></p>` : ''}
           </div>
         </article>`;
@@ -329,11 +330,11 @@
       document.getElementById('edition').innerHTML = `
         <section class="pb-hero">
           <p class="pb-kicker">Agent change log · ${esc(fmtLongDate(edition.date))}</p>
-          <h2 class="pb-headline">${esc(headline)}</h2>
-          <p class="pb-thesis">Each entry names the <strong>signal</strong> that should trigger it,
+          <h2 class="pb-headline" data-translate-block>${esc(headline)}</h2>
+          <p class="pb-thesis" data-translate-block>Each entry names the <strong>signal</strong> that should trigger it,
             the concrete <strong>change to apply</strong> to your agent, and the
             <strong>result</strong> to expect.</p>
-          ${intro.length ? `<div class="pb-intro">${intro.map((p) => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
+          ${intro.length ? `<div class="pb-intro">${intro.map((p) => `<p data-translate-block>${esc(p)}</p>`).join('')}</div>` : ''}
           ${renderCovers(cards)}
         </section>
         ${n
@@ -428,4 +429,3 @@
   <script src="/local-translate.js?v=20260704-local-translate" defer></script>
 </body>
 </html>
-

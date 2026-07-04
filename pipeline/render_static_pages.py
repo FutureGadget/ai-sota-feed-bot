@@ -315,12 +315,34 @@ PAGE_JS = """\
       var sel = document.getElementById('archive');
       if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
 
+      function currentTranslationLanguage() {
+        try {
+          var lang = new URLSearchParams(window.location.search).get('lang');
+          lang = String(lang || '').trim().toLowerCase();
+          if (lang === 'ko' || lang === 'ja') return lang;
+          if (lang === 'zh-cn') return 'zh-CN';
+        } catch (e) {}
+        return '';
+      }
+
+      function appendTranslationLanguage(url) {
+        var lang = currentTranslationLanguage();
+        if (!lang) return url;
+        try {
+          var u = new URL(url, window.location.href);
+          u.searchParams.set('lang', lang);
+          return u.href;
+        } catch (e) {
+          return url;
+        }
+      }
+
       // Share this page: native share sheet when available, clipboard fallback.
       // The canonical URL is the durable landing target, so shares keep working.
       var share = document.querySelector('.menu-share');
       if (share) {
         share.addEventListener('click', function () {
-          var url = share.getAttribute('data-share-url') || location.href;
+          var url = appendTranslationLanguage(share.getAttribute('data-share-url') || location.href);
           var title = share.getAttribute('data-share-title') || document.title;
           if (navigator.share) {
             navigator.share({ title: title, url: url }).catch(function () {});
@@ -1069,11 +1091,12 @@ def render_page(
     elif path.startswith("/voices"):
         surface = "voices"
 
-    surface_attr = f' data-local-translate-surface="{surface}"' if surface in ("daily", "weekly", "story") else ""
+    translatable_surfaces = ("daily", "weekly", "story", "storylines", "foundations", "map")
+    surface_attr = f' data-local-translate-surface="{surface}"' if surface in translatable_surfaces else ""
     translate_context = (
         '<div class="site-context site-translate-context" aria-label="Page translation" hidden>'
         '<span data-translate-ui-slot></span></div>'
-        if surface == "story" and not archive
+        if surface in ("story", "storylines", "foundations", "map") and not archive
         else ""
     )
 
@@ -2479,7 +2502,7 @@ def _sl_timeline_view(sl: dict, story_sids: set[str]) -> str:
             continue
         cards = "".join(_sl_item_card(it, story_sids) for it in items)
         parts.append(
-            f'<section class="cat"><h2><span class="count">Day {i + 1}</span> '
+            f'<section class="cat" data-translate-block><h2><span class="count">Day {i + 1}</span> '
             f'{escape(fmt_long_date(str(day.get("date") or "")))}</h2>'
             f'<div class="articles">{cards}</div></section>'
         )
@@ -2672,7 +2695,7 @@ def _sl_arc_view(
             f'<div class="sl-show">{escape(meta)} · <span class="sl-show-link">{escape(show)}</span></div>'
             f'</summary><div class="sl-cards">{cards}</div></details>'
         )
-    return f'{track}<div class="sl-spine">{"".join(blocks)}</div>'
+    return f'{track}<div class="sl-spine" data-translate-block>{"".join(blocks)}</div>'
 
 
 def _sl_tone(obj: dict) -> str:
@@ -2706,7 +2729,7 @@ def _sl_status_banner(status: dict, *, show_detail: bool = True) -> str:
         else ""
     )
     return (
-        f'<div class="sl-status tone-{tone}">'
+        f'<div class="sl-status tone-{tone}" data-translate-block>'
         f'<div class="sl-status-head"><span class="sl-dot"></span>'
         f'<span class="sl-status-label">Current state</span>{state_html}{meta}</div>'
         f"{detail_html}</div>"
@@ -2726,7 +2749,7 @@ def _sl_watch(open_questions: list, take: str) -> str:
         inner += (
             f'<div class="sl-take">💡 <b>Take for builders:</b> {escape(take)}</div>'
         )
-    return f'<div class="sl-watch">{inner}</div>'
+    return f'<div class="sl-watch" data-translate-block>{inner}</div>'
 
 
 def _sl_agents(sl: dict, beats: list[dict], prov: dict, status: dict) -> list[tuple[str, str, str]]:
@@ -2805,7 +2828,7 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     brief_parts = []
     if whats_new:
         brief_parts.append(
-            '<section class="sl-latest" aria-labelledby="latestChangeLabel">'
+            '<section class="sl-latest" aria-labelledby="latestChangeLabel" data-translate-block>'
             '<div class="sl-latest-head"><span class="sl-latest-dot"></span>'
             '<p id="latestChangeLabel" class="sl-watch-label">Latest change</p></div>'
             f"<p>{escape(whats_new)}</p></section>"
@@ -2814,7 +2837,7 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     take = squeeze(ed.get("take_for_builders")) or squeeze(ed.get("why_it_matters"))
     if take:
         brief_parts.append(
-            '<aside class="sl-builder-take">'
+            '<aside class="sl-builder-take" data-translate-block>'
             '<p class="sl-builder-label">Builder action</p>'
             f'<p>{escape(take)}</p></aside>'
         )
@@ -2832,7 +2855,7 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
             '<details class="sl-background"><summary>'
             '<span class="sl-background-label">Earlier context</span>'
             '<span class="sl-background-title">The story so far</span>'
-            '</summary><div class="sl-background-body">'
+            '</summary><div class="sl-background-body" data-translate-block>'
             f"<p>{escape(tldr)}</p></div></details>"
         )
 
@@ -2867,7 +2890,7 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
             "Get the daily brief and weekly recap when this thread moves.",
         )
     )
-    parts.append(f'<p class="sl-note">{escape(SL_FOOTER_NOTE)}</p>')
+    parts.append(f'<p class="sl-note" data-translate-block>{escape(SL_FOOTER_NOTE)}</p>')
     return "".join(p for p in parts if p)
 
 
@@ -3197,7 +3220,7 @@ def wiki_topic_hero(node: dict) -> str:
     return (
         '<section class="wiki-hero">'
         f'<p class="wiki-kicker">{escape(kicker)}</p>'
-        f'<h2 class="wiki-headline">{escape(title)}</h2>'
+        f'<h2 class="wiki-headline" data-translate-block>{escape(title)}</h2>'
         f'<p class="wiki-readout">{readout}</p>'
         "</section>"
     )
@@ -3222,7 +3245,7 @@ def render_topic_body(node: dict, nodes: dict) -> str:
         else:
             body_sections.append((heading, html))
     if lead_html:
-        parts.append(f'<div class="topic-lead">{lead_html}</div>')
+        parts.append(f'<div class="topic-lead" data-translate-block>{lead_html}</div>')
 
     # Graph neighborhood: obstacle -> solutions, solution -> obstacles, plus
     # related storylines. This is the reader's next hop across the graph.
@@ -3240,7 +3263,7 @@ def render_topic_body(node: dict, nodes: dict) -> str:
         )
         xgroups.append(
             f'<div class="topic-xgroup"><span class="topic-xgroup-label">{escape(link_label)}</span>'
-            f"<ul>{lis}</ul></div>"
+            f"<ul data-translate-block>{lis}</ul></div>"
         )
     if storylines:
         lis = "".join(
@@ -3249,7 +3272,7 @@ def render_topic_body(node: dict, nodes: dict) -> str:
         )
         xgroups.append(
             '<div class="topic-xgroup"><span class="topic-xgroup-label">Tracked in storylines</span>'
-            f"<ul>{lis}</ul></div>"
+            f"<ul data-translate-block>{lis}</ul></div>"
         )
     if xgroups:
         parts.append(f'<aside class="topic-xlinks">{"".join(xgroups)}</aside>')
@@ -3259,7 +3282,7 @@ def render_topic_body(node: dict, nodes: dict) -> str:
         parts.append(
             '<section class="topic-section">'
             f'<div class="topic-rail">{escape(heading)}</div>'
-            f'<div class="topic-prose">{html}</div>'
+            f'<div class="topic-prose" data-translate-block>{html}</div>'
             "</section>"
         )
 
@@ -3358,14 +3381,14 @@ def wiki_map_body(wiki: dict) -> str | None:
                     f'<li><a href="/topic/{escape(s["slug"])}">{escape(squeeze(s["title"]))}</a></li>'
                     for s in sols
                 )
-                sol_html = f'<ul>{sol_items}</ul>'
+                sol_html = f'<ul data-translate-block>{sol_items}</ul>'
             else:
                 sol_html = '<p class="map-none">No solution pages linked yet.</p>'
             rows.append(
                 '<article class="map-row">'
                 '<div class="map-obstacle"><span class="map-tag">Obstacle</span>'
-                f'<h3><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
-                f'<p class="map-summary">{escape(clip(squeeze(node.get("summary")), 180))}</p></div>'
+                f'<h3 data-translate-block><a href="/topic/{escape(slug)}">{escape(squeeze(node.get("title")) or slug)}</a></h3>'
+                f'<p class="map-summary" data-translate-block>{escape(clip(squeeze(node.get("summary")), 180))}</p></div>'
                 '<div class="map-solutions"><span class="map-tag">Solved by</span>'
                 f"{sol_html}</div>"
                 "</article>"
@@ -3395,7 +3418,7 @@ def wiki_map_body(wiki: dict) -> str | None:
         )
         blocks.append(
             '<section class="map-solindex"><h2>Solutions in this map</h2>'
-            f'<ul class="map-sol-list">{sol_lis}</ul></section>'
+            f'<ul class="map-sol-list" data-translate-block>{sol_lis}</ul></section>'
         )
 
     legend = ""
@@ -3410,8 +3433,8 @@ def wiki_map_body(wiki: dict) -> str | None:
         '<div class="map">'
         '<section class="wiki-hero">'
         '<p class="wiki-kicker">Agent engineering · knowledge map</p>'
-        '<h2 class="wiki-headline">What breaks when you ship an agent — and how the field fixes it</h2>'
-        '<p class="wiki-thesis">A living map of the obstacles to building and operating AI agents, '
+        '<h2 class="wiki-headline" data-translate-block>What breaks when you ship an agent — and how the field fixes it</h2>'
+        '<p class="wiki-thesis" data-translate-block>A living map of the obstacles to building and operating AI agents, '
         'each linked to the solutions in use. Every claim is grounded in source articles already in the feed — '
         'one shared structure, no hype.</p>'
         f'<p class="wiki-readout">{n_obstacles} obstacle{"" if n_obstacles == 1 else "s"}'
@@ -3586,7 +3609,7 @@ def foundations_index_body(foundations: dict) -> str | None:
             summary = clip(squeeze(concept.get("summary")), 220)
             evidence_count = len(concept.get("evidence") or [])
             rows.append(
-                '<li class="foundation-card">'
+                '<li class="foundation-card" data-translate-block>'
                 f'<div><h3><a href="/foundations/{escape(slug)}">{escape(title)}</a></h3>'
                 f'<p>{escape(summary)}</p></div>'
                 f'<span class="foundation-card-meta">{evidence_count} evidence tier{"" if evidence_count == 1 else "s"}</span>'
@@ -3605,8 +3628,8 @@ def foundations_index_body(foundations: dict) -> str | None:
         '<div class="foundations">'
         '<section class="foundations-hero">'
         '<p class="foundations-kicker">Agent Builder Foundations</p>'
-        '<h2 class="foundations-headline">Mechanisms behind reliable agents</h2>'
-        '<p class="foundations-thesis">Durable explanations for builders who want to understand why a prompt, '
+        '<h2 class="foundations-headline" data-translate-block>Mechanisms behind reliable agents</h2>'
+        '<p class="foundations-thesis" data-translate-block>Durable explanations for builders who want to understand why a prompt, '
         'retrieval setup, tool call, memory system, or eval behaves the way it does. Each page separates '
         'paper-backed mechanisms, benchmark results, field reports, and LLM Digest synthesis.</p>'
         f'<p class="foundations-readout"><span class="on">{len(concepts)} concept{"" if len(concepts) == 1 else "s"}</span>'
@@ -3636,7 +3659,7 @@ def foundation_concept_hero(concept: dict) -> str:
     return (
         '<section class="foundations-hero">'
         '<p class="foundations-kicker">Agent foundations</p>'
-        f'<h2 class="foundations-headline">{escape(title)}</h2>'
+        f'<h2 class="foundations-headline" data-translate-block>{escape(title)}</h2>'
         f'<p class="foundations-readout">{readout}</p>'
         "</section>"
     )
@@ -3657,7 +3680,7 @@ def render_foundation_body(concept: dict) -> str:
         else:
             body_sections.append((heading, html))
     if lead_html:
-        parts.append(f'<div class="foundation-lead">{lead_html}</div>')
+        parts.append(f'<div class="foundation-lead" data-translate-block>{lead_html}</div>')
 
     xgroups = []
     topics = concept.get("related_topics") or []
@@ -3689,7 +3712,7 @@ def render_foundation_body(concept: dict) -> str:
         parts.append(
             '<section class="foundation-section">'
             f'<div class="foundation-rail">{escape(heading)}</div>'
-            f'<div class="foundation-prose">{html}</div>'
+            f'<div class="foundation-prose" data-translate-block>{html}</div>'
             "</section>"
         )
 

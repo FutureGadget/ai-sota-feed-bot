@@ -75,6 +75,24 @@ Do not auto-translate in v1. Technical news loses trust when a page changes
 language without the reader asking. Autotranslation can be reconsidered only
 after explicit user preference exists and quality has been validated.
 
+Exception: a URL that explicitly carries a supported target language is treated
+as the reader's action:
+
+```text
+/story/<sid>?lang=ko
+/daily/2026-07-03?lang=ja
+/subscribe?lang=ko
+/s?u=<encoded-source-url>&lang=zh-CN
+```
+
+When `lang` is one of `ko`, `ja`, or `zh-CN`, the shared module selects that
+target language and starts the existing page translation flow after the page
+registers translatable content. If in-page translation is unavailable, the same
+URL opens the browser-assist instruction for that language. Unsupported language
+codes are ignored. Share controls should preserve the active `lang` parameter so
+a reader can share the same translated reading state without creating a separate
+canonical page.
+
 ## Architecture
 
 Add one shared client module:
@@ -158,7 +176,7 @@ Allowed attributes:
 
 | Attribute | Meaning |
 |---|---|
-| `data-local-translate-surface` | Stable surface id: `feed`, `daily`, `weekly`, `story`, `storylines`, `playbook`, `map`, `foundations`, `voices` |
+| `data-local-translate-surface` | Stable surface id: `feed`, `daily`, `weekly`, `story`, `storylines`, `playbook`, `map`, `foundations`, `voices`, `subscribe` |
 | `data-translate-block` | Translate this element's human-readable text descendants as one logical block |
 | `data-translate-skip` | Never translate this element or its descendants |
 | `data-translate-term` | Preserve the exact text inside this element |
@@ -167,6 +185,11 @@ Allowed attributes:
 The module should also include conservative defaults for existing page
 structures so v1 does not require annotating every story card at once. Defaults
 must be shallow and easy to remove after explicit markers are added.
+
+Dynamic shells that fetch their reader content after page load, such as
+`/playbook`, must call `window.llmDigestTranslate.scan()` after rendering a new
+edition so the shared control and block cache bind to the current DOM instead
+of the initial loading state.
 
 Elements skipped by default:
 

@@ -73,6 +73,27 @@ test('downloadable native language packs do not start in-page translation in v1'
   assert.equal(_test.isReadyInPageAvailability('unsupported'), false);
 });
 
+test('translation language URL parameter is normalized conservatively', () => {
+  assert.equal(_test.targetLanguageFromSearch('?lang=ko'), 'ko');
+  assert.equal(_test.targetLanguageFromSearch('?utm_source=share&lang=ja'), 'ja');
+  assert.equal(_test.targetLanguageFromSearch('?lang=zh-CN'), 'zh-CN');
+  assert.equal(_test.targetLanguageFromSearch('?lang=zh-cn'), 'zh-CN');
+  assert.equal(_test.targetLanguageFromSearch('?lang=fr'), null);
+  assert.equal(_test.targetLanguageFromSearch('?language=ko'), null);
+});
+
+test('wiki surfaces are active translation targets', () => {
+  assert.ok(scriptContent.includes("'map'"));
+});
+
+test('playbook surface is an active translation target', () => {
+  assert.ok(scriptContent.includes("'playbook'"));
+});
+
+test('subscribe surface is an active translation target', () => {
+  assert.ok(scriptContent.includes("'subscribe'"));
+});
+
 test('isUrlText helper tests', () => {
   assert.equal(_test.isUrlText('https://example.com/foo', 'https://example.com/foo'), true);
   assert.equal(_test.isUrlText('example.com/foo', 'example.com/foo'), true);
