@@ -8,34 +8,30 @@
     style.id = 'llm-digest-translate-styles';
     style.textContent = `
       .recap-translate-container {
-        margin: 0.5rem 0 0.8rem;
+        margin: 0.25rem 0 0.5rem;
         display: flex;
         align-items: center;
       }
       .translate-btn {
         display: inline-flex;
         align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        min-height: 44px;
-        padding: 0.5rem 0.65rem;
-        border: 1px solid var(--border);
-        border-radius: 0;
         background: transparent;
-        color: var(--fg);
+        border: none;
+        color: var(--accent);
         font-family: ui-monospace, "SFMono-Regular", monospace;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         letter-spacing: 0.02em;
-        line-height: 1;
-        text-decoration: none;
+        line-height: 1.2;
+        text-decoration: underline;
+        text-underline-offset: 3px;
         cursor: pointer;
-        transition: border-color 0.12s ease, color 0.12s ease;
+        padding: 0;
+        margin: 0;
+        transition: color 0.12s ease;
       }
       .translate-btn:hover {
-        border-color: var(--accent);
-        color: var(--accent);
-        background: transparent;
-        text-decoration: none;
+        color: var(--fg);
+        text-decoration: underline;
       }
       .translate-instruction-container {
         margin-top: 0.5rem;
