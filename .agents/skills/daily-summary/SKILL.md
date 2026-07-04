@@ -108,7 +108,10 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 
 **Editorial guidance**
 - **Preserve `url` exactly** from the bundle — it's the reader's link back to
-  the source. Never invent, shorten, or guess links.
+  the source. Never invent, shorten, or guess links. When correcting a
+  previously published recap, only change a URL if it does not match the
+  source article represented by the input bundle or durable story data —
+  verify before editing.
 - Do a category-design pass before writing JSON. Read all article titles and
   summaries, make a scratch grouping by what changed for platform/agent
   engineers, merge weak groups, split any bucket with more than about 5 items,
