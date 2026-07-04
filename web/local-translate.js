@@ -376,12 +376,24 @@
       provider = 'chrome-translator';
       state = 'ready';
     } else {
-      available = true;
-      mode = 'browser-assist';
-      provider = 'browser-assist';
-      state = 'ready';
+      let isDebug = false;
+      try {
+        isDebug = localStorage.getItem('llm_digest_translate_debug') === 'true';
+      } catch (e) {}
+      if (isDebug) {
+        available = true;
+        mode = 'browser-assist';
+        provider = 'browser-assist';
+        state = 'ready';
+      } else {
+        available = false;
+        mode = null;
+        provider = null;
+        state = 'idle';
+      }
     }
   }
+
 
   // Expose public API
   const instance = {
