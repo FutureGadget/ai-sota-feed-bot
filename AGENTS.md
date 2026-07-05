@@ -121,6 +121,8 @@ in `ops_daily_summary.py`'s log line.
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)
+  - `export_i18n_candidates.py` — compact candidate exporter for pretranslated
+    static pages; filter by locale/page type before loading source payloads
   - `telemetry.py` — server-side operational telemetry: captures pipeline
     events to PostHog over the HTTP ingestion API (`collect_run_completed`,
     `collect_source_failed`, `feed_build_completed`, `feed_build_skipped`,
@@ -200,7 +202,10 @@ in `ops_daily_summary.py`'s log line.
   explanations to `data/foundations/concepts/*.md`, validated by
   `build_foundations.py`; serves `/foundations`), `add-source/` (add a feed source
   end-to-end + `validate_source.py` to prove it clears the ranking exposure
-  gates and reaches the feed), `writing-style/` (no scripts — the shared prose
+  gates and reaches the feed), `add-translated-page` (explicit-request-only
+  routine for publishing one pretranslated page under `data/i18n/<locale>/` by
+  filtering candidates with `pipeline/export_i18n_candidates.py` first),
+  `writing-style/` (no scripts — the shared prose
   contract referenced by the reader-facing content skills above: BLUF, one
   idea per paragraph, scannability, specifics over generalities)
   (SKILL.md = agent contract + recap JSON schema; some symlinked into `.claude/skills/`)
@@ -250,6 +255,11 @@ in `ops_daily_summary.py`'s log line.
   (agent-curated source of truth), `index.json` compiled by
   `build_foundations.py`, and `input/` bundles for the curator routine. Served at
   `/foundations` and `/foundations/<slug>`. Schema: `config/foundations_schema.md`
+- `data/i18n/<locale>/` — pretranslated static page artifacts keyed by page
+  type (`daily`, `weekly`, `story`, `storyline`, `topic`, `foundations`). Use
+  `pipeline/export_i18n_candidates.py` to find missing/stale pages before
+  loading source content. Add or refresh these only when the user explicitly
+  asks for translated pages.
 - `data/playbook/` — agent-written **Playbook editions** (`<date>.json`:
   actionable problem→apply→result cards) + `index.json`/`latest.json` +
   `source-index.json` (source-backed cards keyed by story sid) + `input/`

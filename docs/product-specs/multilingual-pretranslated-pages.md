@@ -99,7 +99,8 @@ routine can spend model calls only where they improve reader reach.
 ## Publishing Flow
 
 1. Build an i18n candidate bundle from committed English data plus recent
-   PostHog page-view counts.
+   PostHog page-view counts. Use `pipeline/export_i18n_candidates.py` to filter
+   by `--locale` and `--surface` before loading full source payloads.
 2. Translate missing or stale candidates with a small language model.
 3. Validate JSON shape, placeholder preservation, URL preservation, and
    `source_hash` alignment.
@@ -107,6 +108,10 @@ routine can spend model calls only where they improve reader reach.
 5. Emit `hreflang` alternates and include localized pages in `sitemap.xml`.
 6. Commit translation data and rendered pages separately from runtime feed data
    when practical.
+
+Agents should use `.agents/skills/add-translated-page/SKILL.md` for one-page
+translation publishing. Do not add or refresh translated pages unless the user
+explicitly asks for that work.
 
 ## Fallback Behavior
 
