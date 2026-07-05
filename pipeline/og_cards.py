@@ -54,6 +54,20 @@ REG_FONTS = [
     "/System/Library/Fonts/Supplemental/Arial.ttf",
     "/System/Library/Fonts/Helvetica.ttc",
 ]
+CJK_BOLD_FONTS = [
+    "/System/Library/Fonts/AppleSDGothicNeo.ttc",
+    "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
+    "/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf",
+    "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+    *BOLD_FONTS,
+]
+CJK_REG_FONTS = [
+    "/System/Library/Fonts/AppleSDGothicNeo.ttc",
+    "/System/Library/Fonts/Supplemental/AppleGothic.ttf",
+    "/usr/share/fonts/truetype/nanum/NanumGothic.ttf",
+    "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc",
+    *REG_FONTS,
+]
 
 # Cards registered by ensure() this run; prune() keeps exactly these.
 _keep: set[str] = set()
@@ -67,6 +81,10 @@ def _load_font(candidates: list[str], size: int):
             except OSError:
                 continue
     return ImageFont.load_default()
+
+
+def _needs_cjk_font(*values: str) -> bool:
+    return any(any(ord(ch) > 127 for ch in str(value or "")) for value in values)
 
 
 def _logo(size: int):
@@ -114,20 +132,23 @@ def _render_card(kicker: str, title: str, stats: str) -> bytes:
     d.rectangle([0, 0, 16, h], fill=ACCENT)
     margin = 90
 
+    bold_fonts = CJK_BOLD_FONTS if _needs_cjk_font(kicker, title, stats) else BOLD_FONTS
+    reg_fonts = CJK_REG_FONTS if _needs_cjk_font(kicker, title, stats) else REG_FONTS
+
     logo = _logo(96)
     img.paste(logo, (margin, 70), logo)
     d.text((margin + 122, 90), BRAND, font=_load_font(BOLD_FONTS, 48), fill=WHITE)
 
-    kicker_font = _load_font(BOLD_FONTS, 30)
+    kicker_font = _load_font(bold_fonts, 30)
     d.text((margin, 230), kicker.upper(), font=kicker_font, fill=ACCENT)
 
-    title_font = _load_font(BOLD_FONTS, 64)
+    title_font = _load_font(bold_fonts, 64)
     y = 290
     for line in _wrap(d, title, title_font, w - 2 * margin, max_lines=3):
         d.text((margin, y), line, font=title_font, fill=FG)
         y += 80
 
-    stats_font = _load_font(REG_FONTS, 32)
+    stats_font = _load_font(reg_fonts, 32)
     d.text((margin, h - 140), stats, font=stats_font, fill=MUTED)
     d.text((margin, h - 84), URL, font=_load_font(REG_FONTS, 28), fill=MUTED)
 
@@ -136,14 +157,15 @@ def _render_card(kicker: str, title: str, stats: str) -> bytes:
     return buf.getvalue()
 
 
-def ensure(kind: str, ident: str, *, kicker: str, title: str, stats: str) -> str:
+def ensure(kind: str, ident: str, *, kicker: str, title: str, stats: str, locale: str = "") -> str:
     """Return the site-relative card path for an edition, generating it if we can.
 
     Registers the card as live for prune(). Without Pillow, returns the
     committed card when present and "" (caller falls back to the default
     branded card) when not.
     """
-    name = f"{kind}-{ident}.png"
+    locale_suffix = f"-{locale}" if locale else ""
+    name = f"{kind}-{ident}{locale_suffix}.png"
     path = OG_DIR / name
     _keep.add(name)
     if HAVE_PIL:

@@ -73,6 +73,8 @@ class I18nStaticPagesTest(unittest.TestCase):
             self.assertIn(f'hreflang="x-default" href="{en_url}"', html)
             self.assertIn('class="site-language-action"', html)
             self.assertIn('data-language-link data-language-locale="en" hidden', html)
+            self.assertRegex(html, r'<meta property="og:image" content="https://www\.llm-digest\.com/og/[^"]+-ko\.png" />')
+            self.assertRegex(html, r'<meta name="twitter:image" content="https://www\.llm-digest\.com/og/[^"]+-ko\.png" />')
 
     def test_korean_pages_preserve_source_page_structure(self) -> None:
         structural_markers = [
