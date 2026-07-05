@@ -18,13 +18,12 @@
   <meta property="og:title" content="Agent의 context를 compact하면 safety rule이 위험해지는가?" />
   <meta property="og:description" content="Agent의 context compaction은 governance constraint를 조용히 지울 수 있으므로, hard rule은 compactible window 밖에 고정해야 합니다." />
   <meta property="og:url" content="https://www.llm-digest.com/ko/foundations/context-compaction-safety" />
-  <meta property="article:published_time" content="2026-07-05T00:00:00+00:00" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Agent의 context를 compact하면 safety rule이 위험해지는가?" />
   <meta name="twitter:description" content="Agent의 context compaction은 governance constraint를 조용히 지울 수 있으므로, hard rule은 compactible window 밖에 고정해야 합니다." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Agent의 context를 compact하면 safety rule이 위험해지는가?", "description": "Agent의 context compaction은 governance constraint를 조용히 지울 수 있으므로, hard rule은 compactible window 밖에 고정해야 합니다.", "datePublished": "2026-07-05T00:00:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/ko/foundations/context-compaction-safety", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "한국어", "item": "https://www.llm-digest.com/ko/foundations/context-compaction-safety"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Does compacting an agent's context put its safety rules at risk?", "description": "Context compaction is not just a lossy cost optimization — a 1,323-episode benchmark shows it can silently erase the governance constraints a long-running agent was given, and only pinning those constraints outside the compactible window prevents it.", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/context-compaction-safety", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "Does compacting an agent's context put its safety rules at risk?", "item": "https://www.llm-digest.com/foundations/context-compaction-safety"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260705-language-switch" />
@@ -164,14 +163,92 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    .i18n-note { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
-    .i18n-body { display: grid; gap: 1rem; }
-    .i18n-body p { margin: 0; line-height: 1.68; font-size: 1rem; }
-    .i18n-body ul { margin: .2rem 0 0; padding-left: 1.25rem; }
-    .i18n-body li { margin: .45rem 0; line-height: 1.6; }
-    .i18n-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.4rem 0 0; }
-    .i18n-actions a { min-height: 44px; display: inline-flex; align-items: center;
-      padding: .45rem .85rem; border: 1px solid var(--border); text-decoration: none; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f7f8fb; --card:#ffffff; --border:#d8dee8; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#a15c16;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .foundation-xlabel { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; color:var(--accent); letter-spacing:.04em; text-transform:uppercase; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.7rem; margin-left:.35rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -185,8 +262,8 @@
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>LLM Digest 한국어</h1>
-        <p id="meta" class="muted">/foundations/context-compaction-safety · machine translation</p>
+        <h1>Agent Builder Foundations</h1>
+        <p id="meta" class="muted">Evidence-tiered mechanisms for agent builders</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/" data-site-destination="/">Live feed</a>
@@ -200,6 +277,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/foundations?slug=context-compaction-safety">View as JSON</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/foundations/context-compaction-safety" data-share-title="Agent의 context를 compact하면 safety rule이 위험해지는가?">Share this page</button>
         <a class="site-language-action" href="/foundations/context-compaction-safety" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
@@ -209,10 +287,25 @@
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">Agent의 context를 compact하면 safety rule이 위험해지는가?</h2>
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">Does compacting an agent&#x27;s context put its safety rules at risk?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Safety and control<span class="sep">·</span>4 evidence tiers<span class="sep">·</span>updated 2026-07-02</p></section>
       <!-- range is included in the custom hero -->
-      <!-- translated body follows -->
-      <p class="i18n-note">기계 번역으로 먼저 제공하는 한국어 페이지입니다. 원문과 용어를 함께 확인할 수 있도록 영어 원문 링크를 유지합니다.</p><div class="i18n-body"><p>Context compaction은 단순한 lossy 비용 최적화가 아닙니다. 1,323-episode benchmark는 오래 실행되는 agent에게 주어진 governance constraint가 compaction 과정에서 조용히 사라질 수 있음을 보여줍니다.</p><p>핵심은 constraint를 compactible window 밖에 고정해 두는 것입니다. 그렇지 않으면 agent는 자신이 따라야 할 규칙을 잃은 채 계속 실행될 수 있습니다.</p><ul><li>Policy가 full context에 있을 때 violation rate는 0%였습니다.</li><li>일반 compaction 이후 violation rate는 30%로 올랐고, 일부 model에서는 최대 59%까지 올라갔습니다.</li><li>Constraint가 summary 안에 살아남으면 violation rate는 다시 0%였습니다.</li><li>Constraint가 summary에서 빠지면 violation rate는 38%였습니다.</li></ul></div><div class="i18n-actions"><a href="/foundations/context-compaction-safety">English original</a></div>
+      <!-- intro is inside the foundation concept hero -->
+      <div class="foundation-concept"><div class="foundation-lead"><p>If your agent runs long enough to need context compaction — summarizing, evicting, or compressing older turns to stay under a token budget — the compactor is not a neutral cost optimization. It is a place where the rules you gave the agent up front (forbidden tools, approval gates, a user&#x27;s hard &quot;do not&quot;) can silently disappear. The agent will keep acting exactly as if nothing changed, because from its perspective nothing did: the constraint is simply no longer in what it can see.</p></div>
+<aside class="foundation-xlinks"><div><span class="foundation-xlabel">Related map topics</span><ul><li><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a></li><li><a href="/topic/agent-memory">Agents forget across steps and sessions</a></li><li><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></li></ul></div></aside>
+<section class="foundation-section"><div class="foundation-rail">Short answer</div><div class="foundation-prose"><p>Context compaction can silently erase safety and governance constraints stated earlier in a long-running session, and this is not a rare edge case: across 1,323 episodes and seven model families, prohibited-action violation rises from 0% with the constraint in full context to 30% after ordinary compaction, and as high as 59% for some models. When the constraint text survives the summary, violations stay at 0%. The fix isn&#x27;t &quot;compact less&quot; — it&#x27;s &quot;never let the compaction step touch the parts of context that carry hard rules.&quot;</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Builder model</div><div class="foundation-prose"><p>Split what lives in an agent&#x27;s context into two classes: content that can be safely lost and re-derived (task history, intermediate reasoning, prior tool outputs) and content that is load-bearing and irreversible if lost (permissions, forbidden actions, hard constraints, approval gates). Ordinary summarization treats both classes the same way — it compresses for information density, not for which sentence is a safety rule. Once a governance constraint gets paraphrased away or dropped for space, the agent isn&#x27;t disobeying a rule it still holds; it genuinely no longer has the rule in front of it. The same threat model as prompt injection applies to your own compactor: an untrusted or adversarial step in the pipeline can remove instructions you rely on, whether by accident or on purpose.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Mechanism</div><div class="foundation-prose"><p>A long-horizon agent keeps a token budget. To stay under it, agents typically evict old turns, replace them with a running summary, or roll both together — a summarization model or heuristic decides what to keep, usually optimizing for task continuity, not rule preservation.</p>
+<p>The Governance Decay study measures how often a stated policy constraint survives this process, using ConstraintRot, a benchmark of long-horizon agent scenarios with deterministic tool-call grading. The results:</p>
+<ul><li><strong>0% violation</strong> when the constraint sits in full, uncompacted context</li><li><strong>30% violation</strong> after ordinary compaction (up to 59% for some models)</li><li><strong>0% violation</strong> when the compacted summary happens to retain the constraint&#x27;s wording</li><li><strong>38% violation</strong> when the wording is dropped</li></ul>
+<p>The paper also demonstrates a Compaction-Eviction Attack: adversarial in-context content crafted to bias the summarizer toward omitting a legitimate policy. Optimized versions of this attack defeat every model they evaluate, turning the compactor into an active adversarial target, not just a source of accidental loss.</p>
+<p>Their proposed fix, Constraint Pinning, is training-free: it quarantines governance constraints so the compaction step can&#x27;t touch them. That alone restores violation to 0% in their benchmark.</p>
+<p>This mechanism generalizes beyond safety text. The tiered memory architecture practitioners converge on — short-term working context, episodic history, long-term semantic store — moves information through a lossy transform at every tier: summarize, embed-and-retrieve, or forget. None of those transforms natively distinguishes a detail that no longer matters from a detail the system depends on.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Evidence</div><div class="foundation-prose"><ul><li>Benchmark/result-backed: Governance Decay / ConstraintRot measures constraint-violation rate across 1,323 episodes and seven model families: 0% with the policy in full context, 30% after ordinary compaction (up to 59% for some models), 0% when the constraint survives the summary, 38% when it&#x27;s dropped; a Compaction-Eviction Attack defeats every evaluated model, and training-free Constraint Pinning restores violation to 0%.</li><li>Primary-doc-backed: LangChain&#x27;s practitioner guide frames agent memory as short-term (live context), episodic, and long-term/semantic tiers, and recommends a capture -&gt; analyze -&gt; update loop over trace data instead of dumping raw history into long-term memory.</li><li>Production field-report-backed: Elastic&#x27;s Atlas ships three memory categories on top of Elasticsearch, exposed to agents over MCP with per-user isolation, and reports a measured evaluation number (0.89 Recall@10) rather than shipping the architecture as an unverified diagram — the same discipline this concept asks builders to apply to compaction specifically.</li><li>Editorial inference: treat any lossy transform in the memory pipeline as a place a safety-relevant fact can silently vanish, and test for it adversarially, not just on the happy path.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">How to apply</div><div class="foundation-prose"><p>Four changes close this gap:</p>
+<ul><li><strong>Pin hard constraints outside the compactible window.</strong> Identify every rule your agent depends on (forbidden tools, approval gates, hard user &quot;do nots&quot;, compliance rules), store them in a pinned system block your summarization step cannot rewrite or evict, and re-inject the verbatim text into every post-compaction prompt instead of trusting the running summary to carry it forward.</li><li><strong>Add a compaction regression test.</strong> Force a compaction cycle mid-session, then attempt the prohibited action and assert the agent still refuses. The check is cheap and training-free, but only catches the failure if you actually run it — governance decay is invisible until you specifically probe for it.</li><li><strong>Treat the compactor as untrusted input.</strong> If an attacker can influence what enters context (a tool response, a retrieved document), assume they can bias the summarizer into dropping a constraint the same way they&#x27;d exploit an injected tool result. Make sure the pinned region cannot be edited by anything the compactor reads.</li><li><strong>Require a measured number from any memory architecture.</strong> Whether it&#x27;s a tiered store, external retrieval, or a vendor-shipped memory service, demand an evaluation number before you trust an unverified &quot;we added memory&quot; claim.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Failure modes</div><div class="foundation-prose"><ul><li>Compaction as a black box: trusting a summarizer to preserve &quot;the important parts&quot; without testing whether governance-relevant text specifically survives.</li><li>Treating governance decay as rare: benchmark data says otherwise — violation rates hit double digits under ordinary compaction, not just adversarial conditions.</li><li>No adversarial test: never running a Compaction-Eviction-style attack against your own pipeline, so the first adversarial constraint drop happens in production.</li><li>Same-tier assumption: managing safety rules and disposable task history with the same lossy pipeline instead of splitting load-bearing content into a pinned, non-evictable region.</li><li>Shipping memory without an eval number: adding a memory layer (compaction, retrieval, or a vendor service) and calling it done without measuring whether it actually preserves what matters.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Related</div><div class="foundation-prose"><p>See <a href="/topic/context-compaction">context compaction</a> for compaction techniques and their cost/latency trade-offs, <a href="/topic/agent-memory">agent memory</a> for the broader tiered-memory architecture debate, and <a href="/topic/prompt-injection">prompt injection</a> for the adjacent threat model where untrusted content hijacks what an agent trusts.</p></div></section>
+<section class="foundation-section foundation-evidence"><div class="foundation-rail">Evidence · 4 sources</div><ul class="foundation-evidence-list"><li><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2606.22528v1" target="_blank" rel="noopener">Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents</a><span class="foundation-evidence-tier">benchmark/result-backed</span><p>ConstraintRot benchmark, 1,323 episodes across seven model families: prohibited-action violation is 0% with the policy in full context, rises to 30% after ordinary compaction (up to 59% for some models), stays 0% when the constraint survives the summary, and reaches 38% when it is dropped. A Compaction-Eviction Attack (adversarial content that biases the summarizer to drop the policy) defeats every evaluated model; the paper&#x27;s training-free Constraint Pinning mitigation restores violation to 0%.</p></li><li><span class="foundation-evidence-kind">Primary doc</span><a href="https://www.langchain.com/blog/how-to-give-your-agent-memory" target="_blank" rel="noopener">How to Build Memory into AI Agents</a><span class="foundation-evidence-tier">primary-doc-backed</span><p>Frames agent memory as short-term (live context), episodic, and long-term/semantic tiers, and recommends a capture-traces -&gt; analyze -&gt; selectively-update loop over long-term memory rather than dumping raw history into it.</p></li><li><span class="foundation-evidence-kind">Field report</span><a href="https://www.infoq.com/news/2026/06/elastic-atlas-agent-memory/" target="_blank" rel="noopener">Elastic Open-Sources Atlas Agent Memory Based on Cognitive Science</a><span class="foundation-evidence-tier">production field-report-backed</span><p>Elastic&#x27;s Atlas ships three memory categories on Elasticsearch, exposed to agents over MCP with per-user isolation, and reports 0.89 Recall@10 on a question-answering evaluation rather than shipping the architecture as an unverified diagram.</p></li><li><span class="foundation-evidence-kind">Editorial</span>LLM Digest synthesis<span class="foundation-evidence-tier">editorial inference</span><p>For agent builders, any lossy transform in the memory pipeline (compaction, retrieval, forgetting) is a place a safety-relevant fact can silently vanish, and it needs the same adversarial testing discipline as prompt injection, not just a happy-path check.</p></li></ul></section></div>
     </section>
 
     <footer>

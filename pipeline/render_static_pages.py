@@ -3970,18 +3970,6 @@ def week_end_date(week_id: str) -> str | None:
         return None
 
 
-I18N_PAGE_CSS = """\
-    .i18n-note { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
-    .i18n-body { display: grid; gap: 1rem; }
-    .i18n-body p { margin: 0; line-height: 1.68; font-size: 1rem; }
-    .i18n-body ul { margin: .2rem 0 0; padding-left: 1.25rem; }
-    .i18n-body li { margin: .45rem 0; line-height: 1.6; }
-    .i18n-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.4rem 0 0; }
-    .i18n-actions a { min-height: 44px; display: inline-flex; align-items: center;
-      padding: .45rem .85rem; border: 1px solid var(--border); text-decoration: none; }
-"""
-
-
 def i18n_source_for_path(source_path: str, stories: dict[str, dict], storylines: dict[str, dict], wiki: dict, foundations: dict) -> dict | None:
     """Return the English source object whose hash gates a translation artifact."""
     path = str(source_path or "").strip()
@@ -4058,20 +4046,91 @@ def collect_i18n_pages(
     return grouped
 
 
-def render_i18n_body(artifact: dict) -> str:
-    intro = artifact.get("intro") or []
-    if isinstance(intro, str):
-        intro = [intro]
-    paras = [f"<p>{escape(squeeze(p))}</p>" for p in intro if squeeze(p)]
-    bullets = [squeeze(b) for b in artifact.get("bullets") or [] if squeeze(b)]
-    bullet_html = ""
-    if bullets:
-        bullet_html = "<ul>" + "".join(f"<li>{escape(b)}</li>" for b in bullets) + "</ul>"
-    return (
-        '<p class="i18n-note">기계 번역으로 먼저 제공하는 한국어 페이지입니다. '
-        '원문과 용어를 함께 확인할 수 있도록 영어 원문 링크를 유지합니다.</p>'
-        f'<div class="i18n-body">{"".join(paras)}{bullet_html}</div>'
+def html_attr_replace(html: str, pattern: str, value: str) -> str:
+    return re.sub(pattern, lambda m: f"{m.group(1)}{escape(value)}{m.group(2)}", html, count=1)
+
+
+def render_i18n_alternate_links(base_url: str, source_path: str, canonical_path: str, locale: str) -> str:
+    english_url = f"{base_url}{source_path}"
+    locale_url = f"{base_url}{canonical_path}"
+    return "\n".join(
+        [
+            f'  <link rel="alternate" hreflang="{escape(locale)}" href="{escape(locale_url)}" />',
+            f'  <link rel="alternate" hreflang="en" href="{escape(english_url)}" />',
+            f'  <link rel="alternate" hreflang="x-default" href="{escape(english_url)}" />',
+        ]
     )
+
+
+def render_i18n_language_action(source_path: str) -> str:
+    return (
+        f'<a class="site-language-action" href="{escape(source_path)}"'
+        ' data-language-link data-language-locale="en" hidden'
+        ' aria-label="Read this page in English" title="Read in English">'
+        '<span aria-hidden="true">🌐</span><span>EN</span></a>'
+    )
+
+
+def localize_static_html_page(base_url: str, page: dict) -> str | None:
+    """Turn a complete English static page into its locale-prefixed counterpart.
+
+    Translation artifacts are currently summary-level. Reusing the English
+    rendered page keeps every page-type-specific section present until richer
+    field-level translations are available.
+    """
+    source_path = str(page["source_path"])
+    canonical_path = str(page["canonical_path"])
+    locale = str(page["locale"])
+    artifact = page["artifact"]
+    source_file = WEB_DIR / source_path.strip("/").replace("/", os.sep)
+    source_file = source_file.with_suffix(".html")
+    if not source_file.is_file():
+        print(f"warning: i18n source html missing path={source_path}", file=sys.stderr)
+        return None
+
+    html = source_file.read_text(encoding="utf-8")
+    title = squeeze(artifact.get("title"))
+    description = clip(squeeze(artifact.get("description")) or title, 250)
+    canonical = f"{base_url}{canonical_path}"
+    html = re.sub(r'<html lang="[^"]+">', f'<html lang="{escape(locale)}">', html, count=1)
+    if title:
+        old_title = re.search(r"<title>(.*?) \| LLM Digest</title>", html)
+        if old_title:
+            html = html.replace(old_title.group(1), escape(title))
+        else:
+            html = re.sub(r"<title>.*?</title>", f"<title>{escape(title)} | LLM Digest</title>", html, count=1)
+    if description:
+        html = html_attr_replace(html, r'(<meta name="description" content=")[^"]*(" />)', description)
+        html = html_attr_replace(html, r'(<meta property="og:description" content=")[^"]*(" />)', description)
+        html = html_attr_replace(html, r'(<meta name="twitter:description" content=")[^"]*(" />)', description)
+    if title:
+        html = html_attr_replace(html, r'(<meta property="og:title" content=")[^"]*(" />)', title)
+        html = html_attr_replace(html, r'(<meta name="twitter:title" content=")[^"]*(" />)', title)
+
+    html = re.sub(
+        r'(<link rel="canonical" href=")[^"]*(" />)',
+        lambda m: f"{m.group(1)}{escape(canonical)}{m.group(2)}",
+        html,
+        count=1,
+    )
+    html = re.sub(
+        r'\n(?:  <link rel="alternate" hreflang="[^"]+" href="[^"]+" />\n?)+',
+        "\n" + render_i18n_alternate_links(base_url, source_path, canonical_path, locale) + "\n",
+        html,
+        count=1,
+    )
+    html = html_attr_replace(html, r'(<meta property="og:url" content=")[^"]*(" />)', canonical)
+    html = html_attr_replace(html, r'(data-share-url=")[^"]*(")', canonical)
+    if title:
+        html = html_attr_replace(html, r'(data-share-title=")[^"]*(")', title)
+    html = re.sub(
+        r'<a class="site-language-action" href="[^"]+" data-language-link data-language-locale="[^"]+" hidden aria-label="Read this page in [^"]+" title="Read in [^"]+"><span aria-hidden="true">🌐</span><span>[^<]+</span></a>',
+        render_i18n_language_action(source_path),
+        html,
+        count=1,
+    )
+    html = re.sub(r"(?m)^[ \t]+$", "", html)
+    return html
 
 
 def render_i18n_pages(
@@ -4084,50 +4143,10 @@ def render_i18n_pages(
         for page in pages:
             locale = str(page["locale"])
             artifact = page["artifact"]
-            title = squeeze(artifact.get("title")) or source_path
-            description = clip(squeeze(artifact.get("description")) or title, 250)
             canonical_path = str(page["canonical_path"])
-            canonical = f"{base_url}{canonical_path}"
-            english_url = f"{base_url}{source_path}"
-            body = render_i18n_body(artifact) + (
-                '<div class="i18n-actions">'
-                f'<a href="{escape(source_path)}">English original</a>'
-                "</div>"
-            )
-            html = render_page(
-                title=title,
-                description=description,
-                canonical=canonical,
-                published=iso_or_none(artifact.get("translated_at")),
-                h1="LLM Digest 한국어",
-                meta_line=f"{source_path} · machine translation",
-                json_href="",
-                archive="",
-                recap_title=title,
-                recap_range="",
-                intro_html="<!-- translated body follows -->",
-                body_html=body,
-                og_type="article",
-                json_ld=[
-                    article_node(
-                        type_="Article",
-                        title=title,
-                        description=description,
-                        canonical=canonical,
-                        published=iso_or_none(artifact.get("translated_at")),
-                        base_url=base_url,
-                    ),
-                    breadcrumb_node(base_url, [("Home", "/"), ("한국어", canonical_path)]),
-                ],
-                extra_css=I18N_PAGE_CSS,
-                lang=locale,
-                alternate_links=[
-                    (locale, canonical),
-                    ("en", english_url),
-                    ("x-default", english_url),
-                ],
-                language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
-            )
+            html = localize_static_html_page(base_url, page)
+            if html is None:
+                continue
             out_file = WEB_DIR / locale / source_path.strip("/").replace("/", os.sep)
             out_file = out_file.with_suffix(".html")
             out_file.parent.mkdir(parents=True, exist_ok=True)

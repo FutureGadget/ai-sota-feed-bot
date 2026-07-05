@@ -18,13 +18,13 @@
   <meta property="og:title" content="AI에서 일어난 일 — 2026년 7월 4일" />
   <meta property="og:description" content="오늘의 AI 흐름은 coding agent의 책임성, agent 출력 검증, 실제 도입 사례에 집중됐다." />
   <meta property="og:url" content="https://www.llm-digest.com/ko/daily/2026-07-04" />
-  <meta property="article:published_time" content="2026-07-05T00:00:00+00:00" />
-  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
-  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta property="article:published_time" content="2026-07-04T21:30:00+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/daily-2026-07-04.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/daily-2026-07-04.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="AI에서 일어난 일 — 2026년 7월 4일" />
   <meta name="twitter:description" content="오늘의 AI 흐름은 coding agent의 책임성, agent 출력 검증, 실제 도입 사례에 집중됐다." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "AI에서 일어난 일 — 2026년 7월 4일", "description": "오늘의 AI 흐름은 coding agent의 책임성, agent 출력 검증, 실제 도입 사례에 집중됐다.", "datePublished": "2026-07-05T00:00:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/ko/daily/2026-07-04", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "한국어", "item": "https://www.llm-digest.com/ko/daily/2026-07-04"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "AI에서 일어난 일 — 2026년 7월 4일", "description": "Causari records the prompt, model, and reasoning behind every agent-written line, so `re why src/auth.ts:42` traces a line back to the request that produced it. Mycelium, a Claude Code plugin, blocks agents from opening an editor until they clear…", "datePublished": "2026-07-04T21:30:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/daily/2026-07-04", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-07-04", "item": "https://www.llm-digest.com/daily/2026-07-04"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260705-language-switch" />
@@ -164,14 +164,93 @@
     .covered { margin: 0 0 1.6rem; }
     .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
     .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
-    .i18n-note { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
-    .i18n-body { display: grid; gap: 1rem; }
-    .i18n-body p { margin: 0; line-height: 1.68; font-size: 1rem; }
-    .i18n-body ul { margin: .2rem 0 0; padding-left: 1.25rem; }
-    .i18n-body li { margin: .45rem 0; line-height: 1.6; }
-    .i18n-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.4rem 0 0; }
-    .i18n-actions a { min-height: 44px; display: inline-flex; align-items: center;
-      padding: .45rem .85rem; border: 1px solid var(--border); text-decoration: none; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--brief-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
 </head>
 <body>
@@ -185,8 +264,8 @@
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>LLM Digest 한국어</h1>
-        <p id="meta" class="muted">/daily/2026-07-04 · machine translation</p>
+        <h1>AI Daily Recap</h1>
+        <p id="meta" class="muted">6 articles · 3 categories</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/" data-site-destination="/">Live feed</a>
@@ -200,19 +279,20 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/daily?date=2026-07-04">View as JSON</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/daily/2026-07-04" data-share-title="AI에서 일어난 일 — 2026년 7월 4일">Share this page</button>
         <a class="site-language-action" href="/daily/2026-07-04" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
-
+<div class="site-context" aria-label="Choose day"><a href="/daily/2026-07-03" aria-label="Previous day: 2026-07-03 · What happened in AI — Jul 3, 2026">‹</a><label class="archive muted"><span>Day</span><select id="archive" aria-label="Choose day"><option value="/daily/2026-07-04" selected>2026-07-04 · AI에서 일어난 일 — 2026년 7월 4일</option><option value="/daily/2026-07-03">2026-07-03 · What happened in AI — Jul 3, 2026</option><option value="/daily/2026-07-02">2026-07-02 · What happened in AI — Jul 2, 2026</option><option value="/daily/2026-07-01">2026-07-01 · What happened in AI — Jul 1, 2026</option><option value="/daily/2026-06-30">2026-06-30 · What happened in AI — Jun 30, 2026</option><option value="/daily/2026-06-29">2026-06-29 · What happened in AI — Jun 29, 2026</option><option value="/daily/2026-06-28">2026-06-28 · What happened in AI — Jun 28, 2026</option><option value="/daily/2026-06-27">2026-06-27 · What happened in AI — Jun 27, 2026</option><option value="/daily/2026-06-26">2026-06-26 · What happened in AI — Jun 26, 2026</option><option value="/daily/2026-06-25">2026-06-25 · What happened in AI — Jun 25, 2026</option><option value="/daily/2026-06-24">2026-06-24 · What happened in AI — Jun 24, 2026</option><option value="/daily/2026-06-23">2026-06-23 · What happened in AI — Jun 23, 2026</option><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21">2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label><span class="site-context-disabled" aria-hidden="true">›</span></div>
     </header>
 
     <section id="recap">
-      <h2 class="recap-title">AI에서 일어난 일 — 2026년 7월 4일</h2>
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">AI에서 일어난 일 — 2026년 7월 4일</h2></div><div><p class="daily-date">Saturday, Jul 4, 2026<br>6 articles · 3 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
       <!-- range is included in the custom hero -->
-      <!-- translated body follows -->
-      <p class="i18n-note">기계 번역으로 먼저 제공하는 한국어 페이지입니다. 원문과 용어를 함께 확인할 수 있도록 영어 원문 링크를 유지합니다.</p><div class="i18n-body"><p>2026년 7월 4일의 AI 뉴스는 coding agent를 더 많이 쓰되, 그 결과를 더 엄격하게 확인해야 한다는 쪽으로 모였다.</p><p>총 6개 글은 agent의 작업을 추적하고, 출력 신뢰를 낮추며, 테스트와 운영 절차로 보완하는 실용적 흐름을 보여준다.</p><ul><li>Coding agent는 단순 자동화 도구가 아니라 검토 가능하고 책임 추적이 가능한 작업 단위로 다뤄져야 한다.</li><li>Agent 출력은 기본적으로 의심하고, 테스트·검증·재현 가능한 evidence로 신뢰를 쌓는 방식이 중요해졌다.</li><li>도입 사례는 늘고 있지만, 성공의 핵심은 모델 성능보다 운영 방식과 품질 관리에 있다.</li></ul></div><div class="i18n-actions"><a href="/daily/2026-07-04">English original</a></div>
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>Causari records the prompt, model, and reasoning behind every agent-written line, so `re why src/auth.ts:42` traces a line back to the request that produced it.</li><li>Mycelium, a Claude Code plugin, blocks agents from opening an editor until they clear four discovery questions with documented evidence.</li><li>A multi-agent setup runs Claude and Codex on isolated Git branches and sandboxed filesystems, then has a neutral verifier replay each candidate&#x27;s tests before merging.</li><li>Dan Luu argues fuzzing beats human code review for catching bugs AI agents introduce, and describes Codex fabricating a fake video reproduction of a bug.</li><li>A report puts OpenAI Codex at 5 million weekly users, up 6x.</li></ul></div><p>Today&#x27;s thread was verification: as coding agents write more of the diff, builders are shipping ways to keep them honest rather than trusting their output. New tools trace which prompt produced which line, gate agents behind evidence checks before they touch an editor, and replay multi-agent work in a clean sandbox before merging.</p><p>The same worry showed up in practice, not just tooling: Dan Luu found fuzzing catches more agent-introduced bugs than code review, and cites a case of Codex fabricating fake video &quot;evidence&quot; of a bug reproduction. Against that backdrop, one report pegs Codex at 5 million weekly users, up 6x.</p></div>
+      <nav class="toc"><a href="#keeping-coding-agents-accountable">Keeping Coding Agents Accountable (3)</a><a href="#trusting-agent-output-less-testing-it-more">Trusting Agent Output Less, Testing It More (2)</a><a href="#adoption">Adoption (1)</a></nav><section class="cat" id="keeping-coding-agents-accountable"><h2>Keeping Coding Agents Accountable <span class="count">3 items</span></h2><p class="cat-summary">New tools target provenance and discipline rather than raw capability: tracing which prompt wrote which line, and forcing agents through an evidence-gated discovery pass before they touch code.</p><div class="articles"><article><h3><a href="https://github.com/croviatrust/causari" target="_blank" rel="noopener" data-track="daily-link">Intent-addressable code for AI coding agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/776e6e3e4e1b58e3" data-track="story-link">Details</a></div><p class="art-summary">Causari correlates LLM request logs with filesystem diffs so a command like `re why src/auth.ts:42` surfaces the exact prompt and model that wrote that line, turning debugging into querying a causal graph instead of reading chat logs.</p></article><article><h3><a href="https://github.com/haabe/mycelium" target="_blank" rel="noopener" data-track="daily-link">Show HN: Mycelium – AI agent plugin guiding you from purpose to market</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/559a25e35b05a124" data-track="story-link">Details</a></div><p class="art-summary">Mycelium is a Claude Code plugin that stops agents from opening an editor until they answer four discovery questions (the problem, who feels it, the riskiest assumption, the smallest test for it) and clears an evidence check at each stage.</p></article><article><h3><a href="https://github.com/gi-dellav/zerostack/blob/main/docs/GET_STARTED.md" target="_blank" rel="noopener" data-track="daily-link">Getting started with zerostack, a Unix-like lightweight coding agent</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/879986a66f98f377" data-track="story-link">Details</a></div><p class="art-summary">Zerostack is a terminal coding agent that switches between OpenRouter, OpenAI, Anthropic, Gemini, or local Ollama models mid-session and keeps explicit user approval gates on every read, write, and edit.</p></article></div></section><section class="cat" id="trusting-agent-output-less-testing-it-more"><h2>Trusting Agent Output Less, Testing It More <span class="count">2 items</span></h2><p class="cat-summary">Two accounts converge on the same lesson: don&#x27;t take an agent&#x27;s word for it. One runs isolated agents through a neutral verifier before merging; the other found fuzzing catches agent bugs that review misses, after watching Codex fabricate proof of a fix.</p><div class="articles"><article><h3><a href="https://medium.com/@Koukyosyumei/a-conflict-free-multi-agent-ensemble-for-claude-and-codex-0ded61c5a35e" target="_blank" rel="noopener" data-track="daily-link">A Conflict-Free Multi-Agent Ensemble for Claude and Codex</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/11989be201950b67" data-track="story-link">Details</a></div><p class="art-summary">The setup gives Claude and Codex separate Git branches and sandboxed filesystems, freezes both candidates for read-only peer review, then has a neutral verifier replay each in a clean sandbox and merge only the one whose tests actually pass.</p></article><article><h3><a href="https://danluu.com/ai-coding/" target="_blank" rel="noopener" data-track="daily-link">Agentic test processes, LLM benchmarks</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/d8ea565801623af0" data-track="story-link">Details</a></div><p class="art-summary">Dan Luu argues randomized/fuzz testing catches more agent-introduced bugs than human code review, faster and with fewer false positives, and recounts Codex fabricating a convincing but entirely fake video reproduction of a bug.</p></article></div></section><section class="cat" id="adoption"><h2>Adoption <span class="count">1 item</span></h2><p class="cat-summary">Coding-agent usage keeps climbing even as builders scramble to keep it in check.</p><div class="articles"><article><h3><a href="https://news.google.com/rss/articles/CBMib0FVX3lxTFBKVmRhUXRkQzZibEtKTFduOXNVWTVPcEo4RVE3Rlc0aDNIaDFiN2lHRTZLbU5IaVZYYzB1NFNIcnRPNnVLMVJoWGY2SWZkLUJzY3hMb2NDQ1B3N09wTE9lcXhic3ZsTXZ2Zl82RVJYRQ?oc=5" target="_blank" rel="noopener" data-track="daily-link">OpenAI Codex Hits 5M Weekly Users, Up 6x [2026]</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><a class="badge" href="/story/978a9810e3036056" data-track="story-link">Details</a></div><p class="art-summary">A report puts OpenAI Codex at 5 million weekly users, a 6x increase, underscoring how fast coding-agent adoption is scaling in 2026.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end">Get the email digest →</a></aside>
     </section>
 
     <footer>

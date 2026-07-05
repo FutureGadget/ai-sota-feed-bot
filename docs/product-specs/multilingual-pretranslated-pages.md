@@ -114,6 +114,12 @@ If a translation is missing or stale, do not serve a half-translated page. Link
 to the English page and let normal browser translation remain a reader-owned
 fallback outside the site UI.
 
+If a translation artifact is fresh but only summary-level, the localized page
+must still preserve the full source page structure. Render it from the complete
+English static page and localize the metadata, title, description, and language
+actions. Do not use a generic reduced translated-summary template that drops
+page-specific sections.
+
 APIs remain English in v1. Localized static pages are the first product surface
 because they give crawlers, shares, and readers stable translated content.
 
@@ -134,8 +140,11 @@ To add more translated pages, put the translated JSON in the matching
 `data/i18n/<locale>/<surface>/...` path, set `source_path` to the English URL
 path, and compute `source_hash` from the English source object the renderer
 uses. `pipeline/render_static_pages.py` omits stale artifacts whose hash no
-longer matches, then writes the localized HTML under `web/<locale>/...` and
-adds the fresh localized URLs to `web/sitemap.xml`.
+longer matches, then writes localized HTML under `web/<locale>/...` by adapting
+the complete English static page for that URL. This keeps daily, weekly, story,
+storyline, topic, and foundation layouts identical while field-level
+translations are still incomplete. Fresh localized URLs are added to
+`web/sitemap.xml`.
 
 Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
 `/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
@@ -147,7 +156,7 @@ icon only when the target locale matches the reader's browser language, using
 `navigator.languages` / `navigator.language`. For example, a reader with a
 Korean browser on `/daily/2026-07-04` sees a compact `KO` globe link to
 `/ko/daily/2026-07-04`. Korean pages emit the inverse `EN` action for English
-browsers and still keep an in-body English-original link.
+browsers.
 
 ## Acceptance Criteria
 

@@ -68,10 +68,36 @@ class I18nStaticPagesTest(unittest.TestCase):
             self.assertIn(f'hreflang="ko" href="{ko_url}"', html)
             self.assertIn(f'hreflang="en" href="{en_url}"', html)
             self.assertIn(f'hreflang="x-default" href="{en_url}"', html)
-            self.assertIn("English original", html)
-            self.assertIn("기계 번역", html)
             self.assertIn('class="site-language-action"', html)
             self.assertIn('data-language-link data-language-locale="en" hidden', html)
+
+    def test_korean_pages_preserve_source_page_structure(self) -> None:
+        structural_markers = [
+            "<article",
+            "<section",
+            'class="cat"',
+            'class="articles"',
+            'class="story-actions"',
+            'class="sl-card"',
+            'class="foundation-section"',
+            'class="wiki-section"',
+        ]
+
+        for artifact in self.artifacts:
+            source_path = artifact["source_path"]
+            english_path = ROOT / "web" / source_path.strip("/")
+            korean_path = ROOT / "web" / "ko" / source_path.strip("/")
+            english_html = english_path.with_suffix(".html").read_text(encoding="utf-8")
+            korean_html = korean_path.with_suffix(".html").read_text(encoding="utf-8")
+
+            for marker in structural_markers:
+                english_count = english_html.count(marker)
+                if english_count:
+                    self.assertEqual(
+                        korean_html.count(marker),
+                        english_count,
+                        f"{source_path} lost marker {marker}",
+                    )
 
     def test_i18n_availability_drives_english_page_language_links(self) -> None:
         i18n_pages = render.collect_i18n_pages(
