@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import io
+import tempfile
 import unittest
+from contextlib import redirect_stderr
 from pathlib import Path
 
 from pipeline import render_static_pages as render
@@ -164,11 +167,42 @@ class I18nStaticPagesTest(unittest.TestCase):
             self.assertIn(f"<loc>{BASE_URL}/ko{artifact['source_path']}</loc>", sitemap)
 
         self.assertIn("/ko/daily/:date(\\d{4}-\\d{2}-\\d{2})", rewrite_sources)
+        self.assertIn("/ko", rewrite_sources)
+        self.assertIn("/ko/", rewrite_sources)
         self.assertIn("/ko/weekly/:week(\\d{4}-W\\d{2})", rewrite_sources)
         self.assertIn("/ko/story/:sid([0-9a-f]{16})", rewrite_sources)
         self.assertIn("/ko/storyline/:slug([a-z0-9-]+)", rewrite_sources)
         self.assertIn("/ko/topic/:slug([a-z0-9-]+)", rewrite_sources)
         self.assertIn("/ko/foundations/:slug([a-z0-9-]+)", rewrite_sources)
+
+    def test_feed_i18n_artifacts_are_not_static_pages(self) -> None:
+        original_i18n_dir = render.I18N_DIR
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp_i18n = Path(tmp)
+            feed_dir = tmp_i18n / "ko" / "feed"
+            feed_dir.mkdir(parents=True)
+            (feed_dir / "latest.json").write_text(
+                json.dumps(
+                    {
+                        "locale": "ko",
+                        "surface": "feed",
+                        "source_path": "/",
+                        "target_path": "/ko/",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            try:
+                render.I18N_DIR = tmp_i18n
+                stderr = io.StringIO()
+                with redirect_stderr(stderr):
+                    pages = render.collect_i18n_pages({}, [], {}, {})
+            finally:
+                render.I18N_DIR = original_i18n_dir
+
+        self.assertEqual(pages, {})
+        self.assertEqual(stderr.getvalue(), "")
 
 
 if __name__ == "__main__":

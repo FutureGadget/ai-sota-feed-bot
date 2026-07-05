@@ -11,6 +11,8 @@
   ],
   "rewrites": [
     { "source": "/", "destination": "/web/index.html" },
+    { "source": "/ko", "destination": "/web/ko/index.html" },
+    { "source": "/ko/", "destination": "/web/ko/index.html" },
     { "source": "/weekly", "destination": "/web/weekly/index.html" },
     { "source": "/weekly/:week(\\d{4}-W\\d{2})", "destination": "/web/weekly/:week.html" },
     { "source": "/weekly/:week", "destination": "/web/weekly.html" },
@@ -52,7 +54,7 @@
   ],
   "functions": {
     "api/feed.js": {
-      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,feedback/source_adjustments.json}",
+      "includeFiles": "data/{processed/**,tier1/latest.json,tier1/runs_index.json,feedback/source_adjustments.json,i18n/ko/feed/latest.json,i18n/ko/feed/status.json}",
       "excludeFiles": "data/{raw/**,llm/**,digest/**,health/**,cache/**,diagnostics/**,feedback/events.jsonl,feedback/ctr_clicks.json,analysis/**}"
     },
     "api/rss.js": {

@@ -14,3 +14,4 @@
 - feed-hide.md
 - mobile-site-chrome.md
 - multilingual-pretranslated-pages.md
+- localized-live-feed.md

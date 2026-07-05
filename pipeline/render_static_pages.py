@@ -4023,6 +4023,12 @@ def collect_i18n_pages(
         for artifact_path in sorted(locale_dir.glob("**/*.json")):
             if artifact_path.name == "manifest.json":
                 continue
+            try:
+                rel_parts = artifact_path.relative_to(locale_dir).parts
+            except ValueError:
+                rel_parts = ()
+            if rel_parts and rel_parts[0] == "feed":
+                continue
             artifact = load_json(artifact_path)
             if not isinstance(artifact, dict):
                 continue

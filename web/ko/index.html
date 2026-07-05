@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LLM Digest 한국어 피드</title>
+  <meta name="description" content="AI platform 및 agent engineer를 위한 한국어 요약 피드입니다." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260705-language-switch" />
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script defer src="/site-chrome.js?v=20260705-language-switch"></script>
+  <style>
+    body { margin: 0; background: var(--bg, #f8f7f3); color: var(--fg, #191713); font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    main { width: min(920px, calc(100% - 1.8rem)); margin: 0 auto; padding: 1rem 0 2.5rem; }
+    .feed-hero { display: grid; gap: .75rem; margin: 1rem 0; padding: 1rem 0; border-bottom: 1px solid var(--border, #ddd8cc); }
+    .feed-kicker { margin: 0; color: var(--muted, #6f6a60); font-size: .84rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    h1 { margin: 0; font-size: clamp(2rem, 7vw, 4rem); line-height: .95; letter-spacing: 0; }
+    #meta { margin: 0; color: var(--muted, #6f6a60); }
+    #list { display: grid; gap: .75rem; margin-top: 1rem; }
+    article, .state { border: 1px solid var(--border, #ddd8cc); border-radius: 10px; background: var(--card, #fff); padding: 1rem; }
+    article h2 { margin: .25rem 0 .4rem; font-size: 1.08rem; line-height: 1.35; }
+    article a { color: inherit; text-decoration: none; }
+    article a:hover { text-decoration: underline; }
+    .meta { display: flex; flex-wrap: wrap; gap: .45rem; color: var(--muted, #6f6a60); font-size: .84rem; }
+    .summary { margin: 0; }
+    .actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .8rem; }
+    .actions a { color: var(--accent, #2563eb); }
+    .rank { color: var(--accent, #2563eb); font-weight: 800; font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/">
+      <div class="site-bar">
+        <a class="site-brand" href="/ko/" aria-label="LLM Digest 한국어 홈"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/">EN</a>
+          <button id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">🌙</button>
+          <button type="button" data-site-browse-open aria-label="Editor Desk 열기">Editor's Desk</button>
+        </div>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/ko/" data-site-destination="/" aria-current="page">한국어 피드</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions"></div>
+      <section class="feed-hero">
+        <p class="feed-kicker">Brief · 한국어 snapshot</p>
+        <h1>끝이 있는 AI 브리프</h1>
+        <p id="meta">불러오는 중...</p>
+      </section>
+    </header>
+    <section id="list" aria-live="polite">
+      <div class="state">한국어 피드를 불러오는 중입니다.</div>
+    </section>
+  </main>
+  <script>
+    function esc(v) {
+      return String(v ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
+    }
+    function kstWindow(days) {
+      const now = new Date();
+      const kstNow = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      const end = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 999);
+      const start = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate() - (days - 1), 0, 0, 0, 0);
+      const offset = '+09:00';
+      const fmt = (d) => {
+        const pad = (n, w = 2) => String(n).padStart(w, '0');
+        return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}.${pad(d.getMilliseconds(), 3)}${offset}`;
+      };
+      return { from: fmt(start), to: fmt(end) };
+    }
+    function relTime(value) {
+      const t = Date.parse(value || '');
+      if (!Number.isFinite(t)) return '';
+      const hours = Math.max(0, Math.round((Date.now() - t) / 3600000));
+      if (hours < 1) return '방금 업데이트';
+      if (hours < 24) return `${hours}시간 전 업데이트`;
+      return `${Math.round(hours / 24)}일 전 업데이트`;
+    }
+    function fallback(data) {
+      const translated = data?.translated_at ? `마지막 번역: ${esc(relTime(data.translated_at))}` : '아직 사용 가능한 한국어 snapshot이 없습니다.';
+      document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';
+      document.getElementById('list').innerHTML = `<div class="state"><strong>한국어 피드가 아직 최신 상태가 아닙니다.</strong><p>${translated}</p><p>지금 최신 피드를 보려면 영어 live feed를 열어 주세요.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+    }
+    function render(data) {
+      if (!data || data.status !== 'current' || !data.is_current || !Array.isArray(data.items) || !data.items.length) {
+        fallback(data);
+        return;
+      }
+      document.getElementById('meta').textContent = `${relTime(data.source_run_at)} · 번역 ${data.items.length}개`;
+      document.getElementById('list').innerHTML = data.items.map((it, i) => `
+        <article>
+          <div class="meta"><span class="rank">${String(i + 1).padStart(2, '0')}</span><span>${esc(it.source || '')}</span><span>${esc((it.published || '').slice(0, 10))}</span></div>
+          <h2><a href="${esc(it.url || '#')}" target="_blank" rel="noopener">${esc(it.title || 'Untitled')}</a></h2>
+          ${it.summary_1line ? `<p class="summary">${esc(it.summary_1line)}</p>` : ''}
+        </article>
+      `).join('') + '<div class="state">번역된 상위 Brief snapshot의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>';
+    }
+    async function load() {
+      const w = kstWindow(7);
+      const u = new URL('/api/feed', location.origin);
+      u.searchParams.set('locale', 'ko');
+      u.searchParams.set('localized_snapshot', 'latest');
+      u.searchParams.set('label', 'brief');
+      u.searchParams.set('limit', '20');
+      u.searchParams.set('from', w.from);
+      u.searchParams.set('to', w.to);
+      const res = await fetch(u.pathname + u.search);
+      if (!res.ok) throw new Error(`feed_${res.status}`);
+      render(await res.json());
+    }
+    load().catch(() => fallback(null));
+  </script>
+</body>
+</html>
