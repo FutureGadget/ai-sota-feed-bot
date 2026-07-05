@@ -11,6 +11,7 @@
   <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260705-language-switch" />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -36,8 +37,9 @@
       margin: 0;
       background: var(--bg);
       color: var(--fg);
-      font-family: "Avenir Next","Segoe UI",system-ui,sans-serif;
-      line-height: 1.5;
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.55;
+      letter-spacing: -0.01em;
     }
     main {
       width: 100%;
@@ -137,6 +139,48 @@
       font-weight: 700;
       letter-spacing: 0.04em;
     }
+    .card-top .badge, .badge {
+      border: 0;
+      border-radius: 0;
+      padding: 0.05rem 0;
+      background: transparent;
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+    .card-top .badge::before {
+      content: "· ";
+      color: var(--border);
+    }
+    .badge-fresh {
+      color: #166534 !important;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .badge-fresh {
+      color: #bbf7d0 !important;
+    }
+    .badge-trend {
+      color: #991b1b !important;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .badge-trend {
+      color: #fecaca !important;
+    }
+    .badge-new {
+      color: #92400e !important;
+      font-weight: 600;
+    }
+    html[data-theme="dark"] .badge-new {
+      color: #fde68a !important;
+    }
+    a.badge-storyline {
+      color: var(--accent) !important;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    a.badge-storyline:hover {
+      text-decoration: underline;
+    }
     .card-main {
       display: flex;
       justify-content: space-between;
@@ -165,6 +209,29 @@
       margin: 0.3rem 0 0;
       font-size: 0.93rem;
       line-height: 1.56;
+    }
+    .matters {
+      max-width: 45rem;
+      margin: 0.7rem 0 0;
+      padding: 0.65rem 0.8rem;
+      border-left: 2px solid var(--accent);
+      background: var(--feed-wash);
+      color: var(--feed-ink);
+      font-size: 0.84rem;
+      line-height: 1.5;
+    }
+    .also {
+      margin: 0.4rem 0 0;
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.64rem;
+      color: var(--muted);
+    }
+    .also a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .also a:hover {
+      text-decoration: underline;
     }
     .state {
       border: 0;
@@ -274,20 +341,77 @@
       document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';
       document.getElementById('list').innerHTML = `<div class="state"><strong>한국어 피드가 아직 최신 상태가 아닙니다.</strong><p>${translated}</p><p>지금 최신 피드를 보려면 영어 live feed를 열어 주세요.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
     }
-    function render(data) {
+    function render(data, storylines = []) {
       if (!data || data.status !== 'current' || !data.is_current || !Array.isArray(data.items) || !data.items.length) {
         fallback(data);
         return;
       }
+
+      // Build storyline lookup map
+      const storylineByUrl = new Map();
+      for (const sl of storylines) {
+        for (const u of sl.member_urls || []) {
+          const norm = String(u || '').trim().replace(/\/$/, '').toLowerCase();
+          storylineByUrl.set(norm, sl);
+        }
+      }
+
+      const visitLastMs = Number(localStorage.getItem('ai_feed_last_visit_v1') || 0);
+
+      function isNewSinceLastVisit(it) {
+        if (!(visitLastMs > 0)) return false;
+        const t = Date.parse(it.first_seen || it.published || '');
+        return Number.isFinite(t) && t > visitLastMs;
+      }
+
+      function prettifySource(slug) {
+        const s = String(slug || '').trim();
+        if (!s) return 'unknown';
+        return s.split(/[_\s]+/)
+          .filter(Boolean)
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(' ');
+      }
+
       document.getElementById('meta').textContent = `${relTime(data.source_run_at)} · 번역 ${data.items.length}개`;
       document.getElementById('list').innerHTML = data.items.map((it, i) => {
         const rank = i + 1;
-        const source = esc(it.source || '');
+        const source = esc(prettifySource(it.source));
         const published = it.published ? esc(it.published.slice(0, 10)) : '';
         const title = esc(it.title || 'Untitled');
         const href = esc(it.url || '#');
         const summary = it.summary_1line ? esc(it.summary_1line) : '';
+
+        // Compute badges
+        const isFresh = String(it.tier_hint || '') === 'tier1_fresh';
+        const isNew = rank !== null && !isFresh && isNewSinceLastVisit(it);
         
+        const normUrl = String(it.url || '').trim().replace(/\/$/, '').toLowerCase();
+        const storyline = storylineByUrl.get(normUrl);
+        let storylineBadge = '';
+        if (storyline) {
+          const t = new Date(it.published || it.first_seen || '');
+          const day = Number.isNaN(t.getTime()) ? '' : t.toISOString().slice(0, 10);
+          const idx = (storyline.days || []).indexOf(day);
+          const dayNum = idx >= 0 ? idx + 1 : (storyline.day_count || 1);
+          storylineBadge = `<a class="badge badge-storyline" href="/storyline/${esc(storyline.slug)}" title="Day ${dayNum} of a developing storyline: ${esc(storyline.label)}">📈 Developing · day ${dayNum}</a>`;
+        }
+
+        const alsoCoveredAll = (Array.isArray(it.also_covered) ? it.also_covered : [])
+          .filter((e) => e && e.source && e.url);
+        const sourceCount = alsoCoveredAll.length + 1;
+        const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
+        const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
+        const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
+        const isReaderBoosted = Number(it.reader_adjustment || 0) >= 0.05;
+
+        const alsoHtml = alsoCoveredAll.slice(0, 4)
+          .map((e) => `<a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(prettifySource(e.source))}</a>`)
+          .join(', ');
+
+        const whyRaw = String(it.why_it_matters || '').trim();
+        const why = (whyRaw && !whyRaw.startsWith('Matches feed focus:') && whyRaw !== 'Potential relevance to AI platform engineering; verify practical impact.') ? esc(whyRaw) : '';
+
         return `
           <article>
             <span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>
@@ -295,6 +419,12 @@
               <div class="card-meta">
                 <span class="src">${source}</span>
                 ${published ? `<span class="when">${published}</span>` : ''}
+                ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
+                ${isNew ? `<span class="badge badge-new">New</span>` : ''}
+                ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
+                ${isClimbing ? `<span class="badge badge-trend">⬆️ Climbing</span>` : ''}
+                ${isReaderBoosted ? `<span class="badge badge-trend">👍 Reader-boosted</span>` : ''}
+                ${storylineBadge}
               </div>
             </div>
             <div class="card-main">
@@ -303,11 +433,24 @@
                 ${summary ? `<p class="why">${summary}</p>` : ''}
               </div>
             </div>
+            ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+            ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
           </article>
         `;
       }).join('') + '<div class="state">번역된 상위 Brief snapshot의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>';
     }
     async function load() {
+      let storylines = [];
+      try {
+        const slRes = await fetch('/api/storylines');
+        if (slRes.ok) {
+          const slData = await slRes.json();
+          storylines = Array.isArray(slData.storylines) ? slData.storylines : [];
+        }
+      } catch (e) {
+        console.warn('Failed to load storylines:', e);
+      }
+
       const w = kstWindow(7);
       const u = new URL('/api/feed', location.origin);
       u.searchParams.set('locale', 'ko');
@@ -318,7 +461,7 @@
       u.searchParams.set('to', w.to);
       const res = await fetch(u.pathname + u.search);
       if (!res.ok) throw new Error(`feed_${res.status}`);
-      render(await res.json());
+      render(await res.json(), storylines);
 
       // Move EN link before the browse button for desktop view
       const enLink = document.querySelector('.site-actions-fallback .site-language-action');
