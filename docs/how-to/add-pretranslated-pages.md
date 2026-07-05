@@ -4,6 +4,10 @@ Use this when adding or refreshing localized static pages such as
 `/ko/daily/<date>`, `/ko/weekly/<week>`, `/ko/story/<sid>`,
 `/ko/storyline/<slug>`, `/ko/topic/<slug>`, or `/ko/foundations/<slug>`.
 
+The live feed page (`/`) is not part of this workflow yet. It is a
+client-rendered app backed by `/api/feed` and hourly ranking data, so it needs a
+separate localized feed-data/API contract before it can become `/ko/`.
+
 The product contract lives in
 `docs/product-specs/multilingual-pretranslated-pages.md`. This is the operating
 checklist.
@@ -34,6 +38,9 @@ python3 pipeline/export_i18n_candidates.py --locale ko --limit 50
 By default it outputs missing or stale pages only. It covers all currently
 renderable localized surfaces: `daily`, `weekly`, `story`, `storyline`,
 `topic`, and `foundations`.
+
+The export includes an `excluded_surfaces` section. Today it lists `feed`
+because the feed is dynamic, not a stable static page artifact.
 
 Useful variants:
 

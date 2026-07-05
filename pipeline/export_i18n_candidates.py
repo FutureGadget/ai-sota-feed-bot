@@ -79,6 +79,18 @@ SURFACE_CONTRACTS = {
     },
 }
 
+EXCLUDED_SURFACES = [
+    {
+        "surface": "feed",
+        "path": "/",
+        "reason": (
+            "The feed is a live client-rendered surface backed by /api/feed and "
+            "hourly ranking data, not a stable static page artifact. It needs a "
+            "separate localized feed-data/API contract before export."
+        ),
+    }
+]
+
 
 def _artifact_path(locale: str, surface: str, ident: str) -> Path:
     return render.I18N_DIR / locale / surface / f"{ident}.json"
@@ -224,6 +236,7 @@ def build_export(
         "include_fresh": include_fresh,
         "include_source": include_source,
         "surfaces": sorted(surfaces) if surfaces else sorted(SURFACE_ORDER, key=SURFACE_ORDER.get),
+        "excluded_surfaces": EXCLUDED_SURFACES,
         "item_count": len(items),
         "items": items,
     }

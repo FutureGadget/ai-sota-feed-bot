@@ -14,6 +14,8 @@ class I18nCandidateExportTest(unittest.TestCase):
             surfaces,
             {"daily", "weekly", "story", "storyline", "topic", "foundations"},
         )
+        self.assertEqual(payload["excluded_surfaces"][0]["surface"], "feed")
+        self.assertIn("/api/feed", payload["excluded_surfaces"][0]["reason"])
 
     def test_existing_korean_slice_is_marked_fresh_when_included(self) -> None:
         payload = export.build_export(locale="ko", include_fresh=True, limit=None)

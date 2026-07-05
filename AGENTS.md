@@ -262,7 +262,9 @@ in `ops_daily_summary.py`'s log line.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh
   translations with `docs/how-to/add-pretranslated-pages.md`; product contract:
-  `docs/product-specs/multilingual-pretranslated-pages.md`.
+  `docs/product-specs/multilingual-pretranslated-pages.md`. The live feed `/`
+  is not localized in this v1 path; it needs a separate localized feed-data/API
+  contract before adding `/ko/`.
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:
