@@ -41,76 +41,140 @@
     }
     main {
       width: 100%;
-      max-width: 920px;
+      max-width: 980px;
       margin: 1rem auto;
-      padding: 0 0.9rem 2.5rem;
+      padding: 0 1.35rem 2.5rem;
+      overflow-x: clip;
     }
     .feed-hero {
       display: grid;
-      gap: 0.5rem;
-      margin: 1rem 0;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
+      grid-template-columns: minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap: 1.5rem 2.5rem;
+      align-items: end;
+      margin: 2rem 0 1.45rem;
     }
     .feed-kicker {
-      margin: 0;
-      color: var(--accent);
+      margin: 0 0 .35rem;
       font-family: ui-monospace, "SFMono-Regular", monospace;
-      font-size: 0.68rem;
+      font-size: 0.67rem;
       font-weight: 700;
       letter-spacing: 0.13em;
       text-transform: uppercase;
+      color: var(--accent);
     }
-    h1 {
+    .feed-title {
       margin: 0;
       font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
-      font-size: clamp(2rem, 6vw, 3rem);
+      font-size: clamp(2.8rem, 7vw, 4.7rem);
       font-weight: 700;
-      letter-spacing: -0.025em;
-      line-height: 1.1;
+      letter-spacing: -0.048em;
+      line-height: 0.92;
+    }
+    .feed-promise {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .feed-promise strong {
+      color: var(--fg);
     }
     #meta {
-      margin: 0.35rem 0 0;
-      font-size: 0.86rem;
+      margin: 0.75rem 0 0;
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.68rem;
+      line-height: 1.55;
       color: var(--muted);
     }
     #list {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 1rem;
+      gap: 0;
+      margin-top: 1.3rem;
     }
-    article, .state {
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--card);
-      padding: 1rem;
+    #list > article {
+      position: relative;
+      padding: 1.05rem 0 1.1rem 3.35rem;
+      border: 0;
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
     }
-    article h2 {
-      margin: 0.25rem 0 0.4rem;
+    #list > article:first-of-type {
+      border-top: 1px solid var(--border);
+    }
+    .rank-no {
+      position: absolute;
+      left: 0;
+      top: 1rem;
+      width: 2.25rem;
       font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
-      font-size: 1.12rem;
-      line-height: 1.25;
+      font-size: 1.65rem;
+      line-height: 1;
+      font-weight: 700;
+      color: color-mix(in srgb, var(--muted) 55%, transparent);
     }
-    article a {
+    .card-top {
+      margin: 0 0 0.4rem;
+      padding-right: 5.5rem;
+      gap: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem 0.7rem;
+    }
+    .card-top .src, .when {
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.64rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .card-top .src {
+      color: var(--fg);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+    .card-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .card-text {
+      flex: 1;
+    }
+    article h3 {
+      margin: 0 0 0.35rem;
+      font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.28rem;
+      line-height: 1.22;
+    }
+    article h3 a {
+      font-weight: 650;
       color: inherit;
       text-decoration: none;
     }
-    article a:hover {
+    article h3 a:hover {
       color: var(--accent);
       text-decoration: underline;
     }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      color: var(--muted);
-      font-family: ui-monospace, "SFMono-Regular", monospace;
-      font-size: 0.68rem;
+    .why {
+      max-width: 45rem;
+      margin: 0.3rem 0 0;
+      font-size: 0.93rem;
+      line-height: 1.56;
     }
-    .summary {
-      margin: 0.5rem 0 0;
+    .state {
+      border: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      border-radius: 0;
+      padding: 1.2rem 0;
+      text-align: center;
       font-size: 0.9rem;
-      line-height: 1.55;
+      color: var(--muted);
     }
     .actions {
       display: flex;
@@ -121,11 +185,19 @@
     .actions a {
       color: var(--accent);
       font-size: 0.88rem;
+      text-decoration: none;
     }
-    .rank {
-      color: var(--accent);
-      font-weight: 800;
-      font-variant-numeric: tabular-nums;
+    .actions a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width:640px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.9rem 0 0.8rem; }
+      .feed-kicker { display:none; }
+      .feed-title { font-size:1.9rem; line-height:1.05; letter-spacing:-.035em; }
+      .feed-promise { display:none; }
+      #meta { margin-top:0.4rem; }
     }
   </style>
 </head>
@@ -135,10 +207,13 @@
       <div class="site-bar">
         <a class="site-brand" href="/ko/" aria-label="LLM Digest 한국어 홈"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
-          <a class="site-subscribe-action" href="/">EN</a>
-          <button id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">🌙</button>
-          <button type="button" data-site-browse-open aria-label="Editor Desk 열기">Editor's Desk</button>
+          <a class="site-subscribe-action" href="/subscribe" aria-label="이메일 구독 신청" data-subscribe-channel="email" data-subscribe-placement="header">구독하기</a>
+          <button type="button" data-site-browse-open aria-label="Editor's Desk 열기">Editor's Desk</button>
         </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>라이브 피드</h1>
+        <p class="h1-sub">플랫폼 및 에이전트 엔지니어를 위한 AI 뉴스</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/ko/" data-site-destination="/" aria-current="page">한국어 피드</a>
@@ -148,13 +223,22 @@
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
         <a href="/map" data-site-destination="/map">Knowledge map</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
-        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+        <a href="/subscribe" data-site-destination="/subscribe">이메일 구독</a>
       </nav>
-      <div class="site-actions-fallback" aria-label="Page actions"></div>
+      <div class="site-actions-fallback" aria-label="페이지 작업">
+        <a class="site-language-action" href="/" aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="테마 전환" title="테마 전환">🌙</button>
+      </div>
+
       <section class="feed-hero">
-        <p class="feed-kicker">Brief · 한국어 snapshot</p>
-        <h1>끝이 있는 AI 브리프</h1>
-        <p id="meta">불러오는 중...</p>
+        <div>
+          <p class="feed-kicker">Brief · 한국어 snapshot</p>
+          <h2 class="feed-title">끝이 있는 AI 브리프.</h2>
+        </div>
+        <div>
+          <p class="feed-promise"><strong>하나의 공유 랭킹.</strong> 최신 주요 뉴스를 훑어보고, 기억할 소식을 저장한 뒤, 할 일을 마치세요.</p>
+          <p id="meta">불러오는 중...</p>
+        </div>
       </section>
     </header>
     <section id="list" aria-live="polite">
@@ -196,13 +280,32 @@
         return;
       }
       document.getElementById('meta').textContent = `${relTime(data.source_run_at)} · 번역 ${data.items.length}개`;
-      document.getElementById('list').innerHTML = data.items.map((it, i) => `
-        <article>
-          <div class="meta"><span class="rank">${String(i + 1).padStart(2, '0')}</span><span>${esc(it.source || '')}</span><span>${esc((it.published || '').slice(0, 10))}</span></div>
-          <h2><a href="${esc(it.url || '#')}" target="_blank" rel="noopener">${esc(it.title || 'Untitled')}</a></h2>
-          ${it.summary_1line ? `<p class="summary">${esc(it.summary_1line)}</p>` : ''}
-        </article>
-      `).join('') + '<div class="state">번역된 상위 Brief snapshot의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>';
+      document.getElementById('list').innerHTML = data.items.map((it, i) => {
+        const rank = i + 1;
+        const source = esc(it.source || '');
+        const published = it.published ? esc(it.published.slice(0, 10)) : '';
+        const title = esc(it.title || 'Untitled');
+        const href = esc(it.url || '#');
+        const summary = it.summary_1line ? esc(it.summary_1line) : '';
+        
+        return `
+          <article>
+            <span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>
+            <div class="card-top">
+              <div class="card-meta">
+                <span class="src">${source}</span>
+                ${published ? `<span class="when">${published}</span>` : ''}
+              </div>
+            </div>
+            <div class="card-main">
+              <div class="card-text">
+                <h3><a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
+                ${summary ? `<p class="why">${summary}</p>` : ''}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('') + '<div class="state">번역된 상위 Brief snapshot의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>';
     }
     async function load() {
       const w = kstWindow(7);
@@ -216,6 +319,14 @@
       const res = await fetch(u.pathname + u.search);
       if (!res.ok) throw new Error(`feed_${res.status}`);
       render(await res.json());
+
+      // Move EN link before the browse button for desktop view
+      const enLink = document.querySelector('.site-actions-fallback .site-language-action');
+      const browseBtn = document.querySelector('[data-site-browse-open]');
+      if (enLink && browseBtn) {
+        enLink.classList.add('site-bar-language-action');
+        browseBtn.before(enLink);
+      }
     }
     load().catch(() => fallback(null));
   </script>
