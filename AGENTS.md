@@ -258,9 +258,11 @@ in `ops_daily_summary.py`'s log line.
 - `data/i18n/<locale>/` — pre-translated static-page artifacts. Current Korean
   slice covers `daily`, `weekly`, `story`, `storyline`, `topic`, and
   `foundations`; fresh artifacts render to `web/<locale>/...`, get `hreflang`
-  alternates, and expose a browser-language-matched language action. Add or
-  refresh translations with `docs/how-to/add-pretranslated-pages.md`; product
-  contract: `docs/product-specs/multilingual-pretranslated-pages.md`.
+  alternates, and expose a browser-language-matched language action.
+  `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
+  missing/stale worklist for external translation systems. Add or refresh
+  translations with `docs/how-to/add-pretranslated-pages.md`; product contract:
+  `docs/product-specs/multilingual-pretranslated-pages.md`.
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:

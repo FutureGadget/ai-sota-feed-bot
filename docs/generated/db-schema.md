@@ -81,7 +81,8 @@ available to each function.
   `categories[].articles[].{title,summary}` overlays. `pipeline/render_static_pages.py`
   recomputes `source_hash` from the current English source and renders only
   fresh artifacts to `web/<locale>/...`. APIs remain English in v1. Operating
-  guide: `docs/how-to/add-pretranslated-pages.md`.
+  guide: `docs/how-to/add-pretranslated-pages.md`; candidate exporter:
+  `pipeline/export_i18n_candidates.py`.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).

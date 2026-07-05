@@ -96,6 +96,11 @@ The selector should write an input bundle with `path`, `surface`, `views_60d`,
 `last_modified`, `source_hash`, and current translation status so the translation
 routine can spend model calls only where they improve reader reach.
 
+Current implementation note: `pipeline/export_i18n_candidates.py` exports
+missing/stale translation candidates for the six static surfaces, with optional
+English source payloads for an external translation system. It does not yet join
+PostHog view counts; that is the next prioritization input to add.
+
 ## Publishing Flow
 
 1. Build an i18n candidate bundle from committed English data plus recent

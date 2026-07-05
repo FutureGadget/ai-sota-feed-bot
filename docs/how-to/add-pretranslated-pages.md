@@ -22,7 +22,44 @@ Choose a page whose English source is already committed:
 Prefer high 60-day page-view pages, current daily/weekly recaps, recently
 updated storylines/foundations, and stories linked from translated recaps.
 
-## 2. Create the translation artifact
+## 2. Export candidates for a translation system
+
+Use the candidate exporter when another system will generate the pre-translated
+artifacts:
+
+```bash
+python3 pipeline/export_i18n_candidates.py --locale ko --limit 50
+```
+
+By default it outputs missing or stale pages only. It covers all currently
+renderable localized surfaces: `daily`, `weekly`, `story`, `storyline`,
+`topic`, and `foundations`.
+
+Useful variants:
+
+```bash
+# Audit existing fresh artifacts too.
+python3 pipeline/export_i18n_candidates.py --locale ko --include-fresh
+
+# Send only recap candidates.
+python3 pipeline/export_i18n_candidates.py --locale ko --surface daily --surface weekly
+
+# Include English source objects so the translation system has the payload.
+python3 pipeline/export_i18n_candidates.py --locale ko --include-source --output /tmp/i18n-ko-candidates.json
+```
+
+Each item includes:
+
+- `surface`, `id`, `source_path`, and target `artifact_path`
+- `status`: `missing`, `stale`, or `fresh`
+- `source_hash` and any existing artifact hash
+- title/description hints
+- a surface contract listing translated fields and fields to preserve
+- optional `source` when `--include-source` is set
+
+The external system should return JSON artifacts at each item's `artifact_path`.
+
+## 3. Create the translation artifact
 
 Put the artifact under the matching path:
 
@@ -65,7 +102,7 @@ Do not translate or rewrite URLs, source names, publication dates, slugs, story
 links, model names, product names, code identifiers, benchmark names, or other
 evidence fields.
 
-## 3. Compute and verify `source_hash`
+## 4. Compute and verify `source_hash`
 
 `pipeline/render_static_pages.py` recomputes the source hash from the committed
 English source. If the artifact hash is stale, the localized page is omitted.
@@ -79,7 +116,7 @@ python3 -m unittest tests.test_i18n_static_pages
 If the test reports a stale hash, inspect the expected value with the renderer
 helpers or refresh the artifact from the current English source.
 
-## 4. Render static pages
+## 5. Render static pages
 
 Regenerate static output:
 
@@ -97,7 +134,7 @@ git restore -- web/daily web/weekly web/story web/storyline web/topic web/founda
 
 Do not restore the intended `web/<locale>/...` page.
 
-## 5. Validate exposure
+## 6. Validate exposure
 
 Run:
 
@@ -119,7 +156,7 @@ English source pages expose the localized language action only when the artifact
 is fresh. `web/site-chrome.js` reveals that action only when the reader's
 browser language matches the target locale.
 
-## 6. Playbook overlays
+## 7. Playbook overlays
 
 Do not show English Playbook overlay cards on localized recaps.
 
@@ -128,7 +165,7 @@ Today `data/playbook/source-index.json` is English-only and there is no
 weekly pages suppress Playbook overlays until a locale-specific source index
 exists.
 
-## 7. Commit
+## 8. Commit
 
 Stage only the intended files:
 
