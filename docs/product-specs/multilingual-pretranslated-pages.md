@@ -16,6 +16,9 @@ and routing contracts once the Korean path is proven.
 - Fully localized application chrome in v1.
 - Translating source articles hosted by third parties.
 - Personal language preference or account state.
+- Localized live feed (`/ko/`) in v1. The feed is client-rendered from
+  `/api/feed` and hourly ranking data, so it needs a separate localized
+  feed-data/API contract.
 
 ## URL Contract
 
@@ -96,6 +99,11 @@ The selector should write an input bundle with `path`, `surface`, `views_60d`,
 `last_modified`, `source_hash`, and current translation status so the translation
 routine can spend model calls only where they improve reader reach.
 
+Current implementation note: `pipeline/export_i18n_candidates.py` exports
+missing/stale translation candidates for the six static surfaces, with optional
+English source payloads for an external translation system. It does not yet join
+PostHog view counts; that is the next prioritization input to add.
+
 ## Publishing Flow
 
 1. Build an i18n candidate bundle from committed English data plus recent
@@ -108,20 +116,85 @@ routine can spend model calls only where they improve reader reach.
 6. Commit translation data and rendered pages separately from runtime feed data
    when practical.
 
+Agents should use `.agents/skills/add-translated-page/SKILL.md` for one-page
+translation publishing. Do not add or refresh translated pages unless the user
+explicitly asks for that work.
+
 ## Fallback Behavior
 
 If a translation is missing or stale, do not serve a half-translated page. Link
 to the English page and let normal browser translation remain a reader-owned
 fallback outside the site UI.
 
+If a translation artifact is fresh but only summary-level, the localized page
+must still preserve the full source page structure. Render it from the complete
+English static page and localize the metadata, title, description, and language
+actions. Do not use a generic reduced translated-summary template that drops
+page-specific sections.
+
 APIs remain English in v1. Localized static pages are the first product surface
 because they give crawlers, shares, and readers stable translated content.
+
+## Current Implementation
+
+The first Korean slice is implemented as one checked-in artifact per page type:
+
+```text
+data/i18n/ko/daily/2026-07-04.json
+data/i18n/ko/weekly/2026-W27.json
+data/i18n/ko/story/ee2eab4f35a2124a.json
+data/i18n/ko/storyline/claude-fable.json
+data/i18n/ko/topic/agent-cost.json
+data/i18n/ko/foundations/context-compaction-safety.json
+```
+
+The daily and weekly artifacts are field-complete for their source recaps: they
+translate the title, intro, highlights, category names/summaries, and article
+titles/summaries. The renderer overlays those fields onto the English recap
+object and preserves source URLs, publication dates, source names, slugs, and
+story links from the English data.
+
+To add more translated pages, put the translated JSON in the matching
+`data/i18n/<locale>/<surface>/...` path, set `source_path` to the English URL
+path, and compute `source_hash` from the English source object the renderer
+uses. `pipeline/render_static_pages.py` omits stale artifacts whose hash no
+longer matches, then writes localized HTML under `web/<locale>/...`. Daily and
+weekly pages render from localized recap objects so nested recap content is
+translated. Other page types adapt the complete English static page for that
+URL until their artifacts become field-complete. This keeps daily, weekly,
+story, storyline, topic, and foundation layouts identical while partial
+artifacts evolve. Fresh localized URLs are added to `web/sitemap.xml`.
+
+Recap Playbook overlays are locale-specific content. Today
+`data/playbook/source-index.json` is English-only and there is no
+`data/i18n/<locale>/playbook/source-index.json` contract, so localized recap
+pages do not render Playbook overlay cards. Add the locale-specific index before
+showing those cards on translated pages.
+
+Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
+`/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
+`/ko/topic/<slug>`, and `/ko/foundations/<slug>`.
+
+The live feed page remains English-only in this slice. A future `/ko/` feed
+should translate the ranked feed item fields from committed feed data, expose a
+locale-aware feed API or locale-specific feed artifact, and decide how often to
+refresh those translations as the hourly feed changes.
+
+When an English page has a fresh translated counterpart, the renderer emits a
+hidden language action in the shared page actions. `site-chrome.js` reveals that
+icon only when the target locale matches the reader's browser language, using
+`navigator.languages` / `navigator.language`. For example, a reader with a
+Korean browser on `/daily/2026-07-04` sees a compact `KO` globe link to
+`/ko/daily/2026-07-04`. Korean pages emit the inverse `EN` action for English
+browsers.
 
 ## Acceptance Criteria
 
 - No page loads `web/local-translate.js` or exposes live translation controls.
 - `/ko/daily/<date>` can be generated from a checked-in translation artifact.
-- English and Korean pages include reciprocal `hreflang` links.
+- Korean pages include `hreflang` links for Korean, English, and `x-default`.
+- English pages with fresh translations expose a compact language action when
+  the target locale matches the browser language.
 - The sitemap includes localized URLs only when translations are fresh.
 - Translation validation fails on lost URLs, placeholders, model names, or stale
   `source_hash` values.

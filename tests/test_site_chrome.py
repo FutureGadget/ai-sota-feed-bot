@@ -199,6 +199,40 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn('class="site-context-disabled"', html)
         assert_destination_order(self, html)
 
+    def test_generated_page_can_emit_browser_matched_language_action(self) -> None:
+        html = render.render_page(
+            title="Test",
+            description="Test",
+            canonical="https://www.llm-digest.com/daily/2026-06-22",
+            published=None,
+            h1="AI Daily Recap",
+            meta_line="15 articles · 5 categories",
+            json_href="",
+            archive="",
+            recap_title="Test",
+            recap_range="",
+            intro_html="",
+            body_html="",
+            language_links=[("ko", "/ko/daily/2026-06-22", "Korean")],
+        )
+
+        self.assertIn('class="site-language-action"', html)
+        self.assertIn('href="/ko/daily/2026-06-22"', html)
+        self.assertIn('data-language-link data-language-locale="ko" hidden', html)
+        self.assertIn('aria-label="Read this page in Korean"', html)
+
+    def test_site_chrome_reveals_language_action_for_browser_locale(self) -> None:
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+
+        self.assertIn('querySelectorAll("[data-language-link]")', js)
+        self.assertIn("navigator.languages", js)
+        self.assertIn("dataset.languageLocale", js)
+        self.assertIn("lang.startsWith(`${locale}-`)", js)
+        self.assertIn("link.hidden = !matches", js)
+        self.assertIn("visibleLanguageLinks", js)
+        self.assertIn('link.classList.add("site-bar-language-action")', js)
+        self.assertIn("browseButton.before(link)", js)
+
     def test_detail_routes_map_to_parent_destinations(self) -> None:
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
         for prefix in (

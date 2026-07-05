@@ -10,6 +10,20 @@
   const browseButton = chrome?.querySelector("[data-site-browse-open]");
   const moreButton = chrome?.querySelector("[data-site-more-open]");
   const themeButton = actions?.querySelector("#themeToggle");
+  const languageLinks = Array.from(actions?.querySelectorAll("[data-language-link]") || []);
+  const visibleLanguageLinks = [];
+
+  if (languageLinks.length) {
+    const preferredLanguages = (navigator.languages?.length ? navigator.languages : [navigator.language])
+      .filter(Boolean)
+      .map((lang) => String(lang).toLowerCase());
+    languageLinks.forEach((link) => {
+      const locale = String(link.dataset.languageLocale || "").toLowerCase();
+      const matches = preferredLanguages.some((lang) => lang === locale || lang.startsWith(`${locale}-`));
+      link.hidden = !matches;
+      if (matches) visibleLanguageLinks.push(link);
+    });
+  }
 
   if (
     !chrome ||
@@ -28,6 +42,10 @@
     themeButton.setAttribute("title", themeButton.getAttribute("aria-label") || "Toggle theme");
     browseButton.before(themeButton);
   }
+  visibleLanguageLinks.forEach((link) => {
+    link.classList.add("site-bar-language-action");
+    browseButton.before(link);
+  });
 
   const parentSection = (pathname) => {
     if (pathname === "/" || pathname.startsWith("/story/")) return "/";

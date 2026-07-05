@@ -1,0 +1,20 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-cost",
+  "source_hash": "fb313a83008d75886e2ffa2850bfe164df1a272198738e02fe4b6557cf6dee92",
+  "translated_at": "2026-07-05T00:00:00+00:00",
+  "model": "codex-subagent",
+  "review_status": "machine",
+  "title": "Agent 토큰 비용은 예측하기 어렵고 쉽게 폭증한다",
+  "description": "Agent 토큰 비용은 request 수보다 agent의 동작 방식에 더 크게 좌우되기 때문에 예측하기 어렵고 쉽게 폭증합니다.",
+  "intro": [
+    "챗봇의 한 턴은 대체로 예측 가능한 수의 토큰을 씁니다. 하지만 agent는 반복 실행하고, 매 단계 전체 context를 다시 읽고, sub-agent를 만들고, 자기 작업을 평가하려고 model을 다시 호출할 수 있습니다.",
+    "그래서 비용은 request 수가 아니라 동작 방식의 함수가 됩니다. 잘못 동작한 run 하나나 topology 선택 하나가 invoice가 도착할 때까지 아무도 모르게 spend를 몇 배로 키울 수 있습니다."
+  ],
+  "bullets": [
+    "Agent 비용은 build-time 결정이 run-time에서 드러나는 문제입니다.",
+    "Memory, multi-agent, eval 설계가 실제 token spend를 조용히 결정합니다.",
+    "Loop, 재읽기, self-grading은 request count보다 비용을 더 크게 흔듭니다.",
+    "비용 관리는 rate limit만으로 부족하며, agent behavior 자체를 관찰해야 합니다."
+  ]
+}
