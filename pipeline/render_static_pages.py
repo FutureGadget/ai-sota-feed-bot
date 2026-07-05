@@ -4023,6 +4023,12 @@ def collect_i18n_pages(
         for artifact_path in sorted(locale_dir.glob("**/*.json")):
             if artifact_path.name == "manifest.json":
                 continue
+            try:
+                rel_parts = artifact_path.relative_to(locale_dir).parts
+            except ValueError:
+                rel_parts = ()
+            if rel_parts and rel_parts[0] == "feed":
+                continue
             artifact = load_json(artifact_path)
             if not isinstance(artifact, dict):
                 continue
@@ -4069,6 +4075,31 @@ def render_i18n_language_action(source_path: str) -> str:
         ' data-language-link data-language-locale="en" hidden'
         ' aria-label="Read this page in English" title="Read in English">'
         '<span aria-hidden="true">🌐</span><span>EN</span></a>'
+    )
+
+
+def localized_og_rel(source_path: str, locale: str, *, title: str, stats: str = "") -> str:
+    parts = [p for p in source_path.strip("/").split("/") if p]
+    if len(parts) < 2 or not title:
+        return ""
+    kind, ident = parts[0], parts[1]
+    if kind not in {"daily", "weekly", "story", "storyline", "topic", "foundations"}:
+        return ""
+    kicker = {
+        "daily": "Korean daily brief",
+        "weekly": "Korean weekly recap",
+        "story": "Korean story brief",
+        "storyline": "Korean AI storyline",
+        "topic": "Korean knowledge map",
+        "foundations": "Korean foundations",
+    }.get(kind, "Korean edition")
+    return og_cards.ensure(
+        kind,
+        ident,
+        kicker=kicker,
+        title=title,
+        stats=stats or "Korean edition · LLM Digest",
+        locale=locale,
     )
 
 
@@ -4143,13 +4174,13 @@ def render_i18n_daily_page(
         (f"/daily/{r['date']}", f"{r['date']} · {squeeze(r.get('title'))}")
         for r in load_recaps(DAILY_DIR, DATE_FILE_RE, "date")
     ]
-    og_rel = og_cards.ensure(
-        "daily",
-        day,
-        kicker="The finishable daily brief",
+    og_rel = localized_og_rel(
+        source_path,
+        locale,
         title=title,
         stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
     )
+    og_image = f"{base_url}{og_rel}" if og_rel else ""
     html = render_page(
         title=title,
         description=description,
@@ -4176,7 +4207,7 @@ def render_i18n_daily_page(
             "Want this in your inbox tomorrow?",
             "Get the finishable daily brief and weekly recap.",
         ),
-        image=f"{base_url}{og_rel}" if og_rel else "",
+        image=og_image,
         json_ld=[
             article_node(
                 type_="NewsArticle",
@@ -4185,6 +4216,7 @@ def render_i18n_daily_page(
                 canonical=canonical,
                 published=published,
                 base_url=base_url,
+                image=og_image,
             ),
             breadcrumb_node(
                 base_url,
@@ -4237,13 +4269,8 @@ def render_i18n_weekly_page(
     og_stats = " · ".join(
         s for s in (f"{start} → {end}" if start and end else week, f"{total} articles") if s
     )
-    og_rel = og_cards.ensure(
-        "weekly",
-        week,
-        kicker="Weekly pattern report",
-        title=title,
-        stats=og_stats,
-    )
+    og_rel = localized_og_rel(source_path, locale, title=title, stats=og_stats)
+    og_image = f"{base_url}{og_rel}" if og_rel else ""
     html = render_page(
         title=title,
         description=description,
@@ -4270,7 +4297,7 @@ def render_i18n_weekly_page(
             "Get next week’s recap by email.",
             "Plus the finishable daily brief every day.",
         ),
-        image=f"{base_url}{og_rel}" if og_rel else "",
+        image=og_image,
         json_ld=[
             article_node(
                 type_="NewsArticle",
@@ -4279,6 +4306,7 @@ def render_i18n_weekly_page(
                 canonical=canonical,
                 published=published,
                 base_url=base_url,
+                image=og_image,
             ),
             breadcrumb_node(
                 base_url,
@@ -4319,6 +4347,8 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
     title = squeeze(artifact.get("title"))
     description = clip(squeeze(artifact.get("description")) or title, 250)
     canonical = f"{base_url}{canonical_path}"
+    og_rel = localized_og_rel(source_path, locale, title=title)
+    og_image = f"{base_url}{og_rel}" if og_rel else ""
     html = re.sub(r'<html lang="[^"]+">', f'<html lang="{escape(locale)}">', html, count=1)
     if title:
         old_title = re.search(r"<title>(.*?) \| LLM Digest</title>", html)
@@ -4357,6 +4387,9 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
         count=1,
     )
     html = html_attr_replace(html, r'(<meta property="og:url" content=")[^"]*(" />)', canonical)
+    if og_image:
+        html = html_attr_replace(html, r'(<meta property="og:image" content=")[^"]*(" />)', og_image)
+        html = html_attr_replace(html, r'(<meta name="twitter:image" content=")[^"]*(" />)', og_image)
     html = html_attr_replace(html, r'(data-share-url=")[^"]*(")', canonical)
     if title:
         html = html_attr_replace(html, r'(data-share-title=")[^"]*(")', title)

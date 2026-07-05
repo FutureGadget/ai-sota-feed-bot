@@ -83,6 +83,20 @@ available to each function.
   fresh artifacts to `web/<locale>/...`. APIs remain English in v1. Operating
   guide: `docs/how-to/add-pretranslated-pages.md`; candidate exporter:
   `pipeline/export_i18n_candidates.py`.
+- `data/i18n/<locale>/feed/latest.json` — feed-specific localized live-feed
+  overlay, separate from static-page artifacts. For Korean v1 this is a
+  complete `/ko/` snapshot of the default Brief feed, up to 20 eligible cards,
+  with `{locale, surface, source_run_at, translated_at, expires_at, selector,
+  source_item_count, translated_item_count, is_complete, items[]}`. `items[]`
+  stores only translated display fields keyed by normalized source URL while
+  `/api/feed` preserves English item IDs, URLs, dates, scores, labels, and
+  story metadata.
+- `data/i18n/<locale>/feed/status.json` — durable localized-feed build status
+  for missing, stale, incomplete, disabled, or current snapshots. Includes
+  `{locale, surface, status, reason, source_run_at, translated_at, expires_at,
+  eligible_count, translated_count, missing_count}`. `pipeline/render_static_pages.py`
+  ignores `data/i18n/<locale>/feed/**`; Vercel bundles only `latest.json` and
+  `status.json` for `api/feed.js`.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).

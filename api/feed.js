@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -37,6 +38,38 @@ function parseTimezoneAwareBound(v) {
 // runs (e.g. release titles gaining a repo prefix), but the URL is stable.
 function itemKey(it) {
   return String(it?.url || it?.title || '');
+}
+
+function normUrl(v) {
+  const s = String(v || '').trim();
+  return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
+}
+
+function translationKey(it) {
+  return normUrl(it?.url) || String(it?.id || it?.title || '').trim();
+}
+
+function cleanText(v) {
+  return String(v || '').split(/\s+/).filter(Boolean).join(' ');
+}
+
+function sourceHash(it) {
+  const alsoCovered = Array.isArray(it?.also_covered) ? it.also_covered : [];
+  const payload = {
+    also_covered: alsoCovered
+      .map((entry) => ({
+        title: cleanText(entry?.title),
+        url: normUrl(entry?.url),
+      }))
+      .filter((entry) => entry.url || entry.title),
+    summary_1line: cleanText(it?.summary_1line),
+    title: cleanText(it?.title),
+    why_it_matters: cleanText(it?.why_it_matters),
+  };
+  return crypto
+    .createHash('sha256')
+    .update(JSON.stringify(payload))
+    .digest('hex');
 }
 
 function readLatest() {
@@ -82,6 +115,108 @@ function readerTuningSummary(tuning) {
 function withReaderAdjustment(it, tuning) {
   const adj = tuning?.adjustments[String(it?.source || '')];
   return adj ? { ...it, reader_adjustment: adj } : it;
+}
+
+function readLocalizedFeed(locale) {
+  const base = path.join(process.cwd(), 'data', 'i18n', String(locale || ''), 'feed');
+  return {
+    latest: readJsonSafe(path.join(base, 'latest.json'), null),
+    status: readJsonSafe(path.join(base, 'status.json'), null),
+  };
+}
+
+function localizedSnapshotIsCurrent(snapshot) {
+  if (!snapshot || snapshot.is_complete !== true) return false;
+  const expiresAt = parseDateMaybe(snapshot.expires_at);
+  const sourceRunAt = parseDateMaybe(snapshot.source_run_at);
+  const now = new Date();
+  if (expiresAt) return expiresAt > now;
+  if (!sourceRunAt) return false;
+  return now.getTime() - sourceRunAt.getTime() <= 24 * 60 * 60 * 1000;
+}
+
+function localizedStatusBody(body, locale, snapshot, statusPayload) {
+  const current = localizedSnapshotIsCurrent(snapshot);
+  const status = current ? 'current' : String(statusPayload?.status || 'missing');
+  return {
+    ...body,
+    locale,
+    mode: 'localized_snapshot',
+    status,
+    is_current: current,
+    is_complete: current,
+    source_run_at: snapshot?.source_run_at || statusPayload?.source_run_at || null,
+    translated_at: snapshot?.translated_at || statusPayload?.translated_at || null,
+    expires_at: snapshot?.expires_at || statusPayload?.expires_at || null,
+  };
+}
+
+function overlayLocalizedFeed(body, locale) {
+  const { latest, status } = readLocalizedFeed(locale);
+  const withStatus = localizedStatusBody(body, locale, latest, status);
+  if (!withStatus.is_current || !Array.isArray(body?.items)) return withStatus;
+
+  const translations = new Map();
+  for (const row of Array.isArray(latest?.items) ? latest.items : []) {
+    const key = normUrl(row?.translation_key || row?.key);
+    if (key) translations.set(key, row);
+  }
+
+  const missing = body.items
+    .filter((item) => {
+      const key = translationKey(item);
+      if (!key || !translations.has(key)) return true;
+      const translated = translations.get(key);
+      const expectedHash = sourceHash(item);
+      return String(translated?.source_hash || '') !== expectedHash;
+    })
+    .map((item) => translationKey(item));
+  if (missing.length) {
+    return {
+      ...withStatus,
+      status: 'incomplete',
+      is_current: false,
+      is_complete: false,
+      localized_missing_count: missing.length,
+      items: [],
+    };
+  }
+
+  return {
+    ...withStatus,
+    items: body.items.map((item) => {
+      const translated = translations.get(translationKey(item));
+      if (!translated) return item;
+      return {
+        ...item,
+        id: item.id,
+        title: translated.title || item.title,
+        summary_1line: translated.summary_1line || item.summary_1line,
+        why_it_matters: translated.why_it_matters || item.why_it_matters,
+      };
+    }),
+  };
+}
+
+function maybeLocalized(body, req, res) {
+  const locale = String(req.query?.locale || '').trim().toLowerCase();
+  const localizedSnapshot = String(req.query?.localized_snapshot || '').trim().toLowerCase();
+  if (locale !== 'ko' || localizedSnapshot !== 'latest') return body;
+  if (typeof res?.setHeader === 'function') {
+    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=300');
+  }
+  if (['0', 'false', 'no', 'off'].includes(String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase())) {
+    return {
+      ...body,
+      locale,
+      mode: 'localized_snapshot',
+      status: 'disabled',
+      is_current: false,
+      is_complete: false,
+      items: [],
+    };
+  }
+  return overlayLocalizedFeed(body, locale);
 }
 
 function readTier1Latest() {
@@ -449,7 +584,7 @@ export default async function handler(req, res) {
       const availableLabels = summarizeLabels(allItems);
       const filteredBase = applyLabelFilter(allItems, selectedLabels);
       const totalItems = filteredBase.length;
-      return res.status(200).json({
+      const body = {
         mode: 'latest',
         date: new Date().toISOString(),
         filters: { from, to, limit, labels: selectedLabels },
@@ -459,7 +594,8 @@ export default async function handler(req, res) {
         has_more: totalItems > limit,
         available_labels: availableLabels,
         reader_tuning: readerTuningSummary(readerTuning),
-      });
+      };
+      return res.status(200).json(maybeLocalized(body, req, res));
     }
 
     const filteredRuns = filterRunsByDate(runs, from, to);
@@ -499,7 +635,7 @@ export default async function handler(req, res) {
     const filteredMerged = filterItemsByPublishWindow(labelFiltered, from, to);
     const totalItems = filteredMerged.length;
 
-    return res.status(200).json({
+    const body = {
       mode: 'history',
       date: new Date().toISOString(),
       filters: { from, to, limit, labels: selectedLabels },
@@ -524,7 +660,8 @@ export default async function handler(req, res) {
           max_runs: tier1MaxRuns,
         },
       },
-    });
+    };
+    return res.status(200).json(maybeLocalized(body, req, res));
   } catch (e) {
     res.status(500).json({ error: 'feed_read_failed', detail: String(e) });
   }

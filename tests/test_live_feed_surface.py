@@ -36,6 +36,16 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("normStorylineUrl(card?.source_url) === url", self.html)
         self.assertNotIn("playbookSources[itemKey(it)]", self.html)
 
+    def test_korean_feed_shell_uses_localized_snapshot_endpoint(self) -> None:
+        html = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('<html lang="ko">', html)
+        self.assertIn('<meta name="robots" content="noindex" />', html)
+        self.assertIn('href="https://www.llm-digest.com/"', html)
+        self.assertIn("localized_snapshot", html)
+        self.assertIn("u.searchParams.set('label', 'brief')", html)
+        self.assertIn("u.searchParams.set('limit', '20')", html)
+        self.assertIn("영어 live feed 보기", html)
+
 
 if __name__ == "__main__":
     unittest.main()

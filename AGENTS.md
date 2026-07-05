@@ -262,14 +262,18 @@ in `ops_daily_summary.py`'s log line.
   slice covers `daily`, `weekly`, `story`, `storyline`, `topic`, and
   `foundations`; fresh artifacts render to `web/<locale>/...`, get `hreflang`
   alternates, and expose a browser-language-matched language action.
+  Feed-specific artifacts live separately under
+  `data/i18n/<locale>/feed/{latest,status}.json`: `/ko/` reads them through
+  `/api/feed?locale=ko&localized_snapshot=latest` as a complete top-20 Brief
+  snapshot, and the static-page i18n renderer intentionally ignores
+  `feed/**`.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh
   translations only when the user explicitly asks for translated pages; do not
   create or refresh localized pages opportunistically during unrelated work.
   Use `docs/how-to/add-pretranslated-pages.md`; product contract:
-  `docs/product-specs/multilingual-pretranslated-pages.md`. The live feed `/`
-  is not localized in this v1 path; it needs a separate localized feed-data/API
-  contract before adding `/ko/`.
+  `docs/product-specs/multilingual-pretranslated-pages.md`; live-feed contract:
+  `docs/product-specs/localized-live-feed.md`.
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:

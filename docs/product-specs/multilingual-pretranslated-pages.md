@@ -16,9 +16,10 @@ and routing contracts once the Korean path is proven.
 - Fully localized application chrome in v1.
 - Translating source articles hosted by third parties.
 - Personal language preference or account state.
-- Localized live feed (`/ko/`) in v1. The feed is client-rendered from
-  `/api/feed` and hourly ranking data, so it needs a separate localized
-  feed-data/API contract.
+- Localized live feed (`/ko/`) under this static-page contract. The feed is
+  client-rendered from `/api/feed` and hourly ranking data, so it needs the
+  separate localized feed-data/API contract in
+  `docs/product-specs/localized-live-feed.md`.
 
 ## URL Contract
 
@@ -175,10 +176,10 @@ Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
 `/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
 `/ko/topic/<slug>`, and `/ko/foundations/<slug>`.
 
-The live feed page remains English-only in this slice. A future `/ko/` feed
-should translate the ranked feed item fields from committed feed data, expose a
-locale-aware feed API or locale-specific feed artifact, and decide how often to
-refresh those translations as the hourly feed changes.
+The live feed page remains English-only in this slice. The planned `/ko/` feed
+is specified separately in `docs/product-specs/localized-live-feed.md`: it uses
+a complete Korean snapshot of the default Brief feed, up to 20 cards, rather
+than mixed per-card fallback as the normal localized experience.
 
 When an English page has a fresh translated counterpart, the renderer emits a
 hidden language action in the shared page actions. `site-chrome.js` reveals that
