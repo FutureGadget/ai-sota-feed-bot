@@ -432,8 +432,8 @@
 }
 
 @media (max-width: 640px) {
-  /* Brand + actions share one line: the actions never wrap, and the brand
-     text truncates first on very narrow screens. */
+  /* Brand + actions share one line on most phones; below 480px the extra
+     language action gets its own controls row so the brand remains visible. */
   .site-bar {
     margin-left: 0;
     margin-right: 0;
@@ -519,6 +519,49 @@
     border-left: 0;
     padding-left: 0.65rem;
     font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-bar {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .site-brand {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .site-brand > span:last-child {
+    overflow: visible;
+    text-overflow: clip;
+  }
+
+  .site-bar-actions {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0.3rem;
+  }
+
+  .site-bar-actions > button,
+  .site-bar-actions > a {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  .site-bar-actions > .site-theme-toggle {
+    width: 44px;
+    min-width: 44px;
+  }
+
+  .site-bar-actions > .site-bar-language-action {
+    min-width: 3.65rem;
+  }
+
+  .site-chrome-enhanced [data-site-browse-open] {
+    min-width: 5.15rem;
   }
 }
 
