@@ -29,7 +29,7 @@ class I18nStaticPagesTest(unittest.TestCase):
         cls.artifacts = [
             json.loads(path.read_text(encoding="utf-8"))
             for path in cls.artifact_paths
-            if path.name != "manifest.json"
+            if path.name != "manifest.json" and "feed" not in path.parts
         ]
 
     def test_korean_artifacts_are_fresh_for_their_sources(self) -> None:
