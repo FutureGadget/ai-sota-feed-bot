@@ -4167,7 +4167,7 @@ def render_i18n_daily_page(
             recap,
             "daily-link",
             story_sids,
-            playbook_index=playbook_index,
+            playbook_index=None,
             playbook_cap=3,
         )
         + '<p class="finish-line">You are caught up for this edition</p>'
@@ -4261,7 +4261,7 @@ def render_i18n_weekly_page(
             recap,
             "weekly-link",
             story_sids,
-            playbook_index=playbook_index,
+            playbook_index=None,
             playbook_cap=5,
         )
         + '<p class="weekly-close">The week, resolved into patterns</p>'

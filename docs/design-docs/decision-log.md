@@ -1,10 +1,10 @@
 # Decision Log
 
 ## 2026-07-05 (Render Korean weekly pages from field-complete recap artifacts)
-- **Decision:** Treat weekly translation artifacts as the same localized recap overlay shape used for daily pages: title, intro, highlights, category names/summaries, and article titles/summaries are translated, while URLs, source names, publication dates, slugs, and story links remain inherited from the English weekly recap. The Korean weekly renderer now builds `/ko/weekly/<week>` from that localized recap object instead of only swapping metadata on the English HTML.
+- **Decision:** Treat weekly translation artifacts as the same localized recap overlay shape used for daily pages: title, intro, highlights, category names/summaries, and article titles/summaries are translated, while URLs, source names, publication dates, slugs, and story links remain inherited from the English weekly recap. The Korean weekly renderer now builds `/ko/weekly/<week>` from that localized recap object instead of only swapping metadata on the English HTML. Localized recap pages suppress Playbook overlays until a locale-specific Playbook source index exists.
 - **Context / Problem:** `/ko/weekly/2026-W27` showed a Korean language action and Korean metadata, but the weekly body was still English because the artifact only had summary-level strings and the renderer fell back to generic HTML localization for weekly pages.
 - **Rationale:** Daily and weekly recaps share the same structured editorial model. Using one overlay helper for both surfaces keeps the page layouts identical to English while letting each artifact translate only reader-facing fields.
-- **Impact:** Expanded `data/i18n/ko/weekly/2026-W27.json`, added weekly-specific i18n rendering in `pipeline/render_static_pages.py`, regenerated the Korean weekly page, and added a regression test for translated nested weekly fields.
+- **Impact:** Expanded `data/i18n/ko/weekly/2026-W27.json`, added weekly-specific i18n rendering in `pipeline/render_static_pages.py`, regenerated the Korean weekly page, and added regression tests for translated nested weekly fields and for suppressing English Playbook overlays on localized recap pages.
 - **Rollback:** Revert the weekly-specific i18n renderer and artifact expansion. The generic same-layout fallback continues to serve a complete but mostly English Korean page.
 
 ## 2026-07-05 (Render Korean daily pages from field-complete recap artifacts)

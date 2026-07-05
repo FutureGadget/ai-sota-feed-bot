@@ -153,6 +153,12 @@ URL until their artifacts become field-complete. This keeps daily, weekly,
 story, storyline, topic, and foundation layouts identical while partial
 artifacts evolve. Fresh localized URLs are added to `web/sitemap.xml`.
 
+Recap Playbook overlays are locale-specific content. Today
+`data/playbook/source-index.json` is English-only and there is no
+`data/i18n/<locale>/playbook/source-index.json` contract, so localized recap
+pages do not render Playbook overlay cards. Add the locale-specific index before
+showing those cards on translated pages.
+
 Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
 `/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
 `/ko/topic/<slug>`, and `/ko/foundations/<slug>`.

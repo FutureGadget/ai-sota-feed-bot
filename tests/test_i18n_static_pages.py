@@ -106,6 +106,7 @@ class I18nStaticPagesTest(unittest.TestCase):
 
         self.assertIn("Coding agent 책임성 유지", html)
         self.assertIn("Causari는 LLM 요청 로그와 파일시스템 diff를 연결한다", html)
+        self.assertNotIn('class="playbook-takeaway"', html)
         self.assertNotIn("Keeping Coding Agents Accountable", html)
         self.assertNotIn("Causari correlates LLM request logs", html)
 
@@ -116,6 +117,7 @@ class I18nStaticPagesTest(unittest.TestCase):
 
         self.assertIn("Sonnet 5, Fable 5, 그리고 그 뒤의 인프라", html)
         self.assertIn("Anthropic의 가장 agentic한 Sonnet", html)
+        self.assertNotIn('class="playbook-takeaway"', html)
         self.assertNotIn("Sonnet 5, Fable 5, and the Infrastructure Behind Them", html)
         self.assertNotIn("Anthropic&#x27;s most agentic Sonnet", html)
 
