@@ -4072,7 +4072,11 @@ def render_i18n_language_action(source_path: str) -> str:
     )
 
 
-def localized_daily_recap(source: dict, artifact: dict) -> dict:
+def clean_generated_i18n_html(html: str) -> str:
+    return re.sub(r"(?m)^[ \t]+$", "", html)
+
+
+def localized_recap_overlay(source: dict, artifact: dict) -> dict:
     recap = copy.deepcopy(source)
     for key in ("title", "intro", "highlights"):
         value = artifact.get(key)
@@ -4124,7 +4128,7 @@ def render_i18n_daily_page(
         return None
 
     artifact = page["artifact"]
-    recap = localized_daily_recap(source, artifact)
+    recap = localized_recap_overlay(source, artifact)
     day = str(recap["date"])
     locale = str(page["locale"])
     canonical_path = str(page["canonical_path"])
@@ -4146,7 +4150,7 @@ def render_i18n_daily_page(
         title=title,
         stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
     )
-    return render_page(
+    html = render_page(
         title=title,
         description=description,
         canonical=canonical,
@@ -4196,6 +4200,102 @@ def render_i18n_daily_page(
         ],
         language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
     )
+    return clean_generated_i18n_html(html)
+
+
+def render_i18n_weekly_page(
+    base_url: str,
+    page: dict,
+    story_sids: set[str] | None = None,
+    playbook_index: dict[str, dict] | None = None,
+) -> str | None:
+    source_path = str(page["source_path"])
+    ident = source_path.rsplit("/", 1)[-1]
+    source = load_json(WEEKLY_DIR / f"{ident}.json")
+    if not isinstance(source, dict):
+        print(f"warning: i18n weekly source missing path={source_path}", file=sys.stderr)
+        return None
+
+    artifact = page["artifact"]
+    recap = localized_recap_overlay(source, artifact)
+    week = str(recap["week"])
+    locale = str(page["locale"])
+    canonical_path = str(page["canonical_path"])
+    canonical = f"{base_url}{canonical_path}"
+    english_url = f"{base_url}{source_path}"
+    cats = recap.get("categories") or []
+    total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
+    start = str(recap.get("start") or "")
+    end = str(recap.get("end") or "")
+    title = squeeze(recap.get("title")) or f"AI Weekly Recap — {week}"
+    description = clip(squeeze(artifact.get("description")) or recap_description(recap), 250)
+    published = iso_or_none(recap.get("generated_at"))
+    archive_options = [
+        (f"/weekly/{r['week']}", f"{r['week']} · {squeeze(r.get('title'))}")
+        for r in load_recaps(WEEKLY_DIR, WEEK_FILE_RE, "week")
+    ]
+    og_stats = " · ".join(
+        s for s in (f"{start} → {end}" if start and end else week, f"{total} articles") if s
+    )
+    og_rel = og_cards.ensure(
+        "weekly",
+        week,
+        kicker="Weekly pattern report",
+        title=title,
+        stats=og_stats,
+    )
+    html = render_page(
+        title=title,
+        description=description,
+        canonical=canonical,
+        published=published,
+        h1="AI Weekly Recap",
+        meta_line=meta_line_for(recap),
+        json_href=f"/api/weekly?week={week}",
+        archive=render_archive_select(archive_options, f"/weekly/{week}", "Week"),
+        recap_title=title,
+        recap_range="",
+        title_html=weekly_hero(recap),
+        intro_html=render_intro(recap, "The week in signals") + render_focus_widget(recap),
+        body_html=render_categories(
+            recap,
+            "weekly-link",
+            story_sids,
+            playbook_index=playbook_index,
+            playbook_cap=5,
+        )
+        + '<p class="weekly-close">The week, resolved into patterns</p>'
+        + subscribe_cta_html(
+            "weekly_end",
+            "Get next week’s recap by email.",
+            "Plus the finishable daily brief every day.",
+        ),
+        image=f"{base_url}{og_rel}" if og_rel else "",
+        json_ld=[
+            article_node(
+                type_="NewsArticle",
+                title=title,
+                description=description,
+                canonical=canonical,
+                published=published,
+                base_url=base_url,
+            ),
+            breadcrumb_node(
+                base_url,
+                [("Home", "/"), ("Weekly recaps", "/weekly"), (week, source_path)],
+            ),
+        ],
+        extra_js=WEEKLY_RECAP_JS,
+        extra_css=WEEKLY_RECAP_CSS,
+        lang=locale,
+        alternate_links=[
+            (locale, canonical),
+            ("en", english_url),
+            ("x-default", english_url),
+        ],
+        language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
+    )
+    return clean_generated_i18n_html(html)
 
 
 def localize_static_html_page(base_url: str, page: dict) -> str | None:
@@ -4256,8 +4356,7 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
         html,
         count=1,
     )
-    html = re.sub(r"(?m)^[ \t]+$", "", html)
-    return html
+    return clean_generated_i18n_html(html)
 
 
 def render_i18n_pages(
@@ -4275,6 +4374,8 @@ def render_i18n_pages(
             canonical_path = str(page["canonical_path"])
             if source_path.startswith("/daily/") and isinstance(artifact.get("categories"), list):
                 html = render_i18n_daily_page(base_url, page, story_sids, playbook_index)
+            elif source_path.startswith("/weekly/") and isinstance(artifact.get("categories"), list):
+                html = render_i18n_weekly_page(base_url, page, story_sids, playbook_index)
             else:
                 html = localize_static_html_page(base_url, page)
             if html is None:

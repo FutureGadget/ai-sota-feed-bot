@@ -136,8 +136,8 @@ data/i18n/ko/topic/agent-cost.json
 data/i18n/ko/foundations/context-compaction-safety.json
 ```
 
-The daily artifact is field-complete for its source recap: it translates the
-title, intro, highlights, category names/summaries, and article
+The daily and weekly artifacts are field-complete for their source recaps: they
+translate the title, intro, highlights, category names/summaries, and article
 titles/summaries. The renderer overlays those fields onto the English recap
 object and preserves source URLs, publication dates, source names, slugs, and
 story links from the English data.
@@ -146,11 +146,12 @@ To add more translated pages, put the translated JSON in the matching
 `data/i18n/<locale>/<surface>/...` path, set `source_path` to the English URL
 path, and compute `source_hash` from the English source object the renderer
 uses. `pipeline/render_static_pages.py` omits stale artifacts whose hash no
-longer matches, then writes localized HTML under `web/<locale>/...` by adapting
-the complete English static page for that URL. This keeps daily, weekly, story,
-storyline, topic, and foundation layouts identical while field-level
-translations are still incomplete. Fresh localized URLs are added to
-`web/sitemap.xml`.
+longer matches, then writes localized HTML under `web/<locale>/...`. Daily and
+weekly pages render from localized recap objects so nested recap content is
+translated. Other page types adapt the complete English static page for that
+URL until their artifacts become field-complete. This keeps daily, weekly,
+story, storyline, topic, and foundation layouts identical while partial
+artifacts evolve. Fresh localized URLs are added to `web/sitemap.xml`.
 
 Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
 `/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,

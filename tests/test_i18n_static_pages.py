@@ -109,6 +109,16 @@ class I18nStaticPagesTest(unittest.TestCase):
         self.assertNotIn("Keeping Coding Agents Accountable", html)
         self.assertNotIn("Causari correlates LLM request logs", html)
 
+    def test_korean_weekly_page_renders_nested_translated_fields(self) -> None:
+        html = (ROOT / "web" / "ko" / "weekly" / "2026-W27.html").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("Sonnet 5, Fable 5, 그리고 그 뒤의 인프라", html)
+        self.assertIn("Anthropic의 가장 agentic한 Sonnet", html)
+        self.assertNotIn("Sonnet 5, Fable 5, and the Infrastructure Behind Them", html)
+        self.assertNotIn("Anthropic&#x27;s most agentic Sonnet", html)
+
     def test_i18n_availability_drives_english_page_language_links(self) -> None:
         i18n_pages = render.collect_i18n_pages(
             self.stories,

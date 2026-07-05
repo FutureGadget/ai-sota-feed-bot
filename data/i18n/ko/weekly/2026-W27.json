@@ -17,5 +17,210 @@
     "AIEWF 흐름은 software factory와 forward-deployed engineer 모델이 AI 도입의 실제 실행 방식으로 자리 잡고 있음을 보여준다.",
     "Agent loop 보안은 tool use, 권한, data access, MCP 같은 연결 지점까지 포함하는 시스템 문제로 다뤄져야 한다.",
     "Coding-agent 경제성과 거버넌스, GPU·API 기반 inference scale은 이제 AI platform engineer가 매주 판단해야 하는 운영 의제가 됐다."
+  ],
+  "highlights": [
+    "Claude Sonnet 5는 재배포된 Fable 5 및 새 jailbreak severity framework와 같은 주에 나왔고, Azure의 NVIDIA GB300 Blackwell Ultra에서 바로 사용할 수 있었다.",
+    "AIEWF의 핵심 흐름은 production convergence였다. software factory, agent loop, forward-deployed engineer가 Cursor, Sierra, Vercel에서 같은 운영 모델을 가리켰다.",
+    "Agent memory는 infrastructure가 됐다. AWS AgentCore metadata filtering, Elastic Atlas, LangChain의 code-dispatched dynamic subagent가 모두 이번 주에 나왔다.",
+    "Agent security는 stack 전반에서 강화됐다. AI-agent worm 경고, ReAct-loop vulnerability panel, tool-call firewall, dependency-vulnerability CLI가 함께 등장했다.",
+    "Coding-agent 경제성이 scrutiny를 받았다. builder들은 bill이 두 배가 됐다고 보고했고 GitLab research는 coding 속도 향상이 아직 전체 delivery 속도로 이어지지 않는다고 봤다."
+  ],
+  "categories": [
+    {
+      "name": "Sonnet 5, Fable 5, 그리고 그 뒤의 인프라",
+      "summary": "Anthropic의 model launch와 redeployment가 새 silicon 위 GA와 같은 주에 맞물리며 capability, safety tooling, inference infrastructure가 하나의 story로 묶였다.",
+      "articles": [
+        {
+          "title": "Claude Sonnet 5 소개",
+          "summary": "Anthropic의 가장 agentic한 Sonnet으로, coding과 everyday professional work에 맞춰 positioning됐고 model builder들이 다음 기본값으로 삼을 가능성이 크다."
+        },
+        {
+          "title": "Claude Sonnet 5의 새로운 점",
+          "summary": "Sonnet 5 launch를 developer docs 중심으로 읽어 marketing copy보다 앞서 actionable API와 behavior change를 짚는다."
+        },
+        {
+          "title": "AWS에서 Claude Sonnet 5 소개",
+          "summary": "Sonnet 5는 발표 당일 Amazon Bedrock과 Claude on AWS에 올라가 model launch와 enterprise platform availability 사이의 일반적인 gap을 줄였다."
+        },
+        {
+          "title": "Claude Fable 5 재배포",
+          "summary": "Anthropic은 export control이 풀린 뒤 7월 1일 Fable 5 availability를 재개했고, 이를 updated cybersecurity safeguard와 함께 묶었다."
+        },
+        {
+          "title": "Fable 5 cyber safeguard와 jailbreak framework 세부사항",
+          "summary": "Anthropic은 cyber classifier가 무엇을 block하는지 설명하고 first-draft jailbreak severity framework를 공개했다. agent deployment를 red-team하는 팀에게 구체적인 reference point다."
+        },
+        {
+          "title": "Claude, Blackwell Ultra를 만나다: Anthropic model이 Azure의 NVIDIA GB300에서 실행",
+          "summary": "Claude model은 이제 Azure의 NVIDIA GB300 Blackwell Ultra GPU 위에서 GA가 되어 Azure-native enterprise가 cloud를 떠나지 않고 agent를 build할 수 있는 새 경로를 얻었다."
+        },
+        {
+          "title": "Ornith-1.0: Agentic coding을 위한 self-scaffolding LLM",
+          "summary": "DeepReinforce의 첫 open-weight release는 MIT license의 9B/31B/35B MoE variant로 self-scaffolding agentic coding을 겨냥하며, 이번 주 closed launch에 대한 open counterweight가 됐다."
+        }
+      ]
+    },
+    {
+      "name": "Agent memory가 infrastructure가 되다",
+      "summary": "Memory는 이번 주 demo feature를 벗어났다. AWS, Elastic, LangChain이 production load를 견디는 structural memory와 orchestration primitive를 각각 냈다.",
+      "articles": [
+        {
+          "title": "AgentCore Memory의 metadata 기반 structured memory filtering",
+          "summary": "AWS는 AgentCore Memory의 configuration, ingestion, retrieval 전반에 metadata-based filtering을 추가했다. scoped recall이 필요한 multi-agent 및 multi-tenant deployment를 겨냥한다."
+        },
+        {
+          "title": "Elastic, cognitive science 기반 Atlas agent memory open-source",
+          "summary": "Elastic은 Elasticsearch 기반 system인 Atlas를 open-source했다. MCP를 통한 per-user isolation과 세 가지 agent memory category를 유지하는 진지한 entrant다."
+        },
+        {
+          "title": "Deep Agents에서 RLM 사용하기",
+          "summary": "Recursive language model은 agent가 모든 context를 한 window에 밀어 넣는 대신 context chunk 위로 subagent를 dispatch하는 code를 쓰게 해 context rot를 고친다. 이제 Deep Agents에 구현됐다."
+        },
+        {
+          "title": "Deep Agents의 dynamic subagent 소개",
+          "summary": "Code-dispatched subagent orchestration은 Deep Agents에서 tool-call fan-out을 대체하며, reliable multi-step concurrent work를 위해 coverage를 보장한다."
+        },
+        {
+          "title": "Agent memory는 귀여운 'remember this' demo phase를 떠나고 있다",
+          "summary": "Agent memory가 novelty feature에서 고유한 failure mode와 design tradeoff를 가진 실제 engineering discipline으로 이동하고 있다는 주장이다."
+        },
+        {
+          "title": "Show HN: Sibyl – AI coding agent를 위한 self-hosted cross-agent memory",
+          "summary": "여러 parallel coding agent가 매번 zero에서 시작하지 않고 common memory layer를 읽고 쓸 수 있게 하는 self-hosted shared substrate다."
+        },
+        {
+          "title": "Show HN: agent memory failure mode benchmark",
+          "summary": "Agent memory system이 어떻게 실패하는지 직접 겨냥한 benchmark로, recall success만 재는 benchmark가 남긴 gap을 채운다."
+        }
+      ]
+    },
+    {
+      "name": "AIEWF: Software factory와 forward-deployed engineer",
+      "summary": "AI Engineer World's Fair coverage는 하나의 operating model로 모였다. production agent team은 prompt tinkerer가 아니라 forward-deployed engineer가 운영하는 software factory에 가깝다.",
+      "articles": [
+        {
+          "title": "AIEWF Daily Dispatch: loop, software factory, forward deployed engineer",
+          "summary": "Conference floor dispatch는 올해 agent loop와 software factory가 dominant framing이었고, open model이 또 다른 hot topic이었다고 보여준다."
+        },
+        {
+          "title": "Skill engineering과 one-shot AI design 반대 논리",
+          "summary": "Paul Bakaus는 agent도 여전히 사람이 steer해야 한다고 주장하며, loopmaxxing과 one-shot design 대신 deliberate skill engineering을 지지한다."
+        },
+        {
+          "title": "Cursor가 enterprise 안에 AI를 배포하는 방식",
+          "summary": "Cursor의 Forward Deployed Engineers team은 organization 안에 embedding해 production agent를 세우는 방식을 설명한다. 사실상 customer별 software factory를 운영하는 모델이다."
+        },
+        {
+          "title": "Forward Deployed Engineer와 software engineering의 미래",
+          "summary": "Sierra의 Natalie Meurer는 agent system이 customer workflow로 직접 배포되면서 product engineering과 forward-deployed engineering role이 수렴하는 이유를 설명한다."
+        },
+        {
+          "title": "Vercel의 Andrew Qu가 말하는 agent라는 새로운 software",
+          "summary": "Vercel의 Chief of Software가 eve agent framework를 만들며, skill, sandbox, agent-readable website가 UI만큼 중요해진 이유를 설명한다."
+        },
+        {
+          "title": "Ahmad Osman이 말하는 local AI가 따라잡는 이유",
+          "summary": "두 번의 꽉 찬 AIEWF workshop 이후, laptop과 phone부터 enterprise-grade infrastructure까지 local AI가 빠르게 gap을 좁히고 있다는 case다."
+        }
+      ]
+    },
+    {
+      "name": "Agent loop 보안",
+      "summary": "Agent security는 이번 주 research talk에서 shipped tooling으로 이동했다. self-propagating agent 경고와 함께 tool call 및 dependency를 위한 구체적인 firewall과 scanner가 나왔다.",
+      "articles": [
+        {
+          "title": "첫 AI agent worm은 몇 달 안에 올 수 있다",
+          "summary": "Self-propagating agent-driven exploitation이 실제로 얼마나 가까운지 평가하며, 왜 지금 agent permission을 harden해야 하는지 timeline의 의미를 짚는다."
+        },
+        {
+          "title": "Article: Machine Age security virtual panel",
+          "summary": "Security expert panel은 prompt injection과 data poisoning에서 agent abuse와 AI-powered social engineering으로 threat가 진화하는 흐름을 추적한다."
+        },
+        {
+          "title": "Presentation: AI-accelerated development를 안전하게 만들기",
+          "summary": "Production autonomous agent를 secure하기 위한 industry-converging pattern을 mapping한 talk로, ReAct loop의 context, reasoning, tool-use stage 안 vulnerability에 초점을 둔다."
+        },
+        {
+          "title": "Show HN: AI agent가 취약한 dependency를 피하도록 돕는 CLI",
+          "summary": "deptrust는 여러 ecosystem의 package version을 known vulnerability와 대조해 coding agent가 install하기 전에 guardrail을 제공한다."
+        },
+        {
+          "title": "Cerberus – AI agent tool call을 위한 local firewall",
+          "summary": "AI agent가 실행할 수 있는 tool call을 gate하는 local firewall로, model 자체 판단과 독립된 enforcement layer를 더한다."
+        },
+        {
+          "title": "Show HN: AI-agent design control을 NIST, ISO 42001, OWASP에 mapping하는 crosswalk",
+          "summary": "구체적인 agent design control을 NIST, ISO 42001, OWASP framework에 mapping해, claim이 아니라 compliance를 prove해야 하는 team을 돕는다."
+        },
+        {
+          "title": "Coding agent는 항상 safe하다고 말할 것이다",
+          "summary": "Coding agent가 스스로 safe하다고 보고하는 경향을 비판하며, agent 자신의 assurance는 independent verification을 대체할 수 없다고 주장한다."
+        }
+      ]
+    },
+    {
+      "name": "Coding-agent 경제성과 거버넌스",
+      "summary": "Coding agent가 team 안에서 scale되며 cost와 reliability가 본격 scrutiny를 받았다. bill은 오르고, delivery speed는 coding speed를 따라가지 못하며, agent instruction을 honest하게 유지하려는 tool이 등장했다.",
+      "articles": [
+        {
+          "title": "Coding agent bill이 두 배가 됐다. 고치는 방법",
+          "summary": "Claude Code, Cursor, Copilot 등 coding agent across tool의 spend를 한곳에서 trace, compare, govern해 cost가 더 커지기 전에 통제하는 practical guide다."
+        },
+        {
+          "title": "GitLab research: AI tool은 coding을 빠르게 하지만 전체 software delivery는 아직 빠르게 하지 못한다",
+          "summary": "GitLab의 2026 AI Accountability Report는 developer 78%가 더 빠르게 code를 쓰지만, testing, review, governance가 따라오지 못해 overall delivery는 빨라지지 않았다고 본다."
+        },
+        {
+          "title": "\"Eval하기 어렵다\"는 product smell이다",
+          "summary": "Hamel Husain은 \"우리 product는 eval하기 어렵다\"는 말이 evaluation을 skip할 이유가 아니라 design flaw의 signal이라고 주장한다."
+        },
+        {
+          "title": "Skillsaw: AI coding agent를 조종하는 file을 lint한다",
+          "summary": "AGENTS.md류 instruction file을 lint하는 tool로, stale하거나 contradictory한 guidance가 agent를 mislead하기 전에 잡는 것을 목표로 한다."
+        },
+        {
+          "title": "SkillSpec – agent skill이 SKILL.md대로 실행되는지 verify",
+          "summary": "Agent skill의 실제 behavior가 SKILL.md documentation과 일치하는지 check하는 verification tool로, 커지는 skill ecosystem의 trust gap을 줄인다."
+        },
+        {
+          "title": "Agents.md는 agent에게 거짓말하고 있고 아무것도 check하지 않는다",
+          "summary": "AGENTS.md file이 현실과 자주 drift하지만 이를 자동으로 잡는 check가 없다는 비판이다. SkillSpec과 Skillsaw가 닫으려는 gap과 같다."
+        }
+      ]
+    },
+    {
+      "name": "Scale 단계의 inference infrastructure",
+      "summary": "Inference workload가 커지며 이번 주 infrastructure story는 cost-per-token을 낮추는 데 집중했다. 새 compute partnership, serving technique, workload-specific benchmark가 함께 나왔다.",
+      "articles": [
+        {
+          "title": "NVIDIA, AI compute at scale을 열고 infrastructure buildout partner를 초대",
+          "summary": "NVIDIA는 compute demand가 model development에서 production inference at scale로 이동하면서, continuous operating AI factory에 capital partner를 초대하고 있다."
+        },
+        {
+          "title": "NVIDIA inference software stack이 lowest token cost를 만드는 방식",
+          "summary": "NVIDIA는 infrastructure decision이 peak chip spec에서 cost per token, 즉 dollar와 watt당 useful token으로 이동했다고 설명한다."
+        },
+        {
+          "title": "Multi-token residual prediction",
+          "summary": "Diffusion language model을 위한 technique으로 여러 token residual을 한 번에 predict해, 작은 module을 대가로 meaningful serving speedup을 얻는다."
+        },
+        {
+          "title": "LLM inference에서 continuous batching과 static batching 비교",
+          "summary": "LLM inference의 continuous batching과 static batching strategy를 비교한 글로, serving throughput과 latency tradeoff를 조정하는 사람에게 relevant하다."
+        },
+        {
+          "title": "TraceLab: LLM serving을 위한 coding agent workload 특성화",
+          "summary": "Coding-agent traffic이 serving layer에서 실제로 어떻게 보이는지 characterizing한 research로, agentic workload inference를 provision하는 사람에게 유용하다."
+        },
+        {
+          "title": "Presentation: Production AI 뒤의 infrastructure challenge",
+          "summary": "Panelist들은 model-building이 성숙했음에도 constant load 아래 production AI database를 reliable하게 유지하는 문제가 아직 풀리지 않았다고 설명한다."
+        },
+        {
+          "title": "Micro-Agent: model API 안의 collaboration으로 frontier model 이기기",
+          "summary": "vLLM Semantic Router의 vllm-sr/auto는 model API 안에서 confidence-based routing과 workflow collaboration을 수행하는 bounded micro-agent runtime이 된다."
+        }
+      ]
+    }
   ]
 }
