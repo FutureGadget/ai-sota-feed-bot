@@ -56,6 +56,7 @@ echo -e "\n=== [3/5] Translating Static Pages ==="
 python3 scripts/translate_local.py \
   --locale ko \
   --limit 1000 \
+  --days 1 \
   --model "${MODEL_NAME}" \
   --base-url "${LM_STUDIO_URL}"
 

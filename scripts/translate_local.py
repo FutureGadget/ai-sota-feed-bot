@@ -257,6 +257,7 @@ def translate_candidates(
     temperature: float,
     timeout: int,
     include_fresh: bool,
+    days: int | None = None,
 ) -> int:
     """Translate candidates and write artifact files. Return exit code."""
     # Build the candidate list via the existing exporter
@@ -266,6 +267,7 @@ def translate_candidates(
         include_fresh=include_fresh,
         include_source=True,  # We need the source to translate
         limit=limit if target_id is None else 500,
+        days=days,
     )
     items = payload.get("items", [])
 
@@ -412,6 +414,10 @@ def parse_args() -> argparse.Namespace:
         help="Max candidates to translate (default: 10)",
     )
     parser.add_argument(
+        "--days", type=int,
+        help="Limit candidates to those modified within N days from today",
+    )
+    parser.add_argument(
         "--include-fresh", action="store_true",
         help="Re-translate already fresh artifacts",
     )
@@ -451,6 +457,7 @@ def main() -> int:
         temperature=args.temperature,
         timeout=args.timeout,
         include_fresh=args.include_fresh,
+        days=args.days,
     )
 
 

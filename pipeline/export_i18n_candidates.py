@@ -197,6 +197,42 @@ def iter_sources() -> list[tuple[str, str, str, dict[str, Any]]]:
     return rows
 
 
+def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int) -> bool:
+    import re
+    date_str = None
+    if surface == "daily":
+        date_str = source.get("date")
+    elif surface == "weekly":
+        week_str = source.get("week")
+        if week_str and len(week_str) == 8:
+            try:
+                dt = datetime.strptime(f"{week_str}-1", "%Y-W%W-%w")
+                date_str = dt.strftime("%Y-%m-%d")
+            except Exception:
+                pass
+    elif surface == "story":
+        date_str = source.get("published") or source.get("first_seen") or source.get("last_seen")
+    elif surface == "storyline":
+        date_str = source.get("last_updated") or source.get("generated_at")
+    elif surface == "foundations":
+        date_str = source.get("updated")
+    
+    if not date_str:
+        return False
+
+    m = re.match(r"^(\d{4}-\d{2}-\d{2})", str(date_str))
+    if not m:
+        return False
+    
+    try:
+        dt = datetime.strptime(m.group(1), "%Y-%m-%d").date()
+        current = datetime.now().date()
+        delta = (current - dt).days
+        return delta <= days
+    except Exception:
+        return False
+
+
 def build_export(
     *,
     locale: str,
@@ -204,10 +240,13 @@ def build_export(
     include_fresh: bool = False,
     include_source: bool = False,
     limit: int | None = None,
+    days: int | None = None,
 ) -> dict[str, Any]:
     items = []
     for surface, ident, source_path, source in iter_sources():
         if surfaces and surface not in surfaces:
+            continue
+        if days is not None and not _is_within_days(surface, ident, source, days):
             continue
         item = _candidate(
             locale=locale,
@@ -254,6 +293,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--include-fresh", action="store_true", help="Include already fresh artifacts")
     parser.add_argument("--include-source", action="store_true", help="Embed English source objects")
     parser.add_argument("--limit", type=int, default=100, help="Maximum items to output")
+    parser.add_argument("--days", type=int, help="Limit candidates to those modified within N days from today")
     parser.add_argument("--output", type=Path, help="Write JSON to this path instead of stdout")
     return parser.parse_args()
 
@@ -266,6 +306,7 @@ def main() -> int:
         include_fresh=args.include_fresh,
         include_source=args.include_source,
         limit=args.limit,
+        days=args.days,
     )
     text = json.dumps(payload, ensure_ascii=False, indent=2, sort_keys=True) + "\n"
     if args.output:
