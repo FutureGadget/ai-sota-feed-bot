@@ -80,15 +80,30 @@ test('reports when the selected feed is truncated', async () => {
 });
 
 test('localized feed reports missing snapshot explicitly', async () => {
-  const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '1', label: 'brief' });
-  assert.equal(res.statusCode, 200);
-  assert.equal(res.body.locale, 'ko');
-  assert.equal(res.body.mode, 'localized_snapshot');
-  assert.match(res.headers['cache-control'], /s-maxage=300/);
-  assert.notEqual(res.body.status, 'current');
-  assert.equal(res.body.is_current, false);
-  assert.equal(res.body.is_complete, false);
-  assert.ok(Array.isArray(res.body.items));
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-missing-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    // Write a dummy processed latest so the feed reads it but doesn't find ko feed
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'processed', 'latest.json'),
+      JSON.stringify([])
+    );
+    process.chdir(tmp);
+
+    const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '1', label: 'brief' });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.locale, 'ko');
+    assert.equal(res.body.mode, 'localized_snapshot');
+    assert.match(res.headers['cache-control'], /s-maxage=300/);
+    assert.notEqual(res.body.status, 'current');
+    assert.equal(res.body.is_current, false);
+    assert.equal(res.body.is_complete, false);
+    assert.ok(Array.isArray(res.body.items));
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
 });
 
 test('localized feed overlays translated text while preserving item identity', async () => {
