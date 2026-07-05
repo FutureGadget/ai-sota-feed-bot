@@ -2,98 +2,98 @@
 
 Focus: AI Platform Engineering
 
-## 1. sqlite-utils 4.0rc2, mostly written by Claude Fable
+## 1. OpenWiki: Open Source Repo Documentation for Coding Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/introducing-openwiki-an-open-source-agent-for-repo-documentation
+- Score: 3.514 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. sqlite-utils 4.0rc2, mostly written by Claude Fable (for about $149.25)
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything
 - Score: 3.304 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex, claude code.
 
-## 2. TestEvo-Bench: An Executable and Live Benchmark for Test and Code Co-Evolution
+## 3. TestEvo-Bench: An Executable and Live Benchmark for Test and Code Co-Evolution
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.02469v1
-- Score: 3.145 | Reliability: 1.0
+- Score: 3.111 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 3. llm-coding-agent 0.1a0
+## 4. llm-coding-agent 0.1a0
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/2/llm-coding-agent/#atom-everything
-- Score: 3.103 | Reliability: 1.0
+- Score: 3.104 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 4. Omegacode: Code based orchestration for any coding agent
+## 5. Omegacode: Code based orchestration for any coding agent
 - Type: news | Source: hackernews_ai
 - URL: https://github.com/Sawyerhood/omegacode
-- Score: 3.014 | Reliability: 1.0
+- Score: 2.988 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. Understanding Agent-Based Patching of Compiler Missed Optimizations
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2607.02370v1
-- Score: 2.981 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. Your coding agent bill doubled. Here’s how to fix it.
+## 6. How to Use RLMs in Deep Agents
 - Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/fix-your-coding-agent-bill
-- Score: 2.836 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+- URL: https://www.langchain.com/blog/how-to-use-rlms-in-deep-agents
+- Score: 2.942 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 7. DemoPSD: Disagreement-Modulated Policy Self-Distillation
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2607.02502v1
-- Score: 2.764 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 8. Cloudflare Details Unified Data Platform Where Billing Workloads Account for 53% of Queries
+## 7. Cloudflare Details Unified Data Platform Where Billing Workloads Account for 53% of Queries
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/cloudflare-unified-data-platform/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.758 | Reliability: 1.0
+- Score: 2.759 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 8. DemoPSD: Disagreement-Modulated Policy Self-Distillation
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2607.02502v1
+- Score: 2.729 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
 ## 9. More details on Fable 5’s cyber safeguards and our jailbreak framework
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/fable-safeguards-jailbreak-framework
-- Score: 2.53 | Reliability: 1.0
+- Score: 2.528 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Google DeepMind and A24 announce first-of-its-kind research partnership
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/google-deepmind-and-a24-announce-first-of-its-kind-research-partnership/
-- Score: 2.315 | Reliability: 1.0
+- Score: 2.312 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. claude-code v2.1.200
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.200
-- Score: 2.732 | Reliability: 1.0
+- Score: 2.726 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. UA-ChatDev: Uncertainty-Aware Multi-Agent Collaboration for Reliable Software Development
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2607.02186v1
-- Score: 2.707 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 12. ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/ibm-research/scarfbench
+- Score: 2.593 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 13. Presentation: Fine Tuning the Enterprise: Reinforcement Learning in Practice
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/rft-openai-model/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.582 | Reliability: 1.0
+- Score: 2.583 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 14. Vercel's Andrew Qu on why agents are a new kind of software
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/vercel-agents-new-software
-- Score: 2.577 | Reliability: 1.0
+- Score: 2.578 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 15. codex 0.143.0-alpha.36
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.36
-- Score: 2.425 | Reliability: 1.0
+- Score: 2.417 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 16. The website of the future may assemble itself for every visitor
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/the-website-of-the-future
-- Score: 2.405 | Reliability: 1.0
+- Score: 2.406 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
