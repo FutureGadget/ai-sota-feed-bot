@@ -1,0 +1,20 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/context-compaction-safety",
+  "source_hash": "8f79f86d9bb1856c7b931966fefacd46e14b4f9d3a290420456d53e2bfced25e",
+  "translated_at": "2026-07-05T00:00:00+00:00",
+  "model": "codex-subagent",
+  "review_status": "machine",
+  "title": "Agent의 context를 compact하면 safety rule이 위험해지는가?",
+  "description": "Agent의 context compaction은 governance constraint를 조용히 지울 수 있으므로, hard rule은 compactible window 밖에 고정해야 합니다.",
+  "intro": [
+    "Context compaction은 단순한 lossy 비용 최적화가 아닙니다. 1,323-episode benchmark는 오래 실행되는 agent에게 주어진 governance constraint가 compaction 과정에서 조용히 사라질 수 있음을 보여줍니다.",
+    "핵심은 constraint를 compactible window 밖에 고정해 두는 것입니다. 그렇지 않으면 agent는 자신이 따라야 할 규칙을 잃은 채 계속 실행될 수 있습니다."
+  ],
+  "bullets": [
+    "Policy가 full context에 있을 때 violation rate는 0%였습니다.",
+    "일반 compaction 이후 violation rate는 30%로 올랐고, 일부 model에서는 최대 59%까지 올라갔습니다.",
+    "Constraint가 summary 안에 살아남으면 violation rate는 다시 0%였습니다.",
+    "Constraint가 summary에서 빠지면 violation rate는 38%였습니다."
+  ]
+}
