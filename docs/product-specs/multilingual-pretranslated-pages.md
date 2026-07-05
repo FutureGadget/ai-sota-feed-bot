@@ -116,6 +116,10 @@ PostHog view counts; that is the next prioritization input to add.
 6. Commit translation data and rendered pages separately from runtime feed data
    when practical.
 
+Agents should use `.agents/skills/add-translated-page/SKILL.md` for one-page
+translation publishing. Do not add or refresh translated pages unless the user
+explicitly asks for that work.
+
 ## Fallback Behavior
 
 If a translation is missing or stale, do not serve a half-translated page. Link
