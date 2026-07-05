@@ -261,7 +261,9 @@ in `ops_daily_summary.py`'s log line.
   alternates, and expose a browser-language-matched language action.
   `pipeline/export_i18n_candidates.py --locale ko --include-source` emits the
   missing/stale worklist for external translation systems. Add or refresh
-  translations with `docs/how-to/add-pretranslated-pages.md`; product contract:
+  translations only when the user explicitly asks for translated pages; do not
+  create or refresh localized pages opportunistically during unrelated work.
+  Use `docs/how-to/add-pretranslated-pages.md`; product contract:
   `docs/product-specs/multilingual-pretranslated-pages.md`. The live feed `/`
   is not localized in this v1 path; it needs a separate localized feed-data/API
   contract before adding `/ko/`.
