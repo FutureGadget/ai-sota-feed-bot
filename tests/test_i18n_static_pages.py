@@ -99,6 +99,16 @@ class I18nStaticPagesTest(unittest.TestCase):
                         f"{source_path} lost marker {marker}",
                     )
 
+    def test_korean_daily_page_renders_nested_translated_fields(self) -> None:
+        html = (ROOT / "web" / "ko" / "daily" / "2026-07-04.html").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("Coding agent 책임성 유지", html)
+        self.assertIn("Causari는 LLM 요청 로그와 파일시스템 diff를 연결한다", html)
+        self.assertNotIn("Keeping Coding Agents Accountable", html)
+        self.assertNotIn("Causari correlates LLM request logs", html)
+
     def test_i18n_availability_drives_english_page_language_links(self) -> None:
         i18n_pages = render.collect_i18n_pages(
             self.stories,

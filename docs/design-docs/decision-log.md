@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-07-05 (Render Korean daily pages from field-complete recap artifacts)
+- **Decision:** Treat daily translation artifacts as localized overlays of the English recap JSON shape: title, intro, highlights, category names/summaries, and article titles/summaries are translated, while URLs, source names, publication dates, slugs, and story links remain anchored to the English source data. The Korean daily renderer now builds the page from this localized recap object instead of only swapping metadata on the English HTML.
+- **Context / Problem:** After preserving page structure, `/ko/daily/2026-07-04` still showed English highlights, categories, and article summaries because the artifact only contained summary-level fields and the renderer had no daily-specific nested-field wiring.
+- **Rationale:** Recap pages are mostly structured editorial data, so the safest multilingual contract is an overlay: translate only reader-facing strings and inherit all routing/evidence fields from the source. This avoids both truncated pages and broken links.
+- **Impact:** Expanded `data/i18n/ko/daily/2026-07-04.json`, added daily-specific i18n rendering in `pipeline/render_static_pages.py`, regenerated the Korean daily page, and added a regression test for translated nested daily fields.
+- **Rollback:** Revert the daily-specific i18n renderer and artifact expansion. The generic same-layout fallback continues to serve a complete but mostly English Korean page.
+
 ## 2026-07-05 (Keep localized pages structurally identical to source pages)
 - **Decision:** Render pre-translated static pages from the complete English page HTML, then localize only the page language metadata, canonical/alternate links, share metadata, page title, description, and inverse language action. Localized pages must preserve the source page's layout and structural content until translation artifacts become field-complete.
 - **Context / Problem:** The first `/ko/...` pages used a generic translated-summary template. That made Korean pages look unrelated to their English sources and dropped page-type-specific content such as article lists, story timelines, related links, evidence sections, and controls.

@@ -136,6 +136,12 @@ data/i18n/ko/topic/agent-cost.json
 data/i18n/ko/foundations/context-compaction-safety.json
 ```
 
+The daily artifact is field-complete for its source recap: it translates the
+title, intro, highlights, category names/summaries, and article
+titles/summaries. The renderer overlays those fields onto the English recap
+object and preserves source URLs, publication dates, source names, slugs, and
+story links from the English data.
+
 To add more translated pages, put the translated JSON in the matching
 `data/i18n/<locale>/<surface>/...` path, set `source_path` to the English URL
 path, and compute `source_hash` from the English source object the renderer

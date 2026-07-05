@@ -66,6 +66,7 @@ build_weekly_index.py do this automatically):
 from __future__ import annotations
 
 import argparse
+import copy
 import hashlib
 import json
 import os
@@ -4071,6 +4072,132 @@ def render_i18n_language_action(source_path: str) -> str:
     )
 
 
+def localized_daily_recap(source: dict, artifact: dict) -> dict:
+    recap = copy.deepcopy(source)
+    for key in ("title", "intro", "highlights"):
+        value = artifact.get(key)
+        if value:
+            recap[key] = value
+    if not recap.get("highlights") and artifact.get("bullets"):
+        recap["highlights"] = artifact["bullets"]
+
+    translated_categories = artifact.get("categories")
+    if not isinstance(translated_categories, list):
+        return recap
+    categories = recap.get("categories") if isinstance(recap.get("categories"), list) else []
+    for idx, category in enumerate(categories):
+        if idx >= len(translated_categories) or not isinstance(category, dict):
+            continue
+        translated_category = translated_categories[idx]
+        if not isinstance(translated_category, dict):
+            continue
+        for key in ("name", "summary"):
+            if translated_category.get(key):
+                category[key] = translated_category[key]
+        translated_articles = translated_category.get("articles")
+        articles = category.get("articles") if isinstance(category.get("articles"), list) else []
+        if not isinstance(translated_articles, list):
+            continue
+        for article_idx, article in enumerate(articles):
+            if article_idx >= len(translated_articles) or not isinstance(article, dict):
+                continue
+            translated_article = translated_articles[article_idx]
+            if not isinstance(translated_article, dict):
+                continue
+            for key in ("title", "summary"):
+                if translated_article.get(key):
+                    article[key] = translated_article[key]
+    return recap
+
+
+def render_i18n_daily_page(
+    base_url: str,
+    page: dict,
+    story_sids: set[str] | None = None,
+    playbook_index: dict[str, dict] | None = None,
+) -> str | None:
+    source_path = str(page["source_path"])
+    ident = source_path.rsplit("/", 1)[-1]
+    source = load_json(DAILY_DIR / f"{ident}.json")
+    if not isinstance(source, dict):
+        print(f"warning: i18n daily source missing path={source_path}", file=sys.stderr)
+        return None
+
+    artifact = page["artifact"]
+    recap = localized_daily_recap(source, artifact)
+    day = str(recap["date"])
+    locale = str(page["locale"])
+    canonical_path = str(page["canonical_path"])
+    canonical = f"{base_url}{canonical_path}"
+    english_url = f"{base_url}{source_path}"
+    cats = recap.get("categories") or []
+    total = recap.get("article_count") or sum(len(c.get("articles") or []) for c in cats)
+    title = squeeze(recap.get("title")) or f"AI Daily Recap — {day}"
+    description = clip(squeeze(artifact.get("description")) or recap_description(recap), 250)
+    published = iso_or_none(recap.get("generated_at"))
+    archive_options = [
+        (f"/daily/{r['date']}", f"{r['date']} · {squeeze(r.get('title'))}")
+        for r in load_recaps(DAILY_DIR, DATE_FILE_RE, "date")
+    ]
+    og_rel = og_cards.ensure(
+        "daily",
+        day,
+        kicker="The finishable daily brief",
+        title=title,
+        stats=f"{fmt_long_date(day)} · {total} articles · {len(cats)} categories",
+    )
+    return render_page(
+        title=title,
+        description=description,
+        canonical=canonical,
+        published=published,
+        h1="AI Daily Recap",
+        meta_line=meta_line_for(recap),
+        json_href=f"/api/daily?date={day}",
+        archive=render_archive_select(archive_options, f"/daily/{day}", "Day"),
+        recap_title=title,
+        recap_range="",
+        title_html=daily_hero(recap),
+        intro_html=render_intro(recap),
+        body_html=render_categories(
+            recap,
+            "daily-link",
+            story_sids,
+            playbook_index=playbook_index,
+            playbook_cap=3,
+        )
+        + '<p class="finish-line">You are caught up for this edition</p>'
+        + subscribe_cta_html(
+            "daily_end",
+            "Want this in your inbox tomorrow?",
+            "Get the finishable daily brief and weekly recap.",
+        ),
+        image=f"{base_url}{og_rel}" if og_rel else "",
+        json_ld=[
+            article_node(
+                type_="NewsArticle",
+                title=title,
+                description=description,
+                canonical=canonical,
+                published=published,
+                base_url=base_url,
+            ),
+            breadcrumb_node(
+                base_url,
+                [("Home", "/"), ("Daily recaps", "/daily"), (day, source_path)],
+            ),
+        ],
+        extra_css=DAILY_RECAP_CSS,
+        lang=locale,
+        alternate_links=[
+            (locale, canonical),
+            ("en", english_url),
+            ("x-default", english_url),
+        ],
+        language_links=[("en", source_path, LANGUAGE_LABELS["en"])],
+    )
+
+
 def localize_static_html_page(base_url: str, page: dict) -> str | None:
     """Turn a complete English static page into its locale-prefixed counterpart.
 
@@ -4136,6 +4263,8 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
 def render_i18n_pages(
     base_url: str,
     i18n_pages: dict[str, list[dict]],
+    story_sids: set[str] | None = None,
+    playbook_index: dict[str, dict] | None = None,
 ) -> list[tuple[str, str | None]]:
     """Render checked-in pre-translated pages under web/<locale>/."""
     rendered: list[tuple[str, str | None]] = []
@@ -4144,7 +4273,10 @@ def render_i18n_pages(
             locale = str(page["locale"])
             artifact = page["artifact"]
             canonical_path = str(page["canonical_path"])
-            html = localize_static_html_page(base_url, page)
+            if source_path.startswith("/daily/") and isinstance(artifact.get("categories"), list):
+                html = render_i18n_daily_page(base_url, page, story_sids, playbook_index)
+            else:
+                html = localize_static_html_page(base_url, page)
             if html is None:
                 continue
             out_file = WEB_DIR / locale / source_path.strip("/").replace("/", os.sep)
@@ -4263,7 +4395,7 @@ def main() -> None:
     has_map = render_map_page(base_url, wiki)
     foundation_pages = render_foundation_pages(base_url, foundations, i18n_page_map)
     has_foundations = render_foundations_page(base_url, foundations)
-    i18n_pages = render_i18n_pages(base_url, i18n_page_map)
+    i18n_pages = render_i18n_pages(base_url, i18n_page_map, story_sids, playbook_index)
     write_sitemap(
         base_url,
         days,
