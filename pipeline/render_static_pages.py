@@ -74,7 +74,7 @@ import re
 import sys
 from collections import Counter
 from datetime import date, datetime, timezone
-from html import escape
+from html import escape, unescape
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
@@ -4323,7 +4323,17 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
     if title:
         old_title = re.search(r"<title>(.*?) \| LLM Digest</title>", html)
         if old_title:
-            html = html.replace(old_title.group(1), escape(title))
+            old_title_text = old_title.group(1)
+            old_title_candidates = [old_title_text]
+            for suffix in (" — Agent Builder Foundations", " — agent engineering", " — AI storyline"):
+                if old_title_text.endswith(suffix):
+                    old_title_candidates.append(old_title_text[: -len(suffix)])
+                    break
+            for old_text in old_title_candidates:
+                html = html.replace(old_text, escape(title))
+                unescaped_old_text = unescape(old_text)
+                if unescaped_old_text != old_text:
+                    html = html.replace(unescaped_old_text, title)
         else:
             html = re.sub(r"<title>.*?</title>", f"<title>{escape(title)} | LLM Digest</title>", html, count=1)
     if description:

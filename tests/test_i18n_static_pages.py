@@ -121,6 +121,21 @@ class I18nStaticPagesTest(unittest.TestCase):
         self.assertNotIn("Sonnet 5, Fable 5, and the Infrastructure Behind Them", html)
         self.assertNotIn("Anthropic&#x27;s most agentic Sonnet", html)
 
+    def test_korean_topic_page_renders_translated_heading(self) -> None:
+        html = (ROOT / "web" / "ko" / "topic" / "agent-cost.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Agent 토큰 비용은 예측하기 어렵고 쉽게 폭증한다", html)
+        self.assertNotIn("Agent token costs are unpredictable and easily run away", html)
+
+    def test_korean_foundation_page_renders_translated_heading(self) -> None:
+        html = (ROOT / "web" / "ko" / "foundations" / "context-compaction-safety.html").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("Agent의 context를 compact하면 safety rule이 위험해지는가?", html)
+        self.assertNotIn("Does compacting an agent&#x27;s context put its safety rules at risk?", html)
+        self.assertNotIn("Does compacting an agent's context put its safety rules at risk?", html)
+
     def test_i18n_availability_drives_english_page_language_links(self) -> None:
         i18n_pages = render.collect_i18n_pages(
             self.stories,
