@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: [deep-research]
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c]
-updated: 2026-07-03
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0]
+updated: 2026-07-05
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0]
 ---
 
 ## TL;DR
@@ -99,24 +99,39 @@ than the judge: performance-optimization suites (GSO, SWE-Perf, SWE-fficiency)
 that score coding agents by comparing runtime against baselines turn out to
 have their own reliability problems as measurement instruments, sharpening
 the standing "familiar benchmarks over-state capability" finding into "the
-benchmark's own numbers can be noisy," not just non-representative.
-Consolidation is showing up on the tooling side too: Harbor pairs LangSmith's
-sandboxes and observability with Deep Agents into one stack specifically for
-evaluating long-running, stateful agents, and practitioner write-ups (Pendo
-tracing its Novus product agent from user behavior to code fixes with
-LangSmith) show eval, tracing, and monitoring converging into one workflow
-rather than three separate tools.
+benchmark's own numbers can be noisy," not just non-representative. A
+practitioner analysis puts a number on that noise: one standard deviation
+between repeated runs of the *same* model on a coding task measured 7.5% —
+bigger than the gap between the best- and worst-ranked models in the
+comparison — and dropping or swapping a handful of tasks from a ~100-task
+set was enough to flip which model wins, the benchmark equivalent of a race
+course shaping who looks like the best cyclist. Consolidation is showing up
+on the tooling side too: Harbor pairs LangSmith's sandboxes and observability
+with Deep Agents into one stack specifically for evaluating long-running,
+stateful agents, and practitioner write-ups (Pendo tracing its Novus product
+agent from user behavior to code fixes with LangSmith) show eval, tracing,
+and monitoring converging into one workflow rather than three separate
+tools.
+
+A fifth front lands on **testing methodology**, not just labels: LLM-written
+fuzzers surface real, serious bugs within minutes but have coverage gaps a
+hastily hand-written fuzzer would catch, so raw bug-finding recall isn't
+proof of thorough testing. The practical fix for the false positives that
+follow is ensembling reviewers — independent agents checking the same
+artifact (a video, a generated test) under different personas, including a
+deliberately contrarian one, which cuts false positives more reliably than
+swapping in a stronger single model. Both findings converge on the same
+conclusion: a reasonable process around the model is at least as load-bearing
+as which model you use.
 
 ## What's new
-A **deterministic alternative to LLM-as-judge** lands for stateful agent
-evaluation — checking state transitions directly instead of asking a model to
-grade them — alongside a **reliability critique of the benchmarks themselves**:
-popular performance-optimization suites (GSO, SWE-Perf, SWE-fficiency) turn out
-to be noisy measurement instruments, not just narrow ones. Tooling is
-consolidating in response — a unified Harbor stack pairs sandboxes,
-observability, and Deep Agents specifically for stateful long-running eval,
-and practitioners report eval, tracing, and monitoring converging into one
-workflow (Pendo/LangSmith).
+Benchmark noise gets hard numbers: a practitioner analysis measured a
+model's run-to-run standard deviation at 7.5% on a coding task — larger than
+the best-to-worst-model gap — and showed that swapping a few tasks in a
+~100-task set flips the leaderboard order. The same analysis reports a
+testing-methodology fix for agentic false positives: ensembling independent
+reviewer personas, including a deliberately contrarian one, beats upgrading
+to a stronger model.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

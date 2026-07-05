@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: [deep-research]
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012]
-updated: 2026-07-03
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0]
+updated: 2026-07-05
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0]
 ---
 
 ## TL;DR
@@ -105,14 +105,11 @@ MirrorCode benchmarks agents rebuilding entire programs from behavior alone
 "reconstruct it from how it behaves."
 
 ## What's new
-Benchmark **construction and upkeep** are getting first-class tooling: Reap
-automates curation of coding-agent benchmark tasks, addressing the standing
-"real work to author and maintain" trade-off directly. Two new fronts also
-open: **environment readiness** (AeroScore scores whether documentation
-portals are agent-ready, checking the environment rather than the agent) and
-a program-understanding capability edge (MirrorCode benchmarks rebuilding
-programs from behavior alone). TestEvo-Bench extends the subsystem-specific
-trend to test-and-code co-evolution.
+Benchmark noise is now quantified rather than assumed: run-to-run standard
+deviation for a single model on a coding task measured 7.5% — bigger than
+the gap between the best- and worst-ranked models — and dropping a handful
+of tasks from a ~100-task set was enough to flip the ranking, evidence that
+a small task set's variance can dominate the signal it's meant to measure.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static
@@ -120,7 +117,14 @@ target: agents over-fit to it, it goes stale as tools change, and "passing"
 can mean "memorized the distribution."
 
 Building a benchmark on your own tooling is more predictive but is real work
-to author and maintain, and small task sets have high variance.
+to author and maintain, and small task sets have high variance — measured,
+not just suspected: one practitioner found a model's own run-to-run standard
+deviation (7.5% on a coding task) exceeded the best-to-worst-model gap, and
+swapping a few tasks out of a ~100-task set flipped which model ranked
+first. Two models can also both look "cheaper" and "more expensive" than
+each other depending on which tasks the comparison uses — so a single
+leaderboard number is a claim about that task set, not a general fact about
+the model.
 
 Best as a regression gate (catch known failures) — complement with
 [LLM-as-judge](/topic/llm-as-judge) on live traces for the open-ended cases a

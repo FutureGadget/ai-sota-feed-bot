@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
-updated: 2026-06-30
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d]
+updated: 2026-07-05
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d]
 ---
 
 ## TL;DR
@@ -58,12 +58,21 @@ They are early and uneven, but they confirm where the value sits: the
 routing, handoff, and observability layer between agents, not the agents
 themselves.
 
+A fifth axis makes the code-driven pattern **provider-agnostic**: Omegacode
+composes `agent()`/`parallel()`/`pipeline()`/`phase()` in a plain JavaScript
+DSL, and any `agent()` call can spawn a Codex, Claude Code, OpenCode, or pi
+agent — the same workflow script mixing providers instead of one script per
+framework. Its built-in patterns (adversarial code review, model bake-offs)
+treat the provider mix itself as the design lever, deliberately using
+decorrelated errors across models rather than picking one "best" agent.
+
 ## What's new
-Generated orchestration is sharpening into **code-driven** orchestration:
-LangChain's dynamic subagents in Deep Agents coordinate fan-out from a
-program, so coverage is guaranteed by control flow rather than the model
-issuing a tool call per worker — the deterministic-wrapper answer to "did
-every sub-task actually run."
+Code-driven orchestration goes **provider-agnostic**: Omegacode's JavaScript
+DSL spawns Codex, Claude Code, OpenCode, or pi agents from the same workflow
+script, shipping multi-provider patterns (adversarial review, bake-offs)
+that exploit decorrelated errors across models — extending last round's
+single-framework code-driven fan-out (LangChain dynamic subagents) to
+heterogeneous agent fleets.
 
 That lands alongside orchestration showing up as **shipping practitioner
 tooling**, not just patterns:

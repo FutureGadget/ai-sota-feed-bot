@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb]
-updated: 2026-07-03
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0]
+updated: 2026-07-05
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0]
 ---
 
 ## TL;DR
@@ -60,14 +60,21 @@ non-determinism in one move. The practical reframe is to treat LLM-as-judge as
 the fallback for open-ended, hard-to-specify outputs, not the default for
 every evaluation.
 
+A cheaper lever than a bigger judge is **ensembling smaller ones**: rather
+than upgrading to a stronger single model, running independent judges under
+different personas — including one deliberately briefed to argue the
+opposite verdict — over the same artifact substantially cuts false
+positives. A practitioner reports this "reasonable setup around the model"
+lowers false-positive rates more reliably than swapping in a better model,
+extending the standing cost lever (smaller fine-tuned judges, cheaper
+encoders) with a quality lever that doesn't require a bigger model at all.
+
 ## What's new
-A **deterministic alternative** to LLM-as-judge lands for stateful agent
-evaluation, checking state transitions directly instead of model-graded
-scoring — a reminder that judging is a default, not a requirement, for tasks
-where correctness can be verified programmatically. That sits alongside the
-architecture-level cost lever from last round (cheaper encoders, Morph
-Reflexes' shared-backbone multi-signal heads) and BabelJudge's hard numbers on
-judge bias across languages and trajectories.
+Judge quality gets a cheap lever that isn't "use a bigger model": ensembling
+independent judge personas over the same artifact — including a
+deliberately contrarian one — cuts false positives more reliably than
+upgrading to a stronger single judge, alongside the standing deterministic
+alternative for stateful tasks and BabelJudge's numbers on judge bias.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,
@@ -76,6 +83,10 @@ against human labels, or it just launders noise.
 
 Cheap fine-tuned judges narrow the cost gap, but they can overfit to the
 trace distribution they were trained on and miss novel failure modes.
+
+Ensembling several judge personas cuts false positives but multiplies the
+number of judge calls per artifact, trading judge-side cost for precision —
+worth it only where false positives are expensive to triage by hand.
 
 LLM-as-judge works best paired with a rubric and a held-out human-labeled
 set, and when you care about explanations (which step failed) rather than a

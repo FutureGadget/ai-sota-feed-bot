@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67]
-updated: 2026-07-04
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d]
+updated: 2026-07-05
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d]
 ---
 
 ## TL;DR
@@ -89,19 +89,25 @@ smallest diff second. It's a concrete instance of the durable lesson above:
 isolation plus a control-flow gate, not smarter agents, is what keeps
 parallel coding agents from clobbering each other's work.
 
+Code-driven orchestration is also generalizing across **providers**:
+Omegacode composes `agent()`/`parallel()`/`pipeline()`/`phase()` calls in
+plain JavaScript, and each `agent()` call can spawn a Codex, Claude Code,
+OpenCode, or pi agent from the same workflow file — so patterns like
+adversarial code review or a bake-off between models are one script instead
+of one integration per provider. That widens the earlier code-driven-fan-out
+move (LangChain's dynamic subagents) from guaranteeing coverage inside a
+single framework to letting the same coordination script mix heterogeneous
+agents, which is the "route refactors to one model, codegen to another"
+capability practitioners were still hunting for above.
+
 ## What's new
-Coordination reliability gets an **uncertainty-aware** treatment: UA-ChatDev
-has role-based agents track confidence and use it to trigger deliberation
-before a shaky step gets handed to the next agent, addressing the
-handoff-propagates-mistakes failure mode from inside the agents rather than
-from the routing layer around them — a complement to last round's
-**code-driven orchestration** shift (LangChain's dynamic subagents
-guaranteeing fan-out coverage via control flow) and the **security** framing
-of routing as an attack surface (Linguistic Firewall). Conflict avoidance
-also gets a concrete recipe for parallel coding agents: per-agent git
-branches plus sandboxed worktrees, with a neutral verifier gating merges —
-isolation as the coordination mechanism, not smarter negotiation between
-agents.
+Code-driven orchestration widens from one framework to **provider-agnostic**:
+Omegacode drives Codex, Claude Code, OpenCode, and pi agents from the same
+JavaScript workflow file, with built-in multi-provider patterns (adversarial
+review, model bake-offs) that deliberately exploit decorrelated errors across
+providers — a concrete answer to the standing hunt for heterogeneous-model
+collaboration tooling, on top of last round's uncertainty-aware coordination
+(UA-ChatDev) and the per-agent-worktree conflict-avoidance recipe.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so
