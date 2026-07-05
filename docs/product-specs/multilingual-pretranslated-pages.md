@@ -117,11 +117,35 @@ fallback outside the site UI.
 APIs remain English in v1. Localized static pages are the first product surface
 because they give crawlers, shares, and readers stable translated content.
 
+## Current Implementation
+
+The first Korean slice is implemented as one checked-in artifact per page type:
+
+```text
+data/i18n/ko/daily/2026-07-04.json
+data/i18n/ko/weekly/2026-W27.json
+data/i18n/ko/story/ee2eab4f35a2124a.json
+data/i18n/ko/storyline/claude-fable.json
+data/i18n/ko/topic/agent-cost.json
+data/i18n/ko/foundations/context-compaction-safety.json
+```
+
+To add more translated pages, put the translated JSON in the matching
+`data/i18n/<locale>/<surface>/...` path, set `source_path` to the English URL
+path, and compute `source_hash` from the English source object the renderer
+uses. `pipeline/render_static_pages.py` omits stale artifacts whose hash no
+longer matches, then writes the localized HTML under `web/<locale>/...` and
+adds the fresh localized URLs to `web/sitemap.xml`.
+
+Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
+`/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
+`/ko/topic/<slug>`, and `/ko/foundations/<slug>`.
+
 ## Acceptance Criteria
 
 - No page loads `web/local-translate.js` or exposes live translation controls.
 - `/ko/daily/<date>` can be generated from a checked-in translation artifact.
-- English and Korean pages include reciprocal `hreflang` links.
+- Korean pages include `hreflang` links for Korean, English, and `x-default`.
 - The sitemap includes localized URLs only when translations are fresh.
 - Translation validation fails on lost URLs, placeholders, model names, or stale
   `source_hash` values.

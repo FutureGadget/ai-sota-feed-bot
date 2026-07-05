@@ -66,6 +66,7 @@ build_weekly_index.py do this automatically):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -88,6 +89,7 @@ PLAYBOOK_DIR = ROOT / "data" / "playbook"
 STORYLINES_DIR = ROOT / "data" / "storylines"
 WIKI_DIR = ROOT / "data" / "wiki"
 FOUNDATIONS_DIR = ROOT / "data" / "foundations"
+I18N_DIR = ROOT / "data" / "i18n"
 WEB_DIR = ROOT / "web"
 
 DEFAULT_BASE_URL = os.environ.get("SITE_BASE_URL", "https://www.llm-digest.com")
@@ -968,6 +970,7 @@ def render_head(
     robots: str = "",
     json_ld: list[dict] | None = None,
     extra_css: str = "",
+    alternate_links: list[tuple[str, str]] | None = None,
 ) -> str:
     og_published = (
         f'\n  <meta property="article:published_time" content="{escape(published)}" />'
@@ -993,12 +996,19 @@ def render_head(
     )
     twitter_card = "summary_large_image" if has_image else "summary"
     ld = json_ld_script(json_ld or [])
+    alternates = ""
+    if alternate_links:
+        alternates = "\n".join(
+            f'  <link rel="alternate" hreflang="{escape(lang)}" href="{escape(href)}" />'
+            for lang, href in alternate_links
+        )
+        alternates = "\n" + alternates
     return f"""\
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />{robots_meta}
   <title>{escape(title)} | {escape(SITE_NAME)}</title>
   <meta name="description" content="{escape(description)}" />
-  <link rel="canonical" href="{escape(canonical)}" />
+  <link rel="canonical" href="{escape(canonical)}" />{alternates}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -1044,6 +1054,8 @@ def render_page(
     json_ld: list[dict] | None = None,
     extra_js: str = "",
     extra_css: str = "",
+    lang: str = "en",
+    alternate_links: list[tuple[str, str]] | None = None,
 ) -> str:
     section = site_section_for_url(canonical)
     nav = render_site_nav(section)
@@ -1061,9 +1073,9 @@ def render_page(
         else "<!-- range is included in the custom hero -->"
     )
     return f"""<!doctype html>
-<html lang="en">
+<html lang="{escape(lang)}">
 <head>
-{render_head(title=title, description=description, canonical=canonical, published=published, image=image, og_type=og_type, robots=robots, json_ld=json_ld, extra_css=extra_css)}
+{render_head(title=title, description=description, canonical=canonical, published=published, image=image, og_type=og_type, robots=robots, json_ld=json_ld, extra_css=extra_css, alternate_links=alternate_links)}
 </head>
 <body>
   <main>
@@ -1148,6 +1160,8 @@ SITE_DESTINATIONS = (
 def site_section_for_url(url: str) -> str:
     """Map a canonical/detail URL to its parent site destination."""
     path = urlsplit(url).path.rstrip("/") or "/"
+    if path.startswith("/ko/"):
+        path = path[3:] or "/"
     if path == "/" or path.startswith("/story/"):
         return "/"
     if path == "/daily" or path.startswith("/daily/"):
@@ -3888,6 +3902,148 @@ def week_end_date(week_id: str) -> str | None:
         return None
 
 
+I18N_PAGE_CSS = """\
+    .i18n-note { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
+    .i18n-body { display: grid; gap: 1rem; }
+    .i18n-body p { margin: 0; line-height: 1.68; font-size: 1rem; }
+    .i18n-body ul { margin: .2rem 0 0; padding-left: 1.25rem; }
+    .i18n-body li { margin: .45rem 0; line-height: 1.6; }
+    .i18n-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.4rem 0 0; }
+    .i18n-actions a { min-height: 44px; display: inline-flex; align-items: center;
+      padding: .45rem .85rem; border: 1px solid var(--border); text-decoration: none; }
+"""
+
+
+def i18n_source_for_path(source_path: str, stories: dict[str, dict], storylines: dict[str, dict], wiki: dict, foundations: dict) -> dict | None:
+    """Return the English source object whose hash gates a translation artifact."""
+    path = str(source_path or "").strip()
+    if not path.startswith("/"):
+        return None
+    parts = [p for p in path.split("/") if p]
+    if len(parts) != 2:
+        return None
+    surface, ident = parts
+    if surface == "daily" and DATE_FILE_RE.match(f"{ident}.json"):
+        return load_json(DAILY_DIR / f"{ident}.json")
+    if surface == "weekly" and WEEK_FILE_RE.match(f"{ident}.json"):
+        return load_json(WEEKLY_DIR / f"{ident}.json")
+    if surface == "story" and SID_HTML_RE.match(f"{ident}.html"):
+        return stories.get(ident)
+    if surface == "storyline" and SLUG_RE.match(ident):
+        return storylines.get(ident)
+    if surface == "topic" and SLUG_RE.match(ident):
+        return (wiki.get("nodes") or {}).get(ident)
+    if surface == "foundations" and SLUG_RE.match(ident):
+        return (foundations.get("concepts") or {}).get(ident)
+    return None
+
+
+def i18n_source_hash(source: dict) -> str:
+    payload = json.dumps(source, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def render_i18n_body(artifact: dict) -> str:
+    intro = artifact.get("intro") or []
+    if isinstance(intro, str):
+        intro = [intro]
+    paras = [f"<p>{escape(squeeze(p))}</p>" for p in intro if squeeze(p)]
+    bullets = [squeeze(b) for b in artifact.get("bullets") or [] if squeeze(b)]
+    bullet_html = ""
+    if bullets:
+        bullet_html = "<ul>" + "".join(f"<li>{escape(b)}</li>" for b in bullets) + "</ul>"
+    return (
+        '<p class="i18n-note">기계 번역으로 먼저 제공하는 한국어 페이지입니다. '
+        '원문과 용어를 함께 확인할 수 있도록 영어 원문 링크를 유지합니다.</p>'
+        f'<div class="i18n-body">{"".join(paras)}{bullet_html}</div>'
+    )
+
+
+def render_i18n_pages(
+    base_url: str,
+    stories: dict[str, dict],
+    storyline_details: list[dict],
+    wiki: dict,
+    foundations: dict,
+) -> list[tuple[str, str | None]]:
+    """Render checked-in pre-translated pages under web/<locale>/."""
+    locale = "ko"
+    locale_dir = I18N_DIR / locale
+    if not locale_dir.is_dir():
+        return []
+    storylines = {
+        str(item.get("slug")): item
+        for item in storyline_details
+        if isinstance(item, dict) and item.get("slug")
+    }
+    rendered: list[tuple[str, str | None]] = []
+    for artifact_path in sorted(locale_dir.glob("**/*.json")):
+        if artifact_path.name == "manifest.json":
+            continue
+        artifact = load_json(artifact_path)
+        if not isinstance(artifact, dict):
+            continue
+        source_path = str(artifact.get("source_path") or "")
+        source = i18n_source_for_path(source_path, stories, storylines, wiki, foundations)
+        if not source:
+            print(f"warning: i18n source missing path={source_path}", file=sys.stderr)
+            continue
+        expected_hash = i18n_source_hash(source)
+        if str(artifact.get("source_hash") or "") != expected_hash:
+            print(f"warning: i18n source_hash stale path={source_path}", file=sys.stderr)
+            continue
+        title = squeeze(artifact.get("title")) or source_path
+        description = clip(squeeze(artifact.get("description")) or title, 250)
+        canonical_path = f"/{locale}{source_path}"
+        canonical = f"{base_url}{canonical_path}"
+        english_url = f"{base_url}{source_path}"
+        body = render_i18n_body(artifact) + (
+            '<div class="i18n-actions">'
+            f'<a href="{escape(source_path)}">English original</a>'
+            "</div>"
+        )
+        html = render_page(
+            title=title,
+            description=description,
+            canonical=canonical,
+            published=iso_or_none(artifact.get("translated_at")),
+            h1="LLM Digest 한국어",
+            meta_line=f"{source_path} · machine translation",
+            json_href="",
+            archive="",
+            recap_title=title,
+            recap_range="",
+            intro_html="<!-- translated body follows -->",
+            body_html=body,
+            og_type="article",
+            json_ld=[
+                article_node(
+                    type_="Article",
+                    title=title,
+                    description=description,
+                    canonical=canonical,
+                    published=iso_or_none(artifact.get("translated_at")),
+                    base_url=base_url,
+                ),
+                breadcrumb_node(base_url, [("Home", "/"), ("한국어", canonical_path)]),
+            ],
+            extra_css=I18N_PAGE_CSS,
+            lang=locale,
+            alternate_links=[
+                ("ko", canonical),
+                ("en", english_url),
+                ("x-default", english_url),
+            ],
+        )
+        out_file = WEB_DIR / locale / source_path.strip("/").replace("/", os.sep)
+        out_file = out_file.with_suffix(".html")
+        out_file.parent.mkdir(parents=True, exist_ok=True)
+        out_file.write_text(html, encoding="utf-8")
+        lastmod = str(artifact.get("translated_at") or "")[:10] or None
+        rendered.append((canonical_path, lastmod))
+    return rendered
+
+
 def write_sitemap(
     base_url: str,
     days: list[str],
@@ -3896,6 +4052,7 @@ def write_sitemap(
     storylines: list[tuple[str, str | None]] | None = None,
     topics: list[tuple[str, str | None]] | None = None,
     foundations: list[tuple[str, str | None]] | None = None,
+    i18n_pages: list[tuple[str, str | None]] | None = None,
 ) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
     entries: list[tuple[str, str | None, str | None]] = [
@@ -3927,6 +4084,7 @@ def write_sitemap(
         for slug, lastmod in storylines or []
     ]
     entries += [(f"{base_url}/story/{sid}", lastmod, None) for sid, lastmod in stories or []]
+    entries += [(f"{base_url}{path}", lastmod, "weekly") for path, lastmod in i18n_pages or []]
 
     rows = []
     for loc, lastmod, changefreq in entries:
@@ -3991,6 +4149,7 @@ def main() -> None:
     foundations = load_foundations()
     foundation_pages = render_foundation_pages(base_url, foundations)
     has_foundations = render_foundations_page(base_url, foundations)
+    i18n_pages = render_i18n_pages(base_url, stories, storyline_details, wiki, foundations)
     write_sitemap(
         base_url,
         days,
@@ -3999,6 +4158,7 @@ def main() -> None:
         storyline_pages,
         topic_pages,
         foundation_pages,
+        i18n_pages,
     )
     write_robots(base_url)
     seeded = seed_feed_shell(base_url, story_sids)
@@ -4008,13 +4168,15 @@ def main() -> None:
         f"{len(story_pages) + noindexed} story ({noindexed} noindex), "
         f"{len(storyline_details)} storyline ({len(storyline_pages)} active), "
         f"{len(topic_pages)} topic ({'map' if has_map else 'no map'}), "
-        f"{len(foundation_pages)} foundation ({'index' if has_foundations else 'no index'}) "
+        f"{len(foundation_pages)} foundation ({'index' if has_foundations else 'no index'}), "
+        f"{len(i18n_pages)} i18n "
         "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/, web/foundations/"
     )
     print(f"feed_seed_items={seeded} og_cards_dir=web/og")
     n_urls = 7 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
     n_urls += (1 + len(topic_pages)) if topic_pages else 0
     n_urls += (1 + len(foundation_pages)) if foundation_pages else 0
+    n_urls += len(i18n_pages)
     print(f"sitemap: web/sitemap.xml ({n_urls} urls), robots: web/robots.txt")
     if not days and not weeks and not story_pages and not storyline_pages:
         print("warning: no recaps or stories found; nothing rendered", file=sys.stderr)
