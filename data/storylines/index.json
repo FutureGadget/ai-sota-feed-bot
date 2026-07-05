@@ -1,7 +1,58 @@
 {
- "generated_at": "2026-07-05T05:04:33.117457+00:00",
+ "generated_at": "2026-07-05T10:03:11.521561+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "claude-on-microsoft-foundry",
+   "label": "Claude on Microsoft Foundry",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-22T00:00:00+00:00",
+   "last_updated": "2026-07-05T08:13:00+00:00",
+   "via_scout": true,
+   "latest_title": "Claude Reaches GA on Microsoft Foundry: European Enterprises Cannot Deploy It",
+   "days": [
+    "2026-06-22",
+    "2026-07-05"
+   ],
+   "member_sids": [
+    "883a81a56600a8dd",
+    "703c2eaccf56be5a"
+   ],
+   "member_urls": [
+    "https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry",
+    "https://www.infoq.com/news/2026/07/claude-foundry-ga-europe/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "Anthropic put Claude Desktop into beta on three inference backends at once on June 22 — AWS, Google Cloud, and Microsoft Foundry — covering chat, Cowork, and Claude Code. Microsoft Foundry was the least mature of the three from the start, without the data-residency guarantees Anthropic already documents for Bedrock and Vertex AI.",
+    "stale": false,
+    "whats_new": "Claude reached general availability on Microsoft Foundry with Azure-native billing and governance on July 5, but there's still no European data zone, so European banks and healthcare practitioners say the offering is unapproved for production use.",
+    "why_it_matters": "Foundry is now the odd backend out: Anthropic's own documentation confirms data-residency guarantees for Bedrock and Vertex AI but not Foundry, so GA didn't close that regulatory gap — it just made the missing guarantee more visible to teams evaluating it for EU workloads.",
+    "take_for_builders": "If you're deploying Claude through Microsoft Foundry for EU-regulated workloads, don't assume data-residency parity with Bedrock or Vertex AI — check Anthropic's current residency documentation before greenlighting a production deployment there.",
+    "status": {
+     "state": "GA · no EU data zone",
+     "tone": "alert",
+     "changed": "2026-07-05",
+     "reenable": "no announced timeline for an EU data zone on Foundry",
+     "detail": "Claude is GA on Microsoft Foundry with Azure billing and governance, but the absence of a European data zone leaves regulated EU deployments blocked.",
+     "track": [
+      {
+       "label": "beta across 3 clouds",
+       "detail": "Jun 22 – Jul 5",
+       "tone": "launch",
+       "weight": 55
+      },
+      {
+       "label": "GA, EU gap exposed",
+       "detail": "Jul 5 → now",
+       "tone": "alert",
+       "weight": 45
+      }
+     ]
+    }
+   }
+  },
   {
    "slug": "claude-fable",
    "label": "Claude Fable",
@@ -125,44 +176,6 @@
      "tone": "rising",
      "changed": "2026-07-01",
      "detail": "The framing has moved from 'will AI replace engineers' to 'what the engineering role becomes' — forward-deployed work and agent-driven software factories."
-    }
-   }
-  },
-  {
-   "slug": "multi-agent-framework",
-   "label": "Multi-agent Framework",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-06-14T09:02:33+00:00",
-   "last_updated": "2026-06-30T18:54:54+00:00",
-   "latest_title": "Multi-Agent Simulation Framework for Verifiable Synthetic Corporate Corpora",
-   "days": [
-    "2026-06-14",
-    "2026-06-16",
-    "2026-06-30"
-   ],
-   "member_sids": [
-    "97e9c0b10413fdc4",
-    "1bb5306bd08692ab",
-    "dd508ccc119ff050"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2606.15684v1",
-    "http://arxiv.org/abs/2606.17915v1",
-    "https://arxiv.org/abs/2603.14997"
-   ],
-   "editorial": {
-    "tldr": "Over about two weeks in June, \"multi-agent framework\" surfaced as a design pattern applied to three unrelated engineering problems. It opened with TickingCollabBench, a Minecraft-based benchmark for time-sensitive complementary collaboration, then turned practical with an LLM-orchestrated framework automating the full data-engineering and MLOps lifecycle for Big-Data-as-a-Service.",
-    "stale": false,
-    "whats_new": "The newest paper (Jun 30) applies the pattern to data generation: a multi-agent simulation framework for producing verifiable synthetic corporate corpora.",
-    "why_it_matters": "These aren't one reusable framework — they're the same orchestration idea reused across collaboration benchmarking, lifecycle automation, and synthetic-data generation. For a platform engineer the recurring hard part is never the agent wiring but the verification layer: a benchmark for collaboration, drift-aware monitoring for MLOps, and verifiability for synthetic data.",
-    "take_for_builders": "Treat these as three domain-specific patterns, not one drop-in framework. When you read a multi-agent-framework paper, judge it on its verification layer — the benchmark, the drift monitoring, the verifiability guarantee — because the orchestration is the easy, commoditized part.",
-    "status": {
-     "state": "Active research",
-     "tone": "rising",
-     "changed": "2026-06-30",
-     "detail": "A research thread where the multi-agent-framework pattern keeps being recast for a new engineering domain, each time pairing orchestration with its own trust or verification mechanism."
     }
    }
   },

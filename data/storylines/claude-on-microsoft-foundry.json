@@ -1,0 +1,110 @@
+{
+ "slug": "claude-on-microsoft-foundry",
+ "label": "Claude on Microsoft Foundry",
+ "item_count": 2,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-06-22T00:00:00+00:00",
+ "last_updated": "2026-07-05T08:13:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-07-05T10:03:11.521561+00:00",
+ "sources": [
+  "claude_blog",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-06-22",
+   "items": [
+    {
+     "title": "Claude Desktop on AWS, Google Cloud, and Microsoft Foundry | Claude",
+     "url": "https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry",
+     "source": "claude_blog",
+     "type": "news",
+     "summary_1line": "Deploy the full Claude desktop experience - chat, Claude Cowork, and Claude Code - using inference on AWS, Google Cloud and Microsoft Foundry. Available today in beta.",
+     "why_it_matters": "Matches feed focus: claude code.",
+     "sid": "883a81a56600a8dd",
+     "published": "2026-06-22T00:00:00+00:00",
+     "editor_note": "Establishes Microsoft Foundry as one of three inference backends for the full Claude desktop experience, in beta."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-05",
+   "items": [
+    {
+     "title": "Claude Reaches GA on Microsoft Foundry: European Enterprises Cannot Deploy It",
+     "url": "https://www.infoq.com/news/2026/07/claude-foundry-ga-europe/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Claude models reached GA on Microsoft Foundry with Azure-native billing and governance, but no European data zone exists. Anthropic's own documentation confirms data residency guarantees apply to Bedrock and Vertex AI...",
+     "sid": "703c2eaccf56be5a",
+     "published": "2026-07-05T08:13:00+00:00",
+     "editor_note": "Moves Foundry to GA with Azure billing and governance, and surfaces the missing EU data zone that blocks regulated deployments."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Anthropic put Claude Desktop into beta on three inference backends at once on June 22 — AWS, Google Cloud, and Microsoft Foundry — covering chat, Cowork, and Claude Code. Microsoft Foundry was the least mature of the three from the start, without the data-residency guarantees Anthropic already documents for Bedrock and Vertex AI.",
+  "stale": false,
+  "whats_new": "Claude reached general availability on Microsoft Foundry with Azure-native billing and governance on July 5, but there's still no European data zone, so European banks and healthcare practitioners say the offering is unapproved for production use.",
+  "why_it_matters": "Foundry is now the odd backend out: Anthropic's own documentation confirms data-residency guarantees for Bedrock and Vertex AI but not Foundry, so GA didn't close that regulatory gap — it just made the missing guarantee more visible to teams evaluating it for EU workloads.",
+  "take_for_builders": "If you're deploying Claude through Microsoft Foundry for EU-regulated workloads, don't assume data-residency parity with Bedrock or Vertex AI — check Anthropic's current residency documentation before greenlighting a production deployment there.",
+  "status": {
+   "state": "GA · no EU data zone",
+   "tone": "alert",
+   "changed": "2026-07-05",
+   "reenable": "no announced timeline for an EU data zone on Foundry",
+   "detail": "Claude is GA on Microsoft Foundry with Azure billing and governance, but the absence of a European data zone leaves regulated EU deployments blocked.",
+   "track": [
+    {
+     "label": "beta across 3 clouds",
+     "detail": "Jun 22 – Jul 5",
+     "tone": "launch",
+     "weight": 55
+    },
+    {
+     "label": "GA, EU gap exposed",
+     "detail": "Jul 5 → now",
+     "tone": "alert",
+     "weight": 45
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Claude Desktop goes into beta on AWS, Google Cloud, and Microsoft Foundry",
+    "summary": "Chat, Claude Cowork, and Claude Code all become available for inference on Microsoft Foundry alongside the two established clouds.",
+    "sids": [
+     "883a81a56600a8dd"
+    ]
+   },
+   {
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "Foundry reaches GA, but no EU data zone blocks regulated deployments",
+    "summary": "Azure-native billing and governance ship, yet Anthropic's data-residency guarantees still cover only Bedrock and Vertex AI — European banking and healthcare teams call the Foundry offering unapproved for production.",
+    "sids": [
+     "703c2eaccf56be5a"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will Anthropic add a European data zone for Microsoft Foundry to match the residency guarantees already offered on Bedrock and Vertex AI?",
+   "Do other regulated markets outside Europe face the same production-approval gap on Foundry?"
+  ],
+  "provenance": {
+   "883a81a56600a8dd": {
+    "surfaced_by": "scout"
+   },
+   "703c2eaccf56be5a": {
+    "surfaced_by": "scout",
+    "status_update": true
+   }
+  },
+  "generated_at": "2026-07-05T10:10:00+00:00"
+ }
+}
