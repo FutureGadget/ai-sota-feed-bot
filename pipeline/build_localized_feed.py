@@ -178,17 +178,20 @@ def main():
     latest_path = feed_dir / "latest.json"
     status_path = feed_dir / "status.json"
     
-    print(f"Fetching English feed (label={args.label}, limit={args.limit})...")
-    feed = _fetch_english_feed(args.label, args.limit)
-    items = feed.get("items", [])
-    if not items:
+    fetch_limit = max(100, args.limit * 2)
+    print(f"Fetching English feed (label={args.label}, limit={fetch_limit})...")
+    feed = _fetch_english_feed(args.label, fetch_limit)
+    all_items = feed.get("items", [])
+    if not all_items:
         print("No items in feed!")
         return
         
+    target_items = all_items[:args.limit]
+    
     # Get deep_run_at or use current time
     run_at_str = feed.get("tier1_blend", {}).get("deep_run_at")
     if not run_at_str:
-        run_at_str = items[0].get("first_seen") or datetime.now(timezone.utc).isoformat()
+        run_at_str = all_items[0].get("first_seen") or datetime.now(timezone.utc).isoformat()
     
     existing = {}
     if latest_path.exists():
@@ -199,52 +202,90 @@ def main():
         except Exception:
             pass
             
-    if args.dry_run:
-        print(f"\nDRY RUN: Found {len(items)} items to process.")
-        for i, it in enumerate(items, 1):
-            t_key = _translation_key(it)
-            s_hash = _source_hash(it)
-            status = "fresh" if t_key in existing and existing[t_key].get("source_hash") == s_hash else "missing/stale"
-            print(f"  [{status:>13}] {it.get('title')[:60]}")
-        return
-
-    # Check LM studio connectivity
-    try:
-        import urllib.request
-        health_url = f"{args.base_url.rstrip('/')}/models"
-        req = urllib.request.Request(health_url, method="GET")
-        with urllib.request.urlopen(req, timeout=10) as resp:
-            pass
-    except Exception as exc:
-        print(f"ERROR: Cannot reach LM Studio at {args.base_url}: {exc}", file=sys.stderr)
-        sys.exit(1)
-
-    results = []
-    successes = 0
-    failures = 0
+    # Classify feed items into fresh or dirty
+    dirty_targets = []
+    dirty_lookahead = []
     
-    print(f"Translating {len(items)} items...")
-    for i, it in enumerate(items, 1):
+    for i, it in enumerate(all_items):
         t_key = _translation_key(it)
         s_hash = _source_hash(it)
+        is_fresh = t_key in existing and existing[t_key].get("source_hash") == s_hash
         
-        if t_key in existing and existing[t_key].get("source_hash") == s_hash:
-            print(f"  [{i}/{len(items)}] SKIP (fresh): {it.get('title')[:60]}")
-            results.append(existing[t_key])
-            successes += 1
-            continue
+        if not is_fresh:
+            if i < args.limit:
+                dirty_targets.append(it)
+            else:
+                dirty_lookahead.append(it)
+                
+    if args.dry_run:
+        print(f"\nDRY RUN: Found {len(all_items)} total items.")
+        print(f"  Dirty targets (top {args.limit}): {len(dirty_targets)}")
+        print(f"  Dirty lookahead: {len(dirty_lookahead)}")
+        return
+
+    # Check LM studio connectivity if we actually need to translate anything
+    to_translate = []
+    max_translations = 20
+    
+    for it in dirty_targets:
+        if len(to_translate) < max_translations:
+            to_translate.append((it, True))  # (item, is_target)
             
-        print(f"  [{i}/{len(items)}] TRANSLATING: {it.get('title')[:60]}...", end="", flush=True)
+    for it in dirty_lookahead:
+        if len(to_translate) < max_translations:
+            to_translate.append((it, False))  # (item, is_target)
+            
+    if to_translate:
         try:
-            trans = _translate_item(it, args.locale, args.base_url, args.model)
-            results.append(trans)
-            successes += 1
-            print(" done")
-        except Exception as e:
-            print(f" FAILED: {e}")
-            failures += 1
+            import urllib.request
+            health_url = f"{args.base_url.rstrip('/')}/models"
+            req = urllib.request.Request(health_url, method="GET")
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                pass
+        except Exception as exc:
+            print(f"ERROR: Cannot reach LM Studio at {args.base_url}: {exc}", file=sys.stderr)
+            sys.exit(1)
+
+    # Translate
+    results_map = {k: v for k, v in existing.items()}
+    newly_translated = {}
+    successes = 0
+    failures = 0
+    target_failures = 0
+    
+    if to_translate:
+        print(f"Translating up to {len(to_translate)} items (budget: {max_translations})...")
+        for idx, (it, is_target) in enumerate(to_translate, 1):
+            t_key = _translation_key(it)
+            role_str = "target" if is_target else "lookahead"
+            print(f"  [{idx}/{len(to_translate)}] TRANSLATING ({role_str}): {it.get('title')[:60]}...", end="", flush=True)
+            try:
+                trans = _translate_item(it, args.locale, args.base_url, args.model)
+                newly_translated[t_key] = trans
+                results_map[t_key] = trans
+                successes += 1
+                print(" done")
+            except Exception as e:
+                print(f" FAILED: {e}")
+                failures += 1
+                if is_target:
+                    target_failures += 1
+    else:
+        print("All target and lookahead items are fresh in cache.")
+
+    # Prune translations that are no longer in the wider feed to prevent infinite cache growth
+    valid_keys = {_translation_key(it) for it in all_items}
+    final_items = [v for k, v in results_map.items() if k in valid_keys]
+
+    # Verify if the visible target feed (top 20) is complete
+    missing_targets = []
+    for it in target_items:
+        t_key = _translation_key(it)
+        s_hash = _source_hash(it)
+        if t_key not in results_map or results_map[t_key].get("source_hash") != s_hash:
+            missing_targets.append(it.get("title"))
             
-    is_complete = failures == 0
+    is_complete = len(missing_targets) == 0
     now = datetime.now(timezone.utc)
     
     # UI defaults for ko
@@ -276,10 +317,10 @@ def main():
             "blend_tier1": True
         },
         "max_items": args.limit,
-        "source_item_count": len(items),
-        "translated_item_count": successes,
+        "source_item_count": len(target_items),
+        "translated_item_count": len(target_items) - len(missing_targets),
         "is_complete": is_complete,
-        "items": results,
+        "items": final_items,
         "ui": ui
     }
     
@@ -287,13 +328,13 @@ def main():
         "locale": args.locale,
         "surface": "feed",
         "status": "current" if is_complete else "incomplete",
-        "reason": None if is_complete else f"{failures}_failed",
+        "reason": None if is_complete else f"{len(missing_targets)}_targets_missing",
         "source_run_at": snapshot["source_run_at"],
         "translated_at": snapshot["translated_at"],
         "expires_at": snapshot["expires_at"],
-        "eligible_count": len(items),
-        "translated_count": successes,
-        "missing_count": failures
+        "eligible_count": len(target_items),
+        "translated_count": len(target_items) - len(missing_targets),
+        "missing_count": len(missing_targets)
     }
     
     if is_complete or not latest_path.exists():
@@ -303,7 +344,8 @@ def main():
     status_path.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Wrote status to {status_path.relative_to(ROOT)}")
     
-    if failures > 0:
+    if not is_complete:
+        print(f"ERROR: Missing translations for {len(missing_targets)} target items: {missing_targets}", file=sys.stderr)
         sys.exit(1)
 
 if __name__ == "__main__":
