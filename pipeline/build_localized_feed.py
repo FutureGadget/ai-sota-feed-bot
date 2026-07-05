@@ -50,13 +50,26 @@ def _source_hash(it: dict[str, Any]) -> str:
         "why_it_matters": _clean_text(it.get("why_it_matters")),
     }
     
-    j = json.dumps(payload, separators=(',', ':'))
+    j = json.dumps(payload, separators=(',', ':'), ensure_ascii=False)
     return hashlib.sha256(j.encode('utf-8')).hexdigest()
 
 def _fetch_english_feed(label: str, limit: int) -> dict[str, Any]:
     js_code = f"""
 import handler from './api/feed.js';
-const req = {{ query: {{ label: '{label}', limit: '{limit}' }} }};
+function kstWindow(days) {{
+  const now = new Date();
+  const kstNow = new Date(now.toLocaleString('en-US', {{ timeZone: 'Asia/Seoul' }}));
+  const end = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate(), 23, 59, 59, 999);
+  const start = new Date(kstNow.getFullYear(), kstNow.getMonth(), kstNow.getDate() - (days - 1), 0, 0, 0, 0);
+  const offset = '+09:00';
+  const fmt = (d) => {{
+    const pad = (n, w = 2) => String(n).padStart(w, '0');
+    return `${{d.getFullYear()}}-${{pad(d.getMonth() + 1)}}-${{pad(d.getDate())}}T${{pad(d.getHours())}}:${{pad(d.getMinutes())}}:${{pad(d.getSeconds())}}.${{pad(d.getMilliseconds(), 3)}}${{offset}}`;
+  }};
+  return {{ from: fmt(start), to: fmt(end) }};
+}}
+const w = kstWindow(7);
+const req = {{ query: {{ label: '{label}', limit: '{limit}', from: w.from, to: w.to }} }};
 let out = '';
 const res = {{
   status: (code) => ({{
