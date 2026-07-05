@@ -1,5 +1,12 @@
 # Decision Log
 
+## 2026-07-05 (Reveal translated-page links only for matching browser languages)
+- **Decision:** Add a compact shared language action for pages that have a fresh pre-translated counterpart. The static renderer emits hidden `data-language-link` actions and reciprocal `hreflang` metadata for English source pages; `site-chrome.js` reveals the action only when `navigator.languages` / `navigator.language` matches the target locale. Korean translated pages emit the inverse English action for English-language browsers and keep the in-body English-original link.
+- **Context / Problem:** Pre-translated pages were reachable by direct `/ko/...` URL and sitemap, but an English-page reader with a Korean browser had no in-page way to discover that a Korean version existed. Showing a permanent language control everywhere would add noise and imply language coverage that does not exist.
+- **Rationale:** Language availability is page-specific and artifact-driven, so the renderer is the right place to emit the candidate link. Browser-language matching keeps the UI quiet for readers who do not need the alternate while still making translated pages naturally discoverable to likely readers.
+- **Impact:** Updated `pipeline/render_static_pages.py`, `web/site-chrome.js`, cache-busted shared chrome references, selected generated source/translated pages, tests, and the multilingual product spec. No API or feed-data change.
+- **Rollback:** Revert the renderer language-action output and the `site-chrome.js` reveal logic. The `/ko/...` pages, sitemap entries, and direct links remain valid.
+
 ## 2026-07-05 (Publish the first Korean pre-translated page slice)
 - **Decision:** Add the first checked-in Korean translation artifacts for one page in each translated surface: daily, weekly, story, storyline, topic, and foundation. The static renderer validates each artifact's `source_hash` against the current English source before rendering `/ko/...` HTML, emits `hreflang` alternates from the Korean page to the English source, and adds fresh localized pages to `sitemap.xml`. Vercel rewrites now serve the six locale-prefixed URL patterns.
 - **Context / Problem:** The pre-translated-pages design needed a concrete end-to-end slice before building a recurring translation routine. The useful first slice is not every page in one surface, but one representative page per page type so the data shape, renderer behavior, SEO exposure, and routing contract are tested across the whole site memory model.

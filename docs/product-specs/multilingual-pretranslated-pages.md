@@ -141,11 +141,21 @@ Today, Vercel exposes Korean pages for `/ko/daily/<date>`,
 `/ko/weekly/<week>`, `/ko/story/<sid>`, `/ko/storyline/<slug>`,
 `/ko/topic/<slug>`, and `/ko/foundations/<slug>`.
 
+When an English page has a fresh translated counterpart, the renderer emits a
+hidden language action in the shared page actions. `site-chrome.js` reveals that
+icon only when the target locale matches the reader's browser language, using
+`navigator.languages` / `navigator.language`. For example, a reader with a
+Korean browser on `/daily/2026-07-04` sees a compact `KO` globe link to
+`/ko/daily/2026-07-04`. Korean pages emit the inverse `EN` action for English
+browsers and still keep an in-body English-original link.
+
 ## Acceptance Criteria
 
 - No page loads `web/local-translate.js` or exposes live translation controls.
 - `/ko/daily/<date>` can be generated from a checked-in translation artifact.
 - Korean pages include `hreflang` links for Korean, English, and `x-default`.
+- English pages with fresh translations expose a compact language action when
+  the target locale matches the browser language.
 - The sitemap includes localized URLs only when translations are fresh.
 - Translation validation fails on lost URLs, placeholders, model names, or stale
   `source_hash` values.

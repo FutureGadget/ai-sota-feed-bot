@@ -70,6 +70,27 @@ class I18nStaticPagesTest(unittest.TestCase):
             self.assertIn(f'hreflang="x-default" href="{en_url}"', html)
             self.assertIn("English original", html)
             self.assertIn("기계 번역", html)
+            self.assertIn('class="site-language-action"', html)
+            self.assertIn('data-language-link data-language-locale="en" hidden', html)
+
+    def test_i18n_availability_drives_english_page_language_links(self) -> None:
+        i18n_pages = render.collect_i18n_pages(
+            self.stories,
+            list(self.storylines.values()),
+            self.wiki,
+            self.foundations,
+        )
+
+        daily_links = render.language_links_for_path("/daily/2026-07-04", i18n_pages)
+        daily_alternates = render.alternate_links_for_path(
+            BASE_URL,
+            "/daily/2026-07-04",
+            i18n_pages,
+        )
+
+        self.assertEqual(daily_links, [("ko", "/ko/daily/2026-07-04", "Korean")])
+        self.assertIn(("ko", f"{BASE_URL}/ko/daily/2026-07-04"), daily_alternates)
+        self.assertIn(("x-default", f"{BASE_URL}/daily/2026-07-04"), daily_alternates)
 
     def test_sitemap_and_vercel_rewrites_expose_korean_pages(self) -> None:
         sitemap = (ROOT / "web" / "sitemap.xml").read_text(encoding="utf-8")
