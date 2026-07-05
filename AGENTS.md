@@ -255,6 +255,12 @@ in `ops_daily_summary.py`'s log line.
   `source-index.json` (source-backed cards keyed by story sid) + `input/`
   bundles (excluded from deploys). Served at `/playbook`; source-backed cards
   may appear inline in capped daily/weekly recap overlays
+- `data/i18n/<locale>/` — pre-translated static-page artifacts. Current Korean
+  slice covers `daily`, `weekly`, `story`, `storyline`, `topic`, and
+  `foundations`; fresh artifacts render to `web/<locale>/...`, get `hreflang`
+  alternates, and expose a browser-language-matched language action. Add or
+  refresh translations with `docs/how-to/add-pretranslated-pages.md`; product
+  contract: `docs/product-specs/multilingual-pretranslated-pages.md`.
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:

@@ -75,10 +75,13 @@ available to each function.
 - `data/i18n/<locale>/<surface>/<id>.json` — pre-translated static-page
   artifacts. Current surfaces are `daily`, `weekly`, `story`, `storyline`,
   `topic`, and `foundations`. Each artifact carries `{locale, source_path,
-  source_hash, translated_at, model, review_status, title, description, intro,
-  bullets}`; `pipeline/render_static_pages.py` recomputes `source_hash` from the
-  current English source and renders only fresh artifacts to `web/<locale>/...`.
-  APIs remain English in v1.
+  source_hash, translated_at, model, review_status, title, description, ...}`;
+  daily/weekly artifacts may also carry field-complete translated `intro`,
+  `highlights`, `categories[].{name,summary}`, and
+  `categories[].articles[].{title,summary}` overlays. `pipeline/render_static_pages.py`
+  recomputes `source_hash` from the current English source and renders only
+  fresh artifacts to `web/<locale>/...`. APIs remain English in v1. Operating
+  guide: `docs/how-to/add-pretranslated-pages.md`.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).
