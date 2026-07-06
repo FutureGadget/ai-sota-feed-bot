@@ -72,7 +72,7 @@ def load_source_tune_adjustments(cfg: dict[str, Any]) -> dict[str, float]:
     except (ValueError, TypeError):
         return {}
     max_age_days = float(tcfg.get("max_age_days", 14))
-    if (datetime.now(timezone.utc) - generated).total_seconds() > max_age_days * 86400:
+    if (_now_utc() - generated).total_seconds() > max_age_days * 86400:
         print("source_tune_skipped reason=stale")
         return {}
     out = {}
@@ -84,6 +84,10 @@ def load_source_tune_adjustments(cfg: dict[str, Any]) -> dict[str, float]:
     return out
 
 
+def _now_utc() -> datetime:
+    return datetime.now(timezone.utc)
+
+
 def _age_hours(published_str: str) -> float:
     try:
         dt = dt_parser.parse(published_str)
@@ -91,12 +95,44 @@ def _age_hours(published_str: str) -> float:
             dt = dt.replace(tzinfo=timezone.utc)
     except Exception:
         return 0.0
-    return max((datetime.now(timezone.utc) - dt).total_seconds() / 3600.0, 0.0)
+    return max((_now_utc() - dt).total_seconds() / 3600.0, 0.0)
 
 
 def _freshness_score(published_str: str, decay_hours: float = 24.0) -> float:
     age = _age_hours(published_str)
     return math.exp(-age / max(1.0, decay_hours))
+
+
+def _float_cfg(value: Any, default: float) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _clamp(value: float, low: float, high: float) -> float:
+    return max(low, min(high, value))
+
+
+def _time_decay_cfg_for_slot(cfg: dict[str, Any], slot: str) -> dict[str, Any]:
+    tcfg = cfg.get("time_decay", {}) or {}
+    base = {k: v for k, v in tcfg.items() if k != "slot_overrides"}
+    slot_overrides = tcfg.get("slot_overrides", {}) or {}
+    override = slot_overrides.get(slot, {}) or {}
+    return _deep_merge(base, override)
+
+
+def time_decay_factor(published_str: str, cfg: dict[str, Any], slot: str) -> float:
+    """Smoothly age down ranked items without adding source- or title-specific rules."""
+    tcfg = _time_decay_cfg_for_slot(cfg, slot)
+    if not tcfg.get("enabled", False):
+        return 1.0
+
+    half_life = max(1.0, _float_cfg(tcfg.get("half_life_hours"), 36.0))
+    floor = _clamp(_float_cfg(tcfg.get("floor"), 0.25), 0.0, 1.0)
+    start_after = max(0.0, _float_cfg(tcfg.get("start_after_hours"), 0.0))
+    age = max(0.0, _age_hours(published_str) - start_after)
+    return floor + (1.0 - floor) * math.pow(0.5, age / half_life)
 
 
 def _build_source_slot_map(cfg: dict[str, Any]) -> dict[str, str]:
@@ -306,7 +342,9 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
                 topical += pos_w
             if any(k in text for k in neg_kw):
                 topical += neg_w
-            fs = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + src_tune + topical
+            pre_decay_score = alpha * llm_s + beta * float(it.get("freshness", 0)) + src_bias + src_tune + topical
+            decay = time_decay_factor(it.get("published", ""), cfg, slot)
+            fs = pre_decay_score * decay if pre_decay_score > 0 else pre_decay_score
             item = dict(it)
             item["type"] = _infer_item_type(item, slot)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
@@ -317,6 +355,8 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item["source_bias"] = round(src_bias, 3)
             item["source_tune"] = round(src_tune, 3)
             item["topical_bias"] = round(topical, 3)
+            item["pre_decay_score"] = round(pre_decay_score, 3)
+            item["time_decay_factor"] = round(decay, 3)
             item["final_score"] = round(fs, 3)
             # Changelog bullets beat both the LLM line and the raw release
             # notes blob ("What's changed Added ...") for release items.

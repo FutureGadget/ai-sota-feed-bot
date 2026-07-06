@@ -8,11 +8,11 @@ Config layering: `config/ranking.yaml` names a `preset:` (e.g. `balanced`),
 which loads `config/presets/<name>.yaml` as the base; top-level keys in
 `ranking.yaml` deep-merge over the preset.
 
-## Quick answer: does `prefilter ... -> 120` mean 120 LLM calls?
+## Quick answer: does `prefilter ... -> 140` mean 140 LLM calls?
 No.
 
-- `prefilter=589->120` means **589 raw candidates were reduced to 120
-  prefilter candidates** (`candidate_pool_cap: 120`).
+- `prefilter=589->140` means **589 raw candidates were reduced to 140
+  prefilter candidates** (`candidate_pool_cap: 140`).
 - LLM calls are controlled separately by `llm_budget` in `config/ranking.yaml`
   (currently `8`) — and only matter when `config/llm.yaml -> enabled: true`.
 - **LLM is currently disabled**, so every item scores via the heuristic
@@ -36,7 +36,7 @@ Stage A: prefilter (ranking.stage_a_prefilter)
     (prefilter_reasons.off_topic)
   - per-slot freshness window
   - source health floor
-  - cap to candidate_pool_cap (120)
+  - cap to candidate_pool_cap (140)
       |
       v
 Stage B: slot assignment (ranking.assign_slots)
@@ -54,11 +54,14 @@ Stage B: slot assignment (ranking.assign_slots)
 Stage C: in-slot scoring + selection (ranking.stage_c_score_and_select)
   - LLM labeling with llm_budget cap (no-op while LLM disabled)
   - heuristic fallback scoring (the active path today)
-  - final slot score = alpha*llm_score + beta*freshness
-                       + source_bias + source_tune + topical_bias
+  - pre-decay score = alpha*llm_score + beta*freshness
+                      + source_bias + source_tune + topical_bias
     (source_tune = learned feedback/CTR adjustment from
      data/feedback/source_adjustments.json via pipeline/auto_tune.py,
      gated by auto_tune.enabled + max_age_days staleness cutoff)
+  - final slot score = pre-decay score * time_decay_factor
+    (`time_decay_factor` is a smooth half-life multiplier from
+    `time_decay.*`, with optional per-slot overrides and a floor)
   - enforce slot max_items and max_per_source
       |
       v
@@ -93,6 +96,9 @@ File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 - `slot_merge_strategy`: `floor_then_dynamic`
 - `slots.*.sources / min_items / max_items / max_per_source / freshness_hours`
 - `slots.*.blend.alpha / beta` (llm-or-heuristic score vs freshness)
+- `time_decay.*`: smooth age-down multiplier applied after normal Stage C
+  scoring (`half_life_hours`, `floor`, `start_after_hours`, optional
+  `slot_overrides`)
 - `dynamic_slot_rerank.*`: slot priority weights and per-slot base bias
 - `top_band_constraints.*`: composition floors/caps for the top N
   (incl. `lead_excludes_research`: keep position 1 off niche research papers)
@@ -126,10 +132,15 @@ which gate a source dies at.
    (`prefilter_reasons.pool_cap`). This is what hid the Google Cloud OKF post.
 5. **Slot caps** (`max_items`, `max_per_source`) — the slot may already be full
    of higher-scored items (`reject_slot_cap` / `reject_source_cap`).
-6. **Global merge** (`max_items` 24) — per-slot `min_items` floors are reserved
+6. **Time decay** (`time_decay`) — after normal relevance/source/topic scoring,
+   older items are multiplied down by a smooth half-life factor. This lets the
+   7-day live feed remain available while repeated hourly builds gradually make
+   room for newer stories. Strong evergreen items can still compete above the
+   configured floor, but they no longer keep their day-one score all week.
+7. **Global merge** (`max_items` 24) — per-slot `min_items` floors are reserved
    first, then remaining capacity fills by `global_score`
    (`final_score + slot_priority`).
-7. **Top-band constraints** — frontier/research promotion/demotion can reorder
+8. **Top-band constraints** — frontier/research promotion/demotion can reorder
    (but not drop) the visible top N. Includes the **lead rule**
    (`lead_excludes_research`): the band is sorted by `global_score`, so a fresh
    high-quality arXiv paper can outscore everything and land at position 1; this
@@ -148,12 +159,12 @@ existing slots and will over-expose the source.
 Example:
 
 ```text
-v2_stats prefilter=589->120 llm_used=0/8 slots=frontier_official:4/... total=24
+ranking_stats prefilter=589->140 llm_used=0/8 slots=frontier_official:4/... total=24
 ```
 
 Means:
 - 589 raw candidates entered the prefilter
-- 120 survived prefilter+cap
+- 140 survived prefilter+cap
 - 0 of 8 LLM budget consumed (always 0 while LLM is disabled)
 - slot selections shown per slot
 - final merged output contains 24 items

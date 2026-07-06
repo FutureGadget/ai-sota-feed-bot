@@ -78,6 +78,22 @@ slots:
 
 fallback: deterministic
 
+time_decay:
+  enabled: true
+  half_life_hours: 36
+  floor: 0.25
+  start_after_hours: 0
+  slot_overrides:
+    agent_tooling_releases:
+      half_life_hours: 48
+      floor: 0.30
+    research_watch:
+      half_life_hours: 72
+      floor: 0.35
+    practitioner_analysis:
+      half_life_hours: 48
+      floor: 0.30
+
 dynamic_slot_rerank:
   enabled: true
   quality_weight: 0.10

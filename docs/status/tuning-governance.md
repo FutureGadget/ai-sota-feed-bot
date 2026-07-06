@@ -1,4 +1,4 @@
-# Tuning Governance (v2)
+# Tuning Governance
 
 Use this to avoid overfitting one run/day.
 
@@ -8,7 +8,8 @@ Use this to avoid overfitting one run/day.
 3. Candidate pool cap / LLM budget
 4. Source bias
 5. Topical bias
-6. Top-band constraints
+6. Time-decay half-life/floor
+7. Top-band constraints
 
 ## One-change rule
 - Change one logical group at a time.
@@ -21,7 +22,7 @@ Use this to avoid overfitting one run/day.
 
 ## Minimum validation checklist
 - `run_full.sh` reaches `FULL_RUN_OK`
-- Check `v2_stats` line for:
+- Check `ranking_stats` line for:
   - `prefilter` spread
   - `llm_used` within budget
   - slot selected counts
@@ -35,4 +36,4 @@ Use this to avoid overfitting one run/day.
 
 ## Presets
 - Baseline profile: `config/presets/balanced.yaml`
-- `config/ranking_v2.yaml` should only carry active overrides + `preset` name.
+- `config/ranking.yaml` should only carry active overrides + `preset` name.

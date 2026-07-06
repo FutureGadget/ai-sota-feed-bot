@@ -1,6 +1,6 @@
-# How-To: Add Data Sources and Debug Filtering (v2)
+# How-To: Add Data Sources and Debug Filtering
 
-This guide explains how to add new ingestion sources safely and how to debug where items are being dropped in the v2 ranking pipeline.
+This guide explains how to add new ingestion sources safely and how to debug where items are being dropped in the ranking pipeline.
 
 ## 1) Add a new source
 
@@ -35,23 +35,23 @@ Example (arXiv API):
 
 ### Source naming conventions
 - Use stable snake_case names.
-- Source name is used in slot mapping (`config/ranking_v2.yaml`) and diagnostics.
+- Source name is used in slot mapping (`config/ranking.yaml`) and diagnostics.
 
 ---
 
 ## 2) Presets and overrides
 
 - Base preset files live in `config/presets/*.yaml` (e.g., `balanced.yaml`).
-- Active config is `config/ranking_v2.yaml`.
+- Active config is `config/ranking.yaml`.
 - Loader behavior:
   1. load preset from `preset: <name>`
-  2. apply local overrides from `config/ranking_v2.yaml`
+  2. apply local overrides from `config/ranking.yaml`
 
 Use this pattern to avoid one giant config drift over time.
 
-## 3) Map source to a v2 slot
+## 3) Map source to a ranking slot
 
-Edit: preset or `config/ranking_v2.yaml` under `slots.*.sources`.
+Edit: preset or `config/ranking.yaml` under `slots.*.sources`.
 
 If a source is not mapped, it falls into `overflow` behavior.
 Always map intentionally to avoid accidental ranking behavior.
@@ -90,25 +90,25 @@ PY
 
 ---
 
-## 4) Debug filtering/ranking drops (v2)
+## 4) Debug filtering/ranking drops
 
 ### Pipeline checkpoints
 1. **Raw ingest** (`data/raw/.../items.json`)
-2. **Prefilter** (`prefilter_in -> prefilter_out` in `v2_stats`)
-3. **Slot candidates/selection** (in `data/diagnostics/YYYY-MM-DD_v2.json`)
+2. **Prefilter** (`prefilter_in -> prefilter_out` in `ranking_stats`)
+3. **Slot candidates/selection** (in `data/diagnostics/YYYY-MM-DD_ranking.json`)
 4. **Final output** (`data/processed/latest.json`)
 
 ### Key logs to read
-- `v2_stats prefilter=A->B llm_used=X/Y slots=... slot_priority=... total=...`
+- `ranking_stats prefilter=A->B llm_used=X/Y slots=... slot_priority=... total=...`
 
 Interpretation:
 - `A->B`: candidate reduction before slot scoring
-- `llm_used`: actual LLM calls consumed by v2 budget
+- `llm_used`: actual LLM calls consumed by ranking budget
 - `slots=...`: selected count per slot
 - `slot_priority=...`: dynamic slot rerank weights applied
 
 ### Diagnostics file
-`data/diagnostics/YYYY-MM-DD_v2.json` includes:
+`data/diagnostics/YYYY-MM-DD_ranking.json` includes:
 - prefilter counts/reasons
 - per-slot candidate/scored/selected counts
 - budget usage
@@ -141,6 +141,11 @@ Interpretation:
 5. **Bias tuning**
 - `source_bias`, `topical_bias`, and slot priority can demote/promote.
 
+6. **Time decay**
+- `time_decay_factor` can push an older otherwise-strong item below a newer
+  one. Tune `time_decay.half_life_hours`, `floor`, or per-slot overrides rather
+  than adding source-specific age rules.
+
 ---
 
 ## 6) Fast debugging recipes
@@ -149,7 +154,7 @@ Interpretation:
 ```bash
 python - <<'PY'
 import yaml
-slots=yaml.safe_load(open('config/ranking_v2.yaml'))['slots']
+slots=yaml.safe_load(open('config/ranking.yaml'))['slots']
 sources=yaml.safe_load(open('config/sources.yaml'))['sources']
 mapped={s for k,v in slots.items() for s in v.get('sources',[])}
 all_names=[x['name'] for x in sources]
@@ -167,9 +172,9 @@ print(Counter(x['source'] for x in items))
 PY
 ```
 
-### C) Force fresh v2 label behavior
+### C) Force fresh label behavior
 ```bash
-rm -f data/llm/labels_v2.json
+rm -f data/llm/labels.json
 python pipeline/build_digest.py
 ```
 
@@ -183,7 +188,8 @@ When tuning source visibility:
 3. `candidate_pool_cap`
 4. `source_bias`
 5. `topical_bias`
-6. top-band constraints
+6. time-decay half-life/floor
+7. top-band constraints
 
 Avoid changing many knobs at once unless running multiple validation passes.
 

@@ -17,7 +17,10 @@ available to each function.
   — per-run history (**3-day hard cap**, no archive tail; these are ~1.5 MB
   each and bundled into the Vercel feed/rss functions, which only read tier1
   for a 24h fresh-blend overlay)
-- `data/processed/latest.json` — the production feed (Tier-0 full ranking)
+- `data/processed/latest.json` — the production feed (Tier-0 full ranking).
+  Ranked items include score diagnostics such as `llm_score`, `source_bias`,
+  `source_tune`, `topical_bias`, `pre_decay_score`, `time_decay_factor`,
+  `final_score`, `slot_priority`, and `global_score`.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
 

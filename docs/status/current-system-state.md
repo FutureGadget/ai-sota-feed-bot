@@ -1,4 +1,4 @@
-# Current System State (as of 2026-06-21 KST)
+# Current System State (as of 2026-07-06 KST)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
@@ -8,10 +8,11 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 - `config/ranking.yaml`:
   - `enabled: true`
   - `preset: balanced` (loads `config/presets/balanced.yaml`, then local overrides deep-merge on top)
-  - `candidate_pool_cap: 120`
+  - `candidate_pool_cap: 140`
   - `llm_budget: 8` (inert — see below)
   - `max_items: 24`
   - `slot_merge_strategy: floor_then_dynamic`
+  - `time_decay.enabled: true` (smooth half-life age-down after Stage C scoring)
   - `dynamic_slot_rerank.enabled: true`, `top_band_constraints.enabled: true`
 - **LLM disabled**: `config/llm.yaml -> enabled: false`. All scoring is
   heuristic/deterministic; `pipeline/llm_label.py` / `llm_rerank.py` are no-op
@@ -73,18 +74,18 @@ Daily companions:
 
 ## Ranking stages (active)
 - Stage A: deterministic prefilter (regex excludes, slot freshness windows,
-  health floor, cap to 120)
+  health floor, cap to 140)
 - Stage B: slot assignment — frontier_official, agent_tooling_releases,
   infra_runtime_releases, vendor_general_updates, practitioner_analysis,
   community_signal, research_watch, overflow
 - Stage C: slot scoring/selection — heuristic score (LLM path budgeted but
   disabled), `alpha*score + beta*freshness + source_bias + source_tune +
-  topical_bias`, per-slot max and per-source caps
+  topical_bias`, then `time_decay_factor`; per-slot max and per-source caps
 - Global merge: dynamic slot meta-rerank, trim to 24 preserving slot floors
 - Top-band constraints: composition floors/caps inside the top 10
 
 ## Run health signals (greppable)
-- `v2_stats prefilter=A->B llm_used=N/8 slots=... total=T`
+- `ranking_stats prefilter=A->B llm_used=N/8 slots=... total=T`
 - `FULL_RUN_OK` / `FULL_RUN_NO_DELTA_SKIP=true`
 - `runtime_commit_done=true` / `runtime_push_skipped=true`
 - `latest_json_valid=true`
@@ -100,4 +101,6 @@ Daily companions:
 - Re-enable LLM labeling (`config/llm.yaml -> enabled: true`) once
   auth/cost/reliability are settled; budget starts at 8.
 - Adjust dynamic slot rerank weights/biases for desired top ordering.
+- Tune `time_decay.half_life_hours`, `floor`, and slot overrides if the live
+  feed still feels too static or becomes too freshness-biased.
 - Tune `auto_tune` caps as reader feedback volume grows.

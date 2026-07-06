@@ -17,6 +17,19 @@ Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
 may appear as supporting context.
 
+## Feed aging
+
+The default live feed can show a 7-day window without treating every eligible
+story as equally current. The ranking pipeline applies a smooth time-decay
+multiplier after normal relevance/source/topic scoring, so an article gradually
+loses ordering power as it ages instead of staying at its original rank until
+the freshness window expires.
+
+Decay is configured in `config/ranking.yaml` (`time_decay.*`) and may vary by
+slot for slower-moving surfaces such as research or practitioner analysis. It
+does not change date filtering, `first_seen`, "New since your last visit", or
+the user's ability to widen the time range.
+
 ## Editor's Desk inserts
 
 Editor's Desk notes may appear between ranked feed items when another site
