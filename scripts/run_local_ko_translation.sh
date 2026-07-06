@@ -63,12 +63,12 @@ if [ "$local_stashed" = true ]; then
 fi
 
 echo -e "\n=== [2/5] Translating Live Feed Snapshot ==="
-# Translates the top 20 ranked Brief snapshot items.
+# Translates the top 10 ranked Brief snapshot items.
 # Outputs: data/i18n/ko/feed/latest.json & data/i18n/ko/feed/status.json
 python3 pipeline/build_localized_feed.py \
   --locale ko \
   --label brief \
-  --limit 20 \
+  --limit 10 \
   --model "${MODEL_NAME}" \
   --base-url "${LM_STUDIO_URL}"
 
