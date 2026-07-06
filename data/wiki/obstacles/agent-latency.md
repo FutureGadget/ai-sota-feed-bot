@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6]
-updated: 2026-07-03
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10]
+updated: 2026-07-06
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10]
 ---
 
 ## TL;DR
@@ -27,7 +27,13 @@ are competing hard on decode latency and throughput — vLLM's v0.24.0 line keep
 adding fast model support and quantized indexers, Modular's 26.4 ships
 state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched
 explicitly on "low-latency inference at scale" — but raw engine speed only moves
-one term in the agent's latency budget. The newer recognition is that **agent
+one term in the agent's latency budget. That serving-layer work is
+increasingly hardware- and model-specific rather than generic: vLLM's
+integration with Tencent's HPC-Ops backend adds Hopper-optimized attention
+and FP8 MoE kernels tuned for the Hunyuan Hy3 model on NVIDIA H20, cutting
+time-to-first-token and per-output-token latency on the mixed-length,
+bursty decode pattern agent loops actually produce, rather than the uniform
+batches a generic benchmark assumes. The newer recognition is that **agent
 workloads do not look like chat**: coding agents issue bursty, long-context,
 tool-interleaved requests, and characterizing that shape is now its own research
 target (TraceLab profiles real coding-agent workloads for LLM serving so the
@@ -59,21 +65,28 @@ it, collapsing a round-trip that would otherwise cost a full extra model call
 and its latency.
 
 ## What's new
-The framing is shifting from "make the model faster" to "make the *agent
-workload* faster." TraceLab characterizes real coding-agent serving traces so
-engines can be tuned to bursty long-context tool loops, and DualPath identifies
-storage bandwidth — not GPU compute — as the bottleneck in agentic inference,
-because the per-step context state has to be moved, not just computed. RaBitQCache
-now gives that bottleneck a direct mitigation: quantizing the KV cache with an
-adaptive token budget cuts the memory-I/O DualPath flags, without a fixed
-top-k retrieval's static waste. A newer move pushes lightweight agentic logic
-*into* the serving layer itself — vLLM's Semantic Router runs confidence
-scoring and workflow routing as a bounded micro-agent inside the serving
-process, avoiding a separate orchestration round-trip's latency cost.
-Alongside, latency-first small models (Kog Laneformer 2B) and low-latency
-interactive stacks (Loka's Nova 2 Sonic voice agent) show the field treating
-round-trip time as an architecture constraint rather than a knob, and the same
-instinct is reaching the dev loop itself — local CI cuts feedback latency for
+The serving-layer fix is getting more hardware- and model-specific: vLLM's
+new HPC-Ops integration ships Hopper-optimized attention and FP8 MoE kernels
+built for Tencent's Hunyuan Hy3 on NVIDIA H20, improving mixed-length decode,
+TTFT, and per-token latency — a purpose-built backend rather than a generic
+engine tweak.
+
+Before that, the framing had already shifted from "make the model faster" to
+"make the *agent workload* faster." TraceLab characterizes real coding-agent
+serving traces so engines can be tuned to bursty long-context tool loops, and
+DualPath identifies storage bandwidth — not GPU compute — as the bottleneck
+in agentic inference, because the per-step context state has to be moved,
+not just computed. RaBitQCache gives that bottleneck a direct mitigation:
+quantizing the KV cache with an adaptive token budget cuts the memory-I/O
+DualPath flags, without a fixed top-k retrieval's static waste. A separate
+move pushes lightweight agentic logic *into* the serving layer itself —
+vLLM's Semantic Router runs confidence scoring and workflow routing as a
+bounded micro-agent inside the serving process, avoiding a separate
+orchestration round-trip's latency cost. Alongside, latency-first small
+models (Kog Laneformer 2B) and low-latency interactive stacks (Loka's Nova 2
+Sonic voice agent) show the field treating round-trip time as an
+architecture constraint rather than a knob, and the same instinct is
+reaching the dev loop itself — local CI cuts feedback latency for
 developers and agents alike.
 
 ## Why it matters for platform engineers

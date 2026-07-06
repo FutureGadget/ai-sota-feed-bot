@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-05T18:10:52.515443+00:00",
+ "generated_at": "2026-07-06T18:10:22.716613+00:00",
  "areas": [
   {
    "area": "memory",
@@ -207,12 +207,7 @@
     }
    ],
    "obstacles": [],
-   "related_storylines": [
-    {
-     "slug": "deep-research",
-     "label": "Research Deep"
-    }
-   ],
+   "related_storylines": [],
    "evidence": [
     {
      "sid": "b8b632a161a052e9",
@@ -323,11 +318,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>Latency for agents is being attacked at the <strong>serving layer</strong> and the <strong>workload-shape layer</strong> at once. The serving engines that host agent traffic are competing hard on decode latency and throughput — vLLM&#x27;s v0.24.0 line keeps adding fast model support and quantized indexers, Modular&#x27;s 26.4 ships state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched explicitly on &quot;low-latency inference at scale&quot; — but raw engine speed only moves one term in the agent&#x27;s latency budget. The newer recognition is that <strong>agent workloads do not look like chat</strong>: coding agents issue bursty, long-context, tool-interleaved requests, and characterizing that shape is now its own research target (TraceLab profiles real coding-agent workloads for LLM serving so the server can be tuned to them rather than to a generic chat trace). That work is surfacing agent-specific bottlenecks the chat era never hit — DualPath finds the binding constraint in agentic inference is <strong>storage bandwidth</strong>, not compute, because the agent&#x27;s growing KV/context state has to be streamed back each step — and one direct answer is shrinking that state: RaBitQCache uses randomized rotated binary quantization to compress the KV cache and an adaptive top-p token budget instead of a fixed top-k, cutting the memory-I/O DualPath identifies as the bottleneck while holding generation quality. The dev-loop side of latency counts too: local CI (running checks on the developer&#x27;s machine instead of round-tripping to a remote runner) cuts the feedback loop for both human developers and coding agents, since round-trip time to a CI runner is on the same wall-clock budget as each model call. The other lever is the model itself: latency-first small models (Kog&#x27;s Laneformer 2B, built for its inference engine) trade frontier breadth for predictable speed on the bulk of an agent&#x27;s calls, the same downshift logic that drives cost. Latency also has a hard product floor in interactive modes — a voice agent that pauses too long gets hung up on, which is why low-latency voice stacks (Loka on Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint, not a tuning afterthought.</p>\n<p>The serving layer itself is starting to absorb <strong>agentic behavior</strong>: vLLM&#x27;s Semantic Router turns its <code>vllm-sr/auto</code> routing feature into a bounded &quot;micro-agent&quot; runtime — confidence scoring, ratings, and workflow fusion happen *inside* the serving layer rather than in a separate orchestration hop above it, collapsing a round-trip that would otherwise cost a full extra model call and its latency.</p>"
+     "html": "<p>Latency for agents is being attacked at the <strong>serving layer</strong> and the <strong>workload-shape layer</strong> at once. The serving engines that host agent traffic are competing hard on decode latency and throughput — vLLM&#x27;s v0.24.0 line keeps adding fast model support and quantized indexers, Modular&#x27;s 26.4 ships state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched explicitly on &quot;low-latency inference at scale&quot; — but raw engine speed only moves one term in the agent&#x27;s latency budget. That serving-layer work is increasingly hardware- and model-specific rather than generic: vLLM&#x27;s integration with Tencent&#x27;s HPC-Ops backend adds Hopper-optimized attention and FP8 MoE kernels tuned for the Hunyuan Hy3 model on NVIDIA H20, cutting time-to-first-token and per-output-token latency on the mixed-length, bursty decode pattern agent loops actually produce, rather than the uniform batches a generic benchmark assumes. The newer recognition is that <strong>agent workloads do not look like chat</strong>: coding agents issue bursty, long-context, tool-interleaved requests, and characterizing that shape is now its own research target (TraceLab profiles real coding-agent workloads for LLM serving so the server can be tuned to them rather than to a generic chat trace). That work is surfacing agent-specific bottlenecks the chat era never hit — DualPath finds the binding constraint in agentic inference is <strong>storage bandwidth</strong>, not compute, because the agent&#x27;s growing KV/context state has to be streamed back each step — and one direct answer is shrinking that state: RaBitQCache uses randomized rotated binary quantization to compress the KV cache and an adaptive top-p token budget instead of a fixed top-k, cutting the memory-I/O DualPath identifies as the bottleneck while holding generation quality. The dev-loop side of latency counts too: local CI (running checks on the developer&#x27;s machine instead of round-tripping to a remote runner) cuts the feedback loop for both human developers and coding agents, since round-trip time to a CI runner is on the same wall-clock budget as each model call. The other lever is the model itself: latency-first small models (Kog&#x27;s Laneformer 2B, built for its inference engine) trade frontier breadth for predictable speed on the bulk of an agent&#x27;s calls, the same downshift logic that drives cost. Latency also has a hard product floor in interactive modes — a voice agent that pauses too long gets hung up on, which is why low-latency voice stacks (Loka on Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint, not a tuning afterthought.</p>\n<p>The serving layer itself is starting to absorb <strong>agentic behavior</strong>: vLLM&#x27;s Semantic Router turns its <code>vllm-sr/auto</code> routing feature into a bounded &quot;micro-agent&quot; runtime — confidence scoring, ratings, and workflow fusion happen *inside* the serving layer rather than in a separate orchestration hop above it, collapsing a round-trip that would otherwise cost a full extra model call and its latency.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>The framing is shifting from &quot;make the model faster&quot; to &quot;make the *agent workload* faster.&quot; TraceLab characterizes real coding-agent serving traces so engines can be tuned to bursty long-context tool loops, and DualPath identifies storage bandwidth — not GPU compute — as the bottleneck in agentic inference, because the per-step context state has to be moved, not just computed. RaBitQCache now gives that bottleneck a direct mitigation: quantizing the KV cache with an adaptive token budget cuts the memory-I/O DualPath flags, without a fixed top-k retrieval&#x27;s static waste. A newer move pushes lightweight agentic logic *into* the serving layer itself — vLLM&#x27;s Semantic Router runs confidence scoring and workflow routing as a bounded micro-agent inside the serving process, avoiding a separate orchestration round-trip&#x27;s latency cost. Alongside, latency-first small models (Kog Laneformer 2B) and low-latency interactive stacks (Loka&#x27;s Nova 2 Sonic voice agent) show the field treating round-trip time as an architecture constraint rather than a knob, and the same instinct is reaching the dev loop itself — local CI cuts feedback latency for developers and agents alike.</p>"
+     "html": "<p>The serving-layer fix is getting more hardware- and model-specific: vLLM&#x27;s new HPC-Ops integration ships Hopper-optimized attention and FP8 MoE kernels built for Tencent&#x27;s Hunyuan Hy3 on NVIDIA H20, improving mixed-length decode, TTFT, and per-token latency — a purpose-built backend rather than a generic engine tweak.</p>\n<p>Before that, the framing had already shifted from &quot;make the model faster&quot; to &quot;make the *agent workload* faster.&quot; TraceLab characterizes real coding-agent serving traces so engines can be tuned to bursty long-context tool loops, and DualPath identifies storage bandwidth — not GPU compute — as the bottleneck in agentic inference, because the per-step context state has to be moved, not just computed. RaBitQCache gives that bottleneck a direct mitigation: quantizing the KV cache with an adaptive token budget cuts the memory-I/O DualPath flags, without a fixed top-k retrieval&#x27;s static waste. A separate move pushes lightweight agentic logic *into* the serving layer itself — vLLM&#x27;s Semantic Router runs confidence scoring and workflow routing as a bounded micro-agent inside the serving process, avoiding a separate orchestration round-trip&#x27;s latency cost. Alongside, latency-first small models (Kog Laneformer 2B) and low-latency interactive stacks (Loka&#x27;s Nova 2 Sonic voice agent) show the field treating round-trip time as an architecture constraint rather than a knob, and the same instinct is reaching the dev loop itself — local CI cuts feedback latency for developers and agents alike.</p>"
     },
     {
      "heading": "Why it matters for platform engineers",
@@ -390,9 +385,13 @@
     {
      "sid": "d3e345ae085932a6",
      "title": "TraceLab: Characterizing Coding Agent Workloads for LLM Serving"
+    },
+    {
+     "sid": "7b0c24a5e0c92a10",
+     "title": "vLLM × HPC-Ops: High-Performance Attention and MoE Backends from Tencent Hunyuan"
     }
    ],
-   "updated": "2026-07-03"
+   "updated": "2026-07-06"
   },
   "agent-memory": {
    "slug": "agent-memory",
@@ -430,12 +429,7 @@
     }
    ],
    "obstacles": [],
-   "related_storylines": [
-    {
-     "slug": "deep-research",
-     "label": "Research Deep"
-    }
-   ],
+   "related_storylines": [],
    "evidence": [
     {
      "sid": "2c8ff757b828dee7",
@@ -1135,12 +1129,7 @@
      "title": "Coordinating multiple agents adds more failure than capability"
     }
    ],
-   "related_storylines": [
-    {
-     "slug": "deep-research",
-     "label": "Research Deep"
-    }
-   ],
+   "related_storylines": [],
    "evidence": [
     {
      "sid": "432c23c0dd1c00f1",
@@ -1717,11 +1706,11 @@
     },
     {
      "heading": "State of the art",
-     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants.</p>\n<p>The actuation surface is expanding to the <strong>browser</strong>: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. The open-source client side is filling in alongside the browser trial, with MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site can build agentic experiences without a vendor SDK.</p>\n<p>MCP is also becoming the assumed plug for <strong>hosted runtimes</strong> — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives).</p>\n<p>Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>\n<p>The same maturation is landing in the client tooling: Claude Code added <code>claude mcp login</code> / <code>logout</code> to authenticate servers from the CLI without the interactive menu, and practitioners increasingly argue MCP&#x27;s *core* value is exactly this — isolating the <strong>auth flow</strong> outside the agent&#x27;s context window (and ideally out of the harness entirely) rather than the tool-description format itself. Read that way, the durable win of MCP is credential handling, not schema standardization.</p>\n<p>Two further signs of maturation:</p>\n<ul><li><strong>Tool discovery is becoming a scaling problem</strong> — as a single agent faces dozens of connectors, listing every tool schema blows the context budget, so clients are shifting to *search* over the registry; OpenAI&#x27;s Codex now uses MCP tool search by default, treating &quot;find the right tool&quot; as a retrieval step rather than dumping the full catalog.</li><li><strong>What MCP carries is widening beyond tools</strong>: reference data and memory now ride the same protocol — Mozilla&#x27;s MDN MCP service (and community spinoffs that repackage browser-compat data as a queryable SQLite-backed server) expose knowledge, while Elastic&#x27;s Atlas serves *agent memory* over MCP — so MCP is becoming the generic plug for tools, data, and state alike.</li></ul>\n<p>That &quot;more than tools&quot; widening now includes <strong>work distribution</strong>: TaskPeace is a task queue that coding agents pull work *from* over MCP, using the protocol as the plug for a job queue rather than a single tool call or a data/memory fetch — a third payload type alongside tools and knowledge/state.</p>"
+     "html": "<p>MCP is moving from a client-side convenience to <strong>production infrastructure</strong>. Vendors are shipping official servers — HashiCorp&#x27;s Terraform MCP server reached GA so agents can drive Terraform Registry APIs, and reference builds wire up SaaS servers (Amazon Quick, Cisco Webex) into working assistants.</p>\n<p>The actuation surface is expanding to the <strong>browser</strong>: WebMCP is in Chrome origin trials, letting a site expose JavaScript functions and HTML forms as tools to an in-page agent. The open-source client side is filling in alongside the browser trial, with MIT, framework-free libraries (Persona.js) that ship native WebMCP so any site can build agentic experiences without a vendor SDK.</p>\n<p>MCP is also becoming the assumed plug for <strong>hosted runtimes</strong> — Azure Functions&#x27; agents runtime gives every agent MCP server access (alongside 1,400+ connectors) out of the box — and the long tail keeps filling in with small task servers (e.g. a &quot;coding tools&quot; MCP that hands any agent file/shell coding primitives).</p>\n<p>Crucially, the protocol&#x27;s growth is forcing the <strong>governance</strong> layer — Claude&#x27;s enterprise managed authorization provisions MCP connectors org-wide through an identity provider (Okta first), so connector access and authorization are configured centrally rather than per user. That move from &quot;connect a tool&quot; to &quot;govern a fleet of connectors&quot; is the sign of a maturing standard.</p>\n<p>The same maturation is landing in the client tooling: Claude Code added <code>claude mcp login</code> / <code>logout</code> to authenticate servers from the CLI without the interactive menu, and practitioners increasingly argue MCP&#x27;s *core* value is exactly this — isolating the <strong>auth flow</strong> outside the agent&#x27;s context window (and ideally out of the harness entirely) rather than the tool-description format itself. Read that way, the durable win of MCP is credential handling, not schema standardization.</p>\n<p>That governance push is now backed at the <strong>protocol</strong> level: the MCP project promoted its Enterprise-Managed Authorization extension to stable status, replacing per-server consent prompts with a single sign-on flow through an org&#x27;s identity provider. It generalizes what Claude&#x27;s enterprise auth already did for one vendor into a spec any MCP client or server can implement.</p>\n<p>Two further signs of maturation:</p>\n<ul><li><strong>Tool discovery is becoming a scaling problem</strong> — as a single agent faces dozens of connectors, listing every tool schema blows the context budget, so clients are shifting to *search* over the registry; OpenAI&#x27;s Codex now uses MCP tool search by default, treating &quot;find the right tool&quot; as a retrieval step rather than dumping the full catalog.</li><li><strong>What MCP carries is widening beyond tools</strong>: reference data and memory now ride the same protocol — Mozilla&#x27;s MDN MCP service (and community spinoffs that repackage browser-compat data as a queryable SQLite-backed server) expose knowledge, while Elastic&#x27;s Atlas serves *agent memory* over MCP — so MCP is becoming the generic plug for tools, data, and state alike.</li></ul>\n<p>That &quot;more than tools&quot; widening now includes <strong>work distribution</strong>: TaskPeace is a task queue that coding agents pull work *from* over MCP, using the protocol as the plug for a job queue rather than a single tool call or a data/memory fetch — a third payload type alongside tools and knowledge/state.</p>"
     },
     {
      "heading": "What's new",
-     "html": "<p>MCP&#x27;s payload keeps widening: alongside tools and memory/reference data, it is now carrying <strong>work itself</strong> — TaskPeace exposes a task queue that coding agents pull jobs from over MCP, treating the protocol as a distribution mechanism rather than a per-call tool interface.</p>\n<p>This builds on last round&#x27;s maturation signals — tool discovery as a retrieval step (Codex&#x27;s default MCP tool search) and MCP carrying reference data and agent memory (MDN MCP service, Elastic Atlas) — plus the standing shift to authentication as MCP&#x27;s center of gravity.</p>\n<p>This rides on the prior shift to authentication as MCP&#x27;s center of gravity (<code>claude mcp login</code>/<code>logout</code>; the framing that MCP&#x27;s real edge is isolating the auth flow outside the agent&#x27;s context window) and the now-assumed infrastructure — MCP-equipped serverless runtimes (Azure Functions), a filling small-server long tail, framework-free WebMCP clients (Persona.js, MIT), and identity-provider-governed authorization.</p>"
+     "html": "<p>The auth push that started as a vendor feature is now a <strong>stable protocol extension</strong>: MCP&#x27;s Enterprise-Managed Authorization reached stable status, giving any client or server a spec for zero-touch, identity-provider-backed access instead of per-server consent prompts.</p>\n<p>That builds on the same trajectory as MCP&#x27;s other recent widening — work distribution (TaskPeace&#x27;s task queue over MCP), tool discovery as a retrieval step (Codex&#x27;s default MCP tool search), and reference data/memory riding the protocol (MDN MCP service, Elastic Atlas) — alongside the now-assumed infrastructure of MCP-equipped serverless runtimes (Azure Functions), a filling small-server long tail, and framework-free WebMCP clients (Persona.js, MIT).</p>"
     },
     {
      "heading": "Trade-offs",
@@ -1792,9 +1781,13 @@
     {
      "sid": "2b0cc93ba8a0f9b8",
      "title": "Show HN: TaskPeace – a task queue my AI coding agents pull work from over MCP"
+    },
+    {
+     "sid": "3c227e4c9b2cd2eb",
+     "title": "AI Model Context Protocol Adds Centralised Auth for Enterprise"
     }
    ],
-   "updated": "2026-07-03"
+   "updated": "2026-07-06"
   },
   "speculative-decoding": {
    "slug": "speculative-decoding",
