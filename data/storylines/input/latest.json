@@ -1,7 +1,898 @@
 {
-  "generated_at": "2026-07-05T10:03:15.086796+00:00",
+  "generated_at": "2026-07-06T00:03:42.812813+00:00",
   "window_days": 21,
-  "storyline_count": 0,
+  "storyline_count": 6,
   "needs_narrative_count": 0,
-  "storylines": []
+  "storylines": [
+    {
+      "slug": "claude-on-microsoft-foundry",
+      "label": "Claude on Microsoft Foundry",
+      "item_count": 2,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-06-22T00:00:00+00:00",
+      "last_updated": "2026-07-05T08:13:00+00:00",
+      "latest_title": "Claude Reaches GA on Microsoft Foundry: European Enterprises Cannot Deploy It",
+      "member_sids": [
+        "883a81a56600a8dd",
+        "703c2eaccf56be5a"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-on-microsoft-foundry.json",
+      "prior_narrative": {
+        "slug": "claude-on-microsoft-foundry",
+        "generated_at": "2026-07-05T10:10:00+00:00",
+        "covers_last_updated": "2026-07-05T08:13:00+00:00",
+        "covers_member_sids": [
+          "883a81a56600a8dd",
+          "703c2eaccf56be5a"
+        ],
+        "tldr": "Anthropic put Claude Desktop into beta on three inference backends at once on June 22 — AWS, Google Cloud, and Microsoft Foundry — covering chat, Cowork, and Claude Code. Microsoft Foundry was the least mature of the three from the start, without the data-residency guarantees Anthropic already documents for Bedrock and Vertex AI.",
+        "whats_new": "Claude reached general availability on Microsoft Foundry with Azure-native billing and governance on July 5, but there's still no European data zone, so European banks and healthcare practitioners say the offering is unapproved for production use.",
+        "why_it_matters": "Foundry is now the odd backend out: Anthropic's own documentation confirms data-residency guarantees for Bedrock and Vertex AI but not Foundry, so GA didn't close that regulatory gap — it just made the missing guarantee more visible to teams evaluating it for EU workloads.",
+        "status": {
+          "state": "GA · no EU data zone",
+          "tone": "alert",
+          "changed": "2026-07-05",
+          "reenable": "no announced timeline for an EU data zone on Foundry",
+          "detail": "Claude is GA on Microsoft Foundry with Azure billing and governance, but the absence of a European data zone leaves regulated EU deployments blocked.",
+          "track": [
+            {
+              "label": "beta across 3 clouds",
+              "detail": "Jun 22 – Jul 5",
+              "tone": "launch",
+              "weight": 55
+            },
+            {
+              "label": "GA, EU gap exposed",
+              "detail": "Jul 5 → now",
+              "tone": "alert",
+              "weight": 45
+            }
+          ]
+        },
+        "provenance": {
+          "883a81a56600a8dd": {
+            "surfaced_by": "scout"
+          },
+          "703c2eaccf56be5a": {
+            "surfaced_by": "scout",
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Desktop goes into beta on AWS, Google Cloud, and Microsoft Foundry",
+            "summary": "Chat, Claude Cowork, and Claude Code all become available for inference on Microsoft Foundry alongside the two established clouds.",
+            "sids": [
+              "883a81a56600a8dd"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "turn",
+            "headline": "Foundry reaches GA, but no EU data zone blocks regulated deployments",
+            "summary": "Azure-native billing and governance ship, yet Anthropic's data-residency guarantees still cover only Bedrock and Vertex AI — European banking and healthcare teams call the Foundry offering unapproved for production.",
+            "sids": [
+              "703c2eaccf56be5a"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Will Anthropic add a European data zone for Microsoft Foundry to match the residency guarantees already offered on Bedrock and Vertex AI?",
+          "Do other regulated markets outside Europe face the same production-approval gap on Foundry?"
+        ],
+        "take_for_builders": "If you're deploying Claude through Microsoft Foundry for EU-regulated workloads, don't assume data-residency parity with Bedrock or Vertex AI — check Anthropic's current residency documentation before greenlighting a production deployment there.",
+        "day_captions": {
+          "883a81a56600a8dd": "Establishes Microsoft Foundry as one of three inference backends for the full Claude desktop experience, in beta.",
+          "703c2eaccf56be5a": "Moves Foundry to GA with Azure billing and governance, and surfaces the missing EU data zone that blocks regulated deployments."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-22",
+          "items": [
+            {
+              "sid": "883a81a56600a8dd",
+              "title": "Claude Desktop on AWS, Google Cloud, and Microsoft Foundry | Claude",
+              "url": "https://claude.com/blog/the-full-claude-desktop-experience-on-aws-google-cloud-and-microsoft-foundry",
+              "source": "claude_blog",
+              "type": "news",
+              "summary_1line": "Deploy the full Claude desktop experience - chat, Claude Cowork, and Claude Code - using inference on AWS, Google Cloud and Microsoft Foundry. Available today in beta.",
+              "published": "2026-06-22T00:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-05",
+          "items": [
+            {
+              "sid": "703c2eaccf56be5a",
+              "title": "Claude Reaches GA on Microsoft Foundry: European Enterprises Cannot Deploy It",
+              "url": "https://www.infoq.com/news/2026/07/claude-foundry-ga-europe/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Claude models reached GA on Microsoft Foundry with Azure-native billing and governance, but no European data zone exists. Anthropic's own documentation confirms data residency guarantees apply to Bedrock and Vertex AI...",
+              "published": "2026-07-05T08:13:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-fable",
+      "label": "Claude Fable",
+      "item_count": 7,
+      "source_count": 3,
+      "day_count": 6,
+      "first_seen": "2026-06-15T05:01:00+00:00",
+      "last_updated": "2026-07-05T01:00:48+00:00",
+      "latest_title": "sqlite-utils 4.0rc2, mostly written by Claude Fable (for about $149.25)",
+      "member_sids": [
+        "575139a8c2fbbeb4",
+        "5d3028816a29c80e",
+        "679c5fff40623508",
+        "e11fcea9cd94bb20",
+        "fdd9745edc3aad4e",
+        "aaef033dfabe2831",
+        "ef10e0f5c9baeb91"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-fable.json",
+      "prior_narrative": {
+        "slug": "claude-fable",
+        "generated_at": "2026-07-05T05:20:00+00:00",
+        "covers_last_updated": "2026-07-05T01:00:48+00:00",
+        "covers_member_sids": [
+          "575139a8c2fbbeb4",
+          "5d3028816a29c80e",
+          "679c5fff40623508",
+          "e11fcea9cd94bb20",
+          "fdd9745edc3aad4e",
+          "aaef033dfabe2831",
+          "ef10e0f5c9baeb91"
+        ],
+        "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 as long-horizon models \"made safe for general use,\" but a US export-control directive citing national security suspended access days later — critics argued the controls themselves weakened US cyber defense. The models returned gated on Amazon Bedrock behind a data-sharing opt-in, then redeployed from July 1 once the controls lifted, with Anthropic detailing the cyber classifiers and jailbreak severity framework behind that redeploy two days later.",
+        "whats_new": "A builder shipping real code with Fable 5 on a Claude Max subscription says that access is closing within days — the first sign the July 1 redeploy may not hold across every subscription tier.",
+        "why_it_matters": "Whether Max-plan access survives is now as material as the classifier details: teams leaning on Fable 5 through a consumer-tier subscription need to know if that path is stable before they build around it.",
+        "status": {
+          "state": "Redeployed · Max-plan access reportedly expiring",
+          "tone": "alert",
+          "changed": "2026-07-05",
+          "reenable": "no official end-of-access notice from Anthropic yet",
+          "detail": "Fable 5 and Mythos 5 launched \"made safe for general use,\" were suspended by a US export-control directive, returned on Amazon Bedrock only under a data-sharing opt-in, redeployed from July 1 with published cyber safeguards, and on July 5 a Claude Max subscriber reported that tier's access to Fable 5 is ending within days.",
+          "track": [
+            {
+              "label": "available",
+              "detail": "Jun 9–13",
+              "tone": "launch",
+              "weight": 27
+            },
+            {
+              "label": "suspended",
+              "detail": "Jun 13–20",
+              "tone": "alert",
+              "weight": 23
+            },
+            {
+              "label": "Bedrock w/ data-sharing",
+              "detail": "Jun 20–30",
+              "tone": "now",
+              "weight": 16
+            },
+            {
+              "label": "redeployed",
+              "detail": "Jun 30 – Jul 1",
+              "tone": "rising",
+              "weight": 13
+            },
+            {
+              "label": "safeguards published",
+              "detail": "Jul 1–5",
+              "tone": "now",
+              "weight": 11
+            },
+            {
+              "label": "Max access expiring?",
+              "detail": "Jul 5 → now",
+              "tone": "alert",
+              "weight": 10
+            }
+          ]
+        },
+        "provenance": {
+          "679c5fff40623508": {
+            "surfaced_by": "scout",
+            "status_update": true
+          },
+          "fdd9745edc3aad4e": {
+            "status_update": true
+          },
+          "5d3028816a29c80e": {
+            "surfaced_by": "scout"
+          },
+          "aaef033dfabe2831": {
+            "surfaced_by": "scout",
+            "status_update": true
+          },
+          "ef10e0f5c9baeb91": {
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Fable 5 + Mythos 5 ship — \"made safe for general use\"",
+            "summary": "Anthropic ships the Mythos-class Fable 5 and the unguarded Mythos 5, billed as made safe for general use.",
+            "sids": [
+              "e11fcea9cd94bb20"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "turn",
+            "headline": "US export-control directive suspends access",
+            "summary": "Citing national security, the US government orders access to Fable 5 and Mythos 5 suspended days after launch.",
+            "sids": [
+              "575139a8c2fbbeb4"
+            ]
+          },
+          {
+            "kicker": "FRICTION",
+            "tone": "alert",
+            "headline": "Critics say the controls themselves harm US cyber defense",
+            "summary": "Commentary argues the export controls weakened US cyber defense, pointing to the underlying jailbreak that triggered the suspension.",
+            "sids": [
+              "5d3028816a29c80e"
+            ]
+          },
+          {
+            "kicker": "CONDITIONAL RETURN",
+            "tone": "now",
+            "headline": "Back on Bedrock — but only with data-sharing opted in",
+            "summary": "Fable 5 and Mythos 5 return on Amazon Bedrock gated behind provider_data_share: prompts and outputs go to Anthropic for 30-day retention with human review.",
+            "sids": [
+              "679c5fff40623508"
+            ]
+          },
+          {
+            "kicker": "REDEPLOY",
+            "tone": "rising",
+            "headline": "Export controls lifted — redeploying July 1 with new safeguards",
+            "summary": "With the export directive lifted, Anthropic redeploys Fable 5 from July 1, adding updated cybersecurity safeguards and a new industry jailbreak framework.",
+            "sids": [
+              "fdd9745edc3aad4e"
+            ]
+          },
+          {
+            "kicker": "SAFEGUARDS",
+            "tone": "now",
+            "headline": "Anthropic details what the cyber classifiers block",
+            "summary": "Two days into redeploy, Anthropic publishes what is and isn't blocked by Fable 5's cyber classifiers, plus a first draft of an industry jailbreak severity framework.",
+            "sids": [
+              "aaef033dfabe2831"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "alert",
+            "headline": "Hands-on Fable 5 ships real code — but Max-plan access reportedly ends in days",
+            "summary": "A builder uses Fable 5 to push sqlite-utils toward a 4.0 stable release, noting his Claude Max subscription's access to the model closes within days.",
+            "sids": [
+              "ef10e0f5c9baeb91"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Is the reported end of Fable 5 access on Claude Max subscriptions an official, product-wide change, and what happens to it after?",
+          "Does the July 1 redeployment restore standard private-inference terms, or does the Bedrock provider_data_share requirement persist?",
+          "Do the published cyber classifiers close the specific jailbreak that triggered the export-control suspension, or does exposure remain?",
+          "Will other frontier labs adopt the first-draft jailbreak severity framework, or does it stay Anthropic-only?",
+          "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?"
+        ],
+        "take_for_builders": "Confirm whether your Fable 5 access path (API, Bedrock, or Max-plan usage) has a firm end date before depending on it further, and keep a fallback model wired in case Max-tier access lapses the way Bedrock access was gated before it.",
+        "day_captions": {
+          "e11fcea9cd94bb20": "The launch itself — Anthropic ships Fable 5 and the Mythos-class Mythos 5, billed as \"made safe for general use.\"",
+          "575139a8c2fbbeb4": "First recap to confirm the turn — the US government's export-control directive suspended Fable 5 and Mythos 5 access days after launch.",
+          "5d3028816a29c80e": "Commentary argues the export controls themselves harmed US cyber defense, tracing the suspension to a specific jailbreak.",
+          "679c5fff40623508": "Access returns on Amazon Bedrock — but only via provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review, unlike prior Bedrock models.",
+          "fdd9745edc3aad4e": "Export controls lifted — Anthropic redeploys Fable 5 starting July 1 with updated cybersecurity safeguards and a new industry jailbreak framework.",
+          "aaef033dfabe2831": "Anthropic publishes the specifics: what its cyber classifiers block, and a first-draft jailbreak severity framework.",
+          "ef10e0f5c9baeb91": "First hands-on report of Fable 5 shipping real code, and the first signal that Max-subscription access may be ending within days."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-15",
+          "items": [
+            {
+              "sid": "575139a8c2fbbeb4",
+              "title": "Anthropic Releases and Temporarily Suspends Claude Fable 5",
+              "url": "https://www.infoq.com/news/2026/06/claude-5-release/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "release",
+              "summary_1line": "On June 9, 2026, Anthropic launched Claude Fable 5, a model designed for long-horizon tasks, but it was taken offline shortly after due to a U.S. government export directive. It shares architecture with Claude Mythos...",
+              "published": "2026-06-15T05:01:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-16",
+          "items": [
+            {
+              "sid": "5d3028816a29c80e",
+              "title": "The Fable 5 Export Controls Harm US Cyber Defense",
+              "url": "https://simonwillison.net/2026/Jun/16/fable-5-export-controls/#atom-everything",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "The Fable 5 Export Controls Harm US Cyber Defense I quoted The Atlantic quoting Kate Moussouris earlier, when I should have gone straight to the source. Here she is confirming that the \"jailbreak\" that got Claude Fabl...",
+              "published": "2026-06-16T05:20:29+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-20",
+          "items": [
+            {
+              "sid": "679c5fff40623508",
+              "title": "Claude Fable 5 on Bedrock Requires Sharing Inference Data with Anthropic",
+              "url": "https://www.infoq.com/news/2026/06/bedrock-fable-5-data-sharing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Using Claude Fable 5 or Mythos 5 on Amazon Bedrock requires opting into provider_data_share, sending prompts and outputs to Anthropic for 30-day retention with human review. Previous Bedrock models kept inference data...",
+              "published": "2026-06-20T09:03:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "e11fcea9cd94bb20",
+              "title": "Claude Fable 5 and Claude Mythos 5",
+              "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "Today we’re launching Claude Fable 5: a Mythos-class model that we’ve made safe for general use.",
+              "published": "2026-06-30T16:00:00+00:00"
+            },
+            {
+              "sid": "fdd9745edc3aad4e",
+              "title": "Redeploying Claude Fable 5",
+              "url": "https://www.anthropic.com/news/redeploying-fable-5",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "Anthropic is redeploying Claude Fable 5 starting July 1 following the lifting of export controls, with updated cybersecurity safeguards and a new industry jailbreak framework.",
+              "published": "2026-06-30T16:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-02",
+          "items": [
+            {
+              "sid": "aaef033dfabe2831",
+              "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework",
+              "url": "https://www.anthropic.com/news/fable-safeguards-jailbreak-framework",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "What is and isn't blocked by our cyber classifiers, and a first draft of our jailbreak severity framework",
+              "published": "2026-07-02T21:07:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-05",
+          "items": [
+            {
+              "sid": "ef10e0f5c9baeb91",
+              "title": "sqlite-utils 4.0rc2, mostly written by Claude Fable (for about $149.25)",
+              "url": "https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "I wrote about the sqlite-utils 4.0rc1 release a couple of weeks ago. Since we only have Claude Fable on our Max subscriptions for a few more days, I decided to see if it could help me get to a 4.0 stable release that...",
+              "published": "2026-07-05T01:00:48+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-science",
+      "label": "Claude Science",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 2,
+      "first_seen": "2026-06-22T15:00:00+00:00",
+      "last_updated": "2026-06-30T15:07:00+00:00",
+      "latest_title": "Claude Science, an AI workbench for scientists",
+      "member_sids": [
+        "b018f72f33bfe641",
+        "2ab695429991994b",
+        "a577f205a73beafc"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-science.json",
+      "prior_narrative": {
+        "slug": "claude-science",
+        "generated_at": "2026-06-30T20:04:13Z",
+        "covers_last_updated": "2026-06-30T15:07:00+00:00",
+        "covers_member_sids": [
+          "b018f72f33bfe641",
+          "2ab695429991994b",
+          "a577f205a73beafc"
+        ],
+        "tldr": "The thread starts with hands-on, browser-based use of Claude's coding tools (a Jun 22 how-to on running Claude Code in the browser), then converges on a science-specific product. On Jun 30 Anthropic packaged that direction into Claude Science, a dedicated workbench for researchers.",
+        "whats_new": "Anthropic launched Claude Science (Jun 30), a customizable AI workbench for scientists that integrates the tools and packages researchers most use, produces auditable artifacts, and offers flexible compute access — and a same-day Modal integration adds elastic, on-demand compute.",
+        "why_it_matters": "Claude Science ships as a customizable app with auditable artifacts and pluggable compute, and the day-one Modal integration shows the workbench is open to external elastic-compute backends rather than a closed appliance. For engineers building research or agent tooling on Anthropic's stack, that's a platform to target rather than rebuild.",
+        "status": {
+          "state": "Launched",
+          "tone": "launch",
+          "changed": "2026-06-30",
+          "detail": "Claude Science launched as an AI workbench for scientists, with a same-day third-party compute integration (Modal)."
+        },
+        "beats": [
+          {
+            "kicker": "EARLIER CONTEXT",
+            "tone": "neutral",
+            "headline": "Claude Code goes browser-based",
+            "summary": "A how-to on running Claude Code directly in the browser — hands-on use of Claude's coding tools ahead of the science workbench.",
+            "sids": [
+              "b018f72f33bfe641"
+            ]
+          },
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Science debuts as an AI workbench for scientists",
+            "summary": "A customizable app that integrates researchers' common tools and packages, produces auditable artifacts, and provides flexible access to computing resources.",
+            "sids": [
+              "a577f205a73beafc"
+            ]
+          },
+          {
+            "kicker": "ECOSYSTEM",
+            "tone": "rising",
+            "headline": "Modal integration brings elastic compute to Claude Science",
+            "summary": "A same-day integration adds Modal's elastic compute for researchers on demand.",
+            "sids": [
+              "2ab695429991994b"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Is Claude Science generally available, or limited/waitlisted? The launch note doesn't state access terms.",
+          "What format are the 'auditable artifacts', and are they exportable or interoperable with existing research tooling?",
+          "Will compute providers beyond Modal integrate, or is elastic compute effectively single-vendor for now?",
+          "Does the customizable app support self-hosted or arbitrary tools and packages, or a curated set?"
+        ],
+        "take_for_builders": "If you build research or agent tooling on Anthropic's stack, evaluate Claude Science as a target platform rather than rebuilding the workbench: check the auditable-artifact format for interoperability and confirm how the pluggable-compute model (Modal integration) maps to your infra before committing.",
+        "day_captions": {
+          "b018f72f33bfe641": "Earlier context — a how-to on running Claude Code directly in the browser, hands-on browser use of Claude's coding tools.",
+          "a577f205a73beafc": "The launch: Claude Science debuts as a customizable AI workbench integrating researchers' tools and packages, producing auditable artifacts with flexible compute access.",
+          "2ab695429991994b": "Same-day ecosystem move — Modal's integration brings elastic, on-demand compute to Claude Science researchers."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-22",
+          "items": [
+            {
+              "sid": "b018f72f33bfe641",
+              "title": "How to Use Claude Code in Your Browser - Towards Data Science",
+              "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFAtTTBUWEk0MU84YWhSZm5wZTJWNVFoLXVra0Qtbzk4THJPUHBHTDNsUkx3eXRhVHBWWFRvb2VqVGJTcFFBY2drNEFpblpFQ0NDY0dfODkzMmdwUk95VG5aam9pTDdINXJFZmlSTTByelJCbTNqT2xiSnJR?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "How to Use Claude Code in Your Browser Towards Data Science",
+              "published": "2026-06-22T15:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "2ab695429991994b",
+              "title": "Anthropic integration with Modal brings scalable compute to Claude Science",
+              "url": "https://modal.com/blog/modal-integration-brings-scalable-compute-to-claude-science",
+              "source": "modal_blog",
+              "type": "news",
+              "summary_1line": "Announcing our integration with Claude Science, bringing Modal's elastic compute to researchers when they need it.",
+              "published": "2026-06-30T00:00:00+00:00"
+            },
+            {
+              "sid": "a577f205a73beafc",
+              "title": "Claude Science, an AI workbench for scientists",
+              "url": "https://www.anthropic.com/news/claude-science-ai-workbench",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "Claude Science is a customizable app that integrates the tools and packages researchers most often use, produces auditable artifacts, and provides flexible access to computing resources.",
+              "published": "2026-06-30T15:07:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nvidia-blackwell",
+      "label": "NVIDIA Blackwell",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-06-16T15:00:36+00:00",
+      "last_updated": "2026-06-29T17:00:19+00:00",
+      "latest_title": "Claude Meets Blackwell Ultra: Anthropic’s Models Now Run on NVIDIA GB300 in Azure",
+      "member_sids": [
+        "e8dbce4d8e30e837",
+        "99bd515fd5fd8083",
+        "0d320457f7e21f46"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/nvidia-blackwell.json",
+      "prior_narrative": {
+        "slug": "nvidia-blackwell",
+        "generated_at": "2026-07-04T00:20:00+00:00",
+        "covers_last_updated": "2026-06-29T17:00:19+00:00",
+        "covers_member_sids": [
+          "e8dbce4d8e30e837",
+          "99bd515fd5fd8083",
+          "0d320457f7e21f46"
+        ],
+        "tldr": "In mid-June, NVIDIA reported a Blackwell sweep of MLPerf Training 6.0. Attention then moved from training to inference, where DFlash speculative decoding was reported to lift throughput up to 15x on Blackwell.",
+        "whats_new": "Anthropic's Claude models are now generally available in Microsoft Foundry on Azure running on NVIDIA GB300 Blackwell Ultra GPUs, putting a frontier model on Blackwell Ultra as a managed Azure option.",
+        "why_it_matters": "Blackwell is consolidating as the default place agentic workloads land — training, inference, and now a frontier model GA on Azure — so where you can run Claude, what inference speedups you can claim, and which benchmark you trust increasingly track NVIDIA's stack.",
+        "status": {
+          "state": "Shipping",
+          "tone": "now",
+          "changed": "2026-06-29",
+          "detail": "Blackwell moves from benchmark leadership to powering a generally available Claude deployment on Azure GB300 Blackwell Ultra."
+        },
+        "beats": [
+          {
+            "kicker": "TRAINING",
+            "tone": "launch",
+            "headline": "Blackwell sweeps MLPerf Training 6.0",
+            "summary": "NVIDIA reports Blackwell leading across MLPerf Training 6.0 results.",
+            "sids": [
+              "e8dbce4d8e30e837"
+            ]
+          },
+          {
+            "kicker": "INFERENCE",
+            "tone": "rising",
+            "headline": "DFlash speculative decoding reported up to 15x faster inference on Blackwell",
+            "summary": "Attention shifts to serving, with speculative decoding cited as the lever for large inference gains on Blackwell.",
+            "sids": [
+              "99bd515fd5fd8083"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Claude goes GA on NVIDIA GB300 Blackwell Ultra in Microsoft Foundry on Azure",
+            "summary": "Anthropic's Claude models become generally available on Azure-hosted GB300 Blackwell Ultra GPUs via Microsoft Foundry.",
+            "sids": [
+              "0d320457f7e21f46"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Is the 15x speculative-decoding figure reproduced by independent third parties, or is it primarily NVIDIA-published?",
+          "Will GB300 Blackwell Ultra hosting for Claude expand beyond Azure/Microsoft Foundry to other clouds?",
+          "How do real agentic workloads price out on Blackwell Ultra versus prior-generation GPUs?"
+        ],
+        "take_for_builders": "If you run Claude and live on Azure, GB300 Blackwell Ultra via Microsoft Foundry is now a GA inference target worth benchmarking against your current path; if inference latency is the constraint, check whether your serving stack can use DFlash-style speculative decoding before assuming the headline speedups.",
+        "day_captions": {
+          "e8dbce4d8e30e837": "Establishes the frame — Blackwell sweeps MLPerf Training 6.0.",
+          "99bd515fd5fd8083": "Pivots the thread from training to inference, citing speculative decoding (DFlash) for up to 15x serving gains on Blackwell.",
+          "0d320457f7e21f46": "Turns benchmark leadership into product availability — Claude generally available on Azure GB300 Blackwell Ultra via Microsoft Foundry."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-16",
+          "items": [
+            {
+              "sid": "e8dbce4d8e30e837",
+              "title": "Fastest, Largest, Strongest: NVIDIA Blackwell Sweeps MLPerf Training 6.0",
+              "url": "https://blogs.nvidia.com/blog/blackwell-mlperf-training-6-0",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "Every breakthrough AI model starts the same way: with a training run. The infrastructure running those training jobs shapes everything: how fast teams can iterate, what scale of model they can build and whether those...",
+              "published": "2026-06-16T15:00:36+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-23",
+          "items": [
+            {
+              "sid": "99bd515fd5fd8083",
+              "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer",
+              "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+              "source": "search_llm_ops_news",
+              "type": "news",
+              "summary_1line": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding NVIDIA Developer",
+              "published": "2026-06-23T15:14:05+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-29",
+          "items": [
+            {
+              "sid": "0d320457f7e21f46",
+              "title": "Claude Meets Blackwell Ultra: Anthropic’s Models Now Run on NVIDIA GB300 in Azure",
+              "url": "https://blogs.nvidia.com/blog/anthropic-nvidia-gb300-blackwell-ultra-microsoft-azure",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "Anthropic’s Claude models in Microsoft Foundry — hosted on Microsoft Azure and running on NVIDIA GB300 Blackwell Ultra GPUs — are now generally available, giving Azure-native enterprises a powerful new way to build au...",
+              "published": "2026-06-29T17:00:19+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "speculative-decoding",
+      "label": "Speculative Decoding",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-06-17T05:37:40+00:00",
+      "last_updated": "2026-06-24T00:00:00+00:00",
+      "latest_title": "Achieve state-of-the-art inference latencies with speculative decoding",
+      "member_sids": [
+        "ffc4c951795ec8c0",
+        "99bd515fd5fd8083",
+        "62173e9d865bdec2"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/speculative-decoding.json",
+      "prior_narrative": {
+        "slug": "speculative-decoding",
+        "generated_at": "2026-06-30T15:35:14Z",
+        "covers_last_updated": "2026-06-24T00:00:00+00:00",
+        "covers_member_sids": [
+          "ffc4c951795ec8c0",
+          "99bd515fd5fd8083",
+          "62173e9d865bdec2"
+        ],
+        "tldr": "In mid-June speculative decoding moved from a research trick toward a default inference-latency lever. It surfaced alongside the GLM-5.2 open-model release as IndexShare, then NVIDIA reported DFlash speculative decoding lifting throughput up to 15x on Blackwell — pulling the technique into both the open-model and hardware-vendor conversations within a week.",
+        "whats_new": "Modal and Decagon published a joint walkthrough showing how speculative decoding cut their inference latency to state-of-the-art levels, moving the technique from benchmark claims into a reproducible production serving recipe.",
+        "why_it_matters": "Speculative decoding is converging across open models, NVIDIA hardware, and serving platforms in the same window, so it is becoming a mainstream knob for inference latency and cost rather than a niche optimization — worth evaluating before hand-rolling latency fixes.",
+        "status": {
+          "state": "Active",
+          "tone": "rising",
+          "changed": "2026-06-24",
+          "detail": "Speculative decoding is being adopted near-simultaneously across an open model release, GPU vendor tooling, and a serving platform."
+        },
+        "beats": [
+          {
+            "kicker": "OPEN MODEL",
+            "tone": "launch",
+            "headline": "GLM-5.2 ships with IndexShare for speculative decoding",
+            "summary": "The technique surfaces in the AINews roundup alongside GLM-5.2's release as a top open frontend-coding model.",
+            "sids": [
+              "ffc4c951795ec8c0"
+            ]
+          },
+          {
+            "kicker": "HARDWARE",
+            "tone": "rising",
+            "headline": "NVIDIA reports DFlash speculative decoding up to 15x faster on Blackwell",
+            "summary": "The GPU vendor frames speculative decoding as a major inference throughput lever on Blackwell.",
+            "sids": [
+              "99bd515fd5fd8083"
+            ]
+          },
+          {
+            "kicker": "PRODUCTION",
+            "tone": "now",
+            "headline": "Modal and Decagon hit state-of-the-art inference latency with speculative decoding",
+            "summary": "A serving-platform write-up turns the technique into a concrete, reproducible latency recipe.",
+            "sids": [
+              "62173e9d865bdec2"
+            ]
+          }
+        ],
+        "open_questions": [
+          "How portable are these speedups across model families and prompt mixes, versus the cherry-picked workloads in vendor posts?",
+          "Are the 15x (Blackwell/DFlash) and 'state-of-the-art' (Modal/Decagon) figures vendor-reported or independently confirmed?",
+          "Does speculative decoding's accuracy/quality trade-off hold up under agentic, multi-turn workloads?"
+        ],
+        "take_for_builders": "If inference latency or cost is your bottleneck, treat speculative decoding as a first-class option now: check whether your serving stack (Modal-style draft/verify) or GPU path (Blackwell/DFlash) supports it before building custom latency hacks, and benchmark on your own traffic rather than trusting the headline multipliers.",
+        "day_captions": {
+          "ffc4c951795ec8c0": "Introduces speculative decoding into the news cycle via IndexShare, bundled with the GLM-5.2 open-model release.",
+          "99bd515fd5fd8083": "Adds the hardware-vendor angle — NVIDIA's DFlash speculative decoding cited for up to 15x inference throughput on Blackwell.",
+          "62173e9d865bdec2": "Closes the loop with a production recipe: Modal and Decagon report state-of-the-art inference latency using speculative decoding."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-17",
+          "items": [
+            {
+              "sid": "ffc4c951795ec8c0",
+              "title": "[AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding",
+              "url": "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "We have a new top open model in the world!",
+              "published": "2026-06-17T05:37:40+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-23",
+          "items": [
+            {
+              "sid": "99bd515fd5fd8083",
+              "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer",
+              "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+              "source": "search_llm_ops_news",
+              "type": "news",
+              "summary_1line": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding NVIDIA Developer",
+              "published": "2026-06-23T15:14:05+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-24",
+          "items": [
+            {
+              "sid": "62173e9d865bdec2",
+              "title": "Achieve state-of-the-art inference latencies with speculative decoding",
+              "url": "https://modal.com/blog/achieve-sota-specdec",
+              "source": "modal_blog",
+              "type": "news",
+              "summary_1line": "How Modal and Decagon worked together to cut inference latency - and you can too.",
+              "published": "2026-06-24T00:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "deep-research",
+      "label": "Research Deep",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-06-15T13:56:33+00:00",
+      "last_updated": "2026-06-18T11:47:13+00:00",
+      "latest_title": "ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research",
+      "member_sids": [
+        "2f2101adc8737656",
+        "0221a891a5b9e026",
+        "b453c7e259c052f6"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/deep-research.json",
+      "prior_narrative": {
+        "slug": "deep-research",
+        "generated_at": "2026-06-30T15:35:14Z",
+        "covers_last_updated": "2026-06-18T11:47:13+00:00",
+        "covers_member_sids": [
+          "2f2101adc8737656",
+          "0221a891a5b9e026",
+          "b453c7e259c052f6"
+        ],
+        "tldr": "In mid-June the target for deep research agents kept moving. AWS shipped a build pattern — an end-to-end competitive research agent on Deep Agents and Bedrock AgentCore with isolated multi-step execution. Then DRFLOW argued the real enterprise goal is predicting a personalized workflow, not generating a report, shifting what the agent is even supposed to optimize.",
+        "whats_new": "The newest item, ScaffoldAgent (Jun 18), moves the focus back to generation: it frames open-ended deep research as multi-round retrieval feeding a coherent long-form report and makes the outline the optimization target via utility-guided, dynamically optimized scaffolding.",
+        "why_it_matters": "What a deep research agent should be graded on is still unsettled — personalized workflow prediction versus outline-driven long-form coherence pull the design in different directions — and the criterion you pick changes what you build; AWS's Deep Agents + Bedrock AgentCore walkthrough is a ready reference for the multi-step plumbing under any of them.",
+        "status": {
+          "state": "Active research",
+          "tone": "rising",
+          "changed": "2026-06-18",
+          "detail": "A fast-moving research thread where the success criterion for deep research agents keeps being redefined — from build patterns to workflow prediction to report-generation structure."
+        },
+        "beats": [
+          {
+            "kicker": "BUILD PATTERN",
+            "tone": "launch",
+            "headline": "AWS ships an end-to-end research agent on Deep Agents + Bedrock AgentCore",
+            "summary": "A concrete walkthrough builds a competitive research agent with isolated execution for multi-step workflows.",
+            "sids": [
+              "2f2101adc8737656"
+            ]
+          },
+          {
+            "kicker": "NEW TARGET",
+            "tone": "turn",
+            "headline": "DRFLOW benchmarks personalized workflow prediction, not report generation",
+            "summary": "Argues enterprise tasks need the agent to predict a personalized workflow rather than summarize.",
+            "sids": [
+              "0221a891a5b9e026"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "ScaffoldAgent makes the outline the lever for long-form deep research",
+            "summary": "Utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports.",
+            "sids": [
+              "b453c7e259c052f6"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Do these competing criteria — personalized workflow prediction versus outline-driven report quality — converge into one benchmark, or stay fragmented?",
+          "Does outline-first generation (ScaffoldAgent) measurably beat report-first approaches on open-ended deep research?",
+          "Will production stacks like Deep Agents + Bedrock AgentCore adopt any of these academic evaluation criteria?"
+        ],
+        "take_for_builders": "If you're building a deep research agent, decide up front which bar you're optimizing — personalized workflow prediction or outline-driven long-form coherence — because they pull the design in different directions; the AWS Deep Agents + Bedrock AgentCore pattern gives you the isolated, multi-step execution plumbing regardless.",
+        "day_captions": {
+          "2f2101adc8737656": "Anchors the thread in construction — an end-to-end build of a competitive research agent on Deep Agents and Bedrock AgentCore with isolated execution for multi-step workflows.",
+          "0221a891a5b9e026": "Redefines the goal toward enterprise needs: DRFLOW benchmarks personalized workflow prediction rather than report or summary generation.",
+          "b453c7e259c052f6": "Turns to the report itself: ScaffoldAgent treats the outline as the optimization target, using utility-guided dynamic outline optimization for open-ended, multi-round-retrieval reports."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-15",
+          "items": [
+            {
+              "sid": "2f2101adc8737656",
+              "title": "Build context-rich research agents with Deep Agents and Bedrock AgentCore",
+              "url": "https://aws.amazon.com/blogs/machine-learning/build-context-rich-research-agents-with-deep-agents-and-bedrock-agentcore",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "In this post, you'll build a competitive research agent that demonstrates this pattern end to end. This walkthrough targets developers building multi-step AI workflows who need isolated execution environments for thei...",
+              "published": "2026-06-15T13:56:33+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-16",
+          "items": [
+            {
+              "sid": "0221a891a5b9e026",
+              "title": "DRFLOW: A Deep Research Benchmark for Personalized Workflow Prediction",
+              "url": "http://arxiv.org/abs/2606.18191v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Deep research (DR) systems are increasingly used for complex information-seeking tasks, but existing works mainly focus on generating reports and summaries. In contrast, many enterprise tasks instead require an agent...",
+              "published": "2026-06-16T17:22:07+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-18",
+          "items": [
+            {
+              "sid": "b453c7e259c052f6",
+              "title": "ScaffoldAgent: Utility-Guided Dynamic Outline Optimization for Open-Ended Deep Research",
+              "url": "http://arxiv.org/abs/2606.20122v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Open-ended deep research (OEDR) requires systems to acquire knowledge through multi-round retrieval and generate coherent long-form reports. The outline plays a central role as a structural scaffold that coordinates r...",
+              "published": "2026-06-18T11:47:13+00:00"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
