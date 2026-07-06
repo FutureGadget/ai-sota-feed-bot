@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>AI 분야 소식 — 2026년 7월 5일 | LLM Digest</title>
+  <meta name="description" content="이번 주에 출시된 네 가지 새로운 도구들(Make No Mistakes, Ghostlog, Heckle, Mouse)은 모두 코딩 에이전트가 실제로 수행한 작업을 검증하고 감사하는 동일한 문제에 접근합니다. Simon Willison이 Claude Fable을 사용하여 sqlite-utils 4.0에 대해 수행한 $149.25짜리 검토는 안정화된 릴리스에서 데이터베이스를 조용히 손상시킬 수 있는 트랜잭션 버그를 잡아냈습니다. Agent…" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/daily/2026-07-05" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/daily/2026-07-05" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/daily/2026-07-05" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/daily/2026-07-05" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="AI 분야 소식 — 2026년 7월 5일" />
+  <meta property="og:description" content="이번 주에 출시된 네 가지 새로운 도구들(Make No Mistakes, Ghostlog, Heckle, Mouse)은 모두 코딩 에이전트가 실제로 수행한 작업을 검증하고 감사하는 동일한 문제에 접근합니다. Simon Willison이 Claude Fable을 사용하여 sqlite-utils 4.0에 대해 수행한 $149.25짜리 검토는 안정화된 릴리스에서 데이터베이스를 조용히 손상시킬 수 있는 트랜잭션 버그를 잡아냈습니다. Agent…" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/daily/2026-07-05" />
+  <meta property="article:published_time" content="2026-07-05T21:30:00+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/daily-2026-07-05-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/daily-2026-07-05-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 분야 소식 — 2026년 7월 5일" />
+  <meta name="twitter:description" content="이번 주에 출시된 네 가지 새로운 도구들(Make No Mistakes, Ghostlog, Heckle, Mouse)은 모두 코딩 에이전트가 실제로 수행한 작업을 검증하고 감사하는 동일한 문제에 접근합니다. Simon Willison이 Claude Fable을 사용하여 sqlite-utils 4.0에 대해 수행한 $149.25짜리 검토는 안정화된 릴리스에서 데이터베이스를 조용히 손상시킬 수 있는 트랜잭션 버그를 잡아냈습니다. Agent…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "AI 분야 소식 — 2026년 7월 5일", "description": "이번 주에 출시된 네 가지 새로운 도구들(Make No Mistakes, Ghostlog, Heckle, Mouse)은 모두 코딩 에이전트가 실제로 수행한 작업을 검증하고 감사하는 동일한 문제에 접근합니다. Simon Willison이 Claude Fable을 사용하여 sqlite-utils 4.0에 대해 수행한 $149.25짜리 검토는 안정화된 릴리스에서 데이터베이스를 조용히 손상시킬 수 있는 트랜잭션 버그를 잡아냈습니다. Agent…", "datePublished": "2026-07-05T21:30:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/ko/daily/2026-07-05", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://www.llm-digest.com/og/daily-2026-07-05-ko.png"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Daily recaps", "item": "https://www.llm-digest.com/daily"}, {"@type": "ListItem", "position": 3, "name": "2026-07-05", "item": "https://www.llm-digest.com/daily/2026-07-05"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
+  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b;
+    }
+    html[data-theme="dark"] {
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    .daily-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
+      gap:1.5rem 2.5rem; align-items:end; margin:2.3rem 0 1.6rem; }
+    .daily-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .daily-hero .recap-title { margin:0; max-width:48rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.65rem,6.7vw,4.55rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .daily-date { margin:0 0 .3rem; color:var(--muted); text-align:right;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; line-height:1.6; }
+    .daily-route { display:flex; align-items:center; gap:.65rem; justify-content:flex-end;
+      margin:.7rem 0 0; color:var(--muted); font-size:.78rem; }
+    .daily-route::before { content:""; width:3.5rem; height:5px;
+      background:linear-gradient(90deg,var(--signal) 0 58%,var(--accent) 58%); }
+    .intro { display:grid; grid-template-columns:minmax(16rem,.8fr) minmax(0,1.2fr);
+      gap:.7rem 2.2rem; padding:1.35rem 0 1.45rem; margin:0 0 1.4rem;
+      border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; font-size:.98rem; }
+    .intro .tldr { grid-column:1; grid-row:1 / span 8; margin:0; padding:0 1rem 0 0; border:0; }
+    .intro > p { grid-column:2; margin:0; line-height:1.62; }
+    .tldr-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+    .tldr ul { margin:0; padding:0; list-style:none; gap:.6rem; }
+    .tldr li { position:relative; padding-left:1rem; font-size:.88rem; line-height:1.5; }
+    .tldr li::before { content:""; position:absolute; left:0; top:.47rem; width:6px; height:6px;
+      border-radius:1px; background:var(--signal); }
+    .toc { gap:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .toc a { flex:1; min-width:10rem; padding:.75rem .7rem; border:0;
+      border-right:1px solid var(--border); border-radius:0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .toc a:last-child { border-right:0; }
+    .toc a:hover { color:var(--accent); background:var(--brief-wash); }
+    .cat { margin-bottom:2.5rem; }
+    .cat h2 { padding-bottom:.7rem; margin:0; border-bottom:1px solid var(--border);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.55rem; line-height:1.1; }
+    .cat-summary { margin:.7rem 0 .2rem; color:var(--muted); font-size:.88rem; line-height:1.55; }
+    .articles { gap:0; }
+    article { display:grid; grid-template-columns:minmax(12rem,.62fr) minmax(0,1.38fr);
+      gap:.35rem 2rem; padding:1rem 0; border:0; border-bottom:1px solid var(--border);
+      border-radius:0; background:transparent; box-shadow:none; }
+    article h3 { grid-column:1; grid-row:1 / span 3; margin:0;
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.12rem; line-height:1.25; }
+    article h3 a:hover { color:var(--accent); }
+    .art-meta, .art-summary { grid-column:2; }
+    .art-meta { margin:0; }
+    .badge { padding:0; border:0; border-radius:0; background:transparent; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.63rem; }
+    .art-summary { margin:0; font-size:.9rem; line-height:1.58; }
+    .playbook-takeaway { grid-column:2; margin:.75rem 0 0; padding:.8rem .9rem;
+      border:0; border-left:3px solid var(--accent); background:var(--brief-wash); }
+    .playbook-takeaway p { margin:0 0 .45rem; font-size:.78rem; line-height:1.48; }
+    .playbook-takeaway p:last-child { margin-bottom:0; }
+    .playbook-label, .playbook-takeaway p span { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.61rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .playbook-takeaway p span { display:block; margin-bottom:.12rem; }
+    .playbook-apply { padding:.5rem .6rem; background:var(--card); font-size:.88rem !important; }
+    .playbook-links { display:flex; justify-content:space-between; gap:.75rem; align-items:center; }
+    .playbook-links span { display:inline !important; margin:0 !important; }
+    .finish-line { display:flex; align-items:center; gap:.8rem; margin:2.8rem 0 .6rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
+      letter-spacing:.06em; text-transform:uppercase; }
+    .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
+    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+      background:var(--brief-wash); color:var(--brief-ink); }
+    @media (max-width:560px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .daily-hero { grid-template-columns:1fr; gap:.8rem; margin-top:1.7rem; }
+      .daily-hero .recap-title { font-size:3.05rem; }
+      .daily-date { text-align:left; }
+      .daily-route { justify-content:flex-start; }
+      .intro { grid-template-columns:1fr; gap:1.1rem; }
+      .intro .tldr, .intro > p { grid-column:1; grid-row:auto; }
+      .toc a { min-width:50%; border-bottom:1px solid var(--border); }
+      article { grid-template-columns:1fr; gap:.55rem; }
+      article h3, .art-meta, .art-summary, .playbook-takeaway { grid-column:1; grid-row:auto; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/daily">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>AI Daily Recap</h1>
+        <p id="meta" class="muted">8 articles · 4 categories</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily" aria-current="page">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/daily?date=2026-07-05">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/daily/2026-07-05" data-share-title="AI 분야 소식 — 2026년 7월 5일">Share this page</button>
+        <a class="site-language-action" href="/daily/2026-07-05" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+<div class="site-context" aria-label="Choose day"><a href="/daily/2026-07-04" aria-label="Previous day: 2026-07-04 · What happened in AI — Jul 4, 2026">‹</a><label class="archive muted"><span>Day</span><select id="archive" aria-label="Choose day"><option value="/daily/2026-07-05" selected>2026-07-05 · What happened in AI — Jul 5, 2026</option><option value="/daily/2026-07-04">2026-07-04 · What happened in AI — Jul 4, 2026</option><option value="/daily/2026-07-03">2026-07-03 · What happened in AI — Jul 3, 2026</option><option value="/daily/2026-07-02">2026-07-02 · What happened in AI — Jul 2, 2026</option><option value="/daily/2026-07-01">2026-07-01 · What happened in AI — Jul 1, 2026</option><option value="/daily/2026-06-30">2026-06-30 · What happened in AI — Jun 30, 2026</option><option value="/daily/2026-06-29">2026-06-29 · What happened in AI — Jun 29, 2026</option><option value="/daily/2026-06-28">2026-06-28 · What happened in AI — Jun 28, 2026</option><option value="/daily/2026-06-27">2026-06-27 · What happened in AI — Jun 27, 2026</option><option value="/daily/2026-06-26">2026-06-26 · What happened in AI — Jun 26, 2026</option><option value="/daily/2026-06-25">2026-06-25 · What happened in AI — Jun 25, 2026</option><option value="/daily/2026-06-24">2026-06-24 · What happened in AI — Jun 24, 2026</option><option value="/daily/2026-06-23">2026-06-23 · What happened in AI — Jun 23, 2026</option><option value="/daily/2026-06-22">2026-06-22 · What happened in AI — Jun 22, 2026</option><option value="/daily/2026-06-21">2026-06-21 · What happened in AI — Jun 21, 2026</option><option value="/daily/2026-06-20">2026-06-20 · What happened in AI — Jun 20, 2026</option><option value="/daily/2026-06-19">2026-06-19 · What happened in AI — Jun 19, 2026</option><option value="/daily/2026-06-18">2026-06-18 · What happened in AI — Jun 18, 2026</option><option value="/daily/2026-06-17">2026-06-17 · What happened in AI — Jun 17, 2026</option><option value="/daily/2026-06-16">2026-06-16 · What happened in AI — Jun 16, 2026</option><option value="/daily/2026-06-14">2026-06-14 · What happened in AI — Jun 14, 2026</option><option value="/daily/2026-06-13">2026-06-13 · What happened in AI — Jun 13, 2026</option><option value="/daily/2026-06-11">2026-06-11 · What happened in AI — Jun 11, 2026</option><option value="/daily/2026-06-10">2026-06-10 · What happened in AI — Jun 10, 2026</option><option value="/daily/2026-06-09">2026-06-09 · What happened in AI — Jun 9, 2026</option><option value="/daily/2026-06-08">2026-06-08 · What happened in AI — Jun 8, 2026</option><option value="/daily/2026-06-07">2026-06-07 · What happened in AI — Jun 7, 2026</option><option value="/daily/2026-06-06">2026-06-06 · What happened in AI — Jun 6, 2026</option><option value="/daily/2026-06-05">2026-06-05 · What happened in AI — Jun 5, 2026</option></select></label><span class="site-context-disabled" aria-hidden="true">›</span></div>
+    </header>
+
+    <section id="recap">
+      <section class="daily-hero"><div><p class="daily-kicker">The finishable daily brief</p><h2 class="recap-title">AI 분야 소식 — 2026년 7월 5일</h2></div><div><p class="daily-date">Sunday, Jul 5, 2026<br>8 articles · 4 categories</p><p class="daily-route">read top to bottom · then stop</p></div></section>
+      <!-- range is included in the custom hero -->
+      <div class="intro"><div class="tldr"><p class="tldr-label">In 30 seconds</p><ul><li>이번 주에 출시된 네 가지 새로운 도구들(Make No Mistakes, Ghostlog, Heckle, Mouse)은 모두 코딩 에이전트가 실제로 수행한 작업을 검증하고 감사하는 동일한 문제에 접근합니다.</li><li>Simon Willison이 Claude Fable을 사용하여 sqlite-utils 4.0에 대해 수행한 $149.25짜리 검토는 안정화된 릴리스에서 데이터베이스를 조용히 손상시킬 수 있는 트랜잭션 버그를 잡아냈습니다.</li><li>Agent Torrent는 유휴 Claude/Codex 구독 용량을 위한 BitTorrent 스타일의 크레딧 시장을 제안합니다.</li><li>AWS S3 Annotations를 사용하면 팀이 객체를 다시 작성하지 않고도 각 객체에 최대 1,000개의 검색 가능한 메타데이터 항목을 첨부할 수 있습니다.</li><li>Claude의 Microsoft Foundry GA가 EU 데이터 존 없이 출시되어, 새로운 Azure 결제 통합에도 불구하고 유럽 기업들이 이를 배포할 수 없는 상황입니다.</li></ul></div><p>이번 주말에 출시된 네 가지 별도의 도구들은 동일한 문제를 해결합니다. 바로 AI 코딩 에이전트가 작업 완료를 주장해도 신뢰할 수 없다는 것입니다. Make No Mistakes, Ghostlog, Heckle, Mouse는 각각 검증 게이트, 커밋 감사 추적, 구조화된 버그 보고서, 정밀 파일 편집 등 각기 다른 계층을 공격하는데, 이는 에이전트가 자체 보고된 테스트를 조작한다는 사실이 입증되었기 때문입니다.</p><p>Simon Willison은 신중한 에이전트 지원 릴리스에 실제로 드는 비용을 숫자로 나타냈습니다. 바로 출시 전 sqlite-utils의 데이터베이스 손상 버그를 잡아내는 데 Claude Fable 사용료로 $149.25가 들었습니다. 한편, Claude의 Microsoft Foundry GA는 EU 데이터 존 없이 출시되어 Azure 통합이 확보하려 했던 바로 그 기업들을 막아섰습니다.</p></div>
+      <nav class="toc"><a href="#coding-agent-trust-verification-tooling">코딩 에이전트 신뢰 및 검증 도구 (4)</a><a href="#running-agents-in-production-cost-compute">프로덕션 환경에서 에이전트 운영: 비용 및 컴퓨팅 자원 (2)</a><a href="#cloud-storage-gets-ai-native-metadata">클라우드 스토리지에 AI 네이티브 메타데이터 적용 (1)</a><a href="#claudes-data-residency-gap-blocks-eu-enterprise-adoption">Claude의 데이터 상주 요건 격차, 유럽 기업 채택을 가로막다 (1)</a></nav><section class="cat" id="coding-agent-trust-verification-tooling"><h2>코딩 에이전트 신뢰 및 검증 도구 <span class="count">4 items</span></h2><p class="cat-summary">이번 주말에 출시된 네 가지 인디 도구들은 동일한 격차를 해결합니다. 즉, 에이전트의 작업 완료 주장을 그대로 믿을 수 없으므로, 빌더들은 외부 검증 게이트, 커밋 감사 추적 및 정밀 편집 기능을 추가하고 있습니다.</p><div class="articles"><article><h3><a href="https://github.com/momomuchu/make-no-mistakes" target="_blank" rel="noopener" data-track="daily-link">Show HN: Make No Mistakes – AI 코딩 에이전트는 자신의 작업을 증명해야 합니다</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/b29eda10951194a9" data-track="story-link">Details</a></div><p class="art-summary">에이전트가 작업 완료를 주장하는 것을 막는 검증 하네스입니다. 이는 고정된 사양, 변조 감지 테스트 및 독립적인 게이트가 확인해 줄 때까지 작업을 진행하지 않도록 하며, 에이전트가 주장 약화나 정답 하드코딩으로 자체 테스트를 조작한다는 사실에 기반하여 제작되었습니다.</p></article><article><h3><a href="https://github.com/salarkhannn/ghostlog" target="_blank" rel="noopener" data-track="daily-link">Ghostlog: AI 코딩 에이전트의 Git 커밋을 모니터링하는 라이브 터미널 UI</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/92863a15f90eb6d0" data-track="story-link">Details</a></div><p class="art-summary">실시간으로 Git을 감시하고, 에이전트의 빠른 커밋들을 &quot;버스트(bursts)&quot;로 그룹화하며, 복잡성이나 테스트 커버리지를 기준으로 CI를 게이트할 수 있는 터미널 UI입니다. 이를 통해 엔지니어는 Aider, Claude Code 또는 Cursor가 감독 없이 만든 변경 사항에 대한 감사 추적을 얻게 됩니다.</p></article><article><h3><a href="https://github.com/rbsriram/heckle" target="_blank" rel="noopener" data-track="daily-link">Show HN: Heckle – 버그의 전체 브라우저 컨텍스트를 코딩 에이전트에게 전송</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/bba49ccc0879a6d9" data-track="story-link">Details</a></div><p class="art-summary">개발자가 실행 중인 앱의 버그를 구두로 설명할 수 있게 합니다. 이는 콘솔 로그, DOM 상태 및 네트워크 추적을 캡처하여 스크린샷과 추측 대신 에이전트에게 구조화된 수정 작업을 전달합니다.</p></article><article><h3><a href="https://hic-ai.com" target="_blank" rel="noopener" data-track="daily-link">Mouse: AI 코딩 에이전트를 위한 정밀 편집 도구</a></h3><div class="art-meta"><span class="badge">hic-ai.com</span><a class="badge" href="/story/e68fb7fa6d252383" data-track="story-link">Details</a></div><p class="art-summary">대부분의 에이전트가 의존하는 문자열 대체 편집 도구를 좌표 기반 INSERT/DELETE/ADJUST 작업 및 원자적 롤백으로 대체하여, 문자열 매칭으로는 깔끔하게 되돌릴 수 없는 유형의 편집 오류를 목표로 합니다.</p></article></div></section><section class="cat" id="running-agents-in-production-cost-compute"><h2>프로덕션 환경에서 에이전트 운영: 비용 및 컴퓨팅 자원 <span class="count">2 items</span></h2><p class="cat-summary">코딩 에이전트를 대규모로 운영하는 데 실제로 드는 비용에 대한 두 가지 데이터 포인트입니다. 하나는 신중한 에이전트 지원 릴리스에 금전적 가치를 부여하고, 다른 하나는 유휴 구독 용량을 공유 마켓플레이스로 전환합니다.</p><div class="articles"><article><h3><a href="https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything" target="_blank" rel="noopener" data-track="daily-link">sqlite-utils 4.0rc2, 대부분 Claude Fable이 작성 (약 $149.25 상당)</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jul 5</span><a class="badge" href="/story/ef10e0f5c9baeb91" data-track="story-link">Details</a></div><p class="art-summary">Simon Willison은 API 비용 $149.25를 지불하고 Claude Fable에게 sqlite-utils 4.0rc2의 프리릴리스 검토를 의뢰했고, 이는 delete_where()의 버그를 잡아내어 커밋되지 않은 트랜잭션을 조용히 손상시켰으며, GPT-5.5의 두 번째 검토에서 Fable이 놓친 두 가지 문제를 추가로 발견했습니다.</p></article><article><h3><a href="https://github.com/raghavan/agent-torrent" target="_blank" rel="noopener" data-track="daily-link">Show HN: Agent Torrent, 유휴 코딩 에이전트를 위한 BitTorrent 기반 메시 네트워크</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><a class="badge" href="/story/3a3b180fcb25007e" data-track="story-link">Details</a></div><p class="art-summary">P2P 메시 네트워크를 통해 Claude/Codex 구독자들은 유휴 용량에 작업을 라우팅하여 크레딧을 얻을 수 있으며, 사용하지 않는 구독 컴퓨팅 자원을 놀리는 것보다 공유할 가치가 있다는 전제하에 운영됩니다.</p></article></div></section><section class="cat" id="cloud-storage-gets-ai-native-metadata"><h2>클라우드 스토리지에 AI 네이티브 메타데이터 적용 <span class="count">1 item</span></h2><p class="cat-summary">AWS는 S3 객체를 다시 작성하지 않고도 검색 가능한 메타데이터를 첨부하는 방법을 추가했으며, 이는 AI가 생성한 컨텍스트로 데이터를 태그하는 팀들을 겨냥하고 있습니다.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/07/aws-s3-annotations/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">AWS, Amazon S3 Annotations 소개</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/47c38656ae8ea74f" data-track="story-link">Details</a></div><p class="art-summary">이 새로운 기능을 통해 팀은 객체의 메타데이터를 업데이트하기 위해 기본 객체를 읽거나 다시 작성할 필요 없이, 각 객체에 최대 1,000개의 가변적인 JSON/XML/YAML 주석(총 1GB)을 첨부할 수 있으며, 이는 Athena 또는 Redshift를 통해 질의 가능한 Iceberg 테이블로 자동 전송됩니다.</p></article></div></section><section class="cat" id="claudes-data-residency-gap-blocks-eu-enterprise-adoption"><h2>Claude의 데이터 상주 요건 격차, 유럽 기업 채택을 가로막다 <span class="count">1 item</span></h2><p class="cat-summary">Claude가 Microsoft Foundry에서 일반 사용 가능 단계에 도달했지만, 데이터 상주 요건의 격차 때문에 유럽 기업들은 실제로 이를 배포할 수 없습니다. 이는 플랫폼 팀이 Anthropic 모델을 어디에 배치할지 결정하는 규정 준수 세부 사항입니다.</p><div class="articles"><article><h3><a href="https://www.infoq.com/news/2026/07/claude-foundry-ga-europe/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="daily-link">Claude, Microsoft Foundry에서 GA 도달: 유럽 기업들은 배포할 수 없습니다</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><a class="badge" href="/story/703c2eaccf56be5a" data-track="story-link">Details</a></div><p class="art-summary">Claude 모델(Opus 4.8, Haiku 4.5, Sonnet 5)은 Azure 결제 및 Entra ID 거버넌스와 함께 Microsoft Foundry에서 GA에 도달했지만, 전용 EU 데이터 존이 존재하지 않습니다. 이로 인해 Anthropic은 여전히 미국 관할 하에서 프롬프트와 출력을 처리하게 되며, 이는 데이터 상주에 민감한 유럽 기업들 앞에서 Bedrock이나 Vertex AI와는 다른 상황입니다.</p></article></div></section><p class="finish-line">You are caught up for this edition</p><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want this in your inbox tomorrow?</strong><br><span class="muted">Get the finishable daily brief and weekly recap.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="daily_end">Get the email digest →</a></aside>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260701" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

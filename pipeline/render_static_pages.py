@@ -4344,7 +4344,7 @@ def localize_static_html_page(base_url: str, page: dict) -> str | None:
         return None
 
     html = source_file.read_text(encoding="utf-8")
-    title = squeeze(artifact.get("title"))
+    title = squeeze(artifact.get("title") or artifact.get("label") or artifact.get("name"))
     description = clip(squeeze(artifact.get("description")) or title, 250)
     canonical = f"{base_url}{canonical_path}"
     og_rel = localized_og_rel(source_path, locale, title=title)

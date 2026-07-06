@@ -83,7 +83,7 @@ def _chat_completion(
         "model": model,
         "messages": messages,
         "temperature": temperature,
-        "max_tokens": 4096,
+        "max_tokens": max_tokens,
     }).encode("utf-8")
 
     req = urllib.request.Request(
@@ -134,6 +134,61 @@ CRITICAL RULES:
 """
 
 
+def _deep_merge(source: Any, translated: Any) -> Any:
+    """Recursively merge translated fields on top of the original source."""
+    if isinstance(source, dict) and isinstance(translated, dict):
+        result = source.copy()
+        for k, v in translated.items():
+            if k in result:
+                result[k] = _deep_merge(result[k], v)
+            else:
+                result[k] = v
+        return result
+    elif isinstance(source, list) and isinstance(translated, list):
+        result = []
+        for idx, item in enumerate(source):
+            if idx < len(translated):
+                result.append(_deep_merge(item, translated[idx]))
+            else:
+                result.append(item)
+        return result
+    else:
+        return translated
+
+
+def _filter_json(data: Any, paths: list[str]) -> Any:
+    """Filter JSON to keep only paths that match the wildcard patterns."""
+    parsed_paths = []
+    for p in paths:
+        segments = [s.replace("[]", "") for s in p.split(".")]
+        parsed_paths.append(segments)
+        
+    def recurse(val: Any, prefix: list[str]) -> Any:
+        if isinstance(val, dict):
+            res = {}
+            for k, v in val.items():
+                current_prefix = prefix + [k]
+                is_prefix = False
+                is_exact = False
+                for p in parsed_paths:
+                    if p[:len(current_prefix)] == current_prefix:
+                        is_prefix = True
+                        if len(p) == len(current_prefix):
+                            is_exact = True
+                if is_prefix:
+                    if is_exact:
+                        res[k] = v
+                    else:
+                        res[k] = recurse(v, current_prefix)
+            return res
+        elif isinstance(val, list):
+            return [recurse(item, prefix) for item in val]
+        else:
+            return val
+
+    return recurse(data, [])
+
+
 def _build_user_prompt(
     candidate: dict[str, Any],
     contract: dict[str, Any],
@@ -141,24 +196,20 @@ def _build_user_prompt(
     source = candidate.get("source", {})
     surface = candidate["surface"]
     translated_fields = contract["translated_fields"]
-    preserve_fields = contract["preserve_fields"]
 
-    # Build a focused source excerpt containing only the fields to translate
-    # plus enough context for the model to understand the content
-    return f"""Translate this {surface} page. The source JSON is below.
+    # Filter the source JSON to include ONLY fields that need translation
+    filtered_source = _filter_json(source, translated_fields)
 
-Fields to translate: {json.dumps(translated_fields)}
-Fields to preserve exactly: {json.dumps(preserve_fields)}
+    return f"""Translate this {surface} page. The source JSON contains only the fields that need translation.
+
+Rules:
+1. Translate ONLY the values of the fields to the target language.
+2. Do NOT translate or change any JSON keys.
+3. Preserve the exact structure, list lengths, and list ordering.
+4. Output only valid JSON.
 
 Source JSON:
-{json.dumps(source, ensure_ascii=False, indent=2)}
-
-Return a JSON object with ONLY the translated fields. For nested fields like
-"categories[].name", return the full "categories" array with the translated
-fields filled in and all other fields preserved exactly.
-
-The output must be a single JSON object that can be merged onto the artifact
-metadata to produce the final translation artifact.
+{json.dumps(filtered_source, ensure_ascii=False, indent=2)}
 """
 
 
@@ -191,12 +242,10 @@ def _validate_translation(
     contract: dict[str, Any],
     surface: str,
 ) -> list[str]:
-    """Return a list of warnings (empty = OK)."""
-    warnings: list[str] = []
-    tfields = contract["translated_fields"]
-
-    # Check top-level translated fields are present
-    for field_path in tfields:
+    """Perform basic schema validations on the translated JSON."""
+    warnings = []
+    # Ensure all target top-level keys exist
+    for field_path in contract["translated_fields"]:
         top_key = field_path.split("[")[0].split(".")[0]
         if top_key not in translated:
             warnings.append(f"Missing translated field: {top_key}")
@@ -236,8 +285,9 @@ def _assemble_artifact(
         "model": model_name,
         "review_status": "machine",
     }
-    # Merge translated fields on top
-    artifact.update(translated)
+    # Merge translated fields recursively on top of the original source
+    merged = _deep_merge(candidate.get("source", {}), translated)
+    artifact.update(merged)
     return artifact
 
 

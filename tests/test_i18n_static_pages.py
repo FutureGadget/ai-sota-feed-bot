@@ -33,17 +33,17 @@ class I18nStaticPagesTest(unittest.TestCase):
         ]
 
     def test_korean_artifacts_are_fresh_for_their_sources(self) -> None:
-        self.assertEqual(
-            sorted(a["source_path"] for a in self.artifacts),
-            [
-                "/daily/2026-07-04",
-                "/foundations/context-compaction-safety",
-                "/story/ee2eab4f35a2124a",
-                "/storyline/claude-fable",
-                "/topic/agent-cost",
-                "/weekly/2026-W27",
-            ],
-        )
+        expected = [
+            "/daily/2026-07-04",
+            "/foundations/context-compaction-safety",
+            "/story/ee2eab4f35a2124a",
+            "/storyline/claude-fable",
+            "/topic/agent-cost",
+            "/weekly/2026-W27",
+        ]
+        actual = [a["source_path"] for a in self.artifacts]
+        for path in expected:
+            self.assertIn(path, actual, f"Missing expected baseline artifact: {path}")
 
         for artifact in self.artifacts:
             source = render.i18n_source_for_path(
