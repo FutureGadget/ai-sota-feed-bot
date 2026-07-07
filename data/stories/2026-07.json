@@ -324,6 +324,19 @@
   "url": "https://lilianweng.github.io/posts/2026-07-04-harness",
   "why_it_matters": "Matches feed focus: agent, harness."
  },
+ "2e05e83d0b72a56a": {
+  "first_seen": "2026-07-07T20:02:14.873831+00:00",
+  "id": "0fc531106959ad85",
+  "image_url": "https://res.infoq.com/news/2026/07/momentic-postgres-clickhouse/en/headerimage/momentic-postgres-clickhouse-1783452382371.jpeg",
+  "published": "2026-07-07T20:00:00+00:00",
+  "sid": "2e05e83d0b72a56a",
+  "source": "infoq_ai_ml",
+  "summary": "Momentic, the company behind an AI-driven software testing platform, recently rearchitected its caching system to handle over 2 million queries per day across 20 billion total entries, while maintaining an average response latency of around 250 ms. This improvement was made possible by transitioning from PostgreSQL to the column-oriented database ClickHouse. By Sergio De Simone",
+  "summary_1line": "Momentic, the company behind an AI-driven software testing platform, recently rearchitected its caching system to handle over 2 million queries per day across 20 billion total entries, while maintaining an average res...",
+  "title": "Switching from PostgreSQL to ClickHouse for Improved Performance and Scalability",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/07/momentic-postgres-clickhouse/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
  "2f363835e0bba23d": {
   "first_seen": "2026-07-02T02:01:51.274739+00:00",
   "id": "6dbd353a88155764",
@@ -339,6 +352,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.01204v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "308e7eed71a41f39": {
+  "first_seen": "2026-07-07T20:02:14.873831+00:00",
+  "id": "c922bfda82269957",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-07T19:17:34+00:00",
+  "sid": "308e7eed71a41f39",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, I am Erik Bethke, game dev that has been making online games for 30+ years (Starfleet Command, GoPets, FarmVille, Mafia Wars). For the last 3 years I have been building Bike4Mind and now I have to put my big boy pants on and 'go to market'. Ugh, it would be so much more cozy to fire up a few more agents and fix a few more bugs, polish some more UX - or hey how about a new feature that does Q, R or S? What is Bike4Mind? I started Bike4Mind to be the home of a bunch of AI augmented game development tools, and over time have just kept adding features. It is a full cognitive workbench we have all of the features - notebooks, files, data lakes & RAG, agents (different forms), generate share-able artifacts in react or python. We have secure websockets to connect to our CLI - B4M CLI, so it is truly batteries included - and runs any model - OpenAI, Anthropic, Gemini, xAI, Bedrock. Switch models during a conversation, fork a notebook, run 4 different models on the same prompt, loads of image generation support, and import OpenAI and Anthropic history and of course egress with your own at any time. So, all of the models and all the features. Sure, but so what? We are huge believers in infrastructure as code and leveraged SSTv4, and Bike4Mind is able to 100% self-host on your own hardware. You can run Qwen locally and have all of the GUI and CLI and be totally offline from the internet. The most complete fully-sovereign workbench I've found - and if you know a more complete one ",
+  "summary_1line": "Hi HN, I am Erik Bethke, game dev that has been making online games for 30+ years (Starfleet Command, GoPets, FarmVille, Mafia Wars). For the last 3 years I have been building Bike4Mind and now I have to put my big bo...",
+  "title": "Show HN: Bike4Mind – open-core AI workbench; any model, agents, RAG, self-host",
+  "type": "news",
+  "url": "https://github.com/Bike4Mind/bike4mind",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "32630ab8b222985a": {
   "first_seen": "2026-07-02T15:02:15.481366+00:00",
@@ -1997,6 +2026,24 @@
   "type": "news",
   "url": "https://gist.github.com/AIMOWAY/bd8007c8f834a9bc83c71e3178239d75",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "baab745c82786832": {
+  "first_seen": "2026-07-07T20:02:14.873831+00:00",
+  "id": "3b0782bd55ebcd8c",
+  "matched_topics": [
+   "agentic",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-07-07T19:32:57+00:00",
+  "sid": "baab745c82786832",
+  "source": "simon_willison",
+  "summary": "This morning I released sqlite-utils 4.0 , the 124th release of that project and the first major version bump since 3.0 in November 2020. In addition to some small but significant breaking changes (described in this upgrade guide ), this version introduces three major features: database migrations , nested transactions (via a new db.atomic() method), and support for compound foreign keys . Database schema migrations using sqlite-utils Schema migrations define a sequence of changes to be made to a SQLite database, plus a mechanism for tracking which migrations have been applied and applying any that are found to be pending. Migrations are defined in Python files using the sqlite-utils Python library , which includes a powerful table.transform() method providing enhanced alter table capabilities that are not supported by SQLite's ALTER TABLE statement. ( table.transform() implements the pattern recommended by the SQLite documentation - create a new temporary table with the new schema, copy across the data, then drop the old table and rename the temporary one in its place.) Here's an example migration file which creates a table called creatures , adds an additional column to it in a second step, then changes the types of two of the columns in a third: from sqlite_utils import Migrations migrations = Migrations ( \"creatures\" ) @ migrations () def create_table ( db ): db [ \"creatures\" ]. create ( { \"id\" : int , \"name\" : str , \"species\" : str }, pk = \"id\" , ) @ migrations () def ad",
+  "summary_1line": "This morning I released sqlite-utils 4.0 , the 124th release of that project and the first major version bump since 3.0 in November 2020. In addition to some small but significant breaking changes (described in this u...",
+  "title": "sqlite-utils 4.0, now with database schema migrations",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/7/sqlite-utils-4/#atom-everything",
+  "why_it_matters": "Matches feed focus: agentic, codex, claude code."
  },
  "bb53999f247d993c": {
   "first_seen": "2026-07-01T20:01:58.749727+00:00",
