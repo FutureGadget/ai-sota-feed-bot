@@ -1,0 +1,27 @@
+{
+  "locale": "ko",
+  "source_path": "/story/38efe4f12261c125",
+  "source_hash": "d88e90c135cc439e1d7e1ced561b6b0cdf23a27ebae7d8cc3c976339d9801cca",
+  "translated_at": "2026-07-07T00:09:44.209448+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "first_seen": "2026-07-07T00:02:47.431513+00:00",
+  "id": "21c88b04a229c168",
+  "matched_topics": [
+    "agent"
+  ],
+  "published": "2026-07-06T23:05:51+00:00",
+  "release_highlights": [
+    "Zombie CLI subprocess prevention : Shielded subprocess cleanup from asyncio cancellation so SIGTERM / SIGKILL teardown always runs, preventing orphaned claud...",
+    "Silent whitespace loss on large NDJSON lines : Fixed the NDJSON parser silently dropping whitespace when a single line exceeded the 64 KiB stream buffer, whi...",
+    "TypeError on non-dict message content : Fixed an uncaught TypeError when the CLI emits a message whose content field is a plain string or other non-dict valu..."
+  ],
+  "sid": "38efe4f12261c125",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Zombie CLI 서브프로세스 방지 버그 수정: asyncio 취소로부터 서브프로세스 정리 작업을 보호하여, 부모 태스크가 취소될 때도 SIGTERM / SIGKILL 종료가 항상 실행되도록 하여 고아된 claude 자식 프로세스를 방지했습니다 (#1082)\n대용량 NDJSON 라인에서 발생하는 공백 손실 문제 해결: 단일 라인이 64 KiB 스트림 버퍼를 초과할 때 NDJSON 파서가 공백을 조용히 누락시켜 도구 출력이나 어시스턴트 메시지 내용을 손상시킬 수 있었는데, 이를 수정했습니다 (#1083)\n비-딕셔너리 메시지 콘텐츠에서의 TypeError 수정: CLI가 예상되는 콘텐츠 블록 리스트 대신 일반 문자열이나 다른 비-딕셔너리 값을 포함하는 메시지를 방출할 때 발생하던 처리되지 않은 TypeError를 수정했습니다 (#1058)\nallowed_tools에 의해 can_use_tool이 가려지는 문제 해결: can_use_tool 콜백이 allowed_tools 또는 bypassPermissions와 함께 등록될 때 해당 콜백이 발동되지 않도록 조용히 막는 문제를 방지하기 위해 런타임 경고를 추가했습니다 (#1081)\n내부/기타 변경 사항: 번들된 Claude CLI를 버전 2.1.202로 업데이트했습니다. 깨끗한 작업 디렉토리에서 쿼리를 실행하여 e2e stderr 테스트의 불안정성을 해결했습니다 (#1084). PyPI: https://pypi.org/project/claude-agent-sdk/0.2.111/ pip install claude-agent-sdk==0.2.111",
+  "summary_1line": "Zombie CLI subprocess prevention : Shielded subprocess cleanup from asyncio cancellation so SIGTERM / SIGKILL teardown always runs, preventing orphaned claud... · Silent whitespace loss on large NDJSON lines : Fixed t...",
+  "title": "claude-agent-sdk-python v0.2.111",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.111",
+  "why_it_matters": "피드 초점 일치: 에이전트."
+}

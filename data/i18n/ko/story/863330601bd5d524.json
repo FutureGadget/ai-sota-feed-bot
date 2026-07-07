@@ -1,0 +1,27 @@
+{
+  "locale": "ko",
+  "source_path": "/story/863330601bd5d524",
+  "source_hash": "c758d7c73ece9a0870b81eb9db4c17ca0d6f5796b54811afef7be735100ee1d3",
+  "translated_at": "2026-07-07T00:10:40.482780+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "first_seen": "2026-07-07T00:02:47.431513+00:00",
+  "id": "1900eae75f337033",
+  "matched_topics": [
+    "agent"
+  ],
+  "published": "2026-07-06T22:51:16+00:00",
+  "release_highlights": [
+    "Added a \"Dynamic workflow size\" setting in /config for controlling how large Claude generally makes dynamic workflows (small/medium/large agent counts) — an...",
+    "Added workflow.run_id and workflow.name OpenTelemetry attributes to telemetry emitted by workflow-spawned agents, so a workflow run's activity can be reconst...",
+    "Fixed a crash in the inline Ctrl+R history search when accepting or cancelling while the search was still scanning the history file"
+  ],
+  "sid": "863330601bd5d524",
+  "source": "claude_code_releases",
+  "summary": "변경 사항 요약: /config에 \"Dynamic workflow size\" 설정을 추가하여 Claude가 동적 워크플로우를 얼마나 크게 만들지(작은/중간/큰 에이전트 수) 제어할 수 있게 되었으며, 이는 강제 제한이 아닌 권고 지침입니다. 워크플로우에서 생성된 에이전트가 방출하는 원격 측정 데이터에 workflow.run_id 및 workflow.name OpenTelemetry 속성을 추가하여 OTel 데이터를 통해 워크플로우 실행 활동을 재구성할 수 있게 되었습니다. 인라인 Ctrl+R 히스토리 검색 중 파일 스캔이 진행되는 동안 수락하거나 취소할 때 발생하던 충돌을 수정했습니다. 백그라운드 세션에 /rename을 적용했을 때 작업이 재시작되면서 이름 변경 사항이 초기화되어 새 이름으로 세션을 지정하는 것이 작동하지 않던 문제를 수정했습니다. 제자리 클라이언트 인증서 로테이션 중에 설정을 다시 적용할 때 발생하던 일시적인 mTLS 핸드셰이크 실패를 수정했습니다. 원격 제어(모바일/웹)에서 대화형 세션으로 전송된 명령이 \"알 수 없는 명령어\"로 실패하던 문제를 수정했습니다. 원격 제어 모바일 또는 웹 앱에서 캡션 없이 전송된 이미지 및 파일이 조용히 누락되던 문제를 수정했습니다. claude auth login 및 claude mcp login --no-browser가 출력하는 로그인 URL이 SSH 위에서 줄 바꿈될 때 안정적으로 클릭되지 않던 문제를 수정했습니다. 이제 단일 하이퍼링크로 출력됩니다. claude 에이전트로부터 채팅을 열 때 가끔 \"현재 백그라운드 에이전트로 실행 중\"이라는 메시지와 함께 워커 충돌/재시작 루프에 빠지던 문제를 수정했습니다. 문자열 내 유니코드 따옴표 이스케이프가 있는 워크플로우 스크립트가 구문 분석 전에 손상되던 문제를 수정했습니다. 이제 워크플로우 구문 분석 오류는 항상 TypeScript를 탓하는 대신 문제의 줄을 표시합니다.",
+  "summary_1line": "Added a \"Dynamic workflow size\" setting in /config for controlling how large Claude generally makes dynamic workflows (small/medium/large agent counts) — an... · Added workflow.run_id and workflow.name OpenTelemetry a...",
+  "title": "claude-code v2.1.202",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.202",
+  "why_it_matters": "에이전트 기능에 초점을 맞춘 피드 일치."
+}
