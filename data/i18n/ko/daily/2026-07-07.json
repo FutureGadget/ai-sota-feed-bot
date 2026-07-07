@@ -1,0 +1,180 @@
+{
+  "locale": "ko",
+  "source_path": "/daily/2026-07-07",
+  "source_hash": "3a130d463deda1408b65ca2eddefdf1af27e229dc3f533807dde4d1df477245c",
+  "translated_at": "2026-07-07T22:06:27.771439+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "date": "2026-07-07",
+  "title": "AI 분야 동향 — 2026년 7월 7일",
+  "generated_at": "2026-07-07T21:30:00Z",
+  "intro": [
+    "오늘의 주요 흐름은 에이전트 신뢰성을 더 큰 모델 문제가 아닌 인프라 문제로 다루는 관점이었습니다. LangChain의 자체 트레이스 마이닝 게시물, Schneider Electric의 200명 사용자 대상 LangSmith 출시, 그리고 두 가지 새로운 코딩 에이전트 메모리/가드레일 도구(Fence, Sonn)는 모두 배포 전에 에이전트 루프의 오류를 포착하는 데 관여했습니다.",
+    "엔터프라이즈 플랫폼(Google Cloud, Australian Payments Plus)과 새로운 인프라(NVIDIA의 에이전트 튜닝 Vera CPU)는 파일럿 단계에서 프로덕션 규모로 전환되는 동일한 변화를 보여주었으며, Fable 5에 대한 논평은 Opus 4.8과의 벤치마크 동률을 속도/비용/품질 상충 관계가 '실체가 아니다'라는 증거로 제시했습니다."
+  ],
+  "highlights": [
+    "Schneider Electric은 107개국에서 60개 이상의 AI 에이전트와 200명의 활성 LangSmith 사용자를 운영하며, 다수의 시간을 소요하던 문서 검토 워크플로우를 약 15분으로 단축했습니다.",
+    "LangChain은 소규모 오픈 소스 심사 모델을 미세 조정하여 비용 대비 훨씬 적은 비용으로 좁은 평가에서 최첨단 LLM을 능가했으며, 트레이스 마이닝을 통해 Terminal-Bench 2.0에서 13.7%의 하니스 향상을 보고했습니다.",
+    "두 가지 새로운 도구인 Fence와 Sonn은 세션 중간에 개입하여 코딩 에이전트가 이미 결정된 사항을 반복하는 것을 방지합니다. Sonn은 서버 측 코드 저장 없이 LongMemEval에서 426/470점을 기록했습니다.",
+    "NVIDIA의 새로운 Vera CPU는 에이전트 루프를 위해 구축되었으며, 초기 테스트에서 Grace 대비 50% 높은 명령어당 사이클(IPC)과 x86 대비 1.5배 빠른 코딩 워크플로우 완료 속도를 주장했습니다.",
+    "Google Cloud의 '에이전틱 엔터프라이즈' 프레임워크는 아이덴티티, 가드레일 및 A2A 크로스프레임워크 프로토콜을 하나의 구축-거버넌스 수명 주기 안에 통합했습니다.",
+    "Fable 5는 657개 에이전트 작업 전반에 걸쳐 AutomationBench-AA 리더보드에서 Opus 4.8(48.6% 대 48.5%)과 동률을 이루었습니다."
+  ],
+  "article_count": 18,
+  "categories": [
+    {
+      "name": "평가, 관찰 가능성 및 에이전트 신뢰성",
+      "slug": "evals-observability-agent-reliability",
+      "summary": "세 개의 별도 게시물이 하나의 아이디어에 수렴했습니다. 즉, 에이전트를 신뢰할 수 있게 만드는 것은 모델을 개선하는 것뿐만 아니라 엔터프라이즈 규모에서 트레이스를 마이닝하거나 코딩 에이전트의 세션 중간에 개입하는 등 에이전트 루프를 계측하는 것입니다.",
+      "articles": [
+        {
+          "title": "Schneider Electric이 LangSmith로 LLMOps 기반을 구축한 방법",
+          "summary": "Schneider Electric은 107개국에 걸쳐 60개 이상의 에이전트와 제품별 워크스페이스를 갖춘 LangSmith 환경을 운영하며, 하나의 문서 처리 에이전트가 견적 분석당 평균 약 15분(기존 대비)을 소요하게 했습니다.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/how-schneider-electric-built-their-llmops-foundations-at-enterprise-scale-with-langsmith",
+          "published": "Tue, 07 Jul 2026 15:31:56 GMT"
+        },
+        {
+          "title": "에이전트 개선은 데이터 마이닝의 문제입니다",
+          "summary": "LangChain은 에이전트 개선이 근본적으로 트레이스 데이터를 마이닝하는 것이며, 소규모 오픈 심사 모델을 미세 조정하여 비용 대비 훨씬 적은 비용으로 좁은 평가 작업에서 최첨단 LLM을 능가했다고 주장합니다. 하나의 하니스 변경만으로 Terminal-Bench 2.0에서 13.7%의 향상을 가져왔습니다.",
+          "source": "langchain_blog",
+          "url": "https://www.langchain.com/blog/improving-agents-is-a-data-mining-problem",
+          "published": "Tue, 07 Jul 2026 15:05:42 GMT"
+        },
+        {
+          "title": "발표: 신뢰성을 위한 AI 플랫폼 설계: 확실성을 위한 도구, 발견을 위한 에이전트",
+          "summary": "NVIDIA의 Aaron Erickson은 신뢰할 수 있는 플랫폼이란 단일 거대 모델보다는 결정론적 도구로 확실성을 확보하고, 작업자, 분석가, 도구, 숙고형 에이전트와 같은 전문화된 에이전트 계층으로 발견을 수행하는 것이라고 주장합니다.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/presentations/reliable-ai-platforms/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 07 Jul 2026 08:03:00 GMT"
+        },
+        {
+          "title": "Show HN: Fence – AI 코딩 에이전트를 위한 지니 크리켓",
+          "summary": "Fence는 코딩 에이전트를 위한 새로운 오픈 소스 가드레일 계층으로, hoop.dev 팀이 엔지니어들에게 20%의 시간 정책을 제공한 후 출시한 세 가지 사이드 프로젝트 중 하나입니다.",
+          "source": "hackernews_ai",
+          "url": "https://news.ycombinator.com/item?id=48821039",
+          "published": "Tue, 07 Jul 2026 17:38:58 +0000"
+        },
+        {
+          "title": "Show HN: Sonn – 코딩 에이전트의 실수 전에 방향을 제시하는 추론 계층",
+          "summary": "Sonn은 Claude Code에 로컬 SQLite 메모리를 제공하여 이전 팀 결정('우리는 5월에 이것을 결정했다')을 상기시키고 에이전트가 이를 반복하는 것을 막으며, 서버 측 소스 코드 저장 없이 LongMemEval에서 426/470점을 받았습니다.",
+          "source": "hackernews_ai",
+          "url": "https://sonn.dev",
+          "published": "Tue, 07 Jul 2026 13:05:56 +0000"
+        }
+      ]
+    },
+    {
+      "name": "에이전트 플랫폼, 도구 및 엔터프라이즈 도입",
+      "slug": "agent-platforms-tooling-enterprise-adoption",
+      "summary": "엔터프라이즈 에이전트 플랫폼은 아이덴티티, 가드레일 및 크로스프레임워크 프로토콜이라는 동일한 기본 요소에 수렴하고 있으며, 독립적인 빌더들은 에이전트를 워크플로우 및 검색에 연결하기 위한 새로운 오픈 소스 도구를 출시했습니다.",
+      "articles": [
+        {
+          "title": "에이전틱 엔터프라이즈를 위한 20가지 질문 (그리고 에이전트 플랫폼이 어떻게 도움이 될 수 있는지)",
+          "summary": "Google Cloud의 구축-거버넌스 프레임워크는 구체적인 기본 요소들을 패키징합니다: 에이전트 스튜디오에서 ADK 2.0까지의 네 단계 도구 사다리, 크로스프레임워크 에이전트 통신을 위한 A2A 프로토콜, 그리고 정책 위반 및 프롬프트 인젝션을 차단하기 위해 트래픽을 가로채는 에이전트 게이트웨어가 그것입니다.",
+          "source": "google_cloud_blog",
+          "url": "https://cloud.google.com/blog/products/ai-machine-learning/20-questions-for-the-agentic-enterprise/",
+          "published": "Tue, 07 Jul 2026 16:00:00 +0000"
+        },
+        {
+          "title": "Australian Payments Plus, ChatGPT 및 Codex로 더 빠르게 움직이다",
+          "summary": "OpenAI의 사례 연구에 따르면, Australian Payments Plus는 결제 현대화 프로젝트 전반에서 ChatGPT Enterprise와 Codex를 사용하여 더 빠른 작업과 향상된 품질을 보고했습니다.",
+          "source": "openai_blog",
+          "url": "https://openai.com/index/australian-payments-plus",
+          "published": "Tue, 07 Jul 2026 00:00:00 GMT"
+        },
+        {
+          "title": "Show HN: Wayflow – 임베드 가능한 AI 워크플로우 빌더 (오픈 소스)",
+          "summary": "Wayflow는 기존 앱에 React Flow 스타일의 노드 편집기를 맞추는 통합 오버헤드를 피하기 위해 구축된 에이전틱 제품을 위한 새로운 오픈 소스 임베드형 워크플로우 빌더입니다.",
+          "source": "hackernews_ai",
+          "url": "https://wayflow.build/",
+          "published": "Tue, 07 Jul 2026 16:23:22 +0000"
+        },
+        {
+          "title": "Show HN: Bike4Mind – 오픈 코어 AI 워크벤치; 모든 모델, 에이전트, RAG, 셀프 호스팅",
+          "summary": "Bike4Mind는 30년 경력의 게임 산업 베테랑이 3년간 구축한 새로운 오픈 코어 AI 워크벤치로, 모든 모델, 에이전트, RAG, 셀프 호스팅을 지원합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Bike4Mind/bike4mind",
+          "published": "Tue, 07 Jul 2026 19:17:34 +0000"
+        },
+        {
+          "title": "Show HN: Cloudflare AI Search를 사용한 새로운 검색 MCP",
+          "summary": "새로운 AGPL-3.0 MCP 서버는 Cloudflare AI Search를 래핑하여 에이전트가 빌더 자신의 프로젝트 및 문서를 직접 질의할 수 있도록 하며, 이는 에이전트가 준비된 컨텍스트 부족에 좌절했던 한 개발자가 구축했습니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/skyphusion-labs/search-mcp",
+          "published": "Tue, 07 Jul 2026 14:00:27 +0000"
+        }
+      ]
+    },
+    {
+      "name": "개발자 도구, 코딩 에이전트 및 인프라",
+      "slug": "developer-tools-coding-agents-infrastructure",
+      "summary": "오늘의 도구 및 인프라 뉴스는 에이전트 루프 자체에서 더 많은 성능을 짜내는 것에 관한 것이었습니다. 이를 위해 구축된 CPU, 이를 위해 재작성된 코딩 에이전트 CLI, 그리고 AI 지원 검토를 통해 부분적으로 강화된 개발 도구 출시가 그것입니다.",
+      "articles": [
+        {
+          "title": "AI 혁신가들이 NVIDIA Vera를 채택하다 — 확장된 단일 스레드 CPU의 중요성",
+          "summary": "NVIDIA의 새로운 Vera CPU는 에이전트 루프를 특정 목표로 하며, Perplexity의 테스트에서 Grace 대비 50% 높은 명령어당 사이클, 3.4TB/s의 코어 간 대역폭, 그리고 x86 대비 1.5배 빠른 코딩 워크플로우 완료 속도를 주장합니다.",
+          "source": "nvidia_blog",
+          "url": "https://blogs.nvidia.com/blog/nvidia-vera-max-single-threaded-cpu-at-scale/",
+          "published": "Tue, 07 Jul 2026 15:00:52 +0000"
+        },
+        {
+          "title": "성능 및 확장성 향상을 위한 PostgreSQL에서 ClickHouse로 전환",
+          "summary": "Momentic은 AI 테스트 플랫폼의 캐시를 Postgres에서 ClickHouse로 재설계하여 응답 시간을 유지하면서 200억 개의 항목에 걸쳐 하루 2백만 건의 쿼리를 처리했습니다.",
+          "source": "infoq_ai_ml",
+          "url": "https://www.infoq.com/news/2026/07/momentic-postgres-clickhouse/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+          "published": "Tue, 07 Jul 2026 20:00:00 GMT"
+        },
+        {
+          "title": "Pi (Rust): Rust로 작성된 고성능 AI 코딩 에이전트 CLI",
+          "summary": "Pi 코딩 에이전트 CLI의 바닥부터 다시 만든 Rust 포트는 Node/Bun 시작 오버헤드를 완전히 제거하고, 단일 정적 바이너리, 제로 카피 메시지 처리 및 확장을 위한 임베디드 QuickJS 런타임을 사용합니다.",
+          "source": "hackernews_ai",
+          "url": "https://github.com/Dicklesworthstone/pi_agent_rust",
+          "published": "Tue, 07 Jul 2026 01:54:19 +0000"
+        },
+        {
+          "title": "sqlite-utils 4.0, 데이터베이스 스키마 마이그레이션 기능 추가",
+          "summary": "sqlite-utils 4.0 — Simon Willison의 프로젝트 124번째 버전이자 2020년 이후 첫 주요 업데이트 — Python 파일 스키마 마이그레이션, SQLite 세이브포인트를 통한 중첩 트랜잭션 및 복합 외래 키를 추가했으며, 여러 수정 사항은 AI 지원 코드 검토를 통해 발견되었습니다.",
+          "source": "simon_willison",
+          "url": "https://simonwillison.net/2026/Jul/7/sqlite-utils-4/#atom-everything",
+          "published": "2026-07-07T19:32:57+00:00"
+        },
+        {
+          "title": "중급 코딩 에이전트 프롬프트에서 Claude 4.8과 GLM 5.2 균형 맞추기",
+          "summary": "짧은 게시물에서 중급 코딩 에이전트 설정에 대한 Claude 4.8과 GLM 5.2의 프롬프트 구조를 비교합니다.",
+          "source": "hackernews_ai",
+          "url": "https://cimons.com/article/balancing-claude-with-glm-5-2-in-mid-level-coding-agent-structuring-prompts",
+          "published": "Tue, 07 Jul 2026 03:56:50 +0000"
+        }
+      ]
+    },
+    {
+      "name": "최첨단 모델 및 오픈 릴리스",
+      "slug": "frontier-models-open-releases",
+      "summary": "모델 뉴스는 이번 주 가장 큰 출시를 소화하는 것과 NVIDIA/Hugging Face의 로보틱스 기반 모델을 개방하려는 최신 노력 사이에서 나뉘었습니다.",
+      "articles": [
+        {
+          "title": "[AINews] Fable 필드 가이드",
+          "summary": "Latent Space의 필드 가이드는 Fable 5를 깊이 파고들며, 이는 AutomationBench-AA 에이전트 리더보드에서 Opus 4.8과 동률을 이루었고(657개 작업 전반에 걸쳐 48.6% 대 48.5%), 기조연설은 그 잠금 해제된 동작을 속도/비용/품질 상충 관계가 '실체가 아니다'라는 증거로 제시했습니다.",
+          "source": "latent_space",
+          "url": "https://www.latent.space/p/ainews-the-field-guide-to-fable",
+          "published": "Tue, 07 Jul 2026 04:44:53 GMT"
+        },
+        {
+          "title": "NVIDIA와 Hugging Face, 오픈 로보틱스 커뮤니티를 위한 새로운 모델 및 프레임워크를 선보이다",
+          "summary": "Hugging Face와 NVIDIA는 Isaac GR00T 1.7(휴머노이드 로봇을 위한 오픈 비전-언어-액션 모델)과 Isaac TeleOp를 LeRobot에 추가했으며, 이는 1500만 다운로드 및 35만 개 이상의 시연 궤적을 가진 데이터셋을 기반으로 합니다.",
+          "source": "nvidia_blog",
+          "url": "https://blogs.nvidia.com/blog/hugging-face-lerobot-models-frameworks-open-robotics/",
+          "published": "Tue, 07 Jul 2026 06:00:26 +0000"
+        },
+        {
+          "title": "Claude Sonnet 5: Anthropic의 가장 에이전틱한 AI 모델, 가격 인하 (2026)",
+          "summary": "커뮤니티 게시물은 Anthropic의 가장 에이전틱한 모델로 소개된 Claude Sonnet 5를 이전 버보다 낮은 가격대로 만나볼 수 있습니다.",
+          "source": "hackernews_ai",
+          "url": "https://lucasaguiar.xyz/en/posts/claude-sonnet-5-2026/",
+          "published": "Tue, 07 Jul 2026 00:15:11 +0000"
+        }
+      ]
+    }
+  ]
+}

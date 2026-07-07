@@ -1,0 +1,27 @@
+{
+  "locale": "ko",
+  "source_path": "/story/aa3c9fe0f3678a1e",
+  "source_hash": "cbc4dc10eba3ac7e0a413faa5b45b55ea8ccc03016db236ea9d2f4967a184195",
+  "translated_at": "2026-07-07T22:07:21.302173+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "first_seen": "2026-07-07T21:02:42.552419+00:00",
+  "id": "6b2a54bcf9fa03f0",
+  "matched_topics": [
+    "agent"
+  ],
+  "published": "2026-07-07T21:06:12+00:00",
+  "release_highlights": [
+    "Added a warning when your login is about to expire, so you can re-authenticate before background sessions are interrupted",
+    "Added a grey ⏸ badge to the footer when in manual permission mode, making the active mode always visible",
+    "Added the session's additional working directories to MCP roots/list , with notifications/roots/list_changed sent when the set changes"
+  ],
+  "sid": "aa3c9fe0f3678a1e",
+  "source": "claude_code_releases",
+  "summary": "변경 사항 요약: 로그인 만료 임박 시 경고를 추가하여 백그라운드 세션이 중단되기 전에 재인증할 수 있게 했습니다. 수동 권한 모드에서 활성 모드를 항상 표시하기 위해 푸터에 회색 ⏸ 배지를 추가했습니다. 세션의 추가 작업 디렉토리를 MCP 루트/목록에 추가했으며, 설정이 변경되면 알림/루트/목록_변경을 전송합니다. macOS에서 백그라운드 에이전트 세션을 열거나 전환할 때 발생하던 잘못된 저메모리 감지로 인한 15~20초 지연 현상(v2.1.196의 회귀)을 수정했습니다. 데몬 세션 토큰이 만료되었을 때 백그라운드 세션이 첨부, 답장 및 중지 명령에 영구적으로 응답하지 않던 문제를 해결했으며, 이제 세션이 자동으로 복구됩니다. claude 에이전트로 돌아올 때 실행 중인 서브에이전트를 조용히 중지하고 프롬프트를 처음부터 다시 실행하던 문제를 수정했으며, 이제 작업 내용이 유지됩니다. 대화형 세션에서 메모리 및 턴당 CPU 회귀 현상을 수정했습니다: 이제 컨텍스트 사용량 표시기가 매 턴마다 전체 기록을 재분석하지 않습니다. Windows에서 백그라운드 에이전트가 디스패치 셸 대신 데몬으로부터 오래된 PATH를 상속받아 도구가 누락되던 문제를 수정했습니다. 백그라운드 및 에이전트 보기 세션에서 셸에 내보낸 ANTHROPIC_BASE_URL을 누락하여 API 키가 기본 엔드포인트로 전송되고 401 오류가 발생하던 문제를 수정했습니다. 많은 git 작업 트리(worktrees)를 가진 리포지토리에서 Bash가 \"argument list too long\" 오류로 실패하던 문제를 수정했습니다. 작업 트리 격리 서브에이전트가 자신의 작업 트리 대신 부모 체크아웃에서 셸 명령을 실행하던 문제를 수정했습니다. 작업 트리 생성 관련 버그를 수정했습니다.",
+  "summary_1line": "Added a warning when your login is about to expire, so you can re-authenticate before background sessions are interrupted · Added a grey ⏸ badge to the footer when in manual permission mode, making the active mode alw...",
+  "title": "claude-code v2.1.203",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.203",
+  "why_it_matters": "피드 초점 일치: 에이전트."
+}
