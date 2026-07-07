@@ -1,30 +1,27 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스 | LLM Digest</title>
-  <meta name="description" content="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스" />
-  <link rel="canonical" href="https://www.llm-digest.com/ko/story/9098543e36ba35c3" />
-  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/story/9098543e36ba35c3" />
-  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/story/9098543e36ba35c3" />
-  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/story/9098543e36ba35c3" />
+  <title>A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic | LLM Digest</title>
+  <meta name="description" content="Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic." />
+  <link rel="canonical" href="https://www.llm-digest.com/story/db18dd171266e42d" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스" />
-  <meta property="og:description" content="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스" />
-  <meta property="og:url" content="https://www.llm-digest.com/ko/story/9098543e36ba35c3" />
-  <meta property="article:published_time" content="2026-07-06T14:38:49+00:00" />
-  <meta property="og:image" content="https://www.llm-digest.com/og/story-9098543e36ba35c3-ko.png" />
-  <meta name="twitter:image" content="https://www.llm-digest.com/og/story-9098543e36ba35c3-ko.png" />
+  <meta property="og:title" content="A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic" />
+  <meta property="og:description" content="Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic." />
+  <meta property="og:url" content="https://www.llm-digest.com/story/db18dd171266e42d" />
+  <meta property="article:published_time" content="2026-07-06T00:00:00+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스" />
-  <meta name="twitter:description" content="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스", "description": "hey guys, i wanted to show one of my side projects. The idea is a coding harness (independent of models) natively designed for C/C++ developer workflows. I'm a C++ dev and do not find claude code work well with C++ to...", "datePublished": "2026-07-06T14:38:49+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/9098543e36ba35c3", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://byteask.ai"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스", "item": "https://www.llm-digest.com/story/9098543e36ba35c3"}]}]}</script>
+  <meta name="twitter:title" content="A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic" />
+  <meta name="twitter:description" content="Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic", "description": "Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic.", "datePublished": "2026-07-06T00:00:00+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/db18dd171266e42d", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic", "item": "https://www.llm-digest.com/story/db18dd171266e42d"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
@@ -259,7 +256,7 @@
       </div>
       <div class="site-page-heading">
         <h1>Story</h1>
-        <p id="meta" class="muted">hackernews_ai · Jul 6, 2026 · news</p>
+        <p id="meta" class="muted">claude_blog · Jul 6, 2026 · news</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
@@ -273,8 +270,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/story/9098543e36ba35c3" data-share-title="Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스">Share this page</button>
-        <a class="site-language-action" href="/story/9098543e36ba35c3" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/db18dd171266e42d" data-share-title="A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -282,10 +278,10 @@
     </header>
 
     <section id="recap">
-      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://byteask.ai" target="_blank" rel="noopener">Show HN: GDB, Sanitizers, Perf 및 컴파일 도구를 갖춘 C/C++용 AI 하네스</a></h2></div><p class="story-origin"><strong>byteask.ai</strong>Jul 6, 2026<br>original source linked</p></section>
+      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns" target="_blank" rel="noopener">A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic</a></h2></div><p class="story-origin"><strong>the Claude blog</strong>Jul 6, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
-
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">hey guys, i wanted to show one of my side projects. The idea is a coding harness (independent of models) natively designed for C/C++ developer workflows. I&#x27;m a C++ dev and do not find claude code work well with C++ to...</p></div></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">harness</span><span class="badge">claude code</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://byteask.ai" target="_blank" rel="noopener" data-track="story-source">Read the original at byteask.ai →</a><a href="/?item=https%3A%2F%2Fbyteask.ai&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-06">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/26d4c32c1f6a7593" data-track="story-related">OPFS + Pyodide test harness</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 23, 2026</span></div></article><article><h3><a href="/story/41ecbecdcff07506" data-track="story-related">Xiaomi&#x27;s new open source, agentic AI coding harness MiMo Code beats Claude Code at ultra-long, 200+ step tasks - Venturebeat</a></h3><div class="art-meta"><span class="badge">search_agent_engineering_news</span><span class="badge">Jun 11, 2026</span></div></article><article><h3><a href="/story/2c589c3624db6218" data-track="story-related">Harness Engineering for Self-Improvement</a></h3><div class="art-meta"><span class="badge">lilian_weng</span><span class="badge">Jul 4, 2026</span></div></article><article><h3><a href="/story/6ee798815cdcc570" data-track="story-related">Show HN: TinyAgents – a Rust based recursive LLM harness</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 30, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic.</p></div></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">agentic</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns" target="_blank" rel="noopener" data-track="story-source">Read the original at claude.com →</a><a href="/?item=https%3A%2F%2Fclaude.com%2Fblog%2Fa-field-guide-to-claude-fable-finding-your-unknowns&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-06">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/ef10e0f5c9baeb91" data-track="story-related">sqlite-utils 4.0rc2, mostly written by Claude Fable (for about $149.25)</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jul 5, 2026</span></div></article><article><h3><a href="/story/aaef033dfabe2831" data-track="story-related">More details on Fable 5’s cyber safeguards and our jailbreak framework</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jul 2, 2026</span></div></article><article><h3><a href="/story/f067c5a87a87b23f" data-track="story-related">[AINews] Sonnet 5 today, and Fable 5 tomorrow</a></h3><div class="art-meta"><span class="badge">latent_space</span><span class="badge">Jul 1, 2026</span></div></article><article><h3><a href="/story/e11fcea9cd94bb20" data-track="story-related">Claude Fable 5 and Claude Mythos 5</a></h3><div class="art-meta"><span class="badge">anthropic_newsroom</span><span class="badge">Jun 30, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
     </section>
 
     <footer>
