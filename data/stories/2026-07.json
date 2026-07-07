@@ -368,6 +368,27 @@
   "url": "https://github.com/microsoft/SkillOpt",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "38efe4f12261c125": {
+  "first_seen": "2026-07-07T00:02:47.431513+00:00",
+  "id": "21c88b04a229c168",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-06T23:05:51+00:00",
+  "release_highlights": [
+   "Zombie CLI subprocess prevention : Shielded subprocess cleanup from asyncio cancellation so SIGTERM / SIGKILL teardown always runs, preventing orphaned claud...",
+   "Silent whitespace loss on large NDJSON lines : Fixed the NDJSON parser silently dropping whitespace when a single line exceeded the 64 KiB stream buffer, whi...",
+   "TypeError on non-dict message content : Fixed an uncaught TypeError when the CLI emits a message whose content field is a plain string or other non-dict valu..."
+  ],
+  "sid": "38efe4f12261c125",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Bug Fixes Zombie CLI subprocess prevention : Shielded subprocess cleanup from asyncio cancellation so SIGTERM / SIGKILL teardown always runs, preventing orphaned claude child processes when the parent task is cancelled ( #1082 ) Silent whitespace loss on large NDJSON lines : Fixed the NDJSON parser silently dropping whitespace when a single line exceeded the 64 KiB stream buffer, which could corrupt tool output or assistant message content ( #1083 ) TypeError on non-dict message content : Fixed an uncaught TypeError when the CLI emits a message whose content field is a plain string or other non-dict value instead of the expected list of content blocks ( #1058 ) can_use_tool shadowed by allowed_tools : Added a runtime warning when a can_use_tool callback is registered alongside allowed_tools or bypassPermissions , which silently prevents the callback from ever firing ( #1081 ) Internal/Other Changes Updated bundled Claude CLI to version 2.1.202 Fixed e2e stderr test flakiness by running the query from a clean working directory ( #1084 ) PyPI: https://pypi.org/project/claude-agent-sdk/0.2.111/ pip install claude-agent-sdk==0.2.111",
+  "summary_1line": "Zombie CLI subprocess prevention : Shielded subprocess cleanup from asyncio cancellation so SIGTERM / SIGKILL teardown always runs, preventing orphaned claud... · Silent whitespace loss on large NDJSON lines : Fixed t...",
+  "title": "claude-agent-sdk-python v0.2.111",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.111",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "3a3b180fcb25007e": {
   "first_seen": "2026-07-05T13:02:32.935342+00:00",
   "id": "973d863a7314d956",
@@ -970,6 +991,27 @@
   "title": "Presentation: The Infrastructure Challenge Behind Production AI",
   "type": "news",
   "url": "https://www.infoq.com/presentations/ai-infrastructure-scaling-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "863330601bd5d524": {
+  "first_seen": "2026-07-07T00:02:47.431513+00:00",
+  "id": "1900eae75f337033",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-06T22:51:16+00:00",
+  "release_highlights": [
+   "Added a \"Dynamic workflow size\" setting in /config for controlling how large Claude generally makes dynamic workflows (small/medium/large agent counts) — an...",
+   "Added workflow.run_id and workflow.name OpenTelemetry attributes to telemetry emitted by workflow-spawned agents, so a workflow run's activity can be reconst...",
+   "Fixed a crash in the inline Ctrl+R history search when accepting or cancelling while the search was still scanning the history file"
+  ],
+  "sid": "863330601bd5d524",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added a \"Dynamic workflow size\" setting in /config for controlling how large Claude generally makes dynamic workflows (small/medium/large agent counts) — an advisory guideline, not an enforced cap Added workflow.run_id and workflow.name OpenTelemetry attributes to telemetry emitted by workflow-spawned agents, so a workflow run's activity can be reconstructed from OTel data Fixed a crash in the inline Ctrl+R history search when accepting or cancelling while the search was still scanning the history file Fixed /rename on background sessions being reverted when the job restarts, which broke addressing the session by its new name Fixed transient mTLS handshake failures when settings were re-applied during an in-place client certificate rotation Fixed commands sent from Remote Control (mobile/web) into an interactive session failing with \"Unknown command\" Fixed images and files sent from the Remote Control mobile or web app without a caption being silently dropped Fixed the sign-in URL printed by claude auth login and claude mcp login --no-browser not being reliably clickable when it wraps over SSH — it is now emitted as a single hyperlink Fixed opening a chat from claude agents sometimes failing with \"currently running as a background agent\" followed by a worker crash/respawn loop Fixed workflow scripts with unicode quote escapes in strings being corrupted before parsing; workflow parse errors now show the offending line instead of always blaming TypeScript Fixed v",
+  "summary_1line": "Added a \"Dynamic workflow size\" setting in /config for controlling how large Claude generally makes dynamic workflows (small/medium/large agent counts) — an... · Added workflow.run_id and workflow.name OpenTelemetry a...",
+  "title": "claude-code v2.1.202",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.202",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "8688a4c832b1b52a": {
   "first_seen": "2026-07-01T18:01:54.002765+00:00",
