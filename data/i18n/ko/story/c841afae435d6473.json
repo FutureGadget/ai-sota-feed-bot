@@ -1,0 +1,23 @@
+{
+  "locale": "ko",
+  "source_path": "/story/c841afae435d6473",
+  "source_hash": "a72c82d898cfd593275c6950488b69aca4ce489df768685e12bc8b94ea78a837",
+  "translated_at": "2026-07-07T04:09:52.535953+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "first_seen": "2026-07-07T04:02:34.806245+00:00",
+  "id": "28ea4eedda4f97c1",
+  "matched_topics": [
+    "agent",
+    "eval"
+  ],
+  "published": "2026-07-06T16:20:19+00:00",
+  "sid": "c841afae435d6473",
+  "source": "arxiv_cs_lg",
+  "summary": "추론 서비스 시스템은 급증하고 이질적인 워크로드 하에서 처리량과 지연 시간 사이의 균형을 맞추어야 하지만, 업계 표준은 수동 튜닝이 필요하고 변화하는 트래픽에 적응할 수 없는 정적 배치 정책에 머물러 있습니다. 우리는 강화 학습(RL)이 이러한 휴리스틱을 능가하는 적응형 배치 및 라우팅 정책을 학습할 수 있는지 조사했습니다. 우리는 큐잉 이론과 프로덕션 추적(Azure Functions, BurstGPT)을 통해 검증된 이산 이벤트 시뮬레이터에서 REINFORCE 및 PPO 에이전트를 훈련시켰습니다. 우리는 이 문제를 큐 상태, 요청 유형 및 GPU 가용성에 대한 MDP로 공식화하고 표준 포아송 트래픽, 극심한 버스트, 실제 추적 및 이질적인 멀티-GPU 라우팅에 걸쳐 평가했습니다. 우리의 핵심 발견은 시스템 문제에서 RL의 가치를 보여주는 명확한 경계 조건입니다. 단일 GPU 설정에서는 잘 조정된 정적 배치 정책이 포아송 유사 도착에서 이미 거의 최적에 가까우며, RL은 미미한 이득(+0.1%에서 +1.0%)만을 제공합니다. 그러나 빠르고 느린 요청이 공유 리소스를 두고 경쟁하는 멀티-GPU 이질적 라우팅 환경에서는 에이전트가 워크로드 분리 정책을 발견하여 Head-of-Line 블로킹을 제거했고, 그 결과 라운드 로빈 대비 3.5배(348%) 향상 및 가장 강력한 휴리스틱 기준선(Shortest-Queue) 대비 48% 향상을 달성했으며, SLA 제약 조건을 준수하면서도 처리량은 60% 높이고 지연 시간은 25% 낮췄습니다. 이 정책은 합성 포아송 도착 및 어텐션 기반 훈련만으로도 보지 못했던 버스트 및 실제 트래픽에 일반화됩니다.",
+  "summary_1line": "Inference serving systems must balance throughput and latency under bursty, heterogeneous workloads, yet the industry standard remains static batching policies that require manual tuning and cannot adapt to shifting t...",
+  "title": "정책 경사를 활용한 적응형 추론 배치",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.05272v1",
+  "why_it_matters": "피드 초점 일치: 에이전트, 평가."
+}
