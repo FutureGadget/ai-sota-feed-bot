@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0]
-updated: 2026-07-05
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64]
+updated: 2026-07-07
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64]
 ---
 
 ## TL;DR
@@ -51,6 +51,13 @@ enterprise Java migration) and long-horizon autonomy labs (Emergence World)
 that push past single bounded tasks. The frontier edge is *pre*-deployment
 prediction — simulating deployment on real conversation data to forecast
 behavior before release rather than measuring it after an incident.
+
+The eval-improvement loop is also being reframed as a **data-mining problem**
+rather than a labeling exercise: LangChain's practice is to mine production
+agent traces for failure clusters first, then fine-tune a judge on those
+clusters (cheaper than a frontier judge) and use it to hill-climb agent
+performance — treating "what should we eval" as a question the traces
+themselves answer, not a rubric written up front.
 
 Two countercurrents now temper the optimism. The **judge itself is under
 audit**: BabelJudge measures LLM-as-judge reliability across languages *and*
@@ -125,7 +132,12 @@ conclusion: a reasonable process around the model is at least as load-bearing
 as which model you use.
 
 ## What's new
-Benchmark noise gets hard numbers: a practitioner analysis measured a
+Improving an agent is being reframed as a **data-mining problem**: LangChain
+mines production traces for failure clusters, fine-tunes a cheap judge on
+them, and hill-climbs agent performance from that signal — deriving the eval
+target from real failures instead of a rubric written in advance.
+
+Benchmark noise also got hard numbers: a practitioner analysis measured a
 model's run-to-run standard deviation at 7.5% on a coding task — larger than
 the best-to-worst-model gap — and showed that swapping a few tasks in a
 ~100-task set flips the leaderboard order. The same analysis reports a

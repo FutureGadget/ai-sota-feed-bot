@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10]
-updated: 2026-07-06
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473]
+updated: 2026-07-07
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473]
 ---
 
 ## TL;DR
@@ -57,6 +57,13 @@ pauses too long gets hung up on, which is why low-latency voice stacks (Loka on
 Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint,
 not a tuning afterthought.
 
+**Batching** is the other lever a bursty agent workload stresses directly:
+static batching policies need manual tuning per traffic shape and cannot
+adapt when request patterns shift mid-run, so adaptive inference batching
+that learns a batching policy with reinforcement learning targets exactly the
+bursty, heterogeneous load agent tool-calling produces instead of assuming
+the steady arrival rate a chat workload has.
+
 The serving layer itself is starting to absorb **agentic behavior**: vLLM's
 Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
 "micro-agent" runtime — confidence scoring, ratings, and workflow fusion happen
@@ -65,6 +72,12 @@ it, collapsing a round-trip that would otherwise cost a full extra model call
 and its latency.
 
 ## What's new
+Batching joins the list of serving knobs getting an agent-workload-specific
+answer: policy-gradient reinforcement learning learns an adaptive batching
+policy instead of a hand-tuned static one, targeting the bursty,
+heterogeneous request pattern agent tool-calling produces rather than a
+steady chat arrival rate.
+
 The serving-layer fix is getting more hardware- and model-specific: vLLM's
 new HPC-Ops integration ships Hopper-optimized attention and FP8 MoE kernels
 built for Tencent's Hunyuan Hy3 on NVIDIA H20, improving mixed-length decode,

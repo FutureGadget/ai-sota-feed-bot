@@ -40,6 +40,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-planning](obstacles/agent-planning.md) — Agents plan multi-step work badly — they loop, stall, or skip steps
   → solutions: agent-orchestration
 
+### reliability
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong *(stub)*
+  → solutions: (none yet)
+
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent
   → solutions: agent-sandboxing

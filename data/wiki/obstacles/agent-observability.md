@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4]
-updated: 2026-06-30
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524]
+updated: 2026-07-07
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524]
 ---
 
 ## TL;DR
@@ -42,7 +42,25 @@ trajectory-grading problem over multimodal observability data — so agent
 observability and [evaluation](/topic/agent-evaluation) are converging, with the
 trace as the shared substrate.
 
+Instrumentation is also showing up **inside the coding-agent product itself**,
+not just in third-party observability tooling: Claude Code now emits
+`workflow.run_id` and `workflow.name` as OpenTelemetry attributes, so a
+multi-agent workflow run is traceable through the same OTel pipeline a team
+already operates for the rest of its stack, rather than requiring a bespoke
+exporter. Enterprise case studies are catching up to the same convergence
+from the ops side: Schneider Electric built its LLMOps foundations on
+LangSmith specifically to unify observability, evaluation, and deployment at
+scale — a real deployment of the "trace as shared substrate" idea, not just a
+vendor pitch for it.
+
 ## What's new
+Trace instrumentation is showing up natively in agent tooling: Claude Code
+now stamps `workflow.run_id`/`workflow.name` as OpenTelemetry attributes on
+multi-agent workflow runs, plugging into a team's existing OTel pipeline
+instead of a bespoke export path. Schneider Electric's LangSmith-based LLMOps
+foundations is a concrete enterprise case of observability, evaluation, and
+deployment converging into one stack at production scale.
+
 Trace analysis is becoming *agentic*: rather than dashboards a human reads, the new
 tools run a model over the captured traces — HALO's RLM engine mines recurring
 failure modes from Langfuse/OpenInference/JSONL traces, and LangSmith ships a fleet

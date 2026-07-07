@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc]
-updated: 2026-06-29
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031]
+updated: 2026-07-07
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031]
 ---
 
 ## TL;DR
@@ -24,7 +24,10 @@ for agents.
 
 Platform vendors ship **usage analytics plus enforceable spend controls**
 (OpenAI's enterprise spend caps and analytics) so an org can set ceilings
-rather than discover overruns.
+rather than discover overruns. Anthropic ships the same shape for Claude
+Enterprise: richer admin analytics, model-level entitlements, and spend
+alerts so admins track adoption and cap spend without building their own
+metering layer.
 
 Developer tooling pushes **attribution** down to the unit of work — Prtokens
 surfaces how many agent tokens a single pull request burned, making cost a
@@ -59,6 +62,10 @@ per-task metering and budgets are the foundation the architectural savings
 build on.
 
 ## What's new
+Anthropic added admin-facing spend controls for Claude Enterprise (model-level
+entitlements, spend alerts, richer usage analytics), matching the enterprise
+spend-cap pattern OpenAI already shipped.
+
 Cost controls are **shifting left**: from a monthly finance review to
 per-task, per-PR metering with enforceable caps (OpenAI spend controls,
 Prtokens attribution), now-managed agentic anomaly triage (AWS FinOps Agent

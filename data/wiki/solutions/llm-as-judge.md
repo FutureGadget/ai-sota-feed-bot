@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0]
-updated: 2026-07-05
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64]
+updated: 2026-07-07
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64]
 ---
 
 ## TL;DR
@@ -27,6 +27,10 @@ scalar.
 over every trace is expensive, so LangChain and Fireworks fine-tune small
 open judges on production traces — mining perceived-error signals from real
 traffic to match frontier-judge quality at roughly 1/100th the cost.
+LangChain frames the whole loop as **data mining, not labeling**: cluster
+failures out of real traces first, fine-tune the cheap judge on those
+clusters, then use it to hill-climb the agent — so what gets judged comes
+from observed failure, not a rubric drafted before the traces existed.
 
 That cost lever now extends to the judge's **architecture**, not just its
 size. "Do Encoders Suffice?" compares encoder-based classifiers against
@@ -70,8 +74,14 @@ extending the standing cost lever (smaller fine-tuned judges, cheaper
 encoders) with a quality lever that doesn't require a bigger model at all.
 
 ## What's new
-Judge quality gets a cheap lever that isn't "use a bigger model": ensembling
-independent judge personas over the same artifact — including a
+LangChain reframes judge fine-tuning as a **data-mining problem**: mine
+production traces for failure clusters first, fine-tune the cheap judge on
+those clusters, then hill-climb agent performance from that signal — the
+same cost lever as before (small judge over frontier judge) but with the
+training target derived from observed failures rather than a rubric.
+
+Judge quality also gets a cheap lever that isn't "use a bigger model":
+ensembling independent judge personas over the same artifact — including a
 deliberately contrarian one — cuts false positives more reliably than
 upgrading to a stronger single judge, alongside the standing deterministic
 alternative for stateful tasks and BabelJudge's numbers on judge bias.
