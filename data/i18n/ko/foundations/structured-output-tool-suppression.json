@@ -1,0 +1,89 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/structured-output-tool-suppression",
+  "source_hash": "f8d7cce1bd85c53f0e5c00ad336080b9753b51df28561caccbd82f8bf04543a9",
+  "translated_at": "2026-07-08T03:20:35.345298+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "structured-output-tool-suppression",
+  "title": "구조화된 출력을 강제하면 왜 에이전트가 도구 호출을 멈추는가?",
+  "question": "Why does forcing structured output make my agent stop calling tools?",
+  "summary": "JSON Schema 제약 조건과 도구 호출을 동시에 활성화하면 오픈 웨이트 모델에서 도구 호출이 조용히 억제될 수 있습니다. 이 스키마는 토큰 마스크로 컴파일되어 디코딩 중 도구 호출 토큰에 접근할 수 없게 만들며, 두 기능을 개별적으로 테스트하는 모든 검사를 통과합니다.",
+  "status": "active",
+  "cluster": "tool-use",
+  "cluster_label": "Tool use and agents",
+  "updated": "2026-07-03",
+  "audience": "strong-software-engineer",
+  "math_depth": "",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>에이전트가 도구를 호출하고 동시에 JSON 스키마에 맞는 응답을 반환하도록 강제되는 경우 — 이는 다운스트림 코드가 파싱할 고정된 출력 계약을 원하는 일반적인 패턴입니다 — 이 두 가지 제약 조건이 잘못 상호 작용할 수 있습니다. 여러 오픈 웨이트 모델 계열에서 둘을 동시에 활성화하면, 동일한 모델이 스키마 없이 도구를 호출하고 도구 없이도 스키마를 만족하는 출력을 생성함에도 불구하고, 모델이 조용히 도구 호출을 중단하게 됩니다. 오류는 발생하지 않습니다. 응답에 도구 호출이 포함되지 않을 뿐이며, \"이것이 유효한 JSON인가\"만을 확인하는 다운스트림 시스템은 이를 절대 알아채지 못합니다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>도구 호출과 JSON 스키마 제약 조건은 독립적으로 테스트했을 때는 모두 작동합니다. 하지만 함께 테스트하면, 여러 오픈 웨이트 모델에서 '도구 억제(Tool Suppression)' 현상이 나타납니다. 즉, 스키마를 만족하는 출력을 계속 생성하지만 도구 호출은 중단됩니다. 원인은 추론 실패가 아니라 구현 수준의 문제입니다. 스키마 제약 조건은 각 디코딩 단계에서 어떤 토큰이 합법적인지 마스킹하는 문법으로 컴파일되며, 이 마스크가 도구 호출 토큰에 접근할 수 없게 만들 수 있습니다. 훈련 없이 해결책이 존재합니다. 즉, 하나의 제약된 디코딩으로 두 가지를 모두 만족시키려 하기보다 두 단계를 분리해야 합니다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>\"도구 호출\"과 \"구조화된 출력\"을 별도의 테스트 스위트에서 검증할 수 있는 두 가지 독립적인 기능이 아니라, 동일한 디코딩 프로세스에 가해지는 두 가지 제약 조건으로 취급해야 합니다. 제약된 디코딩(문법 기반 JSON 스키마 시행)은 모든 토큰에서 어떤 후속 내용이 합법적인지 제한함으로써 작동합니다. 이는 금지된 토큰을 순위를 매기거나 단념시키는 것이 아니라, 고려 대상에서 완전히 제거합니다. 도구 호출 토큰 시퀀스가 스키마 문법의 일부가 아니라면, 모델은 근본적인 정책이 무엇을 선택하든 간에 그것을 방출할 경로가 없습니다. 이것은 각자서는 올바르게 보이는 두 가지 능력 뒤에 숨겨진 토큰 마스킹 상호 작용 버그입니다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>JSON 스키마 시행은 일반적으로 제약된 디코딩으로 구현됩니다. 즉, 스키마가 문법(종종 유한 상태 또는 푸시다운 구조)으로 컴파일되며, 각 디코딩 단계에서 모델의 다음 토큰 분포는 출력을 문법이 허용하는 경로에만 있도록 마스킹됩니다. 이것이 구조화된 출력을 신뢰할 수 있게 만드는 이유입니다. 이는 모델이 무시하기로 결정할 수 있는 요청이 아니라 구현 수준의 보장입니다.</p>\n<p>본 논문은 이 메커니즘의 특정 상호 작용 실패를 재현합니다. 도구 호출과 JSON 스키마 제약 조건이 동시에 활성화되면, 컴파일된 문법은 도구 호출 토큰으로 가는 합법적인 경로를 남기지 않게 되어, 해당 토큰이 디코딩 중에 단순히 가능성이 낮은 것이 아니라 접근 불가능해집니다. 독립적으로 평가했을 때는 두 기능 모두 정상입니다. 즉, 스키마가 비활성화된 상태에서는 모델이 도구를 올바르게 호출하고, 도구가 비활성화된 상태에서는 유효한 스키마를 준수하는 출력을 생성합니다. 이 억제 현상은 두 가지 제약 조건이 동일한 디코딩에 적용될 때만 나타납니다.</p>\n<p>본 논문은 해석을 신중하게 구성합니다. 이는 여러 제약 조건이 동시에 적용될 때 스키마 만족이 행동 선택을 지배하게 된다는 '제약 조건 우선순위 역전(Constraint Priority Inversion, CPI)'을 관찰된 행동에 일관된 가설로 제시하며, 이를 검증된 내부 메커니즘으로 단정하지 않습니다. 토큰 마스킹 설명은 구현 수준의 발견이며, CPI는 왜 그런 현상이 발생하는지에 대한 논문의 최선의 행동적 설명입니다.</p>\n<p>제안된 완화책인 '투명한 두 단계 실행(Transparent Two-Pass Execution)'은 단일 제약된 디코딩 내부에서 상호 작용을 해결하는 대신 이를 우회합니다. 즉, 첫 번째 패스에서는 추론과 도구 호출을 제약 없이 생성하고, 두 번째 패스에서 JSON 스키마 제약을 적용하여 응답을 형식화하거나 검증합니다. 이 두 단계를 분리하면 재훈련 없이도 도구 호출을 복원하면서 구조화된 출력 보장을 유지할 수 있습니다.</p>"
+    },
+    {
+      "heading": "Evidence",
+      "html": "<ul><li>벤치마크/결과 기반: Constraint Tax 논문은 통제된 실험을 통해 여러 오픈 웨이트 모델 계열 및 배포 설정 전반에 걸쳐 도구 억제 현상을 재현하고, 공동 제약 조건 하에서 도구 호출 토큰에 접근할 수 없게 만드는 문법 기반 토큰 마스킹으로 원인을 격리하며, 투명한 두 단계 실행이 재훈련 없이 도구 호출을 복원한다는 것을 검증했습니다.</li><li>편집적 추론: 도구 호출과 구조화된 출력이 일반적으로 별도의 기능으로 구축되고 테스트되기 때문에, 이 조합은 프로젝트의 기존 테스트 스위트가 스스로 포착하기 어려운 사각지대입니다.</li></ul>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<ul><li><strong>부분이 아닌 조합을 테스트하십시오.</strong> 프로덕션 JSON 스키마(또는 응답 형식) 제약 조건이 활성화된 상태에서 도구 호출을 실행하는 테스트 케이스를 추가하십시오. 각각 고립적으로 통과하는 두 개의 별도 스위트를 만들지 마십시오.</li><li><strong>오류가 아닌 조용한 억제를 관찰하십시오.</strong> 도구 호출이 분명히 필요했음에도 불구하고 도구 호출 없이 스키마를 만족하는 응답이 나타나는 것이 찾아야 할 특징입니다. 이는 오류를 발생시키거나, 유효성 검사에 실패하거나, 일반적인 오류율에 나타나지 않습니다.</li><li><strong>프롬프트로 해결하려고 시도하지 마십시오.</strong> 억제가 구현 수준의 문제(공동 제약된 디코딩의 토큰 마스킹 산물)라면, 모델에게 \"도구를 사용하도록 기억하라\"고 지시하는 아무리 많은 양의 명령도 구조적으로 방출할 수 없는 토큰을 고칠 수는 없습니다.</li><li><strong>재훈련보다 분리를 선호하십시오.</strong> 미세 조정이나 구조화된 출력을 완전히 포기하기 전에, 도구 선택과 도구 호출 생성을 제약 없이 수행한 다음 출력 스키마를 별도로 시행하는 두 단계 접근 방식을 시도해 보십시오.</li><li><strong>모델, SDK 또는 서빙 스택 업그레이드 후 재확인하십시오.</strong> 제약된 디코딩과 도구 호출이 상호 작용하는 방식은 서빙 스택의 구현 세부 사항이므로, 해당 구성 요소 중 하나라도 변경되면 프롬프트와 스키마가 변하지 않았더라도 억제 동작이 재발하거나 바뀔 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>고립된 테스트: 도구 호출과 구조화된 출력을 별도의 테스트 스위트에서 검증하는 것은 바로 이 실패가 보이지 않는 설정입니다.</li><li>조용한 퇴행: 오류도 없고 유효성 검사 실패도 없습니다. 단지 두 가지 제약 조건이 모두 활성화되면 도구 호출을 중단하는 에이전트가 있을 뿐이며, 이는 다운스트림에서 도구 활동 누락을 인지했을 때만 발견됩니다.</li><li>추론 문제로 오진: 프롬프트나 퓨샷 예제를 수정하여 도구 사용을 \"장려\"하려고 하지만, 실제 문제는 제약된 디코딩이 해당 도구 호출 토큰으로 가는 합법적인 경로를 가지고 있지 않다는 것입니다.</li><li>메커니즘 과대 주장: 제약 조건 우선순위 역전(CPI)을 논문의 가설이라기보다는 입증된 내부 원인으로 취급하는 것입니다. 토큰 마스킹 발견이 확립된 것이며, CPI는 해석일 뿐입니다.</li><li>재훈련 먼저 시도: 추론 시간에 훈련 없이 두 단계 분리로 해결할 수 있는 디코딩 시간의 제약 조건 상호 작용을 \"고치기\" 위해 미세 조정을 시도하는 것입니다.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>도구 연결의 광범위한 실패 모드는 <a href=\"/topic/tool-use\">도구 사용</a>을, 도구 인터페이스 표준화는 <a href=\"/topic/mcp\">MCP</a>를, 그리고 이러한 공동 능력 테스트가 에이전트의 단위 테스트가 아닌 평가 스위트에 포함되어야 하는 이유는 <a href=\"/topic/agent-evaluation\">에이전트 평가</a>를 참고하십시오.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "constrainttax-2026-tool-suppression",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Constraint Tax in Open-Weight LLMs: An Empirical Study of Tool Calling Suppression Under Structured Output Constraints",
+      "note": "Reports a reproducible phenomenon: when Tool Calling and JSON Schema constraints are enabled simultaneously, multiple open-weight model families stop invoking tools despite maintaining high schema compliance, while tool execution and schema compliance both work fine when tested independently. Traces the cause to JSON Schema constraints being compiled into grammar-based token masks that make tool-call tokens unreachable during decoding, proposes this as the Constraint Priority Inversion (CPI) hypothesis (explicitly framed as a behavioral hypothesis, not a verified internal mechanism), and shows a training-free Transparent Two-Pass Execution strategy — generate tool calls unconstrained, then separately enforce the schema on the response — restores tool invocation without retraining.",
+      "url": "http://arxiv.org/abs/2606.25605v1"
+    },
+    {
+      "id": "structured-output-tool-suppression-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "For agent builders, tool calling and structured output are usually validated as separate features; this finding means the combination needs its own explicit test, because a model can pass both checks in isolation and still go silent on tools the moment both constraints are active together."
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "tool-use",
+      "title": "Agents reach the outside world through fragile, ad-hoc integrations"
+    },
+    {
+      "slug": "mcp",
+      "title": "Model Context Protocol: a standard interface for agent tools"
+    },
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": [],
+  "covers_evidence": [
+    "constrainttax-2026-tool-suppression",
+    "structured-output-tool-suppression-editorial-synthesis"
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-evaluation",
+  "source_hash": "55263e258c245c4621bb8375bcefbda25684514f141a06486809c3e3591b2493",
+  "translated_at": "2026-07-08T03:25:55.158640+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-evaluation",
+  "kind": "obstacle",
+  "title": "에이전트가 실제로 작동했는지 측정하는 것의 어려움",
+  "area": "evaluation",
+  "status": "active",
+  "summary": "챗봇은 최종 답변으로 평가되지만, 에이전트는 그곳에 도달하기까지의 모든 단계적 여정(도구 호출, 재시도, 결정)으로 평가되어야 합니다. 출력은 비결정적이며, '맞아 보이는' 답변도 실패 경로에서 나올 수 있습니다. 에이전트가 효과적으로 암기한 벤치마크는 새로운 환경에 대해서는 아무것도 알려주지 않습니다. 에이전트가 프로덕션에서 작동하는지 아는 것 자체가 해결되지 않은 공학적 문제입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>챗봇은 최종 답변으로 평가되지만, 에이전트는 그곳에 도달하기까지의 모든 단계적 여정(도구 호출, 재시도, 결정)으로 평가되어야 합니다. 출력은 비결정적이며, '맞아 보이는' 답변도 실패 경로에서 나올 수 있고, 에이전트가 효과적으로 암기한 벤치마크는 새로운 환경에 대해서는 아무것도 알려주지 않습니다. 에이전트가 프로덕션에서 작동하는지 아는 것 자체가 해결되지 않은 공학적 문제입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>평가는 두 가지 상호 보완적인 임무로 나뉩니다. 바로 단계 자체를 판단하는 것과 실제 환경 조건에서 결과를 판단하는 것입니다.</p>\n<p><strong class=\"\">궤적/프로세스 평가</strong>는 단순히 최종 문자열뿐만 아니라 단계를 판단합니다. 즉, 에이전트가 올바른 도구를 호출했고, 오류에서 회복했으며, 루프를 피했는지 여부입니다. 각주형 검사(\"LLM 에이전트가 말한 것뿐만 아니라 *무엇을 했는지* 테스트하라\")나 인과 관계 사슬을 포함하여 분류된 실패를 보고하는 실패 감지 시스템(AWS의 Strands Evals)과 같은 도구들은 이러한 구조화되고 단계별 판결로의 전환을 반영합니다. 레이블 자체도 같은 방향으로 진화하고 있습니다. OpenRCA 2.0은 근본 원인 분석을 전체적인 장문맥, 다단계 추론 및 도구 사용 테스트에서 결과 레이블로 가는 것이 아니라 인과적 프로세스 감독으로 재구성하며, 에이전트가 최종 답변에 도달했는지 여부뿐만 아니라 올바른 중간 단계를 추론했는지를 점수화하여 궤적 인지형 채점의 목표를 달성합니다.</p>\n<p><strong class=\"\">분포 변화에 따른 결과 평가</strong>는 두 번째 임무입니다. 반복적으로 발견되는 사실은 에이전트가 익숙한 벤치마크에서는 강력해 보이지만, \"익숙한 환경을 벗어나 실행될 때\" 급격히 성능이 저하된다는 것입니다. 따라서 정적인 리더보드는 실제 능력을 과대평가합니다. 인간 채점은 긴 추적을 확장할 수 없기 때문에, 이 분야는 <strong class=\"\">LLM-as-judge</strong> 채점(현재 프로덕션 추적에 소형 심판을 파인튜닝하여 비용을 절감하고, 공유 백본 멀티헤드 분류기 — Morph Reflexes는 추적을 한 번 읽고 단일 순방향 패스로 여러 행동 실패 모드를 점수화하여 30ms 미만의 지연 시간을 달성함)과 에이전트를 자체 도구에 대항하여 테스트하는 <strong class=\"\">에이전트 벤치마크</strong>에 의존합니다. 여기에는 도메인별 소규모 스위트(엔터프라이즈 Java 마이그레이션의 ScarfBench)와 단일 경계적 작업을 넘어 확장하는 장기 자율성 연구실(Emergence World)이 포함됩니다. 최전선은 사후 측정보다는 실제 대화 데이터에 배포를 시뮬레이션하여 출시 전에 행동을 예측하는 *배포 전* 예측입니다.</p>\n<p>평가 개선 루프 또한 레이블링 연습이라기보다는 <strong class=\"\">데이터 마이닝 문제</strong>로 재구성되고 있습니다. LangChain의 관행은 프로덕션 에이전트 추적에서 먼저 실패 클러스터를 마이닝한 다음, 해당 클러스터에 대해 심판을 파인튜닝(최전선 심판보다 저렴함)하고 이를 사용하여 에이전트 성능을 향상시키는 것입니다. 이는 \"무엇을 평가해야 하는가\"라는 질문에 미리 작성된 루브릭이 아닌 추적 자체가 답을 제공하도록 취급하는 것입니다.</p>\n<p>이제 두 가지 상반된 흐름이 낙관론을 제어하고 있습니다. <strong class=\"\">심판 자체에 대한 감사</strong>가 이루어지고 있습니다. BabelJudge는 언어와 에이전트 궤적 전반에 걸쳐 LLM-as-judge의 신뢰도를 측정하며, 원시 정확도가 숨기는 체계적인 편향(위치, 장황함, 언어)을 찾아냅니다. 따라서 궤적 심판 역시 그 판결을 신뢰하기 전에 자체적인 검증이 필요합니다.</p>\n<p>오랜 경험을 통해 얻은 <strong class=\"\">실무자 보고서</strong>(금융 에이전트에 대한 3년간의 평가; 대부분의 평가는 실제 Linear 영업 이메일 실패를 놓치는 이유에 대한 사후 분석)는 같은 경고로 수렴됩니다. 즉, 평가 스위트는 통과하지만 에이전트는 실제로 중요한 방식으로 실패하는 경우인데, 이는 스위트 자체가 실제 세계의 실패를 인코딩하지 못했기 때문입니다.</p>\n<p>건설적인 반대 재구성은 같은 진영에서 나옵니다. \"평가하기 어렵다\"는 것은 변명이 아니라 <strong class=\"\">제품의 문제점</strong>입니다. 좋은 출력이 무엇인지 명시할 수 없다면 그것은 해결해야 할 모호한 사양 문제이며, 평가의 어려움을 증명하는 것이 아니라 제품의 명확성을 강제하는 것이 바로 이 평가 작성이라는 규율입니다.</p>\n<p>테스트 대상 단위도 단일 에이전트에서 전체 <strong class=\"\">하네스(harness)</strong>로 확장되고 있습니다. GitHub는 20개 이상의 모델과 많은 작업을 아우르는 Copilot 에이전틱 하네스에 대한 평가에서 하네스의 결과와 토큰 효율성을 함께 평가하며, 에이전트+모델+골격을 테스트 대상 자체로 취급하고 해결된 작업당 비용을 일급 평가 지표로 만듭니다. 그리고 평가는 <a href=\"/topic/agent-observability\">관측 가능성</a>과 수렴하고 있습니다. 마이크로서비스 실패 진단을 위한 LLM 에이전트의 다중 데이터셋 벤치마크(AgentOps)는 승패가 아닌 멀티모달 추적 데이터에 대한 프로세스를 점수화하여 진단 경로를 평가하며, 따라서 추적이 양쪽 모두의 공유 기질이 됩니다.</p>\n<p>코딩 에이전트의 *출력*에 대해서는 세 번째 전선이 열립니다. 에이전트가 코드를 더 많이 작성할수록, \"테스트 통과\"는 병합에 충분한 증거가 아닙니다. 왜냐하면 녹색 스위트가 생성된 것의 구조적 품질이나 견고성에 대해서는 아무것도 말해주지 않으며, 이를 검토하는 인간의 비용이 새로운 병목 현상이 되고 있기 때문입니다. Topos는 <strong class=\"\">에이전트 작성 프로그램에 대한 구조적 코드 품질 지표</strong>로 이에 맞서며, 이는 통과/실패 테스트 게이트가 아닌 코드 자체에 대한 점수화된 신호를 제공하며, 코딩 에이전트에 대한 평가를 단순히 \"실행되는가\"가 아니라 \"이 변경 사항이 좋은가\"로 재구성합니다.</p>\n<p>네 번째 전선은 <strong class=\"\">LLM-as-judge 자체</strong>에 반대합니다. 심판을 파인튜닝하거나 감사하는 대신, 상태 저장 에이전트 평가에 대한 결정론적 대체 접근 방식은 상태 전이가 직접 확인할 수 있는 작업의 경우 모델 기반 채점 자체를 건너뜁니다. 이는 \"다른 LLM으로 심판하기\"가 작업을 프로그래밍 방식으로 확인할 수 있는 경우의 기본값일 뿐 유일한 선택지는 아니라는 점을 상기시켜 줍니다. 병렬적인 비판은 심판이 아닌 <strong class=\"\">벤치마크</strong>를 겨냥합니다. 실행 시간을 기준으로 베이스라인과 비교하여 코딩 에이전트를 점수화하는 성능 최적화 스위트(GSO, SWE-Perf, SWE-fficiency)는 측정 도구로서 자체적인 신뢰성 문제를 가지고 있음이 밝혀졌으며, 이는 \"익숙한 벤치마크가 능력을 과대평가한다\"는 기존의 발견을 \"벤치마크 자체의 숫자가 노이즈를 가질 수 있다\"로 더욱 날카롭게 만듭니다. 실무 분석은 그 노이즈에 숫자를 부여합니다. 동일한 모델을 코딩 작업에 반복 실행했을 때의 표준 편차가 7.5%였는데, 이는 비교에서 최고 등급과 최저 등급 모델 간의 격차보다 큽니다. 또한 약 100개 작업 세트에서 몇 가지 작업을 바꾸는 것만으로도 어떤 모델이 승리할지 뒤바뀌는데, 이는 레이스 코스가 최고의 사이클리스트를 결정하는 것과 같습니다. 통합은 도구 측면에서도 나타나고 있습니다. Harbor는 LangSmith의 샌드박스와 관측 가능성을 Deep Agents와 결합하여 장기간 실행되는 상태 저장 에이전트를 평가하기 위한 단일 스택을 만들었으며, 실무 보고서(Pendo가 LangSmith를 사용하여 사용자 행동에서 코드 수정까지 Novus 제품 에이전트를 추적한 사례)는 평가, 추적 및 모니터링이 세 개의 별도 도구가 아닌 하나의 워크플로우로 수렴하고 있음을 보여줍니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>에이전트를 개선하는 것은 <strong class=\"\">데이터 마이닝 문제</strong>로 재구성되고 있습니다. LangChain은 프로덕션 추적에서 실패 클러스터를 마이닝하고, 저렴한 심판을 파인튜닝하며, 이 신호로부터 에이전트 성능을 향상시킵니다. 이는 사전에 작성된 루브릭이 아닌 실제 실패로부터 평가 목표를 도출하는 것입니다.</p>\n<p>벤치마크 노이즈 역시 구체적인 숫자로 나타났습니다. 한 실무 분석은 코딩 작업에서 모델의 실행 간 표준 편차가 7.5%였음을 측정했는데, 이는 최고-최저 모델 격차보다 큰 수치입니다. 또한 약 100개 작업 세트에서 몇 가지 작업을 바꾸는 것만으로도 리더보드 순위가 뒤바뀐다는 것을 보여주었습니다. 같은 분석은 에이전틱 거짓 양성(false positives)에 대한 테스트 방법론적 해결책을 보고합니다. 즉, 의도적으로 반대되는 관점을 포함한 독립적인 검토자 페르소드를 통합하는 것이 더 강력한 모델로 업그레이드하는 것보다 효과적입니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>평가는 에이전트 스택의 회귀 테스트입니다. 이것 없이는 프롬프트 조정이나 모델 업그레이드가 침묵의 회귀인지 아닌지 알 수 없으며, 신뢰성에 숫자를 매길 수도 없습니다.</p>\n<p>하지만 모든 프로덕션 추적에 최전선 LLM을 심판으로 실행하는 것은 그 자체로 비용 및 지연 시간 항목이며, 에이전트가 효과적으로 훈련한 벤치마크는 잘못된 자신감을 줄 뿐입니다. 실제적인 임무는 CI 및 라이브 트래픽에서 실행할 수 있는 저렴하고 신뢰할 수 있으며 궤적 인지적인 평가 하네스를 구축하는 것이며, 이는 일회성 정확도 확인보다는 관측 가능성에 가깝습니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agent-benchmarks",
+      "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+      "slug": "llm-as-judge",
+      "title": "LLM-as-judge: model-graded evaluation of traces and outputs"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "b8b632a161a052e9",
+      "title": "The Roadmap to Mastering AI Agent Evaluation"
+    },
+    {
+      "sid": "12500c0bbe5e4d6f",
+      "title": "AI Agent Failure Detection and Root Cause Analysis with Strands Evals"
+    },
+    {
+      "sid": "4235792e910ea51a",
+      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+      "sid": "55809dc9368e7936",
+      "title": "Show HN: Rubric – test what your LLM agent did, not just what it said"
+    },
+    {
+      "sid": "f07b6a3f3f344020",
+      "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
+    },
+    {
+      "sid": "c000018ba1f03575",
+      "title": "Predicting model behavior before release by simulating deployment"
+    },
+    {
+      "sid": "c579e90dd1110817",
+      "title": "BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories"
+    },
+    {
+      "sid": "27f5cba0a6308a00",
+      "title": "Why most AI evals would miss the Linear sales email failure"
+    },
+    {
+      "sid": "00678eb9b30563c3",
+      "title": "Lessons from Building Evals for Financial AI Agents"
+    },
+    {
+      "sid": "7ef376842f782ecd",
+      "title": "Show HN: Topos – Structural code quality metrics for agent-written programs"
+    },
+    {
+      "sid": "8957450e5744d59e",
+      "title": "OpenRCA 2.0: From Outcome Labels to Causal Process Supervision"
+    },
+    {
+      "sid": "979d921c237f1c0b",
+      "title": "“It’s Hard to Eval” Is a Product Smell"
+    },
+    {
+      "sid": "2e0b2f76a5b7e197",
+      "title": "Evaluating performance and efficiency of the GitHub Copilot agentic harness across models and tasks"
+    },
+    {
+      "sid": "274255c89788d5c4",
+      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
+    },
+    {
+      "sid": "326b5d51b877e9cf",
+      "title": "Featuring Every Eval Ever Results on Hugging Face Model Pages"
+    },
+    {
+      "sid": "cf0a37dd32efaf51",
+      "title": "Show HN: Morph Reflexes – Multi-head classifiers for agent traces"
+    },
+    {
+      "sid": "59e3931d5ce8feeb",
+      "title": "Emergence World: A Laboratory for Evaluating Long-Horizon Agent Autonomy"
+    },
+    {
+      "sid": "d2b47e5ca2b10e4d",
+      "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration"
+    },
+    {
+      "sid": "5d87a279aac331cb",
+      "title": "A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation"
+    },
+    {
+      "sid": "20cd66043e9dab55",
+      "title": "Are Performance-Optimization Benchmarks Reliably Measuring Coding Agents?"
+    },
+    {
+      "sid": "1bfbb319ced0695a",
+      "title": "Harbor x LangChain: A Unified Stack for Evaluating Agents"
+    },
+    {
+      "sid": "20ef04d4cce6eb8c",
+      "title": "How Pendo uses LangSmith to trace Novus from user behavior to code fixes"
+    },
+    {
+      "sid": "d8ea565801623af0",
+      "title": "Agentic test processes, LLM benchmarks"
+    },
+    {
+      "sid": "4a0a79e7203bae64",
+      "title": "Improving Agents is a Data Mining Problem"
+    }
+  ],
+  "updated": "2026-07-07"
+}

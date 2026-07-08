@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>에이전트가 실제로 작동했는지 측정하는 것의 어려움 | LLM Digest</title>
+  <meta name="description" content="에이전트가 실제로 작동했는지 측정하는 것의 어려움" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/topic/agent-evaluation" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/topic/agent-evaluation" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="에이전트가 실제로 작동했는지 측정하는 것의 어려움" />
+  <meta property="og:description" content="에이전트가 실제로 작동했는지 측정하는 것의 어려움" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/topic/agent-evaluation" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/topic-agent-evaluation-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/topic-agent-evaluation-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="에이전트가 실제로 작동했는지 측정하는 것의 어려움" />
+  <meta name="twitter:description" content="에이전트가 실제로 작동했는지 측정하는 것의 어려움" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트가 실제로 작동했는지 측정하는 것의 어려움", "description": "A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, \"correct-looking\" answers can come from broken…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/agent-evaluation", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "에이전트가 실제로 작동했는지 측정하는 것의 어려움", "item": "https://www.llm-digest.com/topic/agent-evaluation"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
+  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; transition:border-color .12s ease, color .12s ease; }
+    menu a[role="button"]:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/map">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Engineering Wiki</h1>
+        <p id="meta" class="muted"></p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/topic/agent-evaluation" data-share-title="에이전트가 실제로 작동했는지 측정하는 것의 어려움">Share this page</button>
+        <a class="site-language-action" href="/topic/agent-evaluation" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">에이전트가 실제로 작동했는지 측정하는 것의 어려움</h2><p class="wiki-readout"><span class="on">🧱 Obstacle</span><span class="sep">·</span>evaluation<span class="sep">·</span>active<span class="sep">·</span>24 sources<span class="sep">·</span>updated 2026-07-07</p></section>
+      <!-- range is included in the custom hero -->
+
+      <div class="topic"><div class="topic-lead"><p>A chatbot is graded on its final answer; an agent has to be graded on what it *did* — the multi-step trajectory of tool calls, retries, and decisions that led there. Outputs are non-deterministic, &quot;correct-looking&quot; answers can come from broken paths, and a benchmark the agent has effectively memorized tells you nothing about a new environment. Knowing whether an agent works in production is itself an unsolved engineering problem.</p></div>
+<aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Solved by</span><ul><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/llm-as-judge">LLM-as-judge: model-graded evaluation of traces and outputs</a></li></ul></div></aside>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>Evaluation is splitting into two complementary jobs: judging the steps, and judging results under real-world conditions.</p>
+<p><strong>Trajectory / process evaluation</strong> judges the steps, not just the final string: did the agent call the right tools, recover from errors, and avoid loops. Tooling like rubric-style checks (&quot;test what your LLM agent *did*, not just what it said&quot;) and failure-detection systems that emit categorized failures with causal chains (AWS&#x27;s Strands Evals) reflect this shift toward structured, step-level verdicts. The labels themselves are moving the same way: OpenRCA 2.0 reframes root-cause analysis — a holistic test of long-context, multi-step reasoning, and tool use — from outcome labels to causal process supervision, scoring whether the agent reasoned through the right intermediate steps rather than only whether it landed the final answer, which is what trajectory-aware grading needs to train and audit a judge against.</p>
+<p><strong>Outcome evaluation under distribution shift</strong> is the second job: a recurring finding is that agents look strong on familiar benchmarks and degrade sharply when &quot;run beyond familiar environments,&quot; so static leaderboards over-state real-world capability. Because human grading doesn&#x27;t scale to long traces, the field leans on <strong>LLM-as-judge</strong> scoring (now being cost-reduced by fine-tuning small judges on production traces, and pushed further by shared-backbone multi-head classifiers — Morph Reflexes reads a trace once and scores several behavioral failure modes off the same forward pass for sub-30ms latency) and on <strong>agent benchmarks</strong> that exercise an agent against its own tooling — including domain-narrow suites (ScarfBench, on enterprise Java migration) and long-horizon autonomy labs (Emergence World) that push past single bounded tasks. The frontier edge is *pre*-deployment prediction — simulating deployment on real conversation data to forecast behavior before release rather than measuring it after an incident.</p>
+<p>The eval-improvement loop is also being reframed as a <strong>data-mining problem</strong> rather than a labeling exercise: LangChain&#x27;s practice is to mine production agent traces for failure clusters first, then fine-tune a judge on those clusters (cheaper than a frontier judge) and use it to hill-climb agent performance — treating &quot;what should we eval&quot; as a question the traces themselves answer, not a rubric written up front.</p>
+<p>Two countercurrents now temper the optimism. The <strong>judge itself is under audit</strong>: BabelJudge measures LLM-as-judge reliability across languages *and* agent trajectories and finds the systematic biases (position, verbosity, language) that raw accuracy hides — so a trajectory judge needs its own validation before you trust its verdicts.</p>
+<p>Hard-won <strong>practitioner write-ups</strong> (three years of evals for financial agents; a post-mortem on why most evals would miss a real Linear sales-email failure) converge on the same warning: an eval suite passes while the agent fails the way that actually matters, because the suite never encoded the real-world failure.</p>
+<p>The constructive counter-reframe lands from the same camp: &quot;*it&#x27;s hard to eval*&quot; is a <strong>product smell</strong>, not an excuse — if you can&#x27;t specify what good output is, that is a fuzzy-spec problem to fix, and the discipline of writing the eval forces the product clarity, rather than the difficulty proving eval impossible.</p>
+<p>The unit under test is also widening from a single agent to the whole <strong>harness</strong>: GitHub&#x27;s evaluation of its Copilot agentic harness across 20+ models and many tasks grades the harness&#x27;s results *and* token efficiency together, treating the agent+model+scaffold as the thing you benchmark and making cost-per-solved-task a first-class eval metric. And eval is converging with <a href="/topic/agent-observability">observability</a>: a multi-dataset benchmark for LLM agents in microservice failure diagnosis (AgentOps) scores process over outcome on multimodal trace data — grading the diagnosis path, not just the verdict — so the trace becomes the shared substrate for both.</p>
+<p>A third front opens on the *output* of coding agents specifically: as agents write more of the code, &quot;tests passing&quot; stops being sufficient evidence to merge, because a green suite says nothing about the structural quality or robustness of what was generated — and the human cost of reviewing it is becoming the new bottleneck. Topos attacks this with <strong>structural code-quality metrics for agent-written programs</strong> — graded signals on the code itself rather than a pass/fail test gate — reframing eval for code agents as &quot;is this change good,&quot; not just &quot;does it run.&quot;</p>
+<p>A fourth front pushes back on <strong>LLM-as-judge itself</strong>: rather than fine-tuning or auditing the judge, a deterministic-replacement approach for stateful agent evaluation skips model-graded scoring altogether for the class of tasks where state transitions can be checked directly — a reminder that &quot;judge with another LLM&quot; is a default, not the only option, when the task admits a programmatic check. A parallel critique targets the <strong>benchmarks</strong> rather than the judge: performance-optimization suites (GSO, SWE-Perf, SWE-fficiency) that score coding agents by comparing runtime against baselines turn out to have their own reliability problems as measurement instruments, sharpening the standing &quot;familiar benchmarks over-state capability&quot; finding into &quot;the benchmark&#x27;s own numbers can be noisy,&quot; not just non-representative. A practitioner analysis puts a number on that noise: one standard deviation between repeated runs of the *same* model on a coding task measured 7.5% — bigger than the gap between the best- and worst-ranked models in the comparison — and dropping or swapping a handful of tasks from a ~100-task set was enough to flip which model wins, the benchmark equivalent of a race course shaping who looks like the best cyclist. Consolidation is showing up on the tooling side too: Harbor pairs LangSmith&#x27;s sandboxes and observability with Deep Agents into one stack specifically for evaluating long-running, stateful agents, and practitioner write-ups (Pendo tracing its Novus product agent from user behavior to code fixes with LangSmith) show eval, tracing, and monitoring converging into one workflow rather than three separate tools.</p>
+<p>A fifth front lands on <strong>testing methodology</strong>, not just labels: LLM-written fuzzers surface real, serious bugs within minutes but have coverage gaps a hastily hand-written fuzzer would catch, so raw bug-finding recall isn&#x27;t proof of thorough testing. The practical fix for the false positives that follow is ensembling reviewers — independent agents checking the same artifact (a video, a generated test) under different personas, including a deliberately contrarian one, which cuts false positives more reliably than swapping in a stronger single model. Both findings converge on the same conclusion: a reasonable process around the model is at least as load-bearing as which model you use.</p></div></section>
+<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>Improving an agent is being reframed as a <strong>data-mining problem</strong>: LangChain mines production traces for failure clusters, fine-tunes a cheap judge on them, and hill-climbs agent performance from that signal — deriving the eval target from real failures instead of a rubric written in advance.</p>
+<p>Benchmark noise also got hard numbers: a practitioner analysis measured a model&#x27;s run-to-run standard deviation at 7.5% on a coding task — larger than the best-to-worst-model gap — and showed that swapping a few tasks in a ~100-task set flips the leaderboard order. The same analysis reports a testing-methodology fix for agentic false positives: ensembling independent reviewer personas, including a deliberately contrarian one, beats upgrading to a stronger model.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>Eval is the regression test of the agent stack — without it you cannot tell a prompt tweak or model upgrade from a silent regression, and you cannot put a number on reliability.</p>
+<p>But running a frontier LLM as a judge over every production trace is its own cost-and-latency line item, and a benchmark your agent has effectively trained on gives false confidence. The practical job is building a cheap, trustworthy, trajectory-aware eval harness you can run in CI and on live traffic — closer to observability than to a one-time accuracy check.</p></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 24 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/b8b632a161a052e9">The Roadmap to Mastering AI Agent Evaluation</a></li><li class="ev-story"><a href="/story/12500c0bbe5e4d6f">AI Agent Failure Detection and Root Cause Analysis with Strands Evals</a></li><li class="ev-story"><a href="/story/4235792e910ea51a">Building a 100x Cheaper Trace Judge with Fireworks</a></li><li class="ev-story"><a href="/story/55809dc9368e7936">Show HN: Rubric – test what your LLM agent did, not just what it said</a></li><li class="ev-story"><a href="/story/f07b6a3f3f344020">Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments</a></li><li class="ev-story"><a href="/story/c000018ba1f03575">Predicting model behavior before release by simulating deployment</a></li><li class="ev-story"><a href="/story/c579e90dd1110817">BabelJudge: Measuring LLM-as-a-Judge Reliability Across Languages and Agent Trajectories</a></li><li class="ev-story"><a href="/story/27f5cba0a6308a00">Why most AI evals would miss the Linear sales email failure</a></li><li class="ev-story"><a href="/story/00678eb9b30563c3">Lessons from Building Evals for Financial AI Agents</a></li><li class="ev-story"><a href="/story/7ef376842f782ecd">Show HN: Topos – Structural code quality metrics for agent-written programs</a></li><li class="ev-story"><a href="/story/8957450e5744d59e">OpenRCA 2.0: From Outcome Labels to Causal Process Supervision</a></li><li class="ev-story"><a href="/story/979d921c237f1c0b">“It’s Hard to Eval” Is a Product Smell</a></li><li class="ev-story"><a href="/story/2e0b2f76a5b7e197">Evaluating performance and efficiency of the GitHub Copilot agentic harness across models and tasks</a></li><li class="ev-story"><a href="/story/274255c89788d5c4">A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis</a></li><li class="ev-story"><a href="/story/326b5d51b877e9cf">Featuring Every Eval Ever Results on Hugging Face Model Pages</a></li><li class="ev-story"><a href="/story/cf0a37dd32efaf51">Show HN: Morph Reflexes – Multi-head classifiers for agent traces</a></li><li class="ev-story"><a href="/story/59e3931d5ce8feeb">Emergence World: A Laboratory for Evaluating Long-Horizon Agent Autonomy</a></li><li class="ev-story"><a href="/story/d2b47e5ca2b10e4d">ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration</a></li><li class="ev-story"><a href="/story/5d87a279aac331cb">A Deterministic Replacement for LLM-as-Judge in Stateful Agent Evaluation</a></li><li class="ev-story"><a href="/story/20cd66043e9dab55">Are Performance-Optimization Benchmarks Reliably Measuring Coding Agents?</a></li><li class="ev-story"><a href="/story/1bfbb319ced0695a">Harbor x LangChain: A Unified Stack for Evaluating Agents</a></li><li class="ev-story"><a href="/story/20ef04d4cce6eb8c">How Pendo uses LangSmith to trace Novus from user behavior to code fixes</a></li><li class="ev-story"><a href="/story/d8ea565801623af0">Agentic test processes, LLM benchmarks</a></li><li class="ev-story"><a href="/story/4a0a79e7203bae64">Improving Agents is a Data Mining Problem</a></li></ul></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260701" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

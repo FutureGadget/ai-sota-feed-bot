@@ -1,0 +1,59 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-tracing",
+  "source_hash": "bc9ac9ca9d9686ff2fd6cd04aaccf188b8ced2d6ec18b04225b4e1f06edec3b1",
+  "translated_at": "2026-07-08T03:40:12.759792+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-tracing",
+  "kind": "solution",
+  "title": "에이전트 실행 추적 및 분석",
+  "area": null,
+  "status": "active",
+  "summary": "모든 에이전트 실행(프롬프트, 도구 호출, 결과, 재시도 및 서브 에이전트 핸드오프 포함)을 구조화된 추적 형태로 공통 형식으로 캡처하고, 이 추적들을 분석하여 문제 발생 원인을 파악합니다. 추적은 에이전트가 간헐적으로 오작동하는 블랙박스가 아닌, 디버깅 및 평가, 운영이 가능한 기반을 마련해 줍니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>모든 에이전트 실행(프롬프트, 도구 호출, 결과, 재시도 및 서브 에이전트 핸드오프 포함)을 구조화된 추적 형태로 공통 형식으로 캡처하고, 이 추적들을 분석하여 문제 발생 원인을 파악합니다. 추적은 에이전트가 간헐적으로 오작동하는 블랙박스가 아닌, 디버깅 및 평가, 운영이 가능한 기반을 마련해 줍니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>두 가지 계층이 성숙해지고 있습니다. <strong >캡처</strong > 계층은 표준화되고 있습니다. OpenInference/OpenTelemetry 스타일의 스팬 및 추적 저장소(Langfuse, Arize)는 실행에 대한 이식 가능한 기록을 제공하며, 경량 설정은 플레인 JSONL로 대체되어 추적이 특정 공급업체에 종속되지 않습니다. <strong >분석</strong > 계층에서 최근 움직임이 나타나고 있습니다. 엔지니어에게 스팬을 스크롤하도록 요청하는 대신, 도구들은 추적 코퍼스에 모델을 실행하여 반복되는 실패를 클러스터링하고 해결책을 제안합니다. HALO는 Langfuse/Arize/JSONL 추적을 수집하고 RLM 기반 엔진을 사용하여 실행 전반의 반복적인 실패 패턴을 찾는 오픈 소스 로컬 예시입니다. 관리형 플랫폼들은 이를 제품으로 밀고 있습니다. LangSmith의 플릿 온콜 코파일럿은 라이브 추적에서 경고를 분류하고 음성/추적 디버깅 및 실험 상태 추적을 추가하여, 추적 읽기를 지원 워크플로우로 전환합니다. 공통적인 방향은 *추적 입력, 설명 출력*입니다. 추적은 더 이상 감사 로그가 아니라 자동 진단 루프의 입력이 됩니다.</p>\n<p>캡처 자체도 <strong >제로 설정</strong > 환경으로 상업화되기 시작했습니다. Foglamp는 에이전트가 자체적으로 LLM 호출을 감지하고 구성이나 코드를 건드리지 않고도 계측하며, 비용/호출, 지연 시간 및 품질/평가 점수를 대시보드에 표시합니다. 이는 격리 도구에 적용된 것과 같은 즉각적인 방식이지만, 관측 가능성에 적용됩니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>추적 설정에 <strong >제로 설정</strong > 진입자가 등장했습니다. Foglamp는 수동 통합 없이 에이전트의 LLM 호출을 자동 계측하며, 설정 가능성을 단일 단계 설정과 교환하여 호출당 비용, 지연 시간 및 품질을 표시합니다.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>추적은 계측 오버헤드와 저장 공간을 추가하며, 고카디널리티 추적은 플릿 규모에서 보존하고 검색하는 데 비용이 많이 듭니다. 따라서 보존, 샘플링 및 PII 스크러빙은 실제적인 결정이 됩니다. 추적에 대한 모델 분석 자체도 LLM 비용 및 신뢰성 항목입니다(분석기가 틀리거나 희귀한 실패를 놓칠 수 있음). 또한 공급업체 추적 형식은 종속성을 만들 수 있습니다. 플레인 JSONL은 이식성이 있지만 분석 부담을 사용자에게 전가합니다. 최고의 가치는 캡처 형식을 조기에 표준화하여 분석 계층(자체 구축 또는 관리형)이 교체 가능하게 유지하는 데서 나옵니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>추적은 에이전트의 로그 및 메트릭과 같습니다. 이는 평가(캡처한 궤적을 등급 매기는 것), 비용 통제(단계별 토큰 귀속), 인시던트 대응을 위한 전제 조건입니다. 이식 가능한 추적 형식과 분석 루프를 갖는 것이 에이전트를 운영하는 것과 추측만 하는 것의 차이를 만듭니다.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-observability",
+      "title": "You can't see why an agent did what it did"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "5d7159ca706a44c0",
+      "title": "Show HN: RLM-based local debugger for AI agent traces"
+    },
+    {
+      "sid": "8d1dc5b79d8b1372",
+      "title": "June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More"
+    },
+    {
+      "sid": "b71a53d3b8d39831",
+      "title": "Foglamp: Agent Observability"
+    }
+  ],
+  "updated": "2026-07-04"
+}

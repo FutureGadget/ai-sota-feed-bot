@@ -1,0 +1,99 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/prompt-injection",
+  "source_hash": "9659be97d2da0d7e82467f5b5be45904e34542d60c61c75bb1d1aca811d5864b",
+  "translated_at": "2026-07-08T03:51:47.612364+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "prompt-injection",
+  "kind": "obstacle",
+  "title": "신뢰할 수 없는 입력과 도구가 에이전트를 탈취할 수 있습니다",
+  "area": "security",
+  "status": "active",
+  "summary": "에이전트는 읽는 모든 것(웹 페이지, 도구 결과, 파일, 다른 에이전트의 메시지)을 따를 수 있는 지침으로 간주합니다. 프롬프트 인젝션은 이를 공격으로 바꿉니다. 숨겨진 텍스트는 에이전트를 데이터 유출, 도구 오용 또는 권한 상승을 하도록 리디렉션합니다. 에이전트는 실제 자격 증명을 가지고 행동할 수 있으므로, 성공적인 인젝션은 잘못된 답변이 아니라 무단 행위입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트는 읽는 모든 것—웹 페이지, 도구 결과, 파일, 다른 에이전트의 메시지—을 따를 수 있는 지침으로 간주합니다. 프롬프트 인젝션은 이를 공격으로 바꿉니다. 숨겨진 텍스트는 에이전트를 데이터 유출, 도구 오용 또는 권한 상승을 하도록 리디렉션합니다. 에이전트는 실제 자격 증명을 가지고 행동할 수 있으므로, 성공적인 인젝션은 잘못된 답변이 아니라 무단 행위입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>근본적인 원인은 이제 <strong class=\"\">역할 혼란(role confusion)</strong>으로 유용하게 규정됩니다. LLM은 \"내 운영자로부터의 지침\"과 \"처리 요청받은 데이터\"를 분리할 신뢰할 수 있는 채널이 없기 때문에, 도구 결과나 가져온 페이지로 도착한 텍스트가 운영자의 역할을 가정하고 복종될 수 있습니다. 이를 이렇게 명명하는 것은 프롬프트 위생만으로는 해결할 수 없는 이유를 명확히 합니다. 모델은 본질적으로 구축된 대로 작동하여 컨텍스트 내 텍스트를 권위 있는 것으로 취급하기 때문입니다. 그리고 지속적인 통제는 \"악성\" 문자열을 탐지하는 것이 아니라 *권한 부여*에 존재합니다. 깨끗한 해결책은 없으며, 오직 계층적 완화만이 있을 뿐이며 각 계층에는 알려진 취약점이 있습니다.</p>\n<p>입력/출력을 검사하는 <strong class=\"\">가드레일 모델(Guardrail models)</strong>이 일반적인 방어책이지만, 최근 연구에 따르면 이러한 모델을 효과적으로 만드는 바로 그 추론이 공격의 표적이 되기도 합니다. \"From Shield to Target\"은 가드레일을 보호 대상 에이전트에 맞서 무기화하는 서비스 거부 공격을 보여줍니다.</p>\n<p><strong class=\"\">샌드박싱(Sandboxing)</strong>은 필요하지만 충분하지 않습니다. 코딩 에이전트의 샌드박스는 코드 실행은 포함하지만 자격 증명 부여에 대해서는 아무것도 하지 않습니다. 샌드박스 안의 에이전트는 여전히 인젝션된 명령어가 악용할 수 있는 토큰을 가지고 있습니다.</p>\n<p>이러한 위협은 <strong class=\"\">멀티에이전트 시스템(multi-agent systems)</strong>에서 가중됩니다. 여기서 하나의 손상된 에이전트의 출력물이 다른 에이전트에게는 신뢰할 수 있는 입력이 됩니다. 새로운 벤치마크(Deep-XPIA)는 에이전트 간(간접적) 프롬프트 인젝션 노출을 측정하기 위해 등장하고 있습니다.</p>\n<p>지속적인 교훈은 <strong class=\"\">최소 권한 원칙(least privilege)</strong>입니다. 에이전트가 건드릴 수 있는 범위를 제한하여 탈취의 공격 반경을 작게 만들어야 합니다. 운영적 관점은 <strong class=\"\">에이전트를 신원으로 간주(agent-as-identity)</strong>하는 쪽으로 통합되고 있습니다. 자율적인 에이전트는 자격 증명을 가지고 행동을 취하므로, 서비스 계정과 동일한 수명 주기, 범위 및 감사를 갖는 비인간적 신원입니다. 보안 팀들은 대부분의 조직이 아직 에이전트를 그렇게 취급하지 않아, 인젝션 공격이 이용할 수 있는 권한을 가진 통제되지 않은 행위자 계층이 남아 있다고 경고합니다.</p>\n<p>레드팀 운영 전문가들(<strong class=\"\">Gray Swan</strong>, OpenAI의 Zico Kolter)은 공격 측면에서도 같은 주장을 펼칩니다. 에이전트 보안은 단순히 \"AI를 뿌린 사이버 보안\"이 아닙니다. 공격 표면은 적대적 입력에 대한 모델의 행동이며, 따라서 에이전트 자체의 결정과 도구 사용에 대한 전용 레드팀 운영이 필요하며, 단순히 주변 경계만으로는 부족합니다.</p>\n<p>더 미묘한 침식은 에이전트 자체의 내부 구조에서 발생합니다. \"<strong class=\"\">거버넌스 퇴화(Governance Decay)</strong>\"는 긴 세션을 저렴하게 유지하기 위해 사용되는 <a href=\"/topic/context-compaction\">컨텍스트 압축</a>이 처음에 설정된 안전 및 거버넌스 제약을 조용히 축출할 수 있음을 보여줍니다. 따라서 첫 번째 턴에서 유지되던 가드레일은 쉰 번째 턴에는 사라집니다. 이는 인젝션에 대한 방어책이 압축 가능한 창 밖에 고정되어야 하며, 요약본에 살아남을 것이라고 신뢰해서는 안 된다는 것을 의미합니다.</p>\n<p>업계의 관점은 <strong class=\"\">ReAct 루프</strong>가 실제로 깨지는 지점에 수렴하고 있습니다. 이제 전문가들의 가이드는 취약점을 컨텍스트(읽는 것), 추론(모델이 결정하는 것), 도구 실행(허용된 행동)에서 별도로 찾아내며, 메모리 포이즈닝과 악성 도구 실행을 구체적인 실패 모드로 명명하고, 임의 규칙이 아닌 명명된 위협 모델(MAESTRO)에 맞춘 방어 심층(defense-in-depth)—계층적 통제와 에이전트의 자체 결정에 대한 LLM 심판 비평가—을 권장합니다.</p>\n<p>모델 제공업체들도 탈옥 저항성을 일회성 강화 작업이 아닌 <strong class=\"\">지속적이고 버전 관리되는 출시 문제</strong>로 다루고 있습니다. Anthropic이 Claude Fable 5를 재배포하면서 새로운 업계 탈옥 프레임워크와 함께 업데이트된 사이버 보안 안전장치를 제공한 것은, 레드팀 운영의 노력(Gray Swan, Kolter)이 출하된 모델 업데이트에 피드백되고 있음을 보여주는 증거입니다.</p>\n<p>그 프레임워크는 단순한 발표를 넘어 구체적인 후속 조치를 얻고 있습니다. Anthropic은 이후 사이버 분류기가 무엇을 차단하고 무엇을 차단하지 않는지 공개하는 동시에 탈옥의 *심각도* 프레임워크 초안을 발표했습니다. 이는 단순히 탈옥 여부를 탐지하는 것이 아니라, 성공적인 탈옥이 얼마나 심각한지를 등급화하여 제공업체가 모든 우회를 동등하게 긴급하게 취급하는 대신 문제 해결을 분류하고 우선순위를 지정할 수 있게 합니다.</p>\n<p><strong class=\"\">하네스 기본값(harness default)</strong> 역시 더 엄격한 권한 부여 쪽으로 이동하고 있습니다. Claude Code는 CLI, VS Code 및 JetBrains 전반에 걸쳐 기본 권한 모드를 \"수동(Manual)\"으로 변경했으며(<code class=\"\">AskUserQuestion</code> 대화가 자동 계속되는 것을 중단), 최소 권한을 옵트인 설정이 아닌 기본 동작으로 제공하고 있습니다. 이는 대부분의 성공적인 인젝션이 기본 구성이 허용하는 것과 사용자가 실제로 승인하고자 했던 것 사이의 간극을 정확히 악용하기 때문에 중요합니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>탈옥 방어는 <strong class=\"\">더욱 세분화(more granular)</strong>되고 있습니다. Anthropic은 Fable 5 재배포에 이어 사이버 분류기가 무엇을 차단하고 무엇을 차단하지 않는지 공개한 뒤, 탈옥이 발생했는지 여부뿐만 아니라 우회가 얼마나 심각한지를 등급화하는 탈옥 *심각도* 프레임워크 초안을 발표했습니다. 병행하여, 하네스 기본값은 최소 권한 쪽으로 이동했습니다. Claude Code는 CLI 및 IDE 통합 전반에 걸쳐 기본적으로 \"수동(Manual)\" 권한 모드를 사용하며, 대부분의 성공적인 인젝션이 악용했던 기본 구성이 허용하는 것과 사용자가 실제로 승인한 것 사이의 간극을 좁히고 있습니다.</p>\n<p>이는 \"프롬프트 필터링\"에서 \"<strong class=\"\">행위자 통제(govern the actor)</strong>\"로의 근본적인 변화(에이전트를 신원으로 간주, 매개변수별 권한, 승인 게이트 쓰기)를 기반으로 하며, 인젝션의 근본 원인을 <strong class=\"\">역할 혼란</strong>으로 규정하고, 네트워크 외부 송신 경계를 관리되는 통제(Google Cloud VPC Service Controls)로 삼으며, ReAct 루프의 세 가지 공격 지점에 대한 명명된 위협 모델(MAESTRO)을 적용합니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>이것이 전체 에이전트 스택의 보안 경계이며, 올바르게 수행된 일반적인 운영 통제와 연결됩니다. 즉, 범위가 지정된 자격 증명, 도구별 권한 부여, 네트워크 외부 송신 제한, 고위험 작업에 대한 인간 승인입니다. 실수는 샌드박스나 가드레일 모델을 해결책으로 취급하는 것입니다. 둘 다 계층이며, 둘 다 공개된 우회 경로가 있습니다. 연결하는 모든 도구(<a href=\"/topic/tool-use\">도구 사용</a> 참조)가 공격 표면을 넓히므로, 진정한 통제는 프롬프트 위생만이 아니라 권한 부여와 공격 반경 제한입니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agent-sandboxing",
+      "title": "Sandboxing, scoped credentials, and guardrails"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "2f58221195cbccdf",
+      "title": "Show HN: Deep-XPIA – Prompt injection benchmark for multi-agent AI systems"
+    },
+    {
+      "sid": "6b3ed4b86d0301bf",
+      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
+    },
+    {
+      "sid": "2f585fd257ad02a4",
+      "title": "Coding Agent Sandboxes Don't Solve Credential Authorization"
+    },
+    {
+      "sid": "dd1dcc3f564a3ddd",
+      "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way"
+    },
+    {
+      "sid": "9ef99508d91d13ed",
+      "title": "claude-code v2.1.178"
+    },
+    {
+      "sid": "810e8370a6841be6",
+      "title": "datasette-agent 0.3a0"
+    },
+    {
+      "sid": "0ef52ef7cd8a9e75",
+      "title": "Red-Teaming after Mythos — Zico Kolter & Matt Fredrikson, Gray Swan"
+    },
+    {
+      "sid": "f26c96cfcb192832",
+      "title": "Prompt Injection as Role Confusion"
+    },
+    {
+      "sid": "9c19b2212d6264ac",
+      "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents"
+    },
+    {
+      "sid": "655ca293c796f3fd",
+      "title": "Securing agentic AI with perimeter guardrails: What's new in VPC Service Controls"
+    },
+    {
+      "sid": "61a5c70b3cae54c5",
+      "title": "Presentation: Trustworthy Productivity: Securing AI-Accelerated Development"
+    },
+    {
+      "sid": "fdd9745edc3aad4e",
+      "title": "Redeploying Claude Fable 5"
+    },
+    {
+      "sid": "aaef033dfabe2831",
+      "title": "More details on Fable 5’s cyber safeguards and our jailbreak framework"
+    },
+    {
+      "sid": "f9a1870648a6375a",
+      "title": "claude-code v2.1.200"
+    }
+  ],
+  "updated": "2026-07-03"
+}

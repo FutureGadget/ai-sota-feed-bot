@@ -1,0 +1,120 @@
+{
+  "locale": "ko",
+  "source_path": "/foundations/prompt-reliability",
+  "source_hash": "ff7b4fadf0b1f7c141050e81f282d2cfb45a7697968fdcd2bc5cdb99edcd8b74",
+  "translated_at": "2026-07-08T03:18:13.176902+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "prompt-reliability",
+  "title": "프롬프트의 신뢰성을 높이는 요소는 무엇인가?",
+  "question": "What makes a prompt reliable?",
+  "summary": "신뢰성 있는 프롬프트는 모호성을 줄이고, 출력을 제약하며, 실패를 측정 가능하게 만듭니다.",
+  "status": "active",
+  "cluster": "prompting",
+  "cluster_label": "Prompting and instruction following",
+  "updated": "2026-07-02",
+  "audience": "strong-software-engineer",
+  "math_depth": "intuition",
+  "sections": [
+    {
+      "heading": "Builder consequence",
+      "html": "<p>신뢰성 있는 프롬프트는 산문이 아니라 인터페이스입니다. 에이전트 단계가 중요하다면, 계약서처럼 프롬프트를 작성하십시오. 해당 단계의 역할, 사용 가능한 입력, 필요한 출력 형태, 의사 결정 규칙 및 테스트할 실패 동작을 정의해야 합니다.</p>"
+    },
+    {
+      "heading": "Short answer",
+      "html": "<p>좋은 프롬프트는 작업을 해결하는 데 필요한 정보를 보존하면서 모델의 다음 토큰 생성에 대한 모호성을 줄입니다. 지침은 목표를 설정하고, 예시는 국지적 패턴을 보여주며, 스키마는 출력 채널을 제약하고, 평가(evals)는 해당 계약이 모델, 컨텍스트 및 데이터 변경을 견디는지 알려줍니다.</p>"
+    },
+    {
+      "heading": "Builder model",
+      "html": "<p>모든 중요한 프롬프트를 작은 API로 취급하십시오. 입력은 전달하는 컨텍스트이고, 구현은 모델이 학습한 분포이며, 출력 계약은 다운스트림 코드나 사람이 소비하는 것입니다. 신뢰성은 프롬프트가 원하는 다음 토큰 생성을 근처의 잘못된 생성보다 더 쉽게 만들고, 대표적인 사례로 그 동작을 검증할 때 향상됩니다.</p>"
+    },
+    {
+      "heading": "Mechanism",
+      "html": "<p>자기회귀 언어 모델은 이전 토큰들에 조건화되어 다음 토큰을 예측합니다. 따라서 프롬프트는 단순한 지침이 아니라 모든 후속 토큰에 대한 조건화 환경입니다. 명확한 작업 프레이밍, 예시, 구분 기호 및 출력 스키마는 어떤 다음 토큰 생성이 가능성을 갖는지 바꿉니다.</p>\n<p>다음 네 가지 기법은 동일한 근본적인 이유로 작동합니다. 즉, 모델이 가능하다고 생각하는 다음 토큰 생성을 좁혀줍니다:</p>\n<ul><li><strong>Few-shot examples</strong>: 컨텍스트에 패턴을 직접 배치합니다.</li><li><strong>Chain-of-thought examples</strong>: 최종 답변 전에 중간 표현을 시연하여 다단계 문제에 도움을 줍니다.</li><li><strong>Self-consistency</strong>: 모델이 여러 샘플링된 경로를 통해 동일한 답변에 도달할 수 있을 때 도움이 됩니다.</li><li><strong>Long context is not automatically reliable context</strong>: 긴 컨텍스트가 자동으로 신뢰할 수 있는 컨텍스트인 것은 아닙니다. — 관련 정보는 중간에 묻혀 있으면 사용하기 어려울 수 있습니다.</li></ul>"
+    },
+    {
+      "heading": "Math intuition",
+      "html": "<p>모델이 가능한 다음 토큰 경로에 걸쳐 확률 질량을 할당한다고 생각하십시오. 모호한 프롬프트는 설명, 거부, 부분 답변, 잘못된 형식, 숨겨진 가정 등 많은 그럴듯한 완성본에 걸쳐 질량을 분산시킵니다. 신뢰성 있는 프롬프트는 허용 가능한 영역 주변에 질량을 집중시킵니다.</p>\n<p>예시는 국지적 좌표처럼 작용합니다. 이는 모델에게 원하는 매핑의 종류를 보여줍니다. 스키마는 출력 부분 공간을 좁힙니다. 구분 기호(Delimiters)는 지침, 검색된 텍스트 및 사용자 데이터 간의 우발적인 혼합을 줄입니다. 평가는 실제로 중요한 사례 전반에 걸쳐 확률 질량이 올바른 영역에 머무는지 추정합니다.</p>"
+    },
+    {
+      "heading": "Evidence",
+      "html": "<ul><li>이론/논문 기반: \"Language Models are Few-Shot Learners\"는 대규모 언어 모델이 컨텍스트에 직접 배치된 지침과 예시로부터 새로운 작업에 적응할 수 있음을 보여줍니다.</li><li>벤치마크/결과 기반: Chain-of-thought prompting 및 self-consistency는 프롬프트가 중간 추론이나 여러 추론 경로를 샘플링할 때 추론 벤치마크에서 향상을 보고합니다.</li><li>벤치마크/결과 기반: \"Lost in the Middle\"은 관련 증거가 부적절한 위치에 놓이면 더 많은 컨텍스트를 추가하는 것이 신뢰성을 떨어뜨릴 수 있음을 보여줍니다.</li><li>편집적 추론: 프로덕션 에이전트의 경우, 이러한 발견은 프롬프트 품질이 인터페이스 설계 및 평가와 불가분의 관계에 있음을 시사합니다.</li></ul>"
+    },
+    {
+      "heading": "How to apply",
+      "html": "<p>단어 선택을 다듬기 전에 프롬프트 계약서를 작성하십시오:</p>\n<ul><li>작업, 입력 필드, 모델이 무시해야 할 내용, 출력 스키마 및 증거가 누락되었을 때 취할 조치를 명시하십시오.</li><li>휘발성이거나 신뢰할 수 없는 콘텐츠는 명확한 구분 기호 뒤에 배치하십시오.</li><li>특히 컨텍스트가 길 경우, 결정적인 지침은 해당 작업을 관장하는 내용 가까이에 두십시오.</li></ul>\n<p>에이전트 시스템의 경우, 깨끗한 성공 사례, 정보 누락 사례, 적대적이거나 관련 없는 컨텍스트, 형식 안정성 검사를 포함하는 작은 평가 세트를 프롬프트와 함께 사용하십시오. 한 번에 하나의 프롬프트 차원만 변경한 다음, 계약서와 출력물을 비교하십시오. 다운스트림 코드가 답변을 구문 분석한다면, 스키마 준수는 형식적 세련됨이 아니라 정확성의 일부입니다.</p>"
+    },
+    {
+      "heading": "Failure modes",
+      "html": "<ul><li>프롬프트 팁 복사: 자신의 작업에 적용했을 때 동작을 바꾸는지 테스트하지 않고 영리한 구절을 차용하는 것.</li><li>컨텍스트 채우기(Context stuffing): 결정적인 증거를 찾기가 더 어려워질 때까지 검색된 텍스트를 계속 추가하는 것.</li><li>숨겨진 계약: JSON, 인용 또는 도구 인수를 기대하지만 이러한 제약을 명시하지 않는 것.</li><li>부정적 사례 없음: 쉬운 예제만 테스트하여, 첫 번째 모호한 프로덕션 입력이 올 때까지 프롬프트가 신뢰할 수 있는 것처럼 보이는 것.</li><li>보안 혼란: 샌드박싱, 권한 및 출력 검증을 사용하는 대신 프롬프트 문구에 의존하여 신뢰할 수 없는 지침을 제어하려는 것.</li></ul>"
+    },
+    {
+      "heading": "Related",
+      "html": "<p>프롬프트 변경이 도움이 되었는지 테스트하려면 <a href=\"/topic/agent-evaluation\">에이전트 평가</a>를 사용하고, 작업 집합을 사용할 수 있도록 유지하려면 <a href=\"/topic/context-compaction\">컨텍스트 압축</a>을 사용하며, 프롬프트에 신뢰할 수 없는 텍스트나 도구 출력이 포함된 경우에는 <a href=\"/topic/prompt-injection\">프롬프트 인젝션</a>을 사용하십시오.</p>"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "brown-2020-language-models",
+      "kind": "theory-paper",
+      "tier": "theory/paper-backed",
+      "title": "Language Models are Few-Shot Learners",
+      "note": "Shows that task behavior can be specified through instructions and examples in context, without gradient updates.",
+      "url": "https://arxiv.org/abs/2005.14165"
+    },
+    {
+      "id": "wei-2022-chain-of-thought",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models",
+      "note": "Reports that exemplars with intermediate reasoning improve performance on arithmetic, commonsense, and symbolic reasoning tasks.",
+      "url": "https://arxiv.org/abs/2201.11903"
+    },
+    {
+      "id": "wang-2022-self-consistency",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Self-Consistency Improves Chain of Thought Reasoning in Language Models",
+      "note": "Shows that sampling multiple reasoning paths and selecting a consistent answer can improve reasoning benchmark accuracy.",
+      "url": "https://arxiv.org/abs/2203.11171"
+    },
+    {
+      "id": "liu-2023-lost-in-the-middle",
+      "kind": "benchmark-result",
+      "tier": "benchmark/result-backed",
+      "title": "Lost in the Middle: How Language Models Use Long Contexts",
+      "note": "Finds that long-context models can perform worse when relevant information appears in the middle of the context.",
+      "url": "https://arxiv.org/abs/2307.03172"
+    },
+    {
+      "id": "prompt-reliability-editorial-synthesis",
+      "kind": "editorial-inference",
+      "tier": "editorial inference",
+      "title": "LLM Digest synthesis",
+      "note": "For agent builders, prompt reliability should be treated as an interface and evaluation problem, not a copywriting problem."
+    }
+  ],
+  "related_topics": [
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+      "slug": "context-compaction",
+      "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+      "slug": "prompt-injection",
+      "title": "Untrusted input and tools can hijack an agent"
+    }
+  ],
+  "related_playbook_cards": [],
+  "related_storylines": [],
+  "covers_evidence": [
+    "brown-2020-language-models",
+    "wei-2022-chain-of-thought",
+    "wang-2022-self-consistency",
+    "liu-2023-lost-in-the-middle",
+    "prompt-reliability-editorial-synthesis"
+  ]
+}

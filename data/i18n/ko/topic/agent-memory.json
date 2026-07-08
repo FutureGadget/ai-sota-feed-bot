@@ -1,0 +1,147 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-memory",
+  "source_hash": "31d1346c7add20de98e30f59263b419c51ebf5641ff9190223e048a63d9ba496",
+  "translated_at": "2026-07-08T03:30:35.566078+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-memory",
+  "kind": "obstacle",
+  "title": "에이전트의 단계 및 세션 간 기억 소실 문제",
+  "area": "memory",
+  "status": "active",
+  "summary": "에이전트의 작업 기억은 유한하며 실행마다 초기화되는 컨텍스트 창입니다. 장기적인 작업을 수행할 때, 에이전트는 이전 단계를 잊고 작업을 반복하며 사용자의 의도를 놓치게 됩니다. 따라서 \"에이전트 메모리\"(무엇을 보존하고, 어디서, 어떻게 회상할지)는 단순한 프롬프트 조정이 아닌 근본적인 아키텍처 문제입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트의 작업 기억은 유한하며 실행 사이에 초기화되는 컨텍스트 창입니다. 장기적인 작업을 수행할 때, 에이전트는 이전 단계를 잊고 작업을 반복하며 사용자의 의도를 놓치게 됩니다. 따라서 \"에이전트 메모리\"(무엇을 보존하고, 어디서, 어떻게 회상할지)는 단순한 프롬프트 조정이 아닌 1급 아키텍처 문제가 됩니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>이 분야는 단일 저장소보다는 <strong>계층적 시스템으로서의 메모리</strong>에 수렴하고 있습니다. 즉, 단기/작업 기억(실시간 컨텍스트 창), 에피소드적 기억(과거 상호 작용 로그), 장기/의미론적 기억(영구적인 사실 및 선호도)입니다. LinkedIn의 인지 메모리 관련 글은 이러한 분할을 명시적으로 다루며 유용한 참고 아키텍처를 제공합니다.</p>\n<p>이 계층적 모델은 이제 공개적이고 <strong>프로덕션 등급의 구현체</strong>를 갖추었습니다. Elastic의 Atlas는 Elasticsearch 위에 세 가지 메모리 카테고리를 구현하며(많은 팀이 이미 사용 중), MCP를 통해 에이전트에 노출시키고, 사용자별 메모리를 격리하며, 데모가 아닌 평가 수치를 보고함으로써 \"인지 메모리\"를 참고 다이어그램에서 배포 가능한 컴포넌트로 끌어올렸습니다. 실무자들은 이를 메모리가 *\"기억하라\"는 데모 단계를 벗어나* 실제 엔지니어링 레이어가 되었음을 의미한다고 해석합니다.</p>\n<p>이제 어려운 질문은 \"에이전트가 메모리를 가져야 하는가?\"가 아니라 <strong>무엇을, 언제 기록할지, 그리고 올바른 조각을 저렴하게 회상하는 방법</strong>입니다. 이는 두 가지 연결된 솔루션이 갈라지는 지점입니다: 외부 저장소(벡터/그래프 지식 기반)에서 검색하는 것 대 압축을 통해 작업 집합(working set)을 작게 유지하는 것입니다.</p>\n<p>회상 자체도 면밀히 검토되고 있습니다. \"Root Memories\"는 유사성 기반 검색이 쿼리와 문자적으로 가까운 기억뿐만 아니라 *논리적으로* 관련된 기억을 놓칠 수 있음을 보여주므로, 회상 단계는 저장된 내용에 대해 추론해야 하며 단순히 임베딩 및 순위를 매기는 것 이상의 작업이 필요합니다(벡터/그래프 검색 참조).</p>\n<p>시장은 <strong>구축 대 구매(build-vs-buy)</strong>의 경계선을 따라 분화되고 있습니다. 관리형 서비스(예: Cloudflare의 영구 에이전트 메모리 서비스)는 메모리를 구매 가능한 인프라로 이동시키는 반면, 병렬적으로 등장한 로컬 우선 단일 파일 개발자 소유 저장소들은 메모리를 임대하는 서비스가 아닌 설치하고 소유하는 컴포넌트로 취급합니다:</p>\n<ul><li>하나의 SQLite 파일에 바이-템포럴 메모리 구현 (Memharness)</li><li>MCP를 통한 로컬 우선 암호화 메모리 (Cortex)</li><li>큐레이션된 파일 기반 프로젝트 메모리 (Brain2.0)</li><li>LLM 호출이 거의 없는 그래프 기반 연관 메모리 (FERNme)</li></ul\n<p>이러한 흐름이 성숙함에 따라 질문은 \"메모리가 어디에 있나?\"에서 <strong>\"어떻게 에이전트를 따라가는가?\"</strong>로 바뀝니다. 노트북과 클라우드에서 동일한 메모리 마크다운을 마운트하는 내구성 있는 S3 백업 파일 시스템은 저장소를 각 플랫폼별 사일로가 아닌 실행 환경 간 동기화되는 *이식 가능한 기질(portable substrate)*로 취급합니다. 이는 관리형 서비스가 제공하는 크로스 플랫폼 일관성에 대한 자체 구축적 해답입니다.</p>\n<p>이러한 이식성 본능은 이제 실행 환경 간뿐만 아니라 <strong>에이전트 간에도 메모리를 공유하는 것</strong>으로 확장됩니다. Sibyl은 셀프 호스팅 멀티 유저 메모리 시스템(SurrealDB 기반)으로, 같은 머신이나 팀의 많은 병렬 코딩 에이전트가 CLI 또는 MCP를 통해 읽고 쓸 수 있으며, 검색 경로에 LLM 없이도 LongMemEval-S에서 96.96%의 엄격한 회상률을 보고합니다. 이는 공유되고 개발자가 소유한 메모리 기질이 많은 동시 에이전트를 지원하면서도 질의 비용을 낮게 유지할 수 있다는 증거입니다.</p>\n<p>이 흐름에서 반복적으로 나타나는 설계 테마는 <strong>더 풍부한 시간적 모델링</strong>입니다. 바이-템포럴 저장소는 사실이 참이었던 시점과 에이전트가 그것을 학습한 시점을 모두 추적하여, 단순히 임베딩상 가장 가까운 것을 반환하는 대신 메모리 회상이 오래되었는지 여부를 추론할 수 있게 합니다.</p>\n<p>두 번째, 비용 중심의 테마는 <strong>저렴하고 기계적인 쓰기 작업</strong>입니다. 새로운 저장소들은 무엇을 저장할지 결정하기 위해 LLM을 호출하는 대신 메모리 구조를 결정론적으로 구축합니다. FERNme은 모호한 엣지와 헤비안 동시 발생 규칙으로부터 연관 메모리 태그를 형성하며, PMB와 같은 로컬 우선 저장소는 단일 SQLite 파일에서 하이브리드 BM25-플러스-벡터 검색기로 쓰기를 인덱싱합니다. 따라서 에이전트가 학습한 내용을 영구적으로 저장하고 회상하는 것이 더 이상 턴당 토큰 비용이 아닙니다.</p>\n<p>세 번째, 새로운 테마는 <strong>메모리 무결성</strong>입니다. 영구적인 메모리는 공격 표면도 영구적입니다. 재현 가능한 벤치마크는 에이전트 메모리 시스템이 *독극물 사실(poisoned facts)*, 즉 한 번 쓰여진 후 이후 모든 턴에서 신뢰할 수 있는 컨텍스트로 회상되는 적대적이거나 잘못된 항목을 쉽게 받아들인다는 것을 보여줍니다. 이는 회상 품질뿐만 아니라 쓰기 시점 검증과 출처 추적도 메모리 엔지니어링의 일부가 됨을 의미하며(프롬프트 주입 참조).</p>\n<p>무결성은 더 광범위하게 메모리 품질을 측정 가능하게 만드는 움직임의 한 부분입니다. 에이전트 메모리의 *실패 모드*(독극물뿐만 아니라 망각, 오래된 회상, 잘못된 조각을 반환하는 검색 포함)에 대한 전용 벤치마크는 \"메모리 레이어가 도움이 되었는가?\"라는 질문을 회귀 분석할 수 있는 숫자로 바꾸며, 이는 에이전트 벤치마크가 취한 것과 같은 경로입니다).</p>\n<p>아키텍처 논쟁 아래에서 실무자들의 합의도 형성되고 있습니다. 이제 공급업체 가이드는 계층적 분할(단기 컨텍스트 + 영구 장기 저장소)을 확립된 관행으로 제시하고, 여기에 피드백 루프를 추가합니다. 즉, 에이전트 자신의 *흔적(traces)*을 분석하여 기억할 가치가 있는 것이 무엇인지 결정하고 실행 간 개선을 이루어 나가면서, 메모리는 단순히 사실이 버려지는 곳이 아니라 에이전트가 자신의 역사로부터 큐레이션하는 대상으로서 점점 더 자리 잡고 있습니다.</p>\n<p>로컬 우선 흐름은 계속 확장되고 있습니다. <strong>Knotic</strong>은 코딩 에이전트를 위해 메모리를 프로젝트/세션/문서 계층에 맞추어 레이어를 추가하며, 엔터프라이즈 규모가 아닌 단일 개발자 규모에서 계층적 메모리 참고 아키텍처와 일치합니다. 이는 상향식으로도 하향식과 동일한 분할을 보여줍니다.</p>\n<p>컨텍스트 부패를 해결하는 두 번째, 더 날카로운 방법이 압축과 함께 등장하고 있습니다: <strong>재귀적 디스패치(recursive dispatch)</strong>입니다. Deep Agents의 LangChain 재귀 언어 모델(RLM) 패턴은 에이전트가 전체 히스토리를 하나의 창에 쏟아붓는 대신 컨텍스트의 *청크*를 대상으로 하위 에이전트를 디스패치하는 코드를 작성하게 하여, 단일 장문 컨텍스트 호출을 여러 단문 컨텍스트 호출로 교환하며, 이는 압축하는 대신 컨텍스트 부패를 우회합니다(제자리 압축 대안은 컨텍스트 압축 참조).</p>\n<p>메모리 무결성의 실패 표면은 새로운 축인 <strong>아첨(sycophancy)</strong>을 갖게 되었습니다. MemSyco-Bench는 검색된 메모리가 단순히 잘못될 위험(독극물 사실)뿐만 아니라, 사용자가 또는 이전 턴에서 듣고 싶어 했던 것을 강화하는 방향으로 잘못될 수 있음을 보여줍니다. 이는 명백히 틀린 사실보다 잡아내기가 더 어려운 실패인데, 메모리 시스템이 의도대로 작동하는 것처럼 보이기 때문입니다. 근본적인 계약에 대한 공식 테스트베드도 등장하고 있습니다: AgenticSTS는 장기 에이전트 메모리를 \"각 미래 결정이 볼 수 있는 것에 대한 계약\"으로 정의하여, 독극물/아첨/망각 실패 모드에 대해 테스트할 수 있는 공유된 유한 메모리 벤치마크를 제공합니다.</p>\n<p>메모리 무결성에 대한 위협 모델은 노골적인 독극물보다 <strong>더 은밀한(stealthier)</strong> 침입자를 갖게 되었습니다. 영구적인 개인 에이전트는 주입된 명령을 기억하도록 만들 수는 있지만 사용자에게는 절대 드러내지 않을 수 있습니다. 따라서 에이전트는 전경 대화에서는 정상적으로 보이면서도 배경에서 심어진 메모리에 조용히 따라 행동합니다. 이는 쓰기 시점 검증이 명백히 잘못되거나 독극물화된 사실을 포착하는 것을 목표로 했을 때, 해당 항목이 거짓처럼 보이지 않고 단지 숨겨져 있기 때문에 플래그가 지정되지 않을 수 있습니다.</p>\n<p>아키텍처 논쟁에는 모델 계층에서 <strong>무차별적 대안(brute-force alternative)</strong>도 있습니다. Claude Code가 Sonnet 5를 기본값으로 제공하고 네이티브 1M 토큰 컨텍스트 창을 갖추고 있다는 것은, 일부 장기 작업이 압축이나 검색 없이도 더 많은 원시 히스토리를 인-윈도우에 맞추어 단순히 수행할 수 있음을 의미하며, 이는 계층적 메모리 엔지니어링이 필요한 작업의 집합을 없애는 것이 아니라 축소시킵니다.</p>\n<p>메모리에 대한 MCP-as-transport 패턴은 더 좁고 개발자 중심적인 저장소로 확산되고 있습니다. codebase-memory-mcp는 코드베이스의 자체 메모리(이전 발견 사항, 결정, 파일 컨텍스트)를 MCP를 통해 코딩 에이전트에 노출시키며, 이는 Atlas의 \"MCP를 통한 메모리\" 형태와 같지만 엔터프라이즈 플랫폼이 아닌 단일 리포지토리에 국한됩니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>메모리 독극물 공격은 <strong>더 은밀한(stealthier)</strong> 변종을 갖습니다. 영구적인 개인 에이전트는 주입된 명령을 기억하도록 만들 수는 있지만 사용자에게는 절대 공개하지 않고, 명백히 잘못되거나 의심스러운 사실을 드러내는 대신 조용히 그에 따라 행동합니다. 이는 나쁜 항목이 적어도 검사 시점에 보이는 것을 가정하는 독극물 벤치마크보다 잡아내기가 더 어렵습니다.</p>\n<p>네이티브 <strong>1M 토큰 컨텍스트 창</strong>(Claude Code의 새로운 Sonnet 5 기본값)은 장기 에이전트가 일부 작업에 대해 메모리 엔지니어링을 우회할 수 있는 방법을 제공합니다. 즉, 압축하거나 검색하는 대신 더 많은 원시 히스토리를 인-윈도우에 유지하는 것입니다. 이는 아래 계층의 계층적 메모리 아키텍처에 대한 빌드 시점의 상쇄 작용입니다. 별도로, codebase-memory-mcp는 \"MCP를 통한 메모리\" 패턴을 단일 리포지토리, 코딩 에이전트 규모까지 확장합니다.</p>\n<p>메모리 무결성은 <strong>새로운 실패 모드</strong>를 갖게 됩니다. MemSyco-Bench는 에이전트 메모리가 독극물화되었을 뿐만 아니라 아첨적일 수 있음을 보여줍니다. 즉, 검색된 컨텍스트가 사실을 보고하기보다는 선행 진술된 선호도를 강화하는 방향으로 치우칠 수 있으며, 이는 명백히 틀린 항목보다 더 미묘한 손상입니다.</p>\n<p><strong>재귀적 디스패치</strong>는 컨텍스트 부패에 대한 새로운 해답입니다. Deep Agents의 RLM 패턴은 요약하거나 검색하는 대신, 에이전트가 컨텍스트 청크를 대상으로 하위 에이전트로 작업을 분산하는 코드를 작성하게 하여 단일 거대 창 문제 자체를 피합니다.</p>\n<p>이 모든 것은 이미 진행 중인 흐름 위에 놓입니다: 계층적 \"인지 메모리\" 모델의 주요 공급업체 구현(Elastic Atlas on Elasticsearch, MCP를 통해 제공), 실행 환경 전반에서 에이전트 전반으로 확장되는 이식성(S3 백업 파일 시스템), 코딩 에이전트별 진입자를 얻은 로컬 우선 흐름(Knotic의 프로젝트/세션/문서 계층), 그리고 이 모든 것을 평가하기 위한 새로운 공식 유한 메모리 테스트베드(AgenticSTS)가 그것입니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>메모리는 에이전트의 비용, 지연 시간 및 신뢰성이 충돌하는 지점입니다. 모든 것을 컨텍스트에 채워 넣는 것은 간단하지만 토큰 비용과 지연 시간을 폭발시키고 여전히 망각합니다. 외부 저장소를 추가하면 검색 단계와 신선도/일관성 문제가 발생합니다. 이 결정(압축 대 검색 대 둘 다, 구축 대 구매)은 일회성 통합이 아니라 소거 정책, 인덱스 유지 관리 및 회상 평가와 같은 지속적인 운영 후속 조치가 따르는 인프라 결정입니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "context-compaction",
+      "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+      "slug": "vector-kb",
+      "title": "External knowledge base: vector and graph retrieval"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "2c8ff757b828dee7",
+      "title": "Presentation: Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale"
+    },
+    {
+      "sid": "9022c498f1c24442",
+      "title": "Designing Memory for AI Agents: Inside Linkedin’s Cognitive Memory Agent"
+    },
+    {
+      "sid": "b3b803dc3d3ab1b8",
+      "title": "Cloudflare Announces Agent Memory, a Managed Persistent Memory Service for AI Agents"
+    },
+    {
+      "sid": "5c5003b8c444211d",
+      "title": "Agent Memory Systems and Knowledge Graphs: Letta, Mem0, Graphiti, and Cognee"
+    },
+    {
+      "sid": "623de2bad771dca8",
+      "title": "Show HN: Memharness – Bi-temporal memory for AI agents, in one SQLite file"
+    },
+    {
+      "sid": "f472926ede32221b",
+      "title": "Show HN: Cortex – local-first encrypted memory for AI agents (Rust, MCP)"
+    },
+    {
+      "sid": "f6cf006fbdea0d5a",
+      "title": "Project Brain2.0–curated project memory for ClaudeCode(+ any file-reading agent)"
+    },
+    {
+      "sid": "eb5267262e7d31c8",
+      "title": "Show HN: FERNme – agent memory that updates with ~zero LLM calls"
+    },
+    {
+      "sid": "cc131dd2666136ca",
+      "title": "Agent-memory systems admit poisoned facts – a reproducible benchmark"
+    },
+    {
+      "sid": "fbb59a181d9a71e6",
+      "title": "Show HN: PMB – local-first memory for AI coding agents over MCP"
+    },
+    {
+      "sid": "0657f60e37a5d3d2",
+      "title": "Towards Root Memories: Benchmarking and Enhancing Implicit Logical Memory Retrieval for Personalized LLMs"
+    },
+    {
+      "sid": "ce180fd0b3a2065e",
+      "title": "Show HN: A durable filesystem layer for AI agents"
+    },
+    {
+      "sid": "a44d7493026627ec",
+      "title": "How to Build Memory into AI Agents"
+    },
+    {
+      "sid": "a803b4966933291a",
+      "title": "Show HN: A benchmark for the failure modes of agent memory"
+    },
+    {
+      "sid": "ca2de3ecb9f0eb55",
+      "title": "Elastic Open-Sources Atlas Agent Memory Based on Cognitive Science"
+    },
+    {
+      "sid": "c7a2ede639a1a707",
+      "title": "Agent memory is leaving the cute \"remember this\" demo phase"
+    },
+    {
+      "sid": "ee624f89c3319a44",
+      "title": "Show HN: I built an agent that uses email as a file system"
+    },
+    {
+      "sid": "23f07233dca1a9dc",
+      "title": "Show HN: Sibyl – self-hosted cross-agent memory for AI coding agents"
+    },
+    {
+      "sid": "a026d7598baf3bcf",
+      "title": "AgenticSTS: A Bounded-Memory Testbed for Long-Horizon LLM Agents"
+    },
+    {
+      "sid": "495bc8d2b48db179",
+      "title": "Show HN: Knotic – layered memory (project/session/docs) for AI coding agents"
+    },
+    {
+      "sid": "8688a4c832b1b52a",
+      "title": "How to Use RLMs in Deep Agents"
+    },
+    {
+      "sid": "f42a28fa00ccf0ea",
+      "title": "MemSyco-Bench: Benchmarking Sycophancy in Agent Memory"
+    },
+    {
+      "sid": "246a4c93052ef3c1",
+      "title": "claude-code v2.1.197"
+    },
+    {
+      "sid": "a100d2bc462a761c",
+      "title": "codebase-memory-mcp speeds AI coding agent queries - Let's Data Science"
+    },
+    {
+      "sid": "56ef11c9d3f8e424",
+      "title": "When Claws Remember but Do Not Tell: Stealthy Memory Injection in Persistent Personal Agents"
+    }
+  ],
+  "updated": "2026-07-07"
+}

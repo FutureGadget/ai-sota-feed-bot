@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>샌드박싱, 범위 지정 자격 증명 및 가드레일 | LLM Digest</title>
+  <meta name="description" content="샌드박싱, 범위 지정 자격 증명 및 가드레일" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/topic/agent-sandboxing" />
+  <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/topic/agent-sandboxing" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/topic/agent-sandboxing" />
+  <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/topic/agent-sandboxing" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="샌드박싱, 범위 지정 자격 증명 및 가드레일" />
+  <meta property="og:description" content="샌드박싱, 범위 지정 자격 증명 및 가드레일" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/topic/agent-sandboxing" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/topic-agent-sandboxing-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/topic-agent-sandboxing-ko.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="샌드박싱, 범위 지정 자격 증명 및 가드레일" />
+  <meta name="twitter:description" content="샌드박싱, 범위 지정 자격 증명 및 가드레일" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "샌드박싱, 범위 지정 자격 증명 및 가드레일", "description": "Assume the agent will be hijacked and limit the damage: run its code in a sandbox, give it narrowly scoped and short-lived credentials, gate high-impact actions behind approvals, and screen inputs/outputs with guardrails. None of these stops…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/agent-sandboxing", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "샌드박싱, 범위 지정 자격 증명 및 가드레일", "item": "https://www.llm-digest.com/topic/agent-sandboxing"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <script src="/posthog-client.js?v=20260703-standard-pageview"></script>
+  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#b6780c;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    menu a[role="button"], .menu-share, .archive select {
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.74rem; letter-spacing:.03em;
+      padding:.42rem .6rem; min-height:34px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      text-decoration:none; cursor:pointer; transition:border-color .12s ease, color .12s ease; }
+    menu a[role="button"]:hover, .menu-share:hover, .archive select:hover {
+      border-color:var(--accent); color:var(--accent); background:transparent; text-decoration:none; }
+    .menu-share.copied { color:var(--muted); border-color:var(--border); }
+
+    /* Shared hero. */
+    .wiki-hero { margin:2.3rem 0 1.7rem; }
+    .wiki-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .wiki-headline { margin:0; max-width:30ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.1rem,4.8vw,3.3rem); }
+    .map .wiki-headline { font-size:clamp(2.5rem,6.4vw,4.3rem); max-width:24ch; }
+    .wiki-thesis { max-width:46rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .wiki-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .wiki-readout .on { color:var(--signal); }
+    .wiki-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    /* ---- /map : obstacle → solution adjacency map ---- */
+    .map-legend { margin:1.4rem 0 0; padding:.8rem 0 0; border-top:1px solid var(--border);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      color:var(--muted); line-height:1.9; }
+    .map-legend b { color:var(--accent); font-weight:700; letter-spacing:.12em;
+      text-transform:uppercase; margin-right:.7rem; }
+    .map-legend a { text-decoration:none; }
+    .map-legend a:hover { text-decoration:underline; }
+    .map-legend .sep { color:var(--border); margin:0 .35rem; }
+
+    .map-area { margin:2.4rem 0 0; scroll-margin-top:1rem; }
+    .map-area-head { display:flex; align-items:baseline; gap:.7rem; padding:0 0 .2rem;
+      border-bottom:2px solid var(--fg); }
+    .map-area-head h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .map-area-head .map-area-meta { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+    .map-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:0;
+      border:0; border-bottom:1px solid var(--border); border-radius:0; padding:0; background:transparent; }
+    .map-obstacle { padding:1.1rem 1.6rem 1.2rem 0; border-right:1px solid var(--border); }
+    .map-solutions { padding:1.1rem 0 1.2rem 1.6rem; }
+    .map-tag { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; margin:0 0 .45rem; }
+    .map-obstacle .map-tag { color:var(--warm); }
+    .map-solutions .map-tag { color:var(--accent); }
+    .map-obstacle h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; line-height:1.15; }
+    .map-obstacle h3 a { color:inherit; text-decoration:none; }
+    .map-obstacle h3 a:hover { color:var(--accent); }
+    .map-summary { margin:0; font-size:.86rem; line-height:1.55; color:var(--muted); }
+    .map-solutions ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .map-solutions li { position:relative; padding-left:1.3rem; font-size:.92rem; line-height:1.4; }
+    .map-solutions li::before { content:"→"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700; }
+    .map-solutions a { text-decoration:none; }
+    .map-solutions a:hover { text-decoration:underline; }
+    .map-none { color:var(--muted); font-size:.86rem; font-style:italic; }
+
+    .map-solindex { margin:3rem 0 0; padding:1.1rem 0 0; border-top:1px solid var(--border); }
+    .map-solindex h2 { margin:0 0 .8rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1.1; }
+    .map-sol-list { margin:0; padding:0; list-style:none; display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(15rem,1fr)); gap:.4rem 1.5rem; }
+    .map-sol-list li { position:relative; padding-left:1.2rem; font-size:.92rem; line-height:1.5; }
+    .map-sol-list li::before { content:"🛠"; position:absolute; left:0; top:0; font-size:.8rem; }
+    .map-sol-list a { text-decoration:none; }
+    .map-sol-list a:hover { text-decoration:underline; }
+
+    /* ---- /topic : problem readout ---- */
+    .topic-lead { max-width:44rem; margin:.4rem 0 0; font-size:1.18rem; line-height:1.55; }
+    .topic-lead p { margin:0; }
+    .topic-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.4rem 2rem;
+      margin:1.6rem 0 0; padding:1.1rem 1.2rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .topic-xgroup-label { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .6rem; }
+    .topic-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .topic-xlinks li { font-size:.95rem; line-height:1.4; }
+    .topic-xlinks a { text-decoration:none; font-weight:600; }
+    .topic-xlinks a:hover { text-decoration:underline; }
+
+    .topic-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .topic-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .topic-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .topic-prose { min-width:0; max-width:44rem; }
+    .topic-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.65; }
+    .topic-prose p:last-child { margin-bottom:0; }
+    .topic-prose strong { font-weight:650; }
+    .topic-evidence .topic-rail { color:var(--muted); }
+    .evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .evidence-list li { font-size:.92rem; line-height:1.45; }
+    .evidence-list .ev-story a { font-weight:600; text-decoration:none; }
+    .evidence-list a { text-decoration:none; }
+    .evidence-list a:hover { text-decoration:underline; }
+    .evidence-list .ev-kind { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      color:var(--muted); margin-left:.4rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .map .wiki-headline { font-size:2.6rem; }
+      .map-row { grid-template-columns:1fr; }
+      .map-obstacle { border-right:0; border-bottom:1px solid var(--border);
+        padding:1.1rem 0 1rem; }
+      .map-solutions { padding:1rem 0 1.2rem; }
+      .topic-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/map">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Engineering Wiki</h1>
+        <p id="meta" class="muted"></p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/topic/agent-sandboxing" data-share-title="샌드박싱, 범위 지정 자격 증명 및 가드레일">Share this page</button>
+        <a class="site-language-action" href="/topic/agent-sandboxing" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">샌드박싱, 범위 지정 자격 증명 및 가드레일</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>17 sources<span class="sep">·</span>updated 2026-07-03</p></section>
+      <!-- range is included in the custom hero -->
+
+      <div class="topic"><div class="topic-lead"><p>Assume the agent will be hijacked and limit the damage: run its code in a sandbox, give it narrowly scoped and short-lived credentials, gate high-impact actions behind approvals, and screen inputs/outputs with guardrails. None of these stops injection on its own — together they shrink the blast radius of one that gets through.</p></div>
+<aside class="topic-xlinks"><div class="topic-xgroup"><span class="topic-xgroup-label">→ Addresses</span><ul><li><a href="/topic/prompt-injection">Untrusted input and tools can hijack an agent</a></li></ul></div></aside>
+<section class="topic-section"><div class="topic-rail">State of the art</div><div class="topic-prose"><p>Each control layer has a published gap, so the field is stacking them into defense in depth rather than trusting any one of them:</p>
+<ul><li><strong>Execution sandboxes</strong> contain arbitrary code, but recent analysis is blunt</li></ul>
+<p>that they &quot;don&#x27;t solve credential authorization&quot; — the agent inside the box still holds tokens that injected instructions can spend, so isolating the process is not the same as isolating its privileges.</p>
+<ul><li><strong>Guardrail models</strong> screen prompts and outputs, yet &quot;From Shield to Target&quot;</li></ul>
+<p>shows the guardrail&#x27;s own reasoning can be turned into a denial-of-service vector against the protected agent.</p>
+<ul><li><strong>Authorization</strong> is where the center of gravity is moving: scope what each</li></ul>
+<p>tool/connector can do and provision it centrally — e.g. identity-provider-managed MCP connector auth — so permissions are explicit and revocable rather than ambient.</p>
+<ul><li><strong>Non-human identity</strong>: treat each agent as its own identity with scoped</li></ul>
+<p>credentials, lifecycle, and audit trail, rather than a sidecar on a human&#x27;s session.</p>
+<ul><li><strong>OS-level isolation</strong>: Microsoft positions Windows as a trust base for</li></ul>
+<p>agents with a dedicated Execution Container, pushing the sandbox boundary down into the OS instead of leaving it a process wrapper.</p>
+<ul><li><strong>Identity-based sandbox platforms</strong> are shipping as concrete primitives:</li></ul>
+<p>Cordium is a self-hosted Kubernetes sandbox where infrastructure secrets never enter the agent&#x27;s reach.</p>
+<ul><li><strong>Harness-level secret hiding</strong>: Claude Code&#x27;s <code>sandbox.credentials</code></li></ul>
+<p>setting blocks sandboxed commands from reading credential files and secret environment variables, closing part of the &quot;the box still holds tokens&quot; gap at the config layer.</p>
+<ul><li><strong>Per-parameter permissions</strong>: Claude Code&#x27;s <code>Tool(param:value)</code> syntax can,</li></ul>
+<p>for example, block Opus subagents, so authorization is scoped per action, not per tool.</p>
+<ul><li><strong>Approval-gated writes</strong>: datasette-agent&#x27;s <code>execute_write_sql</code> requires</li></ul>
+<p>explicit user approval on top of a general resource-sharing ACL layer, gating the write paths that matter.</p>
+<ul><li><strong>Ephemeral cloud accounts</strong>: Cloudflare now lets you run a Workers project</li></ul>
+<p>under a temporary, disposable account with no standing login — a self-expiring credential boundary instead of handing an agent your real account keys (worth noting, as Simon Willison points out, that the &quot;for AI agents&quot; framing is partly marketing — it is a general ephemeral scoped-account feature that happens to be exactly the short-lived least-privilege primitive agents need).</p>
+<ul><li><strong>Drop-in process isolation</strong>: the open-source Workdir gives an agent a</li></ul>
+<p>disposable, isolated working directory out of the box, commoditizing execution sandboxing into something you install rather than build — though the credential-authorization gap above means the box alone still isn&#x27;t the boundary.</p>
+<ul><li><strong>Tool-call firewalls</strong>: Cerberus is a local firewall that sits in front of</li></ul>
+<p>an agent&#x27;s tool calls, mediating and blocking them at the dev machine rather than inside a cloud platform — the local-dev counterpart to the network perimeters and platform governance below.</p>
+<ul><li><strong>Enterprise platforms</strong>: Grab&#x27;s security team built Palana, a</li></ul>
+<p>Kubernetes-native secure execution platform, on the premise that model-driven agents — unlike deterministic software — exhibit unpredictable tool-use and code-writing and need a purpose-built isolation-plus-governance substrate to run safely in production. It packages the same controls (sandboxed execution, scoped access, central governance) as paved-road infrastructure a platform team operates.</p>
+<ul><li><strong>Network perimeter</strong>: Google Cloud&#x27;s VPC Service Controls now adds</li></ul>
+<p>agentic-AI guardrails that draw a network-level boundary around the data an agent can touch, so a hijacked agent holding valid tokens still cannot move protected data out of the perimeter — the egress-control complement to credential scoping (identity limits *what the agent is allowed to do*, the network perimeter limits *where data can go* even when an action is authorized).</p>
+<ul><li><strong>Secure defaults at the harness level</strong>: Claude Code changed its default</li></ul>
+<p>permission mode to &quot;Manual&quot; across the CLI, VS Code, and JetBrains, shipping least privilege as the out-of-the-box behavior rather than an opt-in a team has to discover and turn on.</p>
+<ul><li><strong>External output verification</strong>: SonarQube plugins now run trusted static</li></ul>
+<p>analysis over code written by Claude Code, Copilot, Codex, and Cursor, adding an independent, non-model check on what the sandbox lets an agent produce — a control on the agent&#x27;s *output*, complementing the controls above on its execution and credentials.</p>
+<p>Least privilege plus human approval on the few actions that really matter remains the most durable control across all of these layers.</p></div></section>
+<section class="topic-section"><div class="topic-rail">What&#x27;s new</div><div class="topic-prose"><p>Two controls extend the &quot;assume compromise&quot; stack in different directions: <strong>secure-by-default harness configuration</strong> (Claude Code&#x27;s default permission mode moving to &quot;Manual&quot; across its CLI and IDE integrations) closes the gap between what a default setup permits and what a user actually intended, while <strong>independent output verification</strong> (SonarQube&#x27;s trusted static-analysis plugins for Claude Code, Copilot, Codex, and Cursor) adds a non-model check on what an agent produces rather than only on what it&#x27;s allowed to do.</p>
+<p>That builds on the network-perimeter control (Google Cloud VPC Service Controls), operated platforms (Grab&#x27;s Palana), and the commoditized base layer of drop-in sandboxes and tool-call firewalls (Workdir, Cerberus).</p></div></section>
+<section class="topic-section"><div class="topic-rail">Trade-offs</div><div class="topic-prose"><p>More isolation and tighter scopes mean more <strong>friction</strong>: approval gates add latency and human cost, narrow credentials break workflows that legitimately need broad access, and sandboxes add ops overhead. Guardrail models add a per-call cost and a new failure/attack surface of their own.</p>
+<p>The honest stance is defense in depth with no single layer trusted — which is more moving parts to build and monitor. Best calibrated to <strong>blast radius</strong>: heavy controls on agents with write access or money/data reach, lighter on read-only ones.</p></div></section>
+<section class="topic-section"><div class="topic-rail">Why it matters for platform engineers</div><div class="topic-prose"><p>This is standard security engineering applied to a new actor: least privilege, short-lived scoped tokens, egress limits, and approvals — not prompt cleverness. The actionable lesson is to treat the sandbox as containing *code* and the credential/authorization layer as containing *capability*, and to govern tool access centrally (see <a href="/topic/mcp">MCP</a>) so a hijacked agent can reach little.</p></div></section>
+<section class="topic-section topic-evidence"><div class="topic-rail">Evidence · 17 sources</div><ul class="evidence-list"><li class="ev-story"><a href="/story/2f585fd257ad02a4">Coding Agent Sandboxes Don&#x27;t Solve Credential Authorization</a></li><li class="ev-story"><a href="/story/6b3ed4b86d0301bf">From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails</a></li><li class="ev-story"><a href="/story/b2c537fce6444ae6">Centrally manage authorization for MCP connectors | Claude</a></li><li class="ev-story"><a href="/story/dd1dcc3f564a3ddd">Every AI Agent Is an Identity. Most Organizations Don&#x27;t Treat Them That Way</a></li><li class="ev-story"><a href="/story/b36dcebbf2119ee1">Windows Platform Security and the Race to Secure AI Agents</a></li><li class="ev-story"><a href="/story/4c55eebe122eae12">Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents</a></li><li class="ev-story"><a href="/story/9ef99508d91d13ed">claude-code v2.1.178</a></li><li class="ev-story"><a href="/story/810e8370a6841be6">datasette-agent 0.3a0</a></li><li class="ev-story"><a href="/story/68a519e26dde7563">datasette-acl 0.6a0</a></li><li class="ev-story"><a href="/story/ed140b4e4c38f7b0">Temporary Cloudflare Accounts for AI agents</a></li><li class="ev-story"><a href="/story/ca0cc4b843525e7d">Workdir: Open-source sandboxes for AI agents</a></li><li class="ev-story"><a href="/story/8a98677361367a46">Grab Builds Secure Agentic AI Workload Platform</a></li><li class="ev-story"><a href="/story/655ca293c796f3fd">Securing agentic AI with perimeter guardrails: What&#x27;s new in VPC Service Controls</a></li><li class="ev-story"><a href="/story/4dca27f5d11655f3">Cerberus – a local firewall for AI agents&#x27; tool calls</a></li><li class="ev-story"><a href="/story/0d10a691ebcb0e61">claude-code v2.1.187</a></li><li class="ev-story"><a href="/story/f9a1870648a6375a">claude-code v2.1.200</a></li><li class="ev-story"><a href="/story/7a882200fe85650f">SonarQube plugins bring trusted verification to Claude Code, Copilot, Codex, Cursor, and beyond - Security Boulevard</a></li></ul></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260701" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>

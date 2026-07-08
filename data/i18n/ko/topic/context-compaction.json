@@ -1,0 +1,75 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/context-compaction",
+  "source_hash": "04f2c9758c1e12c5547eb32713539bd4eb4ec27d969d15dd898ceca34920f352",
+  "translated_at": "2026-07-08T03:41:19.393482+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "context-compaction",
+  "kind": "solution",
+  "title": "컨텍스트 압축: 작업 집합 요약, 압축 및 큐레이션",
+  "area": null,
+  "status": "active",
+  "summary": "메모리를 컨텍스트 창 *안에* 작게 유지하는 방법: 이전 대화 요약, 히스토리 압축, 그리고 각 단계에서 컨텍스트에 남을 내용을 의도적으로 선별하는 것(\"컨텍스트 엔지니어링\"). 작업 집합을 단순히 잘라내는 것이 아니라 선택하기 때문에 에이전트가 잊어버리는 양이 줄어듭니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>메모리를 컨텍스트 창 *안에* 작게 유지하는 방법: 이전 대화 요약, 히스토리 압축, 그리고 각 단계에서 컨텍스트에 남을 내용을 의도적으로 선별하는 것(\"컨텍스트 엔지니어링\"). 작업 집합을 단순히 잘라내는 것이 아니라 선택하기 때문에 에이전트가 잊어버리는 양이 줄어듭니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>\"컨텍스트 엔지니어링 및 메모리 관리\"는 프롬프트를 단순히 추가 로그가 아닌 관리되는 작업 집합으로 취급하면서 그 자체로 하나의 학문 분야로 떠올랐습니다. 기법은 순환적 요약부터 장기 메모리(MemRefine)에 대한 LLM 기반 압축, 그리고 모든 것을 저장하는 대신 <strong >연관성, 망각 및 종합</strong>을 명시적으로 모델링하는 메모리 시스템에 이르기까지 다양합니다. 압축은 외부 저장소와 결합되는 경우가 많아지고 있습니다: 작업 집합을 압축하고, 나머지는 <a href=\"/topic/vector-kb\">벡터/그래프 KB</a>에 오프로드한 다음, 필요할 때 다시 활성화합니다. 상호 보완적이고 비용 효율적인 방법은 <strong >입력 경계</strong>에서 압축하는 것입니다. 이는 도구 결과를 컨텍스트에 넣기 *전에* 축소하여 나중에 요약하는 것이 아닙니다. 코딩 에이전트는 장황한 빌드/테스트 로그를 읽으므로, 해당 출력에서 노이즈를 제거하는 결정론적 사전 압축 도구(Logslim)는 에이전트 자체 추론에 대한 손실적 요약이나 모델 호출 없이도 단계별 토큰 비용을 절감합니다. 가장 최근의 발견은 압축이 단순히 손실적일 뿐만 아니라 <strong >안전과 직결된다는 것입니다.</strong> \"Governance Decay\"에 따르면, 장기 실행 에이전트에서 컨텍스트를 요약하거나 제거하거나 압축하는 과정은 처음에 설정했던 안전/거버넌스 제약을 조용히 무효화할 수 있으며, 따라서 후속 단계는 몇 시간 전에 받은 규칙이 더 이상 적용되지 않는 것처럼 작동하게 됩니다. 즉, 압축기는 비용 최적화 도구가 아니라 보안 취약점입니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>압축에는 문서화된 <strong >안전</strong> 실패 모드가 있습니다. \"Governance Decay\"는 장기 실행 에이전트에서 컨텍스트를 요약/제거할 때 세션 초기에 설정했던 안전 및 거버넌스 제약이 조용히 지워질 수 있음을 보여주며, 이로 인해 압축기는 단순히 토큰을 절약하는 레이어가 아니라 제약을 보존해야 하는 보안에 중요한 계층으로 재정의됩니다. 이는 더 스마트한 압축(LLM 기반 MemRefine, 망각/종합 인지 저장소) 및 장황한 도구 출력의 입력 경계 트리밍(Logslim)과 병행됩니다.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>인프라 비용은 저렴하고(외부 저장소 불필요) 모델이 필요한 모든 것을 한곳에 유지하지만, 요약은 손실적이며 되돌릴 수 없습니다. 초기에 누락된 세부 사항은 나중에 복구할 수 없으며, 공격적인 압축은 조용히 작업 충실도를 저하시킬 수 있습니다. 이는 최근 정보가 지배적이고 전체 히스토리가 문자 그대로 필요하지 않은 단일 세션, 장기 실행 작업에 가장 적합합니다. 가장 두드러진 실패 모드는 놓치는 작업 세부 사항이 아니라 *제약 조건*을 놓치는 것입니다. Governance Decay는 압축이 에이전트에게 처음에 부여된 안전/정책 규칙을 조용히 축출할 수 있음을 보여주며, 장기간 세션 동안 에이전트가 가드레일에서 벗어나게 됩니다. 따라서 부하를 지탱하는 모든 것(권한, 안전 제한, 사용자의 명확한 \"하지 말아야 할 것\")은 압축 가능한 창 밖에 고정되어야 하며, 요약에 의해 살아남을 것이라고 맡겨서는 안 됩니다(참조: <a href=\"/topic/prompt-injection\">프롬프트 주입</a>).</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>종종 가장 높은 레버리지를 가진 첫 번째 조치입니다. 새로운 인프라를 구축하지 않고도 토큰 비용과 지연 시간(청구서는 컨텍스트 크기에 비례함)을 직접적으로 공격합니다. 위험은 조용한 품질 손실이므로, 이는 설정해 두고 잊을 해결책이라기보다는 평가가 필요한 튜닝 노브입니다.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
+      "slug": "agent-latency",
+      "title": "Agent loops multiply per-call latency into slow, expensive runs"
+    },
+    {
+      "slug": "agent-memory",
+      "title": "Agents forget across steps and sessions"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "10129892c7fcda0f",
+      "title": "MemRefine: LLM-Guided Compression for Long-Term Agent Memory"
+    },
+    {
+      "sid": "2c8ff757b828dee7",
+      "title": "Presentation: Beyond Prompting: Context Engineering and Memory Management for AI Systems at Scale"
+    },
+    {
+      "sid": "83e63e463a1dff9d",
+      "title": "Show HN: Memory system for AI agents with associations, forgetting, synthesis"
+    },
+    {
+      "sid": "c763e01254fa7c5c",
+      "title": "Logslim – compact test/build output before your AI agent reads it"
+    },
+    {
+      "sid": "9c19b2212d6264ac",
+      "title": "Governance Decay: How Context Compaction Silently Erases Safety Constraints in Long-Horizon LLM Agents"
+    }
+  ],
+  "updated": "2026-06-24"
+}

@@ -1,0 +1,67 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-observability",
+  "source_hash": "a8bb37e93f543b89b9b0e9785fdcd6a1162ad4b06b9b02d6ece983c24d301124",
+  "translated_at": "2026-07-08T03:32:09.226193+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-observability",
+  "kind": "obstacle",
+  "title": "에이전트의 행동 근거를 알 수 없는 이유",
+  "area": "observability",
+  "status": "active",
+  "summary": "에이전트가 잘못된 행동을 했을 때, 그 결과를 낳은 실행 과정은 모델 호출, 도구 결과, 중간 결정들이 이어지는 길고 비결정적인 사슬입니다. 이 중 대부분은 나중에 추적 불가능합니다. 에이전트의 '왜'는 스택 트레이스와 달리, 충분히 상세하게 기록되지 않은 여정 전체에 퍼져 있으며, 결정론적으로 재현하거나 정상 작동했던 실행과 쉽게 비교할 수 없습니다. 따라서 에이전트 디버깅은 부수적인 작업이 아니라 본질적인 업무가 되고 있습니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트가 잘못된 행동을 했을 때, 그 결과를 낳은 실행 과정은 모델 호출, 도구 결과, 중간 결정들이 이어지는 길고 비결정적인 사슬이며, 그 대부분은 나중에 추적 불가능합니다. 에이전트의 '왜'는 스택 트레이스와 달리, 충분히 상세하게 기록되지 않은 여정 전체에 퍼져 있고, 결정론적으로 재현할 수 없으며, 정상 작동했던 실행과 쉽게 비교(diff)할 수 없습니다. 에이전트 디버깅은 점점 부수적인 작업이 아니라 본질적인 업무가 되고 있습니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>에이전트에 대한 관측 가능성(Observability)은 일반적인 APM에서 벗어나 <strong class=\"\">트레이스 우선(trace-first)</strong> 접근법으로 분화되고 있습니다. 여기서 캡처하는 단위는 전체 여정(프롬프트, 도구 호출, 결과, 재시도, 서브 에이전트 핸드오프)이며, 이 여정을 질의 가능하고(queryable), 비교 가능하며(diffable), 설명 가능하게 만드는 것이 핵심 과제입니다. 도구들은 공통 트레이스 형식을 중심으로 통합되고, 그 위에 분석 레이어를 쌓아 올립니다. 오픈 소스 디버거들은 이러한 신흥 표준(Langfuse, Arize/OpenInference 또는 순수 JSONL)의 트레이스를 수집하고, 엔지니어가 모든 스팬을 읽도록 하는 대신 *트레이스 자체에 모델을 실행*하여 반복되는 실패 패턴을 도출합니다(HALO). 주요 벤더들은 이 아이디어를 상위 단계의 관리형 트리아지(managed triage)로 끌어올리고 있습니다. LangSmith는 이제 알림 분류 및 전용 음성/트레이스 디버깅을 위한 온콜 사이드 팔로잇(on-call copilot) 기능을 제공하며, '트레이스를 읽고 무엇이 고장 났는지 알려주세요'라는 요청을 단순한 대시보드가 아닌 에이전틱 제품으로 취급합니다. 또 다른 전선은 <strong class=\"\">실행 시점에 완전히 트레이스할 수 없는 에이전트를 모니터링하는 것</strong>입니다. 오프라인 행동 모니터링은 기록된 활동을 바탕으로 내부 에이전트를 사후에 평가하며, 이는 라이브 계측이 불완전하거나 에이전트가 관찰할 수 없는 환경에서 실행될 때 중요합니다. 여전히 어려운 부분은 *모니터링 자체를 평가하는 것*입니다. 마이크로서비스 실패 진단을 위한 LLM 에이전트의 다중 데이터셋 벤치마크(AgentOps)가 존재하는 이유도 바로 이것입니다. 즉, '에이전트가 실패를 올바르게 진단했는가' 자체가 다중 모드 관측 가능성 데이터에 대한 여정 등급 문제이기 때문입니다. 따라서 에이전트 관측 가능성과 <a href=\"/topic/agent-evaluation\">평가</a>는 트레이스를 공유 기판으로 삼아 수렴하고 있습니다.</p><p>계측(Instrumentation)은 타사 관측 가능성 도구뿐만 아니라 <strong class=\"\">코딩 에이전트 제품 자체 내부</strong>에서도 나타나고 있습니다. Claude Code는 이제 <code class=\"\">workflow.run_id</code> 및 <code class=\"\">workflow.name</code>을 OpenTelemetry 속성으로 방출하므로, 다중 에이전트 워크플로우 실행은 팀이 이미 운영 중인 OTel 파이프라인을 통해 추적 가능하며, 맞춤형 익스포터가 필요 없습니다. 엔터프라이즈 사례 연구들은 운영 측면에서 이러한 수렴을 따라가고 있습니다. Schneider Electric은 LangSmith를 기반으로 LLMOps 토대를 구축하여 관측 가능성, 평가 및 배포를 대규모로 통합했으며, 이는 단순한 벤더 제안이 아닌 '트레이스를 공유 기판으로 삼는다'는 아이디어를 실제로 구현한 사례입니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>트레이스 계측은 에이전트 도구에 네이티브하게 나타나고 있습니다. Claude Code는 이제 다중 에이전트 워크플로우 실행 시 <code class=\"\">workflow.run_id</code>/<code>workflow.name</code>을 OpenTelemetry 속성으로 기록하여, 팀의 기존 OTel 파이프라인에 플러그인됩니다. Schneider Electric의 LangSmith 기반 LLMOps 토대는 관측 가능성, 평가 및 배포가 프로덕션 규모에서 하나의 스택으로 수렴된 구체적인 엔터프라이즈 사례입니다.</p><p>트레이스 분석은 *에이전틱(agentic)*으로 진화하고 있습니다. 더 이상 인간이 읽는 대시보드가 아니라, 새로운 도구들은 캡처된 트레이스에 모델을 실행합니다. HALO의 RLM 엔진은 Langfuse/OpenInference/JSONL 트레이스에서 반복되는 실패 모드를 채굴하며, LangSmith는 알림을 분류하고 음성-트레이스 디버깅을 수행하는 온콜 사이드 팔로잇을 제공합니다. 병렬적으로, 내부 에이전트의 오프라인 모니터링과 마이크로서비스 실패 진단 벤치마크(AgentOps)는 이 분야를 모니터링 계층 자체가 올바른 실패를 포착하는지 *측정*하는 쪽으로 밀어붙이며, 관측 가능성을 여정 수준의 평가와 긴밀하게 연결하고 있습니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>설명할 수 없는 것은 운영할 수 없습니다. 여정 수준의 트레이스 없이는 모델 업그레이드 후 발생하는 회귀, 조용한 도구 실패 또는 통제 불능 루프는 비용 발생이나 사용자 불만으로 나타날 때까지 보이지 않으며, 재현할 방법도 없습니다. 관측 가능성은 나머지 스택의 전제 조건입니다. <a href=\"/topic/agent-evaluation\">평가</a>는 등급을 매기기 위해 트레이스를 필요로 하고, <a href=\"/topic/cost-controls\">비용 통제</a>는 단계별 귀속을 필요로 하며, 인시던트 대응은 재현 가능한 실행 기록이 필요합니다. 빌드 대 구매의 문제는 트레이스 형식을 표준화하고 분석을 자체적으로 수행할 것인지, 아니면 관리형 플랫폼을 채택할 것인지에 달려 있지만, 어느 쪽이든 트레이스는 새로운 로그 라인이 됩니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agent-tracing",
+      "title": "Tracing and trace analysis for agent runs"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "5d7159ca706a44c0",
+      "title": "Show HN: RLM-based local debugger for AI agent traces"
+    },
+    {
+      "sid": "8d1dc5b79d8b1372",
+      "title": "June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More"
+    },
+    {
+      "sid": "345d694a3d9a314f",
+      "title": "Evaluating Offline Monitoring of Internal AI Agents"
+    },
+    {
+      "sid": "274255c89788d5c4",
+      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
+    },
+    {
+      "sid": "c9f72591463a51bb",
+      "title": "How Schneider Electric Built Their LLMOps Foundations With LangSmith"
+    },
+    {
+      "sid": "863330601bd5d524",
+      "title": "claude-code v2.1.202"
+    }
+  ],
+  "updated": "2026-07-07"
+}

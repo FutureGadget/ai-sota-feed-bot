@@ -1,0 +1,115 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-sandboxing",
+  "source_hash": "75afba72eed7bc77cebf172b0fdf4ebc30f209eae85b3f3c7532a38d4f1c1fad",
+  "translated_at": "2026-07-08T03:38:36.800124+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-sandboxing",
+  "kind": "solution",
+  "title": "샌드박싱, 범위 지정 자격 증명 및 가드레일",
+  "area": null,
+  "status": "active",
+  "summary": "에이전트가 탈취될 것을 전제로 피해를 제한해야 합니다. 즉, 코드를 샌드박스에서 실행하고, 협소하게 범위가 지정된 단기 자격 증명을 부여하며, 영향력이 큰 동작은 승인을 거치도록 하고, 가드레일로 입출력을 검사해야 합니다. 이 중 어느 것도 주입 공격을 단독으로 막지는 못하지만, 함께 사용하면 침투가 성공했을 때의 피해 범위(blast radius)를 줄일 수 있습니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트가 탈취될 것을 전제로 피해를 제한해야 합니다. 즉, 코드를 샌드박스에서 실행하고, 협소하게 범위가 지정된 단기 자격 증명을 부여하며, 영향력이 큰 동작은 승인을 거치도록 하고, 가드레일로 입출력을 검사해야 합니다. 이 중 어느 것도 주입 공격을 단독으로 막지는 못하지만, 함께 사용하면 침투가 성공했을 때의 피해 범위(blast radius)를 줄일 수 있습니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>각 통제 계층에는 알려진 취약점이 있으므로, 단 하나의 계층을 신뢰하기보다는 이를 쌓아 올려 심층 방어(defense in depth)를 구축하는 것이 중요합니다:</p>\n<ul><li><strong>실행 샌드박스(Execution sandboxes)</strong>는 임의 코드를 포함하지만, 최근 분석에 따르면 이것만으로는 부족합니다.</li></ul>\n<p>그들은 \"자격 증명 권한 부여 문제를 해결하지 않는다\"는 것입니다. 박스 안의 에이전트는 여전히 주입된 명령어가 사용할 수 있는 토큰을 보유하고 있으므로, 프로세스를 격리하는 것이 그 권한을 격리하는 것과는 다릅니다.</p>\n<ul><li><strong>가드레일 모델(Guardrail models)</strong>은 프롬프트와 출력을 검사하지만, \"From Shield to Target\" 연구에 따르면 가드레일 자체의 추론이 보호 대상 에이전트에 대한 서비스 거부 공격 벡터로 사용될 수 있습니다.</li></ul>\n<p>권한 부여(Authorization)가 핵심적인 중심축을 이동시키고 있습니다. 각 도구/커넥터가 수행할 수 있는 작업을 정의하고 중앙에서 프로비저닝해야 합니다. 예를 들어, ID 공급자 관리형 MCP 커넥터 인증을 사용하면 권한이 주변적인 것이 아닌 명시적이고 취소 가능한 상태가 됩니다.</p>\n<ul><li><strong>비인간적 신원(Non-human identity)</strong>: 각 에이전트를 인간 사용자의 세션에 붙어 있는 부가 기능이 아닌, 범위가 지정된 자격 증명, 생명 주기 및 감사 추적을 가진 독립적인 신원으로 취급해야 합니다.</li></ul>\n<p>OS 수준 격리: Microsoft는 전용 실행 컨테이너를 갖춘 에이전트에 대해 Windows를 신뢰 기반으로 제시하며, 샌드박스 경계를 프로세스 래퍼에 두는 대신 OS 깊숙이 끌어내립니다.</p>\n<ul><li><strong>ID 기반 샌드박스 플랫폼</strong>은 구체적인 기본 요소로 출시되고 있습니다:</li></ul>\n<p>Cordium은 인프라 비밀 정보가 에이전트의 손길에 절대 닿지 않는 자체 호스팅 Kubernetes 샌드박스입니다.</p>\n<ul><li><strong>하네스 수준 비밀 정보 숨기기(Harness-level secret hiding)</strong>: Claude Code의 <code >sandbox.credentials</code> 설정은 샌드박스 명령어가 자격 증명 파일 및 비밀 환경 변수를 읽는 것을 차단하여, 설정 계층에서 \"박스 안에 토큰이 남아있다\"는 취약점의 일부를 막아줍니다.</li></ul>\n<p>예를 들어, Claude Code의 <code >Tool(param:value)</code> 구문은 Opus 서브 에이전트를 차단할 수 있으므로, 권한 부여가 도구별이 아닌 동작별로 범위 지정됩니다.</p>\n<ul><li><strong>승인 게이트 쓰기(Approval-gated writes)</strong>: datasette-agent의 <code >execute_write_sql</code>은 일반적인 리소스 공유 ACL 계층 위에 명시적인 사용자 승인을 요구하여 중요한 쓰기 경로를 게이트합니다.</li></ul>\n<p>임시 클라우드 계정: Cloudflare는 이제 영구적인 로그인이 없는 임시적이고 일회성인 계정으로 Workers 프로젝트를 실행할 수 있게 합니다. 이는 에이전트에게 실제 계정 키를 넘겨주는 대신 자체적으로 만료되는 자격 증명 경계를 설정하는 것입니다 (Simon Willison이 지적하듯이, \"AI 에이전트용\"이라는 표현은 부분적으로 마케팅이지만, 이는 사실상 모든 에이전트에 필요한 단기적 최소 권한 원시 요소입니다).</p>\n<ul><li><strong>드롭인 프로세스 격리(Drop-in process isolation)</strong>: 오픈 소스 Workdir은 에이전트에게 즉시 사용할 수 있는 격리된 작업 디렉토리를 제공하여, 실행 샌드박싱을 구축하는 것이 아닌 설치 가능한 상품으로 만듭니다. 다만, 위의 자격 증명-권한 부여 취약점 때문에 박스 자체만으로는 경계가 되지 못합니다.</li></ul>\n<p>도구 호출 방화벽: Cerberus는 에이전트의 도구 호출 앞에 놓이는 로컬 방화벽으로, 클라우드 플랫폼 내부가 아닌 개발 머신에서 이를 중재하고 차단합니다. 이는 아래의 네트워크 경계 및 플랫폼 거버넌스의 로컬 개발 대응물입니다.</p>\n<ul><li><strong>엔터프라이즈 플랫폼</strong>: Grab의 보안 팀은 Palana라는 Kubernetes 네이티브 보안 실행 플랫폼을 구축했습니다. 이는 모델 기반 에이전트가 결정론적 소프트웨어와 달리 예측 불가능한 도구 사용 및 코드 작성을 보이기 때문에, 프로덕션에서 안전하게 실행하려면 목적에 맞게 제작된 격리 및 거버넌스 기판이 필요하다는 전제에서 출발했습니다. 이는 플랫폼 팀이 운영하는 잘 포장된 인프라와 동일한 통제(샌드박스 실행, 범위 지정 액세스, 중앙 거버넌스)를 패키징합니다.</li></ul>\n<ul><li><strong>네트워크 경계(Network perimeter)</strong>: Google Cloud의 VPC Service Controls는 에이전트가 접촉할 수 있는 데이터 주변에 네트워크 수준 경계를 그리는 AI 가드레일을 추가합니다. 따라서 유효한 토큰을 가진 탈취된 에이전트라도 보호 데이터를 경계를 벗어나게 할 수 없습니다. 이는 자격 증명 범위 지정(신원이 에이전트가 무엇을 할 수 있는지 제한)에 대한 송신 제어(egress-control)의 보완재입니다 (네트워크 경계는 행동이 승인되었을 때 데이터가 어디로 갈 수 있는지 제한합니다).</li></ul>\n<ul><li><strong>하네스 수준의 기본 보안 설정(Secure defaults at the harness level)</strong>: Claude Code는 CLI, VS Code 및 JetBrains 전반에 걸쳐 기본 권한 모드를 \"수동(Manual)\"으로 변경하여, 팀이 발견하고 켜야 하는 옵트인 방식이 아닌 기본 동작으로서 최소 권한을 제공합니다.</li></ul>\n<ul><li><strong>외부 출력 검증(External output verification)</strong>: SonarQube 플러그인은 Claude Code, Copilot, Codex 및 Cursor가 작성한 코드를 대상으로 신뢰할 수 있는 정적 분석을 실행하여, 샌드박스가 에이전트가 생성하도록 허용한 것에 대한 독립적이고 비모델적인 검사를 추가합니다. 이는 에이전트의 실행 및 자격 증명에 대한 상위 통제와 보완됩니다.</li></ul>\n<p>가장 중요한 몇 가지 동작에 대한 최소 권한과 인간의 승인을 결합하는 것이 이 모든 계층을 통틀어 가장 지속 가능한 통제책으로 남아 있습니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>두 가지 통제는 \"침해 가정(assume compromise)\" 스택을 서로 다른 방향으로 확장합니다. <strong class=\"secure-by-default\">기본 보안 설정 하네스 구성</strong>(Claude Code의 CLI 및 IDE 통합에서 기본 권한 모드가 \"수동\"으로 이동)은 기본 설정이 허용하는 것과 사용자가 실제로 의도한 것 사이의 격차를 해소하며, <strong class=\"independent-output\">독립적인 출력 검증</strong>(Claude Code, Copilot, Codex 및 Cursor를 위한 SonarQube의 신뢰할 수 있는 정적 분석 플러그인)은 에이전트가 무엇을 할 수 있는지뿐만 아니라 실제로 무엇을 생성하는지에 대한 비모델적 검사를 추가합니다.</p>\n<p>이는 네트워크 경계 통제(Google Cloud VPC Service Controls), 운영 플랫폼(Grab의 Palana), 그리고 드롭인 샌드박스 및 도구 호출 방화벽(Workdir, Cerberus)의 상용화된 기반 계층 위에 구축됩니다.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>더 많은 격리와 엄격한 범위는 더 많은 <strong class=\"friction\">마찰(friction)</strong>을 의미합니다. 승인 게이트는 지연 및 인적 비용을 추가하고, 좁은 자격 증명은 광범위한 액세스가 실제로 필요한 워크플로우를 중단시키며, 샌드박스는 운영 오버헤드를 추가합니다. 가드레일 모델은 호출당 비용과 자체적인 새로운 실패/공격 표면을 추가합니다.</p>\n<p>솔직한 입장은 단 하나의 계층도 신뢰하지 않는 심층 방어이며, 이는 구축하고 모니터링해야 할 움직이는 부분이 더 많다는 것입니다. <strong class=\"blast-radius\">피해 범위</strong>에 가장 잘 맞추어야 합니다. 쓰기 액세스 또는 금전/데이터 접근 권한을 가진 에이전트에게는 강력하게 통제하고, 읽기 전용인 에이전트에게는 가볍게 적용해야 합니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>이는 새로운 행위자에게 적용된 표준 보안 공학입니다. 즉, 최소 권한, 단기 범위 지정 토큰, 송신 제한 및 승인이지 프롬프트의 기발함이 아닙니다. 실행 가능한 교훈은 샌드박스를 *코드*를 담고 있는 것으로, 자격 증명/권한 부여 계층을 *능력(capability)*을 담고 있는 것으로 취급하고, 도구 액세스를 중앙에서 관리하는 것(MCP 참조)입니다. 그래야 탈취된 에이전트가 도달할 수 있는 범위가 최소화됩니다.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "prompt-injection",
+      "title": "Untrusted input and tools can hijack an agent"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "2f585fd257ad02a4",
+      "title": "Coding Agent Sandboxes Don't Solve Credential Authorization"
+    },
+    {
+      "sid": "6b3ed4b86d0301bf",
+      "title": "From Shield to Target: Denial-of-Service Attacks on LLM-Based Agent Guardrails"
+    },
+    {
+      "sid": "b2c537fce6444ae6",
+      "title": "Centrally manage authorization for MCP connectors | Claude"
+    },
+    {
+      "sid": "dd1dcc3f564a3ddd",
+      "title": "Every AI Agent Is an Identity. Most Organizations Don't Treat Them That Way"
+    },
+    {
+      "sid": "b36dcebbf2119ee1",
+      "title": "Windows Platform Security and the Race to Secure AI Agents"
+    },
+    {
+      "sid": "4c55eebe122eae12",
+      "title": "Show HN: FOSS sandbox platform that hides infra secrets from devs and AI agents"
+    },
+    {
+      "sid": "9ef99508d91d13ed",
+      "title": "claude-code v2.1.178"
+    },
+    {
+      "sid": "810e8370a6841be6",
+      "title": "datasette-agent 0.3a0"
+    },
+    {
+      "sid": "68a519e26dde7563",
+      "title": "datasette-acl 0.6a0"
+    },
+    {
+      "sid": "ed140b4e4c38f7b0",
+      "title": "Temporary Cloudflare Accounts for AI agents"
+    },
+    {
+      "sid": "ca0cc4b843525e7d",
+      "title": "Workdir: Open-source sandboxes for AI agents"
+    },
+    {
+      "sid": "8a98677361367a46",
+      "title": "Grab Builds Secure Agentic AI Workload Platform"
+    },
+    {
+      "sid": "655ca293c796f3fd",
+      "title": "Securing agentic AI with perimeter guardrails: What's new in VPC Service Controls"
+    },
+    {
+      "sid": "4dca27f5d11655f3",
+      "title": "Cerberus – a local firewall for AI agents' tool calls"
+    },
+    {
+      "sid": "0d10a691ebcb0e61",
+      "title": "claude-code v2.1.187"
+    },
+    {
+      "sid": "f9a1870648a6375a",
+      "title": "claude-code v2.1.200"
+    },
+    {
+      "sid": "7a882200fe85650f",
+      "title": "SonarQube plugins bring trusted verification to Claude Code, Copilot, Codex, Cursor, and beyond - Security Boulevard"
+    }
+  ],
+  "updated": "2026-07-03"
+}

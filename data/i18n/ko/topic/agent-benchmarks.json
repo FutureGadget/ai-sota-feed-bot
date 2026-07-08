@@ -1,0 +1,151 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-benchmarks",
+  "source_hash": "c4e2e156424f6f6de1d3be294d7e9f0cb2a8f81d6838724be46f1e8e71922bbd",
+  "translated_at": "2026-07-08T04:05:30.465185+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-benchmarks",
+  "kind": "solution",
+  "title": "에이전트 벤치마크: 실제 도구 사용을 검증하는 고정형 태스크",
+  "area": null,
+  "status": "active",
+  "summary": "알려진 좋은 결과를 가진 고정된 태스크 세트를 정의하고 에이전트를 반복적으로 실행합니다. 모델 벤치마크와 달리, 에이전트 벤치마크는 *도구 사용 및 다단계 추적* (예약, 질의, 수정, 조정)을 검증해야 하므로 모델뿐만 아니라 전체 에이전트에 대한 통합 테스트 역할도 합니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>알려진 좋은 결과를 가진 고정된 태스크 세트를 정의하고 에이전트를 반복적으로 실행합니다. 모델 벤치마크와 달리, 에이전트 벤치마크는 *도구 사용 및 다단계 추적* — 예약, 질의, 수정, 조정 — 을 검증해야 하므로 모델뿐만 아니라 전체 에이전트에 대한 통합 테스트 역할을 합니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p><strong>에이전트가 수행한 것을 평가하세요, 단순히 답변만은 아닙니다:</strong> 루브릭 스타일의 테스트 스위트는 올바른 도구가 호출되었는지, 태스크가 실제로 완료되었는지를 점수화하며, 구조적 벤치마크는 특정 실패 축(예: 다중 에이전트 조정의 결정 요인에 대한 DPBench)을 탐색합니다.</p>\n<p><strong>자체 도구 및 분포 외 능력을 측정하세요:</strong> Hugging Face의 \"에이전트적 충분성\" 워크벤치 벤치마크는 오픈 모델을 호출자의 실제 도구에 맞서 테스트하며, \"Gauntlet 실행\"은 익숙하지 않은 환경에서 최상위 친숙한 리더보드가 급격히 저하됨을 보여주므로, 높은 공개 점수는 귀하의 워크로드에 대한 약한 증거입니다. 재사용 가능한 평가 워크벤치(olmo-eval)는 이를 모델/에이전트 개발 루프에 통합하여 벤치마킹을 일회성이 아닌 상시적인 하네스로 만듭니다.</p>\n<p><strong>하네스 자체가 벤치마킹 대상입니다:</strong> 크로스-하네스 연구는 의도적으로 단순한 에이전트 루프가 SWE-pro 및 Terminal-Bench 스타일 스위트를 통해 21개 모델에서 SOTA에 도달했다고 보고하며, 정교한 스캐폴딩이 종종 역량 추가 없이 비용과 가변성만 높인다는 증거입니다. 따라서 벤치마크는 하네스를 고정하고 그 복잡성이 가치를 증명하도록 해야 합니다. 공급업체들은 이를 내부적으로 실행하고 있습니다: GitHub는 Copilot 에이전트 하네스를 20개 이상의 모델 및 많은 태스크에 걸쳐 평가하면서 결과와 토큰 효율성을 함께 점수화하며, 스캐폴드를 벤치마크 변수로 취급하고 정확도와 함께 해결된 태스크당 비용을 일류 지표로 격상시킵니다.</p>\n<p><strong>실제 세션에서 채굴:</strong> 합성 태스크 대신, 최신 스위트는 실제 세션에서 채굴됩니다. EnterpriseClawBench는 에이전트가 이기종 파일을 읽고, 도구를 호출하며, 비즈니스 산출물을 제공해야 하는 실제 업무 환경 세션으로부터 엔터프라이즈 에이전트 태스크를 구축하므로, 근사치 대신 프로덕션의 복잡성을 물려받습니다.</p>\n<p><strong>재현성</strong>은 벤치마크를 신뢰하는 것의 이면입니다: 에이전트 실행은 네트워크, 파일 시스템 및 변화하는 도구 버전에 영향을 미치므로, 환경이 고정되어 있지 않으면 점수는 아무 의미가 없습니다. Proctor는 코딩 에이전트 벤치마크를 서명된 격리된 번들로 패키징하여 실행이 재현 가능하고(그리고 리더보드 주장이 감사 가능하며) 믿음에 의존하지 않도록 합니다.</p>\n<p><strong>적대적 도구 환경:</strong> 도구가 정상적으로 작동한다고 가정하는 대신, \"Beyond Function Calling\"은 도구가 타임아웃하거나 오류가 발생하거나 잘못된 결과를 반환할 때 에이전트를 평가하며, 깨끗한 도구 스위트를 통과했지만 환경이 오작동할 때 복구하지 못하는 에이전트를 노출시킵니다. 이 벤치마크는 행복 경로가 아닌 *실패 복구* 경로를 목표로 합니다.</p>\n<p><strong>홀드아웃 및 암기하기 어려운 태스크:</strong> 실무자들은 익숙한 리더보드가 학습에 유출되는 것을 막기 위해 모델이 훈련받지 않은 새로운 환경(LLM 에이전트 평가로 실행되는 Sherlock Holmes 추론 보드 게임)을 찾고 있습니다. 이 점과 적대적 도구 환경 축은 표준 모델 리더보드가 채우지 못하는, \"어떤 벤치마크가 에이전트 *하네스*를 실제로 비교하는가?\"라는 공개적인 논의에서 나오는 실무자들의 간극에 답합니다.</p>\n<p><strong>서브시스템별 벤치마크</strong>는 종단 간 태스크 성공을 점수화하는 대신 하나의 능력을 격리합니다. 에이전트 메모리의 실패 모드(망각, 오래된 회상, 오염된 항목)에 대한 스위트와 OpenRCA 2.0의 결과 레이블에서 원인 분석을 위한 인과적 프로세스 감독으로의 전환은 내부 서브시스템(메모리 계층, 추론 궤적)을 등급화하므로, 하락한 총체적 점수에서 추론하는 대신 고장 난 부분에 회귀를 국지화할 수 있습니다. 마이크로서비스 실패 진단 벤치마크(AgentOps)는 이 프로세스 기반의 결과 평가를 운영 에이전트에 확장하여 다중 모드 추적 데이터를 점수화하고 벤치마킹을 <a href=\"/topic/agent-observability\">관찰 가능성</a>으로 이끌어갑니다.</p>\n<p>평가의 <strong>투명성</strong>도 메타적인 측면에서 향상되고 있습니다. Hugging Face는 이제 커뮤니티의 \"Every Eval Ever\" 결과를 모델 페이지에 직접 표시하여 단일 헤드라인 숫자에 의존하는 대신 점수 확산을 가시화합니다.</p>\n<p>도메인별 및 장기적 관점 모두 발전하고 있습니다: ScarfBench는 일반적인 코딩 벤치마크 대신 단일의 고위험 엔터프라이즈 태스크(Java 프레임워크 마이그레이션)로 범위를 좁히며, 이는 EnterpriseClawBench가 설정한 \"실제 작업에서 채굴\" 패턴을 따릅니다. Emergence World는 단일 경계 태스크가 아닌 지속적인 다단계 운영인 장기적 자율성을 평가하기 위해 특별히 구축되었는데, 이는 \"친숙한 리더보드가 분포 외에서 저하되는\" 현상이 이미 나타내는 더욱 어려운 분포 이동의 가장자리를 보여줍니다.</p>\n<p><strong>벤치마크 유지 관리가 자동화되고 있습니다.</strong> 이는 수작업으로 구축된 벤치마크를 저술하고 유지 관리하는 것이 실제 작업이라는 기존의 상충 관계를 해결합니다. Reap은 코딩 에이전트 벤치마크 태스크의 큐레이션을 자동화하여 팀이 이를 수동으로 선택하고 새로 고칠 필요가 없습니다. 새로운 <strong>환경 준비 상태</strong> 각도도 등장했습니다: AeroScore는 기존 문서 포털이 AI 에이전트를 지원하는 정도를 점수화하며, 에이전트 자체보다는 운영되어야 하는 환경을 평가합니다. 이는 모든 태스크 벤치마크보다 상위에 위치하는 전제 조건 확인입니다. 서브시스템별 측면에서는 TestEvo-Bench가 테스트와 코드의 공동 진화를 위한 실행 가능한 라이브 벤치마크를 추가하여 에이전트가 변경한 코드와 테스트를 동기화하는지 격리합니다. 프로그램 이해에 새로운 역량의 지평이 열렸습니다: MirrorCode는 에이전트가 행동만으로 전체 프로그램을 재구축하는 것(블랙박스 재구성)을 벤치마크하며, \"기존 코드 수정\"을 넘어 \"행동으로부터 재구성\"하는 단계로 나아갑니다. 도메인별 좁은 목록은 계속해서 성장하고 있습니다: GameEngineBench는 코딩 에이전트를 실제 C++ 게임 엔진 런타임 환경에 대해 점수화하며, 이는 \"실제 고위험 도메인에서 채굴\"이라는 패턴을 따르면서, 일반적인 코딩 벤치마크가 다루지 않는 실시간 시뮬레이션, 물리 및 렌더링 제약 조건을 갖춘 런타임으로 확장됩니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>도메인별 좁은 벤치마크 목록이 게임 엔진으로 확장됩니다: GameEngineBench는 코딩 에이전트를 실제 C++ 런타임 환경(시뮬레이션, 물리, 렌더링)에 대해 점수화하며, 이는 ScarfBench의 Java 마이그레이션과 동일한 \"실제 고위험 도메인에서 채굴\" 패턴입니다.</p>\n<p>벤치마크 노이즈가 가정되는 것이 아니라 정량화됩니다: 단일 모델의 코딩 태스크에 대한 실행 간 표준 편차가 7.5%로 측정되었는데, 이는 최고 등급 모델과 최저 등급 모델 사이의 격차보다 더 큰 값이며, 약 100개 태스크 세트에서 몇 가지 태스크를 제외하는 것만으로도 순위가 뒤바뀔 수 있다는 것은 작은 태스크 세트의 분산이 측정하려던 신호를 압도할 수 있음을 보여줍니다.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>고정된 벤치마크는 재현 가능하고 재실행 비용이 저렴하지만, 정적인 목표입니다. 에이전트가 여기에 과적합하고, 도구가 변경되면 쓸모없어지며, \"통과\"는 \"분포를 암기했다\"는 것을 의미할 수 있습니다.</p>\n<p>자체 도구로 벤치마크를 구축하는 것이 더 예측적이지만, 저술하고 유지 관리하는 데 실제 작업이 필요하며, 소규모 태스크 세트는 높은 분산을 가집니다. 이는 추측이 아닌 측정되었습니다: 한 실무가는 모델 자체의 실행 간 표준 편차(코딩 태스크에서 7.5%)가 최고-최저 모델 간의 격차를 초과했으며, 약 100개 태스크 세트에서 몇 가지 태스크를 교체하는 것만으로도 어떤 모델이 1위를 차지할지 뒤바뀌었다는 것을 발견했습니다. 두 모델 모두 비교에 사용된 태스크에 따라 서로에게 \"더 저렴하게\" 또는 \"더 비싸게\" 보일 수 있으므로, 단일 리더보드 숫자는 모델에 대한 일반적인 사실이 아니라 해당 태스크 세트에 대한 주장입니다.</p>\n<p>회귀 게이트(알려진 실패 포착)로 사용하는 것이 가장 좋습니다. 고정된 스위트가 열거할 수 없는 개방형 사례에 대해서는 라이브 추적과 함께 <a href=\"/topic/llm-as-judge\">LLM-as-judge</a>를 보완하십시오.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>에이전트 벤치마크는 에이전트 스택의 CI 게이트입니다. 사용자가 놓치기 전에 회귀를 포착하기 위해 모든 프롬프트, 모델 또는 도구 변경 시 실행하는 고정된 스위트입니다.</p>\n<p>레버리지는 *자신의* 환경과 도구로 구축하는 데 있습니다. 왜냐하면 공개 리더보드는 에이전트가 귀하의 워크로드에서 얼마나 잘 수행할지에 대해 체계적으로 과장하기 때문입니다. 그리고 벤치마크가 프로덕션과 여전히 유사한 동안에만 유용하므로 유지 관리에 대한 예산을 책정하는 것이 중요합니다.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-evaluation",
+      "title": "Measuring whether an agent actually worked is hard"
+    },
+    {
+      "slug": "model-drift",
+      "title": "Agent behavior drifts as the model, SDK, and runtime churn under it"
+    },
+    {
+      "slug": "multi-agent",
+      "title": "Coordinating multiple agents adds more failure than capability"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "432c23c0dd1c00f1",
+      "title": "Is it agentic enough? Benchmarking open models on your own tooling"
+    },
+    {
+      "sid": "f07b6a3f3f344020",
+      "title": "Running the Gauntlet: Re-evaluating the Capabilities of Agents Beyond Familiar Environments"
+    },
+    {
+      "sid": "55809dc9368e7936",
+      "title": "Show HN: Rubric – test what your LLM agent did, not just what it said"
+    },
+    {
+      "sid": "8f76e67ad854a6c0",
+      "title": "olmo-eval: An evaluation workbench for the model development loop"
+    },
+    {
+      "sid": "64ad8e685ed41a9b",
+      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+      "sid": "3abcf8c08cb66506",
+      "title": "Simplicity always wins:SOTA on swe-pro,tb2,-verif on 21 models with simple-agent"
+    },
+    {
+      "sid": "e214c4d6ded906fa",
+      "title": "EnterpriseClawBench: Benchmarking Agents from Real Workplace Sessions"
+    },
+    {
+      "sid": "4500a2b43ff7ed73",
+      "title": "Show HN: Proctor – signed isolation bundles for AI coding-agent benchmarks"
+    },
+    {
+      "sid": "ebc3627096b332c8",
+      "title": "Beyond Function Calling: Benchmarking Tool-Using Agents under Tool-Environment Unreliability"
+    },
+    {
+      "sid": "45c05959600cf833",
+      "title": "How good a detective is an AI? A Sherlock Holmes board game as an LLM-agent eval"
+    },
+    {
+      "sid": "72d3e39506f8db79",
+      "title": "Ask HN: What are some good benchmarks for different agent harnesses?"
+    },
+    {
+      "sid": "8957450e5744d59e",
+      "title": "OpenRCA 2.0: From Outcome Labels to Causal Process Supervision"
+    },
+    {
+      "sid": "a803b4966933291a",
+      "title": "Show HN: A benchmark for the failure modes of agent memory"
+    },
+    {
+      "sid": "2e0b2f76a5b7e197",
+      "title": "Evaluating performance and efficiency of the GitHub Copilot agentic harness across models and tasks"
+    },
+    {
+      "sid": "274255c89788d5c4",
+      "title": "A Multi-Dataset Benchmark for Evaluating LLM Agents in Microservice Failure Diagnosis"
+    },
+    {
+      "sid": "326b5d51b877e9cf",
+      "title": "Featuring Every Eval Ever Results on Hugging Face Model Pages"
+    },
+    {
+      "sid": "59e3931d5ce8feeb",
+      "title": "Emergence World: A Laboratory for Evaluating Long-Horizon Agent Autonomy"
+    },
+    {
+      "sid": "d2b47e5ca2b10e4d",
+      "title": "ScarfBench: Benchmarking AI Agents for Enterprise Java Framework Migration"
+    },
+    {
+      "sid": "b1327bdaf1fdb10d",
+      "title": "Reap: Automatic Curation of Coding Agent Benchmarks"
+    },
+    {
+      "sid": "bb53999f247d993c",
+      "title": "0/6 major aerospace documentation portals are AI Agent-ready"
+    },
+    {
+      "sid": "33347a0b1de54b78",
+      "title": "TestEvo-Bench: An Executable and Live Benchmark for Test and Code Co-Evolution"
+    },
+    {
+      "sid": "76abb26fe81fb012",
+      "title": "MirrorCode: AI can rebuild entire programs from behavior alone"
+    },
+    {
+      "sid": "d8ea565801623af0",
+      "title": "Agentic test processes, LLM benchmarks"
+    },
+    {
+      "sid": "64cfadf91532a8d8",
+      "title": "GameEngineBench: Evaluating Coding Agents on Real C++ Runtime Environments"
+    }
+  ],
+  "updated": "2026-07-07"
+}

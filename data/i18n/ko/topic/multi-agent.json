@@ -1,0 +1,103 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/multi-agent",
+  "source_hash": "b81891510bb364fc2d5ca4123598712f83c0e6b2060800d2c00a3ef9821e7d17",
+  "translated_at": "2026-07-08T03:50:02.053254+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "multi-agent",
+  "kind": "obstacle",
+  "title": "다중 에이전트 조정은 능력 향상보다 실패 가능성을 높인다",
+  "area": "multi-agent",
+  "status": "active",
+  "summary": "여러 에이전트에게 작업을 분산하면 전문화와 병렬 처리를 기대할 수 있지만, 모든 인계 과정은 정보 손실을 일으키는 인터페이스이며, 추가되는 에이전트 하나하나가 시스템의 정체, 루프 진입, 의견 불일치 가능성을 증폭시킵니다. 조정 오버헤드는 얻은 이득을 상쇄시키기 일쑤입니다. 어려운 점은 에이전트 자체를 구축하는 것이 아니라, 단일 우수 에이전트보다 더 많은 비용을 들이지 않고 이들을 협업하게 만드는 것입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>여러 에이전트에게 작업을 분산하면 전문화와 병렬 처리를 기대할 수 있지만, 모든 인계 과정은 정보 손실을 일으키는 인터페이스이며, 추가되는 에이전트 하나하나가 시스템의 정체, 루프 진입, 의견 불일치 가능성을 증폭시킵니다. 조정 오버헤드는 얻은 이득을 상쇄시키기 일쑤입니다. 어려운 점은 에이전트 자체를 구축하는 것이 아니라, 단일 우수 에이전트보다 더 많은 비용을 들이지 않고 이들을 협업하게 만드는 것입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>대화의 초점은 '에이전트가 많을수록 좋다'에서 다중 에이전트가 *언제* 실제로 도움이 되는지를 규명하는 것으로 바뀌고 있으며, 반복되는 답은 <strong>통신 구조가 에이전트 수보다 지배적이라는 것</strong>입니다. DPBench는 다중 에이전트 LLM 조정의 구조적 결정 요인들을 직접 연구합니다. 즉, 어떤 토폴로지와 역할 할당이 협업의 가치를 높이고 노이즈를 추가하는지를 살펴보는 것입니다.</p>\n<p><strong>비용</strong>은 두 번째 축입니다. Stanford의 DeLM 보고서는 중앙 오케스트레이터를 *제거*함으로써 다중 에이전트 작업 비용을 약 절반으로 줄였는데, 이는 단일 조정 에이전트가 토큰 병목 현상이자 단일 실패 지점이라는 증거입니다.</p>\n<p>오케스트레이션 자체도 하드와이어링 방식이 아닌 <strong>동적(dynamic)</strong>으로 진화하고 있습니다. Anthropic의 Claude Code 동적 워크플로우에 대한 글은 고정된 형태에 의존하는 대신, 태스크별 맞춤형 실행 하네스를 생성하여 서브 에이전트를 조정하는 방법을 설명합니다. 이 움직임의 더 날카로운 버전은 서브 에이전트를 도구 호출이 아닌 <strong>코드 자체로 오케스트레이션</strong>하는 것입니다. Deep Agents의 LangChain 동적 서브 에이전트는 프로그램으로부터 팬아웃과 조정을 구동하여, 각 워커가 하나의 도구 호출을 내보내기를 바라는 것보다 제어 흐름에 의해 커버리지가 *보장*됩니다. 이는 조정 계층을 비결정론적 에이전트 주변의 일반적인(테스트 가능하고 결정론적인) 코드로 전환합니다.</p>\n<p>통신 구조를 중요하게 생각하는 것의 이면에는 그 구조 역시 <strong>공격 표면(attack surface)</strong>이 된다는 점이 있습니다. 'Linguistic Firewall' 연구는 다중 에이전트 시스템에서의 라우팅을 기하학적 문제로 취급하고 이를 방어하는데, 이는 메시(mesh) 내의 손상되거나 적대적인 에이전트가 다른 에이전트를 조종할 수 있기 때문입니다. 따라서 견고한 인계는 단순한 품질 속성이 아니라 보안 속성입니다.</p>\n<p>한편, 실무자들은 여전히 *이종(heterogeneous)* 모델들이 진정으로 협업하는 프레임워크를 찾고 있습니다 (하나의 모델로 라우팅 리팩토링, 다른 모델로 코드 생성). 이는 본질적으로 모델 문제가 아니라 라우팅 및 인계 문제입니다. 그리고 그 탐색은 이제 도구 출시로 구체화되고 있습니다:</p>\n<ul><li >내장된 다중 모델 오케스트레이션을 가진 코딩 에이전트(<strong>Kimchi</strong>는 터미널 코딩 에이전트를 모델 간에 라우팅함)</li><li >Claude Code를 위해 서브 에이전트를 수동으로 연결할 수 있는 시각적 오케스트레이션 UI(<strong>rondoflow</strong>)</li><li >각 에이전트가 수행한 작업을 노출하는 투명성 우선 다중 에이전트 도구(<strong>OpenOrb</strong>)</li></ul>\n<p>공통점은 어렵고 부하를 견디는 작업이 에이전트 내부에서 벗어나 그들 사이의 *라우팅, 배선 및 가시성* 계층으로 이동했다는 것입니다.</p>\n<p>'그것이 가치가 있는가'라는 질문의 더 날카로운 버전은 이제 양쪽 끝에서 나타납니다. Sakana의 Fugu는 다중 에이전트 시스템을 단일 정제 모델로 *붕괴*시킵니다. 이는 역할 분담이 알려지면 조정 계층 자체를 완전히 포기하는 것을 의미합니다. 반면, 오케스트레이션 라이브러리를 구축하는 실무자들은 진정한 엔지니어링은 영리한 에이전트 역할보다는 평범한 배관 작업(워크스페이스, 런타임, 서브 에이전트 디렉토리 레이아웃)이라고 보고합니다.</p>\n<p>지속적인 교훈은 이것입니다. 누가 누구와, 어떤 형식으로, 누구의 통제 하에 대화하는지가 지배적인 변수이며, 때로는 가장 저렴한 토폴로지는 아예 토폴로지가 없는 것입니다.</p>\n<p>더 새로운 흐름은 조정 품질을 <strong>불확실성(uncertainty)</strong>과 직접적으로 연결합니다. UA-ChatDev는 역할 기반 소프트웨어 개발 에이전트가 자체 신뢰도를 추적하고 행동하도록 하여, 낮은 신뢰도의 단계는 다음 역할에 실수를 자신 있게 전파하는 대신 숙고 또는 인계를 유발합니다. 이는 토폴로지뿐만 아니라 에이전트가 무엇을 모르는지 아는 것에 따른 조정 신뢰성입니다.</p>\n<p>여러 *코딩* 에이전트가 같은 레포지토리를 동시에 작업할 때, 조정 문제는 추상적인 토폴로지보다는 구체적인 충돌 회피 문제로 바뀝니다. 한 가지 실무 패턴은 각 에이전트(Claude, Codex)에게 자체 git 브랜치와 격리된 워크트리를 부여하여 '두 에이전트도 같은 브랜치를 건드리지 않고, 어떤 에이전트도 다른 에이전트의 파일에 접근할 수 없도록' 만든 다음, 동결되고 읽기 전용으로 검토 가능한 라운드를 거쳐 각 후보를 중립적인 검증기와 함께 깨끗한 박스에서 재현하여 병합 전에 통과 테스트를 거칩니다. 이는 위의 지속적인 교훈의 구체적인 사례입니다. 즉, 더 똑똑한 에이전트가 아니라 격리와 제어 흐름 게이트가 병렬 코딩 에이전트들이 서로의 작업을 망치는 것을 막는 것입니다.</p>\n<p>코드 기반 오케스트레이션은 또한 <strong>제공자(providers)</strong> 전반으로 일반화되고 있습니다. Omegacode는 순수 JavaScript에서 <code >agent()</code>/<code >parallel()</code>/<code >pipeline()</code>/<code >phase()</code> 호출을 구성하며, 각 <code >agent()</code> 호출은 동일한 워크플로우 파일에서 Codex, Claude Code, OpenCode 또는 pi 에이전트를 생성할 수 있습니다. 따라서 적대적 코드 리뷰나 모델 간의 배틀 같은 패턴은 제공자별 통합이 아닌 단일 스크립트로 구현됩니다. 이는 앞서 언급한 코드 기반 팬아웃(LangChain의 동적 서브 에이전트)을 단일 프레임워크 내에서 커버리지를 보장하는 것에서, 동일한 조정 스크립트가 이종 에이전트를 혼합할 수 있게 하여 '하나의 모델로 리팩토링하고, 다른 모델로 코드 생성'하는 실무자들이 찾던 기능을 가능하게 합니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>코드 기반 오케스트레이션은 단일 프레임워크를 넘어 <strong>제공자 독립적(provider-agnostic)</strong>으로 확장됩니다. Omegacode는 동일한 JavaScript 워크플로우 파일에서 Codex, Claude Code, OpenCode 및 pi 에이전트를 구동하며, 내장된 다중 제공자 패턴(적대적 리뷰, 모델 배틀)을 통해 제공자 간의 비상관적인 오류를 의도적으로 활용합니다. 이는 지난 라운드의 불확실성 인식 조정(UA-ChatDev) 및 에이전트별 워크트리 충돌 회피 레시피 위에 구축된 이종 모델 협업 도구에 대한 오랜 탐색의 구체적인 해답입니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>추가 에이전트 하나당 추가 토큰, 추가 지연 시간, 추가 실패 표면이 발생하므로, 다중 에이전트 설계는 어려운 관문을 통과해야 합니다. 그것은 바로 단일 잘 프롬프트된 에이전트를 비용과 신뢰성 모두에서 능가하는 것입니다. 그리고 종종 그럴 수 없습니다. 엔지니어링의 임무는 토폴로지를 선택하고(오케스트레이터-워커 대 분산형), 한 에이전트의 출력이 다른 에이전트에게 안전하게 입력으로 전달되도록 엄격한 인계 계약을 작성하며, 통신 오버헤드를 미리 예산 책정하는 것입니다. 결정적으로는 추가 에이전트가 그만한 가치를 했음을 증명하는 평가(agent benchmarks 참조)가 필요합니다. 왜냐하면 기본 실패 모드는 단일 에이전트가 생산할 수 있었던 결과에 대해 N배의 비용을 지불하는 것이기 때문입니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agent-benchmarks",
+      "title": "Agent benchmarks: fixed tasks that exercise real tool use"
+    },
+    {
+      "slug": "agent-orchestration",
+      "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "64ad8e685ed41a9b",
+      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+      "sid": "19e4caf222bfb0d9",
+      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
+    },
+    {
+      "sid": "e7f12e82187d72de",
+      "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses"
+    },
+    {
+      "sid": "f961ee6418699914",
+      "title": "Ask HN: Multi-LLM orchestration frameworks that collaborate?"
+    },
+    {
+      "sid": "884659da8630c702",
+      "title": "Sakana Fugu: a multi-agent system delivered as one model"
+    },
+    {
+      "sid": "296564a4c4e09d02",
+      "title": "Workspace, Runtime, and Directories – Designing an Agent Orchestration Library"
+    },
+    {
+      "sid": "ba5ccf9069d7bcf3",
+      "title": "Terminal coding agent powered by Kimchi's multi-model orchestration"
+    },
+    {
+      "sid": "184459768c3c7f3a",
+      "title": "Show HN: Visual multi-agent orchestration for Claude Code"
+    },
+    {
+      "sid": "687049f045800948",
+      "title": "Show HN: OpenOrb – I built a transparent multi-agent AI tool"
+    },
+    {
+      "sid": "f27164f724f79fa3",
+      "title": "Introducing Dynamic Subagents in Deep Agents"
+    },
+    {
+      "sid": "e42bb42a72fb81a4",
+      "title": "Linguistic Firewall: Geometry as Defense in Multi-Agent Systems Routing"
+    },
+    {
+      "sid": "8875da5519a24b6e",
+      "title": "UA-ChatDev: Uncertainty-Aware Multi-Agent Collaboration for Reliable Software Development"
+    },
+    {
+      "sid": "11989be201950b67",
+      "title": "A Conflict-Free Multi-Agent Ensemble for Claude and Codex"
+    },
+    {
+      "sid": "21835f1d1d66cb1d",
+      "title": "Omegacode: Code based orchestration for any coding agent"
+    }
+  ],
+  "updated": "2026-07-05"
+}

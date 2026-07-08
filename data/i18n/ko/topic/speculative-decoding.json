@@ -1,0 +1,55 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/speculative-decoding",
+  "source_hash": "390451cc7aeabee4d9371dca399b23b68d721d4d76893b3fd0b8e6c1619972de",
+  "translated_at": "2026-07-08T03:54:39.420116+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "speculative-decoding",
+  "kind": "solution",
+  "title": "추측적 디코딩: 저비용 초안 작성 및 병렬 검증",
+  "area": null,
+  "status": "active",
+  "summary": "작은 *초안* 모델(또는 경량 헤드)을 이용해 저비용으로 여러 후보 토큰을 생성하고, 전체 모델이 단일 병렬 순방향 패스로 이를 검증하게 합니다. 수락된 토큰은 \"무료\"로 얻어지므로 출력 분포 변화 없이도 지연 시간을 낮출 수 있습니다. 이는 순수 엔진 튜닝이 극복하기 어려운, 에이전트의 총 소요 시간을 지배하는 엄격한 순차적 토큰 단위 디코딩에 도전합니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>Generate several candidate tokens cheaply with a small *draft* model (or a lightweight head), then let the full model verify them in a single parallel forward pass — accepted tokens come &quot;for free,&quot; so latency drops without changing the output distribution. It attacks the one term raw engine tuning can&#x27;t: the strictly sequential, one-token-at-a-time decode that dominates an agent&#x27;s wall-clock.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>Speculative decoding has moved from a research trick to a serving default, and the recent work is about making the draft step both cheap and accurate enough that the acceptance rate justifies the extra verify compute. Modal and Decagon report state-of-the-art inference latencies in production by tuning the draft/verify pair to their workload, framing it as a practical, deployable win rather than a benchmark curiosity. On the hardware side, NVIDIA&#x27;s DFlash pushes the technique into the silicon — up to ~15× inference-performance gains on Blackwell — showing the draft-and-verify pattern is being co-designed with the accelerator, not just layered on top in software. The throughline is that the gains are largest exactly where agents hurt most: long, latency-sensitive decode loops where shaving sequential steps compounds across every turn of the agent.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>Speculative decoding is being reported as a shipping production win, not a paper: Modal/Decagon document state-of-the-art latencies from a tuned draft/verify setup, and NVIDIA&#x27;s DFlash claims up to ~15× on Blackwell by pushing speculation into the hardware path — evidence the technique is now a co-designed default of the serving stack rather than an optional optimization.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>Lossless by construction — the full model still verifies every token, so quality is unchanged — but the win is entirely a function of <strong >acceptance rate</strong >: if the draft and target disagree often (out-of-distribution inputs, a poorly matched draft model), you pay for the draft *and* the verify and can come out slower. It costs extra memory and serving complexity (a second model or draft head to host and keep in sync), and the speedup is real on decode-bound, long-output work but marginal on short replies or prefill-bound prompts. Best treated as a serving-layer knob tuned to the actual workload — which is why workload characterization (<a href=\"/topic/agent-latency\">agent-latency</a>) and speculation are complementary, not alternatives.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>It is one of the few latency levers that doesn&#x27;t force a quality trade — the output is identical to greedy/sampled decoding from the target model, so it&#x27;s safe to enable broadly once the draft pairing is tuned. For agent traffic, where the same sequential decode is paid on every loop step, the per-call saving compounds across the run, making it a high-leverage default to validate against your own traces before reaching for a smaller, lossy model.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-latency",
+      "title": "Agent loops multiply per-call latency into slow, expensive runs"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "62173e9d865bdec2",
+      "title": "Achieve state-of-the-art inference latencies with speculative decoding"
+    },
+    {
+      "sid": "99bd515fd5fd8083",
+      "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer"
+    }
+  ],
+  "updated": "2026-06-30"
+}

@@ -1,0 +1,103 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-planning",
+  "source_hash": "e212a5c432046c4ca134ec21ced3acb8720a66af306065c2374c7aeabacc89a7",
+  "translated_at": "2026-07-08T03:35:57.243750+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-planning",
+  "kind": "obstacle",
+  "title": "에이전트의 다단계 작업 계획 오류: 루프에 빠지거나, 정체되거나, 단계를 건너뜀",
+  "area": "planning",
+  "status": "active",
+  "summary": "에이전트에게 10단계가 필요한 목표를 주면, 종종 잘못된 경로를 택합니다. 모호한 요청에 돌진하거나, 계획이 흐려지거나, 재시도 루프에 빠지거나, 필요한 단계를 건너뜁니다. 계획 수립(목표를 올바른 순서의 행동 시퀀스로 바꾸고 언제 멈추거나 질문할지 아는 것)은 도구 사용이나 메모리와는 다른 고유한 실패 모드이며, 장기 목표 에이전트가 가장 명확하게 무너지는 지점입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트에게 10단계가 필요한 목표를 주면, 종종 잘못된 경로를 택합니다. 모호한 요청에 질문 없이 돌진하거나, 작업을 계획으로 분해하는 과정에서 목표가 흐려지거나, 재시도 루프에 빠지거나, 필요한 단계를 건너뛰게 됩니다. 계획 수립 — 즉, 목표를 올바른 순서의 행동 시퀀스로 바꾸고 언제 멈추거나 질문할지 아는 것 — 은 도구 사용이나 메모리와는 구별되는 실패 모드이며, 장기 목표 에이전트가 가장 명확하게 무너지는 지점입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>지배적인 제어 구조는 여전히 <strong class=\"\">ReAct 루프</strong>(추론 → 행동 → 관찰, 반복)이며, 여기서 얻을 수 있는 교훈은 루프 자체만으로는 충분하지 않다는 것입니다. Stripe의 재무 규정 준수 에이전트는 ReAct 프레임워크에 전용 인프라와 가드레일을 결합하여 프로덕션 규모에서 다단계 실행을 궤도에 올려놓았습니다. 이는 계획의 신뢰성이 프롬프트 문제가 아닌 아키텍처 문제임을 입증합니다. 이 위에 두 가지 개선 사항이 등장하고 있습니다. 첫째, <strong class=\"\">질문할지 진행할지를 아는 것</strong>: DiscoBench는 명확화 인식을 통한 심층 검색을 측정하며, 에이전트가 목표가 불명확함을 인식하고 확신에 차서 잘못된 경로로 계획을 진행하는 대신 질문을 던지는지 여부를 점수화합니다. 이는 '질문하기'를 일급 계획 행동으로 취급하는 것입니다. 둘째, 각 실행마다 계획을 처음부터 재도출하기보다 경험으로부터 계획을 학습하는 것입니다. 자율적으로 탐색하고 *사후적(hindsight)* 경험을 재사용하는 GUI 에이전트는 제로샷 분해보다 반복적인 인터페이스 작업을 더 잘 계획하며, DAIN의 동적 에이전트 상호 작용 네트워크는 고정된 계획을 실행하는 대신 작업에 맞춰 협업/추론 구조를 조정합니다. 핵심은 견고한 계획이 단일의 더 영리한 프롬프트에서 나오는 것이 아니라 *루프 주변의 구조* — 명시적 분해, 명확화 게이트, 학습된 사전 지식, 그리고 재계획이 가능한 하네스 — 에서 나온다는 것입니다. 이 루프 자체가 이제 업계의 문제 해결을 위한 공유된 어휘가 되었으며, AI Engineer World's Fair에서 '루프'와 '소프트웨어 공장' — 계획 루프를 충분한 인프라로 감싸 반복적이고 안정적으로 실행하는 프로덕션 설정 — 이 전진 배치된 엔지니어링과 함께 지배적인 주제였습니다. 이는 계획을 하네스 문제로 보는 관점이 연구 프레임에서 주류 실무자 대화로 넘어왔음을 보여줍니다.</p>\n<p>이제 '루프'는 일회성 프롬프트 패턴이라기보다는 엔지니어링되고 재사용 가능한 아티팩트로 자리 잡고 있습니다. 포트-어댑터(모델 호출, 도구 실행, 결과 피드백, 중지)를 기반으로 구축된 공급자 독립적인 참조 구현체는 루프 자체를 모든 OpenAI 호환 백엔드가 플러그인할 수 있는 이식 가능한 인프라로 취급하며, QUALITY.md는 '루프 엔지니어링' 품질을 직접 평가하기 위한 오픈 스펙, 에이전트 기술 및 CLI를 제안하여 이 하네스 품질 축을 암묵적으로 남겨두지 않고 명명하고 측정합니다. 자체 개선 변형도 등장하고 있습니다: '자동 연구(autoresearch)' 패턴은 에이전트가 개별 단계뿐만 아니라 계획 자체에 대한 피드백 루프를 닫으면서 실행을 통해 자신의 작업 *레시피*를 반복적으로 개선하게 합니다. 다만 실무자들은 여전히 인간이 조향을 담당한다는 점을 명시합니다. 즉, 단일 프롬프트가 계획을 올바르게 얻기를 바라는 것보다 기술 엔지니어링(반복적이고 인간이 큐레이션한 작업 사양)의 가치가 있다는 주장입니다.</p>\n<p>'질문할지 진행할지를 아는 것'이라는 주제 역시 메타인지적 관점을 얻고 있습니다. CoMet은 불확실성 추정을 직접적으로 목표로 합니다. 이는 멀티모달 모델이 가진 불확실성의 *종류*를 분해하는 것인데, '모르는 것을 안다는 것'은 계획 루프가 명확화 질문을 할지 돌진할지를 결정하는 데 필요한 정확한 신호이기 때문입니다. 이는 DiscoBench의 명확화 인식 벤치마크에 그러한 신호를 생성하는 메커니즘을 추가한 것입니다.</p>\n<p>훈련 자체가 주변의 하네스가 아닌 계획을 <strong class=\"\">직접적으로</strong> 목표로 삼기 시작했습니다. OpenAI의 Agent RFT는 강화 학습을 사용하여 장기 궤적 전반에 걸친 신용 할당 문제(긴 여정에서 성공이나 실패를 실제로 야기한 단계가 무엇인지)를 해결하며, 단순히 프롬프팅이나 수작업으로 만든 하네스에 전적으로 의존하지 않고 실제 도구 상호 작용으로부터의 보상 신호를 추론 모델에 미세 조정합니다. AWS SageMaker의 멀티턴 RL 모범 사례는 인프라 측면에서 동일한 신용 할당 작업을 명명합니다. 즉, 신뢰할 수 있는 훈련 환경을 구축하고, 보상 신호와 별도로 외부 평가를 실행하며, 보상이 실제 최종 작업과 일치하도록 설계하고, 턴 간 상태를 관리하는 것입니다. 이는 '도구 상호 작용으로 단순히 미세 조정'이라는 운영 체크리스트 아래에 있습니다.</p>\n<p>실패 시 재계획 역시 단순히 재시도하고 희망하는 것보다 더 구조화된 답변을 얻고 있습니다. 단일 반성 패스를 거치는 대신, 다중 가설 실패 귀인 접근 방식은 자율 연구 에이전트가 실험이 실패한 이유에 대한 여러 후보 설명을 생성하고, 이를 가중치 부여하며, 가장 가능성 높은 원인을 중심으로 재계획합니다. 이는 실패 진단 자체를 단순한 맹목적 재시도의 트리거가 아닌 계획 단계로 취급하는 것입니다.</p>\n<p>'질문할지 진행할지'에 대한 질문은 벤치마크 점수에서 <strong class=\"\">실시간 제어 신호</strong>로 이동하고 있습니다. Candidly는 메시지 길이 및 의미적 정렬과 같은 신호에 대한 턴별 상태 모델을 구축하여 대화가 몰입형인지, 상세한지, 안내받는 것인지, 아니면 흥미를 잃어가는지를 추론하고 에이전트의 다음 턴 행동을 그에 따라 조향합니다. 프로덕션에서 이 루프를 닫으면서 흥미를 잃는 턴이 절반으로 줄었고(23% → 11%), 트래픽은 고해상도 몰입형 상태(53% → 64%)로 이동했습니다. 이는 에피소드 끝에서가 아니라 도중에 '이 계획이 작동하는지'를 추론하는 것이 추가 모델 가치가 있음을 보여주는 구체적인 증거입니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>실패 시 재계획은 <strong class=\"\">다중 가설</strong> 업그레이드를 받았습니다. 단일 반성 패스 대신, 자율 연구 에이전트는 재계획하기 전에 여러 후보 실패 설명을 생성하고 가중치를 부여하며, Candidly의 프로덕션 IO-HMM 상태 모델은 매 턴 대화 상태를 추론함으로써 (사후에 결과를 평가하는 대신) 흥미를 잃는 턴을 절반으로 줄이는 것이 *실시간*에 효과가 있음을 보여줍니다(23% → 11%). AWS의 멀티턴 RL 모범 사례 가이드는 Agent RFT와 같은 훈련 접근 방식 아래에 있는 운영 체크리스트(신뢰할 수 있는 훈련 환경, 외부 평가, 정렬된 보상, 턴 간 상태)를 명시합니다.</p>\n<p>훈련은 계획을 직접적으로 목표로 삼기 시작했습니다. OpenAI의 Agent RFT는 도구 상호 작용 보상 신호를 사용하여 추론 모델을 미세 조정하고, RL을 활용하여 장기 궤적 전반에 걸친 신용 할당 문제를 해결합니다. 이는 하네스 엔지니어링에만 의존하는 것이 아닙니다. 이와 병행하여 '루프'는 재사용 가능하고 평가 가능한 인프라로 구체화되고 있습니다. 공급자 독립적인 포트-어댑터 참조 루프, 루프 엔지니어링 품질을 평가하기 위한 오픈 스펙(QUALITY.md), 그리고 자신의 작업 레시피를 반복적으로 개선하는 자체 개선 '자동 연구' 루프가 그것입니다. 동시에 실무자들은 여전히 인간의 조향(기술 엔지니어링)이 단일 시도 설계보다 우수하다는 점을 주장합니다. CoMet은 DiscoBench가 이미 벤치마킹하는 '질문할지 진행할지'에 메타인지적 신호(분해된 불확실성 추정)를 추가합니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>나쁜 계획은 유능한 모델을 신뢰할 수 없는 에이전트로 만드는 원인입니다. 이는 통제 불능의 루프(비용 문제), 모호한 티켓에 대한 확신에 찬 오류 작업, 그리고 신뢰를 잠식하는 장기 목표 실패의 근원입니다. 엔지니어링의 역할은 모델의 추론을 통제 가능한 하네스로 감싸는 것입니다. 즉, 경계가 설정된 루프, 명시적 분해, 명확화 체크포인트, 그리고 실패 시 재계획을 통해 모델의 추론을 감싸고, 더 큰 모델이 스스로 더 잘 계획할 것이라고 희망하는 대신 <a href=\"/topic/agent-evaluation\">궤적 수준 평가</a>를 통해 그것이 작동함을 증명하는 것입니다. 계획은 <a href=\"/topic/agent-orchestration\">오케스트레이션</a>보다 상위에 위치합니다. 일단 신뢰성 있게 분해할 수 있다면, 각 단계를 누가 실행할 것인지가 문제이지요.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "agent-orchestration",
+      "title": "Orchestration patterns: topologies, handoffs, and harnesses"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "1e062311eafafa88",
+      "title": "Production-grade AI agents for financial compliance: Lessons from Stripe"
+    },
+    {
+      "sid": "13b90f2d9195e871",
+      "title": "When Search Agents Should Ask: DiscoBench for Clarification-Aware Deep Search"
+    },
+    {
+      "sid": "d82e3daa1fb038a6",
+      "title": "Empowering GUI Agents via Autonomous Experience Exploration and Hindsight Experience Utilization for Task Planning"
+    },
+    {
+      "sid": "28627c9767ffadd1",
+      "title": "DAIN: Dynamic Agent-Based Interaction Network for Efficient and Collaborative Multimodal Reasoning"
+    },
+    {
+      "sid": "49d83537b1abacda",
+      "title": "AIEWF Daily Dispatch: Loops, Software Factories & Forward Deployed Engineers"
+    },
+    {
+      "sid": "9776829397d5307a",
+      "title": "Presentation: Fine Tuning the Enterprise: Reinforcement Learning in Practice"
+    },
+    {
+      "sid": "9ae3d20f85fa904c",
+      "title": "Show HN: A provider-agnostic agent loop built on ports and adapters"
+    },
+    {
+      "sid": "9bf2f6419fda7872",
+      "title": "Show HN: QUALITY.md – open format/specification, agent skill, and CLI"
+    },
+    {
+      "sid": "2566c8933f2e65d1",
+      "title": "Skill engineering and the case against one-shot AI design"
+    },
+    {
+      "sid": "7e29fd14ca16f2a8",
+      "title": "Autoresearch: The feedback loop behind self-improving agents"
+    },
+    {
+      "sid": "cf0a37dd32efaf51",
+      "title": "Show HN: Morph Reflexes – Multi-head classifiers for agent traces"
+    },
+    {
+      "sid": "6d061c8f299a97ab",
+      "title": "CoMet: Context and Multiplicity Decomposition for Multimodal Uncertainty Estimation"
+    },
+    {
+      "sid": "bfeae69131afd34f",
+      "title": "Best practices for multi-turn reinforcement learning in Amazon SageMaker AI"
+    },
+    {
+      "sid": "5a5b80258f0f8836",
+      "title": "One Reflection Is Not Enough: Self-Correcting Autonomous Research via Multi-Hypothesis Failure Attribution"
+    },
+    {
+      "sid": "a98baa78edc4ea0a",
+      "title": "How Candidly Built State Aware Agent Harnesses With Langsmith"
+    }
+  ],
+  "updated": "2026-07-04"
+}

@@ -1,0 +1,99 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-latency",
+  "source_hash": "44cec4d83d4cf9039755c8c1311f89802cc59805f23ca6f378a5056a6145ea52",
+  "translated_at": "2026-07-08T03:27:49.568112+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-latency",
+  "kind": "obstacle",
+  "title": "에이전트 루프가 호출당 지연 시간을 증폭시켜 느리고 비용 소모적인 실행을 초래합니다",
+  "area": "latency",
+  "status": "active",
+  "summary": "챗봇은 단일 모델 호출을 기다리지만, 에이전트는 계획 수립, 도구 호출, 결과 해석, 재결정 등 여러 단계를 순차적으로 기다립니다. 따라서 사용자가 체감하는 경과 시간은 토큰당 디코드 지연 시간에 루프 길이를 곱한 것이며, 단일 호출 처리량에 최적화된 서빙 스택으로는 에이전트가 느리게 느껴지는 것을 막기 어렵습니다. 지연 시간은 실행 시점의 비용과 같습니다. 청구서를 올리는 그 루프가 동시에 시간을 소진하는 것입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>챗봇은 단일 모델 호출을 기다리지만, 에이전트는 계획 수립, 도구 호출, 결과 해석, 재결정 등 여러 단계를 순차적으로 기다립니다. 따라서 사용자가 체감하는 경과 시간은 토큰당 디코드 지연 시간에 루프 길이를 곱한 것이며, 단일 호출 처리량에 최적화된 서빙 스택으로는 에이전트가 느리게 느껴지는 것을 막기 어렵습니다. 지연 시간은 <a href=\"/topic/agent-cost\">비용</a>의 실행 시점 쌍둥이입니다. 청구서를 올리는 그 루프가 동시에 시간을 소진하는 것입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>에이전트의 지연 시간 문제는 <strong id=\"serving-layer\">서빙 레이어</strong>와 <strong id=\"workload-shape-layer\">워크로드 형태 레이어</strong> 모두에서 동시에 해결되고 있습니다. 에이전트 트래픽을 호스팅하는 서빙 엔진들은 디코드 지연 시간과 처리량 측면에서 치열하게 경쟁하고 있습니다. vLLM의 v0.24.0 라인은 빠른 모델 지원과 양자화된 인덱서를 계속 추가하고 있으며, Modular의 26.4 버전은 최첨단 MoE 서빙을 제공하고 있습니다. 또한, 인프라 파트너십(NVIDIA + AWS)은 명시적으로 \"대규모 저지연 추론\"을 목표로 합니다. 하지만 순수한 엔진 속도는 에이전트의 지연 시간 예산 중 단 하나의 항만을 움직일 뿐입니다. 이러한 서빙 레이어의 작업은 점점 더 범용적이기보다는 하드웨어 및 모델에 특화되고 있습니다. vLLM이 Tencent의 HPC-Ops 백엔드와 통합하면서 Hopper에 최적화된 어텐션 및 FP8 MoE 커널을 추가했습니다. 이는 범용 벤치마크가 가정하는 균일한 배치와 달리, 에이전트 루프가 실제로 생성하는 혼합 길이의 버스티한 디코드 패턴에 맞춰 Hunyuan Hy3 모델을 NVIDIA H20에서 구동하며, 첫 번째 토큰까지의 시간(TTFT)과 출력 토큰당 지연 시간을 단축시킵니다. 최근의 인식은 <strong id=\"agent-workloads\">에이전트 워크로드는 채팅과 다르다</strong>는 것입니다. 코딩 에이전트는 버스티하고, 긴 컨텍스트를 가지며, 도구 호출이 삽입된 요청을 보내는데, 이러한 형태를 규명하는 것이 이제 자체적인 연구 목표가 되었습니다 (TraceLab은 실제 코딩 에이전트 워크로드를 프로파일링하여 서버가 범용 채팅 추적에 맞추는 것이 아니라 그 워크로드에 맞춰 조정될 수 있도록 합니다). 이러한 작업은 채팅 시대에는 도달하지 못했던 에이전트 고유의 병목 현상을 드러내고 있습니다. DualPath는 에이전틱 추론에서 결합 제약 조건이 컴퓨팅 자원이 아니라 <strong id=\"storage-bandwidth\">스토리지 대역폭</strong>이라는 것을 발견했습니다. 이는 에이전트의 증가하는 KV/컨텍스트 상태가 매 단계마다 스트리밍되어야 하기 때문입니다. 그리고 하나의 직접적인 해결책은 이 상태를 축소하는 것입니다. RaBitQCache는 KV 캐시를 압축하기 위해 무작위 회전 이진 양자화를 사용하고, 고정된 top-k 대신 적응형 top-p 토큰 예산을 사용하여 DualPath가 병목 현상으로 식별한 메모리 I/O를 줄이면서도 생성 품질을 유지합니다. 개발 루프 측면의 지연 시간도 중요합니다. 로컬 CI(원격 러너로 왕복하는 대신 개발자 자신의 머신에서 검사를 실행)는 피드백 루프를 단축시킵니다. 왜냐하면 CI 러너로의 왕복 시간은 각 모델 호출과 동일한 실제 경과 시간 예산 내에 있기 때문입니다. 또 다른 레버는 모델 자체입니다. 지연 시간에 우선순위를 둔 소형 모델(Kog's Laneformer 2B는 추론 엔진을 위해 구축됨)은 에이전트 호출 대부분에 대해 최첨단 폭보다는 예측 가능한 속도를 제공하며, 이는 비용을 결정하는 것과 동일한 다운시프트 논리입니다. 또한 지연 시간은 대화형 모드에서 물리적인 제품 바닥을 가집니다. 너무 오래 멈추는 음성 에이전트는 끊기게 되는데, 이것이 저지연 음성 스택(Amazon Nova 2 Sonic의 Loka)이 왕복 시간을 미세 조정의 부차적인 요소가 아닌 일급 설계 제약 조건으로 다루는 이유입니다.</p>\n<p><strong id=\"batching\">배치 처리(Batching)</strong>는 버스티한 에이전트 워크로드가 직접적으로 압박하는 또 다른 레버입니다. 정적 배치 정책은 각 트래픽 형태에 대한 수동 조정이 필요하며 실행 도중에 요청 패턴이 바뀌면 적응할 수 없습니다. 따라서 강화 학습을 통해 배치 정책을 학습하는 적응형 추론 배치는 채팅 워크로드의 꾸준한 도착률을 가정하는 대신, 에이전트 도구 호출이 만들어내는 버스티하고 이질적인 부하를 정확히 목표로 합니다.</p>\n<p>서빙 레이어 자체가 <strong id=\"agentic-behavior\">에이전틱 동작</strong>을 흡수하기 시작했습니다. vLLM의 Semantic Router는 <code class=\"vllm-sr/auto\">vllm-sr/auto</code> 라우팅 기능을 바운드된 \"마이크로 에이전트\" 런타임으로 변환합니다. 신뢰도 점수, 평점 및 워크플로우 융합이 별도의 오케스트레이션 호프가 아닌 *서빙 레이어 내부에서* 발생함으로써, 그렇지 않았다면 전체 모델 호출과 그 지연 시간을 소모했을 왕복을 압축합니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>배치 처리는 에이전트 워크로드에 맞는 답변을 얻는 서빙 노브의 목록에 합류했습니다. 정책 경사 강화 학습은 수동으로 조정된 정적 배치 대신 적응형 배치 정책을 학습하며, 꾸준한 채팅 도착률이 아닌 에이전트 도구 호출이 만들어내는 버스티하고 이질적인 요청 패턴을 목표로 합니다.</p>\n<p>서빙 레이어의 해결책은 더욱 하드웨어 및 모델에 특화되고 있습니다. vLLM의 새로운 HPC-Ops 통합은 NVIDIA H20의 Tencent Hunyuan Hy3를 위해 구축된 Hopper 최적화 어텐션 및 FP8 MoE 커널을 제공하며, 이는 범용 엔진 조정이 아닌 목적에 맞게 제작된 백엔드로서 혼합 길이 디코드, TTFT 및 토큰당 지연 시간을 향상시킵니다.</p>\n<p>그 이전에, 관점 자체가 \"모델을 더 빠르게 만드는 것\"에서 \"*에이전트 워크로드*를 더 빠르게 만드는 것\"으로 이미 전환되었습니다. TraceLab은 실제 코딩 에이전트 서빙 추적을 특징화하여 엔진이 버스티하고 긴 컨텍스트를 가진 도구 루프에 맞춰 조정될 수 있도록 합니다. 그리고 DualPath는 에이전틱 추론에서 병목 현상이 GPU 컴퓨팅 자원이 아니라 스토리지 대역폭이라는 것을 식별합니다. 이는 단계별 컨텍스트 상태가 계산될 뿐만 아니라 이동되어야 하기 때문입니다. RaBitQCache는 이 병목 현상에 직접적인 완화책을 제공합니다. 적응형 토큰 예산으로 KV 캐시를 양자화함으로써, 고정된 top-k 검색의 정적 낭비 없이 DualPath가 플래그를 지정한 메모리 I/O를 줄입니다. 별도의 움직임은 경량 에이전트 로직을 서빙 레이어 자체에 통합하는 것입니다. vLLM의 Semantic Router는 신뢰도 점수 및 워크플로우 라우팅을 서빙 프로세스 내부의 바운드된 마이크로 에이전트로 실행하여 별도의 오케스트레이션 왕복 지연 비용을 피합니다. 이와 함께, 지연 시간에 우선순위를 둔 소형 모델(Kog Laneformer 2B)과 저지연 대화형 스택(Loka의 Nova 2 Sonic 음성 에이전트)은 이 분야가 왕복 시간을 미세 조정 도구가 아닌 아키텍처 제약 조건으로 취급하고 있음을 보여줍니다. 그리고 동일한 본능이 개발 루프 자체에도 도달하고 있습니다. 로컬 CI는 개발자와 에이전트 모두의 피드백 지연 시간을 단축시킵니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>지연 시간은 에이전트의 아키텍처가 사용자의 인내심 및 GPU의 청구서와 만나는 지점이며, 이 세 가지가 직접적으로 상충 관계를 이룹니다. 해야 할 일은 호출당이 아니라 *전체 루프*에 걸쳐 지연 시간을 예산화하는 것입니다. 순차적인 모델 호핑을 계산하고, 가능한 부분을 더 빠르거나 작은 모델로 밀어 넣으며, 매 단계 디코드 및 스트리밍되어야 하는 토큰을 줄이고(압축, KV 재사용), 채팅 벤치마크가 아닌 에이전트가 실제로 생성하는 버스티하고 긴 컨텍스트 형태에 맞춰 조정된 서빙 엔진을 선택해야 합니다. 대화형 모드(음성, 라이브 코딩)는 하드 상한선을 설정하므로, 산출물은 일회성 추론 최적화가 아니라 작업별로 추론할 수 있는 지연 시간 예산이어야 합니다.</p>"
+    }
+  ],
+  "solutions": [
+    {
+      "slug": "context-compaction",
+      "title": "Context compaction: summarize, compress, and curate the working set"
+    },
+    {
+      "slug": "speculative-decoding",
+      "title": "Speculative decoding: draft cheaply, verify in parallel"
+    }
+  ],
+  "obstacles": [],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "0ca61ed96ddd38e5",
+      "title": "TraceLab: Characterizing Coding Agent Workloads for LLM Serving"
+    },
+    {
+      "sid": "e313a171aa375adf",
+      "title": "DualPath: Breaking the Storage Bandwidth Bottleneck in Agentic LLM Inference"
+    },
+    {
+      "sid": "537f21de13e2a85a",
+      "title": "Kog Laneformer 2B: The Latency-First Model Behind Kog Inference Engine"
+    },
+    {
+      "sid": "c66b542cadbb4592",
+      "title": "How Loka Built a Natural, Low-Latency Voice Agent with Amazon Nova 2 Sonic"
+    },
+    {
+      "sid": "6cc910fb018354bf",
+      "title": "vllm v0.24.0"
+    },
+    {
+      "sid": "e2f43565cf7c0d8e",
+      "title": "Modular 26.4: SOTA Moe Serving, Model Bringup via Agent Skills, Mojo 1.0 Beta 2"
+    },
+    {
+      "sid": "dca39fe0489bebd0",
+      "title": "NVIDIA and AWS Collaborate to Bring AI to Production at Scale"
+    },
+    {
+      "sid": "0933879c19d86a9c",
+      "title": "RaBitQCache: Rotated Binary Quantization for KVCache in Long Context LLM Inference"
+    },
+    {
+      "sid": "bbc9b11398e5a4c1",
+      "title": "Reducing Feedback Latency with Local CI for Developers and AI Agents"
+    },
+    {
+      "sid": "c0c3ec4a6aba7980",
+      "title": "Micro-Agent: Beat Frontier Models with Collaboration inside Model API"
+    },
+    {
+      "sid": "d3e345ae085932a6",
+      "title": "TraceLab: Characterizing Coding Agent Workloads for LLM Serving"
+    },
+    {
+      "sid": "7b0c24a5e0c92a10",
+      "title": "vLLM × HPC-Ops: High-Performance Attention and MoE Backends from Tencent Hunyuan"
+    },
+    {
+      "sid": "c841afae435d6473",
+      "title": "Adaptive Inference Batching using Policy Gradients"
+    }
+  ],
+  "updated": "2026-07-07"
+}

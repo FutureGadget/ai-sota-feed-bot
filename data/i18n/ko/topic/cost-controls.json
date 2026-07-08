@@ -1,0 +1,83 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/cost-controls",
+  "source_hash": "c5f036ba8057b257cd1c9346e34339e31ce616bea7ff54af0bfbfd91f43ba7c2",
+  "translated_at": "2026-07-08T03:43:01.049058+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "cost-controls",
+  "kind": "solution",
+  "title": "비용 통제: 예산, 계량 및 작업별 귀속",
+  "area": null,
+  "status": "active",
+  "summary": "에이전트 지출을 관찰 가능하고 경계 설정된 상태로 만드세요. 작업, 사용자 및 도구별 토큰 사용량을 계량하고, 단위 작업(요청, PR)에 귀속시키세요. 또한 예산과 하드캡을 설정하여 통제 불능 루프가 청구서 대신 한도에 도달하게 하고, 캐싱으로 고정 오버헤드를 줄이세요. 이것들은 에이전트 *주변*에 위치하며 근본적인 토큰 수를 줄이는 아키텍처적 레버리지(압축, 토폴로지, 저렴한 판단자)를 보완하는 운영상의 가드레일입니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>에이전트 지출을 관찰 가능하고 경계 설정된 상태로 만드세요: 작업, 사용자 및 도구별 토큰 사용량을 계량하고, 단위 작업(요청, PR)에 귀속시키세요. 또한 예산과 하드캡을 설정하여 통제 불능 루프가 청구서 대신 한도에 도달하게 하고, 캐싱으로 고정 오버헤드를 줄이세요. 이것들은 에이전트 *주변*에 위치하며 근본적인 토큰 수를 줄이는 아키텍처적 레버리지(압축, 토폴로지, 저렴한 판단자)를 보완하는 운영상의 가드레일입니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>도구링은 단순히 \"월별 청구서를 확인하는 것\"에서 에이전트를 위한 지속적인 FinOps로 성숙해지고 있습니다.</p>\n<p>플랫폼 공급업체들은 <strong>사용량 분석과 시행 가능한 지출 통제 기능</strong>을 제공합니다(OpenAI의 엔터프라이즈 지출 상한 및 분석). 이를 통해 조직은 초과 비용을 발견하는 대신 상한선을 설정할 수 있습니다. Anthropic 역시 Claude Enterprise에 동일한 형태를 제공합니다: 풍부한 관리자 분석, 모델 수준 권한 부여 및 지출 알림을 통해 관리자는 자체 계량 레이어를 구축하지 않고도 채택률을 추적하고 지출 상한선을 설정할 수 있습니다.</p>\n<p>개발자 도구링은 <strong>귀속(attribution)</strong>을 단위 작업 수준까지 끌어올립니다. Prtokens는 단일 풀 리퀘스트가 얼마나 많은 에이전트 토큰을 소모했는지 보여주어, 비용을 집계치가 아닌 아티팩트 위의 숫자로 만듭니다.</p>\n<p>분석 단계 자체도 <strong>관리형 에이전트</strong> 형태로 제공되고 있습니다. AWS의 FinOps Agent(공개 미리보기)는 FinOps 루프를 자동화하여 비용 이상 징후를 조사하고 지출 변화를 계정 활동과 상관관계 분석함으로써, 이상 징후 분류가 수동적인 월별 조사 대신 지속적이고 질의 가능한 형태로 이루어지게 합니다.</p>\n<p><strong>캐싱</strong>은 반복되는 고정 비용을 제거합니다. 컨테이너/이미지 캐싱(Amazon SageMaker)은 콜드 스타트 확장 비용과 지연 시간을 줄이고, 프롬프트/결과 캐싱은 반복되는 컨텍스트를 간소화합니다. 특히 프롬프트 캐싱은 수동으로 조정하는 최적화가 아닌, 자동적인 프레임워크 수준의 기본값으로 자리 잡고 있습니다. LangChain의 Deep Agents는 어떠한 주요 공급업체에서도 추가 설정 없이 LLM 토큰 비용을 최대 약 80% 절감했다고 보고하는데, 이는 에이전트 루프가 매 턴마다 크고 안정적인 접두사(시스템 프롬프트, 도구 스키마, 이전 단계)를 재전송하기 때문이며, 이는 공급업체 프롬프트 캐시가 할인하도록 설계된 정확한 입력입니다. 따라서 \"안정적인 접두사를 캐싱하라\"는 것은 각 팀이 발견해야 할 노브가 아니라 프레임워크가 소유한 기본값이 됩니다.</p>\n<p>캐싱의 최전선은 모델 자체의 KV 캐시 안으로 이동하고 있습니다. 이는 모든 되돌아보기에서 동일한 프레임, 스크린샷 및 렌더링된 아티팩트를 재검토하는 <strong>멀티모달</strong> 에이전트의 경우입니다. Kamera는 위치 불변 KV 캐시를 제안하여 이러한 반복적인 시각적 토큰이 처음부터 다시 인코딩되는 대신 컨텍스트 전환 전반에 걸쳐 재사용되도록 함으로써, 시각적 상태를 반복적으로 검토하는 에이전트에서 숨겨진 빠르게 증가하는 비용이었던 불필요한 재인코딩을 훈련 없이 캐시 히트로 바꿉니다.</p>\n<p>핵심 아이디어는 측정하지 않은 것은 통제할 수 없다는 것이므로, 작업별 계량 및 예산이 아키텍처적 절감이 구축되는 기반이라는 것입니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>Anthropic은 Claude Enterprise에 관리자 대상 지출 통제 기능(모델 수준 권한, 지출 알림, 풍부한 사용량 분석)을 추가하여 이미 OpenAI가 제공했던 엔터프라이즈 지출 상한 패턴과 맞추었습니다.</p>\n<p>비용 통제는 <strong>왼쪽으로 이동(shifting left)</strong>하고 있습니다. 즉, 월별 재무 검토에서 작업별/PR별 계량 및 시행 가능한 상한선(OpenAI 지출 통제, Prtokens 귀속)으로 이동했으며, 이제는 관리형 에이전트적 이상 징후 분류(AWS FinOps Agent가 지출 변화를 계정 활동과 상관관계 분석)와 반복되는 고정 비용을 제거하는 캐싱을 통해 에이전트 비용을 사후에 조정할 것이 아니라 실시간으로 모니터링하는 CI/Ops 신호로 바꾸고 있습니다.</p>\n<p><strong>프롬프트 캐싱</strong>은 수동 최적화에서 에이전트 루프의 안정적인 접두사를 자동으로 포착하는 프레임워크 기본값으로 진화하고 있습니다(Deep Agents: 공급업체 전반에 걸쳐 최대 약 80% 토큰 비용 절감, 설정 불필요).</p>\n<p>캐싱은 또한 <strong>모델 내부</strong>까지 도달하고 있습니다. Kamera의 위치 불변 KV 캐시는 멀티모달 에이전트가 매 단계마다 재읽는 프레임/스크린샷의 인코딩을 재사용할 수 있게 하여, 재훈련 없이 시각적 되돌아보기의 불필요한 재인코딩 비용을 절감합니다.</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>계량 및 귀속은 배관(토큰 회계, 작업/사용자별 태깅)을 추가할 뿐이며, 누군가가 예산을 소유하고 있지 않으면 실행 가능한 정보가 되지 못합니다.</p>\n<p>하드캡은 지출을 보호하지만 최악의 순간에 합법적인 장기 작업을 실패하게 만들 수 있으므로, 하드킬이 아닌 점진적 저하가 필요합니다.</p>\n<p>캐싱은 입력이 실제로 반복될 때만 돈을 절약하며, 그 자체로 무효화/오래됨 문제를 추가합니다.</p>\n<p>그리고 이러한 통제들은 비용을 낮추지는 않으면서 비용을 *경계 설정*합니다. 진정한 절감은 아키텍처(압축, 오케스트레이션, 저렴한 판단자)에서 나오므로, 통제는 해결책이 아닌 바닥(floor)입니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>이것이 에이전트를 위한 FinOps입니다. 알려진 단위 경제학적 스토리를 가진 제품과 요청당 조용히 돈을 잃는 제품 사이의 차이입니다.</p>\n<p>실행 가능한 입장은 모든 실행을 계량하고, 작업 및 사용자에게 비용을 귀속시키며, 합리적인 폴백(fallback)과 함께 예산 및 상한선을 설정하고, 반복 가능한 것은 캐싱하는 것입니다. 그런 다음 그 가시성을 사용하여 청구서를 실제로 움직이는 아키텍처적 변화를 정당화해야 합니다.</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
+      "slug": "proving-agent-roi",
+      "title": "Proving agent ROI and measuring cost efficiency is hard"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "450d5ccfb1602dc2",
+      "title": "New usage analytics and updated spend controls for enterprises"
+    },
+    {
+      "sid": "00f3793762a13f49",
+      "title": "Prtokens – See how much AI agent tokens cost a PR"
+    },
+    {
+      "sid": "e0a1d0978e9e8c3b",
+      "title": "Introducing container caching in Amazon SageMaker AI for faster model scaling"
+    },
+    {
+      "sid": "4235792e910ea51a",
+      "title": "Building a 100x Cheaper Trace Judge with Fireworks"
+    },
+    {
+      "sid": "1c2693c60a919d8d",
+      "title": "Kamera: Unified Position-Invariant Multimodal KV Cache for Training-Free Reuse"
+    },
+    {
+      "sid": "edd85739d7d91365",
+      "title": "Prompt Caching with Deep Agents"
+    },
+    {
+      "sid": "b4e45006617c01bc",
+      "title": "AWS Previews FinOps Agent for Cost Analysis and Optimization"
+    },
+    {
+      "sid": "a495552f9c306031",
+      "title": "New analytics and cost controls are available for Claude Enterprise | Claude by Anthropic"
+    }
+  ],
+  "updated": "2026-07-07"
+}

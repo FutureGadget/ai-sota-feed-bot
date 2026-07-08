@@ -1,0 +1,91 @@
+{
+  "locale": "ko",
+  "source_path": "/topic/agent-orchestration",
+  "source_hash": "3f48eca02547f37f3acf943aa0b85f7a50889dea0a1653d2489c0e4adae5a248",
+  "translated_at": "2026-07-08T03:33:59.446475+00:00",
+  "model": "google/gemma-4-e4b",
+  "review_status": "machine",
+  "slug": "agent-orchestration",
+  "kind": "solution",
+  "title": "오케스트레이션 패턴: 토폴로지, 핸드오프 및 실행 환경",
+  "area": null,
+  "status": "active",
+  "summary": "오케스트레이션은 다중 에이전트 시스템의 제어 평면입니다. 작업 분해 방식, 각 에이전트의 역할, 인계 방법, 그리고 책임자는 누구인지를 정의합니다. 선택하는 패턴(중앙 집중식 vs. 분산형, 고정 그래프 vs. 태스크별 생성)은 전체 시스템의 비용, 지연 시간 및 신뢰성 상한선을 결정합니다.",
+  "sections": [
+    {
+      "heading": "TL;DR",
+      "html": "<p>오케스트레이션은 다중 에이전트 시스템의 제어 평면입니다. 작업 분해 방식, 각 에이전트가 무엇을 할지, 어떻게 인계할지, 그리고 책임자가 누구인지(혹은 있는지)를 정의합니다. 선택하는 패턴(중앙 오케스트레이터 대 분산형, 고정 그래프 대 태스크별 생성)은 전체 시스템의 비용, 지연 시간 및 신뢰성 상한선을 설정합니다.</p>"
+    },
+    {
+      "heading": "State of the art",
+      "html": "<p>두 가지 축이 작용합니다.</p>\n<p><strong id=\"topology\">토폴로지</strong>: 오케스트레이터-워커(스타) 패턴이 가장 이해하기 쉽지만, 코디네이터를 처리량 병목 현상 및 단일 실패 지점으로 만듭니다. Stanford의 DeLM은 중앙 오케스트레이터를 제거함으로써 태스크 비용을 약 50% 절감했다고 보고하며, DPBench는 통신 구조가 조정이 도움이 될지 여부를 결정하는 지배적인 요소임을 밝혀냈습니다.</p>\n<p><strong id=\"dynamism\">동적 특성</strong>: 오케스트레이션은 수작업으로 연결된 그래프에서 *생성된* 제어 흐름으로 이동하고 있습니다. Anthropic의 Claude Code Dynamic Workflows는 정적인 형태에 의존하는 대신, 서브 에이전트를 조정하기 위해 태스크별 맞춤형 실행 하네스를 생성합니다. 더 구체적으로는, 도구 호출 대신 <strong id=\"in-code\">코드 내에서 서브 에이전트를 오케스트레이션</strong>하는 방향으로 나아가고 있습니다. Deep Agents의 LangChain 동적 서브에이전트는 프로그램에서 팬아웃을 유도하여, 조정 계층이 비결정론적 에이전트를 둘러싼 일반적인 결정론적이고 테스트 가능한 코드가 되도록 보장합니다.</p>\n<p>이 두 축을 관통하는 중요한 교훈은 가치가 에이전트 수에 있는 것이 아니라, <strong id=\"interface-contracts\">에이전트 간의 인터페이스 계약</strong>(구조화된 핸드오프, 압축된 와이어 형식, 명시적인 역할)에 있다는 것입니다.</p>\n<p>세 번째이자 더 조용한 축은 <strong id=\"runtime-substrate\">런타임 기질</strong>입니다. 오케스트레이션 라이브러리를 구축한 팀들의 기록에 따르면, 부하를 지탱하는 설계는 워크스페이스, 런타임 및 디렉토리 레이아웃에 있습니다. 즉, 각 서브 에이전트가 실행되는 곳, 그것이 보는 파일 시스템 및 상태, 출력물이 격리되고 수집되는 방식 등입니다. 다시 말해, 오케스트레이션은 제어 흐름 문제인 동시에 실행 환경 문제입니다.</p>\n<p>네 번째 축은 이제 연구보다는 <strong id=\"shipping-tooling\">배포 도구링</strong>으로 나타나고 있습니다. 배선을 유형화하는 실무 오케스트레이터들이 등장했습니다 —</p>\n<ul>\n<li>터미널 코딩 에이전트(<strong id=\"Kimchi\">Kimchi</strong>>)에 내장된 멀티 모델 라우팅(리팩토링 및 코드 생성물을 다양한 모델에 전송)</li>\n<li>Claude Code를 위한 시각적 서브 에이전트 배선(<strong id=\"rondoflow\">rondoflow</strong>)</li>\n<li>각 에이전트의 동작을 노출하는 투명성 우선 멀티 에이전트 러너(<strong id=\"OpenOrb\">OpenOrb</strong>)</li>\n</ul>\n<p>이들은 초기 단계이며 불균형적이지만, 가치가 어디에 있는지 확인시켜 줍니다. 바로 에이전트 그 자체가 아니라 에이전트 간의 라우팅, 핸드오프 및 관찰 가능성 계층입니다.</p>\n<p>다섯 번째 축은 코드 기반 패턴을 <strong id=\"provider-agnostic\">제공자 독립적</strong>으로 만듭니다. Omegacode는 일반적인 JavaScript DSL에서 <code id=\"agent\">agent()</code>/<code id=\"parallel\">parallel()</code>/<code id=\"pipeline\">pipeline()</code>/<code id=\"phase\">phase()</code>를 구성하며, 모든 <code id=\"agent\">agent()</code> 호출은 Codex, Claude Code, OpenCode 또는 pi 에이전트를 스폰할 수 있습니다. 이는 각 프레임워크당 하나의 스크립트가 아닌, 제공자를 혼합하는 동일한 워크플로우 스크립트를 사용합니다. 내장된 패턴(적대적 코드 리뷰, 모델 베이크오프)은 제공자 혼합 자체를 설계 레버로 취급하며, 하나의 '최고' 에이전트를 선택하기보다는 모델 전반의 상관관계가 낮은 오류를 의도적으로 활용합니다.</p>"
+    },
+    {
+      "heading": "What's new",
+      "html": "<p>코드 기반 오케스트레이션은 <strong id=\"provider-agnostic\">제공자 독립적</strong>입니다. Omegacode의 JavaScript DSL은 단일 워크플로우 스크립트에서 Codex, Claude Code, OpenCode 또는 pi 에이전트를 스폰하며, 모델 전반의 상관관계가 낮은 오류를 활용하는 멀티 제공자 패턴(적대적 리뷰, 베이크오프)을 구현합니다. 이는 지난 라운드의 단일 프레임워크 코드 기반 팬아웃(LangChain 동적 서브에이전트)을 이질적인 에이전트 군대로 확장한 것입니다.</p>\n<p>이는 오케스트레이션이 단순히 패턴을 넘어 <strong id=\"shipping-tooling\">실무 도구링</strong>으로 나타나는 것과 맞물립니다:</p>\n<ul>\n<li>터미널 코딩 에이전트 내부의 멀티 모델 라우팅(<strong id=\"Kimchi\">Kimchi</strong>)</li>\n<li>Claude Code를 위한 시각적 서브 에이전트 배선(<strong id=\"rondoflow\">rondoflow</strong>)</li>\n<li>투명성 우선 멀티 에이전트 러너(<strong id=\"OpenOrb\">OpenOrb</strong>)</li>\n</ul>\n<p>— 이 모든 것이 엔지니어링을 에이전트 간의 라우팅/핸드오프/배선 계층에 집중시킵니다.</p>\n<p>이는 오케스트레이션을 <strong id=\"runtime-substrate\">런타임 기질</strong> 문제(워크스페이스, 런타임 및 에이전트별 디렉토리 격리 등)로 정의하고, '에이전트를 추가하라'는 관점에서 벗어나 '조정을 설계하라'는 관점으로 이동하는 것 위에 놓여 있습니다. (DeLM의 분산형 토폴로지 및 Anthropic의 태스크별 생성 하네스)</p>"
+    },
+    {
+      "heading": "Trade-offs",
+      "html": "<p>중앙 오케스트레이터는 추적 및 디버깅이 쉽지만 처리량을 제한하고 병목 현상을 추가합니다. 분산형 토폴로지는 확장성과 비용 절감을 이루지만 관찰하기 어렵고 교착 상태에 빠지거나 발산할 수 있습니다. 생성된 오케스트레이션은 태스크별로 적응하지만, 고정 그래프보다 예측 가능성이 낮고 테스트하기 어렵습니다. 에이전트가 많아지고 조정이 많을수록 거의 항상 토큰과 지연 시간이 더 많이 소모되므로, 이 패턴은 태스크가 진정으로 분해되고 핸드오프가 저렴하며 타입이 명확할 때만 효과를 발휘합니다. 그렇지 않으면 오케스트레이션 오버헤드는 순수한 손실입니다.</p>"
+    },
+    {
+      "heading": "Why it matters for platform engineers",
+      "html": "<p>이는 LLM을 착용한 분산 시스템 설계 문제입니다. 토폴로지 선택, 백프레셔, 핸드오프 스키마, 실패 격리가 여기에 해당합니다. 실행 가능한 자세는 단일 에이전트로 기본 설정하고, 태스크가 깔끔하게 분해될 때만 오케스트레이션을 시도하며, 추적할 수 있는 거대한 중앙 코디네이터보다 분산형 또는 계약 기반 핸드오프를 선호하는 것입니다. 그리고 배포하기 전에 다중 에이전트 버전이 비용과 신뢰성 면에서 단일 에이전트 기준선을 실제로 능가하는지 측정해야 합니다 (agent benchmarks 참조).</p>"
+    }
+  ],
+  "solutions": [],
+  "obstacles": [
+    {
+      "slug": "agent-cost",
+      "title": "Agent token costs are unpredictable and easily run away"
+    },
+    {
+      "slug": "agent-planning",
+      "title": "Agents plan multi-step work badly — they loop, stall, or skip steps"
+    },
+    {
+      "slug": "multi-agent",
+      "title": "Coordinating multiple agents adds more failure than capability"
+    }
+  ],
+  "related_storylines": [],
+  "evidence": [
+    {
+      "sid": "19e4caf222bfb0d9",
+      "title": "DeLM cuts multi-agent task costs without a central orchestrator"
+    },
+    {
+      "sid": "e7f12e82187d72de",
+      "title": "Anthropic Explains How Claude Builds Its Own Execution Harnesses"
+    },
+    {
+      "sid": "64ad8e685ed41a9b",
+      "title": "DPBench: Structural Determinants of Multi-Agent LLM Coordination"
+    },
+    {
+      "sid": "296564a4c4e09d02",
+      "title": "Workspace, Runtime, and Directories – Designing an Agent Orchestration Library"
+    },
+    {
+      "sid": "ba5ccf9069d7bcf3",
+      "title": "Terminal coding agent powered by Kimchi's multi-model orchestration"
+    },
+    {
+      "sid": "184459768c3c7f3a",
+      "title": "Show HN: Visual multi-agent orchestration for Claude Code"
+    },
+    {
+      "sid": "687049f045800948",
+      "title": "Show HN: OpenOrb – I built a transparent multi-agent AI tool"
+    },
+    {
+      "sid": "f27164f724f79fa3",
+      "title": "Introducing Dynamic Subagents in Deep Agents"
+    },
+    {
+      "sid": "21835f1d1d66cb1d",
+      "title": "Omegacode: Code based orchestration for any coding agent"
+    }
+  ],
+  "updated": "2026-07-05"
+}
