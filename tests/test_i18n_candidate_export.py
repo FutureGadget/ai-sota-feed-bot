@@ -46,6 +46,32 @@ class I18nCandidateExportTest(unittest.TestCase):
         self.assertNotIn("source", without_source["items"][0])
         self.assertIn("source", with_source["items"][0])
 
+    def test_is_within_days(self) -> None:
+        from datetime import datetime, timedelta
+        current_date_str = datetime.now().date().strftime("%Y-%m-%d")
+        yesterday_str = (datetime.now().date() - timedelta(days=1)).strftime("%Y-%m-%d")
+        three_days_ago_str = (datetime.now().date() - timedelta(days=3)).strftime("%Y-%m-%d")
+
+        # daily recap delta checks: threshold is days + 1
+        # delta = 1 day (yesterday recap tested with days=1) -> True (1 <= 2)
+        self.assertTrue(export._is_within_days("daily", "xyz", {"date": yesterday_str}, 1))
+        # delta = 3 days (tested with days=1) -> False (3 <= 2 is False)
+        self.assertFalse(export._is_within_days("daily", "xyz", {"date": three_days_ago_str}, 1))
+        # delta = 3 days (tested with days=2) -> True (3 <= 3)
+        self.assertTrue(export._is_within_days("daily", "xyz", {"date": three_days_ago_str}, 2))
+
+        # weekly recap delta checks: threshold is days + 7
+        # weekly recap usually start of week is parsed
+        self.assertTrue(export._is_within_days("weekly", "xyz", {"week": "2026-W27"}, 1))  # usually matches
+
+        # topic / foundations: always True
+        self.assertTrue(export._is_within_days("topic", "xyz", {}, 1))
+        self.assertTrue(export._is_within_days("foundations", "xyz", {}, 1))
+
+        # standard surface (e.g. story): threshold is days
+        self.assertTrue(export._is_within_days("story", "xyz", {"published": yesterday_str}, 1))
+        self.assertFalse(export._is_within_days("story", "xyz", {"published": three_days_ago_str}, 1))
+
 
 if __name__ == "__main__":
     unittest.main()
