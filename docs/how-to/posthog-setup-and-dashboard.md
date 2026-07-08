@@ -6,8 +6,8 @@ This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify inge
 - PostHog is the analytics/dashboard layer for web feed telemetry.
 - Current captured web events:
   - `$pageview` (standard posthog-js pageview; powers PostHog **Web
-    Analytics** — visitors, sessions, top pages, channels. Superseded the
-    legacy custom `page_view` on 2026-07-03)
+    Analytics** — visitors, sessions, top pages, channels)
+  - `page_view` (legacy compatibility event for existing custom insights)
   - `feed_view`
   - `impression_batch`
   - `click`
@@ -58,6 +58,7 @@ In PostHog, open **Activity / Live events** and perform test actions on the feed
 
 Expected events:
 - `$pageview`
+- `page_view`
 - `feed_view`
 - `impression_batch`
 - `click`
@@ -82,6 +83,8 @@ Create a dashboard with these insights:
    - Interval: day
    - (Or just use the built-in **Web Analytics** product, which now counts
      `$pageview` automatically.)
+   - Existing dashboards pinned to the legacy custom event can continue using
+     `page_view`.
 
 2. **Feed views (daily)**
    - Event: `feed_view`
@@ -113,7 +116,7 @@ Create a dashboard with these insights:
 - PostHog is the source of truth for product analytics visibility.
 - The one metric the project is currently judged against — **weekly
   returning readers** — is computed from pageview events
-  (`event IN ('$pageview', 'page_view')`, bridging the 2026-07-03 rename) by
+  (`event IN ('$pageview', 'page_view')`) by
   `pipeline/north_star_metric.py` (same HogQL query pattern as the panels
   above) and does not need a PostHog dashboard panel to be useful; see
   `docs/status/north-star-metric.md`. Cross-check it in PostHog itself with a

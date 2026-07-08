@@ -101,6 +101,17 @@
     schedule();
   }
 
+  function captureLegacyPageView(sdk) {
+    try {
+      sdk.capture('page_view', {
+        path: window.location.pathname,
+        referrer: document.referrer || null,
+      });
+    } catch (e) {
+      console.debug('posthog_legacy_page_view_failed', e);
+    }
+  }
+
   function installPostHogSnippet() {
     !(function (t, e) {
       var o, n, p, r;
@@ -178,8 +189,8 @@
         person_profiles: 'identified_only',
         autocapture: false,
         // Emit the standard `$pageview` (SPA-aware) so PostHog Web Analytics
-        // counts visitors/sessions/pages. It carries $current_url/$pathname/
-        // $referrer automatically, so no custom `page_view` event is needed.
+        // counts visitors/sessions/pages. The loaded callback also emits the
+        // legacy `page_view` event so existing PostHog insights stay live.
         capture_pageview: 'history_change',
         capture_pageleave: true,
         persistence: 'localStorage+cookie',
@@ -188,6 +199,7 @@
           sdk.identify(anon);
           window.__posthogEnabled = true;
           enabled = true;
+          captureLegacyPageView(sdk);
           startScrollDepthTracking();
           flushPending();
         },

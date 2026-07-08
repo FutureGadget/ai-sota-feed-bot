@@ -10,7 +10,8 @@ Definition: for a completed ISO week W (Monday 00:00 UTC through the
 following Monday 00:00 UTC), a *returning reader* is a `distinct_id` seen in
 a pageview event during week W that was also seen in a pageview event
 during week W-1. Pageviews are the standard posthog-js `$pageview` plus the
-legacy custom `page_view` (bridged so the rename leaves no gap).
+legacy custom `page_view`; the client dual-emits both names so Web Analytics
+and older custom insights stay live.
 `returning_rate = returning / total_readers` for week W.
 The in-progress (current) week is never scored — only completed weeks.
 

@@ -24,8 +24,10 @@ For a completed ISO week `W` (Monday 00:00 UTC through the following Monday
 
 "Pageview" here means the standard posthog-js `$pageview` (emitted by
 `web/posthog-client.js` so PostHog Web Analytics also activates) **plus** the
-legacy custom `page_view`. The query matches both names so the 2026-07-03
-rename from the custom event to the standard one leaves no gap in the history.
+legacy custom `page_view`. The client dual-emits both names so PostHog Web
+Analytics and existing custom `page_view` insights stay live; the rollup groups
+by `(week_start, distinct_id)`, so the compatibility event does not double-count
+weekly readers.
 
 The identity used is the client-side anonymous id
 (`localStorage["ai_feed_anon_user_id"]`, created by `web/posthog-client.js`),

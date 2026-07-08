@@ -115,10 +115,11 @@ class SiteChromeContractTest(unittest.TestCase):
         js = (ROOT / "web" / "posthog-client.js").read_text(encoding="utf-8")
         self.assertIn("ai_feed_anon_user_id", js)
         self.assertIn("sdk.identify(anon)", js)
-        # Standard $pageview capture (not a hand-rolled custom event) so PostHog
-        # Web Analytics counts visitors/sessions/pages.
+        # Standard $pageview capture keeps PostHog Web Analytics live, while the
+        # legacy page_view event keeps existing custom insights from going dark.
         self.assertIn("capture_pageview: 'history_change'", js)
-        self.assertNotIn("sdk.capture('page_view'", js)
+        self.assertIn("captureLegacyPageView(sdk)", js)
+        self.assertIn("sdk.capture('page_view'", js)
         self.assertIn("capture('scroll_depth'", js)
         self.assertIn("startScrollDepthTracking()", js)
         self.assertIn("var thresholds = [25, 50, 75, 90, 100]", js)
