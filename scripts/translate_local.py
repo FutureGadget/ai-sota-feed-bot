@@ -217,6 +217,18 @@ Source JSON:
 # Response parsing and validation
 # ---------------------------------------------------------------------------
 
+def _repair_json_escapes(text: str) -> str:
+    """Escape backslashes that are not part of a valid JSON escape sequence."""
+    pattern = r"\\(u[0-9a-fA-F]{4}|[\"\\/bfnrt]|.|$)"
+    def repl(m):
+        content = m.group(1)
+        if content in ("\"", "\\", "/", "b", "f", "n", "r", "t") or (content.startswith("u") and len(content) == 5):
+            return m.group(0)
+        else:
+            return "\\\\" + content
+    return re.sub(pattern, repl, text)
+
+
 def _extract_json(raw: str) -> dict[str, Any]:
     """Extract JSON from the LLM response, stripping markdown fences if present."""
     text = raw.strip()
@@ -226,6 +238,7 @@ def _extract_json(raw: str) -> dict[str, Any]:
         text = re.sub(r"^```\w*\n?", "", text, count=1)
         # Remove closing fence
         text = re.sub(r"\n?```\s*$", "", text, count=1)
+    text = _repair_json_escapes(text)
     try:
         parsed = json.loads(text)
     except json.JSONDecodeError as exc:
