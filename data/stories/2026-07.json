@@ -183,6 +183,25 @@
   "url": "https://github.com/akahkhanna/groundtruth",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "1fd6d2821195659c": {
+  "first_seen": "2026-07-08T02:02:59.693720+00:00",
+  "id": "ee091574d0d6ee2a",
+  "matched_topics": [
+   "agentic",
+   "eval",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-07-07T15:41:22+00:00",
+  "sid": "1fd6d2821195659c",
+  "source": "arxiv_cs_cl",
+  "summary": "Developers increasingly delegate real maintenance work to product-grade coding agents, and many state tasks in their native language, in the style of a customer request rather than a curated English issue. Existing repository-level agentic benchmarks do not measure this setting: their task statements are English by design. We introduce RuBench 1.0, a benchmark of 25 tasks mined from recent fix commits in five live open-source repositories (aiohttp, aiogram, Laravel, NestJS, Fastify; Python, PHP, TypeScript, JavaScript), where each task is specified natively in Russian -- written from scratch in the style of an actual customer request, not translated -- and judged by the upstream maintainer's regression tests, which we withhold from release. All 25 fix commits postdate the training-data cutoffs of every evaluated model, giving a contamination argument that holds task-by-task. We evaluate deployed product configurations (CLI agent + model + reasoning effort) -- Claude Code with Opus 4.8, Sonnet 5, and Haiku 4.5, and Codex CLI with GPT-5.5 -- with three independent runs each, reporting pass@1 with task-level confidence intervals, paired comparisons, dollar cost, and token usage. The best configuration resolves 78.7% of tasks; at N=25 only the gaps to the weakest model are statistically resolvable, which we state explicitly. Auditing full trajectories of a fifth, hors-concours configuration (Claude Code + Fable 5, July 2, 2026 release), we caught the product silently substituting",
+  "summary_1line": "Developers increasingly delegate real maintenance work to product-grade coding agents, and many state tasks in their native language, in the style of a customer request rather than a curated English issue. Existing re...",
+  "title": "RuBench: A Repository-Level Agentic Coding Benchmark with Natively Authored Russian Task Specifications",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.06411v1",
+  "why_it_matters": "Matches feed focus: agentic, eval, codex."
+ },
  "20cd66043e9dab55": {
   "first_seen": "2026-07-02T14:02:04.579678+00:00",
   "id": "92d50c3787d7428b",
@@ -291,6 +310,22 @@
   "type": "news",
   "url": "https://www.latent.space/p/skill-engineering-design",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "2a2bcb40acefcf84": {
+  "first_seen": "2026-07-08T02:02:59.693720+00:00",
+  "id": "c278742e84b7ff95",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-07-07T10:24:38+00:00",
+  "sid": "2a2bcb40acefcf84",
+  "source": "arxiv_cs_lg",
+  "summary": "Diffusion and flow matching models generate high-quality samples, but their ODE samplers often need tens to hundreds of neural function evaluations (NFEs). This remains a practical challenge for released checkpoints, since many accelerators require additional design choices and training cost through retraining, distillation, or trajectory redesign. We investigate a different route based on $x$-prediction. During sampling, standard affine probability paths already expose $x_0$ information: an intermediate state and its path velocity determine a principled estimate of the clean sample. We formalize this property as \\textbf{endpoint decodability} and show that the decoder is the minimum-MSE estimator $\\mathbb{E}[x_0\\mid x_t]$ under the usual $\\ell_2$ objective. This yields \\textbf{Truncated Jump Sampling} (TJS): stop the ODE at an early-exit time $t^*$ and return the decoded $x_0$. TJS requires no retraining, distillation, or architecture change. Across SDXL, SD3.5M, Z-Image-Turbo, and three class-conditional benchmarks, it reduces NFEs by 20--70\\% with near-matched quality. The analysis also shows why endpoint prediction can work without straightening the trajectory, providing inference acceleration without trajectory redesign.",
+  "summary_1line": "Diffusion and flow matching models generate high-quality samples, but their ODE samplers often need tens to hundreds of neural function evaluations (NFEs). This remains a practical challenge for released checkpoints,...",
+  "title": "x-Prediction Is All You Need:Training-Free Accelerated Generation via Endpoint Decodability",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.06114v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "2b0cc93ba8a0f9b8": {
   "first_seen": "2026-07-03T15:02:05.911830+00:00",
@@ -1125,6 +1160,18 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.39",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "72849448607d84eb": {
+  "first_seen": "2026-07-08T02:02:59.693720+00:00",
+  "id": "8fd62b6213f3292e",
+  "published": "2026-07-08T01:20:30+00:00",
+  "sid": "72849448607d84eb",
+  "source": "vllm_releases",
+  "summary": "[CPU][Bugfix] Fix flaky ShortConv prefill test on ARM (uninitialized …",
+  "summary_1line": "[CPU][Bugfix] Fix flaky ShortConv prefill test on ARM (uninitialized …",
+  "title": "vllm v0.25.0rc1",
+  "type": "release",
+  "url": "https://github.com/vllm-project/vllm/releases/tag/v0.25.0rc1"
+ },
  "731a6ca4b884831e": {
   "first_seen": "2026-07-01T17:01:49.690534+00:00",
   "id": "16cc7465e37aa546",
@@ -1174,6 +1221,24 @@
   "type": "news",
   "url": "https://github.com/croviatrust/causari",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "77d64de25479fa60": {
+  "also_covered": [
+   {
+    "source": "aws_ml_blog",
+    "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+    "url": "https://aws.amazon.com/blogs/machine-learning/from-hugging-face-to-amazon-sagemaker-studio-in-one-click-2/"
+   }
+  ],
+  "first_seen": "2026-07-08T02:02:59.693720+00:00",
+  "id": "8428a4cc93e3fe5a",
+  "published": "2026-07-07T21:15:33+00:00",
+  "sid": "77d64de25479fa60",
+  "source": "huggingface_blog",
+  "summary_1line": "From Hugging Face to Amazon SageMaker Studio in one click",
+  "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+  "type": "research",
+  "url": "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio"
  },
  "78aa501471a8665a": {
   "first_seen": "2026-07-03T07:02:06.669673+00:00",
@@ -1438,19 +1503,25 @@
  },
  "8b37e6ac88241505": {
   "first_seen": "2026-07-08T01:02:11.184385+00:00",
-  "id": "bfdd142382342728",
+  "id": "e785594459abc4d0",
   "matched_topics": [
+   "agent",
    "codex"
   ],
-  "published": "2026-07-08T00:43:01+00:00",
+  "published": "2026-07-08T01:32:35+00:00",
+  "release_highlights": [
+   "Remote plugins are now enabled by default, with richer catalog rows, npm marketplace sources, and visible remote/local versions. ( #30297 , #26705 , #29375 ,...",
+   "Codex can route authentication and Responses API traffic through macOS and Windows system proxies, including PAC and WPAD configurations. ( #26708 , #26709 ,...",
+   "Added codex remote-control pair for generating manual pairing codes from a running daemon"
+  ],
   "sid": "8b37e6ac88241505",
   "source": "openai_codex_releases",
-  "summary": "Release 0.143.0",
-  "summary_1line": "Release 0.143.0",
-  "title": "codex rust-v0.143.0",
+  "summary": "New Features Remote plugins are now enabled by default, with richer catalog rows, npm marketplace sources, and visible remote/local versions. ( #30297 , #26705 , #29375 , #30981 ) Codex can route authentication and Responses API traffic through macOS and Windows system proxies, including PAC and WPAD configurations. ( #26708 , #26709 , #31335 ) Added codex remote-control pair for generating manual pairing codes from a running daemon. ( #29913 ) Added Amazon Bedrock GPT-5.6 Sol, Terra, and Luna models, with first-class support for max reasoning effort. ( #30285 , #30467 ) MCP tools now use tool search by default, and ChatGPT-hosted MCP servers can explicitly use session authentication. ( #29486 , #29733 ) App-server clients can inspect environments, list descendant threads, and fork history through a specific turn. ( #30291 , #29591 , #30277 ) Bug Fixes Fixed Windows ConPTY input handling for line endings and backspace, plus sandbox credential retry edge cases. ( #29734 , #29624 , #29637 ) Fixed stale TUI safety prompts and cancelled reviews that could leave MCP startup appearing busy. ( #30490 , #31189 ) Improved recovery when exec servers are temporarily offline and prevented remote-control token refresh retry storms. ( #30098 , #30201 ) Preserved trailing realtime transcript text and terminal rollout events during shutdown. ( #29918 , #30144 ) Improved incremental WebSocket request success by ignoring response metadata during comparisons. ( #30770 ) Reduced installer failur",
+  "summary_1line": "Remote plugins are now enabled by default, with richer catalog rows, npm marketplace sources, and visible remote/local versions. ( #30297 , #26705 , #29375 ,... · Codex can route authentication and Responses API traff...",
+  "title": "codex 0.143.0",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.143.0",
-  "why_it_matters": "Matches feed focus: codex."
+  "why_it_matters": "Matches feed focus: agent, codex."
  },
  "8c8ae31981c6259d": {
   "first_seen": "2026-07-01T20:01:58.749727+00:00",
