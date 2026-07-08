@@ -199,6 +199,11 @@ def iter_sources() -> list[tuple[str, str, str, dict[str, Any]]]:
 
 def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int) -> bool:
     import re
+    # Wiki topics and foundations concepts are durable, low-volume reference pages.
+    # If they are missing or stale, they should always be translated regardless of age.
+    if surface in ("topic", "foundations"):
+        return True
+
     date_str = None
     if surface == "daily":
         date_str = source.get("date")
@@ -214,8 +219,6 @@ def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int)
         date_str = source.get("published") or source.get("first_seen") or source.get("last_seen")
     elif surface == "storyline":
         date_str = source.get("last_updated") or source.get("generated_at")
-    elif surface == "foundations":
-        date_str = source.get("updated")
     
     if not date_str:
         return False
@@ -228,7 +231,16 @@ def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int)
         dt = datetime.strptime(m.group(1), "%Y-%m-%d").date()
         current = datetime.now().date()
         delta = (current - dt).days
-        return delta <= days
+        
+        # Adjust freshness threshold based on surface characteristics
+        if surface == "daily":
+            # Daily recaps summarize the previous day, so they are always at least 1 day old.
+            return delta <= days + 1
+        elif surface == "weekly":
+            # Weekly recaps start on Monday, so their content date is up to 7 days older.
+            return delta <= days + 7
+        else:
+            return delta <= days
     except Exception:
         return False
 
