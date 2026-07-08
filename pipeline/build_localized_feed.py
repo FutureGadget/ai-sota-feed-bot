@@ -103,6 +103,60 @@ def _chat_completion(base_url, model, messages, temperature=0.3, timeout=300):
         raise ConnectionError(f"Cannot reach LM Studio at {base_url}. Error: {exc}") from exc
     return body["choices"][0]["message"]["content"]
 
+def _repair_unescaped_quotes(text: str) -> str:
+    """Escape unescaped double quotes inside JSON string values."""
+    chars = list(text)
+    n = len(chars)
+    result = []
+    inside_string = False
+    
+    i = 0
+    while i < n:
+        c = chars[i]
+        
+        if c == '"':
+            # Check if this quote is escaped
+            is_escaped = False
+            k = i - 1
+            while k >= 0 and chars[k] == '\\':
+                is_escaped = not is_escaped
+                k -= 1
+                
+            if is_escaped:
+                result.append(c)
+                i += 1
+                continue
+                
+            if not inside_string:
+                inside_string = True
+                result.append(c)
+                i += 1
+            else:
+                # Look ahead for next non-whitespace char
+                next_non_ws = None
+                j = i + 1
+                while j < n:
+                    if chars[j] not in (' ', '\t', '\n', '\r'):
+                        next_non_ws = chars[j]
+                        break
+                    j += 1
+                
+                # If followed by a JSON structural separator, it's closing the string
+                if next_non_ws in (',', '}', ']', ':'):
+                    inside_string = False
+                    result.append(c)
+                else:
+                    # Escape it
+                    result.append('\\')
+                    result.append('"')
+                i += 1
+        else:
+            result.append(c)
+            i += 1
+            
+    return "".join(result)
+
+
 def _translate_item(it: dict[str, Any], locale: str, base_url: str, model: str) -> dict[str, Any]:
     source_json = {
         "title": it.get("title"),
@@ -136,6 +190,7 @@ Source JSON:
         text = re.sub(r"^```\w*\n?", "", text, count=1)
         text = re.sub(r"\n?```\s*$", "", text, count=1)
     
+    text = _repair_unescaped_quotes(text)
     translated = json.loads(text)
     
     res = {

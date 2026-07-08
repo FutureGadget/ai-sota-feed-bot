@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Can you trust what your agent remembers? — Agent Builder Foundations | LLM Digest</title>
-  <meta name="description" content="Persistent agent memory is a write-once, replay-many attack surface — 2026 benchmarks show attackers can forge an agent&#x27;s own reasoning history or plant poisoned facts through routine content like email, both with high success rates against real…" />
-  <link rel="canonical" href="https://www.llm-digest.com/foundations/agent-memory-poisoning" />
-  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/foundations/agent-memory-poisoning" />
+  <title>에이전트의 기억을 신뢰할 수 있을까? | LLM Digest</title>
+  <meta name="description" content="에이전트의 기억을 신뢰할 수 있을까?" />
+  <link rel="canonical" href="https://www.llm-digest.com/ko/foundations/agent-memory-poisoning" />
   <link rel="alternate" hreflang="ko" href="https://www.llm-digest.com/ko/foundations/agent-memory-poisoning" />
+  <link rel="alternate" hreflang="en" href="https://www.llm-digest.com/foundations/agent-memory-poisoning" />
   <link rel="alternate" hreflang="x-default" href="https://www.llm-digest.com/foundations/agent-memory-poisoning" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -15,15 +15,15 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Can you trust what your agent remembers? — Agent Builder Foundations" />
-  <meta property="og:description" content="Persistent agent memory is a write-once, replay-many attack surface — 2026 benchmarks show attackers can forge an agent&#x27;s own reasoning history or plant poisoned facts through routine content like email, both with high success rates against real…" />
-  <meta property="og:url" content="https://www.llm-digest.com/foundations/agent-memory-poisoning" />
-  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
-  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta property="og:title" content="에이전트의 기억을 신뢰할 수 있을까?" />
+  <meta property="og:description" content="에이전트의 기억을 신뢰할 수 있을까?" />
+  <meta property="og:url" content="https://www.llm-digest.com/ko/foundations/agent-memory-poisoning" />
+  <meta property="og:image" content="https://www.llm-digest.com/og/foundations-agent-memory-poisoning-ko.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og/foundations-agent-memory-poisoning-ko.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Can you trust what your agent remembers? — Agent Builder Foundations" />
-  <meta name="twitter:description" content="Persistent agent memory is a write-once, replay-many attack surface — 2026 benchmarks show attackers can forge an agent&#x27;s own reasoning history or plant poisoned facts through routine content like email, both with high success rates against real…" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Can you trust what your agent remembers?", "description": "Persistent agent memory is a write-once, replay-many attack surface — 2026 benchmarks show attackers can forge an agent's own reasoning history or plant poisoned facts through routine content like email, both with high success rates against real…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/agent-memory-poisoning", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "Can you trust what your agent remembers?", "item": "https://www.llm-digest.com/foundations/agent-memory-poisoning"}]}]}</script>
+  <meta name="twitter:title" content="에이전트의 기억을 신뢰할 수 있을까?" />
+  <meta name="twitter:description" content="에이전트의 기억을 신뢰할 수 있을까?" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "에이전트의 기억을 신뢰할 수 있을까?", "description": "Persistent agent memory is a write-once, replay-many attack surface — 2026 benchmarks show attackers can forge an agent's own reasoning history or plant poisoned facts through routine content like email, both with high success rates against real…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/agent-memory-poisoning", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "에이전트의 기억을 신뢰할 수 있을까?", "item": "https://www.llm-digest.com/foundations/agent-memory-poisoning"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
@@ -278,8 +278,8 @@
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a href="/api/foundations?slug=agent-memory-poisoning">View as JSON</a>
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/foundations/agent-memory-poisoning" data-share-title="Can you trust what your agent remembers? — Agent Builder Foundations">Share this page</button>
-        <a class="site-language-action" href="/ko/foundations/agent-memory-poisoning" data-language-link data-language-locale="ko" hidden aria-label="Read this page in Korean" title="Read in Korean"><span aria-hidden="true">🌐</span><span>KO</span></a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/ko/foundations/agent-memory-poisoning" data-share-title="에이전트의 기억을 신뢰할 수 있을까?">Share this page</button>
+        <a class="site-language-action" href="/foundations/agent-memory-poisoning" data-language-link data-language-locale="en" hidden aria-label="Read this page in English" title="Read in English"><span aria-hidden="true">🌐</span><span>EN</span></a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -287,7 +287,7 @@
     </header>
 
     <section id="recap">
-      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">Can you trust what your agent remembers?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Memory and context<span class="sep">·</span>4 evidence tiers<span class="sep">·</span>updated 2026-07-08</p></section>
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">에이전트의 기억을 신뢰할 수 있을까?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Memory and context<span class="sep">·</span>4 evidence tiers<span class="sep">·</span>updated 2026-07-08</p></section>
       <!-- range is included in the custom hero -->
       <!-- intro is inside the foundation concept hero -->
       <div class="foundation-concept"><div class="foundation-lead"><p>If your agent has persistent memory — it writes facts, decisions, or reasoning traces to a store it reads back in a later session — that memory is no longer just something the agent reads. It is something an attacker, or the agent&#x27;s own drift, can write to. Untrusted content the agent processes today (an email, a tool result, a retrieved document) can plant an entry that survives into every future session and gets treated as trusted state from then on, with no further scrutiny.</p></div>

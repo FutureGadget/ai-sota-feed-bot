@@ -217,6 +217,60 @@ Source JSON:
 # Response parsing and validation
 # ---------------------------------------------------------------------------
 
+def _repair_unescaped_quotes(text: str) -> str:
+    """Escape unescaped double quotes inside JSON string values."""
+    chars = list(text)
+    n = len(chars)
+    result = []
+    inside_string = False
+    
+    i = 0
+    while i < n:
+        c = chars[i]
+        
+        if c == '"':
+            # Check if this quote is escaped
+            is_escaped = False
+            k = i - 1
+            while k >= 0 and chars[k] == '\\':
+                is_escaped = not is_escaped
+                k -= 1
+                
+            if is_escaped:
+                result.append(c)
+                i += 1
+                continue
+                
+            if not inside_string:
+                inside_string = True
+                result.append(c)
+                i += 1
+            else:
+                # Look ahead for next non-whitespace char
+                next_non_ws = None
+                j = i + 1
+                while j < n:
+                    if chars[j] not in (' ', '\t', '\n', '\r'):
+                        next_non_ws = chars[j]
+                        break
+                    j += 1
+                
+                # If followed by a JSON structural separator, it's closing the string
+                if next_non_ws in (',', '}', ']', ':'):
+                    inside_string = False
+                    result.append(c)
+                else:
+                    # Escape it
+                    result.append('\\')
+                    result.append('"')
+                i += 1
+        else:
+            result.append(c)
+            i += 1
+            
+    return "".join(result)
+
+
 def _repair_json_escapes(text: str) -> str:
     """Escape backslashes that are not part of a valid JSON escape sequence."""
     pattern = r"\\(u[0-9a-fA-F]{4}|[\"\\/bfnrt]|.|$)"
@@ -238,6 +292,7 @@ def _extract_json(raw: str) -> dict[str, Any]:
         text = re.sub(r"^```\w*\n?", "", text, count=1)
         # Remove closing fence
         text = re.sub(r"\n?```\s*$", "", text, count=1)
+    text = _repair_unescaped_quotes(text)
     text = _repair_json_escapes(text)
     try:
         parsed = json.loads(text)
