@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb]
-updated: 2026-07-06
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee]
+updated: 2026-07-09
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee]
 ---
 
 ## TL;DR
@@ -67,19 +67,28 @@ is a task queue that coding agents pull work *from* over MCP, using the
 protocol as the plug for a job queue rather than a single tool call or a
 data/memory fetch — a third payload type alongside tools and knowledge/state.
 
-## What's new
-The auth push that started as a vendor feature is now a **stable protocol
-extension**: MCP's Enterprise-Managed Authorization reached stable status,
-giving any client or server a spec for zero-touch, identity-provider-backed
-access instead of per-server consent prompts.
+Tool **definition design** is now a subject in its own right, separate from
+the auth/governance work above. AWS's field guide names two failure modes —
+bloated context (every tool schema loads on every call, whether used or
+not, contributing to context rot) and confusion (vague parameter names and
+oversized result payloads make the model call the wrong tool or the right
+tool wrong) — and walks a concrete progression from V1 (raw API exposed
+as-is) through richer descriptions, `Literal`-typed schema constraints, and
+lazy-loaded taxonomies (a separate discovery tool fetched only when needed)
+to a leanest-baseline design that cut per-turn context usage from 4% to 2%.
+The same guide cites Anthropic's own lazy-loading work reaching up to 85%
+token reduction, and recommends capping tool parameter counts at roughly
+eight. This is the tool-schema-quality half of the [context-compaction](/topic/context-compaction)
+problem: cutting the tokens a tool *definition* burns, not the tokens a
+conversation accumulates.
 
-That builds on the same trajectory as MCP's other recent widening — work
-distribution (TaskPeace's task queue over MCP), tool discovery as a
-retrieval step (Codex's default MCP tool search), and reference data/memory
-riding the protocol (MDN MCP service, Elastic Atlas) — alongside the
-now-assumed infrastructure of MCP-equipped serverless runtimes (Azure
-Functions), a filling small-server long tail, and framework-free WebMCP
-clients (Persona.js, MIT).
+## What's new
+Tool design itself is now a named discipline: an AWS field guide catalogs
+concrete anti-patterns (bloated always-loaded schemas, internal-database
+naming, oversized result payloads) and a fix progression ending in
+lazy-loaded tool discovery, citing up to 85% token reduction and an
+8-or-fewer parameter guideline — the tool-schema counterpart to MCP's
+ongoing auth/governance maturation.
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose

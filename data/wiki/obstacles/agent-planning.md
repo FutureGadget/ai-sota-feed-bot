@@ -6,10 +6,10 @@ area: planning
 status: active
 solutions: [agent-orchestration]
 obstacles: []
-related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a]
-updated: 2026-07-04
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a]
+related_storylines: [lilian-weng-s-harness-engineering-essay]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a]
+updated: 2026-07-09
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a]
 ---
 
 ## TL;DR
@@ -94,28 +94,28 @@ high-resolution Engaged state (53% → 64%) — concrete evidence that inferring
 "is this plan working" mid-episode, not just at the end, is worth the extra
 model.
 
-## What's new
-Re-planning on failure gets a **multi-hypothesis** upgrade: rather than one
-reflection pass, autonomous research agents now generate and weigh several
-candidate failure explanations before re-planning, and Candidly's production
-IO-HMM state model shows *live* steering pays off directly — halving
-disengaging turns (23% → 11%) by inferring conversation state every turn
-instead of grading the outcome after the fact. AWS's multi-turn RL
-best-practices guide names the operational checklist (trustworthy training
-env, external eval, aligned reward, cross-turn state) underneath training
-approaches like Agent RFT.
+Lilian Weng's survey of ~35 papers on **harness engineering for recursive
+self-improvement** gives the "loop as reusable infra" thread a literature
+map: it names goal-oriented plan→execute→observe→improve loops, a
+file-system-as-persistent-memory pattern (durable state instead of
+cramming everything into context), and parent agents spawning inspectable
+sub-agents as the three recurring harness design patterns, then goes one
+step further than this page's existing "the loop is infra" framing —
+treating the **harness code itself** as an evolvable artifact that an
+LLM-driven mutation operator can improve (AlphaEvolve, Darwin Gödel
+Machine), not just the prompt or the loop structure around it. The essay's
+own caveat matters as much as its taxonomy: self-improvement loops work
+only as well as their evaluation signal, and weak or fuzzy evaluators
+remain the standing bottleneck — a reminder to pair any harness-evolution
+experiment with the [trajectory-level eval](/topic/agent-evaluation) this
+page already argues planning reliability depends on.
 
-Training is starting to target planning directly: OpenAI's Agent RFT
-fine-tunes reasoning models against tool-interaction reward signals, using RL
-to solve credit assignment across a long trajectory rather than leaning only
-on harness engineering. Alongside it, "the loop" is solidifying into
-reusable, gradeable infrastructure — a provider-agnostic ports-and-adapters
-reference loop, an open spec for grading loop-engineering quality
-(QUALITY.md), and self-improving "autoresearch" loops that iterate on their
-own task recipes — while practitioners push back that human steering (skill
-engineering) still beats one-shot design. CoMet adds a metacognitive signal
-(decomposed uncertainty estimation) to the "ask vs. proceed" question
-DiscoBench already benchmarks.
+## What's new
+Lilian Weng's ~35-paper harness-engineering survey adds a name and a
+literature map to this page's "loop as infra" thread, plus a pattern not
+previously covered here: harness *code* itself as an evolvable artifact
+(AlphaEvolve, Darwin Gödel Machine mutate the harness, not just the
+prompt).
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source
