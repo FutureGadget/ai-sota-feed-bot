@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Solve harder problems with AlphaEvolve, now available to everyone on Google Cloud
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/alphaevolve-is-available-for-everyone/
-- Score: 3.543 | Reliability: 1.0
+- Score: 3.485 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
 
 ## 2. The new GPT-5.6 family: Luna, Terra, Sol
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/9/gpt-5-6/#atom-everything
-- Score: 3.405 | Reliability: 1.0
+- Score: 3.371 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 3. Introducing Muse Spark 1.1
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/9/muse-spark-1-1/#atom-everything
-- Score: 3.103 | Reliability: 1.0
+- Score: 3.073 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 4. codex 0.144.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.144.0
-- Score: 3.027 | Reliability: 1.0
+- Score: 2.992 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 5. AlloyDB Ships Proxy Models That Replace LLM Calls with Local Inference inside the Database
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/alloydb-ai-proxy-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.706 | Reliability: 1.0
+- Score: 2.681 | Reliability: 1.0
 - Why it matters: 
 
 ## 6. ChatGPT is now a partner for your most ambitious work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/chatgpt-for-your-most-ambitious-work
-- Score: 2.619 | Reliability: 1.0
+- Score: 2.588 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. A new way to reflect on how you use Claude
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/reflect-with-claude
-- Score: 2.618 | Reliability: 1.0
+- Score: 2.587 | Reliability: 1.0
 - Why it matters: 
 
-## 8. How to build a GitHub code review agent
-- Type: news | Source: hackernews_ai
-- URL: https://debugger.substack.com/p/how-to-build-github-code-review-agent
-- Score: 2.563 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 8. SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2607.07467v1
+- Score: 2.526 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
 ## 9. Inviting hard questions
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/hard-questions
-- Score: 2.543 | Reliability: 1.0
+- Score: 2.512 | Reliability: 1.0
 - Why it matters: 
 
-## 10. SpaCellAgent: A Self-Evolving LLM-Based Multi-Agent Framework for Trajectory Analysis
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2607.07467v1
-- Score: 2.541 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 11. GPT-5.6 is now the preferred model in Microsoft 365 Copilot
+## 10. GPT-5.6 is now the preferred model in Microsoft 365 Copilot
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/gpt-5-6-preferred-model-microsoft-365-copilot
-- Score: 2.522 | Reliability: 1.0
+- Score: 2.492 | Reliability: 1.0
 - Why it matters: 
 
-## 12. Automating cross-repo documentation with GitHub Agentic Workflows
+## 11. Automating cross-repo documentation with GitHub Agentic Workflows
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/automating-cross-repo-documentation-with-github-agentic-workflows/
-- Score: 2.512 | Reliability: 1.0
+- Score: 2.491 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
+
+## 12. Show HN: Demo_CLI – snapshot before your AI agent runs rm -RF, one-command undo
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/WePwn/demo_cli
+- Score: 2.484 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 13. Improving Agents is a Data Mining Problem
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/improving-agents-is-a-data-mining-problem
-- Score: 2.504 | Reliability: 1.0
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 14. Your coding agent bill doubled. Here’s how to fix it.
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/fix-your-coding-agent-bill
-- Score: 2.504 | Reliability: 1.0
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 15. OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/openai-libunwind-core-dumps/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.45 | Reliability: 1.0
+- Score: 2.427 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. GPT-5.5 Bio Bug Bounty
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/bio-bug-bounty
-- Score: 2.448 | Reliability: 1.0
+- Score: 2.419 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. HIVE: Understanding Post-Hallucination Reasoning in Vision Language Models
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.07507v1
-- Score: 2.373 | Reliability: 1.0
+- Score: 2.358 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 18. Where to Intervene? Benchmarking Fairness-Aware Learning on Differentially Private Synthetic Tabular Data
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.07471v1
-- Score: 2.365 | Reliability: 1.0
+- Score: 2.351 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 19. Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/ben-bernanke
-- Score: 2.357 | Reliability: 1.0
+- Score: 2.329 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. An off switch for dual use knowledge in AI models
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/off-switch-dual-use
-- Score: 2.341 | Reliability: 1.0
+- Score: 2.326 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. Think Big, Search Small: Where Capacity Matters in Hierarchical Search Agents?
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.07548v1
-- Score: 2.293 | Reliability: 1.0
+- Score: 2.28 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 22. Why AI Infrastructure must evolve for Agent Experience — Akshat Bubna, Modal CTO
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/modal2026
-- Score: 2.268 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 23. GPT-5.6: Frontier intelligence that scales with your ambition - OpenAI
+## 22. GPT-5.6: Frontier intelligence that scales with your ambition - OpenAI
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMiSEFVX3lxTE1pWmhBYnBfLXg2OGhrbmlYM2FobFBJanp6RHFiZ1lIa1BSSE1CTnNYSExtRW1USTFWbDloOUxIS3FKY2hXbm5ULQ?oc=5
-- Score: 2.206 | Reliability: 1.0
+- Score: 2.26 | Reliability: 1.0
 - Why it matters: 
+
+## 23. Why AI Infrastructure must evolve for Agent Experience — Akshat Bubna, Modal CTO
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/modal2026
+- Score: 2.249 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 24. vllm v0.25.0rc3
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.25.0rc3
-- Score: 1.728 | Reliability: 1.0
+- Score: 1.702 | Reliability: 1.0
 - Why it matters:
