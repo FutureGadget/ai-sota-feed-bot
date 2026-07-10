@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473]
-updated: 2026-07-07
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29]
+updated: 2026-07-10
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29]
 ---
 
 ## TL;DR
@@ -71,36 +71,30 @@ Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
 it, collapsing a round-trip that would otherwise cost a full extra model call
 and its latency.
 
+**Scheduling** is getting an agent-specific rework, not just faster kernels:
+SMetric finds agent traffic already has high KV-cache reuse (>80% in
+production) but generic schedulers over-index on cache locality and let
+load imbalance cap cluster throughput, so it splits requests into a
+load-balanced first hop per agent session and a cache-aware routing decision
+for every request after — reporting 10-16% throughput gains under
+prefill-decode colocation and 2-34% prefill gains under disaggregated
+serving versus prior schedulers, without giving up the cache-reuse win a
+purely cache-aware scheduler chases. On the engine side, vLLM's transformers
+backend uses `torch.fx` graph analysis plus AST rewriting to fuse operations
+into optimized vLLM kernels automatically, matching native per-model
+integration throughput on dense and MoE Qwen3 models without hand-written
+per-model code — cutting the engineering cost of *keeping up* with new model
+architectures, which is itself a latency-relevant maintenance tax.
+
 ## What's new
-Batching joins the list of serving knobs getting an agent-workload-specific
-answer: policy-gradient reinforcement learning learns an adaptive batching
-policy instead of a hand-tuned static one, targeting the bursty,
-heterogeneous request pattern agent tool-calling produces rather than a
-steady chat arrival rate.
-
-The serving-layer fix is getting more hardware- and model-specific: vLLM's
-new HPC-Ops integration ships Hopper-optimized attention and FP8 MoE kernels
-built for Tencent's Hunyuan Hy3 on NVIDIA H20, improving mixed-length decode,
-TTFT, and per-token latency — a purpose-built backend rather than a generic
-engine tweak.
-
-Before that, the framing had already shifted from "make the model faster" to
-"make the *agent workload* faster." TraceLab characterizes real coding-agent
-serving traces so engines can be tuned to bursty long-context tool loops, and
-DualPath identifies storage bandwidth — not GPU compute — as the bottleneck
-in agentic inference, because the per-step context state has to be moved,
-not just computed. RaBitQCache gives that bottleneck a direct mitigation:
-quantizing the KV cache with an adaptive token budget cuts the memory-I/O
-DualPath flags, without a fixed top-k retrieval's static waste. A separate
-move pushes lightweight agentic logic *into* the serving layer itself —
-vLLM's Semantic Router runs confidence scoring and workflow routing as a
-bounded micro-agent inside the serving process, avoiding a separate
-orchestration round-trip's latency cost. Alongside, latency-first small
-models (Kog Laneformer 2B) and low-latency interactive stacks (Loka's Nova 2
-Sonic voice agent) show the field treating round-trip time as an
-architecture constraint rather than a knob, and the same instinct is
-reaching the dev loop itself — local CI cuts feedback latency for
-developers and agents alike.
+Scheduling gets an agent-specific rework: SMetric splits agent-session
+routing into a load-balanced first hop and cache-aware follow-up requests,
+reporting 10-16% throughput gains under prefill-decode colocation and 2-34%
+under disaggregated serving over prior schedulers that over-index on cache
+locality alone. On the engine side, vLLM's transformers backend
+auto-generates native-speed kernels via graph analysis instead of
+hand-written per-model integration, cutting the maintenance cost of keeping
+serving fast as new model architectures ship.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

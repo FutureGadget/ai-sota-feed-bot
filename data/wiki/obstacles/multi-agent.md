@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d]
-updated: 2026-07-05
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
+updated: 2026-07-10
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
 ---
 
 ## TL;DR
@@ -100,14 +100,37 @@ single framework to letting the same coordination script mix heterogeneous
 agents, which is the "route refactors to one model, codegen to another"
 capability practitioners were still hunting for above.
 
+The "conflict resolution between agents" problem is getting a named pattern:
+an **arbiter** role that settles disagreement between a planning agent and a
+coding agent by checking the code against the plan directly, rather than
+trusting either agent's self-report — which only works if the plan was
+specified in enough detail for the arbiter to actually verify against it.
+The same practitioner framing packages parallel testing, review, and
+context-retrieval agents plus that arbiter as a **governance layer**
+(distinct credentials per agent role, visible communication over
+human-readable channels like GitHub or chat rather than hidden logs) — the
+coordination-plus-oversight bundle that turns ad hoc multi-agent use into
+something a platform team can run safely.
+
+At the tooling-consolidation end, low-code orchestration platforms are
+folding the agent loop *into* the workflow engine rather than treating agents
+and workflows as separate layers: one open-source platform embeds a full
+agent loop (model call, tool invocation, observation, next-step decision) as
+a drag-and-drop step that can itself trigger or be triggered by ordinary
+workflow steps, sharing one audit trail across agent decisions, tool calls,
+and human approvals — a concrete instance of the durable "put the
+coordination in ordinary code" lesson, expressed as a visual builder instead
+of a script.
+
 ## What's new
-Code-driven orchestration widens from one framework to **provider-agnostic**:
-Omegacode drives Codex, Claude Code, OpenCode, and pi agents from the same
-JavaScript workflow file, with built-in multi-provider patterns (adversarial
-review, model bake-offs) that deliberately exploit decorrelated errors across
-providers — a concrete answer to the standing hunt for heterogeneous-model
-collaboration tooling, on top of last round's uncertainty-aware coordination
-(UA-ChatDev) and the per-agent-worktree conflict-avoidance recipe.
+The disagreement problem gets a named pattern: an **arbiter** agent settles
+conflicts between a planning agent and a coding agent by checking the code
+against the plan directly, packaged with per-role credentials and
+human-readable communication into a governance layer for running multi-agent
+systems safely. Separately, low-code platforms are folding the agent loop
+into the workflow engine itself, sharing one audit trail across agent
+decisions and ordinary workflow steps instead of keeping the two layers
+apart.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

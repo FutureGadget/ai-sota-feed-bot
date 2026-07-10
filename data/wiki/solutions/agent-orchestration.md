@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d]
-updated: 2026-07-05
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
+updated: 2026-07-10
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
 ---
 
 ## TL;DR
@@ -89,6 +89,18 @@ problem (workspace, runtime, and per-agent directory isolation as the
 load-bearing design) and the move from "add more agents" to "design the
 coordination" — decentralized topologies (DeLM) and per-task generated
 harnesses (Anthropic) displacing the single-coordinator star.
+
+A sixth axis names the **conflict-resolution** gap directly: an arbiter role
+resolves disagreement between a planning agent and a coding agent by
+checking the code against the plan rather than trusting either agent's own
+report, packaged with per-role credentials and human-readable communication
+into a governance layer — a concrete answer to "who's in charge when two
+agents disagree," distinct from the topology question of who talks to whom.
+Low-code platforms are also folding orchestration and the agent loop into
+one engine rather than two layers: one open-source platform embeds a full
+model-call/tool-call/observation loop as a drag-and-drop workflow step,
+sharing an audit trail across agent decisions, tool calls, and workflow
+steps alike.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

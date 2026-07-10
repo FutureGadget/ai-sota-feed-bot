@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5]
-updated: 2026-06-30
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb]
+updated: 2026-07-10
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb]
 ---
 
 ## TL;DR
@@ -66,29 +66,26 @@ budget and degrades which tool the model picks, so harnesses are moving to
 [MCP](/topic/mcp) tool search by default, turning tool discovery into a
 retrieval step rather than a context dump.
 
+A fourth axis is **tool definition quality itself**, now a named discipline
+rather than an afterthought: a field guide catalogs concrete anti-patterns —
+always-loaded bloated schemas, vague internal-naming, oversized result
+payloads — and a fix progression through richer descriptions, typed
+constraints, and lazy-loaded discovery that cut per-turn context usage in
+half in one case study (see [MCP](/topic/mcp) for the full progression).
+Governance is maturing alongside design: the protocol's own
+Enterprise-Managed Authorization extension reached stable status, replacing
+per-server consent prompts with a single sign-on flow through an
+organization's identity provider — standardizing what individual vendors had
+already shipped one-off.
+
 ## What's new
-The reliability of the *calling behavior* — not just the integration — is now
-being measured. "Beyond Function Calling" benchmarks agents under
-**tool-environment unreliability** (tools that time out, error, or return
-malformed results) and finds sharp degradation that clean tool suites hide,
-and the "Constraint Tax" study shows that jointly demanding structured output
-and tool calling **suppresses** tool calls in open-weight models — an
-interaction bug in the harness, not the protocol.
-
-A new **selection axis** also surfaced: with agents reaching dozens of
-connectors, harnesses now search the tool catalog instead of loading every
-schema — Codex makes MCP tool search the default — so tool discovery becomes
-a retrieval step that protects both context budget and selection accuracy.
-
-On the integration side, a **brownfield** counterpoint to "rebuild services
-agent-native" is gaining traction: agentic overlays (AWS) wrap existing REST
-services as agent-callable capabilities without rewriting them, a retrofit
-path for the service estates most teams actually have.
-
-This sits alongside the standardization push: WebMCP in Chrome origin trials
-(in-page tools), GA infrastructure MCP servers (HashiCorp Terraform), and
-cloud serverless agent runtimes bundling MCP access, 1,400+ connectors, and
-sandboxing (Azure Functions).
+Tool **definition quality** joins tool selection as a named engineering
+discipline: a field guide catalogs concrete schema anti-patterns and a fix
+progression (richer descriptions, typed constraints, lazy-loaded discovery)
+that roughly halved per-turn context usage in one case study. Governance
+matured alongside it: MCP's Enterprise-Managed Authorization extension
+reached stable status, standardizing single-sign-on connector auth across
+any MCP client or server rather than leaving it to individual vendors.
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

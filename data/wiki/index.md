@@ -41,7 +41,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
   → solutions: agent-orchestration
 
 ### reliability
-- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong *(stub)*
+- [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong
   → solutions: (none yet)
 
 ### security

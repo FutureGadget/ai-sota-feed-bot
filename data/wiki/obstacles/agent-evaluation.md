@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64]
-updated: 2026-07-07
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1]
+updated: 2026-07-10
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1]
 ---
 
 ## TL;DR
@@ -131,19 +131,49 @@ swapping in a stronger single model. Both findings converge on the same
 conclusion: a reasonable process around the model is at least as load-bearing
 as which model you use.
 
-## What's new
-Improving an agent is being reframed as a **data-mining problem**: LangChain
-mines production traces for failure clusters, fine-tunes a cheap judge on
-them, and hill-climbs agent performance from that signal — deriving the eval
-target from real failures instead of a rubric written in advance.
+A sixth front turns the "how hard is this case" question itself into a
+measurable dial. Discovery Bench uses **surprisal** — the residual
+uncertainty a query leaves about the correct answer — to generate the same
+evaluation case at calibrated ambiguity levels instead of hand-labeling
+cases "easy" or "hard." Run against a real agent, the technique exposes a
+**cliff effect** invisible to a single pass/fail run: F1 dropped from 1.00 at
+neutral phrasing to 0.00 at high ambiguity on the identical query, agent, and
+ground truth, and mid-ambiguity cases sometimes outperformed low-ambiguity
+ones — revealing implementation quirks (over-retrieval of time-sharded
+tables, context blow-up) a scalar pass rate would hide. The same audit found
+the benchmarks' own ground truth wrong on a meaningful slice of cases
+(6.49% of MMLU), reinforcing that the eval data needs evaluating too, not
+just the agent. And a widely-used coding benchmark got the same scrutiny:
+OpenAI's own analysis raises reliability and accuracy concerns in SWE-Bench
+Pro specifically, adding a second named benchmark (alongside GSO, SWE-Perf,
+SWE-fficiency above) to the "the benchmark's own numbers can be noisy" list.
+Benchmark **coverage** is widening too: Agents' Last Exam, co-led with UC
+Berkeley and 300+ domain experts, targets long-horizon, economically
+valuable professional tasks with verifiable outcomes across 55 sub-industries
+— a deliberate move past narrow coding/tool-use suites toward the kind of
+real-world work static leaderboards have historically under-represented.
 
-Benchmark noise also got hard numbers: a practitioner analysis measured a
-model's run-to-run standard deviation at 7.5% on a coding task — larger than
-the best-to-worst-model gap — and showed that swapping a few tasks in a
-~100-task set flips the leaderboard order. The same analysis reports a
-testing-methodology fix for agentic false positives: ensembling independent
-reviewer personas, including a deliberately contrarian one, beats upgrading
-to a stronger model.
+Real-world deployment write-ups are converging on the same **eval, tracing,
+and monitoring as one workflow** conclusion practitioner reports flagged
+earlier: Schneider Electric runs one LangSmith workspace per AI product
+(not per environment) so production traces flow straight back into
+development datasets, lets domain experts annotate real usage without
+developer-level tooling access, and gates promotion on a maturity framework
+tracking instrumentation, offline eval coverage, online evaluators, and user
+feedback — evaluation as a lifecycle gate across 60+ products, not a
+pre-launch checkbox.
+
+## What's new
+Discovery Bench turns "how hard is this case" into a measurable dial via
+surprisal-calibrated ambiguity levels, exposing a cliff effect (F1 1.00 →
+0.00 on the identical query at different phrasing) and ground-truth errors
+in existing benchmarks (6.49% of MMLU) that a scalar pass rate hides.
+SWE-Bench Pro joins the list of coding benchmarks under scrutiny for
+reliability, and Agents' Last Exam widens coverage to long-horizon,
+verifiable professional tasks across 55 sub-industries. On the practitioner
+side, Schneider Electric's LangSmith rollout shows eval, tracing, and
+production-to-dev feedback converging into one lifecycle-gated workflow
+across 60+ AI products.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

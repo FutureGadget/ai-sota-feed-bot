@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93]
-updated: 2026-07-08
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64]
+updated: 2026-07-10
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64]
 ---
 
 ## TL;DR
@@ -101,18 +101,28 @@ more evenly across the solution space instead of drawing them independently,
 cutting the redundancy tax on a pattern (parallel sampling) that agent
 harnesses increasingly reach for when a single pass isn't reliable enough.
 
-## What's new
-A second concrete case for the harness-tuning lever: LangChain retuned only
-the scaffolding around NVIDIA's Nemotron 3 Ultra — no fine-tuning, no bigger
-model — and matched Claude Opus 4.8's best agent run at roughly 8x lower
-cost, reinforcing that architecture, not model choice, is the primary cost
-lever.
+**Tool-calling behavior**, not just model choice, is now a cost lever in its
+own right: when GitHub retuned Copilot code review onto shared Unix-style
+tools (`grep`/`glob`/`view`), average cost went *up* at first, because the
+new tools' instructions invited broad, exploratory browsing suited to an
+interactive coding assistant rather than the narrow, diff-anchored search a
+reviewer actually needs. Rewriting the tool instructions — not the tools
+themselves — to start from the diff, batch searches before reading, and read
+only the needed line ranges cut average review cost roughly 20% while
+holding review quality, evidence that a tool's *instructions* are as much a
+cost surface as the tool's schema. Judge cost gets the same treatment as
+agent cost: mining production traces for failure clusters and fine-tuning a
+small judge on them, rather than running a frontier model as the judge,
+is the same cheap-instrumentation-over-model-swap move already established
+for [evaluation](/topic/agent-evaluation).
 
-That sits alongside the standing shifts: cost becoming an explicit measured
-surface (spend caps, per-PR attribution, managed FinOps agents), the
-test-time-scaling waste fix (QuasiMoTTo's quasi-Monte Carlo sampling),
-the quantization caution (lower per-token price can be eaten by more emitted
-tokens), and inference priced per useful token rather than peak chip specs.
+## What's new
+Tool-calling behavior joins model choice and harness tuning as a named cost
+lever: GitHub found that swapping in better exploration tools for Copilot
+code review *raised* cost until they rewrote the tool instructions to match
+a reviewer's narrow, diff-anchored search pattern instead of an interactive
+assistant's broad one — a ~20% cost cut from instruction design alone, no
+model or tool change.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

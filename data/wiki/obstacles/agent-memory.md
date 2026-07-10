@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424]
-updated: 2026-07-07
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604]
+updated: 2026-07-10
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604]
 ---
 
 ## TL;DR
@@ -154,38 +154,29 @@ memory (prior findings, decisions, file context) to coding agents over MCP,
 the same "memory over MCP" shape as Atlas but scoped to one repo instead of
 an enterprise platform.
 
+A parallel model widens the source side of proactive memory rather than the
+storage side: OpenWiki Brains turns Gmail, Notion, git repos, X, Hacker News,
+and web search into a local wiki of plain Markdown files an agent can pull
+from without being told to remember — proactive recall instead of the
+mostly-reactive "remember this" pattern most assistants still ship, and an
+architecture (synthesized markdown as the durable memory layer, refreshed by
+scheduled jobs rather than a vector index) that mirrors the LLM-wiki pattern
+this site's own knowledge wiki uses.
+
+The integrity threat model keeps widening past the entry itself to the
+agent's own reasoning: a new benchmark targets forged-reasoning attacks,
+where an agent's stored reasoning history — not just a stored fact — can be
+adversarially manipulated, extending memory poisoning from corrupting what
+the agent believes to corrupting how it argues for it.
+
 ## What's new
-Memory poisoning gets a **stealthier** variant: persistent personal agents
-can be made to remember an injected instruction while never disclosing it to
-the user, acting on it quietly rather than surfacing an obviously wrong or
-suspicious fact — harder to catch than the poisoning benchmarks that assume
-the bad entry is at least visible on inspection.
-
-A native **1M-token context window** (Claude Code's new Sonnet 5 default)
-gives long-horizon agents a way to sidestep memory engineering for some
-tasks by just keeping more raw history in-window, rather than compacting or
-retrieving it — a build-time counterweight to the tiered-memory architecture
-below. Separately, codebase-memory-mcp extends the "memory over MCP" pattern
-down to single-repo, coding-agent scale.
-
-Memory integrity gets a **new failure mode**: MemSyco-Bench shows agent
-memory can be sycophantic, not just poisoned — retrieved context can skew
-toward reinforcing a prior stated preference rather than reporting the
-fact, a subtler corruption than an outright wrong entry.
-
-**Recursive dispatch** is a new answer to context rot: rather than
-summarizing or retrieving, Deep Agents' RLM pattern has the agent write code
-that fans work out to sub-agents over context chunks, avoiding the
-single-giant-window problem altogether.
-
-That lands on top of the already-moving threads: the tiered "cognitive
-memory" model's major-vendor implementation (Elastic Atlas on
-Elasticsearch, served over [MCP](/topic/mcp)), portability widening from
-across runtimes (S3-backed filesystem) to across agents (Sibyl's
-self-hosted multi-user store), the local-first wave gaining a
-coding-agent-specific entrant (Knotic's project/session/docs tiers), and a
-new formal bounded-memory testbed (AgenticSTS) to evaluate all of the above
-against.
+Proactive memory widens on the **source side**: OpenWiki Brains aggregates
+Gmail, Notion, git, X, Hacker News, and web search into a local Markdown
+wiki an agent draws from unprompted, contrasting with the mostly-reactive
+"remember this" pattern most assistants still ship. Memory integrity's
+threat model widens too, from corrupting stored facts to corrupting stored
+**reasoning**: a new benchmark targets forged-reasoning attacks against an
+agent's own history, not just the facts in it.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing
