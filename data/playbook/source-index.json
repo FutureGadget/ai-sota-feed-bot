@@ -1,4 +1,23 @@
 {
+  "0ecd57418d6c38cf": {
+    "id": "pb-track-pr-throughput-not-agent-usage-alone",
+    "kind": "source-backed",
+    "title": "Measure coding-agent rollout by merged-PR lift and peer adoption, not raw usage logs",
+    "area": "Evals",
+    "problem": "Coding-agent rollouts are usually judged by seat counts or session logs, which don't say whether the tool changed anyone's output, and usage alone doesn't predict who keeps using it.",
+    "apply": "Track a concrete output proxy — Microsoft's study used merged pull requests — before and after adoption, segmented by whether a developer's teammates already used the tool. Expect retention to track existing coding activity more than seniority or team, and treat visible peer use, not mandates, as the lever that drives sustained adoption.",
+    "result": "Microsoft's four-month study of tens of thousands of engineers found adopters merged about 24% more pull requests than they otherwise would have, with the lift holding steady rather than fading as a novelty effect.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://arxiv.org/abs/2607.01418",
+    "source_sid": "0ecd57418d6c38cf",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Study of tens of thousands of Microsoft engineers' merged-PR rates over a four-month adoption window."
+    },
+    "edition_date": "2026-07-10"
+  },
   "1c2693c60a919d8d": {
     "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
     "kind": "source-backed",
@@ -36,6 +55,63 @@
       "note": "Tool's own description of its contract format and workflow; auditability payoff stated qualitatively, no measured figures."
     },
     "edition_date": "2026-07-03"
+  },
+  "2e309060a5831bee": {
+    "id": "pb-lazy-load-mcp-tool-definitions",
+    "kind": "source-backed",
+    "title": "Stop paying full MCP tool-definition tokens on every call — lazy-load them instead",
+    "area": "Tool use",
+    "problem": "Every MCP tool definition loads into context on every call regardless of whether it's used, and the richer descriptions teams add to fix tool-selection misfires make that bloat worse as the tool count grows.",
+    "apply": "Split multi-purpose MCP tools into focused, single-purpose ones, and retrieve their full definitions on demand instead of front-loading all of them — AWS calls this lazy loading/restructuring. Reserve rich descriptions (valid values, synonym mappings) or server-side introspection for the specific tools that need disambiguation, rather than applying them everywhere.",
+    "result": "AWS reports up to 85% token reduction by loading tool definitions only when relevant, cutting context bloat without giving back the tool-selection accuracy that fuller descriptions were fixing.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/mcp-tool-design-practical-approaches-and-tradeoffs/",
+    "source_sid": "2e309060a5831bee",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS's own reported figure for the lazy-loading/restructuring approach; methodology not independently verified."
+    },
+    "edition_date": "2026-07-10"
+  },
+  "3c227e4c9b2cd2eb": {
+    "id": "pb-adopt-mcp-enterprise-managed-auth",
+    "kind": "source-backed",
+    "title": "Adopt MCP's Enterprise-Managed Authorization to kill per-server login prompts — it's not runtime action control",
+    "area": "Safety",
+    "problem": "Connecting agents to many MCP servers means repeated per-user, per-server auth prompts that create friction at scale and blur personal vs. work account boundaries, with no centralized way to revoke access.",
+    "apply": "Wire your MCP servers to the now-stable Enterprise-Managed Authorization extension so users authenticate once through your existing identity provider (an Identity Assertion JWT exchanged for an access token) instead of approving each server individually — Anthropic, Microsoft, Okta, and providers like Atlassian, Figma, and Linear already support it. Keep your own authorization layer for what an agent can actually do inside a connected system; this extension only controls the connection, not individual actions.",
+    "result": "The MCP working group reports admins get single sign-on across MCP servers and centralized revocation instead of per-connection setup, with clearer audit visibility into who connected where.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/mcp-ema-enterprise-auth/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "3c227e4c9b2cd2eb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "MCP working group's own description of the now-stable Enterprise-Managed Authorization extension and its adopter list."
+    },
+    "edition_date": "2026-07-10"
+  },
+  "4a0a79e7203bae64": {
+    "id": "pb-mine-agent-traces-fine-tune-judge-models",
+    "kind": "source-backed",
+    "title": "Mine agent traces for failure patterns, then fine-tune a cheap judge model instead of a frontier-model judge",
+    "area": "Evals",
+    "problem": "Reading agent traces one by one to find failure patterns doesn't scale, and running a frontier LLM as a judge on every eval gets expensive fast once you're iterating constantly.",
+    "apply": "Run specialized agents over your full trace history to mine for specific failure signals, use what they find to curate targeted training data, then fine-tune a small open judge model on that narrow task instead of defaulting to a frontier-model judge. Use the fine-tuned judge's scores to hill-climb agent performance in your eval loop.",
+    "result": "LangChain reports that on narrow judge tasks, fine-tuned open models matched or beat frontier judges while running orders of magnitude cheaper, trading token cost for a one-time fine-tuning and infrastructure cost.",
+    "effort": "high",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/improving-agents-is-a-data-mining-problem",
+    "source_sid": "4a0a79e7203bae64",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's own account of their trace-mining and judge fine-tuning workflow; no precise accuracy/cost percentages given."
+    },
+    "edition_date": "2026-07-10"
   },
   "78aa501471a8665a": {
     "id": "pb-trace-and-cap-coding-agent-spend",
@@ -151,6 +227,25 @@
     },
     "edition_date": "2026-06-26"
   },
+  "9ff56fe893f2ff23": {
+    "id": "pb-tune-harness-not-model-for-open-model-parity",
+    "kind": "source-backed",
+    "title": "Tune the agent harness, not the model, to close the gap to a frontier model at 10x lower cost",
+    "area": "Orchestration",
+    "problem": "Running a frontier model on every agent step gets top-tier quality, but at $43.48 per full eval-suite run in LangChain's benchmark — a per-run cost that doesn't scale to high-volume usage.",
+    "apply": "Before swapping in a bigger model, tune the harness around a cheaper open model: add short, single-purpose system-prompt blocks that target one observed failure (e.g., requiring concrete results instead of vague completion claims), enforce call caps and one-shot retry logic in middleware to stop looping, and move instructions into a tool's returned output rather than its description so guidance sits next to the data the model is reading.",
+    "result": "LangChain closed Nemotron 3 Ultra from a 0.80 to a 0.86 score against Opus 4.8's 0.87 best run, at roughly $4.48 per full suite — about 10x cheaper — with latency at parity.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/tuning-the-harness-not-the-model-a-nemotron-3-ultra-playbook",
+    "source_sid": "9ff56fe893f2ff23",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "LangChain measured Nemotron 3 Ultra vs. Opus 4.8 on their own eval suite before and after harness tuning."
+    },
+    "edition_date": "2026-07-10"
+  },
   "a44d7493026627ec": {
     "id": "pb-close-the-trace-to-memory-loop",
     "kind": "source-backed",
@@ -169,6 +264,25 @@
       "note": "Vendor how-to guide (LangChain/LangSmith); the payoff is described as a claim, the apply steps are framework-neutral."
     },
     "edition_date": "2026-06-26"
+  },
+  "a96fc20a139c014c": {
+    "id": "pb-train-local-proxy-model-for-per-row-llm-calls",
+    "kind": "source-backed",
+    "title": "Stop calling an LLM per row — train a local proxy model from a sample instead",
+    "area": "Cost & latency",
+    "problem": "Calling a frontier LLM once per row for classification or extraction inside a data pipeline makes per-row latency and API cost the bottleneck at any real scale.",
+    "apply": "Send a representative sample of rows through the frontier LLM once, then train a lightweight local model on those labeled decisions and run it at pipeline speed for the rest — falling back to the frontier LLM automatically when the local model's confidence is too low. AlloyDB ships this pattern as its AI proxy-model functions, with the LLM acting as a one-time teacher rather than a per-request dependency.",
+    "result": "Google reports up to 23,000x throughput speedup and 6,000x lower cost versus row-at-a-time LLM calls, reaching 100,000 rows/second in their benchmark.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/alloydb-ai-proxy-models/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "a96fc20a139c014c",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Google's own internal benchmark figures for the preview AI proxy-model functions, as reported by InfoQ."
+    },
+    "edition_date": "2026-07-10"
   },
   "c4fa725d5c123b2d": {
     "id": "pb-measure-reasoning-tokens-on-quantized-models",
@@ -226,6 +340,25 @@
       "note": "Reproducible tool-suppression phenomenon observed in a production agent across multiple open-weight model families."
     },
     "edition_date": "2026-06-26"
+  },
+  "dc1acd837d32b604": {
+    "id": "pb-defend-agent-memory-against-forged-reasoning",
+    "kind": "source-backed",
+    "title": "Don't just filter retrieved memory — verify the reasoning traces an agent already trusts",
+    "area": "Safety",
+    "problem": "An attacker who can write to an agent's persistent memory doesn't need to poison facts — inserting fabricated, self-consistent reasoning traces achieved up to 100% attack success in a new benchmark, beating keyword filters and existing memory-consensus defenses.",
+    "apply": "Add a structural integrity check to your memory read path, not just a content filter: score each stored reasoning entry on structural signals (provenance, internal consistency, over-confident self-reference, unusual amplification patterns) before the agent treats it as trusted prior reasoning, following the paper's SENTINEL 'Reasoning Guard' pattern rather than relying on keyword or similarity-based memory guards alone.",
+    "result": "The paper's SENTINEL defense cut the forged-reasoning attack success rate from up to 100% to 0% across 326 benign traces and multiple agents and models, with zero false positives.",
+    "effort": "high",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2607.05029v1",
+    "source_sid": "dc1acd837d32b604",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Authors' own FARMA attack and SENTINEL defense evaluation across 50 trials, multiple agents, and multiple LLM models."
+    },
+    "edition_date": "2026-07-10"
   },
   "ebc3627096b332c8": {
     "id": "pb-build-explicit-recovery-paths-for-flaky-tools",
