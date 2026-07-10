@@ -75,6 +75,28 @@
   "url": "https://blogs.nvidia.com/blog/nvidia-vera-max-single-threaded-cpu-at-scale",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "060f4905c5779472": {
+  "first_seen": "2026-07-10T02:02:53.792592+00:00",
+  "id": "8b89f92d921dc7c9",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-07-10T01:45:26+00:00",
+  "release_highlights": [
+   "Added directory path suggestions to /cd , matching /add-dir behavior",
+   "Added a /doctor check that proposes trimming checked-in CLAUDE.md files by cutting content Claude could derive from the codebase",
+   "/commit-push-pr now auto-allows git push to the repo's configured push remote ( remote.pushDefault , or the sole remote when only one is configured) in addit..."
+  ],
+  "sid": "060f4905c5779472",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added directory path suggestions to /cd , matching /add-dir behavior Added a /doctor check that proposes trimming checked-in CLAUDE.md files by cutting content Claude could derive from the codebase /commit-push-pr now auto-allows git push to the repo's configured push remote ( remote.pushDefault , or the sole remote when only one is configured) in addition to origin Gateway: /login now supports Anthropic-operated public gateway endpoints EnterWorktree now asks for confirmation before entering a git worktree outside the project's .claude/worktrees/ directory Background agents now upgrade to a new version in the background right after a Claude Code update, instead of paying a slow stale-session upgrade when you attach Fixed an expired login failing every model with a misleading \"There's an issue with the selected model\" error instead of prompting to run /login Fixed claude --resume and --continue not responding to keyboard input on startup Fixed MCP servers configured via --mcp-config or .mcp.json ignoring a per-server request_timeout_ms , which caused long-running MCP tool calls to time out at the 60s default in fresh sessions Fixed CLAUDE_CODE_EXTRA_BODY being silently ignored by claude agents / --bg background workers; the shell-exported override now follows the dispatching session Fixed OAuth MCP servers requiring manual re-authentication after a single failed token refresh Fixed --permission-prompt-tool pointing at an MCP server crashing with \"MCP tool not f",
+  "summary_1line": "Added directory path suggestions to /cd , matching /add-dir behavior · Added a /doctor check that proposes trimming checked-in CLAUDE.md files by cutting content Claude could derive from the codebase · /commit-push-pr...",
+  "title": "claude-code v2.1.206",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.206",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "07534ce6d4c7cf60": {
   "first_seen": "2026-07-08T20:02:46.736671+00:00",
   "id": "3164f81848bf2da9",
@@ -260,6 +282,23 @@
   "url": "https://medium.com/@Koukyosyumei/a-conflict-free-multi-agent-ensemble-for-claude-and-codex-0ded61c5a35e",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "13b3c828ccf9d66e": {
+  "first_seen": "2026-07-10T02:02:53.792592+00:00",
+  "id": "04c1669a5d66325b",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-07-09T16:43:42+00:00",
+  "sid": "13b3c828ccf9d66e",
+  "source": "arxiv_cs_ai",
+  "summary": "As agentic AI systems are increasingly applied to cyber-physical environments, their evaluation requires assessment of both task performance and trustworthiness. In decentralized energy markets, autonomous agents may improve market utility, but may also exploit invalid physical data, create artificial liquidity, and produce unstable governance decisions. Therefore, we propose SolarChain-Eval, a physics-constrained benchmark for evaluating trustworthy economic agents. It formulates market governance as a Gymnasium-compatible Markov Decision Process, where agents make hourly decisions. SolarChain-Eval evaluates each policy across multiple dimensions, including market utility, physical safety, slippage, action smoothness, spatial fairness, and auditability. To support agentic evaluation, SolarChain-Eval incorporates an LLM-based Planner/Auditor layer. The Planner defines episode-level action bounds and audit rules, while the Auditor reviews and revises high-risk actions. All interventions are recorded through structured logs, including trigger signals, proposed actions, revised actions, and audit rationales. Experiments with static, random, myopic, RL, and RL+LLM policies reveal a clear utility-safety trade-off. RL agents improve market utility but can still produce unsafe behavior. When the physics penalty is removed, reward-maximizing agents exploit invalid generation and increase artificial liquidity. The LLM Planner/Auditor improves auditability and mitigates selected risks,",
+  "summary_1line": "As agentic AI systems are increasingly applied to cyber-physical environments, their evaluation requires assessment of both task performance and trustworthiness. In decentralized energy markets, autonomous agents may...",
+  "title": "SolarChain-Eval: A Physics-Constrained Benchmark for Trustworthy Economic Agents in Decentralized Energy Markets",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.08681v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "1505eb481125a099": {
   "first_seen": "2026-07-09T01:02:32.534779+00:00",
   "id": "27d4693fd6b8c36c",
@@ -291,6 +330,24 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.144.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "1926235ddd7f3a5d": {
+  "first_seen": "2026-07-10T02:02:53.792592+00:00",
+  "id": "c634722f79f9065c",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-07-09T13:55:55+00:00",
+  "sid": "1926235ddd7f3a5d",
+  "source": "arxiv_cs_lg",
+  "summary": "Recent unified multimodal models show a single architecture can jointly perform vision/language understanding and image generation/editing. However, they repeatedly feed all historical visual and textual inputs into a shared context window, limiting long-horizon multimodal dialogue due to visual token explosion and unreliable cross-turn referencing. We propose a Cognitive-structured Multimodal Agent that externalizes visual information into an Episodic Visual Memory and selectively reactivates relevant episodes during reasoning. The agent consists of a Perceptual Abstraction Engine for structured visual abstraction, a Cognitive Retrieval Engine for cross-turn memory retrieval, and a Multimodal Executive Controller for autonomous task inference and action planning. To address the lack of turn-level retrieval supervision in existing datasets, we develop a Unified Scenario Engine that programmatically generates structured multi-turn conversations with fine-grained retrieval annotations, enabling reinforcement learning to optimize abstraction and retrieval policies. We also construct a long-horizon visual-dialogue benchmark stratified by difficulty to evaluate episodic visual recall. Our 8B agent achieves 91.4% retrieval accuracy over 20-turn sessions, surpassing 32B baselines by +8.2% while nearly halving per-turn inference time (23.1s -> 12.7s). We further present the Cognitive-structured Multimodal Agent Harness (CMA-Harness), a tool-augmented deployment of the same cognitive ",
+  "summary_1line": "Recent unified multimodal models show a single architecture can jointly perform vision/language understanding and image generation/editing. However, they repeatedly feed all historical visual and textual inputs into a...",
+  "title": "Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.08497v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "199f1aeef5f0463c": {
   "first_seen": "2026-07-03T00:02:00.404424+00:00",
@@ -2241,6 +2298,21 @@
   "url": "https://github.com/salarkhannn/ghostlog",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "95730baaa42549c2": {
+  "first_seen": "2026-07-10T02:02:53.792592+00:00",
+  "id": "3be12c99a3244f22",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-07-09T22:34:15+00:00",
+  "sid": "95730baaa42549c2",
+  "source": "hackernews_ai",
+  "summary_1line": "Orbit, an Open-Source Toolkit for Retrieval-Based Inference",
+  "title": "Orbit, an Open-Source Toolkit for Retrieval-Based Inference",
+  "type": "news",
+  "url": "https://github.com/schmitech/orbit",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "96061d31ada837cb": {
   "first_seen": "2026-07-08T01:02:11.184385+00:00",
   "id": "015b19545faef5e3",
@@ -3753,6 +3825,22 @@
   "title": "[AINews] Sonnet 5 today, and Fable 5 tomorrow",
   "type": "news",
   "url": "https://www.latent.space/p/ainews-sonnet-5-today-and-fable-5"
+ },
+ "f1585d79bf242d26": {
+  "first_seen": "2026-07-10T02:02:53.792592+00:00",
+  "id": "0956d952ae6189f4",
+  "published": "2026-07-10T01:30:24+00:00",
+  "release_highlights": [
+   "release(langgraph): 1.2.9",
+   "fix: updateState metadata/counters for delta channel"
+  ],
+  "sid": "f1585d79bf242d26",
+  "source": "langgraph_releases",
+  "summary": "Changes since 1.2.8 release(langgraph): 1.2.9 ( #8316 ) fix: updateState metadata/counters for delta channel ( #8315 )",
+  "summary_1line": "release(langgraph): 1.2.9 · fix: updateState metadata/counters for delta channel",
+  "title": "langgraph==1.2.9",
+  "type": "release",
+  "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.9"
  },
  "f159d9ad36573be3": {
   "first_seen": "2026-07-09T01:02:32.534779+00:00",
