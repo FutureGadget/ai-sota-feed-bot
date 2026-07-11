@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64]
-updated: 2026-07-10
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10]
+updated: 2026-07-11
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10]
 ---
 
 ## TL;DR
@@ -64,6 +64,13 @@ A subtler driver is the **context cost of instructions themselves** — every
 skill, hook, or subagent you add to steer an agent consumes context budget,
 so steering and cost are the same knob viewed from two sides.
 
+**Fetched content is its own cost line**, and it's now measured directly: one
+practitioner clocked an average Wikipedia article at 68,240 raw-HTML tokens
+against a 950-token summary once a web-fetch tool condenses it — and found
+the cheap path can invert on JS-rendered or anti-bot-protected pages, where
+the fetch returns nothing useful and the agent dumps the full raw HTML back
+into context anyway, paying the worst-case token bill for a failed read.
+
 The flip side of that knob is the biggest single lever: **spending context
 to downshift the model**. Cheap models are far cheaper per token but ignore
 architecture rules — ANMA reports Claude Haiku 4.5 violating its constraints
@@ -117,12 +124,17 @@ is the same cheap-instrumentation-over-model-swap move already established
 for [evaluation](/topic/agent-evaluation).
 
 ## What's new
-Tool-calling behavior joins model choice and harness tuning as a named cost
-lever: GitHub found that swapping in better exploration tools for Copilot
-code review *raised* cost until they rewrote the tool instructions to match
-a reviewer's narrow, diff-anchored search pattern instead of an interactive
-assistant's broad one — a ~20% cost cut from instruction design alone, no
-model or tool change.
+Fetching a web page turns out to have a real, measured price: an average
+Wikipedia article is ~68,000 raw-HTML tokens before a web-fetch tool's
+summarization cuts it to ~950 — and a failed fetch against a JS-rendered or
+anti-bot page can dump the full raw HTML into context instead, silently
+paying the worst-case bill for a read that produced nothing. That joins
+tool-calling behavior as a named cost lever alongside model choice and
+harness tuning: GitHub found that swapping in better exploration tools for
+Copilot code review *raised* cost until they rewrote the tool instructions to
+match a reviewer's narrow, diff-anchored search pattern instead of an
+interactive assistant's broad one — a ~20% cost cut from instruction design
+alone, no model or tool change.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

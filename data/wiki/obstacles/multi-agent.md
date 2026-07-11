@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
-updated: 2026-07-10
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10]
+updated: 2026-07-11
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10]
 ---
 
 ## TL;DR
@@ -30,6 +30,15 @@ topologies and role assignments make collaboration pay off versus add noise.
 cost by roughly half by *removing the central orchestrator*, evidence that a
 single coordinating agent is both a token bottleneck and a single point of
 failure.
+
+**Capacity allocation across roles** is a third, less-asked variable: a study
+of hierarchical search agents factors the job into a delegation role (task
+decomposition), an execution role (retrieval and evidence extraction), and a
+fixed generation role, then varies model capacity per role to find where it
+actually matters. The result complicates "just add more agents" further —
+capacity isn't interchangeable between roles, so the same topology can win or
+lose depending on *which* role gets the bigger model, not just how many
+agents are in the mesh.
 
 Orchestration itself is becoming **dynamic** rather than hand-wired —
 Anthropic's writeup on Claude Code's Dynamic Workflows describes generating a
@@ -130,7 +139,11 @@ human-readable communication into a governance layer for running multi-agent
 systems safely. Separately, low-code platforms are folding the agent loop
 into the workflow engine itself, sharing one audit trail across agent
 decisions and ordinary workflow steps instead of keeping the two layers
-apart.
+apart. A third finding adds a role-capacity axis to the topology question:
+hierarchical search agents that vary model capacity across delegation,
+execution, and generation roles show capacity isn't interchangeable between
+roles, so *which* role gets the bigger model is now a variable alongside
+*how many* agents and *what* topology.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

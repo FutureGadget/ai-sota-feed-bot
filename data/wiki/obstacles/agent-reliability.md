@@ -4,11 +4,11 @@ kind: obstacle
 title: "Agents give fluent, confident-looking output even when it's wrong"
 area: reliability
 status: active
-solutions: []
+solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
 evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804]
-updated: 2026-07-10
+updated: 2026-07-11
 covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804]
 ---
 
@@ -35,7 +35,12 @@ retrofitting service-account and workload-identity patterns onto agents —
 SPIFFE-based cryptographic identities (Gemini Enterprise), dedicated service
 principals plus token brokers (Microsoft Entra) — and critics note the fit is
 poor, since these treat every replica of an agent as interchangeable when two
-runs of the same agent can behave differently. **Reliable execution**
+runs of the same agent can behave differently. The same identity gap is being
+filled from the security side too — see
+[sandboxing, scoped credentials, and guardrails](/topic/agent-sandboxing),
+whose non-human-identity and OS/microVM isolation work doubles as the
+execution substrate reliability needs, even though it was built to contain a
+hijacked agent rather than a merely unreliable one. **Reliable execution**
 borrows the standard distributed-systems playbook — checkpoint recovery,
 exactly-once guarantees, kernel-level resource quotas (cgroups), per-session
 microVM/gVisor isolation — because rate limits, timeouts, and

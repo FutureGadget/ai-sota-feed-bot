@@ -42,7 +42,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 
 ### reliability
 - [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong
-  → solutions: (none yet)
+  → solutions: agent-sandboxing
 
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent
