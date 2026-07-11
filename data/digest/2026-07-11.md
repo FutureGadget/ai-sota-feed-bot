@@ -2,122 +2,122 @@
 
 Focus: AI Platform Engineering
 
-## 1. Slack Introduces Agent Driven End-to-End Testing to Improve Resilience in UI Test Automation
+## 1. AgentKindergarten – daycare for your AI coding agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/rokrak1/agentkindergarten
+- Score: 2.831 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 2. Slack Introduces Agent Driven End-to-End Testing to Improve Resilience in UI Test Automation
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/slack-agentic-e2e-testing-ui/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.544 | Reliability: 1.0
+- Score: 2.523 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 2. The new GPT-5.6 family: Luna, Terra, Sol
+## 3. The new GPT-5.6 family: Luna, Terra, Sol
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/9/gpt-5-6/#atom-everything
-- Score: 2.522 | Reliability: 1.0
+- Score: 2.503 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 3. Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing
+## 4. Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.08497v1
-- Score: 2.465 | Reliability: 1.0
+- Score: 2.452 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, eval.
 
-## 4. Cloudflare Introduces Temporary Accounts for Autonomous Worker Deployment
+## 5. Cloudflare Introduces Temporary Accounts for Autonomous Worker Deployment
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/cloudflare-temp-accounts/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.431 | Reliability: 1.0
+- Score: 2.411 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. OpenWiki Brains: Proactive Memory for AI Agents
+## 6. OpenWiki Brains: Proactive Memory for AI Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/introducing-openwiki-brains-general-purpose-wiki-memory-for-agents
-- Score: 2.422 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. Inside HackerRank's LLM-based Hiring Agent
-- Type: news | Source: hackernews_ai
-- URL: https://blog.grandimam.com/posts/how-hacker-rank-scores-engineers/
-- Score: 2.414 | Reliability: 1.0
+- Score: 2.401 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 7. claude-agent-sdk-python v0.2.116
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.116
-- Score: 2.306 | Reliability: 1.0
+- Score: 2.28 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 8. Better tools made Copilot code review worse. Here’s how we actually improved it.
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/
-- Score: 2.3 | Reliability: 1.0
+- Score: 2.28 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. How Deutsche Telekom is rewiring telecommunications with AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/deutsche-telekom
-- Score: 2.061 | Reliability: 1.0
+- Score: 2.042 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. UST is bringing Claude to physical AI
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/ust-claude
-- Score: 1.892 | Reliability: 1.0
+- Score: 1.876 | Reliability: 1.0
 - Why it matters: 
 
-## 11. claude-code v2.1.207
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.207
-- Score: 2.221 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 12. SolarChain-Eval: A Physics-Constrained Benchmark for Trustworthy Economic Agents in Decentralized Energy Markets
+## 11. SolarChain-Eval: A Physics-Constrained Benchmark for Trustworthy Economic Agents in Decentralized Energy Markets
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.08681v1
-- Score: 2.218 | Reliability: 1.0
+- Score: 2.205 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
+
+## 12. claude-code v2.1.207
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.207
+- Score: 2.196 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 13. codex 0.145.0-alpha.4
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.4
-- Score: 2.192 | Reliability: 1.0
+- Score: 2.168 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 14. langgraph-cli==0.4.31
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.31
-- Score: 2.175 | Reliability: 1.0
+- Score: 2.151 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. [AINews] OpenAI launches GPT 5.6 Sol/Terra/Luna, Codex becomes ChatGPT superapp
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-openai-launches-gpt-56-solterraluna
-- Score: 2.143 | Reliability: 1.0
+- Score: 2.126 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 16. Quoting Nilay Patel
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/10/nilay-patel/#atom-everything
-- Score: 2.066 | Reliability: 1.0
+- Score: 2.048 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. SMetric: Rethink LLM Scheduling for Serving Agents with Balanced Session-centric Scheduling
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.08565v1
-- Score: 2.001 | Reliability: 1.0
+- Score: 1.99 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 18. SLORR: Simple and Efficient In-Training Low-Rank Regularization
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.08754v1
-- Score: 1.967 | Reliability: 1.0
+- Score: 1.956 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 19. Profiling in PyTorch (Part 3): Attention is all you profile
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/torch-attention-profile
-- Score: 1.768 | Reliability: 1.0
+- Score: 1.758 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. v0.25.0: Pin PyNvVideoCodec to tested 2.0.4 wheel (#48056)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.25.0
-- Score: 1.29 | Reliability: 1.0
+- Score: 1.276 | Reliability: 1.0
 - Why it matters:
