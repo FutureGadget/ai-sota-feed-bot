@@ -3759,6 +3759,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.38",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "c74bb13bcd038d10": {
+  "first_seen": "2026-07-11T05:02:48.136286+00:00",
+  "id": "c8782661c1986466",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-07-11T00:12:26+00:00",
+  "sid": "c74bb13bcd038d10",
+  "source": "hackernews_ai",
+  "summary": "i use claude code daily and measured what pages cost it while doing research. an average wikipedia article, for instance, is 68,240 tokens of raw html (tiktoken); nike's homepage is 353,000. claude code's built-in webfetch handles the easy case well. it summarizes wikipedia to about 950 tokens and clears cloudflare on some sites like indeed and ticketmaster. but, and there's always a but, on js-rendered and some anti-bot pages it returns nothing. quotes.toscrape.com/js gives \"no quotes found\"; nike.com gives a 403. your agent then dumps the raw html back into context and still fails. (note: i have also had cases where i read through the chat at the end and saw that it failed and just pulled from either training data or stale caches from other sources) so i worked on building an open-source stealth browser (recompiled chromium) that runs as an mcp for claude code, cursor, and claude desktop. essentially all i have to change form my end is add the mcp, and it returns the cleaned up tokens while also beating detection: the js quotes come back in 285 tokens, nike in about 700 instead of a 403. there is still stuff i am actively working on: there's no residential egress yet, and it won't beat kasada-style walls. it's for agents, qa, and research. repo and the reproducible benchmark: https://github.com/tiliondev/fortress/tree/main/mcp i'm the author and here for feedback.",
+  "summary_1line": "i use claude code daily and measured what pages cost it while doing research. an average wikipedia article, for instance, is 68,240 tokens of raw html (tiktoken); nike's homepage is 353,000. claude code's built-in web...",
+  "title": "One Wikipedia page costs your AI agent 68,000 tokens",
+  "type": "news",
+  "url": "https://news.ycombinator.com/item?id=48867021",
+  "why_it_matters": "Matches feed focus: agent, claude code."
+ },
  "c815807553a0a9fc": {
   "first_seen": "2026-07-01T14:01:51.671999+00:00",
   "id": "63a95693eb688937",
