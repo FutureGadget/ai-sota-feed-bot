@@ -1,7 +1,57 @@
 {
- "generated_at": "2026-07-10T15:04:58.341667+00:00",
+ "generated_at": "2026-07-11T00:03:58.113064+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "cloudflare-temporary-accounts-for-ai-agents",
+   "label": "Cloudflare temporary accounts for AI agents",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-21T22:01:04+00:00",
+   "last_updated": "2026-07-10T15:16:00+00:00",
+   "via_scout": true,
+   "latest_title": "Cloudflare Introduces Temporary Accounts for Autonomous Worker Deployment",
+   "days": [
+    "2026-06-21",
+    "2026-07-10"
+   ],
+   "member_sids": [
+    "ed140b4e4c38f7b0",
+    "5adcaaded1a8e3d6"
+   ],
+   "member_urls": [
+    "https://simonwillison.net/2026/Jun/21/temporary-cloudflare-accounts/#atom-everything",
+    "https://www.infoq.com/news/2026/07/cloudflare-temp-accounts/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "Cloudflare shipped account-free Workers deployments on June 21: `wrangler deploy --temporary` spins up a project with no Cloudflare account, live for 60 minutes unless claimed via a follow-up link. The feature was pitched squarely at AI agents that need to deploy code without provisioning credentials first.",
+    "stale": false,
+    "whats_new": "InfoQ covered the same temporary-account mechanism on July 10, nearly three weeks after launch, still framed around agents deploying Workers immediately with no permanent account.",
+    "why_it_matters": "Removes a real integration blocker for agent-built deploy tooling: no Cloudflare account or API token has to be provisioned ahead of time, and unclaimed test deployments expire after 60 minutes instead of leaking throwaway infrastructure.",
+    "take_for_builders": "If an agent workflow needs throwaway Workers deployments (demos, one-off test apps), use `wrangler deploy --temporary` instead of provisioning a service account up front — claim the deployment within 60 minutes if you want to keep it.",
+    "status": {
+     "state": "Shipped · gaining trade-press attention",
+     "tone": "rising",
+     "changed": "2026-07-10",
+     "detail": "The temporary-account deploy path is live and unchanged since launch; the only development is broader coverage, not a product change.",
+     "track": [
+      {
+       "label": "shipped",
+       "detail": "Jun 21",
+       "tone": "launch",
+       "weight": 40
+      },
+      {
+       "label": "wider pickup",
+       "detail": "Jul 10 → now",
+       "tone": "rising",
+       "weight": 60
+      }
+     ]
+    }
+   }
+  },
   {
    "slug": "gpt-5-6-sol",
    "label": "GPT-5.6 Sol",
