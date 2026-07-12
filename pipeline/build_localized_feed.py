@@ -56,7 +56,7 @@ def _source_hash(it: dict[str, Any]) -> str:
 
 def _fetch_english_feed(label: str, limit: int) -> dict[str, Any]:
     js_code = f"""
-import handler from './api/feed.js';
+import {{ GET }} from './api/feed.js';
 function kstWindow(days) {{
   const now = new Date();
   const kstNow = new Date(now.toLocaleString('en-US', {{ timeZone: 'Asia/Seoul' }}));
@@ -70,15 +70,16 @@ function kstWindow(days) {{
   return {{ from: fmt(start), to: fmt(end) }};
 }}
 const w = kstWindow(7);
-const req = {{ query: {{ label: '{label}', limit: '{limit}', from: w.from, to: w.to }} }};
-let out = '';
-const res = {{
-  status: (code) => ({{
-    json: (data) => {{ console.log(JSON.stringify(data)); }}
-  }}),
-  setHeader: () => {{}}
-}};
-handler(req, res).catch(console.error);
+const url = new URL('http://localhost/api/feed');
+url.searchParams.set('label', '{label}');
+url.searchParams.set('limit', '{limit}');
+url.searchParams.set('from', w.from);
+url.searchParams.set('to', w.to);
+const req = {{ url: url.toString() }};
+GET(req)
+  .then(res => res.json())
+  .then(data => {{ console.log(JSON.stringify(data)); }})
+  .catch(console.error);
 """
     cmd = ["node", "-e", js_code]
     res = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
