@@ -5,55 +5,55 @@ Focus: AI Platform Engineering
 ## 1. sqlite-utils 4.1
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/11/sqlite-utils/#atom-everything
-- Score: 2.63 | Reliability: 1.0
+- Score: 2.628 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 2. vllm v0.25.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.25.0
-- Score: 2.564 | Reliability: 1.0
+- Score: 2.562 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 3. Cognitive-structured Multimodal Agent for Multimodal Understanding, Generation, and Editing
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.08497v1
-- Score: 2.2 | Reliability: 1.0
+- Score: 2.199 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, eval.
 
 ## 4. The new GPT-5.6 family: Luna, Terra, Sol
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/9/gpt-5-6/#atom-everything
-- Score: 2.163 | Reliability: 1.0
+- Score: 2.162 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 5. Do Automated Evals Work?
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/
-- Score: 2.158 | Reliability: 1.0
+- Score: 2.156 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 6. Slack Introduces Agent Driven End-to-End Testing to Improve Resilience in UI Test Automation
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/slack-agentic-e2e-testing-ui/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.14 | Reliability: 1.0
+- Score: 2.139 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 7. OpenWiki Brains: Proactive Memory for AI Agents
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/introducing-openwiki-brains-general-purpose-wiki-memory-for-agents
-- Score: 2.043 | Reliability: 1.0
+## 7. Cloudflare Introduces Temporary Accounts for Autonomous Worker Deployment
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/07/cloudflare-temp-accounts/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.042 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 8. How Deutsche Telekom is rewiring telecommunications with AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/deutsche-telekom
-- Score: 1.71 | Reliability: 1.0
+- Score: 1.709 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. UST is bringing Claude to physical AI
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/ust-claude
-- Score: 1.582 | Reliability: 1.0
+- Score: 1.581 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. A new way to reflect on how you use Claude
@@ -62,70 +62,70 @@ Focus: AI Platform Engineering
 - Score: 1.569 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Cloudflare Introduces Temporary Accounts for Autonomous Worker Deployment
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/07/cloudflare-temp-accounts/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.043 | Reliability: 1.0
+## 11. OpenWiki Brains: Proactive Memory for AI Agents
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/introducing-openwiki-brains-general-purpose-wiki-memory-for-agents
+- Score: 2.041 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 12. SolarChain-Eval: A Physics-Constrained Benchmark for Trustworthy Economic Agents in Decentralized Energy Markets
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.08681v1
-- Score: 1.98 | Reliability: 1.0
+- Score: 1.979 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 13. Better tools made Copilot code review worse. Here’s how we actually improved it.
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/
-- Score: 1.934 | Reliability: 1.0
+- Score: 1.933 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 14. claude-agent-sdk-python v0.2.116
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.116
-- Score: 1.846 | Reliability: 1.0
+- Score: 1.845 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 15. [AINews] OpenAI launches GPT 5.6 Sol/Terra/Luna, Codex becomes ChatGPT superapp
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-openai-launches-gpt-56-solterraluna
-- Score: 1.833 | Reliability: 1.0
+- Score: 1.832 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 16. SMetric: Rethink LLM Scheduling for Serving Agents with Balanced Session-centric Scheduling
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.08565v1
-- Score: 1.789 | Reliability: 1.0
+- Score: 1.788 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 17. claude-code v2.1.207
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.207
-- Score: 1.78 | Reliability: 1.0
+- Score: 1.779 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. codex 0.145.0-alpha.4
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.4
-- Score: 1.759 | Reliability: 1.0
+- Score: 1.758 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 19. SLORR: Simple and Efficient In-Training Low-Rank Regularization
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.08754v1
-- Score: 1.754 | Reliability: 1.0
+- Score: 1.753 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 20. langgraph-cli==0.4.31
-- Type: release | Source: langgraph_releases
-- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.31
-- Score: 1.746 | Reliability: 1.0
-- Why it matters: 
-
-## 21. An off switch for dual use knowledge in AI models
+## 20. An off switch for dual use knowledge in AI models
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/off-switch-dual-use
 - Score: 1.746 | Reliability: 1.0
+- Why it matters: 
+
+## 21. langgraph-cli==0.4.31
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/cli%3D%3D0.4.31
+- Score: 1.745 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. GPT-5.6 is now the preferred model in Microsoft 365 Copilot
@@ -137,11 +137,11 @@ Focus: AI Platform Engineering
 ## 23. Inviting hard questions
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/hard-questions
-- Score: 1.516 | Reliability: 1.0
+- Score: 1.515 | Reliability: 1.0
 - Why it matters: 
 
 ## 24. Ben Bernanke appointed to Anthropic’s Long-Term Benefit Trust
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/ben-bernanke
-- Score: 1.422 | Reliability: 1.0
+- Score: 1.421 | Reliability: 1.0
 - Why it matters:
