@@ -135,10 +135,23 @@ function localizedSnapshotIsCurrent(snapshot) {
   return now.getTime() - sourceRunAt.getTime() <= 24 * 60 * 60 * 1000;
 }
 
+// Budget-governor passthrough (translation-budget-governor plan, Phase 5):
+// status.json may now carry `status: "budget_paused"`, `reason`,
+// `resumes_at`, `mode` (governor ladder step), and `budget` (ledger
+// snapshot). These are optional, pure passthroughs — present when the
+// pipeline's governor has written them, absent otherwise (older status.json,
+// or governor never engaged).
+//
+// Note: status.json's `mode` field names the governor step (normal/conserve/
+// economy/paused). It is intentionally NOT written to the response's
+// top-level `mode` key, which is an established, tested API contract field
+// meaning the response shape (`"localized_snapshot"`, per
+// docs/product-specs/localized-live-feed.md). The governor step is exposed
+// as `governor_mode` instead so both fields coexist without collision.
 function localizedStatusBody(body, locale, snapshot, statusPayload) {
   const current = localizedSnapshotIsCurrent(snapshot);
   const status = current ? 'current' : String(statusPayload?.status || 'missing');
-  return {
+  const result = {
     ...body,
     locale,
     mode: 'localized_snapshot',
@@ -149,6 +162,11 @@ function localizedStatusBody(body, locale, snapshot, statusPayload) {
     translated_at: snapshot?.translated_at || statusPayload?.translated_at || null,
     expires_at: snapshot?.expires_at || statusPayload?.expires_at || null,
   };
+  if (statusPayload?.reason != null) result.reason = statusPayload.reason;
+  if (statusPayload?.resumes_at != null) result.resumes_at = statusPayload.resumes_at;
+  if (statusPayload?.mode != null) result.governor_mode = statusPayload.mode;
+  if (statusPayload?.budget != null) result.budget = statusPayload.budget;
+  return result;
 }
 
 function overlayLocalizedFeed(body, locale) {

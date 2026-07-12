@@ -34,6 +34,51 @@ _NT_CLOSE = "</span>"
 _BATCH_CHAR_LIMIT = 50_000
 _BATCH_ITEM_LIMIT = 128
 
+# Google quota/rate-limit reasons that show up in a 403 error body's errors[].reason
+_QUOTA_REASONS = {"dailyLimitExceeded", "userRateLimitExceeded", "rateLimitExceeded", "quotaExceeded"}
+
+
+class QuotaExceededError(ConnectionError):
+    """Raised when Google Translate reports a quota/rate-limit 403.
+
+    Carries the Google-reported reason (e.g. "dailyLimitExceeded") so callers
+    can distinguish this from other 403s (bad API key, API disabled).
+    """
+
+    def __init__(self, message: str, reason: str = "quota_exceeded"):
+        super().__init__(message)
+        self.reason = reason
+
+
+def _detect_quota_reason(err_body: str) -> str | None:
+    """Return the Google quota reason if err_body is a quota/rate-limit 403, else None.
+
+    Matches loosely on "quota"/"limit" in errors[].reason or errors[].message, per
+    Google Cloud Translation v2's error shape. Other 403s (bad key, API disabled)
+    return None so callers keep the generic failure path.
+    """
+    try:
+        parsed = json.loads(err_body)
+    except (json.JSONDecodeError, TypeError):
+        return None
+    if not isinstance(parsed, dict):
+        return None
+    errors = parsed.get("error", {}).get("errors")
+    if not isinstance(errors, list):
+        return None
+    for e in errors:
+        if not isinstance(e, dict):
+            continue
+        reason = str(e.get("reason") or "")
+        message = str(e.get("message") or "")
+        if reason in _QUOTA_REASONS:
+            return reason
+        if "quota" in reason.lower() or "limit" in reason.lower():
+            return reason or "quota_exceeded"
+        if "quota" in message.lower() or "limit" in message.lower():
+            return reason or "quota_exceeded"
+    return None
+
 
 # ---------------------------------------------------------------------------
 # Glossary loading
@@ -111,6 +156,7 @@ def translate_texts(
     source: str = "en",
     *,
     api_key: str | None = None,
+    stats: dict | None = None,
 ) -> list[str]:
     """Translate a list of strings via Google Cloud Translation API v2.
 
@@ -118,7 +164,14 @@ def translate_texts(
     Returns the translated strings in the same order as input.
 
     If api_key is None, reads from GOOGLE_TRANSLATE_API_KEY env var.
-    Raises ConnectionError if the API key is missing or the API call fails.
+    Raises ConnectionError if the API key is missing or the API call fails
+    (QuotaExceededError, a ConnectionError subclass, on a quota/rate-limit 403).
+
+    If stats is given, stats["chars_sent"] accumulates input characters actually
+    sent to the API, counted once per successful (2xx) batch request only — never
+    for failed batches, and never target-language output characters. Because this
+    accumulates per successful batch rather than at the end, partial progress is
+    preserved in stats even if a later batch in the same call raises.
     """
     key = api_key or get_api_key()
     if not key:
@@ -151,6 +204,8 @@ def translate_texts(
             or batch_chars + text_len > _BATCH_CHAR_LIMIT
         ):
             results.extend(_flush(batch))
+            if stats is not None:
+                stats["chars_sent"] = stats.get("chars_sent", 0) + batch_chars
             batch = []
             batch_chars = 0
         batch.append(text)
@@ -158,6 +213,8 @@ def translate_texts(
 
     if batch:
         results.extend(_flush(batch))
+        if stats is not None:
+            stats["chars_sent"] = stats.get("chars_sent", 0) + batch_chars
 
     # Unprotect glossary terms from results
     return [unprotect_terms(t) for t in results]
@@ -169,11 +226,12 @@ def translate_text(
     source: str = "en",
     *,
     api_key: str | None = None,
+    stats: dict | None = None,
 ) -> str:
     """Translate a single string. Convenience wrapper around translate_texts."""
     if not text or not text.strip():
         return text
-    return translate_texts([text], target, source, api_key=api_key)[0]
+    return translate_texts([text], target, source, api_key=api_key, stats=stats)[0]
 
 
 def _call_api(
@@ -212,6 +270,13 @@ def _call_api(
                 break
         except urllib.error.HTTPError as exc:
             err_body = exc.read().decode("utf-8", errors="replace")
+            if exc.code == 403:
+                quota_reason = _detect_quota_reason(err_body)
+                if quota_reason:
+                    raise QuotaExceededError(
+                        f"Google Translate API quota exceeded (HTTP 403, reason={quota_reason}): {err_body}",
+                        reason=quota_reason,
+                    ) from exc
             # Retry on 429 (rate limit) or 5xx (server errors)
             if (exc.code == 429 or exc.code >= 500) and attempt < max_attempts:
                 sleep_sec = 2 ** attempt

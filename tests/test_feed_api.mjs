@@ -5,32 +5,21 @@ import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
 
-import handler from '../api/feed.js';
-
-function response() {
-  return {
-    statusCode: 200,
-    body: null,
-    headers: {},
-    setHeader(name, value) {
-      this.headers[String(name).toLowerCase()] = value;
-      return this;
-    },
-    status(code) {
-      this.statusCode = code;
-      return this;
-    },
-    json(body) {
-      this.body = body;
-      return this;
-    },
-  };
-}
+import { GET } from '../api/feed.js';
 
 async function invoke(query) {
-  const res = response();
-  await handler({ query }, res);
-  return res;
+  const url = new URL('https://example.test/api/feed');
+  for (const [key, value] of Object.entries(query || {})) {
+    if (value == null) continue;
+    url.searchParams.set(key, value);
+  }
+  const res = await GET(new Request(url));
+  const body = await res.json();
+  return {
+    statusCode: res.status,
+    body,
+    headers: Object.fromEntries(res.headers.entries()),
+  };
 }
 
 function normUrl(v) {
@@ -248,5 +237,124 @@ test('localized feed kill switch returns disabled status without items', async (
   } finally {
     if (oldValue == null) delete process.env.LOCALIZED_FEED_ENABLED;
     else process.env.LOCALIZED_FEED_ENABLED = oldValue;
+  }
+});
+
+// translation-budget-governor plan, Phase 5: status.json may now carry
+// budget_paused fields (reason/resumes_at/mode/budget). The API must
+// forward them verbatim when present, without renaming or reinterpreting
+// them (except `mode`, which is exposed as `governor_mode` to avoid
+// colliding with the pre-existing `mode: "localized_snapshot"` response
+// field asserted above).
+test('localized feed forwards budget_paused status fields verbatim', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-budget-paused-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'latest.json'), JSON.stringify([]));
+    // Frozen snapshot is old enough to be non-current, so status falls
+    // through to whatever status.json reports instead of being forced to
+    // "current".
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'),
+      JSON.stringify({
+        locale: 'ko',
+        surface: 'feed',
+        source_run_at: new Date(Date.now() - 48 * 3600000).toISOString(),
+        translated_at: new Date(Date.now() - 48 * 3600000).toISOString(),
+        expires_at: new Date(Date.now() - 24 * 3600000).toISOString(),
+        is_complete: true,
+        items: [],
+      }),
+    );
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'status.json'),
+      JSON.stringify({
+        locale: 'ko',
+        surface: 'feed',
+        status: 'budget_paused',
+        reason: 'monthly_budget',
+        resumes_at: '2026-08-01T00:00:00Z',
+        mode: 'paused',
+        budget: { chars_used: 492000, monthly_cap: 500000, month: '2026-07' },
+      }),
+    );
+    process.chdir(tmp);
+    const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '1', label: 'brief' });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.status, 'budget_paused');
+    assert.equal(res.body.reason, 'monthly_budget');
+    assert.equal(res.body.resumes_at, '2026-08-01T00:00:00Z');
+    assert.equal(res.body.governor_mode, 'paused');
+    assert.deepEqual(res.body.budget, { chars_used: 492000, monthly_cap: 500000, month: '2026-07' });
+    // The pre-existing response-shape field must survive untouched.
+    assert.equal(res.body.mode, 'localized_snapshot');
+    assert.equal(res.body.is_current, false);
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+test('localized feed omits budget-governor fields when status.json has not written them', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-no-governor-fields-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'latest.json'), JSON.stringify([]));
+    // No latest.json / status.json at all: the pre-governor "missing" path.
+    process.chdir(tmp);
+    const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '1', label: 'brief' });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.status, 'missing');
+    assert.equal('reason' in res.body, false);
+    assert.equal('resumes_at' in res.body, false);
+    assert.equal('governor_mode' in res.body, false);
+    assert.equal('budget' in res.body, false);
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
+// translation-budget-governor plan, Phase 5, point 2: a frozen snapshot past
+// its expires_at must never be reported as current, and the cache header
+// must stay bounded (short s-maxage) so an edge cache cannot extend an
+// is_current:true response past the 24h window.
+test('a frozen snapshot past expires_at is never served as current', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-expired-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'latest.json'), JSON.stringify([]));
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'),
+      JSON.stringify({
+        locale: 'ko',
+        surface: 'feed',
+        // is_complete: true (this WAS a good snapshot) but expires_at is
+        // long past — the governor kept it frozen through a paused run.
+        source_run_at: new Date(Date.now() - 72 * 3600000).toISOString(),
+        translated_at: new Date(Date.now() - 72 * 3600000).toISOString(),
+        expires_at: new Date(Date.now() - 48 * 3600000).toISOString(),
+        is_complete: true,
+        items: [],
+      }),
+    );
+    process.chdir(tmp);
+    const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '1', label: 'brief' });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.is_current, false);
+    assert.notEqual(res.body.status, 'current');
+    // The localized cache directive must stay short-lived; a long/absent
+    // s-maxage would let an edge cache keep serving a stale response past
+    // expires_at for longer than the freshness contract allows.
+    assert.match(res.headers['cache-control'], /s-maxage=300\b/);
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
