@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-11T10:04:38.329116+00:00",
+ "generated_at": "2026-07-12T05:05:17.899001+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -474,6 +474,78 @@
        "weight": 45
       }
      ]
+    }
+   }
+  },
+  {
+   "slug": "apple-private-cloud-compute-expands-to-google-cloud",
+   "label": "Apple Private Cloud Compute expands to Google Cloud",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-23T16:00:00+00:00",
+   "last_updated": "2026-07-02T10:04:00+00:00",
+   "via_scout": true,
+   "latest_title": "Apple Extends Private Cloud Compute to Google Cloud for the First Time",
+   "days": [
+    "2026-06-23",
+    "2026-07-02"
+   ],
+   "member_sids": [
+    "36bbcd1f1aa75ce0",
+    "f39648ed1b9fb2ac"
+   ],
+   "member_urls": [
+    "https://cloud.google.com/blog/products/identity-security/verifiable-trust-in-the-ai-era-whats-new-in-confidential-computing",
+    "https://www.infoq.com/news/2026/07/apple-pcc-google-cloud/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "Apple's Private Cloud Compute has run only on Apple-owned hardware since it launched. Google Cloud's June 23 confidential-computing update was the first public sign that was changing, naming Apple as an early customer for a new layered trust stack.",
+    "stale": false,
+    "whats_new": "Apple confirmed at WWDC that Private Cloud Compute now runs on Google Cloud — its first deployment outside Apple's own data centers — to handle agentic tool use and complex reasoning that on-device models can't cover.",
+    "why_it_matters": "The deployment's three-layer trust stack — NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as root of trust — is now a productized Google Cloud pattern (Confidential G4 VMs, open-source Prompt Encryption SDKs) any platform team can adopt instead of building attestation from scratch.",
+    "take_for_builders": "Evaluate Google Cloud's Confidential G4 VMs and open-source Prompt Encryption SDK before building your own TEE/attestation stack for encrypted, verifiable inference on someone else's cloud.",
+    "status": {
+     "state": "Live · confirmed at WWDC",
+     "tone": "now",
+     "changed": "2026-07-02",
+     "detail": "PCC runs on Google Cloud using NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as trust layers, built on a January 2026 multi-year Apple-Google agreement."
+    }
+   }
+  },
+  {
+   "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
+   "label": "DFlash speculative decoding on NVIDIA Blackwell",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-23T15:14:05+00:00",
+   "last_updated": "2026-06-24T00:00:00+00:00",
+   "via_scout": true,
+   "latest_title": "Achieve state-of-the-art inference latencies with speculative decoding",
+   "days": [
+    "2026-06-23",
+    "2026-06-24"
+   ],
+   "member_sids": [
+    "99bd515fd5fd8083",
+    "62173e9d865bdec2"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+    "https://modal.com/blog/achieve-sota-specdec"
+   ],
+   "editorial": {
+    "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs.",
+    "stale": false,
+    "whats_new": "Modal named DFlash as the technique behind its own state-of-the-art inference-latency results, working with Z Lab and SGLang to release open-source pre-trained speculator models — including one for Qwen that improves over multi-token prediction by more than 50%.",
+    "why_it_matters": "If you're running inference on Blackwell GPUs with SGLang, this is now an off-the-shelf latency lever: Modal reports that Blackwell plus SGLang plus a low-overhead regional deployment can match or beat proprietary inference providers without custom infra.",
+    "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculator models before building custom speculative decoding — Modal reports it matching proprietary inference-provider latency without proprietary infra.",
+    "status": {
+     "state": "Adopted in production",
+     "tone": "rising",
+     "changed": "2026-06-24",
+     "detail": "Modal confirms the same DFlash technique in its own latency benchmarks and ships open-source pre-trained speculator models built with Z Lab and SGLang."
     }
    }
   }

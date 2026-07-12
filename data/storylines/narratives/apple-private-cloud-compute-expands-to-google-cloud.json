@@ -1,0 +1,47 @@
+{
+  "slug": "apple-private-cloud-compute-expands-to-google-cloud",
+  "generated_at": "2026-07-12T05:04:38Z",
+  "covers_last_updated": "2026-07-02T10:04:00+00:00",
+  "covers_member_sids": [
+    "36bbcd1f1aa75ce0",
+    "f39648ed1b9fb2ac"
+  ],
+  "tldr": "Apple's Private Cloud Compute has run only on Apple-owned hardware since it launched. Google Cloud's June 23 confidential-computing update was the first public sign that was changing, naming Apple as an early customer for a new layered trust stack.",
+  "whats_new": "Apple confirmed at WWDC that Private Cloud Compute now runs on Google Cloud — its first deployment outside Apple's own data centers — to handle agentic tool use and complex reasoning that on-device models can't cover.",
+  "why_it_matters": "The deployment's three-layer trust stack — NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as root of trust — is now a productized Google Cloud pattern (Confidential G4 VMs, open-source Prompt Encryption SDKs) any platform team can adopt instead of building attestation from scratch.",
+  "status": {
+    "state": "Live · confirmed at WWDC",
+    "tone": "now",
+    "changed": "2026-07-02",
+    "detail": "PCC runs on Google Cloud using NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as trust layers, built on a January 2026 multi-year Apple-Google agreement."
+  },
+  "provenance": {
+    "36bbcd1f1aa75ce0": { "surfaced_by": "scout" },
+    "f39648ed1b9fb2ac": { "surfaced_by": "scout", "status_update": true }
+  },
+  "beats": [
+    {
+      "kicker": "ANNOUNCED",
+      "tone": "launch",
+      "headline": "Google Cloud details the confidential-computing stack behind the deployment",
+      "summary": "Google's rollout post covers Confidential G4 VMs, open-source Prompt Encryption SDKs, and an Intel TDX/NVIDIA Blackwell/Titan chip trust layering — and names Apple Private Cloud Compute as the customer.",
+      "sids": ["36bbcd1f1aa75ce0"]
+    },
+    {
+      "kicker": "CONFIRMED",
+      "tone": "now",
+      "headline": "Apple confirms PCC's first deployment outside its own data centers",
+      "summary": "Apple's WWDC disclosure describes the same layered stack, built on a January 2026 multi-year Apple-Google agreement covering AI models and cloud infrastructure.",
+      "sids": ["f39648ed1b9fb2ac"]
+    }
+  ],
+  "open_questions": [
+    "Will Apple extend Private Cloud Compute to other cloud providers beyond Google Cloud?",
+    "Does the multi-year Apple-Google agreement also cover model training, or only inference?"
+  ],
+  "take_for_builders": "Evaluate Google Cloud's Confidential G4 VMs and open-source Prompt Encryption SDK before building your own TEE/attestation stack for encrypted, verifiable inference on someone else's cloud.",
+  "day_captions": {
+    "36bbcd1f1aa75ce0": "Google's own confidential-computing rollout post is the first to name Apple Private Cloud Compute as a deployment customer.",
+    "f39648ed1b9fb2ac": "Apple's WWDC disclosure confirms the same stack and calls it PCC's first deployment outside Apple's own data centers."
+  }
+}

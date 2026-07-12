@@ -1,0 +1,47 @@
+{
+  "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
+  "generated_at": "2026-07-12T05:04:38Z",
+  "covers_last_updated": "2026-06-24T00:00:00+00:00",
+  "covers_member_sids": [
+    "99bd515fd5fd8083",
+    "62173e9d865bdec2"
+  ],
+  "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs.",
+  "whats_new": "Modal named DFlash as the technique behind its own state-of-the-art inference-latency results, working with Z Lab and SGLang to release open-source pre-trained speculator models — including one for Qwen that improves over multi-token prediction by more than 50%.",
+  "why_it_matters": "If you're running inference on Blackwell GPUs with SGLang, this is now an off-the-shelf latency lever: Modal reports that Blackwell plus SGLang plus a low-overhead regional deployment can match or beat proprietary inference providers without custom infra.",
+  "status": {
+    "state": "Adopted in production",
+    "tone": "rising",
+    "changed": "2026-06-24",
+    "detail": "Modal confirms the same DFlash technique in its own latency benchmarks and ships open-source pre-trained speculator models built with Z Lab and SGLang."
+  },
+  "provenance": {
+    "99bd515fd5fd8083": { "surfaced_by": "scout" },
+    "62173e9d865bdec2": { "surfaced_by": "scout" }
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "NVIDIA introduces DFlash, claiming up to 15x inference gains on Blackwell",
+      "summary": "DFlash generates draft tokens in parallel using the target model's own KV projections, invented by Jian Chen and collaborators at Z Lab.",
+      "sids": ["99bd515fd5fd8083"]
+    },
+    {
+      "kicker": "ADOPTED",
+      "tone": "rising",
+      "headline": "Modal ships open-source DFlash speculator models with Z Lab and SGLang",
+      "summary": "Modal reports DFlash as its best-performing speculative-decoding technique, with a Qwen speculator improving over multi-token prediction by 50%+.",
+      "sids": ["62173e9d865bdec2"]
+    }
+  ],
+  "open_questions": [
+    "Does DFlash's speedup hold on non-Blackwell GPUs, or is it Blackwell-specific?",
+    "Will inference frameworks beyond SGLang add native DFlash speculator support?"
+  ],
+  "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculator models before building custom speculative decoding — Modal reports it matching proprietary inference-provider latency without proprietary infra.",
+  "day_captions": {
+    "99bd515fd5fd8083": "NVIDIA Developer publishes the DFlash speculative-decoding technique, claiming up to 15x inference throughput gains on Blackwell GPUs.",
+    "62173e9d865bdec2": "Modal names DFlash as the technique behind its own state-of-the-art latency results, releasing open-source speculator models built with Z Lab and SGLang."
+  }
+}
