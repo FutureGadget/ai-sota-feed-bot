@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29]
-updated: 2026-07-10
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4]
+updated: 2026-07-12
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4]
 ---
 
 ## TL;DR
@@ -23,8 +23,11 @@ that runs up the bill also runs out the clock.
 ## State of the art
 Latency for agents is being attacked at the **serving layer** and the
 **workload-shape layer** at once. The serving engines that host agent traffic
-are competing hard on decode latency and throughput — vLLM's v0.24.0 line keeps
-adding fast model support and quantized indexers, Modular's 26.4 ships
+are competing hard on decode latency and throughput — vLLM has moved fastest,
+with v0.25.0 deleting the legacy PagedAttention implementation outright now
+that Model Runner V2 (MRv2) is the default execution path for every dense
+model, and unifying tool-call/reasoning-token parsing across model families
+under one Streaming Parser Engine — while Modular's 26.4 ships
 state-of-the-art MoE serving, and infra partnerships (NVIDIA + AWS) are pitched
 explicitly on "low-latency inference at scale" — but raw engine speed only moves
 one term in the agent's latency budget. That serving-layer work is
@@ -87,14 +90,11 @@ per-model code — cutting the engineering cost of *keeping up* with new model
 architectures, which is itself a latency-relevant maintenance tax.
 
 ## What's new
-Scheduling gets an agent-specific rework: SMetric splits agent-session
-routing into a load-balanced first hop and cache-aware follow-up requests,
-reporting 10-16% throughput gains under prefill-decode colocation and 2-34%
-under disaggregated serving over prior schedulers that over-index on cache
-locality alone. On the engine side, vLLM's transformers backend
-auto-generates native-speed kernels via graph analysis instead of
-hand-written per-model integration, cutting the maintenance cost of keeping
-serving fast as new model architectures ship.
+vLLM v0.25.0 retires PagedAttention — the memory-management technique that
+first made vLLM's high-throughput serving possible — deleting the legacy
+attention path now that Model Runner V2 is the standard execution route for
+all dense models, alongside a new unified Streaming Parser Engine for
+tool-call and reasoning-token parsing across model families.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the
