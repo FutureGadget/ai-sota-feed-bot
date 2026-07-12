@@ -124,6 +124,53 @@ def _assemble_artifact(
     return artifact
 
 
+def _rebuild_playbook_i18n_index(locale: str) -> None:
+    """Rebuild index.json, latest.json for localized playbook."""
+    import shutil
+    i18n_playbook_dir = ROOT / "data" / "i18n" / locale / "playbook"
+    if not i18n_playbook_dir.is_dir():
+        return
+
+    edition_files = sorted(
+        p for p in i18n_playbook_dir.glob("*.json")
+        if p.name not in ("index.json", "latest.json", "source-index.json")
+    )
+
+    entries = []
+    for path in edition_files:
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            cards = data.get("cards", [])
+            entries.append({
+                "date": data["date"],
+                "title": data["title"],
+                "generated_at": data.get("generated_at"),
+                "card_count": len(cards),
+                "path": path.name,
+            })
+        except Exception as e:
+            print(f"  Error indexing localized playbook {path.name}: {e}")
+
+    entries.sort(key=lambda e: str(e.get("date")), reverse=True)
+
+    # Write index.json
+    index_path = i18n_playbook_dir / "index.json"
+    with open(index_path, "w", encoding="utf-8") as f:
+        json.dump(entries, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+
+    # Write latest.json
+    if entries:
+        latest_src_path = i18n_playbook_dir / entries[0]["path"]
+        latest_dest_path = i18n_playbook_dir / "latest.json"
+        try:
+            shutil.copy2(latest_src_path, latest_dest_path)
+            print(f"  Rebuilt localized playbook index and latest.json at {i18n_playbook_dir.relative_to(ROOT)}")
+        except Exception as e:
+            print(f"  Error copying latest localized playbook: {e}")
+
+
 # ---------------------------------------------------------------------------
 # Main translation loop
 # ---------------------------------------------------------------------------
@@ -222,6 +269,9 @@ def translate_candidates(
 
     print(f"\n{'='*50}")
     print(f"Done: {successes} translated, {failures} failed, {len(items)} total")
+
+    if successes > 0 and not dry_run:
+        _rebuild_playbook_i18n_index(locale)
 
     return 0 if failures == 0 else 1
 

@@ -12,7 +12,7 @@ class I18nCandidateExportTest(unittest.TestCase):
 
         self.assertEqual(
             surfaces,
-            {"daily", "weekly", "story", "storyline", "topic", "foundations"},
+            {"daily", "weekly", "playbook", "story", "storyline", "topic", "foundations"},
         )
         self.assertEqual(payload["excluded_surfaces"][0]["surface"], "feed")
         self.assertIn("/api/feed", payload["excluded_surfaces"][0]["reason"])

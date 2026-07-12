@@ -22,6 +22,7 @@ import render_static_pages as render  # noqa: E402
 SURFACE_ORDER = {
     "daily": 10,
     "weekly": 20,
+    "playbook": 25,
     "storyline": 30,
     "foundations": 40,
     "topic": 50,
@@ -56,6 +57,32 @@ SURFACE_CONTRACTS = {
             "categories[].articles[].summary",
         ],
         "preserve_fields": ["url", "source", "published", "slug", "story links"],
+    },
+    "playbook": {
+        "artifact_path": "data/i18n/<locale>/playbook/<YYYY-MM-DD>.json",
+        "translated_fields": [
+            "title",
+            "intro[]",
+            "cards[].title",
+            "cards[].problem",
+            "cards[].apply",
+            "cards[].result",
+            "cards[].evidence.note",
+        ],
+        "preserve_fields": [
+            "date",
+            "generated_at",
+            "card_count",
+            "cards[].id",
+            "cards[].kind",
+            "cards[].area",
+            "cards[].effort",
+            "cards[].source",
+            "cards[].source_url",
+            "cards[].source_sid",
+            "cards[].published",
+            "cards[].evidence.kind",
+        ],
     },
     "story": {
         "artifact_path": "data/i18n/<locale>/story/<sid>.json",
@@ -105,6 +132,8 @@ def _source_title(surface: str, source: dict[str, Any]) -> str:
     if surface == "storyline":
         editorial = source.get("editorial") if isinstance(source.get("editorial"), dict) else {}
         return render.squeeze(editorial.get("title") or source.get("label") or source.get("slug"))
+    if surface == "playbook":
+        return f"Playbook — {source.get('date')}"
     return render.squeeze(
         source.get("title")
         or source.get("label")
@@ -120,6 +149,9 @@ def _source_description(surface: str, source: dict[str, Any]) -> str:
     if surface == "storyline":
         editorial = source.get("editorial") if isinstance(source.get("editorial"), dict) else {}
         return render.squeeze(editorial.get("tldr") or source.get("summary"))
+    if surface == "playbook":
+        intro = source.get("intro") or []
+        return intro[0] if isinstance(intro, list) and intro else ""
     return render.squeeze(
         source.get("description")
         or source.get("summary")
@@ -183,6 +215,14 @@ def iter_sources() -> list[tuple[str, str, str, dict[str, Any]]]:
     for recap in render.load_recaps(render.WEEKLY_DIR, render.WEEK_FILE_RE, "week"):
         ident = str(recap.get("week"))
         rows.append(("weekly", ident, f"/weekly/{ident}", recap))
+    playbook_dir = render.PLAYBOOK_DIR
+    if playbook_dir.is_dir():
+        for path in sorted(playbook_dir.glob("*.json")):
+            if render.DATE_FILE_RE.match(path.name):
+                edition = render.load_json(path)
+                if isinstance(edition, dict) and edition.get("date"):
+                    ident = str(edition.get("date"))
+                    rows.append(("playbook", ident, f"/playbook/{ident}", edition))
     for slug, source in sorted(storylines.items()):
         rows.append(("storyline", slug, f"/storyline/{slug}", source))
     for slug, source in sorted((foundations.get("concepts") or {}).items()):
@@ -205,7 +245,7 @@ def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int)
         return True
 
     date_str = None
-    if surface == "daily":
+    if surface in ("daily", "playbook"):
         date_str = source.get("date")
     elif surface == "weekly":
         week_str = source.get("week")
@@ -236,8 +276,8 @@ def _is_within_days(surface: str, ident: str, source: dict[str, Any], days: int)
         if surface == "daily":
             # Daily recaps summarize the previous day, so they are always at least 1 day old.
             return delta <= days + 1
-        elif surface == "weekly":
-            # Weekly recaps start on Monday, so their content date is up to 7 days older.
+        elif surface in ("weekly", "playbook"):
+            # Weekly recaps and playbook are weekly-ish, so content can be up to 7 days older.
             return delta <= days + 7
         else:
             return delta <= days

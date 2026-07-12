@@ -29,6 +29,9 @@
     { "source": "/playbook", "destination": "/web/playbook.html" },
     { "source": "/playbook/:date(\\d{4}-\\d{2}-\\d{2})", "destination": "/web/playbook.html" },
     { "source": "/playbook/:date", "destination": "/web/playbook.html" },
+    { "source": "/ko/playbook", "destination": "/web/ko/playbook.html" },
+    { "source": "/ko/playbook/:date(\\d{4}-\\d{2}-\\d{2})", "destination": "/web/ko/playbook.html" },
+    { "source": "/ko/playbook/:date", "destination": "/web/ko/playbook.html" },
     { "source": "/map", "destination": "/web/map.html" },
     { "source": "/topic/:slug([a-z0-9-]+)", "destination": "/web/topic/:slug.html" },
     { "source": "/ko/topic/:slug([a-z0-9-]+)", "destination": "/web/ko/topic/:slug.html" },
@@ -84,7 +87,7 @@
       "includeFiles": "data/foundations/index.json"
     },
     "api/playbook.js": {
-      "includeFiles": "data/playbook/{index,latest,source-index}.json data/playbook/*-*-*.json",
+      "includeFiles": "data/playbook/{index,latest,source-index}.json data/playbook/*-*-*.json data/i18n/ko/playbook/{index,latest}.json data/i18n/ko/playbook/*-*-*.json",
       "excludeFiles": "data/playbook/input/**"
     },
     "api/updates.js": {

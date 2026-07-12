@@ -3984,6 +3984,8 @@ def i18n_source_for_path(source_path: str, stories: dict[str, dict], storylines:
         return load_json(DAILY_DIR / f"{ident}.json")
     if surface == "weekly" and WEEK_FILE_RE.match(f"{ident}.json"):
         return load_json(WEEKLY_DIR / f"{ident}.json")
+    if surface == "playbook" and DATE_FILE_RE.match(f"{ident}.json"):
+        return load_json(PLAYBOOK_DIR / f"{ident}.json")
     if surface == "story" and SID_HTML_RE.match(f"{ident}.html"):
         return stories.get(ident)
     if surface == "storyline" and SLUG_RE.match(ident):
