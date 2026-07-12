@@ -408,3 +408,53 @@ test('a paused snapshot with frozen metadata serves dated Korean items in target
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('an incomplete-but-current snapshot with frozen metadata serves frozen cards instead of an empty list', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-incomplete-frozen-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    const itemA = { id: 'a', url: 'https://example.com/a', title: 'A', type: 'news' };
+    const itemB = { id: 'b', url: 'https://example.com/b', title: 'B (new, untranslated)', type: 'news' };
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'latest.json'), JSON.stringify([itemA, itemB]));
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'runs_index.json'), JSON.stringify([]));
+    const snapshot = {
+      locale: 'ko',
+      surface: 'feed',
+      source_run_at: new Date().toISOString(),
+      expires_at: new Date(Date.now() + 3600000).toISOString(),
+      is_complete: true,
+      target_keys: ['https://example.com/a'],
+      items: [{ translation_key: 'https://example.com/a', source_hash: sourceHash(itemA), title: '한국어 A',
+        source_meta: { url: 'https://example.com/a', source: 'src_a', published: '2026-07-12T00:00:00Z', type: 'news' } }],
+    };
+    fs.writeFileSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'), JSON.stringify(snapshot));
+    process.chdir(tmp);
+
+    // Plain incomplete (no pause): frozen cards, status stays incomplete.
+    let res = await invoke({ locale: 'ko', localized_snapshot: 'latest', label: 'brief', limit: '20' });
+    assert.equal(res.body.status, 'incomplete');
+    assert.equal(res.body.is_current, false);
+    assert.equal(res.body.frozen_snapshot, true);
+    assert.equal(res.body.localized_missing_count, 1);
+    assert.equal(res.body.items.length, 1);
+    assert.equal(res.body.items[0].title, '한국어 A');
+
+    // Same shape during a budget pause: the paused status wins so the shell
+    // can explain WHY catch-up is not happening.
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'status.json'),
+      JSON.stringify({ locale: 'ko', surface: 'feed', status: 'budget_paused', reason: 'provider_daily_cap',
+        resumes_at: new Date(Date.now() + 7200000).toISOString(), mode: 'paused' }),
+    );
+    res = await invoke({ locale: 'ko', localized_snapshot: 'latest', label: 'brief', limit: '20' });
+    assert.equal(res.body.status, 'budget_paused');
+    assert.equal(res.body.reason, 'provider_daily_cap');
+    assert.equal(res.body.frozen_snapshot, true);
+    assert.equal(res.body.items.length, 1);
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});

@@ -110,6 +110,14 @@ is paused (`status: "budget_paused"`, see Translation Budget Governor):
   `frozen_snapshot: true` may be rendered this way — legacy snapshots without
   frozen metadata fall back to the notice-only state. The generic
   (non-budget) stale state keeps its banner-only form.
+- The **incomplete** state (snapshot still current but the live English feed
+  has moved past it — new/changed items not yet translated, e.g. mid-hour or
+  while a pause blocks catch-up) also serves and renders the frozen cards
+  instead of an empty list, under a lighter one-line notice ("일부 최신
+  항목의 번역을 준비 중입니다 …"). During a budget pause the API reports
+  `budget_paused` rather than `incomplete` so the page explains *why*
+  catch-up is not happening. A `/ko/` reader must never see an empty page
+  while a complete snapshot exists.
 
 The normal `/ko/` experience should not be mixed Korean/English cards. Mixed
 fallback may be used only as an explicit fallback state if later approved —

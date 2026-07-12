@@ -166,6 +166,12 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def test_korean_feed_paused_state_renders_frozen_snapshot_cards(self) -> None:
         self.assertIn("data?.frozen_snapshot === true", self.ko_html)
         self.assertIn("frozen.map(frozenCardHtml)", self.ko_html)
+        # Both non-current branches keep frozen cards readable: the paused
+        # branch and the transient-incomplete branch (light meta line, no
+        # heavy stale banner while a complete snapshot exists).
+        self.assertIn("if (!renderFrozenList(data))", self.ko_html)   # paused branch
+        self.assertIn("else if (renderFrozenList(data))", self.ko_html)  # incomplete branch
+        self.assertIn("일부 최신 항목의 번역을 준비 중입니다", self.ko_html)
         esc = _extract_js_function(self.ko_html, "esc")
         pretty = _extract_js_function(self.ko_html, "prettifySource")
         card = _extract_js_function(self.ko_html, "frozenCardHtml")
