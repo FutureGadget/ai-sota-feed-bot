@@ -17,7 +17,7 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 // GET /api/topics?slug=agent-memory  -> one obstacle/solution node
 // The wiki is compiled by pipeline/build_wiki.py from the markdown pages; this
 // just serves the committed index.json.
-export default function handler(request) {
+export function GET(request) {
   try {
     const index = readJsonSafe(path.join(WIKI_DIR, 'index.json'), null);
     if (!index) return Response.json({ areas: [], nodes: {} });

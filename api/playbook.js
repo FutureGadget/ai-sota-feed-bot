@@ -18,7 +18,7 @@ const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 // GET /api/playbook?list=1          -> index of available editions
 // GET /api/playbook?sources=1       -> source-sid lookup for recap overlays
 // GET /api/playbook?locale=ko       -> query localized content
-export default function handler(request) {
+export function GET(request) {
   try {
     const url = new URL(request.url);
     const locale = String(url.searchParams.get('locale') || '').trim();

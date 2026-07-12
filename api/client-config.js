@@ -1,13 +1,4 @@
-export default async function handler(request) {
-  if (request.method !== 'GET') {
-    return Response.json(
-      { error: 'method_not_allowed' },
-      {
-        status: 405,
-        headers: { Allow: 'GET' }
-      }
-    );
-  }
+export async function GET(request) {
 
   const defaultPostHogKey = 'phc_frYL2od402eAmmxvKFZXbb4pbLNCZpI82mPW9VVAOHu';
   const key = String(process.env.POSTHOG_PROJECT_API_KEY || defaultPostHogKey).trim();

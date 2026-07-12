@@ -16,7 +16,7 @@ const WEEK_ID_RE = /^\d{4}-W\d{2}$/;
 // GET /api/weekly            -> latest recap
 // GET /api/weekly?week=2026-W23 -> a specific recap
 // GET /api/weekly?list=1     -> index of available available recaps
-export default function handler(request) {
+export function GET(request) {
   try {
     const url = new URL(request.url);
     if (url.searchParams.get('list')) {

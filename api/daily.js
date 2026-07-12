@@ -16,7 +16,7 @@ const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 // GET /api/daily               -> latest recap
 // GET /api/daily?date=2026-06-07 -> a specific recap
 // GET /api/daily?list=1        -> index of available recaps
-export default function handler(request) {
+export function GET(request) {
   try {
     const url = new URL(request.url);
     if (url.searchParams.get('list')) {

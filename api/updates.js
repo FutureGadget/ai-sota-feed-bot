@@ -94,7 +94,7 @@ function latestFoundations() {
 // carry period fields so the client can apply a time-aware staleness gate;
 // storylines/map/foundations expose content-based timestamps for pure
 // read-history comparison.
-export default function handler(request) {
+export function GET(request) {
   try {
     return Response.json({
       now: new Date().toISOString(),

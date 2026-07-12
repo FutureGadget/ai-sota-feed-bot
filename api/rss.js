@@ -146,7 +146,7 @@ function getRecentItems() {
 // agents get a focused "what's new" view instead of a 7-day score dump.
 const RSS_MAX_ITEMS = 50;
 
-export default function handler(request) {
+export function GET(request) {
   try {
     const items = getRecentItems().slice(0, RSS_MAX_ITEMS);
     const now = new Date().toUTCString();

@@ -17,7 +17,7 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 // GET /api/storylines?slug=claude-fable    -> one storyline's day-by-day timeline
 // Detail files outlive the index window (shared links keep working), so a
 // slug can resolve even when it's no longer listed.
-export default function handler(request) {
+export function GET(request) {
   try {
     const url = new URL(request.url);
     const slug = String(url.searchParams.get('slug') || '').trim();

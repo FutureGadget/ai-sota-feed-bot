@@ -16,16 +16,7 @@
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default async function handler(request) {
-  if (request.method !== 'POST') {
-    return Response.json(
-      { error: 'method_not_allowed' },
-      {
-        status: 405,
-        headers: { Allow: 'POST' }
-      }
-    );
-  }
+export async function POST(request) {
 
   const apiKey = String(process.env.EMAIL_API_KEY || '').trim();
   if (!apiKey) {

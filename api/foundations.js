@@ -15,7 +15,7 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 
 // GET /api/foundations                          -> foundations index
 // GET /api/foundations?slug=prompt-reliability  -> one concept page
-export default function handler(request) {
+export function GET(request) {
   try {
     const index = readJsonSafe(path.join(FOUNDATIONS_DIR, 'index.json'), null);
     if (!index) return Response.json({ clusters: [], concepts: {} });
