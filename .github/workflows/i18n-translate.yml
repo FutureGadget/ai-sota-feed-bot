@@ -1,0 +1,96 @@
+name: I18n Static Page Translation
+
+on:
+  workflow_dispatch:
+    inputs:
+      locale:
+        description: "Target locale"
+        default: "ko"
+        type: string
+      surface:
+        description: "Surface to translate (blank = all)"
+        default: ""
+        type: string
+      limit:
+        description: "Max candidates to translate"
+        default: "10"
+        type: string
+      days:
+        description: "Translate pages modified within N days (blank = no limit)"
+        default: "7"
+        type: string
+
+concurrency:
+  group: i18n-translate
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Set remote URL with GITHUB_TOKEN (HTTPS push)
+        run: |
+          git remote set-url origin \
+            https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - name: Translate static pages
+        env:
+          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
+          INPUT_SURFACE: ${{ inputs.surface }}
+          INPUT_DAYS: ${{ inputs.days }}
+          INPUT_LOCALE: ${{ inputs.locale }}
+          INPUT_LIMIT: ${{ inputs.limit }}
+        run: |
+          SURFACE_ARG=""
+          if [ -n "$INPUT_SURFACE" ]; then
+            SURFACE_ARG="--surface $INPUT_SURFACE"
+          fi
+          DAYS_ARG=""
+          if [ -n "$INPUT_DAYS" ]; then
+            DAYS_ARG="--days $INPUT_DAYS"
+          fi
+          .venv/bin/python scripts/translate.py \
+            --locale "$INPUT_LOCALE" \
+            --limit "$INPUT_LIMIT" \
+            $SURFACE_ARG \
+            $DAYS_ARG
+
+      - name: Render static pages
+        run: |
+          .venv/bin/python pipeline/render_static_pages.py
+
+      - name: Commit and push
+        env:
+          INPUT_LOCALE: ${{ inputs.locale }}
+        run: |
+          git add data/i18n/ web/
+          if git diff --cached --quiet; then
+            echo "i18n_push_skipped=true reason=no_changes"
+          else
+            git commit -m "i18n: translate $INPUT_LOCALE static pages $(date +%F)"
+            git pull --rebase origin main
+            git push origin main
+          fi

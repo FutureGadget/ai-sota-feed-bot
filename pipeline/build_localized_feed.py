@@ -6,10 +6,11 @@ import json
 import subprocess
 import sys
 import hashlib
-import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
+
+import google_translate
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -83,148 +84,67 @@ handler(req, res).catch(console.error);
     res = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
     return json.loads(res.stdout)
 
-def _chat_completion(base_url, model, messages, temperature=0.3, timeout=300):
-    import urllib.request
-    url = f"{base_url.rstrip('/')}/chat/completions"
-    payload = json.dumps({
-        "model": model,
-        "messages": messages,
-        "temperature": temperature,
-        "max_tokens": 4096,
-    }).encode("utf-8")
-    req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"}, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            body = json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as exc:
-        err_body = exc.read().decode("utf-8", errors="replace")
-        raise ConnectionError(f"LM Studio API Error (HTTP {exc.code}): {err_body}") from exc
-    except Exception as exc:
-        raise ConnectionError(f"Cannot reach LM Studio at {base_url}. Error: {exc}") from exc
-    return body["choices"][0]["message"]["content"]
 
-def _repair_unescaped_quotes(text: str) -> str:
-    """Escape unescaped double quotes inside JSON string values."""
-    chars = list(text)
-    n = len(chars)
-    result = []
-    inside_string = False
-    
-    i = 0
-    while i < n:
-        c = chars[i]
-        
-        if c == '"':
-            # Check if this quote is escaped
-            is_escaped = False
-            k = i - 1
-            while k >= 0 and chars[k] == '\\':
-                is_escaped = not is_escaped
-                k -= 1
-                
-            if is_escaped:
-                result.append(c)
-                i += 1
-                continue
-                
-            if not inside_string:
-                inside_string = True
-                result.append(c)
-                i += 1
-            else:
-                # Look ahead for next non-whitespace char
-                next_non_ws = None
-                j = i + 1
-                while j < n:
-                    if chars[j] not in (' ', '\t', '\n', '\r'):
-                        next_non_ws = chars[j]
-                        break
-                    j += 1
-                
-                # If followed by a JSON structural separator, it's closing the string
-                if next_non_ws in (',', '}', ']', ':'):
-                    inside_string = False
-                    result.append(c)
-                else:
-                    # Escape it
-                    result.append('\\')
-                    result.append('"')
-                i += 1
+def _translate_items_batch(
+    items: list[dict[str, Any]], locale: str, api_key: str
+) -> list[dict[str, Any]]:
+    """Translate all items in a single batched API call."""
+    # 1. Collect all translatable strings with their (item_idx, field) addresses
+    entries: list[tuple[int, str, int | None, str]] = []  # (item_idx, field, ac_idx, text)
+    for idx, it in enumerate(items):
+        for field in ("title", "summary_1line", "why_it_matters"):
+            text = it.get(field) or ""
+            if text.strip():
+                entries.append((idx, field, None, text))
+        for ac_idx, entry in enumerate(it.get("also_covered") or []):
+            title = entry.get("title") or ""
+            if title.strip():
+                entries.append((idx, "also_covered_title", ac_idx, title))
+
+    # 2. Batch translate all strings at once
+    texts = [e[3] for e in entries]
+    if texts:
+        translated = google_translate.translate_texts(texts, locale, api_key=api_key)
+    else:
+        translated = []
+
+    # 3. Build translation map: item_idx -> translated fields
+    trans_map: dict[int, dict[str, Any]] = {}
+    for (item_idx, field, ac_idx, _orig), trans_text in zip(entries, translated):
+        if item_idx not in trans_map:
+            trans_map[item_idx] = {"ac": {}}
+        if field == "also_covered_title":
+            trans_map[item_idx]["ac"][ac_idx] = trans_text
         else:
-            result.append(c)
-            i += 1
-            
-    return "".join(result)
+            trans_map[item_idx][field] = trans_text
 
-
-def _translate_item(it: dict[str, Any], locale: str, base_url: str, model: str) -> dict[str, Any]:
-    source_json = {
-        "title": it.get("title"),
-        "summary_1line": it.get("summary_1line"),
-        "why_it_matters": it.get("why_it_matters"),
-    }
-    if it.get("also_covered"):
-        source_json["also_covered"] = it["also_covered"]
-
-    prompt = f"""Translate these feed item fields from English to {locale}.
-    
-Rules:
-1. Output ONLY a valid JSON object matching the exact structure below.
-2. Translate ONLY reader-facing text fields (title, summary_1line, why_it_matters, and titles in also_covered).
-3. Do NOT translate URLs.
-4. Keep the same array order for also_covered.
-5. Preserve technical terms, product names, and company names.
-
-Source JSON:
-{json.dumps(source_json, ensure_ascii=False, indent=2)}
-"""
-    raw = _chat_completion(
-        base_url, model,
-        [
-            {"role": "system", "content": "You are a precise technical translator. Output valid JSON only."},
-            {"role": "user", "content": prompt}
-        ]
-    )
-    text = raw.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```\w*\n?", "", text, count=1)
-        text = re.sub(r"\n?```\s*$", "", text, count=1)
-    
-    text = _repair_unescaped_quotes(text)
-    translated = json.loads(text)
-    
-    res = {
-        "translation_key": _translation_key(it),
-        "id": it.get("id"),
-        "source_hash": _source_hash(it),
-        "title": translated.get("title") or it.get("title"),
-        "summary_1line": translated.get("summary_1line") or it.get("summary_1line"),
-        "why_it_matters": translated.get("why_it_matters") or it.get("why_it_matters"),
-    }
-    
-    # Merge also_covered
-    if it.get("also_covered"):
-        trans_ac = translated.get("also_covered", [])
-        merged_ac = []
-        for idx, entry in enumerate(it["also_covered"]):
-            t_title = entry.get("title")
-            if idx < len(trans_ac) and isinstance(trans_ac[idx], dict):
-                t_title = trans_ac[idx].get("title", t_title)
-            merged_ac.append({
-                "url": entry.get("url"),
-                "title": t_title
-            })
-        res["also_covered"] = merged_ac
-        
-    return res
+    # 4. Assemble results
+    results = []
+    for idx, it in enumerate(items):
+        tm = trans_map.get(idx, {})
+        res = {
+            "translation_key": _translation_key(it),
+            "id": it.get("id"),
+            "source_hash": _source_hash(it),
+            "title": tm.get("title") or it.get("title"),
+            "summary_1line": tm.get("summary_1line") or it.get("summary_1line"),
+            "why_it_matters": tm.get("why_it_matters") or it.get("why_it_matters"),
+        }
+        if it.get("also_covered"):
+            merged_ac = []
+            ac_map = tm.get("ac", {})
+            for ac_i, entry in enumerate(it["also_covered"]):
+                t_title = ac_map.get(ac_i, entry.get("title"))
+                merged_ac.append({"url": entry.get("url"), "title": t_title})
+            res["also_covered"] = merged_ac
+        results.append(res)
+    return results
 
 def main():
     parser = argparse.ArgumentParser(description="Build the localized live feed snapshot.")
     parser.add_argument("--locale", default="ko")
     parser.add_argument("--label", default="brief")
     parser.add_argument("--limit", type=int, default=20)
-    parser.add_argument("--base-url", default="http://localhost:1234/v1")
-    parser.add_argument("--model", default="google/gemma-4-e4b")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     
@@ -278,7 +198,7 @@ def main():
         print(f"  Dirty lookahead: {len(dirty_lookahead)}")
         return
 
-    # Check LM studio connectivity if we actually need to translate anything
+    # Check Google Translate credentials if we actually need to translate anything
     to_translate = []
     max_translations = 20
     
@@ -290,16 +210,18 @@ def main():
         if len(to_translate) < max_translations:
             to_translate.append((it, False))  # (item, is_target)
             
-    if to_translate:
-        try:
-            import urllib.request
-            health_url = f"{args.base_url.rstrip('/')}/models"
-            req = urllib.request.Request(health_url, method="GET")
-            with urllib.request.urlopen(req, timeout=10) as resp:
-                pass
-        except Exception as exc:
-            print(f"ERROR: Cannot reach LM Studio at {args.base_url}: {exc}", file=sys.stderr)
-            sys.exit(1)
+    api_key = google_translate.get_api_key()
+    if to_translate and not api_key:
+        print("GOOGLE_TRANSLATE_API_KEY not set — skipping translation.", file=sys.stderr)
+        status = {
+            "locale": args.locale,
+            "surface": "feed",
+            "status": "localized_feed_missing_credentials",
+            "reason": "GOOGLE_TRANSLATE_API_KEY not set",
+        }
+        status_path.write_text(json.dumps(status, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Wrote status to {status_path.relative_to(ROOT)}")
+        return
 
     # Translate
     results_map = {k: v for k, v in existing.items()}
@@ -310,21 +232,19 @@ def main():
     
     if to_translate:
         print(f"Translating up to {len(to_translate)} items (budget: {max_translations})...")
-        for idx, (it, is_target) in enumerate(to_translate, 1):
-            t_key = _translation_key(it)
-            role_str = "target" if is_target else "lookahead"
-            print(f"  [{idx}/{len(to_translate)}] TRANSLATING ({role_str}): {it.get('title')[:60]}...", end="", flush=True)
-            try:
-                trans = _translate_item(it, args.locale, args.base_url, args.model)
+        items_to_translate = [it for it, is_target in to_translate]
+        try:
+            translated_results = _translate_items_batch(items_to_translate, args.locale, api_key)
+            for (it, is_target), trans in zip(to_translate, translated_results):
+                t_key = _translation_key(it)
                 newly_translated[t_key] = trans
                 results_map[t_key] = trans
                 successes += 1
-                print(" done")
-            except Exception as e:
-                print(f" FAILED: {e}")
-                failures += 1
-                if is_target:
-                    target_failures += 1
+            print(f" Successfully translated {successes} items.")
+        except Exception as e:
+            print(f" Batch translation FAILED: {e}")
+            failures = len(to_translate)
+            target_failures = sum(1 for it, is_target in to_translate if is_target)
     else:
         print("All target and lookahead items are fresh in cache.")
 
@@ -361,7 +281,7 @@ def main():
         "source_run_at": run_at_str,
         "translated_at": now.isoformat(),
         "expires_at": (datetime.fromisoformat(run_at_str.replace("Z", "+00:00")) + timedelta(hours=24)).isoformat(),
-        "model": args.model,
+        "model": "google-translate-v2",
         "review_status": "machine",
         "eligible_label": args.label,
         "selector": {
