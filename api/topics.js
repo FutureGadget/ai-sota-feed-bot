@@ -17,20 +17,21 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 // GET /api/topics?slug=agent-memory  -> one obstacle/solution node
 // The wiki is compiled by pipeline/build_wiki.py from the markdown pages; this
 // just serves the committed index.json.
-export default function handler(req, res) {
+export default function handler(request) {
   try {
     const index = readJsonSafe(path.join(WIKI_DIR, 'index.json'), null);
-    if (!index) return res.status(200).json({ areas: [], nodes: {} });
+    if (!index) return Response.json({ areas: [], nodes: {} });
 
-    const slug = String(req.query?.slug || '').trim();
+    const url = new URL(request.url);
+    const slug = String(url.searchParams.get('slug') || '').trim();
     if (slug) {
-      if (!SLUG_RE.test(slug)) return res.status(400).json({ error: 'invalid_slug' });
+      if (!SLUG_RE.test(slug)) return Response.json({ error: 'invalid_slug' }, { status: 400 });
       const node = (index.nodes || {})[slug];
-      if (!node) return res.status(404).json({ error: 'topic_not_found', slug });
-      return res.status(200).json(node);
+      if (!node) return Response.json({ error: 'topic_not_found', slug }, { status: 404 });
+      return Response.json(node);
     }
-    return res.status(200).json(index);
+    return Response.json(index);
   } catch (e) {
-    return res.status(500).json({ error: 'topics_read_failed', detail: String(e) });
+    return Response.json({ error: 'topics_read_failed', detail: String(e) }, { status: 500 });
   }
 }

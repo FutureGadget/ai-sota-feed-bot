@@ -146,7 +146,7 @@ function getRecentItems() {
 // agents get a focused "what's new" view instead of a 7-day score dump.
 const RSS_MAX_ITEMS = 50;
 
-export default function handler(req, res) {
+export default function handler(request) {
   try {
     const items = getRecentItems().slice(0, RSS_MAX_ITEMS);
     const now = new Date().toUTCString();
@@ -164,10 +164,14 @@ export default function handler(req, res) {
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n<channel>\n  <title>LLM Digest</title>\n  <link>${site}</link>\n  <atom:link href="${site}/rss.xml" rel="self" type="application/rss+xml"/>\n  <description>AI platform &amp; agent engineering feed — rolling 7-day window</description>\n  <lastBuildDate>${now}</lastBuildDate>\n  <ttl>30</ttl>${xmlItems}\n</channel>\n</rss>`;
 
-    res.setHeader('Content-Type', 'application/rss+xml; charset=utf-8');
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
-    res.status(200).send(xml);
+    return new Response(xml, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/rss+xml; charset=utf-8',
+        'Cache-Control': 's-maxage=300, stale-while-revalidate=600',
+      }
+    });
   } catch (e) {
-    res.status(500).json({ error: 'rss_build_failed', detail: String(e) });
+    return Response.json({ error: 'rss_build_failed', detail: String(e) }, { status: 500 });
   }
 }

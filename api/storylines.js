@@ -17,22 +17,23 @@ const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,80}$/;
 // GET /api/storylines?slug=claude-fable    -> one storyline's day-by-day timeline
 // Detail files outlive the index window (shared links keep working), so a
 // slug can resolve even when it's no longer listed.
-export default function handler(req, res) {
+export default function handler(request) {
   try {
-    const slug = String(req.query?.slug || '').trim();
+    const url = new URL(request.url);
+    const slug = String(url.searchParams.get('slug') || '').trim();
     if (slug) {
       if (!SLUG_RE.test(slug)) {
-        return res.status(400).json({ error: 'invalid_slug' });
+        return Response.json({ error: 'invalid_slug' }, { status: 400 });
       }
       const storyline = readJsonSafe(path.join(STORYLINES_DIR, `${slug}.json`), null);
-      if (!storyline) return res.status(404).json({ error: 'storyline_not_found', slug });
-      return res.status(200).json(storyline);
+      if (!storyline) return Response.json({ error: 'storyline_not_found', slug }, { status: 404 });
+      return Response.json(storyline);
     }
 
     const index = readJsonSafe(path.join(STORYLINES_DIR, 'index.json'), null);
-    if (!index) return res.status(200).json({ storylines: [] });
-    return res.status(200).json(index);
+    if (!index) return Response.json({ storylines: [] });
+    return Response.json(index);
   } catch (e) {
-    return res.status(500).json({ error: 'storylines_read_failed', detail: String(e) });
+    return Response.json({ error: 'storylines_read_failed', detail: String(e) }, { status: 500 });
   }
 }

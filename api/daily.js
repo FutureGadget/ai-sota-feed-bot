@@ -16,27 +16,28 @@ const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 // GET /api/daily               -> latest recap
 // GET /api/daily?date=2026-06-07 -> a specific recap
 // GET /api/daily?list=1        -> index of available recaps
-export default function handler(req, res) {
+export default function handler(request) {
   try {
-    if (req.query?.list) {
+    const url = new URL(request.url);
+    if (url.searchParams.get('list')) {
       const index = readJsonSafe(path.join(DAILY_DIR, 'index.json'), []);
-      return res.status(200).json({ days: Array.isArray(index) ? index : [] });
+      return Response.json({ days: Array.isArray(index) ? index : [] });
     }
 
-    const date = String(req.query?.date || '').trim();
+    const date = String(url.searchParams.get('date') || '').trim();
     if (date) {
       if (!DATE_ID_RE.test(date)) {
-        return res.status(400).json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' });
+        return Response.json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' }, { status: 400 });
       }
       const recap = readJsonSafe(path.join(DAILY_DIR, `${date}.json`), null);
-      if (!recap) return res.status(404).json({ error: 'date_not_found', date });
-      return res.status(200).json(recap);
+      if (!recap) return Response.json({ error: 'date_not_found', date }, { status: 404 });
+      return Response.json(recap);
     }
 
     const latest = readJsonSafe(path.join(DAILY_DIR, 'latest.json'), null);
-    if (!latest) return res.status(404).json({ error: 'no_recaps_yet' });
-    return res.status(200).json(latest);
+    if (!latest) return Response.json({ error: 'no_recaps_yet' }, { status: 404 });
+    return Response.json(latest);
   } catch (e) {
-    return res.status(500).json({ error: 'daily_read_failed', detail: String(e) });
+    return Response.json({ error: 'daily_read_failed', detail: String(e) }, { status: 500 });
   }
 }

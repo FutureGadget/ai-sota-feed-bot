@@ -94,9 +94,9 @@ function latestFoundations() {
 // carry period fields so the client can apply a time-aware staleness gate;
 // storylines/map/foundations expose content-based timestamps for pure
 // read-history comparison.
-export default function handler(req, res) {
+export default function handler(request) {
   try {
-    return res.status(200).json({
+    return Response.json({
       now: new Date().toISOString(),
       daily: latestDaily(),
       weekly: latestWeekly(),
@@ -106,6 +106,6 @@ export default function handler(req, res) {
       foundations: latestFoundations(),
     });
   } catch (e) {
-    return res.status(500).json({ error: 'updates_read_failed', detail: String(e) });
+    return Response.json({ error: 'updates_read_failed', detail: String(e) }, { status: 500 });
   }
 }
