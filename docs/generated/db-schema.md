@@ -90,10 +90,14 @@ available to each function.
   overlay, separate from static-page artifacts. For Korean v1 this is a
   complete `/ko/` snapshot of the default Brief feed, up to 20 eligible cards,
   with `{locale, surface, source_run_at, translated_at, expires_at, selector,
-  source_item_count, translated_item_count, is_complete, items[]}`. `items[]`
-  stores only translated display fields keyed by normalized source URL while
-  `/api/feed` preserves English item IDs, URLs, dates, scores, labels, and
-  story metadata.
+  source_item_count, translated_item_count, is_complete, target_keys[],
+  items[]}`. `items[]` stores translated display fields keyed by normalized
+  source URL while `/api/feed` preserves English item IDs, URLs, dates,
+  scores, labels, and story metadata. `target_keys[]` (build-time ranked
+  top-N order) plus per-item `source_meta {url, source, published, type}`
+  let `/api/feed` serve the frozen snapshot as dated Korean cards
+  (`frozen_snapshot: true`) when the snapshot is paused/stale; neither field
+  is covered by `source_hash`.
 - `data/i18n/<locale>/feed/status.json` — durable localized-feed build status
   for missing, stale, incomplete, disabled, current, or `budget_paused`
   snapshots. Includes `{locale, surface, status, reason, resumes_at, mode,

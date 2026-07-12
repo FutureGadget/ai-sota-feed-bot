@@ -358,3 +358,53 @@ test('a frozen snapshot past expires_at is never served as current', async () =>
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('a paused snapshot with frozen metadata serves dated Korean items in target order', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-frozen-items-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'latest.json'), JSON.stringify([]));
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'),
+      JSON.stringify({
+        locale: 'ko',
+        surface: 'feed',
+        source_run_at: new Date(Date.now() - 72 * 3600000).toISOString(),
+        expires_at: new Date(Date.now() - 48 * 3600000).toISOString(),
+        is_complete: true,
+        // target_keys is the frozen ranked order; note it disagrees with the
+        // items array order below, and includes one key with no source_meta
+        // (must be skipped, not rendered half-empty).
+        target_keys: ['https://example.com/b', 'https://example.com/a', 'https://example.com/c'],
+        items: [
+          { translation_key: 'https://example.com/a', id: 'ida', source_hash: 'x', title: '한국어 A', summary_1line: '요약 A',
+            source_meta: { url: 'https://example.com/a', source: 'src_a', published: '2026-07-09T00:00:00Z', type: 'news' } },
+          { translation_key: 'https://example.com/b', id: 'idb', source_hash: 'y', title: '한국어 B', summary_1line: '요약 B',
+            source_meta: { url: 'https://example.com/b', source: 'src_b', published: '2026-07-08T00:00:00Z', type: 'news' } },
+          { translation_key: 'https://example.com/c', id: 'idc', source_hash: 'z', title: '메타 없음' },
+        ],
+      }),
+    );
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'status.json'),
+      JSON.stringify({ locale: 'ko', surface: 'feed', status: 'budget_paused', reason: 'monthly_budget',
+        resumes_at: '2026-08-01T07:00:00+00:00', mode: 'paused' }),
+    );
+    process.chdir(tmp);
+    const res = await invoke({ locale: 'ko', localized_snapshot: 'latest', limit: '20', label: 'brief' });
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.is_current, false);
+    assert.equal(res.body.status, 'budget_paused');
+    assert.equal(res.body.frozen_snapshot, true);
+    assert.equal(res.body.items.length, 2);
+    assert.equal(res.body.items[0].title, '한국어 B');
+    assert.equal(res.body.items[0].url, 'https://example.com/b');
+    assert.equal(res.body.items[0].source, 'src_b');
+    assert.equal(res.body.items[1].title, '한국어 A');
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});

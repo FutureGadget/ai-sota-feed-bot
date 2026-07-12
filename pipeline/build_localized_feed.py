@@ -583,7 +583,23 @@ def main():
 
     # Prune translations that are no longer in the wider feed to prevent infinite cache growth
     valid_keys = {_translation_key(it) for it in all_items}
-    final_items = [v for k, v in results_map.items() if k in valid_keys]
+    # source_meta lets the API render a dated frozen card from the snapshot
+    # alone when the feed is paused/stale. Not covered by source_hash, so
+    # refreshing it never re-translates an item.
+    meta_by_key = {
+        _translation_key(it): {
+            "url": it.get("url"),
+            "source": it.get("source"),
+            "published": it.get("published"),
+            "type": it.get("type"),
+        }
+        for it in all_items
+    }
+    final_items = [
+        {**v, "source_meta": meta_by_key[k]} if k in meta_by_key else dict(v)
+        for k, v in results_map.items()
+        if k in valid_keys
+    ]
 
     # Verify if the visible target feed (top N) is complete
     missing_targets = []
@@ -627,6 +643,9 @@ def main():
         "source_item_count": len(target_items),
         "translated_item_count": len(target_items) - len(missing_targets),
         "is_complete": is_complete,
+        # Ranked top-N keys at build time: the frozen-render order once the
+        # snapshot outlives the live feed (items carries lookahead cache too).
+        "target_keys": [_translation_key(it) for it in target_items],
         "items": final_items,
         "ui": ui
     }

@@ -101,6 +101,15 @@ is paused (`status: "budget_paused"`, see Translation Budget Governor):
 - The page heading area frames the snapshot as a dated edition ("{M월 D일}
   기준 한국어 브리핑" from `source_run_at`, KST) rather than a live feed with
   fine-print staleness.
+- The frozen snapshot's Korean cards stay readable under the notice — a
+  paused `/ko/` never becomes an empty page. The API serves them from the
+  snapshot's own `target_keys` + per-item `source_meta` (see Data Model) and
+  marks the response `frozen_snapshot: true`; the shell renders dated cards
+  (source, date, linked title, summary) without live-only badges, followed by
+  an end-of-snapshot marker linking to `/`. Only responses carrying
+  `frozen_snapshot: true` may be rendered this way — legacy snapshots without
+  frozen metadata fall back to the notice-only state. The generic
+  (non-budget) stale state keeps its banner-only form.
 
 The normal `/ko/` experience should not be mixed Korean/English cards. Mixed
 fallback may be used only as an explicit fallback state if later approved —
@@ -193,6 +202,7 @@ Proposed `latest.json` shape:
   "source_item_count": 18,
   "translated_item_count": 18,
   "is_complete": true,
+  "target_keys": ["https://example.com/story"],
   "items": [
     {
       "translation_key": "https://example.com/story",
@@ -203,7 +213,13 @@ Proposed `latest.json` shape:
       "why_it_matters": "Translated why, when present.",
       "also_covered": [
         { "url": "https://example.com/other", "title": "Translated related title" }
-      ]
+      ],
+      "source_meta": {
+        "url": "https://example.com/story",
+        "source": "source_slug",
+        "published": "2026-07-05T00:00:00Z",
+        "type": "news"
+      }
     }
   ],
   "ui": {
@@ -213,6 +229,17 @@ Proposed `latest.json` shape:
   }
 }
 ```
+
+`target_keys` records the ranked top-N `translation_key`s at build time — the
+frozen-render order once the snapshot outlives the live feed (`items` also
+carries lookahead cache beyond the top N). `source_meta` preserves the
+reader-facing English item metadata each frozen card needs (URL, source,
+published, type). Neither is covered by `source_hash`, so refreshing them
+never re-translates an item. When the snapshot is not current and both fields
+are present, `/api/feed?locale=ko&localized_snapshot=latest` returns the
+frozen Korean items (in `target_keys` order, skipping entries without
+`source_meta`) and sets `frozen_snapshot: true`; snapshots predating these
+fields keep the previous not-current behavior.
 
 The stable translation key should be normalized-URL-first. The localized API
 response must also preserve the English feed item's existing `id` when present.

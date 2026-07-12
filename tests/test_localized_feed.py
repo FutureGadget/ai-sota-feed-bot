@@ -523,6 +523,35 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertEqual(status["mode"], "economy")
         self.assertEqual(status["eligible_count"], 10)
 
+    def test_snapshot_carries_frozen_render_metadata(self) -> None:
+        # source_meta + target_keys let the API serve the frozen snapshot as
+        # dated Korean cards when the feed is paused/stale.
+        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
+        self._write_budget(current_month, chars_used=0, monthly_cap=1_000_000)
+        items = [_mk_item(i, source=f"src_{i}", type="news") for i in range(5)]
+
+        def fake_translate(texts, target, source="en", *, api_key=None, stats=None):
+            if stats is not None:
+                stats["chars_sent"] = stats.get("chars_sent", 0) + sum(len(t) for t in texts)
+            return [f"번역-{t}" for t in texts]
+
+        with patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
+             patch("google_translate.translate_texts", side_effect=fake_translate):
+            self._run_main(["--locale", "ko", "--label", "brief", "--limit", "20"])
+
+        snapshot = json.loads(self.latest_path.read_text())
+        self.assertEqual(
+            snapshot["target_keys"],
+            [localized._translation_key(it) for it in items],
+        )
+        for row in snapshot["items"]:
+            meta = row.get("source_meta")
+            self.assertIsInstance(meta, dict)
+            self.assertTrue(str(meta["url"]).startswith("https://example.com/post-"))
+            self.assertEqual(meta["published"], "2026-07-05T00:00:00Z")
+            self.assertEqual(meta["type"], "news")
+            self.assertTrue(str(meta["source"]).startswith("src_"))
+
     def test_quota_exceeded_writes_budget_paused_and_preserves_snapshot(self) -> None:
         current_month = datetime.now(timezone.utc).strftime("%Y-%m")
         self._write_budget(current_month, chars_used=100, monthly_cap=1_000_000)  # nowhere near the floor

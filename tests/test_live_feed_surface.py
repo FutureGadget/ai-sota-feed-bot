@@ -160,5 +160,63 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertNotIn("<loc>https://www.llm-digest.com/ko/</loc>", sitemap)
 
 
+    # Frozen-snapshot cards: the paused state keeps the last complete Korean
+    # snapshot readable instead of clearing the list (only when the API
+    # guarantees the items are the Korean snapshot via frozen_snapshot).
+    def test_korean_feed_paused_state_renders_frozen_snapshot_cards(self) -> None:
+        self.assertIn("data?.frozen_snapshot === true", self.ko_html)
+        self.assertIn("frozen.map(frozenCardHtml)", self.ko_html)
+        esc = _extract_js_function(self.ko_html, "esc")
+        pretty = _extract_js_function(self.ko_html, "prettifySource")
+        card = _extract_js_function(self.ko_html, "frozenCardHtml")
+        script = f"""
+          {esc}
+          {pretty}
+          {card}
+          const html = frozenCardHtml({{
+            url: 'https://example.com/a', source: 'simon_willison',
+            published: '2026-07-09T08:00:00Z', title: '한국어 제목',
+            summary_1line: '요약.', why_it_matters: '중요한 이유.'
+          }}, 0);
+          console.log(JSON.stringify({{
+            article: html.includes('<article>'),
+            src: html.includes('Simon Willison'),
+            href: html.includes('https://example.com/a'),
+            title: html.includes('한국어 제목'),
+            rank: html.includes('>01<'),
+          }}));
+        """
+        self.assertEqual(
+            _run_node(script),
+            '{"article":true,"src":true,"href":true,"title":true,"rank":true}',
+        )
+
+    # 내일 takes no particle; explicit dates take 에 (8월 1일에 vs 내일).
+    def test_korean_feed_paused_notice_resume_particle(self) -> None:
+        esc = _extract_js_function(self.ko_html, "esc")
+        fmt = _extract_js_function(self.ko_html, "formatKstDate")
+        copy_fn = _extract_js_function(self.ko_html, "pausedResumeCopy")
+        notice = _extract_js_function(self.ko_html, "renderPausedNotice")
+        script = f"""
+          const el = {{ hidden: true, innerHTML: '' }};
+          globalThis.document = {{ getElementById: () => el }};
+          {esc}
+          {fmt}
+          {copy_fn}
+          {notice}
+          renderPausedNotice({{ status: 'budget_paused', reason: 'provider_daily_cap',
+            source_run_at: '2026-07-09T08:00:00Z' }});
+          const daily = el.innerHTML;
+          renderPausedNotice({{ status: 'budget_paused', reason: 'monthly_budget',
+            resumes_at: '2026-08-01T07:00:00Z', source_run_at: '2026-07-09T08:00:00Z' }});
+          const monthly = el.innerHTML;
+          console.log(JSON.stringify({{
+            daily_ok: daily.includes('내일 재개됩니다') && !daily.includes('내일에'),
+            monthly_ok: monthly.includes('8월 1일에 재개됩니다'),
+          }}));
+        """
+        self.assertEqual(_run_node(script), '{"daily_ok":true,"monthly_ok":true}')
+
+
 if __name__ == "__main__":
     unittest.main()

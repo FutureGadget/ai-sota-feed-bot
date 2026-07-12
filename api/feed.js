@@ -169,10 +169,48 @@ function localizedStatusBody(body, locale, snapshot, statusPayload) {
   return result;
 }
 
+// Frozen-snapshot render: when the Korean snapshot is no longer current
+// (budget pause or ordinary staleness), serve the last complete snapshot's
+// own items as clearly-dated Korean content instead of live English items,
+// so the paused /ko/ page still shows articles. Requires snapshots carrying
+// target_keys + per-item source_meta (build_localized_feed.py); older
+// artifacts return null and keep the previous behavior.
+function frozenLocalizedItems(snapshot) {
+  const keys = Array.isArray(snapshot?.target_keys) ? snapshot.target_keys : [];
+  if (!keys.length) return null;
+  const byKey = new Map();
+  for (const row of Array.isArray(snapshot?.items) ? snapshot.items : []) {
+    const key = normUrl(row?.translation_key || row?.key);
+    if (key) byKey.set(key, row);
+  }
+  const items = [];
+  for (const rawKey of keys) {
+    const row = byKey.get(normUrl(rawKey));
+    if (!row || !row.source_meta) continue;
+    items.push({
+      id: row.id || null,
+      url: row.source_meta.url || row.translation_key || null,
+      source: row.source_meta.source || null,
+      published: row.source_meta.published || null,
+      type: row.source_meta.type || null,
+      title: row.title || '',
+      summary_1line: row.summary_1line || '',
+      why_it_matters: row.why_it_matters || '',
+      also_covered: Array.isArray(row.also_covered) ? row.also_covered : [],
+    });
+  }
+  return items.length ? items : null;
+}
+
 function overlayLocalizedFeed(body, locale) {
   const { latest, status } = readLocalizedFeed(locale);
   const withStatus = localizedStatusBody(body, locale, latest, status);
-  if (!withStatus.is_current || !Array.isArray(body?.items)) return withStatus;
+  if (!withStatus.is_current) {
+    const frozen = frozenLocalizedItems(latest);
+    if (frozen) return { ...withStatus, items: frozen, frozen_snapshot: true };
+    return withStatus;
+  }
+  if (!Array.isArray(body?.items)) return withStatus;
 
   const translations = new Map();
   for (const row of Array.isArray(latest?.items) ? latest.items : []) {

@@ -434,8 +434,10 @@
         return false;
       }
       const snapshotDate = formatKstDate(data.source_run_at) || '최근';
+      // "내일" takes no particle; dates take "에" (8월 1일에 vs 내일).
+      const resumePhrase = resumeCopy === '내일' ? '내일' : `${resumeCopy}에`;
       el.hidden = false;
-      el.innerHTML = `이번 달 번역 예산이 소진되어 ${esc(snapshotDate)} 스냅샷을 보여드리고 있습니다. 새 번역은 ${esc(resumeCopy)}에 재개됩니다 · 최신 소식은 <a href="/">영어 피드</a>에서 →`;
+      el.innerHTML = `이번 달 번역 예산이 소진되어 ${esc(snapshotDate)} 스냅샷을 보여드리고 있습니다. 새 번역은 ${esc(resumePhrase)} 재개됩니다 · 최신 소식은 <a href="/">영어 피드</a>에서 →`;
       return true;
     }
 
@@ -453,6 +455,45 @@
       }
       el.hidden = false;
       el.textContent = `${snapshotDate} 기준 한국어 브리핑`;
+    }
+
+    function prettifySource(slug) {
+      const s = String(slug || '').trim();
+      if (!s) return 'unknown';
+      return s.split(/[_\s]+/)
+        .filter(Boolean)
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
+    // Simplified dated card for the frozen snapshot (paused state): same
+    // card markup/classes as the live render, minus live-only badges
+    // (Fresh/New/Climbing need live rank data a frozen snapshot doesn't have).
+    function frozenCardHtml(it, i) {
+      const rank = i + 1;
+      const source = esc(prettifySource(it.source));
+      const published = it.published ? esc(String(it.published).slice(0, 10)) : '';
+      const title = esc(it.title || 'Untitled');
+      const href = esc(it.url || '#');
+      const summary = it.summary_1line ? esc(it.summary_1line) : '';
+      const why = String(it.why_it_matters || '').trim();
+      return `
+        <article>
+          <span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>
+          <div class="card-top">
+            <div class="card-meta">
+              <span class="src">${source}</span>
+              ${published ? `<span class="when">${published}</span>` : ''}
+            </div>
+          </div>
+          <div class="card-main">
+            <div class="card-text">
+              <h3><a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
+              ${summary ? `<p class="why">${summary}</p>` : ''}
+            </div>
+          </div>
+          ${why ? `<p class="matters">💡 ${esc(why)}</p>` : ''}
+        </article>`;
     }
 
     function hideNewerInEnglish() {
@@ -510,9 +551,15 @@
       const pausedShown = renderPausedNotice(data);
       if (pausedShown) {
         // The calm notice above the feed already explains the state; don't
-        // stack the generic stale banner underneath it.
+        // stack the generic stale banner underneath it. The frozen snapshot's
+        // Korean cards stay readable as a dated edition (frozen_snapshot is
+        // the API's guarantee that items are the Korean snapshot, not live
+        // English items from an older artifact).
         document.getElementById('meta').textContent = '';
-        document.getElementById('list').innerHTML = '';
+        const frozen = data?.frozen_snapshot === true && Array.isArray(data.items) ? data.items : [];
+        document.getElementById('list').innerHTML = frozen.length
+          ? frozen.map(frozenCardHtml).join('') + `<div class="state">${esc(formatKstDate(data.source_run_at) || '이전')} 스냅샷의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>`
+          : `<div class="state"><p>표시할 수 있는 이전 스냅샷이 없습니다.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
       } else {
         const translated = data?.translated_at ? `마지막 번역: ${esc(relTime(data.translated_at))}` : '아직 사용 가능한 한국어 snapshot이 없습니다.';
         document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';
@@ -548,14 +595,6 @@
         return Number.isFinite(t) && t > visitLastMs;
       }
 
-      function prettifySource(slug) {
-        const s = String(slug || '').trim();
-        if (!s) return 'unknown';
-        return s.split(/[_\s]+/)
-          .filter(Boolean)
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(' ');
-      }
 
       document.getElementById('meta').textContent = `${relTime(data.source_run_at)} · 번역 ${data.items.length}개`;
       document.getElementById('list').innerHTML = data.items.map((it, i) => {
