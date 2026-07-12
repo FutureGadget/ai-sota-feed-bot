@@ -1,0 +1,137 @@
+{
+  "date": "2026-07-07",
+  "title": "Agent Builder's Playbook — Jul 7, 2026",
+  "generated_at": "2026-07-07T12:00:00Z",
+  "intro": [
+    "This week's cards skew toward hard failure modes: a memory-injection attack that beats existing defenses, benchmarks that quietly lie to you, and a tracing setup that catches problems before customers do."
+  ],
+  "card_count": 7,
+  "cards": [
+    {
+      "id": "pb-memghost-stealth-memory-injection",
+      "kind": "source-backed",
+      "title": "Treat inbound email/content as untrusted before it reaches agent memory",
+      "area": "Safety",
+      "problem": "If your agent has persistent long-term memory and reads external content (email, docs, tickets), a single crafted message can poison its memory without appearing suspicious in the agent's visible response.",
+      "apply": "Don't let raw external content write directly into long-term memory. Route anything ingested from email, web pages, or third-party tools through a separate extraction/summarization step before it's eligible for storage, and log what gets written to memory and from which source turn so poisoned entries are traceable.",
+      "result": "The MemGhost attack hit an 87.5% success rate against OpenClaw on GPT-5.4 and 71.4% against the Claude Code SDK on Sonnet 4.6, and the paper found existing input-, model-, and system-level defenses ineffective against it — so treat unmitigated memory writes from external content as an open risk, not a solved one.",
+      "effort": "medium",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2607.05189v1",
+      "source_sid": "56ef11c9d3f8e424",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Attack success rates and defense-evasion results are measured in the paper's WhisperBench evaluation (108 cases, five risk categories)."
+      },
+      "published": "2026-07-06T15:08:58Z"
+    },
+    {
+      "id": "pb-memsyco-audit-memory-sycophancy",
+      "kind": "source-backed",
+      "title": "Audit whether your agent's memory recall overrides fresh evidence",
+      "area": "Memory",
+      "problem": "Memory benchmarks mostly check whether facts are stored, retrieved, or updated correctly — they don't check whether an agent blindly defers to a recalled memory over new, contradicting evidence in front of it.",
+      "apply": "Add test cases where a stored memory conflicts with current tool output or user-supplied evidence, and check whether your agent flags the conflict or silently sides with the older memory. Also test whether it can reject a memory as unreliable when it's out of scope for the current task.",
+      "result": "MemSyco-Bench's five capability checks (reject unreliable memory, respect scope, resolve conflicts, track updates, personalize appropriately) surface exactly this gap — running an equivalent check on your own agent finds sycophancy failures standard memory-correctness tests miss.",
+      "effort": "medium",
+      "source": "arxiv_llm_reliability",
+      "source_url": "http://arxiv.org/abs/2607.01071v1",
+      "source_sid": "f42a28fa00ccf0ea",
+      "evidence": {
+        "kind": "editorial-inference",
+        "note": "The paper defines and measures the benchmark categories but does not publish a specific mitigation; the recommendation to self-test is an editorial inference from its methodology."
+      },
+      "published": "2026-07-01T15:30:33Z"
+    },
+    {
+      "id": "pb-dont-trust-leaderboard-perf-benchmarks",
+      "kind": "source-backed",
+      "title": "Don't trust a single leaderboard run for coding-agent performance claims",
+      "area": "Evals",
+      "problem": "Popular performance-optimization benchmarks for coding agents (GSO, SWE-Perf, SWE-fficiency) look precise but are noisy: replaying the same reference patch on different machines only stays valid for 39/102 GSO tasks and 11/140 SWE-Perf tasks.",
+      "apply": "When you evaluate a coding agent's optimization ability, re-run the reference/baseline patch on your own hardware first to see which tasks are even stable, then score your agent only on that stable subset instead of trusting the published leaderboard number as-is.",
+      "result": "The paper found official rankings disagreed on 9 of 28 pairwise comparisons due to scoring-rule differences, and 85.3% of replay-valid tasks were already saturated by some submission — filtering to reliable tasks first avoids chasing noise instead of real gains.",
+      "effort": "medium",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2607.01211v1",
+      "source_sid": "20cd66043e9dab55",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Task validity counts and ranking-disagreement figures are measured directly in the paper's replay experiments."
+      },
+      "published": "2026-07-01T17:50:48Z"
+    },
+    {
+      "id": "pb-runtime-diagnose-bug-repro-tests",
+      "kind": "source-backed",
+      "title": "Diagnose bug-reproduction test failures at runtime, don't just gate on pass/fail",
+      "area": "Reliability",
+      "problem": "Feeding a SWE agent a single bug-reproduction test as pass/fail guidance backfires: a failing-to-failing test can actively mislead the agent, and even a valid failing-to-passing test often only covers one facet of the bug, producing partial patches.",
+      "apply": "Generate several bug-reproduction tests covering different facets of the issue, execute and debug each one to build a runtime diagnosis (not just a pass/fail signal), and feed that diagnosis plus localization info into patch generation instead of gating on a single test's result.",
+      "result": "SWE-Doctor reached a 75.7% resolution rate on SWE-bench Verified and 59.4% on SWE-bench Pro, an 8.0-8.9 percentage-point improvement over baseline agents across five different model backends.",
+      "effort": "high",
+      "source": "arxiv_cs_ai",
+      "source_url": "http://arxiv.org/abs/2607.00990v1",
+      "source_sid": "b6de7c8426214289",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Resolution rates and the percentage-point improvement over baselines are reported directly in the paper's benchmark results."
+      },
+      "published": "2026-07-01T14:27:12Z"
+    },
+    {
+      "id": "pb-vllm-hpc-ops-hunyuan-kernels",
+      "kind": "source-backed",
+      "title": "Swap in load-balanced attention and fused FP8 MoE kernels for mixed-length decode",
+      "area": "Cost & latency",
+      "problem": "Static split-KV attention scheduling and generic MoE kernels waste GPU cycles on the skewed, mixed-length request batches typical of production agent serving, inflating time-to-first-token and per-token latency.",
+      "apply": "On vLLM serving Tencent Hunyuan Hy3 on Hopper GPUs, switch to the HPC-Ops backends: `vllm serve tencent/Hy3-FP8 --tensor-parallel-size 8 --attention-backend HPC_ATTN --kv-cache-dtype fp8_e4m3 --block-size 64 --moe-backend hpc`.",
+      "result": "On skewed mixed-length decode batches the load-balanced attention backend hit up to 2.95x over static split-KV scheduling, the fused FP8 MoE pipeline was up to 1.59x faster at TP8/EP1, and end-to-end on 8x H20 GPUs TTFT dropped ~24% and TPOT improved ~17-30%.",
+      "effort": "low",
+      "source": "vllm_blog",
+      "source_url": "https://vllm.ai/blog/2026-07-06-vllm-hpc-ops",
+      "source_sid": "7b0c24a5e0c92a10",
+      "evidence": {
+        "kind": "source-measured",
+        "note": "Latency and throughput multipliers are the vendor's own benchmark numbers from the vLLM blog post."
+      },
+      "published": "2026-07-06T00:00:00Z"
+    },
+    {
+      "id": "pb-git-worktree-isolate-parallel-coding-agents",
+      "kind": "source-backed",
+      "title": "Isolate parallel coding agents at the Git and filesystem layer, not by convention",
+      "area": "Orchestration",
+      "problem": "Running two coding agents (e.g. Claude and Codex) on the same task usually means cleaning up conflicting edits afterward, because both touch the same branch and working tree.",
+      "apply": "Give each agent its own branch namespace (e.g. `refs/h5i/env/<agent>`) and a confined filesystem workspace that can't reach a sibling agent's tree or your main checkout. After both submit, replay each candidate independently in a fresh sandbox, run tests, and only merge the one that passes.",
+      "result": "The author reports that structural isolation plus a neutral verifier gate makes running two coding agents side by side a safe default instead of a manual conflict-resolution chore, since the merge decision is based on demonstrated test-passing rather than which agent finished first.",
+      "effort": "medium",
+      "source": "hackernews_ai",
+      "source_url": "https://medium.com/@Koukyosyumei/a-conflict-free-multi-agent-ensemble-for-claude-and-codex-0ded61c5a35e",
+      "source_sid": "11989be201950b67",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "The author reports this as their own workflow's outcome, not an independently measured benchmark."
+      },
+      "published": "2026-07-04T03:18:25Z"
+    },
+    {
+      "id": "pb-tag-traces-catch-agent-issues-pre-customer",
+      "kind": "source-backed",
+      "title": "Tag every agent trace with user/conversation/org to catch failures before customers do",
+      "area": "Evals",
+      "problem": "Without structured tracing, teams only learn an agent misbehaved after a customer complains, and diagnosing what actually happened means guessing from the final output.",
+      "apply": "Wire LangSmith (or equivalent) tracing into your agent SDK and tag every trace with username, conversation ID, and org, then use thread-level views to check whether multi-turn conversations actually resolve, not just whether each turn produced an output.",
+      "result": "Pendo reported catching 60% of AI problems via traces before customers reported them, a 25% time savings on evaluating new use cases, and 90%+ success on PM-reviewed evals after shipping the setup.",
+      "effort": "low",
+      "source": "langchain_blog",
+      "source_url": "https://www.langchain.com/blog/how-pendo-used-langsmith-to-trace-novus-from-user-behavior-to-code-fixes",
+      "source_sid": "20ef04d4cce6eb8c",
+      "evidence": {
+        "kind": "source-claimed",
+        "note": "Pendo reports these figures as its own measured results in the LangChain-published case study."
+      },
+      "published": "2026-07-01T15:00:00Z"
+    }
+  ]
+}
