@@ -1,6 +1,9 @@
 name: I18n Static Page Translation
 
 on:
+  schedule:
+    # Run daily at 23:30 UTC
+    - cron: '30 23 * * *'
   workflow_dispatch:
     inputs:
       locale:
@@ -60,9 +63,9 @@ jobs:
         env:
           GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
           INPUT_SURFACE: ${{ inputs.surface }}
-          INPUT_DAYS: ${{ inputs.days }}
-          INPUT_LOCALE: ${{ inputs.locale }}
-          INPUT_LIMIT: ${{ inputs.limit }}
+          INPUT_DAYS: ${{ inputs.days || '2' }}
+          INPUT_LOCALE: ${{ inputs.locale || 'ko' }}
+          INPUT_LIMIT: ${{ inputs.limit || '10' }}
         run: |
           SURFACE_ARG=""
           if [ -n "$INPUT_SURFACE" ]; then
@@ -84,7 +87,7 @@ jobs:
 
       - name: Commit and push
         env:
-          INPUT_LOCALE: ${{ inputs.locale }}
+          INPUT_LOCALE: ${{ inputs.locale || 'ko' }}
         run: |
           git add data/i18n/ web/
           if git diff --cached --quiet; then
