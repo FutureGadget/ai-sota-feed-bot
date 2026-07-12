@@ -24,7 +24,9 @@ identified by the ranking pipeline's deterministic item type; a stale or
 heuristic `llm_category` must not keep an inferred release in Brief. Strong
 release markers are structural and opening-scoped (for example, a cleaned
 summary beginning with `Release:` or `Release notes:`). An incidental mention
-of a release later in an analysis article does not change its type.
+of a release later in an analysis article does not change its type. The feed
+API applies the same opening-marker check to durable historical items so older
+`news`/`platform` records move from Brief to Releases without rewriting history.
 
 ## Feed aging
 
