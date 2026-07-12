@@ -18,9 +18,10 @@ const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 // GET /api/playbook?list=1          -> index of available editions
 // GET /api/playbook?sources=1       -> source-sid lookup for recap overlays
 // GET /api/playbook?locale=ko       -> query localized content
-export default function handler(req, res) {
+export function GET(request) {
   try {
-    const locale = String(req.query?.locale || '').trim();
+    const url = new URL(request.url);
+    const locale = String(url.searchParams.get('locale') || '').trim();
     const playbookDir = locale === 'ko'
       ? path.join(process.cwd(), 'data', 'i18n', 'ko', 'playbook')
       : PLAYBOOK_DIR;
@@ -33,31 +34,31 @@ export default function handler(req, res) {
       return readJsonSafe(path.join(PLAYBOOK_DIR, filename), fallbackVal);
     }
 
-    if (req.query?.sources) {
+    if (url.searchParams.get('sources')) {
       const sources = readJsonWithFallback('source-index.json', {});
-      return res.status(200).json(
+      return Response.json(
         sources && typeof sources === 'object' && !Array.isArray(sources) ? sources : {}
       );
     }
-    if (req.query?.list) {
+    if (url.searchParams.get('list')) {
       const index = readJsonWithFallback('index.json', []);
-      return res.status(200).json({ editions: Array.isArray(index) ? index : [] });
+      return Response.json({ editions: Array.isArray(index) ? index : [] });
     }
 
-    const date = String(req.query?.date || '').trim();
+    const date = String(url.searchParams.get('date') || '').trim();
     if (date) {
       if (!DATE_ID_RE.test(date)) {
-        return res.status(400).json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' });
+        return Response.json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' }, { status: 400 });
       }
       const edition = readJsonWithFallback(`${date}.json`, null);
-      if (!edition) return res.status(404).json({ error: 'date_not_found', date });
-      return res.status(200).json(edition);
+      if (!edition) return Response.json({ error: 'date_not_found', date }, { status: 404 });
+      return Response.json(edition);
     }
 
     const latest = readJsonWithFallback('latest.json', null);
-    if (!latest) return res.status(404).json({ error: 'no_editions_yet' });
-    return res.status(200).json(latest);
+    if (!latest) return Response.json({ error: 'no_editions_yet' }, { status: 404 });
+    return Response.json(latest);
   } catch (e) {
-    return res.status(500).json({ error: 'playbook_read_failed', detail: String(e) });
+    return Response.json({ error: 'playbook_read_failed', detail: String(e) }, { status: 500 });
   }
 }

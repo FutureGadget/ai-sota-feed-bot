@@ -198,25 +198,30 @@ function overlayLocalizedFeed(body, locale) {
   };
 }
 
-function maybeLocalized(body, req, res) {
-  const locale = String(req.query?.locale || '').trim().toLowerCase();
-  const localizedSnapshot = String(req.query?.localized_snapshot || '').trim().toLowerCase();
-  if (locale !== 'ko' || localizedSnapshot !== 'latest') return body;
-  if (typeof res?.setHeader === 'function') {
-    res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=300');
-  }
+function maybeLocalized(body, searchParams) {
+  const locale = String(searchParams.get('locale') || '').trim().toLowerCase();
+  const localizedSnapshot = String(searchParams.get('localized_snapshot') || '').trim().toLowerCase();
+  if (locale !== 'ko' || localizedSnapshot !== 'latest') return { body, cacheControl: null };
+
+  const cacheControl = 's-maxage=300, stale-while-revalidate=300';
   if (['0', 'false', 'no', 'off'].includes(String(process.env.LOCALIZED_FEED_ENABLED || '1').trim().toLowerCase())) {
     return {
-      ...body,
-      locale,
-      mode: 'localized_snapshot',
-      status: 'disabled',
-      is_current: false,
-      is_complete: false,
-      items: [],
+      body: {
+        ...body,
+        locale,
+        mode: 'localized_snapshot',
+        status: 'disabled',
+        is_current: false,
+        is_complete: false,
+        items: [],
+      },
+      cacheControl
     };
   }
-  return overlayLocalizedFeed(body, locale);
+  return {
+    body: overlayLocalizedFeed(body, locale),
+    cacheControl
+  };
 }
 
 function readTier1Latest() {
@@ -447,10 +452,14 @@ function labelsFromItem(it) {
   return [...labels];
 }
 
-function parseLabelFilters(query) {
-  const raw = query?.label ?? query?.labels ?? '';
-  const arr = Array.isArray(raw) ? raw : String(raw).split(',');
-  return [...new Set(arr.map((s) => String(s || '').trim().toLowerCase()).filter(Boolean))];
+function parseLabelFilters(searchParams) {
+  const vals = [];
+  for (const key of ['label', 'labels']) {
+    for (const val of searchParams.getAll(key)) {
+      if (val) vals.push(...val.split(','));
+    }
+  }
+  return [...new Set(vals.map((s) => String(s || '').trim().toLowerCase()).filter(Boolean))];
 }
 
 function isReleaseItem(it) {
@@ -547,29 +556,33 @@ function accumulateItems(runs) {
   });
 }
 
-export default async function handler(req, res) {
+export async function GET(request) {
   try {
-    const fromBound = parseTimezoneAwareBound(req.query?.from);
-    const toBound = parseTimezoneAwareBound(req.query?.to);
+    const url = new URL(request.url);
+    const fromBound = parseTimezoneAwareBound(url.searchParams.get('from'));
+    const toBound = parseTimezoneAwareBound(url.searchParams.get('to'));
     if (fromBound.error || toBound.error) {
       const field = fromBound.error ? 'from' : 'to';
-      return res.status(400).json({
-        error: fromBound.error || toBound.error,
-        field,
-        message: `${field} must be a valid ISO timestamp with Z or an explicit UTC offset`,
-      });
+      return Response.json(
+        {
+          error: fromBound.error || toBound.error,
+          field,
+          message: `${field} must be a valid ISO timestamp with Z or an explicit UTC offset`,
+        },
+        { status: 400 }
+      );
     }
     const from = fromBound.value;
     const to = toBound.value;
-    const limit = Math.max(1, Math.min(500, Number.parseInt(String(req.query?.limit || '200'), 10) || 200));
-    const selectedLabels = parseLabelFilters(req.query);
-    const blendTier1 = String(req.query?.blend_tier1 ?? '1') !== '0';
-    const tier1FreshCap = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_fresh_cap || process.env.TIER1_FRESH_CAP || '4'), 10) || 4));
-    const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(req.query?.tier1_insert_after || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
-    const tier1MinQuickScore = Number.parseFloat(String(req.query?.tier1_min_quick_score || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
-    const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(req.query?.tier1_max_per_source || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
-    const tier1PriorityMin = Math.max(0, Math.min(4, Number.parseInt(String(req.query?.tier1_priority_min || process.env.TIER1_PRIORITY_MIN || '1'), 10) || 1));
-    const tier1PrioritySources = String(req.query?.tier1_priority_sources || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_newsroom,anthropic_engineering,anthropic_research,claude_blog')
+    const limit = Math.max(1, Math.min(500, Number.parseInt(String(url.searchParams.get('limit') || '200'), 10) || 200));
+    const selectedLabels = parseLabelFilters(url.searchParams);
+    const blendTier1 = String(url.searchParams.get('blend_tier1') ?? '1') !== '0';
+    const tier1FreshCap = Math.max(0, Math.min(20, Number.parseInt(String(url.searchParams.get('tier1_fresh_cap') || process.env.TIER1_FRESH_CAP || '4'), 10) || 4));
+    const tier1InsertAfter = Math.max(0, Math.min(20, Number.parseInt(String(url.searchParams.get('tier1_insert_after') || process.env.TIER1_INSERT_AFTER || '3'), 10) || 3));
+    const tier1MinQuickScore = Number.parseFloat(String(url.searchParams.get('tier1_min_quick_score') || process.env.TIER1_MIN_QUICK_SCORE || '2.6')) || 2.6;
+    const tier1MaxPerSource = Math.max(1, Math.min(3, Number.parseInt(String(url.searchParams.get('tier1_max_per_source') || process.env.TIER1_MAX_PER_SOURCE || '1'), 10) || 1));
+    const tier1PriorityMin = Math.max(0, Math.min(4, Number.parseInt(String(url.searchParams.get('tier1_priority_min') || process.env.TIER1_PRIORITY_MIN || '1'), 10) || 1));
+    const tier1PrioritySources = String(url.searchParams.get('tier1_priority_sources') || process.env.TIER1_PRIORITY_SOURCES || 'openai_blog,anthropic_newsroom,anthropic_engineering,anthropic_research,claude_blog')
       .split(',')
       .map((s) => String(s || '').trim())
       .filter(Boolean);
@@ -595,7 +608,10 @@ export default async function handler(req, res) {
         available_labels: availableLabels,
         reader_tuning: readerTuningSummary(readerTuning),
       };
-      return res.status(200).json(maybeLocalized(body, req, res));
+      const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
+      const headers = {};
+      if (cacheControl) headers['Cache-Control'] = cacheControl;
+      return Response.json(localizedBody, { status: 200, headers });
     }
 
     const filteredRuns = filterRunsByDate(runs, from, to);
@@ -614,8 +630,8 @@ export default async function handler(req, res) {
     // still applies the requested window to what's actually displayed.
     const baseItems = accumulateItems(runs);
     const deepRunAt = filteredRuns?.[0]?.run_at || null;
-    const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(req.query?.tier1_lookback_hours || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
-    const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(req.query?.tier1_max_runs || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
+    const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(url.searchParams.get('tier1_lookback_hours') || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
+    const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(url.searchParams.get('tier1_max_runs') || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
     const tier1Latest = blendTier1 ? readTier1Recent({ lookbackHours: tier1LookbackHours, maxRuns: tier1MaxRuns }) : [];
     const merged = blendTier1
       ? mergeTier1Fresh(baseItems, tier1Latest, deepRunAt, {
@@ -661,8 +677,11 @@ export default async function handler(req, res) {
         },
       },
     };
-    return res.status(200).json(maybeLocalized(body, req, res));
+    const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
+    const headers = {};
+    if (cacheControl) headers['Cache-Control'] = cacheControl;
+    return Response.json(localizedBody, { status: 200, headers });
   } catch (e) {
-    res.status(500).json({ error: 'feed_read_failed', detail: String(e) });
+    return Response.json({ error: 'feed_read_failed', detail: String(e) }, { status: 500 });
   }
 }

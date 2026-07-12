@@ -139,28 +139,34 @@ function sharePage({ title, description, canonical, redirect, sourceUrl, sourceN
 `;
 }
 
-export default async function handler(req, res) {
+export async function GET(request) {
   try {
-    const targetUrl = parseTargetUrl(req.query?.u);
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    const url = new URL(request.url);
+    const targetUrl = parseTargetUrl(url.searchParams.get('u'));
 
     if (!targetUrl) {
-      res.status(200).send(
+      return new Response(
         sharePage({
           title: `${SITE_NAME} — AI news feed for platform and agent engineers`,
           description: 'A low-hype AI news feed: model releases, research, and tooling — ranked for what changed and why it matters.',
           canonical: `${SITE_BASE_URL}/`,
           redirect: '/?utm_source=share&utm_medium=social',
-        })
+        }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        }
       );
-      return;
     }
 
     const sid = storySid(targetUrl);
     if (storyPageExists(sid)) {
-      res.status(302).setHeader('Location', `/story/${sid}?utm_source=share&utm_medium=social`);
-      res.end();
-      return;
+      return new Response(null, {
+        status: 302,
+        headers: {
+          'Location': `/story/${sid}?utm_source=share&utm_medium=social`
+        }
+      });
     }
 
     const item = findItemByUrl(targetUrl);
@@ -169,18 +175,21 @@ export default async function handler(req, res) {
 
     if (!item) {
       // Aged out of feed retention: generic card, still land on our feed.
-      res.status(200).send(
+      return new Response(
         sharePage({
           title: `${SITE_NAME} — AI news feed for platform and agent engineers`,
           description: 'This story is no longer in the live feed, but the latest AI news is one tap away.',
           canonical,
           redirect,
-        })
+        }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'text/html; charset=utf-8' }
+        }
       );
-      return;
     }
 
-    res.status(200).send(
+    return new Response(
       sharePage({
         title: String(item.title || 'AI news'),
         description: String(item.summary_1line || item.why_it_matters || '').slice(0, 250),
@@ -188,9 +197,13 @@ export default async function handler(req, res) {
         redirect,
         sourceUrl: targetUrl,
         sourceName: String(item.source || ''),
-      })
+      }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      }
     );
   } catch (e) {
-    res.status(500).json({ error: 'share_failed', detail: String(e) });
+    return Response.json({ error: 'share_failed', detail: String(e) }, { status: 500 });
   }
 }

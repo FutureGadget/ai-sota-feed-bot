@@ -1,8 +1,4 @@
-export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
-    return res.status(405).json({ error: 'method_not_allowed' });
-  }
+export async function GET(request) {
 
   const defaultPostHogKey = 'phc_frYL2od402eAmmxvKFZXbb4pbLNCZpI82mPW9VVAOHu';
   const key = String(process.env.POSTHOG_PROJECT_API_KEY || defaultPostHogKey).trim();
@@ -23,7 +19,7 @@ export default async function handler(req, res) {
   // (a segment id is a send-time concern). Enabled when the key is present.
   const emailSubscribeEnabled = !!String(process.env.EMAIL_API_KEY || '').trim();
 
-  return res.status(200).json({
+  return Response.json({
     posthog: {
       enabled,
       host,
