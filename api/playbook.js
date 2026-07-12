@@ -17,16 +17,30 @@ const DATE_ID_RE = /^\d{4}-\d{2}-\d{2}$/;
 // GET /api/playbook?date=2026-06-21 -> a specific edition
 // GET /api/playbook?list=1          -> index of available editions
 // GET /api/playbook?sources=1       -> source-sid lookup for recap overlays
+// GET /api/playbook?locale=ko       -> query localized content
 export default function handler(req, res) {
   try {
+    const locale = String(req.query?.locale || '').trim();
+    const playbookDir = locale === 'ko'
+      ? path.join(process.cwd(), 'data', 'i18n', 'ko', 'playbook')
+      : PLAYBOOK_DIR;
+
+    function readJsonWithFallback(filename, fallbackVal) {
+      const primaryPath = path.join(playbookDir, filename);
+      if (fs.existsSync(primaryPath)) {
+        return readJsonSafe(primaryPath, fallbackVal);
+      }
+      return readJsonSafe(path.join(PLAYBOOK_DIR, filename), fallbackVal);
+    }
+
     if (req.query?.sources) {
-      const sources = readJsonSafe(path.join(PLAYBOOK_DIR, 'source-index.json'), {});
+      const sources = readJsonWithFallback('source-index.json', {});
       return res.status(200).json(
         sources && typeof sources === 'object' && !Array.isArray(sources) ? sources : {}
       );
     }
     if (req.query?.list) {
-      const index = readJsonSafe(path.join(PLAYBOOK_DIR, 'index.json'), []);
+      const index = readJsonWithFallback('index.json', []);
       return res.status(200).json({ editions: Array.isArray(index) ? index : [] });
     }
 
@@ -35,12 +49,12 @@ export default function handler(req, res) {
       if (!DATE_ID_RE.test(date)) {
         return res.status(400).json({ error: 'invalid_date', detail: 'expected format YYYY-MM-DD' });
       }
-      const edition = readJsonSafe(path.join(PLAYBOOK_DIR, `${date}.json`), null);
+      const edition = readJsonWithFallback(`${date}.json`, null);
       if (!edition) return res.status(404).json({ error: 'date_not_found', date });
       return res.status(200).json(edition);
     }
 
-    const latest = readJsonSafe(path.join(PLAYBOOK_DIR, 'latest.json'), null);
+    const latest = readJsonWithFallback('latest.json', null);
     if (!latest) return res.status(404).json({ error: 'no_editions_yet' });
     return res.status(200).json(latest);
   } catch (e) {

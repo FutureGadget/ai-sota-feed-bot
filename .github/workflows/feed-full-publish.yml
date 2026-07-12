@@ -47,6 +47,11 @@ jobs:
       - name: Run full publish
         env:
           AUTO_PUSH_RUNTIME: "1"
+          # Google Cloud Translation API key for Korean live-feed snapshots
+          # (pipeline/build_localized_feed.py). Optional: when absent the
+          # localized feed step emits localized_feed_missing_credentials
+          # and leaves the prior snapshot in place.
+          GOOGLE_TRANSLATE_API_KEY: ${{ secrets.GOOGLE_TRANSLATE_API_KEY }}
           # Server-side operational telemetry (pipeline/telemetry.py). Optional:
           # when the project write key is unset the capture calls no-op cleanly.
           POSTHOG_PROJECT_API_KEY: ${{ secrets.POSTHOG_PROJECT_API_KEY }}
