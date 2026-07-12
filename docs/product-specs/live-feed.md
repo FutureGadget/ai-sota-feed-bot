@@ -17,6 +17,15 @@ Ranking diagnostics such as `Matches feed focus:` are internal explanations,
 not reader-facing editorial “why it matters” copy. Genuine significance text
 may appear as supporting context.
 
+### Lens semantics
+
+Brief contains every eligible ranked item except release notes. Releases are
+identified by the ranking pipeline's deterministic item type; a stale or
+heuristic `llm_category` must not keep an inferred release in Brief. Strong
+release markers are structural and opening-scoped (for example, a cleaned
+summary beginning with `Release:` or `Release notes:`). An incidental mention
+of a release later in an analysis article does not change its type.
+
 ## Feed aging
 
 The default live feed can show a 7-day window without treating every eligible

@@ -64,6 +64,35 @@ class TranslationKeyAndHashTest(unittest.TestCase):
         self.assertEqual(localized._source_hash(item), localized._source_hash(changed_metadata))
         self.assertNotEqual(localized._source_hash(item), localized._source_hash(changed_text))
 
+    def test_batch_translation_preserves_identity_and_also_covered_urls(self) -> None:
+        item = _mk_item(
+            1,
+            also_covered=[
+                {"url": "https://other.example/story", "title": "Other coverage"}
+            ],
+        )
+
+        with patch(
+            "google_translate.translate_texts",
+            return_value=["한국어 제목", "한국어 요약", "한국어 이유", "다른 보도"],
+        ) as translate:
+            translated = localized._translate_items_batch([item], "ko", "test-key")
+
+        translate.assert_called_once_with(
+            [item["title"], item["summary_1line"], item["why_it_matters"], "Other coverage"],
+            "ko",
+            api_key="test-key",
+            stats=None,
+        )
+        self.assertEqual(translated[0]["translation_key"], item["url"])
+        self.assertEqual(translated[0]["id"], item["id"])
+        self.assertEqual(translated[0]["source_hash"], localized._source_hash(item))
+        self.assertEqual(translated[0]["title"], "한국어 제목")
+        self.assertEqual(
+            translated[0]["also_covered"],
+            [{"url": "https://other.example/story", "title": "다른 보도"}],
+        )
+
 
 class LedgerTest(unittest.TestCase):
     def test_month_rollover_resets_chars_used(self) -> None:

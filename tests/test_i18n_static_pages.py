@@ -26,10 +26,22 @@ class I18nStaticPagesTest(unittest.TestCase):
         cls.wiki = render.load_wiki()
         cls.foundations = render.load_foundations()
         cls.artifact_paths = sorted((ROOT / "data" / "i18n" / "ko").glob("**/*.json"))
-        cls.artifacts = [
+        cls.all_artifacts = [
             json.loads(path.read_text(encoding="utf-8"))
             for path in cls.artifact_paths
             if path.name != "manifest.json" and "feed" not in path.parts
+        ]
+        cls.i18n_pages = render.collect_i18n_pages(
+            cls.stories,
+            list(cls.storylines.values()),
+            cls.wiki,
+            cls.foundations,
+        )
+        cls.artifacts = [
+            page["artifact"]
+            for pages in cls.i18n_pages.values()
+            for page in pages
+            if page["locale"] == "ko"
         ]
 
     def test_korean_artifacts_are_fresh_for_their_sources(self) -> None:
@@ -37,8 +49,7 @@ class I18nStaticPagesTest(unittest.TestCase):
             "/daily/2026-07-04",
             "/foundations/context-compaction-safety",
             "/story/ee2eab4f35a2124a",
-            "/storyline/claude-fable",
-            "/topic/agent-cost",
+            "/topic/agent-observability",
             "/weekly/2026-W27",
         ]
         actual = [a["source_path"] for a in self.artifacts]
@@ -57,6 +68,20 @@ class I18nStaticPagesTest(unittest.TestCase):
             self.assertEqual(artifact["source_hash"], render.i18n_source_hash(source))
             self.assertEqual(artifact["locale"], "ko")
             self.assertEqual(artifact["review_status"], "machine")
+
+    def test_stale_korean_artifacts_are_not_published(self) -> None:
+        published_paths = set(self.i18n_pages)
+        for artifact in self.all_artifacts:
+            source_path = artifact["source_path"]
+            source = render.i18n_source_for_path(
+                source_path,
+                self.stories,
+                self.storylines,
+                self.wiki,
+                self.foundations,
+            )
+            if source and artifact.get("source_hash") != render.i18n_source_hash(source):
+                self.assertNotIn(source_path, published_paths)
 
     def test_korean_pages_are_rendered_with_language_and_alternates(self) -> None:
         for artifact in self.artifacts:

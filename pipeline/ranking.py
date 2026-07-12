@@ -269,6 +269,8 @@ def _infer_item_type(item: dict[str, Any], slot: str) -> str:
     src = str(item.get("source", "")).lower()
     title = str(item.get("title", "")).lower()
     url = str(item.get("url", "")).lower()
+    summary_prefix = str(item.get("summary", ""))[:2048]
+    summary = _to_clean_oneline(summary_prefix, 220).lower()
 
     if slot in {"agent_tooling_releases", "infra_runtime_releases"}:
         return "release"
@@ -278,6 +280,8 @@ def _infer_item_type(item: dict[str, Any], slot: str) -> str:
     if "release" in src or src.endswith("_releases"):
         return "release"
     if any(k in title for k in ["release", "changelog", "what's changed", "version", "sdk==", " v2.", " v1."]):
+        return "release"
+    if re.match(r"^release(?: notes)?:\s", summary):
         return "release"
     if src.startswith("arxiv_") or "arxiv.org" in url or "paperswithcode" in src:
         return "paper"
@@ -348,7 +352,9 @@ def stage_c_score_and_select(slotted: dict[str, list[dict[str, Any]]], cfg: dict
             item = dict(it)
             item["type"] = _infer_item_type(item, slot)
             item["llm_label_source"] = lb.get("__label_source", "heuristic")
-            item["llm_category"] = lb.get("category", "platform")
+            item["llm_category"] = (
+                "release" if item["type"] == "release" else lb.get("category", "platform")
+            )
             item["llm_summary_1line"] = str(lb.get("summary_1line", "")).strip()
             item["llm_why_1line"] = lb.get("why_1line", "")
             item["llm_score"] = round(llm_s, 3)
