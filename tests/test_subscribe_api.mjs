@@ -1,36 +1,20 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import handler from '../api/subscribe.js';
-
-function response() {
-  return {
-    statusCode: 200,
-    body: null,
-    headers: {},
-    setHeader(name, value) {
-      this.headers[name] = value;
-    },
-    status(code) {
-      this.statusCode = code;
-      return this;
-    },
-    json(body) {
-      this.body = body;
-      return this;
-    },
-  };
-}
+import { POST } from '../api/subscribe.js';
 
 async function invoke(body, fetchImpl) {
   const previousKey = process.env.EMAIL_API_KEY;
   const previousFetch = global.fetch;
   process.env.EMAIL_API_KEY = 'test-key';
   global.fetch = fetchImpl;
-  const res = response();
   try {
-    await handler({ method: 'POST', body }, res);
-    return res;
+    const response = await POST(new Request('https://example.com/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }));
+    return { statusCode: response.status, body: await response.json() };
   } finally {
     global.fetch = previousFetch;
     if (previousKey === undefined) delete process.env.EMAIL_API_KEY;

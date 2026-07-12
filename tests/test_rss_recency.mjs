@@ -9,19 +9,7 @@
 //   node tests/test_rss_recency.mjs
 
 import assert from 'node:assert';
-import rss from '../api/rss.js';
-
-function mockRes() {
-  return {
-    _status: 200,
-    _headers: {},
-    _body: null,
-    status(c) { this._status = c; return this; },
-    setHeader(k, v) { this._headers[k] = v; },
-    send(s) { this._body = s; return this; },
-    json(o) { this._body = o; return this; },
-  };
-}
+import { GET } from '../api/rss.js';
 
 function parseItems(xml) {
   return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => {
@@ -31,11 +19,10 @@ function parseItems(xml) {
   });
 }
 
-const res = mockRes();
-await rss({ query: {} }, res);
+const response = await GET(new Request('https://example.com/api/rss'));
 
-assert.strictEqual(res._status, 200, 'RSS handler should return 200');
-const xml = String(res._body || '');
+assert.strictEqual(response.status, 200, 'RSS handler should return 200');
+const xml = await response.text();
 assert.ok(xml.startsWith('<?xml'), 'response should be RSS XML');
 
 const items = parseItems(xml);

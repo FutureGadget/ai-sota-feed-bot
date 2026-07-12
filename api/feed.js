@@ -513,6 +513,7 @@ function labelsFromItem(it) {
   add(it?.llm_category);
   add(it?.v2_slot);
   add(it?.type);
+  if (isReleaseItem(it)) add('release');
 
   return [...labels];
 }
@@ -530,7 +531,13 @@ function parseLabelFilters(searchParams) {
 function isReleaseItem(it) {
   const cat = String(it?.llm_category || '').trim().toLowerCase();
   const type = String(it?.type || '').trim().toLowerCase();
-  return cat === 'release' || type === 'release';
+  const summaryPrefix = String(it?.summary_1line || it?.summary || '')
+    .slice(0, 2048)
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+  return cat === 'release' || type === 'release' || /^release(?: notes)?:\s/.test(summaryPrefix);
 }
 
 function applyLabelFilter(items, selectedLabels) {

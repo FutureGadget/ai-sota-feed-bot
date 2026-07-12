@@ -13,7 +13,10 @@ from pathlib import Path
 from typing import Any
 from zoneinfo import ZoneInfo
 
-import google_translate
+try:
+    from . import google_translate
+except ImportError:
+    import google_translate
 
 ROOT = Path(__file__).resolve().parent.parent
 

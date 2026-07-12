@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-import handler from '../api/feed.js';
+import { GET } from '../api/feed.js';
 
 // Regression test for a real production bug: a story ("Claude Fable 5 and
 // Claude Mythos 5") first ranked on 2026-06-15, dropped out of the ranked
@@ -15,21 +15,6 @@ import handler from '../api/feed.js';
 // three-week-old, already-seen story as "New" in the UI. first_seen must
 // always reflect the item's true earliest appearance across all history,
 // independent of the requested display window.
-
-function response() {
-  return {
-    statusCode: 200,
-    body: null,
-    status(code) {
-      this.statusCode = code;
-      return this;
-    },
-    json(body) {
-      this.body = body;
-      return this;
-    },
-  };
-}
 
 function writeRun(dir, name, runAt, items) {
   fs.writeFileSync(path.join(dir, name), JSON.stringify({ run_at: runAt, items }));
@@ -65,14 +50,14 @@ test('first_seen reflects the true earliest run, not just the requested from/to 
     fs.rmSync(tmp, { recursive: true, force: true });
   });
 
-  const res = response();
-  await handler(
-    { query: { from: '2026-06-26T00:00:00.000Z', to: '2026-07-03T23:59:59.999Z' } },
-    res,
-  );
+  const url = new URL('https://example.com/api/feed');
+  url.searchParams.set('from', '2026-06-26T00:00:00.000Z');
+  url.searchParams.set('to', '2026-07-03T23:59:59.999Z');
+  const response = await GET(new Request(url));
+  const body = await response.json();
 
-  assert.equal(res.statusCode, 200);
-  const found = res.body.items.find((it) => it.url === item.url);
+  assert.equal(response.status, 200);
+  const found = body.items.find((it) => it.url === item.url);
   assert.ok(found, 'expected the resurfaced item in the response');
   assert.equal(found.first_seen, '2026-06-15T09:01:52.000Z');
   assert.equal(found.last_seen, '2026-07-02T22:03:57.000Z');

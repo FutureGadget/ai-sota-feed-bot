@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from unittest.mock import patch
 
 from pipeline import export_i18n_candidates as export
 
@@ -17,19 +18,29 @@ class I18nCandidateExportTest(unittest.TestCase):
         self.assertEqual(payload["excluded_surfaces"][0]["surface"], "feed")
         self.assertIn("/api/feed", payload["excluded_surfaces"][0]["reason"])
 
-    def test_existing_korean_slice_is_marked_fresh_when_included(self) -> None:
-        payload = export.build_export(locale="ko", include_fresh=True, limit=None)
-        by_path = {item["source_path"]: item for item in payload["items"]}
+    def test_candidate_status_tracks_artifact_source_hash(self) -> None:
+        source = {"title": "Agent tracing", "summary": "Current source text"}
+        source_hash = export.render.i18n_source_hash(source)
 
-        for path in [
-            "/daily/2026-07-04",
-            "/weekly/2026-W27",
-            "/story/ee2eab4f35a2124a",
-            "/storyline/claude-fable",
-            "/topic/agent-cost",
-            "/foundations/context-compaction-safety",
+        for artifact, expected in [
+            (None, "missing"),
+            ({"source_hash": "old-hash"}, "stale"),
+            ({"source_hash": source_hash}, "fresh"),
         ]:
-            self.assertEqual(by_path[path]["status"], "fresh", path)
+            with self.subTest(expected=expected), patch.object(
+                export, "_load_artifact", return_value=artifact
+            ):
+                candidate = export._candidate(
+                    locale="ko",
+                    surface="story",
+                    ident="0123456789abcdef",
+                    source_path="/story/0123456789abcdef",
+                    source=source,
+                    include_source=False,
+                )
+
+            self.assertEqual(candidate["status"], expected)
+            self.assertEqual(candidate["source_hash"], source_hash)
 
     def test_default_export_omits_fresh_artifacts(self) -> None:
         payload = export.build_export(locale="ko", surfaces={"daily"}, limit=None)
