@@ -547,19 +547,31 @@
         hideNewerInEnglish();
       }
     }
+    // Renders the frozen snapshot's Korean cards as a dated edition.
+    // frozen_snapshot is the API's guarantee that items are the Korean
+    // snapshot, not live English items from an older artifact.
+    function renderFrozenList(data) {
+      const frozen = data?.frozen_snapshot === true && Array.isArray(data.items) ? data.items : [];
+      if (!frozen.length) return false;
+      document.getElementById('list').innerHTML = frozen.map(frozenCardHtml).join('') +
+        `<div class="state">${esc(formatKstDate(data.source_run_at) || '이전')} 스냅샷의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>`;
+      return true;
+    }
     function fallback(data) {
       const pausedShown = renderPausedNotice(data);
       if (pausedShown) {
         // The calm notice above the feed already explains the state; don't
-        // stack the generic stale banner underneath it. The frozen snapshot's
-        // Korean cards stay readable as a dated edition (frozen_snapshot is
-        // the API's guarantee that items are the Korean snapshot, not live
-        // English items from an older artifact).
+        // stack the generic stale banner underneath it.
         document.getElementById('meta').textContent = '';
-        const frozen = data?.frozen_snapshot === true && Array.isArray(data.items) ? data.items : [];
-        document.getElementById('list').innerHTML = frozen.length
-          ? frozen.map(frozenCardHtml).join('') + `<div class="state">${esc(formatKstDate(data.source_run_at) || '이전')} 스냅샷의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>`
-          : `<div class="state"><p>표시할 수 있는 이전 스냅샷이 없습니다.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+        if (!renderFrozenList(data)) {
+          document.getElementById('list').innerHTML = `<div class="state"><p>표시할 수 있는 이전 스냅샷이 없습니다.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+        }
+      } else if (renderFrozenList(data)) {
+        // Transient incomplete (live feed slightly ahead of the snapshot):
+        // keep the snapshot cards readable under one light meta line instead
+        // of the heavy stale banner — never an empty page while a complete
+        // snapshot exists.
+        document.getElementById('meta').textContent = '일부 최신 항목의 번역을 준비 중입니다 · 최신 전체 피드는 영어 피드에서 볼 수 있습니다.';
       } else {
         const translated = data?.translated_at ? `마지막 번역: ${esc(relTime(data.translated_at))}` : '아직 사용 가능한 한국어 snapshot이 없습니다.';
         document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';

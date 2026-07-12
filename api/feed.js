@@ -228,13 +228,22 @@ function overlayLocalizedFeed(body, locale) {
     })
     .map((item) => translationKey(item));
   if (missing.length) {
+    // The live English feed has moved past the snapshot (new/changed items
+    // not yet translated — e.g. mid-hour, a failed batch, or a budget pause
+    // blocking catch-up). Serve the last complete snapshot as frozen dated
+    // content instead of an empty list. During a budget pause, keep the
+    // paused status so the shell explains *why* catch-up is not happening.
+    const frozen = frozenLocalizedItems(latest);
+    const incompleteStatus =
+      status?.status === 'budget_paused' ? 'budget_paused' : 'incomplete';
     return {
       ...withStatus,
-      status: 'incomplete',
+      status: incompleteStatus,
       is_current: false,
       is_complete: false,
       localized_missing_count: missing.length,
-      items: [],
+      items: frozen || [],
+      ...(frozen ? { frozen_snapshot: true } : {}),
     };
   }
 
