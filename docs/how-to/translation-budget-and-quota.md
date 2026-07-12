@@ -94,7 +94,9 @@ including how a simultaneous monthly-floor pause takes precedence.
   `data/i18n/ko/feed/status.json`'s `reason`. `provider_daily_cap` means the
   console daily quota tripped (resumes at next Pacific midnight);
   `monthly_budget` means the local ledger's `remaining < 2%` floor was hit
-  (resumes first of next month UTC).
+  (resumes first of next month at Pacific midnight — Google's billing
+  boundary; the ledger month also rolls on the Pacific calendar so both
+  sides reset together).
 - **Ledger looks wrong after a manual run or an outage** → run the backfill
   script (step 2) to cross-check `chars_used` against git history, then
   re-seed if they diverge meaningfully.

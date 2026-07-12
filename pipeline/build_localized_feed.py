@@ -144,7 +144,9 @@ def _conserve_min_age_hours() -> float:
         return DEFAULT_CONSERVE_MIN_AGE_HOURS
 
 def _current_month(now: datetime) -> str:
-    return now.strftime("%Y-%m")
+    # Google's billing/quota month rolls at Pacific midnight, not UTC; keep the
+    # ledger month on the same clock so both sides reset together.
+    return now.astimezone(PACIFIC_TZ).strftime("%Y-%m")
 
 def load_ledger(path: Path, monthly_cap: int, now: datetime) -> dict[str, Any]:
     """Load the ledger, applying month rollover if the stored month is stale."""
@@ -192,11 +194,14 @@ def _budget_block(ledger: dict[str, Any]) -> dict[str, Any]:
 # Governor: mode selection
 # ---------------------------------------------------------------------------
 
-def _next_month_utc(now: datetime) -> datetime:
-    year, month = now.year, now.month
-    if month == 12:
-        return datetime(year + 1, 1, 1, tzinfo=timezone.utc)
-    return datetime(year, month + 1, 1, tzinfo=timezone.utc)
+def _next_month_start(now: datetime) -> datetime:
+    """First of next month at Pacific midnight (Google's billing boundary), in UTC."""
+    local = now.astimezone(PACIFIC_TZ)
+    if local.month == 12:
+        year, month = local.year + 1, 1
+    else:
+        year, month = local.year, local.month + 1
+    return datetime(year, month, 1, tzinfo=PACIFIC_TZ).astimezone(timezone.utc)
 
 def _next_pacific_midnight(now: datetime) -> datetime:
     now_pt = now.astimezone(PACIFIC_TZ)
@@ -220,7 +225,7 @@ def select_mode(
     remaining_fraction = (monthly_cap - chars_used) / monthly_cap
 
     if remaining_fraction < PAUSE_FLOOR_FRACTION:
-        return "paused", "monthly_budget", _next_month_utc(now).isoformat()
+        return "paused", "monthly_budget", _next_month_start(now).isoformat()
 
     prev_status = prev_status or {}
     prev_resumes_at = _parse_iso(prev_status.get("resumes_at"))
@@ -232,8 +237,9 @@ def select_mode(
     ):
         return "paused", "provider_daily_cap", prev_status.get("resumes_at")
 
-    days_in_month = monthrange(now.year, now.month)[1]
-    month_fraction_elapsed = now.day / days_in_month
+    local = now.astimezone(PACIFIC_TZ)
+    days_in_month = monthrange(local.year, local.month)[1]
+    month_fraction_elapsed = local.day / days_in_month
     budget_fraction_used = chars_used / monthly_cap
 
     if budget_fraction_used > month_fraction_elapsed + ECONOMY_OVER_PACE:
@@ -539,7 +545,7 @@ def main():
             remaining_fraction = (monthly_cap_val - chars_used_val) / monthly_cap_val
             if remaining_fraction < PAUSE_FLOOR_FRACTION:
                 pause_reason = "monthly_budget"
-                pause_resumes_at = _next_month_utc(now).isoformat()
+                pause_resumes_at = _next_month_start(now).isoformat()
             else:
                 pause_reason = "provider_daily_cap"
                 pause_resumes_at = _next_pacific_midnight(now).isoformat()

@@ -84,6 +84,23 @@ class LedgerTest(unittest.TestCase):
             # History is an audit aid and survives rollover.
             self.assertEqual(len(ledger["history"]), 1)
 
+    def test_month_rollover_uses_pacific_boundary_not_utc(self) -> None:
+        with TemporaryDirectory() as tmp:
+            path = Path(tmp) / "budget.json"
+            july = {"month": "2026-07", "chars_used": 400_000, "monthly_cap": 500_000, "history": []}
+
+            # Aug 1 05:00 UTC is still Jul 31 22:00 PDT — no rollover yet.
+            path.write_text(json.dumps(july), encoding="utf-8")
+            before = localized.load_ledger(path, 500_000, datetime(2026, 8, 1, 5, 0, tzinfo=timezone.utc))
+            self.assertEqual(before["month"], "2026-07")
+            self.assertEqual(before["chars_used"], 400_000)
+
+            # Aug 1 09:00 UTC is Aug 1 02:00 PDT — Google's month has rolled, so ours does too.
+            path.write_text(json.dumps(july), encoding="utf-8")
+            after = localized.load_ledger(path, 500_000, datetime(2026, 8, 1, 9, 0, tzinfo=timezone.utc))
+            self.assertEqual(after["month"], "2026-08")
+            self.assertEqual(after["chars_used"], 0)
+
     def test_load_ledger_missing_file_starts_fresh(self) -> None:
         with TemporaryDirectory() as tmp:
             path = Path(tmp) / "budget.json"
@@ -203,7 +220,7 @@ class GovernorModeTableTest(unittest.TestCase):
 
     def test_normal_when_on_pace(self) -> None:
         # Day 10 of 31 => ~32% elapsed; spend well under pace.
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=100_000, monthly_cap=1_000_000)  # 10% used
         mode, reason, resumes_at = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "normal")
@@ -213,13 +230,13 @@ class GovernorModeTableTest(unittest.TestCase):
     # both 10/31 and 10/31+0.15 land on exact integer char counts, avoiding
     # float-rounding noise right at the boundary.
     def test_conserve_boundary_exactly_at_pro_rata_is_normal(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)  # day 10, 31-day month
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10  # day 10, 31-day month
         ledger = self._ledger(chars_used=200_000, monthly_cap=620_000)  # exactly 10/31
         mode, _, _ = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "normal")
 
     def test_conserve_just_above_pro_rata(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=200_001, monthly_cap=620_000)
         mode, _, _ = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "conserve")
@@ -228,27 +245,28 @@ class GovernorModeTableTest(unittest.TestCase):
         # 293_000 is exactly 10/31 + 0.15 of 620_000 in real-number terms, but
         # float division of the two sides can land a hair on either side of
         # that value — so assert just-at-or-under, not bit-exact equality.
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=292_999, monthly_cap=620_000)
         mode, _, _ = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "conserve")
 
     def test_economy_just_above_plus_15(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=293_001, monthly_cap=620_000)
         mode, _, _ = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "economy")
 
     def test_paused_below_2pct_floor(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=981_000, monthly_cap=1_000_000)  # 1.9% remaining
         mode, reason, resumes_at = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "paused")
         self.assertEqual(reason, "monthly_budget")
-        self.assertEqual(resumes_at, "2026-08-01T00:00:00+00:00")
+        # Pacific midnight Aug 1 (PDT, UTC-7) — Google's billing boundary.
+        self.assertEqual(resumes_at, "2026-08-01T07:00:00+00:00")
 
     def test_not_paused_at_exactly_2pct_remaining(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=980_000, monthly_cap=1_000_000)  # exactly 2% remaining
         mode, _, _ = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertNotEqual(mode, "paused")
@@ -258,10 +276,11 @@ class GovernorModeTableTest(unittest.TestCase):
         ledger = self._ledger(chars_used=990_000, monthly_cap=1_000_000)
         mode, reason, resumes_at = localized.select_mode(ledger, now, {}, True, 6.0)
         self.assertEqual(mode, "paused")
-        self.assertEqual(resumes_at, "2027-01-01T00:00:00+00:00")
+        # Pacific midnight Jan 1 (PST, UTC-8).
+        self.assertEqual(resumes_at, "2027-01-01T08:00:00+00:00")
 
     def test_kill_switch_forces_normal_even_when_paused_conditions_hold(self) -> None:
-        now = datetime(2026, 7, 10, tzinfo=timezone.utc)
+        now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)  # 13:00 PDT, Pacific day 10
         ledger = self._ledger(chars_used=999_000, monthly_cap=1_000_000)  # would be paused
         mode, reason, resumes_at = localized.select_mode(ledger, now, {}, False, 6.0)
         self.assertEqual(mode, "normal")

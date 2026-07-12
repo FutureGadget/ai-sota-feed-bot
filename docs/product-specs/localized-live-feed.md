@@ -433,7 +433,10 @@ failure, with one of two resume flavors:
   `resumes_at` is next midnight **US/Pacific** (Google's daily quota reset),
   `reason: "provider_daily_cap"`.
 - Ledger **monthly** budget floor →
-  `resumes_at` is the first of next month UTC, `reason: "monthly_budget"`.
+  `resumes_at` is the first of next month at Pacific midnight (Google's
+  billing boundary, expressed in UTC), `reason: "monthly_budget"`. The
+  ledger month itself also rolls on the Pacific calendar so both sides
+  reset together.
 
 When both apply, the monthly reason wins — it is the later, truer date.
 `budget_paused` never fakes currency: once the frozen snapshot's

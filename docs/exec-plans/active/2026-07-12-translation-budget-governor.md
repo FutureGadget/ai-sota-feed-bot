@@ -103,7 +103,9 @@ Shape:
 
 Rules:
 
-- **Month rollover:** if `month` != current UTC month, reset `chars_used` to 0
+- **Month rollover:** if `month` != current **Pacific** month (aligned to
+  Google's billing boundary; resolved during implementation, was UTC in the
+  original plan), reset `chars_used` to 0
   and stamp the new month before metering. After the first full month the
   ledger is exact from day one.
 - **Seeding (one-off, this month only):** add a builder flag
@@ -178,7 +180,8 @@ Notes:
      `resumes_at` = next midnight **US/Pacific** (Google daily quota reset),
      `reason: "provider_daily_cap"`.
    - ledger says the **monthly** budget floor is hit →
-     `resumes_at` = first of next month UTC, `reason: "monthly_budget"`.
+     `resumes_at` = first of next month at Pacific midnight,
+     `reason: "monthly_budget"`.
    When both apply, the monthly reason wins (it is the later, truer date).
 3. Extend `status.json` (superset of the current shape — keep every existing
    field so `api/feed.js` and tests keep working):
