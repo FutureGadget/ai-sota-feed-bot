@@ -90,16 +90,37 @@ available to each function.
   overlay, separate from static-page artifacts. For Korean v1 this is a
   complete `/ko/` snapshot of the default Brief feed, up to 20 eligible cards,
   with `{locale, surface, source_run_at, translated_at, expires_at, selector,
-  source_item_count, translated_item_count, is_complete, items[]}`. `items[]`
-  stores only translated display fields keyed by normalized source URL while
-  `/api/feed` preserves English item IDs, URLs, dates, scores, labels, and
-  story metadata.
+  source_item_count, translated_item_count, is_complete, target_keys[],
+  items[]}`. `items[]` stores translated display fields keyed by normalized
+  source URL while `/api/feed` preserves English item IDs, URLs, dates,
+  scores, labels, and story metadata. `target_keys[]` (build-time ranked
+  top-N order) plus per-item `source_meta {url, source, published, type}`
+  let `/api/feed` serve the frozen snapshot as dated Korean cards
+  (`frozen_snapshot: true`) when the snapshot is paused/stale; neither field
+  is covered by `source_hash`.
 - `data/i18n/<locale>/feed/status.json` — durable localized-feed build status
-  for missing, stale, incomplete, disabled, or current snapshots. Includes
-  `{locale, surface, status, reason, source_run_at, translated_at, expires_at,
-  eligible_count, translated_count, missing_count}`. `pipeline/render_static_pages.py`
-  ignores `data/i18n/<locale>/feed/**`; Vercel bundles only `latest.json` and
-  `status.json` for `api/feed.js`.
+  for missing, stale, incomplete, disabled, current, or `budget_paused`
+  snapshots. Includes `{locale, surface, status, reason, resumes_at, mode,
+  budget: {chars_used, monthly_cap, month}, source_run_at, translated_at,
+  expires_at, eligible_count, translated_count, missing_count}`. `mode`
+  (`normal`|`conserve`|`economy`|`paused`) and `budget` are written on every
+  run, not only `budget_paused`, so ops can watch the governor ladder.
+  `pipeline/render_static_pages.py` ignores `data/i18n/<locale>/feed/**`;
+  Vercel bundles only `latest.json` and `status.json` for `api/feed.js`.
+- `data/i18n/<locale>/feed/budget.json` — **pipeline-only** local character
+  ledger backing the translation budget governor; never added to
+  `vercel.json` `includeFiles` (everything `api/feed.js` and `/ko/` need
+  travels through `status.json` instead). Shape:
+  `{month: "YYYY-MM", chars_used, monthly_cap, updated_at, seeded_from,
+  history: [{at, chars, run}]}`. `chars_used` resets to 0 on UTC month
+  rollover; `monthly_cap` defaults from env `GOOGLE_TRANSLATE_MONTHLY_CHAR_CAP`
+  and is recorded on the ledger so status can report the cap in effect;
+  `seeded_from` records the one-off `--seed-chars`/`--seed-note` provenance
+  (e.g. `"console 2026-07-12"`) when the owner seeds mid-month spend from
+  Cloud Console; `history[]` is a bounded (last 200 entries) audit trail, not
+  a source of truth. See `docs/product-specs/localized-live-feed.md`
+  ("Translation Budget Governor") and
+  `docs/how-to/translation-budget-and-quota.md`.
 
 ## Agent-engineering wiki (`data/wiki/`)
 LLM-curated obstacle→solution knowledge graph (Karpathy's LLM-wiki pattern).

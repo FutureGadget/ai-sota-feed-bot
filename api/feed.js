@@ -135,10 +135,23 @@ function localizedSnapshotIsCurrent(snapshot) {
   return now.getTime() - sourceRunAt.getTime() <= 24 * 60 * 60 * 1000;
 }
 
+// Budget-governor passthrough (translation-budget-governor plan, Phase 5):
+// status.json may now carry `status: "budget_paused"`, `reason`,
+// `resumes_at`, `mode` (governor ladder step), and `budget` (ledger
+// snapshot). These are optional, pure passthroughs — present when the
+// pipeline's governor has written them, absent otherwise (older status.json,
+// or governor never engaged).
+//
+// Note: status.json's `mode` field names the governor step (normal/conserve/
+// economy/paused). It is intentionally NOT written to the response's
+// top-level `mode` key, which is an established, tested API contract field
+// meaning the response shape (`"localized_snapshot"`, per
+// docs/product-specs/localized-live-feed.md). The governor step is exposed
+// as `governor_mode` instead so both fields coexist without collision.
 function localizedStatusBody(body, locale, snapshot, statusPayload) {
   const current = localizedSnapshotIsCurrent(snapshot);
   const status = current ? 'current' : String(statusPayload?.status || 'missing');
-  return {
+  const result = {
     ...body,
     locale,
     mode: 'localized_snapshot',
@@ -149,12 +162,55 @@ function localizedStatusBody(body, locale, snapshot, statusPayload) {
     translated_at: snapshot?.translated_at || statusPayload?.translated_at || null,
     expires_at: snapshot?.expires_at || statusPayload?.expires_at || null,
   };
+  if (statusPayload?.reason != null) result.reason = statusPayload.reason;
+  if (statusPayload?.resumes_at != null) result.resumes_at = statusPayload.resumes_at;
+  if (statusPayload?.mode != null) result.governor_mode = statusPayload.mode;
+  if (statusPayload?.budget != null) result.budget = statusPayload.budget;
+  return result;
+}
+
+// Frozen-snapshot render: when the Korean snapshot is no longer current
+// (budget pause or ordinary staleness), serve the last complete snapshot's
+// own items as clearly-dated Korean content instead of live English items,
+// so the paused /ko/ page still shows articles. Requires snapshots carrying
+// target_keys + per-item source_meta (build_localized_feed.py); older
+// artifacts return null and keep the previous behavior.
+function frozenLocalizedItems(snapshot) {
+  const keys = Array.isArray(snapshot?.target_keys) ? snapshot.target_keys : [];
+  if (!keys.length) return null;
+  const byKey = new Map();
+  for (const row of Array.isArray(snapshot?.items) ? snapshot.items : []) {
+    const key = normUrl(row?.translation_key || row?.key);
+    if (key) byKey.set(key, row);
+  }
+  const items = [];
+  for (const rawKey of keys) {
+    const row = byKey.get(normUrl(rawKey));
+    if (!row || !row.source_meta) continue;
+    items.push({
+      id: row.id || null,
+      url: row.source_meta.url || row.translation_key || null,
+      source: row.source_meta.source || null,
+      published: row.source_meta.published || null,
+      type: row.source_meta.type || null,
+      title: row.title || '',
+      summary_1line: row.summary_1line || '',
+      why_it_matters: row.why_it_matters || '',
+      also_covered: Array.isArray(row.also_covered) ? row.also_covered : [],
+    });
+  }
+  return items.length ? items : null;
 }
 
 function overlayLocalizedFeed(body, locale) {
   const { latest, status } = readLocalizedFeed(locale);
   const withStatus = localizedStatusBody(body, locale, latest, status);
-  if (!withStatus.is_current || !Array.isArray(body?.items)) return withStatus;
+  if (!withStatus.is_current) {
+    const frozen = frozenLocalizedItems(latest);
+    if (frozen) return { ...withStatus, items: frozen, frozen_snapshot: true };
+    return withStatus;
+  }
+  if (!Array.isArray(body?.items)) return withStatus;
 
   const translations = new Map();
   for (const row of Array.isArray(latest?.items) ? latest.items : []) {

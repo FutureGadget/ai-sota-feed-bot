@@ -257,6 +257,69 @@
     .actions a:hover {
       text-decoration: underline;
     }
+    .edition-heading {
+      margin: 0.35rem 0 0;
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      color: var(--muted);
+    }
+    .paused-notice {
+      margin: 0 0 1.1rem;
+      padding: 0.7rem 0.9rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--warm);
+      border-radius: 4px;
+      background: var(--card);
+      color: var(--fg);
+      font-size: 0.86rem;
+      line-height: 1.55;
+    }
+    .paused-notice a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .paused-notice a:hover {
+      text-decoration: underline;
+    }
+    .newer-english {
+      margin-top: 1.6rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--border);
+    }
+    .newer-english h2 {
+      margin: 0 0 0.6rem;
+      font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--fg);
+    }
+    .newer-english ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+    .newer-english li {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+    .newer-english-note {
+      margin: 0.7rem 0 0;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+    .newer-english-note a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .newer-english-note a:hover {
+      text-decoration: underline;
+    }
 
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
@@ -301,6 +364,7 @@
         <div>
           <p class="feed-kicker">Brief · 한국어 snapshot</p>
           <h2 class="feed-title">끝이 있는 AI 브리프.</h2>
+          <p class="edition-heading" id="editionHeading" hidden></p>
         </div>
         <div>
           <p class="feed-promise"><strong>하나의 공유 랭킹.</strong> 최신 주요 뉴스를 훑어보고, 기억할 소식을 저장한 뒤, 할 일을 마치세요.</p>
@@ -308,9 +372,11 @@
         </div>
       </section>
     </header>
+    <div id="pausedNotice" class="paused-notice" hidden></div>
     <section id="list" aria-live="polite">
       <div class="state">한국어 피드를 불러오는 중입니다.</div>
     </section>
+    <section id="newerEnglish" class="newer-english" aria-label="그 이후 새로 올라온 소식 (영어)" hidden></section>
   </main>
   <script>
     function esc(v) {
@@ -336,16 +402,181 @@
       if (hours < 24) return `${hours}시간 전 업데이트`;
       return `${Math.round(hours / 24)}일 전 업데이트`;
     }
+    // translation-budget-governor plan, Phase 6.3: single obvious toggle for
+    // the "Newer in English" strip. Flip to false to ship dark without
+    // touching the render logic below.
+    const SHOW_NEWER_IN_ENGLISH_STRIP = true;
+
+    function formatKstDate(value) {
+      const t = Date.parse(value || '');
+      if (!Number.isFinite(t)) return '';
+      const kst = new Date(new Date(t).toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      return `${kst.getMonth() + 1}월 ${kst.getDate()}일`;
+    }
+
+    // reason: "provider_daily_cap" resets at the next Google daily quota
+    // window, close enough to "tomorrow" that a KST date would be
+    // over-precise; "monthly_budget" resumes on a specific future date.
+    function pausedResumeCopy(data) {
+      if (data?.reason === 'provider_daily_cap') return '내일';
+      return formatKstDate(data?.resumes_at) || null;
+    }
+
+    // Renders the calm one-line budget_paused notice above the feed.
+    // Returns true when shown, so callers know to skip the generic stale
+    // banner (the paused notice replaces it, never stacks with it).
+    function renderPausedNotice(data) {
+      const el = document.getElementById('pausedNotice');
+      const resumeCopy = data?.status === 'budget_paused' ? pausedResumeCopy(data) : null;
+      if (!resumeCopy) {
+        el.hidden = true;
+        el.innerHTML = '';
+        return false;
+      }
+      const snapshotDate = formatKstDate(data.source_run_at) || '최근';
+      // "내일" takes no particle; dates take "에" (8월 1일에 vs 내일).
+      const resumePhrase = resumeCopy === '내일' ? '내일' : `${resumeCopy}에`;
+      el.hidden = false;
+      el.innerHTML = `이번 달 번역 예산이 소진되어 ${esc(snapshotDate)} 스냅샷을 보여드리고 있습니다. 새 번역은 ${esc(resumePhrase)} 재개됩니다 · 최신 소식은 <a href="/">영어 피드</a>에서 →`;
+      return true;
+    }
+
+    // Dated-edition framing (Phase 6.2): when the page isn't current, show
+    // the snapshot as a dated edition instead of a live feed with fine-print
+    // staleness.
+    function renderEditionHeading(data) {
+      const el = document.getElementById('editionHeading');
+      const isCurrent = !!(data && data.status === 'current' && data.is_current);
+      const snapshotDate = data?.source_run_at ? formatKstDate(data.source_run_at) : '';
+      if (isCurrent || !snapshotDate) {
+        el.hidden = true;
+        el.textContent = '';
+        return;
+      }
+      el.hidden = false;
+      el.textContent = `${snapshotDate} 기준 한국어 브리핑`;
+    }
+
+    function prettifySource(slug) {
+      const s = String(slug || '').trim();
+      if (!s) return 'unknown';
+      return s.split(/[_\s]+/)
+        .filter(Boolean)
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+    }
+
+    // Simplified dated card for the frozen snapshot (paused state): same
+    // card markup/classes as the live render, minus live-only badges
+    // (Fresh/New/Climbing need live rank data a frozen snapshot doesn't have).
+    function frozenCardHtml(it, i) {
+      const rank = i + 1;
+      const source = esc(prettifySource(it.source));
+      const published = it.published ? esc(String(it.published).slice(0, 10)) : '';
+      const title = esc(it.title || 'Untitled');
+      const href = esc(it.url || '#');
+      const summary = it.summary_1line ? esc(it.summary_1line) : '';
+      const why = String(it.why_it_matters || '').trim();
+      return `
+        <article>
+          <span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>
+          <div class="card-top">
+            <div class="card-meta">
+              <span class="src">${source}</span>
+              ${published ? `<span class="when">${published}</span>` : ''}
+            </div>
+          </div>
+          <div class="card-main">
+            <div class="card-text">
+              <h3><a href="${href}" target="_blank" rel="noopener">${title}</a></h3>
+              ${summary ? `<p class="why">${summary}</p>` : ''}
+            </div>
+          </div>
+          ${why ? `<p class="matters">💡 ${esc(why)}</p>` : ''}
+        </article>`;
+    }
+
+    function hideNewerInEnglish() {
+      const el = document.getElementById('newerEnglish');
+      el.hidden = true;
+      el.innerHTML = '';
+    }
+
+    // Phase 6.3: when paused/stale, list English titles that entered the
+    // Brief top-20 after the frozen snapshot's source_run_at, as a clearly
+    // labeled separate section. Titles stay plain English text (not styled
+    // as feed cards) and the section links out to / as a whole, so this
+    // never reads as a mixed Korean/English card in the main list.
+    async function renderNewerInEnglish(data) {
+      const el = document.getElementById('newerEnglish');
+      if (!SHOW_NEWER_IN_ENGLISH_STRIP) {
+        hideNewerInEnglish();
+        return;
+      }
+      const cutoff = Date.parse(data?.source_run_at || '');
+      if (!Number.isFinite(cutoff)) {
+        hideNewerInEnglish();
+        return;
+      }
+      try {
+        const w = kstWindow(7);
+        const u = new URL('/api/feed', location.origin);
+        u.searchParams.set('label', 'brief');
+        u.searchParams.set('limit', '20');
+        u.searchParams.set('from', w.from);
+        u.searchParams.set('to', w.to);
+        const res = await fetch(u.pathname + u.search);
+        if (!res.ok) throw new Error(`feed_${res.status}`);
+        const en = await res.json();
+        const items = Array.isArray(en?.items) ? en.items : [];
+        const newer = items.filter((it) => {
+          const t = Date.parse(it?.first_seen || it?.published || '');
+          return Number.isFinite(t) && t > cutoff;
+        }).slice(0, 8);
+        if (!newer.length) {
+          hideNewerInEnglish();
+          return;
+        }
+        el.hidden = false;
+        el.innerHTML = `
+          <h2>그 이후 새로 올라온 소식 (영어)</h2>
+          <ul>${newer.map((it) => `<li>${esc(it.title || 'Untitled')}</li>`).join('')}</ul>
+          <p class="newer-english-note"><a href="/">영어 live feed에서 확인하기 →</a></p>
+        `;
+      } catch (e) {
+        hideNewerInEnglish();
+      }
+    }
     function fallback(data) {
-      const translated = data?.translated_at ? `마지막 번역: ${esc(relTime(data.translated_at))}` : '아직 사용 가능한 한국어 snapshot이 없습니다.';
-      document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';
-      document.getElementById('list').innerHTML = `<div class="state"><strong>한국어 피드가 아직 최신 상태가 아닙니다.</strong><p>${translated}</p><p>지금 최신 피드를 보려면 영어 live feed를 열어 주세요.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+      const pausedShown = renderPausedNotice(data);
+      if (pausedShown) {
+        // The calm notice above the feed already explains the state; don't
+        // stack the generic stale banner underneath it. The frozen snapshot's
+        // Korean cards stay readable as a dated edition (frozen_snapshot is
+        // the API's guarantee that items are the Korean snapshot, not live
+        // English items from an older artifact).
+        document.getElementById('meta').textContent = '';
+        const frozen = data?.frozen_snapshot === true && Array.isArray(data.items) ? data.items : [];
+        document.getElementById('list').innerHTML = frozen.length
+          ? frozen.map(frozenCardHtml).join('') + `<div class="state">${esc(formatKstDate(data.source_run_at) || '이전')} 스냅샷의 끝입니다. 최신 전체 피드는 <a href="/">영어 feed</a>에서 볼 수 있습니다.</div>`
+          : `<div class="state"><p>표시할 수 있는 이전 스냅샷이 없습니다.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+      } else {
+        const translated = data?.translated_at ? `마지막 번역: ${esc(relTime(data.translated_at))}` : '아직 사용 가능한 한국어 snapshot이 없습니다.';
+        document.getElementById('meta').textContent = '현재 한국어 피드를 준비 중입니다.';
+        document.getElementById('list').innerHTML = `<div class="state"><strong>한국어 피드가 아직 최신 상태가 아닙니다.</strong><p>${translated}</p><p>지금 최신 피드를 보려면 영어 live feed를 열어 주세요.</p><div class="actions"><a href="/">영어 live feed 보기</a></div></div>`;
+      }
+      renderEditionHeading(data);
+      renderNewerInEnglish(data);
     }
     function render(data, storylines = []) {
       if (!data || data.status !== 'current' || !data.is_current || !Array.isArray(data.items) || !data.items.length) {
         fallback(data);
         return;
       }
+
+      document.getElementById('pausedNotice').hidden = true;
+      document.getElementById('editionHeading').hidden = true;
+      hideNewerInEnglish();
 
       // Build storyline lookup map
       const storylineByUrl = new Map();
@@ -364,14 +595,6 @@
         return Number.isFinite(t) && t > visitLastMs;
       }
 
-      function prettifySource(slug) {
-        const s = String(slug || '').trim();
-        if (!s) return 'unknown';
-        return s.split(/[_\s]+/)
-          .filter(Boolean)
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join(' ');
-      }
 
       document.getElementById('meta').textContent = `${relTime(data.source_run_at)} · 번역 ${data.items.length}개`;
       document.getElementById('list').innerHTML = data.items.map((it, i) => {
@@ -456,7 +679,7 @@
       u.searchParams.set('locale', 'ko');
       u.searchParams.set('localized_snapshot', 'latest');
       u.searchParams.set('label', 'brief');
-      u.searchParams.set('limit', '10');
+      u.searchParams.set('limit', '20');
       u.searchParams.set('from', w.from);
       u.searchParams.set('to', w.to);
       const res = await fetch(u.pathname + u.search);
