@@ -22,12 +22,13 @@ For a completed ISO week `W` (Monday 00:00 UTC through the following Monday
   `W`.
 - **returning_rate** — `returning_readers / total_readers`.
 
-"Pageview" here means the standard posthog-js `$pageview` (emitted by
-`web/posthog-client.js` so PostHog Web Analytics also activates) **plus** the
-legacy custom `page_view`. The client dual-emits both names so PostHog Web
-Analytics and existing custom `page_view` insights stay live; the rollup groups
-by `(week_start, distinct_id)`, so the compatibility event does not double-count
-weekly readers.
+"Pageview" here means the standard posthog-js `$pageview`, emitted by
+`web/posthog-client.js` (this also powers PostHog Web Analytics). The rollup
+query still matches the legacy custom `page_view` as well — it was dual-emitted
+until 2026-07-13, then removed because it duplicated every `$pageview` — so
+weeks recorded before the removal still count with no gap. The rollup groups by
+`(week_start, distinct_id)`, so the overlap during the dual-emission window did
+not double-count weekly readers.
 
 The identity used is the client-side anonymous id
 (`localStorage["ai_feed_anon_user_id"]`, created by `web/posthog-client.js`),

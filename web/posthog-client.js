@@ -101,17 +101,6 @@
     schedule();
   }
 
-  function captureLegacyPageView(sdk) {
-    try {
-      sdk.capture('page_view', {
-        path: window.location.pathname,
-        referrer: document.referrer || null,
-      });
-    } catch (e) {
-      console.debug('posthog_legacy_page_view_failed', e);
-    }
-  }
-
   function installPostHogSnippet() {
     !(function (t, e) {
       var o, n, p, r;
@@ -189,8 +178,9 @@
         person_profiles: 'identified_only',
         autocapture: false,
         // Emit the standard `$pageview` (SPA-aware) so PostHog Web Analytics
-        // counts visitors/sessions/pages. The loaded callback also emits the
-        // legacy `page_view` event so existing PostHog insights stay live.
+        // counts visitors/sessions/pages. This is the single source of pageview
+        // telemetry — the legacy custom `page_view` capture was removed because
+        // it duplicated every `$pageview` (see decision-log.md, 2026-07-13).
         capture_pageview: 'history_change',
         capture_pageleave: true,
         persistence: 'localStorage+cookie',
@@ -199,7 +189,6 @@
           sdk.identify(anon);
           window.__posthogEnabled = true;
           enabled = true;
-          captureLegacyPageView(sdk);
           startScrollDepthTracking();
           flushPending();
         },

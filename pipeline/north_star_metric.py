@@ -9,9 +9,9 @@ scoreboard until the window ends.
 Definition: for a completed ISO week W (Monday 00:00 UTC through the
 following Monday 00:00 UTC), a *returning reader* is a `distinct_id` seen in
 a pageview event during week W that was also seen in a pageview event
-during week W-1. Pageviews are the standard posthog-js `$pageview` plus the
-legacy custom `page_view`; the client dual-emits both names so Web Analytics
-and older custom insights stay live.
+during week W-1. Pageviews are the standard posthog-js `$pageview`. The query
+also matches the legacy custom `page_view` (dual-emitted until 2026-07-13, then
+removed) so weeks recorded before the removal still count with no gap.
 `returning_rate = returning / total_readers` for week W.
 The in-progress (current) week is never scored — only completed weeks.
 
@@ -128,9 +128,10 @@ def cmd_sync(args: argparse.Namespace) -> int:
     since = monday_of(utc_now()) - timedelta(weeks=WEEKS_LOOKBACK)
     hogql = (
         "SELECT toStartOfWeek(timestamp, 1) AS week_start, distinct_id FROM events "
-        # `$pageview` is the standard posthog-js pageview (now emitted by the web
-        # client so Web Analytics activates); `page_view` is the legacy custom
-        # event. Match both so the rollup bridges the rename with no gap.
+        # `$pageview` is the standard posthog-js pageview and the only pageview
+        # the web client emits today. `page_view` is the legacy custom event
+        # (removed 2026-07-13); keep it in the filter so weeks captured before
+        # the removal still count and the rollup bridges the rename with no gap.
         "WHERE event IN ('$pageview', 'page_view') "
         f"AND timestamp >= toDateTime('{since.strftime('%Y-%m-%d %H:%M:%S')}') "
         "GROUP BY week_start, distinct_id "
