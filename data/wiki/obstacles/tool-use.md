@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb]
-updated: 2026-07-10
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab]
+updated: 2026-07-13
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab]
 ---
 
 ## TL;DR
@@ -78,14 +78,21 @@ per-server consent prompts with a single sign-on flow through an
 organization's identity provider — standardizing what individual vendors had
 already shipped one-off.
 
+A fifth axis is **how much of the job the model should own at all**:
+DoorDash's Ask DoorDash shopping assistant is a production counter-example to
+routing every capability through the LLM, splitting the work across
+specialized agents, [MCP](/topic/mcp)-based tooling, and a separate
+persistent-memory intelligence layer rather than one model deciding
+everything — narrowing the LLM's role to orchestration and language while
+deterministic and specialized components carry the rest of the task.
+
 ## What's new
-Tool **definition quality** joins tool selection as a named engineering
-discipline: a field guide catalogs concrete schema anti-patterns and a fix
-progression (richer descriptions, typed constraints, lazy-loaded discovery)
-that roughly halved per-turn context usage in one case study. Governance
-matured alongside it: MCP's Enterprise-Managed Authorization extension
-reached stable status, standardizing single-sign-on connector auth across
-any MCP client or server rather than leaving it to individual vendors.
+A production counter-example complicates "route everything through the
+model": DoorDash's Ask DoorDash shopping assistant explicitly avoids relying
+on the LLM alone, splitting the work across specialized agents,
+MCP-based tooling, and a separate persistent-memory intelligence layer —
+narrowing the LLM's job to orchestration and language rather than every
+decision.
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

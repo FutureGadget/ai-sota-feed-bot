@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10]
-updated: 2026-07-11
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61]
+updated: 2026-07-13
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61]
 ---
 
 ## TL;DR
@@ -85,6 +85,13 @@ around NVIDIA's Nemotron 3 Ultra and matched Claude Opus 4.8's best agent
 run at roughly 8x lower cost, without fine-tuning the model or swapping in a
 bigger one. Scaffolding investment pays off on every call a harness handles;
 buying a bigger model buys quality once, per call.
+
+A third report puts the same cost/reliability exchange on a frontier-adjacent
+model swap rather than harness tuning or contract engineering: coverage of
+Grok 4.5 puts the coding-agent cost cut at roughly 80% versus a comparable
+frontier setup, at near-frontier speed, but with a higher hallucination
+rate — the same trade the Haiku and Nemotron cases above make explicit with
+boundary contracts and harness tuning, here left unmitigated.
 
 The cheaper-model lever has a hidden counterweight, though: **a lower
 per-token price can be eaten by a higher token count**. "Quantization

@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee]
-updated: 2026-07-09
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd]
+updated: 2026-07-13
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd]
 ---
 
 ## TL;DR
@@ -33,7 +33,9 @@ MCP is also becoming the assumed plug for **hosted runtimes** — Azure
 Functions' agents runtime gives every agent MCP server access (alongside
 1,400+ connectors) out of the box — and the long tail keeps filling in with
 small task servers (e.g. a "coding tools" MCP that hands any agent file/shell
-coding primitives).
+coding primitives, and an AGPL-licensed search MCP built on Cloudflare AI
+Search so an agent can look up project-specific reference material instead
+of relying on what's already in its context).
 
 Crucially, the protocol's growth is forcing the **governance** layer —
 Claude's enterprise managed authorization provisions MCP connectors org-wide

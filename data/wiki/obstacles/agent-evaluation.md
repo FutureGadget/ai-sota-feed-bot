@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1]
-updated: 2026-07-10
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225]
+updated: 2026-07-13
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225]
 ---
 
 ## TL;DR
@@ -70,6 +70,18 @@ agents; a post-mortem on why most evals would miss a real Linear sales-email
 failure) converge on the same warning: an eval suite passes while the agent
 fails the way that actually matters, because the suite never encoded the
 real-world failure.
+
+A **direct human-vs-automated comparison** sharpens the same warning with a
+controlled test instead of a war story: Hamel Husain checked 100
+human-annotated traces against automated eval systems and found real
+divergence between what the automated pipeline scored and what a human
+rater would — evidence you cannot certify an automated eval suite by
+inspecting a handful of cases, you have to measure its agreement with human
+judgment directly. Practitioner tooling is starting to build that check
+into the workflow itself rather than leaving it as a one-off audit: an
+open-source agent-output evaluator runs human labels and LLM judges over the
+same traces side by side instead of treating human review as a fallback
+when the automated judge is in doubt.
 
 The constructive counter-reframe lands from the same camp: "*it's hard to
 eval*" is a **product smell**, not an excuse — if you can't specify what good
@@ -164,16 +176,11 @@ feedback — evaluation as a lifecycle gate across 60+ products, not a
 pre-launch checkbox.
 
 ## What's new
-Discovery Bench turns "how hard is this case" into a measurable dial via
-surprisal-calibrated ambiguity levels, exposing a cliff effect (F1 1.00 →
-0.00 on the identical query at different phrasing) and ground-truth errors
-in existing benchmarks (6.49% of MMLU) that a scalar pass rate hides.
-SWE-Bench Pro joins the list of coding benchmarks under scrutiny for
-reliability, and Agents' Last Exam widens coverage to long-horizon,
-verifiable professional tasks across 55 sub-industries. On the practitioner
-side, Schneider Electric's LangSmith rollout shows eval, tracing, and
-production-to-dev feedback converging into one lifecycle-gated workflow
-across 60+ AI products.
+A controlled test puts a number on the "trust but verify the eval" lesson:
+checking 100 human-annotated traces against automated eval systems found
+real divergence between the two, and practitioner tooling is starting to
+run human labels and LLM judges side by side over the same traces rather
+than treating human review as a fallback for a doubted automated verdict.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell
