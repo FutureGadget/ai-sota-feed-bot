@@ -1,0 +1,93 @@
+{
+ "slug": "openai-fixes-18-year-old-libunwind-core-dump-bug",
+ "label": "OpenAI fixes 18-year-old libunwind core-dump bug",
+ "item_count": 2,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-06-30T00:00:00+00:00",
+ "last_updated": "2026-07-09T10:15:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-07-13T20:05:37.969477+00:00",
+ "sources": [
+  "infoq_ai_ml",
+  "openai_blog"
+ ],
+ "days": [
+  {
+   "date": "2026-06-30",
+   "items": [
+    {
+     "title": "Core dump epidemiology: fixing an 18-year-old bug",
+     "url": "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
+     "source": "openai_blog",
+     "type": "news",
+     "summary_1line": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug.",
+     "sid": "f1f7d4f8001b4288",
+     "published": "2026-06-30T00:00:00+00:00",
+     "editor_note": "OpenAI's own account: epidemiological core-dump analysis surfaces two unrelated crash causes."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-09",
+   "items": [
+    {
+     "title": "OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology",
+     "url": "https://www.infoq.com/news/2026/07/openai-libunwind-core-dumps/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "OpenAI found two unrelated bugs masquerading as one in ChatGPT's data infrastructure. Silent hardware corruption on one Azure host and an 18-year-old race condition in GNU libunwind's setcontext function with a one-in...",
+     "sid": "0f2902f359de6749",
+     "published": "2026-07-09T10:15:00+00:00",
+     "editor_note": "InfoQ adds the technical specifics: the exact race-condition window and how it was closed."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "OpenAI engineers spent months chasing mysterious crashes in Rockset, the C++ data infrastructure behind ChatGPT search, where functions returned to invalid addresses and stack pointers shifted unexpectedly. Instead of debugging crashes one at a time, they built a pipeline to mine a year of production core dumps for population-level patterns — \"epidemiological debugging.\"",
+  "stale": false,
+  "whats_new": "InfoQ's write-up details the fix: an 18-year-old GNU libunwind race condition with a roughly 100-picosecond vulnerable window, made real by OpenAI's frequent per-query timer signals, has been patched upstream by reordering the instruction- and stack-pointer updates.",
+  "why_it_matters": "A textbook 18-year-old unwinding-library race only became visible at OpenAI's request volume and signal frequency — a reminder that widely-used systems libraries can hide production-breaking bugs that only trigger at extreme scale or aggressive timer/signal usage.",
+  "take_for_builders": "If your service delivers signals frequently (per-query timers, profilers) on a C/C++ stack that links libunwind for exception unwinding, check whether your build already carries the upstream setcontext fix before writing off 'impossible' crashes as hardware noise.",
+  "status": {
+   "state": "Resolved · fix upstreamed",
+   "tone": "resolved",
+   "changed": "2026-07-09",
+   "detail": "Root-caused to a silent Azure hardware fault plus an upstream libunwind race condition; the software fix has been submitted upstream."
+  },
+  "beats": [
+   {
+    "kicker": "INVESTIGATION",
+    "tone": "launch",
+    "headline": "OpenAI mines a year of ChatGPT core dumps to catch untraceable Rockset crashes",
+    "summary": "An automated core-dump pipeline replaced one-crash-at-a-time debugging with population-level pattern search across return-to-null and misaligned-stack failures.",
+    "sids": [
+     "f1f7d4f8001b4288"
+    ]
+   },
+   {
+    "kicker": "THE FIX",
+    "tone": "turn",
+    "headline": "Root cause: a silent Azure hardware fault plus an 18-year-old libunwind race condition",
+    "summary": "The software bug's vulnerable window was about 100 picoseconds — only exposed by OpenAI's frequent per-query timer signals — and was closed by reordering the pointer updates.",
+    "sids": [
+     "0f2902f359de6749"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Has the libunwind race-condition fix landed in a released version, or only been submitted upstream?",
+   "Did the same Azure hardware fault affect other tenants on that host, or was it isolated to OpenAI's workload?"
+  ],
+  "provenance": {
+   "f1f7d4f8001b4288": {
+    "surfaced_by": "scout"
+   },
+   "0f2902f359de6749": {
+    "surfaced_by": "scout"
+   }
+  },
+  "generated_at": "2026-07-13T20:10:00+00:00"
+ }
+}

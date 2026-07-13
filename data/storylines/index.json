@@ -1,7 +1,49 @@
 {
- "generated_at": "2026-07-13T15:04:43.624467+00:00",
+ "generated_at": "2026-07-13T20:05:37.969477+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "amazon-sagemaker",
+   "label": "Amazon SageMaker",
+   "item_count": 4,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-07-02T17:50:23+00:00",
+   "last_updated": "2026-07-13T16:42:15+00:00",
+   "latest_title": "Launching UI for generative AI inference recommendations in Amazon SageMaker AI",
+   "days": [
+    "2026-07-02",
+    "2026-07-06",
+    "2026-07-13"
+   ],
+   "member_sids": [
+    "bfeae69131afd34f",
+    "099e51e1f7740bfa",
+    "0453702c23acea50",
+    "77d64de25479fa60",
+    "42de8ba83b90c681"
+   ],
+   "member_urls": [
+    "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
+    "https://aws.amazon.com/blogs/machine-learning/streaming-benchmark-and-recommendation-results-to-mlflow-with-amazon-sagemaker-ai",
+    "https://aws.amazon.com/blogs/machine-learning/from-hugging-face-to-amazon-sagemaker-studio-in-one-click-2",
+    "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio",
+    "https://aws.amazon.com/blogs/machine-learning/launching-ui-for-generative-ai-inference-recommendations-in-amazon-sagemaker-ai"
+   ],
+   "editorial": {
+    "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results, plus a one-click Hugging Face to Studio deep link.",
+    "stale": false,
+    "whats_new": "SageMaker AI Studio shipped a low-code/no-code UI for its generative-AI inference-recommendation API (Jul 13), letting builders get optimized inference recommendations without scripting against the API directly.",
+    "why_it_matters": "Four launches in under two weeks widen SageMaker AI's training-to-deployment surface: a trustworthy training-environment pattern, unified MLflow observability, faster Hugging Face model sourcing, and now a no-code path to inference-optimization recommendations.",
+    "take_for_builders": "If you run RL training on SageMaker AI, adopt the trusted-environment/eval pattern before scaling out, route benchmark and recommendation jobs through MLflow streaming instead of parsing logs by hand, and try the new Studio UI before scripting against the recommendation API for one-off checks.",
+    "status": {
+     "state": "Shipping",
+     "tone": "rising",
+     "changed": "2026-07-13",
+     "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
+    }
+   }
+  },
   {
    "slug": "reinforcement-learning",
    "label": "Reinforcement Learning",
@@ -97,6 +139,42 @@
        "weight": 35
       }
      ]
+    }
+   }
+  },
+  {
+   "slug": "openai-fixes-18-year-old-libunwind-core-dump-bug",
+   "label": "OpenAI fixes 18-year-old libunwind core-dump bug",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-06-30T00:00:00+00:00",
+   "last_updated": "2026-07-09T10:15:00+00:00",
+   "via_scout": true,
+   "latest_title": "OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology",
+   "days": [
+    "2026-06-30",
+    "2026-07-09"
+   ],
+   "member_sids": [
+    "f1f7d4f8001b4288",
+    "0f2902f359de6749"
+   ],
+   "member_urls": [
+    "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
+    "https://www.infoq.com/news/2026/07/openai-libunwind-core-dumps/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+   ],
+   "editorial": {
+    "tldr": "OpenAI engineers spent months chasing mysterious crashes in Rockset, the C++ data infrastructure behind ChatGPT search, where functions returned to invalid addresses and stack pointers shifted unexpectedly. Instead of debugging crashes one at a time, they built a pipeline to mine a year of production core dumps for population-level patterns — \"epidemiological debugging.\"",
+    "stale": false,
+    "whats_new": "InfoQ's write-up details the fix: an 18-year-old GNU libunwind race condition with a roughly 100-picosecond vulnerable window, made real by OpenAI's frequent per-query timer signals, has been patched upstream by reordering the instruction- and stack-pointer updates.",
+    "why_it_matters": "A textbook 18-year-old unwinding-library race only became visible at OpenAI's request volume and signal frequency — a reminder that widely-used systems libraries can hide production-breaking bugs that only trigger at extreme scale or aggressive timer/signal usage.",
+    "take_for_builders": "If your service delivers signals frequently (per-query timers, profilers) on a C/C++ stack that links libunwind for exception unwinding, check whether your build already carries the upstream setcontext fix before writing off 'impossible' crashes as hardware noise.",
+    "status": {
+     "state": "Resolved · fix upstreamed",
+     "tone": "resolved",
+     "changed": "2026-07-09",
+     "detail": "Root-caused to a silent Azure hardware fault plus an upstream libunwind race condition; the software fix has been submitted upstream."
     }
    }
   },
@@ -253,45 +331,6 @@
    }
   },
   {
-   "slug": "amazon-sagemaker",
-   "label": "Amazon SageMaker",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-07-02T17:50:23+00:00",
-   "last_updated": "2026-07-06T22:35:55+00:00",
-   "latest_title": "From Hugging Face to Amazon SageMaker Studio in one click",
-   "days": [
-    "2026-07-02",
-    "2026-07-06"
-   ],
-   "member_sids": [
-    "bfeae69131afd34f",
-    "099e51e1f7740bfa",
-    "0453702c23acea50",
-    "77d64de25479fa60"
-   ],
-   "member_urls": [
-    "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
-    "https://aws.amazon.com/blogs/machine-learning/streaming-benchmark-and-recommendation-results-to-mlflow-with-amazon-sagemaker-ai",
-    "https://aws.amazon.com/blogs/machine-learning/from-hugging-face-to-amazon-sagemaker-studio-in-one-click-2",
-    "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio"
-   ],
-   "editorial": {
-    "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results.",
-    "stale": false,
-    "whats_new": "AWS added a one-click deep link from Hugging Face model pages straight into SageMaker Studio (Jul 6), the same day SageMaker AI shipped MLflow streaming for benchmark and recommendation jobs.",
-    "why_it_matters": "Three shipped in four days close the RL-training-to-deployment loop on SageMaker AI: a trustworthy training-environment pattern, unified MLflow observability for benchmark runs, and faster model sourcing from Hugging Face.",
-    "take_for_builders": "If you run RL training on SageMaker AI, adopt the new trusted-environment/eval pattern before scaling out, and route benchmark and recommendation jobs through the MLflow streaming integration instead of parsing logs by hand.",
-    "status": {
-     "state": "Shipping",
-     "tone": "rising",
-     "changed": "2026-07-06",
-     "detail": "AWS is steadily expanding SageMaker AI's training, evaluation, and model-sourcing surface rather than a single discrete launch."
-    }
-   }
-  },
-  {
    "slug": "claude-science",
    "label": "Let's Science",
    "item_count": 4,
@@ -341,15 +380,15 @@
     "2026-07-06"
    ],
    "member_sids": [
-    "fdd9745edc3aad4e",
     "e11fcea9cd94bb20",
+    "fdd9745edc3aad4e",
     "ef10e0f5c9baeb91",
     "db18dd171266e42d",
     "223287766691e86d"
    ],
    "member_urls": [
-    "https://www.anthropic.com/news/redeploying-fable-5",
     "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+    "https://www.anthropic.com/news/redeploying-fable-5",
     "https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything",
     "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns",
     "https://www.latent.space/p/ainews-the-field-guide-to-fable"

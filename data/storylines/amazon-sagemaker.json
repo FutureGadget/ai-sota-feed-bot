@@ -1,12 +1,12 @@
 {
  "slug": "amazon-sagemaker",
  "label": "Amazon SageMaker",
- "item_count": 3,
- "day_count": 2,
+ "item_count": 4,
+ "day_count": 3,
  "source_count": 2,
  "first_seen": "2026-07-02T17:50:23+00:00",
- "last_updated": "2026-07-06T22:35:55+00:00",
- "generated_at": "2026-07-13T15:04:43.624467+00:00",
+ "last_updated": "2026-07-13T16:42:15+00:00",
+ "generated_at": "2026-07-13T20:05:37.969477+00:00",
  "sources": [
   "aws_ml_blog",
   "huggingface_blog"
@@ -56,19 +56,34 @@
      "editor_note": "Cut model-sourcing friction with a one-click Hugging Face to SageMaker Studio deep link."
     }
    ]
+  },
+  {
+   "date": "2026-07-13",
+   "items": [
+    {
+     "title": "Launching UI for generative AI inference recommendations in Amazon SageMaker AI",
+     "url": "https://aws.amazon.com/blogs/machine-learning/launching-ui-for-generative-ai-inference-recommendations-in-amazon-sagemaker-ai",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "In this post, we introduce the UI for optimized generative AI inference recommendations in Amazon SageMaker AI Studio, a low-code no-code (LCNC) experience. The API already gives you programmatic access to recommendat...",
+     "sid": "42de8ba83b90c681",
+     "published": "2026-07-13T16:42:15+00:00",
+     "editor_note": "Added a low-code/no-code Studio UI on top of the existing generative-AI inference-recommendation API."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results.",
+  "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results, plus a one-click Hugging Face to Studio deep link.",
   "stale": false,
-  "whats_new": "AWS added a one-click deep link from Hugging Face model pages straight into SageMaker Studio (Jul 6), the same day SageMaker AI shipped MLflow streaming for benchmark and recommendation jobs.",
-  "why_it_matters": "Three shipped in four days close the RL-training-to-deployment loop on SageMaker AI: a trustworthy training-environment pattern, unified MLflow observability for benchmark runs, and faster model sourcing from Hugging Face.",
-  "take_for_builders": "If you run RL training on SageMaker AI, adopt the new trusted-environment/eval pattern before scaling out, and route benchmark and recommendation jobs through the MLflow streaming integration instead of parsing logs by hand.",
+  "whats_new": "SageMaker AI Studio shipped a low-code/no-code UI for its generative-AI inference-recommendation API (Jul 13), letting builders get optimized inference recommendations without scripting against the API directly.",
+  "why_it_matters": "Four launches in under two weeks widen SageMaker AI's training-to-deployment surface: a trustworthy training-environment pattern, unified MLflow observability, faster Hugging Face model sourcing, and now a no-code path to inference-optimization recommendations.",
+  "take_for_builders": "If you run RL training on SageMaker AI, adopt the trusted-environment/eval pattern before scaling out, route benchmark and recommendation jobs through MLflow streaming instead of parsing logs by hand, and try the new Studio UI before scripting against the recommendation API for one-off checks.",
   "status": {
    "state": "Shipping",
    "tone": "rising",
-   "changed": "2026-07-06",
-   "detail": "AWS is steadily expanding SageMaker AI's training, evaluation, and model-sourcing surface rather than a single discrete launch."
+   "changed": "2026-07-13",
+   "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
   },
   "beats": [
    {
@@ -91,18 +106,28 @@
    },
    {
     "kicker": "MODEL SOURCING",
-    "tone": "now",
+    "tone": "rising",
     "headline": "One-click deep link brings Hugging Face models straight into SageMaker Studio",
     "summary": "Cuts the path from model discovery to hands-on experimentation to a single selection.",
     "sids": [
      "0453702c23acea50"
     ]
+   },
+   {
+    "kicker": "ACCESS",
+    "tone": "now",
+    "headline": "A no-code UI ships for SageMaker's inference-recommendation API",
+    "summary": "Studio gets a low-code/no-code experience on top of the existing generative-AI inference-recommendation API, no scripting required.",
+    "sids": [
+     "42de8ba83b90c681"
+    ]
    }
   ],
   "open_questions": [
-   "Will AWS extend the new MLflow streaming integration beyond benchmark and inference-recommendation jobs to other SageMaker training paths?",
-   "Does the Hugging Face deep link cover private or gated model repos, or public models only?"
+   "Will AWS extend the MLflow streaming integration beyond benchmark and inference-recommendation jobs to other SageMaker training paths?",
+   "Does the Hugging Face deep link cover private or gated model repos, or public models only?",
+   "Does the new no-code UI expose the same recommendation options (instance types, quantization) as the underlying API, or a reduced subset?"
   ],
-  "generated_at": "2026-07-08T05:03:09Z"
+  "generated_at": "2026-07-13T20:10:00+00:00"
  }
 }
