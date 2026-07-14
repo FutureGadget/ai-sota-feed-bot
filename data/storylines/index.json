@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-14T05:05:16.723519+00:00",
+ "generated_at": "2026-07-14T15:04:00.047823+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -41,6 +41,65 @@
      "tone": "rising",
      "changed": "2026-07-13",
      "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
+    }
+   }
+  },
+  {
+   "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
+   "label": "Speculative Decoding",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-06-23T15:14:05+00:00",
+   "last_updated": "2026-07-13T00:00:00+00:00",
+   "via_scout": true,
+   "latest_title": "EAGLE-3 Speculative Decoding on AMD Instinct GPUs: Training and Serving with vLLM and AMD Quark",
+   "days": [
+    "2026-06-23",
+    "2026-06-24",
+    "2026-07-13"
+   ],
+   "member_sids": [
+    "99bd515fd5fd8083",
+    "62173e9d865bdec2",
+    "f0c08e4beff850db"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
+    "https://modal.com/blog/achieve-sota-specdec",
+    "https://vllm.ai/blog/2026-07-13-eagle-3-amd-instinct"
+   ],
+   "editorial": {
+    "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs, and Modal adopted it in production days later with its own open-source speculator models.",
+    "stale": false,
+    "whats_new": "vLLM and AMD Quark shipped EAGLE-3 speculative decoding for AMD Instinct GPUs on Jul 13, reporting up to 2.00x throughput for Kimi-K2.5 and 1.79x for MiniMax-M2.5 — the first non-NVIDIA vendor to validate speculative decoding as a production latency lever.",
+    "why_it_matters": "Speculative decoding is no longer an NVIDIA/SGLang-only trick: if you're serving on AMD Instinct, vLLM plus AMD Quark now gives you an off-the-shelf EAGLE-3 path alongside DFlash's Blackwell/SGLang path, so hardware choice no longer forces you to build custom draft models.",
+    "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculators. On AMD Instinct? vLLM plus AMD Quark now ships EAGLE-3 with reported 1.8–2x throughput gains for Kimi-K2.5/MiniMax-M2.5 — check either path before building custom speculative decoding.",
+    "status": {
+     "state": "Spreading across hardware vendors",
+     "tone": "rising",
+     "changed": "2026-07-13",
+     "detail": "AMD Instinct gains its own speculative-decoding path (EAGLE-3 via vLLM + AMD Quark), following NVIDIA's DFlash launch and Modal's production adoption on Blackwell.",
+     "track": [
+      {
+       "label": "launch",
+       "detail": "Jun 23",
+       "tone": "launch",
+       "weight": 25
+      },
+      {
+       "label": "adopted (NVIDIA)",
+       "detail": "Jun 24 → Jul 12",
+       "tone": "rising",
+       "weight": 45
+      },
+      {
+       "label": "second vendor (AMD)",
+       "detail": "Jul 13 → now",
+       "tone": "now",
+       "weight": 30
+      }
+     ]
     }
    }
   },
@@ -475,42 +534,6 @@
      "tone": "now",
      "changed": "2026-07-02",
      "detail": "PCC runs on Google Cloud using NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as trust layers, built on a January 2026 multi-year Apple-Google agreement."
-    }
-   }
-  },
-  {
-   "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
-   "label": "DFlash speculative decoding on NVIDIA Blackwell",
-   "item_count": 2,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-06-23T15:14:05+00:00",
-   "last_updated": "2026-06-24T00:00:00+00:00",
-   "via_scout": true,
-   "latest_title": "Achieve state-of-the-art inference latencies with speculative decoding",
-   "days": [
-    "2026-06-23",
-    "2026-06-24"
-   ],
-   "member_sids": [
-    "99bd515fd5fd8083",
-    "62173e9d865bdec2"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
-    "https://modal.com/blog/achieve-sota-specdec"
-   ],
-   "editorial": {
-    "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs.",
-    "stale": false,
-    "whats_new": "Modal named DFlash as the technique behind its own state-of-the-art inference-latency results, working with Z Lab and SGLang to release open-source pre-trained speculator models — including one for Qwen that improves over multi-token prediction by more than 50%.",
-    "why_it_matters": "If you're running inference on Blackwell GPUs with SGLang, this is now an off-the-shelf latency lever: Modal reports that Blackwell plus SGLang plus a low-overhead regional deployment can match or beat proprietary inference providers without custom infra.",
-    "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculator models before building custom speculative decoding — Modal reports it matching proprietary inference-provider latency without proprietary infra.",
-    "status": {
-     "state": "Adopted in production",
-     "tone": "rising",
-     "changed": "2026-06-24",
-     "detail": "Modal confirms the same DFlash technique in its own latency benchmarks and ships open-source pre-trained speculator models built with Z Lab and SGLang."
     }
    }
   }
