@@ -5,9 +5,9 @@ title: "Speculative decoding: draft cheaply, verify in parallel"
 status: active
 obstacles: [agent-latency]
 related_storylines: []
-evidence: [62173e9d865bdec2, 99bd515fd5fd8083]
-updated: 2026-06-30
-covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083]
+evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db]
+updated: 2026-07-14
+covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db]
 ---
 
 ## TL;DR
@@ -31,12 +31,18 @@ accelerator, not just layered on top in software. The throughline is that the
 gains are largest exactly where agents hurt most: long, latency-sensitive decode
 loops where shaving sequential steps compounds across every turn of the agent.
 
+The hardware co-design push is no longer NVIDIA-only: AMD's Quark now trains,
+quantizes, and serves EAGLE-3 draft models with vLLM on Instinct GPUs,
+reporting up to 2.00× throughput for Kimi-K2.5 and 1.79× for MiniMax-M2.5 —
+evidence the draft-and-verify pattern is becoming a cross-accelerator serving
+default rather than a technique tied to one vendor's silicon.
+
 ## What's new
-Speculative decoding is being reported as a shipping production win, not a paper:
-Modal/Decagon document state-of-the-art latencies from a tuned draft/verify
-setup, and NVIDIA's DFlash claims up to ~15× on Blackwell by pushing speculation
-into the hardware path — evidence the technique is now a co-designed default of
-the serving stack rather than an optional optimization.
+Speculative decoding's hardware co-design goes cross-vendor: AMD's Quark
+trains, quantizes, and serves EAGLE-3 draft models with vLLM on Instinct
+GPUs, reporting up to 2.00× throughput on Kimi-K2.5 and 1.79× on
+MiniMax-M2.5 — the same accelerator-level integration NVIDIA's DFlash
+already showed on Blackwell, now shipping on a second vendor's hardware.
 
 ## Trade-offs
 Lossless by construction — the full model still verifies every token, so quality

@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7]
-updated: 2026-07-03
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1]
+updated: 2026-07-14
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1]
 ---
 
 ## TL;DR
@@ -80,13 +80,25 @@ cutting indexing time, inference latency, and prompt footprint, which
 weakens the standard objection that graph construction is too slow and
 expensive to run at production scale.
 
+**Provenance** — the third gap enterprise GraphRAG guidance names alongside
+global context and multi-hop reasoning — now has a dedicated measurement
+instrument: ResearchQA benchmarks whether an LLM's answer over scientific
+papers is actually supported by verifiable citations, rather than scoring
+answer text alone, giving the "is this grounded or just fluent" question a
+number instead of a spot-check. On the reranking side, a **tool-adaptive**
+reranker conditions its reranking on which retrieval tool produced each
+candidate rather than treating every hit the same way, aimed at the
+factual-hallucination failure mode that shows up when a purely parametric
+LLM answers past what its retrieved context actually supports — a further
+refinement of the hybrid-retrieval-plus-rerank stack already converged on.
+
 ## What's new
-Graph construction just got a **cheap, mechanical path**: TIGRAG derives its
-knowledge graph from token co-occurrence statistics rather than an
-LLM-extraction pipeline, then layers graph-based expansion and reranking on
-top — beating dense and LLM-extracted GraphRAG baselines on multi-hop QA
-while indexing faster and cheaper, the same "skip the per-write LLM call"
-instinct already seen in agent memory (FERNme, PMB).
+Provenance gets its own benchmark: ResearchQA scores whether an LLM's answer
+over scientific papers is actually backed by verifiable citations, turning
+"is this grounded or just fluent" into a measured number. A tool-adaptive
+reranker extends the hybrid-retrieval-plus-rerank stack by conditioning the
+rerank step on which tool produced each candidate, targeting the
+factual-hallucination failure mode of a purely parametric answer.
 
 A practitioner framing of the same split now has a name for why plain
 vector RAG plateaus: enterprise GraphRAG guidance argues traditional vector

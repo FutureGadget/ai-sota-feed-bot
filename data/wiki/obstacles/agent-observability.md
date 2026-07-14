@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524]
-updated: 2026-07-07
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff]
+updated: 2026-07-14
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff]
 ---
 
 ## TL;DR
@@ -53,13 +53,18 @@ LangSmith specifically to unify observability, evaluation, and deployment at
 scale — a real deployment of the "trace as shared substrate" idea, not just a
 vendor pitch for it.
 
+Trace debugging is also going **cross-vendor**: LangSmith now positions
+itself as the debug console for whichever coding agent a developer reaches
+for — Claude Code, Codex, Cursor, or Copilot — inspecting tool calls,
+sub-agent handoffs, errors, cost, and retries in one place instead of reading
+each tool's own logs, treating "which agent produced this trace" as a detail
+the observability layer should abstract away.
+
 ## What's new
-Trace instrumentation is showing up natively in agent tooling: Claude Code
-now stamps `workflow.run_id`/`workflow.name` as OpenTelemetry attributes on
-multi-agent workflow runs, plugging into a team's existing OTel pipeline
-instead of a bespoke export path. Schneider Electric's LangSmith-based LLMOps
-foundations is a concrete enterprise case of observability, evaluation, and
-deployment converging into one stack at production scale.
+LangSmith is positioning itself as the debug console for whichever coding
+agent you use — Claude Code, Codex, Cursor, or Copilot — inspecting tool
+calls, sub-agent handoffs, errors, cost, and retries across vendors instead
+of reading each tool's own logs.
 
 Trace analysis is becoming *agentic*: rather than dashboards a human reads, the new
 tools run a model over the captured traces — HALO's RLM engine mines recurring

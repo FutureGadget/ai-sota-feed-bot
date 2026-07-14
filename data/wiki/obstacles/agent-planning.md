@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: [lilian-weng-s-harness-engineering-essay]
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a]
-updated: 2026-07-09
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95]
+updated: 2026-07-14
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95]
 ---
 
 ## TL;DR
@@ -110,12 +110,25 @@ remain the standing bottleneck — a reminder to pair any harness-evolution
 experiment with the [trajectory-level eval](/topic/agent-evaluation) this
 page already argues planning reliability depends on.
 
+The "loop as reusable infra" thesis now has a **major-framework preview**
+behind it: Google's Genkit ships an Agents API for TypeScript and Go that
+packages message history, the tool-call loop, streaming, and state
+persistence behind a single `chat()` interface — the same portable-loop
+instinct as the provider-agnostic reference implementation above, but
+shipped as a maintained framework rather than a pattern to hand-roll.
+Genkit adds a primitive this page hadn't covered: **detached turns**, which
+let a long-running step decouple from the request/response cycle instead of
+blocking it, paired with human-in-the-loop hooks for approval gates mid-plan
+— giving "ask vs. proceed" a concrete framework-level mechanism rather than
+only a benchmark score (DiscoBench) or a bespoke state model (Candidly).
+
 ## What's new
-Lilian Weng's ~35-paper harness-engineering survey adds a name and a
-literature map to this page's "loop as infra" thread, plus a pattern not
-previously covered here: harness *code* itself as an evolvable artifact
-(AlphaEvolve, Darwin Gödel Machine mutate the harness, not just the
-prompt).
+Google's Genkit ships an Agents API preview for TypeScript and Go that
+packages the message-history/tool-loop/streaming/state-persistence stack
+behind one `chat()` interface, adding **detached turns** (a long-running
+step decouples from the request/response cycle) and human-in-the-loop
+hooks — a maintained framework backing this page's "loop as reusable
+infra" thesis and a concrete mechanism for the "ask vs. proceed" question.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

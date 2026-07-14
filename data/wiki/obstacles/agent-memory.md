@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604]
-updated: 2026-07-10
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc]
+updated: 2026-07-14
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc]
 ---
 
 ## TL;DR
@@ -146,7 +146,14 @@ model layer: Claude Code shipping Sonnet 5 as its default with a native
 1M-token context window (at $2/$10 per Mtok promotional pricing) means some
 long-horizon tasks can skip compaction and retrieval entirely by just fitting
 more raw history in-window — shrinking, not eliminating, the set of tasks
-where the tiered-memory engineering above is required.
+where the tiered-memory engineering above is required. A practitioner
+benchmark now backs that claim with a measured long-horizon run rather than
+a token-limit spec sheet: a single agent session pushed through all 89
+sequential Terminal-Bench 2.0 tasks back to back — over 80 million tokens —
+with no compaction and no measurable accuracy loss versus giving each task
+its own fresh session, direct evidence that "just extend the window" holds
+up across a real multi-task benchmark, not only a synthetic long-context
+probe.
 
 The MCP-as-transport pattern for memory keeps spreading to narrower,
 developer-facing stores: codebase-memory-mcp exposes a codebase's own
@@ -170,13 +177,12 @@ adversarially manipulated, extending memory poisoning from corrupting what
 the agent believes to corrupting how it argues for it.
 
 ## What's new
-Proactive memory widens on the **source side**: OpenWiki Brains aggregates
-Gmail, Notion, git, X, Hacker News, and web search into a local Markdown
-wiki an agent draws from unprompted, contrasting with the mostly-reactive
-"remember this" pattern most assistants still ship. Memory integrity's
-threat model widens too, from corrupting stored facts to corrupting stored
-**reasoning**: a new benchmark targets forged-reasoning attacks against an
-agent's own history, not just the facts in it.
+A practitioner benchmark puts a number behind "just extend the context
+window": running all 89 sequential Terminal-Bench 2.0 tasks in one
+continuous agent session — over 80 million tokens, no compaction — showed
+no measurable accuracy loss versus running each task in its own fresh
+session, direct evidence the brute-force, skip-compaction path holds up on
+a real long-horizon benchmark, not only a spec-sheet context limit.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing
