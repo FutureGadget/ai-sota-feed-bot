@@ -1,32 +1,33 @@
 {
   "slug": "claude-fable",
-  "generated_at": "2026-07-11T10:20:00+00:00",
-  "covers_last_updated": "2026-07-06T00:00:00+00:00",
+  "generated_at": "2026-07-14T05:15:00+00:00",
+  "covers_last_updated": "2026-07-10T00:00:00+00:00",
   "covers_member_sids": [
     "e11fcea9cd94bb20",
     "fdd9745edc3aad4e",
     "ef10e0f5c9baeb91",
     "db18dd171266e42d",
-    "223287766691e86d"
+    "223287766691e86d",
+    "20fdad9da202b6cc"
   ],
   "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 in late June as long-horizon models \"made safe for general use.\" A same-day companion post revealed a US export-control suspension had already been lifted, with a fresh redeploy starting July 1 alongside new cyber-safeguard classifiers and a first-draft jailbreak severity framework.",
-  "whats_new": "A builder shipping real code with Fable 5 on a Claude Max subscription says that tier's access to the model is closing within days — the first sign the redeploy may not extend to every subscription plan.",
-  "why_it_matters": "Teams building on Fable 5 through a Claude Max subscription rather than the API or Bedrock should treat that access as provisional until Anthropic confirms whether consumer-tier availability survives past the reported cutoff.",
+  "whats_new": "Cognition says its Devin coding agent now trusts Claude Fable 5 to run unattended for eight hours and ship production-ready code — the first sign of deepening enterprise trust since the July 5 report that Claude Max access to the model was narrowing.",
+  "why_it_matters": "An eight-hour unattended run at a production-grade bar is a concrete data point for anyone evaluating how far Fable 5 can be trusted on long-horizon agentic coding tasks without a human in the loop.",
   "status": {
-    "state": "Redeployed · Max-plan access reportedly narrowing",
-    "tone": "alert",
-    "changed": "2026-07-05",
-    "reenable": "no official end-of-access notice from Anthropic yet",
-    "detail": "Fable 5 and Mythos 5 launched \"made safe for general use\" in late June, and Anthropic's own redeploy post confirmed an export-control suspension had already been lifted; a July 5 hands-on report says Claude Max access to the model is now closing within days, with no wider confirmation yet.",
+    "state": "Enterprise trust deepening · Max-plan access still unresolved",
+    "tone": "rising",
+    "changed": "2026-07-10",
+    "detail": "Fable 5 and Mythos 5 launched \"made safe for general use\" in late June with an export-control suspension already lifted; a July 5 hands-on report flagged Claude Max access narrowing, and Anthropic case studies since — a builder field guide, then Cognition's eight-hour unattended Devin run — show deepening enterprise trust without resolving the Max-plan access question.",
     "track": [
-      { "label": "launched", "detail": "Jun 30", "tone": "launch", "weight": 25 },
-      { "label": "redeployed", "detail": "Jun 30 → Jul 1", "tone": "rising", "weight": 25 },
-      { "label": "Max access narrowing", "detail": "Jul 5", "tone": "alert", "weight": 30 },
-      { "label": "builder guidance published", "detail": "Jul 6", "tone": "neutral", "weight": 20 }
+      { "label": "launched", "detail": "Jun 30", "tone": "launch", "weight": 20 },
+      { "label": "redeployed", "detail": "Jun 30 → Jul 1", "tone": "rising", "weight": 15 },
+      { "label": "Max access narrowing", "detail": "Jul 5", "tone": "alert", "weight": 20 },
+      { "label": "builder guidance published", "detail": "Jul 6", "tone": "neutral", "weight": 15 },
+      { "label": "enterprise trust deepens", "detail": "Jul 10", "tone": "rising", "weight": 30 }
     ]
   },
   "provenance": {
-    "ef10e0f5c9baeb91": { "status_update": true }
+    "20fdad9da202b6cc": { "status_update": true }
   },
   "beats": [
     {
@@ -44,7 +45,7 @@
       "sids": ["fdd9745edc3aad4e"]
     },
     {
-      "kicker": "NOW",
+      "kicker": "FRICTION",
       "tone": "alert",
       "headline": "Hands-on Fable 5 ships real code — but Max-plan access reportedly narrows",
       "summary": "A builder uses Fable 5 to push sqlite-utils toward a 4.0 stable release, noting his Claude Max subscription's access to the model is closing within days.",
@@ -56,18 +57,27 @@
       "headline": "Anthropic publishes a builder field guide for Fable 5",
       "summary": "A practitioner guide on finding unknowns before, during, and after implementation with Fable 5 — documentation, not a new status signal on the access question.",
       "sids": ["db18dd171266e42d"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "rising",
+      "headline": "Cognition trusts Fable 5 to run Devin unattended for eight hours",
+      "summary": "Cognition reports Fable 5 is the first model its team trusts to run unattended overnight in Devin and still deliver production-ready code — evidence of deepening enterprise trust, independent of the unresolved Max-plan access question.",
+      "sids": ["20fdad9da202b6cc"]
     }
   ],
   "open_questions": [
     "Is the reported end of Fable 5 access on Claude Max subscriptions an official, product-wide change, and what happens after it?",
     "Does the July 1 redeploy restore standard private-inference terms, or does a data-sharing requirement persist for any deployment path?",
-    "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?"
+    "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?",
+    "Does Cognition's unattended overnight use of Fable 5 in Devin run through an access path insulated from the reported Max-plan narrowing?"
   ],
-  "take_for_builders": "Confirm whether your Fable 5 access path (API, Bedrock, or Max-plan usage) has a firm end date before depending on it further, and keep a fallback model wired in case Max-tier access lapses.",
+  "take_for_builders": "If you're piloting long unattended agent runs, Cognition's eight-hour production-ready benchmark with Fable 5 is a useful reference point — but confirm your own access path (API, Bedrock, or Max-plan) hasn't hit the reported narrowing before depending on it for overnight jobs.",
   "day_captions": {
     "e11fcea9cd94bb20": "The launch itself — Anthropic ships Fable 5 and the Mythos-class Mythos 5, billed as \"made safe for general use.\"",
     "fdd9745edc3aad4e": "Same-day companion post: the export-control suspension has already been lifted, with redeploy starting July 1 and new cyber safeguards plus a jailbreak framework.",
     "ef10e0f5c9baeb91": "First hands-on report of Fable 5 shipping real code, and the first signal that Max-subscription access may be ending within days.",
-    "db18dd171266e42d": "Anthropic ships builder-facing guidance for agentic coding with Fable 5, separate from the ongoing access-status thread."
+    "db18dd171266e42d": "Anthropic ships builder-facing guidance for agentic coding with Fable 5, separate from the ongoing access-status thread.",
+    "20fdad9da202b6cc": "First reported eight-hour unattended production run — Cognition's Devin trusts Fable 5 overnight, a new adoption high point since the Max-access narrowing report."
   }
 }
