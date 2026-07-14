@@ -1,4 +1,23 @@
 {
+  "07f37058d3d7c72b": {
+    "id": "pb-schedule-agent-sessions-not-just-requests",
+    "kind": "source-backed",
+    "title": "Schedule agent LLM traffic by session, not by individual request, to raise cluster throughput",
+    "area": "Cost & latency",
+    "problem": "Standard LLM request schedulers are tuned for chat traffic and either overload cache-aware instances or lose the KV-cache reuse agent workloads depend on — agent sessions reuse over 80% of request tokens, versus 54-62% in chat.",
+    "apply": "Split scheduling policy by turn: load-balance a session's first request across the cluster like any other request, but route every follow-up request in that same session cache-aware to preserve its local KV-cache reuse. This needs no extra state to track — session-turn position is derivable from the request itself, so the scheduler stays stateless.",
+    "result": "SMetric's session-centric scheduling reports 10-16% higher cluster throughput under prefill-decode colocation and 2-34% higher prefill throughput under disaggregated serving, versus existing schedulers.",
+    "effort": "high",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2607.08565v1",
+    "source_sid": "07f37058d3d7c72b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Authors' own throughput benchmarks comparing SMetric against existing schedulers under both colocated and disaggregated serving."
+    },
+    "edition_date": "2026-07-14"
+  },
   "0ecd57418d6c38cf": {
     "id": "pb-track-pr-throughput-not-agent-usage-alone",
     "kind": "source-backed",
@@ -113,6 +132,44 @@
     },
     "edition_date": "2026-07-03"
   },
+  "2a7072ece5f3372b": {
+    "id": "pb-route-doc-drafts-to-the-pr-author-not-autopublish",
+    "kind": "source-backed",
+    "title": "Auto-draft docs from merged PRs, but route the draft to the feature's own author, not autopublish",
+    "area": "Orchestration",
+    "problem": "Documentation for a shipped feature routinely lags the code because writing it competes with the next task, and nobody outside the original engineer reliably knows what changed enough to write it accurately.",
+    "apply": "Trigger a workflow on merge to main that has an agent read the merged diff, decide whether it's user-facing, and open a draft documentation PR in your docs repo — scoped through a limited-permission GitHub App so it can never merge on its own. Address the draft's review request to whoever approved the original PR, since they're the subject-matter expert, instead of routing it to a general docs queue.",
+    "result": "The Aspire team's version of this generated 82 documentation PRs from 396 product merges over 30 days, with a 100% merge rate and a median 44.8-hour time-to-merge — 96% merged within a week.",
+    "effort": "medium",
+    "source": "github_blog_ai_ml",
+    "source_url": "https://github.blog/ai-and-ml/github-copilot/automating-cross-repo-documentation-with-github-agentic-workflows/",
+    "source_sid": "2a7072ece5f3372b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "GitHub's own 30-day measurement of PR volume, merge rate, and time-to-merge on the Aspire team's rollout."
+    },
+    "edition_date": "2026-07-14"
+  },
+  "2c7d0e2d9aa318bb": {
+    "id": "pb-gate-agent-refactors-behind-failing-tests",
+    "kind": "source-backed",
+    "title": "Gate every AI-generated refactor behind a failing test, not a prompt",
+    "area": "Orchestration",
+    "problem": "Turning a coding agent loose on a high-level migration goal produces plausible-looking code that's wrong in ways generic prompting won't catch, especially against hard backend constraints.",
+    "apply": "Drive the agent method-by-method: feed it the current implementation, the new schema, and one failing test as the spec, and accept its output only when that test passes. Run old and new implementations in parallel with automated output comparison before cutting over, and expect to hand-fix niche SQL optimizations like batching or CTEs yourself, since higher-level prompts don't reliably produce them.",
+    "result": "Datadog's Claude-and-Cursor-driven migration of its Stream Router to Postgres cut per-operation time from 45 minutes to about 1 second, dropped storage 40x, and cut database costs 90%.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/datadog-ai-production-migration/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "2c7d0e2d9aa318bb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Datadog's own before/after measurements from its Stream Router migration to Postgres."
+    },
+    "edition_date": "2026-07-14"
+  },
   "2e309060a5831bee": {
     "id": "pb-lazy-load-mcp-tool-definitions",
     "kind": "source-backed",
@@ -189,6 +246,25 @@
     },
     "edition_date": "2026-07-07"
   },
+  "5adcaaded1a8e3d6": {
+    "id": "pb-use-temporary-accounts-for-agent-deploys",
+    "kind": "source-backed",
+    "title": "Give autonomous agents temporary, self-expiring accounts instead of long-lived deploy credentials",
+    "area": "Safety",
+    "problem": "Letting an agent deploy infrastructure autonomously usually means provisioning it a permanent account and API token up front — credentials that outlive the task and become a standing risk if abandoned.",
+    "apply": "Where your platform supports it, deploy from agents into scoped, self-expiring accounts rather than permanent ones — e.g. Cloudflare's `wrangler deploy --temporary` spins up a temporary account a human can claim within a fixed window. Route the claim URL to a human reviewer as the handoff point from agent to owner, and let anything unclaimed be deleted automatically.",
+    "result": "Cloudflare reports that temporary accounts auto-expire deployments left unclaimed after 60 minutes, so an autonomous agent can deploy immediately without leaving a standing credential behind.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/cloudflare-temp-accounts/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "5adcaaded1a8e3d6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Cloudflare's own description of the temporary-accounts feature and its 60-minute expiry window."
+    },
+    "edition_date": "2026-07-14"
+  },
   "78aa501471a8665a": {
     "id": "pb-trace-and-cap-coding-agent-spend",
     "kind": "source-backed",
@@ -226,6 +302,25 @@
       "note": "Latency and throughput multipliers are the vendor's own benchmark numbers from the vLLM blog post."
     },
     "edition_date": "2026-07-07"
+  },
+  "7d432c619e99e0d6": {
+    "id": "pb-use-agent-testers-for-exploration-not-ci-gates",
+    "kind": "source-backed",
+    "title": "Point intent-based agent testers at exploration and debugging, not your CI gate",
+    "area": "Evals",
+    "problem": "Scripted end-to-end UI tests break on interface changes that have nothing to do with an actual regression, which quietly inflates maintenance load without catching more real bugs.",
+    "apply": "Give an agent a test as a goal, like \"complete checkout,\" instead of a fixed click sequence, and let it plan, execute, observe, and try an alternate path when it hits a minor UI change instead of failing outright. Keep this pattern out of your CI blocking path for now — use it for targeted debugging and exploratory testing, and keep deterministic scripted tests as your regression gate, since agentic runs cost more per execution than a fixed script does.",
+    "result": "Slack's own rollout treats agent-driven E2E testing as a complement to deterministic tests, not a replacement — it's meant to cut false failures from UI churn without yet being cheap enough to run on every CI build.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/slack-agentic-e2e-testing-ui/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "7d432c619e99e0d6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Slack's post describes the intent-based testing pattern and its current CI-cost tradeoff qualitatively, without reporting maintenance or flakiness numbers."
+    },
+    "edition_date": "2026-07-14"
   },
   "8688a4c832b1b52a": {
     "id": "pb-dispatch-subagents-over-context-chunks-rlm",
@@ -435,6 +530,44 @@
       "note": "Four failure modes quantified with bias-penalized scoring on a degradation-built gold set; raw accuracy understates the reliability gap."
     },
     "edition_date": "2026-06-26"
+  },
+  "c8dc1df614610019": {
+    "id": "pb-anchor-review-agent-to-diff-not-repo",
+    "kind": "source-backed",
+    "title": "Anchor your code-review agent to the diff, not the whole repo, to cut review cost 20%",
+    "area": "Tool use",
+    "problem": "Giving a code-review agent unrestricted grep/glob/view tools made it explore the repo broadly like a researcher instead of a focused reviewer, driving up cost without catching more real issues.",
+    "apply": "Don't just hand a review agent generic Unix-style search tools — write review-specific instructions that anchor it to the pull request diff first, using grep and glob only to narrow before reading exact evidence with view. Frame the workflow as \"start from the diff, narrow first, verify with view\" instead of open-ended repository exploration.",
+    "result": "GitHub cut average Copilot code review cost by roughly 20% while holding review quality steady, by pairing shared tooling with diff-anchored prompting instead of broad exploration.",
+    "effort": "low",
+    "source": "github_blog_ai_ml",
+    "source_url": "https://github.blog/ai-and-ml/github-copilot/better-tools-made-copilot-code-review-worse-heres-how-we-actually-improved-it/",
+    "source_sid": "c8dc1df614610019",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "GitHub measured average review cost before and after the diff-anchored prompting change on its own Copilot code review pipeline."
+    },
+    "edition_date": "2026-07-14"
+  },
+  "cfe2e766a965b837": {
+    "id": "pb-benchmark-citation-grounding-not-just-answer-quality",
+    "kind": "source-backed",
+    "title": "Benchmark your RAG system's citation grounding separately from answer quality — the two diverge",
+    "area": "Retrieval",
+    "problem": "Generic LLM-judge eval scores compress tightly across models even when systems differ a lot in whether their citations actually support their answers, hiding real quality gaps in citation-grounded retrieval.",
+    "apply": "Add citation-grounding checks to your eval suite that verify each claim against its cited passage, including a required-refusal case when no passage in the corpus supports the answer, instead of relying on an LLM-judge score alone. Weigh open-weight models in that comparison too — on ResearchQA's citation-grounded benchmark they matched closed-model citation accuracy at 3-6x lower per-example latency.",
+    "result": "Section coverage and citation accuracy varied substantially across models on ResearchQA even where generic evaluator scores looked nearly identical, showing citation grounding catches quality gaps generic scoring misses.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2607.11074v1",
+    "source_sid": "cfe2e766a965b837",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Authors' own ResearchQA evaluation across models, comparing citation-grounding metrics against generic evaluator scores and latency."
+    },
+    "edition_date": "2026-07-14"
   },
   "d0a3b1456466205e": {
     "id": "pb-decouple-tool-calls-from-json-schema-constraint",
