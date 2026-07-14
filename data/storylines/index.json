@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-14T15:04:00.047823+00:00",
+ "generated_at": "2026-07-14T20:03:39.865340+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -41,65 +41,6 @@
      "tone": "rising",
      "changed": "2026-07-13",
      "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
-    }
-   }
-  },
-  {
-   "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
-   "label": "Speculative Decoding",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-06-23T15:14:05+00:00",
-   "last_updated": "2026-07-13T00:00:00+00:00",
-   "via_scout": true,
-   "latest_title": "EAGLE-3 Speculative Decoding on AMD Instinct GPUs: Training and Serving with vLLM and AMD Quark",
-   "days": [
-    "2026-06-23",
-    "2026-06-24",
-    "2026-07-13"
-   ],
-   "member_sids": [
-    "99bd515fd5fd8083",
-    "62173e9d865bdec2",
-    "f0c08e4beff850db"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
-    "https://modal.com/blog/achieve-sota-specdec",
-    "https://vllm.ai/blog/2026-07-13-eagle-3-amd-instinct"
-   ],
-   "editorial": {
-    "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs, and Modal adopted it in production days later with its own open-source speculator models.",
-    "stale": false,
-    "whats_new": "vLLM and AMD Quark shipped EAGLE-3 speculative decoding for AMD Instinct GPUs on Jul 13, reporting up to 2.00x throughput for Kimi-K2.5 and 1.79x for MiniMax-M2.5 — the first non-NVIDIA vendor to validate speculative decoding as a production latency lever.",
-    "why_it_matters": "Speculative decoding is no longer an NVIDIA/SGLang-only trick: if you're serving on AMD Instinct, vLLM plus AMD Quark now gives you an off-the-shelf EAGLE-3 path alongside DFlash's Blackwell/SGLang path, so hardware choice no longer forces you to build custom draft models.",
-    "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculators. On AMD Instinct? vLLM plus AMD Quark now ships EAGLE-3 with reported 1.8–2x throughput gains for Kimi-K2.5/MiniMax-M2.5 — check either path before building custom speculative decoding.",
-    "status": {
-     "state": "Spreading across hardware vendors",
-     "tone": "rising",
-     "changed": "2026-07-13",
-     "detail": "AMD Instinct gains its own speculative-decoding path (EAGLE-3 via vLLM + AMD Quark), following NVIDIA's DFlash launch and Modal's production adoption on Blackwell.",
-     "track": [
-      {
-       "label": "launch",
-       "detail": "Jun 23",
-       "tone": "launch",
-       "weight": 25
-      },
-      {
-       "label": "adopted (NVIDIA)",
-       "detail": "Jun 24 → Jul 12",
-       "tone": "rising",
-       "weight": 45
-      },
-      {
-       "label": "second vendor (AMD)",
-       "detail": "Jul 13 → now",
-       "tone": "now",
-       "weight": 30
-      }
-     ]
     }
    }
   },
@@ -499,42 +440,6 @@
     "whats_new": "No Claude Science product update — the newest addition is another unrelated inference-chip comparison piece, bundled in only by the \"Let's Data Science\" publication name.",
     "why_it_matters": "These are four distinct inference-tooling reads, not a Claude Science update — don't read a product signal into the grouping; evaluate each piece on its own technical merit.",
     "take_for_builders": "Don't treat this cluster as a Claude Science signal — read each piece on its own: batching-strategy tradeoffs, MCP-based agent memory, GPU power prediction, or inference-chip comparison, whichever matches your current inference stack decision."
-   }
-  },
-  {
-   "slug": "apple-private-cloud-compute-expands-to-google-cloud",
-   "label": "Apple Private Cloud Compute expands to Google Cloud",
-   "item_count": 2,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-06-23T16:00:00+00:00",
-   "last_updated": "2026-07-02T10:04:00+00:00",
-   "via_scout": true,
-   "latest_title": "Apple Extends Private Cloud Compute to Google Cloud for the First Time",
-   "days": [
-    "2026-06-23",
-    "2026-07-02"
-   ],
-   "member_sids": [
-    "36bbcd1f1aa75ce0",
-    "f39648ed1b9fb2ac"
-   ],
-   "member_urls": [
-    "https://cloud.google.com/blog/products/identity-security/verifiable-trust-in-the-ai-era-whats-new-in-confidential-computing",
-    "https://www.infoq.com/news/2026/07/apple-pcc-google-cloud/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
-   ],
-   "editorial": {
-    "tldr": "Apple's Private Cloud Compute has run only on Apple-owned hardware since it launched. Google Cloud's June 23 confidential-computing update was the first public sign that was changing, naming Apple as an early customer for a new layered trust stack.",
-    "stale": false,
-    "whats_new": "Apple confirmed at WWDC that Private Cloud Compute now runs on Google Cloud — its first deployment outside Apple's own data centers — to handle agentic tool use and complex reasoning that on-device models can't cover.",
-    "why_it_matters": "The deployment's three-layer trust stack — NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as root of trust — is now a productized Google Cloud pattern (Confidential G4 VMs, open-source Prompt Encryption SDKs) any platform team can adopt instead of building attestation from scratch.",
-    "take_for_builders": "Evaluate Google Cloud's Confidential G4 VMs and open-source Prompt Encryption SDK before building your own TEE/attestation stack for encrypted, verifiable inference on someone else's cloud.",
-    "status": {
-     "state": "Live · confirmed at WWDC",
-     "tone": "now",
-     "changed": "2026-07-02",
-     "detail": "PCC runs on Google Cloud using NVIDIA Blackwell confidential computing, Intel TDX, and Google's Titan chip as trust layers, built on a January 2026 multi-year Apple-Google agreement."
-    }
    }
   }
  ]

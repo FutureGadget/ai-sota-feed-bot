@@ -1,109 +1,140 @@
 {
-  "generated_at": "2026-07-14T15:03:02.484459+00:00",
+  "generated_at": "2026-07-14T20:03:54.247972+00:00",
   "window_days": 21,
-  "storyline_count": 1,
-  "needs_narrative_count": 1,
+  "storyline_count": 10,
+  "needs_narrative_count": 0,
   "storylines": [
     {
-      "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
-      "label": "Speculative Decoding",
-      "item_count": 3,
-      "source_count": 3,
+      "slug": "amazon-sagemaker",
+      "label": "Amazon SageMaker",
+      "item_count": 4,
+      "source_count": 2,
       "day_count": 3,
-      "first_seen": "2026-06-23T15:14:05+00:00",
-      "last_updated": "2026-07-13T00:00:00+00:00",
-      "latest_title": "EAGLE-3 Speculative Decoding on AMD Instinct GPUs: Training and Serving with vLLM and AMD Quark",
+      "first_seen": "2026-07-02T17:50:23+00:00",
+      "last_updated": "2026-07-13T16:42:15+00:00",
+      "latest_title": "Launching UI for generative AI inference recommendations in Amazon SageMaker AI",
       "member_sids": [
-        "99bd515fd5fd8083",
-        "62173e9d865bdec2",
-        "f0c08e4beff850db"
+        "bfeae69131afd34f",
+        "099e51e1f7740bfa",
+        "0453702c23acea50",
+        "77d64de25479fa60",
+        "42de8ba83b90c681"
       ],
-      "via_scout": true,
+      "via_scout": false,
       "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
-      "narrative_path": "data/storylines/narratives/dflash-speculative-decoding-on-nvidia-blackwell.json",
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/amazon-sagemaker.json",
       "prior_narrative": {
-        "slug": "dflash-speculative-decoding-on-nvidia-blackwell",
-        "generated_at": "2026-07-12T05:04:38Z",
-        "covers_last_updated": "2026-06-24T00:00:00+00:00",
+        "slug": "amazon-sagemaker",
+        "generated_at": "2026-07-13T20:10:00+00:00",
+        "covers_last_updated": "2026-07-13T16:42:15+00:00",
         "covers_member_sids": [
-          "99bd515fd5fd8083",
-          "62173e9d865bdec2"
+          "bfeae69131afd34f",
+          "099e51e1f7740bfa",
+          "0453702c23acea50",
+          "77d64de25479fa60",
+          "42de8ba83b90c681"
         ],
-        "tldr": "Speculative decoding — drafting candidate tokens ahead of the target model to cut serving latency — is a known lever for LLM inference cost. NVIDIA's June 23 developer post introduced DFlash, a speculator built on the target model's own KV projections, claiming up to 15x throughput gains on Blackwell GPUs.",
-        "whats_new": "Modal named DFlash as the technique behind its own state-of-the-art inference-latency results, working with Z Lab and SGLang to release open-source pre-trained speculator models — including one for Qwen that improves over multi-token prediction by more than 50%.",
-        "why_it_matters": "If you're running inference on Blackwell GPUs with SGLang, this is now an off-the-shelf latency lever: Modal reports that Blackwell plus SGLang plus a low-overhead regional deployment can match or beat proprietary inference providers without custom infra.",
+        "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results, plus a one-click Hugging Face to Studio deep link.",
+        "whats_new": "SageMaker AI Studio shipped a low-code/no-code UI for its generative-AI inference-recommendation API (Jul 13), letting builders get optimized inference recommendations without scripting against the API directly.",
+        "why_it_matters": "Four launches in under two weeks widen SageMaker AI's training-to-deployment surface: a trustworthy training-environment pattern, unified MLflow observability, faster Hugging Face model sourcing, and now a no-code path to inference-optimization recommendations.",
         "status": {
-          "state": "Adopted in production",
+          "state": "Shipping",
           "tone": "rising",
-          "changed": "2026-06-24",
-          "detail": "Modal confirms the same DFlash technique in its own latency benchmarks and ships open-source pre-trained speculator models built with Z Lab and SGLang."
-        },
-        "provenance": {
-          "99bd515fd5fd8083": {
-            "surfaced_by": "scout"
-          },
-          "62173e9d865bdec2": {
-            "surfaced_by": "scout"
-          }
+          "changed": "2026-07-13",
+          "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
         },
         "beats": [
           {
-            "kicker": "LAUNCH",
+            "kicker": "TRAINING",
             "tone": "launch",
-            "headline": "NVIDIA introduces DFlash, claiming up to 15x inference gains on Blackwell",
-            "summary": "DFlash generates draft tokens in parallel using the target model's own KV projections, invented by Jian Chen and collaborators at Z Lab.",
+            "headline": "AWS publishes best practices for trustworthy multi-turn RL training in SageMaker AI",
+            "summary": "Guidance on building a trusted training environment, external evaluation, reward design, and workload management.",
             "sids": [
-              "99bd515fd5fd8083"
+              "bfeae69131afd34f"
             ]
           },
           {
-            "kicker": "ADOPTED",
+            "kicker": "OBSERVABILITY",
             "tone": "rising",
-            "headline": "Modal ships open-source DFlash speculator models with Z Lab and SGLang",
-            "summary": "Modal reports DFlash as its best-performing speculative-decoding technique, with a Qwen speculator improving over multi-token prediction by 50%+.",
+            "headline": "SageMaker AI streams benchmark and inference-recommendation results into MLflow",
+            "summary": "New integration unifies experiment data from optimized-inference recommendation and benchmark jobs.",
             "sids": [
-              "62173e9d865bdec2"
+              "099e51e1f7740bfa"
+            ]
+          },
+          {
+            "kicker": "MODEL SOURCING",
+            "tone": "rising",
+            "headline": "One-click deep link brings Hugging Face models straight into SageMaker Studio",
+            "summary": "Cuts the path from model discovery to hands-on experimentation to a single selection.",
+            "sids": [
+              "0453702c23acea50"
+            ]
+          },
+          {
+            "kicker": "ACCESS",
+            "tone": "now",
+            "headline": "A no-code UI ships for SageMaker's inference-recommendation API",
+            "summary": "Studio gets a low-code/no-code experience on top of the existing generative-AI inference-recommendation API, no scripting required.",
+            "sids": [
+              "42de8ba83b90c681"
             ]
           }
         ],
         "open_questions": [
-          "Does DFlash's speedup hold on non-Blackwell GPUs, or is it Blackwell-specific?",
-          "Will inference frameworks beyond SGLang add native DFlash speculator support?"
+          "Will AWS extend the MLflow streaming integration beyond benchmark and inference-recommendation jobs to other SageMaker training paths?",
+          "Does the Hugging Face deep link cover private or gated model repos, or public models only?",
+          "Does the new no-code UI expose the same recommendation options (instance types, quantization) as the underlying API, or a reduced subset?"
         ],
-        "take_for_builders": "Running inference on Blackwell with SGLang? Evaluate the open-source DFlash speculator models before building custom speculative decoding — Modal reports it matching proprietary inference-provider latency without proprietary infra.",
+        "take_for_builders": "If you run RL training on SageMaker AI, adopt the trusted-environment/eval pattern before scaling out, route benchmark and recommendation jobs through MLflow streaming instead of parsing logs by hand, and try the new Studio UI before scripting against the recommendation API for one-off checks.",
         "day_captions": {
-          "99bd515fd5fd8083": "NVIDIA Developer publishes the DFlash speculative-decoding technique, claiming up to 15x inference throughput gains on Blackwell GPUs.",
-          "62173e9d865bdec2": "Modal names DFlash as the technique behind its own state-of-the-art latency results, releasing open-source speculator models built with Z Lab and SGLang."
+          "bfeae69131afd34f": "Set the baseline: how to build a trustworthy multi-turn RL training environment before scaling.",
+          "099e51e1f7740bfa": "Added MLflow streaming so benchmark and inference-recommendation runs get unified experiment tracking.",
+          "0453702c23acea50": "Cut model-sourcing friction with a one-click Hugging Face to SageMaker Studio deep link.",
+          "42de8ba83b90c681": "Added a low-code/no-code Studio UI on top of the existing generative-AI inference-recommendation API."
         }
       },
       "timeline": [
         {
-          "date": "2026-06-23",
+          "date": "2026-07-02",
           "items": [
             {
-              "sid": "99bd515fd5fd8083",
-              "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer",
-              "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
-              "source": "search_llm_ops_news",
+              "sid": "bfeae69131afd34f",
+              "title": "Best practices for multi-turn reinforcement learning in Amazon SageMaker AI",
+              "url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
+              "source": "aws_ml_blog",
               "type": "news",
-              "summary_1line": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding NVIDIA Developer",
-              "published": "2026-06-23T15:14:05+00:00"
+              "summary_1line": "In this post, we share best practices for reliable multi-turn RL training. We cover how to build a training environment you can trust, set up an external evaluation, design a reward aligned with the end task, manage w...",
+              "published": "2026-07-02T17:50:23+00:00"
             }
           ]
         },
         {
-          "date": "2026-06-24",
+          "date": "2026-07-06",
           "items": [
             {
-              "sid": "62173e9d865bdec2",
-              "title": "Achieve state-of-the-art inference latencies with speculative decoding",
-              "url": "https://modal.com/blog/achieve-sota-specdec",
-              "source": "modal_blog",
+              "sid": "099e51e1f7740bfa",
+              "title": "Streaming benchmark and recommendation results to MLflow with Amazon SageMaker AI",
+              "url": "https://aws.amazon.com/blogs/machine-learning/streaming-benchmark-and-recommendation-results-to-mlflow-with-amazon-sagemaker-ai",
+              "source": "aws_ml_blog",
               "type": "news",
-              "summary_1line": "How Modal and Decagon worked together to cut inference latency - and you can too.",
-              "published": "2026-06-24T00:00:00+00:00"
+              "summary_1line": "In this post, you learn how to use the new MLflow integration with Amazon SageMaker AI optimized inference recommendation jobs and Amazon SageMaker AI benchmark jobs to automatically stream experiment data into a unif...",
+              "published": "2026-07-06T16:53:38+00:00"
+            },
+            {
+              "sid": "0453702c23acea50",
+              "title": "From Hugging Face to Amazon SageMaker Studio in one click",
+              "url": "https://aws.amazon.com/blogs/machine-learning/from-hugging-face-to-amazon-sagemaker-studio-in-one-click-2",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "Today, we’re excited to announce a deep-link integration between Hugging Face and Amazon SageMaker AI. Developers can now go from model discovery to hands-on experimentation in SageMaker Studio with a single selection.",
+              "published": "2026-07-06T22:35:55+00:00",
+              "sources": [
+                "aws_ml_blog",
+                "huggingface_blog"
+              ]
             }
           ]
         },
@@ -111,13 +142,1192 @@
           "date": "2026-07-13",
           "items": [
             {
-              "sid": "f0c08e4beff850db",
-              "title": "EAGLE-3 Speculative Decoding on AMD Instinct GPUs: Training and Serving with vLLM and AMD Quark",
-              "url": "https://vllm.ai/blog/2026-07-13-eagle-3-amd-instinct",
-              "source": "vllm_blog",
+              "sid": "42de8ba83b90c681",
+              "title": "Launching UI for generative AI inference recommendations in Amazon SageMaker AI",
+              "url": "https://aws.amazon.com/blogs/machine-learning/launching-ui-for-generative-ai-inference-recommendations-in-amazon-sagemaker-ai",
+              "source": "aws_ml_blog",
               "type": "news",
-              "summary_1line": "How AMD Quark trains, quantizes, and serves EAGLE-3 speculative-decoding drafts with vLLM on AMD Instinct GPUs, delivering up to 2.00x throughput gains for Kimi-K2.5 and 1.79x for MiniMax-M2.5.",
-              "published": "2026-07-13T00:00:00+00:00"
+              "summary_1line": "In this post, we introduce the UI for optimized generative AI inference recommendations in Amazon SageMaker AI Studio, a low-code no-code (LCNC) experience. The API already gives you programmatic access to recommendat...",
+              "published": "2026-07-13T16:42:15+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "reinforcement-learning",
+      "label": "Reinforcement Learning",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-07-02T17:50:23+00:00",
+      "last_updated": "2026-07-10T17:39:00+00:00",
+      "latest_title": "Semantic Pareto-DQN: A Multi-Objective Reinforcement Learning Framework for Financial Anomaly Detection",
+      "member_sids": [
+        "bfeae69131afd34f",
+        "9776829397d5307a",
+        "54c32bd0fe4a6a3e"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+      "prior_narrative": {
+        "slug": "reinforcement-learning",
+        "generated_at": "2026-07-13T05:04:12+00:00",
+        "covers_last_updated": "2026-07-10T17:39:00+00:00",
+        "covers_member_sids": [
+          "bfeae69131afd34f",
+          "9776829397d5307a",
+          "54c32bd0fe4a6a3e"
+        ],
+        "tldr": "Three reinforcement-learning pieces landed within a week: AWS published best practices for multi-turn RL training, and InfoQ covered OpenAI's Agent RFT fine-tuning platform. The items share a topic, not a storyline — each is a standalone read, not a developing event.",
+        "whats_new": "The latest addition is an arXiv paper on Semantic Pareto-DQN, a multi-objective RL framework built to stop financial fraud detectors from defaulting to the majority class under extreme class imbalance.",
+        "why_it_matters": "For platform engineers running RL fine-tuning, the AWS and InfoQ pieces are the practical reads on reward design and evaluation; the arXiv paper is a narrower academic result, not something to deploy directly.",
+        "beats": [
+          {
+            "kicker": "PRODUCTION PRACTICE",
+            "tone": "neutral",
+            "headline": "AWS publishes multi-turn RL training best practices",
+            "summary": "Guidance on building trustworthy training environments, external evaluation, and reward design for multi-turn RL on SageMaker AI.",
+            "sids": [
+              "bfeae69131afd34f"
+            ]
+          },
+          {
+            "kicker": "PLATFORM",
+            "tone": "neutral",
+            "headline": "InfoQ talk details OpenAI's Agent RFT fine-tuning platform",
+            "summary": "Conference presentation on fine-tuning reasoning models via real-time tool interactions and custom reward signals.",
+            "sids": [
+              "9776829397d5307a"
+            ]
+          },
+          {
+            "kicker": "RESEARCH",
+            "tone": "neutral",
+            "headline": "Semantic Pareto-DQN targets \"fraud collapse\" in anomaly detection",
+            "summary": "New multi-objective RL framework aims to fix single-objective algorithms that default to the majority class under extreme class imbalance.",
+            "sids": [
+              "54c32bd0fe4a6a3e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does OpenAI's Agent RFT platform get a broader availability announcement beyond this conference talk?",
+          "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?"
+        ],
+        "take_for_builders": "Building multi-turn RL training? Start with AWS's reward-design and evaluation guidance before evaluating a managed fine-tuning platform like OpenAI's Agent RFT.",
+        "day_captions": {
+          "bfeae69131afd34f": "AWS's own best-practices guide for building trustworthy multi-turn RL training environments.",
+          "9776829397d5307a": "Conference talk detailing OpenAI's Agent RFT platform for fine-tuning reasoning models via reward signals.",
+          "54c32bd0fe4a6a3e": "New arXiv paper applying multi-objective RL (Pareto-DQN) to fix class-imbalance failure in financial fraud detection."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-07-02",
+          "items": [
+            {
+              "sid": "bfeae69131afd34f",
+              "title": "Best practices for multi-turn reinforcement learning in Amazon SageMaker AI",
+              "url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "In this post, we share best practices for reliable multi-turn RL training. We cover how to build a training environment you can trust, set up an external evaluation, design a reward aligned with the end task, manage w...",
+              "published": "2026-07-02T17:50:23+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-03",
+          "items": [
+            {
+              "sid": "9776829397d5307a",
+              "title": "Presentation: Fine Tuning the Enterprise: Reinforcement Learning in Practice",
+              "url": "https://www.infoq.com/presentations/rft-openai-model/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "The speakers discuss Agent RFT, OpenAI’s platform for fine-tuning reasoning models via real-time tool interactions and custom reward signals. They explain how reinforcement learning solves complex credit assignment ch...",
+              "published": "2026-07-03T09:22:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-10",
+          "items": [
+            {
+              "sid": "54c32bd0fe4a6a3e",
+              "title": "Semantic Pareto-DQN: A Multi-Objective Reinforcement Learning Framework for Financial Anomaly Detection",
+              "url": "http://arxiv.org/abs/2607.09641v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Financial anomaly detection suffers from extreme class imbalance, causing traditional single-objective algorithms to exhibit ``fraud collapse'', defaulting to the majority class and failing to balance anomaly interdic...",
+              "published": "2026-07-10T17:39:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gpt-5-6-sol",
+      "label": "GPT-5.6 Sol",
+      "item_count": 5,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-06-26T10:00:00+00:00",
+      "last_updated": "2026-07-10T06:19:40+00:00",
+      "latest_title": "[AINews] OpenAI launches GPT 5.6 Sol/Terra/Luna, Codex becomes ChatGPT superapp",
+      "member_sids": [
+        "30f48121decc708b",
+        "33c5179f3970a753",
+        "e19fbb75eb44457e",
+        "9651f85ee004d582",
+        "6786dc227c1f3563",
+        "20a024974871c44e"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/gpt-5-6-sol.json",
+      "prior_narrative": {
+        "slug": "gpt-5-6-sol",
+        "generated_at": "2026-07-10T15:10:00+00:00",
+        "covers_last_updated": "2026-07-10T06:19:40+00:00",
+        "covers_member_sids": [
+          "30f48121decc708b",
+          "33c5179f3970a753",
+          "e19fbb75eb44457e",
+          "9651f85ee004d582",
+          "6786dc227c1f3563",
+          "20a024974871c44e"
+        ],
+        "tldr": "OpenAI previewed GPT-5.6 Sol on June 26 as its next flagship, pairing coding, science, and cybersecurity gains with its most advanced safety stack. A day later the family shipped only to a restricted trusted-partner tier, alongside an unrelated Anthropic release the same day.",
+        "whats_new": "GPT-5.6 — Luna, Terra, and Sol — reached general availability on July 9, with OpenAI's own launch post landing the same day as Simon Willison's independent GA writeup.",
+        "why_it_matters": "The GA move ends the two-week restricted-partner window and adds a three-tier lineup (Luna/Terra/Sol) with per-tier pricing, so integrations built against the preview or partner tier should re-check access and re-evaluate cost/latency against the new tiers before defaulting to the largest model.",
+        "status": {
+          "state": "Generally available",
+          "tone": "resolved",
+          "changed": "2026-07-09",
+          "detail": "Preview (Jun 26) -> restricted partner access (Jun 27) -> general availability (Jul 9).",
+          "track": [
+            {
+              "label": "preview",
+              "detail": "Jun 26",
+              "tone": "launch",
+              "weight": 25
+            },
+            {
+              "label": "restricted access",
+              "detail": "Jun 27 - Jul 8",
+              "tone": "rising",
+              "weight": 40
+            },
+            {
+              "label": "general availability",
+              "detail": "Jul 9 -> now",
+              "tone": "resolved",
+              "weight": 35
+            }
+          ]
+        },
+        "provenance": {
+          "e19fbb75eb44457e": {
+            "surfaced_by": "scout",
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "PREVIEW",
+            "tone": "launch",
+            "headline": "OpenAI previews GPT-5.6 Sol with an upgraded safety stack",
+            "summary": "First look at the next-generation model, ahead of any public release.",
+            "sids": [
+              "30f48121decc708b"
+            ]
+          },
+          {
+            "kicker": "RESTRICTED ACCESS",
+            "tone": "rising",
+            "headline": "Family ships to trusted partners only, not the general public",
+            "sids": [
+              "33c5179f3970a753"
+            ]
+          },
+          {
+            "kicker": "GENERAL AVAILABILITY",
+            "tone": "resolved",
+            "headline": "Luna, Terra, and Sol open to everyone with tiered per-token pricing",
+            "summary": "Luna prices at $1/$6 per 1M input/output tokens as the smallest of the three sizes.",
+            "sids": [
+              "e19fbb75eb44457e",
+              "6786dc227c1f3563",
+              "20a024974871c44e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "What are Terra's and Sol's exact per-token prices relative to Luna's $1/$6?",
+          "Does GA access carry the same safety commitments OpenAI described in the June 26 preview?"
+        ],
+        "take_for_builders": "If you were on the restricted GPT-5.6 tier, re-check your access and quota now that GA is open, and benchmark Luna's $1/$6-per-1M-token tier against your current model before defaulting to Sol for cost-sensitive agent loops.",
+        "day_captions": {
+          "30f48121decc708b": "OpenAI's own preview announcement — first mention of the model.",
+          "33c5179f3970a753": "First report that the launch was gated to trusted partners, not a public release.",
+          "e19fbb75eb44457e": "OpenAI's official GA blog post, missed by anchor clustering due to different wording.",
+          "6786dc227c1f3563": "Independent GA coverage with the per-tier pricing breakdown.",
+          "20a024974871c44e": "Next-day AINews recap widens independent confirmation of the GA launch."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-26",
+          "items": [
+            {
+              "sid": "30f48121decc708b",
+              "title": "Previewing GPT-5.6 Sol: a next-generation model",
+              "url": "https://openai.com/index/previewing-gpt-5-6-sol",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "OpenAI previews GPT-5.6 Sol, a next-generation model with stronger capabilities in coding, science, and cybersecurity, paired with its most advanced safety stack.",
+              "published": "2026-06-26T10:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-06-27",
+          "items": [
+            {
+              "sid": "33c5179f3970a753",
+              "title": "[AINews] OpenAI GPT-5.6 Sol / Terra / Luna — restricted to trusted partners",
+              "url": "https://www.latent.space/p/ainews-openai-gpt-56-sol-terra-luna",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Oddly tiered releases to both OAI and ANT on the same day.",
+              "published": "2026-06-27T05:23:22+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-09",
+          "items": [
+            {
+              "sid": "e19fbb75eb44457e",
+              "title": "GPT-5.6: Frontier intelligence that scales with your ambition - OpenAI",
+              "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE1pWmhBYnBfLXg2OGhrbmlYM2FobFBJanp6RHFiZ1lIa1BSSE1CTnNYSExtRW1USTFWbDloOUxIS3FKY2hXbm5ULQ?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "GPT-5.6: Frontier intelligence that scales with your ambition OpenAI",
+              "published": "2026-07-09T10:00:00+00:00",
+              "sources": [
+                "openai_blog",
+                "search_agent_engineering_news"
+              ]
+            },
+            {
+              "sid": "6786dc227c1f3563",
+              "title": "The new GPT-5.6 family: Luna, Terra, Sol",
+              "url": "https://simonwillison.net/2026/Jul/9/gpt-5-6/#atom-everything",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "OpenAI's latest flagship model hit general availability this morning , and comes in three sizes: Luna, Terra, and Sol (from smallest to largest). The new models are priced per 1M input/output tokens as Luna $1/$6, Ter...",
+              "published": "2026-07-09T19:46:38+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-10",
+          "items": [
+            {
+              "sid": "20a024974871c44e",
+              "title": "[AINews] OpenAI launches GPT 5.6 Sol/Terra/Luna, Codex becomes ChatGPT superapp",
+              "url": "https://www.latent.space/p/ainews-openai-launches-gpt-56-solterraluna",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "A big day for OpenAI.",
+              "published": "2026-07-10T06:19:40+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-fable",
+      "label": "Claude Fable",
+      "item_count": 5,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-06-30T16:00:00+00:00",
+      "last_updated": "2026-07-10T00:00:00+00:00",
+      "latest_title": "Working at the frontier: How Cognition trusts Claude Fable 5 to work through the night | Claude by Anthropic",
+      "member_sids": [
+        "e11fcea9cd94bb20",
+        "fdd9745edc3aad4e",
+        "ef10e0f5c9baeb91",
+        "db18dd171266e42d",
+        "223287766691e86d",
+        "20fdad9da202b6cc"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-fable.json",
+      "prior_narrative": {
+        "slug": "claude-fable",
+        "generated_at": "2026-07-14T05:15:00+00:00",
+        "covers_last_updated": "2026-07-10T00:00:00+00:00",
+        "covers_member_sids": [
+          "e11fcea9cd94bb20",
+          "fdd9745edc3aad4e",
+          "ef10e0f5c9baeb91",
+          "db18dd171266e42d",
+          "223287766691e86d",
+          "20fdad9da202b6cc"
+        ],
+        "tldr": "Anthropic launched Claude Fable 5 and the unguarded Mythos 5 in late June as long-horizon models \"made safe for general use.\" A same-day companion post revealed a US export-control suspension had already been lifted, with a fresh redeploy starting July 1 alongside new cyber-safeguard classifiers and a first-draft jailbreak severity framework.",
+        "whats_new": "Cognition says its Devin coding agent now trusts Claude Fable 5 to run unattended for eight hours and ship production-ready code — the first sign of deepening enterprise trust since the July 5 report that Claude Max access to the model was narrowing.",
+        "why_it_matters": "An eight-hour unattended run at a production-grade bar is a concrete data point for anyone evaluating how far Fable 5 can be trusted on long-horizon agentic coding tasks without a human in the loop.",
+        "status": {
+          "state": "Enterprise trust deepening · Max-plan access still unresolved",
+          "tone": "rising",
+          "changed": "2026-07-10",
+          "detail": "Fable 5 and Mythos 5 launched \"made safe for general use\" in late June with an export-control suspension already lifted; a July 5 hands-on report flagged Claude Max access narrowing, and Anthropic case studies since — a builder field guide, then Cognition's eight-hour unattended Devin run — show deepening enterprise trust without resolving the Max-plan access question.",
+          "track": [
+            {
+              "label": "launched",
+              "detail": "Jun 30",
+              "tone": "launch",
+              "weight": 20
+            },
+            {
+              "label": "redeployed",
+              "detail": "Jun 30 → Jul 1",
+              "tone": "rising",
+              "weight": 15
+            },
+            {
+              "label": "Max access narrowing",
+              "detail": "Jul 5",
+              "tone": "alert",
+              "weight": 20
+            },
+            {
+              "label": "builder guidance published",
+              "detail": "Jul 6",
+              "tone": "neutral",
+              "weight": 15
+            },
+            {
+              "label": "enterprise trust deepens",
+              "detail": "Jul 10",
+              "tone": "rising",
+              "weight": 30
+            }
+          ]
+        },
+        "provenance": {
+          "20fdad9da202b6cc": {
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Fable 5 + Mythos 5 ship — \"made safe for general use\"",
+            "summary": "Anthropic ships the Mythos-class Fable 5 and the unguarded Mythos 5, billed as made safe for general use.",
+            "sids": [
+              "e11fcea9cd94bb20"
+            ]
+          },
+          {
+            "kicker": "REDEPLOY",
+            "tone": "turn",
+            "headline": "Same-day post reveals the export-control suspension already lifted, redeploy starts July 1",
+            "summary": "Anthropic's companion post confirms a US export-control suspension has been lifted, with the model returning July 1 alongside new cyber-safeguard classifiers and a first-draft jailbreak severity framework.",
+            "sids": [
+              "fdd9745edc3aad4e"
+            ]
+          },
+          {
+            "kicker": "FRICTION",
+            "tone": "alert",
+            "headline": "Hands-on Fable 5 ships real code — but Max-plan access reportedly narrows",
+            "summary": "A builder uses Fable 5 to push sqlite-utils toward a 4.0 stable release, noting his Claude Max subscription's access to the model is closing within days.",
+            "sids": [
+              "ef10e0f5c9baeb91"
+            ]
+          },
+          {
+            "kicker": "GUIDANCE",
+            "tone": "neutral",
+            "headline": "Anthropic publishes a builder field guide for Fable 5",
+            "summary": "A practitioner guide on finding unknowns before, during, and after implementation with Fable 5 — documentation, not a new status signal on the access question.",
+            "sids": [
+              "db18dd171266e42d"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "rising",
+            "headline": "Cognition trusts Fable 5 to run Devin unattended for eight hours",
+            "summary": "Cognition reports Fable 5 is the first model its team trusts to run unattended overnight in Devin and still deliver production-ready code — evidence of deepening enterprise trust, independent of the unresolved Max-plan access question.",
+            "sids": [
+              "20fdad9da202b6cc"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Is the reported end of Fable 5 access on Claude Max subscriptions an official, product-wide change, and what happens after it?",
+          "Does the July 1 redeploy restore standard private-inference terms, or does a data-sharing requirement persist for any deployment path?",
+          "Is Fable 5 / Mythos 5 redeploying beyond Bedrock — first-party API or other clouds — on private-inference terms?",
+          "Does Cognition's unattended overnight use of Fable 5 in Devin run through an access path insulated from the reported Max-plan narrowing?"
+        ],
+        "take_for_builders": "If you're piloting long unattended agent runs, Cognition's eight-hour production-ready benchmark with Fable 5 is a useful reference point — but confirm your own access path (API, Bedrock, or Max-plan) hasn't hit the reported narrowing before depending on it for overnight jobs.",
+        "day_captions": {
+          "e11fcea9cd94bb20": "The launch itself — Anthropic ships Fable 5 and the Mythos-class Mythos 5, billed as \"made safe for general use.\"",
+          "fdd9745edc3aad4e": "Same-day companion post: the export-control suspension has already been lifted, with redeploy starting July 1 and new cyber safeguards plus a jailbreak framework.",
+          "ef10e0f5c9baeb91": "First hands-on report of Fable 5 shipping real code, and the first signal that Max-subscription access may be ending within days.",
+          "db18dd171266e42d": "Anthropic ships builder-facing guidance for agentic coding with Fable 5, separate from the ongoing access-status thread.",
+          "20fdad9da202b6cc": "First reported eight-hour unattended production run — Cognition's Devin trusts Fable 5 overnight, a new adoption high point since the Max-access narrowing report."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "e11fcea9cd94bb20",
+              "title": "Claude Fable 5 and Claude Mythos 5",
+              "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "Today we’re launching Claude Fable 5: a Mythos-class model that we’ve made safe for general use.",
+              "published": "2026-06-30T16:00:00+00:00"
+            },
+            {
+              "sid": "fdd9745edc3aad4e",
+              "title": "Redeploying Claude Fable 5",
+              "url": "https://www.anthropic.com/news/redeploying-fable-5",
+              "source": "anthropic_newsroom",
+              "type": "news",
+              "summary_1line": "Anthropic is redeploying Claude Fable 5 starting July 1 following the lifting of export controls, with updated cybersecurity safeguards and a new industry jailbreak framework.",
+              "published": "2026-06-30T16:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-05",
+          "items": [
+            {
+              "sid": "ef10e0f5c9baeb91",
+              "title": "sqlite-utils 4.0rc2, mostly written by Claude Fable (for about $149.25)",
+              "url": "https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "I wrote about the sqlite-utils 4.0rc1 release a couple of weeks ago. Since we only have Claude Fable on our Max subscriptions for a few more days, I decided to see if it could help me get to a 4.0 stable release that...",
+              "published": "2026-07-05T01:00:48+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-06",
+          "items": [
+            {
+              "sid": "db18dd171266e42d",
+              "title": "A field guide to Claude Fable 5: Finding your unknowns | Claude | Claude by Anthropic",
+              "url": "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns",
+              "source": "claude_blog",
+              "type": "news",
+              "summary_1line": "Practical patterns for agentic coding with Claude Fable: how to find your unknowns before, during, and after implementation, from the team at Anthropic.",
+              "published": "2026-07-06T00:00:00+00:00",
+              "sources": [
+                "claude_blog",
+                "latent_space"
+              ]
+            }
+          ]
+        },
+        {
+          "date": "2026-07-10",
+          "items": [
+            {
+              "sid": "20fdad9da202b6cc",
+              "title": "Working at the frontier: How Cognition trusts Claude Fable 5 to work through the night | Claude by Anthropic",
+              "url": "https://claude.com/blog/working-at-the-frontier-how-cognition-trusts-claude-fable-5-to-work-through-the-night",
+              "source": "claude_blog",
+              "type": "news",
+              "summary_1line": "Cognition tested Claude Fable 5 in Devin, its AI software engineer. It's the first model its team trusts to run unattended for eight hours and deliver production-ready code.",
+              "published": "2026-07-10T00:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "openai-fixes-18-year-old-libunwind-core-dump-bug",
+      "label": "OpenAI fixes 18-year-old libunwind core-dump bug",
+      "item_count": 2,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-06-30T00:00:00+00:00",
+      "last_updated": "2026-07-09T10:15:00+00:00",
+      "latest_title": "OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology",
+      "member_sids": [
+        "f1f7d4f8001b4288",
+        "0f2902f359de6749"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/openai-fixes-18-year-old-libunwind-core-dump-bug.json",
+      "prior_narrative": {
+        "slug": "openai-fixes-18-year-old-libunwind-core-dump-bug",
+        "generated_at": "2026-07-13T20:10:00+00:00",
+        "covers_last_updated": "2026-07-09T10:15:00+00:00",
+        "covers_member_sids": [
+          "f1f7d4f8001b4288",
+          "0f2902f359de6749"
+        ],
+        "tldr": "OpenAI engineers spent months chasing mysterious crashes in Rockset, the C++ data infrastructure behind ChatGPT search, where functions returned to invalid addresses and stack pointers shifted unexpectedly. Instead of debugging crashes one at a time, they built a pipeline to mine a year of production core dumps for population-level patterns — \"epidemiological debugging.\"",
+        "whats_new": "InfoQ's write-up details the fix: an 18-year-old GNU libunwind race condition with a roughly 100-picosecond vulnerable window, made real by OpenAI's frequent per-query timer signals, has been patched upstream by reordering the instruction- and stack-pointer updates.",
+        "why_it_matters": "A textbook 18-year-old unwinding-library race only became visible at OpenAI's request volume and signal frequency — a reminder that widely-used systems libraries can hide production-breaking bugs that only trigger at extreme scale or aggressive timer/signal usage.",
+        "status": {
+          "state": "Resolved · fix upstreamed",
+          "tone": "resolved",
+          "changed": "2026-07-09",
+          "detail": "Root-caused to a silent Azure hardware fault plus an upstream libunwind race condition; the software fix has been submitted upstream."
+        },
+        "provenance": {
+          "f1f7d4f8001b4288": {
+            "surfaced_by": "scout"
+          },
+          "0f2902f359de6749": {
+            "surfaced_by": "scout"
+          }
+        },
+        "beats": [
+          {
+            "kicker": "INVESTIGATION",
+            "tone": "launch",
+            "headline": "OpenAI mines a year of ChatGPT core dumps to catch untraceable Rockset crashes",
+            "summary": "An automated core-dump pipeline replaced one-crash-at-a-time debugging with population-level pattern search across return-to-null and misaligned-stack failures.",
+            "sids": [
+              "f1f7d4f8001b4288"
+            ]
+          },
+          {
+            "kicker": "THE FIX",
+            "tone": "turn",
+            "headline": "Root cause: a silent Azure hardware fault plus an 18-year-old libunwind race condition",
+            "summary": "The software bug's vulnerable window was about 100 picoseconds — only exposed by OpenAI's frequent per-query timer signals — and was closed by reordering the pointer updates.",
+            "sids": [
+              "0f2902f359de6749"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Has the libunwind race-condition fix landed in a released version, or only been submitted upstream?",
+          "Did the same Azure hardware fault affect other tenants on that host, or was it isolated to OpenAI's workload?"
+        ],
+        "take_for_builders": "If your service delivers signals frequently (per-query timers, profilers) on a C/C++ stack that links libunwind for exception unwinding, check whether your build already carries the upstream setcontext fix before writing off 'impossible' crashes as hardware noise.",
+        "day_captions": {
+          "f1f7d4f8001b4288": "OpenAI's own account: epidemiological core-dump analysis surfaces two unrelated crash causes.",
+          "0f2902f359de6749": "InfoQ adds the technical specifics: the exact race-condition window and how it was closed."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "f1f7d4f8001b4288",
+              "title": "Core dump epidemiology: fixing an 18-year-old bug",
+              "url": "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "OpenAI engineers used large-scale core dump analysis to debug rare infrastructure crashes, uncovering both a hardware fault and a long-standing software bug.",
+              "published": "2026-06-30T00:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-09",
+          "items": [
+            {
+              "sid": "0f2902f359de6749",
+              "title": "OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology",
+              "url": "https://www.infoq.com/news/2026/07/openai-libunwind-core-dumps/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "OpenAI found two unrelated bugs masquerading as one in ChatGPT's data infrastructure. Silent hardware corruption on one Azure host and an 18-year-old race condition in GNU libunwind's setcontext function with a one-in...",
+              "published": "2026-07-09T10:15:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "langchain-deep",
+      "label": "LangChain Deep",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-06-25T16:30:00+00:00",
+      "last_updated": "2026-07-08T18:09:30+00:00",
+      "latest_title": "LangChain and NVIDIA Launch NemoClaw Deep Agents Blueprint",
+      "member_sids": [
+        "8d1dc5b79d8b1372",
+        "d950eaa58be54c93",
+        "bf111a567cfc0366"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/langchain-deep.json",
+      "prior_narrative": {
+        "slug": "langchain-deep",
+        "generated_at": "2026-07-08T20:10:00+00:00",
+        "covers_last_updated": "2026-07-08T18:09:30+00:00",
+        "covers_member_sids": [
+          "8d1dc5b79d8b1372",
+          "d950eaa58be54c93",
+          "bf111a567cfc0366"
+        ],
+        "tldr": "LangChain's June newsletter previewed Deep Agents Rubrics and programmatic subagents as building blocks for its orchestration harness. On July 8, LangChain and NVIDIA turned that groundwork into a joint product: the NemoClaw Deep Agents blueprint pairing the harness with Nemotron 3 Ultra.",
+        "whats_new": "LangChain and NVIDIA launched the NemoClaw Deep Agents blueprint, tuning LangChain's harness for Nemotron 3 Ultra with benchmark results claiming lower cost than top closed models.",
+        "why_it_matters": "Platform engineers get a published, open reference stack — LangChain's harness plus open-weight Nemotron 3 Ultra and OpenShell — as an alternative to wiring a closed-model agent deployment from scratch.",
+        "status": {
+          "state": "Shipped · joint launch",
+          "tone": "launch",
+          "changed": "2026-07-08",
+          "detail": "LangChain and NVIDIA launched the NemoClaw Deep Agents blueprint, pairing the Deep Agents harness with Nemotron 3 Ultra."
+        },
+        "beats": [
+          {
+            "kicker": "BUILDING",
+            "tone": "rising",
+            "headline": "LangChain previews Deep Agents Rubrics and programmatic subagents",
+            "summary": "June newsletter lays groundwork for the harness: Fleet on-call copilot, Deep Agents Rubrics, and programmatic subagents.",
+            "sids": [
+              "8d1dc5b79d8b1372"
+            ]
+          },
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "LangChain and NVIDIA launch NemoClaw, pairing the Deep Agents harness with Nemotron 3 Ultra",
+            "summary": "NVIDIA publishes benchmark results and LangChain ships the blueprint combining Deep Agents Code, Nemotron 3 Ultra, and OpenShell for open, governed enterprise agents.",
+            "sids": [
+              "d950eaa58be54c93",
+              "bf111a567cfc0366"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Are the benchmark cost/performance numbers independently verified, or only NVIDIA's own comparison?",
+          "Does the NemoClaw blueprint require Nemotron 3 Ultra specifically, or does it generalize to other open-weight models?",
+          "Do Deep Agents Rubrics and programmatic subagents ship inside the NemoClaw blueprint, or remain separate LangSmith features?"
+        ],
+        "take_for_builders": "Evaluating open-weight agent stacks: pull the NemoClaw blueprint (LangChain Deep Agents harness + Nemotron 3 Ultra + OpenShell) as a reference before building a custom orchestration layer, and check NVIDIA's benchmark methodology before trusting the cost/performance claims.",
+        "day_captions": {
+          "8d1dc5b79d8b1372": "First mention of Deep Agents Rubrics and programmatic subagents — the building blocks NemoClaw later assembles.",
+          "d950eaa58be54c93": "NVIDIA's benchmark claim: Nemotron 3 Ultra tuned for LangChain's Deep Agents harness beats top closed models on cost.",
+          "bf111a567cfc0366": "LangChain's companion post: the NemoClaw blueprint combining Deep Agents Code, Nemotron 3 Ultra, and OpenShell."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-25",
+          "items": [
+            {
+              "sid": "8d1dc5b79d8b1372",
+              "title": "June 2026: LangChain Newsletter — Fleet On-Call Copilot, Deep Agents Rubrics, and More",
+              "url": "https://www.langchain.com/blog/june-2026-langchain-newsletter",
+              "source": "langchain_blog",
+              "type": "news",
+              "summary_1line": "New in LangSmith: a Fleet on-call copilot for alert triage, computer use for agents, voice trace debugging, and experiment status tracking. Plus Deep Agents Rubrics, programmatic subagents, a new LangSmith Deployment...",
+              "published": "2026-06-25T16:30:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-08",
+          "items": [
+            {
+              "sid": "d950eaa58be54c93",
+              "title": "NVIDIA Nemotron Achieves Benchmark-Leading Performance With LangChain Deep Agents Harness",
+              "url": "https://blogs.nvidia.com/blog/nemotron-langchain-agents-open-stack",
+              "source": "nvidia_blog",
+              "type": "news",
+              "summary_1line": "NVIDIA Nemotron 3 Ultra is offering leading performance at lower cost than top closed models with the largest and most widely adopted AI agent orchestration platform. LangChain tuned its Deep Agents harness for NVIDIA...",
+              "published": "2026-07-08T15:00:27+00:00"
+            },
+            {
+              "sid": "bf111a567cfc0366",
+              "title": "LangChain and NVIDIA Launch NemoClaw Deep Agents Blueprint",
+              "url": "https://www.langchain.com/blog/langchain-and-nvidia-launch-the-nemoclaw-deep-agents-blueprint",
+              "source": "langchain_blog",
+              "type": "news",
+              "summary_1line": "LangChain and NVIDIA launch the NemoClaw Deep Agents blueprint, combining Deep Agents Code, Nemotron 3 Ultra, and OpenShell for open, governed enterprise agents.",
+              "published": "2026-07-08T18:09:30+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "language-understanding",
+      "label": "Language Understanding",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 2,
+      "first_seen": "2026-06-24T08:28:56+00:00",
+      "last_updated": "2026-07-08T15:02:11+00:00",
+      "latest_title": "HIVE: Understanding Post-Hallucination Reasoning in Vision Language Models",
+      "member_sids": [
+        "83561af981f07e16",
+        "16f36915d1651710",
+        "1505eb481125a099"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/language-understanding.json",
+      "prior_narrative": {
+        "slug": "language-understanding",
+        "generated_at": "2026-07-09T05:04:35Z",
+        "covers_last_updated": "2026-07-08T15:02:11+00:00",
+        "covers_member_sids": [
+          "83561af981f07e16",
+          "16f36915d1651710",
+          "1505eb481125a099"
+        ],
+        "tldr": "This is not a single developing story. The clustering grouped three unrelated pieces because their titles share the generic words \"language\" and \"understanding\" — a June 24 paper on spoken-intent recognition, a same-day talk on LLM behavioral quirks, and a July 8 vision-language hallucination paper. None builds on, responds to, or follows from another.",
+        "whats_new": "The latest addition (Jul 8) is a vision-language-model hallucination paper — it has no connection to the two June 24 items already in this cluster; there is no shared story to update.",
+        "why_it_matters": "Treat each item independently rather than as a thread: the SLU paper targets inconsistent intent-slot decoding, the talk targets LLM behavioral heuristics for practitioners, and the hallucination paper targets VLM grounding — three distinct problem spaces with no shared mechanism, benchmark, or team.",
+        "beats": [
+          {
+            "kicker": "UNRELATED",
+            "tone": "neutral",
+            "headline": "Paper proposes a fix for inconsistent multi-intent spoken-language decoding",
+            "summary": "Frame-level self-consistency training to stop LLM-based spoken language understanding from producing inconsistent intent-slot structures across decodes.",
+            "sids": [
+              "83561af981f07e16"
+            ]
+          },
+          {
+            "kicker": "UNRELATED",
+            "tone": "neutral",
+            "headline": "Talk lays out 5 rules for why LLMs behave like populations, not individuals",
+            "summary": "Naomi Saphra's presentation on how tokenization creates semantic blind spots and why language-model behavior is better modeled statistically.",
+            "sids": [
+              "16f36915d1651710"
+            ]
+          },
+          {
+            "kicker": "UNRELATED",
+            "tone": "neutral",
+            "headline": "Paper reframes VLM hallucinations as an evidence gap, not a semantic error",
+            "summary": "Argues vision-language model hallucinations often arise from partial or ambiguous visual evidence rather than pure semantic mistakes.",
+            "sids": [
+              "1505eb481125a099"
+            ]
+          }
+        ],
+        "take_for_builders": "There's no unified action here — evaluate the SLU consistency method, the LLM-behavior framing, and the VLM hallucination diagnosis independently against your own use case; none depend on the others.",
+        "day_captions": {
+          "83561af981f07e16": "Unrelated: frame-level self-consistency to fix inconsistent intent-slot outputs in multi-intent spoken language understanding — no connection to the other two items.",
+          "16f36915d1651710": "Unrelated: 5 rules for LLM behavior — tokenization blind spots and population-level dynamics — no connection to the other two items.",
+          "1505eb481125a099": "Unrelated: argues VLM hallucinations often stem from ambiguous visual evidence rather than semantic error — no connection to the other two items."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-24",
+          "items": [
+            {
+              "sid": "83561af981f07e16",
+              "title": "SFL-MTSC: Leveraging Semantic Frame-Level Multi-Task Self-Consistency for Robust Multi-Intent Spoken Language Understanding",
+              "url": "http://arxiv.org/abs/2606.25552v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Prompt-based spoken language understanding (SLU) with large language models (LLMs) often suffers from inconsistent intent--slot structures due to decoding stochasticity, particularly in multi-intent scenarios. In view...",
+              "published": "2026-06-24T08:28:56+00:00"
+            },
+            {
+              "sid": "16f36915d1651710",
+              "title": "Presentation: Rules for Understanding Language Models",
+              "url": "https://www.infoq.com/presentations/5-principles-llm-behavior/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Naomi Saphra discusses 5 rules governing language model behavior, breaking down why LLMs act like populations rather than individuals. She explains how tokenization creates strange semantic blind spots and highlights...",
+              "published": "2026-06-24T11:25:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-08",
+          "items": [
+            {
+              "sid": "1505eb481125a099",
+              "title": "HIVE: Understanding Post-Hallucination Reasoning in Vision Language Models",
+              "url": "http://arxiv.org/abs/2607.07507v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Hallucinations in vision language models (VLMs) are commonly treated as semantic errors, yet they often arise from partial or ambiguous visual evidence. Prior work mainly focuses on detecting or suppressing hallucinat...",
+              "published": "2026-07-08T15:02:11+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "lilian-weng-s-harness-engineering-essay",
+      "label": "Lilian Weng's Harness Engineering essay",
+      "item_count": 2,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-07-04T00:00:00+00:00",
+      "last_updated": "2026-07-08T02:20:25+00:00",
+      "latest_title": "[AINews] Lilian Weng summarizes 35 papers on Harness Engineering for RSI",
+      "member_sids": [
+        "2c589c3624db6218",
+        "0a08c765f6fbc28a"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/lilian-weng-s-harness-engineering-essay.json",
+      "prior_narrative": {
+        "slug": "lilian-weng-s-harness-engineering-essay",
+        "generated_at": "2026-07-09T15:10:00+00:00",
+        "covers_last_updated": "2026-07-08T02:20:25+00:00",
+        "covers_member_sids": [
+          "2c589c3624db6218",
+          "0a08c765f6fbc28a"
+        ],
+        "tldr": "Lilian Weng published \"Harness Engineering for Self-Improvement\" on July 4, tracing recursive self-improvement (RSI) back to I. J. Good's 1965 \"ultraintelligent machine\" concept. The essay surveys roughly 35 papers on the harness and scaffolding layer that lets models improve themselves.",
+        "whats_new": "AINews' July 8 daily digest summarized Weng's harness-engineering survey four days after she published it, carrying the essay to a wider daily-reader audience via latent.space.",
+        "why_it_matters": "It's a single curated map of current RSI/harness-engineering research — worth checking before a platform team builds new self-improvement scaffolding from scratch.",
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Weng publishes the harness-engineering survey",
+            "summary": "Frames RSI's history from I. J. Good's 1965 \"ultraintelligent machine\" through today's harness/scaffolding techniques.",
+            "sids": [
+              "2c589c3624db6218"
+            ]
+          },
+          {
+            "kicker": "PICKUP",
+            "tone": "rising",
+            "headline": "AINews digest summarizes the essay for a wider audience",
+            "summary": "latent.space's daily AINews roundup condenses the 35-paper survey four days later.",
+            "sids": [
+              "0a08c765f6fbc28a"
+            ]
+          }
+        ],
+        "provenance": {
+          "2c589c3624db6218": {
+            "surfaced_by": "scout"
+          },
+          "0a08c765f6fbc28a": {
+            "surfaced_by": "scout"
+          }
+        },
+        "open_questions": [
+          "Does Weng's essay propose new evaluation criteria for self-improving harnesses, or mainly catalog existing techniques?",
+          "Will other researchers or outlets build on or respond to this survey?"
+        ],
+        "take_for_builders": "Treat this essay as a current literature map for self-improving agent harnesses — check it against your own scaffolding before adding new self-improvement machinery.",
+        "day_captions": {
+          "2c589c3624db6218": "Original essay: traces RSI's roots to I. J. Good's 1965 concept and surveys the harness/scaffolding layer enabling self-improvement.",
+          "0a08c765f6fbc28a": "AINews' daily digest summarizes the essay's 35-paper survey, extending its reach beyond Weng's own blog."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-07-04",
+          "items": [
+            {
+              "sid": "2c589c3624db6218",
+              "title": "Harness Engineering for Self-Improvement",
+              "url": "https://lilianweng.github.io/posts/2026-07-04-harness",
+              "source": "lilian_weng",
+              "type": "news",
+              "summary_1line": "The concept of recursive self-improvement (RSI) dates back to I. J. Good (1965) , where he defined an “ultraintelligent machine” as a system that can surpass humans in all intellectual activities and design better mac...",
+              "published": "2026-07-04T00:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-08",
+          "items": [
+            {
+              "sid": "0a08c765f6fbc28a",
+              "title": "[AINews] Lilian Weng summarizes 35 papers on Harness Engineering for RSI",
+              "url": "https://www.latent.space/p/ainews-lilian-weng-summarizes-35",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "a quiet day lets us read some condensed insight",
+              "published": "2026-07-08T02:20:25+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-sonnet-5-launch",
+      "label": "Claude Sonnet 5 launch",
+      "item_count": 2,
+      "source_count": 4,
+      "day_count": 2,
+      "first_seen": "2026-06-30T18:00:00+00:00",
+      "last_updated": "2026-07-07T00:15:11+00:00",
+      "latest_title": "Claude Sonnet 5: Anthropic's Most Agentic AI Model Arrives at a Reduced Price (2026)",
+      "member_sids": [
+        "4307222bc7e5f2e4",
+        "f4058e5bde4667bf",
+        "36f5f67c86fa79a9",
+        "7d9dfaf5b546108e"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-sonnet-5-launch.json",
+      "prior_narrative": {
+        "slug": "claude-sonnet-5-launch",
+        "generated_at": "2026-07-07T05:04:40+00:00",
+        "covers_last_updated": "2026-07-07T00:15:11+00:00",
+        "covers_member_sids": [
+          "4307222bc7e5f2e4",
+          "f4058e5bde4667bf",
+          "36f5f67c86fa79a9",
+          "7d9dfaf5b546108e"
+        ],
+        "tldr": "Anthropic launched Claude Sonnet 5 on June 30 as its most capable Sonnet model yet, shipping simultaneously through Amazon Bedrock, the Claude Platform on AWS, and first-party channels rather than staggering availability. Launch-day coverage from AWS and Simon Willison framed it as a straight agentic-capability jump over prior Sonnet releases.",
+        "whats_new": "A week after launch, independent coverage reports Claude Sonnet 5 shipping at a reduced price alongside its agentic-capability gains — the first signal it's being positioned on cost as well as capability.",
+        "why_it_matters": "A same-day multi-cloud launch plus a reported price cut lowers the bar to swap Sonnet 5 into existing Bedrock or AWS pipelines without renegotiating deployment terms.",
+        "status": {
+          "state": "Shipping",
+          "tone": "launch",
+          "changed": "2026-06-30",
+          "detail": "Claude Sonnet 5 launched June 30 across Bedrock, AWS, and first-party channels; a week later, independent coverage reports a reduced price alongside its agentic gains.",
+          "track": [
+            {
+              "label": "launched",
+              "detail": "Jun 30",
+              "tone": "launch",
+              "weight": 60
+            },
+            {
+              "label": "reduced price reported",
+              "detail": "Jul 7",
+              "tone": "now",
+              "weight": 40
+            }
+          ]
+        },
+        "provenance": {
+          "4307222bc7e5f2e4": {
+            "verified": 3
+          },
+          "7d9dfaf5b546108e": {
+            "surfaced_by": "scout",
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Sonnet 5 ships on AWS Bedrock and the Claude Platform",
+            "summary": "Anthropic's most capable Sonnet model launches simultaneously across Bedrock and AWS, with Anthropic's newsroom, AWS's ML blog, and Simon Willison all covering it same-day.",
+            "sids": [
+              "4307222bc7e5f2e4"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Independent review flags a reduced price alongside agentic gains",
+            "summary": "A week-later write-up frames Sonnet 5 as Anthropic's most agentic model yet, arriving at a lower price than its predecessor.",
+            "sids": [
+              "7d9dfaf5b546108e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Is the reported price cut a permanent list-price change or an introductory/regional promotion?",
+          "Do the agentic capability gains show up in published benchmarks, or only in early hands-on reports?",
+          "Does the day-one multi-cloud release extend beyond AWS to Google Cloud or Azure?"
+        ],
+        "take_for_builders": "Check current Sonnet 5 list pricing against your cost model before assuming the reported cut applies to your account or region, and re-run any latency/quality evals pinned to the prior Sonnet version.",
+        "day_captions": {
+          "4307222bc7e5f2e4": "The launch itself — Anthropic ships Claude Sonnet 5 on Bedrock and the Claude Platform on AWS, covered same-day by Anthropic, AWS, and Simon Willison.",
+          "7d9dfaf5b546108e": "First independent report that Sonnet 5 is arriving at a reduced price on top of its agentic-capability jump."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "4307222bc7e5f2e4",
+              "title": "Introducing Claude Sonnet 5 on AWS: Anthropic’s most capable Sonnet model",
+              "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-sonnet-5-on-aws-anthropics-most-capable-sonnet-model",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "Today, we’re excited to announce the availability of Anthropic’s most advanced Sonnet model, Claude Sonnet 5, on Amazon Bedrock and Claude Platform on AWS. Claude Sonnet 5 is the first Sonnet model of Anthropic’s late...",
+              "published": "2026-06-30T18:00:00+00:00",
+              "sources": [
+                "anthropic_newsroom",
+                "aws_ml_blog",
+                "simon_willison"
+              ]
+            }
+          ]
+        },
+        {
+          "date": "2026-07-07",
+          "items": [
+            {
+              "sid": "7d9dfaf5b546108e",
+              "title": "Claude Sonnet 5: Anthropic's Most Agentic AI Model Arrives at a Reduced Price (2026)",
+              "url": "https://lucasaguiar.xyz/en/posts/claude-sonnet-5-2026",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Claude Sonnet 5: Anthropic's Most Agentic AI Model Arrives at a Reduced Price (2026)",
+              "published": "2026-07-07T00:15:11+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-science",
+      "label": "Let's Science",
+      "item_count": 4,
+      "source_count": 2,
+      "day_count": 4,
+      "first_seen": "2026-06-30T20:04:48+00:00",
+      "last_updated": "2026-07-06T08:35:12+00:00",
+      "latest_title": "Inference Chips Differ for LLM Serving Workloads - Let's Data Science",
+      "member_sids": [
+        "a628967bda024ab3",
+        "a100d2bc462a761c",
+        "c0e88935b7925bb1",
+        "50a2c68ea36708c1"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-science.json",
+      "prior_narrative": {
+        "slug": "claude-science",
+        "generated_at": "2026-07-13T15:04:22Z",
+        "covers_last_updated": "2026-07-06T08:35:12+00:00",
+        "covers_member_sids": [
+          "a628967bda024ab3",
+          "a100d2bc462a761c",
+          "c0e88935b7925bb1",
+          "50a2c68ea36708c1"
+        ],
+        "tldr": "This thread originally tracked Anthropic's Claude Science workbench launch and its same-day Modal compute integration. Those items have since aged out of the clustering window, leaving only pieces that share the \"Let's Data Science\" publication byline with the product name.",
+        "whats_new": "No Claude Science product update — the newest addition is another unrelated inference-chip comparison piece, bundled in only by the \"Let's Data Science\" publication name.",
+        "why_it_matters": "These are four distinct inference-tooling reads, not a Claude Science update — don't read a product signal into the grouping; evaluate each piece on its own technical merit.",
+        "beats": [
+          {
+            "kicker": "NOT ONE STORY",
+            "tone": "neutral",
+            "headline": "Four unrelated inference-tooling reads share only a publication byline",
+            "summary": "A batching-strategy comparison, an MCP codebase-memory tool, a GPU power-prediction model, and an inference-chip comparison — grouped only because their source publishes as \"...Data Science\", not because they relate to Claude Science.",
+            "sids": [
+              "a628967bda024ab3",
+              "a100d2bc462a761c",
+              "c0e88935b7925bb1",
+              "50a2c68ea36708c1"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Will genuine Claude Science product coverage re-enter this cluster once new anchor-sharing stories appear, or has the thread effectively ended?"
+        ],
+        "take_for_builders": "Don't treat this cluster as a Claude Science signal — read each piece on its own: batching-strategy tradeoffs, MCP-based agent memory, GPU power prediction, or inference-chip comparison, whichever matches your current inference stack decision.",
+        "day_captions": {
+          "a628967bda024ab3": "Unrelated: compares continuous and static batching strategies for LLM inference — grouped in only by shared 'Data Science' publication branding, not the Claude Science product.",
+          "a100d2bc462a761c": "Unrelated: an MCP-based codebase-memory tool for speeding AI coding agent queries — no connection to Claude Science.",
+          "c0e88935b7925bb1": "Unrelated: a tool that predicts LLM inference power draw without profiling — no connection to Claude Science.",
+          "50a2c68ea36708c1": "Unrelated: compares how different inference chips handle LLM serving workloads — no connection to Claude Science."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-06-30",
+          "items": [
+            {
+              "sid": "a628967bda024ab3",
+              "title": "Article Compares Continuous and Static Batching in LLM Inference - Let's Data Science",
+              "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNaEZzNzl2UjVzOFdxMnFUV0VXVjZ2YXZTOWxVazJoUmNIWnBKVUhqbU53Z3F2d21KQ1djdmdWSlVZSEJiZE04MUhOVGZTSktMZERydHpidm1wdWVObWZrMWpVbzRZNTFPREtpS1NfNndZSi05Y09tUWNCRjJhcTRCc1p1dDctZWhtMVpEaDJXcHZHNk93MUtnMUJtQXEzSm1DcHhPUw?oc=5",
+              "source": "search_llm_ops_news",
+              "type": "news",
+              "summary_1line": "Article Compares Continuous and Static Batching in LLM Inference Let's Data Science",
+              "published": "2026-06-30T20:04:48+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-03",
+          "items": [
+            {
+              "sid": "a100d2bc462a761c",
+              "title": "codebase-memory-mcp speeds AI coding agent queries - Let's Data Science",
+              "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxOVGtKZERvYXNfbmEzcG5XNDlOWnY2TFY2am9mbVNzUWxqU0hvdjVHMUlHak91dVhWSHNvZTd3U3c1LVZiRVFXaHU5b3RRcnpzbk1kVWpUYll5M2Ixa2IxVEdlakJNa05reFo4RUZSVWZTa094em9iYjBqZlg5ck51MDgyX0xSSzc3SHlOVEtWdDJZTjliSlZR?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "codebase-memory-mcp speeds AI coding agent queries Let's Data Science",
+              "published": "2026-07-03T06:32:31+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-05",
+          "items": [
+            {
+              "sid": "c0e88935b7925bb1",
+              "title": "WattGPU Predicts LLM Inference Power Without Profiling - Let's Data Science",
+              "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPWGQ5ZGpORXlHMk9fc0JpTlJHeFNrQjNxY01YTmthVEl3Um5oWHZ4NjIzLUJvaFpVeEdEU0tZTGpPNWZWTzVvbUx6UzdTMk5hc1dGcjFMN19vUVNuMDluZHNrVUJ6UTZyRmNYSDF1ZmUwNTNQaHlBZklFVlNibEFpclRSTDdIMmlkMllFWk10bDhCdkZtS2pEZUpCUXQ?oc=5",
+              "source": "search_llm_ops_news",
+              "type": "news",
+              "summary_1line": "WattGPU Predicts LLM Inference Power Without Profiling Let's Data Science",
+              "published": "2026-07-05T17:56:40+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-06",
+          "items": [
+            {
+              "sid": "50a2c68ea36708c1",
+              "title": "Inference Chips Differ for LLM Serving Workloads - Let's Data Science",
+              "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNWjlBbGk4VkRqN2tTaDNNcDc3djFyVXNvWHl3Q01tUXlZbUZaeEZOQlUtT3NPOHRQbmVsX1FCUVl0YTI3VDBFMElPVnR0RFdENVhlREdFMG91NzJDVXNjUmwxWF9zVnoyTlVvVms2YnJrU0JLeTdneWFmOFgySXpPOEYxSUU5bE1Ud1VFemVVazY5V3Ex?oc=5",
+              "source": "search_llm_ops_news",
+              "type": "news",
+              "summary_1line": "Inference Chips Differ for LLM Serving Workloads Let's Data Science",
+              "published": "2026-07-06T08:35:12+00:00"
             }
           ]
         }
