@@ -1158,6 +1158,19 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.198",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "355cf63537eae254": {
+  "first_seen": "2026-07-14T09:02:58.568974+00:00",
+  "id": "49615b40ee2dbc79",
+  "image_url": "https://res.infoq.com/news/2026/07/durable-document-schema/en/headerimage/generatedHeaderImage-1784010959321.jpg",
+  "published": "2026-07-14T08:08:00+00:00",
+  "sid": "355cf63537eae254",
+  "source": "infoq_ai_ml",
+  "summary": "Drawing from the enduring adaptability of HTML and HTTP, Seph Gentle proposes embedding self-contained schemas directly into file headers, ensuring data remains readable without external definitions. His experimental format prioritises forward, backwards, and sideways compatibility, enabling data format evolution without central coordination or data loss By Olimpiu Pop",
+  "summary_1line": "Drawing from the enduring adaptability of HTML and HTTP, Seph Gentle proposes embedding self-contained schemas directly into file headers, ensuring data remains readable without external definitions. His experimental...",
+  "title": "Evolutionary Data Through Schemaboi: Achieving Forward, Backwards, and Sideways Compatibility",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/07/durable-document-schema/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
  "36eb3caeeee9041c": {
   "first_seen": "2026-07-09T12:03:00.054910+00:00",
   "id": "4e48b16da27a0cff",
@@ -3418,13 +3431,18 @@
  },
  "9b15fa345e7ac466": {
   "first_seen": "2026-07-14T06:02:59.554219+00:00",
-  "id": "27669a85a82d3010",
-  "published": "2026-07-12T23:40:12+00:00",
+  "id": "19280500e9d17685",
+  "published": "2026-07-14T08:58:07+00:00",
+  "release_highlights": [
+   "Avoid blocking model launching when no system FFmpeg is available for TorchCodec . Previously import torchcodec raised a RuntimeError at import time when sys...",
+   "Guard mixed-dtype allreduce RMSNorm quant fusions . The fused FlashInfer allreduce + RMSNorm + static-quantization patterns could match graphs where the acti...",
+   "@hugo-cen made their first contribution in #48330"
+  ],
   "sid": "9b15fa345e7ac466",
   "source": "vllm_releases",
-  "summary": "Signed-off-by: hcenteno hugo.centeno@estudiantat.upc.edu (cherry picked from commit 5f8e73c )",
-  "summary_1line": "Signed-off-by: hcenteno hugo.centeno@estudiantat.upc.edu (cherry picked from commit 5f8e73c )",
-  "title": "v0.25.1: [Bugfix] Guard mixed-dtype allreduce RMSNorm quant fusions (#48330)",
+  "summary": "vLLM v0.25.1 Highlights This release features 2 commits from 2 contributors (1 new)! v0.25.1 is a patch release containing two targeted bug fixes on top of v0.25.0. Bug Fixes Avoid blocking model launching when no system FFmpeg is available for TorchCodec ( #47888 ). Previously import torchcodec raised a RuntimeError at import time when system FFmpeg was missing, which blocked startup (e.g. vllm serve Qwen/Qwen3-VL-2B-Instruct ) even when TorchCodec was not in use. The error is now deferred to runtime so it only surfaces if TorchCodec is actually needed. Guard mixed-dtype allreduce RMSNorm quant fusions ( #48330 ). The fused FlashInfer allreduce + RMSNorm + static-quantization patterns could match graphs where the activation and RMSNorm weight dtypes differ (e.g. a BF16 residual stream with an FP32 Gemma/Qwen-style RMSNorm weight in NVFP4 models), corrupting the hidden state and producing garbage output such as repeated !!!!! tokens. A dtype-match guard now routes incompatible mixed-dtype graphs to the safe path, while same-dtype models retain the full allreduce + RMSNorm + quant fusion. Contributors @Isotr0py , @hugo-cen New Contributors @hugo-cen made their first contribution in #48330",
+  "summary_1line": "Avoid blocking model launching when no system FFmpeg is available for TorchCodec . Previously import torchcodec raised a RuntimeError at import time when sys... · Guard mixed-dtype allreduce RMSNorm quant fusions . Th...",
+  "title": "vllm v0.25.1",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.25.1"
  },
