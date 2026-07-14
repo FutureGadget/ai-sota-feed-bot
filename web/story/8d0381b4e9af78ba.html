@@ -3,25 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>How to Debug Coding Agents with LangSmith Traces | LLM Digest</title>
-  <meta name="description" content="Use LangSmith to trace coding agents across Claude Code, Codex, Cursor, Copilot, and more. Inspect tool calls, subagents, errors, costs, and retries." />
-  <link rel="canonical" href="https://www.llm-digest.com/story/34b461bf5b9be5ff" />
+  <meta name="robots" content="noindex,follow" />
+  <title>Online vs. Offline AI Evals: When to Use Each | LLM Digest</title>
+  <meta name="description" content="inngest.com · news · Jul 14, 2026 — tracked on LLM Digest" />
+  <link rel="canonical" href="https://www.llm-digest.com/story/8d0381b4e9af78ba" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="How to Debug Coding Agents with LangSmith Traces" />
-  <meta property="og:description" content="Use LangSmith to trace coding agents across Claude Code, Codex, Cursor, Copilot, and more. Inspect tool calls, subagents, errors, costs, and retries." />
-  <meta property="og:url" content="https://www.llm-digest.com/story/34b461bf5b9be5ff" />
-  <meta property="article:published_time" content="2026-07-14T22:53:14+00:00" />
-  <meta property="og:image" content="https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6a53e6b270dbe02d7e851153_blackbox.png" />
-  <meta name="twitter:image" content="https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6a53e6b270dbe02d7e851153_blackbox.png" />
+  <meta property="og:title" content="Online vs. Offline AI Evals: When to Use Each" />
+  <meta property="og:description" content="inngest.com · news · Jul 14, 2026 — tracked on LLM Digest" />
+  <meta property="og:url" content="https://www.llm-digest.com/story/8d0381b4e9af78ba" />
+  <meta property="article:published_time" content="2026-07-14T21:47:42+00:00" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="How to Debug Coding Agents with LangSmith Traces" />
-  <meta name="twitter:description" content="Use LangSmith to trace coding agents across Claude Code, Codex, Cursor, Copilot, and more. Inspect tool calls, subagents, errors, costs, and retries." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "How to Debug Coding Agents with LangSmith Traces", "description": "Use LangSmith to trace coding agents across Claude Code, Codex, Cursor, Copilot, and more. Inspect tool calls, subagents, errors, costs, and retries.", "datePublished": "2026-07-14T22:53:14+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/34b461bf5b9be5ff", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "image": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6a53e6b270dbe02d7e851153_blackbox.png", "isBasedOn": "https://www.langchain.com/blog/your-coding-agents-are-a-black-box-heres-how-to-crack-them-open"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "How to Debug Coding Agents with LangSmith Traces", "item": "https://www.llm-digest.com/story/34b461bf5b9be5ff"}]}]}</script>
+  <meta name="twitter:title" content="Online vs. Offline AI Evals: When to Use Each" />
+  <meta name="twitter:description" content="inngest.com · news · Jul 14, 2026 — tracked on LLM Digest" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "Online vs. Offline AI Evals: When to Use Each", "description": "inngest.com · news · Jul 14, 2026 — tracked on LLM Digest", "datePublished": "2026-07-14T21:47:42+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/8d0381b4e9af78ba", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://www.inngest.com/blog/online-vs-offline-ai-evals-when-to-use-each"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Online vs. Offline AI Evals: When to Use Each", "item": "https://www.llm-digest.com/story/8d0381b4e9af78ba"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
@@ -256,7 +257,7 @@
       </div>
       <div class="site-page-heading">
         <h1>Story</h1>
-        <p id="meta" class="muted">langchain_blog · Jul 14, 2026 · news</p>
+        <p id="meta" class="muted">hackernews_ai · Jul 14, 2026 · news</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
@@ -270,7 +271,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/34b461bf5b9be5ff" data-share-title="How to Debug Coding Agents with LangSmith Traces">Share this page</button>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/8d0381b4e9af78ba" data-share-title="Online vs. Offline AI Evals: When to Use Each">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -278,10 +279,10 @@
     </header>
 
     <section id="recap">
-      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://www.langchain.com/blog/your-coding-agents-are-a-black-box-heres-how-to-crack-them-open" target="_blank" rel="noopener">How to Debug Coding Agents with LangSmith Traces</a></h2></div><p class="story-origin"><strong>the LangChain blog</strong>Jul 14, 2026<br>original source linked</p></section>
+      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://www.inngest.com/blog/online-vs-offline-ai-evals-when-to-use-each" target="_blank" rel="noopener">Online vs. Offline AI Evals: When to Use Each</a></h2></div><p class="story-origin"><strong>inngest.com</strong>Jul 14, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Use LangSmith to trace coding agents across Claude Code, Codex, Cursor, Copilot, and more. Inspect tool calls, subagents, errors, costs, and retries.</p></div><img class="story-img" src="https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6a53e6b270dbe02d7e851153_blackbox.png" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">agent</span><span class="badge">codex</span><span class="badge">claude code</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://www.langchain.com/blog/your-coding-agents-are-a-black-box-heres-how-to-crack-them-open" target="_blank" rel="noopener" data-track="story-source">Read the original at langchain.com →</a><a href="/?item=https%3A%2F%2Fwww.langchain.com%2Fblog%2Fyour-coding-agents-are-a-black-box-heres-how-to-crack-them-open&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-14">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/f01d08f6d03187b8" data-track="story-related">How to Debug AI Agents with Traces and Evals</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 3, 2026</span></div></article><article><h3><a href="/story/5d7159ca706a44c0" data-track="story-related">Show HN: RLM-based local debugger for AI agent traces</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 23, 2026</span></div></article><article><h3><a href="/story/20ef04d4cce6eb8c" data-track="story-related">How Pendo uses LangSmith to trace Novus from user behavior to code fixes</a></h3><div class="art-meta"><span class="badge">langchain_blog</span><span class="badge">Jul 1, 2026</span></div></article><article><h3><a href="/story/cf0a37dd32efaf51" data-track="story-related">Show HN: Morph Reflexes – Multi-head classifiers for agent traces</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 30, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <p class="story-framing">A brief from <strong>inngest.com</strong>, published Jul 14, 2026. Open the original below for the full text.</p><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">eval</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://www.inngest.com/blog/online-vs-offline-ai-evals-when-to-use-each" target="_blank" rel="noopener" data-track="story-source">Read the original at inngest.com →</a><a href="/?item=https%3A%2F%2Fwww.inngest.com%2Fblog%2Fonline-vs-offline-ai-evals-when-to-use-each&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-14">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/312ba4637225b536" data-track="story-related">Presentation: Accelerating Netflix Data: A Cross-Team Journey from Offline to Online</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jul 9, 2026</span></div></article><article><h3><a href="/story/345d694a3d9a314f" data-track="story-related">Evaluating Offline Monitoring of Internal AI Agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 28, 2026</span></div></article><article><h3><a href="/story/3b35bce797c85d4f" data-track="story-related">Urdu Katib Handwritten Dataset: A Historical Document Dataset for Offline Urdu Handwritten Text Recognition with CRNN-Based Baseline Evaluation</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 17, 2026</span></div></article><article><h3><a href="/story/9c479ecb98939c02" data-track="story-related">&quot;They screwed us&quot;: Personality clashes sent Anthropic&#x27;s models offline</a></h3><div class="art-meta"><span class="badge">simon_willison</span><span class="badge">Jun 15, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
     </section>
 
     <footer>
