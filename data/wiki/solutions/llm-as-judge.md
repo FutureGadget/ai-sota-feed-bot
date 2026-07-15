@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64]
-updated: 2026-07-07
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de]
+updated: 2026-07-15
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de]
 ---
 
 ## TL;DR
@@ -72,6 +72,14 @@ positives. A practitioner reports this "reasonable setup around the model"
 lowers false-positive rates more reliably than swapping in a better model,
 extending the standing cost lever (smaller fine-tuned judges, cheaper
 encoders) with a quality lever that doesn't require a bigger model at all.
+
+The auditing lens is also turning on the **rubric itself**, not just the
+judge reading it. A meta-evaluation of LLM-generated grading rubrics — tested
+across several generation setups and two model backbones on a paper-
+reproduction eval task — validates rubrics against semantic similarity and
+ground-truth scores, treating "is this rubric any good" as a distinct
+failure surface from "is this judge biased": a well-calibrated judge can
+still grade against a bad checklist.
 
 ## What's new
 LangChain reframes judge fine-tuning as a **data-mining problem**: mine

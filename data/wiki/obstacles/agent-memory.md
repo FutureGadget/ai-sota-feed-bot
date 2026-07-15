@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc]
-updated: 2026-07-14
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23]
+updated: 2026-07-15
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23]
 ---
 
 ## TL;DR
@@ -176,13 +176,27 @@ where an agent's stored reasoning history — not just a stored fact — can be
 adversarially manipulated, extending memory poisoning from corrupting what
 the agent believes to corrupting how it argues for it.
 
+**Coordination between agents writing to shared memory** gets a low-tech
+answer: rather than a purpose-built memory service, a production pattern
+uses Postgres's own ACID transactions and row-level locking so multiple
+agents can write shared notes and decisions without conflicting — a "cheap
+and dirty work queue" built on the concurrency control a relational database
+already provides, not a new memory primitive. It's the same "ride
+infrastructure you already run" instinct as Elastic's Atlas and BetterDB
+above, applied to the write-conflict problem specifically rather than to
+retrieval.
+
 ## What's new
-A practitioner benchmark puts a number behind "just extend the context
-window": running all 89 sequential Terminal-Bench 2.0 tasks in one
-continuous agent session — over 80 million tokens, no compaction — showed
-no measurable accuracy loss versus running each task in its own fresh
-session, direct evidence the brute-force, skip-compaction path holds up on
-a real long-horizon benchmark, not only a spec-sheet context limit.
+Multi-agent memory writes get a low-tech coordination answer: a production
+pattern uses Postgres's own transactions and row-level locking as the
+conflict-prevention primitive for agents sharing notes and decisions,
+rather than a purpose-built memory service — the same "ride infrastructure
+you already run" instinct behind Elastic's Atlas and BetterDB, applied to
+write conflicts specifically. A practitioner benchmark separately puts a
+number behind "just extend the context window": running all 89 sequential
+Terminal-Bench 2.0 tasks in one continuous agent session — over 80 million
+tokens, no compaction — showed no measurable accuracy loss versus a fresh
+session per task.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

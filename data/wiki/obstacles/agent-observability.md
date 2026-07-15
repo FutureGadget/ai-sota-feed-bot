@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff]
-updated: 2026-07-14
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa]
+updated: 2026-07-15
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa]
 ---
 
 ## TL;DR
@@ -60,6 +60,14 @@ sub-agent handoffs, errors, cost, and retries in one place instead of reading
 each tool's own logs, treating "which agent produced this trace" as a detail
 the observability layer should abstract away.
 
+A **self-hosted control-plane** pattern is emerging alongside the managed
+vendors above: AWS's Claude Apps Gateway is a stateless container an
+organization runs itself in front of Claude Code/Desktop, relaying
+per-request usage metrics to the team's own OpenTelemetry collector
+(CloudWatch, Prometheus) while enforcing YAML-defined spend caps by org,
+group, or user — folding telemetry relay and cost policy into one
+customer-owned layer instead of a vendor dashboard.
+
 ## What's new
 LangSmith is positioning itself as the debug console for whichever coding
 agent you use — Claude Code, Codex, Cursor, or Copilot — inspecting tool
@@ -73,7 +81,10 @@ on-call copilot that triages alerts and a voice-trace debugger. In parallel,
 offline monitoring of internal agents and a microservice-failure-diagnosis
 benchmark (AgentOps) push the field toward *measuring* whether the monitoring
 layer itself catches the right failures, tying observability tightly to
-trajectory-level eval.
+trajectory-level eval. A self-hosted control-plane pattern also landed:
+AWS's Claude Apps Gateway relays OTel telemetry to a team's own collector
+while enforcing org/group/user spend caps, folding cost governance into the
+same layer as trace relay rather than leaving it to a vendor dashboard.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

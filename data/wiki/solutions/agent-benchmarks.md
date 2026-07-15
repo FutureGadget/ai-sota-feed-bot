@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8]
-updated: 2026-07-07
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089]
+updated: 2026-07-15
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089]
 ---
 
 ## TL;DR
@@ -109,11 +109,26 @@ environments, extending "mined from real work, one domain at a time"
 simulation, physics, and rendering constraints a generic coding benchmark
 doesn't exercise.
 
+The domain-narrow list keeps widening past coding into **cross-system
+integration**: Stripe's 11-environment benchmark scores agents on checkout
+migration, billing API work, and full-stack browser checkout, with the best
+runs needing roughly 63 interaction turns — a numbered, named-vendor
+addition alongside ScarfBench and GameEngineBench, and one where the two
+leading models (92% vs. 73%) failed the identical validation step rather
+than differing on raw coding capability. The scientific-computing edge of
+the domain-narrow trend also gets a benchmark: Imaging-101 scores coding
+agents on 57 expert-verified computational-imaging tasks across six
+scientific domains and three tracks (planning, unit tests, end-to-end
+reconstruction), finding failures specific to the domain (physical-convention
+handling, pipeline integration) beyond generic coding skill.
+
 ## What's new
 The domain-narrow benchmark list widens to game engines: GameEngineBench
 scores coding agents against real C++ runtime environments (simulation,
 physics, rendering), the same "mined from a real, high-stakes domain"
-pattern as ScarfBench's Java migrations.
+pattern as ScarfBench's Java migrations. It widens further into cross-system
+integration (Stripe's 11-environment checkout/billing/API benchmark) and
+scientific computing (Imaging-101's 57 expert-verified imaging tasks).
 
 Benchmark noise is now quantified rather than assumed: run-to-run standard
 deviation for a single model on a coding task measured 7.5% — bigger than

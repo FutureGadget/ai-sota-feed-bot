@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a]
-updated: 2026-07-03
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5]
+updated: 2026-07-15
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5]
 ---
 
 ## TL;DR
@@ -43,6 +43,17 @@ The threat compounds in **multi-agent systems**, where one compromised
 agent's output is another's trusted input; new benchmarks (Deep-XPIA) are
 emerging specifically to measure cross-agent (indirect) prompt-injection
 exposure.
+
+A concrete, named, patched exploit now grounds the abstract "role confusion"
+argument in a real incident: a honeypot page disguised as a Cloudflare login
+got Claude's `web_fetch` tool to keep recursively following attacker-generated
+nested links embedded in previously-fetched content — triggering only when it
+detected the user agent talking to a Claude client — and exfiltrated a user's
+name, home city, and employer before Anthropic closed the hole by stopping
+`web_fetch` from following links returned within its own fetched content.
+It is a textbook instance of the compounding-input problem this page already
+names: the injected instruction didn't arrive as a prompt, it arrived nested
+inside content the tool had already fetched on the model's behalf.
 
 The durable lesson is **least privilege**: scope what the agent can touch so
 a hijack has a small blast radius. The operational framing is consolidating
@@ -97,14 +108,22 @@ gap between what a default configuration permits and what a user actually
 intended to authorize.
 
 ## What's new
-Jailbreak defense is getting **more granular**: Anthropic followed the Fable 5
-redeploy with a published account of what its cyber classifiers do and don't
-block plus a first-draft jailbreak *severity* framework — grading how bad a
-bypass is, not just whether one occurred. In parallel, a harness default
-shifted toward least privilege out of the box: Claude Code now defaults to
-"Manual" permission mode across its CLI and IDE integrations, closing the
-gap between what a default configuration permits and what a user actually
-authorized — the same gap most successful injections exploit.
+A honeypot login page got Claude's `web_fetch` tool to recursively follow
+attacker-generated nested links embedded in content it had already fetched,
+exfiltrating a user's name, home city, and employer before Anthropic patched
+`web_fetch` to stop following links returned within its own fetched
+content — a named, concrete instance of the role-confusion failure this page
+has argued about abstractly, and a reminder that the injected instruction
+doesn't have to arrive as a prompt.
+
+Jailbreak defense is also getting **more granular**: Anthropic followed the
+Fable 5 redeploy with a published account of what its cyber classifiers do
+and don't block plus a first-draft jailbreak *severity* framework — grading
+how bad a bypass is, not just whether one occurred. In parallel, a harness
+default shifted toward least privilege out of the box: Claude Code now
+defaults to "Manual" permission mode across its CLI and IDE integrations,
+closing the gap between what a default configuration permits and what a
+user actually authorized — the same gap most successful injections exploit.
 
 That builds on the standing shift from "filter the prompt" to "**govern the
 actor**" (agent-as-identity, per-parameter permissions, approval-gated

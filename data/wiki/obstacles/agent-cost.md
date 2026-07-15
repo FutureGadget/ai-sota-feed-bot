@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61]
-updated: 2026-07-13
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a]
+updated: 2026-07-15
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a]
 ---
 
 ## TL;DR
@@ -46,9 +46,14 @@ teams fine-tune small judges to cut trace-judging cost ~100×.
 **Infra-level levers** help too, and the serving stack is increasingly
 pitched as a cost lever in its own right: vendors now frame the buying
 decision as cost per useful token — tokens per dollar and per watt — rather
-than peak chip specs (NVIDIA's inference-software writeup), a reminder that
-for self-hosted agents the inference stack sets the floor price every other
-optimization multiplies against.
+than peak chip specs, with hard numbers behind the pitch: NVIDIA reports its
+GB300 NVL72 rack delivering 10-25x the performance-per-watt of the prior
+Hopper generation across three current open models, a further 5x
+software-only gain on one of them within a single month (quantization,
+disaggregated serving, KV-cache offloading, no new hardware), and power-shifting
+software that lets an operator run up to 40% more GPUs inside the same power
+budget — a reminder that for self-hosted agents the inference stack sets the
+floor price every other optimization multiplies against.
 
 **Caching** cuts fixed cost at every layer: container/image caching (Amazon
 SageMaker) cuts cold-start scaling cost and latency; prompt caching the
@@ -131,17 +136,12 @@ is the same cheap-instrumentation-over-model-swap move already established
 for [evaluation](/topic/agent-evaluation).
 
 ## What's new
-Fetching a web page turns out to have a real, measured price: an average
-Wikipedia article is ~68,000 raw-HTML tokens before a web-fetch tool's
-summarization cuts it to ~950 — and a failed fetch against a JS-rendered or
-anti-bot page can dump the full raw HTML into context instead, silently
-paying the worst-case bill for a read that produced nothing. That joins
-tool-calling behavior as a named cost lever alongside model choice and
-harness tuning: GitHub found that swapping in better exploration tools for
-Copilot code review *raised* cost until they rewrote the tool instructions to
-match a reviewer's narrow, diff-anchored search pattern instead of an
-interactive assistant's broad one — a ~20% cost cut from instruction design
-alone, no model or tool change.
+The "cost per watt" framing on the infra-level lever now has hard numbers
+behind it instead of a generic vendor pitch: NVIDIA's GB300 NVL72 reports
+10-25x the performance-per-watt of the prior Hopper generation, plus a
+further 5x software-only gain in a single month and up to 40% more GPUs
+runnable inside the same power budget — evidence that for self-hosted agents
+the serving stack itself, not just model choice, moves the cost floor.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

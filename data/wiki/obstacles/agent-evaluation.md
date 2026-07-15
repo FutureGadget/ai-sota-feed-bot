@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225]
-updated: 2026-07-13
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc]
+updated: 2026-07-15
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc]
 ---
 
 ## TL;DR
@@ -175,12 +175,38 @@ tracking instrumentation, offline eval coverage, online evaluators, and user
 feedback — evaluation as a lifecycle gate across 60+ products, not a
 pre-launch checkbox.
 
+A named, numbered benchmark sharpens the standing "familiar benchmarks
+over-state capability" finding into a specific failure mode: Stripe's
+11-environment agent-integration suite (checkout migration, billing API,
+full-stack browser checkout) scored Claude Opus 4.5 at 92% against GPT-5.2's
+73% on full-stack tasks, but the gap wasn't code generation — both models'
+actual failures were **validation**, misreading an HTTP 400 response as
+success or losing track of a form after a tool interaction knocked focus out
+of a browser input field. That distinction — an agent that writes working
+code but can't tell whether it worked — is exactly what a pass/fail outcome
+score hides and a trajectory-level judge is built to catch.
+
+**Grading against the real outcome, not an immediate proxy**, is emerging as
+its own pattern separate from trajectory judging: rather than scoring a
+result the instant the agent finishes, an "online eval" defers judgment —
+pausing the evaluation itself for up to several days — until the real
+downstream event the task was supposed to produce actually happens, grading
+the agent against what it caused rather than what it claimed. Evaluation
+infrastructure is also moving into managed **CI pipelines**: AWS's QA Studio
+runs browser-driving agents as parallel cloud tasks with structured pass/
+fail/infra-error exit codes plus trajectory logs and session recordings,
+treating agentic UI testing as a first-class CI gate rather than a
+hand-run script.
+
 ## What's new
-A controlled test puts a number on the "trust but verify the eval" lesson:
-checking 100 human-annotated traces against automated eval systems found
-real divergence between the two, and practitioner tooling is starting to
-run human labels and LLM judges side by side over the same traces rather
-than treating human review as a fallback for a doubted automated verdict.
+A named benchmark puts a number behind the standing "agents look strong on
+familiar tasks" finding: Stripe's 11-environment integration suite scored
+Claude Opus 4.5 and GPT-5.2 at 92%/73% on full-stack checkout tasks, but
+both models' real failures were misread validation signals, not code
+generation — evidence that outcome scores hide exactly the failure a
+trajectory-level judge exists to catch. A distinct "online eval" pattern
+also surfaced: defer grading until the real downstream event the task was
+supposed to cause actually happens, rather than scoring an immediate proxy.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

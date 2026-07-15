@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4]
-updated: 2026-07-12
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2]
+updated: 2026-07-15
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2]
 ---
 
 ## TL;DR
@@ -74,6 +74,18 @@ Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
 it, collapsing a round-trip that would otherwise cost a full extra model call
 and its latency.
 
+**Disaggregation is going one step further than prefill/decode splitting**:
+vLLM's TileRT integration plugs a decode-only runtime into vLLM's existing
+prefill/decode split, transferring KV state from stock-vLLM prefill nodes to
+specialized decode nodes over RDMA and running multi-token speculative
+decoding immediately after that state lands — reaching peak decode
+throughput at a best-case 4.0-token speculative-acceptance rate on an
+8-GPU setup, though today it's limited to one in-flight request per decode
+node and a narrow model list. It's a further specialization of the same
+disaggregation trend already on this page, pushing decode itself onto
+purpose-tuned hardware/software rather than just splitting prefill from
+decode.
+
 **Scheduling** is getting an agent-specific rework, not just faster kernels:
 SMetric finds agent traffic already has high KV-cache reuse (>80% in
 production) but generic schedulers over-index on cache locality and let
@@ -90,11 +102,16 @@ per-model code — cutting the engineering cost of *keeping up* with new model
 architectures, which is itself a latency-relevant maintenance tax.
 
 ## What's new
-vLLM v0.25.0 retires PagedAttention — the memory-management technique that
-first made vLLM's high-throughput serving possible — deleting the legacy
-attention path now that Model Runner V2 is the standard execution route for
-all dense models, alongside a new unified Streaming Parser Engine for
-tool-call and reasoning-token parsing across model families.
+Decode gets its own specialized runtime: vLLM's TileRT integration transfers
+KV state from stock prefill nodes to purpose-built decode nodes over RDMA and
+runs speculative decoding immediately after, reaching peak throughput at a
+4.0-token best-case acceptance rate on an 8-GPU setup — a further split of
+the prefill/decode disaggregation already on this page, though currently
+limited to one in-flight request per decode node and a narrow model list.
+That follows vLLM v0.25.0 retiring PagedAttention outright now that Model
+Runner V2 is the standard execution route for all dense models, alongside a
+new unified Streaming Parser Engine for tool-call and reasoning-token
+parsing across model families.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

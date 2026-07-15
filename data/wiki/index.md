@@ -16,6 +16,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-evaluation](obstacles/agent-evaluation.md) — Measuring whether an agent actually worked is hard
   → solutions: llm-as-judge, agent-benchmarks
 
+### grounding
+- [grounding](obstacles/grounding.md) — An agent's answer is only as good as what it retrieved — and whether it can prove it
+  → solutions: vector-kb, context-compaction
+
 ### drift
 - [model-drift](obstacles/model-drift.md) — Agent behavior drifts as the model, SDK, and runtime churn under it
   → solutions: version-pinning, agent-benchmarks
