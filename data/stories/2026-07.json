@@ -104,7 +104,7 @@
   ],
   "published": "2026-07-14T14:52:42+00:00",
   "sid": "0570a6850cae75de",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_llm_reliability",
   "summary": "Rubric-based evaluation is a promising approach for assessing open-ended outputs from LLM-based research agents, particularly in paper reproduction, where direct paper-to-repository comparison is prone to hallucination. However, constructing paper-specific rubrics requires substantial expert effort, limiting the scalability of benchmarks such as PaperBench. In this work, we present, to our knowledge, the first systematic meta-evaluation of LLM-generated rubrics for paper reproduction. We reformulate rubrics into a checklist-style format and evaluate four generation settings across two backbone models. We meta-evaluate generated rubrics intrinsically by semantic similarity and extrinsically by score alignment with ground-truth rubrics. Our results show that the augmented settings substantially improves downstream evaluation alignment, with the strongest setting approaching the human baseline, while intrinsic gains are more modest. Further analyses reveal that LLM-generated rubrics are often overly fine-grained, biased toward high scores, and less adaptive to paper domains, highlighting both the affordances and limitations.",
   "summary_1line": "Rubric-based evaluation is a promising approach for assessing open-ended outputs from LLM-based research agents, particularly in paper reproduction, where direct paper-to-repository comparison is prone to hallucinatio...",
   "title": "Can LLMs Write Reliable Rubrics? A Meta-Evaluation for Experiment Reproduction",
@@ -2549,6 +2549,22 @@
   "url": "http://arxiv.org/abs/2607.03525v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
  },
+ "65f37f72bbb3749b": {
+  "first_seen": "2026-07-15T03:02:54.281357+00:00",
+  "id": "89622a9c5d761d49",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-07-14T17:28:25+00:00",
+  "sid": "65f37f72bbb3749b",
+  "source": "arxiv_cs_ai",
+  "summary": "Aligned language models routinely misreport under non-evidential incentive pressure: they agree with a confident user or overstate certainty even when their internal belief is unchanged. We cast this as a failure of internal incentive-compatibility (IC) and present a method for learning and certifying counterfactual report mediators that hold a model's reports to a causal contract: invariant to forbidden influences (pressure, prestige, restyling) and responsive to licensed ones (genuine evidence). These two demands, resist and update, pull in opposite directions. We study them on a Bayesian-witness benchmark with known posteriors, in which the same user disagreement is licensed evidence or forbidden pressure purely by stated source reliability. We (i) causally identify, by interchange interventions rather than probe accuracy, low-rank report coordinates for answer, confidence, and caveat that are near-orthogonal and independently controllable, and (ii) introduce a training-free counterfactual report-coordinate (CRC) clamp that references the model's own report under a counterfactually incentive-neutralized context. On the witness benchmark the two-pass clamp attains resist and update of 1.00 jointly (Wilson 95% CI [0.99,1.00]), a causal certificate under a constructible reference, not a deployed solution. Global decoding and steering show a single-parameter tradeoff; output-level fine-tuning matches both objectives only when both are enumerated; resist-only training loses evi",
+  "summary_1line": "Aligned language models routinely misreport under non-evidential incentive pressure: they agree with a confident user or overstate certainty even when their internal belief is unchanged. We cast this as a failure of i...",
+  "title": "Resist and Update: Counterfactual Report Coordinates for Incentive-Compatible LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.12985v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "661912ab39baa4f1": {
   "first_seen": "2026-07-13T11:02:55.380204+00:00",
   "id": "af69cade40c87714",
@@ -3471,6 +3487,24 @@
   "type": "news",
   "url": "https://www.latent.space/p/cursor-forward-deployed-engineers",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "8cdcaad96641fb63": {
+  "first_seen": "2026-07-15T03:02:54.281357+00:00",
+  "id": "7f31dc2b4c38fbbf",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-07-14T17:59:31+00:00",
+  "sid": "8cdcaad96641fb63",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model (LLM) agents increasingly automate multi-step engineering and informatics workflows, yet they rarely ask how much effort a task actually requires. They often follow a maximum-context-first strategy--re-reading files and dependencies they have already seen--turning a one-line edit into a small code-base audit. We argue the missing capability is task-aware execution-scope estimation: judging a task's difficulty, the information it truly needs, and the shortest reliable path before committing budget. We formalize minimum-sufficient execution and the Agent Cognitive Redundancy Ratio (ACRR), and propose E3 (Estimate, Execute, Expand): the agent estimates an initial operating point, executes a minimum viable path, and expands scope only when verification fails. On MSE-Bench--a deterministic benchmark of 121 edits in a capability-controlled simulator--E3 matches the strongest baseline's 100% success while cutting cost by 85%, tokens by 91%, and inspected files by 92%, and further beats a strong adaptive retrieval baseline by 16%; the gains survive held-out instruction wording and essentially every cost weighting. A companion real-model harness (LLM-Case) corroborates the effect on a live gpt-4o agent editing a real open-source library, with every candidate patch graded by actually running the project's real pytest suite against a measured oracle: the over-reading is milder but real, and E3 is the leanest and fastest policy at comparable task success--its one sho",
+  "summary_1line": "Large language model (LLM) agents increasingly automate multi-step engineering and informatics workflows, yet they rarely ask how much effort a task actually requires. They often follow a maximum-context-first strateg...",
+  "title": "Do AI Agents Know When a Task Is Simple? Toward Complexity-Aware Reasoning and Execution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.13034v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "8d0381b4e9af78ba": {
   "first_seen": "2026-07-14T23:02:29.308906+00:00",
