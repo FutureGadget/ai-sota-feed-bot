@@ -1,0 +1,53 @@
+{
+  "slug": "claude-gateway",
+  "generated_at": "2026-07-15T15:10:00Z",
+  "covers_last_updated": "2026-07-15T11:04:00+00:00",
+  "covers_member_sids": [
+    "731a6ca4b884831e",
+    "055894614946248f",
+    "38f362bfcba6a0fa"
+  ],
+  "tldr": "Anthropic and cloud partners started shipping a self-hosted \"Claude apps gateway\" this month, beginning with Google Cloud on Jul 1. It gives organizations a single control plane for access, cost, and policy over Claude Code and Claude Desktop, replacing ad hoc per-developer setup.",
+  "whats_new": "AWS shipped its own Claude apps gateway on Jul 8, and InfoQ's Jul 15 coverage names the specific capabilities: centralized identity, policy, telemetry, routing, and spend caps for Claude Code and Claude Desktop.",
+  "why_it_matters": "Any team running Claude Code or Desktop org-wide on AWS or GCP now has a supported, self-hosted admin layer instead of building their own proxy for spend caps, routing, and access policy.",
+  "status": {
+    "state": "Shipping",
+    "tone": "rising",
+    "changed": "2026-07-15",
+    "detail": "Available self-hosted on both Google Cloud (Jul 1) and AWS (Jul 8); latest coverage frames it as the control-plane layer for governing Claude Code and Claude Desktop deployments."
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Google Cloud ships the first Claude apps gateway",
+      "summary": "A self-hosted control plane replacing the ad hoc per-developer CLAUDE_CODE_USE_VERTEX setup with centralized access, cost, and policy management.",
+      "sids": ["731a6ca4b884831e"]
+    },
+    {
+      "kicker": "EXPANSION",
+      "tone": "rising",
+      "headline": "AWS ships its own Claude apps gateway",
+      "summary": "Same self-hosted control-plane pattern extended to AWS, giving organizations a single point of control over access, cost, and policy for Claude Code and Claude Desktop.",
+      "sids": ["055894614946248f"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Coverage details the AWS gateway's control-plane capabilities",
+      "summary": "InfoQ's writeup names identity, policy, telemetry, routing, and spend caps as the specific functions the self-hosted gateway centralizes.",
+      "sids": ["38f362bfcba6a0fa"]
+    }
+  ],
+  "open_questions": [
+    "Does the Claude apps gateway extend to Azure or other clouds?",
+    "What granularity of spend-cap and policy control does it actually support in production?",
+    "Any published enterprise adoption or usage data since launch?"
+  ],
+  "take_for_builders": "If you're deploying Claude Code or Desktop org-wide on AWS or GCP, evaluate the vendor-shipped gateway before building your own proxy for identity, routing, and spend caps.",
+  "day_captions": {
+    "731a6ca4b884831e": "Google Cloud launches the first Claude apps gateway, a self-hosted control plane replacing per-developer CLAUDE_CODE_USE_VERTEX setup.",
+    "055894614946248f": "AWS ships its own Claude apps gateway, extending the self-hosted control-plane pattern with centralized access, cost, and policy control.",
+    "38f362bfcba6a0fa": "Coverage names the specific capabilities: identity, policy, telemetry, routing, and spend caps for Claude Code and Claude Desktop."
+  }
+}
