@@ -1,41 +1,107 @@
 {
-  "generated_at": "2026-07-15T00:04:01.795265+00:00",
+  "generated_at": "2026-07-15T05:03:07.081647+00:00",
   "window_days": 21,
   "storyline_count": 1,
   "needs_narrative_count": 1,
   "storylines": [
     {
-      "slug": "claude-cursor",
-      "label": "Claude Cursor",
-      "item_count": 3,
-      "source_count": 2,
-      "day_count": 3,
-      "first_seen": "2026-07-01T22:48:32+00:00",
-      "last_updated": "2026-07-14T20:52:41+00:00",
-      "latest_title": "Mistral Vibe for Code vs Claude Code vs Cursor vs Codex: Four Agents Scored on One Scaffold-to-PR Task - MarkTechPost",
+      "slug": "reinforcement-learning",
+      "label": "Reinforcement Learning",
+      "item_count": 4,
+      "source_count": 4,
+      "day_count": 4,
+      "first_seen": "2026-07-02T17:50:23+00:00",
+      "last_updated": "2026-07-14T13:33:25+00:00",
+      "latest_title": "Constraint-Aware Aggregation for Federated Reinforcement Learning in Microgrid Energy Coordination",
       "member_sids": [
-        "7a882200fe85650f",
-        "2c7d0e2d9aa318bb",
-        "db6760c0ecf2309c"
+        "bfeae69131afd34f",
+        "9776829397d5307a",
+        "54c32bd0fe4a6a3e",
+        "1353da98274f0528"
       ],
       "via_scout": false,
-      "has_narrative": false,
+      "has_narrative": true,
       "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/claude-cursor.json",
-      "prior_narrative": null,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+      "prior_narrative": {
+        "slug": "reinforcement-learning",
+        "generated_at": "2026-07-13T05:04:12+00:00",
+        "covers_last_updated": "2026-07-10T17:39:00+00:00",
+        "covers_member_sids": [
+          "bfeae69131afd34f",
+          "9776829397d5307a",
+          "54c32bd0fe4a6a3e"
+        ],
+        "tldr": "Three reinforcement-learning pieces landed within a week: AWS published best practices for multi-turn RL training, and InfoQ covered OpenAI's Agent RFT fine-tuning platform. The items share a topic, not a storyline — each is a standalone read, not a developing event.",
+        "whats_new": "The latest addition is an arXiv paper on Semantic Pareto-DQN, a multi-objective RL framework built to stop financial fraud detectors from defaulting to the majority class under extreme class imbalance.",
+        "why_it_matters": "For platform engineers running RL fine-tuning, the AWS and InfoQ pieces are the practical reads on reward design and evaluation; the arXiv paper is a narrower academic result, not something to deploy directly.",
+        "beats": [
+          {
+            "kicker": "PRODUCTION PRACTICE",
+            "tone": "neutral",
+            "headline": "AWS publishes multi-turn RL training best practices",
+            "summary": "Guidance on building trustworthy training environments, external evaluation, and reward design for multi-turn RL on SageMaker AI.",
+            "sids": [
+              "bfeae69131afd34f"
+            ]
+          },
+          {
+            "kicker": "PLATFORM",
+            "tone": "neutral",
+            "headline": "InfoQ talk details OpenAI's Agent RFT fine-tuning platform",
+            "summary": "Conference presentation on fine-tuning reasoning models via real-time tool interactions and custom reward signals.",
+            "sids": [
+              "9776829397d5307a"
+            ]
+          },
+          {
+            "kicker": "RESEARCH",
+            "tone": "neutral",
+            "headline": "Semantic Pareto-DQN targets \"fraud collapse\" in anomaly detection",
+            "summary": "New multi-objective RL framework aims to fix single-objective algorithms that default to the majority class under extreme class imbalance.",
+            "sids": [
+              "54c32bd0fe4a6a3e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does OpenAI's Agent RFT platform get a broader availability announcement beyond this conference talk?",
+          "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?"
+        ],
+        "take_for_builders": "Building multi-turn RL training? Start with AWS's reward-design and evaluation guidance before evaluating a managed fine-tuning platform like OpenAI's Agent RFT.",
+        "day_captions": {
+          "bfeae69131afd34f": "AWS's own best-practices guide for building trustworthy multi-turn RL training environments.",
+          "9776829397d5307a": "Conference talk detailing OpenAI's Agent RFT platform for fine-tuning reasoning models via reward signals.",
+          "54c32bd0fe4a6a3e": "New arXiv paper applying multi-objective RL (Pareto-DQN) to fix class-imbalance failure in financial fraud detection."
+        }
+      },
       "timeline": [
         {
-          "date": "2026-07-01",
+          "date": "2026-07-02",
           "items": [
             {
-              "sid": "7a882200fe85650f",
-              "title": "SonarQube plugins bring trusted verification to Claude Code, Copilot, Codex, Cursor, and beyond - Security Boulevard",
-              "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZTFzRkRnYktjeGpNaUJ4STZ0UnFNX20wUzJHMGJZcS05ZkI0ZlFFMGNLU1d4UHpkdFRJX3k0Wi1QT3BhNnI5RHJScmdYblhCY0hUSU9MRXhmRHphWXVaTC1HSVdCQk14UklPMy14RUNMYkNNX1h5MEQyQnNTVlNZWnZrN2V2RkR3TWtnMGJ4YV85UkpzXzE0STZRTmx0N2s0Q1Y5Uzdwbm5udkg0WmxISmxIdWxmRE50YUhPNlVNcndINWhZalB1dVR3?oc=5",
-              "source": "search_agent_engineering_news",
+              "sid": "bfeae69131afd34f",
+              "title": "Best practices for multi-turn reinforcement learning in Amazon SageMaker AI",
+              "url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
+              "source": "aws_ml_blog",
               "type": "news",
-              "summary_1line": "SonarQube plugins bring trusted verification to Claude Code, Copilot, Codex, Cursor, and beyond Security Boulevard",
-              "published": "2026-07-01T22:48:32+00:00"
+              "summary_1line": "In this post, we share best practices for reliable multi-turn RL training. We cover how to build a training environment you can trust, set up an external evaluation, design a reward aligned with the end task, manage w...",
+              "published": "2026-07-02T17:50:23+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-07-03",
+          "items": [
+            {
+              "sid": "9776829397d5307a",
+              "title": "Presentation: Fine Tuning the Enterprise: Reinforcement Learning in Practice",
+              "url": "https://www.infoq.com/presentations/rft-openai-model/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "The speakers discuss Agent RFT, OpenAI’s platform for fine-tuning reasoning models via real-time tool interactions and custom reward signals. They explain how reinforcement learning solves complex credit assignment ch...",
+              "published": "2026-07-03T09:22:00+00:00"
             }
           ]
         },
@@ -43,13 +109,13 @@
           "date": "2026-07-10",
           "items": [
             {
-              "sid": "2c7d0e2d9aa318bb",
-              "title": "How Datadog Used Claude and Cursor for Test-Driven Production Migration",
-              "url": "https://www.infoq.com/news/2026/07/datadog-ai-production-migration/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-              "source": "infoq_ai_ml",
-              "type": "news",
-              "summary_1line": "In a recent article, Datadog engineer Arnold Wakim shared what worked, what didn't, and the lessons they learned while evolving a critical production system using AI to overcome hard limits in its storage backend and...",
-              "published": "2026-07-10T08:00:00+00:00"
+              "sid": "54c32bd0fe4a6a3e",
+              "title": "Semantic Pareto-DQN: A Multi-Objective Reinforcement Learning Framework for Financial Anomaly Detection",
+              "url": "http://arxiv.org/abs/2607.09641v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Financial anomaly detection suffers from extreme class imbalance, causing traditional single-objective algorithms to exhibit ``fraud collapse'', defaulting to the majority class and failing to balance anomaly interdic...",
+              "published": "2026-07-10T17:39:00+00:00"
             }
           ]
         },
@@ -57,13 +123,13 @@
           "date": "2026-07-14",
           "items": [
             {
-              "sid": "db6760c0ecf2309c",
-              "title": "Mistral Vibe for Code vs Claude Code vs Cursor vs Codex: Four Agents Scored on One Scaffold-to-PR Task - MarkTechPost",
-              "url": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQbVJnUlNPanRjSHRIMlFMaVdJVDJDMll4ZWNqY0NRemtldkxnZlVvVDNXYnBFc1FpWXlNVmNUNmhXWDFKNXI2YmZ5cE5XUTZzZEoyTGZ1aGV6bmZqR1hnOEdBNVFnNTA1UHhTcjZ4WGxNRTVURHlPWkpDQVRteDVkemFkc0VBSUJKUkRUMVl1ZkVCa2VjbzNuRHJqcXcxU3duNGNBa3hjU2JqeGNKdGhnaXFTbjI4VzU0Y2UxSnEtVEtUZk5zR2dWc1lWSUkxQlVPRWFDRmk4V0lod9IB3wFBVV95cUxOenhOMXVYc1J1N2NvdmhQam5GajM2bk1NU3JfZ2dDR1hvNjVnZFU0enc4RDk1Ni1hWllYYXNRR052LUNWN0NDZV8teFhIZHM1cnd6eVlzTHZWT01rZ1c2V0NqTzcyclV5czdNOFphN0RGaE4xcFBqcmtESDEtZVB1WXM4d3JYWFpzLXBfU2xXdE9xTVV0M3FrYkdIQThjQi1xZVZTdENfb0kteFNpbDNqWlMzbmlYUVlzbzZjcnhVekJuTVk0R29Db2RkU21sbFJQdGVhSXdWYWdjZDRWd0pB?oc=5",
-              "source": "search_agent_engineering_news",
-              "type": "news",
-              "summary_1line": "Mistral Vibe for Code vs Claude Code vs Cursor vs Codex: Four Agents Scored on One Scaffold-to-PR Task MarkTechPost",
-              "published": "2026-07-14T20:52:41+00:00"
+              "sid": "1353da98274f0528",
+              "title": "Constraint-Aware Aggregation for Federated Reinforcement Learning in Microgrid Energy Coordination",
+              "url": "http://arxiv.org/abs/2607.12763v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Federated Reinforcement Learning (FedRL) enables coordination of distributed energy resources without sharing raw local data, but standard aggregation methods such as FedAvg do not account for system-level constraints...",
+              "published": "2026-07-14T13:33:25+00:00"
             }
           ]
         }

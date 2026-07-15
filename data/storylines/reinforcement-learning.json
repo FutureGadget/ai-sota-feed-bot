@@ -1,13 +1,14 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 3,
- "day_count": 3,
- "source_count": 3,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 4,
  "first_seen": "2026-07-02T17:50:23+00:00",
- "last_updated": "2026-07-10T17:39:00+00:00",
- "generated_at": "2026-07-15T00:05:10.905883+00:00",
+ "last_updated": "2026-07-14T13:33:25+00:00",
+ "generated_at": "2026-07-15T05:03:52.286865+00:00",
  "sources": [
+  "arxiv_cs_ai",
   "arxiv_cs_lg",
   "aws_ml_blog",
   "infoq_ai_ml"
@@ -60,14 +61,30 @@
      "editor_note": "New arXiv paper applying multi-objective RL (Pareto-DQN) to fix class-imbalance failure in financial fraud detection."
     }
    ]
+  },
+  {
+   "date": "2026-07-14",
+   "items": [
+    {
+     "title": "Constraint-Aware Aggregation for Federated Reinforcement Learning in Microgrid Energy Coordination",
+     "url": "http://arxiv.org/abs/2607.12763v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Federated Reinforcement Learning (FedRL) enables coordination of distributed energy resources without sharing raw local data, but standard aggregation methods such as FedAvg do not account for system-level constraints...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "1353da98274f0528",
+     "published": "2026-07-14T13:33:25+00:00",
+     "editor_note": "New arXiv paper applying constraint-aware aggregation to federated RL for microgrid energy coordination, addressing FedAvg's inability to respect system-level constraints."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Three reinforcement-learning pieces landed within a week: AWS published best practices for multi-turn RL training, and InfoQ covered OpenAI's Agent RFT fine-tuning platform. The items share a topic, not a storyline — each is a standalone read, not a developing event.",
+  "tldr": "Four reinforcement-learning pieces landed over two weeks: AWS published best practices for multi-turn RL training, and InfoQ covered OpenAI's Agent RFT fine-tuning platform. The items share a topic, not a storyline — each is a standalone read, not a developing event.",
   "stale": false,
-  "whats_new": "The latest addition is an arXiv paper on Semantic Pareto-DQN, a multi-objective RL framework built to stop financial fraud detectors from defaulting to the majority class under extreme class imbalance.",
-  "why_it_matters": "For platform engineers running RL fine-tuning, the AWS and InfoQ pieces are the practical reads on reward design and evaluation; the arXiv paper is a narrower academic result, not something to deploy directly.",
-  "take_for_builders": "Building multi-turn RL training? Start with AWS's reward-design and evaluation guidance before evaluating a managed fine-tuning platform like OpenAI's Agent RFT.",
+  "whats_new": "The latest addition is an arXiv paper proposing constraint-aware aggregation for federated RL, replacing standard FedAvg so microgrid energy-coordination agents respect system-level constraints instead of just averaging local updates.",
+  "why_it_matters": "For platform engineers running RL fine-tuning, the AWS and InfoQ pieces are the practical reads on reward design and evaluation; the two arXiv papers are narrower academic results (fraud detection, energy-grid coordination) with no direct deployment path.",
+  "take_for_builders": "Building multi-turn RL training? Start with AWS's reward-design and evaluation guidance before evaluating a managed fine-tuning platform like OpenAI's Agent RFT; treat the two arXiv papers as domain-specific ideas, not production-ready recipes.",
   "beats": [
    {
     "kicker": "PRODUCTION PRACTICE",
@@ -95,12 +112,22 @@
     "sids": [
      "54c32bd0fe4a6a3e"
     ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "neutral",
+    "headline": "Federated RL paper targets constraint-aware aggregation for microgrids",
+    "summary": "New arXiv work proposes constraint-aware aggregation to fix standard FedAvg's failure to respect system-level constraints when coordinating distributed energy resources.",
+    "sids": [
+     "1353da98274f0528"
+    ]
    }
   ],
   "open_questions": [
    "Does OpenAI's Agent RFT platform get a broader availability announcement beyond this conference talk?",
-   "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?"
+   "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?",
+   "Does the constraint-aware federated RL aggregation get tested on a real microgrid deployment, or only in simulation?"
   ],
-  "generated_at": "2026-07-13T05:04:12+00:00"
+  "generated_at": "2026-07-15T05:03:31Z"
  }
 }
