@@ -1,7 +1,65 @@
 {
- "generated_at": "2026-07-16T00:04:21.559500+00:00",
+ "generated_at": "2026-07-16T20:02:57.892448+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "nvidia-nemotron",
+   "label": "NVIDIA Nemotron",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-06-29T10:59:38+00:00",
+   "last_updated": "2026-07-16T16:01:21+00:00",
+   "latest_title": "NVIDIA Nemotron 3 Embed Ranks #1 Overall on RTEB, Advancing Agentic Retrieval",
+   "days": [
+    "2026-06-29",
+    "2026-07-08",
+    "2026-07-16"
+   ],
+   "member_sids": [
+    "975ccdc802187eff",
+    "d950eaa58be54c93",
+    "980d749ecfc6165f"
+   ],
+   "member_urls": [
+    "https://blogs.nvidia.com/blog/palantir-secure-ai-us-agencies-nemotron-open-models",
+    "https://blogs.nvidia.com/blog/nemotron-langchain-agents-open-stack",
+    "https://huggingface.co/blog/nvidia/nemotron-3-embed-wins-rteb"
+   ],
+   "editorial": {
+    "tldr": "NVIDIA's open Nemotron family picked up its first defense-sector customer in June, when Palantir built a secure-environment product on Nemotron models for US government agencies. In July, NVIDIA paired the same family with LangChain's Deep Agents harness and claimed benchmark-leading agent performance at lower cost than closed models.",
+    "stale": false,
+    "whats_new": "NVIDIA Nemotron 3 Embed ranks #1 overall on the Retrieval Embedding Benchmark (RTEB), extending the family's claims from LLM inference and agent orchestration into embeddings.",
+    "why_it_matters": "Three separate Nemotron sub-models now have public performance claims (secure deployment, agent-harness cost/perf, retrieval benchmark) — worth a look if you're sourcing an open alternative to closed-model APIs for agent or RAG infrastructure.",
+    "take_for_builders": "If you're evaluating embedding models for agentic RAG, benchmark Nemotron 3 Embed against your current provider on your own corpus before switching on RTEB rank alone — all three data points so far are vendor- or partner-published, not independently verified.",
+    "status": {
+     "state": "Expanding · open ecosystem",
+     "tone": "rising",
+     "changed": "2026-07-16",
+     "detail": "Nemotron is accumulating adoption and benchmark claims across separate product lines (LLM, agent harness tuning, embeddings) rather than centering on one release.",
+     "track": [
+      {
+       "label": "gov adoption",
+       "detail": "Jun 29",
+       "tone": "launch",
+       "weight": 33
+      },
+      {
+       "label": "agent harness perf",
+       "detail": "Jul 8",
+       "tone": "rising",
+       "weight": 33
+      },
+      {
+       "label": "retrieval benchmark #1",
+       "detail": "Jul 16 → now",
+       "tone": "now",
+       "weight": 34
+      }
+     ]
+    }
+   }
+  },
   {
    "slug": "claude-gateway",
    "label": "Claude Gateway",
@@ -95,8 +153,8 @@
     "2026-07-15"
    ],
    "member_sids": [
-    "e11fcea9cd94bb20",
     "fdd9745edc3aad4e",
+    "e11fcea9cd94bb20",
     "ef10e0f5c9baeb91",
     "db18dd171266e42d",
     "223287766691e86d",
@@ -104,8 +162,8 @@
     "238d52a12c2e7d43"
    ],
    "member_urls": [
-    "https://www.anthropic.com/news/claude-fable-5-mythos-5",
     "https://www.anthropic.com/news/redeploying-fable-5",
+    "https://www.anthropic.com/news/claude-fable-5-mythos-5",
     "https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything",
     "https://claude.com/blog/a-field-guide-to-claude-fable-finding-your-unknowns",
     "https://www.latent.space/p/ainews-the-field-guide-to-fable",
@@ -372,43 +430,6 @@
      "tone": "resolved",
      "changed": "2026-07-09",
      "detail": "Root-caused to a silent Azure hardware fault plus an upstream libunwind race condition; the software fix has been submitted upstream."
-    }
-   }
-  },
-  {
-   "slug": "langchain-deep",
-   "label": "LangChain Deep",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-06-25T16:30:00+00:00",
-   "last_updated": "2026-07-08T18:09:30+00:00",
-   "latest_title": "LangChain and NVIDIA Launch NemoClaw Deep Agents Blueprint",
-   "days": [
-    "2026-06-25",
-    "2026-07-08"
-   ],
-   "member_sids": [
-    "8d1dc5b79d8b1372",
-    "d950eaa58be54c93",
-    "bf111a567cfc0366"
-   ],
-   "member_urls": [
-    "https://www.langchain.com/blog/june-2026-langchain-newsletter",
-    "https://blogs.nvidia.com/blog/nemotron-langchain-agents-open-stack",
-    "https://www.langchain.com/blog/langchain-and-nvidia-launch-the-nemoclaw-deep-agents-blueprint"
-   ],
-   "editorial": {
-    "tldr": "LangChain's June newsletter previewed Deep Agents Rubrics and programmatic subagents as building blocks for its orchestration harness. On July 8, LangChain and NVIDIA turned that groundwork into a joint product: the NemoClaw Deep Agents blueprint pairing the harness with Nemotron 3 Ultra.",
-    "stale": false,
-    "whats_new": "LangChain and NVIDIA launched the NemoClaw Deep Agents blueprint, tuning LangChain's harness for Nemotron 3 Ultra with benchmark results claiming lower cost than top closed models.",
-    "why_it_matters": "Platform engineers get a published, open reference stack — LangChain's harness plus open-weight Nemotron 3 Ultra and OpenShell — as an alternative to wiring a closed-model agent deployment from scratch.",
-    "take_for_builders": "Evaluating open-weight agent stacks: pull the NemoClaw blueprint (LangChain Deep Agents harness + Nemotron 3 Ultra + OpenShell) as a reference before building a custom orchestration layer, and check NVIDIA's benchmark methodology before trusting the cost/performance claims.",
-    "status": {
-     "state": "Shipped · joint launch",
-     "tone": "launch",
-     "changed": "2026-07-08",
-     "detail": "LangChain and NVIDIA launched the NemoClaw Deep Agents blueprint, pairing the Deep Agents harness with Nemotron 3 Ultra."
     }
    }
   },
