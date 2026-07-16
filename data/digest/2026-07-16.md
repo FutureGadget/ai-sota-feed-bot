@@ -5,137 +5,119 @@ Focus: AI Platform Engineering
 ## 1. Kimi K3, and what we can still learn from the pelican benchmark
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-everything
-- Score: 3.562 | Reliability: 1.0
+- Score: 3.52 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 2. OpenWiki 0.2 brings OKF to codebase documentation
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/openwiki-0-2-adds-okf-support
-- Score: 3.206 | Reliability: 1.0
+- Score: 3.168 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 3. Google is a Leader and positioned furthest in Vision and highest in Execution in the 2026 Gartner® Magic Quadrant™ for Conversational AI Platforms
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/google-is-a-leader-in-the-gartner-magic-quadrant-for-conversational-ai/
-- Score: 3.009 | Reliability: 1.0
+- Score: 2.958 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 4. xai-org/grok-build, now open source
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/15/grok-build/#atom-everything
-- Score: 2.907 | Reliability: 1.0
+- Score: 2.874 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, codex.
 
 ## 5. New in Fleet: Deploy AI agents to Slack in one click
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/new-in-langsmith-fleet-bring-agents-into-slack-in-one-click
-- Score: 2.752 | Reliability: 1.0
+- Score: 2.72 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Stripe Benchmark Shows AI Agents Build Integrations but Struggle with Validation
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/07/stripe-ai-agents-benchmark/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.658 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 7. AI Agents with Cloud Credentials Are Outrunning Billing Guardrails Built for Human-Speed Mistakes
+## 6. AI Agents with Cloud Credentials Are Outrunning Billing Guardrails Built for Human-Speed Mistakes
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/ai-agents-billing-guardrails/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.601 | Reliability: 1.0
+- Score: 2.571 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 7. NVIDIA Nemotron 3 Embed Ranks #1 Overall on RTEB, Advancing Agentic Retrieval
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/nvidia/nemotron-3-embed-wins-rteb
+- Score: 2.561 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
 ## 8. Our approach to bioresilience
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/our-approach-to-bioresilience/
-- Score: 2.325 | Reliability: 1.0
+- Score: 2.32 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Why teens deserve access to safe AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/why-teens-deserve-access-safe-ai
-- Score: 2.3 | Reliability: 1.0
+- Score: 2.294 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. How Cars24 scales conversations and builds faster with OpenAI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/cars24
-- Score: 2.28 | Reliability: 1.0
+- Score: 2.277 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 11. NVIDIA Nemotron 3 Embed Ranks #1 Overall on RTEB, Advancing Agentic Retrieval
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/nvidia/nemotron-3-embed-wins-rteb
-- Score: 2.577 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+## 11. Show HN: Vektorgeist- A platform for AI operators and their agent's
+- Type: news | Source: hackernews_ai
+- URL: https://vektorgeist.com/
+- Score: 2.479 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
-## 12. SPyCE: Skill-Policy Co-evolution for Multimodal Agents
+## 12. codex rust-v0.145.0-alpha.20
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.20
+- Score: 2.437 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 13. SPyCE: Skill-Policy Co-evolution for Multimodal Agents
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.13854v1
-- Score: 2.413 | Reliability: 1.0
+- Score: 2.399 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
-
-## 13. codex rust-v0.145.0-alpha.19
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.19
-- Score: 2.386 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
 
 ## 14. DeepStress: Stress-Testing Deep Search Agents
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.13920v1
-- Score: 2.367 | Reliability: 1.0
+- Score: 2.353 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 15. UESF-Bench: Benchmarking and Probing for Unified Embodied Seeking and Following
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.13621v1
-- Score: 2.365 | Reliability: 1.0
+- Score: 2.352 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 16. [AINews] Thinky's Inkling: 975B-A41B multimodal, new best American Apache 2.0 open model (with Inkling-Small, 276B-A12B)
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-thinkys-inkling-975b-a41b
-- Score: 2.224 | Reliability: 1.0
+- Score: 2.198 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. 🔬 The Lab of the Future Should Feel Like a Data Center — Andy Beam & Rafa Gómez-Bombarelli, Lila Sciences
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/the-lab-of-the-future-should-feel
-- Score: 2.196 | Reliability: 1.0
+- Score: 2.168 | Reliability: 1.0
 - Why it matters: 
 
-## 18. The 2nd International StepUP Competition for Biometric Footstep Recognition: From Steps to Strides
+## 18. Scaling to 1 million concurrent sandboxes in seconds
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/scaling-to-1-million-concurrent-sandboxes-in-seconds
+- Score: 2.112 | Reliability: 1.0
+- Why it matters: 
+
+## 19. The 2nd International StepUP Competition for Biometric Footstep Recognition: From Steps to Strides
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.13905v1
-- Score: 2.102 | Reliability: 1.0
+- Score: 2.09 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness, evaluation.
 
-## 19. claude-agent-sdk-python v0.2.120
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.120
-- Score: 1.94 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. The US is advancing AI safety through state and federal action
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/advancing-ai-safety-through-state-and-federal-action
-- Score: 1.935 | Reliability: 1.0
-- Why it matters: 
-
-## 21. GPT-Red: Unlocking Self-Improvement for Robustness
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/unlocking-self-improvement-gpt-red
-- Score: 1.907 | Reliability: 1.0
-- Why it matters: 
-
-## 22. claude-code v2.1.211
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.211
-- Score: 1.86 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 23. Connect more of your apps to Search
+## 20. Connect more of your apps to Search
 - Type: news | Source: google_ai_blog
 - URL: https://blog.google/products-and-platforms/products/search/connected-apps/
-- Score: 1.607 | Reliability: 1.0
+- Score: 1.575 | Reliability: 1.0
 - Why it matters:
