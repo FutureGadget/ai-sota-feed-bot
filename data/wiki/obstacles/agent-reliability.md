@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61]
-updated: 2026-07-15
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f]
+updated: 2026-07-16
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f]
 ---
 
 ## TL;DR
@@ -88,17 +88,31 @@ that "does the agent hallucinate" is the wrong single-axis question; what
 matters is whether a given hallucination happens to widen useful context or
 actively mislead the next reasoning step.
 
+A concrete incident puts a dollar figure on the identity/execution gap above:
+a three-person agency took a $14,000 AWS bill in a single day after attackers
+extracted static access keys with unrestricted Bedrock access and burned them
+invoking Claude models, and a separate case had an autonomous agent given
+open-ended AWS access repeatedly reapply a CloudFormation template until it
+was running far more infrastructure than the task needed. Both were caught by
+a credit-card charge, not by AWS's own monitoring — billing tools like Cost
+Explorer and Budgets work off data that lags roughly 24 hours, so they detect
+overspend after the money is gone rather than stopping it. The fix is the same
+scoped-credential, action-time-alerting discipline
+[sandboxing](/topic/agent-sandboxing) already argues for, applied to spend
+instead of data: IAM roles instead of static keys, service-control policies
+blocking expensive instance families in agent-operated accounts, and
+CloudTrail alerts on the API calls that spend money (`RunInstances`,
+`InvokeModel`) rather than a budget alert that fires after the invoice.
+
 ## What's new
-A production agent platform ships a concrete instance of "tools for
-certainty": a server-side gate checks conditions after a tool call is
-decided but before it's sent, resistant to a prompt-injected model talking
-its way past the check, paired with deterministic value extraction so later
-steps reference a stored field instead of a model re-typing an ID.
-Separately, a reported ~80% coding-agent cost cut on a near-frontier model
-swap (Grok 4.5) came with a roughly doubled hallucination rate, left
-unmitigated — a cost/reliability trade this wiki tracks elsewhere, here
-without the boundary-contract or harness-tuning countermeasures other cases
-apply.
+A concrete incident ties a dollar figure to the identity/execution gap this
+page tracks: a three-person agency ate a $14,000 one-day AWS bill after
+attackers extracted static access keys with unrestricted Bedrock access, and
+a separate case had an autonomous agent repeatedly over-provision
+infrastructure under open-ended AWS access. Neither was caught by AWS's own
+billing tools — both lag roughly 24 hours behind actual spend — surfacing an
+action-time-detection gap that billing guardrails built for human-speed
+mistakes don't close for a machine-speed one.
 
 ## Why it matters for platform engineers
 Reliability spans three layers platform teams have to build separately: an

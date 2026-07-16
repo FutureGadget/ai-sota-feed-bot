@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1]
-updated: 2026-07-14
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f]
+updated: 2026-07-16
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f]
 ---
 
 ## TL;DR
@@ -49,6 +49,13 @@ earned in how records are embedded and ranked, not in the vector DB brand.
 Strong results are achievable **without an LLM in the recall path** (a
 local store hitting high LongMemEval recall), underscoring that retrieval
 quality is an engineering problem, not a model-scale one.
+
+The **embedding model itself** is also a live lever, not a solved commodity
+choice: NVIDIA's Nemotron 3 Embed line ranks #1 overall on RTEB (78.5% on the
+flagship 8B model), and its 1B variant cuts its own predecessor's error rate
+by 27% — swapping in a stronger embedder moves the ceiling on every retrieval
+architecture above without changing the index, chunking, or rerank strategy
+at all.
 
 The category is also being challenged from **outside vectors entirely**,
 with the shared claim that exact, structured, temporally aware recall often
@@ -93,6 +100,12 @@ LLM answers past what its retrieved context actually supports — a further
 refinement of the hybrid-retrieval-plus-rerank stack already converged on.
 
 ## What's new
+The embedding model itself improved: NVIDIA's Nemotron 3 Embed ranks #1
+overall on RTEB, and its smaller 1B variant cuts its predecessor's error rate
+by 27% — a ceiling-raising change orthogonal to the hybrid-retrieval,
+graph, and provenance work below, since it improves every architecture that
+sits on top of an embedding.
+
 Provenance gets its own benchmark: ResearchQA scores whether an LLM's answer
 over scientific papers is actually backed by verifiable citations, turning
 "is this grounded or just fluent" into a measured number. A tool-adaptive

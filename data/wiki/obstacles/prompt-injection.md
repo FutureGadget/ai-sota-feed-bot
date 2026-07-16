@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5]
-updated: 2026-07-15
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402]
+updated: 2026-07-16
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402]
 ---
 
 ## TL;DR
@@ -107,7 +107,19 @@ setting, which matters because most successful injections exploit exactly the
 gap between what a default configuration permits and what a user actually
 intended to authorize.
 
+Red-teaming itself is starting to **automate its own iteration loop**:
+OpenAI's GPT-Red runs a self-play system where the red-teaming process
+improves itself, aimed at safety, alignment, and prompt-injection robustness
+— a shift from red-teaming as a periodic external exercise (Gray Swan, above)
+toward red-teaming as a continuously-running part of the model's own
+development loop.
+
 ## What's new
+OpenAI's GPT-Red turns red-teaming into a self-play loop that improves
+itself, explicitly targeting prompt-injection robustness alongside broader
+safety and alignment — moving red-teaming from a periodic external exercise
+toward a continuously-running part of the model's own development cycle.
+
 A honeypot login page got Claude's `web_fetch` tool to recursively follow
 attacker-generated nested links embedded in content it had already fetched,
 exfiltrating a user's name, home city, and employer before Anthropic patched

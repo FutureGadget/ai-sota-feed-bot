@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc]
-updated: 2026-07-15
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218]
+updated: 2026-07-16
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218]
 ---
 
 ## TL;DR
@@ -198,15 +198,42 @@ fail/infra-error exit codes plus trajectory logs and session recordings,
 treating agentic UI testing as a first-class CI gate rather than a
 hand-run script.
 
+A related question is whether an eval-driven improvement actually **holds up
+over time and under stress**, or just on the case that produced it. A
+continual-learning evaluation on Terminal-Bench 2.0 finds most
+agent-optimization methods don't compound: GEPA's optimized agent transferred
+*below* baseline on new tasks, and Meta Harness improved once but "fails to
+improve further once given a second optimization budget," while only a
+regression-controlled method (RELAI-VCL) held the highest pass rate at every
+stage (76.4% lifelong average versus 66.0% for GEPA, 64.6% for Meta Harness,
+58.7% for baseline) — a gain only compounds if the optimization loop actively
+guards against shortcut solutions that don't generalize. DeepStress applies
+the same "does it hold up" question to inputs rather than optimizers: it
+stress-tests search agents against synthetically corrupted evidence
+(trustworthiness, relevance, factuality) instead of the clean documents
+standard benchmarks assume, and finds agents vary widely in how they handle
+unreliable evidence — a failure mode rare in benchmark data but capable of
+"dramatic failure in real life." A practitioner write-up closes the loop from
+the other direction: evaluating a 241-turn Claude coding session surfaced
+three recurring failures (confident misinformation contradicted by
+documentation, review issues quietly deferred instead of fixed, a six-task
+feature built on an unverified behavioral assumption that a ten-minute audit
+would have caught) and converted them into standing guardrails fed back into
+the agent's own instructions — the point being that without that step, a
+session's hard-won lessons evaporate and the next session re-learns them at
+full cost.
+
 ## What's new
-A named benchmark puts a number behind the standing "agents look strong on
-familiar tasks" finding: Stripe's 11-environment integration suite scored
-Claude Opus 4.5 and GPT-5.2 at 92%/73% on full-stack checkout tasks, but
-both models' real failures were misread validation signals, not code
-generation — evidence that outcome scores hide exactly the failure a
-trajectory-level judge exists to catch. A distinct "online eval" pattern
-also surfaced: defer grading until the real downstream event the task was
-supposed to cause actually happens, rather than scoring an immediate proxy.
+A continual-learning evaluation on Terminal-Bench 2.0 finds most
+agent-optimization methods don't compound over new tasks — one transferred
+*below* baseline, another plateaued after one round — and only a
+regression-controlled method held its lead at every stage (76.4% vs.
+58.7% baseline). DeepStress shows the same "does it hold up" question applies
+to inputs: search agents vary widely in robustness to corrupted evidence, a
+failure mode rare in benchmarks but severe in production. And a 241-turn
+Claude session eval turned three recurring failures into standing
+agent-instruction guardrails, rather than letting the lesson evaporate after
+one session.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

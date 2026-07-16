@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1]
-updated: 2026-07-15
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1]
+updated: 2026-07-16
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1]
 ---
 
 ## TL;DR
@@ -53,13 +53,32 @@ tool-adaptive reranker conditions its reranking on which retrieval tool
 produced each candidate — both targeting the specific failure mode where a
 model answers fluently past what its retrieved context actually supports.
 
+**The retriever itself keeps improving**, which moves the ceiling on every
+technique above it: NVIDIA's Nemotron 3 Embed line ranks #1 overall on RTEB
+(a multilingual, domain-spanning retrieval benchmark) at 78.5%, with its
+smaller 1B variant cutting the error rate of its own predecessor by 27% —
+concretely, better retrieval means an agent finds the relevant evidence
+sooner and burns fewer reasoning turns and search calls getting there, so
+retrieval quality is also a cost and latency lever, not just an accuracy one
+(cross-ref [agent cost](/topic/agent-cost), [agent latency](/topic/agent-latency)).
+**Structure is also arriving in a place agents specifically ground on —
+codebase documentation**: OpenWiki 0.2 adopts OKF, a proposed open standard
+that puts YAML front matter (tags, categories, timestamps) and directory
+index files onto wiki pages, so an agent can filter to "every doc tagged
+`billing`" directly instead of running an open-ended search — the same
+structured-recall argument this page already makes for SQL over embeddings,
+applied to the docs an agent grounds coding answers on.
+
 ## What's new
-This is the wiki's first pass at grounding as its own obstacle, split out
-from [agent memory](/topic/agent-memory): a single-gateway consolidation of
-the retrieval stack (Orbit), a deterministic SQL-first alternative to
-embedding everything, a measured token cost for raw web fetches, and the
-first dedicated attribution benchmarks and rerankers scoring whether an
-answer is actually backed by what was retrieved.
+The retriever itself got measurably better: NVIDIA's Nemotron 3 Embed ranks
+#1 on RTEB, and its smaller variant cuts its predecessor's error rate by
+27% — moving the ceiling on every downstream grounding technique, since a
+stronger retriever means fewer wasted reasoning turns before the agent finds
+what it needed. Separately, OpenWiki 0.2 puts structured metadata (tags,
+categories) directly onto codebase-documentation pages via the OKF format,
+letting an agent filter to a category or tag instead of running an
+open-ended search — structured recall applied to the docs agents ground
+coding answers on.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

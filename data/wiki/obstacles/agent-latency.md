@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2]
-updated: 2026-07-15
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85]
+updated: 2026-07-16
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85]
 ---
 
 ## TL;DR
@@ -60,6 +60,23 @@ pauses too long gets hung up on, which is why low-latency voice stacks (Loka on
 Amazon Nova 2 Sonic) treat round-trip time as a first-class design constraint,
 not a tuning afterthought.
 
+**Query volume compounds the same way tool calls do**: a single agent
+request that fans out into tens of database or API queries, and a
+multi-step workflow into hundreds, inherits chat-era latency expectations
+("a few hundred milliseconds feels responsive, a couple of seconds feels
+broken") for every one of those queries, not just the top-level turn — so a
+semantic-layer pattern built for dashboards (pre-aggregated rollups serving
+many queries through query rewriting, columnar storage with partition
+pruning) is being repurposed as agent infrastructure precisely because it
+was already built for many small, interactive queries instead of a few large
+batch ones. **New models get latency-tuned serving on day one, not
+retrofitted later**: vLLM shipped full-feature-parity support for Thinking
+Machines' 1T-parameter Inkling model the day it released, reaching 380
+tokens/sec/user with speculative decoding versus 140 without on 4 GB200
+GPUs — folding a brand-new architecture into the same speculative-decoding
+and disaggregation levers already on this page instead of waiting for a
+follow-up optimization pass.
+
 **Batching** is the other lever a bursty agent workload stresses directly:
 static batching policies need manual tuning per traffic shape and cannot
 adapt when request patterns shift mid-run, so adaptive inference batching
@@ -102,16 +119,15 @@ per-model code — cutting the engineering cost of *keeping up* with new model
 architectures, which is itself a latency-relevant maintenance tax.
 
 ## What's new
-Decode gets its own specialized runtime: vLLM's TileRT integration transfers
-KV state from stock prefill nodes to purpose-built decode nodes over RDMA and
-runs speculative decoding immediately after, reaching peak throughput at a
-4.0-token best-case acceptance rate on an 8-GPU setup — a further split of
-the prefill/decode disaggregation already on this page, though currently
-limited to one in-flight request per decode node and a narrow model list.
-That follows vLLM v0.25.0 retiring PagedAttention outright now that Model
-Runner V2 is the standard execution route for all dense models, alongside a
-new unified Streaming Parser Engine for tool-call and reasoning-token
-parsing across model families.
+Two new data points widen the latency picture beyond the model-serving
+stack this page has tracked so far. First, agent query volume is its own
+latency multiplier: a single agent task can fan out into hundreds of
+database/API queries, each held to chat-era responsiveness expectations, so
+teams are repurposing dashboard-era semantic-layer techniques (pre-aggregated
+rollups, columnar partition pruning) as agent-serving infrastructure. Second,
+day-0 serving support is becoming the norm for new models, not a follow-up
+project: vLLM shipped full-parity support for a 1T-parameter model on release
+day, reaching 380 tokens/sec/user with speculative decoding on 4 GB200 GPUs.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

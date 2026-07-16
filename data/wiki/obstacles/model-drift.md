@@ -7,9 +7,9 @@ status: active
 solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702]
-updated: 2026-07-13
-covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702]
+evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411]
+updated: 2026-07-16
+covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411]
 ---
 
 ## TL;DR
@@ -25,7 +25,7 @@ working as everything beneath it shifts.
 The substrate churns across several layers, and each is a drift source:
 
 - **Frameworks** ship fast and regress: LangGraph 1.2.6 had to fix nested subgraphs inheriting the parent checkpoint namespace — a regression introduced two releases earlier in 1.2.3 — meaning anyone who upgraded into that window silently got broken checkpointing without touching their own code.
-- **Agent SDKs** move almost daily: the Claude Agent SDK for Python ships releases whose entire changelog is "updated the bundled Claude CLI," so the executable your agent runs on changes underneath a patch-level dependency bump. That cadence has not let up: in a single recent week the SDK rolled from 0.2.105 through 0.2.110, every release doing nothing but advancing the bundled CLI (2.1.183 → 2.1.191), while the CLI itself shipped its own stream of patch releases (claude-code 2.1.190, "bug fixes and reliability improvements") — so a team that pinned only the SDK version still saw the binary under it move roughly daily.
+- **Agent SDKs** move almost daily: the Claude Agent SDK for Python ships releases whose entire changelog is "updated the bundled Claude CLI," so the executable your agent runs on changes underneath a patch-level dependency bump. That cadence has not let up: the most recent week saw the SDK roll from 0.2.115 through 0.2.120, six releases in a row advancing only the vendored CLI (2.1.206 → 2.1.211) — except one of them wasn't purely cosmetic: the 0.2.116 bump carried a CLI fix so Claude Code honors project-scoped permission grants in checkout directories, a real permission-behavior change riding on what its own changelog entry made look like just another CLI version bump. A team that pins only the SDK version and skims changelogs for keywords can miss exactly this kind of drift.
 - **Models** get deprecated out from under running agents — Claude Code now emits a warning when the requested model is deprecated, making model-upgrade drift an explicit, surfaced signal rather than a silent behavior change — and the same release hardened auto-mode safety (blocking destructive git commands), a reminder that the harness's *defaults* drift too.
 - **Serving runtimes** drift in performance and output: vLLM v0.23.0 is another "hardening and optimization pass" on DeepSeek-V4 across backends, the kind of change that can move latency, throughput, and sampling behavior without a model swap, and the drift can be outright breaking, not just behavioral — Triton Inference Server's 2.70.0 release drops Windows support entirely and changes how its Python client handles BF16 (now requiring `ml_dtypes`), so a runtime bump can remove a deployment target or break client code that never touched the model.
 - **Coding-agent CLIs regress and roll back like any other dependency**: OpenAI's Codex CLI shipped a prompting regression in its Guardian auto-review behavior, then reverted it two releases later — 0.144.2 restored the prior policy, request format, and tool behavior, followed by a version-only 0.144.3 with no further changes — the same "patch-level bump changes behavior" pattern the Claude Agent SDK bullet above describes, this time inside the auto-review policy an agent enforces rather than the CLI binary underneath it.
@@ -35,12 +35,11 @@ declaring *compatible API version ranges* — but the default posture is still
 "track latest," which is exactly how drift gets in.
 
 ## What's new
-OpenAI's Codex CLI drifted and rolled back within its own release train:
-0.144.2 reverted a shipped regression in Guardian auto-review prompting
-behavior, restoring the prior policy — a live instance of the
-framework-regression pattern this page tracks, observed inside a single
-vendor's CLI release cadence rather than across a third-party framework's
-releases.
+The Claude Agent SDK's daily-drift pattern sharpened into a concrete case: a
+run of six patch releases (0.2.115 → 0.2.120) that looked like nothing but
+CLI version bumps included one, 0.2.116, that quietly shipped a real
+permission-behavior fix — a reminder that "changelog says CLI bump" doesn't
+mean "no behavior changed."
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you
