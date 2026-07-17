@@ -189,6 +189,44 @@
     },
     "edition_date": "2026-07-10"
   },
+  "34b461bf5b9be5ff": {
+    "id": "pb-trace-coding-agents-thread-id",
+    "kind": "source-backed",
+    "title": "Reconstruct the full agent thread before debugging a bad diff",
+    "area": "Reliability",
+    "problem": "A coding agent's final diff hides what actually happened — a subagent can get pointed at a deprecated helper, or an agent can edit a test file instead of rerunning it, and none of that shows up in the output you review.",
+    "apply": "Trace the agent by thread_id end to end — user request, every model/tool call, subagent handoffs, retries, tokens, and cost — instead of reviewing only the final diff, then convert each discovered failure mode into a reusable rule or skill so it doesn't recur across the fleet.",
+    "result": "LangChain reports that silent failures — like a test file getting edited instead of executed — become visible in the trace instead of shipping unnoticed.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/your-coding-agents-are-a-black-box-heres-how-to-crack-them-open",
+    "source_sid": "34b461bf5b9be5ff",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (LangChain) blog describing its own tracing product's debugging workflow."
+    },
+    "edition_date": "2026-07-17"
+  },
+  "38f362bfcba6a0fa": {
+    "id": "pb-self-hosted-control-plane-agent-spend",
+    "kind": "source-backed",
+    "title": "Put a self-hosted control plane in front of fleet-wide Claude Code usage",
+    "area": "Orchestration",
+    "problem": "Teams running Claude Code and Claude Desktop across an org end up with scattered identity, no shared policy enforcement, and spend nobody can see until the invoice — the exact mix that stalls AI rollouts at the pilot stage.",
+    "apply": "Deploy AWS's Claude Apps Gateway — a single stateless container behind a load balancer — as an OIDC-backed control plane: define per-group model/tool policy centrally, route all requests through it so upstream credentials never touch developer machines, and set daily/weekly/monthly spend caps that hard-block requests once hit.",
+    "result": "AWS and Anthropic claim finance and security get a server-side, verifiable view of who used what model and how much it cost, instead of trusting client-side config.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/claude-apps-gateway-aws/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "38f362bfcba6a0fa",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor (AWS/Anthropic) description of shipped gateway capabilities, not an independent audit."
+    },
+    "edition_date": "2026-07-17"
+  },
   "3c227e4c9b2cd2eb": {
     "id": "pb-adopt-mcp-enterprise-managed-auth",
     "kind": "source-backed",
@@ -227,6 +265,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "5201cdda51e234b5": {
+    "id": "pb-restrict-web-fetch-link-following",
+    "kind": "source-backed",
+    "title": "Stop your fetch tool from following links it wasn't asked to follow",
+    "area": "Safety",
+    "problem": "Claude's web_fetch tool blocks direct URL manipulation, but researcher Ayush Paul found it will still chain-follow links embedded in a fetched page — a honeypot site serving one new link per page slowly exfiltrated a user's name, location, and employer.",
+    "apply": "Restrict fetch/browsing tools to the exact URL the user requested or an explicit allowlist, and disable automatic navigation to links discovered inside fetched content — treat every followed link as a new, separately-authorized fetch, not a continuation of the first one.",
+    "result": "The source reports this closes the honeypot-style chain: once the tool can't wander from one fetched page to the next on its own, that exfiltration path loses its foothold.",
+    "effort": "low",
+    "source": "simon_willison",
+    "source_url": "https://simonwillison.net/2026/Jul/15/claude-web-fetch-exfiltration/#atom-everything",
+    "source_sid": "5201cdda51e234b5",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "A demonstrated, working exploit against Claude's web_fetch tool, with the defensive takeaway stated directly by the source."
+    },
+    "edition_date": "2026-07-17"
+  },
   "56ef11c9d3f8e424": {
     "id": "pb-memghost-stealth-memory-injection",
     "kind": "source-backed",
@@ -264,6 +321,25 @@
       "note": "Cloudflare's own description of the temporary-accounts feature and its 60-minute expiry window."
     },
     "edition_date": "2026-07-14"
+  },
+  "6f5c728ce100a70f": {
+    "id": "pb-scope-agent-cloud-credentials",
+    "kind": "source-backed",
+    "title": "Scope agent cloud credentials before they burn a five-figure bill",
+    "area": "Cost & latency",
+    "problem": "Agents with standing cloud credentials can run up bills faster than billing systems catch them. One agency's leaked AWS keys triggered $14,000 in Bedrock usage in a day; a runaway agent's duplicated CloudFormation stack cost another $6,531 in 24 hours.",
+    "apply": "Replace static access keys with short-lived IAM roles scoped to only the models and instance types the agent needs, add Service Control Policies blocking expensive instance families in agent-facing accounts, and alert directly on CloudTrail RunInstances/InvokeModel calls instead of waiting on billing data.",
+    "result": "The source reports CloudTrail records a provisioning call within minutes, while the matching cost doesn't surface in billing until a day later — so alerting on the call, not the invoice, is what catches the overrun before it compounds.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/ai-agents-billing-guardrails/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "6f5c728ce100a70f",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The source's own recommended guardrails, illustrated with two named real-world incidents and their reported dollar costs."
+    },
+    "edition_date": "2026-07-17"
   },
   "78aa501471a8665a": {
     "id": "pb-trace-and-cap-coding-agent-spend",
@@ -321,6 +397,44 @@
       "note": "Slack's post describes the intent-based testing pattern and its current CI-cost tradeoff qualitatively, without reporting maintenance or flakiness numbers."
     },
     "edition_date": "2026-07-14"
+  },
+  "8561672eafb892cc": {
+    "id": "pb-typed-eviction-over-summarization-long-sessions",
+    "kind": "source-backed",
+    "title": "Evict context by dependency graph, not by summarizing it away",
+    "area": "Memory",
+    "problem": "Naive context compaction risks compression-induced hallucination on long agent runs, but most agents also can't just hold every token from a long session in raw form.",
+    "apply": "Instead of summarizing old context, tag each transcript episode as exploratory (information-gathering) or action (durable work) to build a typed dependency graph, then evict only exploratory content that nothing downstream still depends on when the token budget is hit.",
+    "result": "The pi-cwl project matched fresh-session accuracy (68.1% vs. 67.5% on Terminal-Bench 2.0 across 89 sequential tasks and 80M+ tokens) while cutting inference cost 20–70% versus letting the session run uncapped.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/Kiz8-Team/pi-cwl",
+    "source_sid": "8561672eafb892cc",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Reported accuracy and cost numbers from the project's own Terminal-Bench 2.0 run."
+    },
+    "edition_date": "2026-07-17"
+  },
+  "8605a4348aa09d77": {
+    "id": "pb-require-regression-control-in-agent-optimizers",
+    "kind": "source-backed",
+    "title": "Don't trust a one-shot agent-optimizer score — retest after a second optimization round",
+    "area": "Evals",
+    "problem": "Most reported gains from agent-optimization methods are measured once against a fixed benchmark. A new continual-learning study found those gains often don't survive a second round — one method (GEPA) ended up worse than the unoptimized baseline on new tasks.",
+    "apply": "Before adopting an agent-optimization method (prompt optimizers, harness tuners), run it through at least two sequential optimization rounds on different task batches and check for regression, not just the first-round score — and prefer methods with explicit regression control built into the optimization loop.",
+    "result": "The one method with regression control (RELAI-VCL) held gains across rounds at 76.4% lifelong accuracy, versus 66.0% for GEPA and 58.7% for the unoptimized baseline — an 18-point gap that only showed up after the second round.",
+    "effort": "medium",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2607.14004v1",
+    "source_sid": "8605a4348aa09d77",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Reported benchmark numbers from a continual-learning evaluation on Terminal-Bench 2.0."
+    },
+    "edition_date": "2026-07-17"
   },
   "8688a4c832b1b52a": {
     "id": "pb-dispatch-subagents-over-context-chunks-rlm",
@@ -473,6 +587,25 @@
       "note": "Google's own internal benchmark figures for the preview AI proxy-model functions, as reported by InfoQ."
     },
     "edition_date": "2026-07-10"
+  },
+  "aebd52611d2bd6be": {
+    "id": "pb-validate-dont-trust-agent-integration-output",
+    "kind": "source-backed",
+    "title": "Give agents a validation layer, not just a code-writing one, for API integrations",
+    "area": "Reliability",
+    "problem": "Stripe's own benchmark shows agents can write working Stripe integration code but can't reliably tell success from failure — misreading an HTTP 400 as success, or losing checkout-flow state mid-task.",
+    "apply": "Don't let the agent self-report success from its own tool output. Add a separate validation step that replays the integration against a test environment and asserts on response codes and downstream state (e.g., a charge actually created), and require that check to pass before the task is marked done.",
+    "result": "Failures like a misread 400 or lost checkout-flow state get caught before they reach production, instead of shipping as a broken integration.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/stripe-ai-agents-benchmark/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "aebd52611d2bd6be",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Stripe's benchmark measured 92% (Claude Opus 4.5) and 73% (GPT-5.2) on full-stack tasks and named the validation gap; the specific validation-layer architecture is the editor's translation of that finding into a concrete build step."
+    },
+    "edition_date": "2026-07-17"
   },
   "b6de7c8426214289": {
     "id": "pb-runtime-diagnose-bug-repro-tests",
