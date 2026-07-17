@@ -3485,6 +3485,21 @@
   "type": "research",
   "url": "https://huggingface.co/blog/amazon/one-click-to-sagemaker-studio"
  },
+ "783c3207ea501854": {
+  "first_seen": "2026-07-17T01:03:04.017852+00:00",
+  "id": "64dbaf4addc4f4dc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-17T00:59:23+00:00",
+  "sid": "783c3207ea501854",
+  "source": "hackernews_ai",
+  "summary_1line": "Show HN: Git-temp (repo scratchpad for AI agents that won't clutter Git status)",
+  "title": "Show HN: Git-temp (repo scratchpad for AI agents that won't clutter Git status)",
+  "type": "news",
+  "url": "https://github.com/sebmellen/git-temp",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "78aa501471a8665a": {
   "first_seen": "2026-07-03T07:02:06.669673+00:00",
   "id": "40515d5b48f4a351",
@@ -4840,6 +4855,27 @@
   "url": "http://arxiv.org/abs/2607.12856v1",
   "why_it_matters": "Matches feed focus: evaluation."
  },
+ "a3ec5261dfb4f2cd": {
+  "first_seen": "2026-07-17T01:03:04.017852+00:00",
+  "id": "1bb4246b0f2e5019",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-17T00:26:27+00:00",
+  "release_highlights": [
+   "/fork now copies your conversation into a new background session (its own row in claude agents ) while you keep working; the in-session subagent it used to l...",
+   "Added claude auto-mode reset to restore the default auto-mode configuration, with a confirmation prompt (pass --yes to skip)",
+   "Added a session-wide limit on WebSearch tool calls (default 200, tunable via CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION ) to stop runaway search loops"
+  ],
+  "sid": "a3ec5261dfb4f2cd",
+  "source": "claude_code_releases",
+  "summary": "What's changed /fork now copies your conversation into a new background session (its own row in claude agents ) while you keep working; the in-session subagent it used to launch is now /subtask Added claude auto-mode reset to restore the default auto-mode configuration, with a confirmation prompt (pass --yes to skip) Added a session-wide limit on WebSearch tool calls (default 200, tunable via CLAUDE_CODE_MAX_WEB_SEARCHES_PER_SESSION ) to stop runaway search loops Added a per-session cap on subagent spawns (default 200, override with CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION ) to stop runaway delegation loops; /clear resets the budget MCP tool calls running longer than 2 minutes now move to the background automatically so the session stays usable; configure the threshold or disable with CLAUDE_CODE_MCP_AUTO_BACKGROUND_MS Typing /resume in the agent view now opens a picker of past sessions — including sessions deleted from the list — and resumes your pick as a background session Fixed plan mode auto-running file-modifying Bash commands (e.g. touch , rm ) without a permission prompt or SDK canUseTool callback Fixed worktree creation following a repository-committed symlink at .claude/worktrees , which could create files outside the repository Fixed a continue:false hook's halt being dropped when the tool fails or completes mid-stream, and hook infrastructure errors being misreported as user rejections Fixed SIGTERM during a running Bash tool orphaning the command's process tree in p",
+  "summary_1line": "/fork now copies your conversation into a new background session (its own row in claude agents ) while you keep working; the in-session subagent it used to l... · Added claude auto-mode reset to restore the default au...",
+  "title": "claude-code v2.1.212",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.212",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a495552f9c306031": {
   "first_seen": "2026-07-07T03:02:38.389056+00:00",
   "id": "ca374221b8a4e6cf",
@@ -5099,7 +5135,7 @@
    "agent",
    "eval"
   ],
-  "published": "2026-07-16T16:52:39+00:00",
+  "published": "2026-07-16T18:46:10+00:00",
   "sid": "ace88b2c5ecc23e1",
   "source": "langchain_blog",
   "summary": "OpenWiki 0.2 generates codebase wikis in the OKF format, helping developers organize repo docs with metadata, changelogs, and agent-friendly retrieval.",
@@ -6199,6 +6235,27 @@
   "type": "news",
   "url": "https://github.blog/ai-and-ml/github-copilot/how-github-copilot-enables-zero-dns-configuration-for-github-pages"
  },
+ "d85720d2ea03470a": {
+  "first_seen": "2026-07-17T01:03:04.017852+00:00",
+  "id": "6f512a9dcf582d69",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-17T00:39:25+00:00",
+  "release_highlights": [
+   "Fixed argv flag injection via resume and session_id options : --resume and --session-id are now passed as single = -joined argv tokens (e.g. --resume=<value>...",
+   "Hardened build scripts against command injection via CLAUDE_CLI_VERSION : Added version validation ( _cli_version_validation.py ) and eliminated shell interp...",
+   "CI now lints and typechecks scripts/ alongside src/ and tests/"
+  ],
+  "sid": "d85720d2ea03470a",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Bug Fixes Fixed argv flag injection via resume and session_id options : --resume and --session-id are now passed as single = -joined argv tokens (e.g. --resume= ) so that a dash-prefixed value is never misinterpreted as an independent CLI flag ( #1123 ) Internal/Other Changes Hardened build scripts against command injection via CLAUDE_CLI_VERSION : Added version validation ( _cli_version_validation.py ) and eliminated shell interpolation in download_cli.py and update_cli_version.py so that a malformed version string cannot inject shell or Python code during builds ( #1117 ) CI now lints and typechecks scripts/ alongside src/ and tests/ CI CLI install steps now fail properly when curl errors (added shell: bash for pipefail ) Updated bundled Claude CLI to version 2.1.212 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.121/ pip install claude-agent-sdk==0.2.121",
+  "summary_1line": "Fixed argv flag injection via resume and session_id options : --resume and --session-id are now passed as single = -joined argv tokens (e.g. --resume= ... · Hardened build scripts against command injection via CLAUDE_...",
+  "title": "claude-agent-sdk-python v0.2.121",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.121",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d8ea565801623af0": {
   "first_seen": "2026-07-04T19:02:19.256260+00:00",
   "id": "b38e740e1b30473f",
@@ -6334,7 +6391,7 @@
   "matched_topics": [
    "agent"
   ],
-  "published": "2026-07-16T18:11:51+00:00",
+  "published": "2026-07-16T18:46:10+00:00",
   "sid": "dea4491fd7dc725c",
   "source": "langchain_blog",
   "summary": "Build custom AI agents in Fleet without code, then deploy them to Slack in one click. Give agents custom identities, use them in channels and threads, and keep work moving where your team already collaborates.",
