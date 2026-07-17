@@ -28,6 +28,14 @@ slots:
     freshness_hours: 240
     blend: {alpha: 0.70, beta: 0.30}
 
+  open_weight_releases:
+    sources: [hf_moonshotai_releases, hf_qwen_releases, hf_zai_glm_releases, hf_tencent_hunyuan_releases, hf_minimax_releases]
+    min_items: 0
+    max_items: 2
+    max_per_source: 1
+    freshness_hours: 168
+    blend: {alpha: 0.70, beta: 0.30}
+
   vendor_general_updates:
     sources: [google_ai_blog, aws_ml_blog, nvidia_blog]
     min_items: 0
@@ -53,7 +61,7 @@ slots:
     blend: {alpha: 0.85, beta: 0.15}
 
   community_signal:
-    sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news]
+    sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news, search_cn_open_weight_labs]
     min_items: 1
     max_items: 4
     max_per_source: 1
@@ -61,7 +69,7 @@ slots:
     blend: {alpha: 0.75, beta: 0.25}
 
   research_watch:
-    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, arxiv_llm_reliability, paperswithcode_latest, huggingface_blog, anthropic_research]
+    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, arxiv_llm_reliability, arxiv_cn_open_weight_reports, paperswithcode_latest, huggingface_blog, anthropic_research]
     min_items: 2
     max_items: 5
     max_per_source: 1
@@ -87,6 +95,9 @@ time_decay:
     agent_tooling_releases:
       half_life_hours: 48
       floor: 0.30
+    open_weight_releases:
+      half_life_hours: 48
+      floor: 0.30
     research_watch:
       half_life_hours: 72
       floor: 0.35
@@ -103,6 +114,7 @@ dynamic_slot_rerank:
     practitioner_analysis: 0.12
     community_signal: 0.00
     agent_tooling_releases: 0.05
+    open_weight_releases: 0.08
     infra_runtime_releases: -0.10
     vendor_general_updates: -0.22
     cloud_platform_updates: -0.10
@@ -121,6 +133,7 @@ source_bias:
   arxiv_cs_lg: -0.35
   arxiv_cs_cl: -0.30
   arxiv_llm_reliability: -0.25  # topic-targeted: lift slightly above raw category dumps
+  arxiv_cn_open_weight_reports: -0.15  # primary-source lab tech reports (Kimi/GLM/Qwen/MiniMax/DeepSeek): above topic searches, below curated blogs
   paperswithcode_latest: -0.25
   anthropic_research: 0.40
   anthropic_newsroom: 0.06

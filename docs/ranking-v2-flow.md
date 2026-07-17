@@ -43,6 +43,7 @@ Stage B: slot assignment (ranking.assign_slots)
   - frontier_official
   - agent_tooling_releases
   - infra_runtime_releases
+  - open_weight_releases
   - vendor_general_updates
   - cloud_platform_updates
   - practitioner_analysis

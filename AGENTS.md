@@ -101,7 +101,8 @@ in `ops_daily_summary.py`'s log line.
 
 ## Repository Structure Index
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
-  releases, normalization, dedupe, crawl cooldown per source)
+  releases/Hugging Face org listings (`hf_org_models`, first-party model-drop
+  signal for open-weight labs), normalization, dedupe, crawl cooldown per source)
 - `pipeline/` — all processing:
   - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
     → stage C scoring → global merge → top-band constraints)

@@ -190,6 +190,90 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
     return out
 
 
+# Quantization/format re-uploads shipped alongside a main model drop
+# (…-FP8, …-GGUF, …-Int4, HF-format conversions). Collapsed so one launch
+# yields one feed item instead of one per artifact flavor.
+HF_VARIANT_SUFFIX_RE = re.compile(
+    r"(?:[-_](?:fp8|fp16|bf16|mxfp8|mxfp4|int4|int8|gptq|awq|gguf|mlx|hf))+$",
+    re.IGNORECASE,
+)
+
+
+def hf_models_to_entries(models: list[dict], org: str, now: datetime) -> list[dict]:
+    """Pure mapping from a Hugging Face /api/models org listing (newest-first)
+    to collector entries, collapsing quantized/format variants onto the
+    canonical repo (preferring the unsuffixed name, then the most-liked)."""
+    groups: dict[str, dict] = {}
+    order: list[str] = []
+    for m in models:
+        if not isinstance(m, dict) or m.get("private"):
+            continue
+        mid = str(m.get("id") or m.get("modelId") or "").strip()
+        if not mid or "/" not in mid:
+            continue
+        name = mid.split("/", 1)[1]
+        base = HF_VARIANT_SUFFIX_RE.sub("", name).lower()
+        cur = groups.get(base)
+        if cur is None:
+            groups[base] = m
+            order.append(base)
+            continue
+        cur_name = str(cur.get("id", "")).split("/", 1)[-1]
+        cur_canonical = HF_VARIANT_SUFFIX_RE.sub("", cur_name) == cur_name
+        new_canonical = HF_VARIANT_SUFFIX_RE.sub("", name) == name
+        if (new_canonical and not cur_canonical) or (
+            new_canonical == cur_canonical
+            and int(m.get("likes") or 0) > int(cur.get("likes") or 0)
+        ):
+            groups[base] = m
+    out = []
+    for base in order:
+        m = groups[base]
+        mid = str(m.get("id") or m.get("modelId") or "").strip()
+        created = str(m.get("createdAt") or "").strip() or now.isoformat()
+        parts = [f"New model weights from {org} on Hugging Face."]
+        tag = str(m.get("pipeline_tag") or "").strip()
+        if tag:
+            parts.append(f"Task: {tag}.")
+        likes = m.get("likes")
+        downloads = m.get("downloads")
+        if likes is not None or downloads is not None:
+            parts.append(f"Likes: {likes or 0}, downloads: {downloads or 0}.")
+        out.append(
+            {
+                "title": f"{mid} released on Hugging Face",
+                "url": f"https://huggingface.co/{mid}",
+                "summary": " ".join(parts),
+                "published": created,
+                "image_url": "",
+            }
+        )
+    return out
+
+
+def collect_from_hf_org(source: dict, now: datetime) -> list[dict]:
+    """First-party model-drop signal for open-weight labs: the Hugging Face
+    Hub org listing. For these labs the weights landing on HF *is* the launch
+    (it precedes their blog posts and any press coverage), and none of them
+    exposes a working RSS/sitemap (see config/sources.yaml comments and the
+    2026-07-17 decision-log entries)."""
+    org = str(source.get("org") or "").strip()
+    if not org:
+        raise ValueError("hf_org_models source requires org")
+    max_results = int(source.get("max_results", 10))
+    url = (
+        "https://huggingface.co/api/models?author="
+        + urllib.parse.quote(org)
+        + f"&sort=createdAt&direction=-1&limit={max_results}"
+    )
+    req = urllib.request.Request(url, headers={"User-Agent": "ai-sota-feed-bot/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        models = json.loads(resp.read().decode("utf-8"))
+    if not isinstance(models, list):
+        raise ValueError("hf_org_models: unexpected API response shape")
+    return hf_models_to_entries(models, org, now)
+
+
 def collect_from_arxiv_api(source: dict, now: datetime) -> list[dict]:
     # Two query modes: a plain category dump (`category: cs.CL` -> `cat:cs.CL`)
     # or a raw arXiv `search_query` for topic-targeted recall across categories
@@ -532,7 +616,11 @@ def run():
     for source in load_sources():
         src_name = source["name"]
         src_type = source.get("type", "rss")
-        src_url = source.get("url") or f"arxiv://{source.get('category','unknown')}"
+        src_url = source.get("url") or (
+            f"hf://{source.get('org','unknown')}"
+            if src_type == "hf_org_models"
+            else f"arxiv://{source.get('category','unknown')}"
+        )
 
         if not bypass_cooldown:
             default_poll_mins = int(os.getenv("COLLECT_DEFAULT_POLL_MINUTES", "0") or 0)
@@ -576,6 +664,8 @@ def run():
                 entries = collect_from_arxiv_api(source, now)
             elif src_type == "sitemap":
                 entries = collect_from_sitemap(source, now)
+            elif src_type == "hf_org_models":
+                entries = collect_from_hf_org(source, now)
             else:
                 raise ValueError(f"unsupported_source_type:{src_type}")
 

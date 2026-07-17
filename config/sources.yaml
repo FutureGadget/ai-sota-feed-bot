@@ -115,6 +115,49 @@ sources:
   - name: search_llm_ops_news
     type: rss
     url: "https://news.google.com/rss/search?q=%28LLM+inference+optimization+OR+serving+latency+OR+vLLM+OR+Triton%29&hl=en-US&gl=US&ceid=US:en"
+  - name: search_cn_open_weight_labs
+    type: rss
+    # Launch/news coverage of the Chinese open-weight labs (Alibaba/Qwen,
+    # Moonshot/Kimi, Zhipu/GLM, Tencent/Hunyuan, MiniMax, DeepSeek) via Google
+    # News. None of these labs exposes a working machine-readable feed as of
+    # 2026-07: qwen.ai and z.ai are client-rendered with no blog sitemap/RSS,
+    # hunyuan.tencent.com is a React shell, moonshot.ai serves no feed, and the
+    # old qwenlm.github.io RSS went stale when the blog moved to qwen.ai — so
+    # reputable-outlet aggregation is the reliable signal for their releases.
+    # Query is precision-first: bare "Kimi" (F1 drivers) and bare "MiniMax"
+    # (game studio / the algorithm) are avoided in favor of model/company terms.
+    url: "https://news.google.com/rss/search?q=%28Qwen+OR+%22Kimi+K2%22+OR+%22Kimi+K3%22+OR+%22Moonshot+AI%22+OR+Zhipu+OR+%22GLM-4%22+OR+%22GLM-5%22+OR+%22Z.ai%22+OR+%22Tencent+Hunyuan%22+OR+%22MiniMax+M1%22+OR+%22MiniMax+M2%22+OR+%22MiniMax+AI%22+OR+DeepSeek%29&hl=en-US&gl=US&ceid=US:en"
+  # First-party model-drop signal for the open-weight labs below: the Hugging
+  # Face org listing is where a launch lands FIRST (weights precede the blog
+  # post and press coverage), and it is a stable public JSON API — unlike the
+  # labs' own sites, none of which exposes a working feed (see the
+  # search_cn_open_weight_labs comment). Quantized/format re-uploads are
+  # collapsed onto the canonical repo by the collector.
+  - name: hf_moonshotai_releases
+    type: hf_org_models
+    org: moonshotai
+  - name: hf_qwen_releases
+    type: hf_org_models
+    org: Qwen
+  - name: hf_zai_glm_releases
+    type: hf_org_models
+    org: zai-org
+  - name: hf_tencent_hunyuan_releases
+    type: hf_org_models
+    org: tencent
+  - name: hf_minimax_releases
+    type: hf_org_models
+    org: MiniMaxAI
+  - name: arxiv_cn_open_weight_reports
+    type: arxiv_api
+    # Primary-source technical reports from the same labs (Kimi K2.5, GLM-5,
+    # MiniMax-M2, DeepSeek-V4, Qwen-* reports all ship as arXiv papers) that the
+    # per-category latest-N dumps usually miss. Title-anchored and
+    # precision-first: bare ti:GLM / ti:MiniMax match generalized-linear-model
+    # and minimax-optimality theory papers, so model-family phrases are used
+    # instead. arXiv-URL dedupe collapses overlap with the category sources.
+    search_query: '(cat:cs.CL OR cat:cs.AI OR cat:cs.LG) AND (ti:Qwen OR ti:Kimi OR ti:Hunyuan OR ti:DeepSeek OR ti:"GLM-4" OR ti:"GLM-5" OR ti:ChatGLM OR ti:"MiniMax-M1" OR ti:"MiniMax-M2" OR ti:"MiniMax-01")'
+    max_results: 25
   - name: vllm_blog
     type: rss
     # vLLM project's own technical blog (deep inference-engineering writeups:
