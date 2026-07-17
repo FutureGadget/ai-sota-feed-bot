@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f]
-updated: 2026-07-09
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857]
+updated: 2026-07-17
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857]
 ---
 
 ## TL;DR
@@ -27,12 +27,27 @@ Teams frequently downshift from frontier models to smaller or quantized models t
 **Cost-Sensitive Topologies:**
 Decentralizing agent orchestrations also dramatically cuts task execution spend. Stanford's DeLM demonstrates that removing the central orchestrator from multi-agent structures cuts task costs by up to 50% while maintaining target completion rates, shifting the optimization focus from model choosing to topology design. Similarly, using cheaper fine-tuned open models (like Fireworks trace judges) to evaluate production runs cuts trace-evaluation costs by 100x compared to frontier judges.
 
+**Naming the metric itself:**
+The ROI conversation is also converging on which numbers to track: OpenAI's
+own CFO has proposed a practical AI scorecard built on useful work delivered,
+cost per successful task, dependability, and return on compute — the same
+per-task attribution this page argues for, but pushed by a finance function
+rather than an engineering team, evidence the cost-per-task framing is
+becoming the standard ROI vocabulary rather than one platform-engineering
+convention among several.
+
 ## What's new
 Vendor-native spend governance now has a self-hosted counterpart: AWS's
 Claude apps gateway gives an org its own control plane over access, cost,
 and policy for Claude Code and Claude Desktop on Bedrock, the same
 attribute-and-cap job Claude Enterprise's admin analytics does from
 Anthropic's own console, but run and owned by the customer.
+
+Separately, the ROI-metric vocabulary is getting a finance-side push: OpenAI's
+CFO proposed cost-per-successful-task, dependability, and return-on-compute
+as the practical AI scorecard — the same per-task attribution instinct this
+page has argued for from the engineering side, now framed as a CFO-level
+metric.
 
 ## Why it matters for platform engineers
 Platform engineers cannot justify AI budgets on vague productivity claims alone. They must build the instrumentation to track cost-per-task, measure execution efficiency against human labor costs, and prevent token runaway. 
