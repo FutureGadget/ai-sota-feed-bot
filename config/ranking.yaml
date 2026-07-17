@@ -39,6 +39,17 @@ slots:
     freshness_hours: 240
     blend: {alpha: 0.70, beta: 0.30}
 
+  open_weight_releases:
+    # First-party model drops from the open-weight labs (Hugging Face org
+    # listings — the earliest signal a launch emits, ahead of blog/press).
+    # Bursty by design: usually empty, earns its seats on release day.
+    sources: [hf_moonshotai_releases, hf_qwen_releases, hf_zai_glm_releases, hf_tencent_hunyuan_releases, hf_minimax_releases]
+    min_items: 0
+    max_items: 2
+    max_per_source: 1
+    freshness_hours: 168
+    blend: {alpha: 0.70, beta: 0.30}
+
   vendor_general_updates:
     # Promotional vendor blogs (model launches, customer stories, marketing).
     # Capped at 1 — this is the "vendor noise, allow one" bucket.
@@ -109,6 +120,9 @@ time_decay:
     agent_tooling_releases:
       half_life_hours: 48
       floor: 0.30
+    open_weight_releases:
+      half_life_hours: 48
+      floor: 0.30
     research_watch:
       half_life_hours: 72
       floor: 0.35
@@ -126,6 +140,7 @@ dynamic_slot_rerank:
     practitioner_analysis: 0.12
     community_signal: 0.00
     agent_tooling_releases: 0.05
+    open_weight_releases: 0.08  # first-party open-weight model drops: slightly above tooling releases, well below frontier blogs
     infra_runtime_releases: -0.10
     vendor_general_updates: -0.22
     cloud_platform_updates: -0.10  # less penalized than vendor noise; spec/platform posts compete in headroom

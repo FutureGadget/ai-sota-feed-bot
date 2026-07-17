@@ -272,7 +272,7 @@ def _infer_item_type(item: dict[str, Any], slot: str) -> str:
     summary_prefix = str(item.get("summary", ""))[:2048]
     summary = _to_clean_oneline(summary_prefix, 220).lower()
 
-    if slot in {"agent_tooling_releases", "infra_runtime_releases"}:
+    if slot in {"agent_tooling_releases", "infra_runtime_releases", "open_weight_releases"}:
         return "release"
     if slot == "research_watch":
         return "paper" if (src.startswith("arxiv_") or "paperswithcode" in src or "arxiv.org" in url) else "research"

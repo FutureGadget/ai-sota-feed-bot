@@ -28,6 +28,14 @@ slots:
     freshness_hours: 240
     blend: {alpha: 0.70, beta: 0.30}
 
+  open_weight_releases:
+    sources: [hf_moonshotai_releases, hf_qwen_releases, hf_zai_glm_releases, hf_tencent_hunyuan_releases, hf_minimax_releases]
+    min_items: 0
+    max_items: 2
+    max_per_source: 1
+    freshness_hours: 168
+    blend: {alpha: 0.70, beta: 0.30}
+
   vendor_general_updates:
     sources: [google_ai_blog, aws_ml_blog, nvidia_blog]
     min_items: 0
@@ -87,6 +95,9 @@ time_decay:
     agent_tooling_releases:
       half_life_hours: 48
       floor: 0.30
+    open_weight_releases:
+      half_life_hours: 48
+      floor: 0.30
     research_watch:
       half_life_hours: 72
       floor: 0.35
@@ -103,6 +114,7 @@ dynamic_slot_rerank:
     practitioner_analysis: 0.12
     community_signal: 0.00
     agent_tooling_releases: 0.05
+    open_weight_releases: 0.08
     infra_runtime_releases: -0.10
     vendor_general_updates: -0.22
     cloud_platform_updates: -0.10
