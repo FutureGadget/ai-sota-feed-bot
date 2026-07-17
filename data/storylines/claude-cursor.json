@@ -1,13 +1,14 @@
 {
  "slug": "claude-cursor",
  "label": "Claude Cursor",
- "item_count": 3,
- "day_count": 3,
- "source_count": 2,
+ "item_count": 4,
+ "day_count": 4,
+ "source_count": 3,
  "first_seen": "2026-07-01T22:48:32+00:00",
- "last_updated": "2026-07-14T20:52:41+00:00",
- "generated_at": "2026-07-17T15:04:10.435506+00:00",
+ "last_updated": "2026-07-17T00:00:00+00:00",
+ "generated_at": "2026-07-17T20:05:57.620252+00:00",
  "sources": [
+  "claude_blog",
   "infoq_ai_ml",
   "search_agent_engineering_news"
  ],
@@ -58,19 +59,35 @@
      "editor_note": "First head-to-head benchmark scoring Claude Code and Cursor against two other agents on the same task."
     }
    ]
+  },
+  {
+   "date": "2026-07-17",
+   "items": [
+    {
+     "title": "How Cursor knew Claude Fable 5 was ready for the hardest 1% of problems | Claude by Anthropic",
+     "url": "https://claude.com/blog/working-at-the-frontier-cursor",
+     "source": "claude_blog",
+     "type": "news",
+     "summary_1line": "How Anthropic's Claude Fable 5 beat CursorBench and expanded what's possible for Cursor and agentic coding.",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "1029048a4e898aaa",
+     "published": "2026-07-17T00:00:00+00:00",
+     "editor_note": "First vendor-published account of the internal benchmark criteria Cursor used to greenlight Fable 5 in production."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "SonarQube extended its trusted-verification plugins to cover Claude Code, Copilot, Codex, and Cursor on Jul 1. A week later a Datadog engineer published a detailed account of pairing Claude and Cursor for a real production storage migration.",
+  "tldr": "SonarQube extended trusted-verification plugins to Claude Code, Copilot, Codex, and Cursor on Jul 1, and a Datadog engineer soon detailed pairing Claude and Cursor on a real production storage migration. By Jul 14, MarkTechPost had scored four coding agents on the same scaffold-to-PR task, turning vendor claims into a head-to-head comparison.",
   "stale": false,
-  "whats_new": "MarkTechPost scored four coding agents — Mistral Vibe for Code, Claude Code, Cursor, and Codex — on the same scaffold-to-PR task on Jul 14, giving builders a like-for-like comparison instead of vendor benchmarks.",
-  "why_it_matters": "Coding-agent choice is becoming an evaluable decision: cross-agent verification tooling and apples-to-apples task benchmarks now exist, so teams no longer have to take vendor performance claims on faith.",
-  "take_for_builders": "Before standardizing on one coding agent, run the same scaffold-to-PR task through your shortlist yourself, and check whether your review tooling already verifies that agent's output rather than assuming vendor benchmarks transfer to your codebase.",
+  "whats_new": "Anthropic's own Jul 17 post describes Cursor validating Claude Fable 5 against an internal 'CursorBench' suite covering its hardest 1% of coding tasks before shipping it in production.",
+  "why_it_matters": "Coding-agent evaluation keeps maturing from vendor claims toward comparable evidence, but a vendor-published case study still isn't independent verification — weigh Cursor's account accordingly until its benchmark methodology is public.",
+  "take_for_builders": "Run the same scaffold-to-PR task across your own agent shortlist rather than trusting vendor claims, and treat a vendor-published case study like Cursor's CursorBench account as anecdotal until its methodology is public.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-07-14",
-   "detail": "Coverage keeps pairing Claude Code and Cursor as both production tools and benchmark subjects rather than settling on one winner."
+   "changed": "2026-07-17",
+   "detail": "Coverage now spans independent cross-agent benchmarking plus a vendor-published case study, with no independent evaluation of Cursor's internal CursorBench criteria yet."
   },
   "beats": [
    {
@@ -99,12 +116,22 @@
     "sids": [
      "db6760c0ecf2309c"
     ]
+   },
+   {
+    "kicker": "VENDOR ACCOUNT",
+    "tone": "now",
+    "headline": "Anthropic publishes Cursor's account of vetting Fable 5 via an internal 'CursorBench'",
+    "summary": "Cursor describes running Fable 5 against its hardest 1% of coding tasks before shipping it in production — a vendor case study, not independent verification.",
+    "sids": [
+     "1029048a4e898aaa"
+    ]
    }
   ],
   "open_questions": [
    "Does the MarkTechPost scaffold-to-PR scoring hold up under independent replication with different tasks?",
-   "Do cross-agent verification plugins like SonarQube's catch real logic bugs, or only style and formatting differences?"
+   "Do cross-agent verification plugins like SonarQube's catch real logic bugs, or only style and formatting differences?",
+   "Is Cursor's internal 'CursorBench' suite or its results published anywhere reviewable, or is this only Anthropic's characterization?"
   ],
-  "generated_at": "2026-07-15T00:10:00+00:00"
+  "generated_at": "2026-07-17T20:10:00+00:00"
  }
 }
