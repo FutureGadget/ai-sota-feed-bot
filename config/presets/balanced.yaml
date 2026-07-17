@@ -53,7 +53,7 @@ slots:
     blend: {alpha: 0.85, beta: 0.15}
 
   community_signal:
-    sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news]
+    sources: [hackernews_ai, search_agent_engineering_news, search_llm_ops_news, search_cn_open_weight_labs]
     min_items: 1
     max_items: 4
     max_per_source: 1
@@ -61,7 +61,7 @@ slots:
     blend: {alpha: 0.75, beta: 0.25}
 
   research_watch:
-    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, arxiv_llm_reliability, paperswithcode_latest, huggingface_blog, anthropic_research]
+    sources: [arxiv_cs_ai, arxiv_cs_lg, arxiv_cs_cl, arxiv_llm_reliability, arxiv_cn_open_weight_reports, paperswithcode_latest, huggingface_blog, anthropic_research]
     min_items: 2
     max_items: 5
     max_per_source: 1
@@ -121,6 +121,7 @@ source_bias:
   arxiv_cs_lg: -0.35
   arxiv_cs_cl: -0.30
   arxiv_llm_reliability: -0.25  # topic-targeted: lift slightly above raw category dumps
+  arxiv_cn_open_weight_reports: -0.15  # primary-source lab tech reports (Kimi/GLM/Qwen/MiniMax/DeepSeek): above topic searches, below curated blogs
   paperswithcode_latest: -0.25
   anthropic_research: 0.40
   anthropic_newsroom: 0.06
