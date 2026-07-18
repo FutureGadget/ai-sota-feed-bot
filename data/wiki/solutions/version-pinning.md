@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c]
-updated: 2026-07-16
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b]
+updated: 2026-07-18
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b]
 ---
 
 ## TL;DR
@@ -34,7 +34,12 @@ whole chain (SDK → bundled CLI → model). A single recent week makes the poin
 quantitatively: the SDK went 0.2.115 → 0.2.120 with each release advancing only
 the vendored CLI (2.1.206 → 2.1.211), so a lockfile that pinned `claude-agent-sdk`
 but not its bundled binary would have let the executable drift roughly daily —
-exactly the gap a chain-deep pin closes. The honest current state is that the
+exactly the gap a chain-deep pin closes. The stakes of that gap went up two days
+later: SDK 0.2.122 was again a one-line "bundled CLI update," but the CLI it
+carried forward (v2.1.214) fixed five separate permission-check bypasses — a
+lockfile pinning only the SDK version would have silently accepted (or, read
+the other way, silently missed) five security-relevant behavior changes at
+once. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 
@@ -57,14 +62,10 @@ discipline this page argues for, aimed at the migration process itself rather
 than just the target version.
 
 ## What's new
-A pinning check now targets **supply-chain safety** specifically: deptrust
-scans an agent's resolved dependencies across a dozen ecosystems for known
-vulnerabilities, complementing behavioral-regression pinning (compatible API
-version ranges in LangGraph's CLI, Claude Code's deprecation warnings) with a
-security-focused version check. Separately, a practitioner migration write-up
-shows *how* to make the eventual upgrade itself tractable: swap a rigid,
-hand-scripted conversion pipeline for a flexible agent graded by autoraters,
-cutting a real foundation-model migration from months to hours.
+The chain-deep pinning case just got sharper: SDK 0.2.122's "bundled CLI
+update" carried five permission-check bypass fixes from claude-code v2.1.214,
+the largest batch yet of security-relevant behavior riding through a
+patch-level bump a version-only lockfile would treat as a no-op.
 
 ## Trade-offs
 Pinning trades freshness and security currency for stability: stay pinned too

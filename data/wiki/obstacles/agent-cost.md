@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a]
-updated: 2026-07-15
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb]
+updated: 2026-07-18
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb]
 ---
 
 ## TL;DR
@@ -120,6 +120,21 @@ more evenly across the solution space instead of drawing them independently,
 cutting the redundancy tax on a pattern (parallel sampling) that agent
 harnesses increasingly reach for when a single pass isn't reliable enough.
 
+**Reasoning effort itself is becoming a trainable, explicit dial** rather than
+a fixed per-model setting. Models increasingly expose low/medium/high
+reasoning-effort modes through several mechanisms — system-prompt
+conditioning that tells the model how hard to think, RL training with
+per-token cost coefficients that reward shorter traces at low effort and
+allow longer ones at high effort, SFT that mixes thinking and non-thinking
+examples, or distilling several separately-trained reasoning-depth
+specialists into one model. Token consumption swings roughly 25-50% across
+effort levels, and a smaller model at high effort can match a larger model at
+low effort — so model size and reasoning effort have to be tuned jointly, not
+model size alone. For an agent harness this turns reasoning effort into a
+routing decision: effort should be selected per request, based on task
+complexity and how much verification the step needs, rather than fixed once
+for the whole agent.
+
 **Tool-calling behavior**, not just model choice, is now a cost lever in its
 own right: when GitHub retuned Copilot code review onto shared Unix-style
 tools (`grep`/`glob`/`view`), average cost went *up* at first, because the
@@ -136,12 +151,10 @@ is the same cheap-instrumentation-over-model-swap move already established
 for [evaluation](/topic/agent-evaluation).
 
 ## What's new
-The "cost per watt" framing on the infra-level lever now has hard numbers
-behind it instead of a generic vendor pitch: NVIDIA's GB300 NVL72 reports
-10-25x the performance-per-watt of the prior Hopper generation, plus a
-further 5x software-only gain in a single month and up to 40% more GPUs
-runnable inside the same power budget — evidence that for self-hosted agents
-the serving stack itself, not just model choice, moves the cost floor.
+Reasoning effort is emerging as its own trainable dial (RL length penalties,
+SFT mode-mixing, distilled effort specialists) rather than a side effect of
+model size — surfacing the model-size/reasoning-effort trade-off as a lever
+an agent harness can route on per request instead of a fixed model choice.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.
