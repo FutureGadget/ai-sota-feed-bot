@@ -5,119 +5,119 @@ Focus: AI Platform Engineering
 ## 1. Version Controlled SQL Database Dolt Releases 2.0 with Automatic Storage Cleanup and Compression
 - Type: release | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/dolt-version-control/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.523 | Reliability: 1.0
+- Score: 2.501 | Reliability: 1.0
 - Why it matters: 
 
-## 2. Moonshot AI releases Kimi K3 and fuels global debate over open models - Межа. Новини України.
-- Type: release | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiakFVX3lxTE9lOWgxY00xbmloQW16YlBRdUhXNEszeXVrSk9BcEkyUDA0QTh1MXI3ZmFFeUJsc3hFVFJaU3F5N1dkcUlzWVlrMy1lUEFURjNMMWpBTnV0eS1lREtLTGFoUG1vOURtVGQwUXc?oc=5
-- Score: 2.498 | Reliability: 1.0
-- Why it matters: 
-
-## 3. Pinecone Introduces Nexus Engine for Compiling Business Context into Structured Data for AI Agents
+## 2. Pinecone Introduces Nexus Engine for Compiling Business Context into Structured Data for AI Agents
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/pinecon-nexus-knowledge-engine/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.492 | Reliability: 1.0
+- Score: 2.469 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
+
+## 3. Moonshot AI releases Kimi K3 and fuels global debate over open models - Межа. Новини України.
+- Type: release | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiakFVX3lxTE9lOWgxY00xbmloQW16YlBRdUhXNEszeXVrSk9BcEkyUDA0QTh1MXI3ZmFFeUJsc3hFVFJaU3F5N1dkcUlzWVlrMy1lUEFURjNMMWpBTnV0eS1lREtLTGFoUG1vOURtVGQwUXc?oc=5
+- Score: 2.442 | Reliability: 1.0
+- Why it matters: 
 
 ## 4. Kimi K3, and what we can still learn from the pelican benchmark
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-everything
-- Score: 2.45 | Reliability: 1.0
+- Score: 2.433 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 5. codex 0.144.6
+## 5. codex rust-v0.145.0-alpha.24
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.144.6
-- Score: 2.352 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.24
+- Score: 2.413 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 6. claude-code v2.1.214
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.214
-- Score: 2.325 | Reliability: 1.0
+- Score: 2.307 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 7. SQLite Query Explainer
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/18/sqlite-query-explainer/#atom-everything
-- Score: 2.31 | Reliability: 1.0
+- Score: 2.288 | Reliability: 1.0
 - Why it matters: 
 
 ## 8. How Cursor knew Claude Fable 5 was ready for the hardest 1% of problems | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/working-at-the-frontier-cursor
-- Score: 2.009 | Reliability: 1.0
+- Score: 1.993 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 9. CISO's guide to agentic AI | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/ciso-guide-to-agentic-ai
-- Score: 1.919 | Reliability: 1.0
+- Score: 1.904 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 10. A scorecard for the AI age
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/a-scorecard-for-the-ai-age
-- Score: 1.888 | Reliability: 1.0
+- Score: 1.872 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Controlling Reasoning Effort in LLMs
 - Type: news | Source: sebastian_raschka
 - URL: https://magazine.sebastianraschka.com/p/controlling-reasoning-effort-in-llms
-- Score: 2.28 | Reliability: 1.0
+- Score: 2.26 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. OpenWiki 0.2 brings OKF to codebase documentation
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/openwiki-0-2-adds-okf-support
-- Score: 2.261 | Reliability: 1.0
+- Score: 2.246 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 13. LQCDMaster: Agentic Scientific Computing for Lattice Quantum Chromodynamics Research
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.15001v1
-- Score: 2.221 | Reliability: 1.0
+- Score: 2.21 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 14. Digital Pantheon: Simulating and Auditing Coalition Formation with LLM Agents
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.15095v1
-- Score: 2.084 | Reliability: 1.0
+- Score: 2.073 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 15. Open Source Extraction Service
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/open-source-extraction-service
-- Score: 2.066 | Reliability: 1.0
+- Score: 2.049 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. claude-agent-sdk-python v0.2.122
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.122
-- Score: 2.01 | Reliability: 1.0
+- Score: 1.995 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 17. OmniaBench: Benchmarking General AI Agents Across Diverse Scenarios
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.14989v1
-- Score: 1.996 | Reliability: 1.0
+- Score: 1.986 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 18. [AINews] Kimi K3 2.8T-A50B: the largest open model ever released; Opus 4.8-class at Sonnet 5 pricing
 - Type: release | Source: latent_space
 - URL: https://www.latent.space/p/ainews-kimi-k3-28t-a50b-the-largest
-- Score: 1.94 | Reliability: 1.0
+- Score: 1.927 | Reliability: 1.0
 - Why it matters: 
 
 ## 19. DriftWorld: Fast World Modeling through Drifting
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.15065v1
-- Score: 1.875 | Reliability: 1.0
+- Score: 1.866 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 20. Fine-tune video and image models at scale with NVIDIA NeMo Automodel and 🤗 Diffusers
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/scale-diffusers-finetuning-nemo-automodel
-- Score: 1.82 | Reliability: 1.0
+- Score: 1.81 | Reliability: 1.0
 - Why it matters:
