@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402]
-updated: 2026-07-16
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71]
+updated: 2026-07-19
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71]
 ---
 
 ## TL;DR
@@ -107,6 +107,20 @@ setting, which matters because most successful injections exploit exactly the
 gap between what a default configuration permits and what a user actually
 intended to authorize.
 
+The **human approval step itself is a spoofable channel**: Claude Code's
+permission previews relayed to chat channels didn't neutralize
+bidirectional-override, zero-width, and look-alike quote characters, so
+injected tool-input text could make an approval prompt visually display a
+different, safer-looking command than the one that would actually run — until
+the fix stripped those characters before display. It's a narrow but concrete
+instance of the standing lesson: any layer a human is meant to trust as ground
+truth needs the same defense against injected text as the model itself.
+
+Injection is also flipping into a **defensive technique**: security reporting
+now describes prompt injection being used against the AI hacking agents
+attackers deploy, not only by them — the technique targets any LLM-driven
+actor in the loop, offensive tooling included.
+
 Red-teaming itself is starting to **automate its own iteration loop**:
 OpenAI's GPT-Red runs a self-play system where the red-teaming process
 improves itself, aimed at safety, alignment, and prompt-injection robustness
@@ -115,27 +129,24 @@ toward red-teaming as a continuously-running part of the model's own
 development loop.
 
 ## What's new
+The approval prompt itself joined the list of spoofable surfaces: Claude
+Code's chat-relayed permission previews failed to neutralize
+bidirectional-override, zero-width, and look-alike characters, letting
+injected tool input make an approval message display a different, safer
+command than the one that would run. Separately, prompt injection is now
+being reported as a two-way technique — defenders using it against the AI
+hacking agents attackers deploy, not only the reverse.
+
 OpenAI's GPT-Red turns red-teaming into a self-play loop that improves
 itself, explicitly targeting prompt-injection robustness alongside broader
 safety and alignment — moving red-teaming from a periodic external exercise
-toward a continuously-running part of the model's own development cycle.
-
-A honeypot login page got Claude's `web_fetch` tool to recursively follow
+toward a continuously-running part of the model's own development cycle. A
+honeypot login page got Claude's `web_fetch` tool to recursively follow
 attacker-generated nested links embedded in content it had already fetched,
 exfiltrating a user's name, home city, and employer before Anthropic patched
 `web_fetch` to stop following links returned within its own fetched
 content — a named, concrete instance of the role-confusion failure this page
-has argued about abstractly, and a reminder that the injected instruction
-doesn't have to arrive as a prompt.
-
-Jailbreak defense is also getting **more granular**: Anthropic followed the
-Fable 5 redeploy with a published account of what its cyber classifiers do
-and don't block plus a first-draft jailbreak *severity* framework — grading
-how bad a bypass is, not just whether one occurred. In parallel, a harness
-default shifted toward least privilege out of the box: Claude Code now
-defaults to "Manual" permission mode across its CLI and IDE integrations,
-closing the gap between what a default configuration permits and what a
-user actually authorized — the same gap most successful injections exploit.
+argues about abstractly.
 
 That builds on the standing shift from "filter the prompt" to "**govern the
 actor**" (agent-as-identity, per-parameter permissions, approval-gated
