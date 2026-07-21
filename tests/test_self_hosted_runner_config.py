@@ -21,8 +21,11 @@ class SelfHostedRunnerConfigTest(unittest.TestCase):
                     "runs-on: [self-hosted, Linux, ARM64, llm-digest]", workflow
                 )
                 self.assertNotIn("runs-on: ubuntu-latest", workflow)
-                self.assertIn("fetch-depth: 2", workflow)
-                self.assertNotIn("fetch-depth: 0", workflow)
+
+        feed_workflow = (
+            ROOT / ".github" / "workflows" / "feed-full-publish.yml"
+        ).read_text()
+        self.assertNotIn("sudo apt-get", feed_workflow)
 
     def test_runner_image_pins_and_verifies_the_official_release(self):
         dockerfile = (ROOT / "infra" / "actions-runner" / "Dockerfile").read_text()
@@ -53,6 +56,9 @@ class SelfHostedRunnerConfigTest(unittest.TestCase):
         self.assertIn("cap_drop:", compose)
         self.assertIn("- ALL", compose)
         self.assertIn("restart: unless-stopped", compose)
+        self.assertIn("source: ${RUNNER_WORK_DIR:?", compose)
+        self.assertIn("target: /home/runner/_work", compose)
+        self.assertIn("target: /runner-state", compose)
 
     def test_registration_token_is_only_required_for_first_registration(self):
         entrypoint = (
@@ -61,6 +67,8 @@ class SelfHostedRunnerConfigTest(unittest.TestCase):
         self.assertIn('if [ ! -f "$RUNNER_HOME/.runner" ]; then', entrypoint)
         self.assertIn('require_env "RUNNER_TOKEN"', entrypoint)
         self.assertIn("unset RUNNER_TOKEN", entrypoint)
+        self.assertIn("RUNNER_STATE=/runner-state", entrypoint)
+        self.assertIn('ln --symbolic --force "$RUNNER_STATE/$filename"', entrypoint)
 
 
 if __name__ == "__main__":

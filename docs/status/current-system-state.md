@@ -41,8 +41,9 @@ Daily companions:
 - GitHub workflow execution: repository-scoped Docker runner on the owner's
   Apple-silicon Mac (`infra/actions-runner/`), selected by
   `[self-hosted, Linux, ARM64, llm-digest]`. Docker Desktop and the Mac must be
-  awake; GitHub queues work while it is offline. The runner uses a named volume
-  for its registration/workspace and has no host bind mounts or Docker socket.
+  awake; GitHub queues work while it is offline. The runner uses a small named
+  volume for credentials and one dedicated host directory for its workspace;
+  it has no host Docker socket.
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing. The repository-owned daily scheduler definition is

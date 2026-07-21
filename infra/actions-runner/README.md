@@ -5,16 +5,19 @@ off GitHub-hosted compute. It is intended for an Apple-silicon Mac running
 Docker Desktop.
 
 The container runs as an unprivileged user, drops Linux capabilities, enables
-`no-new-privileges`, and does not mount the host Docker socket or any host
-directory. GitHub Actions workflow code still executes inside the container
-and receives the workflow's repository secrets, so do not attach this runner
-to a public or unrelated repository.
+`no-new-privileges`, and does not mount the host Docker socket. Its only host
+mount is a dedicated, otherwise-empty job workspace. GitHub Actions workflow
+code still executes inside the container and receives the workflow's repository
+secrets, so do not attach this runner to a public or unrelated repository.
 
 ## First-time registration
 
 Docker Desktop must be running. From this directory:
 
 ```bash
+mkdir -p "$HOME/.local/share/llm-digest-actions-runner/work"
+cp .env.example .env
+# Edit .env so RUNNER_WORK_DIR is the absolute path created above.
 docker compose build --pull
 RUNNER_TOKEN="$(gh api --method POST \
   repos/FutureGadget/ai-sota-feed-bot/actions/runners/registration-token \
@@ -30,8 +33,10 @@ longer appears in the container configuration:
 docker compose up --detach --force-recreate
 ```
 
-The runner registration and work directory live in the `runner-data` named
-volume. Normal container recreation and `docker compose down` preserve them.
+Runner credentials live in the small `runner-state` named volume. The checked
+out repositories and tool cache live in `RUNNER_WORK_DIR` on the Mac so they do
+not consume Docker Desktop's virtual disk. Normal container recreation and
+`docker compose down` preserve both.
 
 ## Operation
 
@@ -50,14 +55,15 @@ online again.
 
 ## Updating
 
-GitHub's runner normally updates itself in the persistent volume. To replace
-the base image deliberately, update the pinned official image tag and digest,
-then update the local image tag and rebuild. Font updates must also pin the
-Google Fonts commit and both file checksums.
+GitHub can update the running container's runner binary, but container
+recreation returns to the version baked into the image. To update durably,
+change the pinned official image tag and digest, update the local image tag,
+and rebuild. Font updates must also pin the Google Fonts commit and both file
+checksums.
 
 ## Removal
 
 First remove the runner in GitHub under **Settings → Actions → Runners**. Then
-stop the container with `docker compose down`. Removing the `runner-data`
-volume is intentionally a separate manual action because it permanently
-deletes the local runner registration and cached workspace.
+stop the container with `docker compose down`. Removing the `runner-state`
+volume and `RUNNER_WORK_DIR` are intentionally separate manual actions because
+they permanently delete the local runner registration and cached workspace.

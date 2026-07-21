@@ -52,8 +52,9 @@ All five GitHub workflows target the repository-scoped Docker runner labels
 `[self-hosted, Linux, ARM64, llm-digest]`. The Apple-silicon runner definition,
 registration steps, persistent-volume behavior, and rollback procedure live in
 `infra/actions-runner/README.md`. Docker Desktop and the Mac must be awake; jobs
-queue while the runner is offline. The container deliberately has no host bind
-mounts, host Docker socket, privileged mode, or added Linux capabilities.
+queue while the runner is offline. The container's only host bind mount is a
+dedicated job workspace; it has no host Docker socket, privileged mode, or
+added Linux capabilities.
 
 No GitHub Actions workflow builds storylines. The two-hour feed workflow only
 syncs `data/stories/`; the external Claude Code routine owns

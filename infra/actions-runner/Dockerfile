@@ -16,7 +16,8 @@ RUN install --directory /usr/share/fonts/truetype/nanum \
     && printf '%s  %s\n%s  %s\n' \
         "$NANUM_REGULAR_SHA256" /usr/share/fonts/truetype/nanum/NanumGothic.ttf \
         "$NANUM_BOLD_SHA256" /usr/share/fonts/truetype/nanum/NanumGothicBold.ttf \
-        | sha256sum --check
+        | sha256sum --check \
+    && install --directory --owner runner --group runner /runner-state
 
 COPY --chmod=0755 entrypoint.sh /usr/local/bin/actions-runner-entrypoint
 
