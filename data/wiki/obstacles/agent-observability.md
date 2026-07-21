@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa]
-updated: 2026-07-15
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760]
+updated: 2026-07-21
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760]
 ---
 
 ## TL;DR
@@ -68,7 +68,22 @@ per-request usage metrics to the team's own OpenTelemetry collector
 group, or user — folding telemetry relay and cost policy into one
 customer-owned layer instead of a vendor dashboard.
 
+Trace-first observability is also widening to a **new modality**: LangSmith
+now traces voice agents built on Pipecat, LiveKit, OpenAI Realtime, and
+Gemini Live, capturing audio, STT/TTS latency, interruptions, and tool calls
+in one trace — the same trajectory-capture discipline this page tracks for
+text-based agent loops, extended to the turn-taking and latency-sensitive
+failure modes specific to a spoken interface (see
+[agent latency](/topic/agent-latency) for why voice has a harder real-time
+floor than text).
+
 ## What's new
+Trace capture widened to voice agents: LangSmith now traces Pipecat,
+LiveKit, OpenAI Realtime, and Gemini Live voice agents, capturing audio,
+STT/TTS latency, interruptions, and tool calls in one trace — the trace-first
+discipline this page tracks for text agents, now covering a modality with
+its own real-time latency floor.
+
 LangSmith is positioning itself as the debug console for whichever coding
 agent you use — Claude Code, Codex, Cursor, or Copilot — inspecting tool
 calls, sub-agent handoffs, errors, cost, and retries across vendors instead

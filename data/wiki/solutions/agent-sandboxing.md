@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67]
-updated: 2026-07-17
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691]
+updated: 2026-07-21
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691]
 ---
 
 ## TL;DR
@@ -123,11 +123,23 @@ defense in depth rather than trusting any one of them:
   prompt-injection robustness alongside broader safety and alignment —
   finding gaps in the layers above on an ongoing basis instead of at a
   point-in-time audit.
+- **Decoupled isolation controls**: Claude Code's `sandbox.filesystem.disabled`
+  setting lets a team turn off filesystem isolation while keeping network
+  egress control, splitting what was one bundled sandbox toggle into two
+  independently tunable controls — useful when a task only needs the egress
+  boundary (stop data leaving) and paying for filesystem isolation too would
+  just add friction without adding safety.
 
 Least privilege plus human approval on the few actions that really matter
 remains the most durable control across all of these layers.
 
 ## What's new
+Sandboxing controls are also splitting apart rather than staying bundled:
+Claude Code's `sandbox.filesystem.disabled` setting turns off filesystem
+isolation while keeping network egress control, so a team can pay for only
+the boundary a task actually needs instead of the whole sandbox toggle at
+once.
+
 Two concrete additions land on opposite ends of the sandboxing spectrum.
 On the credential side, an egress-proxy pattern for GitHub-using managed
 agents keeps the real personal access token out of the sandbox entirely —

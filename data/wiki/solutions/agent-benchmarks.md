@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089]
-updated: 2026-07-15
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836]
+updated: 2026-07-21
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836]
 ---
 
 ## TL;DR
@@ -81,6 +81,18 @@ Eval **transparency** is improving too, on the meta side: Hugging Face now
 surfaces community "Every Eval Ever" results directly on model pages, making
 the spread of scores visible rather than relying on a single headline number.
 
+**Whole-agent breadth and harness-level replay** are a newer axis alongside
+the domain-narrow and long-horizon ones below: OmniaBench derives an
+application-oriented taxonomy from app stores, product docs, and web
+retrieval to span 1,431 tasks across 90 top-level domains with explicit
+state spaces, exposing headroom (even frontier models clear only about half
+the suite) that narrower coding/tool-use benchmarks don't surface. On the
+harness side, Favur Evals scores a 14-agent multi-model harness on eight
+composite engineering subjects computed from each run's own artifacts (lint,
+test results, tool telemetry) and pairs every score with a full deterministic
+replay of that run — turning the reproducibility this page argues for into a
+feature of the benchmark itself, not just a property to demand of one.
+
 The **domain-specific and long-horizon** fronts are both advancing: ScarfBench
 narrows to a single high-stakes enterprise task (migrating Java frameworks)
 rather than a generic coding benchmark, following the "mined from real work"
@@ -123,6 +135,16 @@ reconstruction), finding failures specific to the domain (physical-convention
 handling, pipeline integration) beyond generic coding skill.
 
 ## What's new
+Benchmark scope widened past domain-narrow tasks to whole-agent breadth and
+harness-level scoring: OmniaBench spans 1,431 tasks across 90 top-level
+application domains with an explicit state space, and finds even frontier
+models clear barely half the suite. A public multi-agent harness (Favur)
+now publishes a composite eight-subject score per run — code quality, cost
+efficiency, tool discipline among them — computed from the run's own
+artifacts, plus a full deterministic replay of every scored run, answering
+the reproducibility question this page already flags with a concrete
+artifact instead of a policy.
+
 The domain-narrow benchmark list widens to game engines: GameEngineBench
 scores coding agents against real C++ runtime environments (simulation,
 physics, rendering), the same "mined from a real, high-stakes domain"

@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af]
-updated: 2026-07-13
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949]
+updated: 2026-07-21
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949]
 ---
 
 ## TL;DR
@@ -115,7 +115,11 @@ of one integration per provider. That widens the earlier code-driven-fan-out
 move (LangChain's dynamic subagents) from guaranteeing coverage inside a
 single framework to letting the same coordination script mix heterogeneous
 agents, which is the "route refactors to one model, codegen to another"
-capability practitioners were still hunting for above.
+capability practitioners were still hunting for above. A second cross-provider
+SDK makes the same move from the Python side: h5i-python defines and executes
+multi-agent coding workflows across Claude Code, Codex, and other runtimes as
+ordinary Python programs, the same "coordination is portable code, not a
+per-provider integration" thesis Omegacode ships in JavaScript.
 
 The "conflict resolution between agents" problem is getting a named pattern:
 an **arbiter** role that settles disagreement between a planning agent and a
@@ -144,6 +148,12 @@ A fourth allocation lever joins topology and role-capacity: Agora replaces
 coarse-grained routing with an auction where candidate models and tools bid
 for each sub-task based on confidence and cost, turning "which agent handles
 this" into a market-clearing problem rather than a fixed routing table.
+
+Cross-provider, code-driven orchestration now has a second SDK: h5i-python
+lets a developer define and run multi-agent coding workflows across Claude
+Code, Codex, and other runtimes as plain Python programs, the same
+"coordination as portable code" move Omegacode already shipped in
+JavaScript, now on a second language and toolchain.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

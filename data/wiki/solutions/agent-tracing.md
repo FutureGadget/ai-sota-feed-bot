@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff]
-updated: 2026-07-14
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760]
+updated: 2026-07-21
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760]
 ---
 
 ## TL;DR
@@ -44,7 +44,18 @@ coding agent produced the trace — Claude Code, Codex, Cursor, or Copilot —
 inspecting tool calls, sub-agent handoffs, errors, cost, and retries in one
 place, so the trace format matters more than which agent product wrote it.
 
+Capture is also widening past text to a **new modality**: LangSmith now
+traces voice agents built on Pipecat, LiveKit, OpenAI Realtime, and Gemini
+Live, capturing audio alongside STT/TTS latency, interruptions, and tool
+calls in one trace — the same span-capture discipline applied to a
+turn-taking, real-time interface instead of a request/response loop.
+
 ## What's new
+Trace capture widened to voice agents: LangSmith now traces Pipecat,
+LiveKit, OpenAI Realtime, and Gemini Live voice agents, capturing audio,
+STT/TTS latency, interruptions, and tool calls in one trace alongside the
+text-agent traces it already captures.
+
 Trace debugging is going cross-vendor: LangSmith positions itself as one
 debug console across Claude Code, Codex, Cursor, and Copilot traces alike,
 inspecting tool calls, sub-agent handoffs, errors, cost, and retries

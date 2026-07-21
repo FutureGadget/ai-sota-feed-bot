@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb]
-updated: 2026-07-18
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189]
+updated: 2026-07-21
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189]
 ---
 
 ## TL;DR
@@ -150,7 +150,37 @@ small judge on them, rather than running a frontier model as the judge,
 is the same cheap-instrumentation-over-model-swap move already established
 for [evaluation](/topic/agent-evaluation).
 
+**Harness-side cost bugs are their own line item**, distinct from model or
+architecture choice: Claude Code v2.1.216 fixed a slowdown where long-session
+message normalization cost grew *quadratically* with the number of turns,
+causing multi-second stalls and slow resumes — a reminder that the harness's
+own bookkeeping, not just the model calls it makes, can be the thing that
+turns a long-running agent session expensive and slow. The same release
+also split filesystem isolation from network egress control as independent
+sandbox settings (see [sandboxing](/topic/agent-sandboxing)), letting a team
+tune the security/cost trade-off of each control separately instead of
+paying for both whenever either is needed.
+
+**Falling code-generation cost is reshaping the ROI calculation itself**, not
+just the per-call bill: coding agents have made reverse-engineering
+undocumented home-device APIs cheap enough that the traditional "is it worth
+the maintenance risk" calculus barely applies — when writing the automation
+is nearly free, so is throwing it away and rewriting it if the undocumented
+API changes, which removes the psychological cost that used to gate the
+work. It's the same cost/ROI reframing [proving agent
+ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
+here as a change in what individuals bother to build at all.
+
 ## What's new
+Claude Code fixed a quadratic message-normalization slowdown in long
+sessions — a harness-side cost-and-latency bug distinct from any model or
+architecture choice, causing multi-second stalls and slow resumes purely
+from the harness's own bookkeeping as a session's turn count grew. Separately,
+coding agents collapsing the cost of reverse-engineering undocumented APIs
+is reframing the ROI calculation for one-off automations: when the code is
+nearly free to write, it's also nearly free to throw away and rewrite,
+removing the maintenance-risk calculus that used to gate the work.
+
 Reasoning effort is emerging as its own trainable dial (RL length penalties,
 SFT mode-mixing, distilled effort specialists) rather than a side effect of
 model size — surfacing the model-size/reasoning-effort trade-off as a lever

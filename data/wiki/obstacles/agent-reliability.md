@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f]
-updated: 2026-07-16
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, 1825257161299360]
+updated: 2026-07-21
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, 1825257161299360]
 ---
 
 ## TL;DR
@@ -104,7 +104,29 @@ blocking expensive instance families in agent-operated accounts, and
 CloudTrail alerts on the API calls that spend money (`RunInstances`,
 `InvokeModel`) rather than a budget alert that fires after the invoice.
 
+A research architecture directly answers the "tools for certainty" framing
+above with a named, layered design rather than a single fix: HALO
+(Hallucination-Aware Layered Oversight) treats hallucination as a
+*containable* failure mode rather than a property a bigger model will
+eventually eliminate, and stacks six defenses — grounded generation over
+approved content, constrained deterministic execution that bounds where the
+model can err, multi-signal verification (an LLM judge plus evidence checks
+against source text), calibrated abstention so the system declines rather
+than guesses when grounding is thin, full traceability of every retrieval
+and tool call, and continuous oversight that detects drift and regenerates
+on threshold breaches. It's the identity/execution/intent split this page
+already argues for, expressed as one composable architecture instead of
+three separately-sourced controls.
+
 ## What's new
+A research architecture (HALO) reframes the standing "wait for a model that
+doesn't hallucinate" hope as the wrong target: it treats hallucination as a
+containable failure mode and stacks six defenses — grounded generation,
+constrained execution, multi-signal verification, calibrated abstention,
+full traceability, and continuous drift oversight — into one composable
+system rather than leaving reliability to whichever single control a team
+happens to bolt on.
+
 A concrete incident ties a dollar figure to the identity/execution gap this
 page tracks: a three-person agency ate a $14,000 one-day AWS bill after
 attackers extracted static access keys with unrestricted Bedrock access, and

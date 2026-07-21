@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
-updated: 2026-07-10
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949]
+updated: 2026-07-21
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949]
 ---
 
 ## TL;DR
@@ -64,7 +64,11 @@ DSL, and any `agent()` call can spawn a Codex, Claude Code, OpenCode, or pi
 agent — the same workflow script mixing providers instead of one script per
 framework. Its built-in patterns (adversarial code review, model bake-offs)
 treat the provider mix itself as the design lever, deliberately using
-decorrelated errors across models rather than picking one "best" agent.
+decorrelated errors across models rather than picking one "best" agent. The
+same provider-agnostic pattern is landing in Python, not just JavaScript:
+h5i-python defines and executes multi-agent coding workflows across Claude
+Code, Codex, and other runtimes as ordinary Python programs, confirming the
+pattern is a language-agnostic design choice rather than one DSL's idea.
 
 ## What's new
 Code-driven orchestration goes **provider-agnostic**: Omegacode's JavaScript
@@ -72,7 +76,10 @@ DSL spawns Codex, Claude Code, OpenCode, or pi agents from the same workflow
 script, shipping multi-provider patterns (adversarial review, bake-offs)
 that exploit decorrelated errors across models — extending last round's
 single-framework code-driven fan-out (LangChain dynamic subagents) to
-heterogeneous agent fleets.
+heterogeneous agent fleets. A second SDK, h5i-python, ships the same
+provider-agnostic, code-driven pattern for Python, running multi-agent
+coding workflows across Claude Code, Codex, and other runtimes as ordinary
+programs.
 
 That lands alongside orchestration showing up as **shipping practitioner
 tooling**, not just patterns:
