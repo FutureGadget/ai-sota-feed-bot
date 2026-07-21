@@ -48,6 +48,11 @@ docker compose down
 docker compose up --detach
 ```
 
+Docker retains at most three 10 MB log files for the container. GitHub's runner
+prints detailed diagnostics to standard output, including benign canceled-poll
+stack traces when a completed job changes the runner from busy to online, so
+bounded rotation prevents those diagnostics from growing without limit.
+
 Enable **Start Docker Desktop when you sign in** in Docker Desktop settings.
 The `restart: unless-stopped` policy brings the runner back when Docker starts.
 If the Mac sleeps or Docker is stopped, GitHub queues jobs until the runner is
