@@ -13,6 +13,10 @@ trap cleanup EXIT
 
 source .venv/bin/activate
 
+if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
+  git rev-parse --is-inside-work-tree >/dev/null
+fi
+
 PREEXISTING_DIRTY=0
 if ! git diff --quiet || ! git diff --cached --quiet; then
   PREEXISTING_DIRTY=1
@@ -94,13 +98,18 @@ python pipeline/prune_runtime_data.py \
 
 # Optional local->GitHub sync for Vercel auto-deploy (enabled by default)
 if [ "${AUTO_PUSH_RUNTIME:-1}" = "1" ]; then
-  git add data/ web/ || true
+  git add data/ web/
   if git diff --cached --quiet; then
     echo "runtime_push_skipped=true reason=no_runtime_changes"
   else
-    git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)" || true
-    git pull --rebase origin main 2>/dev/null || true
-    git push origin main 2>/dev/null && echo "runtime_commit_done=true" || echo "runtime_push_failed=true"
+    git commit -m "chore(data): refresh feed artifacts $(date +%F\ %H:%M)"
+    git pull --rebase origin main
+    if git push origin HEAD:main; then
+      echo "runtime_commit_done=true"
+    else
+      echo "runtime_push_failed=true" >&2
+      exit 1
+    fi
   fi
 fi
 

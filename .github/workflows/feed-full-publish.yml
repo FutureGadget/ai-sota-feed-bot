@@ -2,6 +2,20 @@ name: AI Feed Full Publish
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        description: Runner used for this dispatch
+        required: true
+        default: self-hosted
+        type: choice
+        options:
+          - self-hosted
+          - github-hosted
+      dry_run:
+        description: Run the complete pipeline without committing or pushing
+        required: true
+        default: false
+        type: boolean
 
 concurrency:
   group: feed-pipeline
@@ -12,8 +26,14 @@ permissions:
 
 jobs:
   publish:
-    runs-on: [self-hosted, Linux, ARM64, llm-digest]
+    runs-on: ${{ fromJSON(inputs.runner == 'github-hosted' && '["ubuntu-latest"]' || '["self-hosted","Linux","ARM64","llm-digest"]') }}
     steps:
+      - name: Reject publishing from a non-main ref
+        if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
+        run: |
+          echo "Publishing is only allowed from main; use dry_run for other refs." >&2
+          exit 1
+
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
@@ -24,24 +44,37 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Set up Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Create venv and install dependencies
         run: |
           python -m venv .venv
           .venv/bin/pip install -r requirements.txt
 
-      - name: Configure git user
+      - name: Configure git workspace and user
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global --replace-all safe.directory "$GITHUB_WORKSPACE"
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Install CJK fonts on GitHub-hosted runner
+        if: inputs.runner == 'github-hosted'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fonts-nanum
 
       - name: Set remote URL with GITHUB_TOKEN (HTTPS push)
+        if: ${{ !inputs.dry_run }}
         run: |
           git remote set-url origin \
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - name: Run full publish
         env:
-          AUTO_PUSH_RUNTIME: "1"
+          AUTO_PUSH_RUNTIME: ${{ inputs.dry_run && '0' || '1' }}
           # Google Cloud Translation API key for Korean live-feed snapshots
           # (pipeline/build_localized_feed.py). Optional: when absent the
           # localized feed step emits localized_feed_missing_credentials

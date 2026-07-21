@@ -58,6 +58,16 @@ The `restart: unless-stopped` policy brings the runner back when Docker starts.
 If the Mac sleeps or Docker is stopped, GitHub queues jobs until the runner is
 online again.
 
+`feed-full-publish.yml` uses this runner by default. A manual dispatch may
+select `github-hosted` as an emergency fallback; that path installs the Nanum
+fonts during the job. Select `dry_run` to exercise the complete collection,
+ranking, rendering, and localization path without committing or pushing the
+generated artifacts. The workflow installs Node 24 explicitly on both runner
+types and registers the exact checkout path as Git's `safe.directory`, so the
+persistent bind-mounted workspace does not depend on stale ownership or a
+machine-wide wildcard exception. A non-dry publish is rejected unless the
+workflow was dispatched from `main`.
+
 ## Updating
 
 GitHub can update the running container's runner binary, but container

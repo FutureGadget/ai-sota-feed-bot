@@ -40,10 +40,12 @@ Daily companions:
 - `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
 - GitHub workflow execution: repository-scoped Docker runner on the owner's
   Apple-silicon Mac (`infra/actions-runner/`), selected by
-  `[self-hosted, Linux, ARM64, llm-digest]`. Docker Desktop and the Mac must be
-  awake; GitHub queues work while it is offline. The runner uses a small named
-  volume for credentials and one dedicated host directory for its workspace;
-  it has no host Docker socket.
+  `[self-hosted, Linux, ARM64, llm-digest]`. The full-publish workflow defaults
+  there but offers a manual `github-hosted` fallback and a no-push `dry_run`
+  mode. Docker Desktop and the Mac must be awake for self-hosted jobs; GitHub
+  queues work while it is offline. The runner uses a small named volume for
+  credentials and one dedicated host directory for its workspace; it has no
+  host Docker socket.
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing. The repository-owned daily scheduler definition is

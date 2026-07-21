@@ -48,13 +48,15 @@ hitting their `workflow_dispatch` endpoints (see
 safe (lock dir + `concurrency` group + Tier-0 no-delta skip for the feed;
 cursor-based idempotency guard for email).
 
-All five GitHub workflows target the repository-scoped Docker runner labels
-`[self-hosted, Linux, ARM64, llm-digest]`. The Apple-silicon runner definition,
-registration steps, persistent-volume behavior, and rollback procedure live in
-`infra/actions-runner/README.md`. Docker Desktop and the Mac must be awake; jobs
-queue while the runner is offline. The container's only host bind mount is a
-dedicated job workspace; it has no host Docker socket, privileged mode, or
-added Linux capabilities.
+Four GitHub workflows target the repository-scoped Docker runner labels
+`[self-hosted, Linux, ARM64, llm-digest]`. `feed-full-publish.yml` defaults to
+that runner but exposes a `github-hosted` manual fallback and a no-push
+`dry_run` input. The Apple-silicon runner definition, registration steps,
+persistent-volume behavior, and rollback procedure live in
+`infra/actions-runner/README.md`. Docker Desktop and the Mac must be awake for
+self-hosted jobs; GitHub queues work while it is offline. The container's only
+host bind mount is a dedicated job workspace; it has no host Docker socket,
+privileged mode, or added Linux capabilities.
 
 No GitHub Actions workflow builds storylines. The two-hour feed workflow only
 syncs `data/stories/`; the external Claude Code routine owns
