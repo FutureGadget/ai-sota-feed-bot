@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-20T20:04:45.983555+00:00",
+ "generated_at": "2026-07-21T00:03:51.964828+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -525,42 +525,6 @@
    }
   },
   {
-   "slug": "openai-fixes-18-year-old-libunwind-core-dump-bug",
-   "label": "OpenAI fixes 18-year-old libunwind core-dump bug",
-   "item_count": 2,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-06-30T00:00:00+00:00",
-   "last_updated": "2026-07-09T10:15:00+00:00",
-   "via_scout": true,
-   "latest_title": "OpenAI Fixes 18-Year-Old GNU libunwind Bug by Treating Crash Debugging Like Epidemiology",
-   "days": [
-    "2026-06-30",
-    "2026-07-09"
-   ],
-   "member_sids": [
-    "f1f7d4f8001b4288",
-    "0f2902f359de6749"
-   ],
-   "member_urls": [
-    "https://openai.com/index/core-dump-epidemiology-data-infrastructure-bug",
-    "https://www.infoq.com/news/2026/07/openai-libunwind-core-dumps/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
-   ],
-   "editorial": {
-    "tldr": "OpenAI engineers spent months chasing mysterious crashes in Rockset, the C++ data infrastructure behind ChatGPT search, where functions returned to invalid addresses and stack pointers shifted unexpectedly. Instead of debugging crashes one at a time, they built a pipeline to mine a year of production core dumps for population-level patterns — \"epidemiological debugging.\"",
-    "stale": false,
-    "whats_new": "InfoQ's write-up details the fix: an 18-year-old GNU libunwind race condition with a roughly 100-picosecond vulnerable window, made real by OpenAI's frequent per-query timer signals, has been patched upstream by reordering the instruction- and stack-pointer updates.",
-    "why_it_matters": "A textbook 18-year-old unwinding-library race only became visible at OpenAI's request volume and signal frequency — a reminder that widely-used systems libraries can hide production-breaking bugs that only trigger at extreme scale or aggressive timer/signal usage.",
-    "take_for_builders": "If your service delivers signals frequently (per-query timers, profilers) on a C/C++ stack that links libunwind for exception unwinding, check whether your build already carries the upstream setcontext fix before writing off 'impossible' crashes as hardware noise.",
-    "status": {
-     "state": "Resolved · fix upstreamed",
-     "tone": "resolved",
-     "changed": "2026-07-09",
-     "detail": "Root-caused to a silent Azure hardware fault plus an upstream libunwind race condition; the software fix has been submitted upstream."
-    }
-   }
-  },
-  {
    "slug": "lilian-weng-s-harness-engineering-essay",
    "label": "Lilian Weng's Harness Engineering essay",
    "item_count": 2,
@@ -588,6 +552,60 @@
     "whats_new": "AINews' July 8 daily digest summarized Weng's harness-engineering survey four days after she published it, carrying the essay to a wider daily-reader audience via latent.space.",
     "why_it_matters": "It's a single curated map of current RSI/harness-engineering research — worth checking before a platform team builds new self-improvement scaffolding from scratch.",
     "take_for_builders": "Treat this essay as a current literature map for self-improving agent harnesses — check it against your own scaffolding before adding new self-improvement machinery."
+   }
+  },
+  {
+   "slug": "claude-sonnet-5-launch",
+   "label": "Claude Sonnet 5 launch",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 4,
+   "first_seen": "2026-06-30T18:00:00+00:00",
+   "last_updated": "2026-07-07T00:15:11+00:00",
+   "via_scout": true,
+   "latest_title": "Claude Sonnet 5: Anthropic's Most Agentic AI Model Arrives at a Reduced Price (2026)",
+   "days": [
+    "2026-06-30",
+    "2026-07-07"
+   ],
+   "member_sids": [
+    "4307222bc7e5f2e4",
+    "f4058e5bde4667bf",
+    "36f5f67c86fa79a9",
+    "7d9dfaf5b546108e"
+   ],
+   "member_urls": [
+    "https://www.anthropic.com/news/claude-sonnet-5",
+    "https://aws.amazon.com/blogs/machine-learning/introducing-claude-sonnet-5-on-aws-anthropics-most-capable-sonnet-model",
+    "https://simonwillison.net/2026/Jun/30/claude-sonnet-5/#atom-everything",
+    "https://lucasaguiar.xyz/en/posts/claude-sonnet-5-2026"
+   ],
+   "editorial": {
+    "tldr": "Anthropic launched Claude Sonnet 5 on June 30 as its most capable Sonnet model yet, shipping simultaneously through Amazon Bedrock, the Claude Platform on AWS, and first-party channels rather than staggering availability. Launch-day coverage from AWS and Simon Willison framed it as a straight agentic-capability jump over prior Sonnet releases.",
+    "stale": false,
+    "whats_new": "A week after launch, independent coverage reports Claude Sonnet 5 shipping at a reduced price alongside its agentic-capability gains — the first signal it's being positioned on cost as well as capability.",
+    "why_it_matters": "A same-day multi-cloud launch plus a reported price cut lowers the bar to swap Sonnet 5 into existing Bedrock or AWS pipelines without renegotiating deployment terms.",
+    "take_for_builders": "Check current Sonnet 5 list pricing against your cost model before assuming the reported cut applies to your account or region, and re-run any latency/quality evals pinned to the prior Sonnet version.",
+    "status": {
+     "state": "Shipping",
+     "tone": "launch",
+     "changed": "2026-06-30",
+     "detail": "Claude Sonnet 5 launched June 30 across Bedrock, AWS, and first-party channels; a week later, independent coverage reports a reduced price alongside its agentic gains.",
+     "track": [
+      {
+       "label": "launched",
+       "detail": "Jun 30",
+       "tone": "launch",
+       "weight": 60
+      },
+      {
+       "label": "reduced price reported",
+       "detail": "Jul 7",
+       "tone": "now",
+       "weight": 40
+      }
+     ]
+    }
    }
   }
  ]
