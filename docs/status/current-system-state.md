@@ -1,4 +1,4 @@
-# Current System State (as of 2026-07-06 KST)
+# Current System State (as of 2026-07-21 KST)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
@@ -20,7 +20,7 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 - Reader auto-tuning active: `data/feedback/source_adjustments.json`
   (from `pipeline/auto_tune.py`) is applied as `source_tune` in slot scoring.
 
-## End-to-end behavior (hourly `feed-full-publish` workflow → `run_full.sh`)
+## End-to-end behavior (two-hour `feed-full-publish` workflow → `run_full.sh`)
 1. Collect raw items (`collectors/collect.py`, per-source crawl cooldown)
 2. Source health update + local degradation alert artifacts/logs
 3. Tier-1 fast snapshot (`pipeline/build_tier1.py` → `data/tier1/latest.json`)
@@ -38,6 +38,12 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 Daily companions:
 - `feed-ops-summary` (12:30 UTC): ops health snapshot
 - `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
+- GitHub workflow execution: repository-scoped Docker runner on the owner's
+  Apple-silicon Mac (`infra/actions-runner/`), selected by
+  `[self-hosted, Linux, ARM64, llm-digest]`. Docker Desktop and the Mac must be
+  awake; GitHub queues work while it is offline. The runner uses a small named
+  volume for credentials and one dedicated host directory for its workspace;
+  it has no host Docker socket.
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing. The repository-owned daily scheduler definition is
@@ -48,7 +54,7 @@ Daily companions:
   scheduler injects only its routine's `prompt.md`.
 - Storylines: external Claude Code routine every 5 hours runs
   `storyline-scout` then `storyline-editor`, validates and rebuilds
-  `data/storylines/`, and commits/pushes the result. The hourly workflow only
+  `data/storylines/`, and commits/pushes the result. The two-hour workflow only
   keeps `data/stories/` current as its input.
 - Daily recap content review: local Antigravity routine
   (`.agents/routines/daily-content-review/harness.yaml`) runs best-effort around
@@ -93,7 +99,7 @@ Daily companions:
 ## Operational notes
 - `run_full.sh` holds a lock (`.run_full.lock`) and skips auto-push when the
   worktree was already dirty (commit-hygiene guard).
-- Hourly bot commits (`chore(data): refresh feed artifacts …`) land on `main`;
+- Scheduled bot commits (`chore(data): refresh feed artifacts …`) land on `main`;
   expect to rebase local work.
 - LLM usage is bounded by `llm_budget`, but is zero while LLM stays disabled.
 

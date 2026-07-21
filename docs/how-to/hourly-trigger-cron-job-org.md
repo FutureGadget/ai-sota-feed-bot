@@ -3,7 +3,7 @@
 This runbook sets up external, free, reliable cron triggers for GitHub Actions
 workflows using [cron-job.org](https://cron-job.org). Currently used for:
 
-- **Hourly feed publish** (`feed-full-publish.yml`) — every hour
+- **Feed publish** (`feed-full-publish.yml`) — every two hours
 - **Email digest** (`email-digest.yml`) — daily at 23:00 UTC (08:00 KST) + weekly Friday at 23:00 UTC (Saturday 08:00 KST)
 
 ## Why this exists
@@ -11,8 +11,8 @@ GitHub Actions `schedule` events are **best-effort**: scheduled runs are queued
 on shared infrastructure, deprioritized under load, and whole hours are silently
 dropped (see `docs/design-docs/decision-log.md`, 2026-06-14). The in-repo cron
 was moved off `:00` to `37 * * * *` to dodge the worst congestion, but GitHub
-still does not guarantee hourly. This external ticker calls the workflow's
-`workflow_dispatch` endpoint on a real hourly tick, independent of GitHub's
+still does not guarantee a dependable cadence. This external ticker calls the
+workflow's `workflow_dispatch` endpoint on a real two-hour tick, independent of GitHub's
 schedule queue.
 
 - **Vercel Cron was rejected:** free on Hobby but capped at **once per day**
@@ -48,13 +48,13 @@ PAT scoped to *only this repo* with the minimum permission.
 
 1. Sign up / log in at [cron-job.org](https://console.cron-job.org).
 2. **Create cronjob**.
-3. **Title:** `llm-digest hourly feed publish`.
+3. **Title:** `llm-digest feed publish`.
 4. **URL:**
    ```
    https://api.github.com/repos/FutureGadget/ai-sota-feed-bot/actions/workflows/feed-full-publish.yml/dispatches
    ```
-5. **Schedule:** *Every hour* — i.e. every day, every hour, at minute `0`
-   (cron-job.org's pattern editor: minutes = `0`, hours = `*`).
+5. **Schedule:** *Every two hours* at minute `0`
+   (cron-job.org's pattern editor: minutes = `0`, hours = `*/2`).
 6. Expand **Advanced settings**:
    - **Request method:** `POST`
    - **Headers** (add each as a key/value):
@@ -84,8 +84,8 @@ PAT scoped to *only this repo* with the minimum permission.
    `owner/repo` typo; `422` = bad `ref` or malformed JSON body.)
 3. In GitHub → Actions → **AI Feed Full Publish**, confirm a new run appears
    with event **`workflow_dispatch`** (not `schedule`).
-4. After a few hours, the run list should show roughly hourly `workflow_dispatch`
-   runs interleaved with any `schedule` runs that still fire.
+4. After several hours, the run list should show one `workflow_dispatch` run
+   about every two hours.
 
 ---
 
@@ -95,11 +95,11 @@ PAT scoped to *only this repo* with the minimum permission.
   notification settings). The most likely failure is **PAT expiry**.
 - **Rotation:** when the PAT nears expiry, generate a new one (step 1) and update
   the `Authorization` header (step 2). No repo change needed.
-- **Pause:** disable the cron-job.org job to stop external triggering; GitHub's
-  `:37` schedule continues as fallback.
+- **Pause:** disable the cron-job.org job to stop external triggering. The feed
+  workflow has no in-repository `schedule:` fallback.
 - **Rollback (remove entirely):** delete the cron-job.org job and revoke the PAT.
-  Nothing in the repo references this trigger, so there is no code to revert —
-  the workflow's own `schedule:` keeps it running best-effort.
+  To keep publishing, first restore a GitHub `schedule:` trigger or arrange a
+  replacement dispatcher.
 
 ---
 
