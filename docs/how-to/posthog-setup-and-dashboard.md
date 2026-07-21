@@ -6,8 +6,9 @@ This runbook describes how to enable PostHog for `ai-sota-feed-bot`, verify inge
 - PostHog is the analytics/dashboard layer for web feed telemetry.
 - Current captured web events:
   - `$pageview` (standard posthog-js pageview; powers PostHog **Web
-    Analytics** — visitors, sessions, top pages, channels)
-  - `page_view` (legacy compatibility event for existing custom insights)
+    Analytics** — visitors, sessions, top pages, channels — and is the single
+    source of pageview telemetry). The legacy custom `page_view` was removed on
+    2026-07-13 because it duplicated every `$pageview`.
   - `feed_view`
   - `impression_batch`
   - `click`
@@ -56,9 +57,8 @@ In PostHog, open **Activity / Live events** and perform test actions on the feed
 - wait for feed render
 - click 1–3 article links
 
-Expected events:
+Expected events (exactly one `$pageview` per navigation, no custom `page_view`):
 - `$pageview`
-- `page_view`
 - `feed_view`
 - `impression_batch`
 - `click`
@@ -83,8 +83,8 @@ Create a dashboard with these insights:
    - Interval: day
    - (Or just use the built-in **Web Analytics** product, which now counts
      `$pageview` automatically.)
-   - Existing dashboards pinned to the legacy custom event can continue using
-     `page_view`.
+   - The legacy custom `page_view` event was removed on 2026-07-13. Any
+     dashboard or insight still pinned to it should be repointed to `$pageview`.
 
 2. **Feed views (daily)**
    - Event: `feed_view`
