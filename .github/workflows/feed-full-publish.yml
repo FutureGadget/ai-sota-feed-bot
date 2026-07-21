@@ -12,12 +12,12 @@ permissions:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Linux, ARM64, llm-digest]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 2
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -38,11 +38,6 @@ jobs:
         run: |
           git remote set-url origin \
             https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-
-      - name: Install CJK fonts for OG card generation
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y fonts-nanum
 
       - name: Run full publish
         env:

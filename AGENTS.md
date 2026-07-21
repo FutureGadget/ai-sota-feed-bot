@@ -30,13 +30,13 @@ storyline-scout + storyline-editor      -> links + narratives, validate, rebuild
 ```
 
 Feed production entry point: `skills/ai-feed-digest-local/scripts/run_full.sh`
-(runs the hourly feed chain above, excluding storyline generation; prunes old
+(runs the two-hour feed chain above, excluding storyline generation; prunes old
 snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 
 ## Automation (what actually runs)
 | Workflow (`.github/workflows/`) | Schedule | Does |
 |---|---|---|
-| `feed-full-publish.yml` | cron-job.org external ticker (hourly) | `run_full.sh` — the production pipeline |
+| `feed-full-publish.yml` | cron-job.org external ticker (every 2h) | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
 | `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
@@ -48,7 +48,14 @@ hitting their `workflow_dispatch` endpoints (see
 safe (lock dir + `concurrency` group + Tier-0 no-delta skip for the feed;
 cursor-based idempotency guard for email).
 
-No GitHub Actions workflow builds storylines. The hourly feed workflow only
+All five GitHub workflows target the repository-scoped Docker runner labels
+`[self-hosted, Linux, ARM64, llm-digest]`. The Apple-silicon runner definition,
+registration steps, persistent-volume behavior, and rollback procedure live in
+`infra/actions-runner/README.md`. Docker Desktop and the Mac must be awake; jobs
+queue while the runner is offline. The container deliberately has no host bind
+mounts, host Docker socket, privileged mode, or added Linux capabilities.
+
+No GitHub Actions workflow builds storylines. The two-hour feed workflow only
 syncs `data/stories/`; the external Claude Code routine owns
 `build_storylines.py`, scout/editor work, validation, and publishing every 5h.
 

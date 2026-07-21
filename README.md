@@ -254,7 +254,7 @@ python pipeline/source_alerts.py
 - `scripts/oauth_login.sh`: legacy OAuth helper for future re-enable
 
 ## GitHub Actions
-- `feed-full-publish` (hourly): full pipeline via
+- `feed-full-publish` (every two hours): full pipeline via
   `skills/ai-feed-digest-local/scripts/run_full.sh` — collect, tier1, tier0,
   durable story sync/static pages, prune, data commit + push. It intentionally
   does **not** build storylines.
@@ -263,6 +263,9 @@ python pipeline/source_alerts.py
 - `feed-ops-summary` (daily): operational health snapshot
 - `feedback-sync` (daily): reader feedback + CTR sync from PostHog and source
   auto-tune apply (no-op if secrets are missing)
+- These scheduled workflows run on the repository-scoped Docker runner labeled
+  `llm-digest`, not GitHub-hosted compute. Setup and operations:
+  `infra/actions-runner/README.md`.
 
 ### Repository secrets (optional)
 - `POSTHOG_PERSONAL_API_KEY` (feedback sync)
