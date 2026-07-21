@@ -60,6 +60,12 @@ class SelfHostedRunnerConfigTest(unittest.TestCase):
         self.assertIn("target: /home/runner/_work", compose)
         self.assertIn("target: /runner-state", compose)
 
+    def test_compose_bounds_runner_log_storage(self):
+        compose = (ROOT / "infra" / "actions-runner" / "compose.yaml").read_text()
+        self.assertIn("driver: json-file", compose)
+        self.assertIn('max-size: "10m"', compose)
+        self.assertIn('max-file: "3"', compose)
+
     def test_registration_token_is_only_required_for_first_registration(self):
         entrypoint = (
             ROOT / "infra" / "actions-runner" / "entrypoint.sh"
