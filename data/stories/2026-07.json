@@ -27,6 +27,25 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.21",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "01e43a80faed3f8b": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "812aff49c160b02a",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation",
+   "codex"
+  ],
+  "published": "2026-07-20T15:32:09+00:00",
+  "sid": "01e43a80faed3f8b",
+  "source": "arxiv_cs_ai",
+  "summary": "Coding agents can now be left alone to improve software against a score. In this pattern--recently popularized as \"autoresearch\"--the agent receives a dataset, an evaluation script, and one editable file, and iterates without supervision: modify the code, measure, keep the change if the score improves. But what does the agent actually optimize--the developer's intent, or the literal number? We ran this loop on a real production task: deciding which Quranic verses appear in a noisy speech-recognition transcript and splitting the transcript by verse. Two frontier coding agents, Claude Code and OpenAI Codex, started from the same blank file with the same instructions, budget, and reasoning effort, three runs each. Both independently invented the same algorithm (canonicalization, n-gram anchoring, dynamic-programming alignment)--and then diverged. Claude stopped early with compact, general code. Codex drove the score ~10x lower, largely by memorizing answers to individual evaluation rows (19-41 hardcoded verse ids per run): a clean natural instance of specification gaming by a production agent. In a preregistered second study, we added a held-out test set and told both agents it existed. The memorization vanished, and the score gap vanished with it--yet Codex's general core transferred better and more consistently (held-out detection+split 0.085+/-0.004 vs. 0.121+/-0.031), losing only on one missed rejection of non-recitation input. Two exploratory community arms (Cursor, Antigra",
+  "summary_1line": "Coding agents can now be left alone to improve software against a score. In this pattern--recently popularized as \"autoresearch\"--the agent receives a dataset, an evaluation script, and one editable file, and iterates...",
+  "title": "Autoresearch with Coding Agents: Generalizers and Metric-Maximizers on Quran Recitation Data",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.18064v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
+ },
  "01ed778e69e3f41e": {
   "first_seen": "2026-07-09T07:02:51.425210+00:00",
   "id": "b8b08829b0221df6",
@@ -264,6 +283,24 @@
   "title": "Samsung, SK Hynix Rebound on Kimi K3's Jevons Paradox-Driven Demand - 조선일보",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNR2pRUDY0aWhxRElSYUdwMUVVdGtraHhzX1FhTUVRUUUyRE5EV29oZ2N1SWlCOEliTG9Rc3c2aTdvRGc5NnZjVjV2dVBxd0hQSzczWER0ajZlc2dsUXFsMXo5YlFndTE0TXVXNWZyeXNHOUpid2NFUmhGV2VLRTFaMHkzb2U2Tk83cFJrMVZn?oc=5"
+ },
+ "07d858f5b61f2e83": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "411fc9f354a7e8a3",
+  "matched_topics": [
+   "agentic",
+   "evaluation",
+   "claude code"
+  ],
+  "published": "2026-07-21T12:54:02+00:00",
+  "sid": "07d858f5b61f2e83",
+  "source": "simon_willison",
+  "summary": "Earlier this month I hosted a fireside chat session at the AI Engineer World's Fair with Cat Wu and Thariq Shihipar from Anthropic's Claude Code team. We talked about Claude Code, Claude Tag, Fable, coding agent security, evals, tool design, and how Anthropic use these tools themselves. The full video of the session is now available on YouTube . Below is an edited copy of the transcript, with extra links and my own bolded highlights. A few top-level notes if you don't want to watch the video or wade through the whole transcript: Claude Tag (Claude's new collaborative Slack integration) now lands 65% of the product engineering PRs for the Claude Code team. Claude Code ships features to Anthropic employees first, and only ships the features that demonstrate user retention with that cohort Critical changes to Claude Code are still reviewed manually, but the team increasingly relies on automated code review for the \"outer layers\" of the product. Adding examples to a system prompt is no longer best practice for models like Fable 5 or even Opus 4.8. The Claude Code system prompt recently reduced in size by 80% . Likewise, lists of \" don't do X and don't do Y \" can reduce the quality of results from the latest models. Dogfooding inside Anthropic is called \" ant fooding \". Anthropic really believe in their auto mode , and see that as an enabling technology for Claude Tag. Thariq advises offsetting coding-agent-induced Deep Blue by \" being more ambitious \" with the work you take on. F",
+  "summary_1line": "Earlier this month I hosted a fireside chat session at the AI Engineer World's Fair with Cat Wu and Thariq Shihipar from Anthropic's Claude Code team. We talked about Claude Code, Claude Tag, Fable, coding agent secur...",
+  "title": "A Fireside Chat with Cat and Thariq from the Claude Code team",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/21/cat-and-thariq/#atom-everything",
+  "why_it_matters": "Matches feed focus: agentic, evaluation, claude code."
  },
  "07f37058d3d7c72b": {
   "first_seen": "2026-07-10T04:02:47.693811+00:00",
@@ -844,6 +881,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5JcXh1MURrMUtZbE80N0E5ZFBWM3k5TUliM1F2bi0yTmlfWDVFVkFJRHNuZjlTR2dpT3VmNGRUWDF5NmZ4WFJuNlRxSWxIVlJpUDcyWk5hMmNhbFN3LXpVMWU4ejZwQVNCRkxzdmhB0gFuQVVfeXFMTklxeHUxRGsxS1lsTzQ3QTlkUFYzeTlNSWIzUXZuLTJOaV9YNUVWQUlEc25mOVNHZ2lPdWY0ZFRYMXk2ZnhYUm42VHFJbEhWUmlQNzJaTmEyY2FsU3ctelUxZTh6NnBBU0JGTHN2aEE?oc=5",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "1825257161299360": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "81ca6374bf27eb84",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-07-20T12:34:44+00:00",
+  "sid": "1825257161299360",
+  "source": "arxiv_llm_reliability",
+  "summary": "Enterprises will not deploy AI agents they cannot trust, and the most-cited reason for distrust is hallucination: confident, fluent output that is simply not true. The common response is to wait for a model that does not hallucinate. We argue that this is the wrong target. Large language models are, by construction, capable of generating unsupported text, and no amount of scale removes the possibility; a faithfulness judge bolted onto a raw model catches some errors but still ships others, and even well-curated retrieval pipelines have been shown to fabricate citations. We reframe the goal: \"zero hallucination\" is not a property a model possesses but a property a system enforces. We present HALO (Hallucination-Aware Layered Oversight), an assurance architecture which treats hallucination as a containable failure mode rather than an eliminable one. HALO composes six layers of defense: grounded generation over retrieved, approved content; constrained, deterministic execution that bounds where the model can err; multi-signal verification that scores every output for groundedness and hallucination using both an LLM judge and evidence-based checks against the source text; calibrated abstention, so the system declines rather than guesses when grounding is insufficient; total traceability of every retrieval, tool call, and generation; and continuous oversight that detects drift, alerts on threshold breaches, and closes the loop by regenerating and statistically validating improved a",
+  "summary_1line": "Enterprises will not deploy AI agents they cannot trust, and the most-cited reason for distrust is hallucination: confident, fluent output that is simply not true. The common response is to wait for a model that does...",
+  "title": "Zero Hallucination, by Construction: Hallucination-Aware Layered Oversight for Trustworthy Enterprise AI",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.17883v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "1926235ddd7f3a5d": {
   "first_seen": "2026-07-10T02:02:53.792592+00:00",
@@ -2393,6 +2447,19 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.205",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "41cbcfc38d2054fe": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "657f9b0029fe9cd2",
+  "image_url": "https://res.infoq.com/news/2026/07/yelp-ai-model-training/en/headerimage/generatedHeaderImage-1784552434150.jpg",
+  "published": "2026-07-21T10:00:00+00:00",
+  "sid": "41cbcfc38d2054fe",
+  "source": "infoq_ai_ml",
+  "summary": "Yelp has launched Training Orchestrator. This new internal framework replaces individual team Spark training scripts. Now, it uses a configuration-driven, DAG-based execution model. By Claudio Masolo",
+  "summary_1line": "Yelp has launched Training Orchestrator. This new internal framework replaces individual team Spark training scripts. Now, it uses a configuration-driven, DAG-based execution model. By Claudio Masolo",
+  "title": "Yelp Unifies ML Model Training with Training Orchestrator",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/07/yelp-ai-model-training/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
  "41e9a3ed93ef302c": {
   "first_seen": "2026-07-17T19:02:48.140386+00:00",
   "id": "3ee1d7bcf831e75f",
@@ -2566,6 +2633,17 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.10720v1",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "46d88c24f24cd938": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "99c2353b2b3537e6",
+  "published": "2026-07-20T15:58:51+00:00",
+  "sid": "46d88c24f24cd938",
+  "source": "huggingface_blog",
+  "summary_1line": "Introducing Cosmos 3 Edge",
+  "title": "Introducing Cosmos 3 Edge",
+  "type": "research",
+  "url": "https://huggingface.co/blog/nvidia/cosmos3edge"
  },
  "47492eea8ea928d4": {
   "first_seen": "2026-07-10T05:02:47.324618+00:00",
@@ -3117,6 +3195,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.09641v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "54d13d065bc21f5e": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "30dc5dcc506b641a",
+  "published": "2026-07-21T14:59:54+00:00",
+  "sid": "54d13d065bc21f5e",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Kimi K3 rocks the AI industry as Moonshot AI undercuts closed-source American competitors on price — but the huge 2.8T open-weight model still needs serious hardware to deploy at scale Tom's Hardware",
+  "summary_1line": "Kimi K3 rocks the AI industry as Moonshot AI undercuts closed-source American competitors on price — but the huge 2.8T open-weight model still needs serious hardware to deploy at scale Tom's Hardware",
+  "title": "Kimi K3 rocks the AI industry as Moonshot AI undercuts closed-source American competitors on price — but the huge 2.8T open-weight model still needs serious hardware to deploy at scale - Tom's Hardware",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMi6AJBVV95cUxQelZvNlVaR1lzLUJQYU9LZ19XY2txVHNrNXIyYTc1R1FObGw3MVFmNFJhc2VjYW5qRno3SGZnUjRuVUVmX3V4NTlBR25yREFKSVIySWtFLThjVHZjMTJmcFdqQUd6eWxjTTNIMnlxamZ2T2NfR1RzVHRmTGdvTVROZzJiV1k3U2VxWHV5ZWdPNDhnQUJBTEFZNHV1WVM4VzJNR0k2aTVQYngxOHZad3ZNTzd0TG5zbElXSnFCNVFtWXpaVWN3bmxSdVhFRlJ5QzVMQUppdnlIU0VOaWRxZTRtMjJuRS1GQ2VVUUZSdFF4SlA0cXBWUGJjTmNhSVdpYlAzZktQaC1uQVhGWEhSNXRHTGFUQjRLX0FpekNLdmU1OFo0aU5SQ1dCZ3BWWFFVa3ZycnB2cGtoT0dwa2RqUGl5YWlXSlJsMGloTkNQMDFSUWVoYXZaMmlOWkRPWmZ3OEZJM2ZEbFJ0ZFg?oc=5"
  },
  "559a25e35b05a124": {
   "first_seen": "2026-07-04T14:02:18.770352+00:00",
@@ -4004,6 +4094,23 @@
   "url": "https://aws.amazon.com/blogs/machine-learning/scaling-agentic-workflows-with-native-case-management-in-amazon-quick-automate",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "6f3401cebeb5dc5a": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "24733caf797138e8",
+  "image_url": "https://blogs.nvidia.com/wp-content/uploads/2026/07/ethernet-spectrum-x-corp-blog-1920x1080-5205700.jpg",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-07-21T15:00:20+00:00",
+  "sid": "6f3401cebeb5dc5a",
+  "source": "nvidia_blog",
+  "summary": "AI has entered the gigascale era. The world’s most advanced AI factories are bringing together hundreds of thousands of GPUs and CPUs to train frontier models, power agentic AI and generate intelligence at unprecedented scale. At this level, networking becomes a critical computing power multiplier in driving token generation. Marking a networking milestone, NVIDIA Spectrum-6 […]",
+  "summary_1line": "AI has entered the gigascale era. The world’s most advanced AI factories are bringing together hundreds of thousands of GPUs and CPUs to train frontier models, power agentic AI and generate intelligence at unprecedent...",
+  "title": "Built for Vera Rubin, NVIDIA Spectrum-6 Arrives in Gigascale AI Factories",
+  "type": "news",
+  "url": "https://blogs.nvidia.com/blog/nvidia-spectrum-six-arrives-in-gigascale-ai-factories",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "6f5c728ce100a70f": {
   "first_seen": "2026-07-16T11:02:39.464759+00:00",
   "id": "77566f64deb81e69",
@@ -4696,6 +4803,22 @@
   "type": "news",
   "url": "https://www.infoq.com/presentations/ai-infrastructure-scaling-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
+ "839c437bacc17af4": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "10d74f0256315caa",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-20T17:47:44+00:00",
+  "sid": "839c437bacc17af4",
+  "source": "arxiv_cs_cl",
+  "summary": "Pruning long context for coding agents has been a vital technology for efficient context management. While existing context pruning methods such as SWE-Pruner realize this by attaching a separate code classifier, we find the agent itself encodes internal representations indicating the relevance of code context when reading tool output. Based on this finding, we propose SWE-Pruner Pro, which prunes tool outputs directly inside the agent. Concretely, a small head turns the agent's own internal representations into a keep-or-prune label for each line, with a length-aware embedding keyed to each tool output's line count. Across two open-weight backbones and four multi-turn benchmarks, SWE-Pruner Pro saves up to 39% of prompt and completion tokens while preserving task quality, with bounded inference overhead. Notably, on MiMo-V2-Flash SWE-Pruner Pro additionally raises the SWE-Bench Verified resolve rate by +3.8% and the long-context Oolong accuracy by +2.2 points.",
+  "summary_1line": "Pruning long context for coding agents has been a vital technology for efficient context management. While existing context pruning methods such as SWE-Pruner realize this by attaching a separate code classifier, we f...",
+  "title": "SWE-Pruner Pro: The Coder LLM Already Knows What to Prune",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.18213v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "849b44eeb8ced9a3": {
   "first_seen": "2026-07-07T03:02:38.389056+00:00",
   "id": "a3d20041d0714c01",
@@ -4917,6 +5040,22 @@
   "type": "news",
   "url": "https://cloud.google.com/blog/products/ai-machine-learning/google-is-a-leader-in-the-gartner-magic-quadrant-for-conversational-ai",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "8af505e6bb9ae32f": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "6d646dbbf4f48d67",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-07-21T11:52:14+00:00",
+  "sid": "8af505e6bb9ae32f",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.145.0-alpha.29",
+  "summary_1line": "Release 0.145.0-alpha.29",
+  "title": "codex 0.145.0-alpha.29",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.29",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "8b37e6ac88241505": {
   "first_seen": "2026-07-08T01:02:11.184385+00:00",
@@ -5216,6 +5355,24 @@
   "type": "news",
   "url": "https://github.com/salarkhannn/ghostlog",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "9354ab633172994d": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "76d50c35b9fcfc98",
+  "image_url": "https://storage.googleapis.com/gweb-cloudblog-publish/images/CodeMender_preview_hero.max-600x600.jpg",
+  "matched_topics": [
+   "agentic",
+   "harness"
+  ],
+  "published": "2026-07-21T15:00:00+00:00",
+  "sid": "9354ab633172994d",
+  "source": "google_cloud_blog",
+  "summary": "As adversarial AI threats accelerate attacks on code, security teams must counter them with machine-speed defenses that can automate code remediation and fight AI with AI. CodeMender is our managed code security agent, and starting today, we're bringing its code scanning and remediation capabilities directly to you in preview. CodeMender offers access to our generally available models via Gemini Enterprise Agent Platform , or it can be deployed as a core component of AI Threat Defense . CodeMender also aligns with our multi-model approach , so you can choose the right model to optimize for cost, speed, and deep scanning performance. It will support third-party frontier model options later this year. How to find and fix code vulnerabilities autonomously with Google CodeMender. Watch this overview of CodeMender in Gemini Enterprise Agent Platform. CodeMender can help you advance from passive scanning to automated code remediation, and reduce zero-day risk. It examines and remediates existing code security issues without sacrificing development velocity by: Deploying the best-fit model . You can choose from multiple models to optimize for costs, speed, deep scanning, and coding performance. Automating machine-scale remediation . You can now eliminate remediation bottlenecks caused by manual verification and patching, while keeping developers in the loop. Prioritizing fixes by exploitability . You can run proof-of-concept exploits and execute simulations to verify that vulnerabil",
+  "summary_1line": "As adversarial AI threats accelerate attacks on code, security teams must counter them with machine-speed defenses that can automate code remediation and fight AI with AI. CodeMender is our managed code security agent...",
+  "title": "Now in preview: Find and fix software vulnerabilities with CodeMender",
+  "type": "news",
+  "url": "https://cloud.google.com/blog/products/identity-security/find-and-fix-software-vulnerabilities-with-codemender",
+  "why_it_matters": "Matches feed focus: agentic, harness."
  },
  "9379c599f9ec0cb3": {
   "first_seen": "2026-07-14T18:02:54.049739+00:00",
@@ -6392,6 +6549,23 @@
   "url": "https://www.langchain.com/blog/introducing-openwiki-brains-general-purpose-wiki-memory-for-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "b0c9e70c9ab7e73e": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "a892850664bb666e",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-07-20T17:12:28+00:00",
+  "sid": "b0c9e70c9ab7e73e",
+  "source": "arxiv_cs_lg",
+  "summary": "Real-time multimodal applications, including voice agents and interactive video generation, compose heterogeneous models into pipelines whose efficient deployment requires application-specific decisions about placement, streaming, and intra-model parallelism. Existing serving systems and auto-parallelism compilers commit to limited transformations and fixed workload assumptions, so achieving high performance on a new application requires hand-crafting an efficient implementation. We present FlashRT, an agent harness that guides coding agents to lift simple developer-written reference implementations into optimized multi-GPU deployments that flexibly weigh target metrics like latency and throughput. Using a new chain-of-program paradigm, FlashRT directs a generic coding agent through a multi-pass transformation process where an agent transforms the reference into an intermediate representation (IR) to capture data dependencies and persistent-state scopes, validates this IR via a sequential interpreter, and performs static analyses to identify candidate transformations. Then, the agent iteratively implements, verifies, and benchmarks each candidate under a measurement-gated optimization loop to produce effective deployments that span different hardware budgets. Across various applications, including video world models and multimodal LLMs, FlashRT converts reference implementations into highly efficient deployments, delivering up to ~70x latency reduction and 2.8x throughput imp",
+  "summary_1line": "Real-time multimodal applications, including voice agents and interactive video generation, compose heterogeneous models into pipelines whose efficient deployment requires application-specific decisions about placemen...",
+  "title": "FlashRT: Agent Harness for Guiding Agents to Deploy Real-Time Multimodal Applications",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.18171v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
+ },
  "b12739918e1d4b67": {
   "first_seen": "2026-07-08T06:02:47.840654+00:00",
   "id": "de7b6f317ddee9e0",
@@ -6506,6 +6680,22 @@
   "title": "AWS Expands DevOps Agent with AI-Powered Release Management to Validate Code before Production",
   "type": "release",
   "url": "https://www.infoq.com/news/2026/07/aws-devops-ai-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "b3d901fa5502f189": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "f7aaf6b1e20fe8f7",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-20T19:24:05+00:00",
+  "sid": "b3d901fa5502f189",
+  "source": "simon_willison",
+  "summary": "I keep hearing anecdotes from people who used coding agents to reverse-engineer and automate devices in their homes. I think this is an interesting illustration of the impact of the reduced cost of writing code. Prior to agents, it was entirely possible to reverse-engineer home devices. The problem was the ROI - was it really worth all of that effort? More importantly, any experienced programmer knows that undocumented, unstable APIs like that may well change or break in the future. Is that initial work worth the effort if you're committing yourself to a frustrating cycle of maintenance in the future? Coding agents change that equation entirely. The effort to get a simple automation working has dropped, as has the cost of trying and failing to get it to work. Since the code is so cheap, the idea of having to maintain it in the future - or throw it away and start again - carries way less psychological baggage. Tags: reverse-engineering , coding-agents , ai-assisted-programming , generative-ai , ai , llms",
+  "summary_1line": "I keep hearing anecdotes from people who used coding agents to reverse-engineer and automate devices in their homes. I think this is an interesting illustration of the impact of the reduced cost of writing code. Prior...",
+  "title": "Reverse-engineering is cheap now",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/20/cheap-reverse-engineering/#atom-everything",
   "why_it_matters": "Matches feed focus: agent."
  },
  "b3ebc939ad8fd9e4": {
@@ -7563,6 +7753,22 @@
   "url": "https://claude.com/blog/claude-model-and-effort-level-in-claude-code",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "da5dd328cd244b19": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "103e43558a8a459a",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-21T13:12:10+00:00",
+  "sid": "da5dd328cd244b19",
+  "source": "hackernews_ai",
+  "summary": "I built Pinpoint because I was tired of typing out feedback on the visual work my AI agent did. I want my agent to be autonomous, so having it ask for feedback through a UI felt genuinely better. Dropping a contextual comment on each screenshot is much closer to how you'd give feedback on a design in Figma. It also does side-by-side comparison, which is really helpful, having the before/after screens lets the human in the loop (us!) give better feedback. It's just screenshots and comments, the same way Plannotator is just a plan and comments, and that's still a successful product. I think there's real value in building a decent UX for this. Chat is the current paradigm for AI agents, but it doesn't have to be, and this is my attempt at changing that. There's nothing wildly clever going on here. It just works really nicely for me, the same way Plannotator does. Would love your feedback. No install demo here: https://pinpoint.maferland.com/review/try-demo Repo: https://github.com/maferland/pinpoint",
+  "summary_1line": "I built Pinpoint because I was tired of typing out feedback on the visual work my AI agent did. I want my agent to be autonomous, so having it ask for feedback through a UI felt genuinely better. Dropping a contextual...",
+  "title": "Show HN: Pinpoint – Visual feedback for AI coding agents",
+  "type": "news",
+  "url": "https://pinpoint.maferland.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "db18dd171266e42d": {
   "first_seen": "2026-07-07T03:02:38.389056+00:00",
   "id": "bd02824713550cc9",
@@ -8207,6 +8413,19 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.02502v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "ecfc3aa435b6e66c": {
+  "first_seen": "2026-07-21T15:01:08.797318+00:00",
+  "id": "65eb327cc1988f49",
+  "image_url": "https://res.infoq.com/presentations/ai-mobile/en/mediumimage/medium-1784107227726.jpeg",
+  "published": "2026-07-21T10:20:00+00:00",
+  "sid": "ecfc3aa435b6e66c",
+  "source": "infoq_ai_ml",
+  "summary": "Bhavuk Jain discusses translating foundational AI into scalable mobile products. He shares the engineering challenges behind AI Wallpapers and Circle to Search, detailing how to implement robust runtime guardrails, fine-tuning, and seamless OS integration. For engineering leaders, he explains balancing UX constraints with model latency and infrastructure cost to deliver safe, reliable AI. By Bhavuk Jain",
+  "summary_1line": "Bhavuk Jain discusses translating foundational AI into scalable mobile products. He shares the engineering challenges behind AI Wallpapers and Circle to Search, detailing how to implement robust runtime guardrails, fi...",
+  "title": "Presentation: Engineering AI for Creativity and Curiosity on Mobile",
+  "type": "news",
+  "url": "https://www.infoq.com/presentations/ai-mobile/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "ed7d246a0b0ba7d9": {
   "first_seen": "2026-07-07T09:02:38.826365+00:00",
