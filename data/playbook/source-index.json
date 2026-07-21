@@ -56,6 +56,25 @@
     },
     "edition_date": "2026-07-07"
   },
+  "1609e44adca88f23": {
+    "id": "pb-postgres-agent-retrieval",
+    "kind": "source-backed",
+    "title": "Run agent retrieval on Postgres instead of a dedicated vector DB",
+    "area": "Retrieval",
+    "problem": "A separate vector database adds a second system to operate, and it still can't give an agent deterministic relational context alongside semantic search.",
+    "apply": "Use Postgres's own JSONB indexing for semi-structured payloads, an HNSW index (not IVFFLAT) for embeddings, and quantize vectors from 32-bit floats to 8- or 16-bit; give agents high-level DB tools plus row-level access control instead of raw SQL.",
+    "result": "One system covers both deterministic relational queries and semantic retrieval, and the source reports quantization alone delivers a 4x improvement in memory, disk, and CPU cost.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/postgres-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "1609e44adca88f23",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Speaker cites a specific measured 4x resource-cost improvement from vector quantization."
+    },
+    "edition_date": "2026-07-21"
+  },
   "1c2693c60a919d8d": {
     "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
     "kind": "source-backed",
@@ -74,6 +93,25 @@
       "note": "Training-free patch reconstructs KV to bf16 rounding and recovers full multi-hop accuracy across six model backbones."
     },
     "edition_date": "2026-06-26"
+  },
+  "1e95bee9c26709cb": {
+    "id": "pb-dial-reasoning-effort",
+    "kind": "source-backed",
+    "title": "Set reasoning effort per call type instead of one global setting",
+    "area": "Cost & latency",
+    "problem": "Running every agent call at maximum reasoning effort burns tokens on steps where extra reasoning barely moves accuracy.",
+    "apply": "Set an explicit low/medium/high reasoning-effort level per call type instead of one global setting — reserve high effort for tasks where the accuracy gap over medium is real, and default routine tool-calling or classification steps to medium or low.",
+    "result": "The piece reports medium effort typically holds 85-95% of max-effort benchmark performance at 50-70% of the token cost, and that Kimi K2.5's effort toggle cut tokens 25-30% with little accuracy change.",
+    "effort": "low",
+    "source": "sebastian_raschka",
+    "source_url": "https://magazine.sebastianraschka.com/p/controlling-reasoning-effort-in-llms",
+    "source_sid": "1e95bee9c26709cb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Cites specific benchmark performance-retention and token-reduction figures reported for GPT-5.6/gpt-oss and Kimi K2.5."
+    },
+    "edition_date": "2026-07-21"
   },
   "20cd66043e9dab55": {
     "id": "pb-dont-trust-leaderboard-perf-benchmarks",
@@ -340,6 +378,44 @@
       "note": "The source's own recommended guardrails, illustrated with two named real-world incidents and their reported dollar costs."
     },
     "edition_date": "2026-07-17"
+  },
+  "741459db9e7f9b05": {
+    "id": "pb-agent-microvm-sandbox",
+    "kind": "source-backed",
+    "title": "Give each agent task its own microVM, not a shared dev container",
+    "area": "Safety",
+    "problem": "Agent-written code often executes before a human reviews it, and a shared container can't fully isolate that risk from your other work.",
+    "apply": "Run each agent task in its own hardware-virtualized microVM with an independent kernel and filesystem, inject credentials via proxy instead of baking them into the image, and use snapshot-and-fork so parallel fix attempts branch from one base image without sharing state.",
+    "result": "LangChain reports that what runs in one microVM can't affect what runs in another, so a broken or compromised agent run stays contained to itself.",
+    "effort": "high",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/agents-need-their-own-computer",
+    "source_sid": "741459db9e7f9b05",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor blog describing their own sandboxing product architecture and its isolation guarantee."
+    },
+    "edition_date": "2026-07-21"
+  },
+  "764c073dd4e1fc67": {
+    "id": "pb-decentralize-sandbox-scheduling",
+    "kind": "source-backed",
+    "title": "Take the central datastore out of your sandbox-creation path",
+    "area": "Reliability",
+    "problem": "Centralized scheduling that serializes sandbox creation and writes O(sandboxes) database rows per request tips over long before you reach real agent-fleet scale.",
+    "apply": "Run horizontally-scaled schedulers as stateless load balancers, let each worker be its own source of truth publishing state asynchronously to Redis instead of a central datastore, and batch control messages instead of sending one RPC per sandbox.",
+    "result": "Modal reports creating 1 million concurrent sandboxes in under 60 seconds, with median creation-to-interactive latency under 500ms and no latency degradation as scale increases.",
+    "effort": "high",
+    "source": "modal_blog",
+    "source_url": "https://modal.com/blog/scaling-to-1-million-concurrent-sandboxes-in-seconds",
+    "source_sid": "764c073dd4e1fc67",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Modal published its own load-test benchmark numbers for the new scheduler."
+    },
+    "edition_date": "2026-07-21"
   },
   "78aa501471a8665a": {
     "id": "pb-trace-and-cap-coding-agent-spend",
@@ -740,6 +816,44 @@
     },
     "edition_date": "2026-07-10"
   },
+  "ea758b7fe7cc27d3": {
+    "id": "pb-github-token-egress-proxy",
+    "kind": "source-backed",
+    "title": "Proxy GitHub tokens instead of handing agents your real PAT",
+    "area": "Safety",
+    "problem": "An agent that runs `gh` needs a token in its environment, and any sandboxed process holding a real PAT can leak or misuse it.",
+    "apply": "Export a dummy `GH_TOKEN` inside the sandbox so the CLI's local auth check passes, then run an egress proxy in front of the sandbox that swaps in the real PAT only on outbound requests — `Bearer` auth for `api.github.com`, base64 `Basic` auth for `github.com` git operations.",
+    "result": "The author reports the real credential never enters the sandbox, so a compromised or misbehaving agent process has nothing to exfiltrate.",
+    "effort": "medium",
+    "source": "philschmid",
+    "source_url": "https://www.philschmid.de/managed-agents-gh",
+    "source_sid": "ea758b7fe7cc27d3",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Author describes the egress-proxy architecture they built and its security property; no independent measurement."
+    },
+    "edition_date": "2026-07-21"
+  },
+  "eb757fd3e52c865e": {
+    "id": "pb-multiturn-eval-traces",
+    "kind": "source-backed",
+    "title": "Score agents on multi-turn traces, not single-shot benchmarks",
+    "area": "Evals",
+    "problem": "Static single-turn benchmarks miss the failure modes that only show up once an agent holds state across a long session.",
+    "apply": "Build eval infrastructure around multi-turn conversation traces and simulation feedback loops, and pair it with harness-level controls — own the state, order the mutations, require an audit trail before an action executes — instead of relying on prompt-level guardrails alone.",
+    "result": "Teams treating evals as ongoing infrastructure catch state-mutation bugs and unsafe tool calls that single-turn tests structurally can't see.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/production-ai-platforms-evals/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "eb757fd3e52c865e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Synthesized from multiple QCon AI Boston talks on eval and harness design; no single measured benchmark to cite."
+    },
+    "edition_date": "2026-07-21"
+  },
   "ebc3627096b332c8": {
     "id": "pb-build-explicit-recovery-paths-for-flaky-tools",
     "kind": "source-backed",
@@ -758,6 +872,25 @@
       "note": "Benchmarked across five injected hazard types; recovery hints outperform test-time scaling for closing the reliability gap."
     },
     "edition_date": "2026-06-26"
+  },
+  "ec3d361c5bff29f3": {
+    "id": "pb-migration-loop-not-files",
+    "kind": "source-backed",
+    "title": "Fix the loop that produces migration code, not the files it outputs",
+    "area": "Orchestration",
+    "problem": "Hand-patching agent-translated files one at a time doesn't scale past a few hundred files, and the same mistake keeps recurring across them.",
+    "apply": "Write a rulebook and dependency map first, stress-test it on a small subset, then run parallel agents (a smaller model to translate, a larger model to review) against compile-test-verify gates; when reviewers spot a repeated mistake, add one line to the rulebook and regenerate instead of hand-fixing individual files.",
+    "result": "Anthropic used this loop to port Bun's ~1 million-line Zig codebase to Rust in under two weeks, passing 100% of the existing test suite with only 19 post-merge regressions.",
+    "effort": "high",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/ai-code-migration",
+    "source_sid": "ec3d361c5bff29f3",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic reports measured test-pass rate, regression count, token spend, and performance deltas from the Bun migration."
+    },
+    "edition_date": "2026-07-21"
   },
   "f27164f724f79fa3": {
     "id": "pb-code-dispatch-subagents-for-coverage-guarantees",
