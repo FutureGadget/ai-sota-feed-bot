@@ -4,7 +4,6 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = (
-    "feed-full-publish.yml",
     "email-digest.yml",
     "feedback-sync.yml",
     "feed-ops-summary.yml",
@@ -22,10 +21,47 @@ class SelfHostedRunnerConfigTest(unittest.TestCase):
                 )
                 self.assertNotIn("runs-on: ubuntu-latest", workflow)
 
-        feed_workflow = (
+    def test_full_publish_can_select_either_runner_without_publishing(self):
+        workflow = (
             ROOT / ".github" / "workflows" / "feed-full-publish.yml"
         ).read_text()
-        self.assertNotIn("sudo apt-get", feed_workflow)
+        self.assertIn("runner:", workflow)
+        self.assertIn("dry_run:", workflow)
+        self.assertIn("ubuntu-latest", workflow)
+        self.assertIn('["self-hosted","Linux","ARM64","llm-digest"]', workflow)
+        self.assertIn("actions/setup-node@v4", workflow)
+        self.assertIn('node-version: "24"', workflow)
+        self.assertIn(
+            'git config --global --replace-all safe.directory "$GITHUB_WORKSPACE"',
+            workflow,
+        )
+        self.assertIn("if: inputs.runner == 'github-hosted'", workflow)
+        self.assertIn("sudo apt-get install -y fonts-nanum", workflow)
+        self.assertIn("github.ref != 'refs/heads/main'", workflow)
+        self.assertIn("Publishing is only allowed from main", workflow)
+        self.assertIn(
+            "AUTO_PUSH_RUNTIME: ${{ inputs.dry_run && '0' || '1' }}", workflow
+        )
+
+    def test_full_publish_fails_when_runtime_git_operations_fail(self):
+        script = (
+            ROOT
+            / "skills"
+            / "ai-feed-digest-local"
+            / "scripts"
+            / "run_full.sh"
+        ).read_text()
+        self.assertNotIn("git add data/ web/ || true", script)
+        self.assertNotIn(
+            'git commit -m "chore(data): refresh feed artifacts '
+            '$(date +%F\\ %H:%M)" || true',
+            script,
+        )
+        self.assertIn("git rev-parse --is-inside-work-tree", script)
+        self.assertIn("git push origin HEAD:main", script)
+        self.assertIn("runtime_push_failed=true", script)
+        failure_marker = script.index("runtime_push_failed=true")
+        self.assertIn("exit 1", script[failure_marker:])
 
     def test_runner_image_pins_and_verifies_the_official_release(self):
         dockerfile = (ROOT / "infra" / "actions-runner" / "Dockerfile").read_text()
