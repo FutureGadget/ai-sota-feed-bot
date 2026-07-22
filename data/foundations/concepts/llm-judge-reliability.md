@@ -100,4 +100,4 @@ Before trusting a judge's verdicts, run these checks:
 - Grading the answer, not the path: trusting a judge's high score on a fluent final answer without checking whether the trajectory that produced it actually retrieved the right evidence, respected the right time boundary, or used the right causal mechanism.
 
 ## Related
-See [agent evaluation](/topic/agent-evaluation) for the broader problem of grading agent trajectories, and [LLM-as-judge](/topic/llm-as-judge) for the model-graded evaluation pattern this concept interrogates.
+See [agent evaluation](/topic/agent-evaluation) for the broader problem of grading agent trajectories, [LLM-as-judge](/topic/llm-as-judge) for the model-graded evaluation pattern this concept interrogates, and [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap) for the adjacent problem of whether the benchmark itself, not just the judge, predicts real-world behavior.

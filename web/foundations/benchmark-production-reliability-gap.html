@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Does a high benchmark score predict production reliability? — Agent Builder Foundations | LLM Digest</title>
+  <meta name="description" content="A benchmark pass rate measures one round of scoring against a fixed task set — 2026 evidence shows agent-optimization gains that look real on that single round can fail to transfer or even regress once the agent is re-optimized against new tasks,…" />
+  <link rel="canonical" href="https://www.llm-digest.com/foundations/benchmark-production-reliability-gap" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Does a high benchmark score predict production reliability? — Agent Builder Foundations" />
+  <meta property="og:description" content="A benchmark pass rate measures one round of scoring against a fixed task set — 2026 evidence shows agent-optimization gains that look real on that single round can fail to transfer or even regress once the agent is re-optimized against new tasks,…" />
+  <meta property="og:url" content="https://www.llm-digest.com/foundations/benchmark-production-reliability-gap" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Does a high benchmark score predict production reliability? — Agent Builder Foundations" />
+  <meta name="twitter:description" content="A benchmark pass rate measures one round of scoring against a fixed task set — 2026 evidence shows agent-optimization gains that look real on that single round can fail to transfer or even regress once the agent is re-optimized against new tasks,…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "Does a high benchmark score predict production reliability?", "description": "A benchmark pass rate measures one round of scoring against a fixed task set — 2026 evidence shows agent-optimization gains that look real on that single round can fail to transfer or even regress once the agent is re-optimized against new tasks,…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/foundations/benchmark-production-reliability-gap", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Foundations", "item": "https://www.llm-digest.com/foundations"}, {"@type": "ListItem", "position": 3, "name": "Does a high benchmark score predict production reliability?", "item": "https://www.llm-digest.com/foundations/benchmark-production-reliability-gap"}]}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <script src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <style>
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
+    }
+    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width: 100%; max-width: 860px; margin: 1rem auto; padding: 0 0.9rem 3rem; overflow-x: clip; }
+    header { margin-bottom: 1rem; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .topbar h1 { margin: 0; font-size: 1.5rem; line-height: 1.2; overflow-wrap: anywhere; }
+    /* Quiet instrument nav — no Oat gray fills, hairline only. */
+    menu { display: flex; flex-wrap: wrap; gap: 0.45rem 0.6rem; padding: 0; margin: 0.85rem 0 0; align-items: center; }
+    menu a[role="button"], .archive select, menu .menu-share {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.74rem; letter-spacing: 0.03em;
+      padding: 0.42rem 0.6rem; min-height: 34px; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 0; background: transparent; color: var(--fg);
+      text-decoration: none; cursor: pointer; transition: border-color 0.12s ease, color 0.12s ease; }
+    menu a[role="button"]:hover, .archive select:hover, menu .menu-share:hover {
+      border-color: var(--accent); color: var(--accent); background: transparent; text-decoration: none; }
+    menu .menu-share.copied { color: var(--muted); border-color: var(--border); cursor: default; }
+    .archive { margin-left: auto; display: flex; align-items: center; gap: 0.45rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.66rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); }
+    .archive select { text-transform: none; letter-spacing: 0.02em; }
+    .muted { color: var(--muted); }
+    .recap-title { font-size: 1.7rem; margin: 1.2rem 0 0.2rem; line-height: 1.25; }
+    .recap-range { color: var(--muted); margin: 0 0 1rem; font-size: 0.98rem; }
+    .intro { font-size: 1.05rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.5rem; }
+    .intro p { margin: 0 0 0.75rem; }
+    .intro p:last-child { margin-bottom: 0; }
+    .tldr { margin: 0 0 1rem; padding: 0 0 0.9rem; border-bottom: 1px solid var(--border); }
+    .tldr-label { text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.72rem;
+      font-weight: 600; color: var(--muted); margin: 0 0 0.55rem; }
+    .tldr ul { margin: 0; padding-left: 1.15rem; display: flex; flex-direction: column; gap: 0.4rem; }
+    .tldr li { font-size: 0.95rem; line-height: 1.45; }
+    .toc { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.5rem; }
+    .toc a { font-size: 0.9rem; padding: 0.3rem 0.7rem; border: 1px solid var(--border);
+      border-radius: 999px; text-decoration: none; }
+    .toc a:hover { border-color: var(--accent); }
+    .cat { margin: 0 0 2rem; scroll-margin-top: 1rem; }
+    .cat h2 { font-size: 1.25rem; margin: 0 0 0.25rem; display: flex; align-items: baseline; gap: 0.5rem; }
+    .cat h2 .count { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+    .cat-summary { color: var(--fg); opacity: 0.9; margin: 0 0 0.9rem; }
+    .articles { display: flex; flex-direction: column; gap: 0.7rem; }
+    article { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.9rem; background: var(--card); }
+    article h3 { margin: 0 0 0.3rem; font-size: 1.02rem; line-height: 1.35; }
+    article h3 a { text-decoration: none; }
+    article h3 a:hover { text-decoration: underline; }
+    .art-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.3rem; }
+    .badge { font-size: 0.72rem; padding: 0.1rem 0.5rem; font-weight: 500;
+      border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+      border-radius: 999px; color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
+    .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
+    /* .archive styled in header menu styles above */
+    .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--card); }
+    .subscribe-cta p { margin: 0; }
+    .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
+    footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
+    .story-title a { text-decoration: none; color: inherit; }
+    .story-title a:hover { text-decoration: underline; }
+    .story-lead { display: grid; grid-template-columns: minmax(0, 1fr) 160px;
+      gap: 1rem; align-items: center; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin: 0 0 1.2rem; }
+    .story-lead p { margin: 0; }
+    .story-img { width: 160px; height: 112px; object-fit: cover;
+      border-radius: 9px; border: 1px solid var(--border); }
+    .story-summary { font-size: 1.02rem; line-height: 1.55; margin: 0; }
+    .story-framing { font-size: 1.02rem; margin: 0 0 1.2rem; }
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0 0 1.2rem; clear: both; }
+    .story-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0 0 1.6rem; clear: both; }
+    .story-actions a, .story-actions button { font-family: inherit; font-size: 0.92rem;
+      min-height: 44px; padding: 0.45rem 0.95rem; display: inline-flex; align-items: center;
+      border: 1px solid var(--border); border-radius: 10px; text-decoration: none;
+      background: var(--card); color: var(--fg); cursor: pointer; }
+    .story-actions a.primary, .story-actions button.primary { border-color: var(--accent);
+      color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+    .story-actions a:hover, .story-actions button:hover { border-color: var(--accent); }
+    .story-actions button[aria-pressed="true"] { border-color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 22%, var(--card)); color: var(--accent); }
+    @media (max-width: 560px) {
+      .story-lead { grid-template-columns: 1fr; }
+      .story-img { width: 100%; height: auto; max-height: 220px; }
+      menu {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding-bottom: 0.35rem;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+      }
+      menu::-webkit-scrollbar {
+        display: none;
+      }
+      menu a {
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .archive {
+        flex-shrink: 0;
+        margin-left: 1rem;
+        width: auto !important;
+      }
+      .archive select {
+        width: auto !important;
+        max-width: none !important;
+      }
+    }
+    .covered { margin: 0 0 1.6rem; }
+    .covered ul { margin: 0.4rem 0 0; padding-left: 1.15rem; }
+    .covered li { margin: 0.25rem 0; font-size: 0.95rem; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f7f8fb; --card:#ffffff; --border:#d8dee8; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --brief-wash:#eaf0ff; --brief-ink:#18243b;
+      --signal:#23875b; --warm:#a15c16;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --brief-wash:#1c2a48; --brief-ink:#e8eefb;
+      --signal:#54b886; --warm:#e0ad4e;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--brief-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+    .foundations-hero { margin:2.3rem 0 1.8rem; }
+    .foundations-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .foundations-headline { margin:0; max-width:25ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.45rem,6vw,4.1rem); }
+    .foundations-thesis { max-width:48rem; margin:1rem 0 0; font-size:1.02rem; line-height:1.65; }
+    .foundations-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; letter-spacing:.04em; color:var(--muted); }
+    .foundations-readout .on { color:var(--signal); }
+    .foundations-readout .sep { color:var(--border); margin:0 .45rem; }
+
+    .foundation-cluster { margin:2.2rem 0 0; border-top:2px solid var(--fg); }
+    .foundation-cluster h2 { margin:.7rem 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.5rem; line-height:1.1; }
+    .foundation-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; }
+    .foundation-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:1rem;
+      padding:1rem 0; border-bottom:1px solid var(--border); }
+    .foundation-card h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.35rem; line-height:1.1; }
+    .foundation-card h3 a { color:inherit; text-decoration:none; }
+    .foundation-card h3 a:hover { color:var(--accent); }
+    .foundation-card p { margin:0; color:var(--muted); font-size:.92rem; line-height:1.55; }
+    .foundation-card-meta { align-self:start; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); white-space:nowrap; }
+
+    .foundation-lead { max-width:46rem; margin:.4rem 0 0; font-size:1.16rem; line-height:1.55; }
+    .foundation-lead p { margin:0; }
+    .foundation-xlinks { display:grid; grid-template-columns:repeat(auto-fit,minmax(15rem,1fr)); gap:1.3rem 2rem;
+      margin:1.5rem 0 0; padding:1.05rem 1.15rem; border-left:2px solid var(--accent); background:var(--brief-wash); }
+    .foundation-xlabel { display:block; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+      margin:0 0 .55rem; }
+    .foundation-xlinks ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.45rem; }
+    .foundation-xlinks li { font-size:.94rem; line-height:1.4; }
+    .foundation-xlinks a { text-decoration:none; font-weight:600; }
+    .foundation-xlinks a:hover { text-decoration:underline; }
+
+    .foundation-section { display:grid; grid-template-columns:minmax(10rem,.34fr) minmax(0,1.66fr);
+      gap:.4rem 2.2rem; padding:1.55rem 0; border-bottom:1px solid var(--border); }
+    .foundation-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .foundation-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .foundation-prose { min-width:0; max-width:46rem; }
+    .foundation-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.67; }
+    .foundation-prose p:last-child { margin-bottom:0; }
+    .foundation-prose ul { margin:.1rem 0 0; padding-left:1.1rem; }
+    .foundation-prose li { margin:.45rem 0; line-height:1.58; }
+    .foundation-prose strong { font-weight:650; }
+    .foundation-evidence .foundation-rail { color:var(--muted); }
+    .foundation-evidence-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.7rem; }
+    .foundation-evidence-list li { font-size:.92rem; line-height:1.45; }
+    .foundation-evidence-list a { text-decoration:none; font-weight:650; }
+    .foundation-evidence-list a:hover { text-decoration:underline; }
+    .foundation-evidence-kind { display:inline-flex; margin:0 .45rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; color:var(--accent); letter-spacing:.04em; text-transform:uppercase; }
+    .foundation-evidence-tier { display:inline; color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.7rem; margin-left:.35rem; }
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .foundations-headline { font-size:2.65rem; }
+      .foundation-card { grid-template-columns:1fr; gap:.45rem; }
+      .foundation-card-meta { white-space:normal; }
+      .foundation-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/foundations">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Builder Foundations</h1>
+        <p id="meta" class="muted">Evidence-tiered mechanisms for agent builders</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations" aria-current="page">Foundations</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/api/foundations?slug=benchmark-production-reliability-gap">View as JSON</a>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/foundations/benchmark-production-reliability-gap" data-share-title="Does a high benchmark score predict production reliability? — Agent Builder Foundations">Share this page</button>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+
+
+    </header>
+
+    <section id="recap">
+      <section class="foundations-hero"><p class="foundations-kicker">Agent foundations</p><h2 class="foundations-headline">Does a high benchmark score predict production reliability?</h2><p class="foundations-readout"><span class="on">Concept</span><span class="sep">·</span>Evals and reliability<span class="sep">·</span>9 evidence tiers<span class="sep">·</span>updated 2026-07-22</p></section>
+      <!-- range is included in the custom hero -->
+      <!-- intro is inside the foundation concept hero -->
+      <div class="foundation-concept"><div class="foundation-lead"><p>If a coding-agent vendor or your own team reports a strong benchmark pass rate, that number describes one round of scoring against a fixed task set. It does not tell you whether the gain survives the next time the agent gets re-optimized, or whether the agent&#x27;s small process failures — an unverified assumption, a deferred fix, a confidently wrong claim — will compound once it runs for hundreds of turns instead of one short task. Treat a benchmark score as a starting hypothesis about production reliability, not a substitute for measuring it.</p></div>
+<aside class="foundation-xlinks"><div><span class="foundation-xlabel">Related map topics</span><ul><li><a href="/topic/agent-evaluation">Measuring whether an agent actually worked is hard</a></li><li><a href="/topic/agent-benchmarks">Agent benchmarks: fixed tasks that exercise real tool use</a></li><li><a href="/topic/agent-tracing">Tracing and trace analysis for agent runs</a></li></ul></div></aside>
+<section class="foundation-section"><div class="foundation-rail">Short answer</div><div class="foundation-prose"><p>No, not by itself. A 2026 continual-learning study on Terminal-Bench 2.0 found that one popular agent-optimization method actually performed worse than an unoptimized baseline once transferred to new tasks, and a second method stopped improving after its first optimization round — only a method built with explicit regression control kept improving across rounds. Separately, a real 241-turn production coding session surfaced failure modes — an unverified assumption compounding across six build phases, a confidently wrong claim about the codebase, quietly deferred review fixes — that a short, single-task benchmark run is too brief to ever exercise. A benchmark score answers &quot;did it pass this fixed set of tasks once&quot;; production reliability asks &quot;does it keep working as tasks, optimization rounds, and session length change,&quot; which is a different, harder question the benchmark score was never designed to answer.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Builder model</div><div class="foundation-prose"><p>Think of a benchmark run as a single frame from a video: it is accurate for that frame and tells you nothing about what happens in the next one. Two forces move the video forward that a single frame can&#x27;t show:</p>
+<p>1. <strong>Re-optimization drift.</strong> Teams tune agents against benchmarks repeatedly — a new harness setting, a new fine-tune, a new prompt — and each round is itself an optimization step. A gain measured once is not guaranteed to hold, or even stay positive, after the next round runs against tasks the previous round never saw. 2. <strong>Horizon compounding.</strong> A benchmark task is usually short: minutes to an hour of agent turns. A production session can run for hundreds of turns. Failure modes that are individually cheap — one wrong assumption, one deferred fix — compound when nothing forces a checkpoint before the next 50 turns build on top of them.</p>
+<p>Both forces mean the fix is the same: measure your own agent&#x27;s trajectory across rounds and across long sessions, using your own production traces, instead of reading a single external benchmark number as if it were a permanent property of the agent.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Mechanism</div><div class="foundation-prose"><p>A benchmark score is produced by running an agent (optionally after some optimization step) against a fixed set of tasks once, then reporting the aggregate pass rate. Two structural gaps separate that number from production reliability.</p>
+<p><strong>The optimization-gain gap.</strong> The Terminal-Bench 2.0 continual-learning study ran three optimization methods through two phases with identical budgets: an initial optimization phase, then a second phase against new tasks, simulating what actually happens when a deployed agent gets re-optimized as new failures surface. GEPA&#x27;s optimized agent regressed below the unoptimized baseline in the new-task phase — its first-phase gain did not transfer. Meta Harness transferred its gain but plateaued, gaining nothing from a second optimization budget. Only RELAI-VCL, which explicitly checks for regression as part of its optimization loop, kept improving across both phases, reaching a 76.4% lifelong pass rate against a 58.7% baseline. A single-round benchmark score cannot distinguish these three outcomes from each other — all three could report a similar-looking first-round number.</p>
+<p><strong>The horizon gap.</strong> A benchmark task ends; a production session doesn&#x27;t, and the failure modes that matter at hundreds of turns are different from the ones a short task exercises. The 241-turn Claude session write-up documents this directly: the agent stated a specific factual claim about the codebase (how many lifecycle hooks existed) that was simply wrong, deferred code-review findings instead of resolving them, and built a six-phase feature on an assumption nobody had verified — all failures that a single short task, scored once, would not have had the length to produce or the structure to catch.</p>
+<p>Closing both gaps takes the same move: mine your own production traces for the specific failure categories you actually see, the way LangChain built IssueBench around 15 named failure categories across three domains instead of relying on a generic pass/fail benchmark, and re-check any optimization gain after the agent is re-optimized again rather than trusting the number from the first round.</p></div></section>
+<section class="foundation-section"><div class="foundation-rail">Evidence</div><div class="foundation-prose"><ul><li>Benchmark/result-backed: the Terminal-Bench 2.0 continual-learning study shows two of three tested optimization methods either regress or plateau on new tasks, while a regression-aware method reaches a 76.4% lifelong pass rate versus a 58.7% baseline — evidence that a one-round optimization gain does not predict what happens on the next round.</li><li>Production field-report-backed: LangChain&#x27;s trace-mining loop produced a measured 13.7% harness lift on Terminal-Bench 2.0 and a cheaper fine-tuned judge model that matched frontier-model performance on a narrow task — both derived from mining the team&#x27;s own production traces, not from a published benchmark score.</li><li>Production field-report-backed: a real 241-turn Claude coding session surfaced a wrong factual claim, deferred review fixes, and an unverified assumption that compounded across six build phases — failure modes a short benchmark task is too brief to exercise.</li><li>Primary-doc-backed: LangChain built IssueBench, a 15-task benchmark across three domains and 15 named failure categories, specifically because judging whether a trace-analysis tool works in production required a purpose-built eval, not a generic agent benchmark.</li><li>Editorial inference: a benchmark score is a single-round, fixed-distribution measurement; production reliability is a claim about repeated re-optimization and long-horizon behavior, and only the team&#x27;s own continual evaluation can measure that gap.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">How to apply</div><div class="foundation-prose"><ul><li><strong>Don&#x27;t cite a benchmark number as a permanent property.</strong> If an agent or harness was optimized once against a benchmark, ask whether that gain has been re-checked after any subsequent re-optimization — a regressed or plateaued gain looks identical to a real one on a single before/after comparison.</li><li><strong>Build regression checks into your own optimization loop.</strong> When you tune a harness, prompt, or fine-tune against your eval set, re-run the previous eval set alongside the new one, the way RELAI-VCL&#x27;s regression control caught what GEPA&#x27;s optimization missed.</li><li><strong>Mine your own production traces, not just the public benchmark.</strong> LangChain&#x27;s 13.7% harness lift came from trace-mining, not from re-running a published benchmark; a generic benchmark can&#x27;t see the failure categories specific to your agent and your users.</li><li><strong>Build a benchmark for your specific failure categories once you know what they are.</strong> Follow IssueBench&#x27;s pattern — name the failure categories you actually see (not generic ones), and test against multiple domains if your agent operates in more than one.</li><li><strong>Test long-horizon sessions, not just single tasks.</strong> Audit at least one long real session (hundreds of turns, not one) for compounding failures — deferred fixes, unverified assumptions, confidently wrong claims — the way the 241-turn Claude session write-up did, since a short benchmark task cannot produce this failure mode by construction.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Failure modes</div><div class="foundation-prose"><ul><li>Treating a benchmark score as permanent: citing a pass rate from one optimization round as if it will hold after the next re-optimization, without re-checking.</li><li>Optimizing without regression control: tuning against new tasks without also re-running the eval set the previous gain was measured on, so a regression (like GEPA&#x27;s) goes unnoticed.</li><li>Never mining your own traces: relying only on public benchmark numbers instead of mining production traces for the failure categories specific to your deployment.</li><li>Testing only short tasks: validating an agent exclusively on benchmark-length tasks and never auditing a long real session, where compounding failures actually show up.</li><li>Generic evals for a specific problem: using a general-purpose agent benchmark to judge a narrow tool (like a trace-analysis system) instead of building a targeted eval the way IssueBench does.</li></ul></div></section>
+<section class="foundation-section"><div class="foundation-rail">Related</div><div class="foundation-prose"><p>See <a href="/topic/agent-evaluation">agent evaluation</a> for the broader problem of grading agent trajectories, <a href="/topic/agent-benchmarks">agent benchmarks</a> for how fixed-task benchmarks are constructed and where they fall short, <a href="/topic/agent-tracing">agent tracing</a> for the trace-mining half of this loop, and <a href="/foundations/llm-judge-reliability">can you trust an LLM-as-judge score?</a> for the adjacent problem of whether the grader itself is reliable.</p></div></section>
+<section class="foundation-section foundation-evidence"><div class="foundation-rail">Evidence · 9 sources</div><ul class="foundation-evidence-list"><li><span class="foundation-evidence-kind">Benchmark</span><a href="http://arxiv.org/abs/2607.14004v1" target="_blank" rel="noopener">Do Agent Optimizers Compound? A Continual-Learning Evaluation on Terminal-Bench 2.0</a><span class="foundation-evidence-tier">benchmark/result-backed</span><p>Runs three agent-optimization methods through a two-phase continual-learning evaluation on hard Terminal-Bench 2.0 tasks with identical optimization budgets, simulating an agent re-optimized as new failures emerge rather than tuned once against a fixed set. GEPA&#x27;s optimized agent performs worse than the unoptimized baseline once transferred to the new-task phase. Meta Harness transfers well initially but stops improving once given a second optimization budget. Only RELAI-VCL, which builds regression control into the optimization loop, achieves both positive transfer and continued improvement, reaching a lifelong average pass rate of 76.4% versus 58.7% for the baseline. The paper&#x27;s conclusion: most reported agent-optimization gains are one-shot numbers against a static benchmark, not evidence the gain holds under realistic, repeated re-optimization.</p></li><li><span class="foundation-evidence-kind">Source story</span><a href="/story/8605a4348aa09d77">Do Agent Optimizers Compound? A Continual-Learning Evaluation on Terminal-Bench 2.0</a><span class="foundation-evidence-tier">source story</span></li><li><span class="foundation-evidence-kind">Field report</span><a href="https://www.langchain.com/blog/improving-agents-is-a-data-mining-problem" target="_blank" rel="noopener">Improving Agents is a Data Mining Problem</a><span class="foundation-evidence-tier">production field-report-backed</span><p>LangChain describes mining production agent traces to find failure signals, curating those failures into an eval/training set, then running improvement experiments — a Harness Engineering to Fine-Tuning to Harness Engineering loop. Adjusting harness parameters based on mined trace behavior produced a 13.7% lift over the base harness on Terminal-Bench 2.0. Separately, a judge model fine-tuned on production trace labels outperformed closed frontier models on the narrow task it was tuned for, at far lower cost to run. Neither result came from the public benchmark score alone; both came from mining the team&#x27;s own production traces.</p></li><li><span class="foundation-evidence-kind">Source story</span><a href="/story/4a0a79e7203bae64">Improving Agents is a Data Mining Problem</a><span class="foundation-evidence-tier">source story</span></li><li><span class="foundation-evidence-kind">Field report</span><a href="https://www.kurrent.io/blog/when-your-coding-agent-doesnt-listen" target="_blank" rel="noopener">When your coding agent doesn&#x27;t listen: evaluating a 241-turn Claude session</a><span class="foundation-evidence-tier">production field-report-backed</span><p>A practitioner audits a real 241-turn Claude coding session and finds three failure modes a short benchmark task would not have surfaced: the agent confidently asserted only two lifecycle hooks existed when documentation showed more; it quietly deferred code-review findings instead of fixing them, requiring explicit human pushback; and a six-phase feature was built on an unconfirmed behavioral assumption that ten minutes of transcript auditing revealed was false, forcing a full redesign. Each failure consumed tokens and wall-clock time before a human caught it. The write-up&#x27;s framing: the agent commits to a path based on an unverified belief and builds on it fast, so a human has to be the safety net across a long session in a way a single-task benchmark run never tests.</p></li><li><span class="foundation-evidence-kind">Source story</span><a href="/story/f174897519ebc366">When your coding agent doesn&#x27;t listen: evaluating a 241-turn Claude session</a><span class="foundation-evidence-tier">source story</span></li><li><span class="foundation-evidence-kind">Primary doc</span><a href="https://www.langchain.com/blog/issuebench-how-we-evaluate-engine" target="_blank" rel="noopener">IssueBench - How We Evaluate Engine</a><span class="foundation-evidence-tier">primary-doc-backed</span><p>LangChain built IssueBench specifically because grading whether a trace-analysis tool works can&#x27;t be read off a generic agent benchmark: it runs 15 synthetic tasks across three domains (SRE log analysis, software engineering, customer support), each a batch of clean and labeled-failure traces, and scores whether the tool identifies issues, assigns one of 15 failure categories (hallucination, PII leak, context explosion, and others), attaches new failures to existing issue cards, and groups genuinely new failures together — testing whether the tool turns raw traces into usable engineering work, not just whether it outputs a plausible-looking label.</p></li><li><span class="foundation-evidence-kind">Source story</span><a href="/story/99b0480e54f4644d">IssueBench - How We Evaluate Engine</a><span class="foundation-evidence-tier">source story</span></li><li><span class="foundation-evidence-kind">Editorial</span>LLM Digest synthesis<span class="foundation-evidence-tier">editorial inference</span><p>A benchmark score is a single measurement taken under one set of conditions: one task distribution, one optimization round, one short horizon. Production reliability is a claim about many rounds and a long horizon: whether an optimization gain survives the next re-optimization, and whether the agent&#x27;s small process failures (an unverified assumption, a deferred fix, a confidently wrong claim) get caught before they compound over hundreds of turns. Closing that gap takes the team&#x27;s own continual evaluation — mining production traces for the failure categories that actually occur, building an eval for that specific category (as IssueBench does for trace-analysis failures), and re-checking optimization gains after every re-optimization round rather than once at launch.</p></li></ul></section></div>
+    </section>
+
+    <footer>
+      Built from the AI SOTA feed. Each item links to its original source. ·
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        var btn = document.getElementById('themeToggle');
+        if (btn) {
+          btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+          btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+      }
+      var btn = document.getElementById('themeToggle');
+      if (btn) {
+        applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+        btn.addEventListener('click', function () {
+          var now = document.documentElement.getAttribute('data-theme') || 'light';
+          applyTheme(now === 'dark' ? 'light' : 'dark');
+        });
+      }
+      var sel = document.getElementById('archive');
+      if (sel) sel.addEventListener('change', function () { window.location.href = sel.value; });
+
+      // Share this page: native share sheet when available, clipboard fallback.
+      // The canonical URL is the durable landing target, so shares keep working.
+      var share = document.querySelector('.menu-share');
+      if (share) {
+        share.addEventListener('click', function () {
+          var url = share.getAttribute('data-share-url') || location.href;
+          var title = share.getAttribute('data-share-title') || document.title;
+          if (navigator.share) {
+            navigator.share({ title: title, url: url }).catch(function () {});
+            return;
+          }
+          var done = function () {
+            var label = share.textContent;
+            share.textContent = '✓ Link copied';
+            share.classList.add('copied');
+            setTimeout(function () { share.textContent = label; share.classList.remove('copied'); }, 2000);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done, function () {});
+          }
+        });
+      }
+    })();
+  </script>
+
+  <script src="/nav-updates.js?v=20260701" defer></script>
+
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+</body>
+</html>
