@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b]
-updated: 2026-07-18
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44]
+updated: 2026-07-22
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44]
 ---
 
 ## TL;DR
@@ -39,7 +39,10 @@ later: SDK 0.2.122 was again a one-line "bundled CLI update," but the CLI it
 carried forward (v2.1.214) fixed five separate permission-check bypasses — a
 lockfile pinning only the SDK version would have silently accepted (or, read
 the other way, silently missed) five security-relevant behavior changes at
-once. The honest current state is that the
+once. The pattern has since held for three further releases in a row (SDK
+0.2.123 → 0.2.125, each forwarding only a bundled-CLI version bump), so a
+chain-deep pin is not a one-time fix for a single incident but a standing
+requirement every release repeats. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 
@@ -62,10 +65,12 @@ discipline this page argues for, aimed at the migration process itself rather
 than just the target version.
 
 ## What's new
-The chain-deep pinning case just got sharper: SDK 0.2.122's "bundled CLI
-update" carried five permission-check bypass fixes from claude-code v2.1.214,
-the largest batch yet of security-relevant behavior riding through a
-patch-level bump a version-only lockfile would treat as a no-op.
+The chain-deep pinning case keeps repeating rather than being a one-off:
+three SDK releases after 0.2.122's five-bug "bundled CLI update," the SDK is
+still shipping one-line "updated bundled Claude CLI" changelogs (0.2.125,
+forwarding v2.1.217) — a version-only lockfile would treat every one of
+these releases as a no-op, when each has actually changed the executable
+the agent runs on.
 
 ## Trade-offs
 Pinning trades freshness and security currency for stability: stay pinned too

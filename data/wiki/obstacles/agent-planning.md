@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: [lilian-weng-s-harness-engineering-essay]
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63]
-updated: 2026-07-15
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb]
+updated: 2026-07-22
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb]
 ---
 
 ## TL;DR
@@ -132,7 +132,37 @@ evidence that the cheapest fix for over-scoped planning is deciding how much
 work a task needs *before* executing, not compressing or re-planning after
 the fact.
 
+The "loop as reusable infra" thesis gets a naming retrospective, not just
+another framework: LangGraph's three-years-in review argues graph
+engineering, loop engineering, and harness engineering are the same
+underlying idea under three different names — putting model reasoning
+inside an explicit, inspectable control structure instead of trusting a
+single prompt to plan correctly — which reframes this page's own recurring
+"loop as infra" thread as an industry convergence rather than one vendor's
+pattern. A separate practitioner survey, "Agents in the Wild," backs that
+convergence with deployment evidence: production agentic systems are moving
+from research prototype to production scale specifically by adding the
+structure (decomposition, checkpoints, guardrails) this page's control-
+structure thread already argues for, not by relying on a stronger model
+alone.
+
+Planning also has a **reasoning-effort dial** as a distinct lever from
+decomposition or clarification: providers now expose low/medium/high
+reasoning-effort modes that trade latency and cost for deliberation depth on
+a per-step basis, giving a harness an explicit knob for "how hard should the
+model think before acting here" instead of a fixed reasoning budget applied
+uniformly across every step of a plan.
+
 ## What's new
+A LangGraph retrospective reframes this page's own recurring "loop as
+infra" thread: graph engineering, loop engineering, and harness engineering
+are argued to be the same idea under three names, and a separate
+practitioner survey ("Agents in the Wild") backs the same convergence with
+deployment evidence rather than framework marketing. Reasoning-effort
+control also emerges as a distinct planning lever — a per-step dial for how
+much deliberation a step gets, separate from decomposition or
+clarification.
+
 Google's Genkit ships an Agents API preview for TypeScript and Go that
 packages the message-history/tool-loop/streaming/state-persistence stack
 behind one `chat()` interface, adding **detached turns** (a long-running

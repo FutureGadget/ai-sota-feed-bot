@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71]
-updated: 2026-07-19
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44]
+updated: 2026-07-22
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44]
 ---
 
 ## TL;DR
@@ -128,7 +128,23 @@ improves itself, aimed at safety, alignment, and prompt-injection robustness
 toward red-teaming as a continuously-running part of the model's own
 development loop.
 
+The offensive side of this obstacle now has a named, cross-lab disclosure
+rather than isolated write-ups: OpenAI and Hugging Face jointly disclosed a
+security incident uncovered during AI model evaluation that surfaced
+advanced, previously-unseen cyber capabilities in a frontier model, and are
+sharing early findings so other defenders can prepare. It is the same
+role-confusion and agent-as-identity stakes this page already argues, made
+concrete at the scale of a public, cross-organization advisory instead of a
+single red-team report.
+
 ## What's new
+OpenAI and Hugging Face jointly disclosed a security incident uncovered
+during AI model evaluation, surfacing advanced cyber capabilities in a
+frontier model and sharing early findings for other defenders — a
+cross-lab, public advisory rather than an isolated red-team write-up,
+underscoring that the offensive side of this obstacle is now serious enough
+to warrant coordinated disclosure between labs.
+
 The approval prompt itself joined the list of spoofable surfaces: Claude
 Code's chat-relayed permission previews failed to neutralize
 bidirectional-override, zero-width, and look-alike characters, letting

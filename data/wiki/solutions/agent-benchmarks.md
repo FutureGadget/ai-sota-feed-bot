@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836]
-updated: 2026-07-21
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66]
+updated: 2026-07-22
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66]
 ---
 
 ## TL;DR
@@ -133,6 +133,13 @@ agents on 57 expert-verified computational-imaging tasks across six
 scientific domains and three tracks (planning, unit tests, end-to-end
 reconstruction), finding failures specific to the domain (physical-convention
 handling, pipeline integration) beyond generic coding skill.
+
+**Harness-vs-harness comparison** gets its own named entrant: OpenBench
+scores different coding-agent harnesses against each other on the same
+tasks, answering the standing practitioner question this page already
+flags ("what benchmarks actually compare agent harnesses, beyond
+Terminal-Bench") with a dedicated suite rather than repurposing a
+model-comparison benchmark.
 
 ## What's new
 Benchmark scope widened past domain-narrow tasks to whole-agent breadth and
