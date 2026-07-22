@@ -6655,6 +6655,27 @@
   "url": "https://marigold.page",
   "why_it_matters": "Matches feed focus: agent, codex, claude code."
  },
+ "a19f1341e900df0e": {
+  "first_seen": "2026-07-22T22:01:51.041112+00:00",
+  "id": "a34f8c3bafab14ad",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-22T21:41:57+00:00",
+  "release_highlights": [
+   "terminal_reason on ResultMessage : ResultMessage.terminal_reason now surfaces why the query loop ended ( \"completed\" , \"max_turns\" , \"aborted_streaming\" , \"a...",
+   "Typed model_usage on ResultMessage : ResultMessage.model_usage is now typed as dict[str, ModelUsage] instead of dict[str, Any] , with a new ModelUsage TypedD...",
+   "Updated bundled Claude CLI to version 2.1.218"
+  ],
+  "sid": "a19f1341e900df0e",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "New Features terminal_reason on ResultMessage : ResultMessage.terminal_reason now surfaces why the query loop ended ( \"completed\" , \"max_turns\" , \"aborted_streaming\" , \"aborted_tools\" , etc.). A value of \"aborted_streaming\" or \"aborted_tools\" means the turn was cancelled via ClaudeSDKClient.interrupt() . Mirrors the TypeScript SDK's SDKResultMessage.terminal_reason ( #1142 ) Typed model_usage on ResultMessage : ResultMessage.model_usage is now typed as dict[str, ModelUsage] instead of dict[str, Any] , with a new ModelUsage TypedDict that mirrors the TypeScript SDK's shape. Includes optional canonicalModel and provider fields for stable model identification across provider-specific aliases ( #1143 ) Internal/Other Changes Updated bundled Claude CLI to version 2.1.218 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.126/ pip install claude-agent-sdk==0.2.126",
+  "summary_1line": "terminal_reason on ResultMessage : ResultMessage.terminal_reason now surfaces why the query loop ended ( \"completed\" , \"max_turns\" , \"aborted_streaming\" , \"a... · Typed model_usage on ResultMessage : ResultMessage.mod...",
+  "title": "claude-agent-sdk-python v0.2.126",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.126",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "a19f704a44b42ad5": {
   "first_seen": "2026-07-22T10:01:48.428259+00:00",
   "id": "b7d9ca97923bb655",
@@ -7034,7 +7055,7 @@
  "aab2ddc6a57f3d4d": {
   "first_seen": "2026-07-22T19:01:51.489653+00:00",
   "id": "03d7ee2180dcc61e",
-  "published": "2026-07-22T18:58:26+00:00",
+  "published": "2026-07-22T21:23:38+00:00",
   "sid": "aab2ddc6a57f3d4d",
   "source": "search_cn_open_weight_labs",
   "summary": "White House: China's Kimi K3 AI Model Cheated by Cloning US Tech PCMag",
@@ -7890,6 +7911,27 @@
   "type": "news",
   "url": "https://www.interconnects.ai/p/kimi-k3-the-open-weights-escalation"
  },
+ "bef41a8d82a61cb7": {
+  "first_seen": "2026-07-22T22:01:51.041112+00:00",
+  "id": "a9b3ba315d0546f8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-22T21:24:56+00:00",
+  "release_highlights": [
+   "Changed /code-review to run as a background subagent, so review work no longer fills your conversation and keeps stacked slash commands as its review target",
+   "Added screen-reader announcements of deleted text for word and line deletions ( Option+Delete , Ctrl+W , Cmd+Backspace , Ctrl+U , Ctrl+K ) in --ax-screen-rea...",
+   "Fixed Windows paths with \\u -prefixed segments (like C:\\Users\\unicorn ) being corrupted into CJK characters in tool inputs, which made those files inaccessible"
+  ],
+  "sid": "bef41a8d82a61cb7",
+  "source": "claude_code_releases",
+  "summary": "What's changed Changed /code-review to run as a background subagent, so review work no longer fills your conversation and keeps stacked slash commands as its review target Added screen-reader announcements of deleted text for word and line deletions ( Option+Delete , Ctrl+W , Cmd+Backspace , Ctrl+U , Ctrl+K ) in --ax-screen-reader mode Fixed Windows paths with \\u -prefixed segments (like C:\\Users\\unicorn ) being corrupted into CJK characters in tool inputs, which made those files inaccessible Fixed the left arrow key discarding the conversation with no undo: presses right after editing now ask to confirm, and Esc in the agent view returns to the conversation it backgrounded Added HTTP status and error text to claude mcp list and /mcp when a server fails to connect, and a warning for MCP config values with hidden leading or trailing whitespace Fixed multi-line paste collapsing into one line with j in place of newlines in terminals that encode pasted newlines as Ctrl+J Fixed /context reporting stale pre-compact token usage after compacting from the message picker Fixed /ultrareview failing on descriptive arguments like \"review my auth changes\" — they now run a review of your current branch with the text applied as a note to the findings Fixed /code-review ultra silently running a local review in non-interactive sessions — it now launches the cloud review Fixed gateway spend metering to price Bedrock application-inference-profile ARNs and other config-mapped upstream model IDs a",
+  "summary_1line": "Changed /code-review to run as a background subagent, so review work no longer fills your conversation and keeps stacked slash commands as its review target · Added screen-reader announcements of deleted text for word...",
+  "title": "claude-code v2.1.218",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.218",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "bf111a567cfc0366": {
   "first_seen": "2026-07-08T15:02:48.701670+00:00",
   "id": "c2d5314506ffe454",
@@ -8168,16 +8210,16 @@
  },
  "c93a2cee80a4bdfc": {
   "first_seen": "2026-07-22T21:01:50.292602+00:00",
-  "id": "f653d5c55a311d78",
+  "id": "7eec9be4d42a0be5",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-07-22T20:59:33+00:00",
+  "published": "2026-07-22T21:54:34+00:00",
   "sid": "c93a2cee80a4bdfc",
   "source": "openai_codex_releases",
   "summary": "Release 0.146.0-alpha.3",
   "summary_1line": "Release 0.146.0-alpha.3",
-  "title": "codex rust-v0.146.0-alpha.3",
+  "title": "codex 0.146.0-alpha.3",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.146.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
