@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. A Fireside Chat with Cat and Thariq from the Claude Code team
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/21/cat-and-thariq/#atom-everything
-- Score: 3.482 | Reliability: 1.0
+- Score: 3.451 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation, claude code.
 
 ## 2. codex 0.145.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.145.0
-- Score: 3.386 | Reliability: 1.0
+- Score: 3.348 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex, claude code.
 
 ## 3. FlashRT: Agent Harness for Guiding Agents to Deploy Real-Time Multimodal Applications
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.18171v1
-- Score: 3.053 | Reliability: 1.0
+- Score: 3.04 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 4. Trace voice agents in LangSmith
+## 4. Microsoft evaluates Kimi K3 for Copilot to lower inference costs - digitimes
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMimgFBVV95cUxNeFVBN3hJaURvOFZQTW1lcklaZUVzWUx6QkJRd2xiUGlNMFo0b3dVMmIzMm9Zam5YNjVSb09lNnFzWWZ2QkRBWkxTaHFMcnByVTAtOFJ3eThsdjRNNGtQR0RUOXItUWxTdnpPTDFBcXpGaGdOSklrbmZLUlV6c29hejhGNURnTkRlX0hGUDJ0N1lGX19kOHlhN1Nn?oc=5
+- Score: 2.957 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 5. OpenBench – A benchmark for comparing coding-agent harnesses
+- Type: news | Source: hackernews_ai
+- URL: https://twitter.com/mattlam_/status/2079605387121049605
+- Score: 2.891 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
+
+## 6. Trace voice agents in LangSmith
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/trace-voice-agents-in-langsmith
-- Score: 2.8 | Reliability: 1.0
+- Score: 2.775 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. How Apollo Uses Deep Agents and LangSmith for GTM AI
+## 7. How Apollo Uses Deep Agents and LangSmith for GTM AI
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-apollo-rebuilt-its-ai-assistant-on-deep-agents-to-power-the-full-gtm-loop
-- Score: 2.653 | Reliability: 1.0
+- Score: 2.628 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. Introducing the ChatGPT for small business program
+## 8. Introducing the ChatGPT for small business program
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-small-business-program
-- Score: 2.638 | Reliability: 1.0
+- Score: 2.608 | Reliability: 1.0
 - Why it matters: 
-
-## 7. SWE-Pruner Pro: The Coder LLM Already Knows What to Prune
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2607.18213v1
-- Score: 2.612 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. Reverse-engineering is cheap now
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jul/20/cheap-reverse-engineering/#atom-everything
-- Score: 2.599 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
 
 ## 9. Introducing Gemini 3.6 Flash, 3.5 Flash-Lite, and 3.5 Flash Cyber
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-36-flash-35-flash-lite-and-35-flash-cyber/
-- Score: 2.576 | Reliability: 1.0
+- Score: 2.548 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. OpenAI and Hugging Face partner to address security incident during model evaluation
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/hugging-face-model-evaluation-security-incident
-- Score: 2.42 | Reliability: 1.0
+- Score: 2.395 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 11. claude-code v2.1.217
+## 11. SWE-Pruner Pro: The Coder LLM Already Knows What to Prune
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2607.18213v1
+- Score: 2.601 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 12. claude-code v2.1.217
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.217
-- Score: 2.571 | Reliability: 1.0
+- Score: 2.541 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. Why AI apps fail in production (And how Google solved it)
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/topics/developers-practitioners/why-ai-apps-fail-in-production/
-- Score: 2.442 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 13. claude-agent-sdk-python v0.2.125
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.125
-- Score: 2.439 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 14. The truth nobody wants to admit: Chinese or not, open models are competitive now - The Register
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMi0AFBVV95cUxQakRzQzhISTB3M09DTmlOeE12TkdUNUJUVzdOUUJ1UVJaQmQwNTJlczMwS0NEOXhvSjc1S3hUZlU2d1pRRm9LcThwbld0Z3FGeEQyMlhmd3ZNdWdTMldHVmxBd3AycWh4enk1WGdFWGVRNV9YM01MQTNTSTZSV3BNa1kyX09kbmR0RkVxWG5BY2swOGc2MDVDVVpmODhMTWp1Qm9FT2paYXVpNHJSZ2xTZDdQZmdNTExSVVdINDZNTDJtdGx4T2M2aWdWUmZEX01F?oc=5
-- Score: 2.401 | Reliability: 1.0
+## 13. Nativ: Run AI models locally on your Mac
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jul/21/nativ/#atom-everything
+- Score: 2.461 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Salience Induction against Multi-Hop RAG Agents: Threat and Defense
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2607.17535v1
-- Score: 2.394 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 14. claude-agent-sdk-python v0.2.125
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.125
+- Score: 2.411 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 15. Why AI apps fail in production (And how Google solved it)
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/topics/developers-practitioners/why-ai-apps-fail-in-production/
+- Score: 2.396 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
 ## 16. Yelp Unifies ML Model Training with Training Orchestrator
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/yelp-ai-model-training/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.351 | Reliability: 1.0
+- Score: 2.33 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. Autoresearch with Coding Agents: Generalizers and Metric-Maximizers on Quran Recitation Data
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.18064v1
-- Score: 2.272 | Reliability: 1.0
+- Score: 2.264 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
 ## 18. How Datadog built a “universal machine tool” for Claude Code | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/how-datadog-built-a-universal-machine-tool-for-claude-code
-- Score: 2.241 | Reliability: 1.0
+- Score: 2.22 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 19. Presentation: Engineering AI for Creativity and Curiosity on Mobile
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/ai-mobile/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.208 | Reliability: 1.0
+- Score: 2.189 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. How to build interactive experiences with canvases
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/how-to-build-interactive-experiences-with-canvases/
-- Score: 2.194 | Reliability: 1.0
+- Score: 2.175 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. The State of Simulation for Physical AI: An Overview
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/state-of-simulation-for-physical-ai
-- Score: 2.104 | Reliability: 1.0
+- Score: 2.095 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. How Anthropic secures its AI-native software development lifecycle | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle
-- Score: 2.097 | Reliability: 1.0
+- Score: 2.077 | Reliability: 1.0
 - Why it matters: 
 
 ## 23. Devin Outposts on Modal
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/devin-outposts-run-devin-in-modal-sandoxes
-- Score: 2.086 | Reliability: 1.0
+- Score: 2.069 | Reliability: 1.0
 - Why it matters: 
 
 ## 24. David Vélez and Robin Vince join the boards of the OpenAI Foundation and OpenAI Group PBC
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/david-velez-robin-vince-join-openai-boards
-- Score: 1.983 | Reliability: 1.0
+- Score: 1.965 | Reliability: 1.0
 - Why it matters:
