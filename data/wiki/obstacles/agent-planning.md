@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: [lilian-weng-s-harness-engineering-essay]
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb]
-updated: 2026-07-22
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33]
+updated: 2026-07-23
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33]
 ---
 
 ## TL;DR
@@ -153,26 +153,19 @@ a per-step basis, giving a harness an explicit knob for "how hard should the
 model think before acting here" instead of a fixed reasoning budget applied
 uniformly across every step of a plan.
 
-## What's new
-A LangGraph retrospective reframes this page's own recurring "loop as
-infra" thread: graph engineering, loop engineering, and harness engineering
-are argued to be the same idea under three names, and a separate
-practitioner survey ("Agents in the Wild") backs the same convergence with
-deployment evidence rather than framework marketing. Reasoning-effort
-control also emerges as a distinct planning lever — a per-step dial for how
-much deliberation a step gets, separate from decomposition or
-clarification.
+**Verification loops** get a first-party, productized instance: Anthropic's
+guide to Claude Code shows how to turn a developer's own manual checks (does
+the output compile, does it match the spec, did the test actually pass) into
+reusable skills, so the agent runs its own verification step and closes the
+loop itself instead of a human re-checking every output by hand — a concrete
+version of the "structure around the loop" thesis this page already argues
+for, packaged as a repeatable skill rather than a one-off harness.
 
-Google's Genkit ships an Agents API preview for TypeScript and Go that
-packages the message-history/tool-loop/streaming/state-persistence stack
-behind one `chat()` interface, adding **detached turns** (a long-running
-step decouples from the request/response cycle) and human-in-the-loop
-hooks — a maintained framework backing this page's "loop as reusable
-infra" thesis and a concrete mechanism for the "ask vs. proceed" question.
-A separate mechanism attacks planning from the other end — estimating a
-task's minimal scope up front (E3) rather than decomposing then correcting,
-cutting cost and tokens sharply while matching the strongest baseline's
-success rate on a 121-edit benchmark.
+## What's new
+Anthropic's own guide packages verification loops as reusable Claude Code
+skills — turning a developer's manual checks (does it compile, does it match
+spec) into a skill the agent runs itself, closing the feedback loop without a
+human re-checking every output by hand.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949]
-updated: 2026-07-21
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
+updated: 2026-07-23
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
 ---
 
 ## TL;DR
@@ -70,33 +70,6 @@ h5i-python defines and executes multi-agent coding workflows across Claude
 Code, Codex, and other runtimes as ordinary Python programs, confirming the
 pattern is a language-agnostic design choice rather than one DSL's idea.
 
-## What's new
-Code-driven orchestration goes **provider-agnostic**: Omegacode's JavaScript
-DSL spawns Codex, Claude Code, OpenCode, or pi agents from the same workflow
-script, shipping multi-provider patterns (adversarial review, bake-offs)
-that exploit decorrelated errors across models — extending last round's
-single-framework code-driven fan-out (LangChain dynamic subagents) to
-heterogeneous agent fleets. A second SDK, h5i-python, ships the same
-provider-agnostic, code-driven pattern for Python, running multi-agent
-coding workflows across Claude Code, Codex, and other runtimes as ordinary
-programs.
-
-That lands alongside orchestration showing up as **shipping practitioner
-tooling**, not just patterns:
-
-- Multi-model routing inside a terminal coding agent (**Kimchi**)
-- Visual sub-agent wiring for Claude Code (**rondoflow**)
-- Transparency-first multi-agent runners (**OpenOrb**)
-
-— all putting the engineering into the routing/handoff/wiring layer between
-agents.
-
-That sits on top of the framing of orchestration as a **runtime-substrate**
-problem (workspace, runtime, and per-agent directory isolation as the
-load-bearing design) and the move from "add more agents" to "design the
-coordination" — decentralized topologies (DeLM) and per-task generated
-harnesses (Anthropic) displacing the single-coordinator star.
-
 A sixth axis names the **conflict-resolution** gap directly: an arbiter role
 resolves disagreement between a planning agent and a coding agent by
 checking the code against the plan rather than trusting either agent's own
@@ -108,6 +81,28 @@ one engine rather than two layers: one open-source platform embeds a full
 model-call/tool-call/observation loop as a drag-and-drop workflow step,
 sharing an audit trail across agent decisions, tool calls, and workflow
 steps alike.
+
+A seventh axis supplies **field-tested recipes at the framework level**: a
+LangGraph practitioner guide positions the framework by workflow-complexity
+fit — typed state, conditional routing, deterministic tools, retries,
+interrupts, checkpoints, and traces earn their keep on long-running stateful
+processes (SQL analytics with repair loops, evidence-gated RAG,
+human-in-the-loop policy review) — but recommends simpler ReAct-style loops,
+schema-first tools, or DSPy when the job doesn't need that structure. A
+production deployment backs the same "orchestration pays for itself when the
+task is real" argument with numbers: a live 5G-core security-operations
+center's A2A+MCP multi-agent architecture cut mean time to detect/respond
+40% and human review load 12x.
+
+## What's new
+A LangGraph field guide reframes the framework as fit-for-complexity rather
+than a default: typed state, checkpoints, and interrupts pay off on
+long-running stateful workflows (three recipes: repair-loop SQL,
+evidence-gated RAG, human-in-the-loop policy review), but simpler ReAct
+loops or schema-first tools win for basic jobs. A live production deployment
+backs the same calculus with hard numbers: a multi-agent A2A+MCP
+security-ops architecture in a 5G core cut MTTD/MTTR 40% and human review
+load 12x.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

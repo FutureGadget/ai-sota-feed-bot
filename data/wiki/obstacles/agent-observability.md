@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760]
-updated: 2026-07-21
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad]
+updated: 2026-07-23
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad]
 ---
 
 ## TL;DR
@@ -77,29 +77,22 @@ failure modes specific to a spoken interface (see
 [agent latency](/topic/agent-latency) for why voice has a harder real-time
 floor than text).
 
+A named enterprise deployment backs the trace-plus-LLM-analysis pattern with
+a production system: Expedia's STAR (built on FastAPI, Datadog, Celery,
+Redis, and Langfuse) ingests service telemetry during live incidents, runs it
+through structured workflows to generate root-cause assessments, and keeps
+engineers in the loop for the final call rather than auto-resolving — an
+instance of the trace-first, agentic-analysis pattern (HALO, LangSmith's
+on-call copilot) built on infrastructure a platform team already runs, not a
+new observability product.
+
 ## What's new
-Trace capture widened to voice agents: LangSmith now traces Pipecat,
-LiveKit, OpenAI Realtime, and Gemini Live voice agents, capturing audio,
-STT/TTS latency, interruptions, and tool calls in one trace — the trace-first
-discipline this page tracks for text agents, now covering a modality with
-its own real-time latency floor.
-
-LangSmith is positioning itself as the debug console for whichever coding
-agent you use — Claude Code, Codex, Cursor, or Copilot — inspecting tool
-calls, sub-agent handoffs, errors, cost, and retries across vendors instead
-of reading each tool's own logs.
-
-Trace analysis is becoming *agentic*: rather than dashboards a human reads, the new
-tools run a model over the captured traces — HALO's RLM engine mines recurring
-failure modes from Langfuse/OpenInference/JSONL traces, and LangSmith ships a fleet
-on-call copilot that triages alerts and a voice-trace debugger. In parallel,
-offline monitoring of internal agents and a microservice-failure-diagnosis
-benchmark (AgentOps) push the field toward *measuring* whether the monitoring
-layer itself catches the right failures, tying observability tightly to
-trajectory-level eval. A self-hosted control-plane pattern also landed:
-AWS's Claude Apps Gateway relays OTel telemetry to a team's own collector
-while enforcing org/group/user spend caps, folding cost governance into the
-same layer as trace relay rather than leaving it to a vendor dashboard.
+Expedia's STAR gives the trace-plus-agentic-analysis pattern a named
+production deployment: built on FastAPI, Datadog, Celery, Redis, and
+Langfuse, it analyzes telemetry during live incidents and generates
+root-cause assessments while keeping engineers in the loop, running on
+infrastructure most platform teams already operate rather than a dedicated
+observability product.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

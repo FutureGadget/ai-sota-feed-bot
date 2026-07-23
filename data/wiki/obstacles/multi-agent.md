@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949]
-updated: 2026-07-21
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
+updated: 2026-07-23
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
 ---
 
 ## TL;DR
@@ -143,17 +143,29 @@ and human approvals — a concrete instance of the durable "put the
 coordination in ordinary code" lesson, expressed as a visual builder instead
 of a script.
 
-## What's new
-A fourth allocation lever joins topology and role-capacity: Agora replaces
-coarse-grained routing with an auction where candidate models and tools bid
-for each sub-task based on confidence and cost, turning "which agent handles
-this" into a market-clearing problem rather than a fixed routing table.
+A production case study puts hard numbers behind the standing "is it worth
+it" question: a multi-agent A2A+MCP architecture deployed in a live 5G-core
+security operations center cut mean time to detect and respond by 40% and
+compressed the human review work by 12x — concrete evidence the
+coordination overhead this page tracks can pay for itself at production
+scale, not just in a benchmark. A practitioner guide sharpens the "when does
+the topology matter" question from the framework side: a LangGraph field
+guide positions the framework by workflow-complexity fit rather than as a
+universal default, walking through three recipes (SQL analytics with repair
+loops, RAG with evidence gating, human-in-the-loop policy review with
+interrupt/checkpoint recovery) that make routing, pauses, and audit trails
+explicit product behavior — while naming plain ReAct-style loops,
+schema-first tools, and DSPy as better fits for simpler jobs.
 
-Cross-provider, code-driven orchestration now has a second SDK: h5i-python
-lets a developer define and run multi-agent coding workflows across Claude
-Code, Codex, and other runtimes as plain Python programs, the same
-"coordination as portable code" move Omegacode already shipped in
-JavaScript, now on a second language and toolchain.
+## What's new
+A production case study grounds the standing cost/benefit question: a
+multi-agent A2A+MCP security-operations architecture running in a live 5G
+core cut mean time to detect and respond by 40% and cut the human review
+workload 12x. Separately, a LangGraph field guide reframes the framework as
+fit-for-workflow-complexity rather than a default choice, with three
+executable recipes (repair-loop SQL analytics, evidence-gated RAG,
+human-in-the-loop policy review with interrupt/checkpoint recovery) showing
+when the extra structure earns its keep.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

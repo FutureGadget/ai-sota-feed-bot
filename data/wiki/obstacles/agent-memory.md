@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23]
-updated: 2026-07-15
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950]
+updated: 2026-07-23
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950]
 ---
 
 ## TL;DR
@@ -186,17 +186,23 @@ infrastructure you already run" instinct as Elastic's Atlas and BetterDB
 above, applied to the write-conflict problem specifically rather than to
 retrieval.
 
+A **programmatic memory** approach answers the retrieval-vs-context tradeoff
+from a third direction: PRO-LONG keeps a complete, structured interaction log
+rather than summarizing or pruning it, and uses a coding agent to search that
+log programmatically instead of embedding-and-ranking it. On the full
+ARC-AGI-3 public game set it improves 18.0 percentage points over a base
+coding agent and matches or beats specialized long-horizon harnesses (up to
+76.1% pass@1) while using 4.2-5.8x fewer tokens — treating memory retrieval
+as a code-search problem rather than a vector-similarity one.
+
 ## What's new
-Multi-agent memory writes get a low-tech coordination answer: a production
-pattern uses Postgres's own transactions and row-level locking as the
-conflict-prevention primitive for agents sharing notes and decisions,
-rather than a purpose-built memory service — the same "ride infrastructure
-you already run" instinct behind Elastic's Atlas and BetterDB, applied to
-write conflicts specifically. A practitioner benchmark separately puts a
-number behind "just extend the context window": running all 89 sequential
-Terminal-Bench 2.0 tasks in one continuous agent session — over 80 million
-tokens, no compaction — showed no measurable accuracy loss versus a fresh
-session per task.
+A programmatic-memory framework, PRO-LONG, keeps a complete structured
+interaction log and searches it with a coding agent instead of
+embedding-and-ranking it, improving 18.0 percentage points over a base agent
+on the full ARC-AGI-3 game set and matching specialized long-horizon
+harnesses (up to 76.1% pass@1) at 4.2-5.8x fewer tokens — a code-search
+alternative to the tiered vector/compaction split this page otherwise
+tracks.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing
