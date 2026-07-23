@@ -1,33 +1,17 @@
 {
  "slug": "amazon-sagemaker",
  "label": "Amazon SageMaker",
- "item_count": 4,
- "day_count": 3,
+ "item_count": 3,
+ "day_count": 2,
  "source_count": 2,
- "first_seen": "2026-07-02T17:50:23+00:00",
+ "first_seen": "2026-07-06T16:53:38+00:00",
  "last_updated": "2026-07-13T16:42:15+00:00",
- "generated_at": "2026-07-23T15:06:00.095688+00:00",
+ "generated_at": "2026-07-23T20:09:17.054246+00:00",
  "sources": [
   "aws_ml_blog",
   "huggingface_blog"
  ],
  "days": [
-  {
-   "date": "2026-07-02",
-   "items": [
-    {
-     "title": "Best practices for multi-turn reinforcement learning in Amazon SageMaker AI",
-     "url": "https://aws.amazon.com/blogs/machine-learning/best-practices-for-multi-turn-reinforcement-learning-in-amazon-sagemaker-ai",
-     "source": "aws_ml_blog",
-     "type": "news",
-     "summary_1line": "In this post, we share best practices for reliable multi-turn RL training. We cover how to build a training environment you can trust, set up an external evaluation, design a reward aligned with the end task, manage w...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "bfeae69131afd34f",
-     "published": "2026-07-02T17:50:23+00:00",
-     "editor_note": "Set the baseline: how to build a trustworthy multi-turn RL training environment before scaling."
-    }
-   ]
-  },
   {
    "date": "2026-07-06",
    "items": [
@@ -74,27 +58,18 @@
   }
  ],
  "editorial": {
-  "tldr": "AWS opened July by publishing best practices for building trustworthy multi-turn RL training environments in SageMaker AI. Days later it followed with an MLflow integration for streaming benchmark and inference-recommendation job results, plus a one-click Hugging Face to Studio deep link.",
+  "tldr": "AWS opened the week shipping an MLflow integration that streams SageMaker AI benchmark and inference-recommendation job results into one experiment view, alongside a one-click Hugging Face-to-Studio deep link. Both landed the same day, widening SageMaker's model-sourcing and observability surface ahead of the next update.",
   "stale": false,
   "whats_new": "SageMaker AI Studio shipped a low-code/no-code UI for its generative-AI inference-recommendation API (Jul 13), letting builders get optimized inference recommendations without scripting against the API directly.",
-  "why_it_matters": "Four launches in under two weeks widen SageMaker AI's training-to-deployment surface: a trustworthy training-environment pattern, unified MLflow observability, faster Hugging Face model sourcing, and now a no-code path to inference-optimization recommendations.",
-  "take_for_builders": "If you run RL training on SageMaker AI, adopt the trusted-environment/eval pattern before scaling out, route benchmark and recommendation jobs through MLflow streaming instead of parsing logs by hand, and try the new Studio UI before scripting against the recommendation API for one-off checks.",
+  "why_it_matters": "Three launches in one week widen SageMaker AI's model-sourcing and inference-optimization surface: unified MLflow observability, faster Hugging Face model sourcing, and now a no-code path to inference-recommendation tooling.",
+  "take_for_builders": "Route SageMaker AI benchmark and inference-recommendation jobs through the new MLflow streaming integration instead of parsing logs by hand, pull models straight from Hugging Face via the one-click Studio deep link, and try the new no-code UI before scripting against the recommendation API for one-off checks.",
   "status": {
    "state": "Shipping",
    "tone": "rising",
    "changed": "2026-07-13",
-   "detail": "AWS keeps steadily expanding SageMaker AI's training, evaluation, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
+   "detail": "AWS keeps steadily expanding SageMaker AI's observability, model-sourcing, and now recommendation-UI surface rather than a single discrete launch."
   },
   "beats": [
-   {
-    "kicker": "TRAINING",
-    "tone": "launch",
-    "headline": "AWS publishes best practices for trustworthy multi-turn RL training in SageMaker AI",
-    "summary": "Guidance on building a trusted training environment, external evaluation, reward design, and workload management.",
-    "sids": [
-     "bfeae69131afd34f"
-    ]
-   },
    {
     "kicker": "OBSERVABILITY",
     "tone": "rising",
@@ -128,6 +103,6 @@
    "Does the Hugging Face deep link cover private or gated model repos, or public models only?",
    "Does the new no-code UI expose the same recommendation options (instance types, quantization) as the underlying API, or a reduced subset?"
   ],
-  "generated_at": "2026-07-13T20:10:00+00:00"
+  "generated_at": "2026-07-23T20:05:30Z"
  }
 }
