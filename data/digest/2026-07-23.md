@@ -5,143 +5,113 @@ Focus: AI Platform Engineering
 ## 1. OpenAI’s accidental cyberattack against Hugging Face is science fiction that happened
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/22/openai-cyberattack/#atom-everything
-- Score: 3.617 | Reliability: 1.0
+- Score: 3.584 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
 
 ## 2. Are AI labs pelicanmaxxing?
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/22/are-ai-labs-pelicanmaxxing/#atom-everything
-- Score: 2.713 | Reliability: 1.0
+- Score: 2.689 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 3. PRO-LONG: Programmatic Memory Enables Long-Horizon Reasoning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.20064v1
-- Score: 2.62 | Reliability: 1.0
+- Score: 2.587 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, eval.
 
 ## 4. Article: Multi-Agent AI for Production Security Operations: An A2A and MCP Architecture in a 5G Core
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/multi-agent-security-operations/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.59 | Reliability: 1.0
+- Score: 2.565 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. PoTRE: Test-Time Reasoning inspired by Cognitive Heterogeneity
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2607.20268v1
-- Score: 2.583 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 6. QCon AI New York 2026: Registration Opens for December 15-16 Production-AI Conference
+## 5. QCon AI New York 2026: Registration Opens for December 15-16 Production-AI Conference
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/qcon-ai-newyork-2026-live/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.582 | Reliability: 1.0
+- Score: 2.558 | Reliability: 1.0
 - Why it matters: 
 
-## 7. Eval Engineering Skill: Build Evals From Repo Context and Traces
+## 6. Eval Engineering Skill: Build Evals From Repo Context and Traces
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/towards-automating-eval-engineering
-- Score: 2.566 | Reliability: 1.0
+- Score: 2.544 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 8. How news organizations are using AI to advance their vital missions
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-news-organizations-are-using-ai
-- Score: 2.212 | Reliability: 1.0
+## 7. Show HN: Rendi, an agent harness on Trigger.dev without spinning up a VM
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/mcheemaa/rendi
+- Score: 2.537 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
+
+## 8. [AINews] "Laguna S 2.1 Released: Cheaper than Deepseek v4 Flash, Better than V4 Pro"
+- Type: release | Source: latent_space
+- URL: https://www.latent.space/p/ainews-laguna-s-21-released-cheaper
+- Score: 2.527 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Accelerating the frontiers of scientific discovery: Google’s $40M commitment to the Genesis Mission
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/accelerating-the-frontiers-of-scientific-discovery-googles-40m-commitment-to-the-genesis-mission/
-- Score: 2.146 | Reliability: 1.0
+## 9. tencent/Hy-MT2-30B-A3B-GGUF released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/Hy-MT2-30B-A3B-GGUF
+- Score: 2.49 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Supporting ambitious external research through the Anthropic Economic Futures Research Fund
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/economic-futures-research-fund-agenda
-- Score: 2.095 | Reliability: 1.0
+- Score: 2.076 | Reliability: 1.0
 - Why it matters: 
 
-## 11. [AINews] "Laguna S 2.1 Released: Cheaper than Deepseek v4 Flash, Better than V4 Pro"
-- Type: release | Source: latent_space
-- URL: https://www.latent.space/p/ainews-laguna-s-21-released-cheaper
-- Score: 2.55 | Reliability: 1.0
-- Why it matters: 
-
-## 12. tencent/Hy-MT2-30B-A3B-GGUF released on Hugging Face
-- Type: release | Source: hf_tencent_hunyuan_releases
-- URL: https://huggingface.co/tencent/Hy-MT2-30B-A3B-GGUF
-- Score: 2.519 | Reliability: 1.0
-- Why it matters: 
-
-## 13. 7 Best Claude Code Alternatives for CLI Agentic Coding - KDnuggets
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMihwFBVV95cUxQamlqYkIwRktfeHdET25sR0xKRHYyQ0NXZXYwT3FfODhTaFRjLXhEU21lNFlCUHdJMm1wTEZEdFhyZ0dJdVJSa2dEc1ZyZGZ0TmlSUFRwSFpZX2xIbkw4STh0MEJrMkRYNVRJMms1d0tQelhrMWFDYTlqM2Z0anRuM1NMYmFZamM?oc=5
-- Score: 2.496 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, claude code.
-
-## 14. How Schneider Electric Built Their LLMOps Foundations With LangSmith
+## 11. How Schneider Electric Built Their LLMOps Foundations With LangSmith
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-schneider-electric-built-their-llmops-foundations-at-enterprise-scale-with-langsmith
-- Score: 2.494 | Reliability: 1.0
+- Score: 2.471 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 15. claude-code v2.1.218
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.218
-- Score: 2.451 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 12. 7 Best Claude Code Alternatives for CLI Agentic Coding - KDnuggets
+- Type: news | Source: search_agent_engineering_news
+- URL: https://news.google.com/rss/articles/CBMihwFBVV95cUxQamlqYkIwRktfeHdET25sR0xKRHYyQ0NXZXYwT3FfODhTaFRjLXhEU21lNFlCUHdJMm1wTEZEdFhyZ0dJdVJSa2dEc1ZyZGZ0TmlSUFRwSFpZX2xIbkw4STh0MEJrMkRYNVRJMms1d0tQelhrMWFDYTlqM2Z0anRuM1NMYmFZamM?oc=5
+- Score: 2.467 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, claude code.
 
-## 16. Microsoft reportedly evaluates Moonshot AI’s Kimi K3 for Copilot - technode.com
+## 13. US-China AI Rift: Moonshot AI Accused of Tech Theft - Bitcoin Foundation
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMinAFBVV95cUxQRGJ3Y0RDeWhIaHdIRjlBdjNidW5zd0tBQ0Ffd3dSWGJUamRmUlNWbkRBaXJydHQzb0owb0pKNGE3dWRITV9DOC05Ym1RbzBxMHlTSHlHLWVOMHhrd3ZIUThUSTVnRkdBTU9wNWpqbGFhQnhoRXBWdHN4RW80bjd2ZUlabDZZeE5oZXR2M0RPYUZfZ0pjeGRrTGQ3ZEs?oc=5
-- Score: 2.441 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 17. Multi-stage Dynamic Selection for Cross-Project Defect Prediction
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2607.20151v1
-- Score: 2.387 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 18. SLAI T-Rex: Full-Parameter Post-training of the DeepSeek-V4 Family on Ascend SuperPOD
-- Type: paper | Source: arxiv_cn_open_weight_reports
-- URL: http://arxiv.org/abs/2607.20145v1
-- Score: 2.309 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 19. claude-agent-sdk-python v0.2.126
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.126
-- Score: 2.306 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. HalluTruthQA: A Fine-Grained Benchmark for Hallucination Detection, Localization, and Explanation in Arabic Question Answering
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2607.20219v1
-- Score: 2.237 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 21. Copilot vs. raw API access: What are you actually paying for?
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/
-- Score: 2.215 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
-
-## 22. codex 0.146.0-alpha.4
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.146.0-alpha.4
-- Score: 2.155 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 23. Advancing the next era of national science
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/advancing-the-next-era-of-national-science
-- Score: 2.079 | Reliability: 1.0
+- URL: https://news.google.com/rss/articles/CBMibEFVX3lxTE5NUDJORzNycGdrcGIzaXRKQUk0N2hqcXpiZG5EbklZUFdvdW9lV25fcUgxbkJKdjJOZ0NzbmM2VzJoOHZ1eVZqYkdOVi0yRkJTTzNSeVAwaFRkc1FWajJlMFNTN1hWU2xiVDVOVg?oc=5
+- Score: 2.423 | Reliability: 1.0
 - Why it matters: 
 
-## 24. NVIDIA AI Supercomputer Comes Online at Naval Postgraduate School
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/naval-postgraduate-school-dgx-ai-supercomputer/
-- Score: 1.384 | Reliability: 1.0
+## 14. Multi-stage Dynamic Selection for Cross-Project Defect Prediction
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2607.20151v1
+- Score: 2.355 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 15. SLAI T-Rex: Full-Parameter Post-training of the DeepSeek-V4 Family on Ascend SuperPOD
+- Type: paper | Source: arxiv_cn_open_weight_reports
+- URL: http://arxiv.org/abs/2607.20145v1
+- Score: 2.278 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 16. HalluTruthQA: A Fine-Grained Benchmark for Hallucination Detection, Localization, and Explanation in Arabic Question Answering
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2607.20219v1
+- Score: 2.206 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 17. Copilot vs. raw API access: What are you actually paying for?
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/copilot-vs-raw-api-access-what-are-you-actually-paying-for/
+- Score: 2.196 | Reliability: 1.0
+- Why it matters: Matches feed focus: harness.
+
+## 18. codex 0.146.0-alpha.4
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.146.0-alpha.4
+- Score: 2.107 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 19. Bringing Nunchaku 4-bit Diffusion Inference to Diffusers
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/nunchaku-diffusers
+- Score: 1.968 | Reliability: 1.0
 - Why it matters:
