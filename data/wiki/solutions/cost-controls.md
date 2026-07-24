@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031]
-updated: 2026-07-07
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53]
+updated: 2026-07-24
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53]
 ---
 
 ## TL;DR
@@ -57,30 +57,24 @@ instead of re-encoded from scratch, turning redundant re-encoding (a hidden,
 fast-growing cost in agents that loop over visual state) into a cache hit,
 training-free.
 
+**Self-hosted routing is a newer entry in the control set**: Millwright, a
+Rust-based, self-hosted LLM router, is built specifically for cost savings
+and transparency, launched as hosted routers proliferate (Ramp Router,
+Vercel's AI Gateway) and OpenRouter itself faces a possible acquisition —
+owning the routing layer gives a team the same visibility and control over
+per-request model choice that metering gives over spend, without depending
+on a vendor's continuity.
+
 The load-bearing idea is that you cannot control what you don't meter, so
 per-task metering and budgets are the foundation the architectural savings
 build on.
 
 ## What's new
-Anthropic added admin-facing spend controls for Claude Enterprise (model-level
-entitlements, spend alerts, richer usage analytics), matching the enterprise
-spend-cap pattern OpenAI already shipped.
-
-Cost controls are **shifting left**: from a monthly finance review to
-per-task, per-PR metering with enforceable caps (OpenAI spend controls,
-Prtokens attribution), now-managed agentic anomaly triage (AWS FinOps Agent
-correlates spend changes with account activity), and caching that removes
-repeated fixed cost — turning agent cost into a CI/ops signal you watch live
-rather than reconcile after the fact.
-
-**Prompt caching** is moving from a manual optimization to a framework
-default that captures the agent loop's stable prefix automatically (Deep
-Agents: up to ~80% token-cost cut across providers, zero config).
-
-Caching is also reaching **inside the model**: Kamera's position-invariant
-KV cache lets multimodal agents reuse the encoding of frames/screenshots
-they re-read every step, cutting the redundant re-encode cost of visual
-look-backs without retraining.
+Self-hosted routing joins the toolkit: Millwright, a Rust-based, self-hosted
+LLM router, positions itself as the cost-and-transparency alternative to
+hosted routers (Ramp Router, Vercel's AI Gateway) at the moment OpenRouter
+faces a possible acquisition — owning the routing layer instead of renting
+it from a vendor subject to M&A.
 
 ## Trade-offs
 Metering and attribution add plumbing (token accounting, tagging by
@@ -91,6 +85,11 @@ moment, so they need graceful degradation, not a hard kill.
 
 Caching saves money only when inputs actually repeat and adds an
 invalidation/staleness problem of its own.
+
+Self-hosted routing (Millwright) removes hosted-router lock-in and M&A risk,
+but shifts operational ownership — provider integrations, updates, uptime —
+onto the team running it, the same trade-off self-hosted memory and
+sandboxing stores make elsewhere in this wiki.
 
 And these controls *bound* cost without lowering it — the real reductions
 come from the architecture ([compaction](/topic/context-compaction),

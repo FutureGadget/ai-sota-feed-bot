@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1]
-updated: 2026-07-16
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528]
+updated: 2026-07-24
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528]
 ---
 
 ## TL;DR
@@ -53,6 +53,21 @@ tool-adaptive reranker conditions its reranking on which retrieval tool
 produced each candidate — both targeting the specific failure mode where a
 model answers fluently past what its retrieved context actually supports.
 
+**A third grounding failure is adversarial, not just noisy**: retrieved
+evidence can be entirely true and still redirect a multi-hop agent through
+*salience* alone — fact position, emphasis, framing, and semantic proximity,
+with no false claims and no embedded instructions. Salience Induction
+formalizes this as truth-preserving edits that redirect multi-hop attribute
+binding while leaving the retrieval trace looking clean; across five
+frontier model families (GPT, Claude, Gemini, DeepSeek, Qwen) and three
+agent architectures (ReAct, Reflexion, tool-calling), a 30% edit budget
+reaches an 83.3% attack success rate, and the strongest baseline defense
+still leaves 75.7% of attacks succeeding. The authors' own input-side
+defense, Salience Normalization, cuts that to 15.3% under standard attacks
+(23.6% under adaptive ones) — evidence that grounding needs a
+retrieval-ordering defense distinct from the content-poisoning and
+prompt-injection attacks tracked on [prompt injection](/topic/prompt-injection).
+
 **The retriever itself keeps improving**, which moves the ceiling on every
 technique above it: NVIDIA's Nemotron 3 Embed line ranks #1 overall on RTEB
 (a multilingual, domain-spanning retrieval benchmark) at 78.5%, with its
@@ -70,15 +85,13 @@ structured-recall argument this page already makes for SQL over embeddings,
 applied to the docs an agent grounds coding answers on.
 
 ## What's new
-The retriever itself got measurably better: NVIDIA's Nemotron 3 Embed ranks
-#1 on RTEB, and its smaller variant cuts its predecessor's error rate by
-27% — moving the ceiling on every downstream grounding technique, since a
-stronger retriever means fewer wasted reasoning turns before the agent finds
-what it needed. Separately, OpenWiki 0.2 puts structured metadata (tags,
-categories) directly onto codebase-documentation pages via the OKF format,
-letting an agent filter to a category or tag instead of running an
-open-ended search — structured recall applied to the docs agents ground
-coding answers on.
+A third grounding failure surface emerged that's adversarial rather than
+noisy: Salience Induction shows truth-preserving edits to fact position and
+framing alone reach an 83.3% attack success rate against multi-hop RAG
+agents even when every retrieved claim is true, with a lightweight
+input-side defense (Salience Normalization) cutting that to 15.3% —
+grounding integrity now needs a defense distinct from the fact-checking and
+attribution work already on this page.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

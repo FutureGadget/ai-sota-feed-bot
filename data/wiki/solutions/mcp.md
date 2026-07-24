@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c]
-updated: 2026-07-15
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0]
+updated: 2026-07-24
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0]
 ---
 
 ## TL;DR
@@ -75,6 +75,20 @@ is a task queue that coding agents pull work *from* over MCP, using the
 protocol as the plug for a job queue rather than a single tool call or a
 data/memory fetch — a third payload type alongside tools and knowledge/state.
 
+The widening reaches **symbolic computation** too: Euclid-MCP puts a full
+SWI-Prolog engine behind the protocol, so an LLM client delegates
+deterministic logical inference instead of reasoning it out itself. It
+introduces Euclid-IR, an engine-agnostic intermediate representation for
+Horn-clause logic that's LLM-generatable and compiles to Prolog (or other
+backends), and exposes a translate-run-inspect-repair tool loop so the
+client keeps full access to proof traces and derivation logs rather than a
+black-box answer. On a compliance-sensitive IT security use case, LLMs alone
+hold up on small knowledge bases but hallucinate systematically as they
+grow, while Euclid-MCP returns exact answers with lower latency and more
+compact output — the authors argue semantic RAG is structurally unsuited to
+rule enforcement, positioning an MCP server, not the model, as the shared
+reasoning substrate for both RAG assistants and agentic systems.
+
 Tool **definition design** is now a subject in its own right, separate from
 the auth/governance work above. AWS's field guide names two failure modes —
 bloated context (every tool schema loads on every call, whether used or
@@ -91,12 +105,13 @@ problem: cutting the tokens a tool *definition* burns, not the tokens a
 conversation accumulates.
 
 ## What's new
-Tool design itself is now a named discipline: an AWS field guide catalogs
-concrete anti-patterns (bloated always-loaded schemas, internal-database
-naming, oversized result payloads) and a fix progression ending in
-lazy-loaded tool discovery, citing up to 85% token reduction and an
-8-or-fewer parameter guideline — the tool-schema counterpart to MCP's
-ongoing auth/governance maturation.
+MCP's payload keeps widening past tools, data, memory, and task queues:
+Euclid-MCP puts a full symbolic reasoning engine (SWI-Prolog) behind the
+protocol, letting an agent delegate multi-step logical inference through a
+translate-run-inspect-repair tool loop instead of reasoning it out itself —
+on an IT security/compliance benchmark, the MCP-delegated backend returns
+exact answers with lower latency where LLM-only reasoning hallucinates on
+larger knowledge bases.
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose

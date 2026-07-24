@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85]
-updated: 2026-07-16
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093]
+updated: 2026-07-24
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093]
 ---
 
 ## TL;DR
@@ -103,6 +103,16 @@ disaggregation trend already on this page, pushing decode itself onto
 purpose-tuned hardware/software rather than just splitting prefill from
 decode.
 
+**Disaggregation is also splitting along a second axis — compute type, not
+just pipeline phase**: vLLM's AFD (Attention-FFN Disaggregation) plugin
+separates attention and FFN computation onto different execution paths for
+MoE model serving, with GPU and Ascend NPU backend support, connector-based
+execution, and graph and micro-batching ("ubatching") support. Where the
+prefill/decode split above divides a request by *phase*, AFD divides a
+single forward pass by *compute type*, giving operators a second knob for
+allocating hardware across the attention and FFN paths of the large open MoE
+models now shipping in volume.
+
 **Scheduling** is getting an agent-specific rework, not just faster kernels:
 SMetric finds agent traffic already has high KV-cache reuse (>80% in
 production) but generic schedulers over-index on cache locality and let
@@ -119,9 +129,15 @@ per-model code — cutting the engineering cost of *keeping up* with new model
 architectures, which is itself a latency-relevant maintenance tax.
 
 ## What's new
-Two new data points widen the latency picture beyond the model-serving
-stack this page has tracked so far. First, agent query volume is its own
-latency multiplier: a single agent task can fan out into hundreds of
+vLLM added a second disaggregation axis for MoE serving: the AFD
+(Attention-FFN Disaggregation) plugin splits attention and FFN computation
+onto separate execution paths (GPU and Ascend NPU backends, connector-based
+execution, graph/micro-batching support), rather than only splitting by
+prefill/decode phase as the disaggregation work already on this page does.
+
+Two other data points also widen the latency picture beyond the
+model-serving stack this page has tracked. First, agent query volume is its
+own latency multiplier: a single agent task can fan out into hundreds of
 database/API queries, each held to chat-era responsiveness expectations, so
 teams are repurposing dashboard-era semantic-layer techniques (pre-aggregated
 rollups, columnar partition pruning) as agent-serving infrastructure. Second,

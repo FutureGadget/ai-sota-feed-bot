@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189]
-updated: 2026-07-21
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53]
+updated: 2026-07-24
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53]
 ---
 
 ## TL;DR
@@ -36,12 +36,24 @@ becoming an agentic product.
 
 The **reduction side** is the sum of the other obstacles' solutions: keeping
 the working set small via [context compaction](/topic/context-compaction)
-attacks the per-step token bill directly (the cost scales with context
-size); choosing a cheaper [orchestration](/topic/agent-orchestration)
-topology matters because the coordination structure dominates spend —
-Stanford's DeLM reports cutting multi-agent task cost ~50% by dropping the
-central orchestrator; and even evaluation is a cost line item, which is why
-teams fine-tune small judges to cut trace-judging cost ~100×.
+attacks the per-step token bill directly — naive context accumulation grows
+that bill quadratically in conversation length, crude summarization buys
+linear cost at the price of an accuracy cliff, and only validated compaction
+achieves linear cost with fidelity preserved, per "Agentic Context
+Management" (ACM)'s framing and its reference implementation, Maximem Synap;
+choosing a cheaper [orchestration](/topic/agent-orchestration) topology
+matters because the coordination structure dominates spend — Stanford's DeLM
+reports cutting multi-agent task cost ~50% by dropping the central
+orchestrator; and even evaluation is a cost line item, which is why teams
+fine-tune small judges to cut trace-judging cost ~100×.
+
+**The routing layer itself is becoming a build-vs-buy cost decision**: as
+hosted LLM routers proliferate (Ramp Router, Vercel's AI Gateway) and
+OpenRouter faces a possible acquisition, Millwright — a self-hosted,
+Rust-based LLM router — reframes routing as infrastructure a team owns for
+cost savings and transparency, rather than a hosted layer with vendor
+consolidation and lock-in risk baked in (see [cost
+controls](/topic/cost-controls) for the concrete instance).
 
 **Infra-level levers** help too, and the serving stack is increasingly
 pitched as a cost lever in its own right: vendors now frame the buying
@@ -172,19 +184,16 @@ ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
 here as a change in what individuals bother to build at all.
 
 ## What's new
-Claude Code fixed a quadratic message-normalization slowdown in long
-sessions — a harness-side cost-and-latency bug distinct from any model or
-architecture choice, causing multi-second stalls and slow resumes purely
-from the harness's own bookkeeping as a session's turn count grew. Separately,
-coding agents collapsing the cost of reverse-engineering undocumented APIs
-is reframing the ROI calculation for one-off automations: when the code is
-nearly free to write, it's also nearly free to throw away and rewrite,
-removing the maintenance-risk calculus that used to gate the work.
-
-Reasoning effort is emerging as its own trainable dial (RL length penalties,
-SFT mode-mixing, distilled effort specialists) rather than a side effect of
-model size — surfacing the model-size/reasoning-effort trade-off as a lever
-an agent harness can route on per request instead of a fixed model choice.
+"Agentic Context Management" names the cost curve the compaction lever above
+has been assuming without stating it: naive context accumulation is
+quadratic in conversation length, crude summarization is linear but lossy,
+and only validated compaction (its reference implementation, Maximem Synap)
+achieves linear cost with fidelity intact. Separately, consolidation among
+hosted LLM routers — OpenRouter's possible acquisition, plus proliferating
+hosted routers like Ramp Router and Vercel's AI Gateway — is pushing routing
+itself toward a build-vs-buy decision, with Millwright pitching a
+self-hosted, Rust-based router as the cost-and-transparency alternative to
+renting one.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

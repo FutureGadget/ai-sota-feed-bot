@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
-updated: 2026-07-23
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09]
+updated: 2026-07-24
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09]
 ---
 
 ## TL;DR
@@ -94,15 +94,25 @@ task is real" argument with numbers: a live 5G-core security-operations
 center's A2A+MCP multi-agent architecture cut mean time to detect/respond
 40% and human review load 12x.
 
+An eighth axis is the orchestration SDK itself showing up by name in
+production deployments outside that one showcase: Jefferies, an investment
+bank, built a front-office trading assistant on Strands Agents — an open
+agent-harness SDK for building agents that reason, plan, and act by
+orchestrating calls to foundation models and tools — paired with Amazon
+Bedrock, Amazon Bedrock Knowledge Bases, and MCP for unified access to
+trading data sources and tools. Apollo's GTM AI Assistant orchestrates a
+different harness, "Deep Agents," with LangSmith and its own MCP
+integrations, across prospecting, enrichment, outreach, and analytics. Two
+distinct harnesses reaching production in two distinct industries (finance,
+sales/GTM) rather than one orchestration framework winning outright.
+
 ## What's new
-A LangGraph field guide reframes the framework as fit-for-complexity rather
-than a default: typed state, checkpoints, and interrupts pay off on
-long-running stateful workflows (three recipes: repair-loop SQL,
-evidence-gated RAG, human-in-the-loop policy review), but simpler ReAct
-loops or schema-first tools win for basic jobs. A live production deployment
-backs the same calculus with hard numbers: a multi-agent A2A+MCP
-security-ops architecture in a 5G core cut MTTD/MTTR 40% and human review
-load 12x.
+Two named production deployments add concrete harness choices to the
+shipping-tooling axis: Jefferies' front-office trading assistant orchestrates
+Strands Agents with Amazon Bedrock Knowledge Bases and MCP, and Apollo's GTM
+AI Assistant orchestrates Deep Agents with LangSmith and MCP integrations —
+different SDKs answering the same "which harness handles routing and tool
+calls" question in finance versus sales/GTM.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0]
-updated: 2026-07-23
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd]
+updated: 2026-07-24
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd]
 ---
 
 ## TL;DR
@@ -151,12 +151,26 @@ flags ("what benchmarks actually compare agent harnesses, beyond
 Terminal-Bench") with a dedicated suite rather than repurposing a
 model-comparison benchmark.
 
+**Language and domain granularity** is a newer axis alongside the
+domain-narrow and subsystem-specific ones above: HalluTruthQA benchmarks
+hallucination detection, span-level localization, factual verification, and
+explanation quality in Arabic question answering across four
+knowledge-intensive domains (Islamic knowledge, history, science,
+geography), with 2,400 expert-curated examples pairing each answer with a
+verified reference, six verification candidates, and — for hallucinated
+answers — character-level erroneous spans and human-written explanations.
+Evaluated zero-shot against 4 open-source LLMs, no model tops every
+sub-task, evidence the benchmark landscape is starting to move past
+English-centric, response-level hallucination labels into non-English,
+finer-grained grading.
+
 ## What's new
-A new adversarial axis joins the benchmark set: ActionRail's value-poisoning
-suite tests whether an agent executes corrupted-but-plausible business data
-hidden in a document, finding cost-optimized models fail 48.3-63.3% of the
-time (vs. 1.7-21.7% for frontier models) and that a guard layer, not model
-capability, is what stops it (0/480 attacks succeeded with protection).
+A new benchmark widens language and domain coverage rather than adding
+another adversarial or coding axis: HalluTruthQA grades Arabic QA
+hallucination across four knowledge domains with 2,400 expert-curated
+examples and per-answer erroneous-span labels — the first benchmark on this
+page to score localization and explanation quality, not just binary
+hallucination detection.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static

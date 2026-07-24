@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7]
-updated: 2026-07-15
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da]
+updated: 2026-07-24
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da]
 ---
 
 ## TL;DR
@@ -26,7 +26,15 @@ Model Context Protocol (MCP) standardizes how tools are described, discovered,
 and called, so a Terraform server, a Webex server, or a browser can expose
 capabilities to any MCP-speaking agent. The argument has sharpened from "wrap
 your REST API" to "agents need *infrastructure*, not SMS APIs" — purpose-built,
-agent-native endpoints rather than human-oriented ones bolted on.
+agent-native endpoints rather than human-oriented ones bolted on. That
+argument now reaches past data and API access into deterministic computation
+itself: Euclid-MCP exposes SWI-Prolog logical reasoning behind a standard MCP
+tool interface, with an engine-agnostic intermediate representation
+(Euclid-IR) that an LLM can generate and the server compiles to Prolog through
+a translate-run-inspect-repair loop — on a compliance-sensitive IT security
+benchmark, LLMs alone hallucinate systematically as the knowledge base grows
+while Euclid-MCP returns exact answers with lower latency and more compact
+output (see [MCP](/topic/mcp)).
 
 But most enterprises can't rebuild their service estate agent-native, so a
 pragmatic **brownfield** pattern is emerging alongside the greenfield one:
@@ -76,7 +84,14 @@ Governance is maturing alongside design: the protocol's own
 Enterprise-Managed Authorization extension reached stable status, replacing
 per-server consent prompts with a single sign-on flow through an
 organization's identity provider — standardizing what individual vendors had
-already shipped one-off.
+already shipped one-off. A practitioner variant of that governance push
+pitches an intermediate protocol layer that turns raw APIs into versioned,
+encapsulated "virtual tools" — interface mapping, dynamic schema projection,
+and runtime taint tracking to catch data-exfiltration risk at the tool
+boundary before it happens. This is one engineering leader's architecture
+(Jake Mannix), not a benchmarked result, but it names the same gap the field
+guide above targets: ungoverned tool sprawl, approached from versioning and
+data-flow tracking rather than schema hygiene alone.
 
 A fifth axis is **how much of the job the model should own at all**:
 DoorDash's Ask DoorDash shopping assistant is a production counter-example to
@@ -93,14 +108,28 @@ shipped mitigation at the tool-call boundary rather than only a policy
 argument for scoping what a tool is allowed to touch (see
 [prompt injection](/topic/prompt-injection)).
 
+A seventh axis is **the harness itself becoming the training bottleneck**:
+the same elaborate multi-turn harnesses that make tool-calling agents
+powerful — Claude Code, Codex, OpenClaw-style loops — are stateful,
+multi-process systems that open SFT/RL stacks can't natively express, so
+training a harness-native agent end-to-end has been out of reach for open RL
+infrastructure. OpenForgeRL answers with a lightweight proxy that intercepts
+a harness's model calls and records them as RL training data (e.g. for
+veRL), paired with a Kubernetes orchestrator that runs each rollout in its
+own remote container — validated across tool/harness-based agents and
+multimodal GUI/browser-use agents, outperforming open baselines of similar
+size on nearly every benchmark tested (ClawEval, QwenClawBench,
+OSWorld-Verified, Online-Mind2Web, WebVoyager).
+
 ## What's new
-A production counter-example complicates "route everything through the
-model": DoorDash's Ask DoorDash shopping assistant explicitly avoids relying
-on the LLM alone, splitting the work across specialized agents,
-MCP-based tooling, and a separate persistent-memory intelligence layer —
-narrowing the LLM's job to orchestration and language rather than every
-decision. Claude Code also shipped a concrete tool-call-level defense against
-indirect prompt injection carried through subagent-read content.
+The harness itself is now a named obstacle, not just the tools it calls:
+OpenForgeRL trains harness-native agents (Claude Code/Codex-style multi-turn
+loops) end-to-end via a model-call recording proxy plus per-rollout
+Kubernetes containers, because existing RL stacks can't express stateful,
+multi-process harness inference. Separately, MCP's protocol layer now
+reaches past data and API access into deterministic computation — Euclid-MCP
+delegates multi-step logical reasoning to a Prolog backend through a
+standard MCP tool interface.
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

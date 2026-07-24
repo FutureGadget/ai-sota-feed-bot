@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44]
-updated: 2026-07-22
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8]
+updated: 2026-07-24
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8]
 ---
 
 ## TL;DR
@@ -42,7 +42,20 @@ the other way, silently missed) five security-relevant behavior changes at
 once. The pattern has since held for three further releases in a row (SDK
 0.2.123 → 0.2.125, each forwarding only a bundled-CLI version bump), so a
 chain-deep pin is not a one-time fix for a single incident but a standing
-requirement every release repeats. The honest current state is that the
+requirement every release repeats. The next two releases show pinning has to
+track more than just the bundled CLI, too: v0.2.126 added real, pinnable API
+surface on its own patch bump — `ResultMessage.terminal_reason` and typed
+`ResultMessage.model_usage` — so an integration that pins the SDK version
+also has to decide when to adopt behavior that only exists past that exact
+patch; v0.2.127 then shipped a genuine bug fix (background tasks no longer
+have `query()`'s stdin closed out from under them) bundled with yet another
+CLI bump, to v2.1.219, meaning a pin held one version too early keeps a real
+defect as well as missing a CLI update. The chain-deep pinning problem is
+also not specific to Anthropic's stack: Codex 0.144.6's changelog reads as a
+routine "refreshed bundled instructions" note, but the same release quietly
+corrected its bundled GPT-5.6 Sol/Terra/Luna models' context windows to
+272,000 tokens — a pin on the CLI version alone would have silently carried
+stale model metadata forward. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
 
@@ -65,12 +78,15 @@ discipline this page argues for, aimed at the migration process itself rather
 than just the target version.
 
 ## What's new
-The chain-deep pinning case keeps repeating rather than being a one-off:
-three SDK releases after 0.2.122's five-bug "bundled CLI update," the SDK is
-still shipping one-line "updated bundled Claude CLI" changelogs (0.2.125,
-forwarding v2.1.217) — a version-only lockfile would treat every one of
-these releases as a no-op, when each has actually changed the executable
-the agent runs on.
+Pinning now has to track more than bundled-CLI churn: SDK v0.2.126 added
+genuinely new pinnable API surface (`terminal_reason`, typed `model_usage`)
+on an ordinary patch bump, and v0.2.127 shows a pin held one version early
+also keeps a real stdin-closure bug alongside missing the CLI update to
+v2.1.219 — a version-only lockfile can't tell "safe to skip" releases from
+"actually changed" ones. Codex 0.144.6 shows the same chain-deep pinning
+gap on a competing vendor's stack, quietly correcting bundled models'
+context windows (272,000 tokens) inside a release billed as a routine
+instructions refresh.
 
 ## Trade-offs
 Pinning trades freshness and security currency for stability: stay pinned too

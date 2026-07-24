@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950]
-updated: 2026-07-23
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504]
+updated: 2026-07-24
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504]
 ---
 
 ## TL;DR
@@ -38,6 +38,22 @@ to write, when to write it, and how to recall the right slice cheaply** —
 which is where the two linked solutions diverge: retrieval from an external
 store (vector/graph knowledge bases) versus keeping the working set small via
 compaction.
+
+A broader framing argues the tiered-store model above is still too narrow:
+"Agentic Context Management" (ACM) treats memory as a **lifecycle, not a
+store** — deciding what to remember, extracting and structuring it, choosing
+the right store per data type, consolidating and forgetting while preserving
+provenance, judging what's relevant now, anticipating what's needed next, and
+compacting to a token budget without losing what matters, all across an
+organization's scope hierarchy rather than a single user. The paper names
+five primitives (architecting, ingesting, scoping, anticipating, compacting &
+consolidation) and ships a reference implementation, Maximem Synap. It also
+puts a number on why compaction quality matters: naive context accumulation
+grows token cost quadratically in conversation length, crude summarization
+buys linear cost at the price of an accuracy cliff, and only validated
+compaction achieves linear cost with fidelity preserved — the cost curve this
+page's tiered/compaction split has been assuming without naming (see
+[agent cost](/topic/agent-cost) for the run-time consequence).
 
 Recall itself is getting scrutinized: "Root Memories" shows similarity-based
 retrieval misses memories that are *logically* relevant rather than
@@ -196,13 +212,13 @@ coding agent and matches or beats specialized long-horizon harnesses (up to
 as a code-search problem rather than a vector-similarity one.
 
 ## What's new
-A programmatic-memory framework, PRO-LONG, keeps a complete structured
-interaction log and searches it with a coding agent instead of
-embedding-and-ranking it, improving 18.0 percentage points over a base agent
-on the full ARC-AGI-3 game set and matching specialized long-horizon
-harnesses (up to 76.1% pass@1) at 4.2-5.8x fewer tokens — a code-search
-alternative to the tiered vector/compaction split this page otherwise
-tracks.
+"Agentic Context Management" reframes memory as a lifecycle problem —
+architecting, ingesting, scoping, anticipating, and compacting/consolidating
+— rather than a storage-and-retrieval one, backed by a reference
+implementation (Maximem Synap) and an explicit cost argument: naive
+accumulation is quadratic in conversation length, crude summarization is
+linear but lossy, and only validated compaction is linear with fidelity
+preserved.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing
