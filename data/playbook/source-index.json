@@ -75,6 +75,25 @@
     },
     "edition_date": "2026-07-21"
   },
+  "16138a16616ddf2d": {
+    "id": "pb-agent-eval-three-tier-gates",
+    "kind": "source-backed",
+    "title": "Gate agent releases on three-tier eval scores, not vibes",
+    "area": "Evals",
+    "problem": "Motorway's dealer-search agent shipped with no way to catch tool-selection errors or multi-turn context drift before dealers saw them.",
+    "apply": "Score every candidate release on three thresholds — tool usage >95%, reasoning >85%, output quality >90% — using strands-agents-evals pre-deploy and Bedrock AgentCore Evaluations in production, and block deployment in a five-stage pipeline when any threshold misses. For non-deterministic runs, track pass^k (success across k consecutive trials) instead of a single pass/fail.",
+    "result": "Tool selection accuracy rose from 87% to 98%, task completion from 82% to 96%, and production incidents fell from 12/month to 2 — cutting incorrect results from 1 in 8 queries to 1 in 50.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/evaluating-ai-agents-a-production-blueprint-with-strands-and-agentcore/",
+    "source_sid": "16138a16616ddf2d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS and Motorway report before/after production metrics for the pipeline."
+    },
+    "edition_date": "2026-07-24"
+  },
   "1c2693c60a919d8d": {
     "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
     "kind": "source-backed",
@@ -112,6 +131,25 @@
       "note": "Cites specific benchmark performance-retention and token-reduction figures reported for GPT-5.6/gpt-oss and Kimi K2.5."
     },
     "edition_date": "2026-07-21"
+  },
+  "20a176e41161c528": {
+    "id": "pb-salience-normalization-rag-defense",
+    "kind": "source-backed",
+    "title": "Normalize retrieved-fact salience before your multi-hop RAG agent reasons over it",
+    "area": "Retrieval",
+    "problem": "A multi-hop RAG agent can be misled without a single false fact or injected instruction, just by reordering, emphasizing, or reframing truthful retrieved passages.",
+    "apply": "Add Salience Normalization as an input-side defense: flatten framing, emphasis, and positional cues on retrieved passages before they reach the reasoning step, so attribute binding across hops can't be redirected by presentation alone.",
+    "result": "Under a 30% edit budget, this 'salience induction' attack hit an 83.3% success rate across five model families; Salience Normalization cut that to 15.3% under standard attacks (23.6% against adaptive ones), while existing defenses left 75.7% of attacks succeeding.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2607.17535v1",
+    "source_sid": "20a176e41161c528",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Paper reports measured attack and defense success rates."
+    },
+    "edition_date": "2026-07-24"
   },
   "20cd66043e9dab55": {
     "id": "pb-dont-trust-leaderboard-perf-benchmarks",
@@ -474,6 +512,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "839c437bacc17af4": {
+    "id": "pb-swe-pruner-self-pruning",
+    "kind": "source-backed",
+    "title": "Let the coding agent's own representations decide what context to prune",
+    "area": "Cost & latency",
+    "problem": "Context-pruning for coding agents usually means running a separate classifier over tool output — another model to host, tune, and keep in sync.",
+    "apply": "Attach a small head directly to the coding agent's own internal representations to emit a keep-or-prune label per line, using a length-aware embedding keyed to each tool output's line count, instead of standing up a separate pruning classifier.",
+    "result": "SWE-Pruner Pro cut prompt-plus-completion tokens by up to 39% while lifting SWE-Bench Verified resolve rate by +3.8 points and long-context Oolong accuracy by +2.2 points, with bounded inference overhead.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2607.18213v1",
+    "source_sid": "839c437bacc17af4",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Paper reports measured token reduction and accuracy deltas."
+    },
+    "edition_date": "2026-07-24"
+  },
   "8561672eafb892cc": {
     "id": "pb-typed-eviction-over-summarization-long-sessions",
     "kind": "source-backed",
@@ -531,6 +588,25 @@
     },
     "edition_date": "2026-07-03"
   },
+  "86b488f1e921fab7": {
+    "id": "pb-os-sandbox-default-deny-network",
+    "kind": "source-backed",
+    "title": "Cut permission prompts by sandboxing the OS, not by asking more often",
+    "area": "Safety",
+    "problem": "Per-action approval prompts stopped protecting anything once users were approving about 93% of them on reflex.",
+    "apply": "Replace prompt-based approval with OS-level sandboxes — Seatbelt on macOS, bubblewrap on Linux — that let the agent write inside its workspace but deny network access by default, and route any needed credentials through a proxy that only accepts a session-scoped token instead of raw secrets.",
+    "result": "Anthropic reports an 84% drop in permission prompts for Claude Code after the switch, with blast radius contained even when the agent processes untrusted input.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/anthropic-claude-containment/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "86b488f1e921fab7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic reports the measured drop in permission prompts after the sandbox change."
+    },
+    "edition_date": "2026-07-24"
+  },
   "8db233accb157cb2": {
     "id": "pb-check-dependency-vulnerabilities-before-agent-installs",
     "kind": "source-backed",
@@ -549,6 +625,25 @@
       "note": "Tool's own description of its check logic and integration points; the safety payoff is a qualitative, non-benchmarked expectation."
     },
     "edition_date": "2026-07-03"
+  },
+  "916521ba0baad7c0": {
+    "id": "pb-euclid-mcp-prolog-reasoning",
+    "kind": "source-backed",
+    "title": "Offload multi-step logical reasoning to a Prolog MCP server, not the prompt",
+    "area": "Tool use",
+    "problem": "LLMs hallucinate systematically on multi-step logical reasoning once a compliance or safety rule base gets large, and semantic RAG can't enforce hard rules.",
+    "apply": "Expose a Prolog-backed MCP server (Euclid-MCP) that accepts a human-readable intermediate representation the LLM can generate directly, then run a translate-run-inspect-repair loop so the agent inspects proof traces and repairs its query instead of guessing at an answer.",
+    "result": "The paper reports that on an IT security/compliance benchmark, the LLM-only baseline held up on small rule sets but hallucinated on larger ones, while Euclid-MCP kept returning exact answers with lower latency and more compact output.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2607.21412v1",
+    "source_sid": "916521ba0baad7c0",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Paper reports a qualitative comparison on its own benchmark without exact percentages."
+    },
+    "edition_date": "2026-07-24"
   },
   "9283a6f418d96ab7": {
     "id": "pb-filter-agent-memory-by-metadata-before-vector-search",
@@ -702,6 +797,25 @@
     },
     "edition_date": "2026-07-07"
   },
+  "bd313e7fdc9f5123": {
+    "id": "pb-codify-security-in-claude-md",
+    "kind": "source-backed",
+    "title": "Codify security review into CLAUDE.md and skills before code generation, not after",
+    "area": "Safety",
+    "problem": "Manual security review can't scale once AI is authoring the majority of merged code — bugs need catching before they're generated, not after a human skims a diff.",
+    "apply": "Encode your org's security guidelines directly in CLAUDE.md and skills so generated code follows them from the first draft, run /security-review to flag attacker-controllable input during development, and stack multiple narrow-scope review agents (each with RAG context, none with full-repo authority) ahead of a human reviewer who samples risk-weighted approvals.",
+    "result": "Anthropic estimates about a third of past claude.ai incidents would now be caught automatically, and PR comment engagement rose from 16% to 54% as teams trusted the automated findings.",
+    "effort": "high",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle",
+    "source_sid": "bd313e7fdc9f5123",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic reports the retrospective incident-catch estimate and comment-rate change."
+    },
+    "edition_date": "2026-07-24"
+  },
   "c4fa725d5c123b2d": {
     "id": "pb-measure-reasoning-tokens-on-quantized-models",
     "kind": "source-backed",
@@ -796,6 +910,25 @@
       "note": "Reproducible tool-suppression phenomenon observed in a production agent across multiple open-weight model families."
     },
     "edition_date": "2026-06-26"
+  },
+  "d36a81ca7c645c40": {
+    "id": "pb-spec-driven-kernel-not-codegen",
+    "kind": "source-backed",
+    "title": "Have the agent write specs, and a deterministic kernel write the code",
+    "area": "Orchestration",
+    "problem": "Agent-generated application code is hard to trust in production because there's no single artifact that's both the proof of correctness and the thing that actually runs.",
+    "apply": "Have the agent emit a formal specification — behavior as a state machine, data as machine-readable entity definitions, authorization as default-deny policy — and let a deterministic kernel verify it via symbolic reasoning, exhaustive state exploration, fault-injected simulation, and property testing before it becomes the running system.",
+    "result": "Datadog's Temper kernel makes agent output repeatable and inspectable because the verified specification is the deployed system, eliminating drift between what was proven safe and what ships.",
+    "effort": "high",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/how-datadog-built-a-universal-machine-tool-for-claude-code",
+    "source_sid": "d36a81ca7c645c40",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The source describes the architecture qualitatively without a quantified production result."
+    },
+    "edition_date": "2026-07-24"
   },
   "dc1acd837d32b604": {
     "id": "pb-defend-agent-memory-against-forged-reasoning",
@@ -929,5 +1062,24 @@
       "note": "The paper defines and measures the benchmark categories but does not publish a specific mitigation; the recommendation to self-test is an editorial inference from its methodology."
     },
     "edition_date": "2026-07-07"
+  },
+  "fae52c3b17c1c504": {
+    "id": "pb-context-lifecycle-not-storage",
+    "kind": "source-backed",
+    "title": "Treat agent context as a lifecycle to manage, not a log to truncate",
+    "area": "Memory",
+    "problem": "Most production agent failures trace back to unmanaged context — bloated histories and tool definitions — not weak reasoning, and naive summarization trades accuracy for cost.",
+    "apply": "Split context management into five explicit stages: architecting the context structure, ingesting new information, scoping it to what's organizationally relevant, anticipating what will be needed next, and compacting/consolidating while preserving provenance of every kept fact.",
+    "result": "The reference implementation (Maximem Synap) hit 92% on LongMemEval and 93.2% on LoCoMo while achieving linear rather than quadratic cost growth as conversations lengthen.",
+    "effort": "high",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2607.21503v1",
+    "source_sid": "fae52c3b17c1c504",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Paper reports its own benchmark scores for the reference implementation."
+    },
+    "edition_date": "2026-07-24"
   }
 }
