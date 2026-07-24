@@ -5474,6 +5474,25 @@
   "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQZTFzRkRnYktjeGpNaUJ4STZ0UnFNX20wUzJHMGJZcS05ZkI0ZlFFMGNLU1d4UHpkdFRJX3k0Wi1QT3BhNnI5RHJScmdYblhCY0hUSU9MRXhmRHphWXVaTC1HSVdCQk14UklPMy14RUNMYkNNX1h5MEQyQnNTVlNZWnZrN2V2RkR3TWtnMGJ4YV85UkpzXzE0STZRTmx0N2s0Q1Y5Uzdwbm5udkg0WmxISmxIdWxmRE50YUhPNlVNcndINWhZalB1dVR3?oc=5",
   "why_it_matters": "Matches feed focus: codex, claude code."
  },
+ "7a982846f4848d96": {
+  "first_seen": "2026-07-24T04:01:52.581385+00:00",
+  "id": "5760bd3a238addbe",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "eval",
+   "codex"
+  ],
+  "published": "2026-07-23T17:38:30+00:00",
+  "sid": "7a982846f4848d96",
+  "source": "arxiv_cs_cl",
+  "summary": "Modern AI agents rely on elaborate inference harnesses such as Claude Code, Codex, and OpenClaw to drive multi-turn reasoning, tool use, and access to external systems. While powerful, these complex harnesses also make agents hard to train end-to-end with open infrastructure, whose SFT/RL stacks cannot natively express stateful, multi-process harness inference. To address this, we present OpenForgeRL, an open-source framework for training harness-based agents end-to-end in diverse environments. OpenForgeRL achieves this with a lightweight proxy that serves the harness's model calls while recording them as training data for a standard RL codebase (e.g., veRL), and a Kubernetes orchestrator that runs each rollout in its own remote container, together enabling training on any harness in any environment at scale. By decoupling training and inference, OpenForgeRL allows researchers to easily train, study, and improve agents directly in the real harnesses and environments they are deployed with. We validate our framework across diverse, complex harnesses and environments, spanning tool/claw-based agents and multimodal GUI browser- and computer-use agents. Using only hundreds to a few thousand tasks, OpenForgeClaw reaches 31.7 pass^3 and 55.9 pass@3 on ClawEval and 33.7 on QwenClawBench. OpenForgeGUI reaches 37.7 on OSWorld-Verified, 63.0 on Online-Mind2Web, and 72.3 on WebVoyager. Both outperform open baselines of similar size on nearly all benchmarks, and in the GUI setting match ",
+  "summary_1line": "Modern AI agents rely on elaborate inference harnesses such as Claude Code, Codex, and OpenClaw to drive multi-turn reasoning, tool use, and access to external systems. While powerful, these complex harnesses also mak...",
+  "title": "OpenForgeRL: Train Harness-native Agents in Any Environment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.21557v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, eval."
+ },
  "7acd20c6bf320475": {
   "first_seen": "2026-07-13T04:02:52.870683+00:00",
   "id": "05188ed893c028b7",
@@ -6372,6 +6391,22 @@
   "url": "https://byteask.ai",
   "why_it_matters": "Matches feed focus: harness, claude code."
  },
+ "90a7c1e30c1b639a": {
+  "first_seen": "2026-07-24T04:01:52.581385+00:00",
+  "id": "0a0dd2a33db40c77",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-07-24T01:54:34+00:00",
+  "sid": "90a7c1e30c1b639a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "What is China’s Kimi K3 and why is the US so rattled by it? AppleValleyNewsNow.com",
+  "summary_1line": "What is China’s Kimi K3 and why is the US so rattled by it? AppleValleyNewsNow.com",
+  "title": "What is China’s Kimi K3 and why is the US so rattled by it? - AppleValleyNewsNow.com",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxPOU5INUVoWmtiZ1U1TUo4RG91Q2h2d2ROQmt2U2JXamZfZXQ0ZC10YkktTEZKYnU3QjVWY25VTjdsM2tncjY2NTkwY2Z1bjhnV29mNkZ4UVVHZGdUcWZ2M19iT1hUcmFSS00zem5sUnY1a1cxNHlYU3pkc1dJSHN1WkxXUWlWNXpYT1NIMDBtcHptMzJOSHJyUWwtUGZJdTZiRkl3aXlXYWF4ZjdDY3pIakE0YWF4WTNhNnlFeTVOUEwteWE2ajVHWHA0aXhlYjZBME85cDliXy1oN1p5U2paZXR6VFVuQQ?oc=5",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "90fec1482e6a8e5a": {
   "first_seen": "2026-07-17T16:03:06.545405+00:00",
   "id": "1a3d4bf392afe6df",
@@ -6398,7 +6433,7 @@
   ],
   "published": "2026-07-23T15:15:37+00:00",
   "sid": "916521ba0baad7c0",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_llm_reliability",
   "summary": "Large Language Models (LLMs) excel at natural language understanding and generation but remain unreliable for multi-step logical reasoning, especially in safety-critical or compliance-sensitive domains. Recent neuro-symbolic approaches address this gap by coupling neural models with external symbolic engines, yet most integrations are bespoke and lack a standardized interface for tool-augmented agents. This paper presents Euclid-MCP, an open-source MCP server that provides deterministic logical reasoning via SWI-Prolog. Euclid-MCP introduces Euclid-IR, an engine-agnostic intermediate representation for Horn-clause logic that is human-readable, easy for LLMs to generate, and straightforward to compile into Prolog or alternative backends. The server exposes a compact tool interface that supports a translate-run-inspect-repair loop, enabling LLM clients to delegate inference while retaining full access to proof traces and derivation logs. We evaluate Euclid-MCP on a realistic IT security and compliance use case. Results show that while LLMs alone are sufficient on small knowledge bases, they hallucinate systematically on larger problems, whereas Euclid-MCP delivers exact answers with lower latency and more compact outputs. We argue that semantic RAG is fundamentally unsuited for rule enforcement, and that Euclid-MCP can serve as a stable, shared reasoning substrate for both RAG-based assistants and agentic systems.",
   "summary_1line": "Large Language Models (LLMs) excel at natural language understanding and generation but remain unreliable for multi-step logical reasoning, especially in safety-critical or compliance-sensitive domains. Recent neuro-s...",
   "title": "Euclid-MCP: A Model Context Protocol Server for Deterministic Logical Reasoning via Prolog",
