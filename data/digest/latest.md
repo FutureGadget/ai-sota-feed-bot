@@ -2,110 +2,110 @@
 
 Focus: AI Platform Engineering
 
-## 1. OpenAI’s accidental cyberattack against Hugging Face is science fiction that happened
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jul/22/openai-cyberattack/#atom-everything
-- Score: 2.972 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 2. The first known runaway AI agent - or a very bad marketing stunt?
+## 1. The first known runaway AI agent - or a very bad marketing stunt?
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/23/the-first-known-runaway-ai-agent/#atom-everything
-- Score: 2.956 | Reliability: 1.0
+- Score: 2.908 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. How We Benchmark Deep Agents
+## 2. How We Benchmark Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-we-benchmark-deep-agents
-- Score: 2.91 | Reliability: 1.0
+- Score: 2.862 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
+
+## 3. Project Pilot: Can AI models fly drones?
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/project-pilot
+- Score: 2.689 | Reliability: 1.0
+- Why it matters: 
 
 ## 4. OpenForgeRL: Train Harness-native Agents in Any Environment
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.21557v1
-- Score: 2.67 | Reliability: 1.0
+- Score: 2.665 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, eval.
 
 ## 5. Euclid-MCP: A Model Context Protocol Server for Deterministic Logical Reasoning via Prolog
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.21412v1
-- Score: 2.599 | Reliability: 1.0
+- Score: 2.594 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 6. July 2026: LangChain Newsletter — NemoClaw Blueprint, OpenWiki Brains, and More
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/july-2026-langchain-newsletter
-- Score: 2.572 | Reliability: 1.0
+- Score: 2.528 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2607.21503v1
-- Score: 2.558 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 8. Airbus Makes Protection from Extraterritorial Law a Scored Criterion in Its Cloud Tender
+## 7. Airbus Makes Protection from Extraterritorial Law a Scored Criterion in Its Cloud Tender
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/airbus-scaleway-sovereign-cloud/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.553 | Reliability: 1.0
+- Score: 2.508 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Presentation: Autonomous Data Products for the Autonomous Era: Rethinking Data Architecture for GenAI
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/ai-framework-data-infrastructure/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.447 | Reliability: 1.0
+## 8. Micron Is A Strong Buy Again Because Of Kimi K3 (NASDAQ:MU) - Seeking Alpha
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMikgFBVV95cUxPX1VvZHdXSnJFNWlQekV1UlhnVVBOcjE3c1ByS3p4X21EeEcxeklHbzBKOTF0bXFQWjVPM3VsMkZrYnltdWdocGlWbzc2aVZ0b0pKSDNWRG8tUnZJU1FNMi1sTkNxU0RGVlpMZU5MRmU4YmN0TlRqQV9VYU9XQlZ1Z21YMEhCVzhMeFBvdUpWSmpxQQ?oc=5
+- Score: 2.406 | Reliability: 1.0
 - Why it matters: 
 
-## 10. Launching Health in ChatGPT
+## 9. Launching Health in ChatGPT
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/health-in-chatgpt
-- Score: 1.841 | Reliability: 1.0
+- Score: 1.822 | Reliability: 1.0
 - Why it matters: 
+
+## 10. Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2607.21503v1
+- Score: 2.553 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
 ## 11. Toward Generalizable Cognitive Impairment Detection with Speech-Based Multimodal Large Language Models
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.21496v1
-- Score: 2.485 | Reliability: 1.0
+- Score: 2.481 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 12. What the UK should learn from Kimi K3, WAICO and the Hugging Face incident - Wired-Gov
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMi1wFBVV95cUxQSW5qYldNMUFYR2ZRRVJxc213UmRqUVVGV29PTmtNdTE2dkFrOUFCQnpzWmYwQTYwc1J4U19zdkZZbXU3MzV2VEx5NEw4WEpWdGRPYTY2d2xOTzdfZDh2S3d0bG56c3FEV0REbmFBQW4tYmtDS05hOE1kTTFqZ0RfQ0xwWnMtVFJSbXBMRm93bnJ4OU9MSm9hVllUYXBnMHZuX05wYTJ6czRNVzFaV1dTVFpxQUVEOVZ3Y0pvU210dnBKcWZfbWJaalBPR3VqQjVPc2xucnZiUQ?oc=5
-- Score: 2.39 | Reliability: 1.0
+## 12. Presentation: Autonomous Data Products for the Autonomous Era: Rethinking Data Architecture for GenAI
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/ai-framework-data-infrastructure/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.403 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. [AINews] Black Forest Labs FLUX 3 - Multimodal Flow Models that beat Seedance 2.0, Gemini Omni and Grok Imagine, and FLUX-mimic video-action robotics model
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-black-forest-labs-flux-3-multimodal
-- Score: 2.304 | Reliability: 1.0
+- Score: 2.263 | Reliability: 1.0
 - Why it matters: 
 
 ## 14. codex 0.146.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.146.0-alpha.6
-- Score: 2.197 | Reliability: 1.0
+- Score: 2.167 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 15. [AINews] "Laguna S 2.1 Released: Cheaper than Deepseek v4 Flash, Better than V4 Pro"
 - Type: release | Source: latent_space
 - URL: https://www.latent.space/p/ainews-laguna-s-21-released-cheaper
-- Score: 2.107 | Reliability: 1.0
+- Score: 2.071 | Reliability: 1.0
 - Why it matters: 
 
-## 16. SLAI T-Rex: Full-Parameter Post-training of the DeepSeek-V4 Family on Ascend SuperPOD
-- Type: paper | Source: arxiv_cn_open_weight_reports
-- URL: http://arxiv.org/abs/2607.20145v1
-- Score: 2.04 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 16. Quoting Seth Larson
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jul/23/seth-larson/#atom-everything
+- Score: 2.062 | Reliability: 1.0
+- Why it matters: 
 
-## 17. vllm v0.26.0rc1
+## 17. Build an explainable next-best-product recommendation system for banking on AWS
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/build-an-explainable-next-best-product-recommendation-system-for-banking-on-aws/
+- Score: 1.601 | Reliability: 1.0
+- Why it matters: 
+
+## 18. vllm v0.26.0rc1
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.26.0rc1
-- Score: 1.518 | Reliability: 1.0
-- Why it matters: 
-
-## 18. At AI Summit, South Korea Outlines Its AI Future With NVIDIA and Partners
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/ai-summit-korea-partners-and-nvidia/
-- Score: 1.4 | Reliability: 1.0
+- Score: 1.494 | Reliability: 1.0
 - Why it matters:
