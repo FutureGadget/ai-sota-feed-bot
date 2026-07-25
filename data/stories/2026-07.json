@@ -5584,6 +5584,24 @@
   "url": "https://github.com/capitalone/VulnHunter",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "76441278750caacb": {
+  "first_seen": "2026-07-25T23:01:59.700127+00:00",
+  "id": "a02ae9d4c60d0d9e",
+  "matched_topics": [
+   "agent",
+   "codex",
+   "claude code"
+  ],
+  "published": "2026-07-25T22:44:05+00:00",
+  "sid": "76441278750caacb",
+  "source": "simon_willison",
+  "summary": "Ruff v0.16.0 Astral shipped a significant new version of their Ruff Python linting tool a few days ago on July 23rd. I noticed today because my various CI jobs all started failing thanks to new default Ruff checks and my unpinned \"ruff\" dev dependency. From Brent Westbrook's announcement post: Ruff now enables 413 rules by default, up from 59 in previous versions. Since Ruff's default rule set was last modified in v0.1.0 , the number of rules in Ruff has grown from 708 to 968. Many of these rules catch severe issues, including syntax errors and immediate runtime errors but were not previously enabled by default. With the new rule set, Ruff will bring these issues and many others to your attention without any Ruff configuration. Here's a one-liner for trying it on any Python project: uvx ruff@latest check . I ran the latest Ruff against my three biggest projects - Datasette , sqlite-utils , and LLM - and it found hundreds of minor issues that breached the new default rules. All three projects have very comprehensive test suites, executed in CI against Python 3.10 through Python 3.14, so upgrades like this are pretty safe. The following command did the bulk of the upgrades: uvx ruff@latest check . --fix --unsafe-fixes Against sqlite-utils , that command reported: Found 1618 errors (1538 fixed, 80 remaining). As an illustrative example, here are three of the remaining issues. Ruff does a nice job of explaining each one: DTZ005 `datetime.datetime.now()` called without a `tz` argu",
+  "summary_1line": "Ruff v0.16.0 Astral shipped a significant new version of their Ruff Python linting tool a few days ago on July 23rd. I noticed today because my various CI jobs all started failing thanks to new default Ruff checks and...",
+  "title": "Ruff v0.16.0",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/25/ruff/#atom-everything",
+  "why_it_matters": "Matches feed focus: agent, codex, claude code."
+ },
  "764c073dd4e1fc67": {
   "first_seen": "2026-07-16T23:02:57.108374+00:00",
   "id": "979679573a8da627",
@@ -7083,6 +7101,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.11798v1",
   "why_it_matters": "Matches feed focus: evaluation."
+ },
+ "941de0af4349b631": {
+  "first_seen": "2026-07-25T23:01:59.700127+00:00",
+  "id": "0242436f14fc3c6f",
+  "published": "2026-07-25T22:51:20+00:00",
+  "sid": "941de0af4349b631",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Kimi K3 Distillation 2026 Faces a 15-Day Evidence Gap Memeburn",
+  "summary_1line": "Kimi K3 Distillation 2026 Faces a 15-Day Evidence Gap Memeburn",
+  "title": "Kimi K3 Distillation 2026 Faces a 15-Day Evidence Gap - Memeburn",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQMUtpUkpuRGxJTlg3bkpRR001a2NzbUE1cVlrWDU3NVhUN09tVzktWWdxNFFsRXF1ZWcwdVVpZTNQTEFKa2N5ZzBPM3RlN0ljTF94cTFvUmFHa2FLUDc0RFVVSWtXUXBwQUQ3Rld6V3JqYjJqZGRxUE9YampETzJiaw?oc=5"
  },
  "94223991c44926eb": {
   "first_seen": "2026-07-14T03:03:01.383564+00:00",
