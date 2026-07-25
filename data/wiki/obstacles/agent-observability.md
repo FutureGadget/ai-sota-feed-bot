@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad]
-updated: 2026-07-23
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150]
+updated: 2026-07-25
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150]
 ---
 
 ## TL;DR
@@ -86,13 +86,23 @@ instance of the trace-first, agentic-analysis pattern (HALO, LangSmith's
 on-call copilot) built on infrastructure a platform team already runs, not a
 new observability product.
 
+A named experiment sharpens where the RCA bottleneck actually sits: a Coroot
+test running root-cause analysis across eleven models finds LLMs can
+already do the reasoning once given correctly prepared context, which
+reframes the hard problem from "can the model reason about the failure" to
+"can the pipeline correlate telemetry into that context" — the same
+context-assembly work Expedia's STAR already invests in rather than a
+bigger model. The self-hosted, indie tooling layer keeps growing alongside
+the vendor consolidation this page tracks: a Show HN entrant ships
+observability specifically for coding agents and LLM applications, one more
+option in the trace-first tooling space beyond the named vendors above.
+
 ## What's new
-Expedia's STAR gives the trace-plus-agentic-analysis pattern a named
-production deployment: built on FastAPI, Datadog, Celery, Redis, and
-Langfuse, it analyzes telemetry during live incidents and generates
-root-cause assessments while keeping engineers in the loop, running on
-infrastructure most platform teams already operate rather than a dedicated
-observability product.
+A Coroot experiment running root-cause analysis across eleven models finds
+LLMs can already perform the reasoning once given correctly prepared
+context — shifting the hard problem from model capability to the pipelines
+that correlate telemetry into that context, which is exactly the
+context-assembly work Expedia's STAR already invests in.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

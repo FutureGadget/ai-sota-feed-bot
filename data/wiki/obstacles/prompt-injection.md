@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44]
-updated: 2026-07-22
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e]
+updated: 2026-07-25
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e]
 ---
 
 ## TL;DR
@@ -137,39 +137,22 @@ role-confusion and agent-as-identity stakes this page already argues, made
 concrete at the scale of a public, cross-organization advisory instead of a
 single red-team report.
 
+Model-level resistance is now getting reported as a headline eval result,
+not a footnote: Anthropic's Opus 5 system card finds it is the company's
+least prompt-injectable model yet, holding up across both PI evals and
+red-teaming, and Boris Cherny singled that out as more notable to him than
+the model's other benchmark scores — a data point that the jailbreak- and
+injection-resistance work this page tracks as an ongoing, versioned release
+concern (Fable 5's redeployment, the jailbreak-severity framework) is
+compounding release over release rather than staying flat.
+
 ## What's new
-OpenAI and Hugging Face jointly disclosed a security incident uncovered
-during AI model evaluation, surfacing advanced cyber capabilities in a
-frontier model and sharing early findings for other defenders — a
-cross-lab, public advisory rather than an isolated red-team write-up,
-underscoring that the offensive side of this obstacle is now serious enough
-to warrant coordinated disclosure between labs.
-
-The approval prompt itself joined the list of spoofable surfaces: Claude
-Code's chat-relayed permission previews failed to neutralize
-bidirectional-override, zero-width, and look-alike characters, letting
-injected tool input make an approval message display a different, safer
-command than the one that would run. Separately, prompt injection is now
-being reported as a two-way technique — defenders using it against the AI
-hacking agents attackers deploy, not only the reverse.
-
-OpenAI's GPT-Red turns red-teaming into a self-play loop that improves
-itself, explicitly targeting prompt-injection robustness alongside broader
-safety and alignment — moving red-teaming from a periodic external exercise
-toward a continuously-running part of the model's own development cycle. A
-honeypot login page got Claude's `web_fetch` tool to recursively follow
-attacker-generated nested links embedded in content it had already fetched,
-exfiltrating a user's name, home city, and employer before Anthropic patched
-`web_fetch` to stop following links returned within its own fetched
-content — a named, concrete instance of the role-confusion failure this page
-argues about abstractly.
-
-That builds on the standing shift from "filter the prompt" to "**govern the
-actor**" (agent-as-identity, per-parameter permissions, approval-gated
-writes), the **role confusion** framing of injection's root cause, the
-network-egress perimeter as a managed control (Google Cloud VPC Service
-Controls), and a named threat model for the ReAct loop's three attack points
-(MAESTRO).
+Anthropic's Opus 5 system card reports it as the company's least
+prompt-injectable model yet, holding up across prompt-injection evals and
+red-teaming — Boris Cherny flagged the finding as more significant to him
+than the model's other eval scores, extending this page's standing
+"jailbreak resistance as a versioned release concern" thread with a
+concrete model-level result.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

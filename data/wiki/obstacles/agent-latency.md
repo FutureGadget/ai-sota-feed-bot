@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093]
-updated: 2026-07-24
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f]
+updated: 2026-07-25
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f]
 ---
 
 ## TL;DR
@@ -128,22 +128,21 @@ integration throughput on dense and MoE Qwen3 models without hand-written
 per-model code — cutting the engineering cost of *keeping up* with new model
 architectures, which is itself a latency-relevant maintenance tax.
 
-## What's new
-vLLM added a second disaggregation axis for MoE serving: the AFD
-(Attention-FFN Disaggregation) plugin splits attention and FFN computation
-onto separate execution paths (GPU and Ascend NPU backends, connector-based
-execution, graph/micro-batching support), rather than only splitting by
-prefill/decode phase as the disaggregation work already on this page does.
+**Day-0 support is extending to hardware, not just models**: vLLM now runs
+end-to-end on pre-release NVIDIA Vera Rubin hardware, and separately shipped
+a production-scale preview of Kimi K3 support — KDA-aware prefix caching,
+fused kernels, optimized MXFP4 MoE, multimodal integration, and initial
+NVIDIA and AMD paths — extending the "new models get latency-tuned serving
+on day one" pattern already on this page (the 1T-parameter Inkling launch)
+to a new GPU generation and a new open-weight architecture at once.
 
-Two other data points also widen the latency picture beyond the
-model-serving stack this page has tracked. First, agent query volume is its
-own latency multiplier: a single agent task can fan out into hundreds of
-database/API queries, each held to chat-era responsiveness expectations, so
-teams are repurposing dashboard-era semantic-layer techniques (pre-aggregated
-rollups, columnar partition pruning) as agent-serving infrastructure. Second,
-day-0 serving support is becoming the norm for new models, not a follow-up
-project: vLLM shipped full-parity support for a 1T-parameter model on release
-day, reaching 380 tokens/sec/user with speculative decoding on 4 GB200 GPUs.
+## What's new
+vLLM keeps extending near-day-0 support along two new axes: it now runs
+end-to-end on pre-release NVIDIA Vera Rubin hardware, and separately shipped
+a production-scale preview of Kimi K3 support (KDA-aware prefix caching,
+fused kernels, optimized MXFP4 MoE, multimodal integration, initial NVIDIA
+and AMD paths) — the same day-0 serving pattern this page tracks for new
+models, now reaching a new hardware generation too.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the
