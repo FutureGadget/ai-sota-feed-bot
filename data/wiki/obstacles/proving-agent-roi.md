@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857]
-updated: 2026-07-17
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4]
+updated: 2026-07-26
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4]
 ---
 
 ## TL;DR
@@ -36,18 +36,21 @@ rather than an engineering team, evidence the cost-per-task framing is
 becoming the standard ROI vocabulary rather than one platform-engineering
 convention among several.
 
-## What's new
-Vendor-native spend governance now has a self-hosted counterpart: AWS's
-Claude apps gateway gives an org its own control plane over access, cost,
-and policy for Claude Code and Claude Desktop on Bedrock, the same
-attribute-and-cap job Claude Enterprise's admin analytics does from
-Anthropic's own console, but run and owned by the customer.
+**Model selection is becoming part of the same cost-per-task calculation,**
+not a separate choice made on raw benchmark scores: Anthropic's own model
+selection guide tells buyers to weigh cost per task against cost per token
+per model class, then settle the choice with evals built for the actual
+workload rather than a leaderboard number — tying model selection directly
+to the per-task attribution and eval-driven decision-making this page
+already argues for, from the vendor whose models are being chosen between.
 
-Separately, the ROI-metric vocabulary is getting a finance-side push: OpenAI's
-CFO proposed cost-per-successful-task, dependability, and return-on-compute
-as the practical AI scorecard — the same per-task attribution instinct this
-page has argued for from the engineering side, now framed as a CFO-level
-metric.
+## What's new
+Model selection is being folded into the cost-per-task framing directly:
+Anthropic's model-choice guidance tells teams to compare model classes on
+cost per task (not just cost per token) and settle the trade-off with evals
+built for their own workload — connecting the ROI-attribution instinct this
+page tracks to the model-selection decision itself, not just to spend
+monitoring after the model is already chosen.
 
 ## Why it matters for platform engineers
 Platform engineers cannot justify AI budgets on vague productivity claims alone. They must build the instrumentation to track cost-per-task, measure execution efficiency against human labor costs, and prevent token runaway. 

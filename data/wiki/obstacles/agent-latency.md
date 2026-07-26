@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f]
-updated: 2026-07-25
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9]
+updated: 2026-07-26
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9]
 ---
 
 ## TL;DR
@@ -47,7 +47,13 @@ because the agent's growing KV/context state has to be streamed back each step �
 and one direct answer is shrinking that state: RaBitQCache uses randomized
 rotated binary quantization to compress the KV cache and an adaptive top-p token
 budget instead of a fixed top-k, cutting the memory-I/O DualPath identifies as the
-bottleneck while holding generation quality. The dev-loop side of latency counts
+bottleneck while holding generation quality. A second answer targets the same
+bottleneck from the storage side rather than the compute side: OpenLake offloads
+KV state from GPU memory into a shared RAM/NVMe tier with a CUDA kernel that
+losslessly compresses blocks before they leave the GPU, so a prefix cached on one
+host is cheap to fetch from another instead of forcing a fresh GPU to redo the
+work — on a 128K-context workload it cut time-to-first-token from 44 seconds to
+0.6 seconds when the prefix was reused across hosts. The dev-loop side of latency counts
 too: local CI (running checks on the developer's machine instead of round-tripping
 to a remote runner) cuts the feedback loop for both human developers and coding
 agents, since round-trip time to a CI runner is on the same wall-clock budget as
@@ -134,15 +140,24 @@ a production-scale preview of Kimi K3 support — KDA-aware prefix caching,
 fused kernels, optimized MXFP4 MoE, multimodal integration, and initial
 NVIDIA and AMD paths — extending the "new models get latency-tuned serving
 on day one" pattern already on this page (the 1T-parameter Inkling launch)
-to a new GPU generation and a new open-weight architecture at once.
+to a new GPU generation and a new open-weight architecture at once. Release
+v0.26.0 folds a new model family into the same day-0 pattern from the start:
+the Inkling family ships with piecewise CUDA graph support, Hopper FA4
+relative attention, MTP=1 speculative decoding, LoRA, and NVFP4 quantization
+all in one release, alongside a DeepSeek-V4 performance push (a specialized
+routing kernel, fused top-k bias, and redundant-copy removal) that shaves
+E2E decode latency without touching the serving architecture — the routine,
+compounding kind of engine-side gain that adds up across every agent loop
+step on that model.
 
 ## What's new
-vLLM keeps extending near-day-0 support along two new axes: it now runs
-end-to-end on pre-release NVIDIA Vera Rubin hardware, and separately shipped
-a production-scale preview of Kimi K3 support (KDA-aware prefix caching,
-fused kernels, optimized MXFP4 MoE, multimodal integration, initial NVIDIA
-and AMD paths) — the same day-0 serving pattern this page tracks for new
-models, now reaching a new hardware generation too.
+A second answer to the KV-cache bottleneck lands on the storage side:
+OpenLake offloads KV state to a shared RAM/NVMe tier with a lossless
+GPU-side compression kernel, so a prefix cached on one host is cheap to
+reuse from another — on a 128K-context workload it cut time-to-first-token
+from 44 seconds to 0.6 seconds when the prefix was reused across hosts,
+complementing RaBitQCache's compute-side answer to the same DualPath-identified
+storage-bandwidth bottleneck.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

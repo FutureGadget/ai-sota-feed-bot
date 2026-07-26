@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53]
-updated: 2026-07-24
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7]
+updated: 2026-07-26
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7]
 ---
 
 ## TL;DR
@@ -75,7 +75,12 @@ since an agent re-sends its system prompt, tool schemas, and prior steps
 every turn; and inside the model, KV-cache reuse cuts a cost specific to
 multimodal agents that re-read the same frames or screenshots each step —
 Kamera's position-invariant cache reuses those visual tokens across context
-shifts instead of re-encoding them every look-back.
+shifts instead of re-encoding them every look-back. **KV-cache offload is
+becoming its own storage-engineering problem**: OpenLake moves the cache
+from GPU memory into a shared RAM/NVMe tier and compresses blocks losslessly
+before they leave the GPU, so a prefix cached on one host is cheap to fetch
+from another instead of being recomputed — on a 128K-context workload this
+cut total GPU time from 1,169 to 606 seconds, a 48.2% GPU-cost reduction.
 
 A subtler driver is the **context cost of instructions themselves** — every
 skill, hook, or subagent you add to steer an agent consumes context budget,
@@ -184,16 +189,14 @@ ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
 here as a change in what individuals bother to build at all.
 
 ## What's new
-"Agentic Context Management" names the cost curve the compaction lever above
-has been assuming without stating it: naive context accumulation is
-quadratic in conversation length, crude summarization is linear but lossy,
-and only validated compaction (its reference implementation, Maximem Synap)
-achieves linear cost with fidelity intact. Separately, consolidation among
-hosted LLM routers — OpenRouter's possible acquisition, plus proliferating
-hosted routers like Ramp Router and Vercel's AI Gateway — is pushing routing
-itself toward a build-vs-buy decision, with Millwright pitching a
-self-hosted, Rust-based router as the cost-and-transparency alternative to
-renting one.
+KV-cache offload gets a concrete storage-engine implementation with hard
+numbers: OpenLake moves cache state from GPU memory to a shared RAM/NVMe
+tier, losslessly compressing blocks before they leave the GPU so a prefix
+cached on one host is cheap to reuse from another — cutting GPU time on a
+128K-context workload from 1,169 to 606 seconds, a 48.2% GPU-cost reduction,
+and dropping time-to-first-token from 44s to 0.6s on a reused prefix. It is
+the sharpest cost number yet behind the standing "KV caches are outgrowing
+GPU memory" pressure this page already tracks.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

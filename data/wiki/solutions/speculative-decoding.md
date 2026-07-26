@@ -5,9 +5,9 @@ title: "Speculative decoding: draft cheaply, verify in parallel"
 status: active
 obstacles: [agent-latency]
 related_storylines: []
-evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db]
-updated: 2026-07-14
-covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db]
+evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
+updated: 2026-07-26
+covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
 ---
 
 ## TL;DR
@@ -37,12 +37,20 @@ reporting up to 2.00× throughput for Kimi-K2.5 and 1.79× for MiniMax-M2.5 —
 evidence the draft-and-verify pattern is becoming a cross-accelerator serving
 default rather than a technique tied to one vendor's silicon.
 
+Speculative decoding is also becoming a **day-0 launch feature**, not a
+follow-up optimization pass: vLLM v0.26.0 ships MTP=1 speculative decoding
+as part of the full support stack for its new Inkling model family from the
+first release, alongside base modeling, CUDA graph support, and
+quantization — the same "new model, latency-tuned serving on day one"
+pattern this page's throughline already tracks, now including the
+speculation setup itself instead of adding it later.
+
 ## What's new
-Speculative decoding's hardware co-design goes cross-vendor: AMD's Quark
-trains, quantizes, and serves EAGLE-3 draft models with vLLM on Instinct
-GPUs, reporting up to 2.00× throughput on Kimi-K2.5 and 1.79× on
-MiniMax-M2.5 — the same accelerator-level integration NVIDIA's DFlash
-already showed on Blackwell, now shipping on a second vendor's hardware.
+vLLM v0.26.0 ships MTP=1 speculative decoding for its new Inkling model
+family as part of the model's initial full support stack (alongside base
+modeling, CUDA graph support, and quantization) rather than as a later
+optimization pass — evidence that draft-and-verify setup is now planned
+into a new model's launch, not bolted on after.
 
 ## Trade-offs
 Lossless by construction — the full model still verifies every token, so quality
