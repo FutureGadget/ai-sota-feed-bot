@@ -2248,6 +2248,22 @@
   "url": "https://github.com/Bike4Mind/bike4mind",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "309c04c4364dddf7": {
+  "first_seen": "2026-07-26T14:01:48.448571+00:00",
+  "id": "fc1ab9c78d3fb92d",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-07-26T13:02:21+00:00",
+  "sid": "309c04c4364dddf7",
+  "source": "hackernews_ai",
+  "summary": "Hey HN, we’re the developers of OpenLake, an open source storage engine for offloading LLM KV caches from GPU memory into a shared tier of RAM and NVMe. We built OpenLake because KV caches are outgrowing GPU memory. A single 256K token conversation on Gemma 4 31B produces approximately 43GB of KV state, more than half the memory of an 80GB H100. The problem becomes even harder across a cluster: a prefix cached on one GPU host is unavailable when the next request lands on a different GPU, forcing the new GPU to repeat work the fleet has already completed. Once the KV cache is offloaded, network bandwidth becomes a major constraint on read latency. To move less data across the wire, we built deferred materialization: a custom CUDA kernel that losslessly compresses KV blocks before they leave GPU memory and decompresses them on the GPU after retrieval. In our tests, this achieved: - 1.72× lossless KV compression. - Approximately 600GB/s decompression throughput on an H100 - 80GB/s of effective KV throughput over a physical 50GB/s link At 128K context, retrieving cached KV reduces TTFT from 44 seconds to 0.6 seconds, a 66× improvement. Across the complete workload, GPU time reduces from 1,169 seconds to 606 seconds, saving 48.2% of GPU cost. OpenLake is written in Rust and uses io_uring with one pinned runtime per physical core. We provide connectors for vLLM and SGLang so the cache can be enabled without modifying the inference engine itself. I would love to hear how others are ",
+  "summary_1line": "Hey HN, we’re the developers of OpenLake, an open source storage engine for offloading LLM KV caches from GPU memory into a shared tier of RAM and NVMe. We built OpenLake because KV caches are outgrowing GPU memory. A...",
+  "title": "Show HN: Cuts Long Horizon Inference Costs by 50% via external KV Cache Offload",
+  "type": "news",
+  "url": "https://github.com/openlake-project/openlake",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "30f6c37c47e56825": {
   "first_seen": "2026-07-18T02:03:02.382633+00:00",
   "id": "0ff96cae7ed51c67",
