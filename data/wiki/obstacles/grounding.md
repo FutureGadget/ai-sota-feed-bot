@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528]
-updated: 2026-07-24
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a]
+updated: 2026-07-27
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a]
 ---
 
 ## TL;DR
@@ -84,6 +84,28 @@ index files onto wiki pages, so an agent can filter to "every doc tagged
 structured-recall argument this page already makes for SQL over embeddings,
 applied to the docs an agent grounds coding answers on.
 
+**Pre-compression is a fourth retrieval architecture** alongside vector,
+graph, and SQL: task-aware knowledge compression (TAKC) pre-compresses an
+entire knowledge base into task-specific representations ahead of query
+time, targeting the ceiling plain RAG hits on analytical questions that span
+hundreds of documents — trading a compression pass up front for a smaller,
+denser context at answer time, rather than retrieving and re-reading more
+raw pages per query. A parallel finding sharpens *when* to reach for the
+agentic version of RAG rather than the naive one: a data-integration study
+finds naive RAG keeps facing accuracy and cost limits in enterprise
+settings, while an agentic RAG loop — retrieving, checking, and re-querying
+rather than fetching once — buys back accuracy at a cost the paper argues is
+still worth measuring against the naive baseline before committing to it,
+not assuming agentic RAG is automatically the better trade.
+
+**Runtime grounding checks are shipping as a standalone layer**, distinct
+from the retrieval architecture itself: ActionRail is an open-source runtime
+framework that checks an agent's proposed action or value against
+ground-truth business data *before* it executes, rather than only scoring
+retrieval quality after the fact — the same value-poisoning failure mode its
+benchmark measures (see [agent benchmarks](/topic/agent-benchmarks)), now
+addressed as a deployable guard rather than only a measured risk.
+
 ## What's new
 A third grounding failure surface emerged that's adversarial rather than
 noisy: Salience Induction shows truth-preserving edits to fact position and
@@ -91,7 +113,13 @@ framing alone reach an 83.3% attack success rate against multi-hop RAG
 agents even when every retrieved claim is true, with a lightweight
 input-side defense (Salience Normalization) cutting that to 15.3% —
 grounding integrity now needs a defense distinct from the fact-checking and
-attribution work already on this page.
+attribution work already on this page. Two further additions target
+grounding from opposite ends of the pipeline: task-aware knowledge
+compression pre-compresses a knowledge base into task-specific
+representations to beat plain RAG's ceiling on cross-document analytical
+questions, and ActionRail ships a runtime framework that checks a proposed
+agent action against ground-truth business data before execution, turning
+its own value-poisoning benchmark finding into a deployable guard.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da]
-updated: 2026-07-24
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80]
+updated: 2026-07-27
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80]
 ---
 
 ## TL;DR
@@ -121,6 +121,15 @@ multimodal GUI/browser-use agents, outperforming open baselines of similar
 size on nearly every benchmark tested (ClawEval, QwenClawBench,
 OSWorld-Verified, Online-Mind2Web, WebVoyager).
 
+An eighth axis is **verifying the call itself before it runs**, distinct
+from hardening against injected content: a static verifier for OpenCode
+plugs formal-verification research ("Guardians of the Agents") into the
+harness as a plugin, checking a proposed tool call against safety
+properties before execution rather than only sandboxing or scoping what
+happens after — a proactive, pre-execution check to sit alongside the
+sandboxing and authorization controls tracked on
+[agent sandboxing](/topic/agent-sandboxing).
+
 ## What's new
 The harness itself is now a named obstacle, not just the tools it calls:
 OpenForgeRL trains harness-native agents (Claude Code/Codex-style multi-turn
@@ -129,7 +138,10 @@ Kubernetes containers, because existing RL stacks can't express stateful,
 multi-process harness inference. Separately, MCP's protocol layer now
 reaches past data and API access into deterministic computation — Euclid-MCP
 delegates multi-step logical reasoning to a Prolog backend through a
-standard MCP tool interface.
+standard MCP tool interface. A third addition targets the call itself before
+it runs: an open-source static verifier plugs formal-verification research
+into the harness to check a proposed tool call against safety properties
+pre-execution, rather than only sandboxing or scoping what happens after.
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

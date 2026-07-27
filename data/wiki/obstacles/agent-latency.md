@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9]
-updated: 2026-07-26
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e]
+updated: 2026-07-27
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e]
 ---
 
 ## TL;DR
@@ -150,14 +150,36 @@ E2E decode latency without touching the serving architecture — the routine,
 compounding kind of engine-side gain that adds up across every agent loop
 step on that model.
 
+The preview-to-production pattern this page already tracks (day-0 support
+landing ahead of a full optimization pass) gets a concrete follow-through:
+vLLM's production-scale Kimi K3 preview became efficient day-0 serving
+support in the same release cycle, keeping the hybrid KDA prefix caching,
+speculative decoding, and disaggregation from the preview while adding
+optimized kernels across both NVIDIA and AMD GPUs — evidence the "new
+open-weight model, latency-tuned serving on day one" pattern holds across a
+model's preview-to-GA transition, not just its initial launch. Vendors
+outside the model labs are running the same in-house serving playbook this
+page already tracks: Netflix's own LLM-serving platform pairs Triton and
+vLLM, a practitioner data point that the serving-layer techniques here
+(disaggregation, batching, kernel fusion) are standard operating practice
+at large deployers, not just a model lab's launch-day flex. The
+serving-layer-absorbs-agentic-behavior thread also gains a name for what
+comes after routing: vLLM's Semantic Router frames its next phase as
+building the training, evaluation, and inference engine for a
+**Mixture-of-Models** era — treating "which model handles this request" as
+a first-class serving-layer decision with its own eval loop, not a one-off
+routing feature bolted onto an existing engine.
+
 ## What's new
-A second answer to the KV-cache bottleneck lands on the storage side:
-OpenLake offloads KV state to a shared RAM/NVMe tier with a lossless
-GPU-side compression kernel, so a prefix cached on one host is cheap to
-reuse from another — on a 128K-context workload it cut time-to-first-token
-from 44 seconds to 0.6 seconds when the prefix was reused across hosts,
-complementing RaBitQCache's compute-side answer to the same DualPath-identified
-storage-bandwidth bottleneck.
+vLLM's Kimi K3 support moved from production-scale preview to efficient
+day-0 serving in the same release cycle, keeping the preview's KDA prefix
+caching, speculative decoding, and disaggregation while adding optimized
+NVIDIA and AMD kernels — the "day-0 latency-tuned serving" pattern already
+on this page holding across a model's preview-to-GA transition. Separately,
+Netflix detailed its own in-house Triton+vLLM serving platform, and vLLM's
+Semantic Router named its next phase "Mixture-of-Models," treating model
+routing as a first-class serving-layer discipline with its own training and
+eval loop rather than a bolted-on routing feature.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the
