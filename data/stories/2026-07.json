@@ -703,6 +703,23 @@
   "url": "https://blog.grandimam.com/posts/how-hacker-rank-scores-engineers",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "0f8bb094b1a337c9": {
+  "first_seen": "2026-07-27T02:01:48.728469+00:00",
+  "id": "c4716f46b4b551f1",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-07-24T17:59:22+00:00",
+  "sid": "0f8bb094b1a337c9",
+  "source": "arxiv_cs_cl",
+  "summary": "LLM training is shifting from manual design and annotation to interaction-driven self-evolution. However, existing self-evolutionary methods face a fundamental dilemma between task diversity and verification reliability: environment-bound methods obtain precise feedback but confine learning to narrow domains, while open-ended self-generation broadens the task space but lacks reliable verification, allowing misleading rewards to pollute the training loop. We identify agent skills as a powerful middle ground to reconcile this tension: each skill ensures deep, verifiable execution in a specific scenario, while dynamic routing across skills maintains open-ended task variety. Leveraging this insight, we introduce Skill Self-Play (Skill-SP), a co-evolutionary framework comprising a proposer, a solver, and a dynamic skill controller. Orchestrated via a reinforcement learning loop, these components co-evolve in a continuous self-play loop: the proposer generates challenging tasks conditioned on dynamically sampled skills; the solver explores candidate solutions to push its capability boundaries; and the skill controller collects execution feedback to update and expand the skill library. This interactive co-evolution effectively bridges the gap between structured verification and open-ended exploration. Empirical evaluations on tool-use and reasoning benchmarks demonstrate that Skill-SP, serving as a robust evolution engine, consistently pushes the performance ceiling of competent bac",
+  "summary_1line": "LLM training is shifting from manual design and annotation to interaction-driven self-evolution. However, existing self-evolutionary methods face a fundamental dilemma between task diversity and verification reliabili...",
+  "title": "Skill Self-Play: Pushing the Frontier of LLM Capability with Co-Evolving Skills",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.22529v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "1029048a4e898aaa": {
   "first_seen": "2026-07-17T17:03:06.285352+00:00",
   "id": "bd3cd95d47a3fbaf",
@@ -6006,7 +6023,7 @@
   ],
   "published": "2026-07-23T17:38:30+00:00",
   "sid": "7a982846f4848d96",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_cs_ai",
   "summary": "Modern AI agents rely on elaborate inference harnesses such as Claude Code, Codex, and OpenClaw to drive multi-turn reasoning, tool use, and access to external systems. While powerful, these complex harnesses also make agents hard to train end-to-end with open infrastructure, whose SFT/RL stacks cannot natively express stateful, multi-process harness inference. To address this, we present OpenForgeRL, an open-source framework for training harness-based agents end-to-end in diverse environments. OpenForgeRL achieves this with a lightweight proxy that serves the harness's model calls while recording them as training data for a standard RL codebase (e.g., veRL), and a Kubernetes orchestrator that runs each rollout in its own remote container, together enabling training on any harness in any environment at scale. By decoupling training and inference, OpenForgeRL allows researchers to easily train, study, and improve agents directly in the real harnesses and environments they are deployed with. We validate our framework across diverse, complex harnesses and environments, spanning tool/claw-based agents and multimodal GUI browser- and computer-use agents. Using only hundreds to a few thousand tasks, OpenForgeClaw reaches 31.7 pass^3 and 55.9 pass@3 on ClawEval and 33.7 on QwenClawBench. OpenForgeGUI reaches 37.7 on OSWorld-Verified, 63.0 on Online-Mind2Web, and 72.3 on WebVoyager. Both outperform open baselines of similar size on nearly all benchmarks, and in the GUI setting match ",
   "summary_1line": "Modern AI agents rely on elaborate inference harnesses such as Claude Code, Codex, and OpenClaw to drive multi-turn reasoning, tool use, and access to external systems. While powerful, these complex harnesses also mak...",
   "title": "OpenForgeRL: Train Harness-native Agents in Any Environment",
@@ -9256,11 +9273,11 @@
  },
  "b811cc97eff4aae9": {
   "first_seen": "2026-07-25T02:01:49.423049+00:00",
-  "id": "b634f5a8e7bdfce4",
+  "id": "bdcfda467bfabcaf",
   "matched_topics": [
-   "codex"
+   "eval"
   ],
-  "published": "2026-07-27T00:57:50+00:00",
+  "published": "2026-07-27T01:06:58+00:00",
   "release_highlights": [
    "New Inkling model family with a full support stack: base modeling , piecewise CUDA graph support , Hopper FA4 relative attention , MTP=1 speculative decoding...",
    "DeepSeek-V4 performance push across vendors: a specialized routing kernel (2.94% E2E TPOT, #48660 ), fused_topk_bias (1.5–2x kernel, #47463 ), and redundant...",
@@ -9268,12 +9285,12 @@
   ],
   "sid": "b811cc97eff4aae9",
   "source": "vllm_releases",
-  "summary": "Signed-off-by: khluu khluu000@gmail.com Co-authored-by: OpenAI Codex codex@openai.com (cherry picked from commit 0934b26 )",
-  "summary_1line": "Signed-off-by: khluu khluu000@gmail.com Co-authored-by: OpenAI Codex codex@openai.com (cherry picked from commit 0934b26 )",
-  "title": "v0.26.0: [CI/Build] Refresh tags before building macOS wheel (#49901)",
+  "summary": "vLLM v0.26.0 Release Notes Highlights This release features 411 commits from 212 contributors (61 new)! New Inkling model family with a full support stack: base modeling ( #48799 ), piecewise CUDA graph support ( #48822 ), Hopper FA4 relative attention ( #48858 ), MTP=1 speculative decoding ( #48869 ), LoRA ( #48884 ), and standard ModelOpt NVFP4 quantization ( #48990 ). DeepSeek-V4 performance push across vendors: a specialized routing kernel (2.94% E2E TPOT, #48660 ), fused_topk_bias (1.5–2x kernel, #47463 ), and redundant repeat/copy removal (1.8% E2E TPOT, #48137 ), plus ROCm two-stage compressor for HCA prefill ( #47718 ), sparse decode/prefill optimizations ( #48519 , #48788 , #46275 ), and DSpark speculative decoding on AMD ( #47419 ) and XPU ( #47677 ). fp32 lm_head for generation models via head_dtype ( #48390 ), extended to the LoRA path ( #48525 ) and given a ROCm torch.mm fast path ( #48688 ), improving accuracy for generation heads. Flexible attention backends : the attention backend can now be selected per KV-cache group ( #48012 ), and sliding-window support is now an explicit backend capability ( #48011 ) — improving support for hybrid models. KV offloading & tiered secondary storage matured substantially: offloading metrics ( #45958 , #47666 , #47679 ), tier-owned event handling ( #46544 , #47923 ), object-store secondary tier with workload identity ( #47063 , #47274 , #48150 ), DP-replica-aware tiering ( #47987 ), and encoder-cache (EC) connectors including ",
+  "summary_1line": "New Inkling model family with a full support stack: base modeling , piecewise CUDA graph support , Hopper FA4 relative attention , MTP=1 speculative decoding... · DeepSeek-V4 performance push across vendors: a special...",
+  "title": "vllm v0.26.0",
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.26.0",
-  "why_it_matters": "Matches feed focus: codex."
+  "why_it_matters": "Matches feed focus: eval."
  },
  "b84094e090b7831f": {
   "first_seen": "2026-07-23T06:01:45.165918+00:00",
@@ -9340,7 +9357,7 @@
  "b9147eae91966bad": {
   "first_seen": "2026-07-26T23:02:07.481064+00:00",
   "id": "fcf7cf40b11b70a7",
-  "published": "2026-07-27T00:38:56+00:00",
+  "published": "2026-07-27T01:33:06+00:00",
   "sid": "b9147eae91966bad",
   "source": "search_cn_open_weight_labs",
   "summary": "The faces behind China's AI rise: Meet the founders of DeepSeek, Z.ai and Moonshot AI CNA",
