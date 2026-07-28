@@ -2,122 +2,116 @@
 
 Focus: AI Platform Engineering
 
-## 1. AWS Launches Amazon GuardDuty Investigation Agent to Automate Threat Triage
+## 1. ALI: A Python agent architecture where the normative evaluator is
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/drwolfgangstegemann-sudo/ali-reference-implementation
+- Score: 2.774 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 2. AWS Launches Amazon GuardDuty Investigation Agent to Automate Threat Triage
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/guardduty-investigation-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.761 | Reliability: 1.0
+- Score: 2.73 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 2. SIREN: Towards End-to-End Extreme-Weather Early Warning with Experience-Grounded LLM Agents
+## 3. SIREN: Towards End-to-End Extreme-Weather Early Warning with Experience-Grounded LLM Agents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.24588v1
-- Score: 2.621 | Reliability: 1.0
+- Score: 2.605 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, harness, evaluation.
-
-## 3. Kimi K3 Open-Source Release: Why Anthropic Finally Dropped Its Pretense in AI Model Competition - 36 Kr
-- Type: release | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTFBySFo1VDI4X3hmaVdjdXRzb0E5bHFMQ0lRVm1ZVGlCWU81Wkhzdmw2RHB6UlY3T0dxY1JqREpXdG9DTHpUbW9CWkdDRVlQZkhIZXZJ?oc=5
-- Score: 2.597 | Reliability: 1.0
-- Why it matters: 
 
 ## 4. How LangChain Built an Agent-First Data Stack
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/agent-data-stack
-- Score: 2.589 | Reliability: 1.0
+- Score: 2.56 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. The Cost of Knowing: A Resource-Aware Protocol for Benchmarking Hallucination Beyond Static Leaderboards
+## 5. Kimi K3 Open-Source Release: Why Anthropic Finally Dropped Its Pretense in AI Model Competition - 36氪
+- Type: release | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTFBySFo1VDI4X3hmaVdjdXRzb0E5bHFMQ0lRVm1ZVGlCWU81Wkhzdmw2RHB6UlY3T0dxY1JqREpXdG9DTHpUbW9CWkdDRVlQZkhIZXZJ?oc=5
+- Score: 2.528 | Reliability: 1.0
+- Why it matters: 
+
+## 6. The Cost of Knowing: A Resource-Aware Protocol for Benchmarking Hallucination Beyond Static Leaderboards
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2607.24063v1
-- Score: 2.496 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 6. Evaluating Agents Beyond the First Prompt
-- Type: news | Source: philschmid
-- URL: https://www.philschmid.de/evocode-bench
 - Score: 2.482 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 7. An opinionated guide to which AI to use to do stuff
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/27/an-opinionated-guide-to-which-ai-to-use-to-do-stuff/#atom-everything
-- Score: 2.468 | Reliability: 1.0
+- Score: 2.441 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
-## 8. Our position on open-weights models
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/position-open-weights-models
-- Score: 2.207 | Reliability: 1.0
+## 8. [AINews] Much ado about Open Weights
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-much-ado-about-open-weights
+- Score: 2.39 | Reliability: 1.0
 - Why it matters: 
 
-## 9. How AI is expanding what people do at work
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-ai-is-expanding-what-people-do-at-work
-- Score: 2.029 | Reliability: 1.0
+## 9. Our position on open-weights models
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/position-open-weights-models
+- Score: 2.189 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Expanding our partnership with Cognizant | Anthropic
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/cognizant-anthropic
-- Score: 1.991 | Reliability: 1.0
+- Score: 1.977 | Reliability: 1.0
 - Why it matters: 
 
-## 11. [AINews] Much ado about Open Weights
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-much-ado-about-open-weights
-- Score: 2.418 | Reliability: 1.0
-- Why it matters: 
-
-## 12. Full Text Search in SmithDB: Designing an Inverted Index for Object Storage
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/full-text-search-in-smithdb-designing-an-inverted-index-for-object-storage
-- Score: 2.403 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Kimi K3: Open Frontier Intelligence
+## 11. Kimi K3: Open Frontier Intelligence
 - Type: paper | Source: arxiv_cn_open_weight_reports
 - URL: http://arxiv.org/abs/2607.24653v1
-- Score: 2.389 | Reliability: 1.0
+- Score: 2.374 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 14. The harness is all you need (mostly)
-- Type: news | Source: github_blog_ai_ml
-- URL: https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/
-- Score: 2.366 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
-
-## 15. Beyond Scale and Generation: Understanding Language Model-based Entity Matching
+## 12. Beyond Scale and Generation: Understanding Language Model-based Entity Matching
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.24688v1
-- Score: 2.357 | Reliability: 1.0
+- Score: 2.342 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 16. GitHub Copilot app for Beginners: Getting started
+## 13. The harness is all you need (mostly)
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/the-harness-is-all-you-need-mostly/
+- Score: 2.34 | Reliability: 1.0
+- Why it matters: Matches feed focus: harness.
+
+## 14. GitHub Copilot app for Beginners: Getting started
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-getting-started/
-- Score: 2.33 | Reliability: 1.0
+- Score: 2.305 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. codex 0.146.0-alpha.14
+## 15. moonshotai/Kimi-K3
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jul/27/kimi-k3/#atom-everything
+- Score: 2.296 | Reliability: 1.0
+- Why it matters: 
+
+## 16. codex 0.146.0-alpha.14
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.146.0-alpha.14
-- Score: 2.311 | Reliability: 1.0
+- Score: 2.284 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 18. Evaluating Fuzz Testing for Reinforcement Learning Agents
+## 17. Evaluating Fuzz Testing for Reinforcement Learning Agents
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.24577v1
-- Score: 2.277 | Reliability: 1.0
+- Score: 2.263 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 19. vllm v0.26.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.26.0
-- Score: 2.111 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 18. Article: An Evolutionary Architecture Pattern for Managing AI’s Pace of Change
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/articles/evolutionary-architecture-pattern/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.188 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
-## 20. Beyond RAG: Task-aware knowledge compression for enterprise AI on AWS
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/beyond-rag-task-aware-knowledge-compression-for-enterprise-ai-on-aws/
-- Score: 1.202 | Reliability: 1.0
+## 19. vllm v0.26.1rc0
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.26.1rc0
+- Score: 1.768 | Reliability: 1.0
 - Why it matters:
