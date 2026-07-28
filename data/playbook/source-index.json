@@ -265,6 +265,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "309c04c4364dddf7": {
+    "id": "pb-kv-cache-offload",
+    "kind": "source-backed",
+    "title": "Offload long-context KV caches to RAM/NVMe instead of recomputing prefill",
+    "area": "Cost & latency",
+    "problem": "Long-horizon or repeated-prefix agent sessions keep re-running expensive prefill because KV caches don't fit in GPU memory and get evicted between requests.",
+    "apply": "Run an external KV cache store (e.g. OpenLake's vLLM connector) that writes the KV cache once to host RAM/NVMe and reads it back on the next request instead of recomputing it, using zero-copy GPUDirect Storage/RDMA I/O so the read stays off the request's critical path.",
+    "result": "OpenLake reports up to 66x faster time-to-first-token on cache hits at 128K context, cutting long-horizon inference cost by offloading prefill work GPUs would otherwise redo.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/openlake-project/openlake",
+    "source_sid": "309c04c4364dddf7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The 66x TTFT figure and cost-reduction framing come from the project's own README/benchmarks, not an independent measurement."
+    },
+    "edition_date": "2026-07-28"
+  },
   "34b461bf5b9be5ff": {
     "id": "pb-trace-coding-agents-thread-id",
     "kind": "source-backed",
@@ -321,6 +340,44 @@
       "note": "MCP working group's own description of the now-stable Enterprise-Managed Authorization extension and its adopter list."
     },
     "edition_date": "2026-07-10"
+  },
+  "3d246e12f4bcb95e": {
+    "id": "pb-local-agent-firewall",
+    "kind": "source-backed",
+    "title": "Put a deterministic firewall at the agent's tool-call boundary",
+    "area": "Safety",
+    "problem": "A coding agent with shell or MCP access can be steered into destructive commands, secret exfiltration, or supply-chain attacks faster than a human reviewer can catch it in the diff.",
+    "apply": "Add a local, rule-based interceptor (e.g. Belay) between the agent and its tool calls that denies irreversible commands (rm -rf, shell injection, secret file reads) outright, routes ambiguous ones to a human Ask step with a timeout-deny default, and hash-verifies skill files so an approved skill can't be swapped afterward.",
+    "result": "Belay reports deciding in under 100ms with no LLM or cloud round-trip in the decision path, blocking destructive, exfiltration, and supply-chain attack classes before they execute; the project frames this as defense-in-depth, not a guarantee against obfuscated payloads.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/SECBLOK/belay",
+    "source_sid": "3d246e12f4bcb95e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The sub-100ms decision latency and blocked-attack classes are the project's own claims, not independently verified."
+    },
+    "edition_date": "2026-07-28"
+  },
+  "46be0149e39dc713": {
+    "id": "pb-task-aware-knowledge-compression",
+    "kind": "source-backed",
+    "title": "Pre-compress knowledge bases per task instead of retrieving fragments at query time",
+    "area": "Retrieval",
+    "problem": "Similarity-search RAG surfaces relevant chunks but misses the cross-document connections analytical questions spanning hundreds of documents need.",
+    "apply": "Offline, chunk documents and compress them at multiple ratios (e.g. 8x/16x/32x/64x) using task-aware prompts that preserve what that task cares about — revenue figures for financial analysis, violations for compliance — then route each incoming query to the lightest compression tier that still answers it: heavy compression for simple lookups, light compression for complex analysis.",
+    "result": "AWS reports token cost dropping from about 10% of full-context cost with top-10-chunk RAG to about 6.25% at medium (16x) compression and about 1.6% at ultra (64x) compression, while preserving cross-document connections RAG misses.",
+    "effort": "high",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/beyond-rag-task-aware-knowledge-compression-for-enterprise-ai-on-aws/",
+    "source_sid": "46be0149e39dc713",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS reports the token-cost percentages for RAG vs. TAKC compression tiers directly."
+    },
+    "edition_date": "2026-07-28"
   },
   "4a0a79e7203bae64": {
     "id": "pb-mine-agent-traces-fine-tune-judge-models",
@@ -607,6 +664,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "89a606f362d88b4e": {
+    "id": "pb-skills-regression-tax",
+    "kind": "source-backed",
+    "title": "Score agent skills by regressions caused, not just success-rate gains",
+    "area": "Orchestration",
+    "problem": "Adding a procedural skill to an agent can quietly make it worse on tasks it already solved — merely having a skill in context shifts behavior even when it's never invoked.",
+    "apply": "Score every candidate skill on two separate numbers: tasks newly solved and previously-passing tasks now failing. Before shipping, audit failures for the three known regression modes — description osmosis (an unused skill still changing behavior), grounding displacement (skill text overriding how the agent reads its inputs), and verification displacement (skill guidance suppressing the agent's own output checks).",
+    "result": "The paper found top-performing skills win mainly by regressing less, not by gaining more — decomposed evaluation surfaces harm an aggregate success-rate metric hides.",
+    "effort": "medium",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2607.22520v1",
+    "source_sid": "89a606f362d88b4e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper decomposes skill-driven agent performance into gains and regressions and measures each directly."
+    },
+    "edition_date": "2026-07-28"
+  },
   "8db233accb157cb2": {
     "id": "pb-check-dependency-vulnerabilities-before-agent-installs",
     "kind": "source-backed",
@@ -625,6 +701,25 @@
       "note": "Tool's own description of its check logic and integration points; the safety payoff is a qualitative, non-benchmarked expectation."
     },
     "edition_date": "2026-07-03"
+  },
+  "8e418fc06184a07b": {
+    "id": "pb-claude5-context-engineering",
+    "kind": "source-backed",
+    "title": "Cut prescriptive system-prompt rules for capable Claude 5-generation models",
+    "area": "Memory",
+    "problem": "Detailed rules and repeated instructions that were needed to guardrail earlier models now over-constrain Claude 5-generation models and just eat context budget.",
+    "apply": "Replace prescriptive directives (e.g. \"never write multi-paragraph docstrings\") with judgment-based guidance (\"match surrounding idioms\"), move usage instructions into tool descriptions instead of duplicating them in the system prompt, and load supplementary guidance via Skills and progressive disclosure instead of always-on prompt text.",
+    "result": "Anthropic removed over 80% of Claude Code's system prompt for Opus 5/Fable 5 with no measurable loss on their coding evaluations.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models",
+    "source_sid": "8e418fc06184a07b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic reports the 80% prompt reduction and no measurable regression on their internal coding evals."
+    },
+    "edition_date": "2026-07-28"
   },
   "916521ba0baad7c0": {
     "id": "pb-euclid-mcp-prolog-reasoning",
@@ -796,6 +891,25 @@
       "note": "Resolution rates and the percentage-point improvement over baselines are reported directly in the paper's benchmark results."
     },
     "edition_date": "2026-07-07"
+  },
+  "baa0094f7155ee33": {
+    "id": "pb-verification-loop-skills",
+    "kind": "source-backed",
+    "title": "Turn your manual PR checks into a Claude Code skill",
+    "area": "Reliability",
+    "problem": "Reviewers repeat the same manual verification steps on every agent-generated PR, and those checks silently lapse whenever no one has time to run them by hand.",
+    "apply": "Write the manual check as plain-English steps in a skill file — frontmatter plus a procedure like \"read the error-handling paths in the diff; confirm every error-path log call includes the request ID and excludes the request body\" — then wire it to run automatically on every PR instead of only on manual invocation.",
+    "result": "The check becomes a standing quality gate Claude runs and closes the loop on itself, instead of a step that depends on a human remembering to do it.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/building-verification-loops-in-claude-code-with-skills",
+    "source_sid": "baa0094f7155ee33",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Anthropic describes the mechanism and PR-integrated deployment mode but reports no quantified before/after metric."
+    },
+    "edition_date": "2026-07-28"
   },
   "bd313e7fdc9f5123": {
     "id": "pb-codify-security-in-claude-md",
@@ -1062,6 +1176,25 @@
       "note": "The paper defines and measures the benchmark categories but does not publish a specific mitigation; the recommendation to self-test is an editorial inference from its methodology."
     },
     "edition_date": "2026-07-07"
+  },
+  "f94c501f001ba6a5": {
+    "id": "pb-multiturn-regression-evals",
+    "kind": "source-backed",
+    "title": "Add persistent-workspace regression tests, not just single-turn evals",
+    "area": "Evals",
+    "problem": "Single-turn benchmarks overstate how reliable a coding agent is — in EvoCode-Bench's multi-round runs, top agents fail mostly by breaking earlier working code, not by failing to add new features.",
+    "apply": "Build a multi-round eval harness that reuses one persistent workspace across sequential tasks, with a cumulative test suite that re-checks every prior requirement after each new change, and require the agent to maintain a running requirements document it consults before editing.",
+    "result": "In EvoCode-Bench, agents that kept a persistent requirements document more than doubled their success rate, and the gap between single-turn and multi-turn scores (up to 4x on lower-tier models) narrows.",
+    "effort": "medium",
+    "source": "philschmid",
+    "source_url": "https://www.philschmid.de/evocode-bench",
+    "source_sid": "f94c501f001ba6a5",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "EvoCode-Bench measured the requirements-document success-rate lift and the single-turn vs. multi-turn score gap directly."
+    },
+    "edition_date": "2026-07-28"
   },
   "fae52c3b17c1c504": {
     "id": "pb-context-lifecycle-not-storage",
