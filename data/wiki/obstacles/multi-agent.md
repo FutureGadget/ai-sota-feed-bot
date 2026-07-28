@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709]
-updated: 2026-07-25
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679]
+updated: 2026-07-28
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679]
 ---
 
 ## TL;DR
@@ -180,13 +180,22 @@ counterpart to the Jefferies/Apollo production deployments above: proving
 the pattern works for one builder first, rather than committing a team to
 it up front.
 
+A fourth industry joins the named-deployment roster above: an AWS reference
+architecture for market surveillance pairs LangGraph for workflow
+orchestration with Strands for agent reasoning on Amazon Bedrock AgentCore,
+adding checkpoint-based recovery plus AgentCore's own memory and
+observability primitives to the state-driven side of the "does the
+coordination overhead pay for itself" evidence — capital-markets
+surveillance alongside the existing security-ops, trading, and sales/GTM
+deployments.
+
 ## What's new
-A CTO ran a solo orchestration-first trial before rolling the pattern out to
-their engineering organization: a long-form publishing workflow spanning 25
-agents and tools, 30 agent skills, and 12 MCP/A2A-native services, which
-processed 26 billion tokens across 318 PRs and 423 commits — a
-practitioner-scale data point for the "does multi-agent pay off" question
-this page tracks, ahead of a team-wide commitment rather than after one.
+A fourth named industry deployment lands on the state-driven-orchestration
+side of this page's production evidence: an AWS reference architecture
+for market surveillance orchestrates LangGraph and Strands on Amazon
+Bedrock AgentCore with checkpoint-based recovery and AgentCore's built-in
+memory and observability, alongside the existing security-ops, trading, and
+sales/GTM production deployments.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

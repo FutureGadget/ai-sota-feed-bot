@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e]
-updated: 2026-07-27
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32]
+updated: 2026-07-28
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32]
 ---
 
 ## TL;DR
@@ -354,15 +354,26 @@ harness rather than a more capable agent — sharpening the standing "the
 harness is part of what you benchmark" thread into a validity critique of
 the benchmark's own construct, not just its numbers.
 
+A thirteenth front turns the "familiar benchmarks over-state capability"
+critique on its own instruments by pricing the compute a leaderboard treats
+as free. MAS-HQ normalizes hallucination-detection scores for the cost of
+producing them and pits systems against each other instead of scoring each
+in isolation, and the ranking it produces flips: a brute-force best-of-4
+agent posts the higher raw factuality score (H-Score 0.9169 vs. 0.9103) and
+would top a static leaderboard, but loses on the cost-normalized Q-Score
+(0.5169 vs. 0.5217) at roughly four times the tokens and latency once
+compute is counted — a concrete instance of the "the system that tops a
+static leaderboard can be the worse one to deploy" problem this page's
+harness-and-cost threads (see [agent cost](/topic/agent-cost)) already argue
+for, applied directly to a factuality benchmark's own scoring.
+
 ## What's new
-A protocol-validity critique argues many agent benchmarks conflate genuine
-task difficulty with scaffolding/protocol artifacts, so a score gain can
-reflect a better-fitted harness rather than a more capable agent —
-sharpening the standing "the harness is part of what you benchmark" thread
-into a challenge to the benchmark's own construct validity, not just its
-numbers. Separately, EvoCode-Bench's 227-round persistent-workspace test
-found regressions, not missing features, are the real reliability
-bottleneck once single-turn scoring is replaced with sustained evaluation.
+MAS-HQ prices the compute behind a hallucination-detection leaderboard and
+finds it flips the ranking: a brute-force agent that wins on raw factuality
+score loses once cost is normalized into the comparison, at roughly four
+times the tokens and latency of the system that actually scores better —
+concrete evidence a leaderboard that treats compute as free can rank the
+wrong system first.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

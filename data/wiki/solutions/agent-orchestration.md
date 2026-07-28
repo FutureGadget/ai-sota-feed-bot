@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09]
-updated: 2026-07-24
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679]
+updated: 2026-07-28
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679]
 ---
 
 ## TL;DR
@@ -106,13 +106,21 @@ integrations, across prospecting, enrichment, outreach, and analytics. Two
 distinct harnesses reaching production in two distinct industries (finance,
 sales/GTM) rather than one orchestration framework winning outright.
 
+A ninth axis adds a fourth named deployment on the checkpoint-and-recovery
+side of harness choice: an AWS reference architecture for market
+surveillance orchestrates LangGraph for workflow control and Strands for
+agent reasoning on Amazon Bedrock AgentCore, using checkpoint-based recovery
+plus AgentCore's built-in memory and observability instead of hand-rolling
+either — a fourth harness/platform combination in production alongside
+Strands+Bedrock (Jefferies) and Deep Agents+LangSmith (Apollo).
+
 ## What's new
-Two named production deployments add concrete harness choices to the
-shipping-tooling axis: Jefferies' front-office trading assistant orchestrates
-Strands Agents with Amazon Bedrock Knowledge Bases and MCP, and Apollo's GTM
-AI Assistant orchestrates Deep Agents with LangSmith and MCP integrations —
-different SDKs answering the same "which harness handles routing and tool
-calls" question in finance versus sales/GTM.
+An AWS reference architecture adds a fourth named production harness
+combination: LangGraph orchestration plus Strands agent reasoning on Amazon
+Bedrock AgentCore, with checkpoint-based recovery and AgentCore's built-in
+memory and observability, for a market-surveillance use case — alongside
+Jefferies' Strands+Bedrock trading assistant and Apollo's Deep
+Agents+LangSmith GTM assistant already on this page.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a

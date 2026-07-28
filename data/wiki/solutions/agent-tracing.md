@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760]
-updated: 2026-07-21
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9]
+updated: 2026-07-28
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9]
 ---
 
 ## TL;DR
@@ -50,16 +50,25 @@ Live, capturing audio alongside STT/TTS latency, interruptions, and tool
 calls in one trace — the same span-capture discipline applied to a
 turn-taking, real-time interface instead of a request/response loop.
 
+The **storage layer underneath trace search** is now getting engineering
+attention too, not just capture and analysis: LangSmith's SmithDB builds a
+custom inverted index over object storage so trace data can be
+full-text-searched and JSON-filtered directly, holding a 400ms median (P50)
+query latency even though each trace is a large, deeply nested JSON
+document — the piece of infrastructure that turns "traces are stored
+somewhere" into "traces are queryable at fleet scale."
+
 ## What's new
+LangSmith's SmithDB shows the storage layer underneath trace search is its
+own engineering problem: a custom inverted index over object storage holds
+a 400ms median (P50) query latency for full-text search and JSON filtering,
+despite each trace being a large, deeply nested JSON document — the piece
+that makes millions of stored traces actually queryable, not just archived.
+
 Trace capture widened to voice agents: LangSmith now traces Pipecat,
 LiveKit, OpenAI Realtime, and Gemini Live voice agents, capturing audio,
 STT/TTS latency, interruptions, and tool calls in one trace alongside the
 text-agent traces it already captures.
-
-Trace debugging is going cross-vendor: LangSmith positions itself as one
-debug console across Claude Code, Codex, Cursor, and Copilot traces alike,
-inspecting tool calls, sub-agent handoffs, errors, cost, and retries
-regardless of which coding agent produced the run.
 
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get

@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e]
-updated: 2026-07-25
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b]
+updated: 2026-07-28
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b]
 ---
 
 ## TL;DR
@@ -146,13 +146,30 @@ injection-resistance work this page tracks as an ongoing, versioned release
 concern (Fable 5's redeployment, the jailbreak-severity framework) is
 compounding release over release rather than staying flat.
 
+A new **trusted-path** threat surface shows up between the agent and the
+model, not inside the model's own context window: third-party API routers
+sit between a coding agent and the upstream provider, unify access across
+LLM providers, and can inspect and modify every request and response in
+transit. Nothing verifies that what the router forwards actually matches
+what the provider returned, so client-side permission checks built on the
+assumption of an honest transport layer become ineffective. A new empirical
+study (SIDEL) tests four escalating levels of router-side tampering — a raw
+response swap, an appended instruction, an LLM-polished injection, and an
+LLM-polished injection distribution-matched to the original response — across
+four representative coding agents on 400 curated samples. It is the same
+role-confusion problem this page already tracks, relocated from the fetched
+content an agent reads to a layer the agent never inspects at all: the
+router this page's [cost-controls](/topic/cost-controls) coverage already
+treats as a trusted cost-optimization component turns out to be an
+unverified trust boundary too.
+
 ## What's new
-Anthropic's Opus 5 system card reports it as the company's least
-prompt-injectable model yet, holding up across prompt-injection evals and
-red-teaming — Boris Cherny flagged the finding as more significant to him
-than the model's other eval scores, extending this page's standing
-"jailbreak resistance as a versioned release concern" thread with a
-concrete model-level result.
+A new empirical study (SIDEL) shows third-party LLM API routers — already
+tracked on this wiki as a cost-optimization layer — are also an unverified
+trust boundary: sitting on the trusted path between agent and provider, a
+router can silently substitute or inject content into what the agent
+receives, with no mechanism to verify the swap, across four escalating
+levels of tampering subtlety tested on four coding agents.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary

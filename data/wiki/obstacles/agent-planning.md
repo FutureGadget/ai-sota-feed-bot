@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451]
-updated: 2026-07-24
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5]
+updated: 2026-07-28
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5]
 ---
 
 ## TL;DR
@@ -175,13 +175,21 @@ scaling one bigger single-stream reasoner, at comparable cost, the same
 heterogeneous-coordination thesis [multi-agent](/topic/multi-agent) argues
 for applied to planning itself.
 
+A second major coding-agent vendor backs the "loop as reusable infra, not a
+novelty to chase" convergence with its own practitioner voice: GitHub's
+Copilot team frames a stable, repeatable harness — prototype, plan,
+implement, review — as the thing worth building discipline around, instead
+of re-architecting the workflow every time a new agent tool ships. It is
+the same discipline-over-novelty argument LangGraph's three-years
+retrospective makes above, this time from the other major coding-agent
+product rather than a single framework vendor.
+
 ## What's new
-A heterogeneous multi-agent ensemble beats scaling one reasoner: PoTRE
-splits planning across four specialized agents (adversarial refinement,
-hierarchical planning, spectrum search, direct chain) plus a Task-Adaptive
-Aggregation Layer, hitting 49.92% accuracy on Humanity's Last Exam — a new
-best — using similar or fewer tokens than heavily scaled single-stream
-baselines.
+GitHub's Copilot team frames a stable, repeatable harness — prototype, plan,
+implement, review — as the durable core to build around rather than
+chasing every new agent tool, echoing LangGraph's "graph/loop/harness
+engineering is one idea" convergence argument from a second major
+coding-agent vendor.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source
