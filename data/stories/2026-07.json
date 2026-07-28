@@ -2071,6 +2071,30 @@
   "url": "https://github.com/drwolfgangstegemann-sudo/ali-reference-implementation",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "27e9eb043a6d1bd4": {
+  "also_covered": [
+   {
+    "source": "huggingface_blog",
+    "title": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident",
+    "url": "https://huggingface.co/blog/agent-intrusion-technical-timeline"
+   }
+  ],
+  "first_seen": "2026-07-28T22:01:49.072667+00:00",
+  "id": "1564e03cf4de3304",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-07-28T21:28:54+00:00",
+  "sid": "27e9eb043a6d1bd4",
+  "source": "simon_willison",
+  "summary": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident Hugging Face just released this extremely detailed technical description of OpenAI's recent accidental cyberattack against their infrastructure . This attack was very sophisticated, and the resulting document doubles as a crash-course in modern adversarial security approaches. We're still waiting for more details from OpenAI on how their agent broke out of its sandbox. The package proxy that it found a zero-day vulnerability in has now been confirmed as JFrog's Artifactor, and JFrog and OpenAI Collaboration on Zero-Day Security Findings from JFrog links to the Artifactory 7.161.15 release notes which list 8 separate CVEs credited to OpenAI staff members. Having broken out through the HTTP proxy, the agent started by establishing a base of operations for the rest of the attack: [...] the agent escaped its sandbox by exploiting a zero-day in the package registry cache proxy, one of its primary permitted network egress with internet, then abused a public code-evaluation external sandbox hosted on a third-party provider's infrastructure. It was able to run commands as root/admin on that external sandbox and used it as a control, staging, and egress base for the entire campaign: it acted as an external launchpad for the agent. It then spent five days - from Thursday 8th to Monday 13th July - executing a classic attack pattern: establishing C2 (command and control), reconnaissance, escalating ",
+  "summary_1line": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident Hugging Face just released this extremely detailed technical description of OpenAI's recent accidental cyberattack against thei...",
+  "title": "Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/28/anatomy-of-a-frontier-lab-agent-intrusion/#atom-everything",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "2832f2f825db2411": {
   "first_seen": "2026-07-10T00:02:51.043517+00:00",
   "id": "807d2a21979ef0e4",
@@ -10774,6 +10798,18 @@
   "title": "A scorecard for the AI age",
   "type": "news",
   "url": "https://openai.com/index/a-scorecard-for-the-ai-age"
+ },
+ "c688e74a59286a87": {
+  "first_seen": "2026-07-28T22:01:49.072667+00:00",
+  "id": "d48686f8f2790d4a",
+  "published": "2026-07-28T21:51:38+00:00",
+  "sid": "c688e74a59286a87",
+  "source": "simon_willison",
+  "summary": "uv 0.12.0 Some interesting breaking changes in this release of uv , in particular to the default project produced by the uv init command. uv init is the uv shortcut for creating a new project. The previous version of uv , version 0.11.x, produced this directory when you ran uv init uv-init . Here's what you get with uv 0.12 . I have a GitHub repository that automatically snapshots the output of uv init , so you can also see the full diff : None type annotation that prints Hello from uv-init.\" src=\"https://static.simonwillison.net/static/2026/uv-diff.webp\" /> uv init now defaults to a src/ shaped package, instead of dropping main.py in the root of the project. It also configures the uv_build backend for building wheels and .tar.gz distribution files when you run uv build . Finally, it sets up uv-init as a script alias which, when run with uv run uv-init , executes a new main() function in src/uv_init/__init__.py . I've so far avoided using src layout in my own projects just out of inertia. I think it's time I switched. Tags: packaging , python , uv",
+  "summary_1line": "uv 0.12.0 Some interesting breaking changes in this release of uv , in particular to the default project produced by the uv init command. uv init is the uv shortcut for creating a new project. The previous version of...",
+  "title": "uv 0.12.0",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Jul/28/uv/#atom-everything"
  },
  "c6fddb928f93eb2a": {
   "first_seen": "2026-07-01T01:01:51.937789+00:00",
