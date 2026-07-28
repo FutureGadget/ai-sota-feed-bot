@@ -3,32 +3,15 @@
  "label": "Reinforcement Learning",
  "item_count": 3,
  "day_count": 3,
- "source_count": 3,
- "first_seen": "2026-07-03T09:22:00+00:00",
- "last_updated": "2026-07-14T13:33:25+00:00",
- "generated_at": "2026-07-24T05:07:50.926021+00:00",
+ "source_count": 2,
+ "first_seen": "2026-07-10T17:39:00+00:00",
+ "last_updated": "2026-07-27T15:46:57+00:00",
+ "generated_at": "2026-07-28T05:11:28.117088+00:00",
  "sources": [
   "arxiv_cs_ai",
-  "arxiv_cs_lg",
-  "infoq_ai_ml"
+  "arxiv_cs_lg"
  ],
  "days": [
-  {
-   "date": "2026-07-03",
-   "items": [
-    {
-     "title": "Presentation: Fine Tuning the Enterprise: Reinforcement Learning in Practice",
-     "url": "https://www.infoq.com/presentations/rft-openai-model/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-     "source": "infoq_ai_ml",
-     "type": "news",
-     "summary_1line": "The speakers discuss Agent RFT, OpenAI’s platform for fine-tuning reasoning models via real-time tool interactions and custom reward signals. They explain how reinforcement learning solves complex credit assignment ch...",
-     "why_it_matters": "Matches feed focus: agent.",
-     "sid": "9776829397d5307a",
-     "published": "2026-07-03T09:22:00+00:00",
-     "editor_note": "Conference talk detailing OpenAI's Agent RFT platform for fine-tuning reasoning models via reward signals."
-    }
-   ]
-  },
   {
    "date": "2026-07-10",
    "items": [
@@ -60,24 +43,31 @@
      "editor_note": "New arXiv paper applying constraint-aware aggregation to federated RL for microgrid energy coordination, addressing FedAvg's inability to respect system-level constraints."
     }
    ]
+  },
+  {
+   "date": "2026-07-27",
+   "items": [
+    {
+     "title": "Evaluating Fuzz Testing for Reinforcement Learning Agents",
+     "url": "http://arxiv.org/abs/2607.24577v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Reinforcement Learning (RL) agents are increasingly deployed in safety-critical domains such as robotics, autonomous driving, and drone control, where unexpected behaviors may lead to severe real-world consequences. F...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "6aa85ab7bb78e841",
+     "published": "2026-07-27T15:46:57+00:00",
+     "editor_note": "New arXiv paper evaluating fuzz testing to surface unexpected RL-agent failure modes before deployment in safety-critical domains."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Three reinforcement-learning items landed over two weeks: an InfoQ talk on OpenAI's Agent RFT fine-tuning platform, and two arXiv papers applying RL to fraud detection and federated microgrid coordination. The items share a topic, not a storyline — each is a standalone read, not a developing event.",
+  "tldr": "Three reinforcement-learning papers landed over two and a half weeks: multi-objective RL for financial fraud detection, constraint-aware federated RL for microgrid coordination, and now fuzz testing for safety-critical RL agents. These share a topic, not a storyline — each is a standalone read, not a developing event.",
   "stale": false,
-  "whats_new": "The latest addition is an arXiv paper proposing constraint-aware aggregation for federated RL, replacing standard FedAvg so microgrid energy-coordination agents respect system-level constraints instead of just averaging local updates.",
-  "why_it_matters": "For platform engineers running RL fine-tuning, the InfoQ talk is the practical read on OpenAI's managed Agent RFT platform; the two arXiv papers are narrower academic results (fraud detection, energy-grid coordination) with no direct deployment path.",
-  "take_for_builders": "Evaluating OpenAI's managed Agent RFT platform for reasoning-model fine-tuning? Treat the two arXiv papers (fraud-detection Pareto-DQN, federated microgrid RL) as domain-specific research ideas, not production-ready recipes for your own RL training pipeline.",
+  "whats_new": "The latest addition is an arXiv paper evaluating fuzz testing as a way to surface unexpected failure modes in RL agents deployed in safety-critical domains like robotics, autonomous driving, and drone control.",
+  "why_it_matters": "For platform engineers shipping RL agents into safety-critical systems, the fuzz-testing paper is the most directly actionable of the three — a pre-production testing method, not just a benchmark result; the other two are narrower academic results (fraud detection, energy-grid coordination) with no direct deployment path.",
+  "take_for_builders": "Deploying an RL agent in a safety-critical system? The fuzz-testing paper is the most directly actionable of the three — treat it as a pre-production testing method to run before rollout, not the two narrower research results (fraud-detection Pareto-DQN, federated microgrid RL), which are domain-specific ideas rather than ready recipes.",
   "beats": [
-   {
-    "kicker": "PLATFORM",
-    "tone": "neutral",
-    "headline": "InfoQ talk details OpenAI's Agent RFT fine-tuning platform",
-    "summary": "Conference presentation on fine-tuning reasoning models via real-time tool interactions and custom reward signals.",
-    "sids": [
-     "9776829397d5307a"
-    ]
-   },
    {
     "kicker": "RESEARCH",
     "tone": "neutral",
@@ -95,13 +85,22 @@
     "sids": [
      "1353da98274f0528"
     ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "neutral",
+    "headline": "Fuzz-testing paper probes safety-critical RL agents for unexpected failure modes",
+    "summary": "New arXiv work evaluates fuzz testing as a method to surface unexpected RL-agent behaviors before deployment in robotics, autonomous driving, and drone control.",
+    "sids": [
+     "6aa85ab7bb78e841"
+    ]
    }
   ],
   "open_questions": [
-   "Does OpenAI's Agent RFT platform get a broader availability announcement beyond this conference talk?",
    "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?",
-   "Does the constraint-aware federated RL aggregation get tested on a real microgrid deployment, or only in simulation?"
+   "Does the constraint-aware federated RL aggregation get tested on a real microgrid deployment, or only in simulation?",
+   "Does the fuzz-testing methodology surface failures that existing RL safety evals miss, or mostly duplicate them?"
   ],
-  "generated_at": "2026-07-23T20:05:30Z"
+  "generated_at": "2026-07-28T05:08:39+00:00"
  }
 }
