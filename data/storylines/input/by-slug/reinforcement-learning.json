@@ -1,0 +1,136 @@
+{
+  "generated_at": "2026-07-29T10:04:39.616643+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "reinforcement-learning",
+    "label": "Reinforcement Learning",
+    "item_count": 4,
+    "source_count": 3,
+    "day_count": 4,
+    "first_seen": "2026-07-10T17:39:00+00:00",
+    "last_updated": "2026-07-29T06:18:16+00:00",
+    "latest_title": "Moonshot AI, kvcache-ai Open Source AgentENV To Scale Agentic Reinforcement Learning - Open Source For You",
+    "member_sids": [
+      "54c32bd0fe4a6a3e",
+      "1353da98274f0528",
+      "6aa85ab7bb78e841",
+      "18944a6428c3ac1a"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+    "prior_narrative": {
+      "slug": "reinforcement-learning",
+      "generated_at": "2026-07-28T05:08:39+00:00",
+      "covers_last_updated": "2026-07-27T15:46:57+00:00",
+      "covers_member_sids": [
+        "54c32bd0fe4a6a3e",
+        "1353da98274f0528",
+        "6aa85ab7bb78e841"
+      ],
+      "tldr": "Three reinforcement-learning papers landed over two and a half weeks: multi-objective RL for financial fraud detection, constraint-aware federated RL for microgrid coordination, and now fuzz testing for safety-critical RL agents. These share a topic, not a storyline — each is a standalone read, not a developing event.",
+      "whats_new": "The latest addition is an arXiv paper evaluating fuzz testing as a way to surface unexpected failure modes in RL agents deployed in safety-critical domains like robotics, autonomous driving, and drone control.",
+      "why_it_matters": "For platform engineers shipping RL agents into safety-critical systems, the fuzz-testing paper is the most directly actionable of the three — a pre-production testing method, not just a benchmark result; the other two are narrower academic results (fraud detection, energy-grid coordination) with no direct deployment path.",
+      "beats": [
+        {
+          "kicker": "RESEARCH",
+          "tone": "neutral",
+          "headline": "Semantic Pareto-DQN targets \"fraud collapse\" in anomaly detection",
+          "summary": "New multi-objective RL framework aims to fix single-objective algorithms that default to the majority class under extreme class imbalance.",
+          "sids": [
+            "54c32bd0fe4a6a3e"
+          ]
+        },
+        {
+          "kicker": "RESEARCH",
+          "tone": "neutral",
+          "headline": "Federated RL paper targets constraint-aware aggregation for microgrids",
+          "summary": "New arXiv work proposes constraint-aware aggregation to fix standard FedAvg's failure to respect system-level constraints when coordinating distributed energy resources.",
+          "sids": [
+            "1353da98274f0528"
+          ]
+        },
+        {
+          "kicker": "RESEARCH",
+          "tone": "neutral",
+          "headline": "Fuzz-testing paper probes safety-critical RL agents for unexpected failure modes",
+          "summary": "New arXiv work evaluates fuzz testing as a method to surface unexpected RL-agent behaviors before deployment in robotics, autonomous driving, and drone control.",
+          "sids": [
+            "6aa85ab7bb78e841"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does the Semantic Pareto-DQN approach get validated outside financial anomaly detection?",
+        "Does the constraint-aware federated RL aggregation get tested on a real microgrid deployment, or only in simulation?",
+        "Does the fuzz-testing methodology surface failures that existing RL safety evals miss, or mostly duplicate them?"
+      ],
+      "take_for_builders": "Deploying an RL agent in a safety-critical system? The fuzz-testing paper is the most directly actionable of the three — treat it as a pre-production testing method to run before rollout, not the two narrower research results (fraud-detection Pareto-DQN, federated microgrid RL), which are domain-specific ideas rather than ready recipes.",
+      "day_captions": {
+        "54c32bd0fe4a6a3e": "New arXiv paper applying multi-objective RL (Pareto-DQN) to fix class-imbalance failure in financial fraud detection.",
+        "1353da98274f0528": "New arXiv paper applying constraint-aware aggregation to federated RL for microgrid energy coordination, addressing FedAvg's inability to respect system-level constraints.",
+        "6aa85ab7bb78e841": "New arXiv paper evaluating fuzz testing to surface unexpected RL-agent failure modes before deployment in safety-critical domains."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-07-10",
+        "items": [
+          {
+            "sid": "54c32bd0fe4a6a3e",
+            "title": "Semantic Pareto-DQN: A Multi-Objective Reinforcement Learning Framework for Financial Anomaly Detection",
+            "url": "http://arxiv.org/abs/2607.09641v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Financial anomaly detection suffers from extreme class imbalance, causing traditional single-objective algorithms to exhibit ``fraud collapse'', defaulting to the majority class and failing to balance anomaly interdic...",
+            "published": "2026-07-10T17:39:00+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-07-14",
+        "items": [
+          {
+            "sid": "1353da98274f0528",
+            "title": "Constraint-Aware Aggregation for Federated Reinforcement Learning in Microgrid Energy Coordination",
+            "url": "http://arxiv.org/abs/2607.12763v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Federated Reinforcement Learning (FedRL) enables coordination of distributed energy resources without sharing raw local data, but standard aggregation methods such as FedAvg do not account for system-level constraints...",
+            "published": "2026-07-14T13:33:25+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-07-27",
+        "items": [
+          {
+            "sid": "6aa85ab7bb78e841",
+            "title": "Evaluating Fuzz Testing for Reinforcement Learning Agents",
+            "url": "http://arxiv.org/abs/2607.24577v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Reinforcement Learning (RL) agents are increasingly deployed in safety-critical domains such as robotics, autonomous driving, and drone control, where unexpected behaviors may lead to severe real-world consequences. F...",
+            "published": "2026-07-27T15:46:57+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-07-29",
+        "items": [
+          {
+            "sid": "18944a6428c3ac1a",
+            "title": "Moonshot AI, kvcache-ai Open Source AgentENV To Scale Agentic Reinforcement Learning - Open Source For You",
+            "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQdHpXay1PcmJQUVlxRURqOGU2QlF6U3J4LW1ZVjJsNHlSWDMtVm9WRWpmZl81TnV3ZVdXZGlDOThQcUF1SUdPOXZOOEE1SjhRVmh2RkJMcldnNzlVSGVWcXhUUzAxLXN2bUtSUFNXWmxiSmd6QkI2bjNvbTlscl81cUxzdUtJeVZMUlVZeGFOMDk4U3MzTlVVaDl0Y2ZpZkszNjBMRXFfekZkbWJaZDVLRUF1RkJjYVlxQ3duOEZOUk8?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Moonshot AI, kvcache-ai Open Source AgentENV To Scale Agentic Reinforcement Learning Open Source For You",
+            "published": "2026-07-29T06:18:16+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
