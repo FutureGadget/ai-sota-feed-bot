@@ -5,125 +5,131 @@ Focus: AI Platform Engineering
 ## 1. Release 2.71.0 corresponding to NGC container 26.07
 - Type: release | Source: triton_releases
 - URL: https://github.com/triton-inference-server/server/releases/tag/v2.71.0
-- Score: 3.041 | Reliability: 1.0
+- Score: 2.999 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. How Similarweb Evaluates Agent Reports with LangSmith
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-similarweb-evaluates-long-form-agent-research-reports-with-langsmith
-- Score: 2.927 | Reliability: 1.0
+- Score: 2.899 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 3. Speeding up end-to-end inference with self-improving agents
-- Type: news | Source: hackernews_ai
-- URL: https://asari.ai/blog/inference-optimization
-- Score: 2.842 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 4. AI Worming through Word
+## 3. AI Worming through Word
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/29/ai-worming-through-word/#atom-everything
-- Score: 2.708 | Reliability: 1.0
+- Score: 2.682 | Reliability: 1.0
 - Why it matters: 
 
-## 5. Quoting Matthew Green
+## 4. Quoting Matthew Green
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/29/matthew-green/#atom-everything
-- Score: 2.698 | Reliability: 1.0
+- Score: 2.673 | Reliability: 1.0
 - Why it matters: 
 
-## 6. We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control
+## 5. We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/
-- Score: 2.644 | Reliability: 1.0
+- Score: 2.618 | Reliability: 1.0
 - Why it matters: 
+
+## 6. Deep Agents v0.7
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/deep-agents-v0-7
+- Score: 2.607 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
 ## 7. Automate your agent development lifecycle using any coding agent
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/topics/developers-practitioners/automate-agent-development-lifecycles-with-gemini-enterprise/
-- Score: 2.637 | Reliability: 1.0
+- Score: 2.591 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 8. Deep Agents v0.7
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/deep-agents-v0-7
-- Score: 2.632 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 9. A Cost-Effective Multimodal LLM Reasoning Framework for Question Answering over Irregular Clinical Time Series
+## 8. A Cost-Effective Multimodal LLM Reasoning Framework for Question Answering over Irregular Clinical Time Series
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.25947v1
-- Score: 2.58 | Reliability: 1.0
+- Score: 2.568 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 10. Accelerating scientific discovery with ChatGPT for Academic Researchers
+## 9. How GPT-5.6 fuses frontier intelligence with frontier efficiency
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/chatgpt-for-academic-researchers
-- Score: 2.353 | Reliability: 1.0
-- Why it matters: 
+- URL: https://openai.com/index/gpt-5-6-frontier-intelligence-efficiency
+- Score: 2.524 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 10. Scientific computing in the age of agentic AI
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/scientific-computing-agentic-ai
+- Score: 2.483 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
 
 ## 11. Penelope: Localized Latent Recurrence for Efficient Structured Reasoning
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.25915v1
-- Score: 2.58 | Reliability: 1.0
+- Score: 2.568 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 12. Moonshot AI Closes $3.5B Round, But Its Open Weights Come With China Data Risk - Tech Times
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMivgFBVV95cUxNTmdRV1doTFhhaFhUNWxxZW9zTnJqdU5FTVBmNDg2TWNMOHBqUU5TNGZFZ3k4ajRzamtKb21oWXZHTFBzckpyWHNSSUl6dHlMSlRqYUpkNTVYMmpDSmV0MVE3REF6STFPRjNGQ0Y5LXR4MG92VU1sRGh3bkwzN2tEUTFYZlpMTENwaHlTTTdKUXpHM2RHc2tPOTRYcWU1Vzl3YTBlY0N4VmZCN3FndWhKNGdZdUcxY2cyODVxQXN3?oc=5
-- Score: 2.402 | Reliability: 1.0
+- Score: 2.336 | Reliability: 1.0
 - Why it matters: 
 
-## 13. A note on the Hugging Face agent incident
+## 13. Accelerating scientific discovery with ChatGPT for Academic Researchers
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/chatgpt-for-academic-researchers
+- Score: 2.332 | Reliability: 1.0
+- Why it matters: 
+
+## 14. A note on the Hugging Face agent incident
 - Type: news | Source: modal_blog
 - URL: https://modal.com/blog/a-note-on-the-hugging-face-agent-incident
-- Score: 2.321 | Reliability: 1.0
+- Score: 2.301 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. Presentation: Getting Rid of LeetCode Interviews in the World of AI
+## 15. Presentation: Getting Rid of LeetCode Interviews in the World of AI
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/ai-lead-interview/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.312 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 15. VAD to the Bone: Ultra-Tiny Speech Activity Detection for Edge Deployment
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2607.25870v1
 - Score: 2.291 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 16. Article: Securing MCP in Production: Defense-in-Depth Beyond the Gateway
+## 16. VAD to the Bone: Ultra-Tiny Speech Activity Detection for Edge Deployment
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2607.25870v1
+- Score: 2.281 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 17. Article: Securing MCP in Production: Defense-in-Depth Beyond the Gateway
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/securing-mcp-production-gateway/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.286 | Reliability: 1.0
+- Score: 2.265 | Reliability: 1.0
 - Why it matters: 
 
-## 17. Frontier Red Team
+## 18. Frontier Red Team
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/team/frontier-red-team
-- Score: 2.255 | Reliability: 1.0
+- Score: 2.246 | Reliability: 1.0
 - Why it matters: 
 
-## 18. [AINews] Fearing RSI: OpenAI, Anthropic, GDM, Meta, Thinky cosign letter to "Pace" AI development, as HuggingFace details Machine-Speed Offensive Cyberattack
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-fearing-rsi-openai-anthropic
-- Score: 2.205 | Reliability: 1.0
-- Why it matters: 
-
-## 19. codex 0.147.0-alpha.1
+## 19. codex rusty-v8-v150.4.0
 - Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.147.0-alpha.1
-- Score: 2.189 | Reliability: 1.0
+- URL: https://github.com/openai/codex/releases/tag/rusty-v8-v150.4.0
+- Score: 2.209 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 20. Evaluating Multi-Turn Multimodal Diagnostic Reasoning on Challenging Real-World Clinical Cases
+## 20. ReLATE: Reliability-Guided Evidence Fusion for Robust UAV--Satellite cross-view Geo-Localization
 - Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2607.25933v1
-- Score: 2.062 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
+- URL: http://arxiv.org/abs/2607.25524v1
+- Score: 2.201 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 21. Generate Autonomous Business Insights with AI Agent and MCP Servers
+## 21. [AINews] Fearing RSI: OpenAI, Anthropic, GDM, Meta, Thinky cosign letter to "Pace" AI development, as HuggingFace details Machine-Speed Offensive Cyberattack
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-fearing-rsi-openai-anthropic
+- Score: 2.186 | Reliability: 1.0
+- Why it matters: 
+
+## 22. Generate Autonomous Business Insights with AI Agent and MCP Servers
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/generate-autonomous-business-insights-with-ai-agent-and-mcp-servers/
-- Score: 1.784 | Reliability: 1.0
+- Score: 1.748 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
