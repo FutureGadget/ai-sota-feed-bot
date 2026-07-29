@@ -5,143 +5,107 @@ Focus: AI Platform Engineering
 ## 1. Scientific computing in the age of agentic AI
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/scientific-computing-agentic-ai
-- Score: 2.855 | Reliability: 1.0
+- Score: 2.97 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 2. Ask HN: How many AI agents do you actively use?
-- Type: news | Source: hackernews_ai
-- URL: https://news.ycombinator.com/item?id=49092442
-- Score: 2.851 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 2. Anatomy of a Frontier Lab Agent Intrusion: A Technical Timeline of the July 2026 Incident
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jul/28/anatomy-of-a-frontier-lab-agent-intrusion/#atom-everything
+- Score: 2.936 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
-## 3. uv 0.12.0
+## 3. Penelope: Localized Latent Recurrence for Efficient Structured Reasoning
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2607.25915v1
+- Score: 2.857 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 4. A Cost-Effective Multimodal LLM Reasoning Framework for Question Answering over Irregular Clinical Time Series
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2607.25947v1
+- Score: 2.848 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 5. uv 0.12.0
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/28/uv/#atom-everything
-- Score: 2.731 | Reliability: 1.0
+- Score: 2.715 | Reliability: 1.0
 - Why it matters: 
 
-## 4. Quoting Akshat Bubna
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jul/28/akshat-bubna/#atom-everything
-- Score: 2.642 | Reliability: 1.0
+## 6. A note on the Hugging Face agent incident
+- Type: news | Source: modal_blog
+- URL: https://modal.com/blog/a-note-on-the-hugging-face-agent-incident
+- Score: 2.637 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 5. codex rusty-v8-v150.4.0
+## 7. codex rusty-v8-v150.4.0
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rusty-v8-v150.4.0
-- Score: 2.553 | Reliability: 1.0
+- Score: 2.628 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 6. Bringing Conversational Analytics to your entire data ecosystem
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/data-analytics/conversational-analytics-in-google-data-cloud-in-q326/
-- Score: 2.516 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
+## 8. Moonshot AI releases weights for Kimi K3 as U.S. Big Tech firms debate open-weight models - The Hindu
+- Type: release | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMi5wFBVV95cUxONE1od1JoNFVkYjNqMHZHTkpOZzdiNGxsLXE0ejFiS2JWb3RZVWQ0OUtZZ1lDMENfV1c0U19XVWsxNWZweC1GeVp3aTRKUlNWZkVCeElaOUhTZ2dkNW9paEMtRDg0d0NIRW14RF9LYlZiQnVlcjJWWUUxcUtLUUZEczYyQjRiSGNwSVR3WkxDaXE1Z3hVUktfYVhQemx6bE9vNUhxcWJZck0yVy1nNFl6VEZOXzAzN2FWOUZfOExOblktWXNyZE12SGl4X0xQa2VkY1h2MWYtMXhRQmM0Vm0yY3pPWGxjSjjSAe4BQVVfeXFMUFZuNWN2TVZqMUVmM1N5ek95ZGI3ZVd6eDk2ZmJxUUt2MjM5Z0dfOHNkcnhSOXp2TzhGYmxNSldLdVRPSnVOZXYxZURMSTNDN1pUdFNHZkh1VVlDdURtb3JHdDd6Zk00d2VQZ2dZUlhZb0JHVE9oTXJWbDVIaWcxLWp4RVpibE5LY3pYdVcyVFJTNDJnaTlaMnVkQUViaE9YYTFqeXoxLXlERGNEQlU3ODNLcFRhbmxSZk5yVjBjN0NpQ3FzOGRsdWVXSDgyWlg4a3pUTE1NXzg2MmYzc1ZxLTE3N004OFNqWEE2dTVEZw?oc=5
+- Score: 2.568 | Reliability: 1.0
+- Why it matters: 
 
-## 7. [AINews] Fearing RSI: OpenAI, Anthropic, GDM, Meta, Thinky cosign letter to "Pace" AI development, as HuggingFace details Machine-Speed Offensive Cyberattack
+## 9. VAD to the Bone: Ultra-Tiny Speech Activity Detection for Edge Deployment
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2607.25870v1
+- Score: 2.534 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 10. [AINews] Fearing RSI: OpenAI, Anthropic, GDM, Meta, Thinky cosign letter to "Pace" AI development, as HuggingFace details Machine-Speed Offensive Cyberattack
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-fearing-rsi-openai-anthropic
-- Score: 2.466 | Reliability: 1.0
+- Score: 2.453 | Reliability: 1.0
 - Why it matters: 
 
-## 8. AWS Launches Amazon GuardDuty Investigation Agent to Automate Threat Triage
+## 11. ReLATE: Reliability-Guided Evidence Fusion for Robust UAV--Satellite cross-view Geo-Localization
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2607.25524v1
+- Score: 2.44 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 12. AWS Launches Amazon GuardDuty Investigation Agent to Automate Threat Triage
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/07/guardduty-investigation-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.417 | Reliability: 1.0
+- Score: 2.407 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 9. Our position on open-weights models
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/position-open-weights-models
-- Score: 1.873 | Reliability: 1.0
-- Why it matters: 
-
-## 10. How AI is expanding what people do at work
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/how-ai-is-expanding-what-people-do-at-work
-- Score: 1.748 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Grafana Assistant Expands to More Than 30 Data Sources
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/07/grafana-assistant-data-source/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.335 | Reliability: 1.0
-- Why it matters: 
-
-## 12. Should China aim for the lead in making AI rules for the world? - South China Morning Post
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiowFBVV95cUxPS2RoYXR3ZTJnVkMwOTZfM2VXM0lnZ0VvVkRLdWNwZDNwY292UFBkT1pWeVkxeFpyUEk4S1lueGh5M3dDUGppN3lUX0J4aG1sdGZjVHhweFlXVmRoaXRXZ1prSVBRcWVnQ1N5MUJLYVpYdGdQZkczdDZtQUlnTGlyVTRLTlJmS0Vna25Ld2JtT25ycHRFZVJqdGFOc3UxVzAxRTFR0gGjAUFVX3lxTE9CN2VnN3d4NzdiTTRYZk1RTF9GNG8zbTVScktXdG43QTJOUjlqcjBjMDBKOFVhNEhFenEyeXEwRDg4aUkxVU83bXB2eUtxdW5NRTE0NXZDTWpUTUVRclhXWVVHMTNqYW9HZ0tBWEJYLUU1UUZ2V2JDZHlhUkNQbGhuWE1FSU5OeHR2cjBzeWcxQjhhWkZicllBLTZpd01kYkJPQkU?oc=5
-- Score: 2.334 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Codex from 0 to 10M Users: Building ChatGPT Work — Akshay Nathan, OpenAI
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/chatgpt-work
-- Score: 2.31 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex.
-
-## 14. Frontier Red Team
+## 13. Frontier Red Team
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/team/frontier-red-team
-- Score: 2.305 | Reliability: 1.0
+- Score: 2.366 | Reliability: 1.0
 - Why it matters: 
 
-## 15. langgraph==1.2.10
+## 14. langgraph==1.2.10
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/1.2.10
-- Score: 2.284 | Reliability: 1.0
+- Score: 2.364 | Reliability: 1.0
 - Why it matters: 
 
-## 16. How LangChain Built an Agent-First Data Stack
+## 15. Grafana Assistant Expands to More Than 30 Data Sources
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/07/grafana-assistant-data-source/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.325 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Codex from 0 to 10M Users: Building ChatGPT Work — Akshay Nathan, OpenAI
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/chatgpt-work
+- Score: 2.3 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, codex.
+
+## 17. How LangChain Built an Agent-First Data Stack
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/agent-data-stack
-- Score: 2.271 | Reliability: 1.0
+- Score: 2.262 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 17. Evaluating Agents Beyond the First Prompt
-- Type: news | Source: philschmid
-- URL: https://www.philschmid.de/evocode-bench
-- Score: 2.234 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 18. The OlmoEarth Platform: Geospatial inference at planetary scale
-- Type: research | Source: huggingface_blog
-- URL: https://huggingface.co/blog/allenai/olmoearth-infrastructure
-- Score: 2.004 | Reliability: 1.0
-- Why it matters: 
-
-## 19. Market surveillance agent with LangGraph and Strands on AgentCore
+## 18. How AgentCore Gateway supports the MCP 2026-07-28 spec
 - Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/market-surveillance-agent-with-langgraph-and-strands-on-agentcore/
-- Score: 1.901 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 20. vllm v0.26.0
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.26.0
-- Score: 1.766 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 21. Expanding our partnership with Cognizant | Anthropic
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/cognizant-anthropic
-- Score: 1.702 | Reliability: 1.0
-- Why it matters: 
-
-## 22. The new rules of context engineering for Claude 5 generation models | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models
-- Score: 1.357 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
-
-## 23. Claude models explained: choosing the best model for your use case | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-models-explained-choosing-the-best-model-for-your-use-case
-- Score: 1.305 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 24. claude-agent-sdk-python v0.2.128
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.128
-- Score: 1.221 | Reliability: 1.0
+- URL: https://aws.amazon.com/blogs/machine-learning/how-agentcore-gateway-supports-the-mcp-2026-07-28-spec/
+- Score: 1.781 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
