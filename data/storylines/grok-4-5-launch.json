@@ -1,13 +1,13 @@
 {
  "slug": "grok-4-5-launch",
  "label": "Grok 4.5 launch",
- "item_count": 2,
- "day_count": 2,
+ "item_count": 3,
+ "day_count": 3,
  "source_count": 2,
  "first_seen": "2026-07-09T06:05:41+00:00",
- "last_updated": "2026-07-10T02:56:40+00:00",
+ "last_updated": "2026-07-16T06:35:54+00:00",
  "via_scout": true,
- "generated_at": "2026-07-29T15:14:44.262987+00:00",
+ "generated_at": "2026-07-29T21:24:29.694332+00:00",
  "sources": [
   "latent_space",
   "search_agent_engineering_news"
@@ -43,19 +43,35 @@
      "editor_note": "Tech Times publishes the first hands-on benchmark: 80% lower coding-agent cost at near-frontier speed, but more hallucinations than rivals."
     }
    ]
+  },
+  {
+   "date": "2026-07-16",
+   "items": [
+    {
+     "title": "SpaceXAI Open-Sources Grok Build: The Rust Agent Harness, TUI, and Tool Layer Behind Its Coding CLI - MarkTechPost",
+     "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOcURYQ25USjhVZVI2RE1wNEFVQ3I5WnJFeXFTUEtxeHdxU3YwcVlJXzQ5T3QyT0xNSnpGMUFvYzdlMUp5N19ObWhPNDhXa3E3dW1hbExDNjRUeHZocEVhemgtQVFGdDA0bUJoNTFPZVNYQXJvVU5tMnU5b05waTd0NU5uM2I5UTg4LUtkbi1TSUdsVXgxZG9ZMHdiSGxaTzZsa3d6aVlhUzNVa1psU05GQ2JnTUpTNE5SODVxeE90VE40VWFGMHBzZk9DTXdFUE83REdF?oc=5",
+     "source": "search_agent_engineering_news",
+     "type": "news",
+     "summary_1line": "SpaceXAI Open-Sources Grok Build: The Rust Agent Harness, TUI, and Tool Layer Behind Its Coding CLI MarkTechPost",
+     "why_it_matters": "Matches feed focus: agent, harness.",
+     "sid": "f6ae87161f3a2c58",
+     "published": "2026-07-16T06:35:54+00:00",
+     "editor_note": "MarkTechPost details the open-sourced Rust agent harness, TUI, and tool layer powering SpaceXAI's coding CLI — the infrastructure behind the Jul 10 benchmark, now inspectable directly."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "SpaceXAI shipped Grok 4.5 on Jul 9, its first Opus-class model since acquiring Cursor. Coverage framed it as the fastest-moving frontier lab shipping yet another release.",
+  "tldr": "SpaceXAI shipped Grok 4.5 on Jul 9, its first Opus-class model since acquiring Cursor. A Jul 10 hands-on benchmark found the model cuts coding-agent cost 80% at near-frontier speed, though with a higher hallucination rate than rivals.",
   "stale": false,
-  "whats_new": "A day-two benchmark write-up found Grok 4.5 cuts coding-agent cost 80% at near-frontier speed, but with a higher hallucination rate than rival models.",
-  "why_it_matters": "Grok 4.5's price/speed profile makes it worth a coding-agent cost trial, but its higher hallucination rate means it needs stricter output verification than Opus-class alternatives before production use.",
-  "take_for_builders": "If you're evaluating coding-agent cost, benchmark Grok 4.5 against your current model on your own tasks before switching — the 80% cost cut is real per Tech Times, but weigh it against the reported higher hallucination rate for your specific verification budget.",
+  "whats_new": "One week after launch, SpaceXAI open-sourced the Rust agent harness, TUI, and tool layer behind its Grok coding CLI — the actual scaffolding behind the Jul 10 cost and hallucination numbers.",
+  "why_it_matters": "The open-sourced harness lets platform engineers inspect and adopt SpaceXAI's actual tool-calling and agent-loop design directly, instead of reverse-engineering it from CLI behavior or secondhand benchmark reports.",
+  "take_for_builders": "Pull the open-sourced harness and tool layer to see exactly how SpaceXAI wires tool calls and error handling in production, check its license before embedding any of it, and pair that read with your own cost/hallucination trial rather than relying on Tech Times' numbers alone.",
   "status": {
-   "state": "Shipped · hands-on benchmark published",
-   "tone": "launch",
-   "changed": "2026-07-10",
-   "detail": "Launched Jul 9; a Jul 10 benchmark write-up is the only independent read on cost, speed, and reliability so far."
+   "state": "Shipped · harness open-sourced",
+   "tone": "now",
+   "changed": "2026-07-16",
+   "detail": "Launched Jul 9, independently benchmarked Jul 10, and followed by an open-sourced agent harness and tool layer on Jul 16."
   },
   "beats": [
    {
@@ -68,20 +84,35 @@
     ]
    },
    {
-    "kicker": "NOW",
-    "tone": "now",
+    "kicker": "BENCHMARK",
+    "tone": "rising",
     "headline": "Hands-on benchmark: 80% cheaper coding-agent runs, near-frontier speed, more hallucinations",
     "summary": "Tech Times' day-two benchmark is the first independent read on Grok 4.5's coding-agent economics and reliability tradeoff.",
     "sids": [
      "68e97756211ddc61"
+    ]
+   },
+   {
+    "kicker": "OPEN SOURCE",
+    "tone": "now",
+    "headline": "SpaceXAI open-sources the Rust harness, TUI, and tool layer behind its coding CLI",
+    "summary": "MarkTechPost reports the actual agent scaffolding behind the CLI is now public, not just benchmarks of its output.",
+    "sids": [
+     "f6ae87161f3a2c58"
     ]
    }
   ],
   "open_questions": [
    "Does the 80% coding-agent cost cut hold up across benchmarks beyond Tech Times' initial write-up?",
    "How much does the higher hallucination rate cost in practice for agentic coding workflows — does it require extra verification steps that erode the price advantage?",
-   "Does SpaceXAI publish its own benchmark numbers, or does independent testing stay the only source?"
+   "Does SpaceXAI publish its own benchmark numbers, or does independent testing stay the only source?",
+   "What license governs the open-sourced harness, and does inspecting its tool layer explain why Grok 4.5 hallucinates more than rival coding agents?"
   ],
-  "generated_at": "2026-07-29T15:25:00Z"
+  "provenance": {
+   "f6ae87161f3a2c58": {
+    "surfaced_by": "scout"
+   }
+  },
+  "generated_at": "2026-07-29T21:20:00Z"
  }
 }
