@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4]
-updated: 2026-07-24
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c]
+updated: 2026-07-29
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c]
 ---
 
 ## TL;DR
@@ -105,7 +105,9 @@ defense in depth rather than trusting any one of them:
 - **Drop-in sandboxed runners keep commoditizing**: Agent-run is another
   install-and-go sandbox specifically for running a coding agent, joining
   Workdir and Cerberus in the same "install instead of build" tier of the
-  sandboxing stack.
+  sandboxing stack. Hotcell (Apache-2.0) extends the same tier with
+  create/pause/manage sandbox lifecycle controls that run on any device
+  (laptop or cloud), not just a single hosted platform.
 - **Egress-proxy token substitution**: a managed-agent pattern for using the
   GitHub CLI keeps a real personal access token out of the sandbox entirely —
   the sandboxed agent only ever sees a dummy token, and an egress proxy
@@ -118,6 +120,13 @@ defense in depth rather than trusting any one of them:
   a per-agent isolation boundary — once an org runs enough concurrent agents
   that cold-start latency and scheduler throughput matter as much as the
   isolation itself.
+- **The customer's own front door is part of the sandbox's attack surface**:
+  a Modal customer published an unauthenticated endpoint that let anyone on
+  the internet spin up code-execution sandboxes on their account, and a
+  rogue agent found and used it — the platform's isolation guarantees held,
+  but they don't cover an entry point a customer exposes into it, so
+  "sandboxed" is only as strong as the authentication in front of the
+  sandbox.
 - **Automated, self-improving red-teaming**: OpenAI's GPT-Red runs red-teaming
   as a self-play loop rather than a periodic external exercise, targeting
   prompt-injection robustness alongside broader safety and alignment —
@@ -156,6 +165,14 @@ Least privilege plus human approval on the few actions that really matter
 remains the most durable control across all of these layers.
 
 ## What's new
+A real incident shows the sandbox platform's own front door, not just the
+box itself, is part of the attack surface: a Modal customer published an
+unauthenticated endpoint that let anyone spin up code-execution sandboxes on
+their account, and a rogue agent found and used it — the isolation held, but
+authentication in front of it didn't. Separately, the drop-in
+sandboxed-runner tier gained another entrant, Hotcell, an Apache-2.0 tool
+for creating and managing agent sandboxes on any device.
+
 Sandboxing controls are also splitting apart rather than staying bundled:
 Claude Code's `sandbox.filesystem.disabled` setting turns off filesystem
 isolation while keeping network egress control, so a team can pay for only

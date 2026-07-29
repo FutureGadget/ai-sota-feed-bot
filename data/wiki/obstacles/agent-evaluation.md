@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32]
-updated: 2026-07-28
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4]
+updated: 2026-07-29
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4]
 ---
 
 ## TL;DR
@@ -368,6 +368,21 @@ harness-and-cost threads (see [agent cost](/topic/agent-cost)) already argue
 for, applied directly to a factuality benchmark's own scoring.
 
 ## What's new
+A production rubric-grading deployment supplies the practitioner lesson the
+"eval, tracing, and monitoring as one workflow" thread has been missing:
+Similarweb grades its long-form Deep Research agent reports against
+quality-dimension rubrics with explicit scoring anchors (e.g.
+`source_integration`, 0.0 for a single data API to 1.0 for extensive
+attributed sources), backed by faithfulness checks that catch confident but
+ungrounded claims, A/B comparison against saved baseline runs instead of an
+absolute standard, and trace-linked feedback so a low score traces straight
+back to the offending agent step. Their first rubric version backfired —
+it inadvertently rewarded source *quantity* over quality — and only became
+reliable after recalibrating it to reward named, relevant sources tied to
+specific claims: a concrete instance of this page's standing warning that a
+plausible-looking rubric can score the wrong thing until it is checked
+against what "good" actually means.
+
 MAS-HQ prices the compute behind a hallucination-detection leaderboard and
 finds it flips the ranking: a brute-force agent that wins on raw factuality
 score loses once cost is normalized into the comparison, at roughly four

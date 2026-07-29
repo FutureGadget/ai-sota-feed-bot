@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0]
-updated: 2026-07-24
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f]
+updated: 2026-07-29
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f]
 ---
 
 ## TL;DR
@@ -65,6 +65,25 @@ experimental opt-in flag, the same "auth flow isolated from the harness"
 pattern Claude Code's `mcp login`/`logout` already shipped, now landing
 outside Anthropic's own tooling.
 
+The protocol itself just crossed a bigger threshold than any single vendor
+feature: the **MCP 2026-07-28 specification** is the largest revision since
+launch, making the protocol **stateless** and adding a governed extensions
+system alongside hardened authorization — a foundational rewrite of how
+clients and servers interoperate, not another connector. AWS's AgentCore
+Gateway already supports the new spec, giving platform teams a concrete
+reference implementation for what adopting it looks like in a managed
+gateway rather than a bespoke client patch.
+
+Production security guidance is maturing alongside the spec: an InfoQ field
+guide lays out **defense-in-depth for MCP in production** across four
+architectural layers — safe execution, management infrastructure, outbound
+network calls, and the gateway itself — treating "securing MCP" as a layered
+architecture decision rather than a single gateway config toggle. It is the
+production-hardening counterpart to the governance and auth work below (see
+[prompt injection](/topic/prompt-injection) and
+[agent sandboxing](/topic/agent-sandboxing) for the attack surface this
+defends against).
+
 Two further signs of maturation:
 
 - **Tool discovery is becoming a scaling problem** — as a single agent faces dozens of connectors, listing every tool schema blows the context budget, so clients are shifting to *search* over the registry; OpenAI's Codex now uses MCP tool search by default, treating "find the right tool" as a retrieval step rather than dumping the full catalog.
@@ -105,13 +124,18 @@ problem: cutting the tokens a tool *definition* burns, not the tokens a
 conversation accumulates.
 
 ## What's new
-MCP's payload keeps widening past tools, data, memory, and task queues:
-Euclid-MCP puts a full symbolic reasoning engine (SWI-Prolog) behind the
-protocol, letting an agent delegate multi-step logical inference through a
-translate-run-inspect-repair tool loop instead of reasoning it out itself —
-on an IT security/compliance benchmark, the MCP-delegated backend returns
-exact answers with lower latency where LLM-only reasoning hallucinates on
-larger knowledge bases.
+The protocol itself just had its largest revision since launch: the MCP
+2026-07-28 spec makes the protocol **stateless**, adds a governed extensions
+system, and hardens authorization — a foundational change rather than a new
+server or client. AWS's AgentCore Gateway already supports it, giving
+platform teams a concrete reference for what adopting the new spec looks
+like in a managed gateway. Alongside the spec bump, InfoQ published a
+defense-in-depth architecture for securing MCP in production across four
+control layers — safe execution, management infrastructure, outbound
+network calls, and the gateway itself — the first field guide to treat
+"secure MCP deployment" as a layered architecture problem rather than a
+single gateway setting (see [prompt injection](/topic/prompt-injection) for
+the attack side this defends against).
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose

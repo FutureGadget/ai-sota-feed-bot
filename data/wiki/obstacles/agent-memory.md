@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504]
-updated: 2026-07-24
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912]
+updated: 2026-07-29
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912]
 ---
 
 ## TL;DR
@@ -202,6 +202,20 @@ infrastructure you already run" instinct as Elastic's Atlas and BetterDB
 above, applied to the write-conflict problem specifically rather than to
 retrieval.
 
+The local-first wave's "one brain across every client" instinct gets a
+concrete, sub-second-recall implementation: CMEM pairs a local SQLite store
+of timestamped observations (decisions, dead ends, fixes — not just diffs)
+with a built-in vector index for semantic recall, exposes both to any
+MCP-speaking client through a single server so Cursor, Claude Code, and a
+bare CLI agent share the same memory, and reports recall under one second.
+It ships 11 bundled skills so a team doesn't have to build the write/recall
+logic itself (the vendor cites 6+ weeks of engineering for a custom
+equivalent), runs fully self-hosted and open-source (Apache-2.0) with an
+optional paid cloud mirror for cross-device sync — the same
+buy-vs-build-and-self-host split this page's local-first tier already
+tracks (Memharness, Cortex, Brain2.0), this time bundling the MCP transport
+and the skills on top of the store itself.
+
 A **programmatic memory** approach answers the retrieval-vs-context tradeoff
 from a third direction: PRO-LONG keeps a complete, structured interaction log
 rather than summarizing or pruning it, and uses a coding agent to search that
@@ -212,6 +226,12 @@ coding agent and matches or beats specialized long-horizon harnesses (up to
 as a code-search problem rather than a vector-similarity one.
 
 ## What's new
+CMEM bundles the local-first memory pattern into one shippable package: a
+local SQLite store of timestamped decisions/observations plus a built-in
+vector index, exposed over MCP so every client (Cursor, Claude Code, CLI
+agents) reads and writes the same memory, with sub-second recall and 11
+bundled skills so a team doesn't build the write/recall logic itself.
+
 "Agentic Context Management" reframes memory as a lifecycle problem —
 architecting, ingesting, scoping, anticipating, and compacting/consolidating
 — rather than a storage-and-retrieval one, backed by a reference
