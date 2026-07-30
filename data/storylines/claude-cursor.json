@@ -1,12 +1,13 @@
 {
  "slug": "claude-cursor",
  "label": "Claude Cursor",
- "item_count": 3,
- "day_count": 3,
+ "item_count": 4,
+ "day_count": 4,
  "source_count": 3,
  "first_seen": "2026-07-10T08:00:00+00:00",
- "last_updated": "2026-07-17T00:00:00+00:00",
- "generated_at": "2026-07-30T00:08:52.604851+00:00",
+ "last_updated": "2026-07-21T00:00:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-07-30T05:08:45.987034+00:00",
  "sources": [
   "claude_blog",
   "infoq_ai_ml",
@@ -59,19 +60,35 @@
      "editor_note": "First vendor-published account of the internal benchmark criteria Cursor used to greenlight Fable 5 in production."
     }
    ]
+  },
+  {
+   "date": "2026-07-21",
+   "items": [
+    {
+     "title": "How Datadog built a “universal machine tool” for Claude Code | Claude by Anthropic",
+     "url": "https://claude.com/blog/how-datadog-built-a-universal-machine-tool-for-claude-code",
+     "source": "claude_blog",
+     "type": "news",
+     "summary_1line": "Datadog has an agent write specifications for a deterministic kernel to write application code",
+     "why_it_matters": "Matches feed focus: agent, claude code.",
+     "sid": "d36a81ca7c645c40",
+     "published": "2026-07-21T00:00:00+00:00",
+     "editor_note": "Anthropic's own deeper account of the Jul 10 Datadog migration, revealing the agent writes specs for a deterministic kernel rather than application code directly."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "A Datadog engineer detailed pairing Claude and Cursor on a real production storage migration on Jul 10, and by Jul 14 MarkTechPost had scored four coding agents — including Claude Code and Cursor — on the same scaffold-to-PR task, turning vendor claims into a head-to-head comparison.",
   "stale": false,
-  "whats_new": "Anthropic's own Jul 17 post describes Cursor validating Claude Fable 5 against an internal 'CursorBench' suite covering its hardest 1% of coding tasks before shipping it in production.",
-  "why_it_matters": "Coding-agent evaluation keeps maturing from vendor claims toward comparable evidence, but a vendor-published case study still isn't independent verification — weigh Cursor's account accordingly until its benchmark methodology is public.",
-  "take_for_builders": "Run the same scaffold-to-PR task across your own agent shortlist rather than trusting vendor claims, and treat a vendor-published case study like Cursor's CursorBench account as anecdotal until its methodology is public.",
+  "whats_new": "Anthropic's own Jul 21 case study goes inside that same Datadog migration, detailing how the team has Claude Code write specifications for a deterministic kernel that then generates the application code — the fullest account yet of the tooling behind the Jul 10 report.",
+  "why_it_matters": "Spec-driven, agent-written kernels are a concrete pattern for keeping large migrations deterministic and reviewable — worth evaluating against ad hoc agent-driven refactors, but still only a vendor-published account, not independent verification.",
+  "take_for_builders": "Run the same scaffold-to-PR task across your own agent shortlist rather than trusting vendor claims. If you're weighing agent-driven migrations, evaluate Datadog's spec-then-deterministic-kernel pattern against having the agent write application code directly — and treat both it and Cursor's CursorBench account as anecdotal until either is independently verified.",
   "status": {
    "state": "Developing",
    "tone": "rising",
-   "changed": "2026-07-17",
-   "detail": "Coverage now spans independent cross-agent benchmarking plus a vendor-published case study, with no independent evaluation of Cursor's internal CursorBench criteria yet."
+   "changed": "2026-07-21",
+   "detail": "Coverage now spans independent cross-agent benchmarking, a vendor-published CursorBench account, and a deeper vendor case study on the underlying migration tooling — still no independent evaluation of either."
   },
   "beats": [
    {
@@ -94,19 +111,37 @@
    },
    {
     "kicker": "VENDOR ACCOUNT",
-    "tone": "now",
+    "tone": "rising",
     "headline": "Anthropic publishes Cursor's account of vetting Fable 5 via an internal 'CursorBench'",
     "summary": "Cursor describes running Fable 5 against its hardest 1% of coding tasks before shipping it in production — a vendor case study, not independent verification.",
     "sids": [
      "1029048a4e898aaa"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Anthropic's deeper case study: Datadog has Claude Code write specs for a deterministic kernel that generates the application code",
+    "summary": "The same Datadog migration from Jul 10 gets a fuller vendor account — the agent writes specifications, then a deterministic kernel generates the code, rather than the agent writing application code directly.",
+    "sids": [
+     "d36a81ca7c645c40"
     ]
    }
   ],
   "open_questions": [
    "Does the MarkTechPost scaffold-to-PR scoring hold up under independent replication with different tasks?",
    "Is Cursor's internal 'CursorBench' suite or its results published anywhere reviewable, or is this only Anthropic's characterization?",
+   "Does the spec-then-deterministic-kernel pattern Datadog used generalize beyond this migration, or is it specific to their storage backend?",
    "Will other coding-agent vendors publish comparable internal benchmark methodology, or does Cursor's account stay an outlier?"
   ],
-  "generated_at": "2026-07-23T00:10:00Z"
+  "provenance": {
+   "2c7d0e2d9aa318bb": {
+    "surfaced_by": "scout"
+   },
+   "d36a81ca7c645c40": {
+    "surfaced_by": "scout"
+   }
+  },
+  "generated_at": "2026-07-30T05:20:00Z"
  }
 }
