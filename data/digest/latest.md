@@ -2,116 +2,146 @@
 
 Focus: AI Platform Engineering
 
-## 1. LangSmith LLM Gateway: runtime governance built into the agent lifecycle
+## 1. Introducing Align Evals: Streamlining LLM Application Evaluation
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/introducing-align-evals
+- Score: 2.822 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 2. LangSmith LLM Gateway: runtime governance built into the agent lifecycle
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/introducing-llm-gateway
-- Score: 2.752 | Reliability: 1.0
+- Score: 2.731 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
-
-## 2. Do more with less: How GKE can reduce your cost per agent by 75%
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/containers-kubernetes/reduce-your-agents-costs-with-gke-agent-sandbox/
-- Score: 2.692 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
 
 ## 3. OmegaUse-OfficeVal: Benchmarking LLM Agents on Long-Horizon Office-Suite Tasks with Economic Grounding
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2607.27155v1
-- Score: 2.675 | Reliability: 1.0
+- Score: 2.659 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 4. Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration
+## 4. Do more with less: How GKE can reduce your cost per agent by 75%
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/containers-kubernetes/reduce-your-agents-costs-with-gke-agent-sandbox/
+- Score: 2.647 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
+
+## 5. Gemini Robotics ER 2: powering robotics with video understanding, task orchestration, and multi-robot collaboration
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/gemini-robotics-er-2-powering-robotics-with-video-understanding-task-orchestration-and-multi-robot-collaboration/
-- Score: 2.509 | Reliability: 1.0
+- Score: 2.449 | Reliability: 1.0
 - Why it matters: 
 
-## 5. langgraph-checkpoint-sqlite==3.1.1
+## 6. langgraph-checkpoint-sqlite==3.1.1
 - Type: release | Source: langgraph_releases
 - URL: https://github.com/langchain-ai/langgraph/releases/tag/checkpointsqlite%3D%3D3.1.1
-- Score: 2.499 | Reliability: 1.0
+- Score: 2.431 | Reliability: 1.0
 - Why it matters: 
-
-## 6. Show HN: Collie – a local AI harness that runs the browser, desktop and code
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/colliehq/collie
-- Score: 2.45 | Reliability: 1.0
-- Why it matters: Matches feed focus: harness.
 
 ## 7. Quoting Bruce Schneier
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Jul/30/bruce-schneier/#atom-everything
-- Score: 2.447 | Reliability: 1.0
+- Score: 2.429 | Reliability: 1.0
 - Why it matters: 
 
 ## 8. AgentMap: Joint Equivalence and Subsumption Discovery for Ontology Matching
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2607.27130v1
-- Score: 2.422 | Reliability: 1.0
+- Score: 2.408 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 9. TREK: A Travel Reasoning and Evaluation Kit for LLM Agents in Complex Trip Planning
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2607.26977v1
-- Score: 2.417 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 10. Advancing the price-performance frontier with GPT-5.6
+## 9. Advancing the price-performance frontier with GPT-5.6
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/advancing-the-price-performance-frontier-with-gpt-5-6
-- Score: 2.277 | Reliability: 1.0
+- Score: 2.221 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Ontologies Are So Back: Why AI Agents Are Reviving the Semantic Web
+## 10. We’re launching Lyria 3.5 in Google Flow Music, with advances across musicality, lyrics, vocals, and creative control
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/were-launching-lyria-35-in-google-flow-music-with-advances-across-musicality-lyrics-vocals-and-creative-control/
+- Score: 1.991 | Reliability: 1.0
+- Why it matters: 
+
+## 11. TREK: A Travel Reasoning and Evaluation Kit for LLM Agents in Complex Trip Planning
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2607.26977v1
+- Score: 2.403 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 12. Ontologies Are So Back: Why AI Agents Are Reviving the Semantic Web
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ontologies-agentic-systems
-- Score: 2.346 | Reliability: 1.0
+- Score: 2.33 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
-
-## 12. DeepSeek is developing a massive AI data centre in Inner Mongolia - AFR
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMisgFBVV95cUxOcjlZdm53RUMyek9mRTFic2p2MC1GUVpVQWZ0ZlVwRVlkb3dOY3FSaldMUUFKOEpvZ1RUcnlJMDgxSS1oTS1RZXR6a3NxUGxvd2V4eENGdWJrNW5XS2ZtY2pmanF4dnJpUkJsR0U5ZE5MWEVSM2RxMi1tVmtmRnIteWJCRTlyRU5RN0hoaXJPcnZrSHRIQ3I3QS1OVkFpSUNWbjJiRVJlS2FYN1lyS191azhR?oc=5
-- Score: 2.28 | Reliability: 1.0
-- Why it matters: 
 
 ## 13. GPU Management: Why Idle GPUs Are the New Grounded Aircraft
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/Dharma-AI/gpu-management
-- Score: 2.254 | Reliability: 1.0
+- Score: 2.239 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Stacked sessions and pull requests in the GitHub Copilot app
+## 14. DeepSeek is developing a massive AI data centre in Inner Mongolia - AFR
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMisgFBVV95cUxOcjlZdm53RUMyek9mRTFic2p2MC1GUVpVQWZ0ZlVwRVlkb3dOY3FSaldMUUFKOEpvZ1RUcnlJMDgxSS1oTS1RZXR6a3NxUGxvd2V4eENGdWJrNW5XS2ZtY2pmanF4dnJpUkJsR0U5ZE5MWEVSM2RxMi1tVmtmRnIteWJCRTlyRU5RN0hoaXJPcnZrSHRIQ3I3QS1OVkFpSUNWbjJiRVJlS2FYN1lyS191azhR?oc=5
+- Score: 2.231 | Reliability: 1.0
+- Why it matters: 
+
+## 15. Release 2.71.0 corresponding to NGC container 26.07
+- Type: release | Source: triton_releases
+- URL: https://github.com/triton-inference-server/server/releases/tag/v2.71.0
+- Score: 2.22 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. Stacked sessions and pull requests in the GitHub Copilot app
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/stacked-sessions-and-pull-requests-in-the-github-copilot-app/
-- Score: 2.232 | Reliability: 1.0
+- Score: 2.216 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Deep Agents v0.7
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/deep-agents-v0-7
-- Score: 2.174 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
+## 17. AI Worming through Word
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Jul/29/ai-worming-through-word/#atom-everything
+- Score: 2.157 | Reliability: 1.0
+- Why it matters: 
 
-## 16. Can AI agents conduct open-ended AI research? Early evidence from two case studies
+## 18. Can AI agents conduct open-ended AI research? Early evidence from two case studies
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2607.27191v1
-- Score: 2.154 | Reliability: 1.0
+- Score: 2.141 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 17. [AINews] AI is eating Finance; AIE NYC now open
+## 19. [AINews] AI is eating Finance; AIE NYC now open
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-ai-is-eating-finance-aie-nyc
-- Score: 2.12 | Reliability: 1.0
+- Score: 2.107 | Reliability: 1.0
 - Why it matters: 
 
-## 18. Quoting D. Richard Hipp
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Jul/29/d-richard-hipp/#atom-everything
-- Score: 2.075 | Reliability: 1.0
+## 20. codex 0.147.0-alpha.2
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.147.0-alpha.2
+- Score: 1.965 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 21. How enabling two settings tripled our scores on the ARC-AGI-3 benchmark
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores
+- Score: 1.889 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Deploying Kimi K3 on AWS
+## 22. Presentation: Getting Rid of LeetCode Interviews in the World of AI
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/ai-lead-interview/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 1.88 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 23. Accelerating scientific discovery with ChatGPT for Academic Researchers
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/chatgpt-for-academic-researchers
+- Score: 1.822 | Reliability: 1.0
+- Why it matters: 
+
+## 24. Deploying Kimi K3 on AWS
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/deploying-kimi-k3-on-aws/
-- Score: 1.548 | Reliability: 1.0
+- Score: 1.516 | Reliability: 1.0
 - Why it matters:
