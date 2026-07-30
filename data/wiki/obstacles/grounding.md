@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a]
-updated: 2026-07-27
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc]
+updated: 2026-07-30
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc]
 ---
 
 ## TL;DR
@@ -106,20 +106,21 @@ retrieval quality after the fact — the same value-poisoning failure mode its
 benchmark measures (see [agent benchmarks](/topic/agent-benchmarks)), now
 addressed as a deployable guard rather than only a measured risk.
 
+**Grounding a data agent is a data-engineering investment, not just a
+retrieval-technique choice**: a production case study has LangChain pairing
+Hex, dbt, and a semantic-model layer with observability tooling to build a
+trusted data agent, reporting a 40x increase in self-service analysis —
+evidence that a governed semantic layer underneath the agent, not a better
+retrieval method on top of it, is what let a fluent answer become a trusted
+one (see [agent observability](/topic/agent-observability) for the
+trace-and-trust side of the same build).
+
 ## What's new
-A third grounding failure surface emerged that's adversarial rather than
-noisy: Salience Induction shows truth-preserving edits to fact position and
-framing alone reach an 83.3% attack success rate against multi-hop RAG
-agents even when every retrieved claim is true, with a lightweight
-input-side defense (Salience Normalization) cutting that to 15.3% —
-grounding integrity now needs a defense distinct from the fact-checking and
-attribution work already on this page. Two further additions target
-grounding from opposite ends of the pipeline: task-aware knowledge
-compression pre-compresses a knowledge base into task-specific
-representations to beat plain RAG's ceiling on cross-document analytical
-questions, and ActionRail ships a runtime framework that checks a proposed
-agent action against ground-truth business data before execution, turning
-its own value-poisoning benchmark finding into a deployable guard.
+A production case study (LangChain's agent-first data stack) grounds a data
+agent's trustworthiness in the same structured-retrieval argument this page
+already makes: pairing dbt-modeled semantic layers with observability
+tooling — not a better retrieval technique alone — is what let the team
+scale self-service analysis 40x.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

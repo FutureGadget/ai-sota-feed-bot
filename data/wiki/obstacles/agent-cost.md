@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7]
-updated: 2026-07-26
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326]
+updated: 2026-07-30
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326]
 ---
 
 ## TL;DR
@@ -66,6 +66,12 @@ disaggregated serving, KV-cache offloading, no new hardware), and power-shifting
 software that lets an operator run up to 40% more GPUs inside the same power
 budget — a reminder that for self-hosted agents the inference stack sets the
 floor price every other optimization multiplies against.
+
+The **sandboxing layer doubles as a cost lever**, not just a security
+control: Google's GKE Agent Sandbox reports cutting cost per agent by
+roughly 75% for platform teams running many concurrent agent workloads —
+tying [sandboxing](/topic/agent-sandboxing)'s isolation choice directly to
+this page's cost line rather than only to blast-radius containment.
 
 **Caching** cuts fixed cost at every layer: container/image caching (Amazon
 SageMaker) cuts cold-start scaling cost and latency; prompt caching the
@@ -189,14 +195,11 @@ ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
 here as a change in what individuals bother to build at all.
 
 ## What's new
-KV-cache offload gets a concrete storage-engine implementation with hard
-numbers: OpenLake moves cache state from GPU memory to a shared RAM/NVMe
-tier, losslessly compressing blocks before they leave the GPU so a prefix
-cached on one host is cheap to reuse from another — cutting GPU time on a
-128K-context workload from 1,169 to 606 seconds, a 48.2% GPU-cost reduction,
-and dropping time-to-first-token from 44s to 0.6s on a reused prefix. It is
-the sharpest cost number yet behind the standing "KV caches are outgrowing
-GPU memory" pressure this page already tracks.
+Google's GKE Agent Sandbox reports a roughly 75% cost-per-agent reduction
+for platform teams running many concurrent agent workloads — the sharpest
+evidence yet that the execution/sandboxing layer is a cost lever in its own
+right, not just a security control (see
+[sandboxing](/topic/agent-sandboxing)).
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

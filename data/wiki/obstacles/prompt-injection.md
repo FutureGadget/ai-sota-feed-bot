@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b]
-updated: 2026-07-28
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f]
+updated: 2026-07-30
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f]
 ---
 
 ## TL;DR
@@ -163,13 +163,23 @@ router this page's [cost-controls](/topic/cost-controls) coverage already
 treats as a trusted cost-optimization component turns out to be an
 unverified trust boundary too.
 
+The threat is also escalating from a single hijack to **self-propagation**:
+a documented prompt-injection variant against Microsoft Word upgrades the
+standard hidden-instruction attack into a worm — hidden text in one document
+instructs the agent processing it to copy the same injection payload into
+every other document it touches, so opening one poisoned file seeds an
+agent's future output with the same attack rather than causing a single
+one-off compromise. It sharpens the standing role-confusion framing into a
+compounding one: an agent that treats fetched content as instructions
+doesn't just get hijacked once, it can become the vector that hijacks the
+next document too.
+
 ## What's new
-A new empirical study (SIDEL) shows third-party LLM API routers — already
-tracked on this wiki as a cost-optimization layer — are also an unverified
-trust boundary: sitting on the trusted path between agent and provider, a
-router can silently substitute or inject content into what the agent
-receives, with no mechanism to verify the swap, across four escalating
-levels of tampering subtlety tested on four coding agents.
+A documented prompt-injection variant against Microsoft Word turns the
+standard hidden-instruction attack into a **self-replicating worm**:
+injected text instructs the agent to copy the same payload into every other
+document it processes, so a single poisoned file seeds the attack into
+future outputs instead of causing one isolated compromise.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary
