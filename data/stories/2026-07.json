@@ -1102,6 +1102,22 @@
   "url": "http://arxiv.org/abs/2607.12763v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "135c077a65b61dda": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "c0c097d40718803c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-30T17:14:07+00:00",
+  "sid": "135c077a65b61dda",
+  "source": "arxiv_llm_reliability",
+  "summary": "Large language models can write, patch, and search code, but oncall root cause analysis (RCA) demands something different: reasoning over noisy metrics, logs, traces, and source code, starting from ambiguous user-facing reports, often hours after the incident began. We introduce ORCA-bench, a benchmark that puts general-purpose coding agents in a production-fidelity oncall setting. ORCA-bench pairs a live OpenTelemetry-instrumented microservice system--exposing six days of metrics, logs, and traces through real telemetry interfaces (Prometheus, Jaeger, and OpenSearch via Grafana) and full source-code access--with 1,079 RCA tasks that systematically vary report specificity, time-to-detection, and co-occurring fault scenarios. Ground-truth symptoms are curated and signed off by expert SREs, and our LLM-as-judge is independently re-scored by humans (Cohen's $κ_w=0.90$). Across five frontier agents, the best RCA Accuracy is 25.3% on Medium-difficulty tasks (the realistic-input setting) and 10.0% on Hard--a gap that remains even with Claude Fable 5. The weakest model hallucinates an implausible root cause in 40% of incident reports, and removing source-code access degrades every metric. Crucially, these are performances on a curated 50 GB / six-day testbed with tasks investigated in isolation on a system whose code and instrumentation are public. Since real production systems are order of magnitudes larger, more dynamic, and more idiosyncratic, the gap we report is a lower bound o",
+  "summary_1line": "Large language models can write, patch, and search code, but oncall root cause analysis (RCA) demands something different: reasoning over noisy metrics, logs, traces, and source code, starting from ambiguous user-faci...",
+  "title": "ORCA-bench: How Ready Are Language Model Agents for Oncall?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.28545v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "13619e816aa57836": {
   "first_seen": "2026-07-17T20:03:01.403004+00:00",
   "id": "03a72bb407103e5e",
@@ -1538,6 +1554,22 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.145.0-alpha.22",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "1bcf278773e877f9": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "8a7148e03d7db5bc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-07-30T15:50:10+00:00",
+  "sid": "1bcf278773e877f9",
+  "source": "arxiv_cs_lg",
+  "summary": "Computer-use agents often fail on transient GUI events because they produce the correct action only after the relevant window has already closed. We identify the main cause as expensive autoregressive decoding on the decision-time critical path. We propose Adaptive Anticipatory Policy Trees (AAPT), which eliminates this delay without modifying the underlying model. During idle screen periods, the same frozen multimodal model constructs a bounded conditional policy tree with observable guards, pre-authorized actions, and branch-specific deadlines. The tree is sized to cover the model's own decoding latency. When an event occurs, a lightweight observer matches change-gated frames to a prepared branch and immediately executes the corresponding action without generating new text. In paired trials with pre-registered endpoints and exact McNemar tests, AAPT improves the success rate from 0.50 to 0.79 within a contested decision window ($p=1.8\\times10^{-3}$), while producing no incorrect actions. Both open-loop and predict-and-replan baselines achieve zero success because they still decode during execution. A preparation-time sweep shows that the gain emerges where the latency-based tree-sizing rule predicts, and ablations reveal three key requirements: fast observer decoding, valid tree planning, and accurate branch routing. A pre-registered oracle probe rejects our initial hypothesis and instead points to branch routing as the causal bottleneck. We further reproduce the effect on ",
+  "summary_1line": "Computer-use agents often fail on transient GUI events because they produce the correct action only after the relevant window has already closed. We identify the main cause as expensive autoregressive decoding on the...",
+  "title": "Why Are GUI Agents Correct but Late? Decode on the Decision-Time Critical Path, Tested with Pre-Compiled Policy Trees",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.28399v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "1c1f49ad09e1a168": {
   "first_seen": "2026-07-18T04:02:57.138843+00:00",
@@ -3777,6 +3809,18 @@
   "title": "Open-source AI fuels global tech ecosystem - China Daily",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBlb3dBYTlycVA5VzhkV3dBbXA2TlQ1QW14M1FkbVFQWjdUUlBJZ2VsbFI5OVFMU3RPbWtiZ1UwMXhBemE1NDV2eFhmRFpveEUyenZJM0FBREl1WTdSUGJicmhId0VVM3A1Z1pob1BiYktmZUJWVExyUWFPb184QQ?oc=5"
+ },
+ "41636d05a49b968a": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "31159cf0520cba9d",
+  "published": "2026-07-31T03:28:23+00:00",
+  "sid": "41636d05a49b968a",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Why is Z.AI stock surging today? Investing.com",
+  "summary_1line": "Why is Z.AI stock surging today? Investing.com",
+  "title": "Why is Z.AI stock surging today? - Investing.com",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQV1RoRUtkMk1kdXpHUkU0XzVJaDRmejJjYndIZWNCdkNtUEVtOEh3Vlk1U01XWEhLYUtBbXl0VW1LQXhxcnRCbWlfZ0RQMjEyNjhnSUtCdEVvNUlPd1FRR0I1S0xYODZOYzdXN2dBeVN3c3hiYkwyeUNzTW5aZXpQbk9wdTBobXh0aV9kc1Q4QS15UUw5Wlh3?oc=5"
  },
  "4177ddfd19bda001": {
   "first_seen": "2026-07-25T08:01:46.840353+00:00",
@@ -7285,6 +7329,24 @@
   "url": "https://simonwillison.net/2026/Jul/30/luna-price-drop/#atom-everything",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "7c1f6d7a09237439": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "f4226fa3d616b33b",
+  "matched_topics": [
+   "agent",
+   "evaluation",
+   "codex"
+  ],
+  "published": "2026-07-30T17:34:01+00:00",
+  "sid": "7c1f6d7a09237439",
+  "source": "arxiv_cs_cl",
+  "summary": "Recursive self-improvement (RSI) requires AI systems that improve the process of building AI (i.e., AI4AI); machine learning engineering (MLE) offers a concrete, executable testbed for studying this capability. We introduce OpenMLE, an open full-stack system for RSI research in MLE, spanning verifiable task environments with execution feedback (OpenMLE-Gym), operator learning (OpenMLE-RL), and long-horizon search (OpenMLE-Evo). On this stack we post-train Frontis-MA1 (35B) as a meta-evolution agent for MLE, aligning post-training and inference around four atomic program-evolution operators (Draft, Improve, Debug, Crossover): the same operators are trained via execution-grounded SFT and RL on data deduplicated against all evaluation benchmarks, then composed into long-horizon search, coupling learning and evolution in a single loop. On MLE-Bench Lite under a 12-hour per-task budget on one RTX 4090 capped at 12 GB VRAM, Frontis-MA1 (35B) improves Medal Average from 39.39% to 60.61% over its base model with OpenMLE-Evo, and reaches 71.21% with OpenMLE-Evo-Max (benchmark-independent experience priors and asynchronous search), exceeding GPT-5.5 + Codex and approaching GPT-5.6 Sol and the 2.8T Kimi K3. On held-out NatureBench Lite, both components transfer: with the framework fixed, swapping in the trained model raises Match-SOTA from 50% to 70%; with the model fixed, swapping in OpenMLE-Evo raises it from 20% to 50%. We release the model weights and the full OpenMLE stack to enabl",
+  "summary_1line": "Recursive self-improvement (RSI) requires AI systems that improve the process of building AI (i.e., AI4AI); machine learning engineering (MLE) offers a concrete, executable testbed for studying this capability. We int...",
+  "title": "Frontis-MA1: Training an AI4AI Model towards Recursive Self-Improvement in Machine Learning Engineering",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.28568v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation, codex."
+ },
  "7c3d4315331ec0de": {
   "first_seen": "2026-07-18T06:03:04.331865+00:00",
   "id": "e4e64e2488901a59",
@@ -7455,6 +7517,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Jul/16/kimi-k3/#atom-everything",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "7e4175f5964a6994": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "d866412dfb9d310b",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-07-30T17:36:36+00:00",
+  "sid": "7e4175f5964a6994",
+  "source": "arxiv_cs_ai",
+  "summary": "Deploying autonomous computer-use agents (CUAs) locally is increasingly important for privacy, cost efficiency, and practical usability, yet improving their performance under strict hardware constraints remains challenging. While recent studies show that inference-time scaling can improve frontier computer-use agents through additional computation during execution, its effectiveness for resource-constrained local models remains poorly understood. We present a systematic empirical study of inference-time scaling in local CUAs across contextual, temporal, structural, and parallel dimensions. We evaluate Qwen3-VL-8B/30B-A3B, UI-TARS-1.5-7B, and OpenCUA-7B on the OSWorld benchmark. Our results show that additional computation often yields diminishing returns while changing failure modes. Contextual scaling provides historical grounding that improves trajectory stability and task accuracy, but its gains saturate as token cost increases and failures shift from repetitive or stalled trajectories toward premature false successes. Temporal scaling similarly reduces max-step stalls, yet does not substantially improve task success, indicating that longer horizons often extend erroneous trajectories rather than correct them. We further find that structural decomposition can introduce planning and formatting overhead in local two-stage agents, while parallel scaling partially mitigates these failures at a substantial computational cost. Overall, our findings suggest that efficient local C",
+  "summary_1line": "Deploying autonomous computer-use agents (CUAs) locally is increasingly important for privacy, cost efficiency, and practical usability, yet improving their performance under strict hardware constraints remains challe...",
+  "title": "Rethinking Inference-Time Scaling in Local Computer-Use Agents: Failure Modes and Compute Tradeoffs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.28573v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "7f18e7dd55749326": {
   "first_seen": "2026-07-30T17:01:48.734378+00:00",
@@ -13831,6 +13910,24 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2607.02502v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "ecc55b9a0d183f97": {
+  "first_seen": "2026-07-31T04:01:50.468109+00:00",
+  "id": "6c524d0a11d4bc42",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-07-30T13:58:41+00:00",
+  "sid": "ecc55b9a0d183f97",
+  "source": "arxiv_cn_open_weight_reports",
+  "summary": "GUI agents have the potential to become a general purpose executor over existing digital devices. To advance them toward real-world use, we envision agents that operate reliably on real devices, execute workflows across platforms, combine GUI interaction with CLI execution, complete long-horizon tasks, proactively initiate useful services, and autonomously improve their capabilities with minimal human effort. Guided by this vision, we present Qwen-UI-Agent, a real-world centric foundation GUI agent spanning mobile, computer-use, web, and DeepSearch environments. Qwen-UI-Agent combines diverse sandbox environments with a large-scale real-device mobile runtime. Its unified action space interleaves GUI operations with CLI execution and generates batched actions in a single model turn. An AutoResearch-style data flywheel uses agents to construct tasks and environments, diagnose failures, and plan subsequent iterations. Online RL supports training on trajectories exceeding 100 turns, with over 10,000 concurrent environments accelerating rollout. A lightweight harness layer supports proactive service initiation and stateful workflows across mobile and computer. Across a broad suite of evaluations, Qwen-UI-Agent sets state-of-the-art performance on mobile-use benchmarks while delivering competitive performance on computer- and browser-use tasks against frontier models, including Opus 4.8, Gemini 3.1 Pro, and GPT-5.6 Sol. On mobile use, it achieves 82.1% on MobileWorld, 92.2% on Mobi",
+  "summary_1line": "GUI agents have the potential to become a general purpose executor over existing digital devices. To advance them toward real-world use, we envision agents that operate reliably on real devices, execute workflows acro...",
+  "title": "Qwen-UI-Agent Technical Report: Toward Next-Generation Real-World Centric Foundation GUI Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2607.28227v1",
+  "why_it_matters": "Matches feed focus: agent, harness, evaluation."
  },
  "ecd3f34ed483507b": {
   "first_seen": "2026-07-22T01:01:44.531581+00:00",
