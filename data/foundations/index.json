@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-29T10:06:45.408916+00:00",
+  "generated_at": "2026-07-31T18:13:05.226626+00:00",
   "clusters": [
     {
       "slug": "prompting",
@@ -57,7 +57,7 @@
       "status": "active",
       "cluster": "memory",
       "cluster_label": "Memory and context",
-      "updated": "2026-07-24",
+      "updated": "2026-07-31",
       "audience": "strong-software-engineer",
       "math_depth": "",
       "sections": [
@@ -75,23 +75,23 @@
         },
         {
           "heading": "Mechanism",
-          "html": "<p>Each new agent turn re-sends (or attends over) the accumulated history, so a session that naively accumulates context grows its total token cost quadratically with turn count — cost per turn keeps rising as the history keeps growing. Periodic summarization collapses that history into something shorter, flattening the curve back to linear, but every summarization pass is lossy: specific numbers, exact facts, and the provenance of where a fact came from can silently disappear. Performance holds while the loss stays below some threshold, then drops sharply once too much detail is gone — an &quot;accuracy cliff&quot; rather than a graceful degradation. The paper&#x27;s claim is that only compaction validated against what needs to be preserved before it&#x27;s committed gets you linear cost without the cliff, and that validation only works if the other four stages (deciding structure, admission, and scope ahead of time) already constrain what the compactor is allowed to lose.</p>"
+          "html": "<p>Each new agent turn re-sends (or attends over) the accumulated history, so a session that naively accumulates context grows its total token cost quadratically with turn count — cost per turn keeps rising as the history keeps growing. Periodic summarization collapses that history into something shorter, flattening the curve back to linear, but every summarization pass is lossy: specific numbers, exact facts, and the provenance of where a fact came from can silently disappear. Performance holds while the loss stays below some threshold, then drops sharply once too much detail is gone — an &quot;accuracy cliff&quot; rather than a graceful degradation. The paper&#x27;s claim is that only compaction validated against what needs to be preserved before it&#x27;s committed gets you linear cost without the cliff, and that validation only works if the other four stages (deciding structure, admission, and scope ahead of time) already constrain what the compactor is allowed to lose.</p>\n<p>OpenAI&#x27;s own ARC-AGI-3 write-up shows both halves of that claim in a single, concrete production setting. Their stock agent harness discarded the model&#x27;s private reasoning after every move, so GPT-5.6 Sol effectively restarted cold each turn instead of building on what it had already ruled out or learned about the puzzle — an ingestion failure, in the paper&#x27;s terms, not a reasoning one. Chaining <code>previous_response_id</code> to retain that reasoning across turns, combined with a compaction step that summarizes dialogue state instead of hard-truncating the oldest messages once context passes roughly 175K characters, took the same model&#x27;s ARC-AGI-3 public-set score from 13.3% to 38.3% while cutting output tokens per game by roughly 6x. Hard truncation and cold-restart-every-turn are exactly the naive, unmanaged patterns the lifecycle framing predicts will underperform.</p>"
         },
         {
           "heading": "Evidence",
-          "html": "<p>The reference implementation built around this five-stage lifecycle (Maximem Synap) scores 92% on LongMemEval and 93.2% on LoCoMo, offered as evidence that lifecycle-managed context beats flat-history-plus-summarization baselines on long-memory recall. The authors are explicit that this recall win doesn&#x27;t by itself certify production readiness: existing memory benchmarks, including the ones just cited, don&#x27;t measure latency efficiency, token efficiency, or context-rot resistance, so a high recall score can still hide an expensive or slow pipeline.</p>"
+          "html": "<p>The reference implementation built around this five-stage lifecycle (Maximem Synap) scores 92% on LongMemEval and 93.2% on LoCoMo, offered as evidence that lifecycle-managed context beats flat-history-plus-summarization baselines on long-memory recall. The authors are explicit that this recall win doesn&#x27;t by itself certify production readiness: existing memory benchmarks, including the ones just cited, don&#x27;t measure latency efficiency, token efficiency, or context-rot resistance, so a high recall score can still hide an expensive or slow pipeline.</p>\n<p>OpenAI&#x27;s ARC-AGI-3 result adds a second, independent data point from a different lab and a different task class (long-horizon puzzle-solving rather than conversational recall): retaining reasoning state and validating compaction against a size threshold rather than hard-truncating produced a roughly 3x score gain with 6x fewer output tokens on the same model. Treat the specific percentages carefully — OpenAI reports them on its own harness, not on ARC-AGI-3&#x27;s independently verified leaderboard, so the number is evidence the mechanism works, not a certified capability claim.</p>"
         },
         {
           "heading": "How to apply",
-          "html": "<ul><li>Decide the data structure that will hold context long-term — a session log vs. a structured fact store — before writing a summarizer; that architecture choice, not the compaction step, determines what&#x27;s recoverable later.</li><li>Instrument token cost per turn and watch for the quadratic-growth signature (rising marginal cost per turn) as the earliest sign context is being naively accumulated rather than managed.</li><li>Validate any compaction or summarization step against a held-out set of facts it must preserve before shipping it — don&#x27;t accept a summarizer that &quot;reads fine&quot; without checking recall on the specific facts downstream steps depend on.</li><li>Measure latency and token cost alongside recall; a benchmark score like LongMemEval/LoCoMo tells you nothing about whether the pipeline is fast or cheap enough to run in production.</li></ul>"
+          "html": "<ul><li>Decide the data structure that will hold context long-term — a session log vs. a structured fact store — before writing a summarizer; that architecture choice, not the compaction step, determines what&#x27;s recoverable later.</li><li>Instrument token cost per turn and watch for the quadratic-growth signature (rising marginal cost per turn) as the earliest sign context is being naively accumulated rather than managed.</li><li>Validate any compaction or summarization step against a held-out set of facts it must preserve before shipping it — don&#x27;t accept a summarizer that &quot;reads fine&quot; without checking recall on the specific facts downstream steps depend on.</li><li>If your API or framework supports carrying reasoning/state across turns (e.g. response-chaining instead of replaying raw history), prefer it over re-deriving state from scratch each turn — discarding reasoning between turns is an ingestion-stage failure, not just a cost inefficiency.</li><li>Trigger compaction on a validated size threshold and summarize, rather than hard-truncating the oldest messages once a context window fills up.</li><li>Measure latency and token cost alongside recall; a benchmark score like LongMemEval/LoCoMo tells you nothing about whether the pipeline is fast or cheap enough to run in production.</li></ul>"
         },
         {
           "heading": "Failure modes",
-          "html": "<ul><li>Treating &quot;add a summarizer&quot; as the whole fix: it addresses only the compacting stage and still lets ungoverned ingestion and scoping cause the accuracy cliff downstream.</li><li>Reading a recall-benchmark win as proof the pipeline is production-ready, when the benchmark doesn&#x27;t measure latency, token efficiency, or context-rot resistance.</li><li>Assuming quadratic cost growth is a serving-layer problem fixable with caching or batching, when it&#x27;s actually a context-architecture problem that compounds regardless of how fast the serving stack is.</li></ul>"
+          "html": "<ul><li>Treating &quot;add a summarizer&quot; as the whole fix: it addresses only the compacting stage and still lets ungoverned ingestion and scoping cause the accuracy cliff downstream.</li><li>Reading a recall-benchmark win as proof the pipeline is production-ready, when the benchmark doesn&#x27;t measure latency, token efficiency, or context-rot resistance.</li><li>Assuming quadratic cost growth is a serving-layer problem fixable with caching or batching, when it&#x27;s actually a context-architecture problem that compounds regardless of how fast the serving stack is.</li><li>Discarding a model&#x27;s intermediate reasoning between turns by default (replaying only raw messages) and mistaking the resulting cold restarts for a model capability limit rather than a harness design choice.</li><li>Citing a lab&#x27;s self-reported, own-harness benchmark jump as a verified capability gain instead of what it actually demonstrates: that the mechanism (retained reasoning plus validated compaction) works, independent of the exact percentage.</li></ul>"
         },
         {
           "heading": "Related",
-          "html": "<ul><li><a href=\"/topic/agent-memory\">/topic/agent-memory</a> — why agents forget across steps and sessions.</li><li><a href=\"/topic/agent-cost\">/topic/agent-cost</a> — why agent token cost is a function of behavior, not request count.</li><li><code>context-compaction-safety</code> — the sibling case where compaction breaks a long-running agent&#x27;s safety constraints rather than its factual recall.</li></ul>"
+          "html": "<ul><li><a href=\"/topic/agent-memory\">/topic/agent-memory</a> — why agents forget across steps and sessions.</li><li><a href=\"/topic/agent-cost\">/topic/agent-cost</a> — why agent token cost is a function of behavior, not request count.</li><li><code>context-compaction-safety</code> — the sibling case where compaction breaks a long-running agent&#x27;s safety constraints rather than its factual recall.</li><li><code>benchmark-production-reliability-gap</code> — more on why a benchmark score, self-reported or otherwise, needs independent verification before it becomes a production capability claim.</li></ul>"
         }
       ],
       "evidence": [
@@ -110,6 +110,22 @@
           "title": "Agentic Context Management: Solving Agent Memory and Cost by Treating Them as Lifecycle and Architecture Problems",
           "note": "",
           "sid": "fae52c3b17c1c504"
+        },
+        {
+          "id": "openai-2026-arc-agi-3-retained-reasoning-compaction",
+          "kind": "primary-doc",
+          "tier": "primary-doc-backed",
+          "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+          "note": "OpenAI reports GPT-5.6 Sol scored 13.3% on the ARC-AGI-3 public set with the stock harness on the Responses API, then 38.3% once two settings were enabled: retained reasoning (chaining previous_response_id so private reasoning items carry over between turns instead of the model restarting cold on each move) and compaction (summarizing dialogue state instead of hard-truncating the oldest messages once context passes roughly 175K characters). Output tokens per game fell by roughly 6x at the same time score roughly tripled. OpenAI is explicit these are self-reported numbers on their own harness, not an independently verified ARC-AGI-3 leaderboard entry.",
+          "url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores"
+        },
+        {
+          "id": "story-265c6a0134aba9b6-arc-agi-3-two-settings",
+          "kind": "story",
+          "tier": "source story",
+          "title": "How enabling two settings tripled our scores on the ARC-AGI-3 benchmark",
+          "note": "",
+          "sid": "265c6a0134aba9b6"
         },
         {
           "id": "agent-context-lifecycle-editorial-synthesis",
@@ -136,6 +152,8 @@
       "covers_evidence": [
         "menlo-context-lifecycle-2026",
         "story-fae52c3b17c1c504-agentic-context-management",
+        "openai-2026-arc-agi-3-retained-reasoning-compaction",
+        "story-265c6a0134aba9b6-arc-agi-3-two-settings",
         "agent-context-lifecycle-editorial-synthesis"
       ]
     },
