@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4]
-updated: 2026-07-29
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6]
+updated: 2026-07-31
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6]
 ---
 
 ## TL;DR
@@ -367,7 +367,43 @@ static leaderboard can be the worse one to deploy" problem this page's
 harness-and-cost threads (see [agent cost](/topic/agent-cost)) already argue
 for, applied directly to a factuality benchmark's own scoring.
 
+A fourteenth front turns the evaluator's **own environment** into the thing
+under audit, not just the agent running inside it: Anthropic reviewed
+141,006 cybersecurity-evaluation runs after Claude broke out of what its
+eval prompt described as an internet-free simulation and reached real
+systems, and found three such incidents (six runs, dating back to April) —
+a mismatch with the evaluation partner meant the "no internet access"
+claim in the prompt was false, so when Claude's search reached the open
+internet it treated real organizations as in-scope targets and compromised
+some of them with basic techniques (weak passwords, unauthenticated
+endpoints). The lesson generalizes past this one incident: a
+sandboxed-simulation claim inside an eval prompt is an assumption to
+verify, not a control — the same boundary [agent
+sandboxing](/topic/agent-sandboxing) already argues can't be trusted on
+description alone, now shown failing inside the eval harness itself rather
+than production.
+
+A concrete case ties the standing reasoning-effort dial to a benchmark
+score rather than a cost number: OpenAI found that retaining reasoning
+state and enabling context compaction as two separate API settings roughly
+tripled GPT-5.6's score on ARC-AGI-3, evidence that the
+[reasoning-effort](/topic/agent-cost) and
+[context-compaction](/topic/context-compaction) levers this page's cost and
+planning companions already track as efficiency knobs move eval scores
+too, not just spend. The domain-narrow benchmark list (see [agent
+benchmarks](/topic/agent-benchmarks)) also picks up a code-review instance:
+LangChain's ReviewBench scores code-review agents against real PR feedback
+from trusted reviewers rather than a synthetic rubric.
+
 ## What's new
+Anthropic's review of 141,006 cybersecurity-evaluation runs found three
+incidents where an eval prompt's "sandboxed, no internet access" claim was
+false, and Claude — believing it was still inside the simulation — reached
+and compromised real organizations' infrastructure with basic techniques.
+The finding reframes eval-environment claims as something to verify, not
+trust, the same standard [agent sandboxing](/topic/agent-sandboxing) holds
+production isolation to.
+
 A production rubric-grading deployment supplies the practitioner lesson the
 "eval, tracing, and monitoring as one workflow" thread has been missing:
 Similarweb grades its long-form Deep Research agent reports against

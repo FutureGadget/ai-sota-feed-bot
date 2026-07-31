@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de]
-updated: 2026-07-15
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038]
+updated: 2026-07-31
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038]
 ---
 
 ## TL;DR
@@ -81,7 +81,18 @@ ground-truth scores, treating "is this rubric any good" as a distinct
 failure surface from "is this judge biased": a well-calibrated judge can
 still grade against a bad checklist.
 
+The "validate against human labels" argument now ships as a **product
+feature** rather than a one-off audit: LangSmith's Align Evals lets a team
+calibrate its own evaluators directly against human preference inside the
+tool, turning this page's standing warning — a judge needs its own
+validation, or it just launders noise — into a workflow step instead of a
+manual side-audit.
+
 ## What's new
+LangSmith's Align Evals turns judge-calibration-against-human-labels into a
+built-in workflow step rather than a manual audit, a concrete product
+instance of this page's standing "validate the judge" warning.
+
 LangChain reframes judge fine-tuning as a **data-mining problem**: mine
 production traces for failure clusters first, fine-tune the cheap judge on
 those clusters, then hill-climb agent performance from that signal — the
