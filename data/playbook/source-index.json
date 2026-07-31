@@ -18,6 +18,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "0884fb8f61b23163": {
+    "id": "pb-trim-harness-base-tokens",
+    "kind": "source-backed",
+    "title": "Trim your agent's base harness prompt before optimizing anything else",
+    "area": "Cost & latency",
+    "problem": "A bloated base system prompt and always-on tool descriptions tax every single call an agent makes, even before it does any real work.",
+    "apply": "Audit your agent harness's static system prompt and always-on tool descriptions for redundant instructions, and cut them the way LangChain's Deep Agents v0.7 did — simplifying the base harness rather than layering on more scaffolding.",
+    "result": "LangChain reports 65% fewer base input tokens at comparable task performance after the harness simplification in Deep Agents v0.7.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/deep-agents-v0-7",
+    "source_sid": "0884fb8f61b23163",
+    "topic_url": "/topic/cost-controls",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The 65% figure is LangChain's own reported benchmark for the v0.7 release."
+    },
+    "edition_date": "2026-07-31"
+  },
   "0ecd57418d6c38cf": {
     "id": "pb-track-pr-throughput-not-agent-usage-alone",
     "kind": "source-backed",
@@ -55,6 +74,25 @@
       "note": "The author reports this as their own workflow's outcome, not an independently measured benchmark."
     },
     "edition_date": "2026-07-07"
+  },
+  "135c077a65b61dda": {
+    "id": "pb-orca-bench-oncall-limits",
+    "kind": "source-backed",
+    "title": "Don't trust an LLM agent's oncall root-cause diagnosis without a human gate",
+    "area": "Evals",
+    "problem": "Agent builders assume frontier models can triage production incidents, but oncall root-cause analysis is a different skill than writing or patching code.",
+    "apply": "If you're piloting an LLM agent for oncall RCA, gate its output behind human review instead of auto-actioning it, and always give the agent source-code access alongside metrics/logs/traces — accuracy drops further without it. Benchmark it on a held-out set of past incidents with known ground truth before trusting it on live pages.",
+    "result": "On ORCA-bench's 1,079 real RCA tasks, even the strongest of five frontier agents scored 25.3% on medium-difficulty incidents and 10.0% on hard ones, and the weakest model hallucinated a root cause in 40% of reports.",
+    "effort": "low",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2607.28545v1",
+    "source_sid": "135c077a65b61dda",
+    "topic_url": "/topic/agent-evaluation",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Accuracy and hallucination-rate figures are ORCA-bench's own measured results across five tested frontier agents."
+    },
+    "edition_date": "2026-07-31"
   },
   "1609e44adca88f23": {
     "id": "pb-postgres-agent-retrieval",
@@ -569,6 +607,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "7f18e7dd55749326": {
+    "id": "pb-suspend-resume-idle-agents",
+    "kind": "source-backed",
+    "title": "Suspend idle agents instead of paying to keep them warm",
+    "area": "Cost & latency",
+    "problem": "Agent fleets that stay resident in dedicated microVMs burn compute while waiting on a human, a tool call, or a queue.",
+    "apply": "Move agent sandboxes off heavy microVMs onto lightweight gVisor-based sandboxes, then checkpoint idle agents to storage and resume them on-demand via an event gateway instead of leaving them running.",
+    "result": "Google reports this combination lifted agent density per node from 61 to 274 (4.5x) and cut cost per agent by 75%, with sub-5-second resume latency.",
+    "effort": "high",
+    "source": "google_cloud_blog",
+    "source_url": "https://cloud.google.com/blog/products/containers-kubernetes/reduce-your-agents-costs-with-gke-agent-sandbox/",
+    "source_sid": "7f18e7dd55749326",
+    "topic_url": "/topic/agent-cost",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Density and cost-reduction figures are Google's own vendor-reported benchmark for GKE Agent Sandbox."
+    },
+    "edition_date": "2026-07-31"
+  },
   "839c437bacc17af4": {
     "id": "pb-swe-pruner-self-pruning",
     "kind": "source-backed",
@@ -759,6 +816,25 @@
     },
     "edition_date": "2026-07-03"
   },
+  "9352c956aa90126f": {
+    "id": "pb-mcp-defense-in-depth",
+    "kind": "source-backed",
+    "title": "Close the command-injection gap in your MCP tool handlers before adding a gateway",
+    "area": "Safety",
+    "problem": "MCP tool handlers that build shell commands via string interpolation are exploitable through parameters the model controls, and a perimeter gateway alone doesn't stop it.",
+    "apply": "Replace string-interpolated exec()/eval()/subprocess.run(shell=True) calls in tool handlers with array-argument execution (e.g. execFile()), and add a CI gate (Semgrep rules) that blocks those unsafe patterns from merging. Pair it with an egress allow-list via NetworkPolicy so a compromised tool can't reach arbitrary outbound hosts.",
+    "result": "Closes the two cheapest attack paths — injected shell commands and unrestricted outbound calls — for close to zero runtime cost.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/articles/securing-mcp-production-gateway/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "9352c956aa90126f",
+    "topic_url": "/topic/agent-sandboxing",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The article states the control cost as 'minimal' qualitatively; no measured before/after attack-rate figure is given."
+    },
+    "edition_date": "2026-07-31"
+  },
   "979d921c237f1c0b": {
     "id": "pb-redesign-for-verifiability-before-building-evals",
     "kind": "source-backed",
@@ -891,6 +967,44 @@
       "note": "Resolution rates and the percentage-point improvement over baselines are reported directly in the paper's benchmark results."
     },
     "edition_date": "2026-07-07"
+  },
+  "b714943cd397084b": {
+    "id": "pb-two-calls-beat-five-agents",
+    "kind": "source-backed",
+    "title": "Try two-call self-refinement before reaching for a 5-agent pipeline on small models",
+    "area": "Orchestration",
+    "problem": "Multi-agent pipelines are the default reach for hard reasoning tasks, but a 5-role pipeline can score below direct prompting on a local 7B model.",
+    "apply": "Before scaling to a multi-role agent pipeline on a local or small model, benchmark a plain two-call self-refine loop (generate, then critique-and-revise) against it on your exact task and output format — plaintext vs. JSON changed results more than agent count did.",
+    "result": "On GSM8K, two-call self-refinement beat a 5-agent pipeline (86.2% vs. 82% accuracy) at 7.4x fewer tokens; on HumanEval a naive version of the same idea dropped accuracy from 96.3% to 66.5%, so validate per task.",
+    "effort": "low",
+    "source": "arxiv_cs_lg",
+    "source_url": "http://arxiv.org/abs/2607.26922v1",
+    "source_sid": "b714943cd397084b",
+    "topic_url": "/topic/multi-agent",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Accuracy and token-count figures are the paper's own benchmark measurements on GSM8K and HumanEval."
+    },
+    "edition_date": "2026-07-31"
+  },
+  "b734d716b0d66f96": {
+    "id": "pb-mcp-2026-07-28-stateless",
+    "kind": "source-backed",
+    "title": "Update your MCP client and gateway for the stateless 2026-07-28 spec",
+    "area": "Tool use",
+    "problem": "The MCP 2026-07-28 spec dropped the initialize handshake and Mcp-Session-Id header, and remapped several JSON-RPC error codes to real HTTP status codes.",
+    "apply": "Stop relying on session state or persistent connections in your MCP client code — pass state through tool parameters instead. Update error handling for the changed codes (unknown method → HTTP 404, resource-not-found moved from -32002 to -32602, unsupported version → HTTP 400/-32022), and send the MCP-Protocol-Version header on every request since omitting it silently falls back to 2025-03-26. On your gateway, run one UpdateGateway call adding 2026-07-28 to supportedVersions alongside your existing versions.",
+    "result": "Servers stop needing sticky sessions and can scale horizontally behind a plain load balancer, while old and new clients keep working through the 12-month deprecation window.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/how-agentcore-gateway-supports-the-mcp-2026-07-28-spec/",
+    "source_sid": "b734d716b0d66f96",
+    "topic_url": "/topic/mcp",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Scaling and compatibility benefits are the editor's read of the documented protocol change, not a measured result."
+    },
+    "edition_date": "2026-07-31"
   },
   "baa0094f7155ee33": {
     "id": "pb-verification-loop-skills",
