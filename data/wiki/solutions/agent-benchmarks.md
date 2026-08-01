@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd]
-updated: 2026-07-31
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf]
+updated: 2026-08-01
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf]
 ---
 
 ## TL;DR
@@ -189,17 +189,25 @@ human reviewers instead of a synthetic rubric, mining ground truth from
 actual review decisions the way EnterpriseClawBench mines real work
 sessions.
 
-## What's new
-LangChain's ReviewBench adds a code-review instance to the domain-narrow
-benchmark list, scoring code-review agents against real PR feedback from
-trusted reviewers rather than a synthetic rubric.
+**Self-authored, tool-specific suites** are the newest instance of "measure
+capability on your own tooling": Supabase's open-source Evals scores Claude
+Code, Codex, and OpenCode on real Supabase tasks rather than a generic
+coding benchmark, and Simon Willison's smevals packages the authoring loop
+itself as a small CLI — `uvx smevals run/grade/serve` builds, runs, and
+grades a directory-of-YAML-files eval suite across model configurations —
+lowering the cost of the "build it on your own tooling" recommendation this
+page already makes from a bespoke harness to a reusable command-line tool.
 
-A construct-validity critique argues many agent benchmarks conflate genuine
-task difficulty with scaffolding/protocol artifacts, meaning a score gain can
-reflect a better-fitted harness rather than a more capable agent — the same
-"harness is part of what you benchmark" thread this page already tracks,
-now framed as a validity problem with the benchmark itself rather than only
-its reproducibility or noise.
+## What's new
+The self-authoring end of the spectrum gets two new practitioner-scale
+entrants: Supabase released Evals, an open-source benchmark that scores
+Claude Code, Codex, and OpenCode on real Supabase tasks rather than a
+generic coding suite, and Simon Willison's smevals ships a small CLI
+(`uvx smevals run/grade/serve`) for building, running, and grading a
+directory-of-YAML-files eval suite across model configurations — lowering
+the bar for a team to stand up its own eval suite instead of building the
+harness in-house, the same "your own tooling is more predictive" case this
+page already argues.
 
 ## Trade-offs
 A fixed benchmark is reproducible and cheap to re-run, but it's a static
