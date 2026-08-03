@@ -1,27 +1,19 @@
 {
   "slug": "serving-vllm",
-  "generated_at": "2026-07-27T10:20:00+00:00",
+  "generated_at": "2026-08-03T00:04:27+00:00",
   "covers_last_updated": "2026-07-27T07:33:13+00:00",
   "covers_member_sids": [
-    "f0c08e4beff850db",
     "d08095949d6300c2",
     "94813f8b6bc86093",
     "64c163bb191bab4e"
   ],
-  "tldr": "Across three July posts, vLLM's own blog shipped AMD-backed EAGLE-3 speculative decoding, a TileRT-powered latency-optimized decode path, and an Attention-FFN disaggregation plugin for MoE serving — each landing through the same V1 connector interface without disrupting existing deployments.",
-  "whats_new": "Netflix disclosed the internals of its in-house LLM serving platform, built on Triton and vLLM — the thread's first large-scale production-adoption proof point after three straight vLLM engine upgrades this month.",
-  "why_it_matters": "These are incremental, drop-in performance levers rather than rewrites — teams already running vLLM can adopt EAGLE-3 decoding, TileRT decode, or AFD disaggregation one at a time, and Netflix's disclosure shows the connector model already scales to hyperscaler traffic.",
+  "tldr": "vLLM shipped a TileRT-powered latency-optimized decode engine that pairs with existing prefill behind one shared serving layer, then an Attention-FFN Disaggregation plugin adding GPU and Ascend NPU backends for MoE serving. Both landed as drop-in additions through the same V1 connector interface, with no changes required to already-running deployments.",
+  "whats_new": "Netflix disclosed the internals of its in-house LLM serving platform, built on Triton and vLLM — the thread's first large-scale production-adoption proof point after vLLM's July engine upgrades.",
+  "why_it_matters": "These are incremental, drop-in performance levers rather than rewrites — teams already running vLLM can adopt TileRT decode or AFD disaggregation one at a time, and Netflix's disclosure shows the connector model already scales to hyperscaler traffic.",
   "beats": [
     {
-      "kicker": "SPECULATIVE DECODING",
-      "tone": "launch",
-      "headline": "vLLM ships EAGLE-3 speculative decoding for AMD Instinct GPUs",
-      "summary": "AMD Quark-trained EAGLE-3 draft models plug into vLLM's serving stack, cutting latency up to 2x for Kimi-K2.5 and 1.79x for MiniMax-M2.5 on AMD Instinct hardware.",
-      "sids": ["f0c08e4beff850db"]
-    },
-    {
       "kicker": "TILERT DECODE",
-      "tone": "rising",
+      "tone": "launch",
       "headline": "vLLM adds a TileRT-powered latency-optimized decode engine",
       "summary": "vLLM pairs its existing prefill with a separate TileRT decode engine through the V1 connector interface, coexisting with native decode behind one shared serving layer.",
       "sids": ["d08095949d6300c2"]
@@ -42,12 +34,11 @@
     }
   ],
   "open_questions": [
-    "Does Netflix's in-house platform use any of the three July engine upgrades (EAGLE-3, TileRT, AFD), or run a separate internal stack on top of vLLM?",
-    "Do the EAGLE-3 AMD throughput gains and AFD's Ascend NPU backend hold up on independent benchmarks outside vLLM's own posts?"
+    "Does Netflix's in-house platform build on vLLM's TileRT decode and AFD disaggregation upgrades, or run a separate internal stack on top of vLLM?",
+    "Does AFD's Ascend NPU backend and TileRT's decode latency gains hold up on independent benchmarks outside vLLM's own posts?"
   ],
-  "take_for_builders": "If you're serving MoE or long-context workloads on vLLM, benchmark the new AFD plugin and TileRT decode path against your current setup before your next capacity review — both are additive through the V1 connector, so you can pilot without a stack rewrite.",
+  "take_for_builders": "If you're serving MoE or long-context workloads on vLLM, benchmark the AFD plugin and TileRT decode path against your current setup before your next capacity review — both are additive through the V1 connector, so you can pilot without a stack rewrite.",
   "day_captions": {
-    "f0c08e4beff850db": "vLLM's own blog: AMD Quark-trained EAGLE-3 drafts cut serving latency up to 2x for Kimi-K2.5 on AMD Instinct GPUs.",
     "d08095949d6300c2": "vLLM pairs prefill with a separate TileRT decode engine behind one shared serving layer, with no changes needed to existing deployments.",
     "94813f8b6bc86093": "vLLM's AFD plugin disaggregates attention and FFN computation for MoE models, adding GPU and Ascend NPU backend support.",
     "64c163bb191bab4e": "Netflix goes public with its in-house LLM serving platform built on Triton and vLLM — the thread's first large-scale production-adoption signal."

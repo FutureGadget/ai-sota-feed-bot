@@ -1,121 +1,131 @@
 {
-  "generated_at": "2026-08-02T20:03:25.883679+00:00",
+  "generated_at": "2026-08-03T00:03:49.925419+00:00",
   "window_days": 21,
   "storyline_count": 1,
   "needs_narrative_count": 1,
   "storylines": [
     {
-      "slug": "software-development",
-      "label": "Software Development",
+      "slug": "serving-vllm",
+      "label": "Vllm Serving",
       "item_count": 3,
-      "source_count": 3,
+      "source_count": 2,
       "day_count": 3,
-      "first_seen": "2026-07-21T00:00:00+00:00",
-      "last_updated": "2026-08-02T16:26:19+00:00",
-      "latest_title": "Show HN: Sprocket – The Best AI Agent for Hardware and Software Development",
+      "first_seen": "2026-07-14T00:00:00+00:00",
+      "last_updated": "2026-07-27T07:33:13+00:00",
+      "latest_title": "Netflix Details Its In-House LLM Serving Platform with Triton and vLLM - infoq.com",
       "member_sids": [
-        "bd313e7fdc9f5123",
-        "68562210b323388b",
-        "1e48df9d53d2afae"
+        "d08095949d6300c2",
+        "94813f8b6bc86093",
+        "64c163bb191bab4e"
       ],
       "via_scout": false,
       "has_narrative": true,
       "needs_narrative": true,
       "reason": "stale",
-      "narrative_path": "data/storylines/narratives/software-development.json",
+      "narrative_path": "data/storylines/narratives/serving-vllm.json",
       "prior_narrative": {
-        "slug": "software-development",
-        "generated_at": "2026-07-28T05:08:39+00:00",
-        "covers_last_updated": "2026-07-26T12:15:09+00:00",
+        "slug": "serving-vllm",
+        "generated_at": "2026-07-27T10:20:00+00:00",
+        "covers_last_updated": "2026-07-27T07:33:13+00:00",
         "covers_member_sids": [
-          "8e0e2c22560bbc7b",
-          "bd313e7fdc9f5123",
-          "68562210b323388b"
+          "f0c08e4beff850db",
+          "d08095949d6300c2",
+          "94813f8b6bc86093",
+          "64c163bb191bab4e"
         ],
-        "tldr": "An industry talk argued AI-driven software development needs adaptive multi-agent systems, not autocomplete, to break through the productivity ceiling. Anthropic then detailed how it secures an SDLC where AI authors 80% of merged code — the thread's first production account.",
-        "whats_new": "A new arXiv paper examines the hidden cost of third-party API routers in agentic coding workflows, where high-autonomy operation is widely adopted specifically to reduce interaction overhead.",
-        "why_it_matters": "If your coding-agent stack routes through a third-party API layer to unify LLM providers, this paper's cost analysis is a more concrete reference than the earlier reliability proposals for deciding whether that router is adding latency or spend you haven't measured.",
+        "tldr": "Across three July posts, vLLM's own blog shipped AMD-backed EAGLE-3 speculative decoding, a TileRT-powered latency-optimized decode path, and an Attention-FFN disaggregation plugin for MoE serving — each landing through the same V1 connector interface without disrupting existing deployments.",
+        "whats_new": "Netflix disclosed the internals of its in-house LLM serving platform, built on Triton and vLLM — the thread's first large-scale production-adoption proof point after three straight vLLM engine upgrades this month.",
+        "why_it_matters": "These are incremental, drop-in performance levers rather than rewrites — teams already running vLLM can adopt EAGLE-3 decoding, TileRT decode, or AFD disaggregation one at a time, and Netflix's disclosure shows the connector model already scales to hyperscaler traffic.",
         "beats": [
           {
-            "kicker": "INDUSTRY FRAMING",
-            "tone": "rising",
-            "headline": "Industry talk pushes multi-agent automation past autocomplete toward controllable systems",
-            "summary": "An InfoQ presentation argues architects need adaptive multi-agent systems, not simple autocomplete, to break through the AI productivity ceiling.",
+            "kicker": "SPECULATIVE DECODING",
+            "tone": "launch",
+            "headline": "vLLM ships EAGLE-3 speculative decoding for AMD Instinct GPUs",
+            "summary": "AMD Quark-trained EAGLE-3 draft models plug into vLLM's serving stack, cutting latency up to 2x for Kimi-K2.5 and 1.79x for MiniMax-M2.5 on AMD Instinct hardware.",
             "sids": [
-              "8e0e2c22560bbc7b"
+              "f0c08e4beff850db"
             ]
           },
           {
-            "kicker": "PRODUCTION ACCOUNT",
-            "tone": "turn",
-            "headline": "Anthropic details how it secures an SDLC where AI authors 80% of merged code",
-            "summary": "Deputy CISO Jason Clinton describes the Security Engineering team's controls for a software lifecycle now majority-written by AI — the thread's first real production account.",
+            "kicker": "TILERT DECODE",
+            "tone": "rising",
+            "headline": "vLLM adds a TileRT-powered latency-optimized decode engine",
+            "summary": "vLLM pairs its existing prefill with a separate TileRT decode engine through the V1 connector interface, coexisting with native decode behind one shared serving layer.",
             "sids": [
-              "bd313e7fdc9f5123"
+              "d08095949d6300c2"
+            ]
+          },
+          {
+            "kicker": "MOE DISAGGREGATION",
+            "tone": "rising",
+            "headline": "vLLM ships an AFD plugin, disaggregating attention and FFN for MoE serving",
+            "summary": "The Attention-FFN Disaggregation plugin adds GPU and Ascend NPU backend support with connector-based execution, graph mode, and ubatching for MoE models.",
+            "sids": [
+              "94813f8b6bc86093"
             ]
           },
           {
             "kicker": "NOW",
             "tone": "now",
-            "headline": "New paper probes the cost of third-party API routers in agentic coding workflows",
-            "summary": "The paper examines what unifying access across LLM providers through a router layer actually costs in high-autonomy coding-agent operation, where that autonomy is adopted to cut interaction overhead.",
+            "headline": "Netflix details its in-house Triton + vLLM serving platform",
+            "summary": "Netflix goes public with how its production LLM serving stack combines Triton and vLLM — the thread's first big real-world adoption signal, not just an engine feature.",
             "sids": [
-              "68562210b323388b"
+              "64c163bb191bab4e"
             ]
           }
         ],
         "open_questions": [
-          "Does Anthropic publish more detail on which specific controls — review gates, provenance tracking, sandboxing — catch problems in AI-authored code?",
-          "Do other companies at Anthropic's scale of AI-authored code publish comparable security accounts?",
-          "Does the API-router cost finding hold across router vendors, or is it specific to the setup the paper measured?"
+          "Does Netflix's in-house platform use any of the three July engine upgrades (EAGLE-3, TileRT, AFD), or run a separate internal stack on top of vLLM?",
+          "Do the EAGLE-3 AMD throughput gains and AFD's Ascend NPU backend hold up on independent benchmarks outside vLLM's own posts?"
         ],
-        "take_for_builders": "If AI already authors a meaningful share of your merged code, compare your review and sandboxing controls against Anthropic's published account. If your agents route through a third-party API layer, check the new paper's cost breakdown against your own routing overhead before assuming it's free.",
+        "take_for_builders": "If you're serving MoE or long-context workloads on vLLM, benchmark the new AFD plugin and TileRT decode path against your current setup before your next capacity review — both are additive through the V1 connector, so you can pilot without a stack rewrite.",
         "day_captions": {
-          "8e0e2c22560bbc7b": "Industry presentation argues for adaptive multi-agent systems over simple autocomplete to break the AI productivity ceiling.",
-          "bd313e7fdc9f5123": "Anthropic's Deputy CISO details how Security Engineering secures an SDLC where AI authors 80% of merged code.",
-          "68562210b323388b": "New arXiv paper measures the cost of third-party API routers in high-autonomy agentic coding workflows."
+          "f0c08e4beff850db": "vLLM's own blog: AMD Quark-trained EAGLE-3 drafts cut serving latency up to 2x for Kimi-K2.5 on AMD Instinct GPUs.",
+          "d08095949d6300c2": "vLLM pairs prefill with a separate TileRT decode engine behind one shared serving layer, with no changes needed to existing deployments.",
+          "94813f8b6bc86093": "vLLM's AFD plugin disaggregates attention and FFN computation for MoE models, adding GPU and Ascend NPU backend support.",
+          "64c163bb191bab4e": "Netflix goes public with its in-house LLM serving platform built on Triton and vLLM — the thread's first large-scale production-adoption signal."
         }
       },
       "timeline": [
         {
-          "date": "2026-07-21",
+          "date": "2026-07-14",
           "items": [
             {
-              "sid": "bd313e7fdc9f5123",
-              "title": "How Anthropic secures its AI-native software development lifecycle | Claude by Anthropic",
-              "url": "https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle",
-              "source": "claude_blog",
+              "sid": "d08095949d6300c2",
+              "title": "vLLM x TileRT: Specialized Decode for Latency-Critical Serving",
+              "url": "https://vllm.ai/blog/2026-07-14-vllm-tilert-pd",
+              "source": "vllm_blog",
               "type": "news",
-              "summary_1line": "Anthropic Deputy CISO, Jason Clinton, details how the Security Engineering team secures a SDLC that has AI authoring 80% of merged code.",
-              "published": "2026-07-21T00:00:00+00:00"
+              "summary_1line": "vLLM prefill paired with TileRT decode through vLLM V1's connector interface: a specialized, latency-optimized decode engine that coexists with native vLLM decode behind one shared serving layer, with zero changes to...",
+              "published": "2026-07-14T00:00:00+00:00"
             }
           ]
         },
         {
-          "date": "2026-07-26",
+          "date": "2026-07-23",
           "items": [
             {
-              "sid": "68562210b323388b",
-              "title": "Where Is the Cost of Third-Party API Routers in Agentic Software Development?",
-              "url": "http://arxiv.org/abs/2607.23624v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Third-party API routers have become a common layer that unifies access across increasingly diverse LLM providers. In coding-agent workflows, high-autonomy operation is widely adopted because it reduces interaction ove...",
-              "published": "2026-07-26T12:15:09+00:00"
+              "sid": "94813f8b6bc86093",
+              "title": "Announcing vLLM AFD Plugin: Disaggregating Attention and FFN for Flexible MoE Serving",
+              "url": "https://vllm.ai/blog/2026-07-23-vllm-afd-plugin",
+              "source": "vllm_blog",
+              "type": "news",
+              "summary_1line": "What vLLM AFD Plugin adds to the vLLM ecosystem: Attention–FFN disaggregation for MoE serving, GPU and Ascend NPU backends, connector-based execution, and graph and ubatching support.",
+              "published": "2026-07-23T00:00:00+00:00"
             }
           ]
         },
         {
-          "date": "2026-08-02",
+          "date": "2026-07-27",
           "items": [
             {
-              "sid": "1e48df9d53d2afae",
-              "title": "Show HN: Sprocket – The Best AI Agent for Hardware and Software Development",
-              "url": "https://sprocket-demo.spikonado.com",
-              "source": "hackernews_ai",
+              "sid": "64c163bb191bab4e",
+              "title": "Netflix Details Its In-House LLM Serving Platform with Triton and vLLM - infoq.com",
+              "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBpby0wOTVaSTc0LWVRam9WelpQRDdhdW1KMGJYWFRIRWZnQXFGYWdhVjAxUGRhNkRlRGl4VEZnRFVnbEVqeWJtdGVqSFlNa1BIcVhtZzBqdFZHTHlQS3daQXdJRmdrQ0U?oc=5",
+              "source": "search_llm_ops_news",
               "type": "news",
-              "summary_1line": "Hey HN, I am 16y/o and have been working on Sprocket for a while. It's an open-source AI agent that beats every other agent out there at both hardware and software. And here's the best part: Sprocket can (on its own)...",
-              "published": "2026-08-02T16:26:19+00:00"
+              "summary_1line": "Netflix Details Its In-House LLM Serving Platform with Triton and vLLM infoq.com",
+              "published": "2026-07-27T07:33:13+00:00"
             }
           ]
         }
