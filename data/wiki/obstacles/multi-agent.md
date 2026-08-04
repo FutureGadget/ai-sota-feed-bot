@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab]
-updated: 2026-08-03
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e]
+updated: 2026-08-04
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e]
 ---
 
 ## TL;DR
@@ -203,7 +203,30 @@ the same tasks — evidence the coordination tax this page tracks isn't
 limited to frontier-model economics hiding the overhead; it shows up just as
 sharply once you're not paying enterprise API rates for the extra calls.
 
+The "ask vs. proceed" and arbiter/governance threads above now have a
+lighter-weight practitioner primitive alongside them: Handoff packages the
+human-in-the-loop pause as `await human()` — a single, composable call a
+coordinating agent can await mid-plan, instead of a bespoke state model or a
+full governance layer — extending the "put the coordination in ordinary
+code" thesis down to the granularity of one function call. A second
+practitioner artifact adds a harder-edged instance of the arbiter pattern: a
+multi-agent research pipeline for trading pairs independent analysis agents
+with a dedicated risk-manager agent that can veto a trade outright rather
+than only score or rank it — the overseeing agent's job is to stop an
+action, not just judge it after the fact. The heterogeneous-role thesis also
+extends past software agents into embodied ones: Gemini Robotics ER 2 adds
+multi-robot task orchestration and collaboration to its video-understanding
+model, the same specialized-roles-coordinated-toward-one-goal pattern this
+page tracks for software agents, now running across physical robots.
+
 ## What's new
+A lighter-weight practitioner primitive packages the human-in-the-loop pause
+as a single composable call — Handoff's `await human()` — extending the
+"coordination is ordinary code" thesis down to function-call granularity.
+Separately, a practitioner trading pipeline adds a harder-edged arbiter
+variant: a dedicated risk-manager agent that can veto a trade outright
+rather than only score it.
+
 A controlled benchmark on local, open-weight language models sharpens this
 page's standing "more agents isn't automatically better" finding into a
 specific comparison: a two-call self-refinement loop beats a five-agent
