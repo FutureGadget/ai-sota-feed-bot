@@ -132,6 +132,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "1923a6eccdfa6038": {
+    "id": "pb-align-evals-calibrate",
+    "kind": "source-backed",
+    "title": "Calibrate your LLM judges against human ratings before trusting their scores",
+    "area": "Evals",
+    "problem": "An LLM-as-judge evaluator that hasn't been checked against human preference can silently drift from what reviewers actually care about, so eval scores look stable while quality moves.",
+    "apply": "Run a calibration pass (e.g., LangSmith's Align Evals) that compares judge scores to human ratings on the same examples and adjusts the judge prompt/rubric until the two agree, before using that judge to gate releases.",
+    "result": "LangChain reports that eval scores then track what human reviewers would actually flag, so a passing eval run is a reliable signal instead of a false green light.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/introducing-align-evals",
+    "source_sid": "1923a6eccdfa6038",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor feature announcement; no published measurement of judge-human agreement improvement."
+    },
+    "edition_date": "2026-08-04"
+  },
   "1c2693c60a919d8d": {
     "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
     "kind": "source-backed",
@@ -245,6 +264,44 @@
       "note": "Tool's own description of its contract format and workflow; auditability payoff stated qualitatively, no measured figures."
     },
     "edition_date": "2026-07-03"
+  },
+  "265c6a0134aba9b6": {
+    "id": "pb-reasoning-retention-compaction-arc-agi",
+    "kind": "source-backed",
+    "title": "Retain reasoning and enable compaction to triple agentic benchmark scores",
+    "area": "Cost & latency",
+    "problem": "Long agentic tasks blow their context budget when full reasoning traces pile up across turns, forcing a tradeoff between keeping useful reasoning and staying within budget.",
+    "apply": "Turn on two API settings together: retain the model's prior reasoning across turns instead of discarding it, and enable context compaction so older turns get compressed rather than dropped. OpenAI reports this combination tripled GPT-5.6's score on the ARC-AGI-3 benchmark while also improving efficiency.",
+    "result": "Long-horizon agent runs keep the reasoning that matters without hitting context limits, and benchmark accuracy improves substantially rather than trading off against efficiency.",
+    "effort": "low",
+    "source": "openai_blog",
+    "source_url": "https://openai.com/index/how-two-settings-tripled-our-arc-agi-3-scores",
+    "source_sid": "265c6a0134aba9b6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Primary source (OpenAI) reports the tripled ARC-AGI-3 score as a measured benchmark result."
+    },
+    "edition_date": "2026-08-04"
+  },
+  "273748b33417628d": {
+    "id": "pb-context-files-dont-help",
+    "kind": "source-backed",
+    "title": "Context files barely move coding-agent correctness — spend effort elsewhere",
+    "area": "Memory",
+    "problem": "Teams assume richer repo context files (AGENTS.md/CLAUDE.md-style instructions) are the lever for better coding-agent output.",
+    "apply": "Know the ceiling before investing further: a two-agent ablation across 17 real repo tasks and 288 runs on Claude Code and Codex found context strategy doesn't measurably move correctness (bounded to ≤10-15pp via equivalence testing), and swapping in the real file never converted a near-miss into a pass. Redirect effort from context-file breadth toward the actual blockers — feature design, pattern selection, exact wiring — since that's where agents fail.",
+    "result": "Time spent padding context docs stops being a proxy for quality; the team instead debugs the specific implementation step where an agent stalls.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://arxiv.org/abs/2607.27250",
+    "source_sid": "273748b33417628d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The ablation study measured the correctness delta directly and bounded it via equivalence testing."
+    },
+    "edition_date": "2026-08-04"
   },
   "2a7072ece5f3372b": {
     "id": "pb-route-doc-drafts-to-the-pr-author-not-autopublish",
@@ -397,6 +454,25 @@
       "note": "The sub-100ms decision latency and blocked-attack classes are the project's own claims, not independently verified."
     },
     "edition_date": "2026-07-28"
+  },
+  "42ebe570ca9aba75": {
+    "id": "pb-skill-vs-subagent-frequency",
+    "kind": "source-backed",
+    "title": "Pick Skill vs Sub-Agent by task frequency, not by vibes",
+    "area": "Orchestration",
+    "problem": "Teams building on agent platforms often default to sub-agents for everything, or vice versa, without a clear rule for which architecture fits a given job.",
+    "apply": "Use task frequency as the primary split: route a one-off, custom piece of work to a Skill (keeps a human in the loop, preserves conversational voice) and a repeatable, standardized job to a Sub-Agent (runs independently to completion, no human gate). For work that needs both interactive refinement and independent execution, layer a Skill on top of a Sub-Agent rather than picking just one.",
+    "result": "Fewer sub-agents built for one-time tasks that never get reused, and fewer skills stalling on repetitive batch work that didn't need a human in the loop.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/choosing-between-subagent-skills/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "42ebe570ca9aba75",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative architectural guidance from the source; no measured outcome to cite."
+    },
+    "edition_date": "2026-08-04"
   },
   "46be0149e39dc713": {
     "id": "pb-task-aware-knowledge-compression",
@@ -568,6 +644,25 @@
       "note": "Vendor (LangChain/LangSmith) post describing a customer's cost blowup and the tracing/governance fix it sells."
     },
     "edition_date": "2026-07-03"
+  },
+  "793d1e28a9d4d499": {
+    "id": "pb-mcp-stateless-deploy",
+    "kind": "source-backed",
+    "title": "Deploy MCP servers as stateless HTTP — drop the session-affinity workarounds",
+    "area": "Tool use",
+    "problem": "MCP's old session-handshake spec pins each session to one server instance, so a load balancer routing a follow-up call to a different pod returns a 404 unless you bolt on sticky sessions or a shared Redis session store.",
+    "apply": "Adopt the new MCP spec, which drops the mcp-session-id entirely — each request now carries protocol version, client identity, and capabilities in a _meta object, so any server instance can handle any request. Redeploy MCP servers behind a plain round-robin load balancer or serverless containers instead of maintaining instance affinity or a session store, and benchmark the added per-call payload against your real request volume before rollout.",
+    "result": "The spec authors report MCP servers now scale like any other stateless HTTP service — no sticky-session config, no Redis provisioning, no careful deployment drains.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://newrelic.com/blog/ai/mcp-is-going-stateless",
+    "source_sid": "793d1e28a9d4d499",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Describes the new spec's mechanism; no measured before/after deployment numbers given."
+    },
+    "edition_date": "2026-08-04"
   },
   "7b0c24a5e0c92a10": {
     "id": "pb-vllm-hpc-ops-hunyuan-kernels",
@@ -892,6 +987,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "a026c30d6c994b0e": {
+    "id": "pb-llm-gateway-runtime-governance",
+    "kind": "source-backed",
+    "title": "Put a runtime gateway in front of agent LLM calls for spend limits and PII redaction",
+    "area": "Cost & latency",
+    "problem": "Agent spend and data exposure are hard to govern once model calls are scattered across an app's code instead of passing through one enforced choke point.",
+    "apply": "Route agent traffic through an LLM gateway (e.g., LangSmith's) that enforces spend limits, redacts PII before it reaches the model, and stitches gateway calls into the same trace as the rest of the agent run for continuity.",
+    "result": "LangChain claims runaway spend gets capped automatically and sensitive fields never leave your infrastructure in the prompt, without adding governance code to every call site.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/introducing-llm-gateway",
+    "source_sid": "a026c30d6c994b0e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Vendor announcement describing gateway capabilities; no independent measurement of spend/leakage reduction."
+    },
+    "edition_date": "2026-08-04"
+  },
   "a44d7493026627ec": {
     "id": "pb-close-the-trace-to-memory-loop",
     "kind": "source-backed",
@@ -1176,6 +1290,44 @@
       "note": "Authors' own FARMA attack and SENTINEL defense evaluation across 50 trials, multiple agents, and multiple LLM models."
     },
     "edition_date": "2026-07-10"
+  },
+  "e09c6a6a7cf1895e": {
+    "id": "pb-validate-skill-names-sdk",
+    "kind": "source-backed",
+    "title": "Upgrade claude-agent-sdk-python to block skill-name injection into --allowedTools",
+    "area": "Safety",
+    "problem": "A skill name containing wildcards, parentheses, commas, control characters, or a leading slash could previously reach ClaudeAgentOptions.skills unchecked and widen what --allowedTools grants beyond what the skill author intended.",
+    "apply": "Upgrade to claude-agent-sdk-python v0.2.129 or later, which validates skill names and rejects ones containing parentheses, commas, control characters, wildcards (*, :*), or a leading / before they're used to build the allowed-tools list.",
+    "result": "The release notes report that a malformed or malicious skill name can no longer smuggle extra tool permissions into an agent session.",
+    "effort": "low",
+    "source": "claude_agent_sdk_python_releases",
+    "source_url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.129",
+    "source_sid": "e09c6a6a7cf1895e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Release notes describe the fix; no independent measurement of exploit prevalence."
+    },
+    "edition_date": "2026-08-04"
+  },
+  "e19273caeeed853d": {
+    "id": "pb-mcp-threat-model-code-review",
+    "kind": "source-backed",
+    "title": "Feed threat models into AI code review via MCP instead of relying on generic prompts",
+    "area": "Retrieval",
+    "problem": "AI-assisted code review tools flag generic issues because they have no access to a system's actual security design — the threat model and requirements live in separate docs the reviewer never sees.",
+    "apply": "Wire an MCP server into your AI code-review flow that retrieves the relevant threat model and security requirements from your internal knowledge base (Dropbox did this by connecting MCP to its Dash platform) and injects them into the review context before the model comments.",
+    "result": "Dropbox reports that review comments now call out violations of its actual security design, not just generic pattern-matching flags.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/07/dropbox-mcp-ai-code-review/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "e19273caeeed853d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Describes Dropbox's integration pattern; no published before/after review-quality metric."
+    },
+    "edition_date": "2026-08-04"
   },
   "ea758b7fe7cc27d3": {
     "id": "pb-github-token-egress-proxy",
