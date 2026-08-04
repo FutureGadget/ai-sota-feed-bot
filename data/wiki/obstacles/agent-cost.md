@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326]
-updated: 2026-07-30
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb]
+updated: 2026-08-04
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb]
 ---
 
 ## TL;DR
@@ -194,12 +194,25 @@ work. It's the same cost/ROI reframing [proving agent
 ROI](/topic/proving-agent-roi) tracks from the enterprise side, showing up
 here as a change in what individuals bother to build at all.
 
+**The frontier price war just got sharper on both ends at once**: GPT-5.6
+cut list price 20-80%, with the cost of GPT-5.4-level intelligence reported
+down roughly 13x in four months via recursive self-optimization (using the
+model to distill and improve its own successor), while China's open-weight
+labs keep pushing the same curve down from the other side — DeepSeek shipped
+another cheaper model as the domestic price war intensifies, Chinese
+open-weight models are picking up US users specifically on lower cost, and
+AMD's MI355X now undercuts Nvidia's B300 on cost-per-token to run China's
+Kimi K3. The frontier and open-weight price curves are falling together, not
+one converging toward the other.
+
 ## What's new
-Google's GKE Agent Sandbox reports a roughly 75% cost-per-agent reduction
-for platform teams running many concurrent agent workloads — the sharpest
-evidence yet that the execution/sandboxing layer is a cost lever in its own
-right, not just a security control (see
-[sandboxing](/topic/agent-sandboxing)).
+GPT-5.6's list-price cut (20-80%) reportedly dropped the cost of
+GPT-5.4-level intelligence roughly 13x in four months via recursive
+self-optimization, while Chinese open-weight labs (another cheaper DeepSeek
+release) and hardware (AMD's MI355X undercutting Nvidia's B300 to run Kimi
+K3) keep pushing the same cost curve down from the open-weight side — the
+frontier and open-weight price wars compounding at once rather than one
+driving the other.
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.
