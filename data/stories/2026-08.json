@@ -603,6 +603,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBkamNhWjFJTnpqb0VDYkZRZ3djWGY4NFlfVG1ieXk5UWpuNFJpdmx5aHNqODNPd1M0NzdxQVpfSnJSaUI4QVBzTzRnQmkzbjZTbkE3M1BVWk1xWERfMDdKWjlTRmo2YUNVOFNCTTdDVWI5M0FTMGs3enJBRQ?oc=5"
  },
+ "97e92714d577da88": {
+  "first_seen": "2026-08-04T01:02:40.689970+00:00",
+  "id": "86d95ba1d13603f2",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-08-03T00:00:00+00:00",
+  "sid": "97e92714d577da88",
+  "source": "openai_blog",
+  "summary": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
+  "summary_1line": "Circles uses the OpenAI API and Codex to power AI-native telco experiences, increasing ARPU by 22%, reducing churn by 9%, and improving development efficiency.",
+  "title": "Circles powers telco personalization with OpenAI technology",
+  "type": "news",
+  "url": "https://openai.com/index/circles",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "9831c6afb487ec71": {
   "first_seen": "2026-08-03T14:01:49.774360+00:00",
   "id": "cadb1338b8f872b1",
@@ -735,6 +751,28 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.147.0-alpha.1.2",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "ba2a3cbea388e94b": {
+  "first_seen": "2026-08-04T01:02:40.689970+00:00",
+  "id": "f6738917a8812ea8",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-08-04T00:14:23+00:00",
+  "release_highlights": [
+   "[VSCode] Added Focus view: a chat-menu toggle that hides tool activity behind an expandable per-turn summary with a live running-tool indicator, toggled with...",
+   "Added mode: \"mask\" for sandbox credential files on Linux and WSL — sandboxed commands read a sentinel copy (the whole file, or just the spans captured by an...",
+   "Added warnings to claude plugin validate when a marketplace or plugin name would be rejected by Claude Desktop's managed marketplace sync"
+  ],
+  "sid": "ba2a3cbea388e94b",
+  "source": "claude_code_releases",
+  "summary": "What's changed [VSCode] Added Focus view: a chat-menu toggle that hides tool activity behind an expandable per-turn summary with a live running-tool indicator, toggled with Ctrl+Alt+F or the \"Claude Code: Toggle Focus view\" command Added mode: \"mask\" for sandbox credential files on Linux and WSL — sandboxed commands read a sentinel copy (the whole file, or just the spans captured by an extract regex) while the sandbox proxy substitutes the real value on egress; on macOS file masking falls back to deny Added warnings to claude plugin validate when a marketplace or plugin name would be rejected by Claude Desktop's managed marketplace sync Added a prompt-audit subcommand to the claude-api skill for auditing prompts and tool descriptions for patterns written for older models Fixed a Bash tool permission-check bypass where zsh could execute hidden commands in [[ ]] regex conditionals; affected commands now prompt for permission Fixed PowerShell permission checks mishandling paths containing quote characters on Windows; such paths now prompt for approval Fixed the thinking toggle having no effect for the rest of a session that started with thinking off; disabling an MCP server mid-connect no longer silently reverts Fixed MCP servers from --mcp-config not being connected before the first turn in print mode ( -p ), which made the model emit tool calls as literal text Fixed @-mentioned files being silently dropped when pressing Esc to retract a prompt and resubmitting it Fixed a crash",
+  "summary_1line": "[VSCode] Added Focus view: a chat-menu toggle that hides tool activity behind an expandable per-turn summary with a live running-tool indicator, toggled with... · Added mode: \"mask\" for sandbox credential files on Lin...",
+  "title": "claude-code v2.1.221",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.221",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "bb9f77eb4d91620f": {
   "first_seen": "2026-08-04T00:01:55.221694+00:00",
@@ -927,6 +965,27 @@
   "type": "news",
   "url": "https://openai.com/index/continuous-voice-interaction-with-gpt-live"
  },
+ "e09c6a6a7cf1895e": {
+  "first_seen": "2026-08-04T01:02:40.689970+00:00",
+  "id": "a7a2382322300fe8",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-04T00:36:04+00:00",
+  "release_highlights": [
+   "Skill name validation in ClaudeAgentOptions.skills : Skill names containing parentheses, commas, control characters, wildcards ( * , :* ), leading / , surrou...",
+   "Validated skill names to prevent --allowedTools injection : Skill names from ClaudeAgentOptions(skills=[...]) were passed unchecked into the CLI's --allowedT...",
+   "Updated bundled Claude CLI to version 2.1.221"
+  ],
+  "sid": "e09c6a6a7cf1895e",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Breaking Changes Skill name validation in ClaudeAgentOptions.skills : Skill names containing parentheses, commas, control characters, wildcards ( * , :* ), leading / , surrounding whitespace, or surrogate code points now raise ValueError at connect time. skills=[\"plugin:*\"] and skills=[\"*\"] should be replaced with skills=\"all\" or a Skill(...) rule in allowed_tools . Names with leading whitespace or / previously built rules that could never match (silently disabling the skill) and now raise explicitly ( #1145 ) Bug Fixes Validated skill names to prevent --allowedTools injection : Skill names from ClaudeAgentOptions(skills=[...]) were passed unchecked into the CLI's --allowedTools value, which splits on commas and spaces. A crafted name could inject extra permission rules. The transport now validates each name and rejects delimiter-carrying or malformed values ( #1145 ) Internal/Other Changes Updated bundled Claude CLI to version 2.1.221 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.129/ pip install claude-agent-sdk==0.2.129",
+  "summary_1line": "Skill name validation in ClaudeAgentOptions.skills : Skill names containing parentheses, commas, control characters, wildcards ( * , :* ), leading / , surrou... · Validated skill names to prevent --allowedTools inject...",
+  "title": "claude-agent-sdk-python v0.2.129",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.129",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "e299630b866e2d7e": {
   "first_seen": "2026-08-01T08:01:45.230256+00:00",
   "id": "6babc5985f4c5e48",
@@ -1118,5 +1177,21 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Aug/2/open-letters/#atom-everything",
   "why_it_matters": "Matches feed focus: evaluation, claude code."
+ },
+ "feb44c460a41cd08": {
+  "first_seen": "2026-08-04T01:02:40.689970+00:00",
+  "id": "b6eb53b79b655843",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-04T00:42:45+00:00",
+  "sid": "feb44c460a41cd08",
+  "source": "simon_willison",
+  "summary": "Gas Town was intended to be reusable, but I only ever wound up using it to build itself. Gas Town fell apart at the seams with Opus 4.7. Up through 4.6 it was working brilliantly. With 4.7 we saw the introduction of the \"just two more things\" tic, which prevented Opus from ever converging on being ready to do real work—it always wanted to fiddle with Gas Town itself. The Opus tic never went away, so Gas Town effectively burned down. It had other problems, too, but 4.7 was the final straw. — Steve Yegge , The Shape of Things to Come Tags: steve-yegge , coding-agents , generative-ai , ai , llms",
+  "summary_1line": "Gas Town was intended to be reusable, but I only ever wound up using it to build itself. Gas Town fell apart at the seams with Opus 4.7. Up through 4.6 it was working brilliantly. With 4.7 we saw the introduction of t...",
+  "title": "Quoting Steve Yegge",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Aug/4/steve-yegge/#atom-everything",
+  "why_it_matters": "Matches feed focus: agent."
  }
 }
