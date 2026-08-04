@@ -99,6 +99,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxQV0VybHVwcTZ4bTJzLUpIcmNxXzZmekZfOURjaGtncmRjdF9CSXJmUzFNbENfdnFYTDl0RUl1ZHN3REZVekRoR181dk9oYW1sTGU3SVF6QTZnQ2J4dm5URUFFMWxkSld1eWszZnEzb1ZuaXQtZ1NCRWhBUlV4eGM1a2dYb2liS25FQkJNRFZwTlMzSTF3aHRXVXFGV3ZGZFRnaGRMT2J5cUlwN0prY3FoV2lwMkNDN2hYeHF3T0drWFlBTXE2MHhRajc0eWZkRHd4OFRn?oc=5"
  },
+ "14feb0eb18c809f5": {
+  "first_seen": "2026-08-04T05:01:51.998017+00:00",
+  "id": "6cdbef13eb39cc7f",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-08-03T16:37:49+00:00",
+  "sid": "14feb0eb18c809f5",
+  "source": "arxiv_llm_reliability",
+  "summary": "Vision-language models (VLMs) are increasingly deployed as reasoning agents in real-world visual assessment pipelines, yet their spatial grounding remains unreliable for fine-grained, visually ambiguous targets. We study this gap in the context of automated vehicle damage assessment, where fine-grained defects such as scratches and hairline cracks occupy few pixels, produce weak gradient signal, and are easily confused with reflections and surface texture. We show that a state-of-the-art VLM (Qwen-VL) achieves strong semantic classification accuracy (87.3%) on this task but is systematically ungrounded at the spatial level: it hallucinates damage in reflective regions, misses elongated scratches entirely, and produces spatially inconsistent outputs when prompted for localization. We propose TinyDamage, a hybrid architecture that delegates spatial grounding to a dedicated multi-task segmentation model while reserving the VLM for semantic reasoning and report generation. On the segmentation side, we find that the choice of loss function has an outsized and underexplored effect on tiny-object grounding: focal loss, widely used for class imbalance, collapses tiny-damage detection to zero, while a supervised contrastive objective measurably improves damage/background separability. We integrate the segmentation model into a 7-node LangGraph agent pipeline that grounds every VLM generation step in the segmentation output, and show that this grounding reduces the report hallucination",
+  "summary_1line": "Vision-language models (VLMs) are increasingly deployed as reasoning agents in real-world visual assessment pipelines, yet their spatial grounding remains unreliable for fine-grained, visually ambiguous targets. We st...",
+  "title": "Grounding Agentic VLMs with Dedicated Segmentation for Fine-Grained Vehicle Damage Assessment",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.02470v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
  "183667c5bcfbf3a6": {
   "first_seen": "2026-08-03T23:02:10.386010+00:00",
   "id": "92a7981ef9a69908",
@@ -704,6 +721,18 @@
   "url": "https://armature.tech",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "a441cf262d4a3fde": {
+  "first_seen": "2026-08-04T05:01:51.998017+00:00",
+  "id": "e5418960c9f09da1",
+  "published": "2026-08-04T02:00:44+00:00",
+  "sid": "a441cf262d4a3fde",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek-V4-Flash API launches on China’s National Supercomputing Internet technode.com",
+  "summary_1line": "DeepSeek-V4-Flash API launches on China’s National Supercomputing Internet technode.com",
+  "title": "DeepSeek-V4-Flash API launches on China’s National Supercomputing Internet - technode.com",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQX2FuZE5ycVlKY01aNzdxRDdJcGVlcmdtR1pDbmpuTVJnM2tORzFmbVZPUkdTVzNPZHhEU2VVejNUUktjcTB4OTNBWlJlVmR3b3hGbHB0bktmUjJod0tLMkdCa25qTnZtQXBhb2wxUmstRi01cHQ0UmktZjZfZi1WR19ybmxMNmZhWHF1dElXZ19kSnpfQ1B3VEE4SjdmRmRhNWJOTWtzVTZ0UQ?oc=5"
+ },
  "a8f00fe043ac308e": {
   "first_seen": "2026-08-03T18:02:02.627451+00:00",
   "id": "e8f55327f6f6b3bd",
@@ -1044,6 +1073,22 @@
   "title": "How we built a realtime system for responsive voice AI in six months",
   "type": "news",
   "url": "https://openai.com/index/continuous-voice-interaction-with-gpt-live"
+ },
+ "deedeee897c8bf8d": {
+  "first_seen": "2026-08-04T05:01:51.998017+00:00",
+  "id": "7e5c86ba2eb7b8ec",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-03T15:04:20+00:00",
+  "sid": "deedeee897c8bf8d",
+  "source": "arxiv_cn_open_weight_reports",
+  "summary": "Native computer use offers a general interface for agents to operate almost any software available to people, but requires long-horizon state tracking, large-scale interactive experience, and learning from sparse yet verifiable outcomes. We introduce Qwen-CUA, a native computer-use agent with a 397B-A17B Qwen mixture-of-experts backbone. It observes only screenshots and acts through keyboard and mouse events, without DOM trees, accessibility metadata, or task-specific APIs. Its scaffold maintains up to 20 active screenshots and folds older visual history in fixed-size blocks to retain recent evidence while preserving reusable prompt prefixes. For training, we build a cloud rollout fleet with access to nearly 100,000 vCPUs and tens of thousands of concurrent environments, construct approximately 40,000 verifiable tasks, and collect personalized long-horizon workflows across everyday and professional software. We optimize complete trajectories with verifiable rewards and trajectory slicing, while iterative training runs refresh supervised data and recalibrate reinforcement-learning tasks. Across eight benchmarks, Qwen-CUA outperforms Qwen3.7 and remains competitive with leading proprietary systems, reaching 86.2 on OSWorld-Verified and 18.5/48.4 binary/partial completion on OSWorld 2.0. Scaling the same recipe to a model with over one trillion parameters yields Qwen-CUA-Max, improving these scores to 87.6 and 21.2/53.3. Qwen-CUA also reduces RedTeamCUA attack success from 36.6 ",
+  "summary_1line": "Native computer use offers a general interface for agents to operate almost any software available to people, but requires long-horizon state tracking, large-scale interactive experience, and learning from sparse yet...",
+  "title": "Qwen-CUA: Native Computer Use for (almost) Everything",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.02352v1",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e09c6a6a7cf1895e": {
   "first_seen": "2026-08-04T01:02:40.689970+00:00",
