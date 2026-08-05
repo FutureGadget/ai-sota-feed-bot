@@ -20,6 +20,7 @@
 
 const THREE_URL = 'https://unpkg.com/three@0.161.0/build/three.module.js';
 const READS_KEY = 'ai_feed_topic_reads_v1';
+const FOG_DENSITY = 0.0035; // reference density, tuned at camera distance 128
 const FRESH_DAYS = 21; // an update within this window counts as "new"
 
 // One hue per orbit slot (assigned by area order, not id, so new areas just
@@ -203,7 +204,7 @@ async function boot(section) {
   stage.prepend(renderer.domElement);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.FogExp2(0x070b16, 0.0035);
+  scene.fog = new THREE.FogExp2(0x070b16, FOG_DENSITY);
   const camera = new THREE.PerspectiveCamera(50, 1, 0.5, 900);
 
   scene.add(new THREE.AmbientLight(0x8899bb, 0.55));
@@ -279,9 +280,12 @@ async function boot(section) {
   const pickables = [];
   const GOLDEN = Math.PI * (3 - Math.sqrt(5));
 
+  let outerOrbitR = 24;
+
   planets.forEach((planet, i) => {
     const color = new THREE.Color(PLANET_COLORS[i % PLANET_COLORS.length]);
     const orbitR = 24 + i * 6.0;
+    outerOrbitR = Math.max(outerOrbitR, orbitR);
     const angle = i * GOLDEN * 2 + frac(planet.id, 'a') * 0.9;
     const radius = 1.75 + 0.5 * Math.sqrt(planet.topics.length);
 
@@ -450,6 +454,74 @@ async function boot(section) {
   const homeView = { theta: goal.theta, phi: goal.phi, dist: goal.dist, target: goal.target.clone() };
   let needsRender = true;
 
+  // Default framing. The system is a disc whose radius GROWS as the wiki gains
+  // areas, and fov is vertical, so a fixed camera distance clips the outer
+  // planets on any viewport narrower than the one it was tuned against. Solve
+  // for the framing instead — and solve it from the real projection, because a
+  // flat-disc approximation underestimates badly: the half of the disc nearest
+  // the camera projects well outside the radius it would predict.
+  const LABEL_BASE_H = 3.1; // must match the baseH planet labels register with
+  const FIT_FILL = 0.94;    // leave a little breathing room inside the frame
+
+  // Labels are screen-space constant, so their world size depends on the very
+  // distance being solved for; the solver iterates. Per planet, not a global
+  // worst case — padding every planet by the widest label in the set would
+  // shrink the whole system to protect one long name.
+  function labelHalfW(planet, dist) {
+    const sprite = planet.three && planet.three.label;
+    if (!sprite) return 0;
+    return (labelH(dist) * sprite.userData.aspect) / 2;
+  }
+  const labelH = (dist) => Math.min(9, Math.max(1.4, LABEL_BASE_H * (dist / 130)));
+
+  // NDC box covering every planet plus its label, for the camera as it stands.
+  const _fitV = new THREE.Vector3();
+  function projectedBounds(dist) {
+    let x0 = Infinity; let x1 = -Infinity; let y0 = Infinity; let y1 = -Infinity;
+    for (const p of planets) {
+      const g = p.three.group.position;
+      const half = labelHalfW(p, dist);
+      // Label sits above the body; its own height is the extra headroom.
+      const top = p.three.radius + LABEL_BASE_H + labelH(dist);
+      for (const dx of [-half, half]) {
+        for (const dy of [-p.three.radius, top]) {
+          _fitV.set(g.x + dx, g.y + dy, g.z).project(camera);
+          x0 = Math.min(x0, _fitV.x); x1 = Math.max(x1, _fitV.x);
+          y0 = Math.min(y0, _fitV.y); y1 = Math.max(y1, _fitV.y);
+        }
+      }
+    }
+    return { x0, x1, y0, y1 };
+  }
+
+  // Solve distance + vertical target offset together: pull back until the
+  // projected box fits, and slide the look-at until that box is vertically
+  // centred (perspective sinks the near half of the disc, so a disc centred on
+  // the origin still renders low). Horizontal centring is deliberately left
+  // alone — the sun stays on the frame's axis.
+  function solveFraming() {
+    const vHalf = (camera.fov * Math.PI) / 360;
+    const saveDist = view.dist;
+    const saveY = view.target.y;
+    let dist = 130;
+    let ty = 0;
+    for (let i = 0; i < 10; i++) {
+      view.dist = dist;
+      view.target.y = ty;
+      applyCamera();
+      camera.updateMatrixWorld();
+      const b = projectedBounds(dist);
+      if (!isFinite(b.x0)) break;
+      ty += ((b.y0 + b.y1) / 2) * dist * Math.tan(vHalf);
+      const need = Math.max(Math.abs(b.x0), Math.abs(b.x1), (b.y1 - b.y0) / 2);
+      dist = Math.min(600, Math.max(40, dist * (need / FIT_FILL)));
+    }
+    view.dist = saveDist;
+    view.target.y = saveY;
+    applyCamera();
+    return { dist, ty };
+  }
+
   function applyCamera() {
     const st = Math.sin(view.phi);
     camera.position.set(
@@ -461,7 +533,10 @@ async function boot(section) {
   }
 
   const clampPhi = (p) => Math.min(1.45, Math.max(0.2, p));
-  const clampDist = (d) => Math.min(230, Math.max(26, d));
+  // Ceiling tracks the fitted distance: on a narrow viewport fitting the whole
+  // system needs more room than the desktop-tuned 230, and a hard cap there
+  // would clip the default view right back off the sides.
+  const clampDist = (d) => Math.min(Math.max(230, homeView.dist * 1.1), Math.max(26, d));
 
   const canvas = renderer.domElement;
   const pointers = new Map();
@@ -713,8 +788,35 @@ async function boot(section) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+
+    // Re-fit the default framing to the new aspect. "Reset view" always gets
+    // the fitted framing; the live camera only follows while it is still
+    // sitting at home, so a reader's own zoom/orbit is never yanked.
+    const atHome = !openPlanet && !restoreView
+      && Math.abs(goal.dist - homeView.dist) < 0.5
+      && Math.abs(goal.theta - homeView.theta) < 1e-3
+      && Math.abs(goal.phi - homeView.phi) < 1e-3
+      && goal.target.distanceTo(homeView.target) < 0.5;
+
+    const fit = solveFraming();
+    homeView.dist = fit.dist;
+    homeView.target.y = fit.ty;
+
+    // Fog density was tuned at dist 128. A narrow viewport has to pull much
+    // further back to fit the system, and at a fixed density that pull-back
+    // greys the whole scene out. Scale density with the framing so the depth
+    // cue looks the same at every width.
+    scene.fog.density = FOG_DENSITY * (128 / homeView.dist);
+    if (atHome) {
+      goal.dist = view.dist = homeView.dist;
+      goal.target.copy(homeView.target);
+      view.target.copy(homeView.target);
+      applyCamera();
+    }
+
     needsRender = true;
   }
+
   new ResizeObserver(resize).observe(stage);
   resize();
 
@@ -806,7 +908,13 @@ async function boot(section) {
     get running() { return running; },
     get onScreen() { return onScreen; },
     reduceMotion,
-    view, goal, planets,
+    view, goal, homeView, planets, camera,
+    // NDC box around every planet + label. A framing check can assert the
+    // whole system stays inside [-1, 1] on both axes at any viewport size.
+    ndcBounds() {
+      camera.updateMatrixWorld();
+      return projectedBounds(view.dist);
+    },
   };
 
   return () => { cancelAnimationFrame(rafId); renderer.dispose(); };
