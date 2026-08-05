@@ -5,113 +5,113 @@ Focus: AI Platform Engineering
 ## 1. Ponytail Agent Skill Corrects Its Own Benchmark After Contributor Challenge
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/ponytail-agent-skill-benchmark/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.488 | Reliability: 1.0
+- Score: 3.455 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. New release of LLM adds support for reasoning traces, OpenAI Responses, server-side tools, and smarter logging
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/4/new-release-of-llm/#atom-everything
-- Score: 3.117 | Reliability: 1.0
+- Score: 3.088 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. claude-code v2.1.222
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.222
-- Score: 2.66 | Reliability: 1.0
+- Score: 2.634 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
 ## 4. SocietyBench: Forecasting Counterfactual Social-World Evolution
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2608.04009v1
-- Score: 2.636 | Reliability: 1.0
+- Score: 2.62 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 5. How to Evaluate Voice Agents with LangSmith
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-to-evaluate-voice-agents-execution-outcomes-and-experience
-- Score: 2.625 | Reliability: 1.0
+- Score: 2.602 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 6. llm-anthropic 0.26
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/4/llm-anthropic/#atom-everything
-- Score: 2.587 | Reliability: 1.0
+- Score: 2.564 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. Video-DeepResearch: Towards the Next-Generation Multimodal Deepresearch Agent
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.03979v1
-- Score: 2.548 | Reliability: 1.0
+- Score: 2.532 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 8. Third-party cyber evaluations involving OpenAI models
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/third-party-cyber-evaluations-involving-openai-models
-- Score: 2.499 | Reliability: 1.0
+- Score: 2.472 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 9. Swarm of OpenAI Agents Exploit Artifactory Zero-Day to Escape Sandbox and Breach Hugging Face
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/08/openai-huggingface-breach/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.442 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 9. codex 0.147.0-alpha.10
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.147.0-alpha.10
+- Score: 2.439 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 10. Tino Cuellar joins Anthropic as Chief Global Affairs Officer
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/tino-cuellar
-- Score: 2.296 | Reliability: 1.0
+- Score: 2.272 | Reliability: 1.0
 - Why it matters: 
 
-## 11. codex rust-v0.147.0-alpha.9
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.147.0-alpha.9
-- Score: 2.437 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 11. Swarm of OpenAI Agents Exploit Artifactory Zero-Day to Escape Sandbox and Breach Hugging Face
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/08/openai-huggingface-breach/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.422 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 12. ParVL: Parallel Scaling and Expandable Compute Allocation for Multimodal LLMs
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.04010v1
-- Score: 2.437 | Reliability: 1.0
+- Score: 2.422 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 13. Unpacking ChatGPT Work: the Agent for a Billion Users
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/unpacking-chatgpt-work
-- Score: 2.409 | Reliability: 1.0
+- Score: 2.387 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. China uses DeepSeek in Attempted Hermes Agent Cyber Attacks - Cybersecurity Insiders
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMioAFBVV95cUxOLWNsbm5BWHdBYXJUU3AwZ0pGYWd2X2ZrUGxGZnV5OW05NVBKc1VrZmk0WUc4WUhDZWRNT2RKRFM0UXZ3VnZORFlEcHhMUUFqN0lDSXZ3MVBmVWpuaVhzZ19HUUZhd1RjRnF1M1c4NDF4T3Q4X0NyZWF0MVhVSzd6TDdZbWtrSWxMZ214a1VzVnlFb2NZQkNwcGRDdXNNbVc5?oc=5
-- Score: 2.404 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 15. Test-Time Scaling in Reasoning LLMs: Inference Regimes, Evaluation, and Reproducibility
+## 14. Test-Time Scaling in Reasoning LLMs: Inference Regimes, Evaluation, and Reproducibility
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.04001v1
-- Score: 2.391 | Reliability: 1.0
+- Score: 2.376 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
+
+## 15. China uses DeepSeek in Attempted Hermes Agent Cyber Attacks - cybersecurity-insiders.com
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMioAFBVV95cUxOLWNsbm5BWHdBYXJUU3AwZ0pGYWd2X2ZrUGxGZnV5OW05NVBKc1VrZmk0WUc4WUhDZWRNT2RKRFM0UXZ3VnZORFlEcHhMUUFqN0lDSXZ3MVBmVWpuaVhzZ19HUUZhd1RjRnF1M1c4NDF4T3Q4X0NyZWF0MVhVSzd6TDdZbWtrSWxMZ214a1VzVnlFb2NZQkNwcGRDdXNNbVc5?oc=5
+- Score: 2.353 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 16. [AINews] Megakernels are so dead and so back
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-megakernels-are-so-dead-and
-- Score: 2.363 | Reliability: 1.0
+- Score: 2.342 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. claude-agent-sdk-python v0.2.130
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.130
-- Score: 2.195 | Reliability: 1.0
+- Score: 2.173 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. How Stripe Built Kai on Deep Agents in 1 Week
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-stripe-built-their-knowledge-ai-platform-on-deep-agents
-- Score: 2.161 | Reliability: 1.0
+- Score: 2.143 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 19. Deploy local agents everywhere with LFM2.5-2.6B
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/LiquidAI/lfm2-5-2-6b
-- Score: 2.142 | Reliability: 1.0
+- Score: 2.129 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
