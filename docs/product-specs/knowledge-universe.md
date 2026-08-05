@@ -39,8 +39,23 @@ as the no-JS/SEO/accessibility fallback).
   (never read) / `UPDATED` (changed since you read it) badges with dates.
 - **Interaction**: drag orbits, wheel/pinch zooms, click/tap a planet (or its
   satellites) focuses it and opens a contents panel (obstacles with their
-  solutions, each linking to `/topic/<slug>`); Esc or ✕ closes; HUD has
-  zoom +/− and reset. Hovering shows a tooltip (planet stats or page title).
+  solutions, each linking to `/topic/<slug>`); Esc or ✕ closes. Hovering shows
+  a tooltip (planet stats or page title).
+- **View stepper (the HUD)**: ‹ › buttons walk a fixed tour - view 0 is the
+  fitted birds-eye overview, views 1..N fly the camera to one planet each (in
+  orbit order, wrapping). A caption card between the buttons names the current
+  view; for a planet it carries a colored chip, `i/N`, read progress, and a
+  1–2-line summary of the area (the readable path on phones, where in-scene
+  labels are tiny). Tapping the card opens that planet's contents panel;
+  tapping the overview card resets the camera. Stepping closes an open panel;
+  closing a panel returns to the view it was opened from; Esc in a focus view
+  returns to the overview. This replaced the old zoom +/− and reset buttons -
+  wheel/pinch/keyboard still zoom. On phones the bottom-sheet panel hides the
+  stepper while open (one control at a time).
+- **Mobile double-tap**: Safari's double-tap page zoom made accidental zooms
+  easy. The stepper buttons opt out via `touch-action: manipulation`; the
+  canvas keeps `touch-action: pan-y` (so a vertical swipe still scrolls past
+  the stage) and swallows the second tap's `touchend` default instead.
 - **Motion discipline**: render loop parks when the tab is hidden or the stage
   is off-viewport; `prefers-reduced-motion` disables ambient drift/pulses and
   renders only on interaction. Any boot failure (no WebGL, blocked CDN) hides
@@ -55,6 +70,8 @@ The orbit view is a pure *presentation* of the compiled wiki:
 - `pipeline/render_static_pages.py::wiki_universe_data()` projects
   `data/wiki/index.json` (areas + nodes with title/kind/updated/solutions) into
   a small JSON data island inside the generated `web/map.html`; no API call.
+  Each area also carries a `summary` - the lead obstacle's summary, clipped -
+  which is what the focus-view caption card shows for that planet.
 - Scaling is automatic: a new area in the index becomes a new planet (next
   color slot, next orbit ring); a new node becomes a new satellite. Nothing to
   configure when knowledge grows.
@@ -71,8 +88,9 @@ The orbit view is a pure *presentation* of the compiled wiki:
 ## Telemetry
 
 PostHog events (defensive no-ops): `universe_planet_open {area, unread,
-fresh}`, `universe_topic_click {slug, area}` — enough to see whether the orbit
-view drives topic reads (which feeds the weekly-returning-readers north star).
+fresh}`, `universe_topic_click {slug, area}`, `universe_view_step {view}` (the
+stepper tour) — enough to see whether the orbit view drives topic reads (which
+feeds the weekly-returning-readers north star).
 
 ## Files
 
