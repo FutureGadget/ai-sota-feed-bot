@@ -149,6 +149,22 @@
   "url": "http://arxiv.org/abs/2608.02470v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
+ "15b5c9ed4961c3fc": {
+  "first_seen": "2026-08-05T04:01:54.457064+00:00",
+  "id": "e8d5bd0d3f40e1a2",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-04T17:59:58+00:00",
+  "sid": "15b5c9ed4961c3fc",
+  "source": "arxiv_cs_cl",
+  "summary": "Existing scaling strategies for Multimodal Large Language Models (MLLMs) typically expand either model parameters or sequential inference computation, incurring substantial memory or latency overhead. More importantly, most existing methods fail to alter the rigid, fixed computation allocation between the Vision Transformer and the Large Language Model components, limiting task-specific optimization. To address this, we introduce the Parallel Vision-Language (ParVL) scaling framework for MLLMs, which scales parallel computation by reusing the existing ViT and LLM backbone parameters across multiple vision and language branches. This framework raises a central question: given a fixed backbone parameter budget, how should additional shared-backbone computation be allocated between the vision and language modalities? We instantiate each parallel computational stream with branch-specific prefix parameters over a shared backbone, and train the entire model end-to-end via full-parameter supervised fine-tuning on roughly 13B tokens. We systematically study the computation-allocation trade-off between the ViT encoder and LLM decoder. ParVL improves overall multimodal performance over same-recipe single-branch baselines, and the best evaluated vision--language allocation varies across tasks. Code is available at https://github.com/YangYangGirl/ParVL.",
+  "summary_1line": "Existing scaling strategies for Multimodal Large Language Models (MLLMs) typically expand either model parameters or sequential inference computation, incurring substantial memory or latency overhead. More importantly...",
+  "title": "ParVL: Parallel Scaling and Expandable Compute Allocation for Multimodal LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.04010v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "183667c5bcfbf3a6": {
   "first_seen": "2026-08-03T23:02:10.386010+00:00",
   "id": "92a7981ef9a69908",
@@ -360,6 +376,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9Eam04UXpqMXZDZm1WMkptYW5FTXRKd00wbkhBaGpJTEFGTkExSVhFTW1CNGo1RkxaTEJ6cFBBMVhXeUlpeGJOdzQwcDg5dGFJUHVfWTBNOXlkS24xLXhyLVp3?oc=5"
  },
+ "2bf03ab1731b128c": {
+  "first_seen": "2026-08-05T04:01:54.457064+00:00",
+  "id": "d3e116a64d9e53b7",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-08-04T17:45:16+00:00",
+  "sid": "2bf03ab1731b128c",
+  "source": "arxiv_cs_ai",
+  "summary": "We introduce Video-DeepResearch (Video-DR), extending multimodal agents from static images to continuous video streams, a setting that demands dense spatiotemporal grounding coupled with open-web exploration. Preliminary evaluations reveal two critical bottlenecks in current models: (1) modality bias, where agents bypass visual tools in favor of textual search, and (2) parametric knowledge leakage, where models rely on internal memory rather than genuine tool-augmented execution. To address these challenges, we propose Video-DR, featuring a decoupled perception-exploration pipeline with stage-wise tool unlocking that compels exhaustive cross-frame visual grounding prior to web retrieval. Our framework adopts a two-stage training recipe: supervised fine-tuning followed by Group Relative Policy Optimization (GRPO), enabling autonomous exploration that breaks the imitation-learning ceiling. Furthermore, we curate Video-DR-Bench, a human-AI collaborative benchmark comprising 200 complex, multi-hop VQA instances. Empirical results demonstrate that our Video-DeepResearch-35B-A3B establishes a new state-of-the-art of 64.0% average accuracy, surpassing proprietary Claude-4.5-Sonnet (59.0%) by 5.0 points and significantly outperforming GPT-5 (52.5%) and Gemini 2.5 Pro (57.5%). The 30B-A3B variant achieves 59.3%, competitive with Claude-4.5-Sonnet and demonstrating the effectiveness of our training paradigm even at compact scale. Code: https://github.com/Osilly/Vision-DeepResearch.",
+  "summary_1line": "We introduce Video-DeepResearch (Video-DR), extending multimodal agents from static images to continuous video streams, a setting that demands dense spatiotemporal grounding coupled with open-web exploration. Prelimin...",
+  "title": "Video-DeepResearch: Towards the Next-Generation Multimodal Deepresearch Agent",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.03979v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "2f09d89bf0ba4d91": {
   "first_seen": "2026-08-04T17:02:01.969108+00:00",
   "id": "93d972ff7fcc1cf9",
@@ -476,6 +509,22 @@
   "url": "https://github.com/OmegaAgent/handoff",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "40ffe82cac18fa95": {
+  "first_seen": "2026-08-05T04:01:54.457064+00:00",
+  "id": "1e677ff5ad87ebd6",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-08-04T17:57:20+00:00",
+  "sid": "40ffe82cac18fa95",
+  "source": "arxiv_cs_lg",
+  "summary": "Large language models can solve substantially harder reasoning problems with more inference-time compute. The term \"test-time scaling,\" however, now covers diverse inference algorithms that extend deliberation along a single trajectory, sample completed candidates and aggregate them through voting or verification, or search over unfinished partial states. These algorithms differ in their statistical structure, compute accounting, and failure modes. Treating these procedures as interchangeable under a single scalar \"budget,\" or reporting accuracy without the inference protocol that produced it, makes results difficult to compare across studies. We develop a systematic account of test-time scaling along three axes. First, we formalize test-time scaling as budgeted inference over the implicit prefix tree of an autoregressive model and distinguish three structural regimes: single-trajectory sequential scaling, leaf-level scaling with terminal reduction, and prefix-level scaling. Second, we treat the evaluated object as the entire inference system and develop evaluation principles that separate end-to-end system performance from candidate-bank diagnostics. We introduce an evaluation profile whose coordinates and simple functionals recover or bound common repeated-sampling metrics, and prescribe protocol-matched reporting of compute and uncertainty. Third, we specify reproducibility requirements for inference protocols, distinguishing exact replay from distributional reproducibilit",
+  "summary_1line": "Large language models can solve substantially harder reasoning problems with more inference-time compute. The term \"test-time scaling,\" however, now covers diverse inference algorithms that extend deliberation along a...",
+  "title": "Test-Time Scaling in Reasoning LLMs: Inference Regimes, Evaluation, and Reproducibility",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.04001v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "42ebe570ca9aba75": {
   "first_seen": "2026-08-03T19:02:03.828732+00:00",
   "id": "77bcfcd72b7f3650",
@@ -535,7 +584,7 @@
   ],
   "published": "2026-08-04T17:59:56+00:00",
   "sid": "4a45358a628b1ee8",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_llm_reliability",
   "summary": "Large language models (LLMs), and the agents built on top of them, are now benchmarked heavily on whether they can finish a task -- fix a bug, drive a browser, operate a GUI. A complementary social ability, namely how well a model understands and forecasts the way real social events unfold, has barely been measured. We introduce SocietyBench, an end-to-end benchmark that takes a one-line event topic, collects Web news and social-media posts across five platforms, distills them into a date-indexed timeline that keeps factual events and a public-opinion layer separate, and then turns every cutoff date on that timeline into an audited bank of forecasting questions. Questions are scored on two orthogonal 100-point axes: probability calibration and temporal accuracy. Before any model sees a timeline, a three-phase procedure replaces every named entity and shifts every date by a per-event constant, turning a real arc into a counterfactual social world -- structurally identical to what happened, but stripped of the surface labels a model could match against pre-training memory. On five heterogeneous events and 125 prediction points in Chinese and English editions, the strongest of six frontier LLMs reaches only 75.0 out of 100, against a trivial anchor of 50. The two axes come apart: a model can be calibration-strong but time-weak, or the reverse. Three agent frameworks built on a shared base model fail to improve on that base, and two model-free heuristics trail every LLM. Per-even",
   "summary_1line": "Large language models (LLMs), and the agents built on top of them, are now benchmarked heavily on whether they can finish a task -- fix a bug, drive a browser, operate a GUI. A complementary social ability, namely how...",
   "title": "SocietyBench: Forecasting Counterfactual Social-World Evolution",
