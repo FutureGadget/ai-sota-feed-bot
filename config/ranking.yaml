@@ -67,9 +67,13 @@ slots:
     # seat so a substantive spec post no longer loses the single vendor slot to
     # an nvidia/aws benchmark PR piece. min_items: 0 — it earns the seat on
     # merit (the source also posts marketing), it is not guaranteed.
-    sources: [google_cloud_blog]
+    # cloudflare_blog joins on the same basis (agent runtime/sandboxing, MCP
+    # controls, Workers AI inference and quantization writeups). max_items: 2
+    # so the two platforms do not cannibalise a single seat; max_per_source: 1
+    # still caps each, including Cloudflare's launch-week bursts.
+    sources: [google_cloud_blog, cloudflare_blog]
     min_items: 0
-    max_items: 1
+    max_items: 2
     max_per_source: 1
     freshness_hours: 96
     blend: {alpha: 0.70, beta: 0.30}
@@ -181,6 +185,7 @@ source_bias:
   aws_ml_blog: -0.20
   nvidia_blog: -0.18
   google_cloud_blog: -0.12  # own slot (cloud_platform_updates): publishes standards/spec posts (OKF, MCP/A2UI, inference gateway)
+  cloudflare_blog: -0.10    # same slot: tag-scoped to agent runtime/MCP/Workers AI inference posts, so slightly above google_cloud's broader mix
   vllm_releases: -0.08
   triton_releases: -0.08
   langgraph_releases: 0.06
