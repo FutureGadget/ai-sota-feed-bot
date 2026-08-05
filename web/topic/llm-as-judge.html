@@ -20,12 +20,12 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="LLM-as-judge: model-graded evaluation of traces and outputs — agent engineering" />
   <meta name="twitter:description" content="Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the…" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "LLM-as-judge: model-graded evaluation of traces and outputs", "description": "Use a model to grade a model: give an LLM the agent's output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can't keep up with — every production trace, every CI run — and is the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/llm-as-judge", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "LLM-as-judge: model-graded evaluation of traces and outputs", "item": "https://www.llm-digest.com/topic/llm-as-judge"}]}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Article", "headline": "LLM-as-judge: model-graded evaluation of traces and outputs", "description": "Use a model to grade a model: give an LLM the agent's output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can't keep up with — every production trace, every CI run — and is the…", "datePublished": null, "mainEntityOfPage": "https://www.llm-digest.com/topic/llm-as-judge", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}, {"@type": "ListItem", "position": 3, "name": "LLM-as-judge: model-graded evaluation of traces and outputs", "item": "https://www.llm-digest.com/topic/llm-as-judge"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
   <script src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -281,6 +281,70 @@
 
     button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    /* ---- /map : knowledge universe (orbit view) ----
+       The viewport is deliberately deep-space dark in BOTH themes — it is an
+       instrument screen framed by the page, not a themed surface. All ku-*
+       colors are therefore hardcoded to the dark palette. */
+    .ku { margin:2rem 0 .4rem; }
+    .ku-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem 1.1rem; padding:0 0 .55rem; }
+    .ku-head b { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.65rem; font-weight:700;
+      letter-spacing:.15em; text-transform:uppercase; color:var(--accent); }
+    .ku-readout { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--fg); }
+    .ku-legend { margin-left:auto; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; color:var(--muted); }
+    .ku-stage { position:relative; height:clamp(430px,68vh,640px); overflow:hidden;
+      background:#070b16; border:1px solid var(--border); border-radius:3px; }
+    .ku-canvas { position:absolute; inset:0; width:100%; height:100%; display:block;
+      cursor:grab; touch-action:pan-y; }
+    .ku-canvas:active { cursor:grabbing; }
+    .ku-canvas:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent); outline-offset:-3px; }
+    .ku-hint { margin:.55rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; line-height:1.6; color:var(--muted); max-width:62rem; }
+    .ku-tooltip { position:absolute; z-index:3; pointer-events:none; max-width:250px;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; line-height:1.45;
+      color:#e8f0fc; background:rgba(9,13,22,.93); border:1px solid #33415c; padding:.32rem .5rem; }
+    .ku-hud { position:absolute; z-index:3; left:.85rem; bottom:.85rem; display:flex; gap:.35rem; }
+    .ku-hud button { width:2.1rem; height:2.1rem; font-size:1rem; line-height:1; cursor:pointer;
+      color:#e8f0fc; background:rgba(10,14,23,.85); border:1px solid #33415c; border-radius:2px; }
+    .ku-hud button:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-panel { position:absolute; z-index:4; top:.85rem; right:.85rem; bottom:.85rem;
+      width:min(345px,calc(100% - 1.7rem)); overflow:auto; overscroll-behavior:contain;
+      color:#e8f0fc; background:rgba(10,14,23,.94); border:1px solid #33415c; border-radius:2px;
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .ku-panel header { position:sticky; top:0; z-index:1; display:flex; align-items:center; gap:.6rem;
+      padding:.75rem .85rem .6rem; background:rgba(10,14,23,.97); border-bottom:1px solid #232c3f; }
+    .ku-chip { flex:none; width:.72rem; height:.72rem; border-radius:50%;
+      background:var(--ku-c,#63a3ff); box-shadow:0 0 10px var(--ku-c,#63a3ff); }
+    .ku-panel h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.05; }
+    .ku-panel header p { margin:.12rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; color:#9aa6b6; }
+    .ku-close { margin-left:auto; flex:none; width:1.8rem; height:1.8rem; font-size:1rem; cursor:pointer;
+      color:#e8f0fc; background:none; border:1px solid #33415c; border-radius:2px; }
+    .ku-close:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-rows { list-style:none; margin:0; padding:.35rem .85rem .5rem; }
+    .ku-row { display:flex; gap:.55rem; padding:.55rem 0; border-bottom:1px solid #1c2436; }
+    .ku-row:last-child { border-bottom:0; }
+    .ku-row-solution { padding-left:1.15rem; }
+    .ku-dot { flex:none; width:.5rem; height:.5rem; border-radius:50%; margin-top:.5rem; }
+    .ku-dot-unread { background:#ffe9bd; box-shadow:0 0 8px #ffd97a; }
+    .ku-dot-read { background:#3a465c; }
+    .ku-kind { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.56rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:#8ea0c0; margin:0 0 .1rem; }
+    .ku-row a { color:#e8f0fc; font-size:.84rem; line-height:1.4; text-decoration:none; }
+    .ku-row a:hover { color:#8fd3ff; text-decoration:underline; }
+    .ku-row-meta { display:flex; align-items:center; gap:.5rem; margin-top:.2rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem; color:#7f8ca3; }
+    .ku-badge { font-weight:700; font-size:.56rem; letter-spacing:.1em; padding:.08rem .3rem;
+      border:1px solid; border-radius:2px; }
+    .ku-badge-new { color:#ffd97a; border-color:#8a6c2f; }
+    .ku-badge-upd { color:#8fd3ff; border-color:#3c5f7d; }
+    .ku-panel footer { padding:.55rem .85rem .85rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.6rem; color:#7f8ca3; }
+    .map-list-title { margin:2.6rem 0 0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.03em; font-size:1.5rem; color:var(--muted); }
+
     @media (max-width:620px) {
       main { padding-left:1rem; padding-right:1rem; }
       .map .wiki-headline { font-size:2.6rem; }
@@ -289,6 +353,9 @@
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .ku-stage { height:clamp(380px,58vh,520px); }
+      .ku-legend { margin-left:0; }
+      .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
@@ -304,7 +371,7 @@
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>Agent Engineering Wiki</h1>
+        <h1>Agent Know-How</h1>
         <p id="meta" class="muted"></p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
@@ -313,7 +380,7 @@
         <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
         <a href="/storylines" data-site-destination="/storylines">Storylines</a>
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
-        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
@@ -327,7 +394,7 @@
     </header>
 
     <section id="recap">
-      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">LLM-as-judge: model-graded evaluation of traces and outputs</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>11 sources<span class="sep">·</span>updated 2026-07-31</p></section>
+      <section class="wiki-hero"><p class="wiki-kicker">Agent engineering · know-how</p><h2 class="wiki-headline">LLM-as-judge: model-graded evaluation of traces and outputs</h2><p class="wiki-readout"><span class="on">🛠️ Solution</span><span class="sep">·</span>active<span class="sep">·</span>11 sources<span class="sep">·</span>updated 2026-07-31</p></section>
       <!-- range is included in the custom hero -->
       
       <div class="topic"><div class="topic-lead"><p>Use a model to grade a model: give an LLM the agent&#x27;s output (or its full trace) plus a rubric, and have it return a structured verdict. It scales the judgment human raters can&#x27;t keep up with — every production trace, every CI run — and is the practical backbone of agent evaluation when answers are open-ended.</p></div>
@@ -406,7 +473,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260701" defer></script>
+  <script src="/nav-updates.js?v=20260805" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Agent Engineering Wiki — obstacles &amp; solutions | LLM Digest</title>
-  <meta name="description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
+  <title>Agent Know-How — the essentials for production-grade agents | LLM Digest</title>
+  <meta name="description" content="The essential know-how for production-grade agents — memory, reliability, tool use, cost, and more — every problem area linked to the solutions the field uses, with source articles." />
   <link rel="canonical" href="https://www.llm-digest.com/map" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
@@ -12,20 +12,20 @@
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta property="og:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
+  <meta property="og:title" content="Agent Know-How — the essentials for production-grade agents" />
+  <meta property="og:description" content="The essential know-how for production-grade agents — memory, reliability, tool use, cost, and more — every problem area linked to the solutions the field uses, with source articles." />
   <meta property="og:url" content="https://www.llm-digest.com/map" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Agent Engineering Wiki — obstacles &amp; solutions" />
-  <meta name="twitter:description" content="A living map of the obstacles to building and operating AI agents — memory, reliability, tool use, cost, and more — each linked to the solutions the field uses, with source articles." />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge map", "item": "https://www.llm-digest.com/map"}]}</script>
+  <meta name="twitter:title" content="Agent Know-How — the essentials for production-grade agents" />
+  <meta name="twitter:description" content="The essential know-how for production-grade agents — memory, reliability, tool use, cost, and more — every problem area linked to the solutions the field uses, with source articles." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Agent Know-How", "item": "https://www.llm-digest.com/map"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
   <script src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -281,6 +281,70 @@
 
     button:focus-visible, a:focus-visible, select:focus-visible {
       outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    /* ---- /map : knowledge universe (orbit view) ----
+       The viewport is deliberately deep-space dark in BOTH themes — it is an
+       instrument screen framed by the page, not a themed surface. All ku-*
+       colors are therefore hardcoded to the dark palette. */
+    .ku { margin:2rem 0 .4rem; }
+    .ku-head { display:flex; flex-wrap:wrap; align-items:baseline; gap:.3rem 1.1rem; padding:0 0 .55rem; }
+    .ku-head b { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.65rem; font-weight:700;
+      letter-spacing:.15em; text-transform:uppercase; color:var(--accent); }
+    .ku-readout { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--fg); }
+    .ku-legend { margin-left:auto; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; color:var(--muted); }
+    .ku-stage { position:relative; height:clamp(430px,68vh,640px); overflow:hidden;
+      background:#070b16; border:1px solid var(--border); border-radius:3px; }
+    .ku-canvas { position:absolute; inset:0; width:100%; height:100%; display:block;
+      cursor:grab; touch-action:pan-y; }
+    .ku-canvas:active { cursor:grabbing; }
+    .ku-canvas:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 55%,transparent); outline-offset:-3px; }
+    .ku-hint { margin:.55rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.64rem; line-height:1.6; color:var(--muted); max-width:62rem; }
+    .ku-tooltip { position:absolute; z-index:3; pointer-events:none; max-width:250px;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; line-height:1.45;
+      color:#e8f0fc; background:rgba(9,13,22,.93); border:1px solid #33415c; padding:.32rem .5rem; }
+    .ku-hud { position:absolute; z-index:3; left:.85rem; bottom:.85rem; display:flex; gap:.35rem; }
+    .ku-hud button { width:2.1rem; height:2.1rem; font-size:1rem; line-height:1; cursor:pointer;
+      color:#e8f0fc; background:rgba(10,14,23,.85); border:1px solid #33415c; border-radius:2px; }
+    .ku-hud button:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-panel { position:absolute; z-index:4; top:.85rem; right:.85rem; bottom:.85rem;
+      width:min(345px,calc(100% - 1.7rem)); overflow:auto; overscroll-behavior:contain;
+      color:#e8f0fc; background:rgba(10,14,23,.94); border:1px solid #33415c; border-radius:2px;
+      backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); }
+    .ku-panel header { position:sticky; top:0; z-index:1; display:flex; align-items:center; gap:.6rem;
+      padding:.75rem .85rem .6rem; background:rgba(10,14,23,.97); border-bottom:1px solid #232c3f; }
+    .ku-chip { flex:none; width:.72rem; height:.72rem; border-radius:50%;
+      background:var(--ku-c,#63a3ff); box-shadow:0 0 10px var(--ku-c,#63a3ff); }
+    .ku-panel h3 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.2rem; font-weight:700; letter-spacing:-.02em; line-height:1.05; }
+    .ku-panel header p { margin:.12rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; color:#9aa6b6; }
+    .ku-close { margin-left:auto; flex:none; width:1.8rem; height:1.8rem; font-size:1rem; cursor:pointer;
+      color:#e8f0fc; background:none; border:1px solid #33415c; border-radius:2px; }
+    .ku-close:hover { border-color:#8fd3ff; color:#8fd3ff; }
+    .ku-rows { list-style:none; margin:0; padding:.35rem .85rem .5rem; }
+    .ku-row { display:flex; gap:.55rem; padding:.55rem 0; border-bottom:1px solid #1c2436; }
+    .ku-row:last-child { border-bottom:0; }
+    .ku-row-solution { padding-left:1.15rem; }
+    .ku-dot { flex:none; width:.5rem; height:.5rem; border-radius:50%; margin-top:.5rem; }
+    .ku-dot-unread { background:#ffe9bd; box-shadow:0 0 8px #ffd97a; }
+    .ku-dot-read { background:#3a465c; }
+    .ku-kind { display:block; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.56rem;
+      font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:#8ea0c0; margin:0 0 .1rem; }
+    .ku-row a { color:#e8f0fc; font-size:.84rem; line-height:1.4; text-decoration:none; }
+    .ku-row a:hover { color:#8fd3ff; text-decoration:underline; }
+    .ku-row-meta { display:flex; align-items:center; gap:.5rem; margin-top:.2rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem; color:#7f8ca3; }
+    .ku-badge { font-weight:700; font-size:.56rem; letter-spacing:.1em; padding:.08rem .3rem;
+      border:1px solid; border-radius:2px; }
+    .ku-badge-new { color:#ffd97a; border-color:#8a6c2f; }
+    .ku-badge-upd { color:#8fd3ff; border-color:#3c5f7d; }
+    .ku-panel footer { padding:.55rem .85rem .85rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.6rem; color:#7f8ca3; }
+    .map-list-title { margin:2.6rem 0 0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.03em; font-size:1.5rem; color:var(--muted); }
+
     @media (max-width:620px) {
       main { padding-left:1rem; padding-right:1rem; }
       .map .wiki-headline { font-size:2.6rem; }
@@ -289,6 +353,9 @@
         padding:1.1rem 0 1rem; }
       .map-solutions { padding:1rem 0 1.2rem; }
       .topic-section { grid-template-columns:1fr; gap:.5rem; }
+      .ku-stage { height:clamp(380px,58vh,520px); }
+      .ku-legend { margin-left:0; }
+      .ku-panel { top:auto; left:.6rem; right:.6rem; bottom:.6rem; width:auto; max-height:64%; }
     }
     @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
   </style>
@@ -304,7 +371,7 @@
         </div>
       </div>
       <div class="site-page-heading">
-        <h1>Agent Engineering Wiki</h1>
+        <h1>Agent Know-How</h1>
         <p id="meta" class="muted"></p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
@@ -313,14 +380,14 @@
         <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
         <a href="/storylines" data-site-destination="/storylines">Storylines</a>
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
-        <a href="/map" data-site-destination="/map" aria-current="page">Knowledge map</a>
+        <a href="/map" data-site-destination="/map" aria-current="page">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
         <a href="/api/topics">View as JSON</a>
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/map" data-share-title="Agent Engineering Wiki — obstacles &amp; solutions">Share this page</button>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/map" data-share-title="Agent Know-How — the essentials for production-grade agents">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -331,7 +398,7 @@
       <!-- hero is inside the .map body -->
       <!-- range is included in the custom hero -->
       
-      <div class="map"><section class="wiki-hero"><p class="wiki-kicker">Agent engineering · knowledge map</p><h2 class="wiki-headline">What breaks when you ship an agent — and how the field fixes it</h2><p class="wiki-thesis">A living map of the obstacles to building and operating AI agents, each linked to the solutions in use. Every claim is grounded in source articles already in the feed — one shared structure, no hype.</p><p class="wiki-readout">13 obstacles<span class="sep">·</span>11 solutions<span class="sep">·</span>12 areas</p><nav class="map-legend" aria-label="Obstacle areas"><b>Areas</b><a href="#area-reliability">Reliability &amp; correctness</a><span class="sep">·</span><a href="#area-memory">Memory &amp; context</a><span class="sep">·</span><a href="#area-planning">Planning &amp; reasoning</a><span class="sep">·</span><a href="#area-tool-use">Tool use &amp; interop</a><span class="sep">·</span><a href="#area-grounding">Grounding &amp; knowledge</a><span class="sep">·</span><a href="#area-evaluation">Evaluation</a><span class="sep">·</span><a href="#area-multi-agent">Multi-agent coordination</a><span class="sep">·</span><a href="#area-cost">Cost</a><span class="sep">·</span><a href="#area-latency">Latency &amp; throughput</a><span class="sep">·</span><a href="#area-observability">Observability &amp; debugging</a><span class="sep">·</span><a href="#area-security">Security &amp; safety</a><span class="sep">·</span><a href="#area-drift">Drift &amp; maintenance</a></nav></section><section class="map-area" id="area-reliability"><div class="map-area-head"><h2>Reliability &amp; correctness</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-reliability">Agents give fluent, confident-looking output even when it&#x27;s wrong</a></h3><p class="map-summary">An agent can hallucinate a fact, skip a step, or misuse a tool and still return a fluent, confident-looking answer — nothing about the output itself signals that it&#x27;s wrong.…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></li></ul></div></article></section>
+      <div class="map"><section class="wiki-hero"><p class="wiki-kicker">Agent engineering</p><h2 class="wiki-headline">The essential know-how for production-grade agents</h2><p class="wiki-thesis">Everything here orbits one job: keeping an agent alive in production. Each planet is a problem you will eventually hit — memory, cost, evals, security — linked to the solutions the field actually uses. Every claim is grounded in source articles already in the feed — one shared structure, no hype.</p><p class="wiki-readout">13 obstacles<span class="sep">·</span>11 solutions<span class="sep">·</span>12 areas</p><nav class="map-legend" aria-label="Obstacle areas"><b>Areas</b><a href="#area-reliability">Reliability &amp; correctness</a><span class="sep">·</span><a href="#area-memory">Memory &amp; context</a><span class="sep">·</span><a href="#area-planning">Planning &amp; reasoning</a><span class="sep">·</span><a href="#area-tool-use">Tool use &amp; interop</a><span class="sep">·</span><a href="#area-grounding">Grounding &amp; knowledge</a><span class="sep">·</span><a href="#area-evaluation">Evaluation</a><span class="sep">·</span><a href="#area-multi-agent">Multi-agent coordination</a><span class="sep">·</span><a href="#area-cost">Cost</a><span class="sep">·</span><a href="#area-latency">Latency &amp; throughput</a><span class="sep">·</span><a href="#area-observability">Observability &amp; debugging</a><span class="sep">·</span><a href="#area-security">Security &amp; safety</a><span class="sep">·</span><a href="#area-drift">Drift &amp; maintenance</a></nav></section><section class="ku" id="knowledge-universe" data-knowledge-universe hidden><div class="ku-head"><b>Orbit view</b><span class="ku-readout" data-ku-readout></span><span class="ku-legend">bright satellite = unread · dim = read · ✦ ping = updated recently</span></div><div class="ku-stage"></div><p class="ku-hint">Every planet is a problem you eventually hit in production; the satellites circling it are the pages that show how the field handles it. Drag to orbit · scroll or pinch to zoom · click a planet to see what lives there. What you read dims — remembered only in this browser.</p></section><script type="application/json" id="knowledge-universe-data">{"generated_at":"2026-08-04T18:15:56.736512+00:00","areas":[{"id":"reliability","label":"Reliability & correctness","obstacles":["agent-reliability"]},{"id":"memory","label":"Memory & context","obstacles":["agent-memory"]},{"id":"planning","label":"Planning & reasoning","obstacles":["agent-planning"]},{"id":"tool-use","label":"Tool use & interop","obstacles":["tool-use"]},{"id":"grounding","label":"Grounding & knowledge","obstacles":["grounding"]},{"id":"evaluation","label":"Evaluation","obstacles":["agent-evaluation"]},{"id":"multi-agent","label":"Multi-agent coordination","obstacles":["multi-agent"]},{"id":"cost","label":"Cost","obstacles":["agent-cost","proving-agent-roi"]},{"id":"latency","label":"Latency & throughput","obstacles":["agent-latency"]},{"id":"observability","label":"Observability & debugging","obstacles":["agent-observability"]},{"id":"security","label":"Security & safety","obstacles":["prompt-injection"]},{"id":"drift","label":"Drift & maintenance","obstacles":["model-drift"]}],"nodes":{"agent-cost":{"title":"Agent token costs are unpredictable and easily run away","kind":"obstacle","updated":"2026-08-04","solutions":["agent-orchestration","context-compaction","cost-controls"]},"agent-evaluation":{"title":"Measuring whether an agent actually worked is hard","kind":"obstacle","updated":"2026-08-04","solutions":["agent-benchmarks","llm-as-judge"]},"agent-latency":{"title":"Agent loops multiply per-call latency into slow, expensive runs","kind":"obstacle","updated":"2026-08-04","solutions":["context-compaction","speculative-decoding"]},"agent-memory":{"title":"Agents forget across steps and sessions","kind":"obstacle","updated":"2026-07-30","solutions":["context-compaction","vector-kb"]},"agent-observability":{"title":"You can't see why an agent did what it did","kind":"obstacle","updated":"2026-07-25","solutions":["agent-tracing"]},"agent-planning":{"title":"Agents plan multi-step work badly — they loop, stall, or skip steps","kind":"obstacle","updated":"2026-08-04","solutions":["agent-orchestration"]},"agent-reliability":{"title":"Agents give fluent, confident-looking output even when it's wrong","kind":"obstacle","updated":"2026-07-21","solutions":["agent-sandboxing"]},"grounding":{"title":"An agent's answer is only as good as what it retrieved — and whether it can prove it","kind":"obstacle","updated":"2026-07-30","solutions":["context-compaction","vector-kb"]},"model-drift":{"title":"Agent behavior drifts as the model, SDK, and runtime churn under it","kind":"obstacle","updated":"2026-07-24","solutions":["agent-benchmarks","version-pinning"]},"multi-agent":{"title":"Coordinating multiple agents adds more failure than capability","kind":"obstacle","updated":"2026-08-04","solutions":["agent-benchmarks","agent-orchestration"]},"prompt-injection":{"title":"Untrusted input and tools can hijack an agent","kind":"obstacle","updated":"2026-08-04","solutions":["agent-sandboxing"]},"proving-agent-roi":{"title":"Proving agent ROI and measuring cost efficiency is hard","kind":"obstacle","updated":"2026-07-26","solutions":["cost-controls","llm-as-judge"]},"tool-use":{"title":"Agents reach the outside world through fragile, ad-hoc integrations","kind":"obstacle","updated":"2026-07-29","solutions":["mcp"]},"agent-benchmarks":{"title":"Agent benchmarks: fixed tasks that exercise real tool use","kind":"solution","updated":"2026-08-04","solutions":[]},"agent-orchestration":{"title":"Orchestration patterns: topologies, handoffs, and harnesses","kind":"solution","updated":"2026-08-03","solutions":[]},"agent-sandboxing":{"title":"Sandboxing, scoped credentials, and guardrails","kind":"solution","updated":"2026-07-29","solutions":[]},"agent-tracing":{"title":"Tracing and trace analysis for agent runs","kind":"solution","updated":"2026-07-28","solutions":[]},"context-compaction":{"title":"Context compaction: summarize, compress, and curate the working set","kind":"solution","updated":"2026-06-24","solutions":[]},"cost-controls":{"title":"Cost controls: budgets, metering, and per-task attribution","kind":"solution","updated":"2026-07-24","solutions":[]},"llm-as-judge":{"title":"LLM-as-judge: model-graded evaluation of traces and outputs","kind":"solution","updated":"2026-07-31","solutions":[]},"mcp":{"title":"Model Context Protocol: a standard interface for agent tools","kind":"solution","updated":"2026-07-31","solutions":[]},"speculative-decoding":{"title":"Speculative decoding: draft cheaply, verify in parallel","kind":"solution","updated":"2026-07-26","solutions":[]},"vector-kb":{"title":"External knowledge base: vector and graph retrieval","kind":"solution","updated":"2026-07-16","solutions":[]},"version-pinning":{"title":"Version pinning, compatibility ranges, and staged upgrades","kind":"solution","updated":"2026-07-24","solutions":[]}}}</script><script type="module" src="/universe/universe.js?v=20260805"></script><h2 class="map-list-title" id="as-a-list">The same universe, as a list</h2><section class="map-area" id="area-reliability"><div class="map-area-head"><h2>Reliability &amp; correctness</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-reliability">Agents give fluent, confident-looking output even when it&#x27;s wrong</a></h3><p class="map-summary">An agent can hallucinate a fact, skip a step, or misuse a tool and still return a fluent, confident-looking answer — nothing about the output itself signals that it&#x27;s wrong.…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-sandboxing">Sandboxing, scoped credentials, and guardrails</a></li></ul></div></article></section>
 <section class="map-area" id="area-memory"><div class="map-area-head"><h2>Memory &amp; context</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-memory">Agents forget across steps and sessions</a></h3><p class="map-summary">An agent&#x27;s working memory is its context window, which is finite and resets between runs. On long-horizon tasks it forgets earlier steps, repeats work, and loses the user&#x27;s…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/context-compaction">Context compaction: summarize, compress, and curate the working set</a></li><li><a href="/topic/vector-kb">External knowledge base: vector and graph retrieval</a></li></ul></div></article></section>
 <section class="map-area" id="area-planning"><div class="map-area-head"><h2>Planning &amp; reasoning</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/agent-planning">Agents plan multi-step work badly — they loop, stall, or skip steps</a></h3><p class="map-summary">Give an agent a goal that takes ten steps and it will often take the wrong ones: charge ahead on an ambiguous request instead of asking, decompose the task into a plan that…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/agent-orchestration">Orchestration patterns: topologies, handoffs, and harnesses</a></li></ul></div></article></section>
 <section class="map-area" id="area-tool-use"><div class="map-area-head"><h2>Tool use &amp; interop</h2><span class="map-area-meta">1 obstacle</span></div><article class="map-row"><div class="map-obstacle"><span class="map-tag">Obstacle</span><h3><a href="/topic/tool-use">Agents reach the outside world through fragile, ad-hoc integrations</a></h3><p class="map-summary">An agent is only as useful as the tools it can call, but every integration has historically been bespoke: hand-written wrappers around REST APIs, brittle schemas the model…</p></div><div class="map-solutions"><span class="map-tag">Solved by</span><ul><li><a href="/topic/mcp">Model Context Protocol: a standard interface for agent tools</a></li></ul></div></article></section>
@@ -399,7 +466,7 @@
     })();
   </script>
 
-  <script src="/nav-updates.js?v=20260701" defer></script>
+  <script src="/nav-updates.js?v=20260805" defer></script>
 
 
   <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
