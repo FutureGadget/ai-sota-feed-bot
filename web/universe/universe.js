@@ -100,7 +100,12 @@ function buildPlanets(data) {
       }
     }
     if (topics.length) {
-      planets.push({ id: area.id || area.label, label: area.label || area.id, topics });
+      planets.push({
+        id: area.id || area.label,
+        label: area.label || area.id,
+        summary: area.summary || '',
+        topics,
+      });
     }
   }
   return planets;
@@ -199,7 +204,7 @@ async function boot(section) {
   renderer.domElement.setAttribute('role', 'application');
   renderer.domElement.setAttribute(
     'aria-label',
-    'Orbit view of agent know-how. Drag to orbit, scroll or pinch to zoom, click a planet to open its topics. The same content is listed below.'
+    'Orbit view of agent know-how. Use the previous and next buttons to tour the overview and each planet, drag to orbit, scroll or pinch to zoom, click a planet to open its topics. The same content is listed below.'
   );
   stage.prepend(renderer.domElement);
 
@@ -434,16 +439,18 @@ async function boot(section) {
       }
       const label = planetLabel(THREE, planet, planet.state);
       label.position.set(0, planet.three.radius + 3.1, 0);
-      label.visible = openPlanet !== planet;
+      label.visible = focusedPlanet() !== planet;
       planet.three.group.add(registerLabel(label, 3.1));
       planet.three.label = label;
     }
+    totals = { pages: totTopics, unread: totUnread, fresh: totFresh };
     const readout = section.querySelector('[data-ku-readout]');
     if (readout) {
       const bits = [`${planets.length} areas`, `${totTopics} pages`, `${totUnread} unread`];
       if (totFresh) bits.push(`✦ ${totFresh} new or updated`);
       readout.textContent = bits.join(' · ');
     }
+    updateCard();
     needsRender = true;
   }
 
@@ -602,6 +609,18 @@ async function boot(section) {
     needsRender = true;
   }, { passive: false });
 
+  // Safari zooms the page on a double tap, and `touch-action: pan-y` (needed
+  // so a vertical swipe still scrolls past the stage) does not opt out of it.
+  // Swallowing the second tap's touchend default does; picking is unaffected
+  // because it runs on pointerup. The HUD buttons opt out in CSS instead
+  // (touch-action: manipulation).
+  let lastTapEnd = 0;
+  canvas.addEventListener('touchend', (e) => {
+    const now = performance.now();
+    if (now - lastTapEnd < 400) e.preventDefault();
+    lastTapEnd = now;
+  }, { passive: false });
+
   canvas.addEventListener('keydown', (e) => {
     const step = 0.12;
     if (e.key === 'ArrowLeft') goal.theta -= step;
@@ -610,7 +629,7 @@ async function boot(section) {
     else if (e.key === 'ArrowDown') goal.phi = clampPhi(goal.phi + step * 0.6);
     else if (e.key === '+' || e.key === '=') goal.dist = clampDist(goal.dist * 0.88);
     else if (e.key === '-' || e.key === '_') goal.dist = clampDist(goal.dist * 1.14);
-    else if (e.key === 'Escape') { closePanel(); return; }
+    else if (e.key === 'Escape') { if (openPlanet) closePanel(); else if (viewIndex !== 0) setView(0); return; }
     else return;
     e.preventDefault();
     needsRender = true;
@@ -669,6 +688,66 @@ async function boot(section) {
   let openPlanet = null;
   let restoreView = null;
 
+  // The stepper walks a fixed tour: view 0 is the birds-eye overview, views
+  // 1..N focus one planet each (in orbit order). The contents panel can sit on
+  // top of a focus view; while it is open it owns the focus.
+  let viewIndex = 0;
+  let totals = { pages: 0, unread: 0, fresh: 0 };
+
+  function focusedPlanet() {
+    return openPlanet || (viewIndex > 0 ? planets[viewIndex - 1] : null);
+  }
+
+  // sel ring + label visibility for whichever planet holds the focus
+  function refreshFocusDecor() {
+    const f = focusedPlanet();
+    for (const p of planets) {
+      p.three.sel.material.opacity = p === f ? 0.55 : 0;
+      if (p.three.label) p.three.label.visible = p !== f;
+    }
+  }
+
+  function focusFraming(planet) {
+    goal.target.copy(planet.three.group.position);
+    goal.dist = Math.max(30, planet.three.radius * 11);
+    if (openPlanet && stage.clientWidth > 640) {
+      // The panel covers the right side — pan the camera right so the focused
+      // planet settles in the visible left half.
+      const right = new THREE.Vector3(Math.sin(goal.theta), 0, -Math.cos(goal.theta));
+      goal.target.addScaledVector(right, goal.dist * 0.22);
+    } else {
+      // No panel: the caption card sits along the bottom - nudge the look-at
+      // down so the planet rides above it.
+      goal.target.y -= goal.dist * 0.07;
+    }
+  }
+
+  function setView(i, { fly = true } = {}) {
+    const n = planets.length + 1;
+    viewIndex = ((i % n) + n) % n;
+    const planet = viewIndex > 0 ? planets[viewIndex - 1] : null;
+    if (fly) {
+      if (planet) {
+        focusFraming(planet);
+      } else {
+        goal.theta = homeView.theta; goal.phi = homeView.phi;
+        goal.dist = homeView.dist; goal.target.copy(homeView.target);
+      }
+    }
+    refreshFocusDecor();
+    updateCard();
+    needsRender = true;
+  }
+
+  function stepView(dir) {
+    restoreView = null; // stepping is navigation, not a detour to undo
+    const from = viewIndex;
+    if (openPlanet) closePanel();
+    setView(from + dir);
+    const f = focusedPlanet();
+    capture('universe_view_step', { view: f ? f.id : 'overview' });
+  }
+
   function badgeHtml(badge) {
     if (badge === 'new') return '<span class="ku-badge ku-badge-new">NEW</span>';
     if (badge === 'updated') return '<span class="ku-badge ku-badge-upd">UPDATED</span>';
@@ -710,18 +789,14 @@ async function boot(section) {
     section.classList.add('ku-has-panel');
 
     if (!restoreView) {
-      restoreView = { theta: goal.theta, phi: goal.phi, dist: goal.dist, target: goal.target.clone() };
+      restoreView = {
+        viewIndex, theta: goal.theta, phi: goal.phi, dist: goal.dist, target: goal.target.clone(),
+      };
     }
-    for (const p of planets) if (p.three.label) p.three.label.visible = p !== planet;
-    goal.target.copy(planet.three.group.position);
-    goal.dist = Math.max(30, planet.three.radius * 11);
-    if (stage.clientWidth > 640) {
-      // The panel covers the right side — pan the camera right so the focused
-      // planet settles in the visible left half.
-      const right = new THREE.Vector3(Math.sin(goal.theta), 0, -Math.cos(goal.theta));
-      goal.target.addScaledVector(right, goal.dist * 0.22);
-    }
-    for (const p of planets) p.three.sel.material.opacity = p === planet ? 0.55 : 0;
+    viewIndex = planets.indexOf(planet) + 1;
+    focusFraming(planet);
+    refreshFocusDecor();
+    updateCard();
     needsRender = true;
     capture('universe_planet_open', { area: planet.id, unread: st.unread, fresh: st.fresh });
   }
@@ -731,17 +806,16 @@ async function boot(section) {
     openPlanet = null;
     panel.hidden = true;
     section.classList.remove('ku-has-panel');
-    for (const p of planets) {
-      p.three.sel.material.opacity = 0;
-      if (p.three.label) p.three.label.visible = true;
-    }
     if (restoreView) {
+      viewIndex = restoreView.viewIndex;
       goal.theta = restoreView.theta;
       goal.phi = restoreView.phi;
       goal.dist = restoreView.dist;
       goal.target.copy(restoreView.target);
       restoreView = null;
     }
+    refreshFocusDecor();
+    updateCard();
     needsRender = true;
   }
 
@@ -756,28 +830,52 @@ async function boot(section) {
     else closePanel();
   }
 
-  /* HUD buttons: zoom + reset (also the keyboard-free path on touch) */
-  {
-    const hud = document.createElement('div');
-    hud.className = 'ku-hud';
-    hud.innerHTML =
-      '<button type="button" data-ku-zoom="in" aria-label="Zoom in">+</button>' +
-      '<button type="button" data-ku-zoom="out" aria-label="Zoom out">−</button>' +
-      '<button type="button" data-ku-reset aria-label="Reset view">⌂</button>';
-    stage.appendChild(hud);
-    hud.addEventListener('click', (e) => {
-      const b = e.target.closest('button');
-      if (!b) return;
-      if (b.dataset.kuZoom === 'in') goal.dist = clampDist(goal.dist * 0.8);
-      else if (b.dataset.kuZoom === 'out') goal.dist = clampDist(goal.dist * 1.25);
-      else {
-        closePanel();
-        goal.theta = homeView.theta; goal.phi = homeView.phi;
-        goal.dist = homeView.dist; goal.target.copy(homeView.target);
-      }
-      needsRender = true;
-    });
+  /* HUD: the view stepper. ‹ › walk overview → planet → planet …; the caption
+     card between them names the current view, and for a planet carries its
+     summary (the readable path on small screens, where in-scene labels are
+     tiny). Tapping the card opens the planet's contents (or, on the overview,
+     resets the camera). */
+  const hud = document.createElement('div');
+  hud.className = 'ku-hud';
+  hud.innerHTML =
+    '<button type="button" class="ku-step" data-ku-step="-1" aria-label="Previous view">‹</button>' +
+    '<button type="button" class="ku-card" data-ku-card aria-live="polite"></button>' +
+    '<button type="button" class="ku-step" data-ku-step="1" aria-label="Next view">›</button>';
+  stage.appendChild(hud);
+  const card = hud.querySelector('[data-ku-card]');
+
+  function updateCard() {
+    const planet = viewIndex > 0 ? planets[viewIndex - 1] : null;
+    if (!planet) {
+      const meta = [`${planets.length} areas`, `${totals.pages} pages`, `${totals.unread} unread`];
+      if (totals.fresh) meta.push(`✦ ${totals.fresh} new or updated`);
+      card.innerHTML =
+        '<span class="ku-card-name">The whole universe</span>' +
+        `<span class="ku-card-meta">${meta.join(' · ')}</span>` +
+        '<span class="ku-card-sum">Every planet is a production problem area. Step through them with ‹ ›.</span>';
+      card.setAttribute('aria-label', 'Overview of the whole universe. Activate to reset the view.');
+      return;
+    }
+    const st = planet.state || { unread: 0, fresh: 0, total: planet.topics.length };
+    const color = PLANET_COLORS[planets.indexOf(planet) % PLANET_COLORS.length];
+    const meta = [`${viewIndex}/${planets.length}`, `${st.total - st.unread} of ${st.total} read`];
+    if (st.fresh) meta.push(`✦ ${st.fresh} new or updated`);
+    card.innerHTML =
+      `<span class="ku-card-name"><span class="ku-chip" style="--ku-c:${color}"></span>${esc(planet.label)}</span>` +
+      `<span class="ku-card-meta">${meta.join(' · ')}</span>` +
+      (planet.summary ? `<span class="ku-card-sum">${esc(planet.summary)}</span>` : '');
+    card.setAttribute('aria-label', `${planet.label}. Activate to open its pages.`);
   }
+
+  hud.addEventListener('click', (e) => {
+    const step = e.target.closest('[data-ku-step]');
+    if (step) { stepView(Number(step.dataset.kuStep)); return; }
+    if (!e.target.closest('[data-ku-card]')) return;
+    const planet = viewIndex > 0 ? planets[viewIndex - 1] : null;
+    if (!planet) { closePanel(); setView(0); } // overview card = reset view
+    else if (openPlanet === planet) closePanel();
+    else openPanel(planet);
+  });
 
   /* ── sizing + render loop ──────────────────────────────────────────── */
 
@@ -909,6 +1007,8 @@ async function boot(section) {
     get onScreen() { return onScreen; },
     reduceMotion,
     view, goal, homeView, planets, camera,
+    get viewIndex() { return viewIndex; },
+    setView, stepView,
     // NDC box around every planet + label. A framing check can assert the
     // whole system stays inside [-1, 1] on both axes at any viewport size.
     ndcBounds() {
