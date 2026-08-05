@@ -98,7 +98,7 @@
       "/weekly": "What you missed this week",
       "/storylines": "Developing stories over time",
       "/playbook": "Actionable engineering lessons",
-      "/map": "Problems mapped to solutions",
+      "/map": "Essential know-how for production agents",
       "/foundations": "Durable concept explainers",
       "/voices": "Practitioner voices worth following",
       "/subscribe": "Get the brief by email",

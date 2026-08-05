@@ -148,7 +148,7 @@
     if (section === 'weekly') return 'Weekly recap';
     if (section === 'storylines') return 'Storylines';
     if (section === 'playbook') return 'Playbook';
-    if (section === 'map') return 'Knowledge map';
+    if (section === 'map') return 'Agent know-how';
     if (section === 'foundations') return 'Foundations';
     return section;
   }
@@ -260,6 +260,29 @@
       })
       .catch(function () {});
   }
+
+  // Per-topic read log for the /map knowledge universe: opening a know-how
+  // page (/topic/<slug>, any locale) records slug → epoch ms. The orbit view
+  // reads this to dim planets/lights the reader has already absorbed. Local
+  // only — never sent anywhere.
+  var TOPIC_READS_KEY = 'ai_feed_topic_reads_v1';
+  function recordTopicRead() {
+    var m = location.pathname.match(/^(?:\/[a-z]{2})?\/topic\/([a-z0-9][a-z0-9-]{0,80})\/?$/);
+    if (!m) return;
+    try {
+      var reads = {};
+      try { reads = JSON.parse(getItem(TOPIC_READS_KEY) || '{}') || {}; } catch (e) {}
+      reads[m[1]] = Date.now();
+      var slugs = Object.keys(reads);
+      if (slugs.length > 500) {
+        slugs.sort(function (a, b) { return reads[a] - reads[b]; })
+          .slice(0, slugs.length - 500)
+          .forEach(function (s) { delete reads[s]; });
+      }
+      setItem(TOPIC_READS_KEY, JSON.stringify(reads));
+    } catch (e) {}
+  }
+  recordTopicRead();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', run);

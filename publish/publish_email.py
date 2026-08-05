@@ -611,7 +611,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
                 f'<div style="font-size:13px;color:#444;margin-top:3px">{html.escape(clean(w["summary"], 200))}</div></td></tr>'
             )
         wiki_html = (
-            '<h2 style="font-size:16px;margin:26px 0 6px">🗺️ New in the knowledge map</h2>'
+            '<h2 style="font-size:16px;margin:26px 0 6px">🪐 New agent know-how</h2>'
             '<div style="font-size:12px;color:#888;margin-bottom:6px">'
             "Patterns and solutions that emerged this week — the durable layer, not the news.</div>"
             f'<table width="100%" cellpadding="0" cellspacing="0">{"".join(wr)}</table>'
