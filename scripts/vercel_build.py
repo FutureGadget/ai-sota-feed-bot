@@ -12,6 +12,10 @@ ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_DIR = ROOT / "public"
 PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 
+# web/ subdirectories that must also exist at the deployment root because pages
+# reference them with root-relative, extensioned URLs (see the staging step).
+ROOT_ASSET_DIRS = ("mascot", "universe", "og")
+
 
 def main() -> None:
     # Recompile the agent-engineering wiki from its committed markdown pages so
@@ -45,25 +49,20 @@ def main() -> None:
         shutil.copy2(asset, PUBLIC_DIR / asset.name)
     print(f"vercel root assets staged: {len(root_assets)} files")
 
-    # The mascot is loaded via a root-relative ES module import (`/mascot/mascot.js`,
-    # see web/mascot/README.md and the loader snippet in every page shell). Like the
-    # brand assets above, a request with a file extension is served only if the file
-    # physically exists at that path — the /web/* rewrites never fire for it. The
-    # root-asset copy above is non-recursive, so the mascot subdirectory must be
-    # staged to the public root explicitly or the import 404s and the mascot no-ops.
-    mascot_src = ROOT / "web" / "mascot"
-    if mascot_src.is_dir():
-        shutil.copytree(mascot_src, PUBLIC_DIR / "mascot", dirs_exist_ok=True)
-        print(f"vercel root assets staged: mascot/ -> {PUBLIC_DIR / 'mascot'}")
-
-    # Per-edition OG cards (web/og/*.png, see pipeline/og_cards.py) are
-    # referenced root-relative as /og/<name>.png in each page's og:image.
-    # Same rule as the mascot: extensioned requests bypass the /web/* rewrites,
-    # so the directory must physically exist under the public root.
-    og_src = ROOT / "web" / "og"
-    if og_src.is_dir():
-        shutil.copytree(og_src, PUBLIC_DIR / "og", dirs_exist_ok=True)
-        print(f"vercel root assets staged: og/ -> {PUBLIC_DIR / 'og'}")
+    # Asset subdirectories referenced root-relative from page markup:
+    #   mascot/  -> `/mascot/mascot.js`   ES module import (every page shell)
+    #   universe/-> `/universe/universe.js` ES module import (/map orbit view)
+    #   og/      -> `/og/<name>.png`      per-edition og:image (pipeline/og_cards.py)
+    # Same rule as the brand assets above: a request with a file extension is
+    # served only if the file physically exists at that path — the /web/*
+    # rewrites never fire for it. The root-asset copy above is non-recursive,
+    # so each of these must be staged to the public root explicitly or the
+    # request 404s. Add any new root-relative asset dir here.
+    for name in ROOT_ASSET_DIRS:
+        src = ROOT / "web" / name
+        if src.is_dir():
+            shutil.copytree(src, PUBLIC_DIR / name, dirs_exist_ok=True)
+            print(f"vercel root assets staged: {name}/ -> {PUBLIC_DIR / name}")
 
 
 if __name__ == "__main__":
