@@ -115,7 +115,7 @@ class MapBodyTest(unittest.TestCase):
         self.assertIn("Solutions in this map", self.body)
 
     def test_hero_readout_counts(self) -> None:
-        self.assertIn("What breaks when you ship an agent", self.body)
+        self.assertIn("The essential know-how for production-grade agents", self.body)
         self.assertIn("1 obstacle", self.body)
         self.assertIn("1 solution", self.body)
         self.assertIn("1 area", self.body)

@@ -71,9 +71,11 @@ class I18nCandidateExportTest(unittest.TestCase):
         # delta = 3 days (tested with days=2) -> True (3 <= 3)
         self.assertTrue(export._is_within_days("daily", "xyz", {"date": three_days_ago_str}, 2))
 
-        # weekly recap delta checks: threshold is days + 7
-        # weekly recap usually start of week is parsed
-        self.assertTrue(export._is_within_days("weekly", "xyz", {"week": "2026-W27"}, 1))  # usually matches
+        # weekly recap delta checks: threshold is days + 7, measured from the
+        # Monday the week label parses to. Derive the label from today rather
+        # than hardcoding one, or the assertion only holds during that week.
+        this_week_str = datetime.now().date().strftime("%Y-W%W")
+        self.assertTrue(export._is_within_days("weekly", "xyz", {"week": this_week_str}, 1))
 
         # topic / foundations: always True
         self.assertTrue(export._is_within_days("topic", "xyz", {}, 1))
