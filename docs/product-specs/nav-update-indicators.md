@@ -56,7 +56,7 @@ Playbook add a **time-aware freshness gate** on top of read history:
 | Weekly recap | latest recap is newer than last seen **and** the recap is current | yes |
 | Storylines | any thread moved since last seen | no — read history only |
 | Playbook | latest edition is newer than last seen **and** the edition is current | yes |
-| Knowledge map | any wiki page edited since last seen | no — read history only |
+| Agent Know-How (`/map`) | any wiki page edited since last seen | no — read history only |
 | Foundations | any concept page edited since last seen | no — read history only |
 
 ### Why dated editions need the time gate

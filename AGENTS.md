@@ -183,6 +183,15 @@ in `ops_daily_summary.py`'s log line.
   drop-in (auto floating mascot), declarative (`[data-bubble-buddy]` anchors),
   or programmatic (`mount`/`position`/`colors`/instance API). Multiple instances
   OK; Three.js imported once and shared. Usage docs: `web/mascot/README.md`.
+  `universe/universe.js` — the **knowledge universe** orbit view on `/map`
+  (reader-facing name: **Agent Know-How**): Three.js scene where planets = wiki
+  areas, satellites = wiki pages, dimmed by browser-local read history
+  (`ai_feed_topic_reads_v1`, written by `nav-updates.js`) with NEW/UPDATED
+  pulses. Pure presentation of `data/wiki/index.json` via a data island that
+  `render_static_pages.py::wiki_universe_data()` embeds in `web/map.html`
+  (new area → new planet, new node → new satellite; the wiki-curator contract
+  is untouched). Mascot-style defensive; HTML list below stays as fallback.
+  Spec: `docs/product-specs/knowledge-universe.md`.
 - `config/` — runtime knobs:
   - `ranking.yaml` — canonical ranking config; `preset:` key deep-merges
     `config/presets/<name>.yaml` under local overrides
@@ -310,7 +319,8 @@ in `ops_daily_summary.py`'s log line.
 ## Web Surface (vercel.json rewrites)
 `/` feed · `/daily[/<date>]` · `/weekly[/<week>]` · `/storylines` ·
 `/storyline/<slug>` · `/story/<sid>` (sid = sha256(url)[:16]) · `/subscribe`
-(email digest signup) · `/map` (wiki index) · `/topic/<slug>` (wiki node) ·
+(email digest signup) · `/map` (wiki index; reader-facing name "Agent
+Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
 `/foundations` / `/foundations/<slug>` (evidence-tiered concept explanations) ·
 `/playbook` (actionable agent-builder cards) ·
 `/voices` · `/s?u=<url>` share redirect ·
