@@ -66,6 +66,17 @@ sources:
     # AI & ML category only — avoids the general Google Cloud blog's
     # database/infra/marketing noise; keeps the platform-engineer lens.
     url: "https://cloudblog.withgoogle.com/products/ai-machine-learning/rss/"
+  - name: cloudflare_blog
+    type: rss
+    # Tag-scoped feeds only. The main blog feed (blog.cloudflare.com/rss/) mixes
+    # AI/agent posts with CDN/network/video/billing engineering, so the AI slice
+    # is taken at the source instead of relying on relevance filtering. The three
+    # tags overlap heavily; collect_from_rss() collapses repeats by URL, so this
+    # stays one source identity with one max_per_source cap.
+    urls:
+      - "https://blog.cloudflare.com/tag/ai/rss/"
+      - "https://blog.cloudflare.com/tag/agents/rss/"
+      - "https://blog.cloudflare.com/tag/workers-ai/rss/"
   - name: vllm_releases
     type: rss
     url: "https://github.com/vllm-project/vllm/releases.atom"

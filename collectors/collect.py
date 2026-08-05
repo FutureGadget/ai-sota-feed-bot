@@ -168,25 +168,45 @@ def extract_image_url(entry, summary_html: str = "") -> str:
     return ""
 
 
+def rss_source_urls(source: dict) -> list[str]:
+    """Feed URLs for an rss source. `urls:` fans several feeds into a single
+    source identity (one health record, one max_per_source cap); `url:` stays
+    the single-feed form. Used for tag-scoped feeds that carve an on-topic
+    slice out of a broader blog and overlap each other."""
+    urls = source.get("urls")
+    if isinstance(urls, list):
+        return [str(u).strip() for u in urls if str(u).strip()]
+    single = str(source.get("url") or "").strip()
+    return [single] if single else []
+
+
 def collect_from_rss(source: dict, now: datetime) -> list[dict]:
-    parsed = feedparser.parse(source["url"])
     out = []
-    for e in parsed.entries[:40]:
-        title = getattr(e, "title", "").strip()
-        link = getattr(e, "link", "").strip()
-        summary = getattr(e, "summary", "")
-        published = getattr(e, "published", None) or getattr(e, "updated", None) or now.isoformat()
-        if not title or not link:
-            continue
-        out.append(
-            {
-                "title": title,
-                "url": link,
-                "summary": summary,
-                "published": published,
-                "image_url": extract_image_url(e, summary),
-            }
-        )
+    seen: set[str] = set()
+    for feed_url in rss_source_urls(source):
+        parsed = feedparser.parse(feed_url)
+        for e in parsed.entries[:40]:
+            title = getattr(e, "title", "").strip()
+            link = getattr(e, "link", "").strip()
+            summary = getattr(e, "summary", "")
+            published = getattr(e, "published", None) or getattr(e, "updated", None) or now.isoformat()
+            if not title or not link:
+                continue
+            # Overlapping tag feeds repeat the same post; collapse here so one
+            # article is not counted several times against the source stats.
+            key = link.split("?")[0].rstrip("/").lower()
+            if key in seen:
+                continue
+            seen.add(key)
+            out.append(
+                {
+                    "title": title,
+                    "url": link,
+                    "summary": summary,
+                    "published": published,
+                    "image_url": extract_image_url(e, summary),
+                }
+            )
     return out
 
 
@@ -616,10 +636,14 @@ def run():
     for source in load_sources():
         src_name = source["name"]
         src_type = source.get("type", "rss")
-        src_url = source.get("url") or (
-            f"hf://{source.get('org','unknown')}"
-            if src_type == "hf_org_models"
-            else f"arxiv://{source.get('category','unknown')}"
+        src_url = (
+            source.get("url")
+            or (", ".join(rss_source_urls(source)) if src_type == "rss" else "")
+            or (
+                f"hf://{source.get('org','unknown')}"
+                if src_type == "hf_org_models"
+                else f"arxiv://{source.get('category','unknown')}"
+            )
         )
 
         if not bypass_cooldown:
