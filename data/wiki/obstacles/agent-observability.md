@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150]
-updated: 2026-07-25
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda]
+updated: 2026-08-05
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda]
 ---
 
 ## TL;DR
@@ -97,12 +97,29 @@ the vendor consolidation this page tracks: a Show HN entrant ships
 observability specifically for coding agents and LLM applications, one more
 option in the trace-first tooling space beyond the named vendors above.
 
+A new benchmark puts a number on how far that reasoning-vs-pipeline gap
+still has to close: ORCA-bench pairs a live, OpenTelemetry-instrumented
+microservice testbed (six days of metrics, logs, and traces through
+Prometheus, Jaeger, and OpenSearch) with 1,079 oncall root-cause-analysis
+tasks graded by an LLM-as-judge independently re-scored by human SREs
+(agreement κ=0.90). Across five frontier agents the best RCA accuracy is
+25.3% on realistic-input tasks and 10.0% on hard ones — a gap that holds
+even for Claude Fable 5, and the weakest model hallucinates an implausible
+root cause on 40% of reports. Since the testbed is a curated 50GB slice of a
+public system, the authors read this as a lower bound on the real-world
+gap, sharpening the Coroot finding above: the reasoning may already be
+there, but the end-to-end oncall pipeline this page tracks (telemetry
+correlation, ambiguous reports, time pressure) is still mostly unsolved.
+
 ## What's new
-A Coroot experiment running root-cause analysis across eleven models finds
-LLMs can already perform the reasoning once given correctly prepared
-context — shifting the hard problem from model capability to the pipelines
-that correlate telemetry into that context, which is exactly the
-context-assembly work Expedia's STAR already invests in.
+ORCA-bench measures oncall root-cause analysis directly for the first time
+on this page: across five frontier agents on 1,079 tasks against a live
+instrumented microservice testbed, the best RCA accuracy is 25.3% on
+realistic-input tasks and only 10.0% on hard ones, with the weakest model
+hallucinating a root cause 40% of the time — a concrete lower bound on how
+far agent oncall reasoning still has to go, even as the Coroot finding above
+shows the raw reasoning step already works when the context is prepared
+well.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a

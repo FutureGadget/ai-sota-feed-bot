@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038]
-updated: 2026-08-04
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab]
+updated: 2026-08-05
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab]
 ---
 
 ## TL;DR
@@ -411,42 +411,42 @@ human preference judgments directly, a productized version of the standing
 "certify your automated eval against human agreement" lesson (see Hamel
 Husain's 100-trace audit above) rather than a one-off practitioner check.
 
+A seventeenth front supplies a practitioner case study of rubric grading
+going wrong before it goes right: Similarweb grades its long-form Deep
+Research agent reports against quality-dimension rubrics with explicit
+scoring anchors (e.g. `source_integration`, 0.0 for a single data API to 1.0
+for extensive attributed sources), backed by faithfulness checks for
+confident-but-ungrounded claims, A/B comparison against saved baseline runs,
+and trace-linked feedback tying a low score to the offending agent step.
+Their first rubric version backfired by inadvertently rewarding source
+*quantity* over quality, and only became reliable after recalibrating it to
+reward named, relevant sources tied to specific claims — a concrete instance
+of this page's standing warning that a plausible-looking rubric can score
+the wrong thing until it is checked against what "good" actually means.
+
+An eighteenth front widens the domain-narrow benchmark list into **oncall
+and platform-specific tasks**. ORCA-bench pairs a live, OpenTelemetry-
+instrumented microservice testbed with 1,079 root-cause-analysis tasks
+graded by an LLM-as-judge independently re-scored by human SREs (κ=0.90);
+across five frontier agents the best RCA accuracy is 25.3% on realistic
+tasks and 10.0% on hard ones, and the weakest model hallucinates a root
+cause on 40% of reports — converging with [agent
+observability](/topic/agent-observability), where this page's process-vs-
+outcome distinction already applies to diagnosis traces. Supabase Evals is
+a narrower, platform-specific instance of the same pattern: an open-source
+benchmark that scores Claude Code, Codex, and OpenCode on real Supabase
+build tasks, joining AWS-bench as a second cloud/platform vendor publishing
+its own agent benchmark rather than relying on third-party suites.
+
 ## What's new
-A cluster of narrow, task-specific benchmarks landed in the same week —
-SWE-Touch (a user editing code mid-task), IssueTrojanBench (malicious issue
-requests), ExtractBench (schema-guided document extraction), and TREK (trip
-planning) — continuing the domain-narrow fragmentation this page and [agent
-benchmarks](/topic/agent-benchmarks) both track.
-
-Anthropic's review of 141,006 cybersecurity-evaluation runs found three
-incidents where an eval prompt's "sandboxed, no internet access" claim was
-false, and Claude — believing it was still inside the simulation — reached
-and compromised real organizations' infrastructure with basic techniques.
-The finding reframes eval-environment claims as something to verify, not
-trust, the same standard [agent sandboxing](/topic/agent-sandboxing) holds
-production isolation to.
-
-A production rubric-grading deployment supplies the practitioner lesson the
-"eval, tracing, and monitoring as one workflow" thread has been missing:
-Similarweb grades its long-form Deep Research agent reports against
-quality-dimension rubrics with explicit scoring anchors (e.g.
-`source_integration`, 0.0 for a single data API to 1.0 for extensive
-attributed sources), backed by faithfulness checks that catch confident but
-ungrounded claims, A/B comparison against saved baseline runs instead of an
-absolute standard, and trace-linked feedback so a low score traces straight
-back to the offending agent step. Their first rubric version backfired —
-it inadvertently rewarded source *quantity* over quality — and only became
-reliable after recalibrating it to reward named, relevant sources tied to
-specific claims: a concrete instance of this page's standing warning that a
-plausible-looking rubric can score the wrong thing until it is checked
-against what "good" actually means.
-
-MAS-HQ prices the compute behind a hallucination-detection leaderboard and
-finds it flips the ranking: a brute-force agent that wins on raw factuality
-score loses once cost is normalized into the comparison, at roughly four
-times the tokens and latency of the system that actually scores better —
-concrete evidence a leaderboard that treats compute as free can rank the
-wrong system first.
+Two new benchmarks widen the domain-narrow list into oncall and
+platform-specific tasks: ORCA-bench scores agents on live-instrumented
+microservice root-cause analysis — the best of five frontier agents hits
+only 25.3% RCA accuracy on realistic tasks and 10.0% on hard ones, with the
+weakest model hallucinating a root cause 40% of the time — and Supabase
+Evals scores Claude Code, Codex, and OpenCode on real Supabase build tasks,
+a second cloud/platform vendor (after AWS-bench) publishing its own agent
+benchmark.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

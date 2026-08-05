@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019]
-updated: 2026-07-31
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609]
+updated: 2026-08-05
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609]
 ---
 
 ## TL;DR
@@ -136,13 +136,26 @@ natural language while automatically enforcing role-based boundaries —
 cross-system business intelligence assembled from configuration rather than
 custom integration code.
 
+A cloud-vs-local gap gets a concrete bridge: AWS built a secure MCP bridge
+that lets a cloud-hosted Bedrock AgentCore agent call MCP servers running on
+a user's own laptop, tunneling signed messages over an existing WebSocket
+connection through a browser extension and Chrome native messaging — no open
+inbound ports or VPN required. It is the reverse direction of the usual MCP
+story (a cloud agent reaching local tools and files rather than a local agent
+reaching a cloud API), addressing the "AgentCore runs in the cloud, but the
+user's tools live on their laptop" gap directly.
+
 ## What's new
-Two production deployments land in the same week: Dropbox's Dash surfaces
-security design context (threat models, requirements) during AI code review
-over MCP, and Amazon Bedrock AgentCore uses MCP connectors plus persistent
-memory to answer cross-system business questions through configuration
-rather than custom code — both examples of MCP carrying governed context
-and access control, not just a tool call.
+AWS published a secure MCP bridge that lets a cloud-hosted Bedrock AgentCore
+agent reach MCP servers on a user's own laptop — tunneling signed messages
+over an existing WebSocket connection via a browser extension, with no open
+ports or VPN — closing the cloud-to-local direction of the tool-access gap.
+Separately, two production deployments landed in the same week: Dropbox's
+Dash surfaces security design context (threat models, requirements) during AI
+code review over MCP, and Amazon Bedrock AgentCore uses MCP connectors plus
+persistent memory to answer cross-system business questions through
+configuration rather than custom code — both examples of MCP carrying
+governed context and access control, not just a tool call.
 
 The protocol itself just had its largest revision since launch: the MCP
 2026-07-28 spec makes the protocol **stateless**, adds a governed extensions
