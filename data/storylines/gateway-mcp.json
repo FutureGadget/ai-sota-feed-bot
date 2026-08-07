@@ -1,0 +1,109 @@
+{
+ "slug": "gateway-mcp",
+ "label": "Gateway MCP",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-07-28T19:07:09+00:00",
+ "last_updated": "2026-08-07T06:35:00+00:00",
+ "generated_at": "2026-08-07T10:14:09.540906+00:00",
+ "sources": [
+  "aws_ml_blog",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-07-28",
+   "items": [
+    {
+     "title": "How AgentCore Gateway supports the MCP 2026-07-28 spec",
+     "url": "https://aws.amazon.com/blogs/machine-learning/how-agentcore-gateway-supports-the-mcp-2026-07-28-spec",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "The Model Context Protocol (MCP) published its 2026-07-28 specification, the largest revision since launch: MCP is now stateless, with a governed extensions system and hardened authorization. Learn what changed and ho...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "b734d716b0d66f96",
+     "published": "2026-07-28T19:07:09+00:00",
+     "editor_note": "The spec change the rest of this thread reacts to: MCP goes stateless with governed extensions."
+    }
+   ]
+  },
+  {
+   "date": "2026-07-29",
+   "items": [
+    {
+     "title": "Article: Securing MCP in Production: Defense-in-Depth Beyond the Gateway",
+     "url": "https://www.infoq.com/articles/securing-mcp-production-gateway/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "This article presents a defense-in-depth approach for securing Model Context Protocol (MCP) deployments in production. It outlines four architectural control layers: safe execution, management infrastructure, outbound...",
+     "sid": "9352c956aa90126f",
+     "published": "2026-07-29T09:00:00+00:00",
+     "editor_note": "First production security guidance written against the new spec."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-07",
+   "items": [
+    {
+     "title": "Azure API Management Adds Dedicated AI Gateway Tier, Governing Models and MCP Tools",
+     "url": "https://www.infoq.com/news/2026/08/azure-apim-ai-gateway-tier/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Microsoft released a dedicated AI Gateway tier of Azure API Management in public preview, with a control plane built around models, MCP servers and tools rather than APIs. It fronts Foundry, Bedrock, Vertex AI and Ope...",
+     "sid": "4daf9a3fc6b23a4c",
+     "published": "2026-08-07T06:35:00+00:00",
+     "editor_note": "Microsoft turns that guidance into a shipped product: a dedicated gateway tier for models and MCP tools."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "MCP's July 28 spec revision went stateless and added governed extensions plus hardened authorization, the biggest change since launch. Production guidance followed within a day, laying out a defense-in-depth blueprint for securing MCP gateways.",
+  "stale": false,
+  "whats_new": "Azure API Management shipped a dedicated AI Gateway tier in public preview, fronting Foundry, Bedrock, Vertex AI, and OpenAI behind one control plane for models, MCP servers, and tools.",
+  "why_it_matters": "Cloud vendors are racing to become the governance layer for MCP traffic, so the gateway you pick now shapes which models and tools your agents can reach without a redeploy.",
+  "take_for_builders": "Before reaching for a vendor gateway tier, adopt the defense-in-depth layers InfoQ outlines — a routing gateway governs traffic but doesn't by itself sandbox your MCP servers.",
+  "status": {
+   "state": "Developing",
+   "tone": "rising",
+   "changed": "2026-08-07",
+   "detail": "Cloud vendors are shipping dedicated MCP gateway/governance tiers on top of the new spec."
+  },
+  "beats": [
+   {
+    "kicker": "SPEC",
+    "tone": "launch",
+    "headline": "MCP's 2026-07-28 spec goes stateless with governed extensions",
+    "summary": "The largest protocol revision since launch, tightening authorization.",
+    "sids": [
+     "b734d716b0d66f96"
+    ]
+   },
+   {
+    "kicker": "HARDENING",
+    "tone": "rising",
+    "headline": "InfoQ lays out a defense-in-depth blueprint for production MCP gateways",
+    "summary": "Four control layers: safe execution, management infrastructure, outbound controls, and monitoring.",
+    "sids": [
+     "9352c956aa90126f"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Azure API Management adds a dedicated AI Gateway tier for models and MCP tools",
+    "summary": "A control plane built around models, MCP servers, and tools rather than APIs.",
+    "sids": [
+     "4daf9a3fc6b23a4c"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will AWS and Google ship comparable dedicated MCP gateway tiers, or leave governance to AgentCore/Vertex extensions?",
+   "Does Azure's AI Gateway tier enforce the new spec's hardened authorization by default, or is that left to the operator?"
+  ],
+  "generated_at": "2026-08-07T10:20:00+00:00"
+ }
+}
