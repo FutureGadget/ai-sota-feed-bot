@@ -317,6 +317,22 @@
   "url": "https://www.langchain.com/blog/how-stripe-built-their-knowledge-ai-platform-on-deep-agents",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "1b74d46a9a3ac260": {
+  "first_seen": "2026-08-07T04:01:59.893209+00:00",
+  "id": "87c649bd98b82caf",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-08-06T16:12:18+00:00",
+  "sid": "1b74d46a9a3ac260",
+  "source": "arxiv_cs_lg",
+  "summary": "Learning from demonstration (LfD) provides a developmental framework through which robots can develop motor skills by observing and imitating human dynamics, reducing reliance on explicit programming to teach a skill to a robot. The resulting human-like robot motion is recognised as a key factor in building trust and enabling natural collaboration in human-robot interaction. This paper presents a framework for learning human-like robot motion from demonstration, including data collection, probabilistic trajectory learning, and perceptual user evaluation. A dataset of 3,142 handwriting demonstrations was collected from 22 participants across all 52 Latin alphabet character-case combinations via a touchscreen teleoperation interface, capturing planar position, contact force, and timing. Building on the widely used Gaussian Mixture Model and Gaussian Mixture Regression approach for learning from demonstration, the framework is extended in this work by incorporating force and normalised time dimensions to enable richer representation of human dynamics, and adapting it to handle non-continuous, multi-segment trajectories, enabling generalisation across demonstrations. A user study with 21 participants evaluated the perceived human-likeness of the generated trajectories using a continuous scale anchored between robotic and human-like motion, normalised to 0-100 where 50 represents the neutral midpoint. The generated trajectories achieved an overall human-likeness score of 71.50 (SD",
+  "summary_1line": "Learning from demonstration (LfD) provides a developmental framework through which robots can develop motor skills by observing and imitating human dynamics, reducing reliance on explicit programming to teach a skill...",
+  "title": "Robot Learning from Human Demonstrations: Handwritten Alphabet Trajectories and Human-Likeness Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.06221v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "1be544292b970eeb": {
   "first_seen": "2026-08-06T02:02:02.048045+00:00",
   "id": "d216e79b99f36689",
@@ -893,6 +909,24 @@
   "url": "https://www.infoq.com/news/2026/08/choosing-between-subagent-skills/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "439028ccbacb0056": {
+  "first_seen": "2026-08-07T04:01:59.893209+00:00",
+  "id": "4d02f7f4e4df4fd2",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-08-06T17:21:05+00:00",
+  "sid": "439028ccbacb0056",
+  "source": "arxiv_cs_cl",
+  "summary": "As LLMs are increasingly deployed within agentic systems, their capabilities depend not only on the model weights but also on the harness: the prompts, tools, control flow, memory, and orchestration code surrounding them. This makes automated harness optimization -- the iterative and evaluation-guided improvement of a harness by an AI system -- both an important route to improving AI systems and a demanding capability for AI systems themselves. Yet the community lacks a common protocol for measuring how well frontier LLMs perform at this task. We introduce HarnessOpt-Bench, a benchmark for end-to-end harness optimization under expensive and stochastic evaluation. An optimizer, an LLM paired with a coding harness, receives a target agent's seed harness, graded evaluation feedback, and a fixed target-evaluation budget. It edits the harness and nominates a final candidate, which is scored by its normalized gain over the seed on a held-out test partition that remains inaccessible throughout search. A trusted execution environment enforces the evaluation boundary, meters target-agent resource use, and preserves candidate versions for audit. We evaluate 5 frontier LLMs as optimizers both under a shared coding harness and under their native harnesses across 4 downstream tasks, over 111 scored runs. Experiment results show that optimizer models separate more than the coding harnesses they act through, native harnesses are not consistently superior, and gains vary substantially across",
+  "summary_1line": "As LLMs are increasingly deployed within agentic systems, their capabilities depend not only on the model weights but also on the harness: the prompts, tools, control flow, memory, and orchestration code surrounding t...",
+  "title": "HarnessOpt-Bench: Evaluating LLMs at Harness Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.06301v1",
+  "why_it_matters": "Matches feed focus: agentic, harness, evaluation."
+ },
  "4509a3384b37fbe1": {
   "first_seen": "2026-08-06T09:02:03.680349+00:00",
   "id": "6b5048126c812dca",
@@ -1115,6 +1149,28 @@
   "type": "news",
   "url": "https://www.langchain.com/blog/evaluating-code-review-agents-with-reviewbench",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "557818547b5e5732": {
+  "first_seen": "2026-08-07T04:01:59.893209+00:00",
+  "id": "10f4db0191d4c437",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-08-07T04:00:59+00:00",
+  "release_highlights": [
+   "Added self-hosted environments: claude self-hosted-runner turns your own machines or containers into a place Claude Code web, mobile, and desktop sessions ca...",
+   "Added archive plugin source: install plugins from a zip over HTTPS without git or npm, with optional SHA-256 pinning",
+   "Added a cancel-and-confirm step when removing an unavailable paste changes a command's text"
+  ],
+  "sid": "557818547b5e5732",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added self-hosted environments: claude self-hosted-runner turns your own machines or containers into a place Claude Code web, mobile, and desktop sessions can run, on Team and Enterprise plans Added archive plugin source: install plugins from a zip over HTTPS without git or npm, with optional SHA-256 pinning Added a cancel-and-confirm step when removing an unavailable paste changes a command's text Added ANTHROPIC_BEDROCK_REGION_PREFIX env var for Bedrock to prefer a specific cross-region inference profile over the AWS_REGION -derived one Added crossSessionInbound and dialogExpiry settings: cross-session messages sent to a session running with bypassed permissions are held for your approval, and messages to other sessions auto-deliver Added sandbox credential-masking options: extract and onExtractNoMatch for structured env values, decode: \"jwt\" with maskClaims for JWT-aware masking, and awsPairs / sigv4 for AWS SigV4 re-signing; these need network.tlsTerminate and are honored only from user, managed, or --settings settings Added cross-session SendMessage : Claude Code sessions can now message each other, on any of your machines, with ListAgents to discover them (macOS and Linux) Fixed long (>200 char) project paths resolving to another project's session directory under a shared sanitized prefix; session list, rename, fork, delete and /resume no longer cross projects Fixed SendMessage reporting \"Message sent\" when the write to a teammate's inbox had actually fai",
+  "summary_1line": "Added self-hosted environments: claude self-hosted-runner turns your own machines or containers into a place Claude Code web, mobile, and desktop sessions ca... · Added archive plugin source: install plugins from a zi...",
+  "title": "claude-code v2.1.224",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.224",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "568bbc1c691409ae": {
   "first_seen": "2026-08-01T08:01:45.230256+00:00",
@@ -1949,6 +2005,18 @@
   "url": "https://armature.tech",
   "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
+ "a0ff63ebea81ea55": {
+  "first_seen": "2026-08-07T04:01:59.893209+00:00",
+  "id": "1b5bdbeaddc3d6e4",
+  "published": "2026-08-07T03:13:58+00:00",
+  "sid": "a0ff63ebea81ea55",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Alibaba Plans Revenue Sharing for Large Users of Its Open Qwen AI Model Межа. Новини України.",
+  "summary_1line": "Alibaba Plans Revenue Sharing for Large Users of Its Open Qwen AI Model Межа. Новини України.",
+  "title": "Alibaba Plans Revenue Sharing for Large Users of Its Open Qwen AI Model - Межа. Новини України.",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBNUzlUQmFCLUk2OC1URGM1d3Y1dEtSM3hZYkl5MXo0N2xLWUZYTC1IdmNWd2hrU3dpWXNDMFE0VUpBUnFjVHRxd2ZrTk90dVRsTWY4SHNSTjN1VVJRZ0YwbkM1ZG4xYmNzTVFn?oc=5"
+ },
  "a153a5574fdb0b0c": {
   "first_seen": "2026-08-06T15:01:09.306227+00:00",
   "id": "ef8628f67e019007",
@@ -2655,6 +2723,23 @@
   "title": "DeepSeek to increase prices for AI services - China Daily",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE5DLUVMcGcyb0d5MDlSQ2loTm9OQnRLcnZfTHNWS2M5QXF5eHhJR25abTBOcFVtSmxYUTM2N1BtWTdMa3NQMmtFRGdvcktQUTY2SzExanpqMDktQ3l5bkFteDhuVGVHNG9JZVE4X0hPODNfOUZmV0NYa3FrVlN6UQ?oc=5"
+ },
+ "d74d97fadebae405": {
+  "first_seen": "2026-08-07T04:01:59.893209+00:00",
+  "id": "e9248f6f994b89d8",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-08-06T14:19:22+00:00",
+  "sid": "d74d97fadebae405",
+  "source": "arxiv_llm_reliability",
+  "summary": "Commercial vision-language models are reshaping computer vision, with visual priors broad enough to rival task-specific systems. This raises a natural question: do they reduce the need for classic, physics-informed low-level vision? We study this through shadow removal, a problem shaped by scene geometry, illumination, materials, and occluders, where paired shadow and shadow-free data are hard to collect at scale. We find that a commercial generative editor, used directly, can produce clean shadow-free edits that preserve surface texture and local appearance. However, this comes with a new failure mode: the same editor can regenerate scene content, hallucinate objects, or misread a shadow as material or geometry, producing plausible but physically wrong edits. We address this with an agentic candidate-selection pipeline: the editor generates a guided probe, an evaluator screens for major failures, retries when needed, samples multiple candidates, filters them, and selects a final result balancing shadow removal against scene preservation. Grounding this process in shadow-formation physics makes it more reliable: prompting the generator and evaluator to treat shadows as illumination effects caused by light occlusion, not material or object structure, measurably improves quality and consistency. On the ShadowRemovalRefine benchmark, our physics-oriented pipeline achieves a CDD of 0.0075, reducing CDD by at least 47% over the strongest prior method. These results suggest that co",
+  "summary_1line": "Commercial vision-language models are reshaping computer vision, with visual priors broad enough to rival task-specific systems. This raises a natural question: do they reduce the need for classic, physics-informed lo...",
+  "title": "Domain-Grounded Candidate Selection for Agentic Image Editing: A Shadow Removal Case",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.06075v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "d9ba824f19c5d4d4": {
   "first_seen": "2026-08-03T15:01:52.157338+00:00",
