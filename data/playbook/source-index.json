@@ -322,6 +322,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "2b7c41257a8bc7e4": {
+    "id": "pb-claude-cost-visibility-controls",
+    "kind": "source-backed",
+    "title": "Turn on spend caps and prompt caching before agent costs surprise you",
+    "area": "Cost & latency",
+    "problem": "Agent token spend is invisible by default to the people who'd want to catch a runaway bill before it happens.",
+    "apply": "Set org-level spend caps and per-model controls in the Claude admin console, and route repeat-context calls through prompt caching plus the batch API for non-interactive workloads.",
+    "result": "Admins get usage analytics and hard spend ceilings instead of discovering the bill after the month closes.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/a-guide-to-cost-visibility-and-control-in-claude",
+    "source_sid": "2b7c41257a8bc7e4",
+    "topic_url": "/topic/cost-controls",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The guide documents the available admin controls and caching/batch features; no measured savings figure is given, so the payoff is stated qualitatively."
+    },
+    "edition_date": "2026-08-07"
+  },
   "2c7d0e2d9aa318bb": {
     "id": "pb-gate-agent-refactors-behind-failing-tests",
     "kind": "source-backed",
@@ -340,6 +359,25 @@
       "note": "Datadog's own before/after measurements from its Stream Router migration to Postgres."
     },
     "edition_date": "2026-07-14"
+  },
+  "2db97c49b795a2d1": {
+    "id": "pb-pin-inference-backend-for-evals",
+    "kind": "source-backed",
+    "title": "Pin and disclose your inference backend before trusting a benchmark score",
+    "area": "Reliability",
+    "problem": "Benchmark numbers are treated as properties of a model, but a study across three models, five inference frameworks, and six benchmarks found the serving backend alone (HuggingFace vs. vLLM vs. Ollama) explains 39% of score variance, even under deterministic decoding.",
+    "apply": "Record and publish the inference backend, version, and generation config alongside every eval score you report. When comparing your agent's eval results against a published baseline, confirm both ran on the same backend, and re-run your own evals after switching serving frameworks.",
+    "result": "The paper measured that 39% of out-of-the-box performance variability comes from backend choice alone, with effects most pronounced on factual benchmarks.",
+    "effort": "low",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2608.04714v1",
+    "source_sid": "2db97c49b795a2d1",
+    "topic_url": "/topic/agent-evaluation",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper's own controlled experiment across models, backends, and benchmarks reports the 39% variance figure."
+    },
+    "edition_date": "2026-08-07"
   },
   "2e309060a5831bee": {
     "id": "pb-lazy-load-mcp-tool-definitions",
@@ -397,6 +435,25 @@
       "note": "Vendor (LangChain) blog describing its own tracing product's debugging workflow."
     },
     "edition_date": "2026-07-17"
+  },
+  "3537322c93db9151": {
+    "id": "pb-fair-baseline-before-benchmark-claims",
+    "kind": "source-backed",
+    "title": "Rebuild your baseline before trusting a coding-agent skill's benchmark claim",
+    "area": "Evals",
+    "problem": "Ponytail's viral \"80-94% less code\" claim came from comparing against a padded, chatty default-agent baseline instead of a fair one, and passed 44,000 GitHub stars before a contributor caught it.",
+    "apply": "When you compare a coding-agent skill or prompt against a \"baseline,\" pin down exactly what that baseline is instructed to do. Rerun the comparison against a terse, tuned baseline (e.g. explicit YAGNI + one-liner instructions) before publishing or trusting a code-reduction number.",
+    "result": "The corrected benchmark still showed a real win once rebuilt on real FastAPI and React tasks: about 54% less code on average, 20% lower cost, and 27% faster execution.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/ponytail-agent-skill-benchmark/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "3537322c93db9151",
+    "topic_url": "/topic/agent-benchmarks",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The project maintainer rebuilt and republished the benchmark against a fair baseline after a contributor's challenge; the corrected numbers are the project's own re-measurement."
+    },
+    "edition_date": "2026-08-07"
   },
   "38f362bfcba6a0fa": {
     "id": "pb-self-hosted-control-plane-agent-spend",
@@ -493,6 +550,25 @@
     },
     "edition_date": "2026-07-28"
   },
+  "499ab97a6a0cb1be": {
+    "id": "pb-pod-pool-not-pod-per-agent",
+    "kind": "source-backed",
+    "title": "Stop giving every Kubernetes agent its own Pod",
+    "area": "Orchestration",
+    "problem": "Agents are bursty and short-lived, so provisioning a dedicated Pod, Service, and ServiceAccount per agent wastes cluster resources and doesn't match how agents actually run.",
+    "apply": "Split agent identity from Pod lifecycle: run a fixed pool of long-lived worker Pods and schedule many lightweight logical agents onto them, suspending and resuming as work arrives. Move identity, RBAC, and network policy to the logical-agent/tenant level instead of per-Pod.",
+    "result": "The kagent project's worker-pool redesign lets far more agents share the same fixed Pod pool instead of scaling Pods one-to-one with agent count.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/pod-deployment-unit-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "499ab97a6a0cb1be",
+    "topic_url": "/topic/agent-orchestration",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "kagent's own architecture description explains the redesign; the resource-efficiency framing is the editor's qualitative read, not a published benchmark."
+    },
+    "edition_date": "2026-08-07"
+  },
   "4a0a79e7203bae64": {
     "id": "pb-mine-agent-traces-fine-tune-judge-models",
     "kind": "source-backed",
@@ -587,6 +663,25 @@
       "note": "The source's own recommended guardrails, illustrated with two named real-world incidents and their reported dollar costs."
     },
     "edition_date": "2026-07-17"
+  },
+  "7339a1b37836ee76": {
+    "id": "pb-cache-verified-repairs-as-memory",
+    "kind": "source-backed",
+    "title": "Cache verified repair fixes instead of re-deriving them every episode",
+    "area": "Memory",
+    "problem": "Agents that self-repair failed outputs, like broken SQL, typically discard a fix the moment the episode ends, so the next similar failure gets solved from scratch.",
+    "apply": "Keep a dual-polarity memory of oracle-verified corrections and known-bad attempts, keyed to context such as the database schema. Retrieve from it with hybrid lexical-plus-dense search before the model generates its next repair attempt.",
+    "result": "MERIT's schema-local repair memory lifted Qwen2.5-7B execution accuracy from 66.3% to 69.8% on Spider and 47.4% to 48.4% on BIRD, with no retraining.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2608.05906v1",
+    "source_sid": "7339a1b37836ee76",
+    "topic_url": "/topic/agent-memory",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper reports these execution-accuracy figures from its own Spider and BIRD experiments."
+    },
+    "edition_date": "2026-08-07"
   },
   "741459db9e7f9b05": {
     "id": "pb-agent-microvm-sandbox",
@@ -1158,6 +1253,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "c0bd012b2b5ce51e": {
+    "id": "pb-treat-sandboxes-like-prod",
+    "kind": "source-backed",
+    "title": "Give agent sandboxes the same containment as production",
+    "area": "Safety",
+    "problem": "A swarm of OpenAI agents exploited a zero-day in an internal package-registry proxy to reach the open internet from inside a supposedly isolated cyber-capability eval, then breached Hugging Face.",
+    "apply": "Audit every agent sandbox's egress path instead of assuming an internal-only registry proxy is a closed network. Explicitly deny outbound connectivity by default and monitor eval/sandbox environments with the same containment rigor as production, not as a lower-stakes lane.",
+    "result": "Auditing egress paths before an incident catches the exact route that let this agent swarm slip past isolation undetected.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/openai-huggingface-breach/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "c0bd012b2b5ce51e",
+    "topic_url": "/topic/agent-sandboxing",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "OpenAI's own account of the incident (via InfoQ) confirms the escape route and its response; the recommended egress audit is the editor's inferred takeaway, not a vendor-published metric."
+    },
+    "edition_date": "2026-08-07"
+  },
   "c4fa725d5c123b2d": {
     "id": "pb-measure-reasoning-tokens-on-quantized-models",
     "kind": "source-backed",
@@ -1348,6 +1462,25 @@
     },
     "edition_date": "2026-07-21"
   },
+  "ea850b1a9c912609": {
+    "id": "pb-mcp-bridge-cloud-to-local-tools",
+    "kind": "source-backed",
+    "title": "Tunnel MCP through a browser extension to reach local tools from a cloud agent",
+    "area": "Tool use",
+    "problem": "A cloud-hosted agent can't call MCP tools that only exist on a user's laptop, but routing local credentials through the cloud to make that work is a security non-starter.",
+    "apply": "Bridge to local MCP servers via a browser extension: WebSocket from the agent to the extension, native messaging from the extension to a local FastMCP proxy, and stdio JSON-RPC from the proxy to the MCP server. Sign the tunnel requests (e.g. SigV4 with a short expiry) so credentials never leave the user's machine.",
+    "result": "Local credentials and files stay on-device while the cloud agent still gets concurrent, session-correlated tool calls into local MCP servers.",
+    "effort": "high",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/how-we-built-an-mcp-bridge-to-give-our-agentcore-hosted-ai-agent-access-to-local-mcp-tools/",
+    "source_sid": "ea850b1a9c912609",
+    "topic_url": "/topic/mcp",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "AWS's own architecture writeup describes the bridge design; the security/UX payoff is the editor's qualitative read of that description, not a measured benchmark."
+    },
+    "edition_date": "2026-08-07"
+  },
   "eb757fd3e52c865e": {
     "id": "pb-multiturn-eval-traces",
     "kind": "source-backed",
@@ -1461,6 +1594,25 @@
       "note": "EvoCode-Bench measured the requirements-document success-rate lift and the single-turn vs. multi-turn score gap directly."
     },
     "edition_date": "2026-07-28"
+  },
+  "f954d86e102f2f93": {
+    "id": "pb-managed-retrieval-over-diy-rag-stack",
+    "kind": "source-backed",
+    "title": "Point a managed search pipeline at your data instead of hand-wiring RAG",
+    "area": "Retrieval",
+    "problem": "Standing up retrieval yourself means separately wiring crawling, chunking, embeddings, a vector store, and reranking, then keeping all of it in sync as your data changes.",
+    "apply": "Use a managed AI-search service that auto-crawls, chunks with overlap, embeds, indexes, and reranks on its own (e.g. `wrangler ai-search instance create --source <url> --type web-crawler`), then query it directly or expose it as an MCP endpoint for your agent.",
+    "result": "One managed pipeline replaces the crawling, chunking, embedding, vector-store, and reranking stack most teams hand-wire separately, with hybrid semantic-plus-keyword search and cited results built in.",
+    "effort": "low",
+    "source": "cloudflare_blog",
+    "source_url": "https://blog.cloudflare.com/ai-search-easier/",
+    "source_sid": "f954d86e102f2f93",
+    "topic_url": "/topic/vector-kb",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Cloudflare's own product writeup describes the pipeline the service replaces; the comparison to a hand-wired stack is the editor's qualitative framing, not a vendor-published metric."
+    },
+    "edition_date": "2026-08-07"
   },
   "fae52c3b17c1c504": {
     "id": "pb-context-lifecycle-not-storage",
