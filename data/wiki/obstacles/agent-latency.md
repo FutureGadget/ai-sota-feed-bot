@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57]
-updated: 2026-08-04
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba]
+updated: 2026-08-08
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba]
 ---
 
 ## TL;DR
@@ -53,7 +53,12 @@ KV state from GPU memory into a shared RAM/NVMe tier with a CUDA kernel that
 losslessly compresses blocks before they leave the GPU, so a prefix cached on one
 host is cheap to fetch from another instead of forcing a fresh GPU to redo the
 work — on a 128K-context workload it cut time-to-first-token from 44 seconds to
-0.6 seconds when the prefix was reused across hosts. The dev-loop side of latency counts
+0.6 seconds when the prefix was reused across hosts. A third answer attacks
+the same storage-bandwidth bottleneck through parallelism instead of
+compression or offload: vLLM's Decode Context Parallelism (DCP) shards the
+KV cache across GPUs by sequence dimension, reporting 3x higher decode
+throughput on long-context agentic workloads versus standard tensor
+parallelism. The dev-loop side of latency counts
 too: local CI (running checks on the developer's machine instead of round-tripping
 to a remote runner) cuts the feedback loop for both human developers and coding
 agents, since round-trip time to a CI runner is on the same wall-clock budget as
@@ -178,6 +183,12 @@ that floor in six months, from the model provider's own product side rather
 than a serving-stack vendor's benchmark.
 
 ## What's new
+vLLM shipped Decode Context Parallelism (DCP), sharding the KV cache across
+GPUs by sequence dimension for a reported 3x decode-throughput gain on
+long-context agentic workloads over standard tensor parallelism — a new
+parallelism-based answer to the storage-bandwidth bottleneck this page
+already tracks (DualPath, OpenLake, RaBitQCache).
+
 OpenAI detailed building GPT-Live, a turnless, continuous-voice speech
 system, in six months — a concrete engineering account of meeting the
 low-latency floor voice interaction demands, from the model provider's own

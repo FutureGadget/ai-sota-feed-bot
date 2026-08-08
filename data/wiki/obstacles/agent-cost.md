@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb]
-updated: 2026-08-04
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd]
+updated: 2026-08-08
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd]
 ---
 
 ## TL;DR
@@ -133,6 +133,13 @@ model can claw back its discount in inflated reasoning traces.
 The lesson generalizes: every downshift (smaller model, quantized model,
 cheaper judge) has to be costed on *total tokens emitted in the loop*, not
 the sticker price per token.
+
+A fourth lever trades data rights for price rather than model size or
+reasoning effort: Meta's Muse Code Mac coding agent cuts subscription cost
+up to 20x for users who opt into letting the agent train on their code and
+usage data — the same downshift logic as the model-size and
+reasoning-effort levers above, but the currency paid is data access rather
+than accuracy or latency.
 
 **Test-time-scaling cost** is a related but distinct lever from the model
 downshift above: generating many parallel attempts per problem to improve

@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab]
-updated: 2026-08-03
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
+updated: 2026-08-08
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
 ---
 
 ## TL;DR
@@ -123,12 +123,22 @@ supported runtime rather than an SDK you assemble yourself. It's the same
 shift the Strands and LangGraph deployments above make by adoption; here
 the framework itself reaches that bar.
 
+An eleventh axis is a framework vendor making the same SDK-to-platform jump
+for its own harness rather than watching enterprises deploy it on top of
+someone else's platform: LangChain's Managed Deep Agents reached public
+beta, wrapping the Deep Agents harness this page already tracks (dynamic
+subagents, RLM chunk-dispatch) in a managed LangSmith runtime with durable
+execution, memory, sandboxes, agent-to-agent channels, and evals — shipping
+the production infrastructure around the harness itself instead of leaving
+deployment to whichever platform (Bedrock, Foundry) an adopter picks.
+
 ## What's new
-Microsoft's Agent Framework crossed from SDK to supported infrastructure:
-the Agent Harness, GitHub Copilot and Claude Agent SDK connectors, and its
-orchestration patterns — stable since Build 2026 — now ship as a governed
-platform, with the harness and Foundry Hosted Agents reaching general
-availability rather than staying a build-it-yourself SDK.
+LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
+runtime wrapping the Deep Agents harness in durable execution, memory,
+sandboxes, agent-to-agent channels, and evals — the same SDK-to-managed-
+platform jump Microsoft's Agent Framework made (see State of the art), this
+time from the framework vendor whose harness already shows up in production
+via the Bedrock and Foundry deployments above.
 
 ## Trade-offs
 A central orchestrator is easy to trace and debug but caps throughput and adds a
