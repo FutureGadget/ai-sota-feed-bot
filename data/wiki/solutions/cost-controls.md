@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53]
-updated: 2026-07-24
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
+updated: 2026-08-08
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
 ---
 
 ## TL;DR
@@ -27,11 +27,18 @@ Platform vendors ship **usage analytics plus enforceable spend controls**
 rather than discover overruns. Anthropic ships the same shape for Claude
 Enterprise: richer admin analytics, model-level entitlements, and spend
 alerts so admins track adoption and cap spend without building their own
-metering layer.
+metering layer. A published guide walks IT admins through that same
+surface end-to-end: spend caps, model-level controls, usage analytics, and
+cost-relevant API features like prompt caching and batch processing, as one
+consolidated cost-visibility playbook rather than settings scattered across
+a console.
 
 Developer tooling pushes **attribution** down to the unit of work — Prtokens
 surfaces how many agent tokens a single pull request burned, making cost a
-number on the artifact instead of an aggregate.
+number on the artifact instead of an aggregate. Third-party tooling is
+filling the cross-agent gap too: Agentsview browses, searches, and tracks
+cost across every AI coding agent a developer runs, aggregating spend no
+single vendor's own dashboard shows.
 
 The analysis step itself is being delivered as a **managed agent**: AWS's
 FinOps Agent (public preview) automates the FinOps loop — investigating cost
