@@ -4,31 +4,15 @@
  "item_count": 3,
  "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-07-14T13:33:25+00:00",
- "last_updated": "2026-07-29T06:18:16+00:00",
- "generated_at": "2026-08-04T10:11:09.888885+00:00",
+ "first_seen": "2026-07-27T15:46:57+00:00",
+ "last_updated": "2026-08-07T17:04:41+00:00",
+ "generated_at": "2026-08-10T05:10:07.165601+00:00",
  "sources": [
-  "arxiv_cs_ai",
+  "arxiv_cs_cl",
   "arxiv_cs_lg",
   "search_cn_open_weight_labs"
  ],
  "days": [
-  {
-   "date": "2026-07-14",
-   "items": [
-    {
-     "title": "Constraint-Aware Aggregation for Federated Reinforcement Learning in Microgrid Energy Coordination",
-     "url": "http://arxiv.org/abs/2607.12763v1",
-     "source": "arxiv_cs_ai",
-     "type": "paper",
-     "summary_1line": "Federated Reinforcement Learning (FedRL) enables coordination of distributed energy resources without sharing raw local data, but standard aggregation methods such as FedAvg do not account for system-level constraints...",
-     "why_it_matters": "Matches feed focus: eval.",
-     "sid": "1353da98274f0528",
-     "published": "2026-07-14T13:33:25+00:00",
-     "editor_note": "New arXiv paper applying constraint-aware aggregation to federated RL for microgrid energy coordination, addressing FedAvg's inability to respect system-level constraints."
-    }
-   ]
-  },
   {
    "date": "2026-07-27",
    "items": [
@@ -60,24 +44,31 @@
      "editor_note": "Moonshot AI and kvcache-ai open-source AgentENV, an agentic-RL scaling framework — the first shipped release in this batch."
     }
    ]
+  },
+  {
+   "date": "2026-08-07",
+   "items": [
+    {
+     "title": "ResidencyRL: Reinforcement Learning in Simulated Clinical Environments",
+     "url": "http://arxiv.org/abs/2608.07418v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "In medical education, physicians convert academic knowledge into clinical expertise through residency: years of training across thousands of encounters, with diverse sources of feedback and progressively greater auton...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "691438acb4bb6cca",
+     "published": "2026-08-07T17:04:41+00:00",
+     "editor_note": "New arXiv paper modeling clinical-residency training as an RL problem — physicians building expertise through staged, feedback-rich patient encounters."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Three reinforcement-learning items landed over two weeks: constraint-aware federated RL for microgrid coordination and fuzz testing for safety-critical RL agents. These share a topic, not a storyline — each is a standalone read, not a developing event.",
+  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL items, not a developing story. Recent entries range from a fuzz-testing method for safety-critical RL agents to Moonshot AI's open-sourced AgentENV framework for scaling agentic RL training.",
   "stale": false,
-  "whats_new": "Moonshot AI and kvcache-ai open-sourced AgentENV, a framework for scaling agentic reinforcement learning training.",
+  "whats_new": "A new arXiv paper, ResidencyRL, applies reinforcement learning to simulate clinical-residency training — modeling how physicians build expertise through staged patient encounters and feedback.",
   "why_it_matters": "Unlike the two research papers here, AgentENV is a released open-source framework, not a benchmark result — the one item in this batch platform engineers can actually adopt rather than just read.",
-  "take_for_builders": "Scaling agentic RL training? Check AgentENV's repo before building a custom scaling harness — it's the one item in this batch that's a shipped tool, not the two narrower academic results (federated microgrid RL, safety-critical fuzz testing) alongside it.",
+  "take_for_builders": "Scaling agentic RL training? Check AgentENV's repo before building a custom scaling harness — it's the one item in this batch that's a shipped tool, not the two narrower academic results (safety-critical RL fuzz testing, simulated clinical-residency training) alongside it.",
   "beats": [
-   {
-    "kicker": "RESEARCH",
-    "tone": "neutral",
-    "headline": "Federated RL paper targets constraint-aware aggregation for microgrids",
-    "summary": "New arXiv work proposes constraint-aware aggregation to fix standard FedAvg's failure to respect system-level constraints when coordinating distributed energy resources.",
-    "sids": [
-     "1353da98274f0528"
-    ]
-   },
    {
     "kicker": "RESEARCH",
     "tone": "neutral",
@@ -91,17 +82,26 @@
     "kicker": "RELEASE",
     "tone": "rising",
     "headline": "Moonshot AI and kvcache-ai open-source AgentENV to scale agentic RL",
-    "summary": "New open-source framework targets scaling agentic reinforcement learning training — a shipped tool, not an academic result like the papers above.",
+    "summary": "New open-source framework targets scaling agentic reinforcement learning training — a shipped tool, not an academic result like the papers alongside it.",
     "sids": [
      "18944a6428c3ac1a"
+    ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "neutral",
+    "headline": "ResidencyRL simulates clinical-residency training as an RL problem",
+    "summary": "New arXiv work models how physicians convert academic knowledge into clinical judgment through simulated patient encounters with staged feedback, mirroring real residency training.",
+    "sids": [
+     "691438acb4bb6cca"
     ]
    }
   ],
   "open_questions": [
-   "Does the constraint-aware federated RL aggregation get tested on a real microgrid deployment, or only in simulation?",
    "Does the fuzz-testing methodology surface failures that existing RL safety evals miss, or mostly duplicate them?",
-   "Does AgentENV's scaling approach hold up against existing agentic-RL training frameworks, or is it mainly a Moonshot-internal tool going public?"
+   "Does AgentENV's scaling approach hold up against existing agentic-RL training frameworks, or is it mainly a Moonshot-internal tool going public?",
+   "Does ResidencyRL's simulated training transfer to real clinical decision-making, or only to the benchmark's synthetic cases?"
   ],
-  "generated_at": "2026-07-31T20:04:34+00:00"
+  "generated_at": "2026-08-10T05:07:38+00:00"
  }
 }
