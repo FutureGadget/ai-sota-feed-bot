@@ -5,131 +5,131 @@ Focus: AI Platform Engineering
 ## 1. GitHub Models is now retired
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/9/github-models-is-now-retired/#atom-everything
-- Score: 2.85 | Reliability: 1.0
+- Score: 2.848 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 2. Show HN: Needle2: 14MB agentic LLM for phones, wearables, smart home and robots
-- Type: news | Source: hackernews_ai
-- URL: https://cactuscompute.com/needle
-- Score: 2.85 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 3. How Malachyte solves retail’s cold-start problem with managed real-time AI
+## 2. How Malachyte solves retail’s cold-start problem with managed real-time AI
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/data-analytics/solving-retails-cold-start-problem-malachytes-recommendation-reinvention/
-- Score: 2.728 | Reliability: 1.0
+- Score: 2.68 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 3. CloudFlare Previews Automatic WebMCP Support for Web Pages
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/08/cloudflare-webmcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.66 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Build Low-Latency Multilingual Voice Agents: Open Weights & Full Deployment Control with NVIDIA Magpie TTS
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/nvidia/magpie-tts-multilingual-voice-agents
-- Score: 2.627 | Reliability: 1.0
+- Score: 2.61 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. Learning more about Claude's mathematical capabilities
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/riemann-zeta
-- Score: 2.589 | Reliability: 1.0
+- Score: 2.573 | Reliability: 1.0
 - Why it matters: 
 
 ## 6. 5 useful things you'll learn in my new post-training textbook (shipping now!)
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/5-useful-things-youll-learn-in-my
-- Score: 2.528 | Reliability: 1.0
-- Why it matters: 
-
-## 7. What building an AI-native finance function taught me
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/building-an-ai-native-finance-function
 - Score: 2.527 | Reliability: 1.0
 - Why it matters: 
 
-## 8. Alibaba Opens Qwen Platform to Outside Developers in Push to Build AI-Agent Ecosystem - Caixin Global
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMi1wFBVV95cUxOY0tIUnZDT0VPRVBWcVc4R3A0aTJlV1VHcXh3bDVKallnSXVwQ2pTQjNuTFpnc3VUYzlNY0hrSUxtbjdyMjFwZVoxV3R6Q1BYTXZoQXZCRkh5TV96NjZ4VFgyaTVoVVpuWlVJY1N0SGRRRjZwUkk4R3pkbVkzaGJXODZpTjhHcndFVnp4dnptNWt1UnRjNlY4Q29nWnE3MlZfT3ZtMC1zOHVjX0h1bm9NRmhtUXg4ZmhxQjdUemFfRGZLVEZHVVc5V28yellzM1FabG5wYWFDbw?oc=5
-- Score: 2.496 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 7. Using the GitHub Copilot SDK for Java
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/engineering/using-the-github-copilot-sdk-for-java/
+- Score: 2.514 | Reliability: 1.0
+- Why it matters: 
+
+## 8. What building an AI-native finance function taught me
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/building-an-ai-native-finance-function
+- Score: 2.498 | Reliability: 1.0
+- Why it matters: 
 
 ## 9. OpenAI’s letter to Governor Abbott on responsible AI infrastructure in Texas
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/responsible-ai-infrastructure-texas
-- Score: 2.45 | Reliability: 1.0
+- Score: 2.422 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Model ML completes finance work more efficiently with GPT-5.6 Sol
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/model-ml
-- Score: 2.401 | Reliability: 1.0
+- Score: 2.375 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Auto mode is now the default in Claude Code for Pro, Max, and Team plans
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/8/auto-mode/#atom-everything
-- Score: 2.454 | Reliability: 1.0
+- Score: 2.458 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation, codex.
 
-## 12. Expanding Daybreak as the Cyber Defense Window Narrows
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows
-- Score: 2.354 | Reliability: 1.0
-- Why it matters: 
-
-## 13. Presentation: Leveraging Adversary Emulation for GenAI Red Teaming
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/emulation-genai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.282 | Reliability: 1.0
-- Why it matters: 
-
-## 14. codex 0.148.0-alpha.6
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.6
-- Score: 2.215 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 15. Everything we launched during Agents Week
-- Type: news | Source: cloudflare_blog
-- URL: https://blog.cloudflare.com/agents-week-review-august-2026/
-- Score: 2.162 | Reliability: 0.976
+## 12. Alibaba Opens Qwen Platform to Outside Developers in Push to Build AI-Agent Ecosystem - Caixin Global
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMi1wFBVV95cUxOY0tIUnZDT0VPRVBWcVc4R3A0aTJlV1VHcXh3bDVKallnSXVwQ2pTQjNuTFpnc3VUYzlNY0hrSUxtbjdyMjFwZVoxV3R6Q1BYTXZoQXZCRkh5TV96NjZ4VFgyaTVoVVpuWlVJY1N0SGRRRjZwUkk4R3pkbVkzaGJXODZpTjhHcndFVnp4dnptNWt1UnRjNlY4Q29nWnE3MlZfT3ZtMC1zOHVjX0h1bm9NRmhtUXg4ZmhxQjdUemFfRGZLVEZHVVc5V28yellzM1FabG5wYWFDbw?oc=5
+- Score: 2.418 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. Stripe Uses Graph Search and State Machines to Automate Database Remediation
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/08/database-remediation-graph/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.004 | Reliability: 1.0
+## 13. Expanding Daybreak as the Cyber Defense Window Narrows
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/expanding-daybreak-as-the-cyber-defense-window-narrows
+- Score: 2.329 | Reliability: 1.0
 - Why it matters: 
+
+## 14. Presentation: Leveraging Adversary Emulation for GenAI Red Teaming
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/presentations/emulation-genai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.284 | Reliability: 1.0
+- Why it matters: 
+
+## 15. codex 0.148.0-alpha.6
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.6
+- Score: 2.19 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 16. Everything we launched during Agents Week
+- Type: news | Source: cloudflare_blog
+- URL: https://blog.cloudflare.com/agents-week-review-august-2026/
+- Score: 2.121 | Reliability: 0.976
+- Why it matters: Matches feed focus: agent.
 
 ## 17. Lessons from the hacks
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/lessons-from-the-hacks
-- Score: 2.002 | Reliability: 1.0
+- Score: 2.008 | Reliability: 1.0
 - Why it matters: 
 
-## 18. Evolve your marketing with new AI tools
-- Type: news | Source: google_ai_blog
-- URL: https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/
-- Score: 1.811 | Reliability: 1.0
-- Why it matters: 
-
-## 19. TEPA: Revoking Stale Memories for Conflict-Robust Language Agents
+## 18. TEPA: Revoking Stale Memories for Conflict-Robust Language Agents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.07429v1
-- Score: 1.811 | Reliability: 1.0
+- Score: 1.803 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 20. ResidencyRL: Reinforcement Learning in Simulated Clinical Environments
+## 19. ResidencyRL: Reinforcement Learning in Simulated Clinical Environments
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.07418v1
-- Score: 1.809 | Reliability: 1.0
+- Score: 1.801 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
+
+## 20. Evolve your marketing with new AI tools
+- Type: news | Source: google_ai_blog
+- URL: https://blog.google/products/ads-commerce/google-ads-analytics-ai-updates/
+- Score: 1.774 | Reliability: 1.0
+- Why it matters: 
 
 ## 21. v0.27.0: [Docs] Fix two docs build warnings (#51014)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.27.0
-- Score: 1.788 | Reliability: 1.0
+- Score: 1.763 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. LSEAD: A Privacy-Preserving LLM-Based Speech Analysis Framework for Early Alzheimer's Disease Screening
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.07378v1
-- Score: 1.77 | Reliability: 1.0
+- Score: 1.762 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
