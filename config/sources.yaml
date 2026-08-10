@@ -209,6 +209,24 @@ sources:
     # Sebastian Raschka's "Ahead of AI" — LLM architecture/training analysis from
     # a recognized author (Build a Large Language Model From Scratch).
     url: "https://magazine.sebastianraschka.com/feed"
+  - name: databricks_blog
+    type: rss
+    # Databricks' engineering/product blog — coding-agent benchmarking on a
+    # multi-million-line codebase, agentic-coding cost control, enterprise
+    # grounded-reasoning benchmarks, AI gateway/serving posts.
+    # Site-wide feed on purpose: Databricks publishes no category-scoped feed
+    # (/blog/category/<x>/feed and /blog/rss.xml both 404), so the AI slice
+    # cannot be taken at the source the way cloudflare_blog's tag feeds do.
+    # The feed is a rolling 10-item window (~4 days at current cadence).
+    url: "https://www.databricks.com/feed"
+    exclude_title_regex:
+      # "Data + AI Foundations" — a recurring SEO glossary series ("What is an
+      # AI Assistant?", "What is Tool Calling?", "What are Agentic Workflows?";
+      # 77 such posts in the blog sitemap). Keyword-rich enough to win this
+      # source's single slot seat off a real engineering post, and structurally
+      # not news. Anchored at the start of the title so analysis posts that
+      # merely pose a question mid-title are kept.
+      - "(?i)^what (is|are)\\b"
   - name: lilian_weng
     type: rss
     # Lilian Weng (ex-OpenAI) — Lil'Log. Extremely low volume (~1-4 posts/year) but

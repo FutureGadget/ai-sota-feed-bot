@@ -24,6 +24,8 @@ No.
 
 ```text
 [collectors/collect.py] -> [pipeline/build_tier1.py]
+  - per-source title blocklist (sources.yaml `exclude_title_regex`) drops
+    matches before they reach data/raw (`excluded_title` in ingest_runs.jsonl)
       |
       v
 Candidates (TIER0_INPUT=tier1 by default, raw fallback)
@@ -117,7 +119,10 @@ which gate a source dies at.
 
 1. **Collection / health** — the source must be in `config/sources.yaml`, and
    its `source_health` reliability must stay ≥ 0.3 (the circuit breaker can
-   disable a flaky source; `prefilter_reasons.health_floor`).
+   disable a flaky source; `prefilter_reasons.health_floor`). A source-scoped
+   `exclude_title_regex` (used where only a site-wide feed exists, e.g.
+   `databricks_blog`) drops matching titles here, before `data/raw` — so an
+   item filtered at this gate never appears in any later diagnostic.
 2. **Slot mapping** — a source not listed in any `slots.*.sources` falls into
    the `overflow` slot (base_bias −0.20, `max_items` 3, `freshness_hours` 72)
    and almost never surfaces. **Adding a source to `sources.yaml` is not

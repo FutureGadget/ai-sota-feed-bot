@@ -160,7 +160,10 @@ Source of truth is markdown; `index.json` is the only file served/bundled.
 - `data/health/source_health.json` — per-source reliability scores
 - `data/health/circuit_breaker.json` — open/closed circuit state per source
 - `data/health/alerts_state.json`, `latest_alerts.json` — degradation alerts
-- `data/health/ingest_runs.jsonl` — per-run ingest status log
+- `data/health/ingest_runs.jsonl` — per-run ingest status log. One record per
+  source per run: `ts`, `source`, `url`, `status` (`ok` / `error` /
+  `skipped_cooldown` / `skipped_open_circuit`), `items`, plus
+  `excluded_title` when a source's `exclude_title_regex` dropped titles
 - `data/email/state.json` — email-digest send cursor (NOT subscriber PII; the
   provider owns the list). Keys: `daily.last_sent_date`, `weekly.last_sent_week`
   (idempotency guards), and `storylines.{sent_through,seen_sids}` — the

@@ -45,9 +45,9 @@ slots:
     blend: {alpha: 0.70, beta: 0.30}
 
   cloud_platform_updates:
-    sources: [google_cloud_blog, cloudflare_blog]
+    sources: [google_cloud_blog, cloudflare_blog, databricks_blog]
     min_items: 0
-    max_items: 2
+    max_items: 3
     max_per_source: 1
     freshness_hours: 96
     blend: {alpha: 0.70, beta: 0.30}
@@ -147,6 +147,7 @@ source_bias:
   nvidia_blog: -0.18
   google_cloud_blog: -0.12  # edge over aws/nvidia: publishes standards/spec posts (OKF, MCP/A2UI, inference gateway)
   cloudflare_blog: -0.10    # same slot: tag-scoped to agent runtime/MCP/Workers AI inference posts
+  databricks_blog: -0.12    # same slot: only a site-wide feed exists, so data-engineering/industry posts ride along with the coding-agent engineering ones
   vllm_releases: -0.08
   triton_releases: -0.08
   langgraph_releases: 0.06
