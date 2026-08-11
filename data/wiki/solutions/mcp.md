@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499]
-updated: 2026-08-06
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c]
+updated: 2026-08-11
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c]
 ---
 
 ## TL;DR
@@ -145,8 +145,21 @@ story (a cloud agent reaching local tools and files rather than a local agent
 reaching a cloud API), addressing the "AgentCore runs in the cloud, but the
 user's tools live on their laptop" gap directly.
 
+Governance is also consolidating at the **cloud gateway** layer, not just
+inside the protocol's own auth extensions: Azure API Management shipped a
+dedicated AI Gateway tier whose control plane is organized around models,
+MCP servers, and tools — not REST APIs — fronting Foundry, Bedrock, Vertex
+AI, and OpenAI behind one policy surface. It puts MCP server governance next
+to model governance in the same managed product, the tool-fleet counterpart
+to AWS's Claude Apps Gateway spend-and-telemetry control plane.
+
 ## What's new
-AWS published a secure MCP bridge that lets a cloud-hosted Bedrock AgentCore
+Azure API Management shipped a dedicated AI Gateway tier governing models,
+MCP servers, and tools from one control plane in front of Foundry, Bedrock,
+Vertex AI, and OpenAI — a second cloud vendor putting MCP governance behind
+a managed gateway, next to AWS's Claude Apps Gateway.
+
+Prior update: AWS published a secure MCP bridge that lets a cloud-hosted Bedrock AgentCore
 agent reach MCP servers on a user's own laptop — tunneling signed messages
 over an existing WebSocket connection via a browser extension, with no open
 ports or VPN — closing the cloud-to-local direction of the tool-access gap.

@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd]
-updated: 2026-08-08
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba]
+updated: 2026-08-11
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba]
 ---
 
 ## TL;DR
@@ -87,6 +87,13 @@ from GPU memory into a shared RAM/NVMe tier and compresses blocks losslessly
 before they leave the GPU, so a prefix cached on one host is cheap to fetch
 from another instead of being recomputed — on a 128K-context workload this
 cut total GPU time from 1,169 to 606 seconds, a 48.2% GPU-cost reduction.
+A parallelism-based answer attacks the same long-context bottleneck from a
+different angle: vLLM's Decode Context Parallelism shards the KV cache
+across GPUs by sequence dimension instead of offloading it, reporting 3x
+higher decode throughput on long-context agentic workloads versus standard
+tensor parallelism — more throughput per GPU-hour on the same hardware is a
+direct cost lever, not just a latency one (see [agent
+latency](/topic/agent-latency) for the full serving-stack detail).
 
 A subtler driver is the **context cost of instructions themselves** — every
 skill, hook, or subagent you add to steer an agent consumes context budget,
@@ -213,7 +220,13 @@ Kimi K3. The frontier and open-weight price curves are falling together, not
 one converging toward the other.
 
 ## What's new
-GPT-5.6's list-price cut (20-80%) reportedly dropped the cost of
+vLLM's Decode Context Parallelism shards the KV cache across GPUs by
+sequence dimension instead of offloading it to slower storage, reporting 3x
+higher decode throughput on long-context agentic workloads — a second,
+parallelism-based lever alongside OpenLake's offload approach for the same
+long-context cost bottleneck (see State of the art above).
+
+Prior update: GPT-5.6's list-price cut (20-80%) reportedly dropped the cost of
 GPT-5.4-level intelligence roughly 13x in four months via recursive
 self-optimization, while Chinese open-weight labs (another cheaper DeepSeek
 release) and hardware (AMD's MI355X undercutting Nvidia's B300 to run Kimi

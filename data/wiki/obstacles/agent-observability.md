@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda]
-updated: 2026-08-05
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14]
+updated: 2026-08-11
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14]
 ---
 
 ## TL;DR
@@ -111,8 +111,28 @@ gap, sharpening the Coroot finding above: the reasoning may already be
 there, but the end-to-end oncall pipeline this page tracks (telemetry
 correlation, ambiguous reports, time pressure) is still mostly unsolved.
 
+A named production deployment pairs tracing with a human-approval gate
+rather than auto-resolving: LangChain built an autonomous SRE agent for
+Kubernetes on Deep Agents that requires human approval before it applies a
+change, with every step, tool call, and decision captured in LangSmith
+traces — an instance of the trace-first, agentic-analysis pattern above
+(Expedia's STAR, HALO) where the trace is also what a human reviews before
+the agent is allowed to act, not just what an engineer replays afterward.
+
+Capture tooling itself is widening on the open-source side: Simon Willison's
+`llm` CLI (0.32) adds support for visible reasoning traces and redesigned,
+smarter logging alongside server-side provider tools — the same
+trajectory-capture discipline the vendor platforms above ship, now available
+in a widely-used, framework-agnostic command-line tool rather than only a
+hosted product.
+
 ## What's new
-ORCA-bench measures oncall root-cause analysis directly for the first time
+LangChain's autonomous Kubernetes SRE agent pairs LangSmith tracing with a
+human-approval gate before any change is applied — the trace doubles as what
+a human reviews before the agent acts, not only what an engineer replays
+after an incident.
+
+Prior update: ORCA-bench measures oncall root-cause analysis directly for the first time
 on this page: across five frontier agents on 1,079 tasks against a live
 instrumented microservice testbed, the best RCA accuracy is 25.3% on
 realistic-input tasks and only 10.0% on hard ones, with the weakest model
