@@ -37,6 +37,25 @@
     },
     "edition_date": "2026-07-31"
   },
+  "0a728b4df1ea2e24": {
+    "id": "pb-scope-agentcore-rate-limits",
+    "kind": "source-backed",
+    "title": "Scope gateway rate limits per caller, not per gateway",
+    "area": "Reliability",
+    "problem": "A single misbehaving agent, retry storm, or compromised caller can flood a shared AgentCore gateway and starve every other agent's tool calls when traffic isn't scoped per caller by default.",
+    "apply": "Configure per-user and per-target rate limits on the Amazon Bedrock AgentCore gateway, scoping request, token, and connection quotas by JWT claims or IAM identity instead of relying on a single global limit.",
+    "result": "AWS reports that quota is enforced per caller, so one agent's traffic spike or misconfigured retry loop can't exhaust the request, token, or connection budget shared by every other agent on the same gateway.",
+    "effort": "low",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/configure-rate-limits-for-ai-traffic-on-agentcore-gateway/",
+    "source_sid": "0a728b4df1ea2e24",
+    "topic_url": "/topic/agent-reliability",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS describes this as the gateway's scoped-quota mechanism; no before/after production numbers are given in the announcement."
+    },
+    "edition_date": "2026-08-11"
+  },
   "0ecd57418d6c38cf": {
     "id": "pb-track-pr-throughput-not-agent-usage-alone",
     "kind": "source-backed",
@@ -569,6 +588,25 @@
     },
     "edition_date": "2026-08-07"
   },
+  "49cbe264be5fe506": {
+    "id": "pb-grounded-incident-retrieval",
+    "kind": "source-backed",
+    "title": "Fan out read-only subagents to ground incident triage before an engineer looks",
+    "area": "Retrieval",
+    "problem": "On-call engineers waste the first, most time-critical minutes of an incident manually pulling logs, deploys, and past-incident context before they can even start diagnosing.",
+    "apply": "On alert, fan out parallel read-only subagents that pull logs, deployments, service ownership, and historical incident data through MCP tools, ground each root-cause hypothesis against past incidents to cut noise, and keep the system advisory-only — post the hypothesis to the incident thread rather than auto-remediating.",
+    "result": "Instacart's Blueberry delivers a grounded root-cause hypothesis within 3 minutes across 270+ Slack channels, with historical grounding lifting diagnostic accuracy from the mid-60% range to the high-90% range.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/instacart-blueberry-sre-ai/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "49cbe264be5fe506",
+    "topic_url": "/topic/vector-kb",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Instacart reports the 3-minute turnaround, accuracy range, and volume figures directly."
+    },
+    "edition_date": "2026-08-11"
+  },
   "4a0a79e7203bae64": {
     "id": "pb-mine-agent-traces-fine-tune-judge-models",
     "kind": "source-backed",
@@ -644,6 +682,44 @@
       "note": "Cloudflare's own description of the temporary-accounts feature and its 60-minute expiry window."
     },
     "edition_date": "2026-07-14"
+  },
+  "64b99c89eeec2092": {
+    "id": "pb-graph-search-db-remediation",
+    "kind": "source-backed",
+    "title": "Replace static remediation runbooks with graph search over your infra",
+    "area": "Reliability",
+    "problem": "Hard-coded remediation runbooks for sharded database incidents break as infrastructure topology changes, and complete-or-nothing fixes leave engineers paging in even when a partial fix is possible.",
+    "apply": "Model your infrastructure as a graph — nodes for components, edges for relationships, attributes for health state — and run Dijkstra's algorithm over it to find the lowest-cost valid recovery path, including partial remediations when no complete fix path exists, instead of maintaining static scripts per failure mode.",
+    "result": "Stripe cut database-related pager alerts 30% (200 fewer pages a year) and eliminated 12 days a year of unhealthy shard states by moving from scripted runbooks to graph-search remediation.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/database-remediation-graph/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "64b99c89eeec2092",
+    "topic_url": "/topic/agent-reliability",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Stripe's engineering team reports the pager-alert reduction and eliminated-downtime figures directly."
+    },
+    "edition_date": "2026-08-11"
+  },
+  "6a2c44f62f58bd05": {
+    "id": "pb-hitl-write-gate-plus-tracing",
+    "kind": "source-backed",
+    "title": "Wall off agent writes behind one gated subagent, then trace everything",
+    "area": "Orchestration",
+    "problem": "Giving an ops agent broad write tools like Helm upgrades makes it impossible for a human reviewer to actually evaluate what a proposed change will do before approving it.",
+    "apply": "Confine every write action to a single dedicated change-executor subagent behind a human-in-the-loop interrupt (approve, reject, or edit from Slack), keep diagnosis in parallel read-only subagents, and route every agent and model call through tracing so runaway loops and wasted calls show up as visible patterns instead of hidden cost.",
+    "result": "Tracing surfaced a scheduled health check burning ~20 unnecessary model calls per run; redesigning it around what the trace showed cut that check's cost 95-99%.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-we-build-an-autonomous-sre-agent-for-kubernetes-deployments",
+    "source_sid": "6a2c44f62f58bd05",
+    "topic_url": "/topic/agent-orchestration",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "LangChain reports the per-check cost reduction from the scheduler redesign directly."
+    },
+    "edition_date": "2026-08-11"
   },
   "6f5c728ce100a70f": {
     "id": "pb-scope-agent-cloud-credentials",
@@ -1120,6 +1196,25 @@
     },
     "edition_date": "2026-06-26"
   },
+  "a652f4f70be70d35": {
+    "id": "pb-task-scoped-agent-credentials",
+    "kind": "source-backed",
+    "title": "Swap standing service credentials for task-scoped, narrowing-only tokens",
+    "area": "Safety",
+    "problem": "An agent holding a long-lived, broadly-scoped service credential turns a single hijacked tool call into a standing breach, because the credential outlives and outreaches the task it was issued for.",
+    "apply": "Issue short-lived tokens scoped to a single task via OAuth Token Exchange (RFC 8693), sender-constrain them with DPoP (RFC 9449), and route every tool call through harness-level enforcement that checks it against a capability ceiling that can only narrow during the task, never widen.",
+    "result": "Cloudflare claims a leaked credential or prompt-injected tool call is capped at a ten-minute, two-permission window instead of a standing database password with full account access.",
+    "effort": "high",
+    "source": "cloudflare_blog",
+    "source_url": "https://blog.cloudflare.com/the-agent-access-model/",
+    "source_sid": "a652f4f70be70d35",
+    "topic_url": "/topic/agent-sandboxing",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Cloudflare describes this as the design property of its proposed Agent Access Model; the example is illustrative, not a measured production incident reduction."
+    },
+    "edition_date": "2026-08-11"
+  },
   "a96fc20a139c014c": {
     "id": "pb-train-local-proxy-model-for-per-row-llm-calls",
     "kind": "source-backed",
@@ -1272,6 +1367,25 @@
     },
     "edition_date": "2026-08-07"
   },
+  "c42746ce976fd829": {
+    "id": "pb-byzantine-tolerant-rag-defense",
+    "kind": "source-backed",
+    "title": "Score source credibility before pooling retrieval across agents",
+    "area": "Retrieval",
+    "problem": "Multi-agent RAG systems that pool retrieval across sources are vulnerable to knowledge corruption — one compromised or malicious source can poison what every downstream agent treats as ground truth.",
+    "apply": "Score each retrieved source's credibility dynamically with a graph-neural-network validator before it reaches the model, instead of trusting every source in the pool equally, so a poisoned or Byzantine source gets down-weighted or filtered rather than blended into the answer.",
+    "result": "This design shape is intended to hold up multi-agent RAG accuracy even when some contributing sources are actively adversarial, without requiring every source in the pool to be trusted.",
+    "effort": "high",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2608.04366v1",
+    "source_sid": "c42746ce976fd829",
+    "topic_url": "/topic/vector-kb",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The paper's abstract describes the defense mechanism and its goal; specific quantitative benchmark results were not available in the reviewed excerpt."
+    },
+    "edition_date": "2026-08-11"
+  },
   "c4fa725d5c123b2d": {
     "id": "pb-measure-reasoning-tokens-on-quantized-models",
     "kind": "source-backed",
@@ -1366,6 +1480,25 @@
       "note": "Reproducible tool-suppression phenomenon observed in a production agent across multiple open-weight model families."
     },
     "edition_date": "2026-06-26"
+  },
+  "d30468205c1a195e": {
+    "id": "pb-temporal-policy-runtime-verification",
+    "kind": "source-backed",
+    "title": "Write policies over an agent's action history, not just its current call",
+    "area": "Safety",
+    "problem": "Point-in-time authorization approves each tool call in isolation, so it can't stop an agent from doing something forbidden only in sequence — like exporting data right after it touched something confidential.",
+    "apply": "Adopt Dogwood, an open-source temporal-logic policy language for Bedrock AgentCore's Policy layer (Cedar-compatible, no migration needed): auto-generate an event model from your MCP tool manifests, then write policies with operators like `formerly`, `count_within`, and `sum_within` to enforce ordering, rate, and cumulative-value constraints across an agent's recent action history.",
+    "result": "AWS reports that policies can block a specific sequence, such as no external send within N events of a confidential-data read, that request-by-request authorization structurally can't see.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://aws.amazon.com/blogs/opensource/introducing-dogwood-runtime-verification-for-ai-agents/",
+    "source_sid": "d30468205c1a195e",
+    "topic_url": "/topic/agent-sandboxing",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS describes Dogwood's capabilities in its own announcement; no third-party or production incident numbers are given."
+    },
+    "edition_date": "2026-08-11"
   },
   "d36a81ca7c645c40": {
     "id": "pb-spec-driven-kernel-not-codegen",
@@ -1632,5 +1765,24 @@
       "note": "Paper reports its own benchmark scores for the reference implementation."
     },
     "edition_date": "2026-07-24"
+  },
+  "fcb5eeae253e1eba": {
+    "id": "pb-vllm-decode-context-parallelism",
+    "kind": "source-backed",
+    "title": "Shard KV cache by sequence, not just tensor, for long-context agent serving",
+    "area": "Cost & latency",
+    "problem": "Long-context agentic traces from multi-step tool use saturate tensor-parallel throughput at low concurrency, capping how many concurrent agent sessions a fixed GPU fleet can actually serve.",
+    "apply": "Enable vLLM's Decode Context Parallelism by adding `decode_context_parallel_size` alongside `tensor_parallel_size` when serving MLA models (DeepSeek-V2/V3/R1, Kimi K2.6) or head-count-eligible GQA models — it shards KV cache by sequence dimension instead of replicating it across GPUs.",
+    "result": "On 8×B200 serving Kimi K2.6, DCP sustained 6,091 tok/s/GPU at concurrency 512 versus baseline tensor parallelism plateauing near 1,863 tok/s/GPU at concurrency 64, with stable throughput past 200k-token contexts.",
+    "effort": "medium",
+    "source": "vllm_blog",
+    "source_url": "https://vllm.ai/blog/2026-08-07-decode-context-parallelism",
+    "source_sid": "fcb5eeae253e1eba",
+    "topic_url": "/topic/agent-latency",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The vLLM team publishes the throughput and KV-cache utilization benchmark numbers directly."
+    },
+    "edition_date": "2026-08-11"
   }
 }
