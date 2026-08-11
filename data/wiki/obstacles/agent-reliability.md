@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360"]
-updated: 2026-07-21
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360"]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3]
+updated: 2026-08-11
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3]
 ---
 
 ## TL;DR
@@ -45,7 +45,12 @@ borrows the standard distributed-systems playbook — checkpoint recovery,
 exactly-once guarantees, kernel-level resource quotas (cgroups), per-session
 microVM/gVisor isolation — because rate limits, timeouts, and
 non-determinism are ordinary infra failure modes once the agent is treated
-as a workload. **Intent** is the newest and least-solved leg: LLMs "drift by
+as a workload. Brex supplies a concrete production instance of this leg:
+routing production onboarding-agent workflows through Temporal Cloud instead
+of a bespoke retry loop took long-running completion from roughly 96% to
+99.9%, with the durable-execution runtime swapped in underneath workflow
+code that stays otherwise unchanged — checkpoint recovery and exactly-once
+guarantees bought as infrastructure, not re-implemented per agent. **Intent** is the newest and least-solved leg: LLMs "drift by
 design," abandoning the assigned task, hallucinating a result, or reporting
 false completion, and fixes split into LLM-graded trajectory/goal-shift
 detection versus cheaper, non-LLM encoder classifiers that score binary task
@@ -119,7 +124,14 @@ already argues for, expressed as one composable architecture instead of
 three separately-sourced controls.
 
 ## What's new
-A research architecture (HALO) reframes the standing "wait for a model that
+Brex's production onboarding agent supplies a concrete number for the
+"reliable execution" leg this page already argues for: routing the workflow
+through Temporal Cloud instead of a bespoke retry loop, with the same
+workflow code otherwise unchanged, took long-running completion from
+roughly 96% to 99.9% — durable execution bought as infrastructure rather
+than built per agent.
+
+Prior update: A research architecture (HALO) reframes the standing "wait for a model that
 doesn't hallucinate" hope as the wrong target: it treats hallucination as a
 containable failure mode and stacks six defenses — grounded generation,
 constrained execution, multi-signal verification, calibrated abstention,
