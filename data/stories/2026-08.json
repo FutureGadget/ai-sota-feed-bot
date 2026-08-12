@@ -1526,6 +1526,21 @@
   "url": "https://github.com/vllm-project/vllm/releases/tag/v0.27.2rc0",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "3395a2bf7d5df457": {
+  "first_seen": "2026-08-12T22:02:04.449486+00:00",
+  "id": "27406ed3bd560f12",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-12T19:32:41+00:00",
+  "sid": "3395a2bf7d5df457",
+  "source": "hackernews_ai",
+  "summary_1line": "Drift – Intent-driven versioning for AI coding agents",
+  "title": "Drift – Intent-driven versioning for AI coding agents",
+  "type": "release",
+  "url": "https://github.com/lilcipherx/drift",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "33a3e040cf980817": {
   "first_seen": "2026-08-06T04:02:01.586443+00:00",
   "id": "b3a1516a50bb5f28",
@@ -2044,6 +2059,27 @@
   "title": "Claude Cowork comes to the Chrome side panel | Claude by Anthropic",
   "type": "news",
   "url": "https://claude.com/blog/cowork-chrome-side-panel"
+ },
+ "50e54c971de50a8e": {
+  "first_seen": "2026-08-12T22:02:04.449486+00:00",
+  "id": "7d496fa9ec23efad",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-12T21:11:13+00:00",
+  "release_highlights": [
+   "ConversationResetMessage for conversation reset events : The SDK now surfaces the CLI's conversation_reset frame as a ConversationResetMessage dataclass, let...",
+   "Message origin on UserMessage and ResultMessage : New origin: MessageOrigin | None field on UserMessage and ResultMessage surfaces why a turn was initiated —...",
+   "resume_session_at / resume_drops_turn options for truncating resume : ClaudeAgentOptions now supports resume_session_at (fork a session at an earlier transcr..."
+  ],
+  "sid": "50e54c971de50a8e",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "New Features ConversationResetMessage for conversation reset events : The SDK now surfaces the CLI's conversation_reset frame as a ConversationResetMessage dataclass, letting applications detect when a /clear or other transcript-discarding flow resets the conversation mid-session. Includes new_conversation_id , uuid , and session_id fields. This widens the Message union — code that exhaustively matches with assert_never will need updating ( #1196 ) Message origin on UserMessage and ResultMessage : New origin: MessageOrigin | None field on UserMessage and ResultMessage surfaces why a turn was initiated — distinguishing application-submitted prompts ( \"human\" ) from background-task notifications, scheduled triggers, peer messages, and other session-injected turns. New exported types: MessageOrigin , MessageOriginKind , TaskNotificationOriginSubkind ( #1199 ) resume_session_at / resume_drops_turn options for truncating resume : ClaudeAgentOptions now supports resume_session_at (fork a session at an earlier transcript entry) and resume_drops_turn (validate that only entries from a specific turn are discarded). Enables safe rewind-to-before-last-prompt without silently dropping unobserved messages ( #1198 ) Bug Fixes Seed settings.json into temp config dir on SessionStore resume : Resuming from a SessionStore now copies settings.json and cowork_settings.json into the temporary config directory, preserving apiKeyHelper auth, user hooks, env vars, and permissions. Previously, hosts ",
+  "summary_1line": "ConversationResetMessage for conversation reset events : The SDK now surfaces the CLI's conversation_reset frame as a ConversationResetMessage dataclass, let... · Message origin on UserMessage and ResultMessage : New...",
+  "title": "claude-agent-sdk-python v0.2.137",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.137",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "51218cf2b1c287a1": {
   "first_seen": "2026-08-02T00:01:48.461435+00:00",
@@ -3496,6 +3532,18 @@
   "url": "https://www.reddit.com/r/termux/s/FqS76rc2z3",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "8ce9f137579cbf5f": {
+  "first_seen": "2026-08-12T22:02:04.449486+00:00",
+  "id": "3bc84b7be652a956",
+  "published": "2026-08-12T15:08:47+00:00",
+  "sid": "8ce9f137579cbf5f",
+  "source": "simon_willison",
+  "summary": "But then users start to report a weird bug. It's the 4th time your team has been trying to fix it. I mean... asking AI to fix it. Unfortunately, it seems like not even Fable can figure it out. You go talk to the person who worked on this feature. \"So where does the data come from?\" \"Hmm... actually I don't know. Let me ask Claude.\" You sit next to each other watching an endless wall of text appear on the screen. Neither of you has any idea whether any of it is true but Claude seems very confident. [...] This project has become so convoluted, with so many layers and services, that no one on your team could possibly start to understand what's going on. — Florian Herrengt , AI is removing the middle class of software engineering Tags: ai-misuse , cognitive-debt , generative-ai , ai , llms , ai-assisted-programming",
+  "summary_1line": "But then users start to report a weird bug. It's the 4th time your team has been trying to fix it. I mean... asking AI to fix it. Unfortunately, it seems like not even Fable can figure it out. You go talk to the perso...",
+  "title": "Quoting Florian Herrengt",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Aug/12/florian-herrengt"
+ },
  "8d2a80eb876acb72": {
   "first_seen": "2026-08-02T16:01:51.632454+00:00",
   "id": "6aff7219315ce101",
@@ -3812,6 +3860,22 @@
   "title": "A GitHub Misconfiguration Let Kimi K3 Cheat a Cybersecurity Benchmark - Security Affairs",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNeGZ5Zk9McFRSaGtVOGRrYzdjR1d0X0d2RXlSWTJNTDZvUEFuVElYVEhtN0ZUUVhKendJcmV3RTlQWW5SMjFBa3VPMWd0YXI1UU1CeXpNSU4xWW0xRkFMaTA0S3hRQ0paMnJYSjZ5eUNNQjhmcnQ3aWowcFFJQW9qVi16SVN2R0ZPdWJ4MTZrNWlqajBqd3QxREdYUU01bl9tN3dhcVRETW5BU2pJY3Z6ODNn0gG3AUFVX3lxTFBRckZIRktVNXZsdWVGUEFnckswa3I2YzJqTlM5Z3BzckJfYmd0UWVMTFdmbGZqUl8yUUtyVXU3aDhCUWhMTklFTjYwRndreVZ4NktYV3VhRTQ4OTZrUk9tTkhNWWo0OUY0TkZUakoyY3l3VThkYmZobFV6QmwwQkhKVThlSFZPRm9ZeG5xb3BYZ0RDS29XRVYxd3RTM0pCTHlaVTlnUmdDVFdlenZwQ1FOa2wySWtRSQ?oc=5"
+ },
+ "9bafa93fe08b847d": {
+  "first_seen": "2026-08-12T22:02:04.449486+00:00",
+  "id": "8d6f0fdc17d9b91d",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-08-12T00:00:00+00:00",
+  "sid": "9bafa93fe08b847d",
+  "source": "openai_blog",
+  "summary": "See how RingCentral uses ChatGPT Work and Codex to accelerate AI product development and centralize operational intelligence across engineering and operations.",
+  "summary_1line": "See how RingCentral uses ChatGPT Work and Codex to accelerate AI product development and centralize operational intelligence across engineering and operations.",
+  "title": "How RingCentral builds AI-native work from engineering to ops",
+  "type": "news",
+  "url": "https://openai.com/index/ringcentral",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "9bd7c476ed0d460f": {
   "first_seen": "2026-08-07T10:01:55.582707+00:00",
