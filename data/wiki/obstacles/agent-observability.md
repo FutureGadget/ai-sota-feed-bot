@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14]
-updated: 2026-08-11
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1]
+updated: 2026-08-12
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1]
 ---
 
 ## TL;DR
@@ -66,7 +66,13 @@ organization runs itself in front of Claude Code/Desktop, relaying
 per-request usage metrics to the team's own OpenTelemetry collector
 (CloudWatch, Prometheus) while enforcing YAML-defined spend caps by org,
 group, or user — folding telemetry relay and cost policy into one
-customer-owned layer instead of a vendor dashboard.
+customer-owned layer instead of a vendor dashboard. A managed vendor is now
+meeting that self-hosted instinct partway: LangSmith's Bring Your Own Cloud
+option reached general availability on AWS, giving an enterprise team
+managed observability, evaluation, and deployment while the workload itself
+stays inside their own VPC — the same "keep it in our network" requirement
+the Claude Apps Gateway answers by self-hosting, here answered by a vendor
+deploying its managed product into the customer's cloud instead.
 
 Trace-first observability is also widening to a **new modality**: LangSmith
 now traces voice agents built on Pipecat, LiveKit, OpenAI Realtime, and
@@ -127,7 +133,13 @@ in a widely-used, framework-agnostic command-line tool rather than only a
 hosted product.
 
 ## What's new
-LangChain's autonomous Kubernetes SRE agent pairs LangSmith tracing with a
+LangSmith's Bring Your Own Cloud option reached general availability on
+AWS — managed observability, evaluation, and deployment with the workload
+kept inside the customer's own VPC, meeting the self-hosted control-plane
+pattern this page already tracks (AWS's Claude Apps Gateway) from the
+vendor side rather than the customer-built side.
+
+Prior update: LangChain's autonomous Kubernetes SRE agent pairs LangSmith tracing with a
 human-approval gate before any change is applied — the trace doubles as what
 a human reviews before the agent acts, not only what an engineer replays
 after an incident.

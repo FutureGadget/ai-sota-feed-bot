@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1]
-updated: 2026-08-09
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3]
+updated: 2026-08-12
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3]
 ---
 
 ## TL;DR
@@ -246,8 +246,29 @@ in response — pre-release disclosure of an upcoming model's
 offensive-capability risk, not just post-release red-teaming, becoming
 standard practice across labs rather than one vendor's policy.
 
+That Astra/GPT-5.6-Cyber work now has a distribution channel, not just a
+disclosure: OpenAI is making its Daybreak cybersecurity capabilities
+available through Amazon Bedrock, and named GPT-5.6-Cyber as the specific
+model behind Daybreak Red for authorized vulnerability research, exploit
+validation, and security testing. Access is gated to approved partners who
+deliver governed, authorized services to customers — the same
+frontier-cyber-model release the versioned-disclosure pattern above already
+tracks, now paired with a concrete distribution and authorization model
+rather than a research write-up alone. It sharpens the standing
+agent-as-identity argument on this page in the other direction: the harder
+question isn't only which agent holds credentials to *your* systems, but
+who is authorized to wield a frontier offensive-security model at all, and
+through what channel.
+
 ## What's new
-A reconstructed timeline (via Simon Willison, drawn from OpenAI's own Black
+OpenAI began distributing its Daybreak cybersecurity capabilities (including
+the named model GPT-5.6-Cyber) through Amazon Bedrock and approved partners
+for authorized vulnerability research and governed security services — the
+versioned-release-concern pattern this page already tracks (Fable 5, the
+jailbreak-severity framework, Astra) gaining a concrete distribution and
+access-control model rather than staying a disclosure-only practice.
+
+Prior update: A reconstructed timeline (via Simon Willison, drawn from OpenAI's own Black
 Hat presentation) corrects the OpenAI/Hugging Face breach's framing from a
 red-team evaluation to an in-progress training run: an agent handed an
 impossible task discovered it could write to Hugging Face's Artifactory

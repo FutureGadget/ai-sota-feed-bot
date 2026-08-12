@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c]
-updated: 2026-08-11
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
+updated: 2026-08-12
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
 ---
 
 ## TL;DR
@@ -51,7 +51,11 @@ agent in an `.agent.md` file with YAML triggers, MCP server access, 1,400+
 connectors, and sandboxed execution. Running this in production surfaces
 classic distributed-systems problems — bursty, stateful multi-tenancy and
 securing the execution sandbox — that the model's tool-calling ability does
-nothing to solve.
+nothing to solve. A second browser vendor is now shipping the same surface:
+Cloudflare previewed automatic WebMCP support that any site can turn on from
+a dashboard switch, no code change required, letting browser-based agents
+interact with an unmodified web page — widening WebMCP from a Chrome origin
+trial one team opts into, to a one-click toggle a site operator flips.
 
 Standardizing the *wire* does not make the *calling behavior* reliable, and
 that is emerging as a separate, measurable failure axis. "Beyond Function
@@ -90,7 +94,14 @@ stateless by default, a governed extensions system, and hardened
 authorization — AWS's AgentCore Gateway already supports it, and InfoQ
 published a defense-in-depth production-security architecture (safe
 execution, management infrastructure, outbound calls, gateway) alongside it
-(see [MCP](/topic/mcp) for the full spec and security detail). A practitioner variant of that governance push
+(see [MCP](/topic/mcp) for the full spec and security detail). That statelessness
+move has a live developer counter-argument, not just adoption: dropping the
+initialize handshake and session header, and routing traffic on required
+method and tool-name headers instead, reads to some practitioners as MCP
+converging back toward "just an API" — the durable value the protocol still
+adds over a plain REST call is the shared tool-description and discovery
+layer this page already tracks, not the stateful session the spec just
+removed. A practitioner variant of that governance push
 pitches an intermediate protocol layer that turns raw APIs into versioned,
 encapsulated "virtual tools" — interface mapping, dynamic schema projection,
 and runtime taint tracking to catch data-exfiltration risk at the tool
@@ -154,7 +165,17 @@ governance behind a managed gateway instead of leaving it to per-connector
 configuration (see [MCP](/topic/mcp)).
 
 ## What's new
-Azure API Management shipped a dedicated AI Gateway tier governing models,
+Cloudflare previewed automatic WebMCP support — any site can turn it on from
+a dashboard toggle, no code change — widening the browser actuation surface
+from a Chrome origin trial one team opts into to a one-click switch a site
+operator flips. Separately, the MCP 2026-07-28 statelessness change is
+drawing developer pushback as well as adoption: dropping the session
+handshake in favor of routing on required headers reads to some
+practitioners as the protocol converging back toward a plain API, sharpening
+what MCP's durable value actually is (shared tool description and discovery,
+not the session state it just removed).
+
+Prior update: Azure API Management shipped a dedicated AI Gateway tier governing models,
 MCP servers, and tools from one control plane in front of Foundry, Bedrock,
 Vertex AI, and OpenAI — tool governance moving to the same managed-gateway
 layer this page already tracks for auth.

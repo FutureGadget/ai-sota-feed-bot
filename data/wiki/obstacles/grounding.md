@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc]
-updated: 2026-07-30
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8]
+updated: 2026-08-12
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8]
 ---
 
 ## TL;DR
@@ -115,8 +115,25 @@ retrieval method on top of it, is what let a fluent answer become a trusted
 one (see [agent observability](/topic/agent-observability) for the
 trace-and-trust side of the same build).
 
+A second production deployment grounds the same "self-host the retrieval
+stack" instinct in a sovereignty requirement rather than a data-engineering
+one: OneAdvanced, a UK enterprise software provider, built a
+UK-sovereign AI platform by self-hosting Llama 4 Maverick and Llama Guard 4
+on Amazon SageMaker AI, with a RAG pipeline on pgvector backing more than 50
+production agents. It's a concrete instance of the build-vs-buy split this
+page already tracks (Orbit's self-hosted gateway) driven by a compliance
+constraint — data residency — rather than cost or latency, and it pairs the
+open-weight-model choice with the retrieval-architecture choice rather than
+treating them separately.
+
 ## What's new
-A production case study (LangChain's agent-first data stack) grounds a data
+OneAdvanced built a UK-sovereign AI platform on self-hosted Llama 4
+Maverick and Llama Guard 4 with a pgvector RAG pipeline backing 50+
+production agents — the build-vs-buy self-hosted pattern this page already
+tracks (Orbit), this time driven by data-residency compliance rather than
+cost.
+
+Prior update: A production case study (LangChain's agent-first data stack) grounds a data
 agent's trustworthiness in the same structured-retrieval argument this page
 already makes: pairing dbt-modeled semantic layers with observability
 tooling — not a better retrieval technique alone — is what let the team

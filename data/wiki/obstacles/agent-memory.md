@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76]
-updated: 2026-08-11
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac]
+updated: 2026-08-12
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac]
 ---
 
 ## TL;DR
@@ -247,8 +247,28 @@ worked last time" as its own memory object distinct from facts or
 preferences (see [context compaction](/topic/context-compaction) for the
 adjacent question of what to keep in-window versus persist).
 
+A distinct failure mode shows up on the **write side** rather than recall:
+persistent instruction files like `CLAUDE.md` grow without bound in real
+repositories, stopping only when the repo retires or someone rewrites the
+file wholesale. The mechanism is imperfect recall, not poisoning or
+staleness — an agent appends a new instruction because it can't reliably
+tell whether an equivalent one is already there, so the file accumulates
+redundant and conflicting guidance instead of being edited in place.
+"Catastrophic Remembering" names the pattern directly: unlike the retrieval
+and revocation failures above, this is a curation failure in a store that
+has no retrieval step at all — the whole file is read every turn — so the
+fix has to be write-time deduplication and pruning, not a better recall
+mechanism.
+
 ## What's new
-Causal episodic memory targets a failure mode distinct from staleness or
+"Catastrophic Remembering" names a write-side failure mode this page hadn't
+tracked: instruction files like `CLAUDE.md` grow unbounded because an agent
+can't reliably tell an existing instruction from a redundant new one, so it
+appends instead of editing in place — a curation problem distinct from the
+retrieval-side staleness and poisoning failures above, in a store (a
+whole-file read every turn) that has no recall step to fix.
+
+Prior update: Causal episodic memory targets a failure mode distinct from staleness or
 poisoning: agents that fix a bug and discard the fix, forcing a later
 episode to rediscover the same correction from scratch. Retaining the
 causal link between a failure and what fixed it, and reusing it on similar

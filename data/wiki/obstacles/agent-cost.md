@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba]
-updated: 2026-08-11
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6]
+updated: 2026-08-12
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6]
 ---
 
 ## TL;DR
@@ -172,6 +172,15 @@ routing decision: effort should be selected per request, based on task
 complexity and how much verification the step needs, rather than fixed once
 for the whole agent.
 
+A benchmarked routing result puts a hard number on that per-request decision:
+NVIDIA's NeMo Switchyard, run across 145 agent tasks, found only 7% of turns
+actually needed a frontier model — routing the rest to cheaper models cut
+total cost 74% for a six-point accuracy trade-off. It's direct evidence that
+most of an agent's turn-by-turn cost is spent on calls that didn't need
+frontier capability in the first place, sharpening the reasoning-effort-as-
+routing-decision argument above into a measured split rather than a
+qualitative one.
+
 **Tool-calling behavior**, not just model choice, is now a cost lever in its
 own right: when GitHub retuned Copilot code review onto shared Unix-style
 tools (`grep`/`glob`/`view`), average cost went *up* at first, because the
@@ -217,10 +226,20 @@ another cheaper model as the domestic price war intensifies, Chinese
 open-weight models are picking up US users specifically on lower cost, and
 AMD's MI355X now undercuts Nvidia's B300 on cost-per-token to run China's
 Kimi K3. The frontier and open-weight price curves are falling together, not
-one converging toward the other.
+one converging toward the other. DeepSeek's V4 Flash sharpens that open-weight
+side with a specific number: running a full test suite at $72 against Kimi
+K3 on the same job, a roughly 33x gap — evidence the domestic price war isn't
+just cutting list price, it's compounding the gap between individual
+open-weight releases too.
 
 ## What's new
-vLLM's Decode Context Parallelism shards the KV cache across GPUs by
+NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
+turns actually needed a frontier model, and routing the rest to cheaper
+models cut total cost 74% for a six-point accuracy trade-off — a measured
+number behind the standing reasoning-effort-as-routing-decision argument
+(see State of the art above).
+
+Prior update: vLLM's Decode Context Parallelism shards the KV cache across GPUs by
 sequence dimension instead of offloading it to slower storage, reporting 3x
 higher decode throughput on long-context agentic workloads — a second,
 parallelism-based lever alongside OpenLake's offload approach for the same
