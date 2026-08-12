@@ -1,0 +1,39 @@
+{
+  "slug": "multimodal-reasoning",
+  "generated_at": "2026-08-12T20:10:00+00:00",
+  "covers_last_updated": "2026-08-11T14:23:07+00:00",
+  "covers_member_sids": [
+    "6b1e8161b5193973",
+    "8e6c5d3e74ad4b06",
+    "b2e06f02ed16a78b"
+  ],
+  "tldr": "Three arXiv papers from late July into August 2026 probe where multimodal LLM reasoning breaks: clinical diagnostic QA that unfolds information progressively rather than all at once, question answering over irregular clinical time series, and now trustworthiness in complex, adverse-condition urban scenes.",
+  "whats_new": "An Aug 11 benchmark shows multimodal LLMs' cognitive reliability drops sharply in complex urban scenes under adverse conditions, even though the same models look strong on benign inputs.",
+  "why_it_matters": "If you're evaluating a multimodal agent on clean demo data, these papers are evidence that reliability numbers won't transfer to messy real-world inputs (progressive disclosure, irregular sampling, adverse conditions) — budget for a harder eval set before deployment, not after.",
+  "beats": [
+    {
+      "kicker": "GAP",
+      "tone": "rising",
+      "headline": "Clinical multimodal benchmarks start testing realism, not just accuracy",
+      "summary": "Two July 28 papers move past single-shot Q&A: one scores multi-turn diagnostic reasoning as clinical information is progressively disclosed, the other tackles question answering over irregular, unevenly-sampled clinical time series.",
+      "sids": ["6b1e8161b5193973", "8e6c5d3e74ad4b06"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "New benchmark finds multimodal reasoning reliability collapses under adverse conditions",
+      "summary": "An Aug 11 evidence-grounded benchmark for complex urban scenes finds models that perform well in benign settings degrade significantly once conditions get adverse — the pattern echoes the clinical papers' point that hard, realistic inputs are where current evals fall short.",
+      "sids": ["b2e06f02ed16a78b"]
+    }
+  ],
+  "open_questions": [
+    "Do any of these evaluation methods (progressive disclosure, irregular time series, adverse-condition scoring) get adopted as standard multimodal benchmarks, or stay one-off papers?",
+    "Which specific failure modes drive the reliability drop in adverse urban scenes — perception, grounding, or reasoning over noisy evidence?"
+  ],
+  "take_for_builders": "If you ship a multimodal agent, test it against progressively-disclosed or degraded inputs before launch, not just clean benchmark data — these papers show the reliability gap only shows up under realistic conditions.",
+  "day_captions": {
+    "6b1e8161b5193973": "First paper: scores multi-turn diagnostic reasoning as clinical info is disclosed progressively, not all at once.",
+    "8e6c5d3e74ad4b06": "Same-day companion paper: a cost-effective framework for QA over irregular clinical time series.",
+    "b2e06f02ed16a78b": "Two-week-later followup: a benchmark showing multimodal reliability drops sharply in complex, adverse-condition urban scenes."
+  }
+}

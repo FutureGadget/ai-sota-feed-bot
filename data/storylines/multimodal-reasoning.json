@@ -1,0 +1,92 @@
+{
+ "slug": "multimodal-reasoning",
+ "label": "Multimodal Reasoning",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-07-28T16:19:03+00:00",
+ "last_updated": "2026-08-11T14:23:07+00:00",
+ "generated_at": "2026-08-12T20:08:10.934669+00:00",
+ "sources": [
+  "arxiv_cs_cl",
+  "arxiv_llm_reliability"
+ ],
+ "days": [
+  {
+   "date": "2026-07-28",
+   "items": [
+    {
+     "title": "Evaluating Multi-Turn Multimodal Diagnostic Reasoning on Challenging Real-World Clinical Cases",
+     "url": "http://arxiv.org/abs/2607.25933v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Clinical diagnostic evaluation should not only assess whether models can provide correct diagnoses, but also reflect the realities of clinical practice, including progressive disclosure of multimodal information, dyna...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "6b1e8161b5193973",
+     "published": "2026-07-28T16:19:03+00:00",
+     "editor_note": "First paper: scores multi-turn diagnostic reasoning as clinical info is disclosed progressively, not all at once."
+    },
+    {
+     "title": "A Cost-Effective Multimodal LLM Reasoning Framework for Question Answering over Irregular Clinical Time Series",
+     "url": "http://arxiv.org/abs/2607.25947v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Question answering (QA) over irregular clinical time series (ICTS) plays a pivotal role in a wide range of healthcare applications. Although recent multimodal time-series large language models (LLMs) have shown consid...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "8e6c5d3e74ad4b06",
+     "published": "2026-07-28T16:33:41+00:00",
+     "editor_note": "Same-day companion paper: a cost-effective framework for QA over irregular clinical time series."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-11",
+   "items": [
+    {
+     "title": "Evidence-Grounded Trustworthy Multimodal Reasoning and Evaluation Benchmark in Complex Urban Scenes",
+     "url": "http://arxiv.org/abs/2608.10954v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "While Multimodal Large Language Models (MLLMs) demonstrate impressive performance in benign scenarios, their cognitive reliability deteriorates significantly in complex scenes under adverse conditions. In these settin...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "b2e06f02ed16a78b",
+     "published": "2026-08-11T14:23:07+00:00",
+     "editor_note": "Two-week-later followup: a benchmark showing multimodal reliability drops sharply in complex, adverse-condition urban scenes."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Three arXiv papers from late July into August 2026 probe where multimodal LLM reasoning breaks: clinical diagnostic QA that unfolds information progressively rather than all at once, question answering over irregular clinical time series, and now trustworthiness in complex, adverse-condition urban scenes.",
+  "stale": false,
+  "whats_new": "An Aug 11 benchmark shows multimodal LLMs' cognitive reliability drops sharply in complex urban scenes under adverse conditions, even though the same models look strong on benign inputs.",
+  "why_it_matters": "If you're evaluating a multimodal agent on clean demo data, these papers are evidence that reliability numbers won't transfer to messy real-world inputs (progressive disclosure, irregular sampling, adverse conditions) — budget for a harder eval set before deployment, not after.",
+  "take_for_builders": "If you ship a multimodal agent, test it against progressively-disclosed or degraded inputs before launch, not just clean benchmark data — these papers show the reliability gap only shows up under realistic conditions.",
+  "beats": [
+   {
+    "kicker": "GAP",
+    "tone": "rising",
+    "headline": "Clinical multimodal benchmarks start testing realism, not just accuracy",
+    "summary": "Two July 28 papers move past single-shot Q&A: one scores multi-turn diagnostic reasoning as clinical information is progressively disclosed, the other tackles question answering over irregular, unevenly-sampled clinical time series.",
+    "sids": [
+     "6b1e8161b5193973",
+     "8e6c5d3e74ad4b06"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "New benchmark finds multimodal reasoning reliability collapses under adverse conditions",
+    "summary": "An Aug 11 evidence-grounded benchmark for complex urban scenes finds models that perform well in benign settings degrade significantly once conditions get adverse — the pattern echoes the clinical papers' point that hard, realistic inputs are where current evals fall short.",
+    "sids": [
+     "b2e06f02ed16a78b"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Do any of these evaluation methods (progressive disclosure, irregular time series, adverse-condition scoring) get adopted as standard multimodal benchmarks, or stay one-off papers?",
+   "Which specific failure modes drive the reliability drop in adverse urban scenes — perception, grounding, or reasoning over noisy evidence?"
+  ],
+  "generated_at": "2026-08-12T20:10:00+00:00"
+ }
+}
