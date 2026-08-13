@@ -168,6 +168,18 @@ def extract_image_url(entry, summary_html: str = "") -> str:
     return ""
 
 
+def compile_title_excludes(source: dict) -> list[re.Pattern]:
+    """Compile a source's `exclude_title_regex:` blocklist (config/sources.yaml).
+
+    Scoped to one source, unlike `profile.selection.exclude_title_regex`, which
+    is matched against every source's titles. Use it when a site-wide feed is
+    the only machine-readable option and it carries a recurring non-editorial
+    series (databricks_blog's "What is …" SEO glossary posts). An invalid
+    pattern raises, so the source is recorded as `status: error` rather than
+    silently collecting the titles it was meant to drop."""
+    return [re.compile(str(p)) for p in (source.get("exclude_title_regex") or [])]
+
+
 def rss_source_urls(source: dict) -> list[str]:
     """Feed URLs for an rss source. `urls:` fans several feeds into a single
     source identity (one health record, one max_per_source cap); `url:` stays
@@ -693,11 +705,16 @@ def run():
             else:
                 raise ValueError(f"unsupported_source_type:{src_type}")
 
+            title_excludes = compile_title_excludes(source)
             count = 0
+            excluded = 0
             for ent in entries:
                 title = ent["title"].strip()
                 link = ent["url"].strip()
                 if not title or not link:
+                    continue
+                if any(pat.search(title) for pat in title_excludes):
+                    excluded += 1
                     continue
                 count += 1
                 all_items.append(
@@ -714,15 +731,16 @@ def run():
                     }
                 )
 
-            source_stats.append(
-                {
-                    "ts": now.isoformat(),
-                    "source": src_name,
-                    "url": src_url,
-                    "status": "ok",
-                    "items": count,
-                }
-            )
+            stat = {
+                "ts": now.isoformat(),
+                "source": src_name,
+                "url": src_url,
+                "status": "ok",
+                "items": count,
+            }
+            if excluded:
+                stat["excluded_title"] = excluded
+            source_stats.append(stat)
         except Exception as e:
             source_stats.append(
                 {

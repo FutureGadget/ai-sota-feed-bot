@@ -37,6 +37,34 @@ Example (arXiv API):
 - Use stable snake_case names.
 - Source name is used in slot mapping (`config/ranking.yaml`) and diagnostics.
 
+### Per-source title exclusion (`exclude_title_regex`)
+
+Optional on any source type. Titles matching a pattern are dropped at
+collection, so they never enter `data/raw/`; the count is reported as
+`excluded_title` in `data/health/ingest_runs.jsonl`.
+
+```yaml
+- name: example_source
+  type: rss
+  url: "https://example.com/feed.xml"
+  exclude_title_regex:
+    - "(?i)^what (is|are)\\b"
+```
+
+Use it when a site-wide feed is the only machine-readable option and it carries
+a recurring non-editorial series (`databricks_blog`'s "Data + AI Foundations"
+SEO glossary posts). Prefer, in order:
+
+1. a category/tag-scoped feed URL, or several via `urls:` (`cloudflare_blog`) —
+   the slice is taken at the source and nothing is guessed from titles;
+2. `exclude_title_regex` on the one source that has the problem;
+3. `profile.selection.exclude_title_regex` — global, matched against *every*
+   source's titles, so reserve it for content that is off-mission everywhere.
+
+Anchor patterns tightly (`^`, `\b`, multi-word phrases). An invalid regex raises
+and the source is recorded as `status: error` for that run rather than silently
+collecting the titles it was meant to drop.
+
 ---
 
 ## 2) Presets and overrides
