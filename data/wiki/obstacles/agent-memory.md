@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac]
-updated: 2026-08-12
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a]
+updated: 2026-08-13
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a]
 ---
 
 ## TL;DR
@@ -188,6 +188,14 @@ memory (prior findings, decisions, file context) to coding agents over MCP,
 the same "memory over MCP" shape as Atlas but scoped to one repo instead of
 an enterprise platform.
 
+The measurability push above now has a public leaderboard, not just a
+benchmark paper: the Agent Memory Leaderboard released its first public
+results for **text memory** specifically, scoring open-source methods
+against commercial products head-to-head with 136 teams registered — moving
+memory evaluation from a one-off benchmark citation toward a maintained,
+comparable ranking, the way [agent benchmarks](/topic/agent-benchmarks)
+already work for general agent capability.
+
 A parallel model widens the source side of proactive memory rather than the
 storage side: OpenWiki Brains turns Gmail, Notion, git repos, X, Hacker News,
 and web search into a local wiki of plain Markdown files an agent can pull
@@ -261,7 +269,13 @@ fix has to be write-time deduplication and pruning, not a better recall
 mechanism.
 
 ## What's new
-"Catastrophic Remembering" names a write-side failure mode this page hadn't
+The Agent Memory Leaderboard released its first public results for text
+memory, scoring open-source methods against commercial products head-to-head
+(136 teams registered) — the measurability push this page tracks gaining a
+maintained, comparable ranking rather than staying a one-off benchmark
+citation.
+
+Prior update: "Catastrophic Remembering" names a write-side failure mode this page hadn't
 tracked: instruction files like `CLAUDE.md` grow unbounded because an agent
 can't reliably tell an existing instruction from a redundant new one, so it
 appends instead of editing in place — a curation problem distinct from the
@@ -273,11 +287,6 @@ poisoning: agents that fix a bug and discard the fix, forcing a later
 episode to rediscover the same correction from scratch. Retaining the
 causal link between a failure and what fixed it, and reusing it on similar
 later episodes, keeps a repair from being re-derived every time it recurs.
-
-Prior update: TEPA gives the standing staleness problem a benchmarked fix: revoking a
-memory the moment fresher evidence contradicts its key beats both
-append-only and last-write-wins caches, which score *below* having no
-memory at all under full reversal (see State of the art above).
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

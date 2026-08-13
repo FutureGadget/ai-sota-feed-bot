@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4]
-updated: 2026-07-26
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f]
+updated: 2026-08-13
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f]
 ---
 
 ## TL;DR
@@ -44,8 +44,23 @@ workload rather than a leaderboard number — tying model selection directly
 to the per-task attribution and eval-driven decision-making this page
 already argues for, from the vendor whose models are being chosen between.
 
+**A benchmarked routing result puts a concrete number on "how much of that
+spend is actually justified":** NVIDIA's NeMo Switchyard, tested across 145
+agent tasks, found only 7% of turns needed a frontier model — routing the
+rest to cheaper models cut total cost 74% for a six-point accuracy
+trade-off (see [agent cost](/topic/agent-cost) for the full serving-stack
+detail). It sharpens the cost-per-task argument above from "measure spend
+per task" to a specific finding: on a typical agent workload, most per-task
+spend isn't buying frontier capability the task actually needed.
+
 ## What's new
-Model selection is being folded into the cost-per-task framing directly:
+NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
+turns actually needed a frontier model, and routing the rest to cheaper
+models cut total cost 74% for a six-point accuracy trade-off — a measured
+number behind this page's cost-per-task attribution argument (see State of
+the art above).
+
+Prior update: Model selection is being folded into the cost-per-task framing directly:
 Anthropic's model-choice guidance tells teams to compare model classes on
 cost per task (not just cost per token) and settle the trade-off with evals
 built for their own workload — connecting the ROI-attribution instinct this
