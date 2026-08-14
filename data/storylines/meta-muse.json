@@ -1,15 +1,16 @@
 {
  "slug": "meta-muse",
  "label": "Meta Muse",
- "item_count": 5,
- "day_count": 2,
- "source_count": 3,
+ "item_count": 6,
+ "day_count": 3,
+ "source_count": 4,
  "first_seen": "2026-08-05T19:25:30+00:00",
- "last_updated": "2026-08-09T12:48:04+00:00",
+ "last_updated": "2026-08-14T05:05:00+00:00",
  "via_scout": true,
- "generated_at": "2026-08-14T05:16:01.695217+00:00",
+ "generated_at": "2026-08-14T10:15:24.182425+00:00",
  "sources": [
   "hackernews_ai",
+  "infoq_ai_ml",
   "search_agent_engineering_news",
   "simon_willison"
  ],
@@ -82,31 +83,53 @@
      "editor_note": "Coverage continues four days later with no new product details disclosed."
     }
    ]
+  },
+  {
+   "date": "2026-08-14",
+   "items": [
+    {
+     "title": "Meta Open-Sources Muse Glimmer: A 30B Local Agentic Model Optimised for On-Device Execution",
+     "url": "https://www.infoq.com/news/2026/08/meta-muse-glimmer/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Meta AI Research has introduced Muse Glimmer, a 30-billion-parameter open-weight model under the Apache 2.0 license, designed for local workflows. It enables autonomous agents and complex task execution on consumer GP...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "683e96e306332d1e",
+     "published": "2026-08-14T05:05:00+00:00",
+     "editor_note": "Meta's first concrete Muse-family release: an Apache 2.0, 30B-parameter model built for on-device agent execution, in contrast to the still-undisclosed Muse Code."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "Meta had no dedicated AI coding-agent product until Aug 5, 2026, when it introduced Muse Code alongside an updated Muse Spark 1.2, framed explicitly as competition for Claude Code and Codex. CNBC's launch report and three other outlets covered the same framing through Aug 9, with no pricing, availability, or benchmark details disclosed for either product.",
-  "stale": false,
-  "whats_new": "Coverage of Meta's Aug 5 Muse Code launch continued through Aug 9 with no new pricing, availability, or benchmark specifics disclosed.",
-  "why_it_matters": "Meta is positioning Muse Code as a Claude Code/Codex rival, but with zero pricing, availability, or benchmark data five days in, there's nothing yet to evaluate against an existing coding-agent stack.",
-  "take_for_builders": "Don't switch coding-agent workflows yet — wait for Meta to publish pricing, availability, and independent benchmarks against Claude Code and Codex before evaluating Muse Code.",
+  "stale": true,
+  "whats_new": "Meta open-sourced Muse Glimmer on Aug 14 — a 30B-parameter, Apache 2.0-licensed model built for on-device agentic execution — the first concrete Muse-family spec disclosure since the still-unpriced Aug 5 Muse Code launch.",
+  "why_it_matters": "Muse Glimmer gives platform engineers a real Apache-2.0 on-device agentic model to test for local/offline inference, while Muse Code — the direct Claude Code/Codex competitor — remains unbenchmarked and unavailable nine days after its launch.",
+  "take_for_builders": "Muse Glimmer is the first Muse-family artifact you can actually pull and test — benchmark it on-device against your current local-agent stack; Muse Code still has no published specs to evaluate.",
   "status": {
-   "state": "Launched, still undisclosed",
-   "tone": "launch",
-   "changed": "2026-08-05",
-   "detail": "Muse Code and Muse Spark 1.2 launched Aug 5 with no pricing or availability; Aug 9 coverage repeats the same launch framing without new specifics.",
+   "state": "Glimmer open-sourced · Muse Code undisclosed",
+   "tone": "turn",
+   "changed": "2026-08-14",
+   "detail": "Muse Code and Muse Spark 1.2 still have no pricing, availability, or benchmarks nine days after their Aug 5 launch; Meta separately open-sourced Muse Glimmer, a 30B on-device agentic model, under Apache 2.0 on Aug 14.",
    "track": [
     {
      "label": "Muse Code launch",
      "detail": "Aug 5",
      "tone": "launch",
-     "weight": 65
+     "weight": 45
     },
     {
      "label": "Comparison coverage",
      "detail": "Aug 5–9",
      "tone": "neutral",
-     "weight": 35
+     "weight": 25
+    },
+    {
+     "label": "Muse Glimmer open-sourced",
+     "detail": "Aug 14",
+     "tone": "turn",
+     "weight": 30
     }
    ]
   },
@@ -131,19 +154,32 @@
     "sids": [
      "31ab186f51e5e6dc"
     ]
+   },
+   {
+    "kicker": "OPEN-SOURCE",
+    "tone": "turn",
+    "headline": "Meta open-sources Muse Glimmer, a 30B on-device agentic model under Apache 2.0",
+    "summary": "First concrete Muse-family disclosure — parameter count and license — after nine days of undisclosed Muse Code/Spark specs; built for autonomous agents on consumer GPUs.",
+    "sids": [
+     "683e96e306332d1e"
+    ]
    }
   ],
   "open_questions": [
-   "Has Meta announced pricing or general availability for Muse Code and Muse Spark 1.2?",
+   "Has Meta announced pricing or general availability for Muse Code and Muse Spark 1.2, separate from the now open-sourced Muse Glimmer?",
    "Do independent benchmarks show how Muse Code's async background agents compare to Claude Code and Codex on real coding tasks?",
-   "Is Muse Code available to external developers, or is it limited to Meta's internal/enterprise use?"
+   "Are Muse Glimmer's weights published on a hub like Hugging Face, and how does it benchmark against other open-weight on-device agentic models?",
+   "Is Muse Glimmer built on the same underlying model as Muse Code, or a separate model line?"
   ],
   "provenance": {
    "aaafddabd3008b9a": {
     "surfaced_by": "scout",
     "verified": 4
+   },
+   "683e96e306332d1e": {
+    "status_update": true
    }
   },
-  "generated_at": "2026-08-11T10:11:25Z"
+  "generated_at": "2026-08-14T10:30:00+00:00"
  }
 }

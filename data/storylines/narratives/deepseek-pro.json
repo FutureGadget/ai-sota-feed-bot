@@ -1,43 +1,60 @@
 {
   "slug": "deepseek-pro",
-  "generated_at": "2026-08-14T05:20:00+00:00",
+  "generated_at": "2026-08-14T10:30:00+00:00",
   "covers_last_updated": "2026-08-14T02:59:29+00:00",
   "covers_member_sids": [
     "2281120b69fc276a",
+    "11095a11eb10fbe1",
+    "d65f3eadc84d5ccc",
+    "ed9cd2f2dd0a8223",
+    "1dd3032e2d3a1979",
+    "edbf16b4b2f40dda",
+    "472c3b6cf61dc0c3",
+    "cfcbb2da031db5e0",
     "af87c1f98b4ce7bd",
     "680ab3046ae2fb84",
+    "f673bf3b8fad5d61",
+    "6a6fbd308cbe8c8c",
     "0549d5c4b64e48ee",
     "c62ddef441701443",
     "49c2b5d4b405e535",
+    "6e9e594f9ee001bb",
     "c50d5a859c1c8209",
     "ca710448976c9676"
   ],
-  "tldr": "DeepSeek's retrained V4-Flash overtook the company's own flagship V4 Pro on nine agent benchmarks in late July, then a refreshed \"V4 Pro 0813\" build quietly appeared on OpenRouter before DeepSeek officially confirmed it as a deliberate release. That confirmation left the agent-benchmark question unresolved and no changelog published.",
-  "whats_new": "State broadcaster CGTN now carries the same \"enhanced AI agent capabilities\" framing DeepSeek gave the confirmed launch, but still with no benchmark numbers to back it.",
-  "why_it_matters": "The price hike changes the cost math that made V4 Pro competitive against V4-Flash and other cheap agent models, and the vague \"agent gains\" claim needs your own benchmark run before you treat it as resolving July's Flash-beats-Pro result.",
+  "tldr": "DeepSeek's retrained V4-Flash overtook flagship V4 Pro on nine agent benchmarks in late July, then went fully open-source matching Claude Opus-4.8, while price-hike reports built for a week before a \"V4 Pro 0813\" build quietly appeared on OpenRouter. DeepSeek then confirmed the release as official — now corroborated by four outlets — exiting preview with the anticipated price increase and an unproven \"agent gains\" claim.",
+  "whats_new": "DeepSeek also open-sourced Harness, a free agentic coding tool positioned as a rival to Claude Code, shipping the same day as the pricier V4-Pro API release.",
+  "why_it_matters": "The price hike changes the cost math that made V4 Pro competitive against V4-Flash and other cheap agent models, and a free open-source Harness now lets you test DeepSeek's agent stack directly against Claude Code instead of waiting on the vague \"agent gains\" claim.",
   "status": {
     "state": "Out of preview · price increased",
     "tone": "now",
     "changed": "2026-08-13",
-    "detail": "DeepSeek's confirmed V4 Pro release exited preview citing agent-capability gains, alongside a Nikkei Asia report of sharply higher user pricing; state media has since repeated the same framing without new figures.",
+    "reenable": "re-enable date unknown",
+    "detail": "DeepSeek's confirmed V4 Pro release exited preview citing agent-capability gains, alongside a Nikkei Asia report of sharply higher user pricing that Chinese press and an analyst note had already flagged a week earlier. DeepSeek also shipped an open-source Harness coding agent the same day; state media has since repeated the launch framing without new figures.",
     "track": [
+      {
+        "label": "price rumors",
+        "detail": "Aug 6–10",
+        "tone": "rising",
+        "weight": 15
+      },
       {
         "label": "quiet build",
         "detail": "Aug 12",
         "tone": "rising",
-        "weight": 15
+        "weight": 10
       },
       {
         "label": "confirmed",
         "detail": "Aug 13 AM",
         "tone": "rising",
-        "weight": 25
+        "weight": 20
       },
       {
         "label": "price hike + out of preview",
         "detail": "Aug 13 PM",
         "tone": "now",
-        "weight": 40
+        "weight": 35
       },
       {
         "label": "state media echoes launch",
@@ -47,13 +64,32 @@
       }
     ]
   },
+  "provenance": {
+    "0549d5c4b64e48ee": { "surfaced_by": "scout" },
+    "c62ddef441701443": { "surfaced_by": "scout", "verified": 4 },
+    "49c2b5d4b405e535": { "surfaced_by": "scout", "status_update": true },
+    "d65f3eadc84d5ccc": { "verified": 5 }
+  },
   "beats": [
     {
       "kicker": "SURPRISE",
       "tone": "turn",
       "headline": "Retrained V4-Flash beats flagship V4 Pro on nine agent benchmarks",
-      "summary": "DeepSeek's cheaper Flash variant overtakes the company's own Pro model on agent-focused evaluations.",
-      "sids": ["2281120b69fc276a"]
+      "summary": "DeepSeek's cheaper Flash variant overtakes the company's own Pro model on agent-focused evaluations, then ships as a full open-source release matching Claude Opus-4.8 — a lead a later hands-on finds only partly holds once Pro ships.",
+      "sids": ["2281120b69fc276a", "11095a11eb10fbe1", "cfcbb2da031db5e0"]
+    },
+    {
+      "kicker": "PRICE SIGNALS",
+      "tone": "rising",
+      "headline": "Price-hike reports build for a week before DeepSeek confirms anything",
+      "summary": "China Daily, a CITIC Securities note, and regional coverage all flag a coming DeepSeek price increase days before the official V4 Pro launch makes it real.",
+      "sids": [
+        "d65f3eadc84d5ccc",
+        "ed9cd2f2dd0a8223",
+        "1dd3032e2d3a1979",
+        "edbf16b4b2f40dda",
+        "472c3b6cf61dc0c3"
+      ]
     },
     {
       "kicker": "QUIET BUILD",
@@ -73,15 +109,27 @@
       "kicker": "CONFIRMED",
       "tone": "rising",
       "headline": "DeepSeek officially confirms the V4 Pro release",
-      "summary": "Outlets report the Aug 12 OpenRouter build as a deliberate, confirmed expansion release rather than a quiet leak.",
-      "sids": ["0549d5c4b64e48ee", "c62ddef441701443"]
+      "summary": "Four outlets — Lufkin Daily News, Reuters, The Information, and Global Times — independently report the Aug 12 OpenRouter build as a deliberate, confirmed release rather than a quiet leak; The Information frames it as a direct challenge to Kimi K3.",
+      "sids": [
+        "0549d5c4b64e48ee",
+        "c62ddef441701443",
+        "f673bf3b8fad5d61",
+        "6a6fbd308cbe8c8c"
+      ]
     },
     {
       "kicker": "PRICE HIKE",
       "tone": "alert",
       "headline": "Official launch comes with sharply higher user prices",
-      "summary": "Nikkei Asia reports the confirmed release raises per-user pricing, without breaking out the new rate versus V4-Flash.",
+      "summary": "Nikkei Asia reports the confirmed release raises per-user pricing, without breaking out the new rate versus V4-Flash — the increase Chinese press and an analyst note had already flagged a week earlier.",
       "sids": ["49c2b5d4b405e535"]
+    },
+    {
+      "kicker": "AGENT TOOLING",
+      "tone": "rising",
+      "headline": "DeepSeek open-sources Harness, a free agentic coding tool pitched against Claude Code",
+      "summary": "VentureBeat reports the release ships the same day as the pricier V4-Pro API, giving platform engineers a second reason to evaluate the drop.",
+      "sids": ["6e9e594f9ee001bb"]
     },
     {
       "kicker": "OUT OF PREVIEW",
@@ -92,19 +140,30 @@
     }
   ],
   "open_questions": [
-    "Does the preview-exit build's claimed \"agent gains\" reclaim the benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
+    "Does V4 Pro's claimed \"agent gains\" reclaim the benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
     "What benchmark or evaluation backs the \"agent gains\" claim behind V4 Pro's preview exit?",
     "How large is the new price increase, and does it still make Pro cheaper than V4-Flash per token for agent workloads?",
-    "Does DeepSeek publish a technical changelog for V4 Pro 0813 beyond the multimodal- and agent-capability claims?"
+    "Does DeepSeek publish a technical changelog for V4 Pro 0813 beyond the multimodal- and agent-capability claims?",
+    "Does DeepSeek publish benchmarks for the open-sourced Harness tool, and how does it compare to Claude Code on real agentic coding tasks?"
   ],
-  "take_for_builders": "Re-run your agent benchmark against the now-price-hiked V4 Pro 0813 build before trusting July's Flash-beats-Pro result, and pull the new per-token pricing before deciding whether Pro or Flash is the cheaper agent option.",
+  "take_for_builders": "Re-run your agent benchmark against the price-hiked V4 Pro 0813 build before trusting July's Flash-beats-Pro result, pull the new per-token pricing, and try DeepSeek's open-source Harness against your Claude Code workflows since it's free to test today.",
   "day_captions": {
     "2281120b69fc276a": "DeepSeek's retrained V4-Flash overtakes flagship V4 Pro on nine agent benchmarks.",
+    "11095a11eb10fbe1": "V4-Flash's official, fully open-sourced release matches Claude Opus-4.8, cementing its lead over Pro.",
+    "d65f3eadc84d5ccc": "China Daily reports DeepSeek plans to raise AI service prices — the first signal of the hike to come.",
+    "ed9cd2f2dd0a8223": "An AI news roundup flags the price-hike report alongside other industry moves.",
+    "1dd3032e2d3a1979": "Chosun Ilbo frames the hike as part of a broader Chinese AI-firm trend toward larger models and higher prices.",
+    "edbf16b4b2f40dda": "A CITIC Securities analyst note confirms DeepSeek's planned price increase and tells investors to keep watching the sector.",
+    "472c3b6cf61dc0c3": "Asia Tech Review describes DeepSeek entering a higher-price, higher-ambition phase, still before any official launch.",
+    "cfcbb2da031db5e0": "The New Stack's hands-on finds the \"better and cheaper\" promise holds only partly once V4 Pro ships.",
     "af87c1f98b4ce7bd": "Simon Willison spots a new \"V4 Pro 0813\" build listed on OpenRouter, API-only with no DeepSeek announcement page.",
     "680ab3046ae2fb84": "First hands-on note on the new V4 Pro build confirms its multimodal capabilities meet expectations.",
+    "f673bf3b8fad5d61": "The Information frames the release as a direct challenge to Moonshot's Kimi K3.",
+    "6a6fbd308cbe8c8c": "Global Times adds a fourth outlet corroborating the official release and its stronger-agent framing.",
     "0549d5c4b64e48ee": "DeepSeek confirms the V4 Pro 0813 build is an official release, not a quiet API-only drop.",
     "c62ddef441701443": "Reuters independently corroborates the official V4 Pro confirmation.",
     "49c2b5d4b405e535": "Nikkei Asia reports the official V4 Pro launch came with sharply higher user prices.",
+    "6e9e594f9ee001bb": "VentureBeat reports DeepSeek also open-sourced Harness, an agentic coding tool pitched as a free Claude Code rival, alongside the pricier V4-Pro API.",
     "c50d5a859c1c8209": "DeepSeek moves V4 Pro out of preview, citing agent-capability gains without publishing benchmark numbers.",
     "ca710448976c9676": "State broadcaster CGTN repeats the \"enhanced agent capabilities\" launch framing, still with no benchmark figures."
   }
