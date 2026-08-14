@@ -1,12 +1,12 @@
 {
  "slug": "deepseek-pro",
  "label": "DeepSeek Pro",
- "item_count": 5,
+ "item_count": 7,
  "day_count": 3,
  "source_count": 2,
  "first_seen": "2026-07-31T18:27:25+00:00",
- "last_updated": "2026-08-13T12:56:28+00:00",
- "generated_at": "2026-08-13T15:55:29.212182+00:00",
+ "last_updated": "2026-08-13T23:13:00+00:00",
+ "generated_at": "2026-08-14T00:16:06.595933+00:00",
  "sources": [
   "search_cn_open_weight_labs",
   "simon_willison"
@@ -75,21 +75,62 @@
      "sid": "c62ddef441701443",
      "published": "2026-08-13T12:56:28+00:00",
      "editor_note": "Reuters independently corroborates the official V4 Pro confirmation."
+    },
+    {
+     "title": "DeepSeek releases official V4 Pro model with sharply higher user prices - Nikkei Asia",
+     "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxNVnNWV1J2dkJoaGViYk84TWhrd19Hc0pEMlBodmdsMjVfZGRmMUpGdUIwMzdURXJiZmdEVy1UTzRPa2dUX0pjMWZud1pfWlp0V0gxVW1qLXpSUER5S1puR1UxWDZPWldMaGpjYm40RmNaVHA0MV9TRFNoS3VOTEMydWVZVTJ5MFg5Q2JTM3h4dTdqSWp4MEVvTnJYTUZVU3Y0WmJBTk9QNjYxLVJtX1Bud25MZV9pU0xCWUNSbzJmTTFHdnJtWllKSDN6aHF5RTJFTXVyOTln?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "release",
+     "summary_1line": "DeepSeek releases official V4 Pro model with sharply higher user prices Nikkei Asia",
+     "sid": "49c2b5d4b405e535",
+     "published": "2026-08-13T15:06:00+00:00",
+     "editor_note": "Nikkei Asia reports the official V4 Pro launch came with sharply higher user prices."
+    },
+    {
+     "title": "DeepSeek V4 Pro Leaves Preview With Agent Gains - Technology Org",
+     "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPNm1KaWVXLVEweFlvX3BxbGIyZmZxaXd3cS1MUHBiTGRUaFRhYXdqTEYtZE1XYU4wRDlWb1BsanNCUGVSYWg3Z2NvR3FFUkFieVlZWmhTUDFoR2tUT2VaaDNfaGVJYmN1azBWT3hyM052VVNQUEdjaVZZZWtWUV9UT0xVR214eUs4UkRtNldRazhvZw?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek V4 Pro Leaves Preview With Agent Gains Technology Org",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "c50d5a859c1c8209",
+     "published": "2026-08-13T23:13:00+00:00",
+     "editor_note": "DeepSeek moves V4 Pro out of preview, citing agent-capability gains without publishing benchmark numbers."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "DeepSeek's retrained V4-Flash overtook the company's own flagship V4 Pro on nine agent benchmarks in late July. A refreshed \"V4 Pro 0813\" build then quietly appeared on OpenRouter with no official announcement, and an early hands-on called its multimodal quality solid.",
+  "tldr": "DeepSeek's retrained V4-Flash overtook the company's own flagship V4 Pro on nine agent benchmarks in late July, then a refreshed \"V4 Pro 0813\" build quietly appeared on OpenRouter before DeepSeek officially confirmed it as a deliberate release. That confirmation left the agent-benchmark question unresolved and no changelog published.",
   "stale": false,
-  "whats_new": "DeepSeek has now officially confirmed the V4 Pro release — Reuters and other outlets report the Aug 12 OpenRouter build as a deliberate expansion move, not an unannounced side release.",
-  "why_it_matters": "The confirmation closes the gap between DeepSeek's unannounced API drops and its public messaging, but the agent-benchmark question from July's Flash-beats-Pro result is still untested against this build — pin the exact release date, not just \"V4 Pro,\" until DeepSeek ships a changelog.",
-  "take_for_builders": "Re-run your agent benchmark against the now-officially-confirmed V4 Pro 0813 build rather than trusting July's Flash-beats-Pro result to still hold, and watch for the changelog DeepSeek still hasn't published.",
+  "whats_new": "The official V4 Pro launch also brought a sharp user-price increase and a preview-exit pitch built around unspecified \"agent gains,\" per Nikkei Asia and Technology Org.",
+  "why_it_matters": "The price hike changes the cost math that made V4 Pro competitive against V4-Flash and other cheap agent models, and the vague \"agent gains\" claim needs your own benchmark run before you treat it as resolving July's Flash-beats-Pro result.",
+  "take_for_builders": "Re-run your agent benchmark against the now-price-hiked V4 Pro 0813 build before trusting July's Flash-beats-Pro result, and pull the new per-token pricing before deciding whether Pro or Flash is the cheaper agent option.",
   "status": {
-   "state": "Officially confirmed",
+   "state": "Out of preview · price increased",
    "tone": "now",
    "changed": "2026-08-13",
-   "detail": "DeepSeek confirmed the V4 Pro 0813 build as an official release two days after it appeared unannounced on OpenRouter."
+   "detail": "DeepSeek's confirmed V4 Pro release exited preview citing agent-capability gains, alongside a Nikkei Asia report of sharply higher user pricing.",
+   "track": [
+    {
+     "label": "quiet build",
+     "detail": "Aug 12",
+     "tone": "rising",
+     "weight": 20
+    },
+    {
+     "label": "confirmed",
+     "detail": "Aug 13 AM",
+     "tone": "rising",
+     "weight": 30
+    },
+    {
+     "label": "price hike + out of preview",
+     "detail": "Aug 13 PM → now",
+     "tone": "now",
+     "weight": 50
+    }
+   ]
   },
   "beats": [
    {
@@ -112,7 +153,7 @@
    },
    {
     "kicker": "HANDS-ON",
-    "tone": "now",
+    "tone": "rising",
     "headline": "Early hands-on says the refreshed Pro's multimodal capabilities meet expectations",
     "summary": "The first outside impression of the new build focuses on multimodal quality rather than the agent-benchmark gap Flash had opened.",
     "sids": [
@@ -121,19 +162,39 @@
    },
    {
     "kicker": "CONFIRMED",
-    "tone": "now",
+    "tone": "rising",
     "headline": "DeepSeek officially confirms the V4 Pro release",
     "summary": "Outlets report the Aug 12 OpenRouter build as a deliberate, confirmed expansion release rather than a quiet leak.",
     "sids": [
      "0549d5c4b64e48ee",
      "c62ddef441701443"
     ]
+   },
+   {
+    "kicker": "PRICE HIKE",
+    "tone": "alert",
+    "headline": "Official launch comes with sharply higher user prices",
+    "summary": "Nikkei Asia reports the confirmed release raises per-user pricing, without breaking out the new rate versus V4-Flash.",
+    "sids": [
+     "49c2b5d4b405e535"
+    ]
+   },
+   {
+    "kicker": "OUT OF PREVIEW",
+    "tone": "now",
+    "headline": "V4 Pro exits preview status, DeepSeek cites agent-capability gains",
+    "summary": "The preview-exit framing points at agent gains but no benchmark numbers accompany the claim yet.",
+    "sids": [
+     "c50d5a859c1c8209"
+    ]
    }
   ],
   "open_questions": [
-   "Does the refreshed Pro build reclaim the agent-benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
-   "Does DeepSeek publish a technical changelog for V4 Pro 0813 beyond the multimodal-capability claim?"
+   "Does the preview-exit build's claimed \"agent gains\" reclaim the benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
+   "What benchmark or evaluation backs the \"agent gains\" claim behind V4 Pro's preview exit?",
+   "How large is the new price increase, and does it still make Pro cheaper than V4-Flash per token for agent workloads?",
+   "Does DeepSeek publish a technical changelog for V4 Pro 0813 beyond the multimodal- and agent-capability claims?"
   ],
-  "generated_at": "2026-08-13T16:05:00+00:00"
+  "generated_at": "2026-08-14T00:25:00+00:00"
  }
 }

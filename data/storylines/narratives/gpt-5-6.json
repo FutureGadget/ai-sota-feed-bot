@@ -1,23 +1,40 @@
 {
   "slug": "gpt-5-6",
-  "generated_at": "2026-08-07T20:30:00+00:00",
-  "covers_last_updated": "2026-08-06T10:00:00+00:00",
+  "generated_at": "2026-08-14T00:20:00+00:00",
+  "covers_last_updated": "2026-08-13T11:00:00+00:00",
   "covers_member_sids": [
     "7bc027728ff8ee44",
     "053f960947801f33",
-    "b1c9322e571fec76"
+    "b1c9322e571fec76",
+    "6f8368ac763b7373"
   ],
-  "tldr": "OpenAI cut GPT-5.6 pricing sharply on Jul 30 — Terra down 20%, Luna down 80% — crediting the smaller Sol model's role in the efficiency gain. A same-week roundup pinned the driver as recursive self-optimization: the cost of GPT-5.4-level intelligence fell 13x in four months.",
-  "whats_new": "OpenAI shipped an improved GPT-5.6 Sol in ChatGPT on Aug 6 and expanded GPT-5.6 Luna to free users with unlimited everyday chats.",
-  "why_it_matters": "The per-token cost of GPT-5.4-class intelligence dropped 13x in four months and Luna is now free with no chat cap — re-check your model-tier cost assumptions and whether a cheaper tier now clears your quality bar before you keep paying for a higher one.",
+  "tldr": "OpenAI cut GPT-5.6 pricing on Jul 30 (Terra -20%, Luna -80%), citing Sol's efficiency gains, with a same-week analysis pegging GPT-5.4-level intelligence as 13x cheaper than four months earlier. On Aug 6 OpenAI followed up with a quality update to Sol and opened unlimited free-tier access to Luna.",
+  "whats_new": "OpenAI published a builder's guide on Aug 13 covering how startups should split work across GPT-5.6 Terra, Sol, and Luna and use new Responses API capabilities to cut agent costs.",
+  "why_it_matters": "The guide turns the Jul 30 price cut into concrete model-selection and Responses API patterns for agent pipelines — check it against your own tiering before assuming your current Terra/Sol/Luna split is still the cheapest one that clears your quality bar.",
   "status": {
     "state": "Price cuts followed by free-tier expansion",
     "tone": "now",
     "changed": "2026-08-06",
-    "detail": "A Jul 30 price cut (Terra -20%, Luna -80%) attributed to distillation-driven efficiency gains was followed a week later by a Sol quality update and unlimited free access to Luna.",
+    "detail": "A Jul 30 price cut (Terra -20%, Luna -80%) attributed to distillation-driven efficiency gains was followed a week later by a Sol quality update and unlimited free access to Luna; OpenAI has since published official guidance on applying the new tiers and Responses API to agent builds.",
     "track": [
-      { "label": "price cut", "detail": "Jul 30-31", "tone": "launch", "weight": 40 },
-      { "label": "free-tier expansion", "detail": "Aug 6", "tone": "now", "weight": 60 }
+      {
+        "label": "price cut",
+        "detail": "Jul 30-31",
+        "tone": "launch",
+        "weight": 35
+      },
+      {
+        "label": "free-tier expansion",
+        "detail": "Aug 6",
+        "tone": "turn",
+        "weight": 35
+      },
+      {
+        "label": "builder guidance",
+        "detail": "Aug 13",
+        "tone": "now",
+        "weight": 30
+      }
     ]
   },
   "provenance": {},
@@ -27,31 +44,48 @@
       "tone": "launch",
       "headline": "OpenAI slashes GPT-5.6 pricing — Luna down 80%",
       "summary": "Terra gets a 20% price cut and Luna an 80% cut, with OpenAI crediting GPT-5.6 Sol's efficiency gains for enabling the drop.",
-      "sids": ["7bc027728ff8ee44"]
+      "sids": [
+        "7bc027728ff8ee44"
+      ]
     },
     {
       "kicker": "WHY IT DROPPED",
       "tone": "rising",
       "headline": "Recursive self-optimization cuts GPT-5.4-level intelligence cost 13x in four months",
       "summary": "A Latent Space AINews roundup frames the price cut as distillation-driven: the cost of matching GPT-5.4 intelligence fell 13x over four months.",
-      "sids": ["053f960947801f33"]
+      "sids": [
+        "053f960947801f33"
+      ]
+    },
+    {
+      "kicker": "FREE-TIER EXPANSION",
+      "tone": "turn",
+      "headline": "Sol gets a quality update, Luna opens up to free users with unlimited chats",
+      "summary": "OpenAI improves GPT-5.6 Sol's accuracy and consistency in ChatGPT and expands GPT-5.6 Luna access to free users with unlimited everyday chats.",
+      "sids": [
+        "b1c9322e571fec76"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
-      "headline": "Sol gets a quality update, Luna opens up to free users with unlimited chats",
-      "summary": "OpenAI improves GPT-5.6 Sol's accuracy and consistency in ChatGPT and expands GPT-5.6 Luna access to free users with unlimited everyday chats — turning the price cut into a free-tier capability expansion.",
-      "sids": ["b1c9322e571fec76"]
+      "headline": "OpenAI publishes a builder's guide to GPT-5.6 model selection and the Responses API",
+      "summary": "The guide shows startups how to pick among Terra, Sol, and Luna and use new Responses API capabilities to build faster, cheaper agents.",
+      "sids": [
+        "6f8368ac763b7373"
+      ]
     }
   ],
   "open_questions": [
     "Does the 13x cost drop in four months continue at the same pace, or was this a one-time distillation gain from Sol?",
-    "Does unlimited free access to Luna hold up under load, or does OpenAI reintroduce rate limits once usage grows?"
+    "Does unlimited free access to Luna hold up under load, or does OpenAI reintroduce rate limits once usage grows?",
+    "What exactly are the \"new Responses API capabilities\" the builder's guide references, and do they require a client/API version upgrade to use?"
   ],
-  "take_for_builders": "If your workload runs on GPT-5.6 Terra or Luna, re-run your cost model now — Luna's 80% cut plus unlimited free-tier access may let you downgrade a paid tier without a quality hit; verify against your own eval before switching.",
+  "take_for_builders": "Read OpenAI's builder's guide before your next model-selection pass — it lays out concrete Terra/Sol/Luna tiering and Responses API patterns that may replace an ad hoc model pick in your agent pipeline; re-verify any switch against your own eval.",
   "day_captions": {
     "7bc027728ff8ee44": "OpenAI cuts GPT-5.6 Terra and Luna pricing, crediting Sol's efficiency work for enabling the drop.",
     "053f960947801f33": "AINews explains the cut as distillation-driven: GPT-5.4-level intelligence now costs 13x less than four months ago.",
-    "b1c9322e571fec76": "OpenAI improves Sol's quality in ChatGPT and gives free users unlimited access to Luna."
+    "b1c9322e571fec76": "OpenAI improves Sol's quality in ChatGPT and gives free users unlimited access to Luna.",
+    "6f8368ac763b7373": "OpenAI publishes official guidance on choosing between GPT-5.6 Terra/Sol/Luna and using new Responses API capabilities to build cheaper agents."
   }
 }

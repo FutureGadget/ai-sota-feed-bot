@@ -1,12 +1,12 @@
 {
  "slug": "gpt-5-6-sol",
  "label": "GPT-5.6 Sol",
- "item_count": 4,
- "day_count": 4,
+ "item_count": 5,
+ "day_count": 5,
  "source_count": 3,
  "first_seen": "2026-08-03T23:50:58+00:00",
- "last_updated": "2026-08-10T12:00:00+00:00",
- "generated_at": "2026-08-13T15:55:29.212182+00:00",
+ "last_updated": "2026-08-13T10:00:00+00:00",
+ "generated_at": "2026-08-14T00:16:06.595933+00:00",
  "sources": [
   "openai_blog",
   "search_cn_open_weight_labs",
@@ -74,43 +74,64 @@
      "editor_note": "OpenAI's Model ML case study adds a production deployment data point — finance research carried through to traceable PowerPoint/Excel output — rather than a new benchmark."
     }
    ]
+  },
+  {
+   "date": "2026-08-13",
+   "items": [
+    {
+     "title": "Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed",
+     "url": "https://openai.com/index/previewing-ultrafast",
+     "source": "openai_blog",
+     "type": "news",
+     "summary_1line": "Preview Ultrafast, a new OpenAI API service tier that runs GPT-5.6 Sol up to 14× faster. Powered by Cerebras, it delivers up to 750 output tokens per second.",
+     "sid": "c0986f6628d189a1",
+     "published": "2026-08-13T10:00:00+00:00",
+     "editor_note": "OpenAI's Ultrafast preview adds a fourth product answer — a Cerebras-powered speed tier (14X, 750 tok/sec) rather than a benchmark response."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Alibaba's Qwen3.8-Max launched Aug 3 claiming to beat GPT-5.6 Sol Max on agentic computer-use benchmarks; OpenAI answered three days later with a shipped Sol update rather than a rebuttal. An independent hands-on test (Codex + Sol Ultra building a full game) gave the first outside look at that updated model's output on Aug 7.",
+  "tldr": "Alibaba's Qwen3.8-Max launched Aug 3 claiming to beat GPT-5.6 Sol Max on agentic computer-use benchmarks; OpenAI answered three days later with a shipped Sol update rather than a rebuttal. An independent hands-on test on Aug 7 and a finance case study on Aug 10 each added real-world evidence for the updated model, still with no independent benchmark rebuttal to Qwen3.8-Max's claim.",
   "stale": false,
-  "whats_new": "OpenAI published a customer case study on Aug 10 showing Model ML using GPT-5.6 Sol to carry finance research through to editable, traceable PowerPoint decks and Excel workbooks — production-deployment evidence, not a new benchmark result.",
-  "why_it_matters": "OpenAI's case study shows traceable, multi-step finance output from Sol, but it's vendor-published, not independent — the Qwen3.8-Max computer-use claim against Sol Max is still unverified by a third party.",
-  "take_for_builders": "Before adopting Sol for computer-use or multi-step document workflows, run your own benchmark — neither Qwen3.8-Max's win claim nor OpenAI's Model ML case study is independently verified.",
+  "whats_new": "OpenAI answered Qwen3.8-Max a fourth time on Aug 13 with Ultrafast, a Cerebras-powered API tier running Sol up to 14X faster (750 tokens/sec) — another product ship, not a benchmark rebuttal.",
+  "why_it_matters": "Ultrafast's Cerebras-backed 750-tok/sec tier is a real latency/throughput lever for agentic workloads, but it's a new pricing/availability decision layered on an already-unverified capability claim against Qwen3.8-Max.",
+  "take_for_builders": "If evaluating Sol for latency-sensitive agent workloads, test the new Ultrafast tier's throughput and pricing yourself — like the Qwen3.8-Max and Model ML claims, the 14X/750 tok/sec numbers are OpenAI-reported, not independently verified.",
   "status": {
-   "state": "Unverified vs. Qwen3.8-Max · adoption evidence growing",
+   "state": "Unverified vs. Qwen3.8-Max · speed tier added",
    "tone": "rising",
-   "changed": "2026-08-10",
-   "detail": "OpenAI keeps answering with shipped product work and customer case studies rather than a benchmark rebuttal, so the agentic computer-use claim against Sol Max remains untested by an independent source.",
+   "changed": "2026-08-13",
+   "detail": "OpenAI keeps answering the Qwen3.8-Max claim with shipped product work — an accuracy update, a case study, now a speed-focused API tier — rather than an independent benchmark rebuttal.",
    "track": [
     {
      "label": "challenged",
      "detail": "Aug 3",
      "tone": "rising",
-     "weight": 20
+     "weight": 15
     },
     {
      "label": "product response",
      "detail": "Aug 6",
      "tone": "now",
-     "weight": 25
+     "weight": 20
     },
     {
      "label": "independent demo",
      "detail": "Aug 7",
      "tone": "now",
-     "weight": 25
+     "weight": 20
     },
     {
      "label": "case study",
      "detail": "Aug 10",
      "tone": "now",
-     "weight": 30
+     "weight": 20
+    },
+    {
+     "label": "speed tier preview",
+     "detail": "Aug 13",
+     "tone": "now",
+     "weight": 25
     }
    ]
   },
@@ -150,13 +171,23 @@
     "sids": [
      "95f74aeac90a93bb"
     ]
+   },
+   {
+    "kicker": "SPEED",
+    "tone": "now",
+    "headline": "OpenAI previews Ultrafast: Sol at up to 14X speed on Cerebras hardware",
+    "summary": "A new API service tier delivers up to 750 output tokens/sec, OpenAI's fourth consecutive product answer instead of a benchmark rebuttal.",
+    "sids": [
+     "c0986f6628d189a1"
+    ]
    }
   ],
   "open_questions": [
    "Does an independent benchmark confirm Qwen3.8-Max's agentic computer-use win over Sol Max, or does the improved Sol close the gap?",
    "What specifically changed in the 'improved' GPT-5.6 Sol — accuracy, latency, or tool-use reliability?",
-   "Does the Model ML case study's 'traceable' output claim hold up under third-party audit, or is it self-reported by OpenAI's customer story?"
+   "Does the Model ML case study's 'traceable' output claim hold up under third-party audit, or is it self-reported by OpenAI's customer story?",
+   "Are Ultrafast's 14X-speed and 750-tok/sec figures independently benchmarked, or are they OpenAI-reported like the other claims in this thread?"
   ],
-  "generated_at": "2026-08-10T15:30:00+00:00"
+  "generated_at": "2026-08-14T09:15:00+00:00"
  }
 }
