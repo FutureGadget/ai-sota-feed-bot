@@ -5,131 +5,107 @@ Focus: AI Platform Engineering
 ## 1. Presentation: The Right 300 Tokens Beat 100k Noisy Ones: The Architecture of Context Engineering
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/architecture-context-engineering/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.147 | Reliability: 1.0
+- Score: 3.118 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 2. Meta Open-Sources Muse Glimmer: A 30B Local Agentic Model Optimised for On-Device Execution
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/08/meta-muse-glimmer/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.8 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 3. Why managed agents are the next big thing in agent building
+## 2. Why managed agents are the next big thing in agent building
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/why-managed-agents-are-the-next-big-thing-in-agent-building
-- Score: 2.748 | Reliability: 1.0
+- Score: 2.81 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Enhancing Virtual Agents through SLMs and Edge-Computing: An Exploratory Evaluation of Think and Memory Processes
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2608.13420v1
-- Score: 2.483 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 5. sqlite-utils 4.2
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/13/sqlite-utils/
-- Score: 2.456 | Reliability: 1.0
-- Why it matters: 
-
-## 6. llm-gemini 0.33
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/13/llm-gemini/
-- Score: 2.446 | Reliability: 1.0
-- Why it matters: 
-
-## 7. Intern-S2-Preview: Scientific Agentic Foundation Model
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2608.13505v1
-- Score: 2.424 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 8. Introducing Gemini 3.7 Flash
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-gemini-3-7-flash/
-- Score: 2.256 | Reliability: 1.0
-- Why it matters: 
-
-## 9. The builder’s guide to GPT‑5.6
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/builders-guide-to-gpt-5-6
-- Score: 2.202 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 10. Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/previewing-ultrafast
-- Score: 2.048 | Reliability: 1.0
-- Why it matters: 
-
-## 11. Back in the Harness: DeepSeek continues its pivot towards agentic AI - South China Morning Post
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiywFBVV95cUxORWpHVE1iYWxXRUcxbnk2QWdPMzRxZi1WU3h4S3ItaXAtOTI4QXJYUDZlanQ1NzU3RVBCMFhoRGpKcnNjX1hhdnhnU2l4VzV6bkxhbjJMWUc0eUw5Q0dCLVBMaG04VEItSzJ1azdJeUFNTlBTbWV1UWJxYjlHTm5BUU1LdzRvTkFXOWJNbzQwUFJUQnBucEdBV2JGVmdFY2lvOFJCY1Z1STV3VjJIUG5STW9zUjI3Z0pPdEVjUElQOWRscWR3WUVMTmxMONIBywFBVV95cUxPaE5kY3RhSWU5cVduT2xSZmE1UEJZcUEzNTFnQVFvRHJPR1g4RDFQSmVDRzVOU3hQQ1NRbnRIWUJud0dnTFJwMEFIUFo2UWs2QWhzNWduUDNXZElWV1RjS3gwNGgzQ1ZMVl9rLWdrLVBNcDdhR2V1TWZuVnlDSmxhUUhnaWZEal9KTVZHYWhfWU50TldRbDNHT1BFNE01ckhtY0JqRlBvMFVwa094bzVHLXdUcXhHOVNrUG1HV08xeWc1OS1oRGVydFpFMA?oc=5
-- Score: 2.416 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness.
-
-## 12. Vero: Can AI Agents Build Formally Verified Software Repositories?
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2608.13522v1
-- Score: 2.395 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
-
-## 13. MongoDB Brings Live Operational Data to the Agentic Coding Stack - SMEStreet
-- Type: news | Source: search_agent_engineering_news
-- URL: https://news.google.com/rss/articles/CBMiqAFBVV95cUxOcERXS0hyWVlCa2t5clNWeW52Y3haUDJ2bVlfM2taUVdiT05VNVk3c2l4NjlRaklDTVZ0VldEcDNjTXF2eExEb2I1c0NCaXpBRmF5VTBfenpVVDEzSVpDT2JGRlItUkx3R092R3BkSHZsdFRTNjJwc1o0QTNsQ3Vldm5nNjMwY0ZaNS0xRlZfby1WdGMwcUtSZFJnazV1S0pvbHRKTExQYlfSAagBQVVfeXFMTnBEV0tIcllZQmtreXJTVnludmN4WlAydm1ZXzNrWlFXYk9OVTVZN3NpeDY5UWpJQ01WdFZXRHAzY01xdnhMRG9iNXNDQml6QUZheVUwX3p6VVQxM0laQ09iRkZSLVJMd0dPdkdwZEh2bHRUUzYycHNaNEEzbEN1ZXZuZzYzMGNGWjUtMUZWX28tVnRjMHFLUmRSZ2s1dUtKb2x0SkxMUGJX?oc=5
-- Score: 2.365 | Reliability: 1.0
+## 3. Meta Open-Sources Muse Glimmer: A 30B Local Agentic Model Optimised for On-Device Execution
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/08/meta-muse-glimmer/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.776 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 14. [AINews] Gemini 3.7 Flash brings GDM back to the forefront
+## 4. LLM Inference Benchmarking
+- Type: news | Source: hackernews_ai
+- URL: https://www.digitalocean.com/blog/llm-inference-benchmarking
+- Score: 2.647 | Reliability: 1.0
+- Why it matters: 
+
+## 5. DeepSeek Open-Sources the Missing Layer Between AI Models and Agents - HPCwire
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMitwFBVV95cUxPR0U3dEtvVWEtc1BnWEV5T1E2aWQ0SWdOaVVFUlFkb2piTV85NDFIVzBqU29FVzhIWFRXUkNrOFh4cFR3dEgyRlRTdlhyTUw1WFFCQTdpSnVicmlhZmNwZXkyNkQ0c1AyWld6eld4NU1RMTFOenExVWJvejNpVVlLZEk3dWhmdG9aR2xuS0lablVrclBiTTUxVWxzLXBPdVk0VTA0WTdMOVRSTmFPVmhGRF9HMmd2eE0?oc=5
+- Score: 2.627 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 6. Enhancing Virtual Agents through SLMs and Edge-Computing: An Exploratory Evaluation of Think and Memory Processes
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2608.13420v1
+- Score: 2.474 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
+
+## 7. sqlite-utils 4.2
+- Type: release | Source: simon_willison
+- URL: https://simonwillison.net/2026/Aug/13/sqlite-utils/
+- Score: 2.436 | Reliability: 1.0
+- Why it matters: 
+
+## 8. How to bring your software delivery workflow into GitHub with agent apps
+- Type: news | Source: github_blog_ai_ml
+- URL: https://github.blog/ai-and-ml/github-copilot/how-to-bring-your-software-delivery-workflow-into-github-with-agent-apps/
+- Score: 2.428 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, software delivery.
+
+## 9. llm-gemini 0.33
+- Type: release | Source: simon_willison
+- URL: https://simonwillison.net/2026/Aug/13/llm-gemini/
+- Score: 2.426 | Reliability: 1.0
+- Why it matters: 
+
+## 10. Intern-S2-Preview: Scientific Agentic Foundation Model
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2608.13505v1
+- Score: 2.415 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 11. Vero: Can AI Agents Build Formally Verified Software Repositories?
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2608.13522v1
+- Score: 2.386 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 12. [AINews] Gemini 3.7 Flash brings GDM back to the forefront
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-gemini-37-flash-brings-gdm
-- Score: 2.337 | Reliability: 1.0
+- Score: 2.318 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Patterns and problems in multiagent systems
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/multiagent-systems
-- Score: 2.304 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 16. Adaptive Verification in vLLM: DSpark confidence-scheduled verification
+## 13. Adaptive Verification in vLLM: DSpark confidence-scheduled verification
 - Type: news | Source: vllm_blog
 - URL: https://vllm.ai/blog/2026-08-14-dspark-adaptive-verification
-- Score: 2.23 | Reliability: 1.0
+- Score: 2.211 | Reliability: 1.0
 - Why it matters: 
 
-## 17. codex 0.148.0-alpha.15
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.15
-- Score: 2.14 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 18. DARTree: Speculative Diffusion Decoding with Autoregressive Draft Trees
+## 14. DARTree: Speculative Diffusion Decoding with Autoregressive Draft Trees
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.13524v1
-- Score: 2.132 | Reliability: 1.0
+- Score: 2.124 | Reliability: 1.0
 - Why it matters: 
 
-## 19. claude-code v2.1.232
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.232
-- Score: 2.111 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 15. codex 0.148.0-alpha.15
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.15
+- Score: 2.113 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
-## 20. claude-agent-sdk-python v0.2.138
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.138
-- Score: 2.077 | Reliability: 1.0
+## 16. Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/amazon/strands-lerobot-streaming-data-loop
+- Score: 2.087 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. Secure all your internal vibe-coded applications — in one click
+## 17. Secure all your internal vibe-coded applications — in one click
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/workers-protected-by-access/
-- Score: 2.027 | Reliability: 1.0
+- Score: 1.987 | Reliability: 1.0
 - Why it matters: 
 
-## 22. OpenAI appoints Dali Rajic as Chief Revenue Officer
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/dali-rajic-chief-revenue-officer
-- Score: 1.925 | Reliability: 1.0
-- Why it matters:
+## 18. Building agentic workflows with SageMaker AI and Bedrock AgentCore
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/building-agentic-workflows-with-sagemaker-ai-and-bedrock-agentcore/
+- Score: 1.913 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic.
