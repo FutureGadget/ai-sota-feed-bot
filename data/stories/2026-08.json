@@ -670,6 +670,22 @@
   "url": "http://arxiv.org/abs/2608.04010v1",
   "why_it_matters": "Matches feed focus: eval."
  },
+ "170355b4d987eae7": {
+  "first_seen": "2026-08-14T01:01:57.263759+00:00",
+  "id": "9e94820dfdea5e95",
+  "matched_topics": [
+   "harness"
+  ],
+  "published": "2026-08-14T00:29:01+00:00",
+  "sid": "170355b4d987eae7",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek Harness Stunningly Open-Sourced Now: Everything Becomes a Plugin 36Kr",
+  "summary_1line": "DeepSeek Harness Stunningly Open-Sourced Now: Everything Becomes a Plugin 36Kr",
+  "title": "DeepSeek Harness Stunningly Open-Sourced Now: Everything Becomes a Plugin - 36Kr",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1ZNTVEVUZ6TnNGeTVadktwZ2VpcTVENWRrTEdzTDZKdGxjVU1BNkpQWG96R2ZTbVpqUWxsSDNVVERXV3lINnkwbUNTcjBhd0wtM280?oc=5",
+  "why_it_matters": "Matches feed focus: harness."
+ },
  "17095bf723617864": {
   "first_seen": "2026-08-09T15:02:01.002854+00:00",
   "id": "038f8263897ab7e4",
@@ -1496,6 +1512,21 @@
   "url": "https://cloud.google.com/blog/topics/retail/how-target-rebuilt-retail-discovery-with-spanner-graph",
   "why_it_matters": "Matches feed focus: agentic, eval."
  },
+ "308df7d2eb0bc4aa": {
+  "first_seen": "2026-08-14T01:01:57.263759+00:00",
+  "id": "f9b9f211807e3a46",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-14T00:38:40+00:00",
+  "sid": "308df7d2eb0bc4aa",
+  "source": "hackernews_ai",
+  "summary_1line": "Agentrove: Self-hosted AI workspace for orchestrating coding agents",
+  "title": "Agentrove: Self-hosted AI workspace for orchestrating coding agents",
+  "type": "news",
+  "url": "https://github.com/Mng-dev-ai/agentrove",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "30b36b83c9118767": {
   "first_seen": "2026-08-04T16:01:13.703207+00:00",
   "id": "63824a029f597438",
@@ -2240,6 +2271,18 @@
   "title": "Moonshot AI targets August 27 closing for pre-IPO round ahead of Hong Kong filing - KrASIA",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQVF91bFhmQWlENEZCSG1kcEpjZUx4VzVfbzVwbm5vYlB6bHBBV1RCMHNWbUxjQmplUUY4NnV6YS1ieTBfQV9rbmxNT2pHdkZLTUpwamFOS2c3SHJnY01iMDZrQTFDMEk5dHFZMDVteWU4ZHpwWVBIdjg1d3dvNmQ2V0gyOUlHZkx2TTNoSkl4NWdyMzloMlQwWWhkWnZpNzVzR0Jj?oc=5"
+ },
+ "4f45cf68d2894ffb": {
+  "first_seen": "2026-08-14T01:01:57.263759+00:00",
+  "id": "ea5b432de01f60d4",
+  "published": "2026-08-13T23:53:47+00:00",
+  "sid": "4f45cf68d2894ffb",
+  "source": "simon_willison",
+  "summary": "Release: sqlite-utils 4.2.1 Fixes a crashing bug in sqlite-utils 4.2 . I'd introduced code that looks like this: from typing_extensions import Self It turned out the typing-extensions package was not listed as a dependency for sqlite-utils - it was installed by one of the other dependencies in the dev dependency group , but when you uvx sqlite-utils directly you don't get those dependencies. As part of fixing this I figured out how to run a smoke test to ensure the CLI tool still works even without those dev dependencies, which can be run from the project checkout: uv run --isolated --no-default-groups sqlite-utils --help The --no-default-groups argument prevents it from installing that default dev group, and --isolated means that even if there is a .venv/ folder containing extra dependencies they will be ignored for the duration of that uv run command. Tags: packaging , python , sqlite-utils , uv",
+  "summary_1line": "Release: sqlite-utils 4.2.1 Fixes a crashing bug in sqlite-utils 4.2 . I'd introduced code that looks like this: from typing_extensions import Self It turned out the typing-extensions package was not listed as a depen...",
+  "title": "sqlite-utils 4.2.1",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Aug/13/sqlite-utils-2"
  },
  "4f6650814c72942c": {
   "first_seen": "2026-08-12T21:01:57.486349+00:00",
@@ -4546,6 +4589,18 @@
   "url": "https://simonwillison.net/2026/Aug/3/david-crawshaw/#atom-everything",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "a0054230c097ef75": {
+  "first_seen": "2026-08-14T01:01:57.263759+00:00",
+  "id": "39e83fe38ceb709b",
+  "published": "2026-08-13T20:11:29+00:00",
+  "sid": "a0054230c097ef75",
+  "source": "simon_willison",
+  "summary": "Release: sqlite-utils 4.2 Lots of improvements in this one relating to the table.transform() feature , which adds support for complex alter table operations by creating a fresh table, copying across the data and then dropping and replacing the old one. transform() now preserves a much larger array of edge-case schema definitions, including check constraints, unique constraints and even comments describing the columns. There are also new introspection properties for check constraints, and a whole lot of other smaller changes. Includes contributions from Bunlong Heng , ethanhawkes-gif , Rami Abdelrazzaq , nyxst4ck , and ikatyal2110 . (It later turned out 4.2 had a crashing bug , fixed in 4.2.1 .) Tags: releases , sqlite , sqlite-utils",
+  "summary_1line": "Release: sqlite-utils 4.2 Lots of improvements in this one relating to the table.transform() feature , which adds support for complex alter table operations by creating a fresh table, copying across the data and then...",
+  "title": "sqlite-utils 4.2",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Aug/13/sqlite-utils"
+ },
  "a026c30d6c994b0e": {
   "first_seen": "2026-07-30T18:01:50.224128+00:00",
   "id": "5ae0eb31a59dc010",
@@ -5401,6 +5456,22 @@
   "title": "Kimi K3 Sandbox Escape Used Network Leak, Frontier Says - Tech My Money",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRU1IMm80Zl91LWpnMTR1ZkpEUG4yYU52Q2piZ0FUdWRhN05USVF6OF9kcEx6eThBa2lzaEtqcUJuX3lGdzdrY3pObFlMSlJUQW1zUF90NnlGdXd2Mk5zSXV1ZlZlNTc2bTlURjh6X3VjS2ZuazNyeEEyMDBYUFBzSlpGZlQtbUNKVDJxQVh0Nk1GNlh20gGUAUFVX3lxTE9FTUgybzRmX3UtamcxNHVmSkRQbjJhTnZDamJnQVR1ZGE3TlRJUXo4X2RwTHp5OEFraXNoS2pxQm5feUZ3N2tjek5sWUxKUlRBbXNQX3Q2eUZ1d3YyTnNJdXVmVmU1NzZtOVRGOHpfdWNLZm5rM3J4QTIwMFhQUHNKWkZmVC1tQ0pUMnFBWHQ2TUY2WHY?oc=5"
+ },
+ "bc7398691fc8ae0a": {
+  "first_seen": "2026-08-14T01:01:57.263759+00:00",
+  "id": "498b46ec3cb35323",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-08-14T00:50:42+00:00",
+  "sid": "bc7398691fc8ae0a",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.148.0-alpha.14",
+  "summary_1line": "Release 0.148.0-alpha.14",
+  "title": "codex rust-v0.148.0-alpha.14",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.14",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "bcc5385107c410e3": {
   "first_seen": "2026-08-12T21:01:57.486349+00:00",
