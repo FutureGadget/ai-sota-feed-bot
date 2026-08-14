@@ -5,9 +5,9 @@ title: "Speculative decoding: draft cheaply, verify in parallel"
 status: active
 obstacles: [agent-latency]
 related_storylines: []
-evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
-updated: 2026-07-26
-covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
+evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9, edc5b011f192f53b, 80e7ec208d50f270]
+updated: 2026-08-14
+covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9, edc5b011f192f53b, 80e7ec208d50f270]
 ---
 
 ## TL;DR
@@ -45,8 +45,33 @@ quantization — the same "new model, latency-tuned serving on day one"
 pattern this page's throughline already tracks, now including the
 speculation setup itself instead of adding it later.
 
+The verification budget itself is becoming adaptive rather than fixed: vLLM's
+DSpark sizes the draft-verification budget from per-request confidence
+instead of verifying every drafted token, so one deployment configuration
+holds the throughput/latency frontier across the whole batch-size range
+(1 to 256) instead of needing separate tuning per load level.
+
+Diffusion-based drafting is also picking up a correction mechanism that
+scales past a single draft chain: DARTree extends a pretrained
+autoregressive correction head from chains to trees — building a
+fixed-width candidate tree in one batched pass, then best-first-pruning it
+down to the verification tree — and reports the highest average acceptance
+length across seven math/code/chat benchmarks, accepting up to 12.97 tokens
+per verification round (98.6% more than DFlash, 27.9% more than Domino in
+the same setting) for up to 9.73x lossless speedup over autoregressive
+decoding.
+
 ## What's new
-vLLM v0.26.0 ships MTP=1 speculative decoding for its new Inkling model
+DARTree extends autoregressive draft-correction from chains to trees for
+diffusion-based drafting, reporting up to 12.97 accepted tokens per
+verification round and up to 9.73x lossless speedup — a training-free
+technique that beats prior tree methods (DFlash, Domino) on acceptance
+length. vLLM's DSpark separately makes the verification budget itself
+adaptive, sizing it from per-request confidence so one configuration holds
+the throughput/latency frontier across the full batch-size range instead of
+retuning per load level.
+
+Prior update: vLLM v0.26.0 ships MTP=1 speculative decoding for its new Inkling model
 family as part of the model's initial full support stack (alongside base
 modeling, CUDA graph support, and quantization) rather than as a later
 optimization pass — evidence that draft-and-verify setup is now planned

@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
-updated: 2026-08-08
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 84f6a3145a477bed]
+updated: 2026-08-14
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 84f6a3145a477bed]
 ---
 
 ## TL;DR
@@ -72,12 +72,23 @@ owning the routing layer gives a team the same visibility and control over
 per-request model choice that metering gives over spend, without depending
 on a vendor's continuity.
 
+**Managed routers are answering the same cost pressure without a team
+standing up infrastructure**: Databricks' Unity AI Gateway reports smart
+routing that matches frontier-model quality on coding tasks at 30%+ lower
+cost per task — the buy-side counterpart to Millwright's self-hosted pitch,
+both competing on measured cost-per-task rather than list price.
+
 The load-bearing idea is that you cannot control what you don't meter, so
 per-task metering and budgets are the foundation the architectural savings
 build on.
 
 ## What's new
-Self-hosted routing joins the toolkit: Millwright, a Rust-based, self-hosted
+Databricks' Unity AI Gateway reports smart routing that matches frontier
+quality on coding tasks at 30%+ lower cost per task — a managed-router entry
+competing on the same cost-per-task metric self-hosted routing (Millwright)
+already stakes its pitch on.
+
+Prior update: Self-hosted routing joins the toolkit: Millwright, a Rust-based, self-hosted
 LLM router, positions itself as the cost-and-transparency alternative to
 hosted routers (Ramp Router, Vercel's AI Gateway) at the moment OpenRouter
 faces a possible acquisition — owning the routing layer instead of renting

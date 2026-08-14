@@ -5,9 +5,9 @@ title: "Context compaction: summarize, compress, and curate the working set"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac]
-updated: 2026-06-24
-covers_evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac]
+evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac, 34c069f2bffc49df]
+updated: 2026-08-14
+covers_evidence: [10129892c7fcda0f, 2c8ff757b828dee7, 83e63e463a1dff9d, c763e01254fa7c5c, 9c19b2212d6264ac, 34c069f2bffc49df]
 ---
 
 ## TL;DR
@@ -35,8 +35,25 @@ long-horizon agent can silently drop the very safety/governance constraints that
 were stated up front, so a later step acts as if rules it was given hours ago no
 longer apply — the compactor is a security surface, not just a cost optimization.
 
+A practitioner framing names the root failure directly instead of treating
+it as an unavoidable side effect of long sessions: coding agents fail from
+bloated context windows and stuffed prompts, not weak models, so the fix is
+engineering the working set rather than trusting a bigger window —
+lazy-loaded skills (only pull a skill's instructions into context when the
+task needs them), versioned context artifacts, externalized memory banks,
+and LLM-as-a-judge evals to check the result. It packages this page's
+existing techniques (curate rather than append, offload to an external
+store, trim at the input boundary) into one practical playbook rather than
+adding a new compaction mechanism.
+
 ## What's new
-Compaction now has a documented **safety** failure mode: "Governance Decay" shows
+A practitioner playbook ties this page's existing techniques into one
+framing: coding agents fail from bloated, stuffed context rather than weak
+models, and the fix is lazy-loaded skills, versioned context artifacts, and
+externalized memory banks — checked with LLM-as-a-judge evals rather than
+eyeballed.
+
+Prior update: Compaction now has a documented **safety** failure mode: "Governance Decay" shows
 that context summarization/eviction in long-running agents can silently erase the
 safety and governance constraints set earlier in the session, reframing the
 compactor as a security-critical layer that needs constraint-preserving

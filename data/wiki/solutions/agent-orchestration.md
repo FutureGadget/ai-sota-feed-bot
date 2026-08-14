@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
-updated: 2026-08-08
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, 8e9d4a60984ee94c]
+updated: 2026-08-14
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, 8e9d4a60984ee94c]
 ---
 
 ## TL;DR
@@ -132,8 +132,27 @@ execution, memory, sandboxes, agent-to-agent channels, and evals — shipping
 the production infrastructure around the harness itself instead of leaving
 deployment to whichever platform (Bedrock, Foundry) an adopter picks.
 
+A twelfth axis is a **heterogeneous-model** pattern rather than a
+single-harness or single-provider one: an AWS reference architecture
+combines OpenAI-compatible endpoints on Amazon SageMaker AI with the
+Bedrock AgentCore runtime so each specialized agent in a multi-agent
+workflow can run the model best suited to its own job, instead of every
+agent sharing one model choice. It also names a concrete instrumentation
+gap the pattern has to close by hand: SageMaker endpoints aren't
+token-instrumented by Strands Agents by default, so getting the same
+per-agent [cost](/topic/agent-cost) and
+[observability](/topic/agent-observability) visibility this page's other
+production deployments (Jefferies, Apollo, the AWS market-surveillance
+reference) take for granted takes separate wiring.
+
 ## What's new
-LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
+An AWS reference architecture pairs SageMaker AI's OpenAI-compatible
+endpoints with the Bedrock AgentCore runtime so each agent in a multi-agent
+workflow can run the model best suited to its job — but the pattern has to
+add token-level observability by hand, since Strands Agents doesn't
+instrument SageMaker endpoints by default.
+
+Prior update: LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
 runtime wrapping the Deep Agents harness in durable execution, memory,
 sandboxes, agent-to-agent channels, and evals — the same SDK-to-managed-
 platform jump Microsoft's Agent Framework made (see State of the art), this
