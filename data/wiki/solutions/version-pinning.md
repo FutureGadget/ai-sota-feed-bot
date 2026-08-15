@@ -5,9 +5,9 @@ title: "Version pinning, compatibility ranges, and staged upgrades"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8]
-updated: 2026-07-24
-covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8]
+evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457]
+updated: 2026-08-15
+covers_evidence: [473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, c69cda5ccda84a51, 8db233accb157cb2, 498dbb665652c50c, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 6ffc451084feba44, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457]
 ---
 
 ## TL;DR
@@ -55,9 +55,24 @@ also not specific to Anthropic's stack: Codex 0.144.6's changelog reads as a
 routine "refreshed bundled instructions" note, but the same release quietly
 corrected its bundled GPT-5.6 Sol/Terra/Luna models' context windows to
 272,000 tokens — a pin on the CLI version alone would have silently carried
-stale model metadata forward. The honest current state is that the
+stale model metadata forward. A fourth wave of chain-deep bundled-CLI bumps
+(SDK v0.2.135 → v0.2.139) makes the case at its largest scale yet: three of
+the four CLI versions forwarded across those four "no other changes" SDK
+releases carry undisclosed security fixes — v2.1.227 alone fixes four
+permission-check bypasses, v2.1.232 fixes a PowerShell and a Windows Git Bash
+bypass, and v2.1.233 closes an NTLM credential-leak vector — so a lockfile
+that pinned only the SDK's own version number would have accepted or missed
+seven distinct security-relevant behavior changes across four "cosmetic"
+releases. The honest current state is that the
 tooling gives you the levers but the defaults still favor latest, so pinning is a
 discipline you impose, not a default you inherit.
+
+The obstacle itself is starting to attract **purpose-built tooling** rather
+than being handled purely with lockfiles and CI gates: Drift is an
+open-source, intent-driven versioning tool for AI coding agents built to
+version and diff an agent's behavior explicitly across releases — the same
+instinct this page's chain-deep pinning discipline serves, packaged as a
+dedicated tool rather than a discipline a team has to invent for itself.
 
 Pinning also has to account for **known-vulnerable** versions, not just
 behavioral drift: deptrust checks an agent's resolved package versions across
@@ -78,7 +93,16 @@ discipline this page argues for, aimed at the migration process itself rather
 than just the target version.
 
 ## What's new
-Pinning now has to track more than bundled-CLI churn: SDK v0.2.126 added
+A fourth, largest-yet wave of chain-deep bundled-CLI bumps (SDK v0.2.135 →
+v0.2.139, four releases each reading only "updated bundled Claude CLI")
+shows a version-only pin missing three of four CLI versions forwarded — and
+those three carry seven distinct undisclosed security fixes between them
+(four permission-check bypasses in v2.1.227, two more in v2.1.232, an NTLM
+credential-leak vector closed in v2.1.233). A new open-source tool, Drift,
+is now packaging this page's chain-deep-pinning discipline as a dedicated
+product rather than something each team re-invents.
+
+Prior update: Pinning now has to track more than bundled-CLI churn: SDK v0.2.126 added
 genuinely new pinnable API surface (`terminal_reason`, typed `model_usage`)
 on an ordinary patch bump, and v0.2.127 shows a pin held one version early
 also keeps a real stdin-closure bug alongside missing the CLI update to

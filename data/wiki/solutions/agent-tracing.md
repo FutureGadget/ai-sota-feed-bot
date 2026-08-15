@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9]
-updated: 2026-07-28
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39]
+updated: 2026-08-15
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39]
 ---
 
 ## TL;DR
@@ -58,14 +58,32 @@ query latency even though each trace is a large, deeply nested JSON
 document — the piece of infrastructure that turns "traces are stored
 somewhere" into "traces are queryable at fleet scale."
 
+A serving platform is now folding capture directly into its own request
+tracing rather than leaving it to a bolt-on SDK: Cloudflare's agent tracing
+adds `invoke_agent` → `chat`/`execute_tool` → `tool_approval` spans onto its
+existing Workers traces, keyed by agent name, agent ID, and conversation ID.
+It sharpens the retention/PII trade-off below into a concrete platform-level
+gotcha: whether message and tool payloads are captured *by default* is
+opposite between its two supported SDKs (off in one, on in the other), and
+captured payloads are also subject to undisclosed span-size truncation — so
+the same capture feature can silently over-retain personal data on one stack
+and silently drop the exact reasoning or tool arguments a debugging session
+needed on another.
+
 ## What's new
-LangSmith's SmithDB shows the storage layer underneath trace search is its
+Cloudflare shipped agent tracing built into its existing Workers traces,
+but the two SDKs it supports default to opposite payload-storage behavior —
+a concrete instance of the retention/PII trade-off below being a per-SDK
+default rather than a platform-wide choice, and a reminder that span-size
+truncation can silently drop the payload a debugging session needed most.
+
+Prior update: LangSmith's SmithDB shows the storage layer underneath trace search is its
 own engineering problem: a custom inverted index over object storage holds
 a 400ms median (P50) query latency for full-text search and JSON filtering,
 despite each trace being a large, deeply nested JSON document — the piece
 that makes millions of stored traces actually queryable, not just archived.
 
-Trace capture widened to voice agents: LangSmith now traces Pipecat,
+Prior update: Trace capture widened to voice agents: LangSmith now traces Pipecat,
 LiveKit, OpenAI Realtime, and Gemini Live voice agents, capturing audio,
 STT/TTS latency, interruptions, and tool calls in one trace alongside the
 text-agent traces it already captures.
@@ -73,7 +91,11 @@ text-agent traces it already captures.
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get
 expensive to retain and search at fleet scale — so retention, sampling, and PII
-scrubbing become real decisions. Model-over-trace analysis is itself an
+scrubbing become real decisions. Cloudflare's launch shows those decisions
+aren't even consistent within one platform: the same feature ships opposite
+payload-storage defaults depending on which of its two supported SDKs a team
+picked, so "does this platform capture PII by default" can only be answered
+per-integration, not per-vendor. Model-over-trace analysis is itself an
 LLM-cost-and-reliability line item (the analyzer can be wrong or miss the rare
 failure), and a vendor trace format can lock you in. Plain JSONL is portable but
 shifts the analysis burden onto you. Best value comes from standardizing the
