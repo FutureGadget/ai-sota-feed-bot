@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1]
-updated: 2026-08-12
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39]
+updated: 2026-08-15
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39]
 ---
 
 ## TL;DR
@@ -132,8 +132,29 @@ trajectory-capture discipline the vendor platforms above ship, now available
 in a widely-used, framework-agnostic command-line tool rather than only a
 hosted product.
 
+A major serving platform now ships tracing **natively** rather than leaving
+it to a third-party SDK: Cloudflare added agent tracing directly into
+existing Workers traces, with `invoke_agent` → `chat`/`execute_tool` →
+`tool_approval` spans keyed by agent name, agent ID, and conversation ID so
+a session replays turn by turn. The launch also exposes the privacy tension
+this page's trace-first shift creates rather than solves: message and tool
+payloads default to *not* being stored under one SDK wrapper (Vercel's AI
+SDK) but *are* stored by default under another (Flue) — the same platform
+feature ships with opposite privacy defaults depending on which harness a
+team already picked, and those payloads routinely carry personal data or
+secrets. Payloads are also subject to undisclosed span-size truncation, so a
+trace can silently drop the reasoning or tool arguments a debugging session
+needed most.
+
 ## What's new
-LangSmith's Bring Your Own Cloud option reached general availability on
+Cloudflare shipped agent tracing natively into its existing Workers
+traces, but the launch also surfaces a real gotcha: message/tool payload
+storage defaults are opposite between its two supported SDKs (off by
+default in one, on by default in the other), so the same platform feature
+can silently retain or silently drop personal data depending on which
+harness a team already chose.
+
+Prior update: LangSmith's Bring Your Own Cloud option reached general availability on
 AWS — managed observability, evaluation, and deployment with the workload
 kept inside the customer's own VPC, meeting the self-hosted control-plane
 pattern this page already tracks (AWS's Claude Apps Gateway) from the
@@ -143,15 +164,6 @@ Prior update: LangChain's autonomous Kubernetes SRE agent pairs LangSmith tracin
 human-approval gate before any change is applied — the trace doubles as what
 a human reviews before the agent acts, not only what an engineer replays
 after an incident.
-
-Prior update: ORCA-bench measures oncall root-cause analysis directly for the first time
-on this page: across five frontier agents on 1,079 tasks against a live
-instrumented microservice testbed, the best RCA accuracy is 25.3% on
-realistic-input tasks and only 10.0% on hard ones, with the weakest model
-hallucinating a root cause 40% of the time — a concrete lower bound on how
-far agent oncall reasoning still has to go, even as the Coroot finding above
-shows the raw reasoning step already works when the context is prepared
-well.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a
