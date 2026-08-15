@@ -5,137 +5,137 @@ Focus: AI Platform Engineering
 ## 1. Cloudflare Adds Agent Tracing, with Truncation Limits and Uneven Payload Defaults
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/cloudflare-agent-tracing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.762 | Reliability: 1.0
+- Score: 2.735 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Presentation: From Models to Agents: Building Context-Aware Consumer AI at Scale at DoorDash
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/ai-agentic-recommendations-semantic-ids/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.603 | Reliability: 1.0
+- Score: 2.577 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 3. Building an AI Text Detector From Scratch
 - Type: news | Source: sebastian_raschka
 - URL: https://magazine.sebastianraschka.com/p/ai-detector-from-scratch
-- Score: 2.427 | Reliability: 1.0
+- Score: 2.403 | Reliability: 1.0
 - Why it matters: 
 
-## 4. Alibaba AI downloads top 3B beating Meta, Google (BABA:NYSE) - Seeking Alpha
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMijgFBVV95cUxNSjUyOGFTaF9ES2tDdjg0N2w5Ui1GOFVFZFRSLVFLWm9IakdrSW01akZ0U1d5d05VR05kVEtIcEpnN0ZGcW50R09TLWZTVGF0eFlZWlQ5ODlMUWJjQWhxZnVyOWdfcTIzNk5jZDUxRDZPSDNxVEVVUVhRWldCblZ1RVUzdVNrVG9oNWhhd0pR?oc=5
-- Score: 2.354 | Reliability: 1.0
-- Why it matters: 
-
-## 5. Why managed agents are the next big thing in agent building
+## 4. Why managed agents are the next big thing in agent building
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/why-managed-agents-are-the-next-big-thing-in-agent-building
-- Score: 2.352 | Reliability: 1.0
+- Score: 2.332 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 6. Northern Gannet
+## 5. Northern Gannet
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/15/sighting-391300422/
-- Score: 2.331 | Reliability: 1.0
+- Score: 2.309 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Alibaba AI downloads top 3B beating Meta, Google (BABA:NYSE) - Seeking Alpha
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMijgFBVV95cUxNSjUyOGFTaF9ES2tDdjg0N2w5Ui1GOFVFZFRSLVFLWm9IakdrSW01akZ0U1d5d05VR05kVEtIcEpnN0ZGcW50R09TLWZTVGF0eFlZWlQ5ODlMUWJjQWhxZnVyOWdfcTIzNk5jZDUxRDZPSDNxVEVVUVhRWldCblZ1RVUzdVNrVG9oNWhhd0pR?oc=5
+- Score: 2.299 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. claude-code v2.1.233
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.233
-- Score: 2.28 | Reliability: 1.0
+- Score: 2.256 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 8. How Claude's text watermarking works
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-text-watermark
-- Score: 2.221 | Reliability: 1.0
+- Score: 2.191 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Introducing Gemini 3.7 Flash
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-3-7-flash/
-- Score: 1.854 | Reliability: 1.0
+- Score: 1.832 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. The builder’s guide to GPT‑5.6
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/builders-guide-to-gpt-5-6
-- Score: 1.836 | Reliability: 1.0
+- Score: 1.815 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 11. Don't classify. Hallucinate!
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/14/dont-classify-hallucinate/
-- Score: 2.233 | Reliability: 1.0
+- Score: 2.213 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. Enhancing Virtual Agents through SLMs and Edge-Computing: An Exploratory Evaluation of Think and Memory Processes
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.13420v1
-- Score: 2.183 | Reliability: 1.0
+- Score: 2.172 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 13. GLM-5.3: How Chinese labs keep stride with the frontier
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/glm-53-how-chinese-labs-keep-stride
-- Score: 2.171 | Reliability: 1.0
+- Score: 2.151 | Reliability: 1.0
 - Why it matters: 
 
 ## 14. codex 0.148.0-alpha.19
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.19
-- Score: 2.148 | Reliability: 1.0
+- Score: 2.124 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 15. Intern-S2-Preview: Scientific Agentic Foundation Model
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.13505v1
-- Score: 2.132 | Reliability: 1.0
+- Score: 2.12 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
 ## 16. Vero: Can AI Agents Build Formally Verified Software Repositories?
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2608.13522v1
-- Score: 2.098 | Reliability: 1.0
+- Score: 2.087 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, evaluation.
 
 ## 17. claude-agent-sdk-python v0.2.139
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.139
-- Score: 2.075 | Reliability: 1.0
+- Score: 2.052 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 18. Patterns and problems in multiagent systems
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/multiagent-systems
-- Score: 2.031 | Reliability: 1.0
+- Score: 2.021 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 19. How to bring your software delivery workflow into GitHub with agent apps
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/how-to-bring-your-software-delivery-workflow-into-github-with-agent-apps/
-- Score: 2.017 | Reliability: 1.0
+- Score: 2.0 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, software delivery.
 
 ## 20. DARTree: Speculative Diffusion Decoding with Autoregressive Draft Trees
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.13524v1
-- Score: 1.866 | Reliability: 1.0
+- Score: 1.856 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. Previewing Ultrafast mode: GPT-5.6 Sol at up to 14X the speed
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/previewing-ultrafast
-- Score: 1.719 | Reliability: 1.0
+- Score: 1.7 | Reliability: 1.0
 - Why it matters: 
 
-## 22. Using AI_Functions in Your Data Warehouse: Top Use Cases
+## 22. OpenAI appoints Dali Rajic as Chief Revenue Officer
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/dali-rajic-chief-revenue-officer
+- Score: 1.608 | Reliability: 1.0
+- Why it matters: 
+
+## 23. Using AI_Functions in Your Data Warehouse: Top Use Cases
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/using-aifunctions-your-data-warehouse-top-use-cases
-- Score: 1.41 | Reliability: 1.0
-- Why it matters: 
-
-## 23. Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/ugm-indosat-nvidia-ai-technology-center/
-- Score: 1.147 | Reliability: 1.0
+- Score: 1.385 | Reliability: 1.0
 - Why it matters:
