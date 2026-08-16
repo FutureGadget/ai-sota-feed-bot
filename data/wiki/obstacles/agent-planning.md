@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae]
-updated: 2026-08-04
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f]
+updated: 2026-08-16
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f]
 ---
 
 ## TL;DR
@@ -196,8 +196,27 @@ loop — harness, API, and inference working together — reinforces this
 page's standing "the loop is infra, not a prompt" thesis from inside a
 shipping consumer product rather than a framework or research write-up.
 
+The "loop as reusable infra" thesis also gains a **composition primitive**
+distinct from Genkit's single `chat()` interface: Flue's Agent Hooks borrow
+React's hooks pattern — `useSkill()`, `useTool()`, `useSubagent()`, and
+custom hooks among 16 built-ins — so an agent's tools, resources, and state
+can attach or change *during* a run instead of being fixed in a static
+config up front. The creator's own framing names the planning gap directly:
+a real support or triage bot "can't be fully configured in advance... it has
+to adapt in real-time," and unlike frameworks that add a harness as an
+afterthought, hooks make the harness itself the foundation the rest of the
+agent is built on — a concrete answer to *how* a loop re-plans mid-run, not
+just that it should.
+
 ## What's new
-OpenAI found that retaining reasoning state and enabling context compaction
+Flue's Agent Hooks bring a React-inspired composition primitive to harness
+design: tools, resources, and state can attach or change mid-run through
+hooks (`useSkill()`, `useTool()`, `useSubagent()`) instead of a static
+config fixed before the agent starts, extending this page's "loop as
+reusable infra" thread with a concrete mechanism for adapting a plan in
+flight.
+
+Prior update: OpenAI found that retaining reasoning state and enabling context compaction
 as two separate API settings roughly tripled GPT-5.6's score on ARC-AGI-3,
 tying state management between planning steps directly to capability rather
 than only to cost or latency (see [agent
@@ -205,7 +224,7 @@ evaluation](/topic/agent-evaluation)). A companion write-up on how ChatGPT
 tunes its own agent loop (harness, API, and inference together) reinforces
 the same "loop as infra" thesis from inside a shipping product.
 
-GitHub's Copilot team frames a stable, repeatable harness — prototype, plan,
+Prior update: GitHub's Copilot team frames a stable, repeatable harness — prototype, plan,
 implement, review — as the durable core to build around rather than
 chasing every new agent tool, echoing LangGraph's "graph/loop/harness
 engineering is one idea" convergence argument from a second major

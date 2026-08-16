@@ -5,9 +5,9 @@ title: "External knowledge base: vector and graph retrieval"
 status: active
 obstacles: [agent-memory]
 related_storylines: []
-evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f]
-updated: 2026-07-16
-covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f]
+evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, 7b2b4d44ea281840]
+updated: 2026-08-16
+covers_evidence: [425a66a9c84b30ae, 5c5003b8c444211d, 2d698f04404f697d, e596543fdecfca96, 623de2bad771dca8, eb5267262e7d31c8, 0657f60e37a5d3d2, 4532a97181f06d93, ca2de3ecb9f0eb55, 9a34e69e3da208ca, 648e4fc20120543d, 567c0f7008740f1a, c54c0758c14bd2c6, 04ca1a84bd09d4e2, 9283a6f418d96ab7, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, 7b2b4d44ea281840]
 ---
 
 ## TL;DR
@@ -100,7 +100,14 @@ LLM answers past what its retrieved context actually supports — a further
 refinement of the hybrid-retrieval-plus-rerank stack already converged on.
 
 ## What's new
-The embedding model itself improved: NVIDIA's Nemotron 3 Embed ranks #1
+DynamoDB shipped native vector search — embeddings stored alongside
+application rows, a new `SearchVectors` API, up to 4,096 dimensions, and
+single-digit-millisecond latency at trillions-of-vectors scale — joining
+AlloyDB, Elastic Atlas, and BetterDB as a fourth incumbent datastore that
+now doubles as the retrieval layer instead of requiring a separate vector
+DB.
+
+Prior update: The embedding model itself improved: NVIDIA's Nemotron 3 Embed ranks #1
 overall on RTEB, and its smaller 1B variant cuts its predecessor's error rate
 by 27% — a ceiling-raising change orthogonal to the hybrid-retrieval,
 graph, and provenance work below, since it improves every architecture that
@@ -162,6 +169,18 @@ config, and retrieval, letting enterprise multi-tenant deployments narrow
 recall by metadata (tenant, doc type, time range) rather than similarity
 alone — a practical complement to the hybrid dense-plus-lexical retrieval
 already converged on.
+
+A fourth incumbent joins that list with concrete specifics rather than an
+AI-functions layer bolted on top: DynamoDB's native vector search stores
+embeddings directly alongside application rows and adds a `SearchVectors`
+API for approximate nearest-neighbor lookups — up to 4,096 dimensions,
+Euclidean/cosine/dot-product distance, and single-digit-millisecond query
+latency at a claimed trillions-of-vectors scale — eliminating the
+sync-two-systems overhead of a separate vector DB for teams already on
+DynamoDB. Cost is metered per byte across three axes beyond standard
+DynamoDB charges (data written, data processed per search, data stored), so
+the collapse-into-one-store win trades a new, finer-grained billing surface
+for the sync overhead it removes.
 
 ## Trade-offs
 Adds a retrieval hop (latency) and an index to keep fresh and consistent;
