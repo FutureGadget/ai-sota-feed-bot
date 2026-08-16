@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd]
-updated: 2026-08-04
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358]
+updated: 2026-08-16
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358]
 ---
 
 ## TL;DR
@@ -212,8 +212,38 @@ exercise — every flight, hotel, and attraction in an itinerary has to be
 correct and bookable at once, so one wrong leg fails the whole task even if
 every other step was right.
 
+The domain-narrow list widens twice more. The Rails Foundation commissioned
+the first systematic benchmark for coding agents on Ruby on Rails
+specifically, scoring accuracy, speed, token consumption, and cost across 8
+models on self-contained tasks and checking whether agents reach for current
+Rails APIs rather than stale training data — a Stage 2 covering multi-step
+feature work, and the open-sourced Ruby harness behind it, are planned.
+Separately, an open, **tool-agnostic security benchmark** joins the list as
+its own axis rather than a coding variant: it tests any HTTP-addressable
+classifier against 497 attacks across 13 categories — direct/indirect
+injection, credential exfiltration, tool abuse, system-prompt extraction,
+memory poisoning, supply-chain manipulation — plus 1,172 benign samples,
+scoring F1, precision, and recall together so a defense that blocks
+everything doesn't look artificially strong (see [prompt
+injection](/topic/prompt-injection)).
+
 ## What's new
-Four new domain-narrow suites landed in the same week: SWE-Touch (a user
+The domain-narrow list widens along two more axes. The Rails Foundation
+commissioned the first systematic benchmark for coding agents on Ruby on
+Rails specifically — small, self-contained tasks scored on accuracy, speed,
+token consumption, and cost across 8 frontier and open-weight models,
+checking whether agents use current Rails APIs rather than stale training
+data; a harder multi-step Stage 2 and the open-sourced Ruby harness
+("lemans") are planned. Separately, security joins the domain list as its
+own axis: an open, tool-agnostic agent-security benchmark tests any
+HTTP-addressable classifier against 497 attacks across 13 categories (direct
+and indirect injection, credential exfiltration, tool abuse, system-prompt
+extraction, memory poisoning, supply-chain manipulation) plus 1,172 benign
+samples, scored on F1/precision/recall together so a defense that blocks
+everything doesn't look artificially strong (see [prompt
+injection](/topic/prompt-injection)).
+
+Prior update: Four new domain-narrow suites landed in the same week: SWE-Touch (a user
 editing code mid-task), IssueTrojanBench (malicious issue requests as an
 adversarial-input axis), ExtractBench (schema-guided document extraction),
 and TREK (trip planning, where every leg of an itinerary has to be correct

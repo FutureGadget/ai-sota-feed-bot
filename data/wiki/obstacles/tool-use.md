@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
-updated: 2026-08-12
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de]
+updated: 2026-08-16
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de]
 ---
 
 ## TL;DR
@@ -164,8 +164,28 @@ Claude Apps Gateway on the observability page) putting model *and* tool
 governance behind a managed gateway instead of leaving it to per-connector
 configuration (see [MCP](/topic/mcp)).
 
+An eleventh axis is **governing the sequence of tool calls, not just one
+call in isolation**: AWS open-sourced Dogwood, a policy language extending
+its Cedar engine with temporal operators (`formerly`, `count_within`,
+`count_distinct_within`, `sum_within`) that can read an agent's own
+tool-call history rather than judging each request alone. The concrete case
+for why this matters: a Cedar rule capping transfers at $5,000 that checks
+*responses* is defeated by concurrency — three simultaneous $2,000 requests
+all pass, because none has settled before the others arrive — so the rule
+has to reason over *requests* within a time window instead. The trade-off is
+real: temporal evaluation needs stateful event tracking and gives up Cedar's
+automated formal-reasoning guarantees, a cost this page's authorization and
+governance axes above (Enterprise-Managed Authorization, Azure's AI Gateway)
+have not had to pay.
+
 ## What's new
-Cloudflare previewed automatic WebMCP support — any site can turn it on from
+AWS open-sourced Dogwood, a Cedar extension with temporal policy operators
+that reason over an agent's tool-call *history* rather than one request at a
+time — closing a concrete gap plain per-request authorization has: a
+response-checked rate limit that three concurrent requests can defeat before
+any of them settles.
+
+Prior update: Cloudflare previewed automatic WebMCP support — any site can turn it on from
 a dashboard toggle, no code change — widening the browser actuation surface
 from a Chrome origin trial one team opts into to a one-click switch a site
 operator flips. Separately, the MCP 2026-07-28 statelessness change is
