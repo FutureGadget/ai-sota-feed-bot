@@ -65,6 +65,14 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("normStorylineUrl(card?.source_url) === url", self.html)
         self.assertNotIn("playbookSources[itemKey(it)]", self.html)
 
+    def test_fresh_editorial_updates_stay_in_the_feed_reading_column(self) -> None:
+        """The freshness strip must not become a third item in the wide rail."""
+        updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        self.assertIn('id="freshUpdates" class="fresh-updates"', self.html)
+        self.assertIn('class="feed-column"', self.html)
+        self.assertIn("anchor.insertBefore(strip, anchor.firstChild);", updates)
+        self.assertNotIn("parent.insertBefore(strip, anchor);", updates)
+
     def test_korean_feed_shell_uses_localized_snapshot_endpoint(self) -> None:
         html = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")
         self.assertIn('<html lang="ko">', html)
@@ -227,11 +235,11 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertNotIn(".model-radar-rail { order:-1;", self.html)
         # Wide rail: the breakpoint IS the widened main width, so there is no
         # in-between viewport range where main has grown past 980px but the
-        # rail hasn't fully landed yet - #list keeps the exact calc used by
+        # rail hasn't fully landed yet - .feed-column keeps the exact calc used by
         # the base 980px `main` rule (980px - 2 * 1.35rem side padding).
         self.assertIn("@media (min-width:1200px) {", self.html)
         self.assertIn("main { max-width:1200px; }", self.html)
-        self.assertIn("#list { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }", self.html)
+        self.assertIn(".feed-column { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }", self.html)
 
     def test_model_radar_rail_collapses_to_one_row_below_the_rail_breakpoint(self) -> None:
         # The feed is the product on a phone. A five-row radar block anywhere

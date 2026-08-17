@@ -40,9 +40,10 @@ Vercel) and reserves red for action-required counts. The accent-text-on-tint
 treatment keeps adequate contrast in both light and dark themes, unlike
 white-on-accent.
 
-The feed strip uses the same accent-tinted chip language, on a faint accent
-panel with a 3px accent left border (matching the feed's catch-up box), so it
-reads as "the same calm newness signal, promoted one level".
+The feed strip uses the same accent-tinted chip language, with a subtle accent
+rule rather than a heavy panel. It lives in the feed's reading column, above
+the ranked cards and separate from the wide-screen model rail, so readers see
+it while continuing the brief rather than treating it as a competing column.
 
 ## Behaviour
 
