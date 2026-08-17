@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
-updated: 2026-08-08
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a]
+updated: 2026-08-17
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a]
 ---
 
 ## TL;DR
@@ -76,8 +76,22 @@ The load-bearing idea is that you cannot control what you don't meter, so
 per-task metering and budgets are the foundation the architectural savings
 build on.
 
+**Agent-initiated payments are becoming their own budget surface**, not just
+LLM token spend: AWS's AgentCore Payments middleware lets a LangChain agent
+pay third-party APIs directly, signing x402-protocol payments against a
+deterministic per-session budget rather than handing the agent an open
+credential, with every payment traced through LangSmith — extending "meter
+and cap" from model calls to the agent's own outbound spending on the
+services it calls.
+
 ## What's new
-Self-hosted routing joins the toolkit: Millwright, a Rust-based, self-hosted
+AWS's AgentCore Payments middleware extends metering and budgets past LLM
+token spend to an agent's own outbound payments: LangChain agents sign
+x402-protocol payments against a deterministic per-session budget instead of
+holding an open credential, with LangSmith tracing every payment call (see
+State of the art above).
+
+Prior update: Self-hosted routing joins the toolkit: Millwright, a Rust-based, self-hosted
 LLM router, positions itself as the cost-and-transparency alternative to
 hosted routers (Ramp Router, Vercel's AI Gateway) at the moment OpenRouter
 faces a possible acquisition — owning the routing layer instead of renting
