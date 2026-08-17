@@ -5,101 +5,95 @@ Focus: AI Platform Engineering
 ## 1. Qwen 3.8 27B is excellent, but it defaults to wildly overthinking things
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
-- Score: 3.987 | Reliability: 1.0
+- Score: 3.951 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 2. Markdown SVG upgrades
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/16/markdown-svg-upgrades/
-- Score: 2.714 | Reliability: 1.0
+- Score: 2.816 | Reliability: 1.0
 - Why it matters: 
 
 ## 3. Show HN: VocalCode – push-to-talk dictation for AI coding agents, on-device
 - Type: news | Source: hackernews_ai
 - URL: https://vocalcode.app/
-- Score: 2.639 | Reliability: 1.0
+- Score: 2.584 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. AWS Open-Sources Dogwood, Extending Cedar to Govern Sequences of Agent Tool Calls
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/aws-dogwood-agent-policy/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.461 | Reliability: 1.0
+- Score: 2.442 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. What is an AI agent?
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/what-is-an-agent
-- Score: 2.372 | Reliability: 1.0
+- Score: 2.353 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 6. AWS Introduces Native Vector Search for DynamoDB
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/aws-dynamodb-vector-search/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.29 | Reliability: 1.0
+- Score: 2.272 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. DeepSeek's top-ranked V4 Flash stumbles on real agent tasks as its prices surge - VentureBeat
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMitwFBVV95cUxQT09QYS1lYWxjTFFrbEtpUE9CQWVBajI5S0E2SG1vLWxvVkMzUHVGLTlHNkc5dTJUWGxBdmJQMmpkNTFsS1FqT2wzWGtfMnBFbHQ4MTF5TkxiRlRuQUdUaWRxdkZORko4N29hM1dtdlJ6cldnUTdaQmotSF92cGxoOW5OV0IwWDcwRS0tRjBZN2E3NllfbjIwN1lDNFcwVUxJXzlOQWdlSWlWTGxCNkptZGpwdzU5V1U?oc=5
-- Score: 2.165 | Reliability: 1.0
+- Score: 2.124 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 8. React for Agents: Astro Creator Brings Hooks to his Meta-Harness, Flue
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/flue-2
-- Score: 1.968 | Reliability: 1.0
+- Score: 1.954 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
 ## 9. codex 0.148.0-alpha.20
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.20
-- Score: 1.892 | Reliability: 1.0
+- Score: 1.873 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 10. How Claude's text watermarking works
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/claude-text-watermark
-- Score: 1.686 | Reliability: 1.0
+- Score: 1.675 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Building an AI Text Detector From Scratch
 - Type: news | Source: sebastian_raschka
 - URL: https://magazine.sebastianraschka.com/p/ai-detector-from-scratch
-- Score: 1.885 | Reliability: 1.0
+- Score: 1.872 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. Enhancing Virtual Agents through SLMs and Edge-Computing: An Exploratory Evaluation of Think and Memory Processes
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.13420v1
-- Score: 1.852 | Reliability: 1.0
+- Score: 1.84 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 13. Intern-S2-Preview: Scientific Agentic Foundation Model
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.13505v1
-- Score: 1.809 | Reliability: 1.0
+- Score: 1.798 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 14. Vero: Can AI Agents Build Formally Verified Software Repositories?
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2608.13522v1
-- Score: 1.771 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
-
-## 15. GLM-5.3: How Chinese labs keep stride with the frontier
+## 14. GLM-5.3: How Chinese labs keep stride with the frontier
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/glm-53-how-chinese-labs-keep-stride
-- Score: 1.737 | Reliability: 1.0
+- Score: 1.727 | Reliability: 1.0
 - Why it matters: 
 
-## 16. DARTree: Speculative Diffusion Decoding with Autoregressive Draft Trees
+## 15. Vero: Can AI Agents Build Formally Verified Software Repositories?
 - Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2608.13524v1
-- Score: 1.575 | Reliability: 1.0
-- Why it matters: 
+- URL: http://arxiv.org/abs/2608.13522v1
+- Score: 1.695 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
 
-## 17. Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets
+## 16. Record, train, and deploy from one place with Strands Agents, LeRobot, and Hugging Face Storage Buckets
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/amazon/strands-lerobot-streaming-data-loop
-- Score: 1.487 | Reliability: 1.0
+- Score: 1.477 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
