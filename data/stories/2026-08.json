@@ -2341,6 +2341,22 @@
   "url": "https://simonwillison.net/2026/Aug/16/qwen-38-27b",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "45f01235e11c1ae2": {
+  "first_seen": "2026-08-17T02:02:00.289754+00:00",
+  "id": "7cf37ed0b709006e",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-08-14T16:06:41+00:00",
+  "sid": "45f01235e11c1ae2",
+  "source": "arxiv_llm_reliability",
+  "summary": "LLM evaluations often use fixed sampling budgets, testing every item the same number of times even after estimates are precise. We introduce optstop, a precision-based adaptive stopping framework that treats evaluation as a sequential measurement problem: keep sampling where uncertainty remains high, and stop where estimates are precise or stable enough. The framework builds on hierarchical Bayesian inference, supports binary, ordinal, and continuous outcomes, and keeps every benchmark item eligible for sampling, without requiring a calibrated item bank. It runs live or retrospectively, and includes a safeguard that samples more cautiously as measured performance approaches zero, where rare successes matter most. In an illustrative 200-item, 10-epoch evaluation, it removes 57%-97% of planned trials across nine validation settings, with overall conclusions equivalent to the full run. These results show that LLM evaluation compute can be allocated by uncertainty rather than by fixed repetition counts, with the magnitude of savings depending on evaluation design.",
+  "summary_1line": "LLM evaluations often use fixed sampling budgets, testing every item the same number of times even after estimates are precise. We introduce optstop, a precision-based adaptive stopping framework that treats evaluatio...",
+  "title": "Knowing When to Stop: Bayesian Optimal Stopping for LLM Evaluations",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.14425v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "46fcc09b2b723efe": {
   "first_seen": "2026-08-06T01:02:01.157792+00:00",
   "id": "2b08e83ede15bc80",
@@ -2387,6 +2403,22 @@
   "type": "news",
   "url": "https://federaide.rocklab.in",
   "why_it_matters": "Matches feed focus: agent, harness."
+ },
+ "48118d2adb1b4fda": {
+  "first_seen": "2026-08-17T02:02:00.289754+00:00",
+  "id": "719e93b01ae69fa8",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-14T06:46:02+00:00",
+  "sid": "48118d2adb1b4fda",
+  "source": "arxiv_cs_cl",
+  "summary": "Large Reasoning Models (LRMs) achieve strong performance on complex tasks through extended chain-of-thought generation, but incur substantial computational costs during inference. In production settings, batched inference is essential for high throughput, yet the existing training-free adaptive pruning methods we evaluate severely degrade in this regime. Because a batch must share a single pruning mask, these methods aggregate activations across samples and then apply threshold-based selection; the threshold, calibrated offline on unaggregated activations, no longer matches the aggregated distribution, so the realized sparsity ratio drifts and accuracy on reasoning tasks collapses under batched inference. In this work, we propose a training-free adaptive pruning method designed specifically for batched inference in LRMs, built on two components. First, we replace threshold-based selection with periodic top-k selection over the aggregated importance scores, which is unaffected by the shift that aggregation induces in the activation distribution, and which runs selection once per update period rather than at every token, preserving the speedup. Second, based on the observation that important neurons re-fire periodically during long reasoning generation, we introduce an activation memory that accumulates importance across update phases so that recurring neurons are retained. Experiments on diverse reasoning benchmarks demonstrate that our method outperforms the previous state-of",
+  "summary_1line": "Large Reasoning Models (LRMs) achieve strong performance on complex tasks through extended chain-of-thought generation, but incur substantial computational costs during inference. In production settings, batched infer...",
+  "title": "Batch-wise Adaptive Pruning: Periodic Neuron Activation-Aware Weight Pruning for Language Reasoning Model",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.14003v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "4851b3c59ed77066": {
   "first_seen": "2026-08-04T00:01:55.221694+00:00",
@@ -7107,6 +7139,23 @@
   "type": "news",
   "url": "https://news.ycombinator.com/item?id=49318304",
   "why_it_matters": "Matches feed focus: agentic."
+ },
+ "d1ae55737799253a": {
+  "first_seen": "2026-08-17T02:02:00.289754+00:00",
+  "id": "3104aa83b8917b59",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-08-14T17:06:00+00:00",
+  "sid": "d1ae55737799253a",
+  "source": "arxiv_cs_ai",
+  "summary": "We present a Test-time World-model Inference (Twin) system, in which a frontier coding agent writes an executable world model for completing continual learning tasks, such as ARC-AGI-3 games. Traditional approaches hand-engineer such models, one custom design per task. Each game hides its rules and goal, and our system constructs them from simulation and interaction alone. Its inductive prior over grid games is strong enough to recover the true transitions of the game and the goal on nearly all levels. Replay validation happens in a twin world model. The harness enforces that an action is not made until the program reproduces every previous observed game transition. Each mismatch between a world model prediction and the actual action result becomes a counterexample that is used to repair the world model. Twin clears 179 out of 183 levels (97.8%), and does so more efficiently than humans in 158 out of 179 levels (88.3%). The system infers the goal before any reward on 156 of the levels it clears (87.2%), and in the remaining levels automatically discovers the goal by search. The benchmark scores completion and action efficiency, between 0 and 100, against humans playing each game for the first time. Played directly, the base model scores only 7.8%; an off-the-shelf harness increases it to 61.1%, whereas our twin world model increases the same base model to 93.3%, clearing 23 out of 25 games. Building a usable world model is simpler than anticipated, whereas the harder problem ",
+  "summary_1line": "We present a Test-time World-model Inference (Twin) system, in which a frontier coding agent writes an executable world model for completing continual learning tasks, such as ARC-AGI-3 games. Traditional approaches ha...",
+  "title": "Twin: Playing an Unknown Game with a Test-Time Digital Twin",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.14490v1",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "d1e3537b19b6cf28": {
   "first_seen": "2026-08-05T05:01:53.034261+00:00",
