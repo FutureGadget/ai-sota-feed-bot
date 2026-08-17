@@ -249,9 +249,43 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertNotIn(".mr-rail-sources", block)
         self.assertNotIn(".mr-rail-cta", block)
 
+    def test_model_radar_rail_row_splits_org_off_the_metric_line(self) -> None:
+        # One run-on meta line ("anthropic - 63.1 AA intelligence index -
+        # $10/1M blended") wrapped to three ragged lines in the 200px rail.
+        # Org gets its own line, the metric label is shortened (the credit
+        # line below spells it out), and the " blended" qualifier moves to the
+        # tooltip - the visible line has to hold one row at 200px.
+        self.assertIn('<span class="mr-rail-org">', self.html)
+        self.assertIn("var shortLabel = capIsIndex ? 'AA index'", self.html)
+        self.assertIn("price.replace(/ blended$/, '')", self.html)
+
+    def test_model_radar_rail_badge_is_separated_from_the_model_name(self) -> None:
+        # Rendered as "Kimi K3Open weights" before - the badge was concatenated
+        # straight onto the name with no separator.
+        self.assertIn("""' <span class="mr-rail-badge">Open weights</span>'""", self.html)
+
+    def test_model_radar_rail_credits_the_source_by_name_not_by_url(self) -> None:
+        # The config attribution is a full sentence carrying the URL inline;
+        # used verbatim as link text it rendered
+        # "Artificial Analysis (https://artificialanalysis.ai/) - independent
+        # benchmarking." across three lines. Credit is still mandatory, so the
+        # link stays - only the visible label is shortened, with the full
+        # sentence preserved as the title.
+        self.assertIn("function mrSourceLabel(attribution, fallback)", self.html)
+        self.assertIn('title="\' + mrEsc(aaFull) + \'"', self.html)
+
+    def test_model_radar_rail_widens_on_large_screens(self) -> None:
+        # 200px left the rail cramped while the page margins went unused; the
+        # article column is deliberately unchanged.
+        self.assertIn("@media (min-width:1440px) {", self.html)
+        self.assertIn("main { max-width:1280px; }", self.html)
+        self.assertIn(".model-radar-rail { flex:0 0 280px; width:280px; }", self.html)
+
     def test_model_radar_rail_cta_links_to_models_page(self) -> None:
         self.assertIn(
-            'href="/models">Full radar and price/capability frontier',
+            # Short enough to hold one line in the 200px rail; the heading
+            # above it already says what the radar is.
+            'href="/models">Full radar &rarr;',
             self.html,
         )
 
@@ -285,7 +319,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def _extract_model_radar_functions(self) -> str:
         names = [
             "mrEsc", "mrSafeUrl", "mrDisplayName", "mrFmtPrice", "mrCapabilityField", "mrCollapseVariants",
-            "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrRender",
+            "mrSourceLabel", "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrRender",
         ]
         return "\n".join(_extract_js_function(self.html, name) for name in names)
 

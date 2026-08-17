@@ -1049,6 +1049,8 @@
     .mr-rail-name { display:block; font-size:.85rem; font-weight:650; line-height:1.3;
       color:inherit; text-decoration:none; }
     .mr-rail-name:hover, .mr-rail-name:focus-visible { color:var(--accent); text-decoration:underline; }
+    .mr-rail-org { display:block; margin-top:.15rem; font-size:.72rem; line-height:1.35;
+      color:var(--muted); }
     .mr-rail-meta { display:block; margin-top:.1rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.65rem; color:var(--muted); }
     .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.58rem;
@@ -1227,7 +1229,16 @@
       #list { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }
       .model-radar-rail { order:0; flex:0 0 200px; width:200px; margin:0; padding:0;
         border-top:0; border-bottom:0; position:sticky; top:1rem; }
+        /* Wider screens: give the rail real room instead of leaving it cramped
+       at 200px while the page margins go unused. The article column is
+       deliberately untouched - only the rail grows, and the arithmetic stays
+       exact so no rounding slop reappears: 1280 - 2*1.35rem padding = 1236.8
+       = 936.8 list + 20 gap + 280 rail. */
+    @media (min-width:1440px) {
+      main { max-width:1280px; }
+      .model-radar-rail { flex:0 0 280px; width:280px; }
     }
+
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
        the other surfaces (replaces Oat's default gray outline). */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
@@ -3494,16 +3505,36 @@
     // Credit only the sources whose data is actually on screen: LMArena for
     // Elo always, Artificial Analysis too once a price renders or the rail
     // is ranked by the AA intelligence index itself.
+    // Source credit stays mandatory, but the LINK TEXT should be the source's
+    // name, not its whole attribution sentence: config carries
+    // "Artificial Analysis (https://artificialanalysis.ai/) - independent
+    // benchmarking", which rendered the raw URL inside the anchor and ate
+    // three lines of a 200px rail. Keep the full sentence as the title so
+    // nothing is lost, and link to the source either way.
+    function mrSourceLabel(attribution, fallback) {
+      var text = String(attribution || '').trim();
+      if (!text) return fallback;
+      text = text.replace(/\s*\((?:https?:)?\/\/[^)]*\)/i, '');  // inline URL
+      text = text.split(/\s+[-\u2013]\s+/)[0];                      // trailing descriptor
+      return text.trim() || fallback;
+    }
+
     function mrSourcesLine(sources, capField, showPrice) {
       sources = sources || {};
       var lmarena = sources.lmarena || {};
       var lmUrl = mrSafeUrl(lmarena.url);
-      var lmLabel = lmarena.attribution || 'LMArena';
-      var lmLink = lmUrl ? '<a href="' + lmUrl + '" target="_blank" rel="noopener">' + mrEsc(lmLabel) + '</a>' : mrEsc(lmLabel);
+      var lmFull = lmarena.attribution || 'LMArena';
+      var lmLabel = mrSourceLabel(lmFull, 'LMArena');
+      var lmLink = lmUrl
+        ? '<a href="' + lmUrl + '" target="_blank" rel="noopener" title="' + mrEsc(lmFull) + '">' + mrEsc(lmLabel) + '</a>'
+        : mrEsc(lmLabel);
       var aa = sources.artificial_analysis || {};
       var aaUrl = mrSafeUrl(aa.url);
-      var aaLabel = aa.attribution || 'Artificial Analysis';
-      var aaLink = aaUrl ? '<a href="' + aaUrl + '" target="_blank" rel="noopener">' + mrEsc(aaLabel) + '</a>' : mrEsc(aaLabel);
+      var aaFull = aa.attribution || 'Artificial Analysis';
+      var aaLabel = mrSourceLabel(aaFull, 'Artificial Analysis');
+      var aaLink = aaUrl
+        ? '<a href="' + aaUrl + '" target="_blank" rel="noopener" title="' + mrEsc(aaFull) + '">' + mrEsc(aaLabel) + '</a>'
+        : mrEsc(aaLabel);
       if (capField === 'aa_intelligence_index') {
         return 'AA intelligence index from ' + aaLink + '.';
       }
@@ -3530,13 +3561,24 @@
       var capDisplay = capIsIndex ? (Math.round(capValue * 10) / 10) : Math.round(capValue);
       var capLabel = capIsIndex ? 'AA intelligence index' : 'coding Elo';
       var price = mrFmtPrice(m.price_blended_per_1m);
-      var badge = m.open_weights === true ? '<span class="mr-rail-badge">Open weights</span>' : '';
+      var badge = m.open_weights === true ? ' <span class="mr-rail-badge">Open weights</span>' : '';
       var variants = m.variantCount > 1 ? ' <span class="mr-rail-variant">+' + mrEsc(String(m.variantCount - 1)) + '</span>' : '';
+      // Two short lines beat one run-on: at 200px the single meta line
+      // ("anthropic - 63.1 AA intelligence index - $10/1M blended") wrapped to
+      // three ragged lines. The metric label is shortened here because the
+      // credit line below the list already names it in full.
+      var shortLabel = capIsIndex ? 'AA index' : 'coding Elo';
+      // Drop the " blended" qualifier in the teaser: at the 200px rail width
+      // it pushed most rows onto a second line, and /models' own table header
+      // reads just "Price /1M" too. The basis stays discoverable in the title.
+      var shortPrice = price.replace(/ blended$/, '');
+      var metric = capDisplay + ' ' + shortLabel + (shortPrice ? ' &middot; ' + mrEsc(shortPrice) : '');
       return (
         '<li class="mr-rail-row">' +
           '<a class="mr-rail-name" href="' + mrDetailUrl(m) + '">' + mrEsc(mrDisplayName(m)) + badge + variants + '</a>' +
-          '<span class="mr-rail-meta">' + (org ? org + ' &middot; ' : '') + capDisplay + ' ' + capLabel +
-            (price ? ' &middot; ' + mrEsc(price) : '') + '</span>' +
+          (org ? '<span class="mr-rail-org">' + org + '</span>' : '') +
+          '<span class="mr-rail-meta" title="' + mrEsc(capDisplay + ' ' + capLabel +
+            (price ? ' \u00b7 ' + price : '')) + '">' + metric + '</span>' +
         '</li>'
       );
     }
@@ -3563,7 +3605,7 @@
         '<p class="mr-rail-lede">Top coding models ranked by ' + capLabelForLede + ' - one row per model, reasoning-effort variants collapsed.</p>' +
         '<ol class="mr-rail-list">' + rows + '</ol>' +
         '<p class="mr-rail-sources">' + mrSourcesLine(data.sources, capField, hasPrice) + '</p>' +
-        '<a class="mr-rail-cta" href="/models">Full radar and price/capability frontier &rarr;</a>';
+        '<a class="mr-rail-cta" href="/models">Full radar &rarr;</a>';
       rail.hidden = false;
       return true;
     }
