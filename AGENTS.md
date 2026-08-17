@@ -40,15 +40,18 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
 | `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
+| `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`) into `data/models/latest.json` for the Model Release Radar (`/models`) |
 
 Both `feed-full-publish.yml` and `email-digest.yml` have **no GitHub `schedule:`
 trigger** — they are dispatched exclusively by cron-job.org external tickers
 hitting their `workflow_dispatch` endpoints (see
-`docs/how-to/hourly-trigger-cron-job-org.md`). Overlapping manual dispatches are
+`docs/how-to/hourly-trigger-cron-job-org.md`). `models-refresh.yml` is a
+low-stakes data refresh with no publishing side effects, so it uses a plain
+GitHub `schedule:` instead. Overlapping manual dispatches are
 safe (lock dir + `concurrency` group + Tier-0 no-delta skip for the feed;
-cursor-based idempotency guard for email).
+cursor-based idempotency guard for email; `concurrency` group for models).
 
-Four GitHub workflows target the repository-scoped Docker runner labels
+All six GitHub workflows target the repository-scoped Docker runner labels
 `[self-hosted, Linux, ARM64, llm-digest]`. `feed-full-publish.yml` defaults to
 that runner but exposes a `github-hosted` manual fallback and a no-push
 `dry_run` input. The Apple-silicon runner definition, registration steps,
@@ -143,6 +146,10 @@ in `ops_daily_summary.py`'s log line.
     helpers use
   - `source_health.py`, `source_alerts.py`, `ops_daily_summary.py`,
     `prune_runtime_data.py` — ops
+  - `collect_models.py` - Model Release Radar data layer: joins LMArena
+    (keyless, via the HF datasets-server REST API) with optional Artificial
+    Analysis (`AA_API_KEY`) into `data/models/latest.json` + dated history;
+    config in `config/models.yaml`
 - `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
   daily renders the curated `/daily` recap `data/daily/latest.json`, weekly the
   `/weekly` recap; secrets-gated no-op; reads/advances the
@@ -202,6 +209,9 @@ in `ops_daily_summary.py`'s log line.
     page format, ingest/lint/query ops, `build_wiki.py` invariants)
   - `foundations_schema.md` — contract for Agent Builder Foundations concept
     pages, evidence tiers, and `build_foundations.py` invariants
+  - `models.yaml` - Model Release Radar source config: LMArena/Artificial
+    Analysis endpoints, join alias map, license classification, recency/
+    max-models policy
 - `scripts/` — `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
@@ -295,6 +305,12 @@ in `ops_daily_summary.py`'s log line.
   Use `docs/how-to/add-pretranslated-pages.md`; product contract:
   `docs/product-specs/multilingual-pretranslated-pages.md`; live-feed contract:
   `docs/product-specs/localized-live-feed.md`.
+- `data/models/` - Model Release Radar: `latest.json` (LMArena + optional
+  Artificial Analysis join: model rows with price/capability/open-weights
+  fields, `sources.*` availability + mandatory Artificial Analysis
+  attribution) + `history/<date>.json` dated snapshots. Written by
+  `pipeline/collect_models.py collect` via `models-refresh.yml` (6h). Served
+  at `/models` via `/api/models`. Schema: `docs/generated/db-schema.md`
 - `data/feedback/` — `events.jsonl`, `ctr_clicks.json`, `source_adjustments.json`
 - `data/metrics/` — `weekly_returning_readers.json`: durable weekly history for
   the north-star metric (`pipeline/north_star_metric.py`). Schema/rationale:
@@ -324,11 +340,12 @@ in `ops_daily_summary.py`'s log line.
 Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
 `/foundations` / `/foundations/<slug>` (evidence-tiered concept explanations) ·
 `/playbook` (actionable agent-builder cards) ·
+`/models` (Model Release Radar: price/capability/community signal per model) ·
 `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`,
-`/api/client-config`, `/api/updates`
+`/api/models`, `/api/client-config`, `/api/updates`
 (lightweight freshness signals powering the nav "new updates" pills and
 the feed's "Fresh from the Editor's Desk" strip),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,

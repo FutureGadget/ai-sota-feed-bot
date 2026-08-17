@@ -1,0 +1,292 @@
+# Model Release Radar - data source config (docs/ideas/model-release-radar.md).
+# Config-driven per repo rules: endpoints, pagination, and the join alias map
+# all live here so tuning never requires a code change.
+
+sources:
+  lmarena:
+    enabled: true
+    # Hugging Face datasets-server REST API - no key required.
+    dataset: lmarena-ai/leaderboard-dataset
+    config: text
+    split: latest
+    base_url: https://datasets-server.huggingface.co
+    # Categories to pull via the /filter endpoint. Each becomes a separate
+    # paginated fetch; results are merged into one row per (model, category).
+    categories:
+      - overall
+      - coding
+    # Max rows per request (datasets-server caps at 100).
+    page_size: 100
+    attribution: "LMArena (arena.ai) - community-voted model preference"
+
+  artificial_analysis:
+    enabled: true
+    # Requires AA_API_KEY in the environment; collector no-ops gracefully
+    # when it is absent (see pipeline/collect_models.py).
+    base_url: https://artificialanalysis.ai/api/v2/data/llms/models
+    api_key_env: AA_API_KEY
+    attribution: "Artificial Analysis (https://artificialanalysis.ai/) - independent benchmarking"
+    # Raw per-model benchmark scores to persist verbatim from AA's
+    # `evaluations` block, in ADDITION to aa_intelligence_index/
+    # aa_coding_index above (those two are separate blended composites AA
+    # also publishes there, already a stable API contract, and are never
+    # touched by this list). Config-driven because AA adds, renames, and
+    # retires individual benchmarks over time - extend/trim here, never
+    # hardcode a benchmark name in pipeline/collect_models.py.
+    # SCALE WARNING: every benchmark listed here is a 0-1 fraction (e.g.
+    # livecodebench 0.878), a completely different scale from the two
+    # indices above (roughly 0-100) - see the module docstring in
+    # pipeline/collect_models.py and docs/design-docs/decision-log.md,
+    # 2026-08-16.
+    benchmarks:
+      - livecodebench
+      - scicode
+      - terminalbench_hard
+      - terminalbench_v2_1
+      - tau2
+      - tau_banking
+      - mmlu_pro
+      - gpqa
+      - hle
+      - aime
+      - aime_25
+      - math_500
+      - ifbench
+      - lcr
+
+  deepswe:
+    enabled: true
+    # DeepSWE (Datacurve) publishes no documented JSON API - verified
+    # 2026-08-16: /api/leaderboard 404s, the Hugging Face dataset
+    # `datacurve/deep-swe` is now gated, and the GitHub repo carries no
+    # aggregated results file. The per-model/per-reasoning-effort rows
+    # (pass_at_1, ci_lo/ci_hi, n_runs, mean_cost_usd, median_cost_usd,
+    # median_output_tokens) are instead parsed out of a React Flight payload
+    # embedded in this page's server-rendered HTML
+    # (pipeline/collect_models.py's parse_deepswe_html) - THIS IS SCRAPED,
+    # NOT AN API, and can break without notice on any DeepSWE frontend
+    # redeploy. Parsing is defensive by construction: a shape change
+    # degrades to "no DeepSWE rows parsed" (an empty index), never a
+    # collector crash or a bad write - see source_regressions' write-guard,
+    # which covers this source the same as lmarena/artificial_analysis.
+    base_url: https://deepswe.datacurve.ai/
+    attribution: "DeepSWE / Datacurve (https://deepswe.datacurve.ai/) - measured cost per task on real agentic coding tasks"
+
+# Shared HTTP request timeout for all source calls (seconds). The
+# datasets-server /filter endpoint is an order of magnitude slower than
+# /rows or /splits (seconds, not milliseconds) and intermittently exceeds a
+# short timeout under load, so this is deliberately generous. A source that
+# fails anyway degrades gracefully - see cmd_collect in
+# pipeline/collect_models.py.
+request_timeout_seconds: 60
+
+# Whether outbound requests honor ambient proxy config (HTTP_PROXY/
+# HTTPS_PROXY env vars, macOS system proxy settings, etc.). Default false so
+# a stale/misconfigured local or CI proxy can't silently turn a sub-second
+# public API call into a multi-second timeout (observed in local dev). Set
+# true in an environment that legitimately routes egress through a proxy -
+# otherwise those requests would silently bypass it and fail to route.
+trust_env_proxies: false
+
+# Inclusion / recency policy.
+# NOTE: recency ordering only activates once a model has a release_date,
+# and today only Artificial Analysis supplies release_date - LMArena rows
+# never carry one. In the default no-AA-key path every model's release_date
+# is null, so select_models() falls back entirely to LMArena overall rank
+# and the max_models cap is what actually determines inclusion. This is
+# intentional, not dead code: the knob takes effect automatically once an
+# AA_API_KEY is configured, with no code change required.
+recency_days: 90
+max_models: 200
+
+# How open_weights is derived when Artificial Analysis doesn't supply an
+# explicit boolean (i.e. always, in the no-AA-key path). LMArena's `license`
+# field is checked case-insensitively as a substring against these markers:
+# any match means proprietary/closed (open_weights=false); anything else is
+# treated as open (open_weights=true). A license matching unknown_markers -
+# or missing entirely - stays null rather than being guessed either way.
+license_classification:
+  proprietary_markers:
+    - proprietary
+  unknown_markers:
+    - unknown
+    - unspecified
+
+# Hand-maintained alias map for joins normalization misses.
+# Key: normalized LMArena slug. Value: normalized Artificial Analysis slug.
+# Populate as real joins fail in practice; normalization handles the rest.
+aliases: {}
+
+# Variant-collapsing vocabulary (docs/design-docs/decision-log.md,
+# 2026-08-06). Artificial Analysis and LMArena both publish one catalog row
+# per reasoning-effort variant of the same underlying model - "GPT-5.6 Sol
+# (medium)" and "gpt-5.6-sol-xhigh" are the same model at different effort
+# settings, not different models. pipeline/collect_models.py's
+# derive_base_variant() uses this vocabulary (never a hardcoded list in
+# Python) to split a model name into a `base_slug` (the identity with the
+# variant stripped) and a `variant_label`, so the /models page and feed
+# sidebar can collapse to one row per real model. Conservative by design:
+# a suffix or parenthetical is stripped ONLY when it normalizes to a token
+# listed here, so a real model whose name happens to end in a similar word
+# (e.g. Gemini's "-lite", Qwen's "-max" tier, GPT's "-instant"/"-mini") is
+# left alone - deliberately NOT in `tokens` below. Extend `tokens` as labs
+# invent new effort names; never hardcode a new one in Python.
+variant_vocabulary:
+  # Raw naming token (lowercased, non-alphanumerics stripped) -> the
+  # variant_label emitted on the model row and used to group variants under
+  # one base_slug. Several raw spellings can map to the same canonical label.
+  tokens:
+    low: low
+    medium: medium
+    med: medium
+    high: high
+    xhigh: xhigh
+    extrahigh: xhigh
+    max: max
+    min: minimal
+    minimal: minimal
+    thinking: thinking
+    thinkingminimal: thinking-minimal
+    nonthinking: non-thinking
+    nothinking: non-thinking
+    nonreasoning: non-reasoning
+    reasoning: reasoning
+  # Regex patterns (matched in order, first hit wins) for multi-word AA
+  # parenthetical phrasing a single-token lookup can't parse. `pattern` is
+  # matched against the lowercased parenthetical text. When `variant` is
+  # set, it is used literally; when omitted, the named group `level` is
+  # looked up in `tokens` above.
+  effort_phrases:
+    # "Adaptive Reasoning, High Effort" -> level="high" -> tokens.high
+    - pattern: '^adaptive reasoning,\s*(?P<level>[a-z]+)\s*effort$'
+    # "Non-reasoning, High Effort" -> reasoning-on/off is the salient
+    # distinction here, not the effort level named alongside it, so this
+    # always collapses to the non-reasoning label regardless of level.
+    - pattern: '^non-reasoning,\s*[a-z]+\s*effort$'
+      variant: non-reasoning
+    # "Reasoning, Max Effort" - same shape as "Adaptive Reasoning, X Effort"
+    # above, minus the "Adaptive" prefix some AA rows omit (verified live
+    # 2026-08-05: DeepSeek V4 Flash/Pro). Listed after the two more specific
+    # patterns above so it never intercepts them.
+    - pattern: '^reasoning,\s*(?P<level>[a-z]+)\s*effort$'
+
+# Casing map for pipeline/collect_models.py's derive_display_name() when it
+# has to convert a LMArena lowercase-dashed slug into a human-readable
+# display_name (docs/design-docs/decision-log.md, 2026-08-06). Key: the
+# brand/acronym token normalized (lowercased, non-alphanumerics stripped).
+# Value: the exact casing to emit for that word - used verbatim, never
+# re-cased further. A word not listed here is titlecased mechanically
+# instead (only when it started out all-lowercase; anything already
+# carrying a capital letter is left untouched). Extend as new lab/model
+# acronyms show up in the catalog; never hardcode a new one in Python.
+acronym_casing:
+  gpt: GPT
+  glm: GLM
+  llm: LLM
+  ai: AI
+  k2: K2
+  k3: K3
+  o3: o3
+  xai: xAI
+  deepseek: DeepSeek
+  qwen: Qwen
+  minimax: MiniMax
+
+# Hand-maintained organization alias map for lab-naming disagreements
+# between LMArena and Artificial Analysis (same real-world lab, different
+# org slug per source - see docs/design-docs/decision-log.md, 2026-08-06).
+# Key: raw organization value as either source emits it (case-insensitive).
+# Value: the canonical organization value written to every row. Populate as
+# real collisions are found (compare a joined row's LMArena vs AA
+# organization field); never guessed.
+organization_aliases:
+  kimi: moonshot                    # AA "kimi" / LMArena "moonshot" - Moonshot AI
+  thinky: thinking-machines         # LMArena "thinky" / AA "thinking-machines"
+  ai2: allenai                      # AA "ai2" / LMArena "allenai" - Allen Institute for AI
+  ant-group: inclusionai            # LMArena "ant-group" / AA "inclusionai"
+  inception-ai: inception           # LMArena "inception-ai" / AA "inception"
+  azure: microsoft                  # AA "azure" / LMArena "microsoft"
+
+# Axis-toggle options for the /models page's price/capability chart Y axis
+# (docs/design-docs/decision-log.md, 2026-08-16). Config-driven so the page
+# never hardcodes which benchmarks it offers - web/models.html's
+# DEFAULT_AXIS_METRIC_OPTIONS mirrors this list only as a fallback for an
+# older cached data/models/latest.json written before this field existed.
+# The first entry MUST stay the default `aa_coding_index` (source: top - a
+# top-level model field, not one of the `benchmarks` above); every other
+# entry names a raw Artificial Analysis benchmark (source: benchmarks,
+# looked up under a model's `benchmarks` object) and is only actually
+# offered on the page if it clears web/models.html's MIN_METRIC_COVERAGE
+# gate at render time - a benchmark almost nothing reports is not worth a
+# menu entry. `scale` drives axis-tick/tooltip formatting: `index` for the
+# ~0-100 blended composites, `fraction` for the 0-1 raw benchmarks (see the
+# SCALE WARNING above). Kept short and audience-relevant (agentic/tool-use +
+# real-coding evals, matching this repo's platform/agent-engineer
+# positioning - docs/ideas/model-release-radar.md) - general knowledge/math
+# evals (mmlu_pro, aime, math_500, hle, gpqa) are deliberately excluded even
+# though AA reports them.
+axis_metric_options:
+  - key: aa_coding_index
+    label: "AA coding index"
+    source: top
+    scale: index
+  - key: terminalbench_v2_1
+    label: "Terminal-Bench 2.1 (agentic)"
+    source: benchmarks
+    scale: fraction
+  - key: tau2
+    label: "Tau2 (tool use)"
+    source: benchmarks
+    scale: fraction
+  - key: livecodebench
+    label: "LiveCodeBench (coding)"
+    source: benchmarks
+    scale: fraction
+  - key: scicode
+    label: "SciCode (coding)"
+    source: benchmarks
+    scale: fraction
+
+# Server-side Pareto frontier metric/cost pairing (docs/design-docs/decision-log.md,
+# 2026-08-16 - WORK ITEM 2, Model Release Radar URL slugs + frontier; revised
+# 2026-08-17 to require a MEASURED per-task cost). Each entry names ONE
+# capability metric and the cost field it is fairly paired against for
+# frontier computation (`pipeline/collect_models.py`'s compute_frontier) -
+# never a free-floating price the frontier compares a benchmark score
+# against without saying so. `source` mirrors axis_metric_options: "top"
+# reads the metric directly off a model row, "benchmarks" reads it from that
+# row's `benchmarks` dict. `cost_field` names the model field paired as this
+# metric's cost axis. `cost_basis` documents what KIND of cost that is - and
+# is now the gate on whether a metric may claim a frontier at all: a raw
+# per-1M-token price is NOT a fair X axis for an agentic benchmark score,
+# because the cost of running a task depends on how many tokens and steps a
+# model actually spends, not just its per-token rate (proof from live
+# DeepSWE data, 2026-08-16: claude-opus-5 costs $11.84/task at "max" effort
+# and $3.29/task at "medium", yet both price identically at $10/1M tokens -
+# a per-token axis cannot see that difference at all). Every prior entry
+# here paired a benchmark against `price_blended_per_1m` under
+# `cost_basis: "per_token_price_proxy"`; all of those entries are REMOVED,
+# not just relabeled - a benchmark with no measured per-task cost source no
+# longer gets a frontier claim, even though its score still displays
+# everywhere it always has (the ranked list still ranks by AA intelligence
+# index, the scores table still shows every AA benchmark - see
+# pipeline/render_static_pages.py's model_scores_section). Only DeepSWE
+# publishes a real measured mean_cost_usd per task
+# (pipeline/collect_models.py's DeepSWE ingest), so it is the only entry
+# below, under `cost_basis: "measured_per_task"`. This keeps the cost_basis
+# machinery itself unchanged and config-driven: a future benchmark that
+# gains a genuine per-task cost source lights up here the same way, with a
+# config + data change, never a code change. Deliberately independent of
+# axis_metric_options: this list is what the frontier computes over,
+# axis_metric_options is what the chart offers.
+frontier_metrics:
+  - key: deepswe_pass_at_1
+    source: top
+    cost_field: deepswe_cost_per_task_usd
+    cost_basis: measured_per_task
+
+# Cap on how many dominating models `frontier` lists per non-frontier model
+# row (see compute_frontier's `dominated_by`). Nearest-cost-first, so the
+# detail page's "why isn't this on the frontier" answer leads with the most
+# directly comparable substitution rather than an arbitrary top-N.
+frontier_dominated_by_cap: 5

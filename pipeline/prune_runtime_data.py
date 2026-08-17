@@ -162,6 +162,38 @@ def prune_family(
     }
 
 
+def prune_dated_dir(
+    directory: Path,
+    max_age_days: int,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Delete `<YYYY-MM-DD>.json` snapshots older than `max_age_days`.
+
+    For flat dated directories that carry no runs index, so `prune_family`
+    does not apply - today that is data/models/history, written once per
+    Model Release Radar refresh. Nothing reads a historical snapshot at
+    request time (api/models.js pins includeFiles to latest.json); they exist
+    for score-delta work and audit, so an unbounded pile is pure growth in
+    both git and the deployment. 0/negative disables the cap.
+    """
+    out: dict[str, Any] = {"files_deleted": 0, "kept": 0, "max_age_days": max_age_days}
+    if max_age_days <= 0 or not directory.is_dir():
+        return out
+    cutoff = (datetime.now(timezone.utc) - timedelta(days=max_age_days)).date()
+    for path in sorted(directory.glob("*.json")):
+        try:
+            stamp = datetime.strptime(path.stem, "%Y-%m-%d").date()
+        except ValueError:
+            continue  # not a dated snapshot - leave it alone
+        if stamp < cutoff:
+            if not dry_run:
+                path.unlink()
+            out["files_deleted"] += 1
+        else:
+            out["kept"] += 1
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--processed-days", type=int, default=45)
@@ -173,6 +205,9 @@ def main() -> None:
     # 3 days = the read window + a generous buffer; keeps the bundled tier1 dir at
     # ~20-30 MB instead of 100+ MB. 0/negative disables the cap.
     ap.add_argument("--tier1-max-age-days", type=int, default=3)
+    # Dated Model Release Radar snapshots (data/models/history). ~290 KB each,
+    # one per refresh; 90 days is plenty for score-delta work.
+    ap.add_argument("--models-history-days", type=int, default=90)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -191,10 +226,17 @@ def main() -> None:
         dry_run=args.dry_run,
     )
 
+    models_history = prune_dated_dir(
+        ROOT / "data" / "models" / "history",
+        max_age_days=args.models_history_days,
+        dry_run=args.dry_run,
+    )
+
     print(
         "runtime_prune "
         f"processed(index {processed['index_before']}->{processed['index_after']}, deleted={processed['files_deleted']}, keep={processed['retain_days']}d) "
         f"tier1(index {tier1['index_before']}->{tier1['index_after']}, deleted={tier1['files_deleted']}, keep={tier1['retain_days']}d, max_age={tier1['max_age_days']}d) "
+        f"models_history(deleted={models_history['files_deleted']}, kept={models_history['kept']}, max_age={models_history['max_age_days']}d) "
         f"weekly_after={args.weekly_archive_after_days}d "
         f"dry_run={str(args.dry_run).lower()}"
     )

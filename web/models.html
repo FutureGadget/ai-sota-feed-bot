@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Model Release Radar | LLM Digest</title>
+  <meta name="description" content="Every tracked model, ranked by Artificial Analysis intelligence index, with price, open-weights, and frontier status at a glance. Data from LMArena and Artificial Analysis." />
+  <link rel="canonical" href="https://www.llm-digest.com/models" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Model Release Radar" />
+  <meta property="og:description" content="Every tracked model, ranked by intelligence index, with price and frontier status at a glance." />
+  <meta property="og:url" content="https://www.llm-digest.com/models" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:title" content="Model Release Radar" />
+  <meta name="twitter:description" content="Every tracked model, ranked by intelligence index, with price and frontier status at a glance." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Model Release Radar", "item": "https://www.llm-digest.com/models"}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260706-mobile-header-wrap" />
+  <script src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script defer src="/site-chrome.js?v=20260706-mobile-header-wrap"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    /* Model Release Radar - "AI operations instrument" family member, same
+       shape as /playbook and /foundations: hairline rules, monospace utility
+       labels, no boxed cards. Reader job: which model to route to, and at
+       what price. Search-result style RANKED LIST: every tracked model gets
+       one row, ordered by capability, each row a link to its own
+       /models/<url_slug> detail page. No chart on this page - the
+       price/capability frontier visualization lives on the detail pages. */
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
+      --apply-wash:#eef3ff; --apply-edge:#2457d6;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
+      --apply-wash:#1b2436; --apply-edge:#7ca0ff;
+    }
+    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    *, *::before, *::after { box-sizing: border-box; }
+    button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); font-family: inherit; }
+    a { color: var(--accent); }
+    code {
+      font-family: ui-monospace, "SFMono-Regular", monospace; font-size: 0.85em;
+      padding: 0.12rem 0.3rem; background: var(--apply-wash, var(--card));
+      border: 1px solid var(--border); border-radius: 4px; color: var(--fg); }
+    main { width:100%; max-width:1080px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
+    header { margin-bottom: 1rem; }
+    .muted { color: var(--muted); }
+    #meta { margin:.35rem 0 0; font-size:.8rem; color:var(--muted);
+      font-family:ui-monospace,"SFMono-Regular",monospace; letter-spacing:.04em; }
+
+    /* Hero */
+    .mr-hero { margin:2.3rem 0 1.7rem; }
+    .mr-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .mr-headline { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.5rem,6.4vw,4.2rem); font-weight:700; letter-spacing:-.045em; line-height:.94; }
+    .mr-thesis { max-width:43rem; margin:1rem 0 0; font-size:1rem; line-height:1.62; }
+    .mr-note { max-width:43rem; margin:.9rem 0 0; padding:.7rem .9rem; font-size:.9rem; line-height:1.55;
+      border-left:3px solid var(--warm); background:var(--apply-wash); color:var(--fg); }
+    .mr-note strong { font-weight:650; }
+
+    /* Selection + ordering controls */
+    .mr-controls { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1rem; margin:1.4rem 0 0;
+      padding:.7rem 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .mr-controls p { margin:0; font-size:.82rem; color:var(--muted); flex:1 1 16rem; }
+    .mr-toggle { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; letter-spacing:.03em;
+      padding:.5rem .75rem; min-height:38px; display:inline-flex; align-items:center;
+      border:1px solid var(--border); border-radius:0; background:transparent; color:var(--fg);
+      cursor:pointer; }
+    .mr-toggle:hover { border-color:var(--accent); color:var(--accent); }
+    .mr-toggle[aria-pressed="true"] { border-color:var(--accent); color:var(--accent);
+      background:color-mix(in srgb, var(--accent) 14%, var(--card)); }
+
+    /* Ordering control - a native <select> so keyboard/screen-reader
+       behavior comes for free in both themes. Only three orderings are
+       offered (see SORT_OPTIONS): a search-results page needs a small,
+       obvious set, not a full column-sort matrix. */
+    .mr-sort-control { display:inline-flex; align-items:center; gap:.5rem; }
+    .mr-sort-control label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem;
+      font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .mr-sort-select { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem;
+      padding:.5rem .6rem; min-height:38px; border:1px solid var(--border); border-radius:0;
+      background:var(--card); color:var(--fg); cursor:pointer; max-width:16rem; }
+    .mr-sort-select:hover { border-color:var(--accent); }
+    .mr-sort-select:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:2px; }
+
+    /* Ranked list */
+    .mr-list-section { margin:1.6rem 0 0; }
+    .mr-list { list-style:none; margin:0; padding:0; border-top:1px solid var(--border); }
+    .mr-row { border-bottom:1px solid var(--border); }
+    .mr-row-link { display:flex; align-items:center; gap:1rem; padding:.85rem .3rem;
+      text-decoration:none; color:inherit; }
+    .mr-row-link:hover, .mr-row-link:focus-visible { background:var(--apply-wash); }
+    .mr-row-link:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:-3px; }
+    .mr-rank { flex:0 0 2.3rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.3rem; font-weight:700; line-height:1; text-align:right;
+      color:color-mix(in srgb, var(--muted) 55%, transparent); font-variant-numeric:tabular-nums; }
+    .mr-row-main { flex:1 1 auto; min-width:0; }
+    .mr-row-name { display:block; font-size:1rem; font-weight:650; line-height:1.3; }
+    .mr-row-org { display:block; margin-top:.15rem; font-size:.78rem; color:var(--muted); }
+    .mr-row-stats { display:flex; align-items:center; gap:1.15rem; flex:0 0 auto;
+      flex-wrap:wrap; justify-content:flex-end; }
+    .mr-stat { display:flex; flex-direction:column; align-items:flex-end; min-width:3.4rem; }
+    .mr-stat-label { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .mr-stat-value { margin-top:.1rem; font-variant-numeric:tabular-nums; font-size:.92rem; font-weight:600;
+      white-space:nowrap; }
+    .mr-stat-qualifier { margin-left:.3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.6rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+      color:var(--muted); }
+    .mr-row-chevron { flex:0 0 auto; font-size:1.15rem; color:var(--muted); }
+
+    .mr-frontier-tag { display:inline-flex; align-items:center; gap:.3rem; margin-left:.4rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.6rem; font-weight:700;
+      letter-spacing:.08em; text-transform:uppercase; color:var(--signal); }
+    .mr-variant-badge { display:inline-flex; align-items:center; margin-left:.4rem;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem; font-weight:600;
+      letter-spacing:.02em; color:var(--muted); white-space:nowrap; cursor:help; }
+    .mr-badge { display:inline-flex; align-items:center; font-size:.68rem; padding:.08rem .45rem; font-weight:600;
+      border:1px solid color-mix(in srgb, var(--accent) 40%, transparent); border-radius:999px; color:var(--accent);
+      background:color-mix(in srgb, var(--accent) 12%, var(--card)); white-space:nowrap; }
+    .mr-badge.mr-badge-closed { border-color:var(--border); color:var(--muted); background:transparent; }
+    .mr-undisclosed { color:var(--muted); font-style:italic; }
+
+    /* Sources / attribution - required wherever LMArena / Artificial
+       Analysis data appears on the page. */
+    .mr-sources { margin:2rem 0 0; padding:.9rem 1rem; border:1px solid var(--border); background:var(--card); }
+    .mr-sources h2 { margin:0 0 .5rem; font-size:.9rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .mr-sources ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .mr-sources li { font-size:.86rem; line-height:1.5; }
+    .mr-sources a { text-decoration:none; font-weight:600; }
+    .mr-sources a:hover { text-decoration:underline; }
+    .mr-sources .mr-source-status { color:var(--muted); }
+
+    .state { padding:2.2rem 1rem; text-align:center; color:var(--muted);
+      border:1px solid var(--border); margin:1.7rem 0 0; }
+    footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.82rem; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .mr-hero { margin-top:1.7rem; }
+      .mr-headline { font-size:2.7rem; }
+      /* .mr-controls p's `flex: 1 1 16rem` sets a WIDTH basis for the
+         default row layout; once flex-direction switches to column here,
+         the same basis is read on the CROSS-turned-main (vertical) axis and
+         forces the paragraph to a fixed ~256px tall box. Reset to size-to-
+         content in column mode. */
+      .mr-controls { flex-direction:column; align-items:flex-start; }
+      .mr-controls p { flex:0 1 auto; }
+      /* Row content wraps instead of forcing page-body horizontal scroll:
+         rank + name/org take the full first line, stats wrap to a second
+         line indented to align under the name. */
+      .mr-row-link { flex-wrap:wrap; gap:.3rem .75rem; padding:.75rem .15rem; }
+      .mr-row-main { flex:1 1 calc(100% - 3rem); order:1; }
+      .mr-rank { order:0; }
+      .mr-row-chevron { display:none; }
+      .mr-row-stats { order:2; flex:1 1 100%; justify-content:flex-start;
+        gap:.45rem .9rem; margin-left:2.6rem; min-width:0; }
+      .mr-stat { align-items:flex-start; min-width:0; }
+      .mr-stat-label { white-space:nowrap; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      * { scroll-behavior:auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/models">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Model Release Radar</h1>
+        <p id="meta">Loading…</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Knowledge map</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models" aria-current="page">Model radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a id="jsonLink" href="/api/models">View as JSON</a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+    </header>
+
+    <section id="radar" aria-live="polite">
+      <div class="state">Loading the model radar…</div>
+    </section>
+
+    <footer>
+      Built from free-tier benchmark data. Every model links to its official source when known.
+      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a>
+    </footer>
+  </main>
+
+  <script>
+    // ---- theme toggle (same pattern as /playbook and /foundations) ----
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const btn = document.getElementById('themeToggle');
+      if (btn) {
+        btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        btn.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      }
+    }
+    function initThemeToggle() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+      btn.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // Presentation prefers the clean base display_name (pipeline/collect_models.py's
+    // derive_display_name) over the raw `name` field, which is whichever
+    // source's raw string a collapsed row's representative happened to come
+    // from (an AA verbose variant string or a LMArena lowercase-dashed
+    // slug) - see docs/design-docs/decision-log.md, 2026-08-06. Falls back
+    // to `name` so an older cached artifact without the field still renders.
+    const displayName = (m) => (m && m.display_name) || (m && m.name) || '';
+
+    function safeUrl(u) {
+      if (!u) return '';
+      try {
+        const url = new URL(u, window.location.origin);
+        return (url.protocol === 'http:' || url.protocol === 'https:') ? url.href : '';
+      } catch { return ''; }
+    }
+
+    const isLocal = () => /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+
+    // Single knob for page length. The catalog holds ~154 distinct models
+    // after variant-collapse; the page must stay finishable, so the default
+    // ranked list cuts to this cap with an explicit "show all" control -
+    // see buildView. Retune here only.
+    const MODEL_CAP = 30;
+
+    function fmtPrice(v) {
+      if (v === null || v === undefined) return '<span class="mr-undisclosed">undisclosed</span>';
+      const n = Number(v);
+      if (!Number.isFinite(n)) return '<span class="mr-undisclosed">undisclosed</span>';
+      return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M';
+    }
+
+    function fmtNum(v, digits) {
+      if (v === null || v === undefined) return '<span class="mr-undisclosed">-</span>';
+      const n = Number(v);
+      if (!Number.isFinite(n)) return '<span class="mr-undisclosed">-</span>';
+      return n.toLocaleString(undefined, { maximumFractionDigits: digits ?? 0 });
+    }
+
+    // DeepSWE pass@1 is a 0-1 fraction (a different scale from the ~0-100
+    // aa_intelligence_index/aa_coding_index shown elsewhere on this row) -
+    // formatted as a percentage, never bare, so the two scales never get
+    // silently mixed (same rule pipeline/render_static_pages.py's
+    // fmt_fraction_pct follows on the detail pages).
+    function fmtPct(v) {
+      if (v === null || v === undefined) return '<span class="mr-undisclosed">-</span>';
+      const n = Number(v);
+      if (!Number.isFinite(n)) return '<span class="mr-undisclosed">-</span>';
+      return (n * 100).toFixed(1) + '%';
+    }
+
+    // A MEASURED per-task dollar figure (DeepSWE's mean_cost_usd) - a
+    // different shape from fmtPrice's per-1M-token wording, since this is a
+    // real cost to run one task, not a rate. Sub-dollar figures are common
+    // and need 3 decimals to stay honest rather than rounding to "$0.00".
+    function fmtTaskCost(v) {
+      if (v === null || v === undefined) return '<span class="mr-undisclosed">undisclosed</span>';
+      const n = Number(v);
+      if (!Number.isFinite(n)) return '<span class="mr-undisclosed">undisclosed</span>';
+      return n < 1 ? '$' + n.toFixed(3) : '$' + n.toFixed(2);
+    }
+
+    // ---- ordering ----
+    // A small, fixed set of alternate orderings for the ranked list (the
+    // product decision this restructure implements). The DEFAULT must stay
+    // aa_intelligence_index descending - never reorder this array. Each
+    // option also names which `frontier` metric governs the "on frontier"
+    // badge/filter while that ordering is active - since 2026-08-17 that is
+    // always 'deepswe_pass_at_1' (the only frontier metric left: a metric
+    // only gets a frontier at all when its cost is a MEASURED per-task
+    // figure, and DeepSWE is the only source of one - see
+    // config/models.yaml's frontier_metrics and the 2026-08-17 decision log
+    // entry). Ordering itself is unchanged - price and the AA indices still
+    // rank the list exactly as they always have.
+    const SORT_OPTIONS = [
+      { key: 'aa_intelligence_index', dir: 'desc', label: 'Intelligence index', frontierMetric: 'deepswe_pass_at_1' },
+      { key: 'aa_coding_index', dir: 'desc', label: 'Coding index', frontierMetric: 'deepswe_pass_at_1' },
+      { key: 'price_blended_per_1m', dir: 'asc', label: 'Price, low to high', frontierMetric: 'deepswe_pass_at_1' },
+    ];
+
+    // Automatic fallback ordering for a deployment where Artificial
+    // Analysis is not connected at all (aa_intelligence_index absent on
+    // every model) - the list must never silently sort by an all-null
+    // field. Mirrors the degrade-gracefully rule the rest of this page
+    // follows (fmtPrice/fmtNum never fabricate a value either).
+    const FALLBACK_SORT = { key: 'arena_elo_coding', dir: 'desc', label: 'Coding Elo (LMArena)', frontierMetric: 'deepswe_pass_at_1' };
+
+    function aaIndexAvailable(models) {
+      return models.some((m) => m && m.aa_intelligence_index !== null && m.aa_intelligence_index !== undefined);
+    }
+
+    // Ranks a known value above an unknown one; between two known values,
+    // higher wins. Used only to pick a representative variant within a
+    // collapsed group (an identity decision) - never to order the visible
+    // list itself (see sortModels for that, with its own nulls-last rule).
+    function compareKnownDesc(av, bv) {
+      const aKnown = av !== null && av !== undefined;
+      const bKnown = bv !== null && bv !== undefined;
+      if (aKnown !== bKnown) return aKnown ? -1 : 1;
+      if (aKnown && bKnown && av !== bv) return bv - av;
+      return 0;
+    }
+
+    // Collapse reasoning-effort variant spam (shared `url_slug` - see
+    // pipeline/collect_models.py) to ONE row per real model, ~154 distinct
+    // models from ~200 catalog rows. The representative is chosen the same
+    // way regardless of which ordering the reader picked (an identity
+    // question, not a ranking one): highest aa_intelligence_index, then
+    // aa_coding_index, then whichever variant carries real LMArena Elo. The
+    // dropped siblings are not lost - `variantCount`/`variantSlugs` on the
+    // survivor drive the "+N variants" badge.
+    function collapseVariants(models) {
+      const groups = new Map();
+      for (const m of models) {
+        const key = m.url_slug || m.base_slug || m.slug;
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(m);
+      }
+      const collapsed = [];
+      for (const group of groups.values()) {
+        group.sort((a, b) => {
+          const byIndex = compareKnownDesc(a.aa_intelligence_index, b.aa_intelligence_index);
+          if (byIndex !== 0) return byIndex;
+          const byCoding = compareKnownDesc(a.aa_coding_index, b.aa_coding_index);
+          if (byCoding !== 0) return byCoding;
+          const aElo = a.arena_elo_coding !== null && a.arena_elo_coding !== undefined;
+          const bElo = b.arena_elo_coding !== null && b.arena_elo_coding !== undefined;
+          if (aElo !== bElo) return aElo ? -1 : 1;
+          return 0;
+        });
+        const rep = group[0];
+        // Count DISTINCT reasoning efforts, not raw rows: an effort the two
+        // sources spell differently enough not to join appears twice (both
+        // of claude-opus-5's "max" rows), which inflated "+N variants" here
+        // while the detail page - which dedupes by label - reported one
+        // fewer for the same model.
+        const distinctEfforts = new Set(group.map((g) => g.variant_label ?? null)).size;
+        collapsed.push(distinctEfforts > 1
+          ? { ...rep, variantCount: distinctEfforts, variantSlugs: group.slice(1).map((g) => g.slug) }
+          : rep);
+      }
+      return collapsed;
+    }
+
+    // Generic nulls-last sort: a missing value means "unknown", never "0"
+    // or the worst/best possible value - it always sorts to the bottom
+    // regardless of direction, matching api/models.js's own comparator
+    // contract (compareBy). This is what keeps a model missing
+    // aa_intelligence_index from ever looking like it scored zero.
+    function sortModels(models, key, dir) {
+      const sign = dir === 'asc' ? 1 : -1;
+      return [...models].sort((a, b) => {
+        const av = a[key], bv = b[key];
+        const aNull = av === null || av === undefined;
+        const bNull = bv === null || bv === undefined;
+        if (aNull && bNull) return 0;
+        if (aNull) return 1; // nulls always last, regardless of direction
+        if (bNull) return -1;
+        if (av < bv) return -1 * sign;
+        if (av > bv) return 1 * sign;
+        return 0;
+      });
+    }
+
+    // Reads the aggregated per-base-model frontier flag for `metricKey` off
+    // the `frontier` object (pipeline/collect_models.py) - never assumes
+    // the key exists, since a model can lack the metric or its paired cost
+    // entirely (see the module docstring on data/models/latest.json).
+    function isOnFrontier(m, metricKey) {
+      return !!(m && m.frontier && m.frontier[metricKey] && m.frontier[metricKey].on_frontier === true);
+    }
+
+    // The whole point of this restructure: every row links to its own
+    // detail page. Falls back to base_slug/slug for an older cached
+    // artifact predating url_slug, and to the index itself if no slug is
+    // present at all (never a dead/empty href).
+    function detailUrl(m) {
+      const slug = m && (m.url_slug || m.base_slug || m.slug);
+      return slug ? '/models/' + encodeURIComponent(slug) : '/models';
+    }
+
+    // Builds the visible row set for the current controls state: variant-
+    // collapse once, optionally narrow to the frontier only, sort by the
+    // active ordering (nulls last), then cut to MODEL_CAP unless the reader
+    // opted into the full list. Frontier filtering happens BEFORE the cap
+    // so "frontier only" always shows every qualifying model, never a
+    // partial slice of it. `frontierCount` is always computed against the
+    // FULL distinct set (not the frontier-filtered one), so the toggle's
+    // own label stays stable while it is being switched on and off.
+    function buildView(models, activeSort, frontierOnly, showingAll) {
+      const distinct = collapseVariants(models);
+      const frontierCount = distinct.filter((m) => isOnFrontier(m, activeSort.frontierMetric)).length;
+      const scoped = frontierOnly ? distinct.filter((m) => isOnFrontier(m, activeSort.frontierMetric)) : distinct;
+      const sorted = sortModels(scoped, activeSort.key, activeSort.dir);
+      const visible = showingAll ? sorted : sorted.slice(0, MODEL_CAP);
+      return { distinctCount: distinct.length, scopedCount: scoped.length, frontierCount, visible };
+    }
+
+    // ---- ranked list rows ----
+    function renderRow(m, rank, activeSort) {
+      const isFrontier = isOnFrontier(m, activeSort.frontierMetric);
+      const frontierTag = isFrontier
+        ? '<span class="mr-frontier-tag" title="On the price/capability frontier">Frontier</span>' : '';
+      const variantCount = m.variantCount > 1
+        ? `<span class="mr-variant-badge" title="${esc(m.variantCount - 1)} other reasoning-effort variant${m.variantCount - 1 === 1 ? '' : 's'} of this model collapsed into this row">+${esc(m.variantCount - 1)} variant${m.variantCount - 1 === 1 ? '' : 's'}</span>`
+        : '';
+      const weightsBadge = m.open_weights === true
+        ? '<span class="mr-badge">Open weights</span>'
+        : m.open_weights === false
+          ? '<span class="mr-badge mr-badge-closed">Closed</span>'
+          : '<span class="mr-undisclosed">weights unknown</span>';
+      const org = m.organization ? esc(m.organization) : '<span class="mr-undisclosed">undisclosed</span>';
+      const slug = esc(m.url_slug || m.base_slug || m.slug || '');
+      // DeepSWE stats are additive - only shown when this row actually has a
+      // measured result, never a placeholder pair of dashes crowding every
+      // other row that DeepSWE hasn't covered (23 of ~154 tracked models
+      // today, see the 2026-08-17 decision log entry).
+      // When the row carries a Frontier badge, show the numbers of the
+      // variant that ACTUALLY qualified, not the collapse representative's.
+      // The representative is chosen by intelligence index, which for
+      // GPT-5.6 Sol is the dominated `max` run at $8.39/task while the
+      // frontier is reached at $3.47 - quoting the representative made this
+      // page contradict the model's own detail page by 2.4x on cost.
+      const frontierEntry = (m.frontier && m.frontier[activeSort.frontierMetric]) || null;
+      const useQualifying = isFrontier && frontierEntry
+        && frontierEntry.qualifying_metric_value !== null && frontierEntry.qualifying_metric_value !== undefined;
+      const passAt1 = useQualifying ? frontierEntry.qualifying_metric_value : m.deepswe_pass_at_1;
+      const costPerTask = useQualifying ? frontierEntry.qualifying_cost : m.deepswe_cost_per_task_usd;
+      // The effort qualifier rides with the VALUE, not the label: folded into
+      // the label it made "DEEPSWE PASS@1 (XHIGH EFFORT)" wrap to three lines
+      // on a phone and shoved the neighbouring stats into each other.
+      const qualifyingEffort = useQualifying && frontierEntry.qualifying_variant
+        ? `<span class="mr-stat-qualifier">${esc(frontierEntry.qualifying_variant)}</span>` : '';
+      const deepsweStats = (passAt1 !== null && passAt1 !== undefined)
+        ? `<span class="mr-stat"><span class="mr-stat-label">DeepSWE pass@1</span><span class="mr-stat-value">${fmtPct(passAt1)}${qualifyingEffort}</span></span>
+           <span class="mr-stat"><span class="mr-stat-label">Cost/task</span><span class="mr-stat-value">${fmtTaskCost(costPerTask)}</span></span>`
+        : '';
+      return `
+        <li class="mr-row">
+          <a class="mr-row-link" href="${detailUrl(m)}" data-model-slug="${slug}" data-track="models-row-link">
+            <span class="mr-rank" aria-hidden="true">${String(rank).padStart(2, '0')}</span>
+            <span class="mr-row-main">
+              <span class="mr-row-name">${esc(displayName(m))}${frontierTag}${variantCount}</span>
+              <span class="mr-row-org">${org}</span>
+            </span>
+            <span class="mr-row-stats">
+              <span class="mr-stat"><span class="mr-stat-label">Intelligence</span><span class="mr-stat-value">${fmtNum(m.aa_intelligence_index, 1)}</span></span>
+              <span class="mr-stat"><span class="mr-stat-label">Price /1M</span><span class="mr-stat-value">${fmtPrice(m.price_blended_per_1m)}</span></span>
+              ${deepsweStats}
+              ${weightsBadge}
+            </span>
+            <span class="mr-row-chevron" aria-hidden="true">&rsaquo;</span>
+          </a>
+        </li>`;
+    }
+
+    function renderList(view, activeSort) {
+      const rows = view.visible.map((m, i) => renderRow(m, i + 1, activeSort)).join('');
+      return `<ol class="mr-list">${rows}</ol>`;
+    }
+
+    function renderSources(sources) {
+      const lmarena = sources.lmarena || {};
+      const aa = sources.artificial_analysis || {};
+      const deepswe = sources.deepswe || {};
+      const item = (s, fallbackName) => {
+        const url = safeUrl(s.url);
+        const label = s.attribution || fallbackName;
+        const link = url ? `<a href="${url}" target="_blank" rel="noopener">${esc(label)}</a>` : esc(label);
+        return link;
+      };
+      return `
+        <h2>Sources and attribution</h2>
+        <ul>
+          <li>${item(lmarena, 'LMArena')} - Elo rankings are crowd preference votes, not a benchmark score.</li>
+          <li>${item(aa, 'Artificial Analysis')}${aa.available ? '' : ' <span class="mr-source-status">- not yet connected on this deployment; intelligence index and price show "undisclosed" until it is.</span>'}</li>
+          <li>${item(deepswe, 'DeepSWE / Datacurve')}${deepswe.available ? ' - the only measured (not per-token-estimated) cost per task in this catalog.' : ' <span class="mr-source-status">- not available on this deployment.</span>'}</li>
+        </ul>`;
+    }
+
+    // Compact, keyboard-native (a real <select>) control for the list's
+    // ordering. Only SORT_OPTIONS.length entries ever appear - a small,
+    // obvious set for a search-results page, not a full sort matrix.
+    function renderSortControl(activeSort) {
+      const opts = SORT_OPTIONS.map((opt) =>
+        `<option value="${esc(opt.key)}" ${opt.key === activeSort.key ? 'selected' : ''}>${esc(opt.label)}</option>`
+      ).join('');
+      return `
+        <div class="mr-sort-control">
+          <label for="sortSelect">Order by</label>
+          <select id="sortSelect" class="mr-sort-select">${opts}</select>
+        </div>`;
+    }
+
+    // Data-driven summary line: says exactly what's on screen relative to
+    // whatever scope is active (frontier-only or the full catalog), rather
+    // than a hardcoded sentence that can drift from reality.
+    function controlsSummary(view, frontierOnly, distinctTotal) {
+      const scopeLabel = frontierOnly ? `frontier model${view.scopedCount === 1 ? '' : 's'}` : 'tracked models';
+      const scopeTotal = frontierOnly ? view.scopedCount : distinctTotal;
+      if (view.visible.length < scopeTotal) {
+        return `Showing the top ${view.visible.length} of ${scopeTotal} ${scopeLabel} - the finishable view.`;
+      }
+      return `Showing all ${view.visible.length} ${scopeLabel}.`;
+    }
+
+    function renderRadar(data) {
+      const models = Array.isArray(data.models) ? data.models : [];
+      const sources = data.sources || {};
+      document.getElementById('jsonLink').href = '/api/models';
+
+      const aaAvailable = aaIndexAvailable(models);
+      let activeSort = aaAvailable ? SORT_OPTIONS[0] : FALLBACK_SORT;
+      let frontierOnly = false;
+      let showingAll = false;
+
+      const root = document.getElementById('radar');
+
+      function draw() {
+        const view = buildView(models, activeSort, frontierOnly, showingAll);
+
+        const metaParts = [`${view.distinctCount} models tracked`];
+        if (frontierOnly) metaParts.push(`${view.frontierCount} on the frontier`);
+        document.getElementById('meta').textContent = metaParts.join(' · ');
+
+        const showCapToggle = view.scopedCount > MODEL_CAP;
+        const showFrontierToggle = view.frontierCount > 0;
+
+        root.innerHTML = `
+          <section class="mr-hero">
+            <p class="mr-kicker">Model Release Radar · updated ${esc(fmtUpdated(data.generated_at))}</p>
+            <h2 class="mr-headline">Every model, ranked</h2>
+            <p class="mr-thesis">A new model drops - is it real, what does it cost, and should you route to it?
+              Every tracked model, ranked by Artificial Analysis intelligence index by default, sourced from
+              LMArena and Artificial Analysis, not vendor marketing.</p>
+            ${aaAvailable ? '' : `<div class="mr-note"><strong>Artificial Analysis intelligence index is not connected on this deployment.</strong>
+              The list below ranks by community-voted coding Elo (LMArena) instead. Intelligence index, coding
+              index, and price ordering all appear on their own once Artificial Analysis is connected - nothing
+              here is estimated.</div>`}
+          </section>
+          <div class="mr-controls">
+            <p>${controlsSummary(view, frontierOnly, view.distinctCount)}</p>
+            ${aaAvailable ? renderSortControl(activeSort) : ''}
+            ${showFrontierToggle ? `<button type="button" class="mr-toggle" id="toggleFrontier" aria-pressed="${frontierOnly}">${frontierOnly ? 'All models' : `Frontier only (${view.frontierCount})`}</button>` : ''}
+            ${showCapToggle ? `<button type="button" class="mr-toggle" id="toggleAll" aria-pressed="${showingAll}">${showingAll ? `Show top ${MODEL_CAP}` : `Show all ${view.scopedCount}${frontierOnly ? ' frontier models' : ' models'}`}</button>` : ''}
+          </div>
+          <section class="mr-list-section">
+            ${renderList(view, activeSort)}
+          </section>
+          <div class="mr-sources">${renderSources(sources)}</div>
+        `;
+
+        const sortSelect = document.getElementById('sortSelect');
+        if (sortSelect) {
+          sortSelect.addEventListener('change', () => {
+            const next = SORT_OPTIONS.find((o) => o.key === sortSelect.value);
+            if (!next) return;
+            activeSort = next;
+            draw();
+          });
+        }
+        const frontierBtn = document.getElementById('toggleFrontier');
+        if (frontierBtn) {
+          frontierBtn.addEventListener('click', () => { frontierOnly = !frontierOnly; draw(); });
+        }
+        const toggleBtn = document.getElementById('toggleAll');
+        if (toggleBtn) {
+          toggleBtn.addEventListener('click', () => { showingAll = !showingAll; draw(); });
+        }
+      }
+
+      draw();
+    }
+
+    function fmtUpdated(iso) {
+      if (!iso) return 'unknown';
+      const d = new Date(iso);
+      if (Number.isNaN(d.getTime())) return String(iso);
+      return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    }
+
+    async function run() {
+      try {
+        let res = await fetch('/api/models');
+        if (res.status === 404 && isLocal()) {
+          res = await fetch('/data/models/latest.json', { cache: 'no-store' });
+        }
+        if (!res.ok) throw new Error('models_http_' + res.status);
+        const data = await res.json();
+        if (!Array.isArray(data.models) || !data.models.length) {
+          document.getElementById('meta').textContent = 'No models tracked yet';
+          document.getElementById('radar').innerHTML =
+            '<div class="state">No models have been collected yet. Check back soon.</div>';
+          return;
+        }
+        renderRadar(data);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('meta').textContent = 'Model radar unavailable';
+        document.getElementById('radar').innerHTML =
+          '<div class="state">Could not load the model radar right now. Please refresh in a moment.</div>';
+      }
+    }
+
+    initThemeToggle();
+    run();
+  </script>
+
+  <!-- Bubble Buddy mascot: decorative WebGL character, lazy-loaded on idle,
+       skipped under prefers-reduced-motion. Never affects initial load. -->
+  <script type="module">
+    const isLocalPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    if (!isLocalPreview && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+  <!-- "New updates" nav indicators; shared logic in /nav-updates.js - see
+       docs/product-specs/nav-update-indicators.md. Section not yet part of
+       its known set, so this no-ops harmlessly for /models. -->
+  <script src="/nav-updates.js?v=20260701" defer></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 import subprocess
 import unittest
@@ -198,6 +199,326 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         )
 
     # 내일 takes no particle; explicit dates take 에 (8월 1일에 vs 내일).
+    # Model Release Radar sidebar (feed page teaser linking to /models).
+    # These tests cover: the wrapper markup and its zero-shift hidden default,
+    # the wide-viewport rail vs. stacked-card breakpoint math (the article
+    # column must never shrink), and the render/attribution logic itself
+    # (extracted and run under node, same pattern as the /ko/ tests above).
+
+    def test_model_radar_rail_wraps_list_and_starts_hidden(self) -> None:
+        self.assertIn('<div class="feed-layout">', self.html)
+        self.assertIn(
+            '<aside id="modelRadarRail" class="model-radar-rail" '
+            'aria-label="Model Release Radar" hidden></aside>',
+            self.html,
+        )
+        # The rail is a DOM sibling *after* #list, so removing it on failure
+        # never disturbs the feed-seed region above it - and stacked layouts
+        # render it below the articles for free, which is what we want.
+        list_open = self.html.index('<section id="list" aria-live="polite">')
+        rail = self.html.index('id="modelRadarRail"')
+        self.assertLess(list_open, rail)
+
+    def test_model_radar_rail_wide_breakpoint_math_never_shrinks_article_column(self) -> None:
+        # Stacked default: the rail follows #list in DOM order and must NOT be
+        # hoisted above it. An earlier `order:-1` pushed every brief article
+        # below the radar, burying the feed the page exists to deliver.
+        self.assertIn(".feed-layout { display:flex; flex-direction:column; }", self.html)
+        self.assertNotIn(".model-radar-rail { order:-1;", self.html)
+        # Wide rail: the breakpoint IS the widened main width, so there is no
+        # in-between viewport range where main has grown past 980px but the
+        # rail hasn't fully landed yet - #list keeps the exact calc used by
+        # the base 980px `main` rule (980px - 2 * 1.35rem side padding).
+        self.assertIn("@media (min-width:1200px) {", self.html)
+        self.assertIn("main { max-width:1200px; }", self.html)
+        self.assertIn("#list { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }", self.html)
+
+    def test_model_radar_rail_collapses_to_one_row_below_the_rail_breakpoint(self) -> None:
+        # The feed is the product on a phone. A five-row radar block anywhere
+        # in the flow competes with it, so narrow viewports keep only the
+        # leading model plus the CTA; the full list returns with the >=1200px
+        # rail, where it costs the article column nothing.
+        self.assertIn("@media (max-width:1199.98px) {", self.html)
+        self.assertIn(".model-radar-rail .mr-rail-row + .mr-rail-row { display:none; }", self.html)
+        self.assertIn(".model-radar-rail .mr-rail-lede { display:none; }", self.html)
+
+    def test_model_radar_rail_keeps_source_credit_when_collapsed(self) -> None:
+        # A score is still on screen in the collapsed state, so the source
+        # credit line must NOT be among what the media query hides.
+        block = self.html.split("@media (max-width:1199.98px) {", 1)[1].split("\n    }", 1)[0]
+        self.assertNotIn(".mr-rail-sources", block)
+        self.assertNotIn(".mr-rail-cta", block)
+
+    def test_model_radar_rail_cta_links_to_models_page(self) -> None:
+        self.assertIn(
+            'href="/models">Full radar and price/capability frontier',
+            self.html,
+        )
+
+    def test_model_radar_rail_fetches_after_load_sorted_by_its_own_ranking_metric(self) -> None:
+        # Sorted by the metric the rail ranks by, never by arena_elo_coding
+        # (which would drop a brand-new AA-only model with no LMArena votes).
+        # An UNSORTED slice was equally wrong: build_output orders rows by
+        # recency/arena rank, so a top model can sit past the limit and never
+        # reach the client. Nulls sort last, so nothing is excluded outright.
+        self.assertIn(
+            "fetch('/api/models?sort=aa_intelligence_index&order=desc&limit=60')",
+            self.html,
+        )
+        # Deferred past the feed's own load, idle-tick before the network call.
+        self.assertIn("window.addEventListener('load', mrSchedule)", self.html)
+        self.assertIn(
+            "'requestIdleCallback' in window ? requestIdleCallback(mrRun, { timeout: 4000 })",
+            self.html,
+        )
+        # Same local-preview fallback contract as /models itself.
+        self.assertIn(
+            "if (res.status === 404 && mrIsLocal()) return fetch('/data/models/latest.json'",
+            self.html,
+        )
+        # Any failure removes the element outright rather than leaving an
+        # error state or empty skeleton behind.
+        self.assertIn(".catch(function () { rail.remove(); });", self.html)
+
+    # The sidebar's helpers are all "mr"-prefixed (mrEsc, mrSafeUrl, ...) so
+    # they never collide with the main feed script's own esc/safeUrl earlier
+    # in the same file - _extract_js_function matches by first textual
+    # occurrence, so a shared name would silently pull the wrong function.
+    def _extract_model_radar_functions(self) -> str:
+        names = [
+            "mrEsc", "mrSafeUrl", "mrDisplayName", "mrFmtPrice", "mrCapabilityField", "mrCollapseVariants",
+            "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrRender",
+        ]
+        return "\n".join(_extract_js_function(self.html, name) for name in names)
+
+    def test_model_radar_rail_render_shows_top_models_and_omits_null_price(self) -> None:
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const data = {{
+            sources: {{
+              lmarena: {{ attribution: 'LMArena', url: 'https://lmarena.ai' }},
+              artificial_analysis: {{ attribution: 'Artificial Analysis', url: 'https://artificialanalysis.ai' }}
+            }},
+            models: [
+              {{ name: 'model-a', organization: 'labA', arena_elo_coding: 1500.4,
+                 open_weights: true, price_blended_per_1m: null }},
+              {{ name: 'model-b', organization: 'labB', arena_elo_coding: null,
+                 open_weights: false, price_blended_per_1m: null }}
+            ]
+          }};
+          const ok = mrRender(rail, data);
+          console.log(JSON.stringify({{
+            ok, hidden: rail.hidden,
+            hasModelA: rail.innerHTML.includes('model-a'),
+            excludesNullEloModel: !rail.innerHTML.includes('model-b'),
+            hasOpenWeightsBadge: rail.innerHTML.includes('Open weights'),
+            noPriceRendered: !rail.innerHTML.includes('/1M'),
+            creditsLmarenaOnly: rail.innerHTML.includes('LMArena') && !rail.innerHTML.includes('Artificial Analysis'),
+          }}));
+        """
+        result = json.loads(_run_node(script))
+        self.assertEqual(
+            result,
+            {
+                "ok": True,
+                "hidden": False,
+                "hasModelA": True,
+                "excludesNullEloModel": True,
+                "hasOpenWeightsBadge": True,
+                "noPriceRendered": True,
+                "creditsLmarenaOnly": True,
+            },
+        )
+
+    def test_model_radar_rail_render_credits_artificial_analysis_when_price_shown(self) -> None:
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const data = {{
+            sources: {{
+              lmarena: {{ attribution: 'LMArena', url: 'https://lmarena.ai' }},
+              artificial_analysis: {{ attribution: 'Artificial Analysis', url: 'https://artificialanalysis.ai' }}
+            }},
+            models: [
+              {{ name: 'model-a', organization: 'labA', arena_elo_coding: 1500,
+                 open_weights: false, price_blended_per_1m: 3.5 }}
+            ]
+          }};
+          mrRender(rail, data);
+          console.log(JSON.stringify({{
+            hasPrice: rail.innerHTML.includes('\\$3.50/1M blended'),
+            creditsBothSources: rail.innerHTML.includes('LMArena') && rail.innerHTML.includes('Artificial Analysis'),
+          }}));
+        """
+        self.assertEqual(
+            _run_node(script),
+            '{"hasPrice":true,"creditsBothSources":true}',
+        )
+
+    def test_model_radar_rail_render_returns_false_and_stays_hidden_when_no_ranked_models(self) -> None:
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const ok = mrRender(rail, {{ models: [] }});
+          console.log(JSON.stringify({{ ok, hidden: rail.hidden, empty: rail.innerHTML === '' }}));
+        """
+        self.assertEqual(_run_node(script), '{"ok":false,"hidden":true,"empty":true}')
+
+    def test_model_radar_rail_render_defaults_to_five_rows_without_outer_limit_var(self) -> None:
+        # mrRender takes `limit` as a parameter (default 5) rather than
+        # closing over an outer LIMIT constant, so calling it with just
+        # (rail, data) - as the real mrRun() call site does - must still cap
+        # at 5 rows given more than 5 ranked models.
+        functions = self._extract_model_radar_functions()
+        models = ",".join(
+            f'{{ name: "model-{i}", organization: "lab", arena_elo_coding: {1500 - i}, '
+            f'open_weights: false, price_blended_per_1m: null }}'
+            for i in range(8)
+        )
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          mrRender(rail, {{ models: [{models}] }});
+          const rowCount = (rail.innerHTML.match(/mr-rail-row/g) || []).length;
+          console.log(JSON.stringify({{ rowCount }}));
+        """
+        self.assertEqual(_run_node(script), '{"rowCount":5}')
+
+    def test_model_radar_rail_prefers_aa_intelligence_index_over_elo_when_available(self) -> None:
+        # The rail's default ordering must match /models' own default
+        # (aa_intelligence_index descending) so the two surfaces tell the
+        # same story - see web/models.html's SORT_OPTIONS.
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const data = {{
+            sources: {{
+              lmarena: {{ attribution: 'LMArena', url: 'https://lmarena.ai' }},
+              artificial_analysis: {{ attribution: 'Artificial Analysis', url: 'https://artificialanalysis.ai' }}
+            }},
+            models: [
+              {{ name: 'high-elo-low-index', slug: 'a', base_slug: 'a', organization: 'labA',
+                 arena_elo_coding: 1600, aa_intelligence_index: 40, open_weights: false, price_blended_per_1m: null }},
+              {{ name: 'low-elo-high-index', slug: 'b', base_slug: 'b', organization: 'labB',
+                 arena_elo_coding: 1400, aa_intelligence_index: 90, open_weights: false, price_blended_per_1m: null }}
+            ]
+          }};
+          mrRender(rail, data);
+          console.log(JSON.stringify({{
+            firstModelIsHighIndex: rail.innerHTML.indexOf('low-elo-high-index') < rail.innerHTML.indexOf('high-elo-low-index'),
+            showsIndexLabel: rail.innerHTML.includes('AA intelligence index'),
+            creditsArtificialAnalysis: rail.innerHTML.includes('AA intelligence index from') && rail.innerHTML.includes('Artificial Analysis'),
+          }}));
+        """
+        result = json.loads(_run_node(script))
+        self.assertEqual(
+            result,
+            {"firstModelIsHighIndex": True, "showsIndexLabel": True, "creditsArtificialAnalysis": True},
+        )
+
+    def test_model_radar_rail_collapses_variant_spam_before_ranking(self) -> None:
+        # Regression test for the reported bug: a single lab publishing many
+        # reasoning-effort variants of the same base model (all at the same
+        # or a very close Elo) must not fill the whole 5-row teaser by
+        # itself - one row per base_slug, same as the /models page.
+        functions = self._extract_model_radar_functions()
+        anthropic_variants = ",".join(
+            f'{{ name: "claude-opus-5-{suffix}", slug: "opus5{suffix}", base_slug: "claudeopus5", '
+            f'organization: "anthropic", arena_elo_coding: {1600 - i}, open_weights: false, price_blended_per_1m: null }}'
+            for i, suffix in enumerate(["max", "high", "medium", "low", "xhigh"])
+        )
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const models = [
+            {anthropic_variants},
+            {{ name: 'kimi-k3', slug: 'kimik3', base_slug: 'kimik3', organization: 'moonshot',
+               arena_elo_coding: 1550, open_weights: true, price_blended_per_1m: null }},
+            {{ name: 'glm-5.2', slug: 'glm52', base_slug: 'glm52', organization: 'zai',
+               arena_elo_coding: 1540, open_weights: true, price_blended_per_1m: null }}
+          ];
+          mrRender(rail, {{ models }});
+          const rowCount = (rail.innerHTML.match(/mr-rail-row/g) || []).length;
+          console.log(JSON.stringify({{
+            rowCount,
+            anthropicRowCount: (rail.innerHTML.match(/anthropic/g) || []).length,
+            includesKimi: rail.innerHTML.includes('kimi-k3'),
+            includesGlm: rail.innerHTML.includes('glm-5.2'),
+          }}));
+        """
+        result = json.loads(_run_node(script))
+        self.assertEqual(result["rowCount"], 3, "5 spammed Anthropic rows + 2 other labs collapse to 3 distinct models")
+        self.assertEqual(result["anthropicRowCount"], 1, "the Anthropic variant family must appear only once")
+        self.assertTrue(result["includesKimi"])
+        self.assertTrue(result["includesGlm"])
+
+    def test_model_radar_rail_renders_display_name_not_raw_name(self) -> None:
+        # The rail's 200px width is the exact case the display_name fix
+        # targets: a raw name mixing AA verbose variant strings and LMArena
+        # lowercase-dashed slugs wraps to two lines there - see
+        # docs/design-docs/decision-log.md, 2026-08-06.
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const data = {{
+            sources: {{ lmarena: {{}}, artificial_analysis: {{}} }},
+            models: [
+              {{ name: 'gpt-5.6-sol-xhigh', display_name: 'GPT-5.6 Sol', slug: 'a',
+                 organization: 'openai', arena_elo_coding: 1500, price_blended_per_1m: null }},
+              {{ name: 'claude-opus-5-max-adaptive', slug: 'b',
+                 organization: 'anthropic', arena_elo_coding: 1490, price_blended_per_1m: null }}
+            ]
+          }};
+          mrRender(rail, data);
+          console.log(JSON.stringify({{
+            showsDisplayName: rail.innerHTML.includes('GPT-5.6 Sol'),
+            hidesRawName: !rail.innerHTML.includes('gpt-5.6-sol-xhigh'),
+            fallsBackToRawNameWhenFieldAbsent: rail.innerHTML.includes('claude-opus-5-max-adaptive'),
+          }}));
+        """
+        result = json.loads(_run_node(script))
+        self.assertEqual(
+            result,
+            {"showsDisplayName": True, "hidesRawName": True, "fallsBackToRawNameWhenFieldAbsent": True},
+        )
+
+    def test_model_radar_rail_rows_link_to_detail_page(self) -> None:
+        # The whole point of the ranked-list restructure (see web/models.html):
+        # every row - including the compact feed-sidebar teaser - links to
+        # its own /models/<url_slug> detail page, keyboard-accessible (a
+        # real <a>, not a click handler on a <span>).
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const rail = {{ innerHTML: '', hidden: true }};
+          const data = {{
+            sources: {{ lmarena: {{}}, artificial_analysis: {{}} }},
+            models: [
+              {{ name: 'claude-opus-5-high', display_name: 'Claude Opus 5', slug: 'claudeopus5high',
+                 base_slug: 'claudeopus5', url_slug: 'claude-opus-5', organization: 'anthropic',
+                 arena_elo_coding: 1500, price_blended_per_1m: null }},
+              {{ name: 'legacy-model', slug: 'legacyslug', organization: 'acme',
+                 arena_elo_coding: 1490, price_blended_per_1m: null }}
+            ]
+          }};
+          mrRender(rail, data);
+          console.log(JSON.stringify({{
+            linksToUrlSlug: rail.innerHTML.includes('<a class="mr-rail-name" href="/models/claude-opus-5">'),
+            fallsBackToSlugWhenUrlSlugAbsent: rail.innerHTML.includes('<a class="mr-rail-name" href="/models/legacyslug">'),
+          }}));
+        """
+        result = json.loads(_run_node(script))
+        self.assertEqual(
+            result,
+            {"linksToUrlSlug": True, "fallsBackToSlugWhenUrlSlugAbsent": True},
+        )
+
     def test_korean_feed_paused_notice_resume_particle(self) -> None:
         esc = _extract_js_function(self.ko_html, "esc")
         fmt = _extract_js_function(self.ko_html, "formatKstDate")
