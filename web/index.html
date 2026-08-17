@@ -1349,7 +1349,7 @@
     </section>
     <!-- Model Release Radar teaser: optional right rail / stacked card, see
          the deferred fetch script near the end of body. Starts hidden so a
-         slow or failed /api/models never shifts layout or shows a trace. -->
+         slow or failed models fetch never shifts layout or shows a trace. -->
     <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" hidden></aside>
     </div>
 
@@ -3393,9 +3393,8 @@
        - same philosophy as nav-updates.js above. Waits for window 'load' (the
        feed's own fetch/render is long done by then) and an idle tick before
        fetching, so it never competes with the feed for the critical path.
-       /api/models 404s under a static server (no serverless functions), so
-       it falls back to the committed snapshot the same way /models itself
-       does. Any failure, timeout, or empty result removes the element with
+       the payload is a static asset, so it works identically in production
+       and under a plain static server. Any failure, timeout, or empty result removes the element with
        zero visual trace - it starts [hidden] (no layout reserved) and is
        only ever unhidden once real content is ready to show. -->
   <script>
@@ -3573,12 +3572,13 @@
       var rail = document.getElementById('modelRadarRail');
       if (!rail) return;
       // A generous, unsorted slice (not a server-side arena_elo_coding sort)
-      // Sorted server-side by the SAME metric this rail ranks by, with the
-      // API's nulls-last contract: a brand-new AA-only model with no LMArena
-      // votes is still inside the window (sorting by Elo would drop it), and
-      // unlike an unsorted slice the true top models cannot fall outside it -
-      // build_output orders rows by recency/arena rank, not by capability.
-      fetch('/api/models?sort=aa_intelligence_index&order=desc&limit=60')
+      // A pre-built static slice (pipeline/render_static_pages.py's
+      // write_models_static_json), already ordered by the metric this rail
+      // ranks by, so a top model can never fall outside the window - and only
+      // ~14 KB, versus ~300 KB for the whole catalog, because the feed page
+      // must not pay for a teaser. No serverless function is involved: the
+      // Hobby plan caps a deployment at 12 and the project was already there.
+      fetch('/models-top.json')
         .then(function (res) {
           if (res.status === 404 && mrIsLocal()) return fetch('/data/models/latest.json', { cache: 'no-store' });
           return res;

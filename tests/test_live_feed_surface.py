@@ -255,16 +255,14 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             self.html,
         )
 
-    def test_model_radar_rail_fetches_after_load_sorted_by_its_own_ranking_metric(self) -> None:
-        # Sorted by the metric the rail ranks by, never by arena_elo_coding
-        # (which would drop a brand-new AA-only model with no LMArena votes).
-        # An UNSORTED slice was equally wrong: build_output orders rows by
-        # recency/arena rank, so a top model can sit past the limit and never
-        # reach the client. Nulls sort last, so nothing is excluded outright.
-        self.assertIn(
-            "fetch('/api/models?sort=aa_intelligence_index&order=desc&limit=60')",
-            self.html,
-        )
+    def test_model_radar_rail_fetches_the_prebuilt_static_slice(self) -> None:
+        # A static asset, not a serverless function: the Hobby plan caps a
+        # deployment at 12 functions and the project was already at 12, so an
+        # api/models.js failed every deploy. The slice is pre-ordered by the
+        # metric the rail ranks by, so a top model cannot fall outside the
+        # window, and it is ~14 KB rather than the ~300 KB full catalog.
+        self.assertIn("fetch('/models-top.json')", self.html)
+        self.assertNotIn("/api/models", self.html)
         # Deferred past the feed's own load, idle-tick before the network call.
         self.assertIn("window.addEventListener('load', mrSchedule)", self.html)
         self.assertIn(

@@ -62,7 +62,7 @@ class ModelsSurfaceTest(unittest.TestCase):
 
     def test_json_view_link(self) -> None:
         self.assertIn('id="jsonLink"', self.html)
-        self.assertIn("/api/models", self.html)
+        self.assertIn("/models-data.json", self.html)
 
     # ---- attribution (licensing obligation) ----
 
@@ -652,3 +652,29 @@ class ModelsDisplayNamePresentationTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ModelsServedStaticallyTest(unittest.TestCase):
+    """The radar must not add a serverless function.
+
+    Vercel's Hobby plan caps a deployment at 12 functions and this project was
+    already at 12, so shipping an api/models.js failed every deploy. Nothing
+    about the radar needs request-time compute - the pages do their own
+    collapsing, filtering and sorting - so the payloads are static assets.
+    """
+
+    def test_no_models_serverless_function_exists(self) -> None:
+        self.assertFalse((ROOT / "api" / "models.js").exists())
+
+    def test_function_count_stays_within_the_hobby_plan_cap(self) -> None:
+        functions = sorted((ROOT / "api").glob("*.js"))
+        self.assertLessEqual(
+            len(functions), 12, f"too many serverless functions: {[f.name for f in functions]}"
+        )
+
+    def test_vercel_config_has_no_models_function_entry(self) -> None:
+        config = json.loads((ROOT / "vercel.json").read_text(encoding="utf-8"))
+        self.assertNotIn("api/models.js", config.get("functions", {}))
+        # The page rewrites must survive - they are how /models resolves.
+        sources = {r["source"] for r in config.get("rewrites", [])}
+        self.assertIn("/models", sources)

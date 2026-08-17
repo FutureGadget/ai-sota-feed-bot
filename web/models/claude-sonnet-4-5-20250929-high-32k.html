@@ -267,7 +267,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <a href="/api/models">View as JSON</a>
+        <a href="/models-data.json">View as JSON</a>
         <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/models/claude-sonnet-4-5-20250929-high-32k" data-share-title="Claude Sonnet 4 5 20250929 High 32k - Model Release Radar">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
@@ -495,7 +495,7 @@
           '</svg></div>';
       }
 
-      fetch('/api/models')
+      fetch('/models-data.json')
         .then(function (res) {
           if (res.status === 404 && isLocal()) return fetch('/data/models/latest.json', { cache: 'no-store' });
           if (!res.ok) throw new Error('models_http_' + res.status);

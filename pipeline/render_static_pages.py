@@ -4459,7 +4459,7 @@ MODEL_CHART_JS = """\
           '</svg></div>';
       }
 
-      fetch('/api/models')
+      fetch('/models-data.json')
         .then(function (res) {
           if (res.status === 404 && isLocal()) return fetch('/data/models/latest.json', { cache: 'no-store' });
           if (!res.ok) throw new Error('models_http_' + res.status);
@@ -4843,6 +4843,64 @@ def load_models_artifact() -> dict:
     return data
 
 
+# Rows kept in models-top.json for the feed rail. Generous enough that
+# variant collapsing still has real rows to work with, small enough that
+# the feed page is not made to download the whole catalog.
+MODELS_TOP_SLICE = 40
+# Exactly the fields web/index.html's rail reads (mrRowHtml /
+# mrCapabilityField / mrCollapseVariants).
+MODELS_TOP_FIELDS = (
+    "url_slug", "base_slug", "slug", "name", "display_name", "organization",
+    "open_weights", "variant_label", "aa_intelligence_index", "aa_coding_index",
+    "arena_elo_coding", "price_blended_per_1m",
+)
+
+
+def write_models_static_json(artifact: dict) -> tuple[int, int]:
+    """Emit the Model Release Radar payloads as STATIC files, not an API.
+
+    Vercel's Hobby plan caps a deployment at 12 serverless functions and the
+    project was already at 12, so `api/models.js` made every deploy fail. That
+    function only ever read a committed JSON file and filtered/sorted it -
+    work both pages already redo client-side - so there is nothing to run at
+    request time. Top-level non-HTML files under web/ are copied to the public
+    root by scripts/vercel_build.py, so these are served at /models-data.json
+    and /models-top.json.
+
+    Two files, because the feed page must stay light: the full catalog is
+    ~300 KB and the sidebar needs five rows. `models-top.json` carries only
+    the highest-capability slice, ordered the way the rail ranks, so a top
+    model can never fall outside the window.
+    """
+    models = artifact.get("models") or []
+    payload = {
+        "generated_at": artifact.get("generated_at"),
+        "sources": artifact.get("sources") or {},
+        "models": models,
+    }
+    full_path = WEB_DIR / "models-data.json"
+    full_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    def rank(row: dict):
+        value = row.get("aa_intelligence_index")
+        known = isinstance(value, (int, float)) and not isinstance(value, bool)
+        # Nulls last, never treated as zero - same contract the pages use.
+        return (0 if known else 1, -(value if known else 0))
+
+    # Project only the fields the rail actually reads. Carrying the full row
+    # shape made the teaser 57 KB, most of it `benchmarks`/`frontier`/CI data
+    # the rail never touches.
+    top = [
+        {k: row.get(k) for k in MODELS_TOP_FIELDS}
+        for row in sorted(models, key=rank)[:MODELS_TOP_SLICE]
+    ]
+    top_path = WEB_DIR / "models-top.json"
+    top_path.write_text(
+        json.dumps({**payload, "models": top}, ensure_ascii=False), encoding="utf-8"
+    )
+    return full_path.stat().st_size, top_path.stat().st_size
+
+
 def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | None]]:
     """Render web/models/<url_slug>.html for every distinct base model in
     data/models/latest.json; return sitemap entries. Stale pages for models
@@ -4876,7 +4934,7 @@ def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | N
             published=published,
             h1="Model Release Radar",
             meta_line="Price/capability frontier position, benchmark scores, and community signal",
-            json_href="/api/models",
+            json_href="/models-data.json",
             archive="",
             recap_title=title,
             recap_range="",
@@ -5607,6 +5665,7 @@ def main() -> None:
     has_foundations = render_foundations_page(base_url, foundations)
     models_artifact = load_models_artifact()
     model_pages = render_model_pages(base_url, models_artifact)
+    models_json_bytes = write_models_static_json(models_artifact)
     i18n_pages = render_i18n_pages(base_url, i18n_page_map, story_sids, playbook_index)
     write_sitemap(
         base_url,

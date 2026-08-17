@@ -217,7 +217,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <a id="jsonLink" href="/api/models">View as JSON</a>
+        <a id="jsonLink" href="/models-data.json">View as JSON</a>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
     </header>
@@ -402,7 +402,7 @@
 
     // Generic nulls-last sort: a missing value means "unknown", never "0"
     // or the worst/best possible value - it always sorts to the bottom
-    // regardless of direction, matching api/models.js's own comparator
+    // regardless of direction, matching the collector's own null contract
     // contract (compareBy). This is what keeps a model missing
     // aa_intelligence_index from ever looking like it scored zero.
     function sortModels(models, key, dir) {
@@ -565,7 +565,7 @@
     function renderRadar(data) {
       const models = Array.isArray(data.models) ? data.models : [];
       const sources = data.sources || {};
-      document.getElementById('jsonLink').href = '/api/models';
+      document.getElementById('jsonLink').href = '/models-data.json';
 
       const aaAvailable = aaIndexAvailable(models);
       let activeSort = aaAvailable ? SORT_OPTIONS[0] : FALLBACK_SORT;
@@ -639,7 +639,11 @@
 
     async function run() {
       try {
-        let res = await fetch('/api/models');
+        // Static asset, not a serverless function: Vercel's Hobby plan caps a
+        // deployment at 12 functions and this project was already at 12, so an
+        // api/models.js made every deploy fail. Nothing here needs request-time
+        // compute - this page does its own collapsing, filtering and sorting.
+        let res = await fetch('/models-data.json');
         if (res.status === 404 && isLocal()) {
           res = await fetch('/data/models/latest.json', { cache: 'no-store' });
         }
