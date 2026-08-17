@@ -4010,6 +4010,964 @@ def render_foundations_page(base_url: str, foundations: dict) -> bool:
     return True
 
 
+# ---------------------------------------------------------------------------
+# Model detail pages (/models/<slug>) - one static page per distinct
+# `url_slug` in data/models/latest.json. `url_slug` is assigned per BASE
+# MODEL (pipeline/collect_models.py::assign_url_slugs): every reasoning-
+# effort variant of the same underlying model shares one `url_slug` and an
+# identical `frontier` dict, so this renderer groups rows by `url_slug`
+# before building a page - one page per real model, not per catalog row.
+# See docs/design-docs/decision-log.md, 2026-08-16, for the url_slug/
+# frontier contract this depends on.
+# ---------------------------------------------------------------------------
+
+MODELS_DIR = ROOT / "data" / "models"
+
+# Labels for the two blended composites (~0-100 "index" scale) Artificial
+# Analysis publishes. Distinct from BENCHMARK_LABELS below, which covers the
+# raw 0-1 "fraction" scale benchmarks nested under a model's `benchmarks`
+# dict - see pipeline/collect_models.py's SCALE WARNING.
+INDEX_METRIC_LABELS = {
+    "aa_intelligence_index": "AA intelligence index",
+    "aa_coding_index": "AA coding index",
+}
+BENCHMARK_LABELS = {
+    "deepswe_pass_at_1": "DeepSWE pass@1 (agentic coding)",
+    "terminalbench_v2_1": "Terminal-Bench 2.1 (agentic)",
+    "terminalbench_hard": "Terminal-Bench (hard)",
+    "tau2": "Tau2 (tool use)",
+    "tau_banking": "Tau2 (banking)",
+    "livecodebench": "LiveCodeBench (coding)",
+    "scicode": "SciCode (coding)",
+    "mmlu_pro": "MMLU-Pro (knowledge)",
+    "gpqa": "GPQA Diamond (science)",
+    "hle": "Humanity's Last Exam",
+    "aime": "AIME (math)",
+    "aime_25": "AIME 2025 (math)",
+    "math_500": "MATH-500 (math)",
+    "ifbench": "IFBench (instruction following)",
+    "lcr": "LCR",
+}
+VARIANT_LABEL_TEXT = {
+    "low": "Low effort",
+    "medium": "Medium effort",
+    "high": "High effort",
+    "xhigh": "Extra-high effort",
+    "max": "Max effort",
+    "minimal": "Minimal effort",
+    "thinking": "Thinking",
+    "thinking-minimal": "Thinking (minimal)",
+    "non-thinking": "Non-thinking",
+    "non-reasoning": "Non-reasoning",
+    "reasoning": "Reasoning",
+}
+# Human-readable explanation of what a `frontier` entry's `cost_basis` KIND
+# of cost actually is, keyed by the raw value config/models.yaml's
+# `frontier_metrics` writes. This label is the ONLY place that caveat is
+# spelled out; a new cost basis only needs an entry added here, never prose
+# changed elsewhere - the page corrects itself automatically.
+# "per_token_price_proxy" is kept for historical/rollback safety (an older
+# cached artifact, or a config rollback, could still emit it) even though no
+# `frontier_metrics` entry uses it as of 2026-08-17 - see config/models.yaml.
+# "measured_per_task" is what every LIVE frontier entry uses today
+# (DeepSWE's real per-task dollar cost).
+COST_BASIS_LABELS = {
+    "per_token_price_proxy": (
+        "a per-1M-token price standing in for cost per task, not a measured "
+        "per-task cost - two models priced the same per token can still cost "
+        "very different amounts to run the same agentic task"
+    ),
+    "measured_per_task": (
+        "a measured cost to run this exact task, not an estimate from a "
+        "per-token price - two models priced identically per token can still "
+        "cost very different amounts to complete the same agentic task"
+    ),
+}
+
+
+def benchmark_label(key: str) -> str:
+    return (
+        INDEX_METRIC_LABELS.get(key)
+        or BENCHMARK_LABELS.get(key)
+        or squeeze(str(key or "")).replace("_", " ").title()
+    )
+
+
+def variant_label_text(value) -> str:
+    key = str(value or "").strip().lower()
+    if not key:
+        return "Standard"
+    return VARIANT_LABEL_TEXT.get(key) or squeeze(key.replace("-", " ")).capitalize()
+
+
+def cost_basis_label(basis) -> str:
+    basis = str(basis or "").strip()
+    if not basis:
+        return "a cost proxy of undisclosed basis"
+    return COST_BASIS_LABELS.get(basis) or basis.replace("_", " ")
+
+
+def fmt_index_value(value) -> str:
+    """~0-100 blended-composite formatting - never rescaled, see fmt_fraction_pct."""
+    if value is None:
+        return "-"
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return "-"
+    return f"{n:.1f}"
+
+
+def fmt_fraction_pct(value) -> str:
+    """0-1 raw-benchmark formatting as a percentage - never treated as the index scale."""
+    if value is None:
+        return "-"
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return "-"
+    return f"{n * 100:.1f}%"
+
+
+def fmt_model_price(value) -> str:
+    if value is None:
+        return "undisclosed"
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return "undisclosed"
+    s = f"{n:.2f}"
+    if n >= 10 and s.endswith(".00"):
+        s = s[:-3]
+    return f"${s}/1M"
+
+
+def fmt_task_cost(value) -> str:
+    """A MEASURED per-task dollar figure (DeepSWE's mean_cost_usd) - a
+    different shape from fmt_model_price's per-1M-token wording, since this
+    is a real cost to run one task, not a rate. Sub-dollar figures are
+    common (e.g. $0.01 for a cheap model) and need 3 decimal places to stay
+    honest rather than rounding to "$0.00"."""
+    if value is None:
+        return "undisclosed"
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return "undisclosed"
+    return f"${n:.3f}" if n < 1 else f"${n:,.2f}"
+
+
+def fmt_elo_value(value) -> str | None:
+    if value is None:
+        return None
+    try:
+        n = float(value)
+    except (TypeError, ValueError):
+        return None
+    return f"{n:,.0f}"
+
+
+def fmt_votes_value(value) -> str | None:
+    if value is None:
+        return None
+    try:
+        n = int(value)
+    except (TypeError, ValueError):
+        return None
+    return f"{n:,}"
+
+
+def model_metric_frontier(model: dict, key: str) -> dict | None:
+    entry = (model.get("frontier") or {}).get(key)
+    return entry if isinstance(entry, dict) else None
+
+
+def group_models_by_url_slug(models: list[dict]) -> dict[str, list[dict]]:
+    """Group catalog rows by `url_slug`, preserving each group's row order -
+    every variant row of the same base model shares one `url_slug` (see
+    module note above), so this is the one-page-per-real-model grouping."""
+    groups: dict[str, list[dict]] = {}
+    for m in models:
+        if not isinstance(m, dict):
+            continue
+        slug = str(m.get("url_slug") or "")
+        if not SLUG_RE.match(slug):
+            continue
+        groups.setdefault(slug, []).append(m)
+    return groups
+
+
+def model_completeness_score(m: dict) -> tuple:
+    """Ranks how good a representative row is for a group's identity facts:
+    real license/open_weights/official_url beats a row missing them, more
+    joined sources beats fewer, and carrying LMArena/AA signal is a
+    tiebreaker - never list position."""
+    ident = sum(1 for f in ("license", "open_weights", "official_url") if m.get(f) is not None)
+    sources_n = len(m.get("joined_sources") or [])
+    has_elo = 1 if m.get("arena_elo_coding") is not None else 0
+    has_aa = 1 if m.get("aa_coding_index") is not None else 0
+    return (ident, sources_n, has_elo, has_aa)
+
+
+def pick_primary_model(group: list[dict]) -> dict:
+    """The row a /models/<slug> page's identity/scores are drawn from - the
+    most complete row in the group (see model_completeness_score), first
+    encountered on ties so the choice is stable given a stable input order."""
+    best = group[0]
+    best_score = model_completeness_score(best)
+    for m in group[1:]:
+        score = model_completeness_score(m)
+        if score > best_score:
+            best, best_score = m, score
+    return best
+
+
+def model_hero(primary: dict) -> str:
+    title = squeeze(primary.get("display_name")) or squeeze(primary.get("name")) or str(primary.get("url_slug") or "")
+    bits: list[str] = []
+    org = squeeze(primary.get("organization"))
+    bits.append(escape(org) if org else "undisclosed lab")
+    if primary.get("open_weights") is True:
+        bits.append("open weights")
+    elif primary.get("open_weights") is False:
+        bits.append("closed weights")
+    license_ = squeeze(primary.get("license"))
+    if license_:
+        bits.append(escape(license_))
+    release_date = squeeze(primary.get("release_date"))
+    if release_date:
+        bits.append(f"released {escape(fmt_long_date(release_date))}")
+    readout = '<span class="sep">·</span>'.join(bits)
+    official = safe_http_url(primary.get("official_url"))
+    official_link = (
+        f'<p class="md-official"><a href="{escape(official)}" target="_blank" rel="noopener" '
+        f'data-track="model-official-link">Official site &#8599;</a></p>'
+        if official != "#"
+        else ""
+    )
+    return (
+        '<section class="md-hero">'
+        '<p class="md-kicker">Model Release Radar</p>'
+        f'<h2 class="md-headline">{escape(title)}</h2>'
+        f'<p class="md-readout">{readout}</p>'
+        f"{official_link}"
+        "</section>"
+    )
+
+
+def model_frontier_section(primary: dict, primary_by_slug: dict[str, dict]) -> str:
+    """The reason this page exists: state plainly, per metric this model has,
+    whether it is on the price/capability frontier - and when it is not, name
+    the cheaper-or-equal, at-least-as-capable models that beat it
+    (`dominated_by`, already resolved to per-base-model `url_slug`s)."""
+    frontier = primary.get("frontier") or {}
+    if not frontier:
+        return (
+            '<section class="md-section md-frontier">'
+            '<div class="md-rail">Frontier position</div>'
+            '<div class="md-prose"><p>Not enough paired price and capability data exists yet to '
+            "place this model on the price/capability frontier.</p></div>"
+            "</section>"
+        )
+    items = []
+    for key in sorted(frontier.keys(), key=lambda k: (k not in INDEX_METRIC_LABELS, k)):
+        entry = frontier[key]
+        label = benchmark_label(key)
+        on = bool(entry.get("on_frontier"))
+        if on:
+            items.append(
+                '<li class="md-frontier-item md-frontier-on"><span class="badge">On frontier</span> '
+                f"{escape(label)} - no tracked model currently beats it on both price and capability.</li>"
+            )
+            continue
+        dominators = [str(s) for s in entry.get("dominated_by") or [] if s]
+        links = []
+        for slug in dominators:
+            other = primary_by_slug.get(slug)
+            name = squeeze(other.get("display_name")) if other else ""
+            links.append(f'<a href="/models/{escape(slug)}">{escape(name or slug)}</a>')
+        links_html = ", ".join(links) if links else "other tracked models"
+        verb = "is" if len(links) == 1 else "are"
+        items.append(
+            '<li class="md-frontier-item md-frontier-off"><span class="badge badge-off">Behind frontier</span> '
+            f"{escape(label)} - {links_html} {verb} priced the same or lower and at least as capable.</li>"
+        )
+    return (
+        '<section class="md-section md-frontier">'
+        '<div class="md-rail">Frontier position</div>'
+        f'<div class="md-prose"><ul class="md-frontier-list">{"".join(items)}</ul></div>'
+        "</section>"
+    )
+
+
+MODEL_CHART_JS = """\
+    (function () {
+      var root = document.getElementById('modelChartRoot');
+      if (!root) return;
+      var slug = root.dataset.urlSlug;
+      // Fixed axes: DeepSWE is the only source with a MEASURED per-task
+      // cost, so it is the only pairing honest enough to plot a Pareto
+      // frontier over - see config/models.yaml's frontier_metrics and the
+      // 2026-08-17 decision log entry. Unlike the old per-token-price
+      // chart, this is no longer a configurable metric toggle.
+      var capField = 'deepswe_pass_at_1';
+      var costField = 'deepswe_cost_per_task_usd';
+      var metricLabel = 'DeepSWE pass@1 (agentic coding)';
+
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function fmtCost(v) {
+        if (v === null || v === undefined) return 'undisclosed';
+        var n = Number(v);
+        if (!isFinite(n)) return 'undisclosed';
+        return n < 1 ? '$' + n.toFixed(3) : '$' + n.toFixed(2);
+      }
+      function fmtPct(v) {
+        if (v === null || v === undefined) return '-';
+        var n = Number(v);
+        if (!isFinite(n)) return '-';
+        return (n * 100).toFixed(1) + '%';
+      }
+      function isLocal() {
+        return /^(127\\.0\\.0\\.1|localhost)$/.test(location.hostname);
+      }
+
+      function draw(data) {
+        var models = Array.isArray(data.models) ? data.models : [];
+        var hasPoint = models.some(function (m) { return m && m.url_slug === slug; });
+        if (!hasPoint) {
+          root.innerHTML = '<p class="muted">Chart unavailable: this model is no longer in the tracked catalog.</p>';
+          return;
+        }
+        var priced = models.filter(function (m) {
+          return m && m[costField] !== null && m[costField] !== undefined &&
+            m[capField] !== null && m[capField] !== undefined;
+        });
+        if (!priced.length) {
+          root.innerHTML = '<p class="muted">Not enough tracked models report both a measured per-task cost and this metric to draw a chart.</p>';
+          return;
+        }
+        // One point per MODEL, not per catalog row. Both sources publish a row
+        // per reasoning-effort variant, and every variant of a model carries
+        // the same price, so plotting rows drew a vertical stack of points at
+        // one X - and because frontier membership is a model-level fact, every
+        // variant in that stack rendered as "on frontier" even though a
+        // sibling at the same price strictly beats it. Keep the best variant
+        // on the active metric, matching how the ranked list and the detail
+        // page collapse variants everywhere else.
+        // For a model ON the frontier, plot the variant that actually
+        // qualified (compute_frontier records it) rather than the highest-
+        // capability one: GPT-5.6 Sol qualifies at $3.47/task but its best
+        // -scoring run costs $8.39, and plotting the latter put the point at
+        // a cost the frontier claim was never based on. Everything else keeps
+        // its best-capability representative.
+        var bestBySlug = {};
+        priced.forEach(function (m) {
+          var entry = m.frontier && m.frontier[capField];
+          var qualifies = entry && entry.on_frontier === true
+            && entry.qualifying_variant !== null && entry.qualifying_variant !== undefined
+            && m.variant_label === entry.qualifying_variant;
+          if (qualifies) { bestBySlug[m.url_slug] = m; return; }
+          var cur = bestBySlug[m.url_slug];
+          if (cur) {
+            var curEntry = cur.frontier && cur.frontier[capField];
+            var curQualifies = curEntry && curEntry.on_frontier === true
+              && cur.variant_label === curEntry.qualifying_variant;
+            if (curQualifies) return;
+          }
+          if (!cur || m[capField] > cur[capField]) bestBySlug[m.url_slug] = m;
+        });
+        var points = Object.keys(bestBySlug).map(function (k) {
+          var m = bestBySlug[k];
+          return { slug: m.url_slug, price: m[costField], capability: m[capField], model: m };
+        });
+        // Frontier membership comes from the SERVER's answer
+        // (compute_frontier -> model.frontier[capField].on_frontier), never a
+        // second client-side derivation. The two used different algorithms -
+        // the server checks true Pareto domination across every variant, this
+        // file walked only each model's best-capability point - so they could
+        // disagree and print "On frontier" above a point drawn as dominated.
+        // The step line is then drawn through those same server-chosen points,
+        // skipping any that would make it run backwards, so the staircase
+        // stays monotone even if the representative point is not the exact
+        // variant that qualified.
+        var frontierSlugs = {};
+        points.forEach(function (p) {
+          var entry = p.model && p.model.frontier && p.model.frontier[capField];
+          if (entry && entry.on_frontier === true) frontierSlugs[p.slug] = true;
+        });
+        var frontier = points
+          .filter(function (p) { return frontierSlugs[p.slug]; })
+          .sort(function (a, b) { return a.price - b.price; })
+          .reduce(function (acc, p) {
+            if (!acc.length || p.capability > acc[acc.length - 1].capability) acc.push(p);
+            return acc;
+          }, []);
+
+        var W = 720, H = 380, marginL = 56, marginR = 20, marginT = 16, marginB = 40;
+        var plotW = W - marginL - marginR, plotH = H - marginT - marginB;
+        var prices = points.map(function (p) { return p.price; });
+        var caps = points.map(function (p) { return p.capability; });
+        var minPrice = Math.min.apply(null, prices), maxPrice = Math.max.apply(null, prices);
+        var minCap = Math.min.apply(null, caps), maxCap = Math.max.apply(null, caps);
+        var capPad = (maxCap - minCap) * 0.08 || 0.05;
+        var capLo = Math.max(0, minCap - capPad), capHi = Math.min(1, maxCap + capPad);
+        var logMin = Math.log10(Math.max(minPrice * 0.7, 0.001));
+        var logMax = Math.log10(maxPrice * 1.3);
+        var x = function (price) { return marginL + ((Math.log10(price) - logMin) / (logMax - logMin)) * plotW; };
+        var y = function (cap) { return marginT + plotH - ((cap - capLo) / (capHi - capLo)) * plotH; };
+
+        var frontierPts = points.filter(function (p) { return frontierSlugs[p.slug]; })
+          .sort(function (a, b) { return a.price - b.price; });
+        var frontierPath = '';
+        frontierPts.forEach(function (p, i) {
+          var px = x(p.price), py = y(p.capability);
+          if (i === 0) { frontierPath += 'M ' + px + ' ' + py; }
+          else {
+            var prevY = y(frontierPts[i - 1].capability);
+            frontierPath += ' L ' + px + ' ' + prevY + ' L ' + px + ' ' + py;
+          }
+        });
+
+        var shapes = points.map(function (p) {
+          var isThis = p.slug === slug;
+          var isFrontier = !!frontierSlugs[p.slug];
+          var px = x(p.price), py = y(p.capability);
+          var r = isThis ? 7 : 4;
+          var fill = isThis ? 'var(--accent)' : (isFrontier ? 'var(--signal)' : 'var(--muted)');
+          var ring = isThis
+            ? '<circle cx="' + px + '" cy="' + py + '" r="' + (r + 4) + '" fill="none" stroke="var(--accent)" stroke-width="2"></circle>'
+            : '';
+          var titleText = esc((p.model.display_name || p.model.name || '') + ' - ' + fmtCost(p.price) + ' - ' + fmtPct(p.capability));
+          return ring + '<circle class="md-point" tabindex="0" cx="' + px + '" cy="' + py + '" r="' + r +
+            '" fill="' + fill + '" stroke="var(--card)" stroke-width="1"><title>' + titleText + '</title></circle>';
+        }).join('');
+
+        root.innerHTML =
+          '<p class="muted md-chart-caption">Measured cost per task, DeepSWE (log scale, X) vs. ' + esc(metricLabel) +
+          ' (Y). This is a real measured cost to run the task, not a per-token price estimate. ' +
+          'The larger ringed point is this model.</p>' +
+          '<div class="mr-chart-wrap"><svg viewBox="0 0 ' + W + ' ' + H +
+          '" role="img" aria-label="Measured cost per task versus ' + esc(metricLabel) + ' chart with this model highlighted">' +
+          '<line class="mr-axis-line" x1="' + marginL + '" y1="' + marginT + '" x2="' + marginL + '" y2="' + (marginT + plotH) + '"></line>' +
+          '<line class="mr-axis-line" x1="' + marginL + '" y1="' + (marginT + plotH) + '" x2="' + (W - marginR) + '" y2="' + (marginT + plotH) + '"></line>' +
+          '<path class="mr-frontier-path" d="' + frontierPath + '"></path>' +
+          shapes +
+          '</svg></div>';
+      }
+
+      fetch('/models-data.json')
+        .then(function (res) {
+          if (res.status === 404 && isLocal()) return fetch('/data/models/latest.json', { cache: 'no-store' });
+          if (!res.ok) throw new Error('models_http_' + res.status);
+          return res;
+        })
+        .then(function (res) { return res.json(); })
+        .then(draw)
+        .catch(function () {
+          root.innerHTML = '<p class="muted">Could not load the chart right now.</p>';
+        });
+    })();
+"""
+
+
+def model_chart_section(primary: dict) -> str:
+    """Default axes are now DeepSWE pass@1 (Y) vs. its measured cost per
+    task (X, log scale) - the only pairing on this page backed by a real
+    measured cost (see config/models.yaml's frontier_metrics). A model
+    DeepSWE has not measured gets a plain statement instead of a misleading
+    chart - its Artificial Analysis scores still show up in
+    model_scores_section below."""
+    if primary.get("deepswe_pass_at_1") is None or primary.get("deepswe_cost_per_task_usd") is None:
+        return (
+            '<section class="md-section md-chart">'
+            '<div class="md-rail">Cost vs. capability</div>'
+            '<div class="md-prose"><p>This model has not been measured on DeepSWE (or any other '
+            "benchmark with a real measured per-task cost) yet, so no cost/capability chart is "
+            "drawn. Its Artificial Analysis benchmark scores are listed below.</p></div>"
+            "</section>"
+        )
+    slug = escape(str(primary.get("url_slug") or ""))
+    return (
+        '<section class="md-section md-chart">'
+        '<div class="md-rail">Cost vs. capability</div>'
+        '<div class="md-prose">'
+        f'<div id="modelChartRoot" class="md-chart-root" data-url-slug="{slug}">'
+        '<p class="muted">Loading chart…</p></div>'
+        "</div></section>"
+    )
+
+
+def model_deepswe_cost_table(primary: dict) -> str:
+    """The model's DeepSWE result - the ONLY row on this page paired with a
+    real, measured per-task cost (see the module's cost_basis machinery and
+    config/models.yaml's frontier_metrics). A plain statement, never a
+    fabricated row, when DeepSWE has not measured this model."""
+    pass_at_1 = primary.get("deepswe_pass_at_1")
+    if pass_at_1 is None:
+        return (
+            "<p>This model has not been measured on DeepSWE (or any other "
+            "benchmark with a real measured per-task cost) yet.</p>"
+        )
+    cost = primary.get("deepswe_cost_per_task_usd")
+    median_cost = primary.get("deepswe_median_cost_usd")
+    n_runs = primary.get("deepswe_n_runs")
+    ci_lo, ci_hi = primary.get("deepswe_ci_lo"), primary.get("deepswe_ci_hi")
+    entry = model_metric_frontier(primary, "deepswe_pass_at_1")
+    on = entry.get("on_frontier") if entry else None
+    # When the model is on the frontier, report the variant that earned it
+    # rather than whichever row `pick_primary_model` chose for identity
+    # completeness. The two heuristics disagreed, so /models and this page
+    # published different costs beside the same claim. compute_frontier
+    # records the qualifying run; the CI/run-count belong to `primary`'s own
+    # row, so they are dropped when we switch to a different variant.
+    qualifying_variant = (entry or {}).get("qualifying_variant")
+    if on and (entry or {}).get("qualifying_metric_value") is not None:
+        if qualifying_variant != primary.get("deepswe_effort"):
+            pass_at_1 = entry.get("qualifying_metric_value")
+            cost = entry.get("qualifying_cost")
+            median_cost = None
+            ci_lo = ci_hi = None
+            n_runs = None
+    frontier_html = (
+        '<span class="badge">frontier</span>'
+        if on is True
+        else '<span class="muted">behind</span>'
+        if on is False
+        else '<span class="muted">-</span>'
+    )
+    detail_bits = []
+    # Which configuration was actually measured. Effort swings measured cost
+    # several-fold on one model (claude-opus-5: $11.84/task at max vs
+    # $3.29 at medium), so a score shown without its effort reads as the
+    # model's only behavior. Always disclosed when known.
+    effort = qualifying_variant if on and qualifying_variant else primary.get("deepswe_effort")
+    if effort:
+        detail_bits.append(f"{effort} effort")
+    if ci_lo is not None and ci_hi is not None:
+        detail_bits.append(f"95% CI {fmt_fraction_pct(ci_lo)}-{fmt_fraction_pct(ci_hi)}")
+    if n_runs is not None:
+        detail_bits.append(f"{n_runs} runs")
+    detail = f" ({', '.join(detail_bits)})" if detail_bits else ""
+    median_html = (
+        f' <span class="muted">(median {escape(fmt_task_cost(median_cost))})</span>'
+        if median_cost is not None
+        else ""
+    )
+    return (
+        '<div class="mr-table-wrap"><table class="mr-table">'
+        '<thead><tr><th scope="col">Benchmark</th><th scope="col">Pass@1</th>'
+        '<th scope="col">Measured cost / task</th><th scope="col">Frontier</th></tr></thead>'
+        "<tbody><tr>"
+        f"<td>DeepSWE (agentic coding){escape(detail)}</td>"
+        f'<td class="mr-num">{escape(fmt_fraction_pct(pass_at_1))}</td>'
+        f'<td class="mr-num">{escape(fmt_task_cost(cost))}{median_html}</td>'
+        f"<td>{frontier_html}</td>"
+        "</tr></tbody></table></div>"
+    )
+
+
+def model_scores_section(primary: dict) -> str:
+    """Two clearly separated tables (2026-08-17): DeepSWE's measured
+    cost-per-task result - the only score on this page paired with a real
+    per-task cost - and every Artificial Analysis score, which carries NO
+    cost column at all now that the per-token-price-proxy frontier is gone.
+    A $ figure next to an AA score would imply a comparability that no
+    longer exists on this page, so none is shown; each metric is still
+    formatted on its own scale (index vs. fraction, see fmt_index_value/
+    fmt_fraction_pct) so the two never get silently mixed."""
+    aa_rows: list[tuple[str, str]] = []
+    for key in ("aa_intelligence_index", "aa_coding_index"):
+        value = primary.get(key)
+        if value is not None:
+            aa_rows.append((benchmark_label(key), fmt_index_value(value)))
+    benchmarks = primary.get("benchmarks") or {}
+    for key in sorted(benchmarks.keys()):
+        aa_rows.append((benchmark_label(key), fmt_fraction_pct(benchmarks.get(key))))
+
+    if aa_rows:
+        aa_body = "".join(
+            f'<tr><td>{escape(label)}</td><td class="mr-num">{escape(value)}</td></tr>'
+            for label, value in aa_rows
+        )
+        aa_html = (
+            '<p class="md-cost-caveat">Artificial Analysis scores below have no measured '
+            "per-task cost, so no frontier claim is made for them here.</p>"
+            '<div class="mr-table-wrap"><table class="mr-table">'
+            '<thead><tr><th scope="col">Benchmark</th><th scope="col">Score</th></tr></thead>'
+            f"<tbody>{aa_body}</tbody></table></div>"
+        )
+    else:
+        aa_html = "<p>No Artificial Analysis benchmark scores are tracked for this model yet.</p>"
+
+    return (
+        '<section class="md-section md-scores">'
+        '<div class="md-rail">Benchmark scores</div>'
+        '<div class="md-prose">'
+        '<h3 class="md-subhead">Measured cost per task (DeepSWE)</h3>'
+        f"{model_deepswe_cost_table(primary)}"
+        '<h3 class="md-subhead">Artificial Analysis scores (no matched cost)</h3>'
+        f"{aa_html}"
+        "</div></section>"
+    )
+
+
+def dedupe_variant_rows(group: list[dict], primary: dict) -> list[dict]:
+    """One row per distinct variant label, keeping the most complete.
+
+    A model's variant can appear twice when the two sources spell it
+    differently enough not to join (LMArena "claude-opus-5-max" vs Artificial
+    Analysis "Claude Opus 5 (Adaptive Reasoning, Max Effort)"), which rendered
+    "Max effort" twice - once with scores and once entirely blank. Rank by how
+    many of the displayed fields a row actually has so the surviving row is the
+    informative one; the primary row always survives, since it is the one the
+    rest of the page describes.
+    """
+    def completeness(row: dict) -> int:
+        fields = ("aa_coding_index", "aa_intelligence_index", "price_blended_per_1m", "arena_elo_coding")
+        return sum(1 for f in fields if row.get(f) is not None)
+
+    best: dict[str, dict] = {}
+    for row in group:
+        key = variant_label_text(row.get("variant_label"))
+        current = best.get(key)
+        if current is None or row is primary or (current is not primary and completeness(row) > completeness(current)):
+            best[key] = row
+    return list(best.values())
+
+
+def model_variants_section(group: list[dict], primary: dict) -> str:
+    group = dedupe_variant_rows(group, primary)
+    if len(group) <= 1:
+        return ""
+    ordered = sorted(group, key=lambda r: (r is not primary, variant_label_text(r.get("variant_label"))))
+    rows = []
+    for m in ordered:
+        label = variant_label_text(m.get("variant_label"))
+        tag = ' <span class="muted">(shown above)</span>' if m is primary else ""
+        rows.append(
+            f"<tr><td>{escape(label)}{tag}</td>"
+            f'<td class="mr-num">{escape(fmt_index_value(m.get("aa_coding_index")))}</td>'
+            f'<td class="mr-num">{escape(fmt_index_value(m.get("aa_intelligence_index")))}</td>'
+            f'<td class="mr-num">{escape(fmt_model_price(m.get("price_blended_per_1m")))}</td></tr>'
+        )
+    n = len(group)
+    return (
+        '<section class="md-section md-variants">'
+        '<div class="md-rail">Variants</div>'
+        f'<div class="md-prose"><p>This page covers {n} reasoning-effort variants of the same model.</p>'
+        '<div class="mr-table-wrap"><table class="mr-table">'
+        '<thead><tr><th scope="col">Variant</th><th scope="col">AA coding index</th>'
+        '<th scope="col">AA intelligence index</th><th scope="col">Price /1M</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div></div></section>'
+    )
+
+
+def model_community_section(group: list[dict]) -> str:
+    entries = [m for m in group if m.get("arena_elo_coding") is not None or m.get("arena_elo_overall") is not None]
+    if not entries:
+        return (
+            '<section class="md-section md-community">'
+            '<div class="md-rail">Community signal</div>'
+            '<div class="md-prose"><p>No LMArena community rating is tracked for this model yet.</p></div>'
+            "</section>"
+        )
+    show_variant_label = len(group) > 1
+    rows = []
+    for m in entries:
+        label = variant_label_text(m.get("variant_label")) if show_variant_label else "Rating"
+        rows.append(
+            f"<tr><td>{escape(label)}</td>"
+            f'<td class="mr-num">{escape(fmt_elo_value(m.get("arena_elo_coding")) or "-")}</td>'
+            f'<td class="mr-num">{escape(fmt_elo_value(m.get("arena_elo_overall")) or "-")}</td>'
+            f'<td class="mr-num">{escape(fmt_votes_value(m.get("arena_votes")) or "-")}</td></tr>'
+        )
+    return (
+        '<section class="md-section md-community">'
+        '<div class="md-rail">Community signal</div>'
+        '<div class="md-prose">'
+        '<div class="mr-table-wrap"><table class="mr-table">'
+        '<thead><tr><th scope="col">Variant</th><th scope="col">Coding Elo</th>'
+        '<th scope="col">Overall Elo</th><th scope="col">Votes</th></tr></thead>'
+        f'<tbody>{"".join(rows)}</tbody></table></div></div></section>'
+    )
+
+
+def model_sources_section(sources: dict, group: list[dict]) -> str:
+    """Artificial Analysis / LMArena / DeepSWE attribution - a licensing
+    obligation (see AGENTS.md), rendered only for the sources this specific
+    model actually shows data from, and reading the attribution text/URL
+    from the artifact's `sources` block rather than hardcoding it."""
+    has_aa = any(
+        m.get("aa_intelligence_index") is not None
+        or m.get("aa_coding_index") is not None
+        or (m.get("benchmarks") or {})
+        for m in group
+    )
+    has_elo = any(m.get("arena_elo_coding") is not None or m.get("arena_elo_overall") is not None for m in group)
+    has_deepswe = any(m.get("deepswe_pass_at_1") is not None for m in group)
+    if not has_aa and not has_elo and not has_deepswe:
+        return ""
+    lmarena = sources.get("lmarena") or {} if isinstance(sources, dict) else {}
+    aa = sources.get("artificial_analysis") or {} if isinstance(sources, dict) else {}
+    deepswe = sources.get("deepswe") or {} if isinstance(sources, dict) else {}
+    items = []
+    if has_elo:
+        url = safe_http_url(lmarena.get("url"))
+        label = squeeze(lmarena.get("attribution")) or "LMArena"
+        link = f'<a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a>' if url != "#" else escape(label)
+        items.append(f"<li>{link} - Elo rankings are crowd preference votes, not a benchmark score.</li>")
+    if has_aa:
+        url = safe_http_url(aa.get("url"))
+        label = squeeze(aa.get("attribution")) or "Artificial Analysis"
+        link = f'<a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a>' if url != "#" else escape(label)
+        note = "" if aa.get("available") else ' <span class="muted">- not connected on this deployment.</span>'
+        items.append(f"<li>{link}{note}</li>")
+    if has_deepswe:
+        url = safe_http_url(deepswe.get("url"))
+        label = squeeze(deepswe.get("attribution")) or "DeepSWE / Datacurve"
+        link = f'<a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a>' if url != "#" else escape(label)
+        items.append(f"<li>{link} - the only measured (not per-token-estimated) cost per task in this catalog.</li>")
+    return f'<aside class="md-sources"><h2>Sources and attribution</h2><ul>{"".join(items)}</ul></aside>'
+
+
+def model_body(
+    group: list[dict],
+    primary: dict,
+    primary_by_slug: dict[str, dict],
+    sources: dict,
+) -> str:
+    parts = [
+        model_frontier_section(primary, primary_by_slug),
+        model_chart_section(primary),
+        model_scores_section(primary),
+        model_variants_section(group, primary),
+        model_community_section(group),
+        model_sources_section(sources, group),
+    ]
+    return "\n".join(p for p in parts if p)
+
+
+MODEL_DETAIL_CSS = """\
+    :root, html[data-theme="light"] {
+      color-scheme: light;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
+      --apply-wash:#eef3ff;
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
+      --apply-wash:#1b2436;
+    }
+    body { font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    main { max-width:980px; padding-left:1.35rem; padding-right:1.35rem; }
+    #meta { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.78rem; letter-spacing:.03em; }
+
+    .md-hero { margin:2.3rem 0 1.7rem; }
+    .md-kicker { margin:0 0 .55rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+    .md-headline { margin:0; max-width:28ch; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-weight:700; letter-spacing:-.045em; line-height:.97; font-size:clamp(2.3rem,5.6vw,3.8rem); }
+    .md-readout { margin:1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.75rem; letter-spacing:.03em; color:var(--muted); }
+    .md-readout .sep { color:var(--border); margin:0 .45rem; }
+    .md-official { margin:.85rem 0 0; }
+    .md-official a { font-weight:600; text-decoration:none; }
+    .md-official a:hover { text-decoration:underline; }
+
+    .md-section { display:grid; grid-template-columns:minmax(10rem,.32fr) minmax(0,1.68fr);
+      gap:.4rem 2.2rem; padding:1.6rem 0; border-bottom:1px solid var(--border); }
+    .md-section:first-of-type { border-top:1px solid var(--border); margin-top:1.8rem; }
+    .md-rail { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--accent); line-height:1.4; }
+    .md-prose { min-width:0; max-width:48rem; }
+    .md-prose p { margin:0 0 .9rem; font-size:1rem; line-height:1.6; }
+    .md-prose p:last-child { margin-bottom:0; }
+    .md-cost-caveat { color:var(--muted); font-size:.92rem !important; }
+    .md-subhead { margin:1.5rem 0 .6rem; font-size:.95rem; font-weight:700; }
+    .md-subhead:first-child { margin-top:0; }
+
+    .md-frontier-list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.8rem; }
+    .md-frontier-item { font-size:.98rem; line-height:1.55; }
+    .badge-off { color:var(--muted); border-color:var(--border); background:transparent; }
+
+    .md-chart-caption { font-size:.85rem; margin:0 0 .6rem; }
+    .md-chart-root .state, .md-chart-root p { color:var(--muted); }
+    .mr-chart-wrap { margin:0; overflow-x:auto; border:1px solid var(--border); background:var(--card); }
+    .mr-chart-wrap svg { display:block; min-width:480px; width:100%; height:auto; }
+    .mr-axis-line { stroke:var(--border); stroke-width:1; }
+    .mr-frontier-path { fill:none; stroke:var(--accent); stroke-width:1.25; opacity:.55; }
+    .md-point { cursor:pointer; }
+    .md-point:focus-visible { outline:3px solid color-mix(in srgb, var(--accent) 55%, transparent); outline-offset:2px; }
+
+    .mr-table-wrap { margin:.9rem 0 0; overflow-x:auto; border:1px solid var(--border); }
+    table.mr-table { width:100%; border-collapse:collapse; font-size:.88rem; }
+    table.mr-table th, table.mr-table td { padding:.55rem .75rem; text-align:left; border-bottom:1px solid var(--border); }
+    table.mr-table thead th { background:var(--apply-wash); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--muted);
+      white-space:nowrap; }
+    table.mr-table tbody tr:last-child td { border-bottom:0; }
+    table.mr-table tbody tr:hover { background:var(--apply-wash); }
+    table.mr-table td.mr-num { font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap; }
+
+    .md-sources { margin:2rem 0 0; padding:.9rem 1rem; border:1px solid var(--border); background:var(--card); }
+    .md-sources h2 { margin:0 0 .5rem; font-size:.9rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+      letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
+    .md-sources ul { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+    .md-sources li { font-size:.86rem; line-height:1.5; }
+    .md-sources a { text-decoration:none; font-weight:600; }
+    .md-sources a:hover { text-decoration:underline; }
+
+    button:focus-visible, a:focus-visible, select:focus-visible {
+      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .md-headline { font-size:2.3rem; }
+      .md-section { grid-template-columns:1fr; gap:.5rem; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+"""
+
+
+def load_models_artifact() -> dict:
+    data = load_json(MODELS_DIR / "latest.json")
+    if not isinstance(data, dict):
+        return {"generated_at": None, "sources": {}, "models": []}
+    data.setdefault("sources", {})
+    data.setdefault("models", [])
+    return data
+
+
+# Rows kept in models-top.json for the feed rail. Generous enough that
+# variant collapsing still has real rows to work with, small enough that
+# the feed page is not made to download the whole catalog.
+MODELS_TOP_SLICE = 40
+# Exactly the fields web/index.html's rail reads (mrRowHtml /
+# mrCapabilityField / mrCollapseVariants).
+MODELS_TOP_FIELDS = (
+    "url_slug", "base_slug", "slug", "name", "display_name", "organization",
+    "open_weights", "variant_label", "aa_intelligence_index", "aa_coding_index",
+    "arena_elo_coding", "price_blended_per_1m",
+)
+
+
+def write_models_static_json(artifact: dict) -> tuple[int, int]:
+    """Emit the Model Release Radar payloads as STATIC files, not an API.
+
+    Vercel's Hobby plan caps a deployment at 12 serverless functions and the
+    project was already at 12, so `api/models.js` made every deploy fail. That
+    function only ever read a committed JSON file and filtered/sorted it -
+    work both pages already redo client-side - so there is nothing to run at
+    request time. Top-level non-HTML files under web/ are copied to the public
+    root by scripts/vercel_build.py, so these are served at /models-data.json
+    and /models-top.json.
+
+    Two files, because the feed page must stay light: the full catalog is
+    ~300 KB and the sidebar needs five rows. `models-top.json` carries only
+    the highest-capability slice, ordered the way the rail ranks, so a top
+    model can never fall outside the window.
+    """
+    models = artifact.get("models") or []
+    payload = {
+        "generated_at": artifact.get("generated_at"),
+        "sources": artifact.get("sources") or {},
+        "models": models,
+    }
+    full_path = WEB_DIR / "models-data.json"
+    full_path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+
+    def rank(row: dict):
+        value = row.get("aa_intelligence_index")
+        known = isinstance(value, (int, float)) and not isinstance(value, bool)
+        # Nulls last, never treated as zero - same contract the pages use.
+        return (0 if known else 1, -(value if known else 0))
+
+    # Project only the fields the rail actually reads. Carrying the full row
+    # shape made the teaser 57 KB, most of it `benchmarks`/`frontier`/CI data
+    # the rail never touches.
+    top = [
+        {k: row.get(k) for k in MODELS_TOP_FIELDS}
+        for row in sorted(models, key=rank)[:MODELS_TOP_SLICE]
+    ]
+    top_path = WEB_DIR / "models-top.json"
+    top_path.write_text(
+        json.dumps({**payload, "models": top}, ensure_ascii=False), encoding="utf-8"
+    )
+    return full_path.stat().st_size, top_path.stat().st_size
+
+
+def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | None]]:
+    """Render web/models/<url_slug>.html for every distinct base model in
+    data/models/latest.json; return sitemap entries. Stale pages for models
+    that dropped out of the artifact are pruned, same as story/topic pages."""
+    models = artifact.get("models") or []
+    sources = artifact.get("sources") or {}
+    lastmod = (iso_or_none(artifact.get("generated_at")) or "")[:10] or None
+
+    groups = group_models_by_url_slug(models)
+    primary_by_slug = {slug: pick_primary_model(group) for slug, group in groups.items()}
+
+    out_dir = WEB_DIR / "models"
+    sitemap_entries: list[tuple[str, str | None]] = []
+    written: set[str] = set()
+
+    for slug, group in groups.items():
+        primary = primary_by_slug[slug]
+        title = squeeze(primary.get("display_name")) or squeeze(primary.get("name")) or slug
+        org = squeeze(primary.get("organization"))
+        description = clip(
+            f"{title} on the price/capability frontier: benchmark scores, cost, and community "
+            "signal" + (f" from {org}." if org else "."),
+            250,
+        )
+        canonical = f"{base_url}/models/{slug}"
+        published = iso_or_none(primary.get("release_date"))
+        html = render_page(
+            title=f"{title} - Model Release Radar",
+            description=description,
+            canonical=canonical,
+            published=published,
+            h1="Model Release Radar",
+            meta_line="Price/capability frontier position, benchmark scores, and community signal",
+            json_href="/models-data.json",
+            archive="",
+            recap_title=title,
+            recap_range="",
+            title_html=model_hero(primary),
+            intro_html="<!-- intro is inside the model hero -->",
+            body_html=model_body(group, primary, primary_by_slug, sources),
+            extra_css=MODEL_DETAIL_CSS,
+            extra_js=MODEL_CHART_JS,
+            json_ld=[
+                article_node(
+                    type_="Article",
+                    title=title,
+                    description=description,
+                    canonical=canonical,
+                    published=published,
+                    base_url=base_url,
+                ),
+                breadcrumb_node(
+                    base_url,
+                    [("Home", "/"), ("Model Release Radar", "/models"), (title, f"/models/{slug}")],
+                ),
+            ],
+        )
+        out_dir.mkdir(parents=True, exist_ok=True)
+        (out_dir / f"{slug}.html").write_text(html, encoding="utf-8")
+        written.add(f"{slug}.html")
+        sitemap_entries.append((slug, lastmod))
+
+    prune_orphans(out_dir, SLUG_HTML_RE, written)
+    sitemap_entries.sort(key=lambda t: t[0])
+    return sitemap_entries
+
+
 FEED_SEED_START = "<!-- feed-seed:start -->"
 FEED_SEED_END = "<!-- feed-seed:end -->"
 FEED_SEED_MAX_ITEMS = 12
@@ -4108,7 +5066,14 @@ def prune_orphans(out_dir: Path, html_re: re.Pattern, keep: set[str]) -> None:
     for path in out_dir.glob("*.html"):
         if html_re.match(path.name) and path.name not in keep:
             path.unlink()
-            print(f"pruned stale page: {path.relative_to(ROOT)}")
+            # Log a repo-relative path when the output lives under ROOT (the
+            # production case) and the absolute one otherwise, so a caller
+            # rendering into a temp dir logs instead of raising ValueError.
+            try:
+                shown = path.relative_to(ROOT)
+            except ValueError:
+                shown = path
+            print(f"pruned stale page: {shown}")
 
 
 def week_end_date(week_id: str) -> str | None:
@@ -4593,6 +5558,7 @@ def write_sitemap(
     storylines: list[tuple[str, str | None]] | None = None,
     topics: list[tuple[str, str | None]] | None = None,
     foundations: list[tuple[str, str | None]] | None = None,
+    models: list[tuple[str, str | None]] | None = None,
     i18n_pages: list[tuple[str, str | None]] | None = None,
 ) -> None:
     today = datetime.now(timezone.utc).date().isoformat()
@@ -4615,6 +5581,11 @@ def write_sitemap(
         entries += [
             (f"{base_url}/foundations/{slug}", lastmod, "monthly")
             for slug, lastmod in foundations
+        ]
+    if models:
+        entries.append((f"{base_url}/models", today, "daily"))
+        entries += [
+            (f"{base_url}/models/{slug}", lastmod, "weekly") for slug, lastmod in models
         ]
     entries += [(f"{base_url}/daily/{d}", d, None) for d in days]
     # Weekly recaps: lastmod = the week's end date (Sunday) when derivable.
@@ -4692,6 +5663,9 @@ def main() -> None:
     has_map = render_map_page(base_url, wiki)
     foundation_pages = render_foundation_pages(base_url, foundations, i18n_page_map)
     has_foundations = render_foundations_page(base_url, foundations)
+    models_artifact = load_models_artifact()
+    model_pages = render_model_pages(base_url, models_artifact)
+    models_json_bytes = write_models_static_json(models_artifact)
     i18n_pages = render_i18n_pages(base_url, i18n_page_map, story_sids, playbook_index)
     write_sitemap(
         base_url,
@@ -4701,6 +5675,7 @@ def main() -> None:
         storyline_pages,
         topic_pages,
         foundation_pages,
+        model_pages,
         i18n_pages,
     )
     write_robots(base_url)
@@ -4712,13 +5687,15 @@ def main() -> None:
         f"{len(storyline_details)} storyline ({len(storyline_pages)} active), "
         f"{len(topic_pages)} topic ({'map' if has_map else 'no map'}), "
         f"{len(foundation_pages)} foundation ({'index' if has_foundations else 'no index'}), "
+        f"{len(model_pages)} model detail, "
         f"{len(i18n_pages)} i18n "
-        "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/, web/foundations/"
+        "-> web/daily/, web/weekly/, web/story/, web/storyline/, web/topic/, web/foundations/, web/models/"
     )
     print(f"feed_seed_items={seeded} og_cards_dir=web/og")
     n_urls = 7 + len(days) + len(weeks) + len(story_pages) + len(storyline_pages)
     n_urls += (1 + len(topic_pages)) if topic_pages else 0
     n_urls += (1 + len(foundation_pages)) if foundation_pages else 0
+    n_urls += (1 + len(model_pages)) if model_pages else 0
     n_urls += len(i18n_pages)
     print(f"sitemap: web/sitemap.xml ({n_urls} urls), robots: web/robots.txt")
     if not days and not weeks and not story_pages and not storyline_pages:

@@ -1,0 +1,59 @@
+name: Model Release Radar Refresh
+
+# Every 6h at :20 past 02/08/14/20 UTC. Offset chosen to avoid the existing
+# 12:30 UTC (feed-ops-summary) and 12:45 UTC (feedback-sync) daily jobs -
+# this workflow never fires in that hour, and the :20 minute keeps it clear
+# of both even if the hours ever line up. Low-stakes data refresh with no
+# publishing side effects, so (unlike feed-full-publish.yml / email-digest.yml)
+# it uses a plain GitHub schedule instead of an external cron-job.org ticker.
+on:
+  schedule:
+    - cron: "20 2,8,14,20 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: models-refresh
+  cancel-in-progress: false
+
+jobs:
+  models-refresh:
+    runs-on: [self-hosted, Linux, ARM64, llm-digest]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Create venv and install dependencies
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+
+      - name: Configure git user
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      # AA_API_KEY is optional: collect_models.py joins LMArena (keyless)
+      # with Artificial Analysis only when the secret is configured, and
+      # exits 0 with AA fields null / sources.artificial_analysis.available
+      # false when it is absent. This step skips cleanly without credentials.
+      - name: Collect model release data
+        env:
+          AA_API_KEY: ${{ secrets.AA_API_KEY }}
+        run: .venv/bin/python pipeline/collect_models.py collect
+
+      - name: Print model radar summary
+        run: .venv/bin/python pipeline/collect_models.py summary --limit 25
+
+      - name: Commit refreshed model radar data
+        run: |
+          bash scripts/git_commit_runtime.sh "chore(data): refresh model radar $(date -u +%F)"
