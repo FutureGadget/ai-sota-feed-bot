@@ -493,6 +493,25 @@
     },
     "edition_date": "2026-07-17"
   },
+  "34c069f2bffc49df": {
+    "id": "pb-lazy-load-skills-instead-of-stuffing-context",
+    "kind": "source-backed",
+    "title": "Lazy-load narrow skills instead of stuffing one giant context file",
+    "area": "Tool use",
+    "problem": "A single bloated context file (e.g., a 700-line CLAUDE.md) hands the agent contradictory instructions and irrelevant detail. Correctness drops even though every fact it needs is technically in there.",
+    "apply": "Split context into narrowly-scoped, versioned skills that load only when a description matches the task (e.g., a skill scoped to \"error handling for REST endpoints\" loads only for that work, not every request). Match retrieval channel to the need instead of defaulting to semantic search — use versioned docs when you need an exact API spec, not fuzzy RAG — and have the agent write decisions to structured external memory files instead of relying on opaque built-in memory.",
+    "result": "The presentation's demo went from 35% correctness with unfocused retrieval to 98% with structured, versioned, narrowly-loaded context — the same facts, delivered without the noise.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/architecture-context-engineering/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "34c069f2bffc49df",
+    "topic_url": "/topic/context-compaction",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Demonstration numbers from the presenters' own demo, reported by InfoQ."
+    },
+    "edition_date": "2026-08-18"
+  },
   "3537322c93db9151": {
     "id": "pb-fair-baseline-before-benchmark-claims",
     "kind": "source-backed",
@@ -588,6 +607,25 @@
     },
     "edition_date": "2026-07-28"
   },
+  "410ca031ddd240de": {
+    "id": "pb-govern-tool-call-sequences-not-just-single-calls",
+    "kind": "source-backed",
+    "title": "Govern tool-call sequences, not just each call in isolation",
+    "area": "Safety",
+    "problem": "A per-call approval check misses attacks and bugs that only show up across a sequence — like three separate $2,000 transfers that individually clear a $5,000 cap but together blow past it.",
+    "apply": "Add temporal policy conditions on top of your per-call authorization: track counts, distinct values, and running sums of an agent's prior actions within a time window (AWS's open-sourced Dogwood extends Cedar with formerly, count_within, count_distinct_within, and sum_within operators for this). Sum over request events, not response events — summing responses lets concurrent in-flight calls slip past the cap before any of them return.",
+    "result": "AWS reports that rate limits, spend caps, and data-sensitivity rules now hold across a whole session instead of only at each isolated step.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/aws-dogwood-agent-policy/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "410ca031ddd240de",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS's own Dogwood documentation and design rationale, reported by InfoQ; requires trusted event-log infrastructure and forgoes Cedar's formal-analysis guarantees."
+    },
+    "edition_date": "2026-08-18"
+  },
   "42ebe570ca9aba75": {
     "id": "pb-skill-vs-subagent-frequency",
     "kind": "source-backed",
@@ -606,6 +644,25 @@
       "note": "Qualitative architectural guidance from the source; no measured outcome to cite."
     },
     "edition_date": "2026-08-04"
+  },
+  "45f01235e11c1ae2": {
+    "id": "pb-adaptive-stopping-for-eval-budget",
+    "kind": "source-backed",
+    "title": "Stop testing an eval item once its estimate is precise, not after a fixed number of trials",
+    "area": "Evals",
+    "problem": "Fixed-budget evals repeat every test item the same number of times, burning compute on items whose pass/fail rate is already statistically clear.",
+    "apply": "Replace fixed-N sampling with an adaptive stopping rule: keep sampling an item while its uncertainty is high, and stop once the estimate is precise enough (the optstop framework does this with hierarchical Bayesian inference across binary, ordinal, and continuous outcomes, with extra caution near a 0% success rate where rare wins matter most). No pre-calibrated item bank is required — every benchmark item stays eligible for more sampling if it needs it.",
+    "result": "optstop eliminated 57%–97% of planned trials across nine validation scenarios while reaching the same overall conclusions as the full fixed-budget run.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2608.14425v1",
+    "source_sid": "45f01235e11c1ae2",
+    "topic_url": "/topic/agent-evaluation",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "optstop paper's own validation across nine scenarios, 200 items x 10 epochs."
+    },
+    "edition_date": "2026-08-18"
   },
   "46be0149e39dc713": {
     "id": "pb-task-aware-knowledge-compression",
@@ -911,6 +968,25 @@
     },
     "edition_date": "2026-07-07"
   },
+  "7b2b4d44ea281840": {
+    "id": "pb-collocate-vectors-with-app-data-for-simple-rag",
+    "kind": "source-backed",
+    "title": "Collocate embeddings with application data when you don't need a dedicated vector database",
+    "area": "Retrieval",
+    "problem": "Running a separate vector database next to your primary store means syncing two systems and reconciling them when they drift.",
+    "apply": "For RAG workloads that don't need a specialized vector engine's full feature set, store embeddings as attributes on your existing rows using DynamoDB's native vector index (up to 4,096 dimensions, cosine/Euclidean/dot-product distance) and query with SearchVectors. Keep dimensions and projections as small as the task allows — vector billing covers data written, data processed per search, and per-GB storage, so unnecessary dimensions cost you on every query, not just at write time.",
+    "result": "AWS reports single-digit-millisecond query latency at horizontal scale, collapsing what used to be two systems into one.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/aws-dynamodb-vector-search/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "7b2b4d44ea281840",
+    "topic_url": "/topic/vector-kb",
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS's own latency and scale claims for DynamoDB native vector search, reported by InfoQ."
+    },
+    "edition_date": "2026-08-18"
+  },
   "7d432c619e99e0d6": {
     "id": "pb-use-agent-testers-for-exploration-not-ci-gates",
     "kind": "source-backed",
@@ -948,6 +1024,25 @@
       "note": "Density and cost-reduction figures are Google's own vendor-reported benchmark for GKE Agent Sandbox."
     },
     "edition_date": "2026-07-31"
+  },
+  "801edb72737f6642": {
+    "id": "pb-mcp-gateways-stop-pinning-sessions",
+    "kind": "source-backed",
+    "title": "Stop designing MCP gateways around session pinning — the spec did",
+    "area": "Tool use",
+    "problem": "MCP session state has been forcing gateways to pin every request from a client to the same backend instance, which fights autoscaling and load balancing.",
+    "apply": "Update to the MCP 2026-07-28 spec's stateless model: each request now carries protocol version, client identity, and capabilities inline instead of relying on the old initialize handshake and Mcp-Session-Id header. Route on the new mandatory Mcp-Method and Mcp-Name headers — the same per-method, per-tool routing primitives your gateway already applies to other APIs — instead of custom session-aware logic.",
+    "result": "Any request can land on any backend instance, so autoscaling no longer needs to preserve or migrate session state.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/mcp-stateless-gateway/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "801edb72737f6642",
+    "topic_url": "/topic/mcp",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative operational benefit inferred from the spec's stateless design; the spec change itself is a fact, not a measured result."
+    },
+    "edition_date": "2026-08-18"
   },
   "839c437bacc17af4": {
     "id": "pb-swe-pruner-self-pruning",
@@ -1214,6 +1309,25 @@
       "note": "Qualitative design argument, not a benchmarked result; no source-cited numbers apply."
     },
     "edition_date": "2026-07-03"
+  },
+  "9ab83fdefb7e8bb3": {
+    "id": "pb-stage-agent-autonomy-with-human-gates",
+    "kind": "source-backed",
+    "title": "Stage agent autonomy in levels with human gates, not full autonomy on day one",
+    "area": "Orchestration",
+    "problem": "Handing an agent full autonomy on messy analytics work either stalls adoption from excess caution or breaks trust the first time it gets something wrong.",
+    "apply": "Define explicit autonomy levels tied to risk: at a mid level, the agent discovers data, writes queries, and drafts analysis while a human frames the question and reviews the output; at a higher level it plans and orchestrates a multi-step workflow behind a human gate review. Route each request to the matching level, and keep humans owning metric definitions, causal interpretation, and final decisions at every level.",
+    "result": "Grab cut mechanical analyst tickets from 44% to 30% in five months while self-service SQL requests rose from 50% to 81%, without ceding decision authority.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/grab-ai-analytics-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "9ab83fdefb7e8bb3",
+    "topic_url": "/topic/agent-orchestration",
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Grab's own February–June 2026 production metrics, reported by InfoQ."
+    },
+    "edition_date": "2026-08-18"
   },
   "9c19b2212d6264ac": {
     "id": "pb-pin-governance-constraints-past-compaction",
@@ -1784,6 +1898,25 @@
       "note": "Anthropic reports measured test-pass rate, regression count, token spend, and performance deltas from the Bun migration."
     },
     "edition_date": "2026-07-21"
+  },
+  "f07f7955a1ecbd39": {
+    "id": "pb-audit-trace-payload-defaults-before-shipping",
+    "kind": "source-backed",
+    "title": "Audit your tracing framework's payload defaults before you ship agent traces",
+    "area": "Reliability",
+    "problem": "Agent tracing frameworks disagree on privacy defaults: some store full messages and tool payloads unless you opt out, others store nothing until you opt in. Payloads routinely contain personal data or secrets, so the wrong default lands them in your trace store without anyone deciding that on purpose.",
+    "apply": "Before turning on agent tracing in production, check your framework's payload default explicitly rather than assuming it matches another framework you've used. Set retention windows to match your actual debugging pattern — a 3–7 day window is short if you're chasing a pattern rather than a single incident — and budget for span volume, since every internal SDK span counts as a billed event, not just the ones you'd choose to look at.",
+    "result": "You avoid the two most common tracing surprises: PII sitting in traces nobody meant to store, and an observability bill driven by spans the dashboard never surfaces.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/cloudflare-agent-tracing/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "f07f7955a1ecbd39",
+    "topic_url": "/topic/agent-tracing",
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative benefit inferred by the editor from Cloudflare's documented tracing defaults and retention windows, reported by InfoQ; not a measured outcome Cloudflare itself reports."
+    },
+    "edition_date": "2026-08-18"
   },
   "f27164f724f79fa3": {
     "id": "pb-code-dispatch-subagents-for-coverage-guarantees",
