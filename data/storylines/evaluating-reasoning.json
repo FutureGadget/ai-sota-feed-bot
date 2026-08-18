@@ -1,0 +1,107 @@
+{
+ "slug": "evaluating-reasoning",
+ "label": "Evaluating Reasoning",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-07-28T16:19:03+00:00",
+ "last_updated": "2026-08-18T15:00:00+00:00",
+ "generated_at": "2026-08-18T10:08:15.773794+00:00",
+ "sources": [
+  "arxiv_cs_ai",
+  "arxiv_llm_reliability",
+  "databricks_blog"
+ ],
+ "days": [
+  {
+   "date": "2026-07-28",
+   "items": [
+    {
+     "title": "Evaluating Multi-Turn Multimodal Diagnostic Reasoning on Challenging Real-World Clinical Cases",
+     "url": "http://arxiv.org/abs/2607.25933v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Clinical diagnostic evaluation should not only assess whether models can provide correct diagnoses, but also reflect the realities of clinical practice, including progressive disclosure of multimodal information, dyna...",
+     "why_it_matters": "Matches feed focus: evaluation.",
+     "sid": "6b1e8161b5193973",
+     "published": "2026-07-28T16:19:03+00:00",
+     "editor_note": "Opening argument: static correctness checks don't capture real diagnostic reasoning."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-12",
+   "items": [
+    {
+     "title": "VAKRA: Evaluating Multi-Hop Reasoning Across APIs and Retrieval Under Tool-Use Policies",
+     "url": "http://arxiv.org/abs/2608.12282v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Agents deployed in enterprise settings must reason across structured APIs and document collections, yet existing benchmarks evaluate these capabilities in isolation. We introduce VAKRA (e\\textbf{V}aluating \\textbf{A}P...",
+     "why_it_matters": "Matches feed focus: agent, harness, eval.",
+     "sid": "fdd6121b1c5df0b7",
+     "published": "2026-08-12T17:27:27+00:00",
+     "editor_note": "Extends the critique to agents, introducing a benchmark that scores API and retrieval reasoning jointly."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-18",
+   "items": [
+    {
+     "title": "Evaluating AI Agents Live at the Grounded Reasoning Cup",
+     "url": "https://www.databricks.com/blog/evaluating-ai-agents-live-grounded-reasoning-cup",
+     "source": "databricks_blog",
+     "type": "news",
+     "summary_1line": "This year, Databricks hosted the inaugural Grounded Reasoning Cup, a first-of-its-kind...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "ff49f6c45f84130e",
+     "published": "2026-08-18T15:00:00+00:00",
+     "editor_note": "First live, grounded evaluation event puts the critique into practice outside offline benchmarks."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "A clinical-diagnosis benchmark argued reasoning evals need multi-turn, progressively-disclosed cases instead of single-shot correctness checks. Two weeks later, VAKRA extended that critique to agents, scoring API calls and retrieval together instead of in isolation.",
+  "stale": false,
+  "whats_new": "Databricks ran the first live \"Grounded Reasoning Cup,\" testing AI agents on grounded tasks in real time rather than against a fixed offline benchmark.",
+  "why_it_matters": "If your eval harness still scores single-turn Q&A pairs, these three efforts show the industry moving toward multi-turn, tool-integrated, and now live grounded testing - the gap between your eval and a live one is where production failures hide.",
+  "take_for_builders": "Add multi-turn, tool-integrated test cases to your eval suite before trusting a single-shot leaderboard score - VAKRA and the Grounded Reasoning Cup both show static benchmarks miss failure modes that only surface when agents chain calls or receive information progressively.",
+  "beats": [
+   {
+    "kicker": "THE CRITIQUE",
+    "tone": "launch",
+    "headline": "Clinical benchmark says correctness checks miss real diagnostic reasoning",
+    "summary": "Argues eval should model progressive information disclosure and multi-turn, multimodal clinical workflows, not just final-answer accuracy.",
+    "sids": [
+     "6b1e8161b5193973"
+    ]
+   },
+   {
+    "kicker": "WIDENING SCOPE",
+    "tone": "rising",
+    "headline": "VAKRA benchmarks agents across APIs and retrieval together, not in isolation",
+    "summary": "Enterprise agents are tested on structured-API calls and document retrieval jointly under tool-use policies, where prior benchmarks scored each in isolation.",
+    "sids": [
+     "fdd6121b1c5df0b7"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Databricks runs the first live \"Grounded Reasoning Cup\" for AI agents",
+    "summary": "Moves evaluation from a static leaderboard to a live, grounded competition format.",
+    "sids": [
+     "ff49f6c45f84130e"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will Databricks publish the Grounded Reasoning Cup's task set and agent rankings for reproducibility?",
+   "Do VAKRA's cross-API findings hold for agents built on orchestration frameworks outside its own harness?",
+   "Does progressive-disclosure, multi-turn evaluation spread beyond clinical use cases into general agent benchmarks?"
+  ],
+  "generated_at": "2026-08-18T17:45:00+00:00"
+ }
+}
