@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3]
-updated: 2026-08-11
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0]
+updated: 2026-08-18
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0]
 ---
 
 ## TL;DR
@@ -123,8 +123,29 @@ on threshold breaches. It's the identity/execution/intent split this page
 already argues for, expressed as one composable architecture instead of
 three separately-sourced controls.
 
+A practitioner pattern flips the usual framing of hallucination entirely,
+turning the failure mode into the mechanism: rather than asking a model to
+classify text against a large, closed vocabulary it can't hold in context
+(too many candidate tags or categories to enumerate in one prompt), let it
+freely generate — "hallucinate" — an unconstrained guess at the right label,
+then use vector-embedding similarity to snap that guess to the nearest real
+entry in the vocabulary. The technique trades a classification problem the
+model is bad at (picking correctly from thousands of options) for a
+generation-plus-retrieval problem it's good at, and only works because the
+embedding-similarity step catches and grounds the hallucination rather than
+returning it as-is — a concrete instance of this page's standing "does a
+hallucination widen useful context or actively mislead" question, engineered
+deliberately toward the useful side instead of left to chance.
+
 ## What's new
-Brex's production onboarding agent supplies a concrete number for the
+A practitioner pattern deliberately generates an unconstrained guess instead
+of classifying against a large closed vocabulary, then uses vector-embedding
+similarity to snap that "hallucination" to the nearest real label — turning
+a failure mode this page usually tracks as a risk into a designed mechanism,
+grounded by the embedding step rather than returned raw (see State of the
+art above).
+
+Prior update: Brex's production onboarding agent supplies a concrete number for the
 "reliable execution" leg this page already argues for: routing the workflow
 through Temporal Cloud instead of a bespoke retry loop, with the same
 workflow code otherwise unchanged, took long-running completion from

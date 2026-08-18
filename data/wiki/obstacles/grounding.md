@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8]
-updated: 2026-08-12
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be]
+updated: 2026-08-18
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be]
 ---
 
 ## TL;DR
@@ -126,8 +126,22 @@ constraint — data residency — rather than cost or latency, and it pairs the
 open-weight-model choice with the retrieval-architecture choice rather than
 treating them separately.
 
+**The retriever's own architecture options keep widening**, distinct from the
+vector/graph/SQL/gateway split above: Sentence Transformers added
+off-the-shelf support for multi-vector, late-interaction (ColBERT-style)
+embedding models — matching a query against several token-level vectors per
+document instead of one pooled vector — giving self-hosted retrieval stacks a
+packaged path to a retrieval architecture previously mostly confined to
+specialized research implementations, the same "the retriever itself keeps
+improving" thread this page already tracks for Nemotron 3 Embed above.
+
 ## What's new
-OneAdvanced built a UK-sovereign AI platform on self-hosted Llama 4
+Sentence Transformers shipped off-the-shelf support for multi-vector,
+late-interaction (ColBERT-style) embedding models — a packaged path to a
+retrieval architecture previously mostly confined to research
+implementations (see State of the art above).
+
+Prior update: OneAdvanced built a UK-sovereign AI platform on self-hosted Llama 4
 Maverick and Llama Guard 4 with a pgvector RAG pipeline backing 50+
 production agents — the build-vs-buy self-hosted pattern this page already
 tracks (Orbit), this time driven by data-residency compliance rather than

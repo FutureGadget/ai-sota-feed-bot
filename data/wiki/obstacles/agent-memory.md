@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a]
-updated: 2026-08-13
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df]
+updated: 2026-08-18
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df]
 ---
 
 ## TL;DR
@@ -268,8 +268,25 @@ has no retrieval step at all — the whole file is read every turn — so the
 fix has to be write-time deduplication and pruning, not a better recall
 mechanism.
 
+A practitioner talk ties the tiered-store and compaction threads above
+directly to a **build discipline**, not just an architecture diagram: "The
+Right 300 Tokens Beat 100k Noisy Ones" argues coding agents fail from
+bloated, stuffed context rather than a missing capability, and names the
+concrete fixes — lazy-loaded skills (load a skill's instructions only when
+the task needs them, not every turn), versioned context artifacts, an
+externalized memory bank, and LLM-as-judge evals — as the practical
+counterpart to this page's lifecycle and tiered-store framing (ACM, Atlas)
+above, aimed at engineering leaders turning raw markdown files into reliable
+agentic workflows rather than at the memory-architecture literature itself.
+
 ## What's new
-The Agent Memory Leaderboard released its first public results for text
+"The Right 300 Tokens Beat 100k Noisy Ones" names lazy-loaded skills,
+versioned context artifacts, and an externalized memory bank as the
+practitioner-level fix for context bloat — the build-discipline counterpart
+to this page's tiered-store and compaction architecture above (see State of
+the art).
+
+Prior update: The Agent Memory Leaderboard released its first public results for text
 memory, scoring open-source methods against commercial products head-to-head
 (136 teams registered) — the measurability push this page tracks gaining a
 maintained, comparable ranking rather than staying a one-off benchmark
