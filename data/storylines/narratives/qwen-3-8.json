@@ -1,27 +1,29 @@
 {
   "slug": "qwen-3-8",
-  "generated_at": "2026-08-18T00:15:00Z",
-  "covers_last_updated": "2026-08-16T22:00:39+00:00",
+  "generated_at": "2026-08-18T05:13:38Z",
+  "covers_last_updated": "2026-08-17T23:58:14+00:00",
   "covers_member_sids": [
     "c09b9b5f698dc233",
     "1f245454c88a0663",
     "96d6f649907271ed",
     "a9c8b35dcb9918d4",
     "4f2d09b57d0c456e",
-    "45cd7975f6d2c641"
+    "45cd7975f6d2c641",
+    "4fdeab7a66fc6733"
   ],
   "tldr": "Alibaba's Qwen team teased a 2.4T-parameter Qwen3.8-Max alongside a smaller 27B open-weight build in early August, then formalized the 27B release under an Apache 2.0 license on August 14. Hardware vendors and self-hosters had it running locally within days.",
-  "whats_new": "Simon Willison's Aug 16 hands-on found Qwen 3.8 27B strong but prone to wildly overthinking simple prompts — the first independent usability caveat on the open-weight release.",
-  "why_it_matters": "Apache 2.0 gives platform engineers a clean, self-hostable alternative to Kimi K3's disputed IP provenance, but the overthinking default means capping the reasoning-token budget before latency-sensitive deployment.",
+  "whats_new": "A day after flagging its overthinking habit, Simon Willison clocked Qwen 3.8 27B at 52 on the Artificial Analysis Intelligence Index -- matching GPT-5.6 Luna and trailing DeepSeek V4 Pro and GLM-5.2 by just one point despite being a fraction of their size.",
+  "why_it_matters": "Apache 2.0 gives platform engineers a clean, self-hostable alternative to Kimi K3's disputed IP provenance, and the new benchmark score shows it holds its own against much larger models -- but the overthinking default still means capping the reasoning-token budget before latency-sensitive deployment.",
   "status": {
-    "state": "27B open-weight build shipped Aug 14; hands-on flags an overthinking default",
+    "state": "27B build now benchmarked near parity with much larger models",
     "tone": "now",
-    "changed": "2026-08-16",
-    "detail": "Alibaba formalized the Apache-2.0 27B release Aug 14, hardware vendors shipped local-run guides within days, and an Aug 16 independent test found it strong but prone to overthinking simple prompts.",
+    "changed": "2026-08-17",
+    "detail": "Alibaba formalized the Apache-2.0 27B release Aug 14, an Aug 16 hands-on flagged an overthinking default, and an Aug 17 Artificial Analysis score placed it within one point of DeepSeek V4 Pro and GLM-5.2 despite its much smaller size.",
     "track": [
-      { "label": "teased", "detail": "Aug 4-9", "tone": "rising", "weight": 30 },
-      { "label": "27B shipped, Apache 2.0", "detail": "Aug 12-14", "tone": "turn", "weight": 40 },
-      { "label": "overthinking caveat", "detail": "Aug 16 -> now", "tone": "now", "weight": 30 }
+      { "label": "teased", "detail": "Aug 4-9", "tone": "rising", "weight": 25 },
+      { "label": "27B shipped, Apache 2.0", "detail": "Aug 12-14", "tone": "turn", "weight": 30 },
+      { "label": "overthinking caveat", "detail": "Aug 16", "tone": "rising", "weight": 20 },
+      { "label": "benchmark parity confirmed", "detail": "Aug 17 -> now", "tone": "now", "weight": 25 }
     ]
   },
   "beats": [
@@ -50,23 +52,30 @@
       "sids": ["4f2d09b57d0c456e", "a9c8b35dcb9918d4"]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "HANDS-ON",
+      "tone": "rising",
       "headline": "Independent hands-on: strong, but wastes tokens overthinking simple prompts",
       "sids": ["45cd7975f6d2c641"]
+    },
+    {
+      "kicker": "BENCHMARK",
+      "tone": "now",
+      "headline": "Artificial Analysis score lands one point behind DeepSeek V4 Pro and GLM-5.2 despite the size gap",
+      "sids": ["4fdeab7a66fc6733"]
     }
   ],
   "open_questions": [
     "Does Qwen 3.8's Apache 2.0 license and the 27B build's overthinking default extend to the flagship 2.4T Max variant, or are they isolated to the smaller open-weight release?",
-    "Does independent benchmark testing corroborate Qwen 3.8 as competitive with Kimi K3, or does the comparison clearly favor one model?"
+    "Does the Artificial Analysis Intelligence Index include Kimi K3 for a direct score comparison, or does the head-to-head with Qwen 3.8's chief open-weight rival remain untested?"
   ],
-  "take_for_builders": "Pick Qwen 3.8's Apache-2.0 27B build for clean-license self-hosting, but cap its reasoning-token budget before latency-sensitive deployment since it defaults to overthinking on simple prompts.",
+  "take_for_builders": "Pick Qwen 3.8's Apache-2.0 27B build for clean-license self-hosting when you need near-DeepSeek-V4-Pro quality at a fraction of the parameter count, but cap its reasoning-token budget before latency-sensitive deployment since it defaults to overthinking on simple prompts.",
   "day_captions": {
     "c09b9b5f698dc233": "AINews roundup first flags the 2.4T Qwen3.8-Max and a 27B open-weight build within days of launch.",
     "1f245454c88a0663": "Memeburn head-to-head comparison against Moonshot's rival Kimi K3, days after Qwen 3.8 surfaces.",
     "96d6f649907271ed": "Early self-hosting test: a Qwen 27B build runs locally on a Minisforum mini PC via Ollama, ahead of the formal Apache 2.0 release.",
     "4f2d09b57d0c456e": "Alibaba's Qwen team formally releases Qwen 3.8 with open weights under the Apache 2.0 license.",
     "a9c8b35dcb9918d4": "AMD ships a same-day guide for running Qwen 3.8 27B locally on Ryzen AI Max hardware.",
-    "45cd7975f6d2c641": "Independent hands-on: Qwen 3.8 27B is strong but wastes tokens overthinking simple prompts — the first real-world usability caveat."
+    "45cd7975f6d2c641": "Independent hands-on: Qwen 3.8 27B is strong but wastes tokens overthinking simple prompts -- the first real-world usability caveat.",
+    "4fdeab7a66fc6733": "Willison's follow-up benchmark post scores the 27B build at 52 on the Artificial Analysis Intelligence Index, one point behind much larger DeepSeek V4 Pro and GLM-5.2 models."
   }
 }
