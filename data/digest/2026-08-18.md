@@ -2,134 +2,128 @@
 
 Focus: AI Platform Engineering
 
-## 1. Qwen 3.8 27B is excellent, but it defaults to wildly overthinking things
+## 1. Qwen 3.8 27B scores 52 on the Artificial Analysis Intelligence Index
 - Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/16/qwen-38-27b/
-- Score: 3.184 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, codex.
+- URL: https://simonwillison.net/2026/Aug/17/qwen-38-27b-scores-52/
+- Score: 2.606 | Reliability: 1.0
+- Why it matters: 
 
 ## 2. DSPrompt: Dynamic Soft Prompt Defense Against M-RAG Corruption
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.16536v1
-- Score: 2.876 | Reliability: 1.0
+- Score: 2.858 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 3. FTA-Mem: Fact-Time-Affect Anchored Memory for Low-Density Long-Term Dialogue
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2608.16303v1
-- Score: 2.762 | Reliability: 1.0
+- Score: 2.745 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Qwen 3.8 27B scores 52 on the Artificial Analysis Intelligence Index
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/17/qwen-38-27b-scores-52/
-- Score: 2.646 | Reliability: 1.0
-- Why it matters: 
-
-## 5. Article: Agentic Fitness Functions: Extending Evolutionary Architecture Beyond Deterministic Rules
+## 4. Article: Agentic Fitness Functions: Extending Evolutionary Architecture Beyond Deterministic Rules
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/articles/agentic-fitness-functions-evolutionary-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.617 | Reliability: 1.0
+- Score: 2.58 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
-## 6. SpaceXAI Launches Grok Bot for Autonomous AI Agents
+## 5. SpaceXAI Launches Grok Bot for Autonomous AI Agents
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/grok-bot-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.615 | Reliability: 1.0
+- Score: 2.577 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 7. [AINews] Stripe buys OpenRouter for $7B
+## 6. [AINews] Stripe buys OpenRouter for $7B
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-stripe-buys-openrouter-for
-- Score: 2.605 | Reliability: 1.0
+- Score: 2.566 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 8. How ABC Legal turned every employee into a builder with Claude Managed Agents | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/how-abc-legal-turned-every-employee-into-a-builder-with-claude-managed-agents
-- Score: 2.177 | Reliability: 1.0
+## 7. TDD-Agent: Test-Driven Reasoning for Code Generation
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2608.16742v1
+- Score: 2.464 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 8. Going AI-native to enhance how humans/agents access ScalarDB and ScalarDL docs
+- Type: news | Source: hackernews_ai
+- URL: https://medium.com/scalar-engineering/going-ai-native-to-enhance-how-humans-and-agents-access-scalardb-and-scalardl-docs-fb7dbb0d304b
+- Score: 2.361 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 9. New policy ideas for the Intelligence Age
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/new-policy-ideas-for-the-intelligence-age
-- Score: 2.117 | Reliability: 1.0
+- Score: 2.104 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. The Defender’s Window
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/the-defenders-window
-- Score: 2.041 | Reliability: 1.0
+- Score: 2.028 | Reliability: 1.0
 - Why it matters: 
 
-## 11. TDD-Agent: Test-Driven Reasoning for Code Generation
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2608.16742v1
-- Score: 2.479 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 12. Why China’s Affordable AI Is a Worry for Silicon Valley - Bloomberg.com
+## 11. Why China’s Affordable AI Is a Worry for Silicon Valley - Bloomberg.com
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMi1gFBVV95cUxOYzhCekdXYXdWT0wtM1k1R3NXcmdIVDlibmVCR0k1V0RITjQ1Vnd0Zkd1X3hzdmhkY1k2M3JydVB5NEFJVDgtX0piY081cFVReDhFZkZGUHhrYWdKMkllYTUzT0NQY2cxTmZFR2RyU2hjV1NDSDJpTm5VV0NSQ3FtS2lDRzcyNGhWcWZYUFFTbnY5XzcwU2NUY0FBcGNIS21POERRZTBBaXROa25Ea2tPYVpYQk8tTU1GRlY5aHZqdU9yZ1dPQVhsRXZWcXBXMXk1TXJCY0NB?oc=5
-- Score: 2.444 | Reliability: 1.0
+- URL: https://news.google.com/rss/articles/CBMiugFBVV95cUxQNHlXQnR2VElTbFIwRjFSbm5aVW4wdTJHWE9LdnAyLWZSbWh2WkF2R0J4d1Q1Y2xkenF3ZVU1WmlpX0w3dzQ0TEpRbHBRU2MzVUsta19LLTdQZk8zY2JsY3dVLVFMdWpPRmRuNHdGUGlwT0o0UElVSWNRQzd2bXMzSE8xVTd3Unl6dzREMEFCc0FPSFJRUllhU01aelRSdk14a292TTIteV9uQnpVYThGTDN6Y043SDI1M1E?oc=5
+- Score: 2.361 | Reliability: 1.0
 - Why it matters: 
 
-## 13. AgentCore Payments middleware for LangChain agents
+## 12. AgentCore Payments middleware for LangChain agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langchain-agentcore-payments
-- Score: 2.394 | Reliability: 1.0
+- Score: 2.358 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. claude-code v2.1.234
+## 13. claude-code v2.1.234
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.234
-- Score: 2.378 | Reliability: 1.0
+- Score: 2.351 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 15. An Analytical-Prior Framework for Data-Efficient Prediction of Sound-Reduction Frequencies in Rectangular Side-Branch Helmholtz Resonators
+## 14. An Analytical-Prior Framework for Data-Efficient Prediction of Sound-Reduction Frequencies in Rectangular Side-Branch Helmholtz Resonators
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.16873v1
-- Score: 2.363 | Reliability: 1.0
+- Score: 2.348 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 16. tencent/EVIE-Preview-4.5B released on Hugging Face
+## 15. tencent/EVIE-Preview-4.5B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/EVIE-Preview-4.5B
-- Score: 2.34 | Reliability: 1.0
+- Score: 2.317 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
+
+## 16. We Tracked a Shipment of Rare Books. It Ended at an Amazon AI Training Facility
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Aug/17/we-tracked-a-shipment-of-rare-books-it-ended-at-an-amazon-ai-tra/
+- Score: 2.28 | Reliability: 1.0
+- Why it matters: 
 
 ## 17. Teaching Everyone to Fish for Tokens
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/teaching-everyone-to-fish-for-tokens
-- Score: 2.256 | Reliability: 1.0
+- Score: 2.221 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. codex 0.148.0-alpha.21
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.21
-- Score: 2.23 | Reliability: 1.0
+- Score: 2.205 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 19. How canvases make agentic workflows visible, steerable, and cost-efficient
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/how-canvases-make-agentic-workflows-visible-steerable-and-cost-efficient/
-- Score: 2.197 | Reliability: 1.0
+- Score: 2.163 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 20. Same Cluster, 33 Points More Utilization: What Changed Was the Order
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/Dharma-AI/gpu-management-pt2
-- Score: 2.005 | Reliability: 1.0
+- Score: 1.992 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. How Databricks Feature Store serves features with sub-second freshness
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/how-databricks-feature-store-serves-features-sub-second-freshness
-- Score: 1.748 | Reliability: 1.0
-- Why it matters: 
-
-## 22. NVIDIA Nemotron 3.5 Lightning now available in Amazon SageMaker JumpStart
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/nvidia-nemotron-3-5-lightning-now-available-in-amazon-sagemaker-jumpstart/
-- Score: 1.579 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
+- Score: 1.714 | Reliability: 1.0
+- Why it matters:
