@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f]
-updated: 2026-08-16
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8]
+updated: 2026-08-18
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8]
 ---
 
 ## TL;DR
@@ -208,8 +208,21 @@ afterthought, hooks make the harness itself the foundation the rest of the
 agent is built on — a concrete answer to *how* a loop re-plans mid-run, not
 just that it should.
 
+The "loop as reusable infra" thread also picks up a named, structural
+pattern for the loop's control shape itself: the Krystal Loop Protocol
+structures a coding agent's loop as a bounded worker/critic pair — one role
+proposes work, a second role checks it, within an explicit bound rather than
+an open-ended retry — the same structure-around-the-loop instinct this page
+already argues for (decomposition, clarification gates, re-planning),
+packaged as a named, reusable protocol rather than a bespoke harness detail.
+
 ## What's new
-Flue's Agent Hooks bring a React-inspired composition primitive to harness
+The Krystal Loop Protocol names a bounded worker/critic pattern for a coding
+agent's loop — one role proposes, a second checks, within an explicit
+bound — a reusable, named instance of this page's standing
+structure-around-the-loop argument.
+
+Prior update: Flue's Agent Hooks bring a React-inspired composition primitive to harness
 design: tools, resources, and state can attach or change mid-run through
 hooks (`useSkill()`, `useTool()`, `useSubagent()`) instead of a static
 config fixed before the agent starts, extending this page's "loop as

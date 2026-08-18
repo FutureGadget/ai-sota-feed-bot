@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba]
-updated: 2026-08-08
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270]
+updated: 2026-08-18
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270]
 ---
 
 ## TL;DR
@@ -175,6 +175,17 @@ building the training, evaluation, and inference engine for a
 a first-class serving-layer decision with its own eval loop, not a one-off
 routing feature bolted onto an existing engine.
 
+**Speculative decoding's drafting step is getting its own accuracy lever**,
+distinct from the disaggregation and scheduling levers above: DARTree
+extends a pretrained autoregressive correction head from single draft chains
+to draft *trees*, scoring and pruning candidates across the whole tree in
+one batch instead of correcting one sequential chain. Across seven math,
+code, and chat benchmarks it accepts up to 12.97 tokens per verification
+round — 98.6% more than the DFlash baseline and 27.9% more than Domino — for
+up to 9.73x lossless speedup over plain autoregressive decoding, training-free,
+sharpening the [speculative decoding](/topic/speculative-decoding) lever
+this page already tracks rather than adding a new one.
+
 OpenAI's own account of building GPT-Live — a turnless (no push-to-talk
 turn-taking) speech system with a continuous, low-latency voice
 architecture — sharpens this page's standing "interactive modes set a hard
@@ -183,7 +194,13 @@ that floor in six months, from the model provider's own product side rather
 than a serving-stack vendor's benchmark.
 
 ## What's new
-vLLM shipped Decode Context Parallelism (DCP), sharding the KV cache across
+DARTree extends speculative decoding's correction head from single draft
+chains to draft trees, accepting up to 12.97 tokens per verification round
+(98.6% more than DFlash, 27.9% more than Domino) for up to 9.73x lossless
+speedup — a training-free accuracy lever on the same speculative-decoding
+technique this page already tracks, not a new serving-layer bottleneck.
+
+Prior update: vLLM shipped Decode Context Parallelism (DCP), sharding the KV cache across
 GPUs by sequence dimension for a reported 3x decode-throughput gain on
 long-context agentic workloads over standard tensor parallelism — a new
 parallelism-based answer to the storage-bandwidth bottleneck this page
