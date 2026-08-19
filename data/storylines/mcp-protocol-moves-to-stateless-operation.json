@@ -1,0 +1,110 @@
+{
+ "slug": "mcp-protocol-moves-to-stateless-operation",
+ "label": "MCP protocol moves to stateless operation",
+ "item_count": 2,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-07-31T19:29:30+00:00",
+ "last_updated": "2026-08-12T09:48:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-08-19T00:13:18.629141+00:00",
+ "sources": [
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-07-31",
+   "items": [
+    {
+     "title": "MCP is going stateless: What the new spec means for AI agents",
+     "url": "https://newrelic.com/blog/ai/mcp-is-going-stateless",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "MCP is going stateless: What the new spec means for AI agents",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "793d1e28a9d4d499",
+     "published": "2026-07-31T19:29:30+00:00",
+     "editor_note": "First explainer of the July 28 stateless spec revision and what it changes for agent builders."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-12",
+   "items": [
+    {
+     "title": "MCP Goes Stateless, and Developers Ask Whether That Just Makes It an API Again",
+     "url": "https://www.infoq.com/news/2026/08/mcp-stateless-gateway/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "The MCP 2026-07-28 specification removes the initialize handshake and session header, and adds required method and tool-name headers so gateways can route agent traffic without parsing JSON. Reaction split between dev...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "801edb72737f6642",
+     "published": "2026-08-12T09:48:00+00:00",
+     "editor_note": "First reported pushback: developers debating whether stateless MCP is now functionally just an API."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "MCP's July 28 spec revision drops the initialize handshake and session header that kept agent-to-server connections stateful, replacing them with required method and tool-name headers so any gateway can route calls without parsing JSON bodies. That change turns MCP traffic into ordinary stateless HTTP requests, the kind load balancers and API gateways already know how to scale.",
+  "stale": false,
+  "whats_new": "InfoQ's Aug 12 follow-up reports developers split over whether shedding session state just turns MCP back into a plain REST API, undercutting the protocol's original pitch as a stateful agent-context layer.",
+  "why_it_matters": "Stateless MCP means platform teams can drop sticky-session routing and put MCP servers behind standard gateways, but they should recheck whether any agent workflow quietly depended on session-scoped context that's now gone.",
+  "take_for_builders": "If you operate an MCP server or gateway, test the stateless mode against your current sticky-session routing before adopting it, and confirm any client code built on the initialize handshake or session header has a migration path.",
+  "status": {
+   "state": "Stateless spec shipped · debated",
+   "tone": "rising",
+   "changed": "2026-08-12",
+   "detail": "The stateless mode is live in the MCP spec; the open fight is whether it leaves MCP meaningfully different from a plain REST API.",
+   "track": [
+    {
+     "label": "spec change",
+     "detail": "Jul 28 revision, explained Jul 31",
+     "tone": "launch",
+     "weight": 50
+    },
+    {
+     "label": "developer debate",
+     "detail": "Aug 12 → now",
+     "tone": "now",
+     "weight": 50
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "SPEC CHANGE",
+    "tone": "launch",
+    "headline": "MCP's July 28 spec drops the stateful handshake",
+    "summary": "New Relic's explainer walks through the stateless spec and what it means for agents built on MCP.",
+    "sids": [
+     "793d1e28a9d4d499"
+    ]
+   },
+   {
+    "kicker": "THE DEBATE",
+    "tone": "turn",
+    "headline": "Developers ask if stateless MCP is just an API again",
+    "summary": "InfoQ covers the same spec change and the community split over whether it erases MCP's distinction from REST.",
+    "sids": [
+     "801edb72737f6642"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will major MCP SDKs and gateways make stateless mode the default, or keep the handshake as an option?",
+   "Does dropping session state break agent memory or context patterns that relied on a persistent MCP session?",
+   "Does the debate settle on a feature that still distinguishes MCP from plain REST/OpenAPI, or does convergence continue?"
+  ],
+  "provenance": {
+   "793d1e28a9d4d499": {
+    "surfaced_by": "scout"
+   },
+   "801edb72737f6642": {
+    "surfaced_by": "scout"
+   }
+  },
+  "generated_at": "2026-08-19T00:09:13+00:00"
+ }
+}
