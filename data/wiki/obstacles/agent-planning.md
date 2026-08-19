@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8]
-updated: 2026-08-18
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa]
+updated: 2026-08-19
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa]
 ---
 
 ## TL;DR
@@ -216,8 +216,22 @@ an open-ended retry — the same structure-around-the-loop instinct this page
 already argues for (decomposition, clarification gates, re-planning),
 packaged as a named, reusable protocol rather than a bespoke harness detail.
 
+A domain-specific instance backs the worker/critic structure above with a
+production system rather than a coding-agent protocol: Netflix open-sourced
+an agentic workflow for observational causal inference that pairs an actor
+proposing an analysis with a critic checking it in a loop, reducing the
+toil of causal analysis given observational data and a human analyst's own
+plan — the same bounded-role-pair structure the Krystal Loop Protocol names
+for coding agents, this time applied to a data-science task rather than
+software.
+
 ## What's new
-The Krystal Loop Protocol names a bounded worker/critic pattern for a coding
+Netflix open-sourced an agentic workflow for observational causal inference
+that pairs an actor proposing an analysis with a critic checking it in a
+loop — a domain-specific instance of the bounded worker/critic structure
+this page already tracks (see State of the art above).
+
+Prior update: The Krystal Loop Protocol names a bounded worker/critic pattern for a coding
 agent's loop — one role proposes, a second checks, within an explicit
 bound — a reusable, named instance of this page's standing
 structure-around-the-loop argument.
@@ -236,12 +250,6 @@ than only to cost or latency (see [agent
 evaluation](/topic/agent-evaluation)). A companion write-up on how ChatGPT
 tunes its own agent loop (harness, API, and inference together) reinforces
 the same "loop as infra" thesis from inside a shipping product.
-
-Prior update: GitHub's Copilot team frames a stable, repeatable harness — prototype, plan,
-implement, review — as the durable core to build around rather than
-chasing every new agent tool, echoing LangGraph's "graph/loop/harness
-engineering is one idea" convergence argument from a second major
-coding-agent vendor.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

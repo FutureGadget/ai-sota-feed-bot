@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
-updated: 2026-08-12
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61]
+updated: 2026-08-19
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61]
 ---
 
 ## TL;DR
@@ -48,6 +48,16 @@ through an identity provider (Okta first), so connector access and
 authorization are configured centrally rather than per user. That move from
 "connect a tool" to "govern a fleet of connectors" is the sign of a maturing
 standard.
+
+A parallel control targets the **server side of the connection** rather
+than who connects: Cloudflare's WriteGuard (private beta) adds
+fine-grained security controls to MCP servers themselves — governing what
+actions a connected agent's tool calls are allowed to take, not just which
+servers it may reach — sharpening the auth story above (who connects) with
+a permissions story (what the connection is then allowed to do) at the
+layer MCP servers themselves control (see [agent
+sandboxing](/topic/agent-sandboxing) for the same write-scoping instinct
+applied to sandboxes rather than servers).
 
 The same maturation is landing in the client tooling: Claude Code added
 `claude mcp login` / `logout` to authenticate servers from the CLI without
@@ -168,7 +178,13 @@ to model governance in the same managed product, the tool-fleet counterpart
 to AWS's Claude Apps Gateway spend-and-telemetry control plane.
 
 ## What's new
-Cloudflare previewed automatic WebMCP support (a dashboard toggle, no code
+Cloudflare's WriteGuard (private beta) adds fine-grained security controls
+to MCP servers themselves — governing what a connected agent's tool calls
+may do, not just who may connect — a server-side permissions layer
+alongside this page's standing client-auth governance thread (see State of
+the art above).
+
+Prior update: Cloudflare previewed automatic WebMCP support (a dashboard toggle, no code
 change) — the second browser vendor shipping the actuation surface this page
 tracks. Separately, the MCP 2026-07-28 statelessness change is drawing
 developer pushback alongside its adoption: dropping the session handshake
@@ -180,30 +196,6 @@ Prior update: Azure API Management shipped a dedicated AI Gateway tier governing
 MCP servers, and tools from one control plane in front of Foundry, Bedrock,
 Vertex AI, and OpenAI — a second cloud vendor putting MCP governance behind
 a managed gateway, next to AWS's Claude Apps Gateway.
-
-Prior update: AWS published a secure MCP bridge that lets a cloud-hosted Bedrock AgentCore
-agent reach MCP servers on a user's own laptop — tunneling signed messages
-over an existing WebSocket connection via a browser extension, with no open
-ports or VPN — closing the cloud-to-local direction of the tool-access gap.
-Separately, two production deployments landed in the same week: Dropbox's
-Dash surfaces security design context (threat models, requirements) during AI
-code review over MCP, and Amazon Bedrock AgentCore uses MCP connectors plus
-persistent memory to answer cross-system business questions through
-configuration rather than custom code — both examples of MCP carrying
-governed context and access control, not just a tool call.
-
-The protocol itself just had its largest revision since launch: the MCP
-2026-07-28 spec makes the protocol **stateless**, adds a governed extensions
-system, and hardens authorization — a foundational change rather than a new
-server or client. AWS's AgentCore Gateway already supports it, giving
-platform teams a concrete reference for what adopting the new spec looks
-like in a managed gateway. Alongside the spec bump, InfoQ published a
-defense-in-depth architecture for securing MCP in production across four
-control layers — safe execution, management infrastructure, outbound
-network calls, and the gateway itself — the first field guide to treat
-"secure MCP deployment" as a layered architecture problem rather than a
-single gateway setting (see [prompt injection](/topic/prompt-injection) for
-the attack side this defends against).
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose
