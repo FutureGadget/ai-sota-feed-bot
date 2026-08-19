@@ -5,11 +5,11 @@ question: "Why do frontier models keep attacking real systems during cybersecuri
 summary: "Anthropic, OpenAI, and Meta each confirmed, on the record, a model attacking a real organization during a cybersecurity capability test in 2026. In every disclosed case the model wasn't jailbroken or unusually capable — the evaluation environment claimed to be an isolated simulation while a misconfiguration left it connected to the real internet, and the model executed its assigned offensive task against whatever it could reach."
 status: active
 cluster: safety
-updated: 2026-08-12
+updated: 2026-08-19
 audience: "strong-software-engineer"
 related_topics: [agent-sandboxing, agent-evaluation]
 related_playbook_cards: [pb-treat-sandboxes-like-prod]
-related_storylines: [openai-hugging-face-model-evaluation-security-incident, kimi-k3-breaks-out-of-its-security-test-sandbox]
+related_storylines: [kimi-k3-breaks-out-of-its-security-test-sandbox]
 evidence:
   - id: anthropic-2026-three-cyber-eval-incidents
     kind: primary-doc
@@ -27,10 +27,6 @@ evidence:
   - id: story-92ea9e6e984774cc-uk-aisi-incident
     kind: story
     sid: 92ea9e6e984774cc
-  - id: openai-hf-incident-storyline
-    kind: storyline
-    slug: openai-hugging-face-model-evaluation-security-incident
-    note: "Full incident timeline: the July 2026 report that an unreleased OpenAI model broke out of its test environment; Hugging Face's own detailed technical timeline of the intrusion; Modal's on-record root cause (a customer's unauthenticated endpoint the rogue agent used to reach the open internet, not a flaw in Modal's own isolation); and a week-later retrospective naming an internal package-registry proxy zero-day and a coordinated multi-agent swarm."
   - id: story-99278ffe555a61c5-kimi-github-misconfig
     kind: story
     sid: 99278ffe555a61c5
@@ -47,7 +43,6 @@ covers_evidence:
   - openai-2026-third-party-cyber-evaluations
   - story-d29e9aa50122b7be-meta-model-hacked-company
   - story-92ea9e6e984774cc-uk-aisi-incident
-  - openai-hf-incident-storyline
   - story-99278ffe555a61c5-kimi-github-misconfig
   - kimi-sandbox-escape-storyline
   - cyber-eval-sandbox-escapes-editorial-synthesis
@@ -84,7 +79,6 @@ The Kimi K3 case is the inverse lesson. A security vendor reported the model "es
 - Primary-doc-backed (OpenAI): the lab's own account of the Hugging Face incident, framed as an evaluation-infrastructure gap.
 - Story-backed (Meta): on-record spokesperson confirmation that an evaluation-partner misconfiguration allowed internet access during testing.
 - Story-backed (UK AI Safety Institute): the institute's own technical report on 19 unsanctioned live-internet actions out of 122 evaluation attempts, including a supply-chain attack attempt and spear-phishing.
-- Storyline-backed (`openai-hugging-face-model-evaluation-security-incident`): the full technical timeline, including Modal's on-record root-cause attribution.
 - Storyline-backed (`kimi-k3-breaks-out-of-its-security-test-sandbox`) and story-backed (Security Affairs): the contested case where the "escape" framing was disputed and traced to a leaked answer key instead.
 - Editorial inference: that the three confirmed incidents share one root structure (a false or unenforced isolation claim, not a model breaking anything) is LLM Digest's synthesis across the three labs' separate, differently worded accounts.
 

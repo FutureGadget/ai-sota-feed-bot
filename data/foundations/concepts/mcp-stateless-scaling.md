@@ -5,28 +5,29 @@ question: "Why did MCP go stateless, and what does that change for scaling agent
 summary: "MCP's 2026-07-28 spec dropped the session-handshake header that pinned a client to one server instance, so any gateway node can now handle any request — the same statelessness trade that let HTTP scale horizontally, applied to agent tool calls."
 status: active
 cluster: tool-use
-updated: 2026-08-07
+updated: 2026-08-19
 audience: "strong-software-engineer"
 related_topics: [mcp, tool-use]
 related_playbook_cards: []
-related_storylines: [gateway-mcp]
+related_storylines: []
 evidence:
   - id: aws-agentcore-mcp-2026-07-28-spec
     kind: story
     sid: b734d716b0d66f96
     title: "How AgentCore Gateway supports the MCP 2026-07-28 spec"
     note: "Describes the spec's three changes: elimination of the session-handshake, an `Mcp-Session-Id` header that previously pinned clients to a server instance; requests now carry protocol version and client capabilities inside a self-contained `_meta` parameter instead; a governed extensions system (SEP-2133) giving each new capability a reverse-DNS identifier, its own repository, and independent release cadence instead of forcing core spec version bumps; and six SEPs hardening the authorization spec toward closer OAuth 2.0/OpenID Connect alignment, while existing gateway-level credential mechanisms (IAM/SigV4, OAuth/JWT) are unaffected."
-  - id: gateway-mcp-storyline
-    kind: storyline
-    slug: gateway-mcp
-    note: "Tracks the spec revision landing, AWS Bedrock AgentCore Gateway shipping support for it via a single API call, and Azure API Management shipping a dedicated AI Gateway tier fronting multiple model providers behind one MCP-aware control plane within days of the spec change."
+  - id: story-4daf9a3fc6b23a4c-azure-api-management-ai-gateway
+    kind: story
+    sid: 4daf9a3fc6b23a4c
+    title: "Azure API Management Adds Dedicated AI Gateway Tier, Governing Models and MCP Tools"
+    note: "Azure API Management shipped a dedicated AI Gateway tier fronting multiple model providers and MCP servers behind one MCP-aware control plane within days of the 2026-07-28 spec change."
   - id: mcp-statelessness-editorial-synthesis
     kind: editorial-inference
     title: "LLM Digest synthesis"
     note: "The scaling implication is the same one HTTP's statelessness solved decades ago: a stateful protocol requires session affinity (sticky routing to the instance holding the session) or a shared session store, both of which complicate load balancing and turn losing one instance into a dropped session; a stateless protocol lets any instance serve any request because the request carries what it needs, which is what let AWS ship spec support as a config change on an existing gateway rather than a re-architecture."
 covers_evidence:
   - aws-agentcore-mcp-2026-07-28-spec
-  - gateway-mcp-storyline
+  - story-4daf9a3fc6b23a4c-azure-api-management-ai-gateway
   - mcp-statelessness-editorial-synthesis
 ---
 
@@ -48,7 +49,7 @@ Two other changes shipped in the same revision, distinct from statelessness but 
 
 ## Evidence
 - Story-backed: the AWS AgentCore Gateway writeup names the specific mechanism change (session-handshake header replaced by a self-contained `_meta` parameter) and the two accompanying spec changes (governed extensions via SEP-2133, six authorization-hardening SEPs), and reports that AgentCore Gateway operators enable the new spec version via a single `UpdateGateway` call rather than a redeployment.
-- Storyline-backed: the `gateway-mcp` thread shows the practical consequence within days — Azure API Management shipping a dedicated AI Gateway tier as a control plane spanning multiple model providers and MCP servers, evidence that the ecosystem is building on the assumption that MCP traffic can be routed statelessly.
+- Story-backed: Azure API Management shipping a dedicated AI Gateway tier as a control plane spanning multiple model providers and MCP servers within days of the spec change, evidence that the ecosystem is building on the assumption that MCP traffic can be routed statelessly.
 - Editorial inference: the load-balancing and failover framing (sticky routing vs. stateless routing, HTTP's own history of this trade-off) is LLM Digest's synthesis connecting the protocol change to standard distributed-systems scaling practice; it is not a claim from either source article.
 
 ## How to apply

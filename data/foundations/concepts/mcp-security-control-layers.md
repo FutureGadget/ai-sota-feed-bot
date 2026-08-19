@@ -9,7 +9,7 @@ updated: 2026-08-07
 audience: "strong-software-engineer"
 related_topics: [mcp, agent-sandboxing, prompt-injection]
 related_playbook_cards: []
-related_storylines: [gateway-mcp]
+related_storylines: []
 evidence:
   - id: infoq-mcp-defense-in-depth
     kind: production-field-report
