@@ -1,25 +1,16 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-08-10T05:07:38+00:00",
-  "covers_last_updated": "2026-08-07T17:04:41+00:00",
+  "generated_at": "2026-08-19T00:20:00+00:00",
+  "covers_last_updated": "2026-08-17T13:24:41+00:00",
   "covers_member_sids": [
-    "6aa85ab7bb78e841",
     "18944a6428c3ac1a",
-    "691438acb4bb6cca"
+    "691438acb4bb6cca",
+    "e9e06df024881a81"
   ],
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL items, not a developing story. Recent entries range from a fuzz-testing method for safety-critical RL agents to Moonshot AI's open-sourced AgentENV framework for scaling agentic RL training.",
-  "whats_new": "A new arXiv paper, ResidencyRL, applies reinforcement learning to simulate clinical-residency training — modeling how physicians build expertise through staged patient encounters and feedback.",
-  "why_it_matters": "Unlike the two research papers here, AgentENV is a released open-source framework, not a benchmark result — the one item in this batch platform engineers can actually adopt rather than just read.",
+  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL items, not a developing story. Recent entries range from Moonshot AI's open-sourced AgentENV framework for scaling agentic RL training to a paper modeling clinical-residency training as an RL problem.",
+  "whats_new": "A new arXiv paper trains reasoning models to ask, condition on an assumption, or abstain when a query is missing a premise needed for a unique answer — a gap in standard answer-only RL training.",
+  "why_it_matters": "Answer-only RL, the default for most reasoning-model fine-tuning, never teaches a model to flag an underspecified request; that's a real failure mode for agents built to act on ambiguous user or tool input.",
   "beats": [
-    {
-      "kicker": "RESEARCH",
-      "tone": "neutral",
-      "headline": "Fuzz-testing paper probes safety-critical RL agents for unexpected failure modes",
-      "summary": "New arXiv work evaluates fuzz testing as a method to surface unexpected RL-agent behaviors before deployment in robotics, autonomous driving, and drone control.",
-      "sids": [
-        "6aa85ab7bb78e841"
-      ]
-    },
     {
       "kicker": "RELEASE",
       "tone": "rising",
@@ -37,17 +28,26 @@
       "sids": [
         "691438acb4bb6cca"
       ]
+    },
+    {
+      "kicker": "RESEARCH",
+      "tone": "neutral",
+      "headline": "New paper trains RL reasoning models to ask, condition, or abstain on missing-premise queries",
+      "summary": "Targets a known failure mode of answer-only RL: forcing a unique answer even when the query omits a premise needed to produce one.",
+      "sids": [
+        "e9e06df024881a81"
+      ]
     }
   ],
   "open_questions": [
-    "Does the fuzz-testing methodology surface failures that existing RL safety evals miss, or mostly duplicate them?",
     "Does AgentENV's scaling approach hold up against existing agentic-RL training frameworks, or is it mainly a Moonshot-internal tool going public?",
-    "Does ResidencyRL's simulated training transfer to real clinical decision-making, or only to the benchmark's synthetic cases?"
+    "Does ResidencyRL's simulated training transfer to real clinical decision-making, or only to the benchmark's synthetic cases?",
+    "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?"
   ],
-  "take_for_builders": "Scaling agentic RL training? Check AgentENV's repo before building a custom scaling harness — it's the one item in this batch that's a shipped tool, not the two narrower academic results (safety-critical RL fuzz testing, simulated clinical-residency training) alongside it.",
+  "take_for_builders": "RL-fine-tuning a reasoning or tool-calling model? Check whether your reward function penalizes abstaining or asking on underspecified input — answer-only RL trains models to guess rather than flag a missing premise.",
   "day_captions": {
-    "6aa85ab7bb78e841": "New arXiv paper evaluating fuzz testing to surface unexpected RL-agent failure modes before deployment in safety-critical domains.",
     "18944a6428c3ac1a": "Moonshot AI and kvcache-ai open-source AgentENV, an agentic-RL scaling framework — the first shipped release in this batch.",
-    "691438acb4bb6cca": "New arXiv paper modeling clinical-residency training as an RL problem — physicians building expertise through staged, feedback-rich patient encounters."
+    "691438acb4bb6cca": "New arXiv paper modeling clinical-residency training as an RL problem — physicians building expertise through staged, feedback-rich patient encounters.",
+    "e9e06df024881a81": "New arXiv paper training reasoning models to ask, condition, or abstain instead of guessing when a query is missing a necessary premise, closing a known gap in answer-only RL."
   }
 }
