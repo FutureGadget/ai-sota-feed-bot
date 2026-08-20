@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com | LLM Digest</title>
-  <meta name="description" content="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure infoq.com" />
-  <link rel="canonical" href="https://www.llm-digest.com/story/f0b8f1deae53f4c1" />
+  <title>vllm v0.28.0rc1 | LLM Digest</title>
+  <meta name="description" content="[kv_offload] fix(metrics): rename kv_offload_tiering_block_{queries,h…" />
+  <link rel="canonical" href="https://www.llm-digest.com/story/3d23242522a95e01" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="LLM Digest" />
-  <meta property="og:title" content="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com" />
-  <meta property="og:description" content="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure infoq.com" />
-  <meta property="og:url" content="https://www.llm-digest.com/story/f0b8f1deae53f4c1" />
-  <meta property="article:published_time" content="2026-08-20T05:06:38+00:00" />
+  <meta property="og:title" content="vllm v0.28.0rc1" />
+  <meta property="og:description" content="[kv_offload] fix(metrics): rename kv_offload_tiering_block_{queries,h…" />
+  <meta property="og:url" content="https://www.llm-digest.com/story/3d23242522a95e01" />
+  <meta property="article:published_time" content="2026-08-20T07:55:22+00:00" />
   <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com" />
-  <meta name="twitter:description" content="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure infoq.com" />
-  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com", "description": "The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure infoq.com", "datePublished": "2026-08-20T05:06:38+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/f0b8f1deae53f4c1", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBEdEF3TWc0c2lRc3BaOWdWM21zMk1vVWNvdTVKYVRmbUNyY2tEYnhpVkdhanpLc183NUJrbjhtLXY4WXdGcVhiUDdxYm5nU2tmUXNkWVFOTHNoMHFaLU1NQ28tdw?oc=5"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com", "item": "https://www.llm-digest.com/story/f0b8f1deae53f4c1"}]}]}</script>
+  <meta name="twitter:title" content="vllm v0.28.0rc1" />
+  <meta name="twitter:description" content="[kv_offload] fix(metrics): rename kv_offload_tiering_block_{queries,h…" />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "NewsArticle", "headline": "vllm v0.28.0rc1", "description": "[kv_offload] fix(metrics): rename kv_offload_tiering_block_{queries,h…", "datePublished": "2026-08-20T07:55:22+00:00", "mainEntityOfPage": "https://www.llm-digest.com/story/3d23242522a95e01", "publisher": {"@type": "Organization", "name": "LLM Digest", "url": "https://www.llm-digest.com/", "logo": {"@type": "ImageObject", "url": "https://www.llm-digest.com/logo.png"}}, "isBasedOn": "https://github.com/vllm-project/vllm/releases/tag/v0.28.0rc1"}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "LLM Digest", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "vllm v0.28.0rc1", "item": "https://www.llm-digest.com/story/3d23242522a95e01"}]}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
   <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
@@ -256,7 +256,7 @@
       </div>
       <div class="site-page-heading">
         <h1>Story</h1>
-        <p id="meta" class="muted">search_cn_open_weight_labs · Aug 20, 2026 · news</p>
+        <p id="meta" class="muted">vllm_releases · Aug 20, 2026 · release</p>
       </div>
       <nav class="site-nav-fallback" aria-label="LLM Digest">
         <a href="/" data-site-destination="/" aria-current="page">Live feed</a>
@@ -270,7 +270,7 @@
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>
       <div class="site-actions-fallback" aria-label="Page actions">
-        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/f0b8f1deae53f4c1" data-share-title="The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com">Share this page</button>
+        <button type="button" class="menu-share" data-share-url="https://www.llm-digest.com/story/3d23242522a95e01" data-share-title="vllm v0.28.0rc1">Share this page</button>
         <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
       </div>
 
@@ -278,10 +278,10 @@
     </header>
 
     <section id="recap">
-      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBEdEF3TWc0c2lRc3BaOWdWM21zMk1vVWNvdTVKYVRmbUNyY2tEYnhpVkdhanpLc183NUJrbjhtLXY4WXdGcVhiUDdxYm5nU2tmUXNkWVFOTHNoMHFaLU1NQ28tdw?oc=5" target="_blank" rel="noopener">The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure - infoq.com</a></h2></div><p class="story-origin"><strong>news.google.com</strong>Aug 20, 2026<br>original source linked</p></section>
+      <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://github.com/vllm-project/vllm/releases/tag/v0.28.0rc1" target="_blank" rel="noopener">vllm v0.28.0rc1</a></h2></div><p class="story-origin"><strong>github.com</strong>Aug 20, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure infoq.com</p></div></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">agent</span><span class="badge">harness</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBEdEF3TWc0c2lRc3BaOWdWM21zMk1vVWNvdTVKYVRmbUNyY2tEYnhpVkdhanpLc183NUJrbjhtLXY4WXdGcVhiUDdxYm5nU2tmUXNkWVFOTHNoMHFaLU1NQ28tdw?oc=5" target="_blank" rel="noopener" data-track="story-source">Read the original at news.google.com →</a><a href="/?item=https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMiY0FVX3lxTFBEdEF3TWc0c2lRc3BaOWdWM21zMk1vVWNvdTVKYVRmbUNyY2tEYnhpVkdhanpLc183NUJrbjhtLXY4WXdGcVhiUDdxYm5nU2tmUXNkWVFOTHNoMHFaLU1NQ28tdw%3Foc%3D5&amp;utm_source=story">Open in live feed</a></div></div><div class="covered"><p class="tldr-label">Also covered by</p><ul><li><a href="https://www.infoq.com/news/2026/08/deep-seek-harness/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" target="_blank" rel="noopener" data-track="story-covered">The Open-Sourcing of DeepSeek Harness Opens the Door to Modular, Unbundled AI Agent Infrastructure</a> <span class="muted">(infoq_ai_ml)</span></li></ul></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a6efefe98b4f8d18" data-track="story-related">From $300 million to $35 billion, Moonshot AI opens the door to the top global AI table with open-source models - odaily.news</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Jul 29, 2026</span></div></article><article><h3><a href="/story/668b84f3226fdbba" data-track="story-related">Against Claude Cowork, DeepSeek opens its open-source Harness to developers - TechNode</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 14, 2026</span></div></article><article><h3><a href="/story/f93016e39bd6de6e" data-track="story-related">Alibaba Opens Qwen Platform to Outside Developers in Push to Build AI-Agent Ecosystem - Caixin Global</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 10, 2026</span></div></article><article><h3><a href="/story/58587247789ba1bc" data-track="story-related">Show HN: Slaide, open-source Markdown slides AI writes and PowerPoint opens</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jul 31, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">[kv_offload] fix(metrics): rename kv_offload_tiering_block_{queries,h…</p></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://github.com/vllm-project/vllm/releases/tag/v0.28.0rc1" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fvllm-project%2Fvllm%2Freleases%2Ftag%2Fv0.28.0rc1&amp;utm_source=story">Open in live feed</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/79fa413a464f8b75" data-track="story-related">vllm v0.27.1</a></h3><div class="art-meta"><span class="badge">vllm_releases</span><span class="badge">Aug 11, 2026</span></div></article><article><h3><a href="/story/dbf531300b29212a" data-track="story-related">vllm v0.27.0</a></h3><div class="art-meta"><span class="badge">vllm_releases</span><span class="badge">Aug 10, 2026</span></div></article><article><h3><a href="/story/b22df650a39b00bb" data-track="story-related">vllm v0.27.0rc2</a></h3><div class="art-meta"><span class="badge">vllm_releases</span><span class="badge">Aug 9, 2026</span></div></article><article><h3><a href="/story/710c6fb31a91a2e5" data-track="story-related">vllm v0.27.0rc1</a></h3><div class="art-meta"><span class="badge">vllm_releases</span><span class="badge">Aug 7, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
     </section>
 
     <footer>
