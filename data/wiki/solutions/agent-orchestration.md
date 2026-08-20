@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
-updated: 2026-08-08
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68]
+updated: 2026-08-20
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68]
 ---
 
 ## TL;DR
@@ -132,8 +132,26 @@ execution, memory, sandboxes, agent-to-agent channels, and evals — shipping
 the production infrastructure around the harness itself instead of leaving
 deployment to whichever platform (Bedrock, Foundry) an adopter picks.
 
+A twelfth axis treats **portability itself** as the design constraint, which
+cuts against the managed-platform jump the last two axes describe. AWS's
+enterprise multi-agent series starts from the observation that an
+organization running many agentic systems is already a "multi-everything"
+environment — several frameworks, several models, several providers
+concurrently — and argues the orchestration patterns worth standardizing on
+are the ones that survive that mix changing under them. It generalizes the
+provider-agnostic scripting axis above (Omegacode, h5i-python) from one
+workflow file to an estate: the harness choices the Jefferies, Apollo, and
+AgentCore deployments each made independently are exactly the decisions that
+become expensive to unwind.
+
 ## What's new
-LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
+AWS's enterprise multi-agent series makes vendor lock-in an explicit
+orchestration design constraint: teams already run several frameworks,
+models, and providers at once, so the patterns that matter are the ones that
+keep an estate composable — the counterweight to the managed-runtime jump
+(Foundry, Managed Deep Agents) this page tracks.
+
+Prior update: LangChain's Managed Deep Agents reached public beta: a LangSmith-hosted
 runtime wrapping the Deep Agents harness in durable execution, memory,
 sandboxes, agent-to-agent channels, and evals — the same SDK-to-managed-
 platform jump Microsoft's Agent Framework made (see State of the art), this

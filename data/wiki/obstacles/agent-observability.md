@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39]
-updated: 2026-08-15
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade]
+updated: 2026-08-20
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade]
 ---
 
 ## TL;DR
@@ -146,8 +146,29 @@ secrets. Payloads are also subject to undisclosed span-size truncation, so a
 trace can silently drop the reasoning or tool arguments a debugging session
 needed most.
 
+The trace-first thesis has a **boundary condition** when agents talk to each
+other: work on Verifiable Latent Alignments (VLA) starts from the fact that
+language-model agents can coordinate through continuous hidden states that
+never appear in the public transcript, so a complete trace of what was *said*
+can still miss what was *communicated*. VLA links each private latent-state
+record and channel status to the resulting public action through a shared
+event identifier, so a monitor can causally match a decision against the
+hidden channel that produced it, and combines representation anomaly
+detection into a layered monitor rather than reading transcripts alone. It
+sharpens what "capture the full trajectory" has to mean in a multi-agent
+system (see [multi-agent](/topic/multi-agent)): the span schema this page
+tracks records messages and tool calls, and that is the wrong unit when the
+coordination happens below the message layer.
+
 ## What's new
-Cloudflare shipped agent tracing natively into its existing Workers
+Latent-channel monitoring marks the first real limit on this page's
+trace-first stance: agents can coordinate through hidden states invisible in
+the public transcript, so message-and-tool-call spans are not a complete
+record of a multi-agent run. VLA's answer is to link each private latent
+record to the public action it caused via a shared event identifier — a
+monitoring unit below the span, not a better span.
+
+Prior update: Cloudflare shipped agent tracing natively into its existing Workers
 traces, but the launch also surfaces a real gotcha: message/tool payload
 storage defaults are opposite between its two supported SDKs (off by
 default in one, on by default in the other), so the same platform feature
@@ -159,11 +180,6 @@ AWS — managed observability, evaluation, and deployment with the workload
 kept inside the customer's own VPC, meeting the self-hosted control-plane
 pattern this page already tracks (AWS's Claude Apps Gateway) from the
 vendor side rather than the customer-built side.
-
-Prior update: LangChain's autonomous Kubernetes SRE agent pairs LangSmith tracing with a
-human-approval gate before any change is applied — the trace doubles as what
-a human reviews before the agent acts, not only what an engineer replays
-after an incident.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a
