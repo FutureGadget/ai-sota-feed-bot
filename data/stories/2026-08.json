@@ -3039,6 +3039,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9vYlN0Vl9XdnRlLVpzT0ZoeEtldG00TnoxemdPWi1NcV9pdXMwNTA5bGhiNkRpVVRYcWF4N2xXMGFCNWxUZmFtajRBbzVCQTBrUEVfcW9EMlBiMGdhaE9NdVlYQmdUTEUyRUhTYnlZOTNKMFVDMDJB?oc=5"
  },
+ "474ba1f9a89fdca5": {
+  "first_seen": "2026-08-21T03:02:03.212726+00:00",
+  "id": "6c749320af3c903f",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-20T16:00:17+00:00",
+  "sid": "474ba1f9a89fdca5",
+  "source": "arxiv_cs_cl",
+  "summary": "Memory has become a key component of large language models, enabling them to retain information and learn from long-term interactions. However, existing memory benchmarks mainly evaluate whether information is correctly extracted, stored, and retrieved, while largely overlooking how retrieved memories reshape model reasoning and affect performance on the current task. We identify memory-induced cognitive traps: even faithfully recorded and semantically relevant memories can distort model reasoning or beliefs and degrade current task performance. To systematically evaluate these failure modes, we introduce MemTrapBench, which covers two forms of cognitive traps: Reasoning Fixation and Belief Distortion. Experiments across two model families and five representative memory frameworks show that MemTrapBench is challenging: all evaluated memory strategies underperform the no-memory setting, with even the strongest methods suffering drops of more than 10%. To mitigate these cognitive traps, we propose AdaptiveMem, a simple yet effective inference-time method that instructs LLMs to avoid memory traps. AdaptiveMem mitigates cognitive traps on MemTrapBench while preserving or improving performance on standard memory benchmarks across diverse memory frameworks.",
+  "summary_1line": "Memory has become a key component of large language models, enabling them to retain information and learn from long-term interactions. However, existing memory benchmarks mainly evaluate whether information is correct...",
+  "title": "MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.20202v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "47d47ee5bfdb0fe2": {
   "first_seen": "2026-08-12T16:01:57.329966+00:00",
   "id": "720e7bc4aa0c6199",
@@ -3583,6 +3599,23 @@
   "type": "news",
   "url": "https://simonwillison.net/2026/Aug/8/now-we-have-a-timeline-of-the-openai-accidental-attack-against-h/#atom-everything",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "530f8771d0d2a226": {
+  "first_seen": "2026-08-21T03:02:03.212726+00:00",
+  "id": "af78714a92de496c",
+  "matched_topics": [
+   "harness",
+   "eval"
+  ],
+  "published": "2026-08-20T17:54:37+00:00",
+  "sid": "530f8771d0d2a226",
+  "source": "arxiv_cs_ai",
+  "summary": "Heterogeneous AI systems composed of multiple models, architectures, harnesses, or inference-time settings can improve quality and efficiency by routing queries to the specialist who can answer most effectively at the lowest cost. Routing requires estimating each specialist's expected return, but this value estimation has a cost. Cheap estimators (e.g., embedding-based predictors) are fast but noisy, while accurate estimators (e.g., fine-tuned models with access to retrieval results or partial reasoning traces) are expensive. We formalize this tradeoff as an instance of Pandora's Box, the classical problem of optimal search with costly inspection. Under a Gaussian signal model, the resulting policies have closed-form value-of-information expressions that determine, for each specialist and input, whether refining the value estimate is worth its cost. We call the centralized policy Pandora's Router. We extend this to a decentralized setting, Pandora's Bidder, where specialists independently decide whether to invest in self-assessment before accepting an offered price to claim a query. Experiments across three domains---a standard multi-LLM benchmark, retrieval-augmented specialists, and LLMs with variable inference-time reasoning---show that Pandora's Router matches the routing quality of exhaustive estimation, while querying the expensive estimator far less often. In the decentralized setting, value-of-information reasoning improves allocative efficiency when competing estimat",
+  "summary_1line": "Heterogeneous AI systems composed of multiple models, architectures, harnesses, or inference-time settings can improve quality and efficiency by routing queries to the specialist who can answer most effectively at the...",
+  "title": "Pandora's AI Model Routing Box: Efficient Allocation with Costly Value Estimation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.20316v1",
+  "why_it_matters": "Matches feed focus: harness, eval."
  },
  "531f84faff5911f6": {
   "first_seen": "2026-08-17T03:02:00.582116+00:00",
@@ -10506,6 +10539,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQb2xJYWx1NWFrUWk4WkpuVzBGNmNpT0lxSWpoZm9XVGVZMVNIYmVHdFJjOFhDTkVrd244eWJERHRJc1RkTFA3N3JrRFh0MWlleEV4MnFOd3JTNUVBOTNPcXItR0I0ek9wS2NvM2Q1d3lRUTQ3QW1CYTY3VzY1RVI0Z0tNRHFSNlVab2JVWFBuampqdw?oc=5"
  },
+ "e7ce9bdf47315601": {
+  "first_seen": "2026-08-21T03:02:03.212726+00:00",
+  "id": "b9018671220f4fd4",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-20T13:20:58+00:00",
+  "sid": "e7ce9bdf47315601",
+  "source": "arxiv_cs_lg",
+  "summary": "Pretraining time series foundation models across heterogeneous datasets necessitates effective handling of varying sampling frequencies. Current methods either employ dataset-specific patch sizes and separate FFNs, leading to fragmented representations, or enforce a fixed patch size that neglects inherent temporal variations. To address this, we propose SATS, featuring a scale-aware token alignment mechanism that treats patch size as an explicit notion of scale. By incorporating a contrastive-inspired alignment regularizer, SATS aligns representation spaces across scales while preserving distinct modeling capacities. Furthermore, a hybrid masking strategy combining random and contiguous masking is introduced to capture multi-scale temporal structures. Experimental results on LSTF benchmarks demonstrate that SATS achieves a 9.2% improvement in MSE and an 8.3% gain in GIFT-Eval MASE compared to competitive baselines. Notably, SATS consistently delivers SOTA performance while achieving a 65.6% increase in model efficiency over advanced baselines, highlighting its effectiveness and scalability in time series pretraining.",
+  "summary_1line": "Pretraining time series foundation models across heterogeneous datasets necessitates effective handling of varying sampling frequencies. Current methods either employ dataset-specific patch sizes and separate FFNs, le...",
+  "title": "Scale-Aware Pretraining of Time Series Foundation Models via Multi-Patch Token Alignment and Hybrid Masking",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.20005v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "e7dd049ab7050090": {
   "first_seen": "2026-08-13T03:01:56.809653+00:00",
   "id": "8db369286b7b8b50",
@@ -11162,6 +11211,23 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.148.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "f3efacca87b9bcd5": {
+  "first_seen": "2026-08-21T03:02:03.212726+00:00",
+  "id": "bf11c7c5e8d0d658",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-08-20T14:56:15+00:00",
+  "sid": "f3efacca87b9bcd5",
+  "source": "arxiv_llm_reliability",
+  "summary": "Autonomous vehicles require robust perception and decision-making capabilities to operate in diverse and unseen scenarios. While reinforcement learning and rule-based methods can provide effective control and safety mechanisms, their performance may degrade in situations requiring contextual reasoning. Large Language Models (LLMs) have demonstrated strong capabilities in understanding multimodal information and generating contextual reasoning, however, their use for direct vehicle control can introduce latency and hallucination risks. To address these limitations, a hybrid framework is proposed. This system uses an orchestrator to coordinate PPO-trained reinforcement learning and PID control, with LLM common-sense reasoning applied throughout the framework. LLM reasoning is further employed iteratively to refine the RL reward function for dynamic driving environments. The proposed framework is evaluated in highly randomized CARLA scenarios under diverse environmental and traffic conditions. The results demonstrate the potential of integrating LLM-based reasoning with conventional autonomous driving methods while retaining structured control and safety mechanism.",
+  "summary_1line": "Autonomous vehicles require robust perception and decision-making capabilities to operate in diverse and unseen scenarios. While reinforcement learning and rule-based methods can provide effective control and safety m...",
+  "title": "Multi-Agent Orchestration with the Common-Sense Reasoning Capabilities of LLMs for Autonomous Driving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.20129v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "f467fac388ed8e8c": {
   "first_seen": "2026-08-08T04:02:03.955730+00:00",
