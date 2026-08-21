@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f]
-updated: 2026-08-19
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231]
+updated: 2026-08-21
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231]
 ---
 
 ## TL;DR
@@ -547,8 +547,28 @@ production traces for failure clusters" framing (LangChain's own practice,
 see above), this time sourcing the signal from the user instead of the
 trace-mining pipeline.
 
+A twenty-fifth front adds another wave of domain-narrow benchmarks and eval
+tooling in the same short window, rather than a single named finding.
+Langfuse v4 rebuilds agent evals and traces on one immutable ClickHouse
+table, continuing the standing eval/tracing/observability convergence this
+page already tracks, and an independently authored guardrail benchmark
+(Show HN) demonstrates its own value by catching a gap in the author's own
+plugin — widening the domain-narrow list alongside the entries on [agent
+benchmarks](/topic/agent-benchmarks). A practitioner essay ("Evaluating AI
+Agents as Products") argues eval quality is a product-management
+discipline, not just a measurement one — the same "it's hard to eval is a
+product smell" reframe this page already makes, restated from the product
+side.
+
 ## What's new
-LangSmith's Tuned Evaluators attach quality feedback directly to production
+Langfuse v4 rebuilds agent evals and traces onto one immutable ClickHouse
+table, an independently authored guardrail benchmark demonstrates its value
+by catching a gap in its own author's plugin, and a practitioner essay
+("Evaluating AI Agents as Products") restates this page's "eval difficulty
+is a product smell" argument from the product-management side (see State of
+the art above).
+
+Prior update: LangSmith's Tuned Evaluators attach quality feedback directly to production
 traces, starting with a **Perceived Error** signal, so teams can find and
 fix agent mistakes from what users actually flagged rather than only from
 an independent LLM-judge verdict — a feedback-driven complement to this
@@ -559,12 +579,6 @@ alongside the ones it blocks, and the Agent Memory Leaderboard gives memory
 systems their own maintained, head-to-head ranking — two domain-narrow
 benchmarks widening this page's "measurability push" thread past coding and
 oncall/RCA into security and memory (see State of the art above).
-
-Prior update: Brex's runtime-agnostic orchestration pattern — pure workflow logic against a
-`Steps` interface, with Temporal Cloud swapped in for production and an
-in-process runtime for evals — resolves the standing durability-vs-fast-
-eval-iteration trade-off without forking the codebase, and took long-running
-onboarding-agent completion from roughly 96% to 99.9% in production.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

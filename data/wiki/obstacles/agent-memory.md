@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc]
-updated: 2026-08-19
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d]
+updated: 2026-08-21
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d]
 ---
 
 ## TL;DR
@@ -285,8 +285,33 @@ it's structured: IBM Research's ALTK work frames memory sizing as its own
 hierarchical-memory-management design question, distinct from the
 store-choice and staleness questions this page already tracks.
 
+A companion question to the "how much memory" debate above targets *quality*
+rather than volume. **Memory failure modes now have a benchmark that isn't
+just poisoning**: MemTrapBench evaluates whether a model's memory use falls
+into cognitive traps — retaining information correctly is necessary but not
+sufficient if the model still reasons about it in a biased or trap-prone
+way — widening the measurability push (Agent Memory Leaderboard, the
+failure-modes benchmark) into reasoning-over-memory quality, not just recall
+accuracy. A narrower architecture entrant answers the low-density,
+long-horizon case specifically: FTA-Mem anchors memory to fact, time, and
+affect for emotional-support agents, where turns are incomplete and
+evidence is scattered across a long relationship rather than one dense
+session. And CABLE names a recall failure distinct from poisoning or
+staleness: an agent can fail to recover relevant evidence through a bounded
+context interface even when the fact was stored correctly earlier, arguing
+the interface itself — not just the store — limits what later steps can
+retrieve (cross-ref [grounding](/topic/grounding) for the retrieval-quality
+side of the same gap).
+
 ## What's new
-A companion question to the tiered-store and lifecycle debates above:
+Memory failure modes get a benchmark that isn't just poisoning: MemTrapBench
+scores whether a model's memory use falls into cognitive traps, not just
+whether it retains information correctly. CABLE separately names a recall
+failure distinct from staleness or poisoning — an agent can fail to recover
+evidence through a bounded context interface even when it was stored
+correctly earlier (see State of the art above).
+
+Prior update: A companion question to the tiered-store and lifecycle debates above:
 **how much memory does an agent actually need**, not just where it lives or
 how it's structured. IBM Research's ALTK work frames memory sizing as its
 own hierarchical-memory-management design question, distinct from the
@@ -297,19 +322,6 @@ versioned context artifacts, and an externalized memory bank as the
 practitioner-level fix for context bloat — the build-discipline counterpart
 to this page's tiered-store and compaction architecture above (see State of
 the art).
-
-Prior update: The Agent Memory Leaderboard released its first public results for text
-memory, scoring open-source methods against commercial products head-to-head
-(136 teams registered) — the measurability push this page tracks gaining a
-maintained, comparable ranking rather than staying a one-off benchmark
-citation.
-
-Prior update: "Catastrophic Remembering" names a write-side failure mode this page hadn't
-tracked: instruction files like `CLAUDE.md` grow unbounded because an agent
-can't reliably tell an existing instruction from a redundant new one, so it
-appends instead of editing in place — a curation problem distinct from the
-retrieval-side staleness and poisoning failures above, in a store (a
-whole-file read every turn) that has no recall step to fix.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

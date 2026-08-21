@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa]
-updated: 2026-08-19
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef]
+updated: 2026-08-21
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef]
 ---
 
 ## TL;DR
@@ -225,8 +225,32 @@ plan — the same bounded-role-pair structure the Krystal Loop Protocol names
 for coding agents, this time applied to a data-science task rather than
 software.
 
+A concrete production case backs the standing "structure beats a single
+prompt" thesis with a measured before/after: Cloudflare cut GitHub
+issue-triage work on the Astro project 85% by wrapping AI agents around the
+workflow rather than routing raw model calls at each issue — a
+domain-specific instance of the harness-over-model argument this page
+already makes. A named technique answers "the way forward is unclear"
+directly instead of assuming decomposition is obvious up front: the
+/wayfinder skill treats greenfield or ambiguous work as navigating a "fog of
+war," giving a harness an explicit move for exploring before committing to a
+plan, alongside clarification gates (DiscoBench) and re-planning after
+failure. And a domain-specific verification loop answers the "prove it did
+the work" thread from the code-generation side: TDD-Agent uses test-driven
+reasoning to keep a coding agent's plan anchored to passing tests rather
+than a plausible-looking diff, extending the same
+verification-as-a-first-class-planning-step idea Anthropic's Claude Code
+skills guide already argues for.
+
 ## What's new
-Netflix open-sourced an agentic workflow for observational causal inference
+Cloudflare cut GitHub issue-triage work on the Astro project 85% by wrapping
+AI agents around the workflow — a measured production instance of this
+page's standing harness-over-model thesis. The /wayfinder skill gives
+ambiguous, greenfield planning an explicit "explore before committing"
+move, and TDD-Agent anchors a coding agent's plan to passing tests rather
+than a plausible-looking diff (see State of the art above).
+
+Prior update: Netflix open-sourced an agentic workflow for observational causal inference
 that pairs an actor proposing an analysis with a critic checking it in a
 loop — a domain-specific instance of the bounded worker/critic structure
 this page already tracks (see State of the art above).
@@ -235,21 +259,6 @@ Prior update: The Krystal Loop Protocol names a bounded worker/critic pattern fo
 agent's loop — one role proposes, a second checks, within an explicit
 bound — a reusable, named instance of this page's standing
 structure-around-the-loop argument.
-
-Prior update: Flue's Agent Hooks bring a React-inspired composition primitive to harness
-design: tools, resources, and state can attach or change mid-run through
-hooks (`useSkill()`, `useTool()`, `useSubagent()`) instead of a static
-config fixed before the agent starts, extending this page's "loop as
-reusable infra" thread with a concrete mechanism for adapting a plan in
-flight.
-
-Prior update: OpenAI found that retaining reasoning state and enabling context compaction
-as two separate API settings roughly tripled GPT-5.6's score on ARC-AGI-3,
-tying state management between planning steps directly to capability rather
-than only to cost or latency (see [agent
-evaluation](/topic/agent-evaluation)). A companion write-up on how ChatGPT
-tunes its own agent loop (harness, API, and inference together) reinforces
-the same "loop as infra" thesis from inside a shipping product.
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source

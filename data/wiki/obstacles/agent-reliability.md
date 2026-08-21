@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0]
-updated: 2026-08-18
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce]
+updated: 2026-08-21
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce]
 ---
 
 ## TL;DR
@@ -137,8 +137,42 @@ returning it as-is — a concrete instance of this page's standing "does a
 hallucination widen useful context or actively mislead" question, engineered
 deliberately toward the useful side instead of left to chance.
 
+Hallucination mitigation is converging on **calibrated decoding**, not just
+post-hoc detection: ReWEIGH calibrates token-level ordinal visual evidence
+during decoding in vision-language models, giving the model a
+candidate-specific measure of how strongly an image supports each token
+rather than only judging the finished output — the same "contain it during
+generation, not just catch it after" instinct HALO's constrained-execution
+leg already argues for, here applied inside the decoding step itself.
+AutoResearch answers the same containment question for autonomous research
+agents specifically: rather than trusting a long research workflow's
+automation to stay scientifically grounded, it ties insight generation back
+to evidence as a design target — "insight in, hallucination out" — instead
+of assuming automation alone preserves rigor.
+
+Reliability also gets a **recursive-self-improvement caveat** rather than a
+solved capability: agents can already edit their own tools, skills, and
+harness, but recursive self-improvement still needs a system that can raise
+the verifier alongside the agent — an unsolved half of the loop this page's
+HALO and identity/execution/intent framing above doesn't yet cover, since a
+self-modifying agent can also self-modify its own check.
+
+LangSmith's Tuned Evaluators supply a user-facing complement to the standing
+"prove it did the work" thread: rather than only an independent LLM judge or
+a trace-mining pipeline, a Perceived Error signal lets a team find agent
+mistakes directly from what users flagged in production (see [agent
+evaluation](/topic/agent-evaluation) for the eval-tooling side of the same
+release).
+
 ## What's new
-A practitioner pattern deliberately generates an unconstrained guess instead
+Recursive self-improvement gets a named caveat: agents can already edit
+their own tools and harness, but the loop still needs a system that can
+raise the verifier alongside the agent, since a self-modifying agent can
+also self-modify its own check. Separately, ReWEIGH and AutoResearch both
+push hallucination mitigation toward calibrated, in-generation containment
+rather than post-hoc detection (see State of the art above).
+
+Prior update: A practitioner pattern deliberately generates an unconstrained guess instead
 of classifying against a large closed vocabulary, then uses vector-embedding
 similarity to snap that "hallucination" to the nearest real label — turning
 a failure mode this page usually tracks as a risk into a designed mechanism,
@@ -151,23 +185,6 @@ through Temporal Cloud instead of a bespoke retry loop, with the same
 workflow code otherwise unchanged, took long-running completion from
 roughly 96% to 99.9% — durable execution bought as infrastructure rather
 than built per agent.
-
-Prior update: A research architecture (HALO) reframes the standing "wait for a model that
-doesn't hallucinate" hope as the wrong target: it treats hallucination as a
-containable failure mode and stacks six defenses — grounded generation,
-constrained execution, multi-signal verification, calibrated abstention,
-full traceability, and continuous drift oversight — into one composable
-system rather than leaving reliability to whichever single control a team
-happens to bolt on.
-
-A concrete incident ties a dollar figure to the identity/execution gap this
-page tracks: a three-person agency ate a $14,000 one-day AWS bill after
-attackers extracted static access keys with unrestricted Bedrock access, and
-a separate case had an autonomous agent repeatedly over-provision
-infrastructure under open-ended AWS access. Neither was caught by AWS's own
-billing tools — both lag roughly 24 hours behind actual spend — surfacing an
-action-time-detection gap that billing guardrails built for human-speed
-mistakes don't close for a machine-speed one.
 
 ## Why it matters for platform engineers
 Reliability spans three layers platform teams have to build separately: an

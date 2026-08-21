@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270]
-updated: 2026-08-18
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff]
+updated: 2026-08-21
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff]
 ---
 
 ## TL;DR
@@ -193,8 +193,20 @@ latency floor" argument with a concrete engineering case study of hitting
 that floor in six months, from the model provider's own product side rather
 than a serving-stack vendor's benchmark.
 
+**Serving very large models on limited HBM gets a distributed answer**:
+vLLM-Omni's Distributed Layerwise Offload shards and streams DiT model
+weights across devices, serving a measured 124 GB model on 64 GB HBM and
+estimating a path toward 200B+ parameter models — the same
+offload-instead-of-fit-everything-on-one-GPU instinct OpenLake already
+applies to KV cache, here applied to model weights themselves rather than
+the growing context state.
+
 ## What's new
-DARTree extends speculative decoding's correction head from single draft
+vLLM-Omni's Distributed Layerwise Offload shards and streams model weights
+across devices to serve a 124 GB model on 64 GB HBM, estimating a path
+toward 200B+ parameter models (see State of the art above).
+
+Prior update: DARTree extends speculative decoding's correction head from single draft
 chains to draft trees, accepting up to 12.97 tokens per verification round
 (98.6% more than DFlash, 27.9% more than Domino) for up to 9.73x lossless
 speedup — a training-free accuracy lever on the same speculative-decoding
@@ -205,21 +217,6 @@ GPUs by sequence dimension for a reported 3x decode-throughput gain on
 long-context agentic workloads over standard tensor parallelism — a new
 parallelism-based answer to the storage-bandwidth bottleneck this page
 already tracks (DualPath, OpenLake, RaBitQCache).
-
-OpenAI detailed building GPT-Live, a turnless, continuous-voice speech
-system, in six months — a concrete engineering account of meeting the
-low-latency floor voice interaction demands, from the model provider's own
-product side rather than a serving-stack benchmark.
-
-vLLM's Kimi K3 support moved from production-scale preview to efficient
-day-0 serving in the same release cycle, keeping the preview's KDA prefix
-caching, speculative decoding, and disaggregation while adding optimized
-NVIDIA and AMD kernels — the "day-0 latency-tuned serving" pattern already
-on this page holding across a model's preview-to-GA transition. Separately,
-Netflix detailed its own in-house Triton+vLLM serving platform, and vLLM's
-Semantic Router named its next phase "Mixture-of-Models," treating model
-routing as a first-class serving-layer discipline with its own training and
-eval loop rather than a bolted-on routing feature.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

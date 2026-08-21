@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be]
-updated: 2026-08-18
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218]
+updated: 2026-08-21
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218]
 ---
 
 ## TL;DR
@@ -135,8 +135,36 @@ packaged path to a retrieval architecture previously mostly confined to
 specialized research implementations, the same "the retriever itself keeps
 improving" thread this page already tracks for Nemotron 3 Embed above.
 
+**Adversarial grounding gets a second defense mechanism**, distinct from
+Salience Normalization above: DSPrompt proposes a dynamic soft-prompt
+defense against multimodal-RAG (M-RAG) corruption, where an attacker crafts
+embeddings that align with benign entries in the retrieval vector space to
+get poisoned content surfaced as if it were relevant — the same
+retrieval-ordering attack surface Salience Induction already demonstrates,
+this time targeting the embedding space directly rather than fact salience.
+
+**Recovering evidence through a bounded interface, not just ranking it, is
+its own open problem**: CABLE studies why an agent operating across
+long-running sessions can fail to recover relevant evidence even when a
+fact was stored earlier, because the interface a bounded context provides
+limits what later steps can retrieve — proposing complementary
+antecedent-based linking to widen that interface rather than assuming more
+storage alone fixes recall (cross-ref [agent memory](/topic/agent-memory)
+for the storage side of the same gap).
+
+Incumbent datastores keep adding native vector search as a retrieval option
+on top of data they already hold: DynamoDB shipped a `SearchVectors` API
+for approximate nearest-neighbor lookups alongside application rows (see
+[vector-kb](/topic/vector-kb) for the full incumbent-datastore trend).
+
 ## What's new
-Sentence Transformers shipped off-the-shelf support for multi-vector,
+DSPrompt defends against M-RAG corruption by countering embeddings crafted
+to align with benign vector-space entries, and CABLE studies why bounded
+session interfaces can lose evidence an agent stored earlier even when
+nothing was poisoned — two grounding failure modes (adversarial and
+architectural) landing in the same window (see State of the art above).
+
+Prior update: Sentence Transformers shipped off-the-shelf support for multi-vector,
 late-interaction (ColBERT-style) embedding models — a packaged path to a
 retrieval architecture previously mostly confined to research
 implementations (see State of the art above).
@@ -146,12 +174,6 @@ Maverick and Llama Guard 4 with a pgvector RAG pipeline backing 50+
 production agents — the build-vs-buy self-hosted pattern this page already
 tracks (Orbit), this time driven by data-residency compliance rather than
 cost.
-
-Prior update: A production case study (LangChain's agent-first data stack) grounds a data
-agent's trustworthiness in the same structured-retrieval argument this page
-already makes: pairing dbt-modeled semantic layers with observability
-tooling — not a better retrieval technique alone — is what let the team
-scale self-service analysis 40x.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a
