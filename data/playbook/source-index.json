@@ -797,6 +797,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "5ba78b757300e8cc": {
+    "id": "pb-memory-dosing-by-model-tier",
+    "kind": "source-backed",
+    "title": "Calibrate agent memory dosing to model capability, not a fixed retrieval budget",
+    "area": "Memory",
+    "problem": "More retrieved context isn't uniformly helpful — weak, mid-tier, and saturated models respond to added memory completely differently.",
+    "apply": "Segment your agent's memory strategy by the underlying model's capability tier: give weaker models curated, task-relevant retrieval only; give strong models with headroom fuller guideline sets; skip extra memory for already-saturated top-tier models.",
+    "result": "On AppWorld's 585 multi-step tasks, curated retrieval lifted a weaker model (gpt-oss-120b) by +16.1pp task completion at only 5% token overhead, a strong model (DeepSeek-V3.2) gained +9.5pp from fuller guidelines, and a saturated model (GLM-5) gained 0.0pp regardless of memory configuration.",
+    "effort": "medium",
+    "source": "huggingface_blog",
+    "source_url": "https://huggingface.co/blog/ibm-research/altk-evolve-hmm",
+    "source_sid": "5ba78b757300e8cc",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The source measured task-completion deltas across eight models on the AppWorld benchmark."
+    },
+    "edition_date": "2026-08-21"
+  },
   "64b99c89eeec2092": {
     "id": "pb-graph-search-db-remediation",
     "kind": "source-backed",
@@ -1234,6 +1253,25 @@
     },
     "edition_date": "2026-08-14"
   },
+  "90332d757391eac8": {
+    "id": "pb-worker-critic-bounded-loop",
+    "kind": "source-backed",
+    "title": "Bind coding-agent changes to a scoped worker/critic loop before they merge",
+    "area": "Orchestration",
+    "problem": "Coding agents left unchecked will edit shared files simultaneously, trust their own completion judgment, and confidently report false issues — causing integration failures.",
+    "apply": "Write a task contract per unit of work specifying the outcome, protected files, forbidden actions, and a budget. Have the worker agent return a factual handover tied to an exact code revision instead of self-certifying, run deterministic checks first, then have a separate critic — ideally a different model family — review that exact revision against the original requirement before authorizing any repair.",
+    "result": "Confirmed/refuted verdicts stay bound to a specific code revision, closing off the failure modes where agents lose context, loop endlessly, or falsely claim completion.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/KrystalUnity/krystal-loop-protocol",
+    "source_sid": "90332d757391eac8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The project describes the design and the failure modes it targets; no benchmark accompanies it, so the result is stated qualitatively."
+    },
+    "edition_date": "2026-08-21"
+  },
   "916521ba0baad7c0": {
     "id": "pb-euclid-mcp-prolog-reasoning",
     "kind": "source-backed",
@@ -1405,6 +1443,25 @@
     },
     "edition_date": "2026-06-26"
   },
+  "a48653ba5e6ada70": {
+    "id": "pb-snapshot-before-destructive-commands",
+    "kind": "source-backed",
+    "title": "Snapshot files before an agent runs a destructive shell command, not after",
+    "area": "Safety",
+    "problem": "A coding agent can delete or overwrite untracked files with a single shell command, and git alone can't restore files that were never version-controlled.",
+    "apply": "Hook into your agent's pre-tool-use step to parse the shell command with a real bash parser, classify it against a registry of destructive patterns (rm, git reset, and similar), and copy-on-write snapshot any path it's about to touch before the command runs. Log actions so a bad run can be reverted with conflict detection.",
+    "result": "The author reports destructive commands become reversible, including on untracked files git can't restore, for roughly 5–10ms of added latency per command.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/CaydenChik/doover",
+    "source_sid": "a48653ba5e6ada70",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The author states the per-command latency figure in the project's own writeup."
+    },
+    "edition_date": "2026-08-21"
+  },
   "a652f4f70be70d35": {
     "id": "pb-task-scoped-agent-credentials",
     "kind": "source-backed",
@@ -1442,6 +1499,25 @@
       "note": "Google's own internal benchmark figures for the preview AI proxy-model functions, as reported by InfoQ."
     },
     "edition_date": "2026-07-10"
+  },
+  "ae62231a583b07f0": {
+    "id": "pb-octomind-external-plan-manager",
+    "kind": "source-backed",
+    "title": "Stop letting agents self-certify their own task completion",
+    "area": "Reliability",
+    "problem": "A self-managed checklist lets an agent mark its own work 'done' without proving it actually finished — appearing done isn't the same as being done.",
+    "apply": "Remove any tool that lets the agent update its own progress or plan state. Route completion decisions to a separate, cheaper external plan manager that tracks evidence per phase and is the only party allowed to mark a phase complete, after deterministic checks (tests, linters, builds) run.",
+    "result": "Octomind reports completion becomes tamper-proof — a verified pass closes every remaining phase it satisfies atomically instead of forcing busywork re-runs — and that dropping the self-managed plan schema from every turn cuts token overhead.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://octomind.run/blog/octomind-0-44-2-release",
+    "source_sid": "ae62231a583b07f0",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The source describes the reliability and token-overhead benefit qualitatively without a benchmark number."
+    },
+    "edition_date": "2026-08-21"
   },
   "aebd52611d2bd6be": {
     "id": "pb-validate-dont-trust-agent-integration-output",
@@ -1556,6 +1632,25 @@
       "note": "Anthropic reports the retrospective incident-catch estimate and comment-rate change."
     },
     "edition_date": "2026-07-24"
+  },
+  "bf50ec5ce617ac83": {
+    "id": "pb-gpu-scheduling-demand-curve",
+    "kind": "source-backed",
+    "title": "Replace FIFO GPU scheduling with a demand-curve allocator",
+    "area": "Cost & latency",
+    "problem": "FIFO GPU scheduling reserves peak capacity per job, leaving contended clusters chronically underutilized.",
+    "apply": "Model real-time inference as a per-timestep demand curve instead of a peak reservation, sequence batch jobs by priority across a full 24-hour horizon, and encode hard constraints — contiguous GPU blocks, swap-rate limits, no preemption — directly into the allocator. Re-plan every 30–60 minutes, committing only the current timestep, and weight real-time SLA violations 5–10x higher than batch rewards in the objective function.",
+    "result": "Across seven scenarios on identical hardware, utilization rose from 53.6% to 87.0% on training-heavy workloads and 51.6% to 72.4% on mixed workloads, with priority-weighted value up 52% on average.",
+    "effort": "high",
+    "source": "huggingface_blog",
+    "source_url": "https://huggingface.co/blog/Dharma-AI/gpu-management-pt2",
+    "source_sid": "bf50ec5ce617ac83",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The source measured utilization and priority-weighted value across seven benchmark scenarios on identical hardware."
+    },
+    "edition_date": "2026-08-21"
   },
   "c0bd012b2b5ce51e": {
     "id": "pb-treat-sandboxes-like-prod",
@@ -1727,6 +1822,25 @@
       "note": "The source describes the architecture qualitatively without a quantified production result."
     },
     "edition_date": "2026-07-24"
+  },
+  "d9524ab76177d5be": {
+    "id": "pb-multi-vector-retrieval-rerank",
+    "kind": "source-backed",
+    "title": "Add a multi-vector rerank pass to catch what single-vector retrieval blends away",
+    "area": "Retrieval",
+    "problem": "Single-vector embeddings compress a whole document into one fixed vector, so multi-part queries and exact identifiers lose precision when everything gets averaged together.",
+    "apply": "Keep dense single-vector retrieval for the first-pass candidate set, then rerank the top candidates with a multi-vector (late-interaction) model using MaxSim token-level scoring — Sentence Transformers v6 loads one with MultiVectorEncoder(\"lightonai/LateOn\"). Use hierarchical token pooling if the larger index becomes a problem.",
+    "result": "On NanoBEIR (13 BEIR datasets), the multi-vector model scored 0.6868 mean NDCG@10 versus 0.6764 for the dense baseline, winning on 9 of 13 datasets, at the cost of a much larger index (compressible to roughly 92MB from an uncompressed ~42x a MiniLM dense index).",
+    "effort": "medium",
+    "source": "huggingface_blog",
+    "source_url": "https://huggingface.co/blog/multi-vector-encoder",
+    "source_sid": "d9524ab76177d5be",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The source measured NDCG@10 on NanoBEIR and index size on a fixed passage set."
+    },
+    "edition_date": "2026-08-21"
   },
   "dc1acd837d32b604": {
     "id": "pb-defend-agent-memory-against-forged-reasoning",
@@ -1937,6 +2051,25 @@
     },
     "edition_date": "2026-07-03"
   },
+  "f33cdbf656a20b07": {
+    "id": "pb-claude-skills-files-api",
+    "kind": "source-backed",
+    "title": "Stop re-uploading the same instructions and documents on every agent call",
+    "area": "Tool use",
+    "problem": "Embedding domain procedures in every prompt and re-sending documents on every call wastes tokens and adds latency for production agents.",
+    "apply": "Package recurring domain expertise — filing procedures, playbooks, scripts, templates — as a versioned Skill via Claude's Skills API, so it loads only when a task calls for it instead of living in every prompt. Upload documents once through the Files API and reference them by ID in later requests instead of retransmitting them.",
+    "result": "Anthropic reports this removes redundant instruction and file transmission, so the agent gets domain expertise on demand and a persistent file store instead of paying token and latency cost on every call.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/computer-use-skills-api-files-api",
+    "source_sid": "f33cdbf656a20b07",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Anthropic describes the token/latency benefit qualitatively in its own announcement without a benchmark number."
+    },
+    "edition_date": "2026-08-21"
+  },
   "f42a28fa00ccf0ea": {
     "id": "pb-memsyco-audit-memory-sycophancy",
     "kind": "source-backed",
@@ -1955,6 +2088,25 @@
       "note": "The paper defines and measures the benchmark categories but does not publish a specific mitigation; the recommendation to self-test is an editorial inference from its methodology."
     },
     "edition_date": "2026-07-07"
+  },
+  "f49b38f16a2b7158": {
+    "id": "pb-langfuse-v4-immutable-traces",
+    "kind": "source-backed",
+    "title": "Move agent trace storage to an append-only table to kill slow eval dashboards",
+    "area": "Evals",
+    "problem": "Mutable trace/observation tables force expensive joins and deduplication at query time, so eval and cost dashboards get slower as agent trace volume grows.",
+    "apply": "Adopt an append-only, denormalized trace schema: write trace-level attributes onto each observation before ingestion instead of joining separate mutable tables at read time, so each completed observation is written exactly once (this is the architecture behind Langfuse v4).",
+    "result": "Langfuse reports initial large-dataset table loads dropping from seconds to milliseconds, and dashboard loads at least 10x faster on larger projects over extended time ranges.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://langfuse.com/changelog/2026-08-17-langfuse-v4",
+    "source_sid": "f49b38f16a2b7158",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Langfuse states these load-time improvements in its own changelog without an independent benchmark."
+    },
+    "edition_date": "2026-08-21"
   },
   "f87e14ef06b6e708": {
     "id": "pb-gate-irreversible-multiagent-actions",
