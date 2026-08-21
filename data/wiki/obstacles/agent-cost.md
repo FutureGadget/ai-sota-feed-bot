@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd]
-updated: 2026-08-19
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d]
+updated: 2026-08-21
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d]
 ---
 
 ## TL;DR
@@ -53,7 +53,20 @@ OpenRouter faces a possible acquisition, Millwright — a self-hosted,
 Rust-based LLM router — reframes routing as infrastructure a team owns for
 cost savings and transparency, rather than a hosted layer with vendor
 consolidation and lock-in risk baked in (see [cost
-controls](/topic/cost-controls) for the concrete instance).
+controls](/topic/cost-controls) for the concrete instance). Routing is also
+getting a formal treatment as an allocation problem rather than a heuristic:
+"Pandora's AI Model Routing Box" frames choosing among heterogeneous models
+and harnesses as efficient allocation under a costly-to-estimate value
+signal, and Glean's CEO makes the buyer-side case for the same shift —
+frontier price and open-weight uptake are both pushing organizations toward
+routing, with feedback loops at scale improving the router's decisions over
+time. The runaway-spend failure mode this page's TL;DR describes is still
+the default without an enforced ceiling: an open-source terminal research
+agent (Mole) documents its own motivation as agents that "blow way past
+budget, jumble the sources, and don't even give you the best possible
+answer" — told from the tool builder's side rather than a vendor's
+mitigation (see [cost controls](/topic/cost-controls) for the concrete
+per-call spend-enforcement answer, AgentCore Payments).
 
 **Infra-level levers** help too, and the serving stack is increasingly
 pitched as a cost lever in its own right: vendors now frame the buying
@@ -241,7 +254,13 @@ open-weight, doesn't guarantee a falling bill once workflows get more
 agentic, not just cheaper per call.
 
 ## What's new
-Gartner forecasts inference cost per agentic workflow will rise more than
+Model routing gets a formal allocation-theory treatment ("Pandora's AI Model
+Routing Box") and a buyer-side business case (Glean's CEO) in the same
+window, both arguing frontier price and open-weight uptake are pushing
+organizations toward routing as infrastructure rather than a one-off
+optimization (see State of the art above).
+
+Prior update: Gartner forecasts inference cost per agentic workflow will rise more than
 fivefold through 2028 — evidence the per-*workflow* cost curve is expected
 to keep climbing even as per-token prices fall, because workflow spend
 scales with the number of steps and tool calls an agent takes, not with the
@@ -253,12 +272,6 @@ turns actually needed a frontier model, and routing the rest to cheaper
 models cut total cost 74% for a six-point accuracy trade-off — a measured
 number behind the standing reasoning-effort-as-routing-decision argument
 (see State of the art above).
-
-Prior update: vLLM's Decode Context Parallelism shards the KV cache across GPUs by
-sequence dimension instead of offloading it to slower storage, reporting 3x
-higher decode throughput on long-context agentic workloads — a second,
-parallelism-based lever alongside OpenLake's offload approach for the same
-long-context cost bottleneck (see State of the art above).
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.
