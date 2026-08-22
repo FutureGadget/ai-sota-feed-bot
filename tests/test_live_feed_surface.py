@@ -223,7 +223,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         # The rail is a DOM sibling *after* #list, so removing it on failure
         # never disturbs the feed-seed region above it - and stacked layouts
         # render it below the articles for free, which is what we want.
-        list_open = self.html.index('<section id="list" aria-live="polite">')
+        list_open = self.html.index('<section id="list" tabindex="-1">')
         rail = self.html.index('id="modelRadarRail"')
         self.assertLess(list_open, rail)
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LLM Digest — AI news feed for platform and agent engineers</title>
   <meta name="description" content="A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters." />
   <link rel="canonical" href="https://www.llm-digest.com/" />
@@ -175,6 +175,15 @@
       color: var(--muted);
       text-align: center;
     }
+    .sitefooter button {
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: var(--accent);
+      text-decoration: underline;
+      cursor: pointer;
+    }
     /* Reader-tuning trust banner: surfaces that this feed's ranking is being
        adjusted by aggregate reader feedback — our most differentiating,
        anti-filter-bubble signal. Honest counts only; hidden when none. */
@@ -202,6 +211,7 @@
     .trust-banner .trust-detail { color: var(--muted); }
     .trust-banner a { color: var(--accent); white-space: nowrap; }
     .trust-banner-dismiss {
+      position: relative;
       border: none;
       background: transparent;
       color: var(--muted);
@@ -210,6 +220,11 @@
       cursor: pointer;
       padding: 0 0.2rem;
       flex-shrink: 0;
+    }
+    .trust-banner-dismiss::after {
+      content: "";
+      position: absolute;
+      inset: -0.5rem;
     }
     .trust-banner-dismiss:hover {
       color: var(--fg);
@@ -322,6 +337,7 @@
     .card-actions {
       display: flex;
       align-items: center;
+      gap: 0.25rem;
       flex-shrink: 0;
     }
     .card-top .src {
@@ -397,6 +413,7 @@
     }
     .save-btn,
     .share-btn {
+      position: relative;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -416,6 +433,7 @@
       color: var(--accent);
     }
     .hide-btn {
+      position: relative;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -429,6 +447,13 @@
     }
     .hide-btn[aria-pressed="true"] {
       color: var(--accent);
+    }
+    .save-btn::after,
+    .share-btn::after,
+    .hide-btn::after {
+      content: "";
+      position: absolute;
+      inset: -0.5rem;
     }
     /* Swipe-to-hide: the card tracks the finger horizontally, then animates out. */
     #list {
@@ -687,6 +712,7 @@
       color: var(--muted);
     }
     .catchup-dismiss {
+      position: relative;
       margin-left: auto;
       border: none;
       background: transparent;
@@ -695,6 +721,11 @@
       line-height: 1;
       cursor: pointer;
       padding: 0 0.2rem;
+    }
+    .catchup-dismiss::after {
+      content: "";
+      position: absolute;
+      inset: -0.5rem;
     }
     .catchup ul {
       margin: 0.5rem 0 0;
@@ -831,7 +862,7 @@
     .onboard-chips button[aria-pressed="true"] {
       background: var(--accent);
       border-color: var(--accent);
-      color: #fff;
+      color: var(--bg);
       font-weight: 600;
     }
     .onboard-chips button[data-onboard-save]:not([disabled]) {
@@ -945,9 +976,6 @@
       }
       .topbar h1 {
         font-size: 1.35rem;
-      }
-      .h1-sub {
-        display: none;
       }
       .subscribe-toggle-label {
         display: none;
@@ -1128,7 +1156,7 @@
       border-bottom:1px solid var(--border); opacity:1; }
     .end-marker::before { content:""; width:2rem; height:5px; background:var(--signal); }
     .end-marker-title { font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
-      font-size:1.2rem; }
+      font-size:1.2rem; flex-shrink:0; }
     .end-marker-sub { color:var(--muted); }
     .state { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
       border-radius:0; }
@@ -1244,16 +1272,87 @@
       main { max-width:1280px; }
       .model-radar-rail { flex:0 0 280px; width:280px; }
     }
+    }
 
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
        the other surfaces (replaces Oat's default gray outline). */
     button:focus-visible, a:focus-visible, select:focus-visible, input:focus-visible {
-      outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent); outline-offset:3px; }
+      outline:3px solid var(--accent); outline-offset:3px; }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 100;
+      background: var(--card);
+      color: var(--fg);
+      padding: .6rem 1rem;
+      border: 1px solid var(--accent);
+      font-size: .85rem;
+    }
+    .skip-link:focus-visible {
+      left: 0;
+    }
+    .about-dialog {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--card);
+      color: var(--fg);
+      max-width: 34rem;
+      width: calc(100% - 2rem);
+      padding: 0;
+    }
+    .about-dialog::backdrop {
+      background: rgba(0, 0, 0, 0.45);
+    }
+    .about-panel {
+      padding: 1.25rem 1.35rem;
+    }
+    .about-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .about-head h2 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+    .about-close {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--fg);
+      border-radius: 3px;
+      min-height: 40px;
+      padding: 0 0.9rem;
+      cursor: pointer;
+      font-size: 0.82rem;
+    }
+    .about-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .about-panel p {
+      margin: 0.55rem 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#list">Skip to stories</a>
   <main>
-    <header class="site-chrome" data-site-section="/">
+    <header class="site-chrome" data-site-section="/" role="banner">
       <div class="site-bar">
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
@@ -1303,9 +1402,9 @@
           <button type="button" id="savedTab">⭐ Saved</button>
         </nav>
         <select id="rangeSelect" aria-label="Time range">
-          <option value="1">Today</option>
+          <option value="1" selected>Today</option>
           <option value="3">Last 3d</option>
-          <option value="7" selected>Last 7d</option>
+          <option value="7">Last 7d</option>
           <option value="30">Last 30d</option>
           <option value="all">All</option>
         </select>
@@ -1321,13 +1420,14 @@
     <div class="feed-layout">
     <div class="feed-column">
     <div id="freshUpdates" class="fresh-updates" aria-live="polite"></div>
-    <section id="list" aria-live="polite">
+    <p id="feedStatus" class="visually-hidden" role="status"></p>
+    <section id="list" tabindex="-1">
       <!-- feed-seed:start -->
       <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.
            Crawler/no-JS-visible feed snapshot; the feed JS replaces this region on boot.
            Do not hand-edit between these markers. -->
       <div class="feed-seed">
-        <h2>Today's top signals</h2>
+        <h2>Top signals · Aug 20–23, 2026</h2>
         <article class="seed-item"><p class="seed-meta">simonwillison.net · 2026-08-22</p><h3><a href="https://simonwillison.net/2026/Aug/22/more-than-just-code-review/" rel="noopener">More than just code review</a></h3><p>The key skill required to make productive use of coding agents is being able to confidently instruct them on how to make changes and then confidently verify that those changes have been applied in the correct way. Som... <a href="/story/3f89e94f44724b31">Context &amp; related coverage →</a></p></article>
         <article class="seed-item"><p class="seed-meta">news.google.com · 2026-08-22</p><h3><a href="https://news.google.com/rss/articles/CBMitAFBVV95cUxPbEctRUp6dkY3YTBnWDZmUTFqa2VsUjNQelBwWWsxQWdfNTJRNk4yMEp1V0lqRUFiWlFNS0dEeWllTUp5VUVCenNubmRsX0FfQXNmcWU0WXhaUnpiV0s2THZsREZCVEU1azEyLUZDRXN6ZGRzNFFQSG1mZEVuZXFCRXE3V3lBRzM1OWNuZzlSWW5vQThqNThnLVJtRjZyUDVLUkNzZXBESENRaW1TRmZKSnNCX1I?oc=5" rel="noopener">Qwen 3.8 Closes the Reasoning Gap, but Agentic Coding Remains a US Stronghold - CryptoRank</a></h3><p>Qwen 3.8 Closes the Reasoning Gap, but Agentic Coding Remains a US Stronghold CryptoRank <a href="/story/df365b66f6928f78">Context &amp; related coverage →</a></p></article>
         <article class="seed-item"><p class="seed-meta">infoq.com · 2026-08-22</p><h3><a href="https://www.infoq.com/news/2026/08/cloudflare-kitesurf-browser/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" rel="noopener">Cloudflare Announces Kitesurf, a Browser Engine for Agents</a></h3><p>Cloudflare recently introduced Kitesurf, a lightweight browser built for automated workloads. Kitesurf runs browser components in isolated WebAssembly/Rust environments on Cloudflare Workers and supports the Chrome De... <a href="/story/0107ba20325965dd">Context &amp; related coverage →</a></p></article>
@@ -1373,8 +1473,8 @@
     <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" hidden></aside>
     </div>
 
-    <footer class="sitefooter">
-      <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+    <footer class="sitefooter" role="contentinfo">
+      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -1398,6 +1498,29 @@
       btn.addEventListener('click', () => {
         const now = document.documentElement.getAttribute('data-theme') || 'light';
         applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    function initAboutDialog() {
+      const aboutDialog = document.getElementById('aboutDialog');
+      const aboutToggle = document.getElementById('aboutToggle');
+      if (!aboutDialog || !aboutToggle || typeof aboutDialog.showModal !== 'function') return;
+      const aboutClose = document.getElementById('aboutClose');
+      let aboutScrollY = 0;
+      aboutToggle.addEventListener('click', () => {
+        aboutScrollY = window.scrollY;
+        aboutToggle.setAttribute('aria-expanded', 'true');
+        document.documentElement.classList.add('site-dialog-open');
+        aboutDialog.showModal();
+        if (aboutClose) aboutClose.focus();
+      });
+      if (aboutClose) aboutClose.addEventListener('click', () => aboutDialog.close());
+      aboutDialog.addEventListener('click', (e) => { if (e.target === aboutDialog) aboutDialog.close(); });
+      aboutDialog.addEventListener('close', () => {
+        aboutToggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('site-dialog-open');
+        window.scrollTo(0, aboutScrollY);
+        aboutToggle.focus();
       });
     }
 
@@ -1472,7 +1595,7 @@
       if (visible && focus) box.focus();
     }
 
-    let presetDaysState = '7';
+    let presetDaysState = '1';
     // Explicit ?from/?to dates from a shared URL (no UI for these); presets clear it.
     let customRangeState = { from: '', to: '' };
     let limitState = '200';
@@ -1486,7 +1609,7 @@
 
     function syncRangeSelect() {
       const sel = document.getElementById('rangeSelect');
-      const v = ['1', '3', '7', '30', 'all'].includes(presetDaysState) ? presetDaysState : '7';
+      const v = ['1', '3', '7', '30', 'all'].includes(presetDaysState) ? presetDaysState : '1';
       if (sel) sel.value = v;
     }
 
@@ -1906,7 +2029,7 @@
 
     // Share-landing deep link (?item=<url>, set by the /s permalink redirect):
     // scroll to the shared story and flash it. If it isn't in the current
-    // window (default is 7 days), widen once to 30 days before giving up.
+    // window (default is Today), widen once to 30 days before giving up.
     let pendingSharedItemUrl = '';
     let landingUtmSource = '';
     let sharedItemRetried = false;
@@ -1928,7 +2051,7 @@
       const it = feedCache.items.find((x) => normShareUrl(x.url) === target);
 
       if (!it) {
-        const isDefaultWindow = !customRangeState.from && !customRangeState.to && presetDaysState === '7';
+        const isDefaultWindow = !customRangeState.from && !customRangeState.to && presetDaysState === '1';
         if (!sharedItemRetried && isDefaultWindow) {
           sharedItemRetried = true;
           setDateRangeDays(30);
@@ -2029,7 +2152,7 @@
       } else {
         const days = p.get('days');
         const valid = days === 'all' || (Number(days) > 0);
-        setDateRangeDays(valid ? days : 7);
+        setDateRangeDays(valid ? days : 1);
       }
 
       const labels = p.getAll('label').flatMap((v) => String(v).split(','));
@@ -2052,7 +2175,7 @@
       if (customRangeState.from || customRangeState.to) {
         if (customRangeState.from) p.set('from', customRangeState.from);
         if (customRangeState.to) p.set('to', customRangeState.to);
-      } else if (presetDaysState !== '7') {
+      } else if (presetDaysState !== '1') {
         p.set('days', presetDaysState);
       }
 
@@ -2163,7 +2286,7 @@
       let from = localDateBoundaryUtc(customRangeState.from);
       let to = localDateBoundaryUtc(customRangeState.to, true);
       if (!from && !to && presetDaysState !== 'all') {
-        const n = Math.max(1, Number(presetDaysState || 7));
+        const n = Math.max(1, Number(presetDaysState || 1));
         const now = new Date();
         const fromD = new Date(now.getFullYear(), now.getMonth(), now.getDate() - (n - 1));
         from = localDateBoundaryUtc(toDateInput(fromD));
@@ -2574,6 +2697,43 @@
       return String(v || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
     }
 
+    function stripHtml(v) {
+      return String(v || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function looksLikeKeywordList(text) {
+      const t = String(text || '');
+      const segments = t.split(',').map((s) => s.replace(/(?:\u2026|\.{2,}|\.+)\s*$/, '').trim()).filter(Boolean);
+      if (segments.length < 6) return false;
+      const avgLen = segments.reduce((n, s) => n + s.length, 0) / segments.length;
+      if (avgLen > 20) return false;
+      return segments.every((s) => !/[.!?]/.test(s) && !/\b(and|or|with|to|from|that|for)\b/i.test(s));
+    }
+
+    function trimTitleSuffix(title, sourceName, itemUrl) {
+      let t = String(title || '').trim();
+      const original = t;
+      const names = [String(sourceName || '')];
+      const display = sourceDisplayName(String(sourceName || ''));
+      if (display && display !== sourceName) names.push(display);
+      const abs = String(itemUrl || '');
+      if (/^https?:\/\//i.test(abs)) {
+        try {
+          const host = new URL(abs).hostname.replace(/^www\./i, '');
+          if (host) names.push(host);
+        } catch {}
+      }
+      for (const n of names) {
+        if (!n) continue;
+        const escaped = n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`\\s+-\\s+${escaped}\\s*$`, 'i');
+        const next = t.replace(re, '').trim();
+        if (next !== t) { t = next; break; }
+      }
+      if (t !== original && (!t || t.length < 15)) return original;
+      return t;
+    }
+
     // Older run snapshots still carry the generic heuristic placeholder;
     // newer pipeline output is either LLM-written or an honest
     // matched-topics line, both worth showing.
@@ -2587,12 +2747,14 @@
 
     function cardHtml(it, { rank = null, runId = '', hideable = true } = {}) {
       const key = itemKey(it);
-      const title = esc(it.title || 'Untitled');
+      const rawTitle = String(it.title || 'Untitled');
+      const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
       const source = esc(sourceDisplayName(it.source));
       const sourceSlug = esc(it.source || 'unknown');
       const type = esc(it.type || 'news');
       const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));
-      const summaryRaw = cleanText(it.summary_1line);
+      const summaryRaw0 = cleanText(it.summary_1line);
+      const summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = whyItMattersText(it);
@@ -2834,7 +2996,10 @@
       const bullets = picks.map(({ it, sources }) => {
         // Lead with why-it-matters when the pipeline has real signal; the
         // publisher summary is the fallback, not the headline act.
-        const lineRaw = whyItMattersText(it) || cleanText(it.summary_1line);
+        const whyRaw = whyItMattersText(it);
+        const summaryRaw0 = cleanText(it.summary_1line);
+        const summaryFallback = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
+        const lineRaw = whyRaw || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
         return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
@@ -2890,7 +3055,7 @@
 
     // Loading placeholder for the feed list. Reserves vertical space so the
     // footer doesn't jump when real cards arrive (CLS). aria-hidden because
-    // the live #list region announces the real content once it renders.
+    // the #feedStatus role=status region announces the real content once it renders.
     function skeletonHtml(n = 6) {
       const card =
         '<div class="skel-card">' +
@@ -2921,8 +3086,8 @@
     function truncatedMarkerHtml(totalItems, shownItems) {
       return `
         <div class="end-marker">
-          <div class="end-marker-title">Showing the first ${shownItems} of ${totalItems} stories</div>
-          <div class="end-marker-sub">This range is larger than the current feed page. Narrow the time range to reach a true finish line.</div>
+          <div class="end-marker-title">Top ${shownItems} of ${totalItems} stories in this window</div>
+          <div class="end-marker-sub">The rest are older or lower-ranked than this brief. Switch the range to Today for a true finish line, or search to find something specific.</div>
         </div>`;
     }
 
@@ -2979,6 +3144,8 @@
         : `${hasMore ? `${items.length} of ${totalItems}` : items.length} ${totalItems === 1 ? 'story' : 'stories'}${rangeNote}`;
       const hiddenNote = hiddenInView > 0 ? ` · ${hiddenInView} hidden` : '';
       document.getElementById('meta').textContent = `${countText}${updatedNote}${newNote}${labelNote}${hiddenNote}`;
+      const statusEl = document.getElementById('feedStatus');
+      if (statusEl && statusEl.textContent !== countText) statusEl.textContent = countText;
       syncSectionTabs();
 
       if (!visible.length) {
@@ -3035,7 +3202,7 @@
         const labels = getSelectedLabels();
         const cutoff = presetDaysState === 'all'
           ? 0
-          : Date.now() - Math.max(1, Number(presetDaysState || 7)) * 86400000;
+          : Date.now() - Math.max(1, Number(presetDaysState || 1)) * 86400000;
         const localItems = data.filter((it) => {
           const published = Date.parse(it.published || it.collected_at || '');
           if (cutoff && Number.isFinite(published) && published < cutoff) return false;
@@ -3386,6 +3553,11 @@
     });
 
     initThemeToggle();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAboutDialog);
+    } else {
+      initAboutDialog();
+    }
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
@@ -3652,5 +3824,18 @@
     else window.addEventListener('load', mrSchedule);
   })();
   </script>
+
+  <dialog id="aboutDialog" class="about-dialog" aria-labelledby="aboutTitle">
+    <div class="about-panel">
+      <div class="about-head">
+        <h2 id="aboutTitle">About LLM Digest</h2>
+        <button type="button" id="aboutClose" class="about-close" aria-label="Close about dialog">Close</button>
+      </div>
+      <p>LLM Digest is a low-hype, ranked daily brief of AI news for platform and agent engineers - model releases, frontier-lab research, inference and serving updates, agent tooling, and selected papers.</p>
+      <p>One shared, transparent ranking for everyone. No personalized filter bubble, no engagement-optimized infinite scroll: the brief is built to end.</p>
+      <p>Privacy: pages use anonymous PostHog analytics and your preferences (saved stories, pinned topics, read history) stay in your browser only. There are no accounts.</p>
+      <p>Feedback or source suggestions: <a href="https://github.com/FutureGadget/ai-sota-feed-bot/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
+    </div>
+  </dialog>
 </body>
 </html>

@@ -645,6 +645,33 @@ def clip(text: str, limit: int) -> str:
     return cut + "…"
 
 
+def _strip_html_tags(text: str) -> str:
+    """Collapse HTML markup to plain text for seed summaries."""
+    text = re.sub(r"<[^>]+>", " ", text)
+    return squeeze(text)
+
+
+_SEED_KEYWORD_STOPWORDS = re.compile(r"\b(and|or|with|to|from|that|for)\b", re.IGNORECASE)
+
+
+def _looks_like_keyword_list(text: str) -> bool:
+    """Detect comma-separated tag spam (e.g. SEO keyword lists) rather than prose."""
+    segments = [
+        re.sub(r"(?:\u2026|\.{2,}|\.+)$", "", seg).strip()
+        for seg in text.split(",")
+    ]
+    segments = [s for s in segments if s]
+    if len(segments) < 6:
+        return False
+    avg_len = sum(len(s) for s in segments) / len(segments)
+    if avg_len > 20:
+        return False
+    return all(
+        not re.search(r"[.!?]", s) and not _SEED_KEYWORD_STOPWORDS.search(s)
+        for s in segments
+    )
+
+
 def story_why(rec: dict) -> str:
     """Reader-facing rationale only; ranking diagnostics belong in topic chips."""
     why = squeeze(rec.get("why_it_matters"))
@@ -1006,7 +1033,7 @@ def render_head(
         alternates = "\n" + alternates
     return f"""\
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />{robots_meta}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />{robots_meta}
   <title>{escape(title)} | {escape(SITE_NAME)}</title>
   <meta name="description" content="{escape(description)}" />
   <link rel="canonical" href="{escape(canonical)}" />{alternates}
@@ -2945,7 +2972,7 @@ def render_redirect_page(base_url: str, slug: str, target_slug: str) -> str:
     t = escape(target_path)
     return (
         "<!doctype html>\n<html lang=\"en\"><head><meta charset=\"utf-8\">"
-        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\">"
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
         "<meta name=\"robots\" content=\"noindex, follow\">"
         f"<link rel=\"canonical\" href=\"{escape(canonical)}\">"
         f"<meta http-equiv=\"refresh\" content=\"0; url={t}\">"
@@ -5002,18 +5029,22 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         reverse=True,
     )
     cards = []
+    seeded_dates = []
     for it in ranked:
         url = safe_http_url(it.get("url"))
         if url == "#":
             continue
-        title = squeeze(str(it.get("title")))
-        summary = squeeze(str(it.get("summary_1line") or it.get("summary") or ""))
+        title = _strip_html_tags(str(it.get("title")))
+        summary = _strip_html_tags(str(it.get("summary_1line") or it.get("summary") or ""))
         if summary.lower().rstrip(".") == title.lower().rstrip("."):
             summary = ""  # echoing the headline reads as duplication
+        if _looks_like_keyword_list(summary):
+            summary = ""
         sid = story_sid(url)
+        has_story = sid in story_sids
         perma = (
             f' <a href="/story/{sid}">Context &amp; related coverage →</a>'
-            if sid in story_sids
+            if has_story
             else ""
         )
         published = parse_dt(it.get("published"))
@@ -5022,24 +5053,45 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             for x in (source_domain(url), published.date().isoformat() if published else "")
             if x
         )
+        meta_context = ""
+        if not summary and has_story:
+            meta_context = (
+                f' · <a href="/story/{sid}">Context</a>' if meta else f'<a href="/story/{sid}">Context</a>'
+            )
+            perma = ""
         body = f"<p>{escape(clip(summary, 240))}{perma}</p>" if summary or perma else ""
         cards.append(
             '<article class="seed-item">'
-            f'<p class="seed-meta">{escape(meta)}</p>'
+            f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
             f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
             f"{body}</article>"
         )
+        seeded_dates.append(published)
         if len(cards) == FEED_SEED_MAX_ITEMS:
             break
     if not cards:
         return 0
+    dated = sorted(d.date() for d in seeded_dates if d is not None)
+    if not dated:
+        heading = "Top signals"
+    else:
+        lo, hi = dated[0], dated[-1]
+        if lo == hi:
+            heading = f"Top signals · {lo.strftime('%b')} {lo.day}, {lo.year}"
+        elif lo.month == hi.month and lo.year == hi.year:
+            heading = f"Top signals · {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
+        else:
+            heading = (
+                f"Top signals · {lo.strftime('%b')} {lo.day} "
+                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
+            )
     block = (
         f"{FEED_SEED_START}\n"
         "      <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.\n"
         "           Crawler/no-JS-visible feed snapshot; the feed JS replaces this region on boot.\n"
         "           Do not hand-edit between these markers. -->\n"
         '      <div class="feed-seed">\n'
-        "        <h2>Today's top signals</h2>\n        "
+        f"        <h2>{heading}</h2>\n        "
         + "\n        ".join(cards)
         + '\n        <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>\n'
         "      </div>\n"

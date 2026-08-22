@@ -7,14 +7,12 @@ from pipeline import render_static_pages as render
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VIEWPORT_POLICY = (
-    'content="width=device-width, initial-scale=1.0, '
-    'maximum-scale=1.0, user-scalable=no"'
-)
+VIEWPORT_POLICY = 'content="width=device-width, initial-scale=1.0"'
 HAND_AUTHORED_PAGES = (
     "daily.html",
     "index.html",
     "map.html",
+    "models.html",
     "playbook.html",
     "storyline.html",
     "subscribe.html",
@@ -24,13 +22,14 @@ HAND_AUTHORED_PAGES = (
 
 
 class ViewportPolicyTest(unittest.TestCase):
-    def test_hand_authored_pages_disable_pinch_zoom(self) -> None:
+    def test_hand_authored_pages_allow_pinch_zoom(self) -> None:
         for filename in HAND_AUTHORED_PAGES:
             with self.subTest(filename=filename):
                 html = (ROOT / "web" / filename).read_text(encoding="utf-8")
                 self.assertIn(VIEWPORT_POLICY, html)
+                self.assertNotIn("user-scalable", html)
 
-    def test_generated_pages_disable_pinch_zoom(self) -> None:
+    def test_generated_pages_allow_pinch_zoom(self) -> None:
         head = render.render_head(
             title="Example",
             description="Example page",
@@ -46,7 +45,7 @@ class ViewportPolicyTest(unittest.TestCase):
         self.assertIn(VIEWPORT_POLICY, head)
         self.assertIn(VIEWPORT_POLICY, redirect)
 
-    def test_share_fallback_disables_pinch_zoom(self) -> None:
+    def test_share_fallback_allows_pinch_zoom(self) -> None:
         source = (ROOT / "api" / "share.js").read_text(encoding="utf-8")
         self.assertIn(VIEWPORT_POLICY, source)
 
