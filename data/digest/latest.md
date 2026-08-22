@@ -2,134 +2,134 @@
 
 Focus: AI Platform Engineering
 
-## 1. Cloudflare Cuts Astro Github Issues by 85% with AI Agents
+## 1. Cloudflare Cuts Astro GitHub Issues by 85% with AI Agents
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/cloudflare-astro-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.818 | Reliability: 1.0
+- Score: 2.793 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. Stop Making TUIs
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/21/stop-making-tuis/
-- Score: 2.8 | Reliability: 1.0
+- Score: 2.775 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. Deepseek releases experimental Flash vision model that rivals Opus 4.8 on agent benchmarks - the-decoder.com
-- Type: release | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMitgFBVV95cUxOTGZaWFNSeWxTVzNob1hUMU94UUM4TFN3OXJSa3g2UDMtSHl6UXl5NHhPaHVCTEs0MzZfS2dLTWRoeVV3WGdMRVVBTGRteVotM3BqSVVQWC1RY1hoVm13Q1VpY3ZEVE1RWWpfeEhiNEc4ajdlQk9tbXBOOXFObWZZLVlldHVCM2xJYmkwNFhiMkNna3FjSE5UTG1XcGJIOHFjeThNNEpER1ZuLXYySW1Ha1ZKSU54UQ?oc=5
-- Score: 2.788 | Reliability: 1.0
+## 3. Show HN: Heimdall – Trust-verified knowledge layer for AI coding agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/ArihantDeva/heimdall
+- Score: 2.675 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Simulation: the new Scaling Law — Joon Sung Park, Simile AI
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/simile
-- Score: 2.699 | Reliability: 1.0
+- Score: 2.674 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. llm-openrouter 0.7
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/21/llm-openrouter/
-- Score: 2.602 | Reliability: 1.0
+- Score: 2.579 | Reliability: 1.0
 - Why it matters: 
 
-## 6. Azure DevOps Remote MCP Server Reaches GA, Without Support for Claude, ChatGPT, or Cursor
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/08/azure-devops-remote-mcp-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.439 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
-
-## 7. claude-code v2.1.239
+## 6. claude-code v2.1.239
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.239
-- Score: 2.432 | Reliability: 1.0
+- Score: 2.441 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
+
+## 7. Azure DevOps Remote MCP Server Reaches GA, Without Support for Claude, ChatGPT, or Cursor
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/08/azure-devops-remote-mcp-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.418 | Reliability: 1.0
+- Why it matters: Matches feed focus: claude code.
 
 ## 8. MemTrapBench: Benchmarking Cognitive Traps in LLM Memory Use
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.20202v1
-- Score: 2.421 | Reliability: 1.0
+- Score: 2.408 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 9. Building a 100x Cheaper Trace Judge with Fireworks
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks
-- Score: 2.382 | Reliability: 1.0
+- Score: 2.36 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. From Atari to EVE Online: Building on 15 Years of AI Research in Games
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/from-atari-to-eve-online-building-on-15-years-of-ai-research-in-games/
-- Score: 2.177 | Reliability: 1.0
+- Score: 2.154 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Multi-Agent Orchestration with the Common-Sense Reasoning Capabilities of LLMs for Autonomous Driving
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2608.20129v1
-- Score: 2.366 | Reliability: 1.0
+- Score: 2.353 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 12. codex 0.150.0-alpha.6
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.150.0-alpha.6
-- Score: 2.292 | Reliability: 1.0
+- Score: 2.301 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 13. [AINews] Poolside gets $12B reverse-execuhire to NVIDIA; founders stay for $1B, employees go for $6B, Infraco scaling to 7GW neocloud
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-poolside-gets-12b-reverse
-- Score: 2.18 | Reliability: 1.0
+## 13. DeepSeek adds vision to V4 Flash in latest test model - Tech in Asia
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMihgFBVV95cUxNOVViT2xDbE9iNHBIdmpQWmdvcHhsZXNPdlNwZGRvX1hGYzhiVkZUUjNjcGRGZ2pWUmJlNjBQMjN1RktodlVpUzNOLTkxSWk0Unp5VWU2eEEtMTIzTWotSnhJVU1XYXk4UmV0U1JLMS1DdHJ2Zlg1X2RJbVc5Q2tsc1NWdkpfZw?oc=5
+- Score: 2.269 | Reliability: 1.0
 - Why it matters: 
 
-## 14. Recursive Self-Improvement
+## 14. [AINews] Poolside gets $12B reverse-execuhire to NVIDIA; founders stay for $1B, employees go for $6B, Infraco scaling to 7GW neocloud
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-poolside-gets-12b-reverse
+- Score: 2.162 | Reliability: 1.0
+- Why it matters: 
+
+## 15. Recursive Self-Improvement
 - Type: news | Source: philschmid
 - URL: https://www.philschmid.de/recursive-self-improvement
-- Score: 2.169 | Reliability: 1.0
+- Score: 2.152 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 15. Scale-Aware Pretraining of Time Series Foundation Models via Multi-Patch Token Alignment and Hybrid Masking
+## 16. Scale-Aware Pretraining of Time Series Foundation Models via Multi-Patch Token Alignment and Hybrid Masking
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.20005v1
-- Score: 2.098 | Reliability: 1.0
+- Score: 2.087 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 16. Pandora's AI Model Routing Box: Efficient Allocation with Costly Value Estimation
+## 17. Pandora's AI Model Routing Box: Efficient Allocation with Costly Value Estimation
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.20316v1
-- Score: 2.061 | Reliability: 1.0
+- Score: 2.05 | Reliability: 1.0
 - Why it matters: Matches feed focus: harness, eval.
 
-## 17. How agents can delegate better
+## 18. How agents can delegate better
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/how-agents-can-delegate-better/
-- Score: 1.843 | Reliability: 1.0
+- Score: 1.811 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
-
-## 18. claude-agent-sdk-python v0.2.143
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.143
-- Score: 1.832 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
 
 ## 19. Measuring benchmark optimization in speech recognition
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/asr-benchmark-optimization
-- Score: 1.765 | Reliability: 1.0
+- Score: 1.755 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. v0.28.0rc2: [Spec Decode] DFlash2: local convolution + candidate selector (#52816)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.28.0rc2
-- Score: 1.603 | Reliability: 1.0
+- Score: 1.581 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. Connecting retail demand planning to campaign and store execution
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/connecting-retail-demand-planning-campaign-and-store-execution
-- Score: 1.571 | Reliability: 1.0
+- Score: 1.543 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. Accelerating aircraft IFEC diagnostics with agentic AI on AWS
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/accelerating-aircraft-ifec-diagnostics-with-agentic-ai-on-aws/
-- Score: 1.545 | Reliability: 1.0
+- Score: 1.514 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
