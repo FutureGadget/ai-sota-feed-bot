@@ -61,13 +61,6 @@ scheduler provisions unrestricted push permission for this repository and
 injects only `.agents/routines/wiki-curator-daily/prompt.md` into agent context.
 The prompt runs a seven-day ingest window plus a full graph lint.
 
-A separate local Antigravity review routine is defined at
-`.agents/routines/knowledge-map-content-review/harness.yaml`. It runs
-best-effort around 09:00 `Asia/Seoul`, reviews the live map and every linked
-topic against their declared evidence, and injects only its `prompt.md`.
-Corrections are made to wiki source Markdown; compiled JSON and static pages
-are rebuilt.
-
 ## Relationship to storylines
 Separate graphs, cross-linked. Storylines cluster stories over *time*; the wiki
 organizes knowledge over *topic*. Wiki pages **reference** storylines/stories as
