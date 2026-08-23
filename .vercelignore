@@ -24,3 +24,7 @@ data/foundations/input
 # latest.json). Left in the deployment they grow ~100 MB/year inside every
 # function without a broad exclude - the same path that froze deploys before.
 data/models/history
+# Documentation images (UI audit screenshots, diagrams). Served by nothing at
+# request time and read by neither the static build nor any api/ function, but
+# Vercel bundles the project into EACH function - see the header above.
+docs/assets

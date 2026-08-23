@@ -652,14 +652,18 @@ def _strip_html_tags(text: str) -> str:
 
 
 _SEED_KEYWORD_STOPWORDS = re.compile(r"\b(and|or|with|to|from|that|for)\b", re.IGNORECASE)
+_SEED_SEGMENT_TAIL = re.compile(r"(?:\u2026|\.{2,}|\.+)\s*$")
 
 
 def _looks_like_keyword_list(text: str) -> bool:
-    """Detect comma-separated tag spam (e.g. SEO keyword lists) rather than prose."""
-    segments = [
-        re.sub(r"(?:\u2026|\.{2,}|\.+)$", "", seg).strip()
-        for seg in text.split(",")
-    ]
+    """Detect comma-separated tag spam (e.g. SEO keyword lists) rather than prose.
+
+    Must stay behaviourally identical to ``looksLikeKeywordList`` in
+    web/index.html - both sides classify the same summaries, and
+    tests/fixtures/keyword_spam_samples.json is the shared contract asserted by
+    tests/test_seed_sanitation.py and tests/test_feed_keyword_spam.mjs.
+    """
+    segments = [_SEED_SEGMENT_TAIL.sub("", seg).strip() for seg in text.split(",")]
     segments = [s for s in segments if s]
     if len(segments) < 6:
         return False
@@ -669,6 +673,45 @@ def _looks_like_keyword_list(text: str) -> bool:
     return all(
         not re.search(r"[.!?]", s) and not _SEED_KEYWORD_STOPWORDS.search(s)
         for s in segments
+    )
+
+
+def _trim_title_suffix(title: str, source: str, url: str) -> str:
+    """Drop a trailing " - Publisher" that repeats the item's own source.
+
+    Mirrors ``trimTitleSuffix`` in web/index.html so the crawler-visible seed
+    and the JS feed show the same title for the same story.
+    """
+    original = title.strip()
+    names = [source, SOURCE_LABELS.get(source, ""), source_domain(url)]
+    for name in names:
+        if not name or name == "the source":
+            continue
+        trimmed = re.sub(
+            rf"\s+-\s+{re.escape(name)}\s*$", "", original, flags=re.IGNORECASE
+        ).strip()
+        if trimmed != original:
+            return original if len(trimmed) < 15 else trimmed
+    return original
+
+
+def _seed_heading(dates: list[date]) -> str:
+    """Honest date-span label for the crawler-visible feed seed."""
+    if not dates:
+        return "Top signals"
+    lo, hi = dates[0], dates[-1]
+    if lo == hi:
+        return f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year}"
+    if lo.year != hi.year:
+        return (
+            f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year} "
+            f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
+        )
+    if lo.month == hi.month:
+        return f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
+    return (
+        f"Top signals \u00b7 {lo.strftime('%b')} {lo.day} "
+        f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
     )
 
 
@@ -1121,7 +1164,7 @@ def render_page(
         <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
         <div class="site-bar-actions">
           <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
-          <button type="button" data-site-browse-open aria-label="Open Editor's Desk">Editor's Desk</button>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
         </div>
       </div>
       <div class="site-page-heading">
@@ -4998,6 +5041,23 @@ def render_model_pages(base_url: str, artifact: dict) -> list[tuple[str, str | N
 FEED_SEED_START = "<!-- feed-seed:start -->"
 FEED_SEED_END = "<!-- feed-seed:end -->"
 FEED_SEED_MAX_ITEMS = 12
+FEED_SEED_MIN_ITEMS = 6
+
+
+def select_seed_window(entries: list[tuple[date | None, dict]]) -> list[tuple[date | None, dict]]:
+    """Narrowest recent date window that still fills the seed.
+
+    The feed JS defaults to Today and widens when that window comes back thin;
+    the crawler-visible seed applies the same rule so both describe the same
+    period instead of the seed silently spanning a week. ``entries`` arrives in
+    ranked order and that order is preserved.
+    """
+    days = sorted({d for d, _ in entries if d is not None}, reverse=True)
+    for cutoff in days:
+        window = [e for e in entries if e[0] is not None and e[0] >= cutoff]
+        if len(window) >= FEED_SEED_MIN_ITEMS:
+            return window[:FEED_SEED_MAX_ITEMS]
+    return entries[:FEED_SEED_MAX_ITEMS]
 
 
 def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
@@ -5028,13 +5088,22 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         key=score,
         reverse=True,
     )
+    eligible: list[tuple[date | None, dict]] = []
+    for it in ranked:
+        if safe_http_url(it.get("url")) == "#":
+            continue
+        published = parse_dt(it.get("published"))
+        eligible.append((published.date() if published else None, it))
+
     cards = []
     seeded_dates = []
-    for it in ranked:
+    for published_date, it in select_seed_window(eligible):
         url = safe_http_url(it.get("url"))
-        if url == "#":
-            continue
-        title = _strip_html_tags(str(it.get("title")))
+        title = _trim_title_suffix(
+            _strip_html_tags(str(it.get("title"))),
+            str(it.get("source") or ""),
+            url,
+        )
         summary = _strip_html_tags(str(it.get("summary_1line") or it.get("summary") or ""))
         if summary.lower().rstrip(".") == title.lower().rstrip("."):
             summary = ""  # echoing the headline reads as duplication
@@ -5047,10 +5116,9 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             if has_story
             else ""
         )
-        published = parse_dt(it.get("published"))
         meta = " · ".join(
             x
-            for x in (source_domain(url), published.date().isoformat() if published else "")
+            for x in (source_domain(url), published_date.isoformat() if published_date else "")
             if x
         )
         meta_context = ""
@@ -5066,25 +5134,10 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
             f"{body}</article>"
         )
-        seeded_dates.append(published)
-        if len(cards) == FEED_SEED_MAX_ITEMS:
-            break
+        seeded_dates.append(published_date)
     if not cards:
         return 0
-    dated = sorted(d.date() for d in seeded_dates if d is not None)
-    if not dated:
-        heading = "Top signals"
-    else:
-        lo, hi = dated[0], dated[-1]
-        if lo == hi:
-            heading = f"Top signals · {lo.strftime('%b')} {lo.day}, {lo.year}"
-        elif lo.month == hi.month and lo.year == hi.year:
-            heading = f"Top signals · {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
-        else:
-            heading = (
-                f"Top signals · {lo.strftime('%b')} {lo.day} "
-                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
-            )
+    heading = _seed_heading(sorted(d for d in seeded_dates if d is not None))
     block = (
         f"{FEED_SEED_START}\n"
         "      <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.\n"

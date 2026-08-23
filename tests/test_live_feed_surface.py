@@ -48,6 +48,53 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("You're all caught up", self.html)
         self.assertEqual(self.html.count('id="meta"'), 1)
 
+    def test_default_range_is_today_at_every_site(self) -> None:
+        # The finishable promise only holds if the default window can end, and
+        # the default lives in six places that must agree - a mismatch either
+        # writes Today into every share URL or makes Last 7d unreachable.
+        self.assertIn('<option value="1" selected>Today</option>', self.html)
+        self.assertNotIn('<option value="7" selected>', self.html)
+        self.assertIn("let presetDaysState = '1';", self.html)
+        self.assertIn("includes(presetDaysState) ? presetDaysState : '1'", self.html)
+        self.assertIn("presetDaysState === '1'", self.html)
+        self.assertIn("setDateRangeDays(valid ? days : 1)", self.html)
+        self.assertIn("} else if (presetDaysState !== '1') {", self.html)
+        self.assertNotIn("Number(presetDaysState || 7)", self.html)
+
+    def test_empty_today_window_widens_once(self) -> None:
+        # A reader arriving just after local midnight gets a window minutes
+        # wide; the homepage must not answer that with an empty state.
+        self.assertIn("let emptyWindowWidened = false;", self.html)
+        self.assertIn("emptyWindowWidened = true;", self.html)
+        self.assertIn("setDateRangeDays(3);", self.html)
+
+    def test_list_status_is_announced_from_every_render_path(self) -> None:
+        # #list is not a live region any more, so each path that rewrites it
+        # has to report through #feedStatus or the change is never announced.
+        self.assertIn('<p id="feedStatus" class="visually-hidden" role="status">', self.html)
+        self.assertIn("function setFeedStatus(text)", self.html)
+        self.assertNotIn('id="list" aria-live', self.html)
+        # Feed render, saved view, and the fetch-failure path each report.
+        for anchor in (
+            "setFeedStatus(countText);\n      syncSectionTabs();",
+            "document.getElementById('meta').textContent = countText;\n      setFeedStatus(countText);",
+            "setFeedStatus('Feed unavailable.",
+        ):
+            with self.subTest(anchor=anchor[:40]):
+                self.assertIn(anchor, self.html)
+
+    def test_action_button_hit_areas_do_not_overlap(self) -> None:
+        # The ::after halos are invisible: if they overlap, the later sibling
+        # silently steals taps aimed at the earlier one.
+        halo = re.search(
+            r"\.save-btn::after,\s*\.share-btn::after,\s*\.hide-btn::after \{[^}]*inset: -([\d.]+)rem;",
+            self.html,
+        )
+        self.assertIsNotNone(halo)
+        gap = re.search(r"\.card-actions \{[^}]*gap: ([\d.]+)rem;", self.html)
+        self.assertIsNotNone(gap)
+        self.assertGreaterEqual(float(gap.group(1)), 2 * float(halo.group(1)))
+
     def test_local_preview_falls_back_to_processed_feed(self) -> None:
         self.assertIn("'/data/processed/latest.json'", self.html)
         self.assertIn("Array.isArray(data)", self.html)
@@ -223,7 +270,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         # The rail is a DOM sibling *after* #list, so removing it on failure
         # never disturbs the feed-seed region above it - and stacked layouts
         # render it below the articles for free, which is what we want.
-        list_open = self.html.index('<section id="list" tabindex="-1">')
+        list_open = self.html.index('<section id="list"')
         rail = self.html.index('id="modelRadarRail"')
         self.assertLess(list_open, rail)
 
