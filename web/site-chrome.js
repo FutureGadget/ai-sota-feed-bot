@@ -161,9 +161,13 @@
     dialog.append(panel);
     document.body.append(dialog);
 
+    trigger.setAttribute("aria-haspopup", "dialog");
+    trigger.setAttribute("aria-expanded", "false");
+
     let scrollY = 0;
     const open = () => {
       scrollY = window.scrollY;
+      trigger.setAttribute("aria-expanded", "true");
       dialog.showModal();
       root.classList.add("site-dialog-open");
       close.focus();
@@ -179,6 +183,7 @@
     dialog.addEventListener("close", () => {
       root.classList.remove("site-dialog-open");
       window.scrollTo(0, scrollY);
+      trigger.setAttribute("aria-expanded", "false");
       trigger.focus();
     });
     return dialog;

@@ -30,11 +30,12 @@ API applies the same opening-marker check to durable historical items so older
 
 ## Feed aging
 
-The default live feed can show a 7-day window without treating every eligible
-story as equally current. The ranking pipeline applies a smooth time-decay
-multiplier after normal relevance/source/topic scoring, so an article gradually
-loses ordering power as it ages instead of staying at its original rank until
-the freshness window expires.
+The default live feed shows a Today window (the finishable brief; readers can
+widen to 3d/7d/30d/all) without treating every eligible story as equally
+current. The ranking pipeline applies a smooth time-decay multiplier after
+normal relevance/source/topic scoring, so an article gradually loses ordering
+power as it ages instead of staying at its original rank until the freshness
+window expires.
 
 Decay is configured in `config/ranking.yaml` (`time_decay.*`) and may vary by
 slot for slower-moving surfaces such as research or practitioner analysis. It
