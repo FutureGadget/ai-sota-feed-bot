@@ -378,7 +378,7 @@
       overflow-wrap: anywhere;
     }
     .card-top .badge {
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       padding: 0.08rem 0.45rem;
     }
     .badge {
@@ -791,7 +791,7 @@
       color: var(--muted);
     }
     .catchup li .badge {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       padding: 0.05rem 0.4rem;
       vertical-align: 0.08em;
     }
@@ -821,7 +821,7 @@
     .editor-desk-kicker {
       color: var(--accent);
       font-family: ui-monospace, "SFMono-Regular", monospace;
-      font-size: 0.62rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -1024,7 +1024,9 @@
     html[data-theme="light"] {
       color-scheme: light;
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
+      /* muted must hold 4.5:1 on --bg (it carries bylines, meta, and the rank
+         column); #626d81 is the darkest-warm gray that clears it. */
+      --muted:#626d81; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
       --signal:#23875b; --warm:#b6780c; --alert:#c4483f;
     }
     html[data-theme="dark"] {
@@ -1041,19 +1043,19 @@
       border-radius:3px; background:transparent; min-height:40px; }
     .quicknav { margin-top:.8rem; padding:.65rem 0; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.68rem; gap:.5rem 1.25rem; }
+      font-size:.75rem; gap:.5rem 1.25rem; }
     .quicknav a { color:var(--muted); }
     .quicknav a:hover { color:var(--accent); text-decoration:none; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
     .feed-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
     .feed-promise { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
     .feed-promise strong { color:var(--fg); }
     #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.68rem; line-height:1.55; }
+      font-size:.75rem; line-height:1.55; }
     .controls-bar { display: flex; align-items: center; justify-content: space-between;
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0;
       width: 100%; min-width: 0; }
@@ -1077,7 +1079,7 @@
     .selected-labels { padding:.55rem 0; margin:0; border-bottom:1px solid var(--border); }
     .selected-labels .badge { border:0; border-radius:0; padding:.2rem .45rem;
       background:var(--feed-wash); font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.65rem; }
+      font-size:.75rem; }
     .trust-banner { margin:.75rem 0 0; padding:.65rem 0; border:0;
       border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
     .trust-banner[hidden] { display:none !important; }
@@ -1102,7 +1104,7 @@
       border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .model-radar-rail[hidden] { display:none !important; }
     .mr-rail-kicker { margin:0 0 .3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
     .mr-rail-heading { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.15rem; font-weight:700; letter-spacing:-.01em; line-height:1.1; }
     .mr-rail-lede { margin:0 0 .8rem; font-size:.78rem; line-height:1.5; color:var(--muted); }
@@ -1111,20 +1113,20 @@
     .mr-rail-name { display:block; font-size:.85rem; font-weight:650; line-height:1.3;
       color:inherit; text-decoration:none; }
     .mr-rail-name:hover, .mr-rail-name:focus-visible { color:var(--accent); text-decoration:underline; }
-    .mr-rail-org { display:block; margin-top:.15rem; font-size:.72rem; line-height:1.35;
+    .mr-rail-org { display:block; margin-top:.15rem; font-size:.75rem; line-height:1.35;
       color:var(--muted); }
     .mr-rail-meta { display:block; margin-top:.1rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.65rem; color:var(--muted); }
-    .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.58rem;
+      font-size:.75rem; color:var(--muted); }
+    .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.75rem;
       font-weight:700; padding:.04rem .38rem; border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
       border-radius:999px; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--card)); }
     .mr-rail-variant { margin-left:.35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:600; color:var(--muted); }
-    .mr-rail-sources { margin:0 0 .8rem; font-size:.65rem; line-height:1.5; color:var(--muted); }
+      font-size:.75rem; font-weight:600; color:var(--muted); }
+    .mr-rail-sources { margin:0 0 .8rem; font-size:.75rem; line-height:1.5; color:var(--muted); }
     .mr-rail-sources a { color:var(--muted); }
     .mr-rail-sources a:hover { color:var(--accent); }
     .mr-rail-cta { display:inline-block; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.72rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
     .mr-rail-cta:hover { text-decoration:underline; }
     /* Narrow viewports: the feed is the product, so the radar collapses to a
        compact entry point instead of a five-row block. Only the leading model
@@ -1152,17 +1154,21 @@
       letter-spacing:.07em; text-transform:uppercase; color:var(--alert); }
     .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
       font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.65rem;
-      line-height:1; font-weight:700; color:color-mix(in srgb,var(--muted) 55%,transparent); }
+      line-height:1; font-weight:700; color:var(--muted); }
     .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.5rem; }
     .card-meta { gap:.45rem .7rem; }
     .card-top .src, .when { font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.64rem; font-weight:500; color:var(--muted); }
+      font-size:.75rem; font-weight:500; color:var(--muted); }
     .card-top .src { color:var(--fg); font-weight:700; letter-spacing:.04em; }
     .card-top .badge, .badge { border:0; border-radius:0; padding:.05rem 0;
       background:transparent; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; }
+      font-size:.75rem; }
     .card-top .badge::before { content:"· "; color:var(--border); }
-    a.badge-storyline { border:0; background:transparent; color:var(--accent); }
+    /* Storyline badge is the one tappable control inside .card-meta: give it
+       a real 44px-tall hit box (WCAG 2.5.8 AAA / iOS HIG), not a halo, so the
+       whole pill - including its meta-row line height - is the target. */
+    a.badge-storyline { border:0; background:transparent; color:var(--accent);
+      display:inline-flex; align-items:center; min-height:44px; }
     .card-main { gap:1rem; }
     article h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.28rem; line-height:1.22; }
@@ -1171,13 +1177,13 @@
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
-    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.66rem; }
+    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.75rem; }
     .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
-    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; }
+    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
-    .fb-label { font-size:.72rem; }
+    .fb-label { font-size:.75rem; }
     .fb-btn { border:0; border-bottom:1px solid var(--border); border-radius:0;
-      padding:.15rem .35rem; font-size:.72rem; }
+      padding:.15rem .35rem; font-size:.75rem; }
     .catchup, .onboard { border:0; border-left:2px solid var(--accent); border-radius:0;
       background:var(--feed-wash); color:var(--feed-ink); }
     .catchup { margin-bottom:.8rem; padding:.75rem .9rem; }
@@ -1204,10 +1210,21 @@
       .site-page-heading { margin-top:0; }
       .site-page-heading h1 { position:absolute; width:1px; height:1px; margin:-1px;
         overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-      .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.9rem 0 0.8rem; }
-      .feed-kicker { display:none; }
+      /* Restore the masthead positioning copy on mobile (kicker + promise):
+         two clamped lines at legible sizes, with hero margins tightened so
+         the restored rows cost ~50px of scroll before the first story. */
+      .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.45rem 0 0.35rem; }
+      .feed-kicker { display:block; margin:0 0 .15rem; }
       .feed-title { font-size:1.9rem; line-height:1.05; letter-spacing:-.035em; }
-      .feed-promise { display:none; }
+      .feed-promise {
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2;
+        overflow:hidden;
+        margin:0.3rem 0 0;
+        font-size:0.85rem;
+        line-height:1.4;
+      }
       #meta { margin-top:0.4rem; }
       .sections {
         overflow-x: auto;
@@ -1237,11 +1254,14 @@
       }
       .quicknav a {
         flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         padding: 0.25rem 0.6rem;
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 999px;
-        font-size: 0.65rem;
+        font-size: 0.75rem;
       }
       #list > article { padding-left:1.75rem; }
       .rank-no { width:1.2rem; font-size:1.35rem; }
@@ -1250,11 +1270,11 @@
       article h3 { font-size:1.18rem; }
       .thumb { width:72px; height:64px; }
       .fb-btn {
-        min-height: 32px;
+        min-height: 44px;
         padding: 0.2rem 0.5rem;
         display: inline-flex;
         align-items: center;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
       }
       .fb-row {
         gap: 0.35rem;
@@ -1266,6 +1286,9 @@
       }
       .fb-actions {
         gap: 0.35rem;
+        /* Insurance for the smallest viewports: three 44px-tall pills no longer
+           fit one 320px row, so let them wrap rather than clip mid-button. */
+        flex-wrap: wrap;
       }
       .end-marker { display:block; text-align:left; }
       .end-marker::before { display:block; margin-bottom:.6rem; }
@@ -1292,7 +1315,8 @@
       .feed-column { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }
       .model-radar-rail { order:0; flex:0 0 200px; width:200px; margin:0; padding:0;
         border-top:0; border-bottom:0; position:sticky; top:1rem; }
-        /* Wider screens: give the rail real room instead of leaving it cramped
+    }
+    /* Wider screens: give the rail real room instead of leaving it cramped
        at 200px while the page margins go unused. The article column is
        deliberately untouched - only the rail grows, and the arithmetic stays
        exact so no rounding slop reappears: 1280 - 2*1.35rem padding = 1236.8
@@ -1300,7 +1324,6 @@
     @media (min-width:1440px) {
       main { max-width:1280px; }
       .model-radar-rail { flex:0 0 280px; width:280px; }
-    }
     }
 
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
