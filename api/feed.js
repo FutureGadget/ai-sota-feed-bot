@@ -628,6 +628,84 @@ function accumulateItems(runs) {
   });
 }
 
+function coverageScore(it) {
+  return Number(it?.v2_final_score ?? it?.score_at_last_seen ?? it?.score ?? 0);
+}
+
+// Normalized-title clustering over the accumulated run pool: distinct outlets
+// that ran (near-)identical headlines are one story, so each member can list
+// the others as "also covered". Pure + side-effect-free: returns a Map keyed
+// by itemKey(it) -> candidate entries[] ({source, url, title<=160}), sorted by
+// score desc. Groups only when the shared normalized title is >= 30 chars
+// (keeps generic headlines like "openai launches new model" from merging),
+// 2..8 members, and >= 2 distinct sources; arXiv papers never cross-link to
+// other arXiv listings. Never mutates the input items.
+export function clusterCoverage(poolItems) {
+  const groups = new Map();
+  for (const it of Array.isArray(poolItems) ? poolItems : []) {
+    const key = itemKey(it);
+    const norm = String(it?.title || '')
+      .toLowerCase()
+      .replace(/^(?:show\s+)?hn:\s*/, '')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+    if (!key || !norm || norm.length < 30) continue;
+    const members = groups.get(norm) || [];
+    members.push(it);
+    groups.set(norm, members);
+  }
+
+  const coverage = new Map();
+  for (const members of groups.values()) {
+    if (members.length < 2 || members.length > 8) continue;
+    if (new Set(members.map((m) => String(m?.source || ''))).size < 2) continue;
+    for (const it of members) {
+      const src = String(it?.source || '');
+      const entries = members
+        .filter((other) => other !== it && String(other?.source || '') !== src)
+        .filter((other) => !(src.startsWith('arxiv_') && String(other?.source || '').startsWith('arxiv_')))
+        .sort((a, b) => coverageScore(b) - coverageScore(a))
+        .map((other) => ({
+          source: String(other?.source || ''),
+          url: String(other?.url || ''),
+          title: String(other?.title || '').slice(0, 160),
+        }));
+      if (entries.length) coverage.set(itemKey(it), entries);
+    }
+  }
+  return coverage;
+}
+
+function coverageUrlKey(v) {
+  const s = String(v || '').trim().toLowerCase().split('?')[0];
+  return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
+}
+
+// Merge pipeline-provided also_covered with clustered candidates into a fresh
+// array (max 4): deduped on (source, normalized url sans query/trailing slash),
+// entries pointing at the item itself dropped either way.
+function mergeAlsoCovered(item, clusterEntries) {
+  const selfSource = String(item?.source || '');
+  const selfUrl = coverageUrlKey(item?.url);
+  const seen = new Set();
+  const merged = [];
+  for (const entry of [
+    ...(Array.isArray(item?.also_covered) ? item.also_covered : []),
+    ...(Array.isArray(clusterEntries) ? clusterEntries : []),
+  ]) {
+    const source = String(entry?.source || '');
+    const urlKey = coverageUrlKey(entry?.url);
+    if (!source || source === selfSource) continue;
+    if (urlKey && urlKey === selfUrl) continue;
+    const dedupe = `${source}|${urlKey}`;
+    if (seen.has(dedupe)) continue;
+    seen.add(dedupe);
+    merged.push({ source, url: String(entry?.url || ''), title: String(entry?.title || '').slice(0, 160) });
+    if (merged.length >= 4) break;
+  }
+  return merged;
+}
+
 // data/processed/runs is bundled at deploy time (vercel.json includeFiles)
 // and never rewritten at function runtime - parse + accumulate once per
 // process instead of re-walking ~34MB of run snapshots on every request.
@@ -640,7 +718,12 @@ function readRunsPool() {
   let pool = runsPoolCaches.get(cwd);
   if (!pool) {
     const runs = readRuns();
-    pool = { runs, baseItems: accumulateItems(runs) };
+    const baseItems = accumulateItems(runs);
+    // Side-map built once per pool: itemKey -> clustered "also covered"
+    // candidates. Keyed by itemKey (the accumulateItems dedupe identity), not
+    // object identity, so per-request {...it} response copies can still look
+    // their entries up without threading pooled object references around.
+    pool = { runs, baseItems, coverageByItem: clusterCoverage(baseItems) };
     runsPoolCaches.set(cwd, pool);
   }
   return pool;
@@ -677,7 +760,7 @@ export async function GET(request) {
       .map((s) => String(s || '').trim())
       .filter(Boolean);
 
-    const { runs, baseItems } = readRunsPool();
+    const { runs, baseItems, coverageByItem } = readRunsPool();
     const readerTuning = readReaderTuning();
 
     // Backward-compatible latest view when no historical runs are available.
@@ -687,6 +770,7 @@ export async function GET(request) {
       const availableLabels = summarizeLabels(allItems);
       const filteredBase = applyLabelFilter(allItems, selectedLabels);
       const totalItems = filteredBase.length;
+      const winPool = filterItemsByPublishWindow(allItems, from, to);
       const body = {
         mode: 'latest',
         date: new Date().toISOString(),
@@ -698,7 +782,18 @@ export async function GET(request) {
         available_labels: availableLabels,
         reader_tuning: readerTuningSummary(readerTuning),
       };
+      body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(winPool, [s]).length]));
       const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
+      // No runs -> the pool-built side map is empty; cluster this fallback's
+      // own (small) item list directly. English path only, same reason as the
+      // main handler below: ko snapshot hashes pin pooled also_covered.
+      if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
+        const latestCoverage = clusterCoverage(allItems);
+        for (const it of localizedBody.items) {
+          const mergedCoverage = mergeAlsoCovered(it, latestCoverage.get(itemKey(it)));
+          if (mergedCoverage.length) it.also_covered = mergedCoverage;
+        }
+      }
       const headers = {};
       if (cacheControl) headers['Cache-Control'] = cacheControl;
       return Response.json(localizedBody, { status: 200, headers });
@@ -736,6 +831,10 @@ export async function GET(request) {
     const mergedWithLabels = merged.items.map((it) =>
       withReaderAdjustment({ ...it, labels: labelsFromItem(it) }, readerTuning));
     const availableLabels = summarizeLabels(mergedWithLabels);
+    // Same publish window the list shows, but label-agnostic: this is what
+    // the per-section tab counts report ("what would each tab hold?"),
+    // independent of the labels this particular request selected.
+    const winPool = filterItemsByPublishWindow(mergedWithLabels, from, to);
     const labelFiltered = applyLabelFilter(mergedWithLabels, selectedLabels);
     const filteredMerged = filterItemsByPublishWindow(labelFiltered, from, to);
     const totalItems = filteredMerged.length;
@@ -766,7 +865,19 @@ export async function GET(request) {
         },
       },
     };
+    body.label_counts = Object.fromEntries(['brief', 'platform', 'research', 'release', 'news'].map((s) => [s, applyLabelFilter(winPool, [s]).length]));
     const { body: localizedBody, cacheControl } = maybeLocalized(body, url.searchParams);
+    // Coverage decoration runs AFTER the localized overlay and only on the
+    // English path: the ko snapshot's source_hash pins the pipeline's own
+    // also_covered entries, so pooled items must reach that hash untouched.
+    // The items here are per-request {...it} copies (labels step above), so
+    // assigning a fresh also_covered never touches the cached pool.
+    if (localizedBody.mode !== 'localized_snapshot' && Array.isArray(localizedBody.items)) {
+      for (const it of localizedBody.items) {
+        const mergedCoverage = mergeAlsoCovered(it, coverageByItem.get(itemKey(it)));
+        if (mergedCoverage.length) it.also_covered = mergedCoverage;
+      }
+    }
     const headers = {};
     if (cacheControl) headers['Cache-Control'] = cacheControl;
     return Response.json(localizedBody, { status: 200, headers });

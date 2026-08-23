@@ -251,6 +251,16 @@
       color: #fff;
       font-weight: 600;
     }
+    /* Per-tab story counts (body.label_counts). Muted so labels stay primary;
+       stays readable on the active pill via the inherit override below. */
+    .sections button .tab-count {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .sections button.active .tab-count {
+      color: inherit;
+      opacity: 0.75;
+    }
     .searchbar {
       width: 100%;
       margin-top: 0.8rem;
@@ -2302,10 +2312,27 @@
 
     function syncSectionTabs() {
       const current = viewState === 'saved' ? null : activeSection();
-      const buttons = document.querySelectorAll('#sections button[data-section]');
-      buttons.forEach((b) => {
+      // Per-tab story counts from the feed API (body.label_counts): what each
+      // section holds in the current date window only - never search, saved
+      // state, or the reader's selected labels. All/Saved keep their own
+      // signals (All is obvious; Saved has its live counter).
+      const counts = feedCache.labelCounts || {};
+      document.querySelectorAll('#sections button[data-section]').forEach((b) => {
         const matches = current !== null && (b.dataset.section || '') === current;
         b.classList.toggle('active', matches);
+        const section = b.dataset.section || '';
+        let span = b.querySelector('.tab-count');
+        if (!span) {
+          span = document.createElement('span');
+          span.className = 'tab-count';
+          span.setAttribute('aria-hidden', 'true');
+          b.appendChild(span);
+        }
+        const n = Number(counts[section]);
+        // Appending a sibling span (not rewriting button text) keeps the title
+        // tooltips on Brief/Research intact across re-renders.
+        const show = SECTION_VALUES.has(section) && Number.isFinite(n) && n > 0;
+        span.textContent = show ? ` ${n}` : '';
       });
       updateSavedTab();
     }
@@ -3284,7 +3311,7 @@
     }
 
     // Last fetched feed payload; search re-renders from here without refetching.
-    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false };
+    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false, labelCounts: null };
     // Render bookkeeping. lastRenderedListHtml mirrors what we last wrote to
     // #list so identical re-renders (decoration pass, retried runs) skip the
     // DOM write; lastGoodListHtml holds the newest markup that contained real
@@ -3390,10 +3417,24 @@
           // rather than implying the feed is empty.
           html = hiddenBarHtml(hiddenInView)
             + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
+        } else if (q) {
+          html = `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`;
         } else {
-          html = q
-            ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
-            : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
+          // Name what's actually filtering: topic selections read differently
+          // from an empty date window, and each gets its own next step. The
+          // baseline is the default Brief lens over Today - anything beyond
+          // that (extra topics, a shared ?from/?to range) earns a one-tap
+          // reset instead of leaving readers to hunt for the controls.
+          const topicsActive = noteTopics.length > 0;
+          const filtersCleared = sameLabels(selectedLabels, DEFAULT_SECTION_LABELS)
+            || selectedLabels.length === 0;
+          const somethingToClear = (!filtersCleared && selectedLabels.length > 0)
+            || !!customRangeState.from || !!customRangeState.to || !!searchQueryState.trim();
+          html = `<div class="state">${
+            topicsActive
+              ? `Nothing under ${esc(noteTopics.join(', '))} in this range.`
+              : 'No items for that date/time range. Try widening the window.'
+          }${somethingToClear ? ` <button type="button" data-clear-filters="1">Clear filters</button>` : ''}</div>`;
         }
       } else {
         const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
@@ -3529,6 +3570,7 @@
         runId,
         totalItems: Number(data.total_items ?? items.length),
         hasMore: Boolean(data.has_more),
+        labelCounts: (data.label_counts && typeof data.label_counts === 'object') ? data.label_counts : null,
       };
       itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
       renderFeedList();
@@ -3606,6 +3648,21 @@
           // Spam-safe via run()'s own in-flight coalescing: taps while a fetch
           // is running collapse into one follow-up rerun.
           refreshFeed();
+          return;
+        }
+
+        if (e.target.closest('button[data-clear-filters]')) {
+          // Session-scoped reset only: readFiltersFromUrl reasserts pinned
+          // topics / the Brief lens from the URL on reload, so nothing durable
+          // (pins, hidden items) is touched here. Back to Today + firehose.
+          setSelectedLabels([]);
+          setDateRangeDays(1);
+          searchQueryState = '';
+          const searchBox = document.getElementById('searchBox');
+          if (searchBox) searchBox.value = '';
+          emptyWindowWidened = true;
+          posthogCapture('clear_filters', {});
+          refreshFeed({ exitSaved: true });
           return;
         }
 

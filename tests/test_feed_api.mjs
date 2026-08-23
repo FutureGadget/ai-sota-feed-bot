@@ -458,3 +458,61 @@ test('an incomplete-but-current snapshot with frozen metadata serves frozen card
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 });
+
+test('history-path cluster decoration never leaks into localized source hashes', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'localized-feed-cluster-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed', 'runs'), { recursive: true });
+    fs.mkdirSync(path.join(tmp, 'data', 'i18n', 'ko', 'feed'), { recursive: true });
+    const runAt = new Date().toISOString();
+    const title = 'DeepSeek slashes api pricing for its reasoning model tier today';
+    const itemA = {
+      id: 'a', url: 'https://news.example.com/deepseek-pricing', title,
+      summary_1line: 'Pricing change coverage', source: 'google_news', type: 'news',
+      published: runAt,
+    };
+    const itemB = {
+      id: 'b', url: 'https://www.bloomberg.com/deepseek-pricing', title,
+      summary_1line: 'Wire copy of the same story', source: 'bloomberg', type: 'news',
+      published: runAt,
+    };
+    const run = { run_at: runAt, items: [itemA, itemB] };
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'runs_index.json'), JSON.stringify([
+      { path: '2026/08/run.json' },
+    ]));
+    fs.mkdirSync(path.join(tmp, 'data', 'processed', 'runs', '2026', '08'), { recursive: true });
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'processed', 'runs', '2026', '08', 'run.json'),
+      JSON.stringify(run),
+    );
+    // Pin hashes to the pipeline's UNDECORATED items (no clustered also_covered),
+    // mirroring what build_localized_feed.py hashed from processed/latest.json.
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'i18n', 'ko', 'feed', 'latest.json'),
+      JSON.stringify({
+        locale: 'ko', surface: 'feed',
+        source_run_at: runAt,
+        expires_at: new Date(Date.now() + 3600000).toISOString(),
+        is_complete: true,
+        items: [
+          { translation_key: normUrl(itemA.url), source_hash: sourceHash(itemA), title: '한국어 A' },
+          { translation_key: normUrl(itemB.url), source_hash: sourceHash(itemB), title: '한국어 B' },
+        ],
+      }),
+    );
+    process.chdir(tmp);
+    const en = await invoke({ limit: '20' });
+    assert.equal(en.statusCode, 200);
+    const decorated = en.body.items.find((it) => it.id === 'a');
+    assert.ok(decorated, 'english history path returns the clustered pair');
+    assert.equal(decorated.also_covered.length, 1, 'cluster decoration fires on the english path');
+    assert.equal(decorated.also_covered[0].source, 'bloomberg');
+    const ko = await invoke({ locale: 'ko', localized_snapshot: 'latest', label: 'brief', limit: '20' });
+    assert.equal(ko.statusCode, 200);
+    assert.equal(ko.body.status, 'current', 'ko hash contract unaffected by cluster decoration');
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
