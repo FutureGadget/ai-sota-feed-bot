@@ -8,7 +8,10 @@ available to each function.
 
 ## Ingestion
 - `data/raw/<YYYY-MM-DD>/items.json` — collector output for the day
-  (normalized items: url, title, source, published, summary, …)
+  (normalized items: url, title, source, published, summary, …). Google News
+  RSS entries may also carry optional `publisher_name` and `publisher_domain`
+  values copied from the entry's `<source>` element. These are external display
+  strings, not verified identity claims, and renderers must escape them.
 - `data/cache/sitemap_meta.json` — sitemap crawl metadata cache
 
 ## Ranked snapshots
@@ -20,9 +23,35 @@ available to each function.
 - `data/processed/latest.json` — the production feed (Tier-0 full ranking).
   Ranked items include score diagnostics such as `llm_score`, `source_bias`,
   `source_tune`, `topical_bias`, `pre_decay_score`, `time_decay_factor`,
-  `final_score`, `slot_priority`, and `global_score`.
+  `final_score`, `slot_priority`, and `global_score`. Optional
+  `publisher_name` and `publisher_domain` attribution fields pass through from
+  collector rows for Google News items.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
+
+## Feed API (`/api/feed`)
+Response fields served from the accumulated ranked pool above:
+- `label_counts` - per-section story counts for the homepage tabs:
+  `{brief, platform, research, release, news}` (present on both the normal
+  history path and the no-runs `mode: "latest"` fallback). Each value counts
+  items inside the request's publish window matching that one section lens
+  (`brief` = everything except releases, mirroring the default tab), computed
+  from the same pool as `items` before any reader-selected `label=` filter is
+  applied - so tabs show what each section WOULD hold. Reflects the date
+  window only, never search or client-side state.
+- `items[].also_covered` - up to 4 cross-source coverage entries
+  `{source, url, title<=160}` per item, deduped by (source, normalized URL
+  sans query/trailing slash), same-source and self-referencing entries
+  excluded. Two sources feed it: pipeline enrichment (`pipeline/enrich.py`,
+  max 4, excludes arxiv<->arxiv pairs) and server-side normalized-title
+  clustering (`api/feed.js::clusterCoverage`) over the cached run pool -
+  groups of 2-8 items sharing a normalized title of >=30 chars across >=2
+  distinct sources (arxiv<->arxiv excluded there too), candidates sorted by
+  `v2_final_score ?? score_at_last_seen ?? score`. The cluster merge happens
+  only on the English path, AFTER the localized (ko) snapshot overlay: the
+  overlay's `source_hash` pins pooled items' own `also_covered`
+  (tests/test_feed_api.mjs), so clustered entries must never leak into that
+  hash or into the pooled objects themselves.
 
 ## Digest + publishing
 - `data/digest/<YYYY-MM-DD>.md` — versioned daily digest markdown
@@ -59,7 +88,9 @@ available to each function.
   thread is flagged `via_scout`. Both scout files are excluded from deploys
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
-  bundles the agent reads (excluded from deploys)
+  bundles the agent reads (excluded from deploys). Recap input and output
+  articles preserve optional `publisher_name` and `publisher_domain` fields so
+  renderers can credit the syndicated outlet instead of the aggregator feed.
 - `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
   `last_checked_date` (latest UTC day published or confirmed empty) and
   `skipped_dates` (audit trail of confirmed-empty days). Only the script's

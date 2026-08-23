@@ -69,7 +69,8 @@ file — the index is keyed by date id, so there is always exactly one per day.)
 ### 3. Write the recap (your editorial work — only an agent can do this)
 Read `data/daily/input/latest.json`. Each entry in `articles[]` has:
 `title`, `url` (original source link), `source`, `type`, `category`,
-`summary`, `published`. The bundle also carries `date`, `range_label`,
+`summary`, `published`, plus optional `publisher_name` and `publisher_domain`.
+The bundle also carries `date`, `range_label`,
 `article_count`, and `category_hint` (default per-category counts).
 
 Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
@@ -97,6 +98,8 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
           "title": "…",
           "summary": "one tight line: what it is + why it matters",
           "source": "openai_blog",
+          "publisher_name": "Bloomberg",
+          "publisher_domain": "bloomberg.com",
           "url": "https://…  (copy verbatim from the bundle)",
           "published": "2026-06-07T17:44:18Z"
         }
@@ -107,6 +110,8 @@ Write `data/daily/<date>.json` (e.g. `data/daily/2026-06-07.json`):
 ```
 
 **Editorial guidance**
+- When an input article has `publisher_name` or `publisher_domain`, copy those
+  fields verbatim into the recap article. Omit them when absent.
 - **Preserve `url` exactly** from the bundle — it's the reader's link back to
   the source. Never invent, shorten, or guess links. When correcting a
   previously published recap, only change a URL if it does not match the

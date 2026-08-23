@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import unittest
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from pipeline import render_static_pages as render
@@ -18,6 +18,9 @@ from pipeline import render_static_pages as render
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES = json.loads(
     (ROOT / "tests" / "fixtures" / "keyword_spam_samples.json").read_text(encoding="utf-8")
+)
+RANKED_BECAUSE_SAMPLES = json.loads(
+    (ROOT / "tests" / "fixtures" / "ranked_because_samples.json").read_text(encoding="utf-8")
 )
 
 
@@ -53,6 +56,65 @@ class StripHtmlTagsTest(unittest.TestCase):
     def test_markup_is_collapsed_to_text(self) -> None:
         self.assertEqual(
             render._strip_html_tags("<p>Hello   <b>there</b></p>"), "Hello there"
+        )
+
+
+class EchoesTitleTest(unittest.TestCase):
+    def test_bare_version_bump_is_an_echo(self) -> None:
+        self.assertTrue(
+            render._echoes_title("codex 0.150.0-alpha.7", "Release 0.150.0-alpha.7")
+        )
+
+    def test_informative_release_note_is_kept(self) -> None:
+        self.assertFalse(
+            render._echoes_title(
+                "codex 0.150.0-alpha.7",
+                "Release 0.150.0-alpha.7 fixes sandbox escaping on macOS",
+            )
+        )
+
+    def test_empty_after_version_strip_is_an_echo(self) -> None:
+        self.assertTrue(render._echoes_title("codex 0.150.0-alpha.7", "v0.150.0"))
+
+    def test_punctuation_and_casing_cannot_hide_the_echo(self) -> None:
+        self.assertTrue(render._echoes_title("codex 0.150.0-alpha.7", "Codex 0.150.0-alpha.7!"))
+
+
+class GenericReleaseNotesTest(unittest.TestCase):
+    def test_generic_prefixes_match(self) -> None:
+        for sample in (
+            "Bug fixes",
+            "Reliability improvements and perf work",
+            "Maintenance release",
+            "minor fixes",
+            "No release notes",
+        ):
+            with self.subTest(sample=sample):
+                self.assertTrue(render._GENERIC_RELEASE_NOTES_RE.search(sample))
+
+    def test_specific_notes_do_not_match(self) -> None:
+        self.assertIsNone(
+            render._GENERIC_RELEASE_NOTES_RE.search("Fixed a sandbox escape on macOS")
+        )
+
+
+class ReleaseSummaryTest(unittest.TestCase):
+    def test_short_non_release_summary_is_preserved(self) -> None:
+        self.assertEqual(
+            render._clean_release_summary("Yes, we’re confused too.", "news"),
+            "Yes, we’re confused too.",
+        )
+
+    def test_short_release_summary_is_suppressed(self) -> None:
+        self.assertEqual(render._clean_release_summary("Fix crash", "release"), "")
+
+    def test_release_commit_debris_is_removed(self) -> None:
+        self.assertEqual(
+            render._clean_release_summary(
+                "Ship sandbox escape fix for macOS Sonoma (cherry picked from commit abc123)",
+                "release",
+            ),
+            "Ship sandbox escape fix for macOS Sonoma",
         )
 
 
@@ -102,6 +164,21 @@ class TrimTitleSuffixTest(unittest.TestCase):
         )
 
 
+class RankedBecauseTest(unittest.TestCase):
+    def test_matches_shared_fixture(self) -> None:
+        # Same fixture tests/test_ranked_because.mjs pins the JS twin against;
+        # a failure here means the seed and the live feed would disagree.
+        for sample in RANKED_BECAUSE_SAMPLES:
+            with self.subTest(item=sample["item"]):
+                self.assertEqual(
+                    render._ranked_because(sample["item"]), sample["expected"]
+                )
+
+    def test_non_dict_item_is_empty(self) -> None:
+        self.assertEqual(render._ranked_because(None), "")
+        self.assertEqual(render._ranked_because("nope"), "")
+
+
 class SeedHeadingTest(unittest.TestCase):
     def test_single_day(self) -> None:
         self.assertEqual(
@@ -128,6 +205,55 @@ class SeedHeadingTest(unittest.TestCase):
 
     def test_undated_seed(self) -> None:
         self.assertEqual(render._seed_heading([]), "Top signals")
+
+    def test_single_day_with_updated_suffix(self) -> None:
+        self.assertEqual(
+            render._seed_heading(
+                [date(2026, 8, 22)], datetime(2026, 8, 23, 7, 5, tzinfo=timezone.utc)
+            ),
+            "Top signals · Aug 22, 2026 · Updated Aug 23, 07:05 UTC",
+        )
+
+    def test_dates_only_output_is_unchanged_without_updated_at(self) -> None:
+        # Existing callers pass no updated_at; that output must stay byte-identical.
+        self.assertEqual(
+            render._seed_heading([date(2026, 8, 22)], None),
+            render._seed_heading([date(2026, 8, 22)]),
+        )
+
+
+class IsReleaseItemTest(unittest.TestCase):
+    """Pins the seed-side twin of isReleaseItem in api/feed.js.
+
+    The seed hides release items to match the live feed's default Brief lens;
+    drift here would make crawlers see a different feed than JS readers.
+    """
+
+    def test_type_release_is_a_release(self) -> None:
+        self.assertTrue(render._is_release_item({"type": "release"}))
+
+    def test_llm_category_release_wins_over_type(self) -> None:
+        self.assertTrue(
+            render._is_release_item({"type": "news", "llm_category": "Release"})
+        )
+
+    def test_release_notes_summary_prefix_is_a_release(self) -> None:
+        self.assertTrue(render._is_release_item({"summary_1line": "Release notes: fixed x"}))
+        self.assertTrue(render._is_release_item({"summary": "release: new sandboxing"}))
+
+    def test_normal_news_item_is_not_a_release(self) -> None:
+        self.assertFalse(
+            render._is_release_item(
+                {
+                    "type": "news",
+                    "llm_category": "research",
+                    "summary_1line": "Anthropic published evals for long-horizon agent tasks",
+                }
+            )
+        )
+
+    def test_markup_and_casing_cannot_hide_the_prefix(self) -> None:
+        self.assertTrue(render._is_release_item({"summary_1line": "<p>RELEASE NOTES: fixed x</p>"}))
 
 
 class SeedWindowTest(unittest.TestCase):

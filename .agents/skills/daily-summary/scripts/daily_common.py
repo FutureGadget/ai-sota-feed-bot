@@ -210,7 +210,7 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
     """Project a processed feed item down to the fields the recap needs."""
     summary = item.get("summary_1line") or item.get("summary") or ""
     summary = " ".join(str(summary).replace("\n", " ").split())[:400]
-    return {
+    article = {
         "id": item.get("id") or item.get("url") or item.get("title"),
         "title": str(item.get("title") or "Untitled").strip(),
         "url": item.get("url") or "",
@@ -220,6 +220,11 @@ def clean_article(item: dict[str, Any]) -> dict[str, Any]:
         "summary": summary,
         "published": item.get("published") or item.get("collected_at"),
     }
+    for field in ("publisher_name", "publisher_domain"):
+        value = " ".join(str(item.get(field) or "").split())
+        if value:
+            article[field] = value[:200]
+    return article
 
 
 def norm_url(value: Any) -> str:

@@ -27,8 +27,12 @@
   <script src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
-      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', t);
+      var stored = null;
+      // Storage access can throw (blocked cookies/private mode); the OS
+      // preference alone still yields a valid theme attribute.
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.setAttribute('data-theme',
+        stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
@@ -247,6 +251,16 @@
       color: #fff;
       font-weight: 600;
     }
+    /* Per-tab story counts (body.label_counts). Muted so labels stay primary;
+       stays readable on the active pill via the inherit override below. */
+    .sections button .tab-count {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .sections button.active .tab-count {
+      color: inherit;
+      opacity: 0.75;
+    }
     .searchbar {
       width: 100%;
       margin-top: 0.8rem;
@@ -283,6 +297,31 @@
     article.shared-highlight {
       border-color: var(--accent);
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent);
+    }
+    /* Release rows are compact single-line entries, not full news cards.
+       Purely additive styling: the DOM shape is unchanged so save/share/hide/
+       swipe handlers keep working, and the big-story ribbon is untouched. */
+    article.release-row {
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+    article.release-row h3 {
+      font-size: 0.92rem;
+      margin-bottom: 0.15rem;
+    }
+    article.release-row .why {
+      display: none;
+    }
+    article.release-row .matters {
+      display: none;
+    }
+    article.release-row .ranked-why {
+      display: none;
+    }
+    article.release-row .card-meta,
+    article.release-row .card-meta .src,
+    article.release-row .card-meta .badge {
+      font-size: 0.78rem;
     }
     .thumb {
       width: 84px;
@@ -349,7 +388,7 @@
       overflow-wrap: anywhere;
     }
     .card-top .badge {
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       padding: 0.08rem 0.45rem;
     }
     .badge {
@@ -671,6 +710,14 @@
       overflow-wrap: anywhere;
       word-break: break-word;
     }
+    .ranked-why {
+      margin: 0.45rem 0 0;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: color-mix(in srgb, var(--muted) 85%, transparent);
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      overflow-wrap: anywhere;
+    }
     .also {
       margin: 0.35rem 0 0;
       font-size: 0.86rem;
@@ -754,7 +801,7 @@
       color: var(--muted);
     }
     .catchup li .badge {
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       padding: 0.05rem 0.4rem;
       vertical-align: 0.08em;
     }
@@ -784,7 +831,7 @@
     .editor-desk-kicker {
       color: var(--accent);
       font-family: ui-monospace, "SFMono-Regular", monospace;
-      font-size: 0.62rem;
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -891,6 +938,25 @@
       padding: 1rem;
       opacity: 0.85;
     }
+    /* Retry affordance inside state messages: pill like the other list
+       controls (hidden bar, fb-btn), with a comfortable touch target. */
+    .state button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.3rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--fg);
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .state button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
     /* "You're caught up" end-marker: closes the Brief view so the finishable
        promise has a visible finish line. */
     .end-marker {
@@ -925,8 +991,9 @@
     /* Crawler/no-JS feed seed: a static snapshot of the top ranked items,
        generated into the feed-seed marker region inside #list by
        pipeline/render_static_pages.py. It reserves vertical space during HTML
-       parse and is replaced by the skeleton + live cards as soon as the feed
-       JS boots, so JS readers never diverge from the live feed. */
+       parse and stays on screen while the live fetch runs — on failure it is
+       the last good brief the reader falls back to, so JS readers never see
+       an empty feed column. */
     .feed-seed { display: grid; gap: 0.75rem; }
     .feed-seed h2 { margin: 0 0 0.25rem; font-size: 1.05rem; }
     .seed-item {
@@ -939,41 +1006,6 @@
     .seed-item p { margin: 0; font-size: 0.9rem; }
     .seed-item .seed-meta { margin: 0 0 0.1rem; font-size: 0.78rem; color: var(--muted); }
     .seed-more { font-size: 0.9rem; }
-    /* Loading placeholder. JS-injected before the feed fetch resolves so the
-       footer starts below the fold — without it the empty #list lets the
-       footer sit in the first viewport, then ~200 cards shove it down (CLS).
-       Always replaced by real content on first render, so no-JS users and
-       empty/error states never see it. */
-    .skel {
-      display: grid;
-      gap: 0.75rem;
-      min-height: 100vh;
-    }
-    .skel-card {
-      padding: 1rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--card);
-    }
-    .skel-bar {
-      height: 0.7rem;
-      border-radius: 4px;
-      background: color-mix(in srgb, var(--muted) 20%, transparent);
-      animation: skel-pulse 1.3s ease-in-out infinite;
-    }
-    .skel-bar + .skel-bar {
-      margin-top: 0.6rem;
-    }
-    .skel-bar.w-40 { width: 40%; }
-    .skel-bar.w-70 { width: 70%; }
-    .skel-bar.w-90 { width: 90%; }
-    @keyframes skel-pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 0.85; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .skel-bar { animation: none; }
-    }
     input, button, a[role="button"] {
       font-size: 16px;
     }
@@ -1002,7 +1034,9 @@
     html[data-theme="light"] {
       color-scheme: light;
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
-      --muted:#687386; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
+      /* muted must hold 4.5:1 on --bg (it carries bylines, meta, and the rank
+         column); #626d81 is the darkest-warm gray that clears it. */
+      --muted:#626d81; --fg:#121722; --feed-wash:#eaf0ff; --feed-ink:#18243b;
       --signal:#23875b; --warm:#b6780c; --alert:#c4483f;
     }
     html[data-theme="dark"] {
@@ -1019,19 +1053,19 @@
       border-radius:3px; background:transparent; min-height:40px; }
     .quicknav { margin-top:.8rem; padding:.65rem 0; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.68rem; gap:.5rem 1.25rem; }
+      font-size:.75rem; gap:.5rem 1.25rem; }
     .quicknav a { color:var(--muted); }
     .quicknav a:hover { color:var(--accent); text-decoration:none; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
     .feed-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.67rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
     .feed-promise { margin:0; color:var(--muted); font-size:.9rem; line-height:1.6; }
     .feed-promise strong { color:var(--fg); }
     #meta { margin:.75rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.68rem; line-height:1.55; }
+      font-size:.75rem; line-height:1.55; }
     .controls-bar { display: flex; align-items: center; justify-content: space-between;
       border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-top: 0;
       width: 100%; min-width: 0; }
@@ -1055,7 +1089,7 @@
     .selected-labels { padding:.55rem 0; margin:0; border-bottom:1px solid var(--border); }
     .selected-labels .badge { border:0; border-radius:0; padding:.2rem .45rem;
       background:var(--feed-wash); font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.65rem; }
+      font-size:.75rem; }
     .trust-banner { margin:.75rem 0 0; padding:.65rem 0; border:0;
       border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
     .trust-banner[hidden] { display:none !important; }
@@ -1080,7 +1114,7 @@
       border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .model-radar-rail[hidden] { display:none !important; }
     .mr-rail-kicker { margin:0 0 .3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
     .mr-rail-heading { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.15rem; font-weight:700; letter-spacing:-.01em; line-height:1.1; }
     .mr-rail-lede { margin:0 0 .8rem; font-size:.78rem; line-height:1.5; color:var(--muted); }
@@ -1089,20 +1123,20 @@
     .mr-rail-name { display:block; font-size:.85rem; font-weight:650; line-height:1.3;
       color:inherit; text-decoration:none; }
     .mr-rail-name:hover, .mr-rail-name:focus-visible { color:var(--accent); text-decoration:underline; }
-    .mr-rail-org { display:block; margin-top:.15rem; font-size:.72rem; line-height:1.35;
+    .mr-rail-org { display:block; margin-top:.15rem; font-size:.75rem; line-height:1.35;
       color:var(--muted); }
     .mr-rail-meta { display:block; margin-top:.1rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.65rem; color:var(--muted); }
-    .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.58rem;
+      font-size:.75rem; color:var(--muted); }
+    .mr-rail-badge { display:inline-flex; align-items:center; margin-left:.4rem; font-size:.75rem;
       font-weight:700; padding:.04rem .38rem; border:1px solid color-mix(in srgb,var(--accent) 40%,transparent);
       border-radius:999px; color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,var(--card)); }
     .mr-rail-variant { margin-left:.35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; font-weight:600; color:var(--muted); }
-    .mr-rail-sources { margin:0 0 .8rem; font-size:.65rem; line-height:1.5; color:var(--muted); }
+      font-size:.75rem; font-weight:600; color:var(--muted); }
+    .mr-rail-sources { margin:0 0 .8rem; font-size:.75rem; line-height:1.5; color:var(--muted); }
     .mr-rail-sources a { color:var(--muted); }
     .mr-rail-sources a:hover { color:var(--accent); }
     .mr-rail-cta { display:inline-block; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.72rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
+      font-size:.75rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
     .mr-rail-cta:hover { text-decoration:underline; }
     /* Narrow viewports: the feed is the product, so the radar collapses to a
        compact entry point instead of a five-row block. Only the leading model
@@ -1130,17 +1164,21 @@
       letter-spacing:.07em; text-transform:uppercase; color:var(--alert); }
     .rank-no { position:absolute; left:0; top:1rem; width:2.25rem;
       font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.65rem;
-      line-height:1; font-weight:700; color:color-mix(in srgb,var(--muted) 55%,transparent); }
+      line-height:1; font-weight:700; color:var(--muted); }
     .card-top { margin:0 0 .4rem; padding-right:5.5rem; gap:.5rem; }
     .card-meta { gap:.45rem .7rem; }
     .card-top .src, .when { font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.64rem; font-weight:500; color:var(--muted); }
+      font-size:.75rem; font-weight:500; color:var(--muted); }
     .card-top .src { color:var(--fg); font-weight:700; letter-spacing:.04em; }
     .card-top .badge, .badge { border:0; border-radius:0; padding:.05rem 0;
       background:transparent; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.62rem; }
+      font-size:.75rem; }
     .card-top .badge::before { content:"· "; color:var(--border); }
-    a.badge-storyline { border:0; background:transparent; color:var(--accent); }
+    /* Storyline badge is the one tappable control inside .card-meta: give it
+       a real 44px-tall hit box (WCAG 2.5.8 AAA / iOS HIG), not a halo, so the
+       whole pill - including its meta-row line height - is the target. */
+    a.badge-storyline { border:0; background:transparent; color:var(--accent);
+      display:inline-flex; align-items:center; min-height:44px; }
     .card-main { gap:1rem; }
     article h3 { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:1.28rem; line-height:1.22; }
@@ -1149,12 +1187,13 @@
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
+    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.75rem; }
     .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
-    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; }
+    .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
-    .fb-label { font-size:.72rem; }
+    .fb-label { font-size:.75rem; }
     .fb-btn { border:0; border-bottom:1px solid var(--border); border-radius:0;
-      padding:.15rem .35rem; font-size:.72rem; }
+      padding:.15rem .35rem; font-size:.75rem; }
     .catchup, .onboard { border:0; border-left:2px solid var(--accent); border-radius:0;
       background:var(--feed-wash); color:var(--feed-ink); }
     .catchup { margin-bottom:.8rem; padding:.75rem .9rem; }
@@ -1167,7 +1206,6 @@
     .end-marker-sub { color:var(--muted); }
     .state { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
       border-radius:0; }
-    .skel-card { border:0; border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
       .topbar { align-items:center; }
@@ -1182,10 +1220,21 @@
       .site-page-heading { margin-top:0; }
       .site-page-heading h1 { position:absolute; width:1px; height:1px; margin:-1px;
         overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
-      .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.9rem 0 0.8rem; }
-      .feed-kicker { display:none; }
+      /* Restore the masthead positioning copy on mobile (kicker + promise):
+         two clamped lines at legible sizes, with hero margins tightened so
+         the restored rows cost ~50px of scroll before the first story. */
+      .feed-hero { grid-template-columns:1fr; gap:0.15rem; margin:0.45rem 0 0.35rem; }
+      .feed-kicker { display:block; margin:0 0 .15rem; }
       .feed-title { font-size:1.9rem; line-height:1.05; letter-spacing:-.035em; }
-      .feed-promise { display:none; }
+      .feed-promise {
+        display:-webkit-box;
+        -webkit-box-orient:vertical;
+        -webkit-line-clamp:2;
+        overflow:hidden;
+        margin:0.3rem 0 0;
+        font-size:0.85rem;
+        line-height:1.4;
+      }
       #meta { margin-top:0.4rem; }
       .sections {
         overflow-x: auto;
@@ -1215,11 +1264,14 @@
       }
       .quicknav a {
         flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
         padding: 0.25rem 0.6rem;
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 999px;
-        font-size: 0.65rem;
+        font-size: 0.75rem;
       }
       #list > article { padding-left:1.75rem; }
       .rank-no { width:1.2rem; font-size:1.35rem; }
@@ -1228,11 +1280,11 @@
       article h3 { font-size:1.18rem; }
       .thumb { width:72px; height:64px; }
       .fb-btn {
-        min-height: 32px;
+        min-height: 44px;
         padding: 0.2rem 0.5rem;
         display: inline-flex;
         align-items: center;
-        font-size: 0.7rem;
+        font-size: 0.75rem;
       }
       .fb-row {
         gap: 0.35rem;
@@ -1244,6 +1296,9 @@
       }
       .fb-actions {
         gap: 0.35rem;
+        /* Insurance for the smallest viewports: three 44px-tall pills no longer
+           fit one 320px row, so let them wrap rather than clip mid-button. */
+        flex-wrap: wrap;
       }
       .end-marker { display:block; text-align:left; }
       .end-marker::before { display:block; margin-bottom:.6rem; }
@@ -1270,7 +1325,8 @@
       .feed-column { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }
       .model-radar-rail { order:0; flex:0 0 200px; width:200px; margin:0; padding:0;
         border-top:0; border-bottom:0; position:sticky; top:1rem; }
-        /* Wider screens: give the rail real room instead of leaving it cramped
+    }
+    /* Wider screens: give the rail real room instead of leaving it cramped
        at 200px while the page margins go unused. The article column is
        deliberately untouched - only the rail grows, and the arithmetic stays
        exact so no rounding slop reappears: 1280 - 2*1.35rem padding = 1236.8
@@ -1278,7 +1334,6 @@
     @media (min-width:1440px) {
       main { max-width:1280px; }
       .model-radar-rail { flex:0 0 280px; width:280px; }
-    }
     }
 
     /* Shared instrument focus ring — keeps keyboard focus on-brand and matches
@@ -1436,20 +1491,24 @@
     <section id="list" tabindex="-1" aria-label="Ranked stories">
       <!-- feed-seed:start -->
       <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.
-           Crawler/no-JS-visible feed snapshot; the feed JS replaces this region on boot.
+           Crawler/no-JS-visible feed snapshot matching the live feed's default Brief
+           lens (release items excluded); the feed JS replaces this region on boot.
            Do not hand-edit between these markers. -->
       <div class="feed-seed">
-        <h2>Top signals · Aug 22–23, 2026</h2>
-        <article class="seed-item"><p class="seed-meta">simonwillison.net · 2026-08-22</p><h3><a href="https://simonwillison.net/2026/Aug/22/more-than-just-code-review/" rel="noopener">More than just code review</a></h3><p>The key skill required to make productive use of coding agents is being able to confidently instruct them on how to make changes and then confidently verify that those changes have been applied in the correct way. Som... <a href="/story/3f89e94f44724b31">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">news.google.com · 2026-08-23</p><h3><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1YcjlGcC1LM2tuSGZReUQ0N19KcnlscmYyN2hnQW1VZjZ6aURjMThRemljYzdIQmJOYTM4MjZxQ1ExaWtPSGlWNk9TcUloQXBpZi1UVzY5TXZGVzJPbno0ZkN6VkxxYVk?oc=5" rel="noopener">DeepSeek V4 vs R1 vs V3.2: Peak Prices Surge 355% [2026] - tech-insider.org</a></h3><p>DeepSeek V4 vs R1 vs V3.2: Peak Prices Surge 355% [2026] tech-insider.org <a href="/story/b95869980d7a5f3a">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">infoq.com · 2026-08-22</p><h3><a href="https://www.infoq.com/news/2026/08/cloudflare-kitesurf-browser/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" rel="noopener">Cloudflare Announces Kitesurf, a Browser Engine for Agents</a></h3><p>Cloudflare recently introduced Kitesurf, a lightweight browser built for automated workloads. Kitesurf runs browser components in isolated WebAssembly/Rust environments on Cloudflare Workers and supports the Chrome De... <a href="/story/0107ba20325965dd">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">infoq.com · 2026-08-22</p><h3><a href="https://www.infoq.com/news/2026/08/linkedin-ai-code-review/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" rel="noopener">AI Code Review at Scale: LinkedIn&#x27;s Multi-Agent Approach</a></h3><p>At LinkedIn&#x27;s scale, relying solely on human reviewers or simply putting an off-the-shelf AI reviewer in front of GitHub is not an effective way to manage PRs. To address this, LinkedIn engineers built a multi-agent A... <a href="/story/1ed24debfc2b958d">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">simonwillison.net · 2026-08-22</p><h3><a href="https://simonwillison.net/2026/Aug/22/linus-torvalds/" rel="noopener">Quoting Linus Torvalds</a></h3><p>And this was a debug session from hell, enormously helped by an AI doing much of the grunt-work. I&#x27;d like to call it my tireless helper, but the AI several times stated flat out that this was impossible and unsolvable... <a href="/story/8a1948cc7f7c09c4">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">vllm.ai · 2026-08-23</p><h3><a href="https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus" rel="noopener">Exploring Speculative Decoding in vLLM on AMD GPUs</a></h3><p>A practical guide to speculative decoding in vLLM on AMD GPUs, covering draft-and-verify mechanics, MTP, EAGLE-3, DFlash, DSpark, configuration, tuning, and benchmark results. <a href="/story/b4fa4d7778a6247d">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">github.com · 2026-08-22</p><h3><a href="https://github.com/openai/codex/releases/tag/rust-v0.150.0-alpha.7" rel="noopener">codex 0.150.0-alpha.7</a></h3><p>Release 0.150.0-alpha.7 <a href="/story/657af82b1be3d804">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">latent.space · 2026-08-22</p><h3><a href="https://www.latent.space/p/attention-interface" rel="noopener">The Evolution of the Agent Harness</a></h3><p>Models keep absorbing the harness into their weights — soon, it will be a harness for human attention rather than for the model. <a href="/story/df63102a57f71f08">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">magazine.sebastianraschka.com · 2026-08-22</p><h3><a href="https://magazine.sebastianraschka.com/p/claude-watermarking" rel="noopener">How Claude Watermarks AI-Generated Text</a></h3><p>A 48-minute video walkthrough of token sampling, watermark detection, and removal <a href="/story/ec1dae1d3407b62b">Context &amp; related coverage →</a></p></article>
-        <article class="seed-item"><p class="seed-meta">github.com · 2026-08-23</p><h3><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.241" rel="noopener">claude-code v2.1.241</a></h3><p>Bug fixes and reliability improvements <a href="/story/3b44ef5086f0454c">Context &amp; related coverage →</a></p></article>
+        <h2>Top signals · Aug 22–23, 2026 · Updated Aug 23, 15:01 UTC</h2>
+        <article class="seed-item"><p class="seed-meta">simonwillison.net · 2026-08-22 · Ranked: agentic match · practitioner analysis · fresh 0.80 · score 2.01</p><h3><a href="https://simonwillison.net/2026/Aug/22/more-than-just-code-review/" rel="noopener">More than just code review</a></h3><p>The key skill required to make productive use of coding agents is being able to confidently instruct them on how to make changes and then confidently verify that those changes have been applied in the correct way. Som... <a href="/story/3f89e94f44724b31">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">CN Open-Weight Lab coverage · 2026-08-23 · Ranked: community signal · fresh 0.96 · score 1.87 · <a href="/story/b95869980d7a5f3a">Context</a></p><h3><a href="https://news.google.com/rss/articles/CBMiZ0FVX3lxTE1YcjlGcC1LM2tuSGZReUQ0N19KcnlscmYyN2hnQW1VZjZ6aURjMThRemljYzdIQmJOYTM4MjZxQ1ExaWtPSGlWNk9TcUloQXBpZi1UVzY5TXZGVzJPbno0ZkN6VkxxYVk?oc=5" rel="noopener">DeepSeek V4 vs R1 vs V3.2: Peak Prices Surge 355% [2026]</a></h3></article>
+        <article class="seed-item"><p class="seed-meta">infoq.com · 2026-08-22 · Ranked: agent match · practitioner analysis · fresh 0.80 · score 1.78</p><h3><a href="https://www.infoq.com/news/2026/08/cloudflare-kitesurf-browser/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" rel="noopener">Cloudflare Announces Kitesurf, a Browser Engine for Agents</a></h3><p>Cloudflare recently introduced Kitesurf, a lightweight browser built for automated workloads. Kitesurf runs browser components in isolated WebAssembly/Rust environments on Cloudflare Workers and supports the Chrome De... <a href="/story/0107ba20325965dd">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">infoq.com · 2026-08-22 · Ranked: agent match · practitioner analysis · fresh 0.75 · score 1.78</p><h3><a href="https://www.infoq.com/news/2026/08/linkedin-ai-code-review/?utm_campaign=infoq_content&amp;utm_source=infoq&amp;utm_medium=feed&amp;utm_term=AI%2C+ML+%26+Data+Engineering" rel="noopener">AI Code Review at Scale: LinkedIn&#x27;s Multi-Agent Approach</a></h3><p>At LinkedIn&#x27;s scale, relying solely on human reviewers or simply putting an off-the-shelf AI reviewer in front of GitHub is not an effective way to manage PRs. To address this, LinkedIn engineers built a multi-agent A... <a href="/story/1ed24debfc2b958d">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">simonwillison.net · 2026-08-22 · Ranked: practitioner analysis · fresh 0.84 · score 1.77</p><h3><a href="https://simonwillison.net/2026/Aug/22/linus-torvalds/" rel="noopener">Quoting Linus Torvalds</a></h3><p>And this was a debug session from hell, enormously helped by an AI doing much of the grunt-work. I&#x27;d like to call it my tireless helper, but the AI several times stated flat out that this was impossible and unsolvable... <a href="/story/8a1948cc7f7c09c4">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">vllm.ai · 2026-08-23 · Ranked: practitioner analysis · fresh 0.86 · score 1.63</p><h3><a href="https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus" rel="noopener">Exploring Speculative Decoding in vLLM on AMD GPUs</a></h3><p>A practical guide to speculative decoding in vLLM on AMD GPUs, covering draft-and-verify mechanics, MTP, EAGLE-3, DFlash, DSpark, configuration, tuning, and benchmark results. <a href="/story/b4fa4d7778a6247d">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">latent.space · 2026-08-22 · Ranked: agent + harness match · practitioner analysis · fresh 0.74 · score 1.51</p><h3><a href="https://www.latent.space/p/attention-interface" rel="noopener">The Evolution of the Agent Harness</a></h3><p>Models keep absorbing the harness into their weights — soon, it will be a harness for human attention rather than for the model. <a href="/story/df63102a57f71f08">Context &amp; related coverage →</a></p></article>
+        <article class="seed-item"><p class="seed-meta">magazine.sebastianraschka.com · 2026-08-22 · Ranked: practitioner analysis · fresh 0.77 · score 1.45</p><h3><a href="https://magazine.sebastianraschka.com/p/claude-watermarking" rel="noopener">How Claude Watermarks AI-Generated Text</a></h3><p>A 48-minute video walkthrough of token sampling, watermark detection, and removal <a href="/story/ec1dae1d3407b62b">Context &amp; related coverage →</a></p></article>
+        <div class="end-marker" role="status">
+          <div class="end-marker-title">✓ You're all caught up</div>
+          <div class="end-marker-sub">Top 8 ranked stories in this snapshot · fresh brief every 2 hours</div>
+        </div>
+
         <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>
       </div>
       <!-- feed-seed:end -->
@@ -1827,6 +1886,9 @@
       if (!setHidden(key, reason)) return false;
       const rerender = () => { if (viewState === 'feed') renderFeedList(); };
       if (!showHiddenState && card) {
+        // The slide-out transform is applied out-of-band; force the next
+        // re-render (e.g. Undo mid-animation) to actually write the DOM.
+        lastRenderedListHtml = '';
         card.classList.add('card-removing');
         card.style.transform = 'translateX(-110%)';
         let done = false;
@@ -2075,6 +2137,8 @@
         }
         pendingSharedItemUrl = '';
         posthogCapture('share_landing', { found: false, url: target, utm_source: landingUtmSource || null });
+        // Prepending outside renderFeedList desyncs its change-skip mirror.
+        lastRenderedListHtml = '';
         document.getElementById('list')?.insertAdjacentHTML(
           'afterbegin',
           '<div class="state">The shared story has aged out of the live feed — here&#39;s what&#39;s new instead.</div>'
@@ -2251,10 +2315,26 @@
 
     function syncSectionTabs() {
       const current = viewState === 'saved' ? null : activeSection();
-      const buttons = document.querySelectorAll('#sections button[data-section]');
-      buttons.forEach((b) => {
+      // Per-tab story counts from the feed API (body.label_counts): what each
+      // section holds in the current date window only - never search, saved
+      // state, or the reader's selected labels. All/Saved keep their own
+      // signals (All is obvious; Saved has its live counter).
+      const counts = feedCache.labelCounts || {};
+      document.querySelectorAll('#sections button[data-section]').forEach((b) => {
         const matches = current !== null && (b.dataset.section || '') === current;
         b.classList.toggle('active', matches);
+        const section = b.dataset.section || '';
+        let span = b.querySelector('.tab-count');
+        if (!span) {
+          span = document.createElement('span');
+          span.className = 'tab-count';
+          b.appendChild(span);
+        }
+        const n = Number(counts[section]);
+        // Appending a sibling span (not rewriting button text) keeps the title
+        // tooltips on Brief/Research intact across re-renders.
+        const show = SECTION_VALUES.has(section) && Number.isFinite(n) && n > 0;
+        span.textContent = show ? ` ${n}` : '';
       });
       updateSavedTab();
     }
@@ -2314,6 +2394,27 @@
       u.searchParams.set('limit', limitState);
       for (const l of getSelectedLabels()) u.searchParams.append('label', l);
       return u.pathname + u.search;
+    }
+
+    // Fetch and consume JSON under one hard deadline. Keeping the timer alive
+    // through response.json() matters because a server can send 200 headers
+    // and then stall mid-body. Non-ok responses return without parsing so the
+    // caller can handle status-specific fallbacks such as localhost 404s.
+    async function fetchJsonWithTimeout(url, opts = {}, ms = 12000) {
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), ms);
+      try {
+        const response = await fetch(url, { ...opts, signal: ac.signal });
+        const data = response.ok ? await response.json() : null;
+        return { response, data };
+      } catch (err) {
+        // With our own controller, AbortError means the shared header/body
+        // deadline fired.
+        if (err && err.name === 'AbortError') throw new Error(`timeout_${ms}_${url}`);
+        throw err;
+      } finally {
+        clearTimeout(timer);
+      }
     }
 
     function esc(v) {
@@ -2460,6 +2561,7 @@
       langchain_blog: 'LangChain Blog',
       search_agent_engineering_news: 'Agent Engineering News',
       search_llm_ops_news: 'LLM Ops News',
+      search_cn_open_weight_labs: 'CN Open-Weight Lab coverage',
     };
     const SOURCE_ACRONYMS = new Set(['ai', 'ml', 'llm', 'aws', 'api', 'sdk', 'gpu']);
 
@@ -2494,14 +2596,14 @@
       return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
     }
 
-    // Fetched once per page load; a storylines outage must never break the feed.
+    // Fetched once per page load; a storylines outage must never break the
+    // feed — every failure mode (timeout, HTTP, parse) resolves empty here.
     function ensureStorylines() {
       if (!storylinesPromise) {
         storylinesPromise = (async () => {
           try {
-            const res = await fetch('/api/storylines');
-            if (!res.ok) return;
-            const data = await res.json();
+            const { response, data } = await fetchJsonWithTimeout('/api/storylines', {}, 8000);
+            if (!response.ok) return;
             storylineIndex = Array.isArray(data.storylines) ? data.storylines : [];
             storylineByUrl = new Map();
             for (const sl of storylineIndex) {
@@ -2585,8 +2687,8 @@
       if (!editorDeskPromise) {
         editorDeskPromise = Promise.all([
           sharedUpdatesReady().catch(() => null),
-          fetch('/api/playbook?sources=1', { headers: { accept: 'application/json' } })
-            .then((r) => r.ok ? r.json() : {})
+          fetchJsonWithTimeout('/api/playbook?sources=1', { headers: { accept: 'application/json' } }, 8000)
+            .then(({ response, data }) => response.ok ? data : {})
             .catch(() => ({})),
         ]).then(([, playbookSources]) => {
           editorDeskData = {
@@ -2726,15 +2828,40 @@
     // keystroke - so compile each source's patterns once and reuse them.
     const suffixPatternCache = new Map();
 
+    function itemUrlHost(itemUrl) {
+      const abs = String(itemUrl || '');
+      if (!/^https?:\/\//i.test(abs)) return '';
+      try {
+        return new URL(abs).hostname.replace(/^www\./i, '').toLowerCase();
+      } catch {}
+      return '';
+    }
+
+    function isNewsGoogleHost(host) {
+      return /^news\.google(?:\.[a-z]{2,}){1,3}$/.test(String(host || ''));
+    }
+
+    // Google News syndicates headlines as "Title - Outlet" / "Title | Outlet".
+    // Historical items predate the collector's publisher capture, so fall back
+    // to a shape check: only strip when the tail reads like a site name
+    // ending in a known TLD (max 3 words), never on arbitrary prose.
+    const GNEWS_SITE_TAIL_RE = /^[A-Za-z0-9][A-Za-z0-9 .'-]*\.(?:com|net|org|io|co|ai|news|dev|us|uk)$/i;
+
+    function trimGnewsSiteTail(t) {
+      for (const sep of [' - ', ' | ']) {
+        const idx = t.lastIndexOf(sep);
+        if (idx <= 0) continue;
+        const tail = t.slice(idx + sep.length).trim();
+        if (!tail || tail.split(/\s+/).length > 3) continue;
+        if (!GNEWS_SITE_TAIL_RE.test(tail)) continue;
+        return t.slice(0, idx).trim();
+      }
+      return t;
+    }
+
     function suffixPatterns(sourceName, itemUrl) {
       const source = String(sourceName || '');
-      let host = '';
-      const abs = String(itemUrl || '');
-      if (/^https?:\/\//i.test(abs)) {
-        try {
-          host = new URL(abs).hostname.replace(/^www\./i, '');
-        } catch {}
-      }
+      const host = itemUrlHost(itemUrl);
       const cacheKey = `${source}\u0000${host}`;
       const cached = suffixPatternCache.get(cacheKey);
       if (cached) return cached;
@@ -2752,12 +2879,27 @@
     function trimTitleSuffix(title, sourceName, itemUrl) {
       let t = String(title || '').trim();
       const original = t;
+      let matched = false;
       for (const re of suffixPatterns(sourceName, itemUrl)) {
         const next = t.replace(re, '').trim();
-        if (next !== t) { t = next; break; }
+        if (next !== t) { t = next; matched = true; break; }
       }
+      if (!matched && isNewsGoogleHost(itemUrlHost(itemUrl))) t = trimGnewsSiteTail(original);
       if (t !== original && (!t || t.length < 15)) return original;
       return t;
+    }
+
+    // Card byline: Google News items should name the real outlet, not the
+    // aggregator or the raw feed slug. New items carry captured publisher
+    // fields; older ones degrade to the friendly search-feed label.
+    function cardSourceLabel(it) {
+      const pub = String(it?.publisher_name || '').trim() || String(it?.publisher_domain || '').trim();
+      if (pub) return pub;
+      if (isNewsGoogleHost(itemUrlHost(it?.url))) {
+        const slug = String(it?.source || '');
+        return SOURCE_NAMES[slug] || sourceDisplayName(slug);
+      }
+      return sourceDisplayName(it?.source);
     }
 
     // Older run snapshots still carry the generic heuristic placeholder;
@@ -2771,20 +2913,117 @@
       return why;
     }
 
+    const SLOT_LABELS = {
+      frontier_official: 'frontier lab',
+      agent_tooling_releases: 'agent tooling release',
+      infra_runtime_releases: 'infra/runtime release',
+      open_weight_releases: 'open-weight release',
+      vendor_general_updates: 'vendor update',
+      cloud_platform_updates: 'cloud platform update',
+      practitioner_analysis: 'practitioner analysis',
+      community_signal: 'community signal',
+      research_watch: 'research watch',
+      overflow: 'long tail',
+    };
+
+    // Deterministic stand-in for the editorial why line: states the measurable
+    // ranking reasons (matched topics, slot, freshness, score) so every card
+    // carries a visible rationale. Pure - pinned against
+    // tests/fixtures/ranked_because_samples.json alongside _ranked_because in
+    // pipeline/render_static_pages.py.
+    function rankedBecauseText(it) {
+      if (!it || typeof it !== 'object') return '';
+      const why = cleanText(it.why_it_matters);
+      if (why && why !== LEGACY_PLACEHOLDER_WHY && !/^Matches feed focus:/i.test(why)) return '';
+      const parts = [];
+      const topics = (Array.isArray(it.matched_topics) ? it.matched_topics : [])
+        .filter((t) => String(t || '').trim())
+        .slice(0, 2)
+        .join(' + ');
+      if (topics) parts.push(`${topics} match`);
+      if (it.slot) parts.push(SLOT_LABELS[it.slot] || String(it.slot).replace(/_/g, ' '));
+      if (it.time_decay_factor != null && String(it.time_decay_factor).trim() !== '') {
+        const decay = Number(it.time_decay_factor);
+        if (Number.isFinite(decay)) parts.push(`fresh ${decay.toFixed(2)}`);
+      }
+      const scoreRaw = it.final_score ?? it.tier1_quick_score;
+      const score = (scoreRaw == null || String(scoreRaw).trim() === '') ? NaN : Number(scoreRaw);
+      if (Number.isFinite(score)) parts.push(`score ${score.toFixed(2)}`);
+      return parts.length ? `Ranked: ${parts.join(' · ')}` : '';
+    }
+
+    // Release feeds often repeat the tag name as the entire summary
+    // ("Release 0.150.0-alpha.7"); normalizing both sides keeps punctuation
+    // and casing from hiding the duplication.
+    function normalizeEcho(s) {
+      return String(s || '').toLowerCase().replace(/\W+/g, ' ').trim();
+    }
+
+    function stripVersionTokens(s) {
+      return String(s || '')
+        .replace(/\bv?\d+(?:\.\d+)+(?:-[0-9a-z.\d]+)?\b/gi, ' ')
+        .replace(/\b(?:release|version)\b/gi, ' ')
+        .replace(/\W+/g, ' ')
+        .trim();
+    }
+
+    function echoesTitle(title, summary) {
+      return normalizeEcho(summary) === normalizeEcho(title) || stripVersionTokens(summary) === '';
+    }
+
+    // "(cherry picked …)" / "Signed-off-by:" mark excerpts lifted straight
+    // from commit logs; cut at the first one and only keep what still reads
+    // as a sentence.
+    function cleanReleaseSummary(summary, itemType = 'release') {
+      let s = String(summary || '');
+      if (String(itemType || '').toLowerCase() !== 'release') return s.trim();
+      for (const marker of ['(cherry picked', 'Signed-off-by:']) {
+        const i = s.indexOf(marker);
+        if (i !== -1) s = s.slice(0, i);
+      }
+      s = s.trim();
+      return s.length < 25 ? '' : s;
+    }
+
+    function isGenericReleaseNotes(s) {
+      return /^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b/i.test(String(s || '').trim());
+    }
+
     function cardHtml(it, { rank = null, runId = '', hideable = true } = {}) {
       const key = itemKey(it);
       const rawTitle = String(it.title || 'Untitled');
       const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
-      const source = esc(sourceDisplayName(it.source));
+      const source = esc(cardSourceLabel(it));
       const sourceSlug = esc(it.source || 'unknown');
-      const type = esc(it.type || 'news');
+      const rawType = String(it.type || 'news').toLowerCase();
+      const type = esc(rawType);
       const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));
       const summaryRaw0 = cleanText(it.summary_1line);
-      const summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
+      let summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : cleanReleaseSummary(summaryRaw0, rawType);
+      // Historical google-news excerpts repeat the syndicated headline,
+      // often followed by the bare publisher name with no separator; anything
+      // left after removing the echoed headline is publisher debris.
+      if (summaryRaw && isNewsGoogleHost(itemUrlHost(it.url))) {
+        const plainTitle = trimTitleSuffix(rawTitle, it.source, it.url);
+        const lowTitle = plainTitle.toLowerCase();
+        if (lowTitle && summaryRaw.toLowerCase().startsWith(lowTitle)) {
+          let rest = summaryRaw.slice(plainTitle.length).trim();
+          rest = rest.replace(/^(?:[-\u2013|]\s*)+/, '');
+          if (!GNEWS_SITE_TAIL_RE.test((rest.split(/\s+/).pop()) || '')) {
+            summaryRaw = rest;
+          } else {
+            summaryRaw = '';
+          }
+        } else {
+          summaryRaw = trimGnewsSiteTail(summaryRaw);
+        }
+        if (summaryRaw.length < 25) summaryRaw = '';
+      }
+      if (echoesTitle(it.title, summaryRaw0)) summaryRaw = '';
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = whyItMattersText(it);
-      const why = (whyRaw && whyRaw !== summaryRaw) ? esc(whyRaw) : '';
+      const why = whyRaw || rankedBecauseText(it);
       const href = safeUrl(it.url);
       // Only use an absolute http(s) image URL. safeUrl() resolves bare/relative
       // strings against our origin (e.g. a scraped placeholder "URL to first
@@ -2823,7 +3062,10 @@
         `<button type="button" class="fb-btn" data-fb-id="${itemId}" data-fb-signal="${signal}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" aria-pressed="${fbActive === signal ? 'true' : 'false'}">${label}</button>`
       ).join('');
 
-      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : ''].filter(Boolean).join(' ');
+      // Release items without a real excerpt render as compact rows, not
+      // full cards; class-only so save/share/hide/swipe handlers keep working.
+      const isReleaseRow = type === 'release' && (!summaryRaw || isGenericReleaseNotes(summaryRaw));
+      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
           ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
@@ -2852,7 +3094,7 @@
             </div>
             ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
-          ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+          ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">💡 ${esc(why)}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
           <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
@@ -2876,6 +3118,9 @@
 
     function renderSavedView() {
       const list = document.getElementById('list');
+      // Saved content replaces the feed here; reset renderFeedList's
+      // change-skip mirror so returning to an unchanged feed still rewrites.
+      lastRenderedListHtml = '';
       const q = searchQueryState.trim().toLowerCase();
       const all = Object.values(savedItemsState)
         .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
@@ -3036,8 +3281,10 @@
         // publisher summary is the fallback, not the headline act.
         const whyRaw = whyItMattersText(it);
         const summaryRaw0 = cleanText(it.summary_1line);
-        const summaryFallback = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
-        const lineRaw = whyRaw || summaryFallback;
+        const summaryFallback = looksLikeKeywordList(summaryRaw0) || echoesTitle(it.title, summaryRaw0)
+          ? ''
+          : cleanReleaseSummary(summaryRaw0, it.type);
+        const lineRaw = whyRaw || rankedBecauseText(it) || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
         return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(trimTitleSuffix(it.title || 'Untitled', it.source, it.url))}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
@@ -3089,20 +3336,18 @@
     }
 
     // Last fetched feed payload; search re-renders from here without refetching.
-    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false };
-
-    // Loading placeholder for the feed list. Reserves vertical space so the
-    // footer doesn't jump when real cards arrive (CLS). aria-hidden because
-    // the #feedStatus role=status region announces the real content once it renders.
-    function skeletonHtml(n = 6) {
-      const card =
-        '<div class="skel-card">' +
-        '<div class="skel-bar w-40"></div>' +
-        '<div class="skel-bar w-90"></div>' +
-        '<div class="skel-bar w-70"></div>' +
-        '</div>';
-      return `<div class="skel" aria-hidden="true">${card.repeat(n)}</div>`;
-    }
+    let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false, labelCounts: null };
+    // Render bookkeeping. lastRenderedListHtml mirrors what we last wrote to
+    // #list so identical re-renders (decoration pass, retried runs) skip the
+    // DOM write; lastGoodListHtml holds the newest markup that contained real
+    // cards and doubles as the fallback when a live fetch fails (boot seeds it
+    // from the crawler-visible snapshot).
+    let lastGoodListHtml = '';
+    let lastRenderedListHtml = '';
+    // One feed fetch at a time: triggers landing mid-flight coalesce into a
+    // single follow-up rerun instead of racing stale responses.
+    let runInFlight = false;
+    let pendingReRun = false;
 
     // End-of-Brief marker: a one-line finish line so the default view ends
     // ("read everything, you're caught up") instead of trailing off.
@@ -3190,56 +3435,104 @@
       setFeedStatus(countText);
       syncSectionTabs();
 
+      let html;
       if (!visible.length) {
         if (!q && hiddenInView > 0) {
           // Everything in this window is hidden — offer a way to bring it back
           // rather than implying the feed is empty.
-          list.innerHTML = hiddenBarHtml(hiddenInView)
+          html = hiddenBarHtml(hiddenInView)
             + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
-          return;
+        } else if (q) {
+          html = `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`;
+        } else {
+          // Name what's actually filtering: topic selections read differently
+          // from an empty date window, and each gets its own next step. The
+          // baseline is the default Brief lens over Today - anything beyond
+          // that (extra topics, a shared ?from/?to range) earns a one-tap
+          // reset instead of leaving readers to hunt for the controls.
+          const topicsActive = noteTopics.length > 0;
+          const filtersCleared = sameLabels(selectedLabels, DEFAULT_SECTION_LABELS)
+            || selectedLabels.length === 0;
+          const somethingToClear = (!filtersCleared && selectedLabels.length > 0)
+            || !!customRangeState.from || !!customRangeState.to || !!searchQueryState.trim();
+          html = `<div class="state">${
+            topicsActive
+              ? `Nothing under ${esc(noteTopics.join(', '))} in this range.`
+              : 'No items for that date/time range. Try widening the window.'
+          }${somethingToClear ? ` <button type="button" data-clear-filters="1">Clear filters</button>` : ''}</div>`;
         }
-        list.innerHTML = q
-          ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
-          : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
-        return;
+      } else {
+        const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
+        if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
+        if (!q) {
+          // Onboarding (first visit) or subscribe nudge (returning visits) goes
+          // after the 3rd story; catch-up stays pinned on top.
+          const promo = onboardingHtml() || subscribeNudgeHtml();
+          if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
+          const editorInserts = editorDeskInserts(visible);
+          let editorOffset = 0;
+          for (const insert of editorInserts) {
+            cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
+            editorOffset += 1;
+          }
+          cards.unshift(catchupHtml(items));
+          // Finish line for the Brief default — make the "finishable" promise
+          // visible. Only on the Brief lens (not the firehose/topic views).
+          if (activeSection() === 'brief') {
+            cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
+          }
+        }
+        html = cards.join('');
       }
 
-      const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
-      if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
-      if (!q) {
-        // Onboarding (first visit) or subscribe nudge (returning visits) goes
-        // after the 3rd story; catch-up stays pinned on top.
-        const promo = onboardingHtml() || subscribeNudgeHtml();
-        if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
-        const editorInserts = editorDeskInserts(visible);
-        let editorOffset = 0;
-        for (const insert of editorInserts) {
-          cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
-          editorOffset += 1;
-        }
-        cards.unshift(catchupHtml(items));
-        // Finish line for the Brief default — make the "finishable" promise
-        // visible. Only on the Brief lens (not the firehose/topic views).
-        if (activeSection() === 'brief') {
-          cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
-        }
+      // Skip identical rewrites (the post-fetch decoration pass rebuilds the
+      // same markup), and keep real card content as the fetch-failure fallback.
+      if (html !== lastRenderedListHtml) {
+        lastRenderedListHtml = html;
+        list.innerHTML = html;
+        if (visible.length) lastGoodListHtml = html;
       }
-      list.innerHTML = cards.join('');
+    }
+
+    // True once either decoration source has actual data — guards the
+    // pointless second render when both outage-safe loaders resolved empty.
+    function decorationsHaveData() {
+      return storylineByUrl.size > 0 || Object.keys(editorDeskData?.playbookSources || {}).length > 0;
     }
 
     async function run() {
       syncUrlFromFilters();
+      // Saved view is a sync local render — no fetch — so it bypasses the
+      // in-flight guard instead of queueing behind a live-feed run.
       if (viewState === 'saved') {
         renderSavedView();
         return;
       }
-      let [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines(), ensureEditorDeskData()]);
+      if (runInFlight) {
+        pendingReRun = true;
+        return;
+      }
+      runInFlight = true;
+      try {
+        await runInner();
+      } finally {
+        runInFlight = false;
+        if (pendingReRun) {
+          pendingReRun = false;
+          refreshFeed();
+        }
+      }
+    }
+
+    async function runInner() {
+      // Decorations ride along but never gate the first paint: kick them off,
+      // render as soon as feed data lands, re-render once they arrive.
+      const decorationsReady = Promise.all([ensureStorylines(), ensureEditorDeskData()]);
+      let { response: res, data } = await fetchJsonWithTimeout(buildFeedUrl());
       if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
-        res = await fetch('/data/processed/latest.json', { cache: 'no-store' });
+        ({ response: res, data } = await fetchJsonWithTimeout('/data/processed/latest.json', { cache: 'no-store' }));
       }
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
-
-      let data = await res.json();
       if (Array.isArray(data)) {
         const labels = getSelectedLabels();
         const cutoff = presetDaysState === 'all'
@@ -3284,7 +3577,7 @@
       ) {
         emptyWindowWidened = true;
         setDateRangeDays(3);
-        await run();
+        await runInner();
         return;
       }
 
@@ -3295,6 +3588,7 @@
         runId,
         totalItems: Number(data.total_items ?? items.length),
         hasMore: Boolean(data.has_more),
+        labelCounts: (data.label_counts && typeof data.label_counts === 'object') ? data.label_counts : null,
       };
       itemsByKey = new Map(items.map((it) => [itemKey(it), it]));
       renderFeedList();
@@ -3319,16 +3613,42 @@
         ts: new Date().toISOString(),
       }));
       captureEvents(impressions);
+
+      // Decoration pass, after analytics so it can't interleave with the
+      // first-paint render: re-renders in place (renderFeedList skips the
+      // DOM write when nothing changed) once storylines/desk data arrive.
+      decorationsReady.then(() => {
+        if (viewState !== 'feed') return;
+        if (!decorationsHaveData()) return;
+        if (!feedCache.items.length) return;
+        renderFeedList();
+      }).catch(() => {});
     }
 
     // exitSaved: filter interactions leave the saved view and go back to the feed.
     function refreshFeed({ exitSaved = false } = {}) {
       if (exitSaved) viewState = 'feed';
       run().catch(err => {
-        document.getElementById('meta').textContent = 'Feed unavailable';
-        setFeedStatus('Feed unavailable. Could not load the feed right now.');
-        document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
         console.error(err);
+        if (viewState !== 'feed') return;
+        const retry = '<button type="button" data-retry-feed="1">Retry</button>';
+        const bar = `<div class="state">Live feed failed to load just now. ${retry}</div>`;
+        const list = document.getElementById('list');
+        if (lastGoodListHtml) {
+          const fallback = bar + lastGoodListHtml;
+          list.innerHTML = fallback;
+          // Record what we wrote, or a later successful render could be
+          // skipped as "unchanged" and leave this error bar stuck on screen.
+          lastRenderedListHtml = fallback;
+          document.getElementById('meta').textContent = 'Showing the last good brief';
+          setFeedStatus('Live feed failed to load. Showing the last good brief.');
+        } else {
+          const fallback = `<div class="state">Could not load the feed right now. ${retry}</div>`;
+          list.innerHTML = fallback;
+          lastRenderedListHtml = fallback;
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          setFeedStatus('Feed unavailable. Could not load the feed right now.');
+        }
       });
     }
 
@@ -3339,6 +3659,29 @@
       list.addEventListener('click', (e) => {
         if (e.target.closest('button[data-export-saved]')) {
           exportSavedMarkdown();
+          return;
+        }
+
+        if (e.target.closest('button[data-retry-feed]')) {
+          // Spam-safe via run()'s own in-flight coalescing: taps while a fetch
+          // is running collapse into one follow-up rerun.
+          refreshFeed();
+          return;
+        }
+
+        if (e.target.closest('button[data-clear-filters]')) {
+          // Session-scoped reset only: nothing durable (pins, hidden items) is
+          // touched. Restore the finishable Brief lens and re-arm its one-time
+          // Today-to-3d widening so Clear filters cannot land on another empty
+          // state just after midnight.
+          setSelectedLabels(DEFAULT_SECTION_LABELS);
+          setDateRangeDays(1);
+          searchQueryState = '';
+          emptyWindowWidened = false;
+          const searchBox = document.getElementById('searchBox');
+          if (searchBox) searchBox.value = '';
+          posthogCapture('clear_filters', {});
+          refreshFeed({ exitSaved: true });
           return;
         }
 
@@ -3625,9 +3968,11 @@
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
-    // Reserve the feed's vertical space before the fetch resolves so the
-    // footer starts below the fold and doesn't jump on first render (CLS).
-    document.getElementById('list').innerHTML = skeletonHtml();
+    // Snapshot the crawler-visible seed before anything rewrites #list: it
+    // stays on screen during the fetch (reserving vertical space with real
+    // content, no CLS) and is the fallback brief if this first fetch fails.
+    lastGoodListHtml = document.getElementById('list').innerHTML;
+    document.getElementById('meta').textContent = 'Updating the brief...';
     refreshFeed();
   </script>
 

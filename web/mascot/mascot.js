@@ -10,7 +10,8 @@
  * Three ways to use it — pick whichever fits:
  *
  * 1. Drop-in (zero config). Import the module; a default mascot floats in the
- *    bottom-right corner:
+ *    bottom-right corner (smaller and purely decorative below 640px unless the
+ *    caller sets width/height/interactive itself):
  *        <script type="module" src="/mascot/mascot.js"></script>
  *    Tweak the default via a global BEFORE import, or opt out with `false`:
  *        <script>window.BubbleBuddyConfig = { position: 'bottom-left' };</script>
@@ -22,8 +23,8 @@
  *        <div data-bubble-buddy data-position="top-right" data-width="120"
  *             data-tips="Hi there|Welcome!"></div>
  *    Supported data-* attrs: position, width, height, offset-x, offset-y,
- *    z-index, autostart, dismissible, storage-key, first-delay, gap-min,
- *    gap-max, dwell-min, dwell-max, tips ("a|b|c"), aria-label.
+ *    z-index, interactive, autostart, dismissible, storage-key, first-delay,
+ *    gap-min, gap-max, dwell-min, dwell-max, tips ("a|b|c"), aria-label.
  *
  * 3. Programmatic — full control via the factory:
  *        import { createBubbleBuddy } from '/mascot/mascot.js';
@@ -51,9 +52,10 @@ const DEFAULT_TIPS = [
 const DEFAULTS = {
   mount: null,                 // Element | CSS selector | null (→ document.body)
   position: 'bottom-right',    // bottom-right | bottom-left | top-right | top-left | fill
-  offsetX: 18, offsetY: 14,    // px from the chosen corner (ignored for 'fill')
+  offsetX: 18, offsetY: 14,    // px (or any CSS length, e.g. a calc() with env(safe-area-*))
   width: 150, height: 185,     // px (ignored for 'fill' — fills the mount)
   zIndex: 60,
+  interactive: true,           // poke-to-react + dismiss ×; false → pointer-events:none decoration
   autostart: true,             // schedule random appearances on its own
   firstDelayMin: 7000, firstDelayMax: 14000,
   gapMin: 50000, gapMax: 110000,
@@ -102,7 +104,7 @@ export function createBubbleBuddy(userOpts = {}) {
   let stateAt = 0, dwell = 0, scheduleTimer = 0;
   let blinkAt = 0, blinking = 0, reactUntil = 0;
   let started = false, destroyed = false, wired = false;
-  let themeObserver = null, sizeObserver = null, visHandler = null, floatResizeHandler = null;
+  let themeObserver = null, sizeObserver = null, visHandler = null;
 
   const TIPS = (opts.tips && opts.tips.length) ? opts.tips : DEFAULT_TIPS;
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -134,6 +136,10 @@ export function createBubbleBuddy(userOpts = {}) {
     return m || document.body;
   }
 
+  // Offsets are numbers by default but may be any CSS length (the mobile
+  // drop-in default passes a calc() with env(safe-area-inset-*)), so only
+  // append 'px' to real numbers.
+  const cssLen = (v) => (typeof v === 'number' ? v + 'px' : v);
   function buildDom() {
     const mountEl = resolveMount();
     const toBody = mountEl === document.body;
@@ -159,30 +165,28 @@ export function createBubbleBuddy(userOpts = {}) {
       container.style.height = opts.height + 'px';
       const vert = opts.position.includes('top') ? 'top' : 'bottom';
       const horz = opts.position.includes('left') ? 'left' : 'right';
-      container.style[vert] = opts.offsetY + 'px';
+      container.style[vert] = cssLen(opts.offsetY);
       // Horizontal anchoring: when floating fixed-to-viewport (toBody), iOS
       // Safari opens a phantom horizontal scroll gutter for `position: fixed`
       // elements anchored with `right` (made worse by `user-scalable=no`). The
       // mascot then parks itself in that blank space on the right. Anchor with
-      // `left`, computed against the clipped viewport width and kept in sync on
-      // resize/orientation, so it stays on-screen and never opens a gutter.
+      // a left-side calc instead. CSS keeps it synced to viewport changes and
+      // preserves env(safe-area-inset-right) instead of reducing it to a number.
       if (toBody && horz === 'right') {
         container.style.right = 'auto';
-        floatResizeHandler = () => {
-          if (!container) return;
-          const vw = document.documentElement.clientWidth || window.innerWidth || 0;
-          container.style.left = Math.max(0, Math.round(vw - opts.width - opts.offsetX)) + 'px';
-        };
-        floatResizeHandler();
-        ['resize', 'orientationchange'].forEach((e) => window.addEventListener(e, floatResizeHandler, { passive: true }));
-        if (window.visualViewport) window.visualViewport.addEventListener('resize', floatResizeHandler, { passive: true });
+        container.style.left = `max(0px, calc(100% - ${opts.width}px - ${cssLen(opts.offsetX)}))`;
       } else {
-        container.style[horz] = opts.offsetX + 'px';
+        container.style[horz] = cssLen(opts.offsetX);
       }
     }
 
     canvas = document.createElement('canvas');
-    canvas.style.cssText = 'width:100%;height:100%;display:block;pointer-events:auto;cursor:pointer';
+    canvas.style.cssText = [
+      'width:100%', 'height:100%', 'display:block',
+      // Non-interactive buddies are pure decoration: never intercept taps
+      // meant for the host page's links and buttons underneath.
+      opts.interactive ? 'pointer-events:auto;cursor:pointer' : 'pointer-events:none',
+    ].join(';');
     canvas.setAttribute('role', 'img');
     canvas.setAttribute('aria-label', opts.ariaLabel);
     container.appendChild(canvas);
@@ -198,7 +202,7 @@ export function createBubbleBuddy(userOpts = {}) {
     ].join(';');
     container.appendChild(tip);
 
-    if (opts.dismissible) {
+    if (opts.dismissible && opts.interactive) {
       dismissBtn = document.createElement('button');
       dismissBtn.textContent = '×';
       dismissBtn.title = 'Hide the mascot for now';
@@ -215,7 +219,7 @@ export function createBubbleBuddy(userOpts = {}) {
       container.appendChild(dismissBtn);
     }
 
-    canvas.addEventListener('click', onPoke);
+    if (opts.interactive) canvas.addEventListener('click', onPoke);
     mountEl.appendChild(container);
 
     // Live re-tint on theme flips.
@@ -676,10 +680,6 @@ export function createBubbleBuddy(userOpts = {}) {
     destroyed = true;
     clearTimeout(scheduleTimer); stopLoop();
     if (visHandler) document.removeEventListener('visibilitychange', visHandler);
-    if (floatResizeHandler) {
-      ['resize', 'orientationchange'].forEach((e) => window.removeEventListener(e, floatResizeHandler));
-      if (window.visualViewport) window.visualViewport.removeEventListener('resize', floatResizeHandler);
-    }
     if (themeObserver) themeObserver.disconnect();
     if (sizeObserver) sizeObserver.disconnect();
     if (scene) scene.traverse((o) => {
@@ -727,6 +727,7 @@ function readDataOpts(el) {
   if (d.offsetX) o.offsetX = +d.offsetX;
   if (d.offsetY) o.offsetY = +d.offsetY;
   if (d.zIndex) o.zIndex = +d.zIndex;
+  if (d.interactive !== undefined) o.interactive = d.interactive !== 'false';
   if (d.autostart) o.autostart = d.autostart !== 'false';
   if (d.dismissible) o.dismissible = d.dismissible !== 'false';
   if (d.storageKey) o.storageKey = d.storageKey;
@@ -739,6 +740,19 @@ function readDataOpts(el) {
   if (d.tips) o.tips = d.tips.split('|').map((s) => s.trim()).filter(Boolean);
   return o;
 }
+
+// Small-viewport drop-in default: a 150px interactive overlay crowds a
+// 320-640px reading column and its tap area sits over the feed's scroll path,
+// so scale the buddy down and make it purely decorative. Readers who sized or
+// configured their mascot explicitly keep exactly what they asked for.
+const MOBILE_BUDDY_DEFAULTS = {
+  width: 92,
+  height: 114,
+  // Larger corner offsets than desktop, including the safe-area constants so
+  // home-indicator / notch hardware never clip the buddy.
+  offsetX: 'calc(20px + env(safe-area-inset-right, 0px))',
+  offsetY: 'calc(28px + env(safe-area-inset-bottom, 0px))',
+};
 
 function autoMount() {
   if (window.__bubbleBuddyMounted) return;
@@ -755,7 +769,12 @@ function autoMount() {
     });
   } else if (window.BubbleBuddyConfig !== false) {
     // No anchors → the classic single floating mascot (configurable / opt-out).
-    instances.push(createBubbleBuddy(window.BubbleBuddyConfig || {}));
+    const cfg = Object.assign({}, window.BubbleBuddyConfig || {});
+    if (matchMedia('(max-width: 640px)').matches
+        && cfg.width === undefined && cfg.height === undefined && cfg.interactive === undefined) {
+      Object.assign(cfg, MOBILE_BUDDY_DEFAULTS, { interactive: false });
+    }
+    instances.push(createBubbleBuddy(cfg));
   }
   window.BubbleBuddy.instances = instances;
 }

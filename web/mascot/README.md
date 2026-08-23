@@ -20,6 +20,12 @@ global set **before** the module runs:
 <script>window.BubbleBuddyConfig = false;</script> <!-- no auto mascot -->
 ```
 
+> On viewports ≤640px, the drop-in mascot scales down (92×114) and mounts with
+> `interactive: false` — purely decorative, `pointer-events: none`, no dismiss ×,
+> larger safe-area-aware corner offsets — so it never competes with the page's
+> taps on small screens. Set `width`/`height`/`interactive` explicitly (or use
+> an anchor) to opt out of this default; appearance timing is unchanged either way.
+
 > On this site the module is lazy-loaded on idle via a small `<script type="module">`
 > in each page's footer (and in `pipeline/render_static_pages.py` for generated pages),
 > so it never touches initial load. See those snippets for the exact pattern.
@@ -39,8 +45,8 @@ page gets its own instance filling that box:
 ```
 
 Supported `data-*` attributes: `position`, `width`, `height`, `offset-x`, `offset-y`,
-`z-index`, `autostart`, `dismissible`, `storage-key`, `first-delay`, `gap-min`,
-`gap-max`, `dwell-min`, `dwell-max`, `tips` (`"a|b|c"`), `aria-label`.
+`z-index`, `interactive`, `autostart`, `dismissible`, `storage-key`, `first-delay`,
+`gap-min`, `gap-max`, `dwell-min`, `dwell-max`, `tips` (`"a|b|c"`), `aria-label`.
 
 If **any** anchor exists, the default floating mascot is **not** created — the page
 fully controls placement.
@@ -76,9 +82,10 @@ buddy.el;            // root container element (null before first appear / after
 |---|---|---|
 | `mount` | `null` (→ `body`) | Element or selector to attach into. |
 | `position` | `'bottom-right'` | Corner, or `'fill'` to fill the mount box. |
-| `offsetX` / `offsetY` | `18` / `14` | px from the corner (ignored for `fill`). |
+| `offsetX` / `offsetY` | `18` / `14` | px from the corner (any CSS length, e.g. a `calc()` with `env(safe-area-inset-*)`; ignored for `fill`). |
 | `width` / `height` | `150` / `185` | px (ignored for `fill`). |
 | `zIndex` | `60` | |
+| `interactive` | `true` | Poke-to-react + dismiss ×. `false`: canvas gets `pointer-events: none`, no ×, no pointer cursor — pure decoration; appearance timers unchanged. |
 | `autostart` | `true` | Self-schedule random appearances. |
 | `firstDelayMin/Max` | `7000` / `14000` | ms before first appearance. |
 | `gapMin/Max` | `50000` / `110000` | ms quiet time between appearances. |

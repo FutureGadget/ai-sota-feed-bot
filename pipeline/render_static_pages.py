@@ -69,6 +69,7 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import os
 import re
 import sys
@@ -76,7 +77,7 @@ from collections import Counter
 from datetime import date, datetime, timezone
 from html import escape, unescape
 from pathlib import Path
-from urllib.parse import quote, urlsplit
+from urllib.parse import quote, urlparse, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
@@ -111,6 +112,9 @@ SLUG_HTML_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}\.html$")
 RELATED_STORIES_MAX = 4
 STORY_BRIEF_MAX_CHARS = 320
 MECHANICAL_WHY_PREFIXES = ("Matches feed focus:",)
+_LEGACY_PLACEHOLDER_WHY = (
+    "Potential relevance to AI platform engineering; verify practical impact."
+)
 
 # Topical-authority gate: the feed lets through occasional off-topic posts from
 # otherwise-relevant sources (e.g. a frontier lab's consumer/PR announcement).
@@ -156,6 +160,70 @@ def source_label(rec: dict, url: str) -> str:
     """Human-readable publisher name for a story, for prose framing."""
     src = str(rec.get("source") or "")
     return SOURCE_LABELS.get(src) or source_domain(url)
+
+
+# Friendly names for the Google News aggregation feeds whose raw slugs
+# ("search_cn_open_weight_labs") read as scraper output on badges.
+SEARCH_FEED_LABELS = {
+    "search_agent_engineering_news": "Agent Engineering News",
+    "search_llm_ops_news": "LLM Ops News",
+    "search_cn_open_weight_labs": "CN Open-Weight Lab coverage",
+}
+
+_NEWS_GOOGLE_HOST_RE = re.compile(r"^news\.google(?:\.[a-z]{2,}){1,3}$")
+
+_GNEWS_SITE_TAIL_RE = re.compile(
+    r"^[A-Za-z0-9][A-Za-z0-9 .'-]*\.(?:com|net|org|io|co|ai|news|dev|us|uk)$",
+    re.IGNORECASE,
+)
+
+
+def item_publisher_label(item: dict) -> str:
+    """Real outlet captured by the collector from Google News <source>."""
+    return squeeze(item.get("publisher_name")) or squeeze(item.get("publisher_domain"))
+
+
+def gnews_source_badge_label(item: dict) -> str:
+    """Badge label for an aggregated item: prefer the captured outlet, then
+    the friendly feed name; never expose news.google.com as a publisher."""
+    pub = item_publisher_label(item)
+    if pub:
+        return pub
+    slug = str(item.get("source") or "")
+    return SEARCH_FEED_LABELS.get(slug, slug)
+
+
+def seed_source_label(item: dict, url: str) -> str:
+    """Byline for crawler-visible feed-seed cards: prefer the captured Google
+    News outlet; aggregated items whose URL is news.google.* show the friendly
+    feed name instead of the aggregator domain."""
+    pub = item_publisher_label(item)
+    if pub:
+        return pub
+    dom = source_domain(url)
+    if _NEWS_GOOGLE_HOST_RE.match(dom):
+        return SEARCH_FEED_LABELS.get(str(item.get("source") or ""), dom)
+    return dom
+
+
+def _trim_gnews_site_tail(title: str) -> str:
+    """Conservative historical fallback for Google News debris titles.
+
+    New items are stripped at collect time against the real publisher name;
+    old snapshots only leave 'Title - Outlet' tails, which may be stripped here
+    when the tail reads like a site name ending in a known TLD (max 3 words).
+    Mirrors trimGnewsSiteTail in web/index.html."""
+    for sep in (" - ", " | "):
+        idx = title.rfind(sep)
+        if idx <= 0:
+            continue
+        tail = title[idx + len(sep):].strip()
+        if not tail or len(tail.split()) > 3:
+            continue
+        if not _GNEWS_SITE_TAIL_RE.search(tail):
+            continue
+        return title[:idx].strip()
+    return title
 
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
@@ -651,6 +719,21 @@ def _strip_html_tags(text: str) -> str:
     return squeeze(text)
 
 
+_RELEASE_SUMMARY_PREFIX_RE = re.compile(r"^release(?: notes)?:\s")
+
+
+def _is_release_item(it: dict) -> bool:
+    """Mirror ``isReleaseItem`` in api/feed.js: what the default Brief lens counts as a release."""
+    if not isinstance(it, dict):
+        return False
+    if str(it.get("llm_category") or "").strip().lower() == "release":
+        return True
+    if str(it.get("type") or "").strip().lower() == "release":
+        return True
+    raw = str(it.get("summary_1line") or it.get("summary") or "")[:2048]
+    return bool(_RELEASE_SUMMARY_PREFIX_RE.match(_strip_html_tags(raw).lower()))
+
+
 _SEED_KEYWORD_STOPWORDS = re.compile(r"\b(and|or|with|to|from|that|for)\b", re.IGNORECASE)
 _SEED_SEGMENT_TAIL = re.compile(r"(?:\u2026|\.{2,}|\.+)\s*$")
 
@@ -676,6 +759,127 @@ def _looks_like_keyword_list(text: str) -> bool:
     )
 
 
+_ECHO_VERSION_TOKEN_RE = re.compile(r"\bv?\d+(?:\.\d+)+(?:-[0-9a-z.\d]+)?\b", re.IGNORECASE)
+_ECHO_RELEASE_WORD_RE = re.compile(r"\b(?:release|version)\b", re.IGNORECASE)
+_GENERIC_RELEASE_NOTES_RE = re.compile(
+    r"^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b",
+    re.IGNORECASE,
+)
+
+
+def _normalize_echo(text: str) -> str:
+    return re.sub(r"[^\w]+", " ", str(text or "").lower()).strip()
+
+
+def _strip_version_tokens(text: str) -> str:
+    stripped = _ECHO_VERSION_TOKEN_RE.sub(" ", str(text or ""))
+    stripped = _ECHO_RELEASE_WORD_RE.sub(" ", stripped)
+    return _normalize_echo(stripped)
+
+
+def _echoes_title(title: str, summary: str) -> bool:
+    """True when a summary adds nothing beyond the headline.
+
+    Mirrors ``echoesTitle`` in web/index.html so the crawler-visible seed and
+    the JS feed drop the same version-bump-only summaries.
+    """
+    if _normalize_echo(summary) == _normalize_echo(title):
+        return True
+    return _strip_version_tokens(summary) == ""
+
+
+def _clean_release_summary(summary: str, item_type: str) -> str:
+    """Remove commit debris and short placeholders from release notes only.
+
+    Non-release summaries may be short, useful editorial sentences, so they
+    must bypass the release-specific length floor unchanged apart from outer
+    whitespace. Mirrors ``cleanReleaseSummary`` in ``web/index.html``.
+    """
+    text = str(summary or "").strip()
+    if str(item_type or "").strip().lower() != "release":
+        return text
+    cut = min(
+        (
+            pos
+            for pos in (text.find(marker) for marker in ("(cherry picked", "Signed-off-by:"))
+            if pos != -1
+        ),
+        default=-1,
+    )
+    if cut != -1:
+        text = text[:cut].strip()
+    return text if len(text) >= 25 else ""
+
+
+_RANKED_SLOT_LABELS = {
+    "frontier_official": "frontier lab",
+    "agent_tooling_releases": "agent tooling release",
+    "infra_runtime_releases": "infra/runtime release",
+    "open_weight_releases": "open-weight release",
+    "vendor_general_updates": "vendor update",
+    "cloud_platform_updates": "cloud platform update",
+    "practitioner_analysis": "practitioner analysis",
+    "community_signal": "community signal",
+    "research_watch": "research watch",
+    "overflow": "long tail",
+}
+
+
+def _js_tofixed2(value: float) -> str:
+    """Number.prototype.toFixed(2) parity for non-negative doubles.
+
+    %.2f already converts the binary double correctly (so 2.445 -> '2.44',
+    matching JS); it only diverges on values whose decimal expansion is an
+    exact two-decimal tie in binary (0.125, 0.625, ...), where JS rounds up.
+    """
+    scaled = value * 100
+    if scaled - math.floor(scaled) == 0.5:
+        value = math.nextafter(value, math.inf)
+    return f"{value:.2f}"
+
+
+def _ranked_because(item: dict) -> str:
+    """Deterministic ranking rationale for items without an editorial why.
+
+    Mirrors ``rankedBecauseText`` in web/index.html - same components, order,
+    separators, and formatting;
+    tests/fixtures/ranked_because_samples.json is the shared contract asserted
+    by tests/test_ranked_because.mjs and tests/test_seed_sanitation.py.
+    """
+    if not isinstance(item, dict):
+        return ""
+    why = squeeze(item.get("why_it_matters"))
+    if why and why != _LEGACY_PLACEHOLDER_WHY:
+        if not why.startswith(MECHANICAL_WHY_PREFIXES):
+            return ""
+    parts: list[str] = []
+    topics = [str(t).strip() for t in (item.get("matched_topics") or []) if str(t or "").strip()]
+    if topics:
+        parts.append(f"{' + '.join(topics[:2])} match")
+    slot = item.get("slot")
+    if slot:
+        parts.append(_RANKED_SLOT_LABELS.get(slot, str(slot).replace("_", " ")))
+    decay_raw = item.get("time_decay_factor")
+    if decay_raw is not None and str(decay_raw).strip() != "":
+        try:
+            decay = float(decay_raw)
+        except (TypeError, ValueError):
+            decay = None
+        if decay is not None and math.isfinite(decay):
+            parts.append(f"fresh {_js_tofixed2(decay)}")
+    score_raw = item.get("final_score")
+    if score_raw is None:
+        score_raw = item.get("tier1_quick_score")
+    if score_raw is not None and str(score_raw).strip() != "":
+        try:
+            score = float(score_raw)
+        except (TypeError, ValueError):
+            score = None
+        if score is not None and math.isfinite(score):
+            parts.append(f"score {_js_tofixed2(score)}")
+    return f"Ranked: {' \u00b7 '.join(parts)}" if parts else ""
+
+
 def _trim_title_suffix(title: str, source: str, url: str) -> str:
     """Drop a trailing " - Publisher" that repeats the item's own source.
 
@@ -691,42 +895,59 @@ def _trim_title_suffix(title: str, source: str, url: str) -> str:
         source,
         source.replace("_", " "),
         SOURCE_LABELS.get(source, ""),
+        SEARCH_FEED_LABELS.get(source, ""),
         source_domain(url),
     ]
+    trimmed = original
     for name in names:
         if not name or name == "the source":
             continue
-        trimmed = re.sub(
+        candidate = re.sub(
             rf"\s+-\s+{re.escape(name)}\s*$", "", original, flags=re.IGNORECASE
         ).strip()
-        if trimmed != original:
-            return original if len(trimmed) < 15 else trimmed
+        if candidate != original:
+            trimmed = candidate
+            break
+    if trimmed == original and _NEWS_GOOGLE_HOST_RE.match(source_domain(url)):
+        trimmed = _trim_gnews_site_tail(original)
+    if trimmed != original:
+        return original if len(trimmed) < 15 else trimmed
     return original
 
 
-def _seed_heading(dates: list[date]) -> str:
+def _seed_heading(dates: list[date], updated_at: datetime | None = None) -> str:
     """Honest date-span label for the crawler-visible feed seed."""
     if not dates:
-        return "Top signals"
-    lo, hi = dates[0], dates[-1]
-    if lo == hi:
-        return f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year}"
-    if lo.year != hi.year:
-        return (
-            f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year} "
-            f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
+        heading = "Top signals"
+    else:
+        lo, hi = dates[0], dates[-1]
+        if lo == hi:
+            heading = f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year}"
+        elif lo.year != hi.year:
+            heading = (
+                f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}, {lo.year} "
+                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
+            )
+        elif lo.month == hi.month:
+            heading = f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
+        else:
+            heading = (
+                f"Top signals \u00b7 {lo.strftime('%b')} {lo.day} "
+                f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
+            )
+    if updated_at is not None:
+        heading += (
+            f" \u00b7 Updated {updated_at.strftime('%b')} {updated_at.day},"
+            f" {updated_at:%H:%M} UTC"
         )
-    if lo.month == hi.month:
-        return f"Top signals \u00b7 {lo.strftime('%b')} {lo.day}\u2013{hi.day}, {hi.year}"
-    return (
-        f"Top signals \u00b7 {lo.strftime('%b')} {lo.day} "
-        f"\u2013 {hi.strftime('%b')} {hi.day}, {hi.year}"
-    )
+    return heading
 
 
 def story_why(rec: dict) -> str:
     """Reader-facing rationale only; ranking diagnostics belong in topic chips."""
     why = squeeze(rec.get("why_it_matters"))
+    if why == _LEGACY_PLACEHOLDER_WHY:
+        return ""
     if any(why.startswith(prefix) for prefix in MECHANICAL_WHY_PREFIXES):
         return ""
     return why
@@ -865,11 +1086,8 @@ def render_categories(
             if pub:
                 d = datetime.fromisoformat(pub)
                 pub_badge = f'<span class="badge">{escape(d.strftime("%b"))} {d.day}</span>'
-            src_badge = (
-                f'<span class="badge">{escape(str(a.get("source")))}</span>'
-                if a.get("source")
-                else ""
-            )
+            src_label = gnews_source_badge_label(a) if a.get("source") else ""
+            src_badge = f'<span class="badge">{escape(src_label)}</span>' if src_label else ""
             # Internal link to the story permalink page (hub -> spoke), kept
             # alongside the external title link so titles still go to sources.
             sid = story_sid(a.get("url")) if href != "#" else ""
@@ -5104,8 +5322,18 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         published = parse_dt(it.get("published"))
         eligible.append((published.date() if published else None, it))
 
+    # Brief-lens parity: the live feed's default Brief excludes release items
+    # (api/feed.js isReleaseItem), so the crawler-visible seed hides them too.
+    # Starvation guard: when the filtered list can no longer fill the seed,
+    # fall back to the unfiltered list; the resulting ordering divergence from
+    # the blended live feed is accepted over showing an empty seed.
+    brief_eligible = [e for e in eligible if not _is_release_item(e[1])]
+    if len(brief_eligible) >= FEED_SEED_MIN_ITEMS:
+        eligible = brief_eligible
+
     cards = []
     seeded_dates = []
+    seeded_stamps: list[datetime] = []
     for published_date, it in select_seed_window(eligible):
         url = safe_http_url(it.get("url"))
         title = _trim_title_suffix(
@@ -5114,10 +5342,39 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             url,
         )
         summary = _strip_html_tags(str(it.get("summary_1line") or it.get("summary") or ""))
-        if summary.lower().rstrip(".") == title.lower().rstrip("."):
+        if _echoes_title(title, summary):
             summary = ""  # echoing the headline reads as duplication
         if _looks_like_keyword_list(summary):
             summary = ""
+        summary = _clean_release_summary(summary, str(it.get("type") or "news"))
+        # Historical google-news excerpts repeat the syndicated headline,
+        # often followed by the bare publisher name with no separator
+        # ("... From Today Bloomberg.com"); anything left after removing
+        # the echoed headline is publisher debris.
+        if summary and _NEWS_GOOGLE_HOST_RE.match(urlparse(url).hostname or ""):
+            low_title = title.lower()
+            if low_title and summary.lower().startswith(low_title):
+                rest = summary[len(title):].strip()
+                rest = re.sub(r"^(?:[-\u2013|]\s*)+", "", rest)
+                if _GNEWS_SITE_TAIL_RE.match(rest.split()[-1] if rest.split() else ""):
+                    rest = ""
+                summary = rest
+            else:
+                for sep in (" - ", " | "):
+                    idx = summary.rfind(sep)
+                    if idx <= 0:
+                        continue
+                    tail = summary[idx + len(sep):].strip()
+                    if tail and len(tail.split()) <= 3 and _GNEWS_SITE_TAIL_RE.match(tail):
+                        summary = summary[:idx].strip()
+                        break
+            if len(summary) < 25:
+                summary = ""
+        summary = summary.strip()
+        is_release_row = str(it.get("type") or "") == "release" and (
+            not summary or _GENERIC_RELEASE_NOTES_RE.search(summary)
+        )
+        shown_summary = "" if is_release_row else summary
         sid = story_sid(url)
         has_story = sid in story_sids
         perma = (
@@ -5125,37 +5382,53 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             if has_story
             else ""
         )
+        ranked_why = "" if (is_release_row or story_why(it)) else _ranked_because(it)
         meta = " · ".join(
             x
-            for x in (source_domain(url), published_date.isoformat() if published_date else "")
+            for x in (
+                seed_source_label(it, url),
+                published_date.isoformat() if published_date else "",
+                ranked_why,
+            )
             if x
         )
         meta_context = ""
-        if not summary and has_story:
+        if not shown_summary and has_story:
             meta_context = (
                 f' · <a href="/story/{sid}">Context</a>' if meta else f'<a href="/story/{sid}">Context</a>'
             )
             perma = ""
-        body = f"<p>{escape(clip(summary, 240))}{perma}</p>" if summary or perma else ""
+        body = f"<p>{escape(clip(shown_summary, 240))}{perma}</p>" if shown_summary or perma else ""
         cards.append(
-            '<article class="seed-item">'
-            f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
-            f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
-            f"{body}</article>"
+            '<article class="seed-item'
+            + (' release-row">' if is_release_row else '">')
+            + f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
+            + f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
+            + f"{body}</article>"
         )
         seeded_dates.append(published_date)
+        stamps = (parse_dt(it.get(k)) for k in ("collected_at", "last_seen", "published"))
+        seeded_stamps.extend(s for s in stamps if s is not None)
     if not cards:
         return 0
-    heading = _seed_heading(sorted(d for d in seeded_dates if d is not None))
+    heading = _seed_heading(
+        sorted(d for d in seeded_dates if d is not None),
+        max(seeded_stamps) if seeded_stamps else None,
+    )
     block = (
         f"{FEED_SEED_START}\n"
         "      <!-- Generated by pipeline/render_static_pages.py from data/processed/latest.json.\n"
-        "           Crawler/no-JS-visible feed snapshot; the feed JS replaces this region on boot.\n"
+        "           Crawler/no-JS-visible feed snapshot matching the live feed's default Brief\n"
+        "           lens (release items excluded); the feed JS replaces this region on boot.\n"
         "           Do not hand-edit between these markers. -->\n"
         '      <div class="feed-seed">\n'
         f"        <h2>{heading}</h2>\n        "
         + "\n        ".join(cards)
-        + '\n        <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>\n'
+        + f'\n        <div class="end-marker" role="status">\n'
+          '          <div class="end-marker-title">✓ You\'re all caught up</div>\n'
+          f'          <div class="end-marker-sub">Top {len(cards)} ranked stories in this snapshot · fresh brief every 2 hours</div>\n'
+          "        </div>\n"
+        '\n        <p class="seed-more"><a href="/daily">Prefer it summarized? Read the daily recap →</a></p>\n'
         "      </div>\n"
         f"      {FEED_SEED_END}"
     )
