@@ -2461,6 +2461,7 @@
       langchain_blog: 'LangChain Blog',
       search_agent_engineering_news: 'Agent Engineering News',
       search_llm_ops_news: 'LLM Ops News',
+      search_cn_open_weight_labs: 'CN Open-Weight Lab coverage',
     };
     const SOURCE_ACRONYMS = new Set(['ai', 'ml', 'llm', 'aws', 'api', 'sdk', 'gpu']);
 
@@ -2727,15 +2728,40 @@
     // keystroke - so compile each source's patterns once and reuse them.
     const suffixPatternCache = new Map();
 
+    function itemUrlHost(itemUrl) {
+      const abs = String(itemUrl || '');
+      if (!/^https?:\/\//i.test(abs)) return '';
+      try {
+        return new URL(abs).hostname.replace(/^www\./i, '').toLowerCase();
+      } catch {}
+      return '';
+    }
+
+    function isNewsGoogleHost(host) {
+      return /^news\.google(?:\.[a-z]{2,}){1,3}$/.test(String(host || ''));
+    }
+
+    // Google News syndicates headlines as "Title - Outlet" / "Title | Outlet".
+    // Historical items predate the collector's publisher capture, so fall back
+    // to a shape check: only strip when the tail reads like a site name
+    // ending in a known TLD (max 3 words), never on arbitrary prose.
+    const GNEWS_SITE_TAIL_RE = /^[A-Za-z0-9][A-Za-z0-9 .'-]*\.(?:com|net|org|io|co|ai|news|dev|us|uk)$/i;
+
+    function trimGnewsSiteTail(t) {
+      for (const sep of [' - ', ' | ']) {
+        const idx = t.lastIndexOf(sep);
+        if (idx <= 0) continue;
+        const tail = t.slice(idx + sep.length).trim();
+        if (!tail || tail.split(/\s+/).length > 3) continue;
+        if (!GNEWS_SITE_TAIL_RE.test(tail)) continue;
+        return t.slice(0, idx).trim();
+      }
+      return t;
+    }
+
     function suffixPatterns(sourceName, itemUrl) {
       const source = String(sourceName || '');
-      let host = '';
-      const abs = String(itemUrl || '');
-      if (/^https?:\/\//i.test(abs)) {
-        try {
-          host = new URL(abs).hostname.replace(/^www\./i, '');
-        } catch {}
-      }
+      const host = itemUrlHost(itemUrl);
       const cacheKey = `${source}\u0000${host}`;
       const cached = suffixPatternCache.get(cacheKey);
       if (cached) return cached;
@@ -2753,12 +2779,27 @@
     function trimTitleSuffix(title, sourceName, itemUrl) {
       let t = String(title || '').trim();
       const original = t;
+      let matched = false;
       for (const re of suffixPatterns(sourceName, itemUrl)) {
         const next = t.replace(re, '').trim();
-        if (next !== t) { t = next; break; }
+        if (next !== t) { t = next; matched = true; break; }
       }
+      if (!matched && isNewsGoogleHost(itemUrlHost(itemUrl))) t = trimGnewsSiteTail(original);
       if (t !== original && (!t || t.length < 15)) return original;
       return t;
+    }
+
+    // Card byline: Google News items should name the real outlet, not the
+    // aggregator or the raw feed slug. New items carry captured publisher
+    // fields; older ones degrade to the friendly search-feed label.
+    function cardSourceLabel(it) {
+      const pub = String(it?.publisher_name || '').trim() || String(it?.publisher_domain || '').trim();
+      if (pub) return pub;
+      if (isNewsGoogleHost(itemUrlHost(it?.url))) {
+        const slug = String(it?.source || '');
+        return SOURCE_NAMES[slug] || sourceDisplayName(slug);
+      }
+      return sourceDisplayName(it?.source);
     }
 
     // Older run snapshots still carry the generic heuristic placeholder;
@@ -2776,7 +2817,7 @@
       const key = itemKey(it);
       const rawTitle = String(it.title || 'Untitled');
       const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
-      const source = esc(sourceDisplayName(it.source));
+      const source = esc(cardSourceLabel(it));
       const sourceSlug = esc(it.source || 'unknown');
       const type = esc(it.type || 'news');
       const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));

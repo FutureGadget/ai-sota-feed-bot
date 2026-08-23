@@ -192,11 +192,57 @@ def rss_source_urls(source: dict) -> list[str]:
     return [single] if single else []
 
 
+GNEWS_SUFFIX_SEPARATORS = (" - ", " \u2013 ", " | ")
+
+
+def _publisher_fields(entry, feed_host: str) -> tuple[str, str]:
+    """Google News RSS names the real outlet per entry via <source>
+    (feedparser exposes entry.source as {'href': ..., 'title': ...}); plain
+    feeds never set it. The href host guard skips self-referencing Google
+    entries so we never label a publisher 'news.google.com'."""
+    src = getattr(entry, "source", None)
+    if not isinstance(src, dict):
+        return "", ""
+    name = str(src.get("title") or "").strip()
+    href = str(src.get("href") or "").strip()
+    try:
+        host = (urllib.parse.urlparse(href).hostname or "") if href else ""
+    except ValueError:
+        host = ""
+    if not name or not host or host == feed_host:
+        return "", ""
+    return name, host.removeprefix("www.")
+
+
+def _strip_publisher_suffix(title: str, publisher_name: str, publisher_domain: str) -> str:
+    """Drop a trailing '<sep> <publisher>' debris segment ('... - Bloomberg.com').
+
+    Exact-match only against the captured publisher labels, so editorial titles
+    that merely contain them stay intact."""
+    def norm(s: str) -> str:
+        return " ".join(s.split()).casefold()
+
+    labels = {norm(x) for x in (publisher_name, publisher_domain) if x}
+    if not labels:
+        return title
+    for sep in GNEWS_SUFFIX_SEPARATORS:
+        idx = title.rfind(sep)
+        if idx <= 0:
+            continue
+        if norm(title[idx + len(sep):]) in labels:
+            return title[:idx].rstrip()
+    return title
+
+
 def collect_from_rss(source: dict, now: datetime) -> list[dict]:
     out = []
     seen: set[str] = set()
     for feed_url in rss_source_urls(source):
         parsed = feedparser.parse(feed_url)
+        try:
+            feed_host = urllib.parse.urlparse(feed_url).hostname or ""
+        except ValueError:
+            feed_host = ""
         for e in parsed.entries[:40]:
             title = getattr(e, "title", "").strip()
             link = getattr(e, "link", "").strip()
@@ -210,15 +256,21 @@ def collect_from_rss(source: dict, now: datetime) -> list[dict]:
             if key in seen:
                 continue
             seen.add(key)
-            out.append(
-                {
-                    "title": title,
-                    "url": link,
-                    "summary": summary,
-                    "published": published,
-                    "image_url": extract_image_url(e, summary),
-                }
-            )
+            publisher_name, publisher_domain = _publisher_fields(e, feed_host)
+            if publisher_name or publisher_domain:
+                title = _strip_publisher_suffix(title, publisher_name, publisher_domain)
+            item = {
+                "title": title,
+                "url": link,
+                "summary": summary,
+                "published": published,
+                "image_url": extract_image_url(e, summary),
+            }
+            if publisher_name:
+                item["publisher_name"] = publisher_name
+            if publisher_domain:
+                item["publisher_domain"] = publisher_domain
+            out.append(item)
     return out
 
 
@@ -717,19 +769,21 @@ def run():
                     excluded += 1
                     continue
                 count += 1
-                all_items.append(
-                    {
-                        "id": item_id(link, title),
-                        "source": src_name,
-                        "title": title,
-                        "url": link,
-                        "summary": ent.get("summary", ""),
-                        "image_url": ent.get("image_url", ""),
-                        "published": ent.get("published", now.isoformat()),
-                        "collected_at": now.isoformat(),
-                        "ingest_batch_id": ingest_batch_id,
-                    }
-                )
+                row = {
+                    "id": item_id(link, title),
+                    "source": src_name,
+                    "title": title,
+                    "url": link,
+                    "summary": ent.get("summary", ""),
+                    "image_url": ent.get("image_url", ""),
+                    "published": ent.get("published", now.isoformat()),
+                    "collected_at": now.isoformat(),
+                    "ingest_batch_id": ingest_batch_id,
+                }
+                for field in ("publisher_name", "publisher_domain"):
+                    if ent.get(field):
+                        row[field] = ent[field]
+                all_items.append(row)
 
             stat = {
                 "ts": now.isoformat(),

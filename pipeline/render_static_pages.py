@@ -157,6 +157,70 @@ def source_label(rec: dict, url: str) -> str:
     src = str(rec.get("source") or "")
     return SOURCE_LABELS.get(src) or source_domain(url)
 
+
+# Friendly names for the Google News aggregation feeds whose raw slugs
+# ("search_cn_open_weight_labs") read as scraper output on badges.
+SEARCH_FEED_LABELS = {
+    "search_agent_engineering_news": "Agent Engineering News",
+    "search_llm_ops_news": "LLM Ops News",
+    "search_cn_open_weight_labs": "CN Open-Weight Lab coverage",
+}
+
+_NEWS_GOOGLE_HOST_RE = re.compile(r"^news\.google(?:\.[a-z]{2,}){1,3}$")
+
+_GNEWS_SITE_TAIL_RE = re.compile(
+    r"^[A-Za-z0-9][A-Za-z0-9 .'-]*\.(?:com|net|org|io|co|ai|news|dev|us|uk)$",
+    re.IGNORECASE,
+)
+
+
+def item_publisher_label(item: dict) -> str:
+    """Real outlet captured by the collector from Google News <source>."""
+    return squeeze(item.get("publisher_name")) or squeeze(item.get("publisher_domain"))
+
+
+def gnews_source_badge_label(item: dict) -> str:
+    """Badge label for an aggregated item: prefer the captured outlet, then
+    the friendly feed name; never expose news.google.com as a publisher."""
+    pub = item_publisher_label(item)
+    if pub:
+        return pub
+    slug = str(item.get("source") or "")
+    return SEARCH_FEED_LABELS.get(slug, slug)
+
+
+def seed_source_label(item: dict, url: str) -> str:
+    """Byline for crawler-visible feed-seed cards: prefer the captured Google
+    News outlet; aggregated items whose URL is news.google.* show the friendly
+    feed name instead of the aggregator domain."""
+    pub = item_publisher_label(item)
+    if pub:
+        return pub
+    dom = source_domain(url)
+    if _NEWS_GOOGLE_HOST_RE.match(dom):
+        return SEARCH_FEED_LABELS.get(str(item.get("source") or ""), dom)
+    return dom
+
+
+def _trim_gnews_site_tail(title: str) -> str:
+    """Conservative historical fallback for Google News debris titles.
+
+    New items are stripped at collect time against the real publisher name;
+    old snapshots only leave 'Title - Outlet' tails, which may be stripped here
+    when the tail reads like a site name ending in a known TLD (max 3 words).
+    Mirrors trimGnewsSiteTail in web/index.html."""
+    for sep in (" - ", " | "):
+        idx = title.rfind(sep)
+        if idx <= 0:
+            continue
+        tail = title[idx + len(sep):].strip()
+        if not tail or len(tail.split()) > 3:
+            continue
+        if not _GNEWS_SITE_TAIL_RE.search(tail):
+            continue
+        return title[:idx].strip()
+    return title
+
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
 PAGE_CSS = """\
@@ -691,16 +755,23 @@ def _trim_title_suffix(title: str, source: str, url: str) -> str:
         source,
         source.replace("_", " "),
         SOURCE_LABELS.get(source, ""),
+        SEARCH_FEED_LABELS.get(source, ""),
         source_domain(url),
     ]
+    trimmed = original
     for name in names:
         if not name or name == "the source":
             continue
-        trimmed = re.sub(
+        candidate = re.sub(
             rf"\s+-\s+{re.escape(name)}\s*$", "", original, flags=re.IGNORECASE
         ).strip()
-        if trimmed != original:
-            return original if len(trimmed) < 15 else trimmed
+        if candidate != original:
+            trimmed = candidate
+            break
+    if trimmed == original and _NEWS_GOOGLE_HOST_RE.match(source_domain(url)):
+        trimmed = _trim_gnews_site_tail(original)
+    if trimmed != original:
+        return original if len(trimmed) < 15 else trimmed
     return original
 
 
@@ -865,11 +936,8 @@ def render_categories(
             if pub:
                 d = datetime.fromisoformat(pub)
                 pub_badge = f'<span class="badge">{escape(d.strftime("%b"))} {d.day}</span>'
-            src_badge = (
-                f'<span class="badge">{escape(str(a.get("source")))}</span>'
-                if a.get("source")
-                else ""
-            )
+            src_label = gnews_source_badge_label(a) if a.get("source") else ""
+            src_badge = f'<span class="badge">{escape(src_label)}</span>' if src_label else ""
             # Internal link to the story permalink page (hub -> spoke), kept
             # alongside the external title link so titles still go to sources.
             sid = story_sid(a.get("url")) if href != "#" else ""
@@ -5127,7 +5195,10 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         )
         meta = " · ".join(
             x
-            for x in (source_domain(url), published_date.isoformat() if published_date else "")
+            for x in (
+                seed_source_label(it, url),
+                published_date.isoformat() if published_date else "",
+            )
             if x
         )
         meta_context = ""
