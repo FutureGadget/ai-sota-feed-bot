@@ -67,6 +67,12 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("let emptyWindowWidened = false;", self.html)
         self.assertIn("emptyWindowWidened = true;", self.html)
         self.assertIn("setDateRangeDays(3);", self.html)
+        # It must not disarm the two paths that own their own widening: an
+        # explicit range pick, and the share landing's 30d retry.
+        self.assertIn("&& !pendingSharedItemUrl", self.html)
+        self.assertIn(
+            "emptyWindowWidened = true;\n        setDateRangeDays(e.target.value);", self.html
+        )
 
     def test_list_status_is_announced_from_every_render_path(self) -> None:
         # #list is not a live region any more, so each path that rewrites it

@@ -2725,7 +2725,7 @@
 
     // The publisher patterns depend only on (source slug, url host), never on
     // the title, and renderFeedList re-renders up to 200 cards on every search
-    // keystroke — so compile each source's patterns once and reuse them.
+    // keystroke - so compile each source's patterns once and reuse them.
     const suffixPatternCache = new Map();
 
     function suffixPatterns(sourceName, itemUrl) {
@@ -2868,7 +2868,7 @@
 
     // Screen-reader announcement for the list. #list itself is not a live
     // region (a search keystroke would re-announce every card), so every code
-    // path that rewrites #list must report its outcome here instead — feed,
+    // path that rewrites #list must report its outcome here instead - feed,
     // saved view, and the fetch-failure path alike. Writing only on change
     // keeps repeat renders silent.
     function setFeedStatus(text) {
@@ -3272,6 +3272,9 @@
       const runs = data.runs || [];
       const runId = runs?.[0]?.run_at || null;
 
+      // A share landing has its own, wider retry keyed on the default window
+      // (maybeHighlightSharedItem widens straight to 30d). Widening to 3d here
+      // first would move presetDaysState off '1' and disarm it.
       if (
         !emptyWindowWidened
         && !items.length
@@ -3279,6 +3282,7 @@
         && !customRangeState.from
         && !customRangeState.to
         && !searchQueryState.trim()
+        && !pendingSharedItemUrl
       ) {
         emptyWindowWidened = true;
         setDateRangeDays(3);

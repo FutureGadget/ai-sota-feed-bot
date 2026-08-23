@@ -256,8 +256,8 @@ in `ops_daily_summary.py`'s log line.
   - `docs/exec-plans/` — execution plans (`active/`, `completed/`, tech-debt tracker)
   - `docs/generated/` — derived references (`db-schema.md` = data file layout)
   - `docs/references/` — vendored third-party LLM-friendly references
-  - `docs/assets/<topic>/` — images referenced from docs (UI audit screenshots,
-    diagrams). Excluded from the Vercel deployment via `.vercelignore` — nothing
+  - `docs/assets/<topic>/` - images referenced from docs (UI audit screenshots,
+    diagrams). Excluded from the Vercel deployment via `.vercelignore` - nothing
     serves them at request time, and Vercel bundles the project into *each*
     function. Keep them small and reference them from a doc, not only from a PR
     description (branch-relative raw URLs die when the branch is deleted).
