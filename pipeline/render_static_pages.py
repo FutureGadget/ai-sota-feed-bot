@@ -75,7 +75,6 @@ import re
 import sys
 from collections import Counter
 from datetime import date, datetime, timezone
-from decimal import ROUND_HALF_UP, Decimal
 from html import escape, unescape
 from pathlib import Path
 from urllib.parse import quote, urlsplit
@@ -788,6 +787,19 @@ _RANKED_SLOT_LABELS = {
 }
 
 
+def _js_tofixed2(value: float) -> str:
+    """Number.prototype.toFixed(2) parity for non-negative doubles.
+
+    %.2f already converts the binary double correctly (so 2.445 -> '2.44',
+    matching JS); it only diverges on values whose decimal expansion is an
+    exact two-decimal tie in binary (0.125, 0.625, ...), where JS rounds up.
+    """
+    scaled = value * 100
+    if scaled - math.floor(scaled) == 0.5:
+        value = math.nextafter(value, math.inf)
+    return f"{value:.2f}"
+
+
 def _ranked_because(item: dict) -> str:
     """Deterministic ranking rationale for items without an editorial why.
 
@@ -816,8 +828,7 @@ def _ranked_because(item: dict) -> str:
         except (TypeError, ValueError):
             decay = None
         if decay is not None and math.isfinite(decay):
-            # toFixed(2) parity: half-up on ties, unlike round()'s banker's rule
-            parts.append(f"fresh {Decimal(str(decay)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):.2f}")
+            parts.append(f"fresh {_js_tofixed2(decay)}")
     score_raw = item.get("final_score")
     if score_raw is None:
         score_raw = item.get("tier1_quick_score")
@@ -827,7 +838,7 @@ def _ranked_because(item: dict) -> str:
         except (TypeError, ValueError):
             score = None
         if score is not None and math.isfinite(score):
-            parts.append(f"score {Decimal(str(score)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):.2f}")
+            parts.append(f"score {_js_tofixed2(score)}")
     return f"Ranked: {' \u00b7 '.join(parts)}" if parts else ""
 
 
