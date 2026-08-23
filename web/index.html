@@ -3042,7 +3042,7 @@
         const lineRaw = whyRaw || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
-        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(it.title || 'Untitled')}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
+        return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(trimTitleSuffix(it.title || 'Untitled', it.source, it.url))}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
       }).join('');
 
       if (!catchupViewCaptured) {
