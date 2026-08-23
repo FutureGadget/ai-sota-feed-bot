@@ -3546,6 +3546,9 @@
       });
 
       document.getElementById('rangeSelect')?.addEventListener('change', (e) => {
+        // An explicitly chosen range is honoured as-is, empty or not: the
+        // auto-widen exists for the default landing, not to overrule a pick.
+        emptyWindowWidened = true;
         setDateRangeDays(e.target.value);
         refreshFeed({ exitSaved: true });
       });

@@ -65,6 +65,19 @@ class TrimTitleSuffixTest(unittest.TestCase):
             "Anthropic ships a new agent SDK",
         )
 
+    def test_multiword_display_name_suffix_is_dropped(self) -> None:
+        # The JS side reaches this through sourceDisplayName(); here the
+        # underscore-to-space form of the slug plus case-insensitive matching
+        # has to cover it, or seed titles keep a suffix the feed strips.
+        self.assertEqual(
+            render._trim_title_suffix(
+                "Stop Making TUIs - Simon Willison",
+                "simon_willison",
+                "https://simonwillison.net/x",
+            ),
+            "Stop Making TUIs",
+        )
+
     def test_host_suffix_is_dropped(self) -> None:
         self.assertEqual(
             render._trim_title_suffix(

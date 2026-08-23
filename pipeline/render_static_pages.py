@@ -683,7 +683,16 @@ def _trim_title_suffix(title: str, source: str, url: str) -> str:
     and the JS feed show the same title for the same story.
     """
     original = title.strip()
-    names = [source, SOURCE_LABELS.get(source, ""), source_domain(url)]
+    # Same candidate set as the JS side: the raw slug, its display name, and
+    # the URL host. The slug-with-spaces form stands in for JS's
+    # sourceDisplayName() prettify pass - matching is case-insensitive, so only
+    # word separation (not capitalisation) has to line up.
+    names = [
+        source,
+        source.replace("_", " "),
+        SOURCE_LABELS.get(source, ""),
+        source_domain(url),
+    ]
     for name in names:
         if not name or name == "the source":
             continue
