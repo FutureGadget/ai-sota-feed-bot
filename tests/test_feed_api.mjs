@@ -60,6 +60,62 @@ test('accepts timezone-aware date bounds', async () => {
   assert.match(res.body.filters.to, /Z$/);
 });
 
+test('latest mode applies date bounds consistently to items, totals, and label counts', async () => {
+  const oldCwd = process.cwd();
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'feed-latest-window-'));
+  try {
+    fs.mkdirSync(path.join(tmp, 'data', 'processed'), { recursive: true });
+    fs.writeFileSync(
+      path.join(tmp, 'data', 'processed', 'latest.json'),
+      JSON.stringify([
+        {
+          id: 'old',
+          url: 'https://example.com/old',
+          title: 'Old story outside the requested window',
+          source: 'example_source',
+          type: 'news',
+          llm_category: 'platform',
+          published: '2026-08-01T12:00:00Z',
+        },
+        {
+          id: 'current',
+          url: 'https://example.com/current',
+          title: 'Current story inside the requested window',
+          source: 'example_source',
+          type: 'news',
+          llm_category: 'platform',
+          published: '2026-08-24T12:00:00Z',
+        },
+      ]),
+    );
+    fs.writeFileSync(path.join(tmp, 'data', 'processed', 'runs_index.json'), JSON.stringify([]));
+    process.chdir(tmp);
+
+    const res = await invoke({
+      from: '2026-08-24T00:00:00Z',
+      to: '2026-08-24T23:59:59.999Z',
+      label: 'brief',
+      limit: '20',
+    });
+
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.mode, 'latest');
+    assert.deepEqual(res.body.items.map((item) => item.id), ['current']);
+    assert.equal(res.body.total_items, 1);
+    assert.equal(res.body.has_more, false);
+    assert.deepEqual(res.body.label_counts, {
+      brief: 1,
+      platform: 1,
+      research: 0,
+      release: 0,
+      news: 1,
+    });
+  } finally {
+    process.chdir(oldCwd);
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+});
+
 test('reports when the selected feed is truncated', async () => {
   const res = await invoke({ limit: '1', label: 'brief' });
   assert.equal(res.statusCode, 200);

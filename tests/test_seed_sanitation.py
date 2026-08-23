@@ -98,6 +98,26 @@ class GenericReleaseNotesTest(unittest.TestCase):
         )
 
 
+class ReleaseSummaryTest(unittest.TestCase):
+    def test_short_non_release_summary_is_preserved(self) -> None:
+        self.assertEqual(
+            render._clean_release_summary("Yes, we’re confused too.", "news"),
+            "Yes, we’re confused too.",
+        )
+
+    def test_short_release_summary_is_suppressed(self) -> None:
+        self.assertEqual(render._clean_release_summary("Fix crash", "release"), "")
+
+    def test_release_commit_debris_is_removed(self) -> None:
+        self.assertEqual(
+            render._clean_release_summary(
+                "Ship sandbox escape fix for macOS Sonoma (cherry picked from commit abc123)",
+                "release",
+            ),
+            "Ship sandbox escape fix for macOS Sonoma",
+        )
+
+
 class TrimTitleSuffixTest(unittest.TestCase):
     def test_source_slug_suffix_is_dropped(self) -> None:
         self.assertEqual(

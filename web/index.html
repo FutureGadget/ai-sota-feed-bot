@@ -2329,7 +2329,6 @@
         if (!span) {
           span = document.createElement('span');
           span.className = 'tab-count';
-          span.setAttribute('aria-hidden', 'true');
           b.appendChild(span);
         }
         const n = Number(counts[section]);
@@ -2398,17 +2397,20 @@
       return u.pathname + u.search;
     }
 
-    // fetch() with a hard deadline so a hung endpoint can never stall a render.
-    // The timer covers connection+headers; body parsing happens after it is
-    // cleared, so callers wrap their own res.json() to map parse failures onto
-    // the same error path. Returns non-ok responses as-is (no throw).
-    async function fetchWithTimeout(url, opts = {}, ms = 12000) {
+    // Fetch and consume JSON under one hard deadline. Keeping the timer alive
+    // through response.json() matters because a server can send 200 headers
+    // and then stall mid-body. Non-ok responses return without parsing so the
+    // caller can handle status-specific fallbacks such as localhost 404s.
+    async function fetchJsonWithTimeout(url, opts = {}, ms = 12000) {
       const ac = new AbortController();
       const timer = setTimeout(() => ac.abort(), ms);
       try {
-        return await fetch(url, { ...opts, signal: ac.signal });
+        const response = await fetch(url, { ...opts, signal: ac.signal });
+        const data = response.ok ? await response.json() : null;
+        return { response, data };
       } catch (err) {
-        // With our own controller, AbortError can only mean the timer fired.
+        // With our own controller, AbortError means the shared header/body
+        // deadline fired.
         if (err && err.name === 'AbortError') throw new Error(`timeout_${ms}_${url}`);
         throw err;
       } finally {
@@ -2601,9 +2603,8 @@
       if (!storylinesPromise) {
         storylinesPromise = (async () => {
           try {
-            const res = await fetchWithTimeout('/api/storylines', {}, 8000);
-            if (!res.ok) return;
-            const data = await res.json();
+            const { response, data } = await fetchJsonWithTimeout('/api/storylines', {}, 8000);
+            if (!response.ok) return;
             storylineIndex = Array.isArray(data.storylines) ? data.storylines : [];
             storylineByUrl = new Map();
             for (const sl of storylineIndex) {
@@ -2687,8 +2688,8 @@
       if (!editorDeskPromise) {
         editorDeskPromise = Promise.all([
           sharedUpdatesReady().catch(() => null),
-          fetchWithTimeout('/api/playbook?sources=1', { headers: { accept: 'application/json' } }, 8000)
-            .then((r) => r.ok ? r.json() : {})
+          fetchJsonWithTimeout('/api/playbook?sources=1', { headers: { accept: 'application/json' } }, 8000)
+            .then(({ response, data }) => response.ok ? data : {})
             .catch(() => ({})),
         ]).then(([, playbookSources]) => {
           editorDeskData = {
@@ -2974,8 +2975,9 @@
     // "(cherry picked …)" / "Signed-off-by:" mark excerpts lifted straight
     // from commit logs; cut at the first one and only keep what still reads
     // as a sentence.
-    function cleanReleaseSummary(summary) {
+    function cleanReleaseSummary(summary, itemType = 'release') {
       let s = String(summary || '');
+      if (String(itemType || '').toLowerCase() !== 'release') return s.trim();
       for (const marker of ['(cherry picked', 'Signed-off-by:']) {
         const i = s.indexOf(marker);
         if (i !== -1) s = s.slice(0, i);
@@ -2994,10 +2996,11 @@
       const title = esc(trimTitleSuffix(rawTitle, it.source, it.url));
       const source = esc(cardSourceLabel(it));
       const sourceSlug = esc(it.source || 'unknown');
-      const type = esc(it.type || 'news');
+      const rawType = String(it.type || 'news').toLowerCase();
+      const type = esc(rawType);
       const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));
       const summaryRaw0 = cleanText(it.summary_1line);
-      let summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : cleanReleaseSummary(summaryRaw0);
+      let summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : cleanReleaseSummary(summaryRaw0, rawType);
       // Historical google-news excerpts repeat the syndicated headline,
       // often followed by the bare publisher name with no separator; anything
       // left after removing the echoed headline is publisher debris.
@@ -3281,7 +3284,7 @@
         const summaryRaw0 = cleanText(it.summary_1line);
         const summaryFallback = looksLikeKeywordList(summaryRaw0) || echoesTitle(it.title, summaryRaw0)
           ? ''
-          : cleanReleaseSummary(summaryRaw0);
+          : cleanReleaseSummary(summaryRaw0, it.type);
         const lineRaw = whyRaw || rankedBecauseText(it) || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
@@ -3526,18 +3529,11 @@
       // Decorations ride along but never gate the first paint: kick them off,
       // render as soon as feed data lands, re-render once they arrive.
       const decorationsReady = Promise.all([ensureStorylines(), ensureEditorDeskData()]);
-      let res = await fetchWithTimeout(buildFeedUrl());
+      let { response: res, data } = await fetchJsonWithTimeout(buildFeedUrl());
       if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
-        res = await fetchWithTimeout('/data/processed/latest.json', { cache: 'no-store' });
+        ({ response: res, data } = await fetchJsonWithTimeout('/data/processed/latest.json', { cache: 'no-store' }));
       }
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
-
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        throw new Error('feed_parse');
-      }
       if (Array.isArray(data)) {
         const labels = getSelectedLabels();
         const cutoff = presetDaysState === 'all'
@@ -3675,15 +3671,16 @@
         }
 
         if (e.target.closest('button[data-clear-filters]')) {
-          // Session-scoped reset only: readFiltersFromUrl reasserts pinned
-          // topics / the Brief lens from the URL on reload, so nothing durable
-          // (pins, hidden items) is touched here. Back to Today + firehose.
-          setSelectedLabels([]);
+          // Session-scoped reset only: nothing durable (pins, hidden items) is
+          // touched. Restore the finishable Brief lens and re-arm its one-time
+          // Today-to-3d widening so Clear filters cannot land on another empty
+          // state just after midnight.
+          setSelectedLabels(DEFAULT_SECTION_LABELS);
           setDateRangeDays(1);
           searchQueryState = '';
+          emptyWindowWidened = false;
           const searchBox = document.getElementById('searchBox');
           if (searchBox) searchBox.value = '';
-          emptyWindowWidened = true;
           posthogCapture('clear_filters', {});
           refreshFeed({ exitSaved: true });
           return;

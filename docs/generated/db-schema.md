@@ -8,7 +8,10 @@ available to each function.
 
 ## Ingestion
 - `data/raw/<YYYY-MM-DD>/items.json` — collector output for the day
-  (normalized items: url, title, source, published, summary, …)
+  (normalized items: url, title, source, published, summary, …). Google News
+  RSS entries may also carry optional `publisher_name` and `publisher_domain`
+  values copied from the entry's `<source>` element. These are external display
+  strings, not verified identity claims, and renderers must escape them.
 - `data/cache/sitemap_meta.json` — sitemap crawl metadata cache
 
 ## Ranked snapshots
@@ -20,7 +23,9 @@ available to each function.
 - `data/processed/latest.json` — the production feed (Tier-0 full ranking).
   Ranked items include score diagnostics such as `llm_score`, `source_bias`,
   `source_tune`, `topical_bias`, `pre_decay_score`, `time_decay_factor`,
-  `final_score`, `slot_priority`, and `global_score`.
+  `final_score`, `slot_priority`, and `global_score`. Optional
+  `publisher_name` and `publisher_domain` attribution fields pass through from
+  collector rows for Google News items.
 - `data/processed/runs/<Y>/<M>/<run_id>.json` + `runs_index.json`
   — per-run history (retention ~45d)
 
@@ -83,7 +88,9 @@ Response fields served from the accumulated ranked pool above:
   thread is flagged `via_scout`. Both scout files are excluded from deploys
 - `data/daily/<YYYY-MM-DD>.json`, `data/weekly/<YYYY-Www>.json` — agent-written
   recaps; `index.json` + `latest.json` per dir; `input/` holds the article
-  bundles the agent reads (excluded from deploys)
+  bundles the agent reads (excluded from deploys). Recap input and output
+  articles preserve optional `publisher_name` and `publisher_domain` fields so
+  renderers can credit the syndicated outlet instead of the aggregator feed.
 - `data/daily/state.json` — `build_daily_input.py`'s automatic-mode cursor:
   `last_checked_date` (latest UTC day published or confirmed empty) and
   `skipped_dates` (audit trail of confirmed-empty days). Only the script's

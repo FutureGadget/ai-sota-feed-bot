@@ -74,6 +74,19 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             "emptyWindowWidened = true;\n        setDateRangeDays(e.target.value);", self.html
         )
 
+    def test_clear_filters_restores_the_finishable_default_and_can_widen(self) -> None:
+        self.assertIn(
+            "setSelectedLabels(DEFAULT_SECTION_LABELS);\n          setDateRangeDays(1);",
+            self.html,
+        )
+        self.assertIn(
+            "searchQueryState = '';\n          emptyWindowWidened = false;",
+            self.html,
+        )
+
+    def test_visible_section_counts_are_exposed_to_assistive_technology(self) -> None:
+        self.assertNotIn("span.setAttribute('aria-hidden', 'true');", self.html)
+
     def test_list_status_is_announced_from_every_render_path(self) -> None:
         # #list is not a live region any more, so each path that rewrites it
         # has to report through #feedStatus or the change is never announced.

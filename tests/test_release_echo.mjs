@@ -53,6 +53,10 @@ test('commit-log debris is cut and short remainders dropped', () => {
   assert.equal(context.cleanReleaseSummary('Fix sandbox bug Signed-off-by: Reviewers'), '');
 });
 
+test('short non-release summaries are preserved verbatim', () => {
+  assert.equal(context.cleanReleaseSummary('Yes, we\u2019re confused too.', 'news'), 'Yes, we\u2019re confused too.');
+});
+
 test('generic release-note phrases are detected', () => {
   for (const sample of ['Bug fixes', 'Reliability improvements and perf work', 'Maintenance release', 'minor fixes', 'No release notes']) {
     assert.equal(context.isGenericReleaseNotes(sample), true, sample);

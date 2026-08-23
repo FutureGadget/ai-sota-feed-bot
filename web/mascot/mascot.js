@@ -104,7 +104,7 @@ export function createBubbleBuddy(userOpts = {}) {
   let stateAt = 0, dwell = 0, scheduleTimer = 0;
   let blinkAt = 0, blinking = 0, reactUntil = 0;
   let started = false, destroyed = false, wired = false;
-  let themeObserver = null, sizeObserver = null, visHandler = null, floatResizeHandler = null;
+  let themeObserver = null, sizeObserver = null, visHandler = null;
 
   const TIPS = (opts.tips && opts.tips.length) ? opts.tips : DEFAULT_TIPS;
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -140,14 +140,6 @@ export function createBubbleBuddy(userOpts = {}) {
   // drop-in default passes a calc() with env(safe-area-inset-*)), so only
   // append 'px' to real numbers.
   const cssLen = (v) => (typeof v === 'number' ? v + 'px' : v);
-  // Numeric base of a CSS length, for the viewport math above: the first px
-  // term of 'calc(20px + env(...))', or the number itself.
-  const offsetXPx = () => {
-    if (typeof opts.offsetX === 'number') return opts.offsetX;
-    const m = String(opts.offsetX).match(/(-?[\d.]+)px/);
-    return m ? parseFloat(m[1]) : 0;
-  };
-
   function buildDom() {
     const mountEl = resolveMount();
     const toBody = mountEl === document.body;
@@ -178,18 +170,11 @@ export function createBubbleBuddy(userOpts = {}) {
       // Safari opens a phantom horizontal scroll gutter for `position: fixed`
       // elements anchored with `right` (made worse by `user-scalable=no`). The
       // mascot then parks itself in that blank space on the right. Anchor with
-      // `left`, computed against the clipped viewport width and kept in sync on
-      // resize/orientation, so it stays on-screen and never opens a gutter.
+      // a left-side calc instead. CSS keeps it synced to viewport changes and
+      // preserves env(safe-area-inset-right) instead of reducing it to a number.
       if (toBody && horz === 'right') {
         container.style.right = 'auto';
-        floatResizeHandler = () => {
-          if (!container) return;
-          const vw = document.documentElement.clientWidth || window.innerWidth || 0;
-          container.style.left = Math.max(0, Math.round(vw - opts.width - offsetXPx())) + 'px';
-        };
-        floatResizeHandler();
-        ['resize', 'orientationchange'].forEach((e) => window.addEventListener(e, floatResizeHandler, { passive: true }));
-        if (window.visualViewport) window.visualViewport.addEventListener('resize', floatResizeHandler, { passive: true });
+        container.style.left = `max(0px, calc(100% - ${opts.width}px - ${cssLen(opts.offsetX)}))`;
       } else {
         container.style[horz] = cssLen(opts.offsetX);
       }
@@ -695,10 +680,6 @@ export function createBubbleBuddy(userOpts = {}) {
     destroyed = true;
     clearTimeout(scheduleTimer); stopLoop();
     if (visHandler) document.removeEventListener('visibilitychange', visHandler);
-    if (floatResizeHandler) {
-      ['resize', 'orientationchange'].forEach((e) => window.removeEventListener(e, floatResizeHandler));
-      if (window.visualViewport) window.visualViewport.removeEventListener('resize', floatResizeHandler);
-    }
     if (themeObserver) themeObserver.disconnect();
     if (sizeObserver) sizeObserver.disconnect();
     if (scene) scene.traverse((o) => {

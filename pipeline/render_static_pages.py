@@ -788,6 +788,29 @@ def _echoes_title(title: str, summary: str) -> bool:
     return _strip_version_tokens(summary) == ""
 
 
+def _clean_release_summary(summary: str, item_type: str) -> str:
+    """Remove commit debris and short placeholders from release notes only.
+
+    Non-release summaries may be short, useful editorial sentences, so they
+    must bypass the release-specific length floor unchanged apart from outer
+    whitespace. Mirrors ``cleanReleaseSummary`` in ``web/index.html``.
+    """
+    text = str(summary or "").strip()
+    if str(item_type or "").strip().lower() != "release":
+        return text
+    cut = min(
+        (
+            pos
+            for pos in (text.find(marker) for marker in ("(cherry picked", "Signed-off-by:"))
+            if pos != -1
+        ),
+        default=-1,
+    )
+    if cut != -1:
+        text = text[:cut].strip()
+    return text if len(text) >= 25 else ""
+
+
 _RANKED_SLOT_LABELS = {
     "frontier_official": "frontier lab",
     "agent_tooling_releases": "agent tooling release",
@@ -5323,15 +5346,7 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             summary = ""  # echoing the headline reads as duplication
         if _looks_like_keyword_list(summary):
             summary = ""
-        # Commit-log debris ("(cherry picked …)", "Signed-off-by:") never reads
-        # as an excerpt; cut at the earliest marker and require a
-        # sentence-length remainder.
-        cut = min(
-            (pos for pos in (summary.find(m) for m in ("(cherry picked", "Signed-off-by:")) if pos != -1),
-            default=-1,
-        )
-        if cut != -1:
-            summary = summary[:cut]
+        summary = _clean_release_summary(summary, str(it.get("type") or "news"))
         # Historical google-news excerpts repeat the syndicated headline,
         # often followed by the bare publisher name with no separator
         # ("... From Today Bloomberg.com"); anything left after removing
@@ -5356,8 +5371,6 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             if len(summary) < 25:
                 summary = ""
         summary = summary.strip()
-        if len(summary) < 25:
-            summary = ""
         is_release_row = str(it.get("type") or "") == "release" and (
             not summary or _GENERIC_RELEASE_NOTES_RE.search(summary)
         )

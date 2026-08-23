@@ -768,9 +768,9 @@ export async function GET(request) {
       const allItems = readLatest().map((it) =>
         withReaderAdjustment({ ...it, first_seen: null, last_seen: null, seen_count: 1, labels: labelsFromItem(it) }, readerTuning));
       const availableLabels = summarizeLabels(allItems);
-      const filteredBase = applyLabelFilter(allItems, selectedLabels);
-      const totalItems = filteredBase.length;
       const winPool = filterItemsByPublishWindow(allItems, from, to);
+      const filteredBase = applyLabelFilter(winPool, selectedLabels);
+      const totalItems = filteredBase.length;
       const body = {
         mode: 'latest',
         date: new Date().toISOString(),

@@ -67,7 +67,8 @@ file — the index is keyed by week id, so there is always exactly one per week.
 ### 3. Write the recap (your editorial work — only an agent can do this)
 Read `data/weekly/input/latest.json`. Each entry in `articles[]` has:
 `title`, `url` (original source link), `source`, `type`, `category`,
-`summary`, `published`. The bundle also carries `week`, `start`, `end`,
+`summary`, `published`, plus optional `publisher_name` and `publisher_domain`.
+The bundle also carries `week`, `start`, `end`,
 `range_label`, `article_count`, and `category_hint` (default per-category counts).
 
 Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
@@ -98,6 +99,8 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
           "title": "…",
           "summary": "one tight line: what it is + why it matters",
           "source": "openai_blog",
+          "publisher_name": "Bloomberg",
+          "publisher_domain": "bloomberg.com",
           "url": "https://…  (copy verbatim from the bundle)",
           "published": "2026-06-03T17:44:18Z"
         }
@@ -108,6 +111,8 @@ Write `data/weekly/<week>.json` (e.g. `data/weekly/2026-W23.json`):
 ```
 
 **Editorial guidance**
+- When an input article has `publisher_name` or `publisher_domain`, copy those
+  fields verbatim into the recap article. Omit them when absent.
 - **Preserve `url` exactly** from the bundle — it's the reader's link back to
   the source. Never invent, clean, normalize, shorten, or guess links. Skip an
   item whose only supplied URL is an ugly redirect or tracking URL rather than
