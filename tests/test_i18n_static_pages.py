@@ -44,18 +44,29 @@ class I18nStaticPagesTest(unittest.TestCase):
             if page["locale"] == "ko"
         ]
 
-    def test_korean_artifacts_are_fresh_for_their_sources(self) -> None:
+    def test_every_localized_surface_still_has_committed_artifacts(self) -> None:
+        # One artifact per translated surface, asserted against what is
+        # COMMITTED rather than what is currently publishable: staleness is
+        # normal (the wiki-curator rewrites topic pages, which correctly
+        # withholds their Korean pages until retranslation), so pinning the
+        # *fresh* set made this fail on ordinary content updates. This still
+        # catches the real regression - the exporter dropping a whole surface.
         expected = [
-            "/daily/2026-07-04",
-            "/foundations/context-compaction-safety",
-            "/story/ee2eab4f35a2124a",
-            "/topic/agent-observability",
-            "/weekly/2026-W27",
+            "daily/2026-07-04",
+            "foundations/context-compaction-safety",
+            "story/ee2eab4f35a2124a",
+            "topic/agent-observability",
+            "weekly/2026-W27",
         ]
-        actual = [a["source_path"] for a in self.artifacts]
-        for path in expected:
-            self.assertIn(path, actual, f"Missing expected baseline artifact: {path}")
+        for rel in expected:
+            with self.subTest(artifact=rel):
+                self.assertTrue(
+                    (ROOT / "data" / "i18n" / "ko" / f"{rel}.json").is_file(),
+                    f"Missing committed baseline artifact: {rel}",
+                )
 
+    def test_korean_artifacts_are_fresh_for_their_sources(self) -> None:
+        self.assertTrue(self.artifacts, "no Korean pages published at all")
         for artifact in self.artifacts:
             source = render.i18n_source_for_path(
                 artifact["source_path"],
