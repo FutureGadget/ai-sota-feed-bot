@@ -22,9 +22,11 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
-  <script src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
       var stored = null;
@@ -35,7 +37,7 @@
         stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
   </script>
-  <script src="https://oat.ink/oat.min.js" defer></script>
+  <script src="/oat.min.js?v=20260824-selfhost" defer></script>
   <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
@@ -43,14 +45,14 @@
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
     /* Token palette lives in the instrument-system block below (the live-feed
        identity layer); it fully defines the light/dark vars. */
     body {
       margin: 0;
       line-height: 1.5;
-      overflow-x: hidden;
+      overflow-x: clip;
       background: var(--bg);
       color: var(--fg);
     }
@@ -1439,6 +1441,7 @@
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
         <a href="/map" data-site-destination="/map">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
       </nav>
@@ -1454,7 +1457,7 @@
         </div>
         <div>
           <p class="feed-promise"><strong>One shared ranking.</strong> Scan what changed, save what matters, and stop when the finish line appears.</p>
-          <p id="meta">Loading...</p>
+          <p id="meta">Ranked brief · refreshes every 2 hours</p>
         </div>
       </section>
 
@@ -1543,7 +1546,7 @@
     </div>
 
     <footer class="sitefooter" role="contentinfo">
-      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -3092,7 +3095,7 @@
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
               ${summary ? `<p class="why">${summary}</p>` : ''}
             </div>
-            ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
+            ${image !== '#' ? `<img class="thumb" width="96" height="72" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
           ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">💡 ${esc(why)}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}

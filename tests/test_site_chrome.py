@@ -18,6 +18,7 @@ SHELLS = (
     "playbook.html",
     "voices.html",
     "subscribe.html",
+    "models.html",
 )
 DESTINATIONS = (
     ("/", "Live feed"),
@@ -251,7 +252,7 @@ class SiteChromeContractTest(unittest.TestCase):
     def test_editor_desk_dialog_groups_navigation_and_actions(self) -> None:
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
         self.assertIn('["Apply", ["/playbook"]]', js)
-        self.assertIn('["Understand", ["/map", "/foundations"]]', js)
+        self.assertIn('["Understand", ["/map", "/foundations", "/models"]]', js)
         self.assertIn("site-actions-group", js)
         self.assertIn('"Editor\'s Desk"', js)
         self.assertIn('querySelectorAll(":scope > a[data-site-destination]")', js)

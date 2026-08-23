@@ -19,20 +19,22 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
-  <script src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.documentElement.setAttribute('data-theme', t);
     })();
   </script>
-  <script src="https://oat.ink/oat.min.js" defer></script>
+  <script src="/oat.min.js?v=20260824-selfhost" defer></script>
   <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
     :root, html[data-theme="light"] {
       color-scheme: light;
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
@@ -47,7 +49,7 @@
       --t-launch:#54b886; --t-rising:#9aa6b6; --t-turn:#ef756d;
       --t-now:#e0ad4e; --t-resolved:#7ca0ff; --t-neutral:#596575;
     }
-    body { margin:0; line-height:1.5; overflow-x:hidden; background:var(--bg); color:var(--fg);
+    body { margin:0; line-height:1.5; overflow-x:clip; background:var(--bg); color:var(--fg);
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
@@ -240,6 +242,7 @@
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
         <a href="/map" data-site-destination="/map">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
       </nav>

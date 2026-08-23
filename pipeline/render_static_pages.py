@@ -228,7 +228,7 @@ def _trim_gnews_site_tail(title: str) -> str:
 # Same look as web/daily.html / web/weekly.html so static and dynamic pages
 # are indistinguishable to readers. Keep in sync when restyling those shells.
 PAGE_CSS = """\
-    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: clip; }
     :root, html[data-theme="light"] {
       color-scheme: light;
       --bg: #ffffff; --fg: #1a1a1a; --card: #ffffff; --border: #e5e5e5; --accent: #2563eb; --muted: #6b7280;
@@ -237,7 +237,7 @@ PAGE_CSS = """\
       color-scheme: dark;
       --bg: #15171c; --fg: #e8e8ea; --card: #1e2128; --border: #34373f; --accent: #5b8def; --muted: #9aa0aa;
     }
-    body { margin: 0; line-height: 1.5; overflow-x: hidden; background: var(--bg); color: var(--fg); }
+    body { margin: 0; line-height: 1.5; overflow-x: clip; background: var(--bg); color: var(--fg); }
     *, *::before, *::after { box-sizing: border-box; }
     button, input, select, textarea { color: inherit; background: var(--card); border-color: var(--border); }
     a { color: var(--accent); }
@@ -415,7 +415,7 @@ PAGE_JS = """\
 # hand-edited shells (see docs/product-specs/nav-update-indicators.md).
 NAV_UPDATES_TAG = '<script src="/nav-updates.js?v=20260805" defer></script>'
 POSTHOG_CLIENT_ASSET_VERSION = "20260713-single-pageview"
-POSTHOG_CLIENT_TAG = f'<script src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
+POSTHOG_CLIENT_TAG = f'<script defer src="/posthog-client.js?v={POSTHOG_CLIENT_ASSET_VERSION}"></script>'
 # Follow button for static storyline pages. Mirrors the localStorage contract
 # in web/storyline.html (FOLLOWS_KEY ai_feed_storyline_follows_v1) so a follow
 # made on a static page is recognized by the dynamic /storylines list and vice
@@ -1320,7 +1320,9 @@ def render_head(
   <meta name="twitter:title" content="{escape(title)}" />
   <meta name="twitter:description" content="{escape(description)}" />{ld}
   <link rel="alternate" type="application/rss+xml" title="{escape(SITE_NAME)} feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v={SITE_CHROME_ASSET_VERSION}" />
   {POSTHOG_CLIENT_TAG}
   <script defer src="/site-chrome.js?v={SITE_CHROME_ASSET_VERSION}"></script>

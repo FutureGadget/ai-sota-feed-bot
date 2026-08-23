@@ -99,7 +99,7 @@ export function createBubbleBuddy(userOpts = {}) {
   // per-instance state (was module-level in the old singleton)
   let renderer, scene, camera, buddy, mini = [], pop = [];
   let container, canvas, tip, dismissBtn;
-  let raf = 0, lastTip = -1;
+  let raf = 0, lastTip = -1, lastFrame = 0;
   let state = 'hidden';          // hidden | entering | idle | leaving
   let stateAt = 0, dwell = 0, scheduleTimer = 0;
   let blinkAt = 0, blinking = 0, reactUntil = 0;
@@ -500,7 +500,7 @@ export function createBubbleBuddy(userOpts = {}) {
     if (!destroyed) scheduleTimer = setTimeout(appear, rand(opts.gapMin, opts.gapMax));
   }
 
-  function startLoop() { if (!raf && !destroyed) raf = requestAnimationFrame(tick); }
+  function startLoop() { if (!raf && !destroyed) { lastFrame = 0; raf = requestAnimationFrame(tick); } }
   function stopLoop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
 
   function onPoke() {
@@ -541,7 +541,9 @@ export function createBubbleBuddy(userOpts = {}) {
     raf = 0;
     if (destroyed) return;
     const t = now();
-    const dt = 1 / 60;
+    if (!lastFrame) lastFrame = t;
+    const dt = Math.min((t - lastFrame) / 1000, 1 / 30);
+    lastFrame = t;
 
     // entering / leaving scale + position
     if (state === 'entering') {

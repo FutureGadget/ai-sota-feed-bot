@@ -55,6 +55,7 @@
     if (pathname === "/playbook" || pathname.startsWith("/playbook/")) return "/playbook";
     if (pathname === "/map" || pathname.startsWith("/topic/")) return "/map";
     if (pathname === "/foundations" || pathname.startsWith("/foundations/")) return "/foundations";
+    if (pathname === "/models" || pathname.startsWith("/models/")) return "/models";
     if (pathname === "/voices") return "/voices";
     if (pathname === "/subscribe") return "/subscribe";
     return "";
@@ -89,7 +90,7 @@
       ["Catch up", ["/", "/daily", "/weekly"]],
       ["Follow", ["/storylines"]],
       ["Apply", ["/playbook"]],
-      ["Understand", ["/map", "/foundations"]],
+      ["Understand", ["/map", "/foundations", "/models"]],
       ["More", ["/voices", "/subscribe"]],
     ];
     const descriptions = {
@@ -100,6 +101,7 @@
       "/playbook": "Actionable engineering lessons",
       "/map": "Essential know-how for production agents",
       "/foundations": "Durable concept explainers",
+      "/models": "Model pricing and capability radar",
       "/voices": "Practitioner voices worth following",
       "/subscribe": "Get the brief by email",
     };
@@ -192,7 +194,8 @@
   const deskContent = document.createElement("div");
   deskContent.className = "site-desk-content";
   deskContent.append(nav);
-  if (actions && actions.children.length) {
+  const visibleActions = actions ? Array.from(actions.children).filter((el) => !el.hidden) : [];
+  if (visibleActions.length) {
     const section = document.createElement("section");
     section.className = "site-nav-group site-actions-group";
     const heading = document.createElement("p");
