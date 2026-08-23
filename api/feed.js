@@ -628,6 +628,24 @@ function accumulateItems(runs) {
   });
 }
 
+// data/processed/runs is bundled at deploy time (vercel.json includeFiles)
+// and never rewritten at function runtime - parse + accumulate once per
+// process instead of re-walking ~34MB of run snapshots on every request.
+// Keyed by cwd because readRuns() resolves data/ relative to it (tests chdir
+// into fixture dirs; in production the cwd never changes within a process).
+const runsPoolCaches = new Map();
+
+function readRunsPool() {
+  const cwd = process.cwd();
+  let pool = runsPoolCaches.get(cwd);
+  if (!pool) {
+    const runs = readRuns();
+    pool = { runs, baseItems: accumulateItems(runs) };
+    runsPoolCaches.set(cwd, pool);
+  }
+  return pool;
+}
+
 export async function GET(request) {
   try {
     const url = new URL(request.url);
@@ -659,7 +677,7 @@ export async function GET(request) {
       .map((s) => String(s || '').trim())
       .filter(Boolean);
 
-    const runs = readRuns();
+    const { runs, baseItems } = readRunsPool();
     const readerTuning = readReaderTuning();
 
     // Backward-compatible latest view when no historical runs are available.
@@ -700,7 +718,6 @@ export async function GET(request) {
     // its computed first_seen), resurfacing old/already-seen stories in the
     // "New" badge and "Catch me up" brief. filterItemsByPublishWindow below
     // still applies the requested window to what's actually displayed.
-    const baseItems = accumulateItems(runs);
     const deepRunAt = filteredRuns?.[0]?.run_at || null;
     const tier1LookbackHours = Math.max(1, Math.min(168, Number.parseInt(String(url.searchParams.get('tier1_lookback_hours') || process.env.TIER1_BLEND_LOOKBACK_HOURS || '24'), 10) || 24));
     const tier1MaxRuns = Math.max(1, Math.min(48, Number.parseInt(String(url.searchParams.get('tier1_max_runs') || process.env.TIER1_BLEND_MAX_RUNS || '12'), 10) || 12));
