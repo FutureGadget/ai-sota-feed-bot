@@ -77,7 +77,7 @@ from collections import Counter
 from datetime import date, datetime, timezone
 from html import escape, unescape
 from pathlib import Path
-from urllib.parse import quote, urlsplit
+from urllib.parse import quote, urlparse, urlsplit
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import og_cards  # noqa: E402
@@ -5332,6 +5332,29 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
         )
         if cut != -1:
             summary = summary[:cut]
+        # Historical google-news excerpts repeat the syndicated headline,
+        # often followed by the bare publisher name with no separator
+        # ("... From Today Bloomberg.com"); anything left after removing
+        # the echoed headline is publisher debris.
+        if summary and _NEWS_GOOGLE_HOST_RE.match(urlparse(url).hostname or ""):
+            low_title = title.lower()
+            if low_title and summary.lower().startswith(low_title):
+                rest = summary[len(title):].strip()
+                rest = re.sub(r"^(?:[-\u2013|]\s*)+", "", rest)
+                if _GNEWS_SITE_TAIL_RE.match(rest.split()[-1] if rest.split() else ""):
+                    rest = ""
+                summary = rest
+            else:
+                for sep in (" - ", " | "):
+                    idx = summary.rfind(sep)
+                    if idx <= 0:
+                        continue
+                    tail = summary[idx + len(sep):].strip()
+                    if tail and len(tail.split()) <= 3 and _GNEWS_SITE_TAIL_RE.match(tail):
+                        summary = summary[:idx].strip()
+                        break
+            if len(summary) < 25:
+                summary = ""
         summary = summary.strip()
         if len(summary) < 25:
             summary = ""
