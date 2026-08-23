@@ -27,8 +27,12 @@
   <script src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
-      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', t);
+      var stored = null;
+      // Storage access can throw (blocked cookies/private mode); the OS
+      // preference alone still yields a valid theme attribute.
+      try { stored = localStorage.getItem('theme'); } catch (e) {}
+      document.documentElement.setAttribute('data-theme',
+        stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
   </script>
   <script src="https://oat.ink/oat.min.js" defer></script>
@@ -924,6 +928,25 @@
       padding: 1rem;
       opacity: 0.85;
     }
+    /* Retry affordance inside state messages: pill like the other list
+       controls (hidden bar, fb-btn), with a comfortable touch target. */
+    .state button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0.3rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--fg);
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .state button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
     /* "You're caught up" end-marker: closes the Brief view so the finishable
        promise has a visible finish line. */
     .end-marker {
@@ -958,8 +981,9 @@
     /* Crawler/no-JS feed seed: a static snapshot of the top ranked items,
        generated into the feed-seed marker region inside #list by
        pipeline/render_static_pages.py. It reserves vertical space during HTML
-       parse and is replaced by the skeleton + live cards as soon as the feed
-       JS boots, so JS readers never diverge from the live feed. */
+       parse and stays on screen while the live fetch runs — on failure it is
+       the last good brief the reader falls back to, so JS readers never see
+       an empty feed column. */
     .feed-seed { display: grid; gap: 0.75rem; }
     .feed-seed h2 { margin: 0 0 0.25rem; font-size: 1.05rem; }
     .seed-item {
@@ -972,41 +996,6 @@
     .seed-item p { margin: 0; font-size: 0.9rem; }
     .seed-item .seed-meta { margin: 0 0 0.1rem; font-size: 0.78rem; color: var(--muted); }
     .seed-more { font-size: 0.9rem; }
-    /* Loading placeholder. JS-injected before the feed fetch resolves so the
-       footer starts below the fold — without it the empty #list lets the
-       footer sit in the first viewport, then ~200 cards shove it down (CLS).
-       Always replaced by real content on first render, so no-JS users and
-       empty/error states never see it. */
-    .skel {
-      display: grid;
-      gap: 0.75rem;
-      min-height: 100vh;
-    }
-    .skel-card {
-      padding: 1rem;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--card);
-    }
-    .skel-bar {
-      height: 0.7rem;
-      border-radius: 4px;
-      background: color-mix(in srgb, var(--muted) 20%, transparent);
-      animation: skel-pulse 1.3s ease-in-out infinite;
-    }
-    .skel-bar + .skel-bar {
-      margin-top: 0.6rem;
-    }
-    .skel-bar.w-40 { width: 40%; }
-    .skel-bar.w-70 { width: 70%; }
-    .skel-bar.w-90 { width: 90%; }
-    @keyframes skel-pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 0.85; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .skel-bar { animation: none; }
-    }
     input, button, a[role="button"] {
       font-size: 16px;
     }
@@ -1201,7 +1190,6 @@
     .end-marker-sub { color:var(--muted); }
     .state { border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
       border-radius:0; }
-    .skel-card { border:0; border-bottom:1px solid var(--border); border-radius:0; background:transparent; }
     @media (max-width:640px) {
       main { padding-left:1rem; padding-right:1rem; }
       .topbar { align-items:center; }
@@ -1862,6 +1850,9 @@
       if (!setHidden(key, reason)) return false;
       const rerender = () => { if (viewState === 'feed') renderFeedList(); };
       if (!showHiddenState && card) {
+        // The slide-out transform is applied out-of-band; force the next
+        // re-render (e.g. Undo mid-animation) to actually write the DOM.
+        lastRenderedListHtml = '';
         card.classList.add('card-removing');
         card.style.transform = 'translateX(-110%)';
         let done = false;
@@ -2110,6 +2101,8 @@
         }
         pendingSharedItemUrl = '';
         posthogCapture('share_landing', { found: false, url: target, utm_source: landingUtmSource || null });
+        // Prepending outside renderFeedList desyncs its change-skip mirror.
+        lastRenderedListHtml = '';
         document.getElementById('list')?.insertAdjacentHTML(
           'afterbegin',
           '<div class="state">The shared story has aged out of the live feed — here&#39;s what&#39;s new instead.</div>'
@@ -2351,6 +2344,24 @@
       return u.pathname + u.search;
     }
 
+    // fetch() with a hard deadline so a hung endpoint can never stall a render.
+    // The timer covers connection+headers; body parsing happens after it is
+    // cleared, so callers wrap their own res.json() to map parse failures onto
+    // the same error path. Returns non-ok responses as-is (no throw).
+    async function fetchWithTimeout(url, opts = {}, ms = 12000) {
+      const ac = new AbortController();
+      const timer = setTimeout(() => ac.abort(), ms);
+      try {
+        return await fetch(url, { ...opts, signal: ac.signal });
+      } catch (err) {
+        // With our own controller, AbortError can only mean the timer fired.
+        if (err && err.name === 'AbortError') throw new Error(`timeout_${ms}_${url}`);
+        throw err;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
     function esc(v) {
       return String(v ?? '')
         .replaceAll('&', '&amp;')
@@ -2530,12 +2541,13 @@
       return s.endsWith('/') && s.length > 1 ? s.slice(0, -1) : s;
     }
 
-    // Fetched once per page load; a storylines outage must never break the feed.
+    // Fetched once per page load; a storylines outage must never break the
+    // feed — every failure mode (timeout, HTTP, parse) resolves empty here.
     function ensureStorylines() {
       if (!storylinesPromise) {
         storylinesPromise = (async () => {
           try {
-            const res = await fetch('/api/storylines');
+            const res = await fetchWithTimeout('/api/storylines', {}, 8000);
             if (!res.ok) return;
             const data = await res.json();
             storylineIndex = Array.isArray(data.storylines) ? data.storylines : [];
@@ -2621,7 +2633,7 @@
       if (!editorDeskPromise) {
         editorDeskPromise = Promise.all([
           sharedUpdatesReady().catch(() => null),
-          fetch('/api/playbook?sources=1', { headers: { accept: 'application/json' } })
+          fetchWithTimeout('/api/playbook?sources=1', { headers: { accept: 'application/json' } }, 8000)
             .then((r) => r.ok ? r.json() : {})
             .catch(() => ({})),
         ]).then(([, playbookSources]) => {
@@ -3031,6 +3043,9 @@
 
     function renderSavedView() {
       const list = document.getElementById('list');
+      // Saved content replaces the feed here; reset renderFeedList's
+      // change-skip mirror so returning to an unchanged feed still rewrites.
+      lastRenderedListHtml = '';
       const q = searchQueryState.trim().toLowerCase();
       const all = Object.values(savedItemsState)
         .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
@@ -3247,19 +3262,17 @@
 
     // Last fetched feed payload; search re-renders from here without refetching.
     let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false };
-
-    // Loading placeholder for the feed list. Reserves vertical space so the
-    // footer doesn't jump when real cards arrive (CLS). aria-hidden because
-    // the #feedStatus role=status region announces the real content once it renders.
-    function skeletonHtml(n = 6) {
-      const card =
-        '<div class="skel-card">' +
-        '<div class="skel-bar w-40"></div>' +
-        '<div class="skel-bar w-90"></div>' +
-        '<div class="skel-bar w-70"></div>' +
-        '</div>';
-      return `<div class="skel" aria-hidden="true">${card.repeat(n)}</div>`;
-    }
+    // Render bookkeeping. lastRenderedListHtml mirrors what we last wrote to
+    // #list so identical re-renders (decoration pass, retried runs) skip the
+    // DOM write; lastGoodListHtml holds the newest markup that contained real
+    // cards and doubles as the fallback when a live fetch fails (boot seeds it
+    // from the crawler-visible snapshot).
+    let lastGoodListHtml = '';
+    let lastRenderedListHtml = '';
+    // One feed fetch at a time: triggers landing mid-flight coalesce into a
+    // single follow-up rerun instead of racing stale responses.
+    let runInFlight = false;
+    let pendingReRun = false;
 
     // End-of-Brief marker: a one-line finish line so the default view ends
     // ("read everything, you're caught up") instead of trailing off.
@@ -3347,56 +3360,97 @@
       setFeedStatus(countText);
       syncSectionTabs();
 
+      let html;
       if (!visible.length) {
         if (!q && hiddenInView > 0) {
           // Everything in this window is hidden — offer a way to bring it back
           // rather than implying the feed is empty.
-          list.innerHTML = hiddenBarHtml(hiddenInView)
+          html = hiddenBarHtml(hiddenInView)
             + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
-          return;
+        } else {
+          html = q
+            ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
+            : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
         }
-        list.innerHTML = q
-          ? `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`
-          : `<div class="state">No items for that date/time range. Try widening the window.</div>`;
-        return;
+      } else {
+        const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
+        if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
+        if (!q) {
+          // Onboarding (first visit) or subscribe nudge (returning visits) goes
+          // after the 3rd story; catch-up stays pinned on top.
+          const promo = onboardingHtml() || subscribeNudgeHtml();
+          if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
+          const editorInserts = editorDeskInserts(visible);
+          let editorOffset = 0;
+          for (const insert of editorInserts) {
+            cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
+            editorOffset += 1;
+          }
+          cards.unshift(catchupHtml(items));
+          // Finish line for the Brief default — make the "finishable" promise
+          // visible. Only on the Brief lens (not the firehose/topic views).
+          if (activeSection() === 'brief') {
+            cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
+          }
+        }
+        html = cards.join('');
       }
 
-      const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
-      if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
-      if (!q) {
-        // Onboarding (first visit) or subscribe nudge (returning visits) goes
-        // after the 3rd story; catch-up stays pinned on top.
-        const promo = onboardingHtml() || subscribeNudgeHtml();
-        if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
-        const editorInserts = editorDeskInserts(visible);
-        let editorOffset = 0;
-        for (const insert of editorInserts) {
-          cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
-          editorOffset += 1;
-        }
-        cards.unshift(catchupHtml(items));
-        // Finish line for the Brief default — make the "finishable" promise
-        // visible. Only on the Brief lens (not the firehose/topic views).
-        if (activeSection() === 'brief') {
-          cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
-        }
+      // Skip identical rewrites (the post-fetch decoration pass rebuilds the
+      // same markup), and keep real card content as the fetch-failure fallback.
+      if (html !== lastRenderedListHtml) {
+        lastRenderedListHtml = html;
+        list.innerHTML = html;
+        if (visible.length) lastGoodListHtml = html;
       }
-      list.innerHTML = cards.join('');
+    }
+
+    // True once either decoration source has actual data — guards the
+    // pointless second render when both outage-safe loaders resolved empty.
+    function decorationsHaveData() {
+      return storylineByUrl.size > 0 || Object.keys(editorDeskData?.playbookSources || {}).length > 0;
     }
 
     async function run() {
       syncUrlFromFilters();
+      // Saved view is a sync local render — no fetch — so it bypasses the
+      // in-flight guard instead of queueing behind a live-feed run.
       if (viewState === 'saved') {
         renderSavedView();
         return;
       }
-      let [res] = await Promise.all([fetch(buildFeedUrl()), ensureStorylines(), ensureEditorDeskData()]);
+      if (runInFlight) {
+        pendingReRun = true;
+        return;
+      }
+      runInFlight = true;
+      try {
+        await runInner();
+      } finally {
+        runInFlight = false;
+        if (pendingReRun) {
+          pendingReRun = false;
+          refreshFeed();
+        }
+      }
+    }
+
+    async function runInner() {
+      // Decorations ride along but never gate the first paint: kick them off,
+      // render as soon as feed data lands, re-render once they arrive.
+      const decorationsReady = Promise.all([ensureStorylines(), ensureEditorDeskData()]);
+      let res = await fetchWithTimeout(buildFeedUrl());
       if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
-        res = await fetch('/data/processed/latest.json', { cache: 'no-store' });
+        res = await fetchWithTimeout('/data/processed/latest.json', { cache: 'no-store' });
       }
       if (!res.ok) throw new Error(`feed_http_${res.status}`);
 
-      let data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error('feed_parse');
+      }
       if (Array.isArray(data)) {
         const labels = getSelectedLabels();
         const cutoff = presetDaysState === 'all'
@@ -3441,7 +3495,7 @@
       ) {
         emptyWindowWidened = true;
         setDateRangeDays(3);
-        await run();
+        await runInner();
         return;
       }
 
@@ -3476,16 +3530,42 @@
         ts: new Date().toISOString(),
       }));
       captureEvents(impressions);
+
+      // Decoration pass, after analytics so it can't interleave with the
+      // first-paint render: re-renders in place (renderFeedList skips the
+      // DOM write when nothing changed) once storylines/desk data arrive.
+      decorationsReady.then(() => {
+        if (viewState !== 'feed') return;
+        if (!decorationsHaveData()) return;
+        if (!feedCache.items.length) return;
+        renderFeedList();
+      }).catch(() => {});
     }
 
     // exitSaved: filter interactions leave the saved view and go back to the feed.
     function refreshFeed({ exitSaved = false } = {}) {
       if (exitSaved) viewState = 'feed';
       run().catch(err => {
-        document.getElementById('meta').textContent = 'Feed unavailable';
-        setFeedStatus('Feed unavailable. Could not load the feed right now.');
-        document.getElementById('list').innerHTML = `<div class="state">Could not load the feed right now. Please refresh in a moment.</div>`;
         console.error(err);
+        if (viewState !== 'feed') return;
+        const retry = '<button type="button" data-retry-feed="1">Retry</button>';
+        const bar = `<div class="state">Live feed failed to load just now. ${retry}</div>`;
+        const list = document.getElementById('list');
+        if (lastGoodListHtml) {
+          const fallback = bar + lastGoodListHtml;
+          list.innerHTML = fallback;
+          // Record what we wrote, or a later successful render could be
+          // skipped as "unchanged" and leave this error bar stuck on screen.
+          lastRenderedListHtml = fallback;
+          document.getElementById('meta').textContent = 'Showing the last good brief';
+          setFeedStatus('Live feed failed to load. Showing the last good brief.');
+        } else {
+          const fallback = `<div class="state">Could not load the feed right now. ${retry}</div>`;
+          list.innerHTML = fallback;
+          lastRenderedListHtml = fallback;
+          document.getElementById('meta').textContent = 'Feed unavailable';
+          setFeedStatus('Feed unavailable. Could not load the feed right now.');
+        }
       });
     }
 
@@ -3496,6 +3576,13 @@
       list.addEventListener('click', (e) => {
         if (e.target.closest('button[data-export-saved]')) {
           exportSavedMarkdown();
+          return;
+        }
+
+        if (e.target.closest('button[data-retry-feed]')) {
+          // Spam-safe via run()'s own in-flight coalescing: taps while a fetch
+          // is running collapse into one follow-up rerun.
+          refreshFeed();
           return;
         }
 
@@ -3782,9 +3869,11 @@
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
-    // Reserve the feed's vertical space before the fetch resolves so the
-    // footer starts below the fold and doesn't jump on first render (CLS).
-    document.getElementById('list').innerHTML = skeletonHtml();
+    // Snapshot the crawler-visible seed before anything rewrites #list: it
+    // stays on screen during the fetch (reserving vertical space with real
+    // content, no CLS) and is the fallback brief if this first fetch fails.
+    lastGoodListHtml = document.getElementById('list').innerHTML;
+    document.getElementById('meta').textContent = 'Updating the brief...';
     refreshFeed();
   </script>
 
