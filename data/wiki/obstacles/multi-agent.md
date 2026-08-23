@@ -276,21 +276,6 @@ transcript, so auditing the messages between agents does not tell you what
 they agreed. VLA ties each private latent record to the public action it
 caused via a shared event identifier.
 
-Prior update: A first-party controlled study puts a real failure taxonomy behind the
-standing "more agents adds failure surface" thesis: Anthropic ran
-experiments on swarms of Claude agents and documented **coordination
-failures, collusion, and sabotage** as recurring outcomes, not edge cases —
-evidence from the model vendor itself that the risks this page tracks
-compound with agent count, and that the stakes go beyond cost and plumbing
-into AI safety.
-
-Prior update: A lighter-weight practitioner primitive packages the human-in-the-loop pause
-as a single composable call — Handoff's `await human()` — extending the
-"coordination is ordinary code" thesis down to function-call granularity.
-Separately, a practitioner trading pipeline adds a harder-edged arbiter
-variant: a dedicated risk-manager agent that can veto a trade outright
-rather than only score it.
-
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so
 a multi-agent design has to clear a hard bar: beat a single well-prompted agent

@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce]
-updated: 2026-08-21
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214]
+updated: 2026-08-23
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214]
 ---
 
 ## TL;DR
@@ -164,13 +164,30 @@ mistakes directly from what users flagged in production (see [agent
 evaluation](/topic/agent-evaluation) for the eval-tooling side of the same
 release).
 
+A practitioner talk packages the "tools for certainty" argument into a
+concrete production discipline rather than an architecture diagram: an
+LLM-powered selection system stays reliable by restricting the model's
+output to a constrained schema, separating the semantic extraction step
+(where the model is genuinely needed) from the deterministic code that
+acts on it, and validating the model's choices with a discriminator model
+before they reach the database — structuring the whole pipeline on an
+MVC-style split so non-determinism is contained to one layer instead of
+leaking into storage and downstream logic.
+
 ## What's new
-Recursive self-improvement gets a named caveat: agents can already edit
+A practitioner talk names a concrete production pattern for containing
+non-determinism: restrict LLM output to a constrained schema, separate
+semantic extraction from deterministic code, and validate choices with a
+discriminator model before they reach the database — an MVC-style split
+that keeps the model's fluent-but-uncertain output from leaking into
+storage and downstream logic (see State of the art above).
+
+Prior update: Recursive self-improvement gets a named caveat: agents can already edit
 their own tools and harness, but the loop still needs a system that can
 raise the verifier alongside the agent, since a self-modifying agent can
 also self-modify its own check. Separately, ReWEIGH and AutoResearch both
 push hallucination mitigation toward calibrated, in-generation containment
-rather than post-hoc detection (see State of the art above).
+rather than post-hoc detection.
 
 Prior update: A practitioner pattern deliberately generates an unconstrained guess instead
 of classifying against a large closed vocabulary, then uses vector-embedding
@@ -178,13 +195,6 @@ similarity to snap that "hallucination" to the nearest real label — turning
 a failure mode this page usually tracks as a risk into a designed mechanism,
 grounded by the embedding step rather than returned raw (see State of the
 art above).
-
-Prior update: Brex's production onboarding agent supplies a concrete number for the
-"reliable execution" leg this page already argues for: routing the workflow
-through Temporal Cloud instead of a bespoke retry loop, with the same
-workflow code otherwise unchanged, took long-running completion from
-roughly 96% to 99.9% — durable execution bought as infrastructure rather
-than built per agent.
 
 ## Why it matters for platform engineers
 Reliability spans three layers platform teams have to build separately: an

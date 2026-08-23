@@ -200,14 +200,6 @@ may do, not just who may connect — a server-side permissions layer
 alongside this page's standing client-auth governance thread (see State of
 the art above).
 
-Prior update: Cloudflare previewed automatic WebMCP support (a dashboard toggle, no code
-change) — the second browser vendor shipping the actuation surface this page
-tracks. Separately, the MCP 2026-07-28 statelessness change is drawing
-developer pushback alongside its adoption: dropping the session handshake
-for header-based routing reads to some practitioners as convergence toward
-a plain API, which sharpens what MCP's durable value actually is (shared
-tool description and discovery, not the session state removed).
-
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose
 is a new permission and a new attack surface — MCP standardizes *access*, which
