@@ -69,11 +69,13 @@ import argparse
 import copy
 import hashlib
 import json
+import math
 import os
 import re
 import sys
 from collections import Counter
 from datetime import date, datetime, timezone
+from decimal import ROUND_HALF_UP, Decimal
 from html import escape, unescape
 from pathlib import Path
 from urllib.parse import quote, urlsplit
@@ -111,6 +113,9 @@ SLUG_HTML_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,80}\.html$")
 RELATED_STORIES_MAX = 4
 STORY_BRIEF_MAX_CHARS = 320
 MECHANICAL_WHY_PREFIXES = ("Matches feed focus:",)
+_LEGACY_PLACEHOLDER_WHY = (
+    "Potential relevance to AI platform engineering; verify practical impact."
+)
 
 # Topical-authority gate: the feed lets through occasional off-topic posts from
 # otherwise-relevant sources (e.g. a frontier lab's consumer/PR announcement).
@@ -769,6 +774,63 @@ def _echoes_title(title: str, summary: str) -> bool:
     return _strip_version_tokens(summary) == ""
 
 
+_RANKED_SLOT_LABELS = {
+    "frontier_official": "frontier lab",
+    "agent_tooling_releases": "agent tooling release",
+    "infra_runtime_releases": "infra/runtime release",
+    "open_weight_releases": "open-weight release",
+    "vendor_general_updates": "vendor update",
+    "cloud_platform_updates": "cloud platform update",
+    "practitioner_analysis": "practitioner analysis",
+    "community_signal": "community signal",
+    "research_watch": "research watch",
+    "overflow": "long tail",
+}
+
+
+def _ranked_because(item: dict) -> str:
+    """Deterministic ranking rationale for items without an editorial why.
+
+    Mirrors ``rankedBecauseText`` in web/index.html - same components, order,
+    separators, and formatting;
+    tests/fixtures/ranked_because_samples.json is the shared contract asserted
+    by tests/test_ranked_because.mjs and tests/test_seed_sanitation.py.
+    """
+    if not isinstance(item, dict):
+        return ""
+    why = squeeze(item.get("why_it_matters"))
+    if why and why != _LEGACY_PLACEHOLDER_WHY:
+        if not why.startswith(MECHANICAL_WHY_PREFIXES):
+            return ""
+    parts: list[str] = []
+    topics = [str(t).strip() for t in (item.get("matched_topics") or []) if str(t or "").strip()]
+    if topics:
+        parts.append(f"{' + '.join(topics[:2])} match")
+    slot = item.get("slot")
+    if slot:
+        parts.append(_RANKED_SLOT_LABELS.get(slot, str(slot).replace("_", " ")))
+    decay_raw = item.get("time_decay_factor")
+    if decay_raw is not None and str(decay_raw).strip() != "":
+        try:
+            decay = float(decay_raw)
+        except (TypeError, ValueError):
+            decay = None
+        if decay is not None and math.isfinite(decay):
+            # toFixed(2) parity: half-up on ties, unlike round()'s banker's rule
+            parts.append(f"fresh {Decimal(str(decay)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):.2f}")
+    score_raw = item.get("final_score")
+    if score_raw is None:
+        score_raw = item.get("tier1_quick_score")
+    if score_raw is not None and str(score_raw).strip() != "":
+        try:
+            score = float(score_raw)
+        except (TypeError, ValueError):
+            score = None
+        if score is not None and math.isfinite(score):
+            parts.append(f"score {Decimal(str(score)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP):.2f}")
+    return f"Ranked: {' \u00b7 '.join(parts)}" if parts else ""
+
+
 def _trim_title_suffix(title: str, source: str, url: str) -> str:
     """Drop a trailing " - Publisher" that repeats the item's own source.
 
@@ -827,6 +889,8 @@ def _seed_heading(dates: list[date]) -> str:
 def story_why(rec: dict) -> str:
     """Reader-facing rationale only; ranking diagnostics belong in topic chips."""
     why = squeeze(rec.get("why_it_matters"))
+    if why == _LEGACY_PLACEHOLDER_WHY:
+        return ""
     if any(why.startswith(prefix) for prefix in MECHANICAL_WHY_PREFIXES):
         return ""
     return why
@@ -5238,11 +5302,13 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             if has_story
             else ""
         )
+        ranked_why = "" if (is_release_row or story_why(it)) else _ranked_because(it)
         meta = " · ".join(
             x
             for x in (
                 seed_source_label(it, url),
                 published_date.isoformat() if published_date else "",
+                ranked_why,
             )
             if x
         )

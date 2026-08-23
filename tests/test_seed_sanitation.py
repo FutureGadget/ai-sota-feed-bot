@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SAMPLES = json.loads(
     (ROOT / "tests" / "fixtures" / "keyword_spam_samples.json").read_text(encoding="utf-8")
 )
+RANKED_BECAUSE_SAMPLES = json.loads(
+    (ROOT / "tests" / "fixtures" / "ranked_because_samples.json").read_text(encoding="utf-8")
+)
 
 
 class KeywordListHeuristicTest(unittest.TestCase):
@@ -139,6 +142,21 @@ class TrimTitleSuffixTest(unittest.TestCase):
         self.assertEqual(
             render._trim_title_suffix(title, "infoq", "https://www.infoq.com/a"), title
         )
+
+
+class RankedBecauseTest(unittest.TestCase):
+    def test_matches_shared_fixture(self) -> None:
+        # Same fixture tests/test_ranked_because.mjs pins the JS twin against;
+        # a failure here means the seed and the live feed would disagree.
+        for sample in RANKED_BECAUSE_SAMPLES:
+            with self.subTest(item=sample["item"]):
+                self.assertEqual(
+                    render._ranked_because(sample["item"]), sample["expected"]
+                )
+
+    def test_non_dict_item_is_empty(self) -> None:
+        self.assertEqual(render._ranked_because(None), "")
+        self.assertEqual(render._ranked_because("nope"), "")
 
 
 class SeedHeadingTest(unittest.TestCase):

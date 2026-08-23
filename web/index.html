@@ -298,6 +298,12 @@
     article.release-row .why {
       display: none;
     }
+    article.release-row .matters {
+      display: none;
+    }
+    article.release-row .ranked-why {
+      display: none;
+    }
     article.release-row .card-meta,
     article.release-row .card-meta .src,
     article.release-row .card-meta .badge {
@@ -689,6 +695,14 @@
       padding-left: 0.55rem;
       overflow-wrap: anywhere;
       word-break: break-word;
+    }
+    .ranked-why {
+      margin: 0.45rem 0 0;
+      font-size: 0.78rem;
+      line-height: 1.45;
+      color: color-mix(in srgb, var(--muted) 85%, transparent);
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      overflow-wrap: anywhere;
     }
     .also {
       margin: 0.35rem 0 0;
@@ -1168,6 +1182,7 @@
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
+    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.66rem; }
     .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
     .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.64rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
@@ -2832,6 +2847,45 @@
       return why;
     }
 
+    const SLOT_LABELS = {
+      frontier_official: 'frontier lab',
+      agent_tooling_releases: 'agent tooling release',
+      infra_runtime_releases: 'infra/runtime release',
+      open_weight_releases: 'open-weight release',
+      vendor_general_updates: 'vendor update',
+      cloud_platform_updates: 'cloud platform update',
+      practitioner_analysis: 'practitioner analysis',
+      community_signal: 'community signal',
+      research_watch: 'research watch',
+      overflow: 'long tail',
+    };
+
+    // Deterministic stand-in for the editorial why line: states the measurable
+    // ranking reasons (matched topics, slot, freshness, score) so every card
+    // carries a visible rationale. Pure - pinned against
+    // tests/fixtures/ranked_because_samples.json alongside _ranked_because in
+    // pipeline/render_static_pages.py.
+    function rankedBecauseText(it) {
+      if (!it || typeof it !== 'object') return '';
+      const why = cleanText(it.why_it_matters);
+      if (why && why !== LEGACY_PLACEHOLDER_WHY && !/^Matches feed focus:/i.test(why)) return '';
+      const parts = [];
+      const topics = (Array.isArray(it.matched_topics) ? it.matched_topics : [])
+        .filter((t) => String(t || '').trim())
+        .slice(0, 2)
+        .join(' + ');
+      if (topics) parts.push(`${topics} match`);
+      if (it.slot) parts.push(SLOT_LABELS[it.slot] || String(it.slot).replace(/_/g, ' '));
+      if (it.time_decay_factor != null && String(it.time_decay_factor).trim() !== '') {
+        const decay = Number(it.time_decay_factor);
+        if (Number.isFinite(decay)) parts.push(`fresh ${decay.toFixed(2)}`);
+      }
+      const scoreRaw = it.final_score ?? it.tier1_quick_score;
+      const score = (scoreRaw == null || String(scoreRaw).trim() === '') ? NaN : Number(scoreRaw);
+      if (Number.isFinite(score)) parts.push(`score ${score.toFixed(2)}`);
+      return parts.length ? `Ranked: ${parts.join(' · ')}` : '';
+    }
+
     // Release feeds often repeat the tag name as the entire summary
     // ("Release 0.150.0-alpha.7"); normalizing both sides keeps punctuation
     // and casing from hiding the duplication.
@@ -2882,7 +2936,7 @@
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = whyItMattersText(it);
-      const why = (whyRaw && whyRaw !== summaryRaw) ? esc(whyRaw) : '';
+      const why = whyRaw || rankedBecauseText(it);
       const href = safeUrl(it.url);
       // Only use an absolute http(s) image URL. safeUrl() resolves bare/relative
       // strings against our origin (e.g. a scraped placeholder "URL to first
@@ -2953,7 +3007,7 @@
             </div>
             ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
-          ${why ? `<p class="matters">💡 ${why}</p>` : ''}
+          ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">💡 ${esc(why)}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
           <div class="fb-row ${fbActive ? 'fb-has-voted' : ''}"><span class="fb-label">${fbActive ? FEEDBACK_THANKS : ''}</span><div class="fb-actions">${fbButtons}</div></div>
         </article>`;
@@ -3140,7 +3194,7 @@
         const summaryFallback = looksLikeKeywordList(summaryRaw0) || echoesTitle(it.title, summaryRaw0)
           ? ''
           : cleanReleaseSummary(summaryRaw0);
-        const lineRaw = whyRaw || summaryFallback;
+        const lineRaw = whyRaw || rankedBecauseText(it) || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';
         return `<li><a href="${safeUrl(it.url)}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${esc(itemKey(it))}" data-source="${esc(it.source || '')}" data-title="${esc(it.title || '')}">${esc(trimTitleSuffix(it.title || 'Untitled', it.source, it.url))}</a>${flames}${short ? ` <span class="catchup-summary">— ${esc(short)}</span>` : ''}</li>`;
