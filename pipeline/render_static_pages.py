@@ -740,6 +740,35 @@ def _looks_like_keyword_list(text: str) -> bool:
     )
 
 
+_ECHO_VERSION_TOKEN_RE = re.compile(r"\bv?\d+(?:\.\d+)+(?:-[0-9a-z.\d]+)?\b", re.IGNORECASE)
+_ECHO_RELEASE_WORD_RE = re.compile(r"\b(?:release|version)\b", re.IGNORECASE)
+_GENERIC_RELEASE_NOTES_RE = re.compile(
+    r"^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b",
+    re.IGNORECASE,
+)
+
+
+def _normalize_echo(text: str) -> str:
+    return re.sub(r"[^\w]+", " ", str(text or "").lower()).strip()
+
+
+def _strip_version_tokens(text: str) -> str:
+    stripped = _ECHO_VERSION_TOKEN_RE.sub(" ", str(text or ""))
+    stripped = _ECHO_RELEASE_WORD_RE.sub(" ", stripped)
+    return _normalize_echo(stripped)
+
+
+def _echoes_title(title: str, summary: str) -> bool:
+    """True when a summary adds nothing beyond the headline.
+
+    Mirrors ``echoesTitle`` in web/index.html so the crawler-visible seed and
+    the JS feed drop the same version-bump-only summaries.
+    """
+    if _normalize_echo(summary) == _normalize_echo(title):
+        return True
+    return _strip_version_tokens(summary) == ""
+
+
 def _trim_title_suffix(title: str, source: str, url: str) -> str:
     """Drop a trailing " - Publisher" that repeats the item's own source.
 
@@ -5182,10 +5211,26 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             url,
         )
         summary = _strip_html_tags(str(it.get("summary_1line") or it.get("summary") or ""))
-        if summary.lower().rstrip(".") == title.lower().rstrip("."):
+        if _echoes_title(title, summary):
             summary = ""  # echoing the headline reads as duplication
         if _looks_like_keyword_list(summary):
             summary = ""
+        # Commit-log debris ("(cherry picked …)", "Signed-off-by:") never reads
+        # as an excerpt; cut at the earliest marker and require a
+        # sentence-length remainder.
+        cut = min(
+            (pos for pos in (summary.find(m) for m in ("(cherry picked", "Signed-off-by:")) if pos != -1),
+            default=-1,
+        )
+        if cut != -1:
+            summary = summary[:cut]
+        summary = summary.strip()
+        if len(summary) < 25:
+            summary = ""
+        is_release_row = str(it.get("type") or "") == "release" and (
+            not summary or _GENERIC_RELEASE_NOTES_RE.search(summary)
+        )
+        shown_summary = "" if is_release_row else summary
         sid = story_sid(url)
         has_story = sid in story_sids
         perma = (
@@ -5202,17 +5247,18 @@ def seed_feed_shell(base_url: str, story_sids: set[str]) -> int:
             if x
         )
         meta_context = ""
-        if not summary and has_story:
+        if not shown_summary and has_story:
             meta_context = (
                 f' · <a href="/story/{sid}">Context</a>' if meta else f'<a href="/story/{sid}">Context</a>'
             )
             perma = ""
-        body = f"<p>{escape(clip(summary, 240))}{perma}</p>" if summary or perma else ""
+        body = f"<p>{escape(clip(shown_summary, 240))}{perma}</p>" if shown_summary or perma else ""
         cards.append(
-            '<article class="seed-item">'
-            f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
-            f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
-            f"{body}</article>"
+            '<article class="seed-item'
+            + (' release-row">' if is_release_row else '">')
+            + f'<p class="seed-meta">{escape(meta)}{meta_context}</p>'
+            + f'<h3><a href="{escape(url)}" rel="noopener">{escape(title)}</a></h3>'
+            + f"{body}</article>"
         )
         seeded_dates.append(published_date)
     if not cards:

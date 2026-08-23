@@ -284,6 +284,25 @@
       border-color: var(--accent);
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 45%, transparent);
     }
+    /* Release rows are compact single-line entries, not full news cards.
+       Purely additive styling: the DOM shape is unchanged so save/share/hide/
+       swipe handlers keep working, and the big-story ribbon is untouched. */
+    article.release-row {
+      padding-top: 0.55rem;
+      padding-bottom: 0.55rem;
+    }
+    article.release-row h3 {
+      font-size: 0.92rem;
+      margin-bottom: 0.15rem;
+    }
+    article.release-row .why {
+      display: none;
+    }
+    article.release-row .card-meta,
+    article.release-row .card-meta .src,
+    article.release-row .card-meta .badge {
+      font-size: 0.78rem;
+    }
     .thumb {
       width: 84px;
       height: 84px;
@@ -2813,6 +2832,42 @@
       return why;
     }
 
+    // Release feeds often repeat the tag name as the entire summary
+    // ("Release 0.150.0-alpha.7"); normalizing both sides keeps punctuation
+    // and casing from hiding the duplication.
+    function normalizeEcho(s) {
+      return String(s || '').toLowerCase().replace(/\W+/g, ' ').trim();
+    }
+
+    function stripVersionTokens(s) {
+      return String(s || '')
+        .replace(/\bv?\d+(?:\.\d+)+(?:-[0-9a-z.\d]+)?\b/gi, ' ')
+        .replace(/\b(?:release|version)\b/gi, ' ')
+        .replace(/\W+/g, ' ')
+        .trim();
+    }
+
+    function echoesTitle(title, summary) {
+      return normalizeEcho(summary) === normalizeEcho(title) || stripVersionTokens(summary) === '';
+    }
+
+    // "(cherry picked …)" / "Signed-off-by:" mark excerpts lifted straight
+    // from commit logs; cut at the first one and only keep what still reads
+    // as a sentence.
+    function cleanReleaseSummary(summary) {
+      let s = String(summary || '');
+      for (const marker of ['(cherry picked', 'Signed-off-by:']) {
+        const i = s.indexOf(marker);
+        if (i !== -1) s = s.slice(0, i);
+      }
+      s = s.trim();
+      return s.length < 25 ? '' : s;
+    }
+
+    function isGenericReleaseNotes(s) {
+      return /^(bug fixes|reliability improvements|maintenance( release)?|minor fixes|no release notes)\b/i.test(String(s || '').trim());
+    }
+
     function cardHtml(it, { rank = null, runId = '', hideable = true } = {}) {
       const key = itemKey(it);
       const rawTitle = String(it.title || 'Untitled');
@@ -2822,7 +2877,8 @@
       const type = esc(it.type || 'news');
       const typeLabel = TYPE_BADGE_LABELS[type] || (type.charAt(0).toUpperCase() + type.slice(1));
       const summaryRaw0 = cleanText(it.summary_1line);
-      const summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
+      let summaryRaw = looksLikeKeywordList(summaryRaw0) ? '' : cleanReleaseSummary(summaryRaw0);
+      if (echoesTitle(it.title, summaryRaw0)) summaryRaw = '';
       const summary = esc(summaryRaw);
       const published = fmtCardDate(it.published || it.first_seen || it.last_seen);
       const whyRaw = whyItMattersText(it);
@@ -2865,7 +2921,10 @@
         `<button type="button" class="fb-btn" data-fb-id="${itemId}" data-fb-signal="${signal}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" aria-pressed="${fbActive === signal ? 'true' : 'false'}">${label}</button>`
       ).join('');
 
-      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : ''].filter(Boolean).join(' ');
+      // Release items without a real excerpt render as compact rows, not
+      // full cards; class-only so save/share/hide/swipe handlers keep working.
+      const isReleaseRow = type === 'release' && (!summaryRaw || isGenericReleaseNotes(summaryRaw));
+      const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
           ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
@@ -3078,7 +3137,9 @@
         // publisher summary is the fallback, not the headline act.
         const whyRaw = whyItMattersText(it);
         const summaryRaw0 = cleanText(it.summary_1line);
-        const summaryFallback = looksLikeKeywordList(summaryRaw0) ? '' : summaryRaw0;
+        const summaryFallback = looksLikeKeywordList(summaryRaw0) || echoesTitle(it.title, summaryRaw0)
+          ? ''
+          : cleanReleaseSummary(summaryRaw0);
         const lineRaw = whyRaw || summaryFallback;
         const short = lineRaw.length > 110 ? `${lineRaw.slice(0, 110).trimEnd()}…` : lineRaw;
         const flames = sources >= 2 ? ` <span class="badge badge-trend" title="Covered by ${sources} sources">🔥 ${sources} sources</span>` : '';

@@ -56,6 +56,45 @@ class StripHtmlTagsTest(unittest.TestCase):
         )
 
 
+class EchoesTitleTest(unittest.TestCase):
+    def test_bare_version_bump_is_an_echo(self) -> None:
+        self.assertTrue(
+            render._echoes_title("codex 0.150.0-alpha.7", "Release 0.150.0-alpha.7")
+        )
+
+    def test_informative_release_note_is_kept(self) -> None:
+        self.assertFalse(
+            render._echoes_title(
+                "codex 0.150.0-alpha.7",
+                "Release 0.150.0-alpha.7 fixes sandbox escaping on macOS",
+            )
+        )
+
+    def test_empty_after_version_strip_is_an_echo(self) -> None:
+        self.assertTrue(render._echoes_title("codex 0.150.0-alpha.7", "v0.150.0"))
+
+    def test_punctuation_and_casing_cannot_hide_the_echo(self) -> None:
+        self.assertTrue(render._echoes_title("codex 0.150.0-alpha.7", "Codex 0.150.0-alpha.7!"))
+
+
+class GenericReleaseNotesTest(unittest.TestCase):
+    def test_generic_prefixes_match(self) -> None:
+        for sample in (
+            "Bug fixes",
+            "Reliability improvements and perf work",
+            "Maintenance release",
+            "minor fixes",
+            "No release notes",
+        ):
+            with self.subTest(sample=sample):
+                self.assertTrue(render._GENERIC_RELEASE_NOTES_RE.search(sample))
+
+    def test_specific_notes_do_not_match(self) -> None:
+        self.assertIsNone(
+            render._GENERIC_RELEASE_NOTES_RE.search("Fixed a sandbox escape on macOS")
+        )
+
+
 class TrimTitleSuffixTest(unittest.TestCase):
     def test_source_slug_suffix_is_dropped(self) -> None:
         self.assertEqual(
