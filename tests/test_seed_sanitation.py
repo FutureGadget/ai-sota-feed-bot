@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import json
 import unittest
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 from pipeline import render_static_pages as render
@@ -185,6 +185,55 @@ class SeedHeadingTest(unittest.TestCase):
 
     def test_undated_seed(self) -> None:
         self.assertEqual(render._seed_heading([]), "Top signals")
+
+    def test_single_day_with_updated_suffix(self) -> None:
+        self.assertEqual(
+            render._seed_heading(
+                [date(2026, 8, 22)], datetime(2026, 8, 23, 7, 5, tzinfo=timezone.utc)
+            ),
+            "Top signals · Aug 22, 2026 · Updated Aug 23, 07:05 UTC",
+        )
+
+    def test_dates_only_output_is_unchanged_without_updated_at(self) -> None:
+        # Existing callers pass no updated_at; that output must stay byte-identical.
+        self.assertEqual(
+            render._seed_heading([date(2026, 8, 22)], None),
+            render._seed_heading([date(2026, 8, 22)]),
+        )
+
+
+class IsReleaseItemTest(unittest.TestCase):
+    """Pins the seed-side twin of isReleaseItem in api/feed.js.
+
+    The seed hides release items to match the live feed's default Brief lens;
+    drift here would make crawlers see a different feed than JS readers.
+    """
+
+    def test_type_release_is_a_release(self) -> None:
+        self.assertTrue(render._is_release_item({"type": "release"}))
+
+    def test_llm_category_release_wins_over_type(self) -> None:
+        self.assertTrue(
+            render._is_release_item({"type": "news", "llm_category": "Release"})
+        )
+
+    def test_release_notes_summary_prefix_is_a_release(self) -> None:
+        self.assertTrue(render._is_release_item({"summary_1line": "Release notes: fixed x"}))
+        self.assertTrue(render._is_release_item({"summary": "release: new sandboxing"}))
+
+    def test_normal_news_item_is_not_a_release(self) -> None:
+        self.assertFalse(
+            render._is_release_item(
+                {
+                    "type": "news",
+                    "llm_category": "research",
+                    "summary_1line": "Anthropic published evals for long-horizon agent tasks",
+                }
+            )
+        )
+
+    def test_markup_and_casing_cannot_hide_the_prefix(self) -> None:
+        self.assertTrue(render._is_release_item({"summary_1line": "<p>RELEASE NOTES: fixed x</p>"}))
 
 
 class SeedWindowTest(unittest.TestCase):
