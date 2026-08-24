@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2]
-updated: 2026-08-23
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7]
+updated: 2026-08-24
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7]
 ---
 
 ## TL;DR
@@ -31,7 +31,11 @@ metering layer. A published guide walks IT admins through that same
 surface end-to-end: spend caps, model-level controls, usage analytics, and
 cost-relevant API features like prompt caching and batch processing, as one
 consolidated cost-visibility playbook rather than settings scattered across
-a console.
+a console. Cost *estimates* themselves are getting more accurate, not just
+more visible: Claude Code's `/cost`, status line, and `--max-budget-usd` now
+factor in the 1.1x US-only-inference premium for data-residency workspaces,
+closing a gap where the estimate a team budgets against didn't match what a
+residency-constrained workspace actually pays.
 
 Developer tooling pushes **attribution** down to the unit of work — Prtokens
 surfaces how many agent tokens a single pull request burned, making cost a
@@ -54,7 +58,11 @@ every major provider with no extra config, because an agent loop re-sends a
 large, stable prefix (system prompt, tool schemas, prior steps) every turn,
 which is exactly the input a provider prompt cache is built to discount. That
 makes "cache the stable prefix" a default the framework owns, not a knob
-each team has to discover.
+each team has to discover. Caching only pays off when it actually fires,
+though: Claude Code shipped a fix for prompt caching silently breaking on
+sessions routed through an LLM gateway or a custom base URL — a reminder
+that a caching default is a piece of infra with its own failure mode, not a
+one-time setting a team can stop verifying once it's on.
 
 The caching frontier is moving inside the model's own KV cache for
 **multimodal** agents that re-examine the same frames, screenshots, and
@@ -95,15 +103,18 @@ and cap" from model calls to the agent's own outbound spending on the
 services it calls.
 
 ## What's new
-A Google Dataflow + Agent Development Kit pattern moves cost control to the
+Two Claude Code fixes sharpen the reliability of controls this page already
+tracks rather than adding a new one: `/cost`, the status line, and
+`--max-budget-usd` now include the 1.1x US-only-inference premium so budget
+estimates match what a data-residency workspace actually pays, and a fix for
+prompt caching silently breaking on gateway/custom-base-URL sessions closes
+a gap where the caching default this page relies on could stop firing
+without a visible signal.
+
+Prior update: A Google Dataflow + Agent Development Kit pattern moves cost control to the
 **entry point** of a streaming pipeline: only escalate an event to a full
 gen-AI agent when it actually needs that judgment, instead of routing every
 raw event through a heavyweight model call (see State of the art above).
-
-Prior update: AWS's AgentCore Payments middleware extends metering and budgets past LLM
-token spend to an agent's own outbound payments: LangChain agents sign
-x402-protocol payments against a deterministic per-session budget instead of
-holding an open credential, with LangSmith tracing every payment call.
 
 ## Trade-offs
 Metering and attribution add plumbing (token accounting, tagging by
