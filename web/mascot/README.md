@@ -95,7 +95,7 @@ buddy.el;            // root container element (null before first appear / after
 | `storageKey` | `'bubbleBuddy'` | sessionStorage key for the dismissal. |
 | `respectReducedMotion` | `true` | Skip auto-start under `prefers-reduced-motion`. |
 | `colors` | `null` | Partial palette override, e.g. `{ body, iris, spark, frame, ... }`. |
-| `threeUrl` | pinned unpkg | Where to import Three.js from. |
+| `threeUrl` | self-hosted `/mascot/vendor/three.module.min.js` (pinned r161) | Where to import Three.js from. |
 | `ariaLabel` | `'Bubble, the mascot'` | Canvas a11y label. |
 
 ## Performance & behavior

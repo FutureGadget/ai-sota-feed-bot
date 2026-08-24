@@ -41,7 +41,7 @@
  *   - Skips itself under prefers-reduced-motion and remembers a dismissal.
  */
 
-const DEFAULT_THREE_URL = 'https://unpkg.com/three@0.161.0/build/three.module.js';
+const DEFAULT_THREE_URL = '/mascot/vendor/three.module.min.js';
 
 const DEFAULT_TIPS = [
   '10 minutes a day ✨', 'All caught up? 🫧', 'I remember that story.',
@@ -103,8 +103,9 @@ export function createBubbleBuddy(userOpts = {}) {
   let state = 'hidden';          // hidden | entering | idle | leaving
   let stateAt = 0, dwell = 0, scheduleTimer = 0;
   let blinkAt = 0, blinking = 0, reactUntil = 0;
+  let visHandler = null, scrollHandler = null, intentHandler = null, lastScrollT = 0;
   let started = false, destroyed = false, wired = false;
-  let themeObserver = null, sizeObserver = null, visHandler = null;
+  let themeObserver = null, sizeObserver = null;
 
   const TIPS = (opts.tips && opts.tips.length) ? opts.tips : DEFAULT_TIPS;
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -183,9 +184,10 @@ export function createBubbleBuddy(userOpts = {}) {
     canvas = document.createElement('canvas');
     canvas.style.cssText = [
       'width:100%', 'height:100%', 'display:block',
-      // Non-interactive buddies are pure decoration: never intercept taps
-      // meant for the host page's links and buttons underneath.
-      opts.interactive ? 'pointer-events:auto;cursor:pointer' : 'pointer-events:none',
+      // Tap-through by default; interactive buddies gain pointer events only
+      // while the cursor is inside the bubble rect (hover intent below), so
+      // the dwell rectangle never swallows clicks aimed at page UI.
+      'pointer-events:none',
     ].join(';');
     canvas.setAttribute('role', 'img');
     canvas.setAttribute('aria-label', opts.ariaLabel);
@@ -473,6 +475,23 @@ export function createBubbleBuddy(userOpts = {}) {
       wired = true;
       visHandler = () => { if (document.hidden) stopLoop(); else if (state !== 'hidden') startLoop(); };
       document.addEventListener('visibilitychange', visHandler);
+      scrollHandler = () => { lastScrollT = now(); };
+      document.addEventListener('scroll', scrollHandler, { passive: true, capture: true });
+      if (opts.interactive) {
+        intentHandler = (e) => {
+          if (!container || destroyed) return;
+          const visible = container.style.display !== 'none';
+          let inside = false;
+          if (visible) {
+            const r = container.getBoundingClientRect();
+            inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+          }
+          const pe = inside ? 'auto' : 'none';
+          container.style.pointerEvents = pe;
+          canvas.style.pointerEvents = pe;
+        };
+        document.addEventListener('pointermove', intentHandler, { passive: true });
+      }
     }
     return true;
   }
@@ -483,6 +502,7 @@ export function createBubbleBuddy(userOpts = {}) {
   async function appear() {
     if (destroyed) return;
     if (document.hidden) { scheduleTimer = setTimeout(appear, 8000); return; }
+    if (now() - lastScrollT < 1500) { scheduleTimer = setTimeout(appear, 6000); return; }
     const ok = await ensureScene();
     if (!ok || destroyed) return; // give up quietly — no retries, no noise
     container.style.display = 'block';
@@ -682,6 +702,8 @@ export function createBubbleBuddy(userOpts = {}) {
     destroyed = true;
     clearTimeout(scheduleTimer); stopLoop();
     if (visHandler) document.removeEventListener('visibilitychange', visHandler);
+    if (scrollHandler) document.removeEventListener('scroll', scrollHandler, true);
+    if (intentHandler) document.removeEventListener('pointermove', intentHandler);
     if (themeObserver) themeObserver.disconnect();
     if (sizeObserver) sizeObserver.disconnect();
     if (scene) scene.traverse((o) => {
