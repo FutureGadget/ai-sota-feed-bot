@@ -3645,6 +3645,18 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOSVlxZk90WmFrWHBaa3p5aS1sMkFrQzBCenRiZkJGZ2JMZDBnOXpydmNiTUFYVUU2WXAzNklkRDRFMnJUNUZDX0VLQTQ3Wk5DOXV5RTlqOE51dnN5eF9oMlUzOUh6MHZfY1hkOHVOVXBtaWo1M1JVcThnRkhCMWVOWkpDMi1BUQ?oc=5"
  },
+ "4b34e80ba4fc4885": {
+  "first_seen": "2026-08-24T12:02:08.352310+00:00",
+  "id": "2ea74c10a2fc62c1",
+  "published": "2026-08-24T11:38:15+00:00",
+  "sid": "4b34e80ba4fc4885",
+  "source": "simon_willison",
+  "summary": "Your executable is a SQLite database Farid Zakaria describes a neat Linux pattern for creating a SQLite database file that can be directly used as an executable binary. The trick sets the SQLite file format's 4-byte application ID (68 bytes into the file) to SELF, standing for Structured Executable & Linkable Format. The various components of the ELF executable format are then arranged into a number of different SQLite tables, using this schema . Their self-exec interpreter ( C code here ) can then extract and execute the necessary pieces. You can additionally use a Linux mechanism called binfmt_misc to teach the kernel to execute that any time it encounters an executable matching that binary pattern. Farid uses NixOS here, but without NixOS I think registration looks something like this: printf '%s\\n' ':self:M:68:SELF::/usr/local/bin/self-exec:' \\ > /proc/sys/fs/binfmt_misc/register Via Hacker News Tags: c , linux , sqlite",
+  "summary_1line": "Your executable is a SQLite database Farid Zakaria describes a neat Linux pattern for creating a SQLite database file that can be directly used as an executable binary. The trick sets the SQLite file format's 4-byte a...",
+  "title": "Your executable is a SQLite database",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Aug/24/your-executable-is-a-sqlite-database"
+ },
  "4b510cf3587ed730": {
   "first_seen": "2026-08-21T16:02:03.590308+00:00",
   "id": "e6eea674627c8c7c",
