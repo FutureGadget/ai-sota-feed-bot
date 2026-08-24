@@ -8968,6 +8968,22 @@
   "type": "release",
   "url": "https://simonwillison.net/2026/Aug/4/llm-anthropic/#atom-everything"
  },
+ "b3ba2bda56acb68a": {
+  "first_seen": "2026-08-24T03:02:06.697310+00:00",
+  "id": "99820bb21cbd2dfc",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-21T17:12:28+00:00",
+  "sid": "b3ba2bda56acb68a",
+  "source": "arxiv_cs_lg",
+  "summary": "Test-Time Training (TTT) enables long-context processing via continuous weight updates during inference, but current methods struggle to balance the expressivity of per-token update dynamics with the hardware efficiency of chunk-wise approximations. We propose E$^2$-TTT (Expressive and Efficient TTT) to bridge this gap. Under the standard approximation of taking gradients at the chunk-start weights, we derive a closed-form state transition that exactly reproduces the chunk-end fast-weight and momentum states of the per-token recurrence. This enables fully parallelized chunk-level training while preserving the temporal structure of the update rule that prior chunk-wise methods discard. We validate E$^2$-TTT by training models up to 1.3B parameters from scratch. It performs on par with previous TTT and hybrid attention baselines in language modeling while outperforming them on in-context retrieval. Its advantage is most pronounced in length extrapolation: on the standard ``Needle in a Haystack'' passkey test, it retains over 90% accuracy at $8\\times$ the training context length. Meanwhile, E$^2$-TTT can match the training throughput of efficient chunk-wise methods, demonstrating that it effectively reconciles expressivity with efficiency. The code is available at https://github.com/zeyun-zhong/E2-TTT.",
+  "summary_1line": "Test-Time Training (TTT) enables long-context processing via continuous weight updates during inference, but current methods struggle to balance the expressivity of per-token update dynamics with the hardware efficien...",
+  "title": "Rethinking Expressivity and Efficiency in Test-Time Training",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.21308v1",
+  "why_it_matters": "Matches feed focus: eval."
+ },
  "b416119661e8fd99": {
   "first_seen": "2026-08-21T18:01:59.705544+00:00",
   "id": "22c6d54bdcc235ed",
@@ -9192,6 +9208,23 @@
   "title": "Frontier Model Cost and Open-Weights Popularity is Driving Demand for Model Routing",
   "type": "news",
   "url": "https://www.latent.space/p/glean-model-routing"
+ },
+ "b64f9ee7f3c8220c": {
+  "first_seen": "2026-08-24T03:02:06.697310+00:00",
+  "id": "d8234c08bcf12779",
+  "matched_topics": [
+   "agent",
+   "harness"
+  ],
+  "published": "2026-08-24T02:33:59+00:00",
+  "sid": "b64f9ee7f3c8220c",
+  "source": "search_cn_open_weight_labs",
+  "summary": "OpenAI Unveils Harness Post-Black Whale Launch: Competing for Dominance in the Agent Runtime Space 36 Kr",
+  "summary_1line": "OpenAI Unveils Harness Post-Black Whale Launch: Competing for Dominance in the Agent Runtime Space 36 Kr",
+  "title": "OpenAI Unveils Harness Post-Black Whale Launch: Competing for Dominance in the Agent Runtime Space",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9xYkdpalZzTl83OUNqNFJSUlhYTnNEeU1ZZHFlN3p3ZXZsRk44aUZRX3J1Z25lNld5QngtUFNyOEZsLUR1dU1lUzJob2o0RUx2Uy1z?oc=5",
+  "why_it_matters": "Matches feed focus: agent, harness."
  },
  "b6afdd4892802e0f": {
   "first_seen": "2026-08-09T15:02:01.002854+00:00",
@@ -13054,6 +13087,23 @@
   "title": "Zhipu’s API User Base Nears 7 Million as It Adds 50,000-Plus Chinese AI Chips - TechNode",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQMUVtdXlPeGI2b3JhWk56UDZTMk1UUmU0aktzR1F6OENrY19PdTdYY2xZbXROUTBER0Nwd1FJQkRLTWZnREtaSk4xaDFpTkJOajZIVzNjQmduVUR0eHVZNHg0bnNtbVpHNjNDYmhHZTVyYjBtZEVBRWstc2gweUVlTDdyQms3dnh6cHNPZTg1eEs3Tk1IOWlveTZTSmtTU2t1b2JZLVlDS3ZPU05T?oc=5"
+ },
+ "fe206f2a71d579f8": {
+  "first_seen": "2026-08-24T03:02:06.697310+00:00",
+  "id": "05a312dfe54e8f15",
+  "matched_topics": [
+   "agentic",
+   "evaluation"
+  ],
+  "published": "2026-08-21T10:01:58+00:00",
+  "sid": "fe206f2a71d579f8",
+  "source": "arxiv_llm_reliability",
+  "summary": "Evaluators often produce correct labels via flawed reasoning, a critical failure for agentic systems gating actions, routing reviews, or supplying training feedback. Standard evaluation only verifies final label correctness, ignoring whether judgment changes stem from valid evidence, consistent rules, or proper rule applicability. We formalize evaluator reasoning accountability via three core sources: grounds, norms, and authority. Varying these sources yields an eight-cell counterfactual judgment cube to characterize judgment updates. We define judgment receipts as minimal source replacement sets that reproduce revised verdicts to explain judgment transitions. We derive certification cost bounds for black-box evaluators and present ReasonBench, a policy and logical reasoning benchmark with verifiable receipts covering 19,520 cases and 7,200 controls. In frozen evaluations, Qwen3-1.7B reaches 98.41% receipt accuracy, while cube prediction scores 96.99%, a consistent 1.42-point drop validated by Qwen3-0.6B replication. Strong standard accuracy masks severe robustness flaws. Meaning-preserving source permutations reduce valid receipt recovery to 54.8% and 49.2% for direct and cube prediction. Models trained on simple single-source changes retain 93.75% verdict accuracy but recover only 7.16% of receipts for complex multi-source updates. Permutation retraining boosts consistency to 96.6% yet worsens cube prediction deficits. Structured counterfactual supervision fails to guarant",
+  "summary_1line": "Evaluators often produce correct labels via flawed reasoning, a critical failure for agentic systems gating actions, routing reviews, or supplying training feedback. Standard evaluation only verifies final label corre...",
+  "title": "No Judgment Without a Reason: Counterfactual Receipts for Versioned AI Evaluators",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.20938v1",
+  "why_it_matters": "Matches feed focus: agentic, evaluation."
  },
  "fe25a4c018793db6": {
   "first_seen": "2026-08-11T15:01:10.941201+00:00",
