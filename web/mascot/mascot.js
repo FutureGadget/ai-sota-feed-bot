@@ -3,8 +3,8 @@
  *
  * A genuinely 3D cute-and-intelligent character (a bespectacled blue bubble
  * with an idea-antenna) that pops in at random intervals, bobs around, and
- * tucks away again. Decorative and defensive: any failure (no WebGL, blocked
- * CDN, etc.) silently no-ops so the host page is never affected.
+ * tucks away again. Decorative and defensive: any failure (no WebGL, missing
+ * local asset, etc.) silently no-ops so the host page is never affected.
  *
  * ── Portability ────────────────────────────────────────────────────────────
  * Three ways to use it — pick whichever fits:
@@ -109,6 +109,7 @@ export function createBubbleBuddy(userOpts = {}) {
 
   const TIPS = (opts.tips && opts.tips.length) ? opts.tips : DEFAULT_TIPS;
   const REDUCED_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const HOVER_INTENT = opts.interactive && matchMedia('(hover: hover) and (pointer: fine)').matches;
   const isDismissed = () => {
     try { return sessionStorage.getItem(opts.storageKey) === 'off'; } catch { return false; }
   };
@@ -145,12 +146,14 @@ export function createBubbleBuddy(userOpts = {}) {
     const mountEl = resolveMount();
     const toBody = mountEl === document.body;
     const fill = opts.position === 'fill';
+    const directPointer = opts.interactive && !HOVER_INTENT;
 
     container = document.createElement('div');
     container.className = 'bubble-buddy';
     container.setAttribute('aria-hidden', 'true');
+    if (opts.interactive) container.removeAttribute('aria-hidden');
     container.style.cssText = [
-      'pointer-events:none', 'display:none',
+      `pointer-events:${directPointer ? 'auto' : 'none'}`, 'display:none',
       `z-index:${opts.zIndex}`,
       'filter:drop-shadow(0 10px 16px rgba(30,58,138,.22))',
     ].join(';');
@@ -184,13 +187,21 @@ export function createBubbleBuddy(userOpts = {}) {
     canvas = document.createElement('canvas');
     canvas.style.cssText = [
       'width:100%', 'height:100%', 'display:block',
-      // Tap-through by default; interactive buddies gain pointer events only
-      // while the cursor is inside the bubble rect (hover intent below), so
-      // the dwell rectangle never swallows clicks aimed at page UI.
-      'pointer-events:none',
+      // Fine pointers use hover intent below. Touch-only interactive buddies
+      // need direct pointer events because they never emit pointermove first.
+      `pointer-events:${directPointer ? 'auto' : 'none'}`,
     ].join(';');
-    canvas.setAttribute('role', 'img');
-    canvas.setAttribute('aria-label', opts.ariaLabel);
+    if (opts.interactive) {
+      canvas.setAttribute('role', 'button');
+      canvas.setAttribute('tabindex', '0');
+      canvas.setAttribute('aria-label', `Poke ${opts.ariaLabel}`);
+      const holdMascotForFocus = () => {
+        if (state !== 'leaving') return;
+        dwell = rand(opts.dwellMin, opts.dwellMax);
+        setState('idle');
+      };
+      container.addEventListener('focusin', holdMascotForFocus);
+    }
     container.appendChild(canvas);
 
     tip = document.createElement('div');
@@ -213,15 +224,31 @@ export function createBubbleBuddy(userOpts = {}) {
         'position:absolute', 'right:2px', 'top:2px', 'width:20px', 'height:20px',
         'border:none', 'border-radius:50%', 'background:var(--card,#fff)', 'color:var(--muted,#6b7280)',
         'font:700 14px/1 system-ui', 'cursor:pointer', 'pointer-events:auto',
-        'box-shadow:0 1px 5px rgba(0,0,0,.18)', 'opacity:0', 'transition:opacity .15s ease', 'padding:0',
+        'box-shadow:0 1px 5px rgba(0,0,0,.18)', `opacity:${HOVER_INTENT ? 0 : 1}`, 'transition:opacity .15s ease', 'padding:0',
       ].join(';');
-      container.addEventListener('mouseenter', () => { dismissBtn.style.opacity = '1'; });
-      container.addEventListener('mouseleave', () => { dismissBtn.style.opacity = '0'; });
+      if (HOVER_INTENT) {
+        const showDismiss = () => {
+          dismissBtn.style.opacity = '1';
+        };
+        const hideDismiss = () => {
+          if (!container.contains(document.activeElement)) dismissBtn.style.opacity = '0';
+        };
+        const hideDismissAfterFocus = (event) => {
+          if (!container.contains(event.relatedTarget)) dismissBtn.style.opacity = '0';
+        };
+        container.addEventListener('mouseenter', showDismiss);
+        container.addEventListener('mouseleave', hideDismiss);
+        container.addEventListener('focusin', showDismiss);
+        container.addEventListener('focusout', hideDismissAfterFocus);
+      }
       dismissBtn.addEventListener('click', dismiss);
       container.appendChild(dismissBtn);
     }
 
-    if (opts.interactive) canvas.addEventListener('click', onPoke);
+    if (opts.interactive) {
+      canvas.addEventListener('click', onPoke);
+      canvas.addEventListener('keydown', onPokeKeydown);
+    }
     mountEl.appendChild(container);
 
     // Live re-tint on theme flips.
@@ -439,6 +466,30 @@ export function createBubbleBuddy(userOpts = {}) {
     });
   }
 
+  function wireLifecycleListeners() {
+    if (wired) return;
+    wired = true;
+    visHandler = () => { if (document.hidden) stopLoop(); else if (state !== 'hidden') startLoop(); };
+    document.addEventListener('visibilitychange', visHandler);
+    scrollHandler = () => { lastScrollT = now(); };
+    document.addEventListener('scroll', scrollHandler, { passive: true, capture: true });
+    if (HOVER_INTENT) {
+      intentHandler = (e) => {
+        if (!container || destroyed) return;
+        const visible = container.style.display !== 'none';
+        let inside = false;
+        if (visible) {
+          const r = container.getBoundingClientRect();
+          inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+        }
+        const pe = inside ? 'auto' : 'none';
+        container.style.pointerEvents = pe;
+        canvas.style.pointerEvents = pe;
+      };
+      document.addEventListener('pointermove', intentHandler, { passive: true });
+    }
+  }
+
   async function ensureScene() {
     if (renderer) return true;
     if (!window.WebGLRenderingContext) return false;
@@ -471,38 +522,17 @@ export function createBubbleBuddy(userOpts = {}) {
     });
     sizeObserver.observe(container);
 
-    if (!wired) {
-      wired = true;
-      visHandler = () => { if (document.hidden) stopLoop(); else if (state !== 'hidden') startLoop(); };
-      document.addEventListener('visibilitychange', visHandler);
-      scrollHandler = () => { lastScrollT = now(); };
-      document.addEventListener('scroll', scrollHandler, { passive: true, capture: true });
-      if (opts.interactive) {
-        intentHandler = (e) => {
-          if (!container || destroyed) return;
-          const visible = container.style.display !== 'none';
-          let inside = false;
-          if (visible) {
-            const r = container.getBoundingClientRect();
-            inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-          }
-          const pe = inside ? 'auto' : 'none';
-          container.style.pointerEvents = pe;
-          canvas.style.pointerEvents = pe;
-        };
-        document.addEventListener('pointermove', intentHandler, { passive: true });
-      }
-    }
     return true;
   }
 
   // ---------------------------------------------------------------------------
   // Lifecycle
   // ---------------------------------------------------------------------------
-  async function appear() {
+  async function appear({ deferForScroll = true } = {}) {
     if (destroyed) return;
+    wireLifecycleListeners();
     if (document.hidden) { scheduleTimer = setTimeout(appear, 8000); return; }
-    if (now() - lastScrollT < 1500) { scheduleTimer = setTimeout(appear, 6000); return; }
+    if (deferForScroll && now() - lastScrollT < 1500) { scheduleTimer = setTimeout(appear, 6000); return; }
     const ok = await ensureScene();
     if (!ok || destroyed) return; // give up quietly — no retries, no noise
     container.style.display = 'block';
@@ -528,6 +558,12 @@ export function createBubbleBuddy(userOpts = {}) {
     reactUntil = now() + 650;
     spawnPop();
     showTip();
+  }
+
+  function onPokeKeydown(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    onPoke();
   }
 
   function showTip() {
@@ -584,7 +620,9 @@ export function createBubbleBuddy(userOpts = {}) {
         return;
       }
     } else if (state === 'idle') {
-      if (t - stateAt > dwell) setState('leaving');
+      const focusHeld = opts.interactive
+        && container.contains(document.activeElement);
+      if (t - stateAt > dwell && !focusHeld) setState('leaving');
     }
 
     // idle life: bob, sway, breathe, blink, react
@@ -689,6 +727,7 @@ export function createBubbleBuddy(userOpts = {}) {
     if (opts.respectReducedMotion && REDUCED_MOTION) return api;
     if (opts.dismissible && isDismissed()) return api;
     started = true;
+    wireLifecycleListeners();
     const boot = () => { if (!destroyed) scheduleTimer = setTimeout(appear, rand(opts.firstDelayMin, opts.firstDelayMax)); };
     if ('requestIdleCallback' in window) requestIdleCallback(boot, { timeout: 3000 });
     else setTimeout(boot, 1500);
@@ -718,7 +757,7 @@ export function createBubbleBuddy(userOpts = {}) {
 
   const api = {
     /** Force the mascot to appear right now (ignores reduced-motion/dismissal). */
-    appearNow: () => { appear(); return api; },
+    appearNow: () => { appear({ deferForScroll: false }); return api; },
     /** Begin auto-scheduling random appearances (respects reduced-motion + dismissal). */
     start,
     /** Cancel the schedule and park the render loop (keeps the scene for reuse). */

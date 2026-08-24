@@ -168,12 +168,17 @@
 
   function renderStrip(u, sections) {
     var anchor = document.getElementById('freshUpdates');
-    // Pre-story promo budget: when the feed's "Catch me up" card is shown,
-    // it owns the "since your last visit" slot and the strip stands down.
-    if (!anchor || anchor.dataset.catchupActive === '1') {
-      capture('whats_new_suppressed', { reason: 'catchup', sections: sections });
+    if (!anchor) {
+      capture('whats_new_suppressed', { reason: 'missing_anchor', sections: sections });
       return [];
     }
+    // Catch-up and Fresh share one pre-story slot. The first async path to
+    // claim it wins, so a later response never replaces content already seen.
+    if (anchor.dataset.promoOwner) {
+      capture('whats_new_suppressed', { reason: anchor.dataset.promoOwner, sections: sections });
+      return [];
+    }
+    anchor.dataset.promoOwner = 'fresh';
     injectStripStyle();
 
     var strip = document.createElement('section');

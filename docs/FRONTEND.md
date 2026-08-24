@@ -23,9 +23,10 @@ Source assets:
 - `pipeline/render_static_pages.py` — generated-page header, canonical
   destination registry, parent-route mapping, and static archive controls
 
-The canonical Browse order is Live feed, Daily recap, Weekly recap,
-Storylines, Playbook, Knowledge map, Voices, and Email digest. Do not define a
-page-specific destination subset or reorder these links.
+The canonical Editor's Desk order is Live feed, Daily recap, Weekly recap,
+Storylines, Playbook, Agent Know-How, Foundations, Model Radar, Voices, and
+Email digest. Do not define a page-specific destination subset or reorder these
+links.
 
 ### Extension rules
 

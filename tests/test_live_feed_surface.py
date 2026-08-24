@@ -87,6 +87,38 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def test_visible_section_counts_are_exposed_to_assistive_technology(self) -> None:
         self.assertNotIn("span.setAttribute('aria-hidden', 'true');", self.html)
 
+    def test_section_and_saved_tabs_have_an_initial_pressed_state(self) -> None:
+        buttons = re.findall(r'<button[^>]+(?:data-section="[^"]*"|id="savedTab")[^>]*>', self.html)
+        self.assertEqual(len(buttons), 7)
+        self.assertTrue(all('aria-pressed=' in button for button in buttons))
+        brief = next(button for button in buttons if 'data-section="brief"' in button)
+        self.assertIn('aria-pressed="true"', brief)
+        self.assertTrue(
+            all('aria-pressed="false"' in button for button in buttons if button != brief)
+        )
+
+    def test_rank_climb_context_is_available_to_assistive_technology(self) -> None:
+        self.assertIn("const climbingLabel = isClimbing", self.html)
+        self.assertIn("aria-label=\"Rank ${rank}${climbingLabel}\"", self.html)
+
+    def test_list_rewrites_restore_focus_with_ordered_fallbacks(self) -> None:
+        self.assertIn("function captureListFocus(list)", self.html)
+        self.assertIn("function restoreListFocus(list, snapshot, fallback)", self.html)
+        self.assertIn("const focusSnapshot = captureListFocus(list);", self.html)
+        self.assertGreaterEqual(
+            self.html.count("restoreListFocus(list, focusSnapshot"),
+            3,
+        )
+        self.assertIn("snapshot.cardIndex", self.html)
+        self.assertIn("snapshot.controlSelector", self.html)
+
+    def test_feed_promos_use_a_first_claim_owner(self) -> None:
+        updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        self.assertIn("anchor.dataset.promoOwner", updates)
+        self.assertIn("anchor.dataset.promoOwner = 'fresh';", updates)
+        self.assertIn("fu.dataset.promoOwner = 'catchup';", self.html)
+        self.assertNotIn("fu.querySelector('.whats-new')?.remove();", self.html)
+
     def test_list_status_is_announced_from_every_render_path(self) -> None:
         # #list is not a live region any more, so each path that rewrites it
         # has to report through #feedStatus or the change is never announced.

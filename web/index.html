@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260824-review-fixes" />
   <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
@@ -38,7 +38,7 @@
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
-  <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
+  <script defer src="/site-chrome.js?v=20260824-review-fixes"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -1477,13 +1477,13 @@
 
       <div class="controls-bar">
         <nav class="sections" id="sections" aria-label="Sections">
-          <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
-          <button type="button" data-section="platform">Platform</button>
-          <button type="button" data-section="research" title="Papers and research write-ups">Research</button>
-          <button type="button" data-section="release">Releases</button>
-          <button type="button" data-section="news">News</button>
-          <button type="button" data-section="" title="The full firehose, including release notes">All</button>
-          <button type="button" id="savedTab">⭐ Saved</button>
+          <button type="button" data-section="brief" class="active" aria-pressed="true" title="The finishable daily read - everything except release notes">Brief</button>
+          <button type="button" data-section="platform" aria-pressed="false">Platform</button>
+          <button type="button" data-section="research" aria-pressed="false" title="Papers and research write-ups">Research</button>
+          <button type="button" data-section="release" aria-pressed="false">Releases</button>
+          <button type="button" data-section="news" aria-pressed="false">News</button>
+          <button type="button" data-section="" aria-pressed="false" title="The full firehose, including release notes">All</button>
+          <button type="button" id="savedTab" aria-pressed="false">⭐ Saved</button>
         </nav>
         <select id="rangeSelect" aria-label="Time range">
           <option value="1" selected>Today</option>
@@ -3068,6 +3068,9 @@
       const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
       const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
       const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
+      const climbingLabel = isClimbing
+        ? `. Moved up from rank ${prevRank} to rank ${lastRank} between runs`
+        : '';
       // Reciprocity: surface when reader clicks/feedback boosted this source's
       // ranking (auto-tune adjustment via the feed API). Threshold keeps the
       // badge meaningful — only clearly boosted sources get it.
@@ -3096,7 +3099,7 @@
       const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
@@ -3143,8 +3146,108 @@
       if (el && el.textContent !== text) el.textContent = text;
     }
 
+    const LIST_FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function listFocusableControls(root) {
+      if (!root) return [];
+      return Array.from(root.querySelectorAll(LIST_FOCUSABLE_SELECTOR))
+        .filter((control) => !control.hidden && control.getAttribute('aria-hidden') !== 'true');
+    }
+
+    function focusSelectorForControl(control) {
+      if (!control) return '';
+      const signal = control.getAttribute('data-fb-signal');
+      if (signal) return `[data-fb-signal="${CSS.escape(signal)}"]`;
+      for (const name of ['data-save-id', 'data-share-id', 'data-hide-id']) {
+        if (control.hasAttribute(name)) return `[${name}]`;
+      }
+      if (control.matches('a[data-track="item-link"]')) return 'a[data-track="item-link"]';
+      for (const name of ['data-export-saved', 'data-clear-filters', 'data-toggle-hidden', 'data-clear-hidden']) {
+        if (control.hasAttribute(name)) return `[${name}]`;
+      }
+      return control.id ? `#${CSS.escape(control.id)}` : '';
+    }
+
+    function captureListFocus(list) {
+      const active = document.activeElement;
+      if (!active || active === list || !list.contains(active)) return null;
+      const cards = Array.from(list.querySelectorAll('article[data-item-key]'));
+      const card = active.closest('article[data-item-key]');
+      if (card) {
+        const controls = listFocusableControls(card);
+        return {
+          itemKey: card.getAttribute('data-item-key') || '',
+          cardIndex: cards.indexOf(card),
+          controlSelector: focusSelectorForControl(active),
+          controlIndex: controls.indexOf(active),
+          nonCardIndex: -1,
+        };
+      }
+      const nonCardControls = listFocusableControls(list)
+        .filter((control) => !control.closest('article[data-item-key]'));
+      return {
+        itemKey: '',
+        cardIndex: -1,
+        controlSelector: focusSelectorForControl(active),
+        controlIndex: -1,
+        nonCardIndex: nonCardControls.indexOf(active),
+      };
+    }
+
+    function semanticControl(card, selector) {
+      if (!card || !selector) return null;
+      try { return card.querySelector(selector); } catch { return null; }
+    }
+
+    function ordinalControl(card, index) {
+      const controls = listFocusableControls(card);
+      if (!controls.length) return null;
+      const safeIndex = Number.isInteger(index) && index >= 0
+        ? Math.min(index, controls.length - 1)
+        : 0;
+      return controls[safeIndex];
+    }
+
+    function restoreListFocus(list, snapshot, fallback) {
+      if (!snapshot) return;
+      const cards = Array.from(list.querySelectorAll('article[data-item-key]'));
+      const sameCard = snapshot.itemKey
+        ? cards.find((card) => card.getAttribute('data-item-key') === snapshot.itemKey)
+        : null;
+      let target = semanticControl(sameCard, snapshot.controlSelector)
+        || ordinalControl(sameCard, snapshot.controlIndex);
+
+      if (!target && snapshot.cardIndex >= 0) {
+        const nextCard = cards[snapshot.cardIndex];
+        if (nextCard && nextCard !== sameCard) {
+          target = semanticControl(nextCard, snapshot.controlSelector)
+            || ordinalControl(nextCard, snapshot.controlIndex);
+        }
+      }
+      if (!target && snapshot.cardIndex >= 0) {
+        const previousCard = cards[Math.min(snapshot.cardIndex - 1, cards.length - 1)];
+        target = semanticControl(previousCard, snapshot.controlSelector)
+          || ordinalControl(previousCard, snapshot.controlIndex);
+      }
+      if (!target) {
+        const nonCardControls = listFocusableControls(list)
+          .filter((control) => !control.closest('article[data-item-key]'));
+        if (snapshot.controlSelector) {
+          try {
+            target = nonCardControls.find((control) => control.matches(snapshot.controlSelector)) || null;
+          } catch {}
+        }
+        if (!target && snapshot.nonCardIndex >= 0) {
+          target = nonCardControls[Math.min(snapshot.nonCardIndex, nonCardControls.length - 1)] || null;
+        }
+      }
+      target = target || fallback;
+      if (target && typeof target.focus === 'function') target.focus({ preventScroll: true });
+    }
+
     function renderSavedView() {
       const list = document.getElementById('list');
+      const focusSnapshot = captureListFocus(list);
       // Saved content replaces the feed here; reset renderFeedList's
       // change-skip mirror so returning to an unchanged feed still rewrites.
       lastRenderedListHtml = '';
@@ -3162,10 +3265,12 @@
         list.innerHTML = q
           ? `<div class="state">No saved items match “${esc(q)}”.</div>`
           : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
+        restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
         return;
       }
       const tools = `<div class="saved-tools"><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
       list.innerHTML = tools + saved.map((it) => cardHtml(it, { hideable: false })).join('');
+      restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
     }
 
     // First-visit onboarding: one-time topic picker that feeds the existing
@@ -3303,6 +3408,14 @@
         .sort((a, b) => b.sources - a.sources || a.i - b.i)
         .slice(0, 5);
 
+      // The Fresh strip and catch-up answer the same pre-story question.
+      // Whichever claims the shared slot first owns it for this page load.
+      try {
+        const fu = document.getElementById('freshUpdates');
+        if (fu?.dataset.promoOwner && fu.dataset.promoOwner !== 'catchup') return '';
+        if (fu) fu.dataset.promoOwner = 'catchup';
+      } catch {}
+
       const bullets = picks.map(({ it, sources }) => {
         // Lead with why-it-matters when the pipeline has real signal; the
         // publisher summary is the fallback, not the headline act.
@@ -3325,15 +3438,6 @@
       // "brief" is the default lens, not a reader-chosen topic — don't claim
       // the catch-up count is scoped "in your topics" when it's just the default.
       const topicsNote = getSelectedLabels().some((l) => l !== 'brief') ? ' in your topics' : '';
-      // Pre-story promo budget: the catch-up brief and the Fresh strip answer
-      // the same "since your last visit" question, so only one may show.
-      try {
-        const fu = document.getElementById('freshUpdates');
-        if (fu) {
-          fu.dataset.catchupActive = '1';
-          fu.querySelector('.whats-new')?.remove();
-        }
-      } catch {}
       return `
         <section class="catchup" aria-label="Catch up since your last visit">
           <div class="catchup-head">
@@ -3524,26 +3628,14 @@
       // Skip identical rewrites (the post-fetch decoration pass rebuilds the
       // same markup), and keep real card content as the fetch-failure fallback.
       if (html !== lastRenderedListHtml) {
-        const active = document.activeElement;
-        const focusItemKey = active && list.contains(active)
-          ? active.closest('article[data-item-key]')?.getAttribute('data-item-key') || null
-          : null;
-        const focusSel = (() => {
-          if (!active || !focusItemKey) return '';
-          for (const k of ['data-fb-signal', 'data-save-id', 'data-share-id', 'data-hide-id']) {
-            const v = active.getAttribute(k);
-            if (v) return `[${k}="${CSS.escape(v)}"]`;
-          }
-          return '';
-        })();
+        const focusSnapshot = captureListFocus(list);
         lastRenderedListHtml = html;
         list.innerHTML = html;
         list.classList.remove('feed-updating');
         if (visible.length) lastGoodListHtml = html;
-        if (focusItemKey && focusSel) {
-          const restored = list.querySelector(`article[data-item-key="${CSS.escape(focusItemKey)}"]`)?.querySelector(focusSel);
-          if (restored) restored.focus({ preventScroll: true });
-        }
+        const activeTab = document.querySelector('#sections button[aria-pressed="true"]')
+          || document.getElementById('savedTab');
+        restoreListFocus(list, focusSnapshot, activeTab);
       }
     }
 
@@ -4046,7 +4138,7 @@
   <!-- "New updates" nav indicators + the feed's "Fresh from the Editor's Desk"
        strip — shared logic in /nav-updates.js; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20260805" defer></script>
+  <script src="/nav-updates.js?v=20260824-promo-owner" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the

@@ -60,8 +60,9 @@ Editor's Desk presents the same destinations in the same order everywhere:
 | Catch up | Weekly recap | `/weekly` | Weekly recap |
 | Follow | Storylines | `/storylines` | Storylines |
 | Apply | Playbook | `/playbook` | Playbook |
-| Understand | Knowledge map | `/map` | Knowledge map |
+| Understand | Agent Know-How | `/map` | Agent Know-How |
 | Understand | Foundations | `/foundations` | Foundations |
+| Understand | Model Release Radar | `/models` | Model Radar |
 | More | Voices | `/voices` | Voices |
 | More | Email digest | `/subscribe` | Email digest |
 
@@ -71,13 +72,16 @@ inherit their parent destination:
 - `/daily/<date>` → Daily recap
 - `/weekly/<week>` → Weekly recap
 - `/storyline/<slug>` → Storylines
-- `/topic/<slug>` → Knowledge map
+- `/topic/<slug>` → Agent Know-How
+- `/foundations/<slug>` → Foundations
+- `/models/<slug>` → Model Radar
 - `/story/<sid>` → Live feed
 - `/playbook/<date>` → Playbook
 
 The existing navigation update indicators remain supported inside Editor's Desk
-for Daily recap, Weekly recap, Storylines, Playbook, and Knowledge map. The
-Editor's Desk trigger rolls those visible `New` pills up into a compact count,
+for Daily recap, Weekly recap, Storylines, Playbook, Agent Know-How, and
+Foundations. Model Radar is a global destination but has no editorial-update
+signal. The Editor's Desk trigger rolls those visible `New` pills up into a compact count,
 so mobile readers can tell there is something worth opening without inspecting
 the drawer.
 
@@ -193,6 +197,11 @@ On small widths the floating bar collapses to its single-row form (the brand
 may truncate); it respects the safe-area inset. Disengaging restores the
 in-flow bar exactly.
 
+At `360px` and below, a browser-language-matched language shortcut may leave
+too little room for the brand and the three primary actions. Only that language
+shortcut hides while the bar is fixed. It remains available in the original
+in-flow header, while Subscribe and Editor's Desk stay persistent.
+
 ## Editor's Desk behavior
 
 On mobile, Editor's Desk opens an accessible modal navigation surface. Its visual
@@ -256,14 +265,18 @@ it must not be duplicated in the site bar.
 | Storylines `/storylines` | `web/storyline.html` | Subscribe, Theme icon | Existing All/Following filters remain with content | Share when available, JSON |
 | Storyline detail `/storyline/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; Follow may remain in content | None | Share, JSON |
 | Playbook `/playbook[/<date>]` | `web/playbook.html` | Subscribe, Theme icon | Edition picker | JSON |
-| Knowledge map `/map` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing area navigation remains with content | Share, JSON |
+| Agent Know-How `/map` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing area navigation remains with content | Share, JSON |
 | Topic `/topic/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing graph links remain with content | Share |
+| Foundations `/foundations[/<slug>]` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Existing concept navigation remains with content | Share |
+| Model Radar `/models` | `web/models.html` | Subscribe, Theme icon | Model filters remain with content | None |
+| Model detail `/models/<slug>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon | Related-model links remain with content | Share |
 | Voices `/voices` | `web/voices.html` | Subscribe, Theme icon | Existing page filters, if any, remain with content | None |
 | Story permalink `/story/<sid>` | `pipeline/render_static_pages.py` | Subscribe, Theme icon; original source remains in content | None | Share |
 | Subscribe `/subscribe` | `web/subscribe.html` | Subscribe, Theme icon | Subscription form remains in content | None |
 
 Generated HTML under `web/daily/`, `web/weekly/`, `web/story/`,
-`web/storyline/`, `web/topic/`, and `web/map.html` is never hand-edited.
+`web/storyline/`, `web/topic/`, `web/foundations/`, `web/models/`, and
+`web/map.html` is never hand-edited.
 
 ## Non-JavaScript behavior
 
@@ -448,7 +461,7 @@ Useful post-release signals:
 
 - destination selection no longer depends on horizontal-scroll interaction;
 - increased mobile visits from secondary surfaces to Daily, Weekly,
-  Storylines, Playbook, and Knowledge map;
+  Storylines, Playbook, Agent Know-How, Foundations, and Model Radar;
 - no increase in rapid back navigation from destination pages;
 - no regression in subscription, share, or feed-search use.
 
@@ -520,8 +533,8 @@ generated-page renderer together; a partial rollback is not allowed.
   destinations, creates arbitrary winners, and adds permanent viewport and
   safe-area cost.
 - **Section switcher as global navigation:** Daily/Weekly can behave as related
-  contexts, but Feed, Storylines, Playbook, Knowledge map, and Voices are
-  distinct reader jobs.
+  contexts, but Feed, Storylines, Playbook, Agent Know-How, Foundations, Model
+  Radar, and Voices are distinct reader jobs.
 
 ## Open questions
 

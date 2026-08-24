@@ -240,14 +240,46 @@
 
   const bar = chrome.querySelector(".site-bar");
   if (bar && "IntersectionObserver" in window) {
+    const spacer = document.createElement("div");
+    spacer.className = "site-bar-spacer";
+    spacer.setAttribute("aria-hidden", "true");
     const sentinel = document.createElement("div");
+    sentinel.className = "site-bar-sentinel";
     sentinel.setAttribute("aria-hidden", "true");
-    chrome.prepend(sentinel);
+    // Keep the original bar in flow until its trailing edge has actually left
+    // the viewport. A zero-height sentinel at the top engaged after only a few
+    // pixels and covered the still-visible page heading.
+    bar.after(spacer, sentinel);
+    let resizeFrame = 0;
+    const refreshFixedSpacer = () => {
+      if (!bar.classList.contains("site-bar-fixed")) return;
+      cancelAnimationFrame(resizeFrame);
+      resizeFrame = requestAnimationFrame(() => {
+        if (!bar.classList.contains("site-bar-fixed")) return;
+        // Measure the bar in its current in-flow responsive layout, then put
+        // the fixed class back before the browser paints the resized frame.
+        bar.classList.remove("site-bar-fixed");
+        spacer.style.height = "";
+        const flowHeight = bar.offsetHeight;
+        spacer.style.height = `${flowHeight}px`;
+        bar.classList.add("site-bar-fixed");
+      });
+    };
+    window.addEventListener("resize", refreshFixedSpacer, { passive: true });
     new IntersectionObserver(
       (entries) => {
-        const engage = !entries[0].isIntersecting;
-        bar.classList.toggle("site-bar-fixed", engage);
-        chrome.style.paddingBottom = engage ? `${bar.offsetHeight}px` : "";
+        const entry = entries[0];
+        // A sentinel can also be non-intersecting below a short viewport. Only
+        // its exit through the top edge means the in-flow bar has been passed.
+        const engage = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        if (bar.classList.contains("site-bar-fixed") === engage) return;
+        if (engage) {
+          spacer.style.height = `${bar.offsetHeight}px`;
+          bar.classList.add("site-bar-fixed");
+        } else {
+          bar.classList.remove("site-bar-fixed");
+          spacer.style.height = "";
+        }
       },
       { rootMargin: "0px" }
     ).observe(sentinel);

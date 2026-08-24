@@ -93,9 +93,9 @@ story list, and only when there is something to say:
 - **Returning readers only.** A chip appears for a section only when that
   section is unread + fresh **and already has a "seen" marker** — i.e. the
   reader has visited it before. A first-time visitor (or a reader who never
-  opens, say, Playbook) is introduced to sections through the Editor's Desk
-  pills and the contextual in-feed cards; the strip never nags about a section
-  the reader hasn't engaged with, so it cannot become a permanent banner.
+  opens, say, Playbook) is introduced through the semantic Editor's Desk links
+  and contextual in-feed cards; neither pills nor the strip nag about a section
+  the reader hasn't engaged with, so they cannot become permanent alarms.
 - **Self-clearing.** Chips link straight to their section; arriving there
   records the "seen" marker, so the chip is gone on the next feed visit. When
   everything is read, the strip doesn't render at all — the caught-up state is
@@ -199,6 +199,6 @@ gated off (no seen markers → no chips).
 - `node --check` on `api/updates.js` and `web/nav-updates.js`; the handler run
   against the live data tree returns all six sections.
 - Playwright pass against a local static+API server covering: first visit (no
-  strip, pills in the Desk dialog), returning reader (strip with day-aware
+  strip or pills), returning reader (strip with day-aware
   chips), chip click → seen marker → chip cleared, session dismiss, mobile +
   dark theme rendering, and no strip outside the feed.

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import unittest
 from pathlib import Path
 
@@ -20,14 +21,23 @@ SHELLS = (
     "subscribe.html",
     "models.html",
 )
+OAT_SCRIPT_SHELLS = (
+    "index.html",
+    "daily.html",
+    "weekly.html",
+    "storyline.html",
+    "playbook.html",
+    "voices.html",
+)
 DESTINATIONS = (
     ("/", "Live feed"),
     ("/daily", "Daily recap"),
     ("/weekly", "Weekly recap"),
     ("/storylines", "Storylines"),
     ("/playbook", "Playbook"),
-    ("/map", "Knowledge map"),
+    ("/map", "Agent Know-How"),
     ("/foundations", "Foundations"),
+    ("/models", "Model Radar"),
     ("/voices", "Voices"),
     ("/subscribe", "Email digest"),
 )
@@ -43,6 +53,35 @@ def assert_destination_order(test: unittest.TestCase, html: str) -> None:
 
 
 class SiteChromeContractTest(unittest.TestCase):
+    def test_self_hosted_oat_assets_are_complete_and_licensed(self) -> None:
+        expected_hashes = {
+            "oat.min.css": "2a24ff15f1e5cd70986eb242d9bbcbd9562b1cd5c039fde8c20955615687d655",
+            "oat.min.js": "f5814e213b82fa4edcff31963917c3bd9493761c5a2e93da2f6998ec9f41815c",
+        }
+        for filename, expected_hash in expected_hashes.items():
+            with self.subTest(filename=filename):
+                asset = ROOT / "web" / filename
+                self.assertTrue(asset.is_file(), f"missing self-hosted asset: {asset}")
+                self.assertGreater(asset.stat().st_size, 0)
+                self.assertEqual(hashlib.sha256(asset.read_bytes()).hexdigest(), expected_hash)
+
+        license_path = ROOT / "web" / "oat.LICENSE.txt"
+        self.assertTrue(license_path.is_file(), "vendored Oat must retain its MIT notice")
+        self.assertIn("MIT License", license_path.read_text(encoding="utf-8"))
+        provenance = (ROOT / "docs" / "references" / "oat-ui-vendor.md").read_text(encoding="utf-8")
+        self.assertIn("3be797d1f56322b213804c76169875a87bab82e0", provenance)
+
+        for filename in SHELLS:
+            with self.subTest(shell=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn('href="/oat.min.css?v=20260824-selfhost"', html)
+                self.assertNotIn("https://oat.ink/", html)
+
+        for filename in OAT_SCRIPT_SHELLS:
+            with self.subTest(script_shell=filename):
+                html = (ROOT / "web" / filename).read_text(encoding="utf-8")
+                self.assertIn('src="/oat.min.js?v=20260824-selfhost"', html)
+
     def test_shared_assets_define_progressive_chrome(self) -> None:
         css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
         js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
@@ -55,6 +94,25 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn("showModal", js)
         self.assertIn("site-chrome-enhanced", js)
         self.assertIn("aria-current", js)
+
+    def test_floating_bar_waits_for_the_in_flow_bar_and_compacts_on_mobile(self) -> None:
+        css = (ROOT / "web" / "site-chrome.css").read_text(encoding="utf-8")
+        js = (ROOT / "web" / "site-chrome.js").read_text(encoding="utf-8")
+
+        # The sentinel belongs after the original bar. A top-of-header sentinel
+        # engages after a few pixels and overlays the still-visible page heading.
+        self.assertIn("bar.after(spacer, sentinel)", js)
+        self.assertIn("entry.boundingClientRect.top < 0", js)
+        self.assertIn("spacer.style.height", js)
+        self.assertIn("const refreshFixedSpacer", js)
+        self.assertIn('window.addEventListener("resize", refreshFixedSpacer', js)
+
+        # The ordinary <=480px bar uses two rows. Its fixed form must explicitly
+        # undo the 100%-width child rules before switching to a single row.
+        self.assertIn(".site-bar.site-bar-fixed > .site-brand", css)
+        self.assertIn(".site-bar.site-bar-fixed > .site-bar-actions", css)
+        self.assertIn("flex: 1 1 auto", css)
+        self.assertIn("width: auto", css)
 
     def test_every_hand_written_shell_uses_shared_chrome(self) -> None:
         for filename in SHELLS:
@@ -203,6 +261,29 @@ class SiteChromeContractTest(unittest.TestCase):
         self.assertIn('class="site-context-disabled"', html)
         assert_destination_order(self, html)
 
+    def test_generated_model_detail_maps_to_model_radar(self) -> None:
+        html = render.render_page(
+            title="Test model",
+            description="Test",
+            canonical="https://www.llm-digest.com/models/test-model",
+            published=None,
+            h1="Test model",
+            meta_line="Model details",
+            json_href="",
+            archive="",
+            recap_title="Test model",
+            recap_range="",
+            intro_html="",
+            body_html="",
+        )
+
+        self.assertIn('data-site-section="/models"', html)
+        self.assertIn(
+            'data-site-destination="/models" aria-current="page">Model Radar</a>',
+            html,
+        )
+        assert_destination_order(self, html)
+
     def test_generated_page_can_emit_browser_matched_language_action(self) -> None:
         html = render.render_page(
             title="Test",
@@ -247,6 +328,7 @@ class SiteChromeContractTest(unittest.TestCase):
             "/foundations/",
             "/story/",
             "/playbook/",
+            "/models/",
         ):
             self.assertIn(prefix, js)
 
