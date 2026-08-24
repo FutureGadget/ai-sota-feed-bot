@@ -513,6 +513,16 @@
     #list {
       position: relative;
     }
+    #list.feed-updating > * {
+      animation: seed-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes seed-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #list.feed-updating > * { animation: none; }
+    }
     #list > article {
       touch-action: pan-y;
     }
@@ -3505,9 +3515,26 @@
       // Skip identical rewrites (the post-fetch decoration pass rebuilds the
       // same markup), and keep real card content as the fetch-failure fallback.
       if (html !== lastRenderedListHtml) {
+        const active = document.activeElement;
+        const focusItemKey = active && list.contains(active)
+          ? active.closest('article[data-item-key]')?.getAttribute('data-item-key') || null
+          : null;
+        const focusSel = (() => {
+          if (!active || !focusItemKey) return '';
+          for (const k of ['data-fb-signal', 'data-save-id', 'data-share-id', 'data-hide-id']) {
+            const v = active.getAttribute(k);
+            if (v) return `[${k}="${CSS.escape(v)}"]`;
+          }
+          return '';
+        })();
         lastRenderedListHtml = html;
         list.innerHTML = html;
+        list.classList.remove('feed-updating');
         if (visible.length) lastGoodListHtml = html;
+        if (focusItemKey && focusSel) {
+          const restored = list.querySelector(`article[data-item-key="${CSS.escape(focusItemKey)}"]`)?.querySelector(focusSel);
+          if (restored) restored.focus({ preventScroll: true });
+        }
       }
     }
 
@@ -3654,6 +3681,7 @@
         if (lastGoodListHtml) {
           const fallback = bar + lastGoodListHtml;
           list.innerHTML = fallback;
+          list.classList.remove('feed-updating');
           // Record what we wrote, or a later successful render could be
           // skipped as "unchanged" and leave this error bar stuck on screen.
           lastRenderedListHtml = fallback;
@@ -3662,6 +3690,7 @@
         } else {
           const fallback = `<div class="state">Could not load the feed right now. ${retry}</div>`;
           list.innerHTML = fallback;
+          list.classList.remove('feed-updating');
           lastRenderedListHtml = fallback;
           document.getElementById('meta').textContent = 'Feed unavailable';
           setFeedStatus('Feed unavailable. Could not load the feed right now.');
@@ -3992,6 +4021,7 @@
     // content, no CLS) and is the fallback brief if this first fetch fails.
     lastGoodListHtml = document.getElementById('list').innerHTML;
     document.getElementById('meta').textContent = 'Updating the brief...';
+    document.getElementById('list')?.classList.add('feed-updating');
     refreshFeed();
   </script>
 
