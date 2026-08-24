@@ -22,9 +22,11 @@
   <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"LLM Digest","url":"https://www.llm-digest.com/","description":"A low-hype AI news feed for platform and agent engineers: model releases, agent tooling, research, and evals — ranked for what changed and why it matters."},{"@type":"Organization","name":"LLM Digest","url":"https://www.llm-digest.com/","logo":"https://www.llm-digest.com/logo.png"}]}</script>
   <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
-  <link rel="stylesheet" href="https://oat.ink/oat.min.css" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260805-agent-know-how" />
-  <script src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260824-review-fixes" />
+  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
       var stored = null;
@@ -35,22 +37,22 @@
         stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
     })();
   </script>
-  <script src="https://oat.ink/oat.min.js" defer></script>
-  <script defer src="/site-chrome.js?v=20260805-agent-know-how"></script>
+  <script src="/oat.min.js?v=20260824-selfhost" defer></script>
+  <script defer src="/site-chrome.js?v=20260824-review-fixes"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
       text-size-adjust: 100%;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
     /* Token palette lives in the instrument-system block below (the live-feed
        identity layer); it fully defines the light/dark vars. */
     body {
       margin: 0;
       line-height: 1.5;
-      overflow-x: hidden;
+      overflow-x: clip;
       background: var(--bg);
       color: var(--fg);
     }
@@ -426,6 +428,12 @@
       color: #fecaca;
       background: #7f1d1d;
     }
+    .badge-boost {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--card));
+      font-weight: 600;
+    }
     .badge-new {
       border-color: #d97706;
       color: #92400e;
@@ -504,6 +512,16 @@
     /* Swipe-to-hide: the card tracks the finger horizontally, then animates out. */
     #list {
       position: relative;
+    }
+    #list.feed-updating > * {
+      animation: seed-pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes seed-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.72; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #list.feed-updating > * { animation: none; }
     }
     #list > article {
       touch-action: pan-y;
@@ -676,15 +694,13 @@
     }
     @media (hover: hover) {
       #list > article .fb-row {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.2s ease, visibility 0.2s ease;
+        opacity: 0.55;
+        transition: opacity 0.2s ease;
       }
       #list > article:hover .fb-row,
       #list > article:focus-within .fb-row,
       #list > article .fb-row.fb-has-voted {
         opacity: 1;
-        visibility: visible;
       }
     }
     .why {
@@ -714,7 +730,7 @@
       margin: 0.45rem 0 0;
       font-size: 0.78rem;
       line-height: 1.45;
-      color: color-mix(in srgb, var(--muted) 85%, transparent);
+      color: var(--muted);
       font-family: ui-monospace, "SFMono-Regular", monospace;
       overflow-wrap: anywhere;
     }
@@ -1058,7 +1074,7 @@
     .quicknav a:hover { color:var(--accent); text-decoration:none; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
-    .feed-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .feed-kicker { display:none; margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
@@ -1187,7 +1203,7 @@
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
-    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.75rem; }
+    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.78rem; }
     .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
     .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
@@ -1439,6 +1455,7 @@
         <a href="/playbook" data-site-destination="/playbook">Playbook</a>
         <a href="/map" data-site-destination="/map">Agent Know-How</a>
         <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
         <a href="/voices" data-site-destination="/voices">Voices</a>
         <a href="/subscribe" data-site-destination="/subscribe" data-subscribe-channel="email" data-subscribe-placement="browse">Email digest</a>
       </nav>
@@ -1454,19 +1471,19 @@
         </div>
         <div>
           <p class="feed-promise"><strong>One shared ranking.</strong> Scan what changed, save what matters, and stop when the finish line appears.</p>
-          <p id="meta">Loading...</p>
+          <p id="meta">Ranked brief · refreshes every 2 hours</p>
         </div>
       </section>
 
       <div class="controls-bar">
         <nav class="sections" id="sections" aria-label="Sections">
-          <button type="button" data-section="brief" class="active" title="The finishable daily read — everything except release notes">Brief</button>
-          <button type="button" data-section="platform">Platform</button>
-          <button type="button" data-section="research" title="Papers and research write-ups">Research</button>
-          <button type="button" data-section="release">Releases</button>
-          <button type="button" data-section="news">News</button>
-          <button type="button" data-section="" title="The full firehose, including release notes">All</button>
-          <button type="button" id="savedTab">⭐ Saved</button>
+          <button type="button" data-section="brief" class="active" aria-pressed="true" title="The finishable daily read - everything except release notes">Brief</button>
+          <button type="button" data-section="platform" aria-pressed="false">Platform</button>
+          <button type="button" data-section="research" aria-pressed="false" title="Papers and research write-ups">Research</button>
+          <button type="button" data-section="release" aria-pressed="false">Releases</button>
+          <button type="button" data-section="news" aria-pressed="false">News</button>
+          <button type="button" data-section="" aria-pressed="false" title="The full firehose, including release notes">All</button>
+          <button type="button" id="savedTab" aria-pressed="false">⭐ Saved</button>
         </nav>
         <select id="rangeSelect" aria-label="Time range">
           <option value="1" selected>Today</option>
@@ -1543,7 +1560,7 @@
     </div>
 
     <footer class="sitefooter" role="contentinfo">
-      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -2101,7 +2118,16 @@
           btn.textContent = orig;
           btn.title = 'Share';
         }, 1200);
-      } catch {}
+      } catch {
+        const orig = btn.textContent;
+        btn.textContent = '✕';
+        btn.title = 'Copy failed - long-press the story link to share';
+        setFeedStatus('Could not copy the link. Long-press the story link to share it.');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.title = 'Share';
+        }, 2000);
+      }
     }
 
     // Share-landing deep link (?item=<url>, set by the /s permalink redirect):
@@ -2202,6 +2228,7 @@
       const n = Object.keys(savedItemsState).length;
       btn.textContent = n > 0 ? `⭐ Saved (${n})` : '⭐ Saved';
       btn.classList.toggle('active', viewState === 'saved');
+      btn.setAttribute('aria-pressed', viewState === 'saved' ? 'true' : 'false');
     }
 
     function readFiltersFromUrl() {
@@ -2323,6 +2350,7 @@
       document.querySelectorAll('#sections button[data-section]').forEach((b) => {
         const matches = current !== null && (b.dataset.section || '') === current;
         b.classList.toggle('active', matches);
+        b.setAttribute('aria-pressed', matches ? 'true' : 'false');
         const section = b.dataset.section || '';
         let span = b.querySelector('.tab-count');
         if (!span) {
@@ -3040,6 +3068,9 @@
       const lastRank = it.rank_at_last_seen == null ? NaN : Number(it.rank_at_last_seen);
       const prevRank = it.rank_prev_seen == null ? NaN : Number(it.rank_prev_seen);
       const isClimbing = Number.isFinite(lastRank) && Number.isFinite(prevRank) && prevRank - lastRank >= 2;
+      const climbingLabel = isClimbing
+        ? `. Moved up from rank ${prevRank} to rank ${lastRank} between runs`
+        : '';
       // Reciprocity: surface when reader clicks/feedback boosted this source's
       // ranking (auto-tune adjustment via the feed API). Threshold keeps the
       // badge meaningful — only clearly boosted sources get it.
@@ -3068,7 +3099,7 @@
       const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}${climbingLabel}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
@@ -3077,9 +3108,8 @@
               ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
               ${isNew ? `<span class="badge badge-new">New</span>` : ''}
               ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-              ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">⬆️ Climbing</span>` : ''}
               ${storylineBadge}
-              ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
+              ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             </div>
             <div class="card-actions">
               <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
@@ -3092,7 +3122,7 @@
               <h3><a href="${href}" target="_blank" rel="noopener" data-track="item-link" data-item-id="${itemId}" data-source="${sourceSlug}" data-rank="${rank ?? ''}" data-run-id="${itemRunId}" data-title="${title}">${title}</a></h3>
               ${summary ? `<p class="why">${summary}</p>` : ''}
             </div>
-            ${image !== '#' ? `<img class="thumb" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
+            ${image !== '#' ? `<img class="thumb" width="96" height="72" src="${image}" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.style.display='none';this.remove();" />` : ''}
           </div>
           ${why && why !== summaryRaw ? `<p class="${whyRaw ? 'matters' : 'matters ranked-why'}">💡 ${esc(why)}</p>` : ''}
           ${alsoHtml ? `<p class="also">Also covered by ${alsoHtml}</p>` : ''}
@@ -3116,8 +3146,108 @@
       if (el && el.textContent !== text) el.textContent = text;
     }
 
+    const LIST_FOCUSABLE_SELECTOR = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    function listFocusableControls(root) {
+      if (!root) return [];
+      return Array.from(root.querySelectorAll(LIST_FOCUSABLE_SELECTOR))
+        .filter((control) => !control.hidden && control.getAttribute('aria-hidden') !== 'true');
+    }
+
+    function focusSelectorForControl(control) {
+      if (!control) return '';
+      const signal = control.getAttribute('data-fb-signal');
+      if (signal) return `[data-fb-signal="${CSS.escape(signal)}"]`;
+      for (const name of ['data-save-id', 'data-share-id', 'data-hide-id']) {
+        if (control.hasAttribute(name)) return `[${name}]`;
+      }
+      if (control.matches('a[data-track="item-link"]')) return 'a[data-track="item-link"]';
+      for (const name of ['data-export-saved', 'data-clear-filters', 'data-toggle-hidden', 'data-clear-hidden']) {
+        if (control.hasAttribute(name)) return `[${name}]`;
+      }
+      return control.id ? `#${CSS.escape(control.id)}` : '';
+    }
+
+    function captureListFocus(list) {
+      const active = document.activeElement;
+      if (!active || active === list || !list.contains(active)) return null;
+      const cards = Array.from(list.querySelectorAll('article[data-item-key]'));
+      const card = active.closest('article[data-item-key]');
+      if (card) {
+        const controls = listFocusableControls(card);
+        return {
+          itemKey: card.getAttribute('data-item-key') || '',
+          cardIndex: cards.indexOf(card),
+          controlSelector: focusSelectorForControl(active),
+          controlIndex: controls.indexOf(active),
+          nonCardIndex: -1,
+        };
+      }
+      const nonCardControls = listFocusableControls(list)
+        .filter((control) => !control.closest('article[data-item-key]'));
+      return {
+        itemKey: '',
+        cardIndex: -1,
+        controlSelector: focusSelectorForControl(active),
+        controlIndex: -1,
+        nonCardIndex: nonCardControls.indexOf(active),
+      };
+    }
+
+    function semanticControl(card, selector) {
+      if (!card || !selector) return null;
+      try { return card.querySelector(selector); } catch { return null; }
+    }
+
+    function ordinalControl(card, index) {
+      const controls = listFocusableControls(card);
+      if (!controls.length) return null;
+      const safeIndex = Number.isInteger(index) && index >= 0
+        ? Math.min(index, controls.length - 1)
+        : 0;
+      return controls[safeIndex];
+    }
+
+    function restoreListFocus(list, snapshot, fallback) {
+      if (!snapshot) return;
+      const cards = Array.from(list.querySelectorAll('article[data-item-key]'));
+      const sameCard = snapshot.itemKey
+        ? cards.find((card) => card.getAttribute('data-item-key') === snapshot.itemKey)
+        : null;
+      let target = semanticControl(sameCard, snapshot.controlSelector)
+        || ordinalControl(sameCard, snapshot.controlIndex);
+
+      if (!target && snapshot.cardIndex >= 0) {
+        const nextCard = cards[snapshot.cardIndex];
+        if (nextCard && nextCard !== sameCard) {
+          target = semanticControl(nextCard, snapshot.controlSelector)
+            || ordinalControl(nextCard, snapshot.controlIndex);
+        }
+      }
+      if (!target && snapshot.cardIndex >= 0) {
+        const previousCard = cards[Math.min(snapshot.cardIndex - 1, cards.length - 1)];
+        target = semanticControl(previousCard, snapshot.controlSelector)
+          || ordinalControl(previousCard, snapshot.controlIndex);
+      }
+      if (!target) {
+        const nonCardControls = listFocusableControls(list)
+          .filter((control) => !control.closest('article[data-item-key]'));
+        if (snapshot.controlSelector) {
+          try {
+            target = nonCardControls.find((control) => control.matches(snapshot.controlSelector)) || null;
+          } catch {}
+        }
+        if (!target && snapshot.nonCardIndex >= 0) {
+          target = nonCardControls[Math.min(snapshot.nonCardIndex, nonCardControls.length - 1)] || null;
+        }
+      }
+      target = target || fallback;
+      if (target && typeof target.focus === 'function') target.focus({ preventScroll: true });
+    }
+
     function renderSavedView() {
       const list = document.getElementById('list');
+      const focusSnapshot = captureListFocus(list);
       // Saved content replaces the feed here; reset renderFeedList's
       // change-skip mirror so returning to an unchanged feed still rewrites.
       lastRenderedListHtml = '';
@@ -3135,10 +3265,12 @@
         list.innerHTML = q
           ? `<div class="state">No saved items match “${esc(q)}”.</div>`
           : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
+        restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
         return;
       }
       const tools = `<div class="saved-tools"><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
       list.innerHTML = tools + saved.map((it) => cardHtml(it, { hideable: false })).join('');
+      restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
     }
 
     // First-visit onboarding: one-time topic picker that feeds the existing
@@ -3275,6 +3407,14 @@
         .map((it, i) => ({ it, i, sources: (Array.isArray(it.also_covered) ? it.also_covered.length : 0) + 1 }))
         .sort((a, b) => b.sources - a.sources || a.i - b.i)
         .slice(0, 5);
+
+      // The Fresh strip and catch-up answer the same pre-story question.
+      // Whichever claims the shared slot first owns it for this page load.
+      try {
+        const fu = document.getElementById('freshUpdates');
+        if (fu?.dataset.promoOwner && fu.dataset.promoOwner !== 'catchup') return '';
+        if (fu) fu.dataset.promoOwner = 'catchup';
+      } catch {}
 
       const bullets = picks.map(({ it, sources }) => {
         // Lead with why-it-matters when the pipeline has real signal; the
@@ -3488,9 +3628,14 @@
       // Skip identical rewrites (the post-fetch decoration pass rebuilds the
       // same markup), and keep real card content as the fetch-failure fallback.
       if (html !== lastRenderedListHtml) {
+        const focusSnapshot = captureListFocus(list);
         lastRenderedListHtml = html;
         list.innerHTML = html;
+        list.classList.remove('feed-updating');
         if (visible.length) lastGoodListHtml = html;
+        const activeTab = document.querySelector('#sections button[aria-pressed="true"]')
+          || document.getElementById('savedTab');
+        restoreListFocus(list, focusSnapshot, activeTab);
       }
     }
 
@@ -3637,6 +3782,7 @@
         if (lastGoodListHtml) {
           const fallback = bar + lastGoodListHtml;
           list.innerHTML = fallback;
+          list.classList.remove('feed-updating');
           // Record what we wrote, or a later successful render could be
           // skipped as "unchanged" and leave this error bar stuck on screen.
           lastRenderedListHtml = fallback;
@@ -3645,6 +3791,7 @@
         } else {
           const fallback = `<div class="state">Could not load the feed right now. ${retry}</div>`;
           list.innerHTML = fallback;
+          list.classList.remove('feed-updating');
           lastRenderedListHtml = fallback;
           document.getElementById('meta').textContent = 'Feed unavailable';
           setFeedStatus('Feed unavailable. Could not load the feed right now.');
@@ -3909,6 +4056,8 @@
         const section = btn.dataset.section || '';
         // "All" clears the filter; any other tab selects exactly that section.
         setSelectedLabels(section ? [section] : []);
+        const tabLabel = (btn.childNodes[0]?.textContent || btn.textContent || '').trim();
+        setFeedStatus(section ? `Showing ${tabLabel}` : 'Showing all stories');
         refreshFeed({ exitSaved: true });
       });
 
@@ -3973,6 +4122,7 @@
     // content, no CLS) and is the fallback brief if this first fetch fails.
     lastGoodListHtml = document.getElementById('list').innerHTML;
     document.getElementById('meta').textContent = 'Updating the brief...';
+    document.getElementById('list')?.classList.add('feed-updating');
     refreshFeed();
   </script>
 
@@ -3988,7 +4138,7 @@
   <!-- "New updates" nav indicators + the feed's "Fresh from the Editor's Desk"
        strip — shared logic in /nav-updates.js; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20260805" defer></script>
+  <script src="/nav-updates.js?v=20260824-promo-owner" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the

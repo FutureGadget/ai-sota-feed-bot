@@ -250,16 +250,17 @@ class ModelsSurfaceTest(unittest.TestCase):
     # ---- responsive / no page-body horizontal scroll ----
 
     def test_responsive_no_horizontal_scroll(self) -> None:
-        self.assertIn("overflow-x: hidden", self.html)  # html/body guard
+        self.assertIn("overflow-x: clip", self.html)  # html/body guard, sticky-safe
         self.assertIn("@media (max-width:620px)", self.html)
         self.assertIn("flex-wrap:wrap", self.html)
 
     def test_no_external_resource_references_besides_shared_site_assets(self) -> None:
         # Every external URL referenced must be one of the repo's own known
-        # allowed hosts (oat.ink CSS reset, Vercel speed insights) or a data
-        # source link rendered from API JSON at runtime (not embedded here).
+        # allowed hosts (the Oat CSS reset and analytics are self-hosted now,
+        # Vercel speed insights ships from /_vercel/) or a data source link
+        # rendered from API JSON at runtime (not embedded here).
         urls = re.findall(r'(?:href|src)="(https?://[^"]+)"', self.html)
-        allowed_hosts = ("oat.ink", "www.llm-digest.com")
+        allowed_hosts = ("www.llm-digest.com",)
         for url in urls:
             self.assertTrue(
                 any(host in url for host in allowed_hosts),

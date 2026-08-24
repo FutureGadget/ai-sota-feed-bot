@@ -13,15 +13,15 @@
 - `pipeline/render_static_pages.py` rendered all current page families.
 - `scripts/vercel_build.py` staged the production output and root shared assets.
 - Headless Chrome verified 13 representative routes at 390 × 844 in dark mode
-  with reduced motion: zero console errors, zero document overflow, eight
-  Browse destinations, one current destination, Browse/More focus restoration,
+  with reduced motion: zero console errors, zero document overflow, ten
+  Editor's Desk destinations, one current destination, dialog focus restoration,
   and in-viewport site-bar/context controls.
 - A separate 320px no-JavaScript run verified visible wrapping fallback
   navigation and no document overflow.
 - A 320px run with 200% root text size verified no document overflow and a
-  scrollable Browse dialog with a visible Close control.
-- Visual screenshots were reviewed for Feed, Daily archive, Knowledge map,
-  Subscribe, Browse, and More actions.
+  scrollable Editor's Desk dialog with a visible Close control.
+- Visual screenshots were reviewed for Feed, Daily archive, Agent Know-How,
+  Subscribe, Editor's Desk, and theme actions.
 
 ## Overview
 
@@ -29,10 +29,10 @@ Replace every horizontally scrolling or page-specific mobile header with one
 shared responsive site chrome:
 
 - compact LLM Digest brand/home link;
-- visibly labeled Browse control;
+- visibly labeled Editor's Desk control;
 - page title and status;
 - visible day/week/edition controls where applicable;
-- More actions for secondary utilities;
+- secondary utilities inside Editor's Desk;
 - semantic, wrapping navigation when JavaScript is unavailable.
 
 Implementation is incremental inside a feature branch, but release is atomic.
@@ -54,10 +54,10 @@ No task below authorizes merging a partial surface set to `main`.
 - Changing routes, APIs, ranking, recap schemas, or archive identifiers
 - Redesigning page bodies or page-specific signature elements
 - Adding persistent bottom navigation
-- Adding a frontend framework or UI dependency
+- Adding a frontend framework
 - Replacing the existing theme storage contract
 - Changing the current viewport policy
-- Adding new destinations
+- Changing the destination registry during this implementation
 - Hand-editing generated HTML
 
 ## Architecture decisions
@@ -65,7 +65,7 @@ No task below authorizes merging a partial surface set to `main`.
 ### Progressive enhancement
 
 Every source page renders a semantic fallback navigation and fallback action
-list. Shared JavaScript enables Browse and More actions only after required
+list. Shared JavaScript enables Editor's Desk only after required
 elements are found and initialized. The enhanced class hides fallback controls
 only after initialization succeeds.
 
@@ -76,8 +76,8 @@ Semantic fallback markup
           │
           └── JavaScript initializes
                     │
-                    ├── Browse dialog receives destination links
-                    ├── More actions receives page utilities
+                    ├── Editor's Desk receives destinations
+                    ├── Editor's Desk receives page utilities
                     └── fallback rows become visually hidden
 ```
 
@@ -102,6 +102,8 @@ renderer helper rather than editing:
 - `web/story/*.html`
 - `web/storyline/*.html`
 - `web/topic/*.html`
+- `web/foundations/*.html`
+- `web/models/*.html`
 - `web/map.html`
 
 ### Destination registry
@@ -113,9 +115,11 @@ The canonical order is:
 3. Weekly recap
 4. Storylines
 5. Playbook
-6. Knowledge map
-7. Voices
-8. Email digest
+6. Agent Know-How
+7. Foundations
+8. Model Radar
+9. Voices
+10. Email digest
 
 Tests must verify this order in every hand-written source and generated output.
 Detail routes map to their parent destination as specified in the product
@@ -169,7 +173,7 @@ the shared assets.
 **Description:** Add one test module that inventories every in-scope source,
 asserts the canonical destination registry and parent-route mapping, and
 provides reusable checks for shared asset references, fallback navigation,
-Browse/More triggers, picker placement, and forbidden header scrollers.
+Editor's Desk triggers, picker placement, and forbidden header scrollers.
 
 **Acceptance criteria:**
 
@@ -197,14 +201,14 @@ complete Tasks 1–3 as one green foundation increment if necessary.
 ## Task 2: Add the shared presentation layer
 
 **Description:** Create the shared CSS contract with safe default fallback
-navigation, enhanced Browse/More surfaces, responsive page-heading structure,
+navigation, the enhanced Editor's Desk surface, responsive page-heading structure,
 visible contextual controls, focus states, reduced-motion behavior, and mobile
 safe-area handling.
 
 **Acceptance criteria:**
 
 - [ ] Fallback destinations and actions wrap without horizontal scrolling.
-- [ ] Browse and More triggers are hidden until enhancement succeeds.
+- [ ] The Editor's Desk trigger is hidden until enhancement succeeds.
 - [ ] Enhanced navigation works at 320px without clipped text.
 - [ ] Dialog content can become full-height and independently scroll at large
       text sizes.
@@ -226,7 +230,7 @@ git diff --check
 
 **Estimated scope:** Medium
 
-## Task 3: Add shared Browse and More-actions behavior
+## Task 3: Add shared Editor's Desk behavior
 
 **Description:** Implement progressive enhancement in vanilla JavaScript.
 Initialize only when the required DOM is present; clone or move fallback links
@@ -236,13 +240,14 @@ scroll locking, route current state, theme actions, and update indicators.
 **Acceptance criteria:**
 
 - [ ] A failed or unsupported enhancement leaves fallback navigation visible.
-- [ ] Browse and More actions open, close, and restore focus correctly.
+- [ ] Editor's Desk opens, closes, and restores focus correctly.
 - [ ] Current-route mapping covers every detail route.
-- [ ] Daily, Weekly, Storylines, and Knowledge map update indicators decorate
-      Browse links without changing freshness/read semantics.
+- [ ] Daily, Weekly, Storylines, Playbook, Agent Know-How, and Foundations
+      update indicators decorate Editor's Desk links without changing
+      freshness/read semantics.
 - [ ] Theme actions preserve the existing `theme` localStorage contract.
 - [ ] Optional PostHog calls are defensive and never required for interaction.
-- [ ] No third-party dependency is added.
+- [ ] Vendored third-party assets are pinned, licensed, and served locally.
 
 **Verification:**
 
@@ -273,9 +278,10 @@ Do not start parallel surface work before this checkpoint.
 ## Task 4: Integrate all generated pages through the renderer
 
 **Description:** Add renderer helpers for the site bar, fallback navigation,
-Browse dialog hook, More actions, page heading, and optional archive picker.
-Replace generated `<menu>` navigation in the shared page template. Apply the
-same contract to Daily, Weekly, Story, Storyline, Topic, and Map output.
+Editor's Desk dialog hook, page actions, page heading, and optional archive
+picker. Replace generated `<menu>` navigation in the shared page template.
+Apply the same contract to Daily, Weekly, Story, Storyline, Topic, Foundations,
+Model detail, and Map output.
 
 **Acceptance criteria:**
 
@@ -283,8 +289,8 @@ same contract to Daily, Weekly, Story, Storyline, Topic, and Map output.
 - [ ] One helper owns generated destination order and current-state metadata.
 - [ ] `render_archive_select()` participates in a visible Previous/Current/Next
       context row for Daily and Weekly archives.
-- [ ] Generated Story, Storyline, Topic, and Map pages expose correct parent
-      destination state and applicable actions.
+- [ ] Generated Story, Storyline, Topic, Foundations, Model detail, and Map
+      pages expose correct parent destination state and applicable actions.
 - [ ] Generated pages no longer use a horizontally scrolling header `<menu>`.
 - [ ] Existing canonical, JSON-LD, sitemap, follow, share, and content markup
       remain unchanged outside the chrome boundary.
@@ -466,9 +472,9 @@ git diff --check
 
 ## Task 9: Integrate the Subscribe utility
 
-**Description:** Apply the same brand and Browse model to `/subscribe` while
-keeping the signup form as the dominant page action. Do not add subscription to
-its own More actions list.
+**Description:** Apply the same brand and Editor's Desk model to `/subscribe`
+while keeping the signup form as the dominant page action. Do not duplicate the
+subscription form inside the dialog.
 
 **Acceptance criteria:**
 
@@ -476,7 +482,7 @@ its own More actions list.
 - [ ] The form, cadence preference, honeypot, validation, provider fallback,
       success/error states, and localStorage keys are unchanged.
 - [ ] Theme remains reachable.
-- [ ] Browse does not compete visually with the form submission action.
+- [ ] Editor's Desk does not compete visually with the form submission action.
 
 **Verification:**
 
@@ -520,7 +526,7 @@ by the actual Vercel build.
 
 - [ ] Shared assets exist at `public/site-chrome.css` and
       `public/site-chrome.js` after the Vercel build.
-- [ ] No page initializes theme, update indicators, Browse, or More actions
+- [ ] No page initializes theme, update indicators, or Editor's Desk
       twice.
 - [ ] No generated route references missing assets.
 - [ ] No unexpected generated-file churn is staged with the code change.
@@ -569,6 +575,8 @@ motion, no-JavaScript fallback, and console/network failures.
 - `/storylines` and one `/storyline/<slug>`
 - `/playbook`
 - `/map` and one `/topic/<slug>`
+- `/foundations` and one `/foundations/<slug>`
+- `/models` and one `/models/<slug>`
 - `/voices`
 - one `/story/<sid>`
 - `/subscribe`
@@ -586,9 +594,9 @@ motion, no-JavaScript fallback, and console/network failures.
 - [ ] `document.documentElement.scrollWidth === clientWidth` on every mobile
       route.
 - [ ] Every header control's bounding box remains within the viewport.
-- [ ] Browse, More actions, Close, Escape, backdrop, and focus restoration work.
-- [ ] Keyboard order follows brand → primary action → Browse → More → page
-      context → content.
+- [ ] Editor's Desk, Close, Escape, backdrop, and focus restoration work.
+- [ ] Keyboard order follows brand, Subscribe, theme, optional language,
+      Editor's Desk, page context, and content.
 - [ ] Light/dark theme and stored theme initialization work without a flash
       regression.
 - [ ] Reduced motion removes sheet transition without changing behavior.
@@ -657,7 +665,7 @@ All boxes must pass before merge:
 
 - [ ] Every in-scope hand-written and generated page uses the new chrome.
 - [ ] No old horizontal header rail remains.
-- [ ] All eight destinations appear in canonical order.
+- [ ] All ten destinations appear in canonical order.
 - [ ] Detail routes mark the correct parent destination.
 - [ ] Daily, Weekly, and Playbook context controls remain visible.
 - [ ] Feed Search remains visible.
@@ -713,7 +721,7 @@ exposure occurs only when the complete PR merges.
 
 | Risk | Impact | Mitigation |
 |---|---|---|
-| Browse JavaScript fails and hides navigation | High | Hide fallback only after successful initialization; test with JS disabled and forced script failure |
+| Editor's Desk JavaScript fails and hides navigation | High | Hide fallback only after successful initialization; test with JS disabled and forced script failure |
 | Generated template change affects 1,000+ pages | High | Change renderer helper only; sample every generated family; rely on production build regeneration; inspect churn |
 | Update indicators disappear after links move | High | Move selector support into shared JS before shell migration; preserve existing storage/freshness tests |
 | Archive behavior diverges between latest shells and static archives | High | Keep URL behavior surface-specific behind one visual picker contract; test both route types |
@@ -721,7 +729,7 @@ exposure occurs only when the complete PR merges.
 | Weekly sticky controls collide with site chrome | Medium | Keep site chrome non-sticky initially; test z-index and scroll behavior on Weekly |
 | Existing Oat styles leak into dialog/details | Medium | Use scoped `.site-chrome-*` resets and real-browser inspection |
 | Theme flashes or toggles twice | Medium | Retain pre-paint theme initialization; centralize only interaction; remove duplicate listeners per surface |
-| Mascot overlaps Browse or More actions | Medium | Dialog/top-layer behavior and z-index test; suppress mascot interaction while modal is open if required |
+| Mascot overlaps Editor's Desk actions | Medium | Dialog/top-layer behavior and z-index test; suppress mascot interaction while modal is open if required |
 | Root assets are not staged | Medium | Assert `public/site-chrome.{css,js}` after `scripts/vercel_build.py` |
 | Partial merge creates mixed navigation | High | One feature branch, one PR, explicit final gate, no page-level production merge |
 | Large generated diff mixes code and runtime data | Medium | Do not hand-edit outputs; review status after render; keep runtime artifacts in a separate commit if required |

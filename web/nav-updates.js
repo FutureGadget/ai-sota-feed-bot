@@ -106,7 +106,7 @@
     if (document.getElementById('whats-new-style')) return;
     var s = document.createElement('style');
     s.id = 'whats-new-style';
-    s.textContent = '.whats-new{display:flex;flex-wrap:wrap;align-items:center;gap:.35rem .45rem;margin:0;padding:.55rem .1rem .55rem .65rem;border:0;border-left:2px solid var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 5%,transparent);font-size:.82rem;animation:navUpdateIn .35s ease-out both}@media (prefers-reduced-motion:reduce){.whats-new{animation:none}}.whats-new-label{font-family:ui-monospace,"SFMono-Regular",monospace;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-right:.1rem}.whats-new-chip{display:inline-block;padding:.1rem .55rem;font-size:.76rem;font-weight:600;line-height:1.5;color:var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent,#2563eb) 28%,transparent);border-radius:999px;text-decoration:none;white-space:nowrap}.whats-new-chip:hover{background:color-mix(in srgb,var(--accent,#2563eb) 20%,transparent);text-decoration:none}.whats-new-dismiss{margin-left:auto;padding:0 .35rem;border:0;background:none;color:inherit;opacity:.55;font-size:1rem;line-height:1;cursor:pointer}.whats-new-dismiss:hover{opacity:1}';
+    s.textContent = '.whats-new{display:flex;flex-wrap:nowrap;align-items:center;gap:.35rem .45rem;margin:0;padding:.55rem .1rem .55rem .65rem;border:0;border-left:2px solid var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 5%,transparent);font-size:.82rem;animation:navUpdateIn .35s ease-out both;overflow-x:auto}.whats-new>*{flex-shrink:0}@media (prefers-reduced-motion:reduce){.whats-new{animation:none}}.whats-new-label{font-family:ui-monospace,"SFMono-Regular",monospace;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.85;margin-right:.1rem}.whats-new-chip{display:inline-block;padding:.1rem .55rem;font-size:.76rem;font-weight:600;line-height:1.5;color:var(--accent,#2563eb);background:color-mix(in srgb,var(--accent,#2563eb) 10%,transparent);border:1px solid color-mix(in srgb,var(--accent,#2563eb) 28%,transparent);border-radius:999px;text-decoration:none;white-space:nowrap}.whats-new-chip:hover{background:color-mix(in srgb,var(--accent,#2563eb) 20%,transparent);text-decoration:none}.whats-new-dismiss{margin-left:auto;padding:0 .35rem;border:0;background:none;color:inherit;opacity:.55;font-size:1rem;line-height:1;cursor:pointer}.whats-new-dismiss:hover{opacity:1}';
     (document.head || document.documentElement).appendChild(s);
   }
 
@@ -168,7 +168,17 @@
 
   function renderStrip(u, sections) {
     var anchor = document.getElementById('freshUpdates');
-    if (!anchor) return [];
+    if (!anchor) {
+      capture('whats_new_suppressed', { reason: 'missing_anchor', sections: sections });
+      return [];
+    }
+    // Catch-up and Fresh share one pre-story slot. The first async path to
+    // claim it wins, so a later response never replaces content already seen.
+    if (anchor.dataset.promoOwner) {
+      capture('whats_new_suppressed', { reason: anchor.dataset.promoOwner, sections: sections });
+      return [];
+    }
+    anchor.dataset.promoOwner = 'fresh';
     injectStripStyle();
 
     var strip = document.createElement('section');
@@ -243,11 +253,12 @@
           if (section === cur) return;
           var signal = signalOf(u, section);
           if (!signal || !isUnread(section, signal) || !isFresh(section, u)) return;
+          // Pills and strip chips are returning-reader signals: a section the
+          // reader has never visited does not earn a "New" badge, so a first
+          // visit never lights up all six sections at once.
+          if (!getItem(SEEN[section])) return;
           decorate(section);
-          // Strip chips only for sections this reader has visited before —
-          // a first-time or section-uninterested reader is introduced through
-          // the Editor's Desk pills and in-feed cards, never a nag strip.
-          if (getItem(SEEN[section])) stripEligible.push(section);
+          stripEligible.push(section);
         });
         if (cur) {
           var sig = signalOf(u, cur);

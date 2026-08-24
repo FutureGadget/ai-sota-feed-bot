@@ -15,6 +15,29 @@
   border-bottom: 1px solid var(--border);
 }
 
+.site-bar.site-bar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  gap: 0.5rem;
+  padding: calc(0.45rem + env(safe-area-inset-top, 0px)) clamp(1rem, 4vw, 2rem) 0.55rem;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.site-bar-spacer {
+  height: 0;
+}
+
+.site-bar-sentinel {
+  height: 1px;
+  margin-top: -1px;
+  pointer-events: none;
+}
+
 .site-brand {
   display: inline-flex;
   align-items: center;
@@ -528,6 +551,33 @@
     align-items: flex-start;
   }
 
+  .site-bar.site-bar-fixed {
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-bar.site-bar-fixed > .site-brand {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+    max-width: none;
+  }
+
+  .site-bar.site-bar-fixed > .site-brand > span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .site-bar.site-bar-fixed > .site-bar-actions {
+    flex: 0 0 auto;
+    flex-wrap: nowrap;
+    width: auto;
+    max-width: calc(100% - 2rem);
+    justify-content: flex-end;
+  }
+
   .site-brand {
     flex: 0 0 100%;
     width: 100%;
@@ -562,6 +612,14 @@
 
   .site-chrome-enhanced [data-site-browse-open] {
     min-width: 5.15rem;
+  }
+}
+
+@media (max-width: 360px) {
+  /* Keep the brand and primary subscribe action legible in the compact bar.
+     The language action remains available in the in-flow header above. */
+  .site-bar.site-bar-fixed .site-bar-language-action {
+    display: none;
   }
 }
 

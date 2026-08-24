@@ -48,8 +48,10 @@ it while continuing the brief rather than treating it as a competing column.
 ## Behaviour
 
 Each section's indicator appears when the section is **unread** (its latest
-content is newer than what the reader last saw) — but Daily, Weekly, and
-Playbook add a **time-aware freshness gate** on top of read history:
+content is newer than what the reader last saw) - and only when the reader has
+**visited that section before** (a seen marker exists). A brand-new reader
+sees no pills anywhere; onboarding happens through content, not alarms. Daily,
+Weekly, and Playbook add a **time-aware freshness gate** on top of read history:
 
 | Section | Indicator shows when… | Time gate? |
 |---|---|---|
@@ -91,9 +93,9 @@ story list, and only when there is something to say:
 - **Returning readers only.** A chip appears for a section only when that
   section is unread + fresh **and already has a "seen" marker** — i.e. the
   reader has visited it before. A first-time visitor (or a reader who never
-  opens, say, Playbook) is introduced to sections through the Editor's Desk
-  pills and the contextual in-feed cards; the strip never nags about a section
-  the reader hasn't engaged with, so it cannot become a permanent banner.
+  opens, say, Playbook) is introduced through the semantic Editor's Desk links
+  and contextual in-feed cards; neither pills nor the strip nag about a section
+  the reader hasn't engaged with, so they cannot become permanent alarms.
 - **Self-clearing.** Chips link straight to their section; arriving there
   records the "seen" marker, so the chip is gone on the next feed visit. When
   everything is read, the strip doesn't render at all — the caught-up state is
@@ -106,6 +108,9 @@ story list, and only when there is something to say:
 - **No double-promotion.** When the strip is showing the daily chip, the
   feed's deeper Editor's Desk "Today's recap is ready" insert is suppressed
   (`web/index.html` checks `window.llmDigestUpdates.stripSections`).
+- **One "since your last visit" module.** When the feed renders the Catch-me-up
+  card, it claims that slot and the strip stands down (and vice versa if the
+  strip landed first) - at most one pre-story promo module shows per page load.
 
 PostHog events (all optional/no-op without PostHog): `whats_new_view`
 (`sections`), `whats_new_click` (`section`), `whats_new_dismiss` (`sections`).
@@ -194,6 +199,6 @@ gated off (no seen markers → no chips).
 - `node --check` on `api/updates.js` and `web/nav-updates.js`; the handler run
   against the live data tree returns all six sections.
 - Playwright pass against a local static+API server covering: first visit (no
-  strip, pills in the Desk dialog), returning reader (strip with day-aware
+  strip or pills), returning reader (strip with day-aware
   chips), chip click → seen marker → chip cleared, session dismiss, mobile +
   dark theme rendering, and no strip outside the feed.

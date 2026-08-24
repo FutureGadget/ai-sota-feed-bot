@@ -2,9 +2,10 @@
 
 A self-contained, dependency-light WebGL (Three.js) mascot: a cute-and-intelligent
 bespectacled blue bubble that pops in at random, bobs around, and tucks away.
-Decorative and defensive — any failure (no WebGL, blocked CDN) silently no-ops.
+Decorative and defensive - any failure (no WebGL or a missing local asset) silently no-ops.
 
-It's **one file** (`mascot.js`) you can drop anywhere. Three usage modes:
+It uses the small `mascot.js` module plus the pinned, self-hosted
+`vendor/three.module.min.js` runtime. Three usage modes:
 
 ## 1. Drop-in (default floating mascot)
 
@@ -76,6 +77,9 @@ buddy.el;            // root container element (null before first appear / after
 `window.BubbleBuddy.create(opts)` is the same factory for non-module pages, and
 `window.BubbleBuddy.instances` holds the auto-mounted instances.
 
+`appearNow()` bypasses the recent-scroll deferral used by scheduled appearances.
+The first call still awaits the local Three.js module before it can paint.
+
 ## Options
 
 | Option | Default | Notes |
@@ -85,7 +89,7 @@ buddy.el;            // root container element (null before first appear / after
 | `offsetX` / `offsetY` | `18` / `14` | px from the corner (any CSS length, e.g. a `calc()` with `env(safe-area-inset-*)`; ignored for `fill`). |
 | `width` / `height` | `150` / `185` | px (ignored for `fill`). |
 | `zIndex` | `60` | |
-| `interactive` | `true` | Poke-to-react + dismiss ×. `false`: canvas gets `pointer-events: none`, no ×, no pointer cursor — pure decoration; appearance timers unchanged. |
+| `interactive` | `true` | Poke-to-react by pointer, Enter, or Space, plus dismiss ×. `false`: canvas gets `pointer-events: none`, no ×, no pointer cursor - pure decoration; appearance timers unchanged. |
 | `autostart` | `true` | Self-schedule random appearances. |
 | `firstDelayMin/Max` | `7000` / `14000` | ms before first appearance. |
 | `gapMin/Max` | `50000` / `110000` | ms quiet time between appearances. |
@@ -95,13 +99,14 @@ buddy.el;            // root container element (null before first appear / after
 | `storageKey` | `'bubbleBuddy'` | sessionStorage key for the dismissal. |
 | `respectReducedMotion` | `true` | Skip auto-start under `prefers-reduced-motion`. |
 | `colors` | `null` | Partial palette override, e.g. `{ body, iris, spark, frame, ... }`. |
-| `threeUrl` | pinned unpkg | Where to import Three.js from. |
+| `threeUrl` | self-hosted `/mascot/vendor/three.module.min.js` (pinned r161) | Where to import Three.js from. |
 | `ariaLabel` | `'Bubble, the mascot'` | Canvas a11y label. |
 
 ## Performance & behavior
 
-- Three.js (~150 KB) is imported **once, shared across instances**, only on the first
-  appearance — zero cost on initial page load.
+- The pinned Three.js module (~675 KB raw, ~168 KB gzip) is imported **once,
+  shared across instances**, only on the first appearance - zero cost on initial
+  page load.
 - The render loop runs only while a mascot is on screen; parked (no rAF/GPU) between
   appearances and while the tab is hidden.
 - Fixed/absolute overlay added post-load → no layout shift (CLS).
