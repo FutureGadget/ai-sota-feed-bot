@@ -238,5 +238,20 @@
     subtree: true,
   });
 
+  const bar = chrome.querySelector(".site-bar");
+  if (bar && "IntersectionObserver" in window) {
+    const sentinel = document.createElement("div");
+    sentinel.setAttribute("aria-hidden", "true");
+    chrome.prepend(sentinel);
+    new IntersectionObserver(
+      (entries) => {
+        const engage = !entries[0].isIntersecting;
+        bar.classList.toggle("site-bar-fixed", engage);
+        chrome.style.paddingBottom = engage ? `${bar.offsetHeight}px` : "";
+      },
+      { rootMargin: "0px" }
+    ).observe(sentinel);
+  }
+
   root.classList.add("site-chrome-enhanced");
 })();

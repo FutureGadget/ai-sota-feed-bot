@@ -150,9 +150,10 @@ class SiteChromeContractTest(unittest.TestCase):
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
         # The "Fresh from the Editor's Desk" strip renders only on the feed,
         # only for sections with an existing seen marker (a reader who has
-        # engaged before), and stays dismissible for the session.
+        # engaged before), and stays dismissible for the session. Nav pills
+        # share the same seen-marker gate so a first visit lights nothing up.
         self.assertIn("isFeedPage()", js)
-        self.assertIn("if (getItem(SEEN[section])) stripEligible.push(section);", js)
+        self.assertIn("if (!getItem(SEEN[section])) return;", js)
         self.assertIn("ai_feed_whats_new_dismissed_v1", js)
         self.assertIn("whats-new-chip", js)
 

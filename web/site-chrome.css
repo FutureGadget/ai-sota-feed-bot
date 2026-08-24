@@ -15,6 +15,19 @@
   border-bottom: 1px solid var(--border);
 }
 
+.site-bar.site-bar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 90;
+  gap: 0.5rem;
+  padding: calc(0.45rem + env(safe-area-inset-top, 0px)) clamp(1rem, 4vw, 2rem) 0.55rem;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
 .site-brand {
   display: inline-flex;
   align-items: center;
@@ -526,6 +539,12 @@
   .site-bar {
     flex-wrap: wrap;
     align-items: flex-start;
+  }
+
+  .site-bar.site-bar-fixed {
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
   }
 
   .site-brand {

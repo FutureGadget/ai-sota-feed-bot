@@ -168,7 +168,12 @@
 
   function renderStrip(u, sections) {
     var anchor = document.getElementById('freshUpdates');
-    if (!anchor) return [];
+    // Pre-story promo budget: when the feed's "Catch me up" card is shown,
+    // it owns the "since your last visit" slot and the strip stands down.
+    if (!anchor || anchor.dataset.catchupActive === '1') {
+      capture('whats_new_suppressed', { reason: 'catchup', sections: sections });
+      return [];
+    }
     injectStripStyle();
 
     var strip = document.createElement('section');
@@ -243,11 +248,12 @@
           if (section === cur) return;
           var signal = signalOf(u, section);
           if (!signal || !isUnread(section, signal) || !isFresh(section, u)) return;
+          // Pills and strip chips are returning-reader signals: a section the
+          // reader has never visited does not earn a "New" badge, so a first
+          // visit never lights up all six sections at once.
+          if (!getItem(SEEN[section])) return;
           decorate(section);
-          // Strip chips only for sections this reader has visited before —
-          // a first-time or section-uninterested reader is introduced through
-          // the Editor's Desk pills and in-feed cards, never a nag strip.
-          if (getItem(SEEN[section])) stripEligible.push(section);
+          stripEligible.push(section);
         });
         if (cur) {
           var sig = signalOf(u, cur);

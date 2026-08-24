@@ -3325,6 +3325,15 @@
       // "brief" is the default lens, not a reader-chosen topic — don't claim
       // the catch-up count is scoped "in your topics" when it's just the default.
       const topicsNote = getSelectedLabels().some((l) => l !== 'brief') ? ' in your topics' : '';
+      // Pre-story promo budget: the catch-up brief and the Fresh strip answer
+      // the same "since your last visit" question, so only one may show.
+      try {
+        const fu = document.getElementById('freshUpdates');
+        if (fu) {
+          fu.dataset.catchupActive = '1';
+          fu.querySelector('.whats-new')?.remove();
+        }
+      } catch {}
       return `
         <section class="catchup" aria-label="Catch up since your last visit">
           <div class="catchup-head">
