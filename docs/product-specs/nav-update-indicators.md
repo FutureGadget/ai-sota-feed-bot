@@ -48,8 +48,10 @@ it while continuing the brief rather than treating it as a competing column.
 ## Behaviour
 
 Each section's indicator appears when the section is **unread** (its latest
-content is newer than what the reader last saw) — but Daily, Weekly, and
-Playbook add a **time-aware freshness gate** on top of read history:
+content is newer than what the reader last saw) - and only when the reader has
+**visited that section before** (a seen marker exists). A brand-new reader
+sees no pills anywhere; onboarding happens through content, not alarms. Daily,
+Weekly, and Playbook add a **time-aware freshness gate** on top of read history:
 
 | Section | Indicator shows when… | Time gate? |
 |---|---|---|
@@ -106,6 +108,9 @@ story list, and only when there is something to say:
 - **No double-promotion.** When the strip is showing the daily chip, the
   feed's deeper Editor's Desk "Today's recap is ready" insert is suppressed
   (`web/index.html` checks `window.llmDigestUpdates.stripSections`).
+- **One "since your last visit" module.** When the feed renders the Catch-me-up
+  card, it claims that slot and the strip stands down (and vice versa if the
+  strip landed first) - at most one pre-story promo module shows per page load.
 
 PostHog events (all optional/no-op without PostHog): `whats_new_view`
 (`sections`), `whats_new_click` (`section`), `whats_new_dismiss` (`sections`).

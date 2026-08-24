@@ -182,6 +182,17 @@ Destinations may be displayed inline when space permits, but their order,
 labels, current-page state, update indicators, and action hierarchy must match
 the mobile system. Desktop must not retain a conflicting destination order.
 
+### Floating bar after scroll
+
+Once the reader scrolls past the header, the bar engages as a fixed,
+blurred-background compact bar (`site-bar-fixed`, applied by
+`web/site-chrome.js` via an IntersectionObserver sentinel with spacer padding
+so content does not jump). Navigation - including the Editor's Desk dialog
+that holds every destination - stays reachable from any scroll depth.
+On small widths the floating bar collapses to its single-row form (the brand
+may truncate); it respects the safe-area inset. Disengaging restores the
+in-flow bar exactly.
+
 ## Editor's Desk behavior
 
 On mobile, Editor's Desk opens an accessible modal navigation surface. Its visual
