@@ -428,6 +428,12 @@
       color: #fecaca;
       background: #7f1d1d;
     }
+    .badge-boost {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--card));
+      font-weight: 600;
+    }
     .badge-new {
       border-color: #d97706;
       color: #92400e;
@@ -678,15 +684,13 @@
     }
     @media (hover: hover) {
       #list > article .fb-row {
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.2s ease, visibility 0.2s ease;
+        opacity: 0.55;
+        transition: opacity 0.2s ease;
       }
       #list > article:hover .fb-row,
       #list > article:focus-within .fb-row,
       #list > article .fb-row.fb-has-voted {
         opacity: 1;
-        visibility: visible;
       }
     }
     .why {
@@ -716,7 +720,7 @@
       margin: 0.45rem 0 0;
       font-size: 0.78rem;
       line-height: 1.45;
-      color: color-mix(in srgb, var(--muted) 85%, transparent);
+      color: var(--muted);
       font-family: ui-monospace, "SFMono-Regular", monospace;
       overflow-wrap: anywhere;
     }
@@ -1060,7 +1064,7 @@
     .quicknav a:hover { color:var(--accent); text-decoration:none; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
-    .feed-kicker { margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
+    .feed-kicker { display:none; margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; color:var(--accent); }
     .feed-title { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
       font-size:clamp(2.8rem,7vw,4.7rem); font-weight:700; letter-spacing:-.048em; line-height:.92; }
@@ -1189,7 +1193,7 @@
     .matters { max-width:45rem; margin:.7rem 0 0; padding:.65rem .8rem;
       border-left:2px solid var(--accent); background:var(--feed-wash);
       color:var(--feed-ink); font-size:.84rem; line-height:1.5; }
-    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.75rem; }
+    .ranked-why { max-width:45rem; margin:.3rem 0 0; font-size:.78rem; }
     .thumb { width:96px; height:72px; border:0; border-radius:2px; object-fit:cover; }
     .also { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
     .fb-row { margin-top:.7rem; padding-top:.6rem; border-top:1px solid color-mix(in srgb,var(--border) 65%,transparent); }
@@ -2104,7 +2108,16 @@
           btn.textContent = orig;
           btn.title = 'Share';
         }, 1200);
-      } catch {}
+      } catch {
+        const orig = btn.textContent;
+        btn.textContent = '✕';
+        btn.title = 'Copy failed - long-press the story link to share';
+        setFeedStatus('Could not copy the link. Long-press the story link to share it.');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.title = 'Share';
+        }, 2000);
+      }
     }
 
     // Share-landing deep link (?item=<url>, set by the /s permalink redirect):
@@ -2205,6 +2218,7 @@
       const n = Object.keys(savedItemsState).length;
       btn.textContent = n > 0 ? `⭐ Saved (${n})` : '⭐ Saved';
       btn.classList.toggle('active', viewState === 'saved');
+      btn.setAttribute('aria-pressed', viewState === 'saved' ? 'true' : 'false');
     }
 
     function readFiltersFromUrl() {
@@ -2326,6 +2340,7 @@
       document.querySelectorAll('#sections button[data-section]').forEach((b) => {
         const matches = current !== null && (b.dataset.section || '') === current;
         b.classList.toggle('active', matches);
+        b.setAttribute('aria-pressed', matches ? 'true' : 'false');
         const section = b.dataset.section || '';
         let span = b.querySelector('.tab-count');
         if (!span) {
@@ -3071,7 +3086,7 @@
       const articleClass = [sourceCount >= 3 ? 'big-story' : '', hidden ? 'card-hidden' : '', isReleaseRow ? 'release-row' : ''].filter(Boolean).join(' ');
       return `
         <article${articleClass ? ` class="${articleClass}"` : ''} data-item-key="${itemId}">
-          ${rank !== null ? `<span class="rank-no" aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
+          ${rank !== null ? `<span class="rank-no"${isClimbing ? ` title="Moved up from #${prevRank} to #${lastRank} between runs"` : ''} aria-label="Rank ${rank}">${String(rank).padStart(2, '0')}</span>` : ''}
           <div class="card-top">
             <div class="card-meta">
               <span class="src">${source}</span>
@@ -3080,9 +3095,8 @@
               ${isFresh ? `<span class="badge badge-fresh">⚡ Fresh</span>` : ''}
               ${isNew ? `<span class="badge badge-new">New</span>` : ''}
               ${sourceCount >= 2 ? `<span class="badge badge-trend" title="Covered by ${sourceCount} sources">🔥 ${sourceCount} sources</span>` : ''}
-              ${isClimbing ? `<span class="badge badge-trend" title="Moved up from #${prevRank} to #${lastRank} between runs">⬆️ Climbing</span>` : ''}
               ${storylineBadge}
-              ${isReaderBoosted ? `<span class="badge badge-trend" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
+              ${isReaderBoosted ? `<span class="badge badge-boost" title="Reader clicks and feedback boosted ${source} in the ranking">👍 Reader-boosted</span>` : ''}
             </div>
             <div class="card-actions">
               <button type="button" class="save-btn" data-save-id="${itemId}" aria-pressed="${saved ? 'true' : 'false'}" aria-label="${saved ? 'Remove from saved' : 'Save for later'}" title="${saved ? 'Remove from saved' : 'Save for later'}">${saved ? '★' : '☆'}</button>
@@ -3912,6 +3926,8 @@
         const section = btn.dataset.section || '';
         // "All" clears the filter; any other tab selects exactly that section.
         setSelectedLabels(section ? [section] : []);
+        const tabLabel = (btn.childNodes[0]?.textContent || btn.textContent || '').trim();
+        setFeedStatus(section ? `Showing ${tabLabel}` : 'Showing all stories');
         refreshFeed({ exitSaved: true });
       });
 
