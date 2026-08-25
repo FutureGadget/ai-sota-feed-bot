@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218]
-updated: 2026-08-21
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd]
+updated: 2026-08-25
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd]
 ---
 
 ## TL;DR
@@ -52,6 +52,20 @@ verifiable citations rather than just scoring the answer text, and a
 tool-adaptive reranker conditions its reranking on which retrieval tool
 produced each candidate — both targeting the specific failure mode where a
 model answers fluently past what its retrieved context actually supports.
+
+**Retrieved content verification is arriving as dedicated middleware**, not
+just a scoring metric: an Evaluation Agent layered over a RAG pipeline
+combines natural-language-inference fact-checking with a five-signal poison
+detector and a weighted Trust Index (0.4x factuality + 0.35x coherence +
+0.25x(1-poison), with a non-linear dampener for high-contamination contexts)
+to catch documents that read as relevant but are false or adversarially
+inserted. On TruthfulQA it reaches 91% accuracy and 100% recall on
+instruction-injection attempts, though in-place edits like entity swaps
+stay hard to catch, and cross-dataset generalization (FEVER) needs
+per-model threshold recalibration rather than transferring as-is —
+grounding a knowledge-poisoning defense in scored, checkable middleware
+rather than trusting the retriever's ranking alone (cross-ref [prompt
+injection](/topic/prompt-injection) for the attack side of the same threat).
 
 **A third grounding failure is adversarial, not just noisy**: retrieved
 evidence can be entirely true and still redirect a multi-hop agent through
@@ -158,22 +172,17 @@ for approximate nearest-neighbor lookups alongside application rows (see
 [vector-kb](/topic/vector-kb) for the full incumbent-datastore trend).
 
 ## What's new
-DSPrompt defends against M-RAG corruption by countering embeddings crafted
+A RAG-layer Evaluation Agent combines NLI fact-checking with a five-signal
+poison detector into a single Trust Index score, reaching 91% accuracy and
+100% recall on instruction-injection attempts on TruthfulQA —
+grounding-specific verification middleware rather than a general
+attribution metric (see State of the art above).
+
+Prior update: DSPrompt defends against M-RAG corruption by countering embeddings crafted
 to align with benign vector-space entries, and CABLE studies why bounded
 session interfaces can lose evidence an agent stored earlier even when
 nothing was poisoned — two grounding failure modes (adversarial and
-architectural) landing in the same window (see State of the art above).
-
-Prior update: Sentence Transformers shipped off-the-shelf support for multi-vector,
-late-interaction (ColBERT-style) embedding models — a packaged path to a
-retrieval architecture previously mostly confined to research
-implementations (see State of the art above).
-
-Prior update: OneAdvanced built a UK-sovereign AI platform on self-hosted Llama 4
-Maverick and Llama Guard 4 with a pgvector RAG pipeline backing 50+
-production agents — the build-vs-buy self-hosted pattern this page already
-tracks (Orbit), this time driven by data-residency compliance rather than
-cost.
+architectural) landing in the same window.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a
