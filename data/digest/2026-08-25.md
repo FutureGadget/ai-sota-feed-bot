@@ -5,143 +5,137 @@ Focus: AI Platform Engineering
 ## 1. Cursor Releases Origin as an Agent-Native Alternative to GitHub
 - Type: release | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/cursor-origin-alternative-github/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.213 | Reliability: 1.0
+- Score: 3.197 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Introducing Rubrics: Build Agents that Evaluate and Correct Their Work
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/introducing-rubrics-for-deepagents
-- Score: 3.202 | Reliability: 1.0
+- Score: 3.185 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 3. Multi-modal RAG on slide decks
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/multi-modal-rag-template
-- Score: 3.052 | Reliability: 1.0
+- Score: 3.035 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 4. Funding better evaluations of AI’s impact on wellbeing
 - Type: news | Source: anthropic_newsroom
 - URL: https://www.anthropic.com/news/wellbeing-research-grants
-- Score: 2.698 | Reliability: 1.0
+- Score: 2.667 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 5. Now introducing Gemini Enterprise for Financial Services
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/products/ai-machine-learning/introducing-gemini-enterprise-for-financial-services/
-- Score: 2.682 | Reliability: 1.0
+- Score: 2.638 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 6. SWE Refactor Bench: Can Coding Agents Complete a Long-Horizon, Whole-Repository Stack Migration?
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2608.23564v1
-- Score: 2.615 | Reliability: 1.0
+- Score: 2.599 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation.
 
-## 7. Introducing the Admin plugin for ChatGPT Work and Codex
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-admin-plugin
-- Score: 2.461 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 8. EvoWiki: Incremental State Overwriting and Traceable Question Answering for Cross-Meeting Knowledge Evolution
+## 7. EvoWiki: Incremental State Overwriting and Traceable Question Answering for Cross-Meeting Knowledge Evolution
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2608.23265v1
-- Score: 2.455 | Reliability: 1.0
+- Score: 2.441 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 9. DeepSeek Image Input: How to Use the New V4 Flash Vision Model
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiekFVX3lxTE96dzQtMi1PSDNxZmwwbkFYVzU3TkJVNllOc0ZRU0FpNG9BZFpyY29BcWYzdGR6YkgzYzVKTHNEWURFWGtMWHFaMnhERHdpUWlSRUNfUFQzdEJZcG1ZTnc4TmN3LUhkSENaTERIc0lCWl9nWEd4eV9hMk1n?oc=5
-- Score: 2.404 | Reliability: 1.0
-- Why it matters: 
+## 8. Introducing the Admin plugin for ChatGPT Work and Codex
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-admin-plugin
+- Score: 2.435 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 9. codex rust-v0.150.0-alpha.10
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.150.0-alpha.10
+- Score: 2.413 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 10. The full stack behind abundant intelligence
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/the-full-stack-behind-abundant-intelligence
-- Score: 2.331 | Reliability: 1.0
+- Score: 2.306 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Beyond Embedded: How DuckDB v2.0 Shifts Architecture Toward Distributed Network Capabilities
 - Type: release | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/duckdb-v2-distributed/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.388 | Reliability: 1.0
+- Score: 2.38 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. RAD: Rule-Augmented Relational Anomaly Detection
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2608.23468v1
-- Score: 2.368 | Reliability: 1.0
+- Score: 2.354 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 13. llm-anthropic 0.27
-- Type: release | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/24/llm-anthropic/
-- Score: 2.355 | Reliability: 1.0
-- Why it matters: Matches feed focus: claude code.
+## 13. DeepSeek Image Input: How to Use the New V4 Flash Vision Model
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiekFVX3lxTE96dzQtMi1PSDNxZmwwbkFYVzU3TkJVNllOc0ZRU0FpNG9BZFpyY29BcWYzdGR6YkgzYzVKTHNEWURFWGtMWHFaMnhERHdpUWlSRUNfUFQzdEJZcG1ZTnc4TmN3LUhkSENaTERIc0lCWl9nWEd4eV9hMk1n?oc=5
+- Score: 2.349 | Reliability: 1.0
+- Why it matters: 
 
 ## 14. [AINews] Andrew Ng gets into AI Engineering
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-andrew-ng-gets-into-ai-engineering
-- Score: 2.311 | Reliability: 1.0
+- Score: 2.303 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. Disrupting a new covert influence campaign from Russia
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/disrupting-malicious-uses-of-ai-influence-campaign-russia
-- Score: 2.307 | Reliability: 1.0
+- Score: 2.283 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. EarthVerse: Benchmarking Scientific Agents Across Dynamic Earth Systems and Natural Hazards
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2608.23525v1
-- Score: 2.269 | Reliability: 1.0
+- Score: 2.256 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 17. codex 0.150.0-alpha.9
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.150.0-alpha.9
-- Score: 2.266 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 18. tencent/WeMM-Embedding-9B released on Hugging Face
+## 17. tencent/WeMM-Embedding-9B released on Hugging Face
 - Type: release | Source: hf_tencent_hunyuan_releases
 - URL: https://huggingface.co/tencent/WeMM-Embedding-9B
-- Score: 2.175 | Reliability: 1.0
+- Score: 2.154 | Reliability: 1.0
 - Why it matters: 
 
-## 19. Bain & Company joins the Claude Partner Network as a Global Premier partner | Claude by Anthropic
+## 18. Bain & Company joins the Claude Partner Network as a Global Premier partner | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/bain-company-joins-the-claude-partner-network-as-a-global-premier-partner
-- Score: 2.14 | Reliability: 1.0
+- Score: 2.119 | Reliability: 1.0
 - Why it matters: 
 
-## 20. Granite 4.2 LLMs: How They're Built
+## 19. Granite 4.2 LLMs: How They're Built
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-granite/granite-4-2
-- Score: 2.037 | Reliability: 1.0
+- Score: 2.024 | Reliability: 1.0
 - Why it matters: 
 
-## 21. claude-code v2.1.245
+## 20. claude-code v2.1.245
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.245
-- Score: 1.934 | Reliability: 1.0
+- Score: 1.927 | Reliability: 1.0
 - Why it matters: 
 
-## 22. Agentic observability with Amazon OpenSearch Service MCP Apps
+## 21. Agentic observability with Amazon OpenSearch Service MCP Apps
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/agentic-observability-with-amazon-opensearch-service-mcp-apps/
-- Score: 1.824 | Reliability: 1.0
+- Score: 1.785 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 23. v0.28.0: [CI/Build] Pin Cython below 3.3 for arm64 tilelang sdist (#53358)
+## 22. v0.28.0: [CI/Build] Pin Cython below 3.3 for arm64 tilelang sdist (#53358)
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.28.0
-- Score: 1.782 | Reliability: 1.0
+- Score: 1.759 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 24. Modernizing SQL ETL in Lakehouse with Declarative Patterns
+## 23. Modernizing SQL ETL in Lakehouse with Declarative Patterns
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/modernizing-sql-etl-lakehouse-declarative-patterns
-- Score: 1.743 | Reliability: 1.0
+- Score: 1.71 | Reliability: 1.0
 - Why it matters:
