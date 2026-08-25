@@ -1,4 +1,23 @@
 {
+  "0699bffbf5848607": {
+    "id": "pb-langsmith-preview-builds",
+    "kind": "source-backed",
+    "title": "Test agent changes in a production-like preview before merging",
+    "area": "Reliability",
+    "problem": "Agent behavior often only breaks under production-like load and data, so testing a PR branch locally misses regressions that only show up after merge.",
+    "apply": "Use LangSmith Preview Builds, or an equivalent ephemeral-deployment pattern, to spin up a temporary production-like deployment for each PR branch and exercise it before merging agent changes.",
+    "result": "You catch agent regressions in an isolated environment instead of discovering them after they've shipped to every user.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/langsmith-preview-builds-test-agent-changes-before-production",
+    "source_sid": "0699bffbf5848607",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative benefit of the feature; the bundled summary described the capability, not a measured regression-catch rate."
+    },
+    "edition_date": "2026-08-25"
+  },
   "077b61a0fed02bcc": {
     "id": "pb-selective-context-retrieval-not-full-playbook",
     "kind": "source-backed",
@@ -302,6 +321,25 @@
       "note": "Tool's own description of its contract format and workflow; auditability payoff stated qualitatively, no measured figures."
     },
     "edition_date": "2026-07-03"
+  },
+  "24ddbe91a622a3cd": {
+    "id": "pb-rag-trust-not-just-relevance",
+    "kind": "source-backed",
+    "title": "Score retrieved content for trustworthiness, not just semantic relevance",
+    "area": "Retrieval",
+    "problem": "Standard RAG retrieval trusts whatever it pulls back as long as it's semantically close to the query, which lets misinformation or poisoned documents into the context if they're topically relevant.",
+    "apply": "Add an evaluation agent that screens retrieved passages for misinformation and knowledge-poisoning risk before they reach the generator, instead of relying on relevance score as your only filter.",
+    "result": "You close what the researchers call the Security-Reliability Gap: retrieval that's accurate on relevance but wrong on trust stops silently corrupting generated answers.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2608.21095v1",
+    "source_sid": "24ddbe91a622a3cd",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative takeaway from the paper's stated problem framing; the bundled summary did not include quantified results."
+    },
+    "edition_date": "2026-08-25"
   },
   "265c6a0134aba9b6": {
     "id": "pb-reasoning-retention-compaction-arc-agi",
@@ -626,6 +664,25 @@
     },
     "edition_date": "2026-08-18"
   },
+  "4235792e910ea51a": {
+    "id": "pb-fireworks-cheap-trace-judge",
+    "kind": "source-backed",
+    "title": "Replace your frontier LLM-as-judge with a fine-tuned open model for production traces",
+    "area": "Evals",
+    "problem": "Running a frontier model as an LLM judge over every production trace to catch agent errors gets expensive fast at scale.",
+    "apply": "Fine-tune a smaller open model on your own perceived-error labels, as LangChain and Fireworks did, and use it as the trace judge instead of calling a frontier model on every trace.",
+    "result": "LangChain and Fireworks report the fine-tuned judge matches frontier-model judgment quality at roughly 100x lower cost per trace.",
+    "effort": "high",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/building-a-100x-cheaper-trace-judge-with-fireworks",
+    "source_sid": "4235792e910ea51a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's blog post claims the ~100x cost reduction and matched frontier judge quality; not an independently verified benchmark."
+    },
+    "edition_date": "2026-08-25"
+  },
   "42ebe570ca9aba75": {
     "id": "pb-skill-vs-subagent-frequency",
     "kind": "source-backed",
@@ -816,6 +873,25 @@
     },
     "edition_date": "2026-08-21"
   },
+  "5ee85db9a39ca3d9": {
+    "id": "pb-task-scoped-oauth-consent",
+    "kind": "source-backed",
+    "title": "Scope your agent's OAuth grants to the task, not the whole account",
+    "area": "Safety",
+    "problem": "An agent that authenticates with an all-or-nothing OAuth grant can touch far more of a user's account than the task at hand actually requires.",
+    "apply": "Adopt task-based OAuth consent, like Cloudflare's new optional-scopes model, so each agent action requests only the specific scope it needs for that task instead of a blanket grant issued once at connection time.",
+    "result": "A compromised or misbehaving agent session is limited to the scope of the task it was granted, not the user's entire account.",
+    "effort": "medium",
+    "source": "cloudflare_blog",
+    "source_url": "https://blog.cloudflare.com/task-based-oauth-consent/",
+    "source_sid": "5ee85db9a39ca3d9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Direct description of the new consent model's security benefit; no measured incident-reduction figure was in the bundled summary."
+    },
+    "edition_date": "2026-08-25"
+  },
   "64b99c89eeec2092": {
     "id": "pb-graph-search-db-remediation",
     "kind": "source-backed",
@@ -853,6 +929,25 @@
       "note": "LangChain reports the per-check cost reduction from the scheduler redesign directly."
     },
     "edition_date": "2026-08-11"
+  },
+  "6d8abedbe0ad0261": {
+    "id": "pb-deep-agents-production-scale",
+    "kind": "source-backed",
+    "title": "Split a monolithic production agent into specialized sub-agents before you scale it",
+    "area": "Orchestration",
+    "problem": "A single agent handling every step of a complex workflow gets harder to debug, extend, and trust as the number of production agents grows.",
+    "apply": "Move to a deep-agents pattern, a lead agent that delegates to specialized, separately traced sub-agents, the way Toyota North America restructured over 50 production agents with LangSmith.",
+    "result": "Toyota reports cutting delivery time for new agents from 6 months to 4 days after making this move, alongside per-agent AI ROI tracking.",
+    "effort": "high",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-toyota-north-america-put-enterprise-ai-on-the-balance-sheet-with-deep-agents-and-langsmith",
+    "source_sid": "6d8abedbe0ad0261",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's case-study post claims Toyota's reported delivery-time reduction; not an independently verified benchmark."
+    },
+    "edition_date": "2026-08-25"
   },
   "6f5c728ce100a70f": {
     "id": "pb-scope-agent-cloud-credentials",
@@ -1538,6 +1633,25 @@
     },
     "edition_date": "2026-07-17"
   },
+  "b4fa4d7778a6247d": {
+    "id": "pb-spec-decode-vllm-latency",
+    "kind": "source-backed",
+    "title": "Turn on speculative decoding in vLLM to cut agent token latency",
+    "area": "Cost & latency",
+    "problem": "Agents that stream long tool-call chains pay full autoregressive decode latency on every response, even when most predicted tokens are easy to guess.",
+    "apply": "If you self-host inference through vLLM, enable one of its speculative decoding drafters (MTP, EAGLE-3, DFlash, or DSpark) instead of plain autoregressive decoding; vLLM's guide covers configuration and tuning for each on AMD GPUs.",
+    "result": "Draft-and-verify decoding produces the same output distribution while generating several tokens per forward pass, cutting time-to-completion for long agent responses.",
+    "effort": "medium",
+    "source": "vllm_blog",
+    "source_url": "https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus",
+    "source_sid": "b4fa4d7778a6247d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The source covers mechanics, configuration, and benchmark results for these drafters; no specific speedup figure was in the bundled summary."
+    },
+    "edition_date": "2026-08-25"
+  },
   "b6de7c8426214289": {
     "id": "pb-runtime-diagnose-bug-repro-tests",
     "kind": "source-backed",
@@ -2032,6 +2146,25 @@
     },
     "edition_date": "2026-08-18"
   },
+  "f1b19f2f1e664660": {
+    "id": "pb-web-search-domain-date-filters",
+    "kind": "source-backed",
+    "title": "Filter your agent's web search tool by domain and freshness, not just top results",
+    "area": "Tool use",
+    "problem": "A web search tool call that returns whatever ranks highest can hand your agent stale or low-trust sources with no way to constrain them per call.",
+    "apply": "If you're on Bedrock AgentCore, use its per-request domain and published-date filters on Web Search; on other stacks, add equivalent runtime filtering to your search tool so each call can restrict which domains and how recent results must be.",
+    "result": "Your agent's tool calls return sources you've vetted for the task instead of whatever the underlying search index ranks first.",
+    "effort": "low",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/domain-and-publish-date-filters-for-web-search-on-agentcore/",
+    "source_sid": "f1b19f2f1e664660",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Direct description of the new AgentCore capability; no measured before/after figure was in the bundled summary."
+    },
+    "edition_date": "2026-08-25"
+  },
   "f27164f724f79fa3": {
     "id": "pb-code-dispatch-subagents-for-coverage-guarantees",
     "kind": "source-backed",
@@ -2202,6 +2335,25 @@
       "note": "The vLLM team publishes the throughput and KV-cache utilization benchmark numbers directly."
     },
     "edition_date": "2026-08-11"
+  },
+  "fe206f2a71d579f8": {
+    "id": "pb-verify-evaluator-reasoning",
+    "kind": "source-backed",
+    "title": "Audit your evaluator's reasoning, not just its verdict",
+    "area": "Evals",
+    "problem": "An LLM evaluator can hand out the correct pass/fail label for the wrong reason, which is invisible if you only check whether its final label matches ground truth.",
+    "apply": "Sample evaluator judgments and require a documented reason tied to a specific input feature (a 'counterfactual receipt'), so you can catch cases where the label is right but the justification wouldn't hold up if that feature changed.",
+    "result": "You surface evaluators that are quietly gating actions, routing reviews, or shaping training feedback on flawed reasoning, before that reasoning fails on a harder case.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2608.20938v1",
+    "source_sid": "fe206f2a71d579f8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative takeaway from the paper's motivation; the bundled summary did not include quantified results."
+    },
+    "edition_date": "2026-08-25"
   },
   "ffff9fe41413e4ac": {
     "id": "pb-comment-agent-instructions-before-pruning",
