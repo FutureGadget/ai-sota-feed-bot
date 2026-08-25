@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d]
-updated: 2026-08-21
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8]
+updated: 2026-08-25
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8]
 ---
 
 ## TL;DR
@@ -205,6 +205,14 @@ architecture (synthesized markdown as the durable memory layer, refreshed by
 scheduled jobs rather than a vector index) that mirrors the LLM-wiki pattern
 this site's own knowledge wiki uses.
 
+A companion release from the same lab turns the OpenWiki concept toward
+**integrity rather than sourcing**: its self-correcting memory layer stores
+evidence-backed claims rather than raw facts, uses that evidence to detect
+when a claim has gone stale as the underlying codebase evolves, and corrects
+or drops it instead of retrieving whatever was written last — a write-time
+defense against the poisoning and staleness failure modes this page already
+tracks, pointed specifically at codebase memory.
+
 The integrity threat model keeps widening past the entry itself to the
 agent's own reasoning: a new benchmark targets forged-reasoning attacks,
 where an agent's stored reasoning history — not just a stored fact — can be
@@ -304,24 +312,18 @@ retrieve (cross-ref [grounding](/topic/grounding) for the retrieval-quality
 side of the same gap).
 
 ## What's new
-Memory failure modes get a benchmark that isn't just poisoning: MemTrapBench
+OpenWiki's self-correcting memory layer stores evidence-backed claims
+instead of raw facts, using that evidence to detect stale knowledge as a
+codebase evolves and correct or drop it rather than retrieving whatever was
+written last — a write-time integrity defense pointed specifically at
+codebase memory (see State of the art above).
+
+Prior update: Memory failure modes get a benchmark that isn't just poisoning: MemTrapBench
 scores whether a model's memory use falls into cognitive traps, not just
 whether it retains information correctly. CABLE separately names a recall
 failure distinct from staleness or poisoning — an agent can fail to recover
 evidence through a bounded context interface even when it was stored
-correctly earlier (see State of the art above).
-
-Prior update: A companion question to the tiered-store and lifecycle debates above:
-**how much memory does an agent actually need**, not just where it lives or
-how it's structured. IBM Research's ALTK work frames memory sizing as its
-own hierarchical-memory-management design question, distinct from the
-store-choice and staleness questions this page already tracks.
-
-Prior update: "The Right 300 Tokens Beat 100k Noisy Ones" names lazy-loaded skills,
-versioned context artifacts, and an externalized memory bank as the
-practitioner-level fix for context bloat — the build-discipline counterpart
-to this page's tiered-store and compaction architecture above (see State of
-the art).
+correctly earlier.
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

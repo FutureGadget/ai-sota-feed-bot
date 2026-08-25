@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de]
-updated: 2026-08-21
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876]
+updated: 2026-08-25
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876]
 ---
 
 ## TL;DR
@@ -290,24 +290,28 @@ scope-what-each-tool-can-do argument this page already makes, now shipped
 for [MCP](/topic/mcp) directly rather than left to a connector-auth
 convention.
 
+The defensive-distribution pattern above (Daybreak/GPT-5.6-Cyber on
+Bedrock) now has an Anthropic counterpart: Anthropic is extending Claude
+Mythos 5's cybersecurity capabilities to more defenders, widening
+frontier-model cyber-defense access beyond the model's general release —
+the same versioned, disclosed-capability posture this page already tracks
+for OpenAI's cyber-model distribution, now shipped by a second lab.
+
 ## What's new
-AWS open-sourced Dogwood, extending the Cedar policy language so
+Anthropic is extending Claude Mythos 5's cybersecurity capabilities to more
+defenders, the same versioned, disclosed-capability distribution pattern
+this page already tracks for OpenAI's Daybreak/GPT-5.6-Cyber, now shipped
+by a second lab (see State of the art above).
+
+Prior update: AWS open-sourced Dogwood, extending the Cedar policy language so
 authorization rules can reason about an agent's sequence of prior tool
 calls, not just the current request — and Cloudflare's WriteGuard adds
-fine-grained security controls specifically for MCP servers (see State of
-the art above).
+fine-grained security controls specifically for MCP servers.
 
 Prior update: Axonius built fully isolated, multi-tenant agents on Bedrock AgentCore
 across hundreds of customer environments without custom compute isolation,
 authN, or observability infrastructure — a named production instance of the
-least-privilege, agent-as-identity argument this page already makes (see
-State of the art above).
-
-Prior update: An open, tool-agnostic agent-security benchmark widened this page's
-measurement coverage past cross-agent (Deep-XPIA) injection: 497 attacks
-across 13 categories plus 1,172 benign samples, scored on F1/precision/
-recall so a classifier that blocks everything doesn't look artificially
-strong (see [agent benchmarks](/topic/agent-benchmarks)).
+least-privilege, agent-as-identity argument this page already makes.
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary
