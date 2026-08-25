@@ -877,7 +877,7 @@ def _ranked_because(item: dict) -> str:
             score = None
         if score is not None and math.isfinite(score):
             parts.append(f"score {_js_tofixed2(score)}")
-    return f"Ranked: {' \u00b7 '.join(parts)}" if parts else ""
+    return f"Ranked: {' · '.join(parts)}" if parts else ""
 
 
 def _trim_title_suffix(title: str, source: str, url: str) -> str:
