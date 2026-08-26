@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214]
-updated: 2026-08-23
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad]
+updated: 2026-08-26
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad]
 ---
 
 ## TL;DR
@@ -174,8 +174,39 @@ before they reach the database — structuring the whole pipeline on an
 MVC-style split so non-determinism is contained to one layer instead of
 leaking into storage and downstream logic.
 
+A first-party production case study puts numbers behind the identity/
+execution/intent split above, from an Anthropic reliability engineer's own
+incident-response practice. In the Observe phase, Claude reads logs at I/O
+speed with no fatigue and catches what a human focused on error logs would
+miss — during a New Year's Eve incident it flagged 4,000 accounts created
+simultaneously with identical characteristics and 22-image requests each as
+coordinated fraud rather than a bug, and separately root-caused a Rust
+panic (a `checkpoint.rs` segment-ID validation bug) before engineers
+finished reading two pages of logs by hand. The Orient phase is where it
+breaks: watching request volume double alongside errors, Claude repeatedly
+concluded the incident was a capacity problem needing more servers, when a
+failed KV cache was the actual cause — the engineer corrected it "six,
+seven times" before adding the distinction to the system prompt, and junior
+engineers pointed at the same graphs are "immediately swayed" toward the
+same wrong diagnosis. Postmortems come out "80% readable" but miss multiple
+contributing factors and the tacit organizational knowledge behind why a
+safeguard (like secondary-database fallback testing) was never built. The
+unresolved risk sits a layer above both phases: if AI executes the
+mitigation, humans lose the feedback loop that builds the "scar tissue"
+distinguishing a senior responder from a junior one.
+
 ## What's new
-A practitioner talk names a concrete production pattern for containing
+An Anthropic reliability engineer's own incident-response case study puts a
+concrete boundary on where LLM incident response works: superhuman at
+reading logs and catching non-obvious patterns (a coordinated-fraud signal
+in account-creation metadata, a Rust panic root-caused before humans
+finished reading), but unable to reliably distinguish causation from
+correlation on its own — misreading a KV-cache failure as a capacity
+problem for "six, seven" corrections in a row — and prone to postmortems
+that miss contributing factors and tacit institutional knowledge (see State
+of the art above).
+
+Prior update: A practitioner talk names a concrete production pattern for containing
 non-determinism: restrict LLM output to a constrained schema, separate
 semantic extraction from deterministic code, and validate choices with a
 discriminator model before they reach the database — an MVC-style split
