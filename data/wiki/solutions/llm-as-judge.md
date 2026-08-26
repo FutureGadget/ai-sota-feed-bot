@@ -5,9 +5,9 @@ title: "LLM-as-judge: model-graded evaluation of traces and outputs"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038]
-updated: 2026-07-31
-covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038]
+evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038, 92884e6fce9aba7c]
+updated: 2026-08-26
+covers_evidence: [4235792e910ea51a, 12500c0bbe5e4d6f, c000018ba1f03575, c579e90dd1110817, 4e6b89625cd2f1df, cf0a37dd32efaf51, 5d87a279aac331cb, d8ea565801623af0, 4a0a79e7203bae64, 0570a6850cae75de, 1923a6eccdfa6038, 92884e6fce9aba7c]
 ---
 
 ## TL;DR
@@ -88,7 +88,27 @@ tool, turning this page's standing warning — a judge needs its own
 validation, or it just launders noise — into a workflow step instead of a
 manual side-audit.
 
+The rubric-and-grader pattern is also now shipping as a first-class **agent
+framework primitive**, not just an evaluation-tool feature: LangChain's Deep
+Agents RubricMiddleware takes a rubric as a newline-delimited checklist at
+invocation time and hands it to a separate grader sub-agent that can call
+tools (like a test runner) to gather hard evidence before returning a
+verdict, rather than judging from the transcript alone. When the rubric
+isn't satisfied, the grader's per-criterion feedback — not a generic "try
+again" — is injected back into the conversation and the agent re-runs, up
+to a configured cap. It moves this page's standing rubric-quality warning (a
+well-calibrated judge can still grade against a bad checklist) inside the
+agent loop itself: the rubric is now a runtime input the agent iterates
+against, not a separate offline scoring pass.
+
 ## What's new
+LangChain's Deep Agents RubricMiddleware ships rubric grading as agent
+framework middleware rather than a separate eval harness: a newline
+checklist plus a tool-using grader sub-agent that injects per-criterion
+feedback back into the conversation when the rubric isn't met, so the agent
+self-corrects inside the same run instead of failing a check after the fact
+(see State of the art above).
+
 LangSmith's Align Evals turns judge-calibration-against-human-labels into a
 built-in workflow step rather than a manual audit, a concrete product
 instance of this page's standing "validate the judge" warning.
@@ -98,12 +118,6 @@ production traces for failure clusters first, fine-tune the cheap judge on
 those clusters, then hill-climb agent performance from that signal — the
 same cost lever as before (small judge over frontier judge) but with the
 training target derived from observed failures rather than a rubric.
-
-Judge quality also gets a cheap lever that isn't "use a bigger model":
-ensembling independent judge personas over the same artifact — including a
-deliberately contrarian one — cuts false positives more reliably than
-upgrading to a stronger single judge, alongside the standing deterministic
-alternative for stateful tasks and BabelJudge's numbers on judge bias.
 
 ## Trade-offs
 The judge is itself a non-deterministic model: it has biases (verbosity,

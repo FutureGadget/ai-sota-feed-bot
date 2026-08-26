@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7]
-updated: 2026-08-24
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db]
+updated: 2026-08-26
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db]
 ---
 
 ## TL;DR
@@ -36,6 +36,20 @@ more visible: Claude Code's `/cost`, status line, and `--max-budget-usd` now
 factor in the 1.1x US-only-inference premium for data-residency workspaces,
 closing a gap where the estimate a team budgets against didn't match what a
 residency-constrained workspace actually pays.
+
+Google Cloud is the third major vendor to ship this shape, and goes further
+on flexibility than the other two: Gemini Enterprise adds a pay-as-you-go
+tier with no upfront commitment alongside the existing per-seat
+subscription, Flexible Savings Plans give spend-based discounts (10% at one
+year, 20% at three) with no minimum or maximum commitment, and cost
+governance ships as three concrete controls rather than one dashboard —
+early anomaly detection that names the root cause and top three SKUs
+driving a spike, project-level spend caps that pause API calls at a hard
+monthly limit (with alerts at 50/80/100%), and a coming deferred-execution
+mode that runs eligible agent workloads in off-peak capacity windows for up
+to 50% off inference cost. It's the same "meter and cap" shape OpenAI and
+Anthropic already ship, with anomaly root-causing and off-peak scheduling
+as two levers neither of the other vendors' offerings include yet.
 
 Developer tooling pushes **attribution** down to the unit of work — Prtokens
 surfaces how many agent tokens a single pull request burned, making cost a
@@ -103,7 +117,14 @@ and cap" from model calls to the agent's own outbound spending on the
 services it calls.
 
 ## What's new
-Two Claude Code fixes sharpen the reliability of controls this page already
+Google Cloud becomes the third major vendor to ship a full FinOps-for-agents
+surface: a no-commitment pay-as-you-go tier alongside the existing per-seat
+plan, spend-based Flexible Savings Plans, anomaly detection that names a
+spike's root cause and top offending SKUs, hard project-level spend caps
+with staged alerts, and a coming off-peak "deferred execution" discount of
+up to 50% (see State of the art above).
+
+Prior update: Two Claude Code fixes sharpen the reliability of controls this page already
 tracks rather than adding a new one: `/cost`, the status line, and
 `--max-budget-usd` now include the 1.1x US-only-inference premium so budget
 estimates match what a data-residency workspace actually pays, and a fix for

@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e]
-updated: 2026-08-20
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f]
+updated: 2026-08-26
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f]
 ---
 
 ## TL;DR
@@ -86,6 +86,19 @@ position with the missing pieces attached — multi-machine collection and
 search — and it treats the session as an asset worth keeping rather than a
 debugging byproduct that ages out with a retention window.
 
+Trace analysis tooling is also folding the **visualization step directly
+into the agent conversation** rather than leaving it as a separate
+dashboard: Amazon OpenSearch Service's MCP Apps return an interactive
+visualization alongside the agent's text response over a locally-run MCP
+server, so investigating an alert — trace lookup, log-pattern clustering,
+distributed-trace analysis, RED metrics, service-dependency mapping —
+happens inline in the same IDE chat thread instead of the engineer
+tab-switching to re-run the same query in a separate dashboard to verify
+it. The response is deliberately deterministic (the actual OpenSearch query
+result, not an AI-generated chart), which keeps the visualization
+trustworthy as a verification step rather than another layer of model
+output to double-check.
+
 A different limit shows up once the agents being traced talk to *each other*:
 work on Verifiable Latent Alignments argues that agents can coordinate through
 continuous hidden states that never surface in the transcript, so a
@@ -96,7 +109,15 @@ underneath the span rather than a richer span (see
 [agent observability](/topic/agent-observability)).
 
 ## What's new
-Pond archives agent sessions losslessly into a team's own S3 bucket — no
+Amazon OpenSearch Service's MCP Apps return an interactive visualization
+inline alongside an agent's text response over a locally-run MCP server,
+moving alert-to-trace verification (log clustering, distributed traces, RED
+metrics, service topology) into the same IDE chat thread instead of a
+separate dashboard tab — deterministic because the visualization renders
+the actual query result, not a model's interpretation of it (see State of
+the art above).
+
+Prior update: Pond archives agent sessions losslessly into a team's own S3 bucket — no
 database service, several machines into one store, searchable, and reachable
 by the agent over MCP — giving the portable-format position this page's
 trade-offs recommend the multi-machine collection and search it was missing.
@@ -104,12 +125,6 @@ trade-offs recommend the multi-machine collection and search it was missing.
 Prior update: Langfuse v4 rebuilds both trace capture and evaluation results onto one
 immutable ClickHouse table, collapsing separate storage paths for traces
 and evals into a single queryable store (see State of the art above).
-
-Prior update: Cloudflare shipped agent tracing built into its existing Workers traces,
-but the two SDKs it supports default to opposite payload-storage behavior —
-a concrete instance of the retention/PII trade-off below being a per-SDK
-default rather than a platform-wide choice, and a reminder that span-size
-truncation can silently drop the payload a debugging session needed most.
 
 ## Trade-offs
 Tracing adds instrumentation overhead and storage, and high-cardinality traces get
