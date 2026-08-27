@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd]
-updated: 2026-08-25
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46]
+updated: 2026-08-27
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46]
 ---
 
 ## TL;DR
@@ -98,6 +98,19 @@ index files onto wiki pages, so an agent can filter to "every doc tagged
 structured-recall argument this page already makes for SQL over embeddings,
 applied to the docs an agent grounds coding answers on.
 
+**Structured extraction now also targets the numbers hiding inside a chart**,
+not just the surrounding caption: Databricks parses chart figures into
+structured JSON (via `ai_parse_document`) and embeds that JSON-enriched chunk
+instead of caption text alone, indexed with a lightweight 300M-parameter
+embedding model. On the chart-heavy ViDoRe V3 benchmark (310 questions) this
+reaches 75.9% answer correctness with only the top-3 retrieved images, and
+75.1% on a synthetic Chart-RAG set — beating four larger multimodal embedding
+baselines while passing the agent fewer images, evidence that a small model
+over structured content can out-retrieve a bigger one over raw pixels. It's
+the same structured-recall argument this page already makes for SQL over
+embeddings and OKF front matter over open-ended doc search, this time applied
+to the figures inside enterprise documents.
+
 **Pre-compression is a fourth retrieval architecture** alongside vector,
 graph, and SQL: task-aware knowledge compression (TAKC) pre-compresses an
 entire knowledge base into task-specific representations ahead of query
@@ -149,6 +162,18 @@ packaged path to a retrieval architecture previously mostly confined to
 specialized research implementations, the same "the retriever itself keeps
 improving" thread this page already tracks for Nemotron 3 Embed above.
 
+**Multimodal embedding models are catching up to the same "retriever keeps
+improving" trend**, extending it past text: Tencent's WeMM-Embedding-9B,
+built on Qwen3.5, embeds text, images, video, and visual documents into a
+single 4,096-dimension space and scores 80.6 average on MMEB-v2 (78
+datasets) — ahead of Qwen3-VL-Embedding's 77.8 — and 59.5 on the newer,
+harder MMEB-v3 (190 tasks spanning text, agent, and multimodal retrieval). A
+retriever that natively embeds slide decks and chart-bearing pages, rather
+than requiring a separate structured-extraction pass, has the same
+ceiling-raising effect on multimodal grounding that Nemotron 3 Embed has on
+text retrieval above — reaching the same documents the chart-extraction
+paragraph above is chasing with a different technique.
+
 **Adversarial grounding gets a second defense mechanism**, distinct from
 Salience Normalization above: DSPrompt proposes a dynamic soft-prompt
 defense against multimodal-RAG (M-RAG) corruption, where an attacker crafts
@@ -172,17 +197,18 @@ for approximate nearest-neighbor lookups alongside application rows (see
 [vector-kb](/topic/vector-kb) for the full incumbent-datastore trend).
 
 ## What's new
-A RAG-layer Evaluation Agent combines NLI fact-checking with a five-signal
-poison detector into a single Trust Index score, reaching 91% accuracy and
-100% recall on instruction-injection attempts on TruthfulQA —
-grounding-specific verification middleware rather than a general
-attribution metric (see State of the art above).
+Databricks extracts chart figures into structured JSON (via
+`ai_parse_document`) instead of relying on captions alone, then indexes the
+JSON-enriched chunks with a lightweight 300M-parameter embedding model. On
+the chart-heavy ViDoRe V3 benchmark it reaches 75.9% answer correctness with
+only the top-3 retrieved images, beating four larger multimodal embedding
+baselines — closing the blind spot pure text/caption retrieval leaves for
+the numbers inside enterprise charts (see State of the art above).
 
-Prior update: DSPrompt defends against M-RAG corruption by countering embeddings crafted
-to align with benign vector-space entries, and CABLE studies why bounded
-session interfaces can lose evidence an agent stored earlier even when
-nothing was poisoned — two grounding failure modes (adversarial and
-architectural) landing in the same window.
+Prior update: Tencent's WeMM-Embedding-9B extends the "retriever keeps
+improving" trend to multimodal grounding, embedding text, images, video, and
+visual documents into one space and scoring 80.6 on MMEB-v2 (78 datasets) —
+ahead of Qwen3-VL-Embedding's 77.8.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

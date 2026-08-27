@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876]
-updated: 2026-08-25
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f]
+updated: 2026-08-27
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f]
 ---
 
 ## TL;DR
@@ -297,11 +297,36 @@ frontier-model cyber-defense access beyond the model's general release —
 the same versioned, disclosed-capability posture this page already tracks
 for OpenAI's cyber-model distribution, now shipped by a second lab.
 
+The **guardrail-model** story from early in this page gets a measured
+counterpart: Anthropic's Constitutional Classifiers trains input/output
+filters on synthetic data generated against a written "constitution" of
+allowed vs. disallowed content, then screens both what a model reads and
+what it produces. In external red-teaming, unguarded Claude was jailbroken
+in 86% of attempts against the target categories; wrapped in the
+classifiers, that fell to 4.4%, for a 23.7% inference-compute overhead and
+a refusal-rate increase on harmless queries too small to be statistically
+significant across 5,000 conversations. A public red-teaming demo run
+afterward — 339 participants, 300,000+ messages — surfaced exactly one
+confirmed universal jailbreak, evidence the approach holds up outside
+Anthropic's own red team, not just inside it. It puts a real number behind
+the "Guardrail models are the common defense" claim above, and it sharpens
+rather than contradicts the "From Shield to Target" finding on the same
+page: the classifiers block the large majority of jailbreak attempts,
+including ones that use prompt injection as a tactic, while remaining, by
+design, a screening layer — one a sufficiently adversarial attack can still
+target, not a structural fix for the underlying role confusion.
+
 ## What's new
-Anthropic is extending Claude Mythos 5's cybersecurity capabilities to more
-defenders, the same versioned, disclosed-capability distribution pattern
-this page already tracks for OpenAI's Daybreak/GPT-5.6-Cyber, now shipped
-by a second lab (see State of the art above).
+Anthropic published Constitutional Classifiers, input/output filters
+trained on synthetic jailbreak data that cut an external red team's
+jailbreak success rate from 86% to 4.4% at a 23.7% compute overhead, with a
+follow-up public demo (339 participants, 300,000+ messages) surfacing only
+one confirmed universal jailbreak (see State of the art above).
+
+Prior update: Anthropic is extending Claude Mythos 5's cybersecurity capabilities to
+more defenders, the same versioned, disclosed-capability distribution
+pattern this page already tracks for OpenAI's Daybreak/GPT-5.6-Cyber, now
+shipped by a second lab (see State of the art above).
 
 Prior update: AWS open-sourced Dogwood, extending the Cedar policy language so
 authorization rules can reason about an agent's sequence of prior tool

@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d]
-updated: 2026-08-24
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7]
+updated: 2026-08-27
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7]
 ---
 
 ## TL;DR
@@ -78,7 +78,13 @@ software-only gain on one of them within a single month (quantization,
 disaggregated serving, KV-cache offloading, no new hardware), and power-shifting
 software that lets an operator run up to 40% more GPUs inside the same power
 budget — a reminder that for self-hosted agents the inference stack sets the
-floor price every other optimization multiplies against.
+floor price every other optimization multiplies against. A production case
+study puts a number on the utilization side of that floor price: Heidi
+Health found individual ASR inference requests using only 15-20% of an
+NVIDIA L40S's streaming multiprocessors, with the rest sitting idle each
+forward pass — packing 4-8 concurrent requests onto one GPU via CUDA's
+Multi-Process Service instead of dedicating a GPU per request cut the GPU
+count needed for the same throughput by 75%, from 16 instances down to 4.
 
 The **sandboxing layer doubles as a cost lever**, not just a security
 control: Google's GKE Agent Sandbox reports cutting cost per agent by
@@ -94,7 +100,11 @@ since an agent re-sends its system prompt, tool schemas, and prior steps
 every turn; and inside the model, KV-cache reuse cuts a cost specific to
 multimodal agents that re-read the same frames or screenshots each step —
 Kamera's position-invariant cache reuses those visual tokens across context
-shifts instead of re-encoding them every look-back. **KV-cache offload is
+shifts instead of re-encoding them every look-back. Compaction is starting to
+treat images as a first-class part of the token budget too: Codex's remote
+compaction now counts retained images against its budget by default and
+trims the oldest ones as needed, instead of letting accumulated screenshots
+silently inflate the context it has to re-send every turn. **KV-cache offload is
 becoming its own storage-engineering problem**: OpenLake moves the cache
 from GPU memory into a shared RAM/NVMe tier and compresses blocks losslessly
 before they leave the GPU, so a prefix cached on one host is cheap to fetch
@@ -218,7 +228,12 @@ turns a long-running agent session expensive and slow. The same release
 also split filesystem isolation from network egress control as independent
 sandbox settings (see [sandboxing](/topic/agent-sandboxing)), letting a team
 tune the security/cost trade-off of each control separately instead of
-paying for both whenever either is needed.
+paying for both whenever either is needed. A later release turned that same
+bookkeeping toward accuracy rather than speed: v2.1.239 folds the 1.1x
+US-only-inference premium that data-residency workspaces pay into the cost
+estimates `/cost`, the status line, and `--max-budget-usd` actually show, so
+a team on a residency-locked workspace sees its real regional cost instead
+of the base rate.
 
 **Falling code-generation cost is reshaping the ROI calculation itself**, not
 just the per-call bill: coding agents have made reverse-engineering
@@ -235,8 +250,7 @@ cut list price 20-80%, with the cost of GPT-5.4-level intelligence reported
 down roughly 13x in four months via recursive self-optimization (using the
 model to distill and improve its own successor), while China's open-weight
 labs keep pushing the same curve down from the other side — DeepSeek shipped
-another cheaper model as the domestic price war intensifies, Chinese
-open-weight models are picking up US users specifically on lower cost, and
+another cheaper model as the domestic price war intensifies, and
 AMD's MI355X now undercuts Nvidia's B300 on cost-per-token to run China's
 Kimi K3. The frontier and open-weight price curves are falling together, not
 one converging toward the other. DeepSeek's V4 Flash sharpens that open-weight
@@ -244,6 +258,21 @@ side with a specific number: running a full test suite at $72 against Kimi
 K3 on the same job, a roughly 33x gap — evidence the domestic price war isn't
 just cutting list price, it's compounding the gap between individual
 open-weight releases too.
+
+That price pressure now shows up in where the traffic actually goes, not
+just in list prices: open-weight models overtook proprietary ones on
+Vercel's AI Gateway for the first time, taking 54% of token volume on one
+day and a record 62% on another, up from just 28% on June 24 — with
+DeepSeek-V4-Flash the single most-used model by volume and Chinese models
+filling out the rest of the top five (StepFun's Step 3.7 Flash, Zhipu's
+GLM-5.2). The next wave of releases keeps widening that gap on cost rather
+than capability: Zhipu's GLM-5.3-Flash lands within three points of its own
+larger GLM-5.3 on Artificial Analysis's Intelligence Index at roughly a
+seventh of the cost, with all inference running on Chinese chips instead of
+Nvidia hardware, and Alibaba's Qwen3.8-Flash-Next prices in at $0.16/$0.47
+per million input/output tokens — about a twelfth of Qwen3.8-Max's cost and
+a ninth of Qwen3.7-Plus's training cost — while beating Claude Opus 4.6 on
+SWE-bench Pro (62.5 vs. 53.4).
 
 Zooming out, the aggregate trend is still climbing even as every lever above
 pushes down: Gartner forecasts inference cost per agentic *workflow* will
@@ -265,7 +294,15 @@ reasoning-effort arguments above that most per-task spend doesn't need
 frontier capability.
 
 ## What's new
-A breakdown of Anthropic's own July spend by model shows the newest,
+Open-weight models overtook proprietary ones on Vercel's AI Gateway for the
+first time — 54% of token volume on one day, a record 62% on another, up
+from 28% on June 24 — with DeepSeek-V4-Flash the single most-used model by
+volume, while the next wave of Chinese releases (Zhipu's GLM-5.3-Flash,
+Alibaba's Qwen3.8-Flash-Next) widens the cost gap further still: within
+three points of larger siblings on quality benchmarks at a seventh to a
+twelfth of the cost (see State of the art above).
+
+Prior update: A breakdown of Anthropic's own July spend by model shows the newest,
 most-capable model (Opus 5) capturing only 3.5% of spend versus 28% for the
 prior-generation Opus 4.8, even as Anthropic's annualized revenue grew to
 $65bn — real billing evidence that most agent spend goes to a model that
@@ -283,12 +320,6 @@ to keep climbing even as per-token prices fall, because workflow spend
 scales with the number of steps and tool calls an agent takes, not with the
 price of any single token (see State of the art above for the routing and
 downshift levers that offset it).
-
-Prior update: NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
-turns actually needed a frontier model, and routing the rest to cheaper
-models cut total cost 74% for a six-point accuracy trade-off — a measured
-number behind the standing reasoning-effort-as-routing-decision argument
-(see State of the art above).
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

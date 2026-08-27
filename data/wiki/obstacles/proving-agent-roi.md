@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f]
-updated: 2026-08-13
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f]
+updated: 2026-08-27
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f]
 ---
 
 ## TL;DR
@@ -19,7 +19,7 @@ Calculating the true return on investment (ROI) for agent systems is blocked by 
 Proving that an agent is cost-efficient requires attributing model spend and execution latency directly to the business outcome it delivers, rather than looking at aggregate API usage.
 
 **Attribution and Metering:**
-Tools like AgentMeter and Prtokens enable developers to attribute token costs down to the individual unit of work, such as a pull request or a user session. This granular data is necessary to prove whether an agent's cost is justified by the task outcome. Local guardrail packages (like ai-costguard) enforce hard cost budgets directly in the runtime loop, preventing runaway agents from consuming resources. Model vendors are shipping the admin side of the same job: Claude Enterprise's new usage analytics add model-level entitlements and spend alerts on top of adoption tracking, so an org can attribute and cap spend centrally instead of every team building its own metering. AWS's self-hosted Claude apps gateway extends that same governance job past a single vendor's own console — a control plane an org runs itself, giving central access, cost, and policy control over Claude Code and Claude Desktop usage on Bedrock rather than relying on Anthropic's own admin surface.
+Tools like AgentMeter and Prtokens enable developers to attribute token costs down to the individual unit of work, such as a pull request or a user session. This granular data is necessary to prove whether an agent's cost is justified by the task outcome. Local guardrail packages (like ai-costguard) enforce hard cost budgets directly in the runtime loop, preventing runaway agents from consuming resources. Model vendors are shipping the admin side of the same job: Claude Enterprise's new usage analytics add model-level entitlements and spend alerts on top of adoption tracking, so an org can attribute and cap spend centrally instead of every team building its own metering. AWS's self-hosted Claude apps gateway extends that same governance job past a single vendor's own console — a control plane an org runs itself, giving central access, cost, and policy control over Claude Code and Claude Desktop usage on Bedrock rather than relying on Anthropic's own admin surface. Google Cloud and Databricks are now shipping the same job at the platform level rather than the single-vendor level: Google Cloud's new agent billing stack adds per-project spend caps with automatic API pause, anomaly detection that flags the top 3 SKUs behind a spend spike, and deferred-execution pricing that discounts eligible agent workloads up to 50% for running in off-peak capacity; Databricks' Governance Hub layers an AI-specific view on top of its account-wide cost dashboards, tracking token consumption and model activity through Unity AI Gateway and flagging per-user spend against budget thresholds alongside the untagged-spend surfacing that chargeback and budgeting need. Both push attribution and capping down to the project/user level the cost-per-task framing above actually needs, instead of leaving it as an account-wide aggregate.
 
 **Hidden Costs of Optimization:**
 Teams frequently downshift from frontier models to smaller or quantized models to improve cost efficiency, but this optimization has a hidden cost. Low-bit post-training quantization is widely used to reduce model size, but it degrades reasoning capability. Research shows that quantized reasoning models (like "Quantization Inflates Reasoning") emit *more* tokens to arrive at the same answer, meaning the per-token price discount is partially offset by token inflation. True ROI analysis must measure the total tokens spent per task run, not just the per-token model rate.
@@ -54,7 +54,16 @@ per task" to a specific finding: on a typical agent workload, most per-task
 spend isn't buying frontier capability the task actually needed.
 
 ## What's new
-NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
+Google Cloud and Databricks both shipped agent-specific cost governance
+stacks in the same week: Google Cloud added per-project spend caps,
+spend-spike anomaly detection, and up to 50% off deferred-execution pricing
+for agent workloads, while Databricks' Governance Hub added per-user AI
+spend tracking through Unity AI Gateway on top of its cost dashboards — both
+push the attribution and capping tools this page argues for down to the
+project/user level rather than leaving it as an account-wide aggregate (see
+State of the art above).
+
+Prior update: NVIDIA's NeMo Switchyard routing benchmark found only 7% of 145 agent-task
 turns actually needed a frontier model, and routing the rest to cheaper
 models cut total cost 74% for a six-point accuracy trade-off — a measured
 number behind this page's cost-per-task attribution argument (see State of

@@ -5,9 +5,9 @@ title: "Speculative decoding: draft cheaply, verify in parallel"
 status: active
 obstacles: [agent-latency]
 related_storylines: []
-evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
-updated: 2026-07-26
-covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9]
+evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9, aad81dd5a952ad5d, b4fa4d7778a6247d]
+updated: 2026-08-27
+covers_evidence: [62173e9d865bdec2, 99bd515fd5fd8083, f0c08e4beff850db, b811cc97eff4aae9, aad81dd5a952ad5d, b4fa4d7778a6247d]
 ---
 
 ## TL;DR
@@ -37,6 +37,30 @@ reporting up to 2.00× throughput for Kimi-K2.5 and 1.79× for MiniMax-M2.5 —
 evidence the draft-and-verify pattern is becoming a cross-accelerator serving
 default rather than a technique tied to one vendor's silicon.
 
+vLLM's own AMD benchmarking now spans the full method menu, not just EAGLE-3:
+native MTP, the Gemma 4 MTP paired checkpoint, EAGLE-3, the parallel-draft
+DFlash, and DFlash-plus-Markov-head DSpark, measured on Instinct GPUs, land at
+different speedups by model and benchmark — Gemma-4-26B hits 2.87x on MATH500
+with DFlash and 2.74x on GSM8K with Gemma 4 MTP, Qwen3.5-122B reaches 2.20x on
+MATH500 with native MTP, Kimi-K2.5 hits 2.68x on MATH500 with DFlash, and
+Qwen3-8B reaches 1.63x on GSM8K with DSpark. The practical takeaway: tune
+`num_speculative_tokens` per workload instead of copying a default — DFlash's
+gains typically peak around N=7 — and watch mean accepted length and
+per-position acceptance rate, not just end-to-end throughput, to catch a
+draft/target pairing that's quietly costing more than it saves.
+
+**The draft/target symmetry assumption itself is now a target for
+optimization**: AsymSpec drops the requirement that drafter and verifier see
+identical context, letting a lightweight drafter read the agent's full,
+uncompressed input while the large verifier works from a compressed context
+view, using contrastive δ-fusion of logits and a divergence-aware acceptance
+gate to keep verification stable. That recovers roughly 90% of full-context
+accuracy at 1.3-1.7x the throughput and 0.2-0.3x the compute cost of decoding
+on the full context — a direct answer to
+[agent-latency](/topic/agent-latency)'s context-compression-vs-accuracy
+tension, where compressing an agent's growing context to control cost
+normally costs task accuracy too.
+
 Speculative decoding is also becoming a **day-0 launch feature**, not a
 follow-up optimization pass: vLLM v0.26.0 ships MTP=1 speculative decoding
 as part of the full support stack for its new Inkling model family from the
@@ -46,7 +70,14 @@ pattern this page's throughline already tracks, now including the
 speculation setup itself instead of adding it later.
 
 ## What's new
-vLLM v0.26.0 ships MTP=1 speculative decoding for its new Inkling model
+AsymSpec breaks the standing symmetry assumption that draft and target must
+share the same context, letting a lightweight drafter see the agent's full
+input while the large verifier decodes from a compressed context view —
+recovering about 90% of full-context accuracy at 1.3-1.7x throughput and
+0.2-0.3x the compute cost of full-context decoding (see State of the art
+above).
+
+Prior update: vLLM v0.26.0 shipped MTP=1 speculative decoding for its new Inkling model
 family as part of the model's initial full support stack (alongside base
 modeling, CUDA graph support, and quantization) rather than as a later
 optimization pass — evidence that draft-and-verify setup is now planned

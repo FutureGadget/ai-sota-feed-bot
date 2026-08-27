@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff]
-updated: 2026-08-21
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507]
+updated: 2026-08-27
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507]
 ---
 
 ## TL;DR
@@ -80,7 +80,15 @@ semantic-layer pattern built for dashboards (pre-aggregated rollups serving
 many queries through query rewriting, columnar storage with partition
 pruning) is being repurposed as agent infrastructure precisely because it
 was already built for many small, interactive queries instead of a few large
-batch ones. **New models get latency-tuned serving on day one, not
+batch ones. That per-query budget is worse than benchmark numbers suggest once
+the call leaves the serving stack entirely: measuring nine web-search APIs
+under identical 10-result requests found a 12x spread in median response time
+(320ms to 3.9s across providers) and up to a 37x gap between one provider's
+cached and cold response (105ms vs 3,937ms) — and because most providers'
+caches expire in 5-60 minutes, an agent's search tool calls land cold far more
+often than a benchmark run against a warm cache would suggest. Picking a
+search tool is a latency decision, not just a capability one. **New models get
+latency-tuned serving on day one, not
 retrofitted later**: vLLM shipped full-feature-parity support for Thinking
 Machines' 1T-parameter Inkling model the day it released, reaching 380
 tokens/sec/user with speculative decoding versus 140 without on 4 GB200
@@ -93,7 +101,15 @@ static batching policies need manual tuning per traffic shape and cannot
 adapt when request patterns shift mid-run, so adaptive inference batching
 that learns a batching policy with reinforcement learning targets exactly the
 bursty, heterogeneous load agent tool-calling produces instead of assuming
-the steady arrival rate a chat workload has.
+the steady arrival rate a chat workload has. The same batching principle also
+transfers to a deployment target platform engineers don't usually plan
+serving budgets around: a from-scratch Swift port of vLLM's continuous-batching
+design onto an iPhone's MLX kernels — left-padding late-arriving requests and
+merging them into a shared KV-cache offset — hit 169 aggregate tokens/sec
+across 8 concurrent streams versus llama.cpp's 90, and ran a 16-request,
+~17K-prompt-token multi-agent workload in 25 seconds without thermal
+throttling where llama.cpp needed 47 seconds for half the load. Continuous
+batching is a general answer to concurrent decode, not a data-center-only one.
 
 The serving layer itself is starting to absorb **agentic behavior**: vLLM's
 Semantic Router turns its `vllm-sr/auto` routing feature into a bounded
@@ -162,7 +178,17 @@ support in the same release cycle, keeping the hybrid KDA prefix caching,
 speculative decoding, and disaggregation from the preview while adding
 optimized kernels across both NVIDIA and AMD GPUs — evidence the "new
 open-weight model, latency-tuned serving on day one" pattern holds across a
-model's preview-to-GA transition, not just its initial launch. Vendors
+model's preview-to-GA transition, not just its initial launch. That Kimi-K3
+optimization arc continues stack-wide in release v0.28.0: Decode Context
+Parallel support, fused FlashKDA kernels for both decode and prefill, and
+combined all-gather operations for a reported 1.5-3x kernel-level speedup,
+plus an adaptive speculative token budget that cuts DSpark time-to-first-token
+by roughly 60% and shared-expert sharding that saves about 17 GiB of memory
+per GPU. The same release lands DeepSeek V4's sparse MLA end-to-end — covering
+plain decode, MTP, and DSpark speculative decoding, not just the
+routing-kernel work v0.26.0 shipped — closing the gap between "the fast path
+exists" and "the fast path covers every decode mode the model actually runs."
+Vendors
 outside the model labs are running the same in-house serving playbook this
 page already tracks: Netflix's own LLM-serving platform pairs Triton and
 vLLM, a practitioner data point that the serving-layer techniques here
@@ -186,6 +212,18 @@ up to 9.73x lossless speedup over plain autoregressive decoding, training-free,
 sharpening the [speculative decoding](/topic/speculative-decoding) lever
 this page already tracks rather than adding a new one.
 
+**Speculative decoding is also picking up a context-shape lever**, not just a
+tree-search one: AsymSpec drops the standing requirement that draft and target
+see identical context, letting a lightweight drafter read the agent's full,
+uncompressed input while the large verifier decodes from a compressed context
+view, using a divergence-aware acceptance gate to keep verification stable.
+That recovers roughly 90% of full-context accuracy at 1.3-1.7x the throughput
+and 0.2-0.3x the compute cost of decoding on the full context — a direct
+answer to this page's own tension between compressing an agent's growing
+context to control latency/cost and the accuracy that compression normally
+costs. See [speculative decoding](/topic/speculative-decoding) for the
+drafting mechanics.
+
 OpenAI's own account of building GPT-Live — a turnless (no push-to-talk
 turn-taking) speech system with a continuous, low-latency voice
 architecture — sharpens this page's standing "interactive modes set a hard
@@ -202,9 +240,16 @@ applies to KV cache, here applied to model weights themselves rather than
 the growing context state.
 
 ## What's new
-vLLM-Omni's Distributed Layerwise Offload shards and streams model weights
+vLLM v0.28.0 pushes Kimi-K3 optimization stack-wide — Decode Context Parallel
+support, fused FlashKDA kernels, and combined all-gathers for a 1.5-3x
+kernel-level speedup, plus an adaptive speculative token budget cutting DSpark
+TTFT by roughly 60% — while DeepSeek V4's sparse MLA now covers plain decode,
+MTP, and DSpark speculative decoding end-to-end, not just the routing-kernel
+work v0.26.0 shipped (see State of the art above).
+
+Prior update: vLLM-Omni's Distributed Layerwise Offload shards and streams model weights
 across devices to serve a 124 GB model on 64 GB HBM, estimating a path
-toward 200B+ parameter models (see State of the art above).
+toward 200B+ parameter models.
 
 Prior update: DARTree extends speculative decoding's correction head from single draft
 chains to draft trees, accepting up to 12.97 tokens per verification round
