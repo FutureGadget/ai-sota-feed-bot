@@ -4,107 +4,102 @@
  "item_count": 3,
  "day_count": 3,
  "source_count": 3,
- "first_seen": "2026-06-17T05:37:40+00:00",
- "last_updated": "2026-06-24T00:00:00+00:00",
- "generated_at": "2026-07-08T05:04:01.163296+00:00",
+ "first_seen": "2026-08-13T17:43:44+00:00",
+ "last_updated": "2026-08-26T16:50:02+00:00",
+ "generated_at": "2026-08-27T05:15:45.507311+00:00",
  "sources": [
-  "latent_space",
-  "modal_blog",
-  "search_llm_ops_news"
+  "arxiv_cs_ai",
+  "arxiv_cs_lg",
+  "vllm_blog"
  ],
  "days": [
   {
-   "date": "2026-06-17",
+   "date": "2026-08-13",
    "items": [
     {
-     "title": "[AINews] GLM-5.2: the top Frontend Coding model in the world, IndexShare for Speculative Decoding",
-     "url": "https://www.latent.space/p/ainews-glm-52-the-top-frontend-coding",
-     "source": "latent_space",
-     "type": "news",
-     "summary_1line": "We have a new top open model in the world!",
-     "sid": "ffc4c951795ec8c0",
-     "published": "2026-06-17T05:37:40+00:00",
-     "editor_note": "Introduces speculative decoding into the news cycle via IndexShare, bundled with the GLM-5.2 open-model release."
+     "title": "DARTree: Speculative Diffusion Decoding with Autoregressive Draft Trees",
+     "url": "http://arxiv.org/abs/2608.13524v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Speculative decoding losslessly accelerates autoregressive language models by verifying multiple draft tokens in parallel. Diffusion-based drafters further reduce proposal latency by predicting an entire token block i...",
+     "sid": "80e7ec208d50f270",
+     "published": "2026-08-13T17:43:44+00:00",
+     "editor_note": "DARTree proposes diffusion-based draft trees that predict a whole token block per step instead of one token at a time."
     }
    ]
   },
   {
-   "date": "2026-06-23",
+   "date": "2026-08-23",
    "items": [
     {
-     "title": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding - NVIDIA Developer",
-     "url": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOZzFLRVlRQk80eUVvMEFHOXhvYjBhbmRRdTFFdFFPcmJ1cVZ2aW5wc3J1RkxqLXpvUEgzaUlyblp2amNNdGR0VzhuZ3pjay1mUW1ZNGdaX1BQZjVhdnp5Qjh3M3Q0amhoUUZJaUNpOF9NcjRIZmw2ckFydUVQZDlHekYzSXdIZ0NRaDN6aGVJdWwtYl9FUGp2WDB0Q0F3YnlENi1YODJYdFNWTmg2LUZwSWFIOVhDT3JPZ2x1bDNXUnBWMkdk?oc=5",
-     "source": "search_llm_ops_news",
+     "title": "Exploring Speculative Decoding in vLLM on AMD GPUs",
+     "url": "https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus",
+     "source": "vllm_blog",
      "type": "news",
-     "summary_1line": "Boost Inference Performance up to 15x on NVIDIA Blackwell Using DFlash Speculative Decoding NVIDIA Developer",
-     "sid": "99bd515fd5fd8083",
-     "published": "2026-06-23T15:14:05+00:00",
-     "editor_note": "Adds the hardware-vendor angle — NVIDIA's DFlash speculative decoding cited for up to 15x inference throughput on Blackwell."
+     "summary_1line": "A practical guide to speculative decoding in vLLM on AMD GPUs, covering draft-and-verify mechanics, MTP, EAGLE-3, DFlash, DSpark, configuration, tuning, and benchmark results.",
+     "sid": "b4fa4d7778a6247d",
+     "published": "2026-08-23T00:00:00+00:00",
+     "editor_note": "vLLM publishes a practical speculative-decoding tuning guide for AMD GPUs covering MTP, EAGLE-3, DFlash, and DSpark."
     }
    ]
   },
   {
-   "date": "2026-06-24",
+   "date": "2026-08-26",
    "items": [
     {
-     "title": "Achieve state-of-the-art inference latencies with speculative decoding",
-     "url": "https://modal.com/blog/achieve-sota-specdec",
-     "source": "modal_blog",
-     "type": "news",
-     "summary_1line": "How Modal and Decagon worked together to cut inference latency - and you can too.",
-     "sid": "62173e9d865bdec2",
-     "published": "2026-06-24T00:00:00+00:00",
-     "editor_note": "Closes the loop with a production recipe: Modal and Decagon report state-of-the-art inference latency using speculative decoding."
+     "title": "AsymSpec: Context-Asymmetric Speculative Decoding for Agentic LLMs",
+     "url": "http://arxiv.org/abs/2608.26004v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Agentic LLM pipelines face escalating inference costs as context accumulates across retrieval, tool use, and multi-turn interactions. To control latency, deployments routinely compress inputs, but this degrades task a...",
+     "why_it_matters": "Matches feed focus: agentic, eval.",
+     "sid": "aad81dd5a952ad5d",
+     "published": "2026-08-26T16:50:02+00:00",
+     "editor_note": "AsymSpec proposes context-asymmetric speculative decoding aimed specifically at agentic LLM pipelines' inflated context cost."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "In mid-June speculative decoding moved from a research trick toward a default inference-latency lever. It surfaced alongside the GLM-5.2 open-model release as IndexShare, then NVIDIA reported DFlash speculative decoding lifting throughput up to 15x on Blackwell — pulling the technique into both the open-model and hardware-vendor conversations within a week.",
+  "tldr": "Speculative decoding — verifying multiple draft tokens per step to cut inference latency — is now developing on two separate fronts: new drafting research and production serving guides. A mid-August paper (DARTree) pushed the research side toward diffusion-based draft trees that predict whole token blocks instead of single tokens.",
   "stale": false,
-  "whats_new": "Modal and Decagon published a joint walkthrough showing how speculative decoding cut their inference latency to state-of-the-art levels, moving the technique from benchmark claims into a reproducible production serving recipe.",
-  "why_it_matters": "Speculative decoding is converging across open models, NVIDIA hardware, and serving platforms in the same window, so it is becoming a mainstream knob for inference latency and cost rather than a niche optimization — worth evaluating before hand-rolling latency fixes.",
-  "take_for_builders": "If inference latency or cost is your bottleneck, treat speculative decoding as a first-class option now: check whether your serving stack (Modal-style draft/verify) or GPU path (Blackwell/DFlash) supports it before building custom latency hacks, and benchmark on your own traffic rather than trusting the headline multipliers.",
-  "status": {
-   "state": "Active",
-   "tone": "rising",
-   "changed": "2026-06-24",
-   "detail": "Speculative decoding is being adopted near-simultaneously across an open model release, GPU vendor tooling, and a serving platform."
-  },
+  "whats_new": "A new paper (AsymSpec, Aug 26) targets speculative decoding specifically at agentic pipelines, arguing that generic techniques don't address the latency cost of long, tool-call-and-retrieval-inflated context that agents accumulate.",
+  "why_it_matters": "If your agent pipeline is context-heavy (tool loops, retrieval, multi-turn memory), the generic speculative-decoding tuning already documented for production (vLLM/EAGLE-3/DFlash/DSpark) may not capture agent-specific savings — a context-aware variant like AsymSpec is what to watch for next.",
+  "take_for_builders": "Don't assume the generic speculative-decoding tuning already documented for vLLM (EAGLE-3/DFlash/DSpark) captures agent-specific savings — if your pipeline's context keeps growing from tool calls and retrieval, watch for a runnable implementation of context-asymmetric techniques like AsymSpec before investing engineering time.",
   "beats": [
    {
-    "kicker": "OPEN MODEL",
-    "tone": "launch",
-    "headline": "GLM-5.2 ships with IndexShare for speculative decoding",
-    "summary": "The technique surfaces in the AINews roundup alongside GLM-5.2's release as a top open frontend-coding model.",
-    "sids": [
-     "ffc4c951795ec8c0"
-    ]
-   },
-   {
-    "kicker": "HARDWARE",
+    "kicker": "DRAFTING RESEARCH",
     "tone": "rising",
-    "headline": "NVIDIA reports DFlash speculative decoding up to 15x faster on Blackwell",
-    "summary": "The GPU vendor frames speculative decoding as a major inference throughput lever on Blackwell.",
+    "headline": "DARTree proposes diffusion-based draft trees to cut proposal latency further",
+    "summary": "A diffusion drafter predicts an entire token block at once instead of one token at a time, aiming to reduce the latency of the draft step itself.",
     "sids": [
-     "99bd515fd5fd8083"
+     "80e7ec208d50f270"
     ]
    },
    {
-    "kicker": "PRODUCTION",
+    "kicker": "PRODUCTION TUNING",
     "tone": "now",
-    "headline": "Modal and Decagon hit state-of-the-art inference latency with speculative decoding",
-    "summary": "A serving-platform write-up turns the technique into a concrete, reproducible latency recipe.",
+    "headline": "vLLM publishes a hands-on speculative-decoding tuning guide for AMD GPUs",
+    "summary": "The guide covers draft-and-verify mechanics and configuration across MTP, EAGLE-3, DFlash, and DSpark, with benchmark results — a practical reference for teams already running vLLM.",
     "sids": [
-     "62173e9d865bdec2"
+     "b4fa4d7778a6247d"
+    ]
+   },
+   {
+    "kicker": "AGENTIC SPECIALIZATION",
+    "tone": "turn",
+    "headline": "AsymSpec argues agentic LLM pipelines need context-asymmetric speculative decoding",
+    "summary": "Long accumulated context from retrieval, tool use, and multi-turn interaction inflates inference cost in ways generic speculative decoding and context-compression tricks don't fully address, the paper argues.",
+    "sids": [
+     "aad81dd5a952ad5d"
     ]
    }
   ],
   "open_questions": [
-   "How portable are these speedups across model families and prompt mixes, versus the cherry-picked workloads in vendor posts?",
-   "Are the 15x (Blackwell/DFlash) and 'state-of-the-art' (Modal/Decagon) figures vendor-reported or independently confirmed?",
-   "Does speculative decoding's accuracy/quality trade-off hold up under agentic, multi-turn workloads?"
+   "Does AsymSpec's context-asymmetric approach get benchmarked against production serving stacks (vLLM/EAGLE-3/DFlash) rather than only academic baselines?",
+   "Is there a reference implementation of AsymSpec that agent-pipeline builders can actually try, or is it paper-only for now?",
+   "How much of DARTree's diffusion-drafting latency win holds up outside its own benchmark suite?"
   ],
-  "generated_at": "2026-06-30T15:35:14Z"
+  "generated_at": "2026-08-27T05:20:00+00:00"
  }
 }

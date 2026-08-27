@@ -1,0 +1,47 @@
+{
+  "slug": "anomaly-detection",
+  "generated_at": "2026-08-27T05:20:00+00:00",
+  "covers_last_updated": "2026-08-25T16:52:32+00:00",
+  "covers_member_sids": [
+    "c1f5f7897cab6194",
+    "c6589f453fe3efd2",
+    "c8fa2c59f3b3c019"
+  ],
+  "tldr": "Three papers published within two days push anomaly detection along separate, unconnected fronts: relational-database structure, industrial-control-system security, and real-time video. None builds on the others — this is a cluster of concurrent research, not one unfolding event.",
+  "whats_new": "The newest paper (Aug 25) proposes a causal, state-space model for streaming video anomaly detection that avoids buffering clips, unlike prior Mamba-style approaches.",
+  "why_it_matters": "If you're building anomaly detection into an agent or observability pipeline, these three papers map to distinct decision points: whether your data is relational (schema-aware methods), whether your training data can be adversarially poisoned (ICS robustness), and whether you need real-time, low-latency video inference (streaming state-space models).",
+  "beats": [
+    {
+      "kicker": "RELATIONAL DATA",
+      "tone": "neutral",
+      "headline": "RAD argues anomaly detection over relational databases shouldn't flatten tables into one feature matrix",
+      "summary": "Flattening multiple tables loses entity identity and schema structure; RAD instead applies rule-augmented detection directly on the relational structure.",
+      "sids": ["c1f5f7897cab6194"]
+    },
+    {
+      "kicker": "SECURITY ROBUSTNESS",
+      "tone": "neutral",
+      "headline": "A study tests industrial-control-system anomaly detectors under training-time data contamination",
+      "summary": "Most ICS anomaly-detection research assumes clean training data; this paper measures what happens when that data is poisoned instead.",
+      "sids": ["c6589f453fe3efd2"]
+    },
+    {
+      "kicker": "STREAMING VIDEO",
+      "tone": "rising",
+      "headline": "A causal state-space model targets real-time video anomaly detection without clip buffering",
+      "summary": "Prior Mamba-style approaches to video anomaly detection still buffer clips or windows internally; this model claims a theoretically grounded, strictly causal alternative.",
+      "sids": ["c8fa2c59f3b3c019"]
+    }
+  ],
+  "open_questions": [
+    "Do any of these three methods report benchmarks against a shared production anomaly-detection baseline, or only against prior academic work in their own subfield?",
+    "Does RAD's relational approach scale to the table counts and schema complexity found in real production data warehouses?",
+    "Has the ICS contamination study identified which specific defenses (if any) hold up under the poisoning attacks it tests?"
+  ],
+  "take_for_builders": "Treat this as three independent leads, not one trend: check RAD if your anomaly signal lives in relational/warehouse data, check the ICS contamination study if your training pipeline ingests third-party or adversarial data, and check the streaming state-space model only if you need real-time video inference without clip buffering.",
+  "day_captions": {
+    "c1f5f7897cab6194": "RAD proposes rule-augmented anomaly detection that operates directly on relational database structure instead of a flattened feature matrix.",
+    "c6589f453fe3efd2": "A study measures how training-time data contamination degrades industrial-control-system anomaly detectors.",
+    "c8fa2c59f3b3c019": "A strictly causal, state-space model targets real-time streaming video anomaly detection without internal clip buffering."
+  }
+}

@@ -1,14 +1,14 @@
 {
- "generated_at": "2026-08-27T00:09:53.934702+00:00",
+ "generated_at": "2026-08-27T05:15:45.507311+00:00",
  "window_days": 21,
  "storylines": [
   {
    "slug": "deepseek-pro",
    "label": "DeepSeek Pro",
-   "item_count": 66,
+   "item_count": 64,
    "day_count": 20,
    "source_count": 4,
-   "first_seen": "2026-08-06T02:53:00+00:00",
+   "first_seen": "2026-08-06T05:36:04+00:00",
    "last_updated": "2026-08-26T20:27:12+00:00",
    "via_scout": true,
    "latest_title": "Qwen 3.8 Flash-Next is Cheap, But There Are Complicating Factors",
@@ -35,8 +35,6 @@
     "2026-08-26"
    ],
    "member_sids": [
-    "dd91944122807cf5",
-    "30c620688f04f437",
     "04b7d7bbdc596743",
     "607bddb374f1985f",
     "d65f3eadc84d5ccc",
@@ -103,8 +101,6 @@
     "c4fce5c84f5c9fe2"
    ],
    "member_urls": [
-    "https://news.google.com/rss/articles/CBMisgFBVV95cUxNeEdGNC1EbVlyR2pvLWxTSUxsQXlTRjBhaDIwUFJuc1k4eERFa3hpdWN5bF9GQXBBQlU0QUp3U0JPZko0S3paX2dmeFNRYVVRY3RQbWNTSXZCaVQ5VjdPdC1HdGRPT2ZuOXc1X1Zpc2hNeDZ3Qk1XcWJDVEt2aHlOMVlscmtyTW9yNVJ1V3pDbWJCRThvZlFTTktVTFpQOUdReE9ZNjJMbDFxQUpXaVFZSUJn?oc=5",
-    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQdE81QnNIbmhUV3lJYU90VnFkTFQtbmJLanhCZ2JHMzFFSUpHOTh2Rnl2SzBKMHlHc3FMMDB1T0lia01uYUJhRzBhTFc3cGkwQXN2WHBBOUVURHZ3cEZHaFJjYktGUDFFNFM0eGtrZml1VHZwdk1DMEhXSldyVjl5YlNhOVowNWd5RmQ0SURKb1Z4NHRXTDJuYW5LOE5OLXVaamllT2lMN1BSWmhqVlVubnJZUG1zZVVO?oc=5",
     "https://news.google.com/rss/articles/CBMihgFBVV95cUxNWGhzRVV4d1g4Y25zdk1XVkxMektjX0V0cVBoQm51N2xOenZZMkhSaVR0SE1EYmtCWXRWMEpfQ3hZeWlGdVpRYkt1QnFHTnN1UGVCTVBFS2w2QlM4cW5fT1pjZ05vV3dad25lLWdpRUk1YjhNbnNhVmhENERkTmg2UUFxUFQ1Zw?oc=5",
     "https://news.google.com/rss/articles/CBMidkFVX3lxTE1GdkdKSzVUVS1pTGtFS2VZTFFOdnI4WkI3QjB1RWV2eTRkVkFoV0hGeEY3X1VuYTNReU9sSHZVSzY4T3F1WVJRYnJIWDFxYXdLY3BTazY5RURkZXFWOU83NUxwT2pfUzRzM1hCX2hTOTEzWnhFMXc?oc=5",
     "https://news.google.com/rss/articles/CBMifkFVX3lxTE5DLUVMcGcyb0d5MDlSQ2loTm9OQnRLcnZfTHNWS2M5QXF5eHhJR25abTBOcFVtSmxYUTM2N1BtWTdMa3NQMmtFRGdvcktQUTY2SzExanpqMDktQ3l5bkFteDhuVGVHNG9JZVE4X0hPODNfOUZmV0NYa3FrVlN6UQ?oc=5",
@@ -253,6 +249,38 @@
    }
   },
   {
+   "slug": "speculative-decoding",
+   "label": "Speculative Decoding",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-08-13T17:43:44+00:00",
+   "last_updated": "2026-08-26T16:50:02+00:00",
+   "latest_title": "AsymSpec: Context-Asymmetric Speculative Decoding for Agentic LLMs",
+   "days": [
+    "2026-08-13",
+    "2026-08-23",
+    "2026-08-26"
+   ],
+   "member_sids": [
+    "80e7ec208d50f270",
+    "b4fa4d7778a6247d",
+    "aad81dd5a952ad5d"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2608.13524v1",
+    "https://vllm.ai/blog/2026-08-23-speculative-decoding-amd-gpus",
+    "http://arxiv.org/abs/2608.26004v1"
+   ],
+   "editorial": {
+    "tldr": "Speculative decoding — verifying multiple draft tokens per step to cut inference latency — is now developing on two separate fronts: new drafting research and production serving guides. A mid-August paper (DARTree) pushed the research side toward diffusion-based draft trees that predict whole token blocks instead of single tokens.",
+    "stale": false,
+    "whats_new": "A new paper (AsymSpec, Aug 26) targets speculative decoding specifically at agentic pipelines, arguing that generic techniques don't address the latency cost of long, tool-call-and-retrieval-inflated context that agents accumulate.",
+    "why_it_matters": "If your agent pipeline is context-heavy (tool loops, retrieval, multi-turn memory), the generic speculative-decoding tuning already documented for production (vLLM/EAGLE-3/DFlash/DSpark) may not capture agent-specific savings — a context-aware variant like AsymSpec is what to watch for next.",
+    "take_for_builders": "Don't assume the generic speculative-decoding tuning already documented for vLLM (EAGLE-3/DFlash/DSpark) captures agent-specific savings — if your pipeline's context keeps growing from tool calls and retrieval, watch for a runnable implementation of context-asymmetric techniques like AsymSpec before investing engineering time."
+   }
+  },
+  {
    "slug": "anomaly-detection",
    "label": "Anomaly Detection",
    "item_count": 3,
@@ -274,7 +302,14 @@
     "http://arxiv.org/abs/2608.23468v1",
     "http://arxiv.org/abs/2608.23547v1",
     "http://arxiv.org/abs/2608.24810v1"
-   ]
+   ],
+   "editorial": {
+    "tldr": "Three papers published within two days push anomaly detection along separate, unconnected fronts: relational-database structure, industrial-control-system security, and real-time video. None builds on the others — this is a cluster of concurrent research, not one unfolding event.",
+    "stale": false,
+    "whats_new": "The newest paper (Aug 25) proposes a causal, state-space model for streaming video anomaly detection that avoids buffering clips, unlike prior Mamba-style approaches.",
+    "why_it_matters": "If you're building anomaly detection into an agent or observability pipeline, these three papers map to distinct decision points: whether your data is relational (schema-aware methods), whether your training data can be adversarially poisoned (ICS robustness), and whether you need real-time, low-latency video inference (streaming state-space models).",
+    "take_for_builders": "Treat this as three independent leads, not one trend: check RAD if your anomaly signal lives in relational/warehouse data, check the ICS contamination study if your training pipeline ingests third-party or adversarial data, and check the streaming state-space model only if you need real-time video inference without clip buffering."
+   }
   },
   {
    "slug": "nvidia-s-6b-poolside-deal",
