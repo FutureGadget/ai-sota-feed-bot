@@ -543,16 +543,16 @@
  },
  "083b2e7b5801f1e4": {
   "first_seen": "2026-08-27T22:02:20.241150+00:00",
-  "id": "4ba69eb5163b7426",
+  "id": "17e8414ca7db52ad",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-08-27T21:31:54+00:00",
+  "published": "2026-08-27T22:18:38+00:00",
   "sid": "083b2e7b5801f1e4",
   "source": "openai_codex_releases",
   "summary": "Release 0.151.0-alpha.7",
   "summary_1line": "Release 0.151.0-alpha.7",
-  "title": "codex rust-v0.151.0-alpha.7",
+  "title": "codex 0.151.0-alpha.7",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.151.0-alpha.7",
   "why_it_matters": "Matches feed focus: codex."
@@ -4785,6 +4785,25 @@
   "url": "https://www.infoq.com/news/2026/08/cloudflare-astro-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agentic."
  },
+ "505f6e921b239df4": {
+  "first_seen": "2026-08-27T23:01:19.503556+00:00",
+  "id": "2f3d7117a03f76f0",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-08-27T22:26:42+00:00",
+  "release_highlights": [
+   "Updated bundled Claude CLI to version 2.1.248"
+  ],
+  "sid": "505f6e921b239df4",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "Internal/Other Changes Updated bundled Claude CLI to version 2.1.248 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.146/ pip install claude-agent-sdk==0.2.146",
+  "summary_1line": "Updated bundled Claude CLI to version 2.1.248",
+  "title": "claude-agent-sdk-python v0.2.146",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.146",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "5071bb1e9d24a19f": {
   "first_seen": "2026-08-20T23:02:18.684846+00:00",
   "id": "2f276b76c6728c7c",
@@ -8237,6 +8256,23 @@
   "type": "news",
   "url": "https://github.com/paoloanzn/microcodex",
   "why_it_matters": "Matches feed focus: agent, codex."
+ },
+ "86c9015dd55dff65": {
+  "first_seen": "2026-08-27T23:01:19.503556+00:00",
+  "id": "e4b1996ac471ec4f",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-08-27T22:50:25+00:00",
+  "sid": "86c9015dd55dff65",
+  "source": "simon_willison",
+  "summary": "Breaking Claude Code Opus 5 Auto Mode Anthropic are putting a great deal of faith in Claude Code's auto mode for protecting their coding agent users against prompt injection attacks. They recently made that the default and have made bold claims about its effectiveness. Johann Rehberger is one of the most credible prompt injection researchers active today. He found an attack against auto mode which he claims works 80% of the time, by tricking Claude Code into downloading and uncompressing a zip archive, then executing code that imports base64 without noticing that this will import and execute a local struct.py file extracted from the archive. In a few cases auto mode directly prevented the agent from preventing harmful code from continuing to execute! In a few runs Claude tried to terminate the malware process once it noticed the compromise, but Auto Mode denied the cleanup command. Claude detects the compromise, but Auto Mode blocks its cleanup command The safety mechanism itself can become part of the failure. The classifier allowed the creation of the malware process, but then it blocked the command intended to stop it! I agree with Johann's conclusion here: the only safe way to run agents if there's any risk of attracting the attention of an adversarial attack is with a sandbox: Run unattended coding agents in a container, VM or OS sandbox. Restrict network egress. Monitor your agents. Do not expose home directories, SSH keys, cloud credentials,… to the agent runtime. [...",
+  "summary_1line": "Breaking Claude Code Opus 5 Auto Mode Anthropic are putting a great deal of faith in Claude Code's auto mode for protecting their coding agent users against prompt injection attacks. They recently made that the defaul...",
+  "title": "Breaking Claude Code Opus 5 Auto Mode",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Aug/27/breaking-claude-code-opus-5-auto-mode",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "870c3e4aaf11e575": {
   "first_seen": "2026-08-04T07:01:48.990513+00:00",
@@ -12593,6 +12629,28 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2608.11110v1",
   "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
+ "ca3eff0a8509d6f2": {
+  "first_seen": "2026-08-27T23:01:19.503556+00:00",
+  "id": "47107d1099b1d2cc",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-08-27T22:12:20+00:00",
+  "release_highlights": [
+   "Added --restricted (or CLAUDE_CODE_RESTRICTED=1 ): removes the built-in tools that run commands or code and WebFetch (unless named in --tools ), keeps file t...",
+   "Added experimental.cacheTtl ( \"5m\" or \"1h\" ) to agent frontmatter: a per-agent prompt cache TTL used when no subagent TTL setting is configured",
+   "Added claude self-hosted-runner --client-label <label> (or SELF_HOSTED_RUNNER_CLIENT_LABEL ) to override the label the runner registers with (default: hostname)"
+  ],
+  "sid": "ca3eff0a8509d6f2",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added --restricted (or CLAUDE_CODE_RESTRICTED=1 ): removes the built-in tools that run commands or code and WebFetch (unless named in --tools ), keeps file tools inside the working directory, refuses bypassPermissions , and ignores user, project and local settings files Added experimental.cacheTtl ( \"5m\" or \"1h\" ) to agent frontmatter: a per-agent prompt cache TTL used when no subagent TTL setting is configured Added claude self-hosted-runner --client-label (or SELF_HOSTED_RUNNER_CLIENT_LABEL ) to override the label the runner registers with (default: hostname) Added server-managed settings diagnostics: a startup warning when the settings fail to load, and a /doctor and /status line explaining a load failure or why they weren't fetched (Bedrock/Vertex/third-party provider, custom ANTHROPIC_BASE_URL ) Added a warning in /web-setup when the GitHub CLI token lacks the workflow scope, since pushes to very large repositories can be rejected without it Added /usage-credits for Enterprise organizations billed through AWS Marketplace, self-serve Enterprise, and Enterprise trials, so members can request a higher usage limit from their admin Added cross-session messaging ( SendMessage / ListAgents ) between sessions on the same machine on Bedrock, Vertex, and Foundry, and when telemetry is disabled Fixed a prompt-cache miss (and lost extended-thinking context) roughly once an hour in long sessions, caused by tool definitions being re-rendered after an OAuth token refresh",
+  "summary_1line": "Added --restricted (or CLAUDE_CODE_RESTRICTED=1 ): removes the built-in tools that run commands or code and WebFetch (unless named in --tools ), keeps file t... · Added experimental.cacheTtl ( \"5m\" or \"1h\" ) to agent...",
+  "title": "claude-code v2.1.248",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.248",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "ca710448976c9676": {
   "first_seen": "2026-08-14T04:01:57.712952+00:00",
