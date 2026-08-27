@@ -2,122 +2,128 @@
 
 Focus: AI Platform Engineering
 
-## 1. August 2026: LangChain Newsletter — Managed Deep Agents, LLM Gateway, and More
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/august-2026-langchain-newsletter
-- Score: 2.925 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
-
-## 2. VISA: Agentic Self-Evolving Data Synthesis for Multimodal Instruction Following
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2608.26013v1
-- Score: 2.806 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 3. Show HN: Open Session, the open-source cloud agent-orchestrator
+## 1. Show HN: ThunderPhone v2 – a new architecture for voice AI
 - Type: news | Source: hackernews_ai
-- URL: https://www.opensession.com
-- Score: 2.699 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 4. Agentic Autoresearch for Cell-Edge Power Control: Radically Redefining the Researcher's Role
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2608.26093v1
-- Score: 2.602 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 5. Constitutional Classifiers: Defending against universal jailbreaks
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/constitutional-classifiers
-- Score: 2.555 | Reliability: 1.0
-- Why it matters: 
-
-## 6. Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5
-- Score: 2.536 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 7. Qwen3.8-Flash-Next
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Aug/26/qwen38-flash-next/
-- Score: 2.413 | Reliability: 1.0
-- Why it matters: 
-
-## 8. Expanding OpenAI’s presence in Brazil
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/expanding-our-presence-in-brazil
-- Score: 2.309 | Reliability: 1.0
-- Why it matters: 
-
-## 9. Anthropic joins White House pledge for AI education
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/anthropic-signs-pledge-to-americas-youth-investing-in-ai-education
-- Score: 2.299 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Usage Policy update
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/usage-policy-update
-- Score: 2.295 | Reliability: 1.0
-- Why it matters: 
-
-## 11. codex 0.151.0-alpha.6
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.151.0-alpha.6
-- Score: 2.379 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 12. [AINews] NVIDIA buys HuggingFace for $13B, as OpenAI publishes their HF incident retro
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-nvidia-buys-huggingface-for
-- Score: 2.344 | Reliability: 1.0
-- Why it matters: 
-
-## 13. [AINews] Hot Chips: OpenAI’s Jalapeño, Cerebras CS-5, Groq 3 LPX, Apple M6
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-hot-chips-openais-jalapeno
-- Score: 2.338 | Reliability: 1.0
-- Why it matters: 
-
-## 14. TAU-Agent: An Agentic Retrieval-Augmented Framework for Traffic Anomaly Understanding
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2608.25935v1
-- Score: 2.301 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
-
-## 15. Claude for Enterprise powers LLNL research
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/lawrence-livermore-national-laboratory-expands-claude-for-enterprise-to-empower-scientists-and
-- Score: 2.295 | Reliability: 1.0
-- Why it matters: 
-
-## 16. Detecting and countering malicious uses of Claude
-- Type: news | Source: anthropic_newsroom
-- URL: https://www.anthropic.com/news/detecting-and-countering-malicious-uses-of-claude-march-2025
-- Score: 2.293 | Reliability: 1.0
-- Why it matters: 
-
-## 17. SciMIF: Understanding Multimodal Instruction Following in Scientific Domains
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2608.25973v1
-- Score: 2.235 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 18. Vertical Advantage: Transforming Industries with Lakebase and Agentic AI
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/vertical-advantage-transforming-industries-lakebase-and-agentic-ai
-- Score: 1.942 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic.
-
-## 19. Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now
-- Type: news | Source: nvidia_blog
-- URL: https://blogs.nvidia.com/blog/vera-cpu-delivery/
-- Score: 1.866 | Reliability: 1.0
+- URL: https://thunderphone.com
+- Score: 2.98 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 20. vllm v0.28.1rc0
+## 2. Introducing Anthropic's AI for Science Program
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/ai-for-science-program
+- Score: 2.945 | Reliability: 1.0
+- Why it matters: 
+
+## 3. Advancing Claude for Education
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/advancing-claude-for-education
+- Score: 2.945 | Reliability: 1.0
+- Why it matters: 
+
+## 4. Introducing Claude for Small Business
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/claude-for-small-business
+- Score: 2.943 | Reliability: 1.0
+- Why it matters: 
+
+## 5. Introducing Claude Corps
+- Type: news | Source: anthropic_newsroom
+- URL: https://www.anthropic.com/news/claude-corps
+- Score: 2.942 | Reliability: 1.0
+- Why it matters: 
+
+## 6. August 2026: LangChain Newsletter — Managed Deep Agents, LLM Gateway, and More
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/august-2026-langchain-newsletter
+- Score: 2.899 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 7. Patterns and problems in multiagent systems
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/multiagent-systems
+- Score: 2.857 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. Piloting the world's first double-blind AI evaluations
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/
+- Score: 2.818 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 9. VISA: Agentic Self-Evolving Data Synthesis for Multimodal Instruction Following
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2608.26013v1
+- Score: 2.793 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 10. Agentic Autoresearch for Cell-Edge Power Control: Radically Redefining the Researcher's Role
+- Type: paper | Source: arxiv_llm_reliability
+- URL: http://arxiv.org/abs/2608.26093v1
+- Score: 2.59 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 11. Reuters – China’s Moonshot talking to US cloud giants over Kimi K3
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiqgFBVV95cUxOaDItYW5vUDJrNl9sZ2pTQjF4cGp4ekJxZG9kMXRldDBLX3V5ZjNPYktSYnAzVnF4c0NMOHpwX1BzYXBnYWpNTGF5SG5HS09hY0VEUGNVck5NSVpXa2QtSVU1LTNfV2kxLXBKRDQ4Z19iUEtPc2U1TFJ5ZnJ6NHBoRnF3eE45cVVjUlczZExpYmo0cUpjTVhoTV9uYWR3bkEyd05qMXVERGlfUQ?oc=5
+- Score: 2.466 | Reliability: 1.0
+- Why it matters: 
+
+## 12. Qwen3.8-Flash-Next
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Aug/26/qwen38-flash-next/
+- Score: 2.392 | Reliability: 1.0
+- Why it matters: 
+
+## 13. codex 0.151.0-alpha.6
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.151.0-alpha.6
+- Score: 2.352 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 14. Expanding OpenAI’s presence in Brazil
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/expanding-our-presence-in-brazil
+- Score: 2.339 | Reliability: 1.0
+- Why it matters: 
+
+## 15. [AINews] NVIDIA buys HuggingFace for $13B, as OpenAI publishes their HF incident retro
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-nvidia-buys-huggingface-for
+- Score: 2.323 | Reliability: 1.0
+- Why it matters: 
+
+## 16. [AINews] Hot Chips: OpenAI’s Jalapeño, Cerebras CS-5, Groq 3 LPX, Apple M6
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-hot-chips-openais-jalapeno
+- Score: 2.318 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Enhancing Agent Retrieval with Structured Chart Extraction
+- Type: news | Source: databricks_blog
+- URL: https://www.databricks.com/blog/enhancing-agent-retrieval-structured-chart-extraction
+- Score: 2.294 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
+
+## 18. TAU-Agent: An Agentic Retrieval-Augmented Framework for Traffic Anomaly Understanding
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2608.25935v1
+- Score: 2.291 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 19. SciMIF: Understanding Multimodal Instruction Following in Scientific Domains
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2608.25973v1
+- Score: 2.225 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 20. Delivering Vera: NVIDIA’s First CPU Built for Agents Is Shipping Now
+- Type: news | Source: nvidia_blog
+- URL: https://blogs.nvidia.com/blog/vera-cpu-delivery/
+- Score: 1.827 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 21. vllm v0.28.1rc0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.28.1rc0
-- Score: 1.793 | Reliability: 1.0
+- Score: 1.767 | Reliability: 1.0
 - Why it matters:
