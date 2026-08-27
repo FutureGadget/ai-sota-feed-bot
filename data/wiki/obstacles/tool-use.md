@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368]
-updated: 2026-08-21
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851]
+updated: 2026-08-27
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851]
 ---
 
 ## TL;DR
@@ -189,8 +189,48 @@ Python added support for MCP 2.x alongside 1.x for in-process SDK MCP
 servers, loosening the coupling between a harness's own dependency version
 and the protocol version its in-process servers speak.
 
+A thirteenth axis is **the application itself becoming the MCP-exposed
+capability surface**, not just the platform underneath it: Lovable, an AI
+app-builder, is exposing published apps as MCP-powered "capabilities" —
+Lovable's own definition is "a useful part of an application that an agent
+can call directly, bypassing the need for a human user to open the app." A
+published app gets a dual interface, one traditional human UI and one
+MCP-compatible agent interface any MCP client (Claude, ChatGPT, others) can
+call, through a connector gateway that keeps credentials server-side and
+encrypted — generated app code never touches a secret directly, it gets a
+short-lived key scoped to one user instead. It's this page's opening
+argument (a protocol layer beats per-app glue) applied one level down: the
+individual SaaS app, not only the infrastructure vendor, becomes the
+agent-native surface (see [MCP](/topic/mcp)).
+
+A fourteenth axis is **evolving the harness itself as a search problem**,
+distinct from evolving what runs inside it: StarHarness treats the whole
+harness — prompt and task framing, tool interfaces, skills, MCP-backed
+providers, subagent structure, agent-loop configuration — as a space to
+search and optimize per enterprise environment while keeping the underlying
+model's weights frozen. Its stratified search buckets tasks by how the
+default harness already fails, splits the tasks the optimizer can see from a
+hidden selection set, and holds out a third set purely to check the result
+generalizes. Across three enterprise benchmarks (ITBench SRE,
+EnterpriseOps-Gym ITSM, AutomationBench Finance) the evolved harness beats
+the default by 20-35 percentage points after 4-12 accepted changes, and the
+gains transfer across model families (GPT and Qwen) without re-evolving. It
+answers the same model-environment mismatch the seventh axis's OpenForgeRL
+targets, differently: instead of turning harness rollouts into RL training
+data to fine-tune a model, StarHarness never touches the model and searches
+the harness configuration — including its tool and MCP surface — directly.
+
 ## What's new
-Microsoft's Azure DevOps Remote MCP Server reached GA without Claude
+Lovable is exposing published apps as MCP-powered "capabilities" agents can
+call directly, bypassing the human UI, through a connector gateway that
+keeps credentials server-side and scoped to short-lived, per-user keys.
+Separately, StarHarness treats the whole harness — not just its tool
+interfaces — as a search space, evolving prompt framing, tool interfaces,
+skills, and MCP-backed providers per enterprise environment while leaving
+model weights untouched, for a 20-35 percentage point gain over the default
+harness across three enterprise benchmarks (see State of the art above).
+
+Prior update: Microsoft's Azure DevOps Remote MCP Server reached GA without Claude
 Desktop, Claude Code, ChatGPT, or Cursor support — a reminder that "GA" and
 "works with every major MCP client" are separate milestones. Separately, the
 Claude Agent SDK for Python widened its in-process MCP server support to
