@@ -413,10 +413,36 @@ def _save_sitemap_meta_cache(cache: dict[str, dict]) -> None:
     p.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def _sitemap_meta_cache_row(meta: dict, previous: dict, now: datetime) -> dict:
+    """Build a cache row while keeping the URL's first discovery time stable."""
+    discovered_at = (
+        previous.get("discovered_at")
+        or previous.get("fetched_at")
+        or now.isoformat()
+    )
+    published = meta.get("published")
+    return {
+        "published": published,
+        # Presence of this field marks a completed lookup. Older null rows lack
+        # it and are refreshed once when the parser learns a new page format.
+        "published_missing": published is None,
+        "title": meta.get("title"),
+        "description": meta.get("description"),
+        "discovered_at": discovered_at,
+        "fetched_at": now.isoformat(),
+    }
+
+
 def _extract_published_from_html(html_text: str) -> str | None:
     patterns = [
         r'"datePublished"\s*:\s*"([^"]+)"',
         r'publishedOn\\*"\\*:\\*\\*"(\d{4}-\d{2}-\d{2}(?:T[\d:.]+Z?)?)',
+        # Anthropic's current article shell renders the real date as the plain
+        # text sibling immediately after its PostDetail heading. Keep this
+        # scoped to that structure so unrelated dates in the body/footer cannot
+        # be mistaken for publication metadata.
+        r'<h1[^>]+class=["\'][^"\']*PostDetail[^"\']*["\'][^>]*>[\s\S]*?</h1>\s*'
+        r'<div[^>]+class=["\'][^"\']*\bagate\b[^"\']*["\'][^>]*>\s*([^<]+?)\s*</div>',
         r'<meta[^>]+property=["\']article:published_time["\'][^>]+content=["\']([^"\']+)["\']',
         r'<meta[^>]+name=["\']article:published_time["\'][^>]+content=["\']([^"\']+)["\']',
         r'<meta[^>]+property=["\']og:published_time["\'][^>]+content=["\']([^"\']+)["\']',
@@ -602,21 +628,34 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
         dated: list[tuple[str, str]] = []
         for loc, lastmod in rows:
             cache_row = cache.get(loc) if isinstance(cache.get(loc), dict) else None
-            if cache_row and cache_row.get("published"):
-                dated.append((loc, cache_row["published"]))
+            lookup_complete = cache_row and (
+                cache_row.get("published") is not None
+                or "published_missing" in cache_row
+            )
+            if lookup_complete:
+                dated.append(
+                    (
+                        loc,
+                        cache_row.get("published")
+                        or cache_row.get("discovered_at")
+                        or cache_row.get("fetched_at")
+                        or now.isoformat(),
+                    )
+                )
                 continue
             if fetched >= budget:
                 continue  # out of budget this run; discovered on a later run
             try:
                 meta = _fetch_page_meta(loc)
-                cache[loc] = {
-                    "published": meta.get("published"),
-                    "title": meta.get("title"),
-                    "description": meta.get("description"),
-                    "fetched_at": now.isoformat(),
-                }
+                cache[loc] = _sitemap_meta_cache_row(meta, cache_row or {}, now)
                 fetched += 1
-                dated.append((loc, meta.get("published") or lastmod or now.isoformat()))
+                dated.append(
+                    (
+                        loc,
+                        cache[loc].get("published")
+                        or cache[loc]["discovered_at"],
+                    )
+                )
             except Exception:
                 continue  # transient fetch failure; retry on a later run
         # Reorder by real publish date so the [:60] cap below keeps the newest.
@@ -629,14 +668,24 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
         published = None
         page_title = None
         page_desc = None
+        discovered_at = None
 
         if extract_from_page:
             cache_row = cache.get(loc, {}) if isinstance(cache.get(loc), dict) else {}
+            discovered_at = (
+                cache_row.get("discovered_at")
+                or cache_row.get("fetched_at")
+            )
             cached_at = cache_row.get("fetched_at")
             cache_ok = False
             # A cache row counts as fresh only once it carries the page meta we
-            # now extract, so existing published-only rows are re-fetched once.
-            if cached_at and "title" in cache_row:
+            # now extract and records whether the publication lookup completed,
+            # so older null-date rows are re-fetched once.
+            lookup_complete = (
+                cache_row.get("published") is not None
+                or "published_missing" in cache_row
+            )
+            if cached_at and "title" in cache_row and lookup_complete:
                 try:
                     fetched_dt = datetime.fromisoformat(cached_at.replace("Z", "+00:00"))
                     if fetched_dt.tzinfo is None:
@@ -652,19 +701,25 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
             else:
                 try:
                     meta = _fetch_page_meta(loc)
-                    published = meta.get("published")
-                    page_title = meta.get("title")
-                    page_desc = meta.get("description")
-                    cache[loc] = {
-                        "published": published,
-                        "title": page_title,
-                        "description": page_desc,
-                        "fetched_at": now.isoformat(),
-                    }
+                    cache[loc] = _sitemap_meta_cache_row(meta, cache_row, now)
+                    published = cache[loc].get("published")
+                    page_title = cache[loc].get("title")
+                    page_desc = cache[loc].get("description")
+                    discovered_at = cache[loc]["discovered_at"]
                 except Exception:
                     published = None
+                    discovered_at = discovered_at or now.isoformat()
+                    # Persist discovery separately from fetch freshness so a
+                    # transient page failure cannot make this URL "new" again
+                    # on every run. The missing lookup marker keeps retries on.
+                    cache[loc] = {**cache_row, "discovered_at": discovered_at}
 
-        published = published or lastmod or now.isoformat()
+        # `<lastmod>` means the URL changed, not that it was first published.
+        # Extract-enabled sources therefore fall back to their stable discovery
+        # time; only plain sitemap sources retain the historical lastmod fallback.
+        published = published or (
+            discovered_at if extract_from_page else lastmod
+        ) or now.isoformat()
 
         out.append(
             {

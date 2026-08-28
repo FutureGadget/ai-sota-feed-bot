@@ -45,6 +45,69 @@ class SitemapCollectionTest(unittest.TestCase):
         )
         self.assertEqual(result["published"], "2026-06-13T15:30:00+00:00")
 
+    def test_fetch_page_meta_extracts_anthropic_visible_article_date(self) -> None:
+        page = """
+        <html>
+          <body>
+            <h1 class="headline-1 PostDetail-module__title">
+              Introducing 100K context windows
+            </h1>
+            <div class="body-3 agate">May 11, 2023</div>
+          </body>
+        </html>
+        """
+        with patch.object(collect.urllib.request, "urlopen", return_value=FakeResponse(page)):
+            result = collect._fetch_page_meta(
+                "https://www.anthropic.com/news/100k-context-windows"
+            )
+
+        self.assertEqual(result["published"], "2023-05-11T00:00:00+00:00")
+
+    def test_extract_enabled_sitemap_does_not_use_lastmod_as_publication(self) -> None:
+        sitemap = """
+        <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+          <url>
+            <loc>https://example.com/blog/old-post</loc>
+            <lastmod>2026-08-26T18:11:29.000Z</lastmod>
+          </url>
+        </urlset>
+        """
+        page = """
+        <html>
+          <head><title>Old post</title></head>
+          <body><p>This page exposes no publication metadata.</p></body>
+        </html>
+        """
+        source = {
+            "name": "example_blog",
+            "type": "sitemap",
+            "url": "https://example.com/sitemap.xml",
+            "include_prefixes": ["https://example.com/blog/"],
+            "extract_published_from_page": True,
+        }
+        now = datetime(2026, 8, 28, tzinfo=timezone.utc)
+        saved_cache = {}
+
+        def save_cache(cache):
+            saved_cache.update(cache)
+
+        with (
+            patch.object(
+                collect.urllib.request,
+                "urlopen",
+                side_effect=[FakeResponse(sitemap), FakeResponse(page)],
+            ),
+            patch.object(collect, "_load_sitemap_meta_cache", return_value={}),
+            patch.object(collect, "_save_sitemap_meta_cache", side_effect=save_cache),
+        ):
+            items = collect.collect_from_sitemap(source, now)
+
+        self.assertEqual(items[0]["published"], now.isoformat())
+        self.assertEqual(
+            saved_cache["https://example.com/blog/old-post"]["discovered_at"],
+            now.isoformat(),
+        )
+
     def test_sitemap_items_use_fetched_title_and_description(self) -> None:
         sitemap = """
         <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -58,6 +121,7 @@ class SitemapCollectionTest(unittest.TestCase):
         <html>
           <head>
             <meta property="og:title" content="Claude access expands for teams">
+            <meta property="article:published_time" content="2026-06-12">
             <meta name="description"
                   content="Anthropic explains the rollout, controls, and availability.">
           </head>
@@ -95,7 +159,7 @@ class SitemapCollectionTest(unittest.TestCase):
             items[0]["summary"],
             "Anthropic explains the rollout, controls, and availability.",
         )
-        self.assertEqual(items[0]["published"], "2026-06-12")
+        self.assertEqual(items[0]["published"], "2026-06-12T00:00:00+00:00")
         cache_row = saved_cache["https://example.com/blog/fable-mythos-access"]
         self.assertEqual(cache_row["title"], items[0]["title"])
         self.assertEqual(cache_row["description"], items[0]["summary"])
