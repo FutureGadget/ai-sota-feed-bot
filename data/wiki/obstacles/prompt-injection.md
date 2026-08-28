@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f]
-updated: 2026-08-27
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65]
+updated: 2026-08-28
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65]
 ---
 
 ## TL;DR
@@ -316,8 +316,43 @@ including ones that use prompt injection as a tactic, while remaining, by
 design, a screening layer — one a sufficiently adversarial attack can still
 target, not a structural fix for the underlying role confusion.
 
+Anthropic's own product ships an OS-level answer to the harness-default
+argument above, with a measured number instead of a policy statement:
+Claude Code's new sandboxing feature isolates the agent's filesystem access
+to the current working directory and routes network traffic through a
+proxy that enforces a domain allowlist, using Linux bubblewrap and macOS
+Seatbelt to enforce both boundaries at the OS level rather than in the
+model. Anthropic reports this safely cuts permission prompts by 84% in
+internal testing — directly attacking the approval-fatigue failure mode
+this page already names, where reviewing dozens of prompts an hour trains
+users to rubber-stamp instead of read. The implementation is open source.
+
+That same week, independent research found the limits of the harness
+default it complements rather than replaces: Johann Rehberger demonstrated
+a prompt-injection bypass against Claude Code's Auto Mode that succeeds
+roughly 80% of the time — tricking the agent into extracting a ZIP archive
+and running a Python import that silently executes a malicious local
+`struct.py` instead of the standard library module. The sharper finding is
+what happened after Claude detected the compromise: Auto Mode's own safety
+classifier blocked the cleanup command meant to kill the malicious process,
+so the safety layer stopped the agent from fixing what it had already
+recognized as a problem. Rehberger's conclusion is exactly this page's
+defense-in-depth argument: run unattended agents inside a sandbox with
+network restrictions and credential isolation, and treat Auto Mode as one
+layer, not sufficient protection on its own — sandboxing bounds what a
+hijacked agent can *do*, it does not make Auto Mode a reliable judge of
+whether it has been hijacked.
+
 ## What's new
-Anthropic published Constitutional Classifiers, input/output filters
+Claude Code's new sandboxing feature (OS-level filesystem + network
+isolation via bubblewrap/Seatbelt) cut permission prompts by 84% in
+Anthropic's internal testing. The same week, independent research found an
+~80%-success prompt-injection bypass against Auto Mode where the safety
+classifier that let the compromise happen also blocked the agent's own
+cleanup command — evidence that sandboxing and Auto Mode's judgment are
+separate layers, not substitutes (see State of the art above).
+
+Prior update: Anthropic published Constitutional Classifiers, input/output filters
 trained on synthetic jailbreak data that cut an external red team's
 jailbreak success rate from 86% to 4.4% at a 23.7% compute overhead, with a
 follow-up public demo (339 participants, 300,000+ messages) surfacing only

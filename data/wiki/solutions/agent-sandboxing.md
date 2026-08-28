@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c]
-updated: 2026-08-24
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43]
+updated: 2026-08-28
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43]
 ---
 
 ## TL;DR
@@ -25,6 +25,14 @@ defense in depth rather than trusting any one of them:
   that they "don't solve credential authorization" — the agent inside the box
   still holds tokens that injected instructions can spend, so isolating the
   process is not the same as isolating its privileges.
+- **A first-party sandbox now ships with a measured number**: Claude Code's
+  sandboxing feature isolates filesystem access to the working directory and
+  routes network traffic through a proxy enforcing a domain allowlist, using
+  Linux bubblewrap and macOS Seatbelt to enforce both at the OS level.
+  Anthropic reports it safely cuts permission prompts by 84% in internal
+  testing — the concrete counter to the approval-fatigue problem this page's
+  "friction" trade-off already names, and it ships open source rather than as
+  a closed feature.
 - **Guardrail models** screen prompts and outputs, yet "From Shield to Target"
   shows the guardrail's own reasoning can be turned into a denial-of-service
   vector against the protected agent.
@@ -71,7 +79,13 @@ defense in depth rather than trusting any one of them:
 - **Tool-call firewalls**: Cerberus is a local firewall that sits in front of
   an agent's tool calls, mediating and blocking them at the dev machine rather
   than inside a cloud platform — the local-dev counterpart to the network
-  perimeters and platform governance below.
+  perimeters and platform governance below. Grith takes the same local-dev
+  supervisor role a step deeper into the kernel: it intercepts
+  security-relevant syscalls via ptrace/seccomp-BPF, scores each one against
+  18 deterministic filters (secret scanning, egress policy, destructive-op
+  detection, taint tracking) into ALLOW/QUEUE/DENY verdicts with no LLM in the
+  enforcement path, aimed at the specific failure this page already names —
+  once auto-approve is on, an agent effectively approves its own actions.
 - **Enterprise platforms**: Grab's security team built Palana, a
   Kubernetes-native secure execution platform, on the premise that
   model-driven agents — unlike deterministic software — exhibit unpredictable
@@ -107,7 +121,10 @@ defense in depth rather than trusting any one of them:
   Workdir and Cerberus in the same "install instead of build" tier of the
   sandboxing stack. Hotcell (Apache-2.0) extends the same tier with
   create/pause/manage sandbox lifecycle controls that run on any device
-  (laptop or cloud), not just a single hosted platform.
+  (laptop or cloud), not just a single hosted platform. Sandy adds monitoring
+  and policy controls on top of the sandbox itself, the same install-and-go
+  shape but paired with the ongoing-visibility half of the stack instead of
+  isolation alone.
 - **Egress-proxy token substitution**: a managed-agent pattern for using the
   GitHub CLI keeps a real personal access token out of the sandbox entirely —
   the sandboxed agent only ever sees a dummy token, and an egress proxy
@@ -218,7 +235,15 @@ above are pure friction; read as a product primitive, the same boundary is
 what makes running someone else's generated code shippable at all.
 
 ## What's new
-Roblox's own account of scaling autonomous development names the same
+Claude Code shipped a first-party sandboxing feature (OS-level filesystem +
+network isolation via bubblewrap/Seatbelt, open source) that cuts permission
+prompts by 84% in Anthropic's internal testing. Two local-dev tools joined
+the same install-instead-of-build tier this page tracks: Grith, a
+kernel-level syscall supervisor with no LLM in its enforcement path, and
+Sandy, a sandbox paired with monitoring and policy controls (see State of
+the art above).
+
+Prior update: Roblox's own account of scaling autonomous development names the same
 "whole-SDLC security engineering" pattern Anthropic already documented —
 security sandboxes stacked with code-review-derived institutional knowledge
 and velocity-based metrics — a second named company applying the pattern
