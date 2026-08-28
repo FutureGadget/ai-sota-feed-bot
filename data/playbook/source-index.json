@@ -37,6 +37,25 @@
     },
     "edition_date": "2026-08-14"
   },
+  "07acc9f47d29ad87": {
+    "id": "pb-agent-latency-stream-and-trim",
+    "kind": "source-backed",
+    "title": "Stream intermediate agent steps before you touch anything else to fix perceived latency",
+    "area": "Cost & latency",
+    "problem": "An agent that waits until the full response is ready feels slow to the user even when the total completion time hasn't actually changed.",
+    "apply": "Stream planning steps, retrieval results, and thinking tokens to the UI as they happen instead of waiting for the final answer; audit and trim the context passed into each LLM call with an observability tool; and parallelize independent calls (e.g. a guardrail check running alongside generation) using your orchestration framework's native parallelism.",
+    "result": "LangChain reports that Perplexity found surfacing intermediate steps in the UI improved user satisfaction even though total completion time stayed the same — a perceived-latency win with no inference cost.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-do-i-speed-up-my-agent",
+    "source_sid": "07acc9f47d29ad87",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The Perplexity UX result is relayed by LangChain, not independently measured by this edition."
+    },
+    "edition_date": "2026-08-28"
+  },
   "07f37058d3d7c72b": {
     "id": "pb-schedule-agent-sessions-not-just-requests",
     "kind": "source-backed",
@@ -93,6 +112,25 @@
       "note": "AWS describes this as the gateway's scoped-quota mechanism; no before/after production numbers are given in the announcement."
     },
     "edition_date": "2026-08-11"
+  },
+  "0b16a49a246662a3": {
+    "id": "pb-wikibench-wiki-plus-source",
+    "kind": "source-backed",
+    "title": "Pair a generated wiki with source access instead of choosing one for your coding agent's context",
+    "area": "Retrieval",
+    "problem": "Feeding an agent raw source for every question is expensive, and a wiki-only index alone isn't accurate enough to trust.",
+    "apply": "Generate and maintain a lightweight wiki/index alongside your codebase and give your agent both — the wiki as the starting point, source as the ground truth for verification — instead of picking one or the other for retrieval.",
+    "result": "LangChain's WikiBench measured wiki + source together producing the highest answer-accuracy score at a lower cost than source alone, while wiki-only scored lowest — the wiki works as an index, not a replacement for source.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/evaluating-openwiki-with-wikibench",
+    "source_sid": "0b16a49a246662a3",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "WikiBench is LangChain's own benchmark comparing wiki-only, source-only, and wiki+source configurations on accuracy and cost."
+    },
+    "edition_date": "2026-08-28"
   },
   "0ecd57418d6c38cf": {
     "id": "pb-track-pr-throughput-not-agent-usage-alone",
@@ -226,6 +264,25 @@
       "note": "Training-free patch reconstructs KV to bf16 rounding and recovers full multi-hop accuracy across six model backbones."
     },
     "edition_date": "2026-06-26"
+  },
+  "1e7a9a2dbea062bb": {
+    "id": "pb-skills-progressive-disclosure",
+    "kind": "source-backed",
+    "title": "Load tool instructions on demand instead of stuffing every tool definition into the system prompt",
+    "area": "Tool use",
+    "problem": "Loading every tool's full definition into context upfront bloats the prompt, even though the most capable generalist agents get by on a small core tool set (Claude Code uses about a dozen, Manus fewer than 20).",
+    "apply": "Structure reusable capabilities as skill folders — a SKILL.md with YAML frontmatter — instead of hardcoded tool schemas. Load only the frontmatter by default, and have the agent read a skill's full instructions only when it determines that skill is relevant to the current task.",
+    "result": "Baseline context stays small no matter how many capabilities are available, since only the frontmatter for unused skills sits in context until the agent actually needs one.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/using-skills-with-deep-agents",
+    "source_sid": "1e7a9a2dbea062bb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "LangChain describes progressive disclosure as saving tokens but gives no specific token or cost figures."
+    },
+    "edition_date": "2026-08-28"
   },
   "1e95bee9c26709cb": {
     "id": "pb-dial-reasoning-effort",
@@ -816,6 +873,25 @@
     },
     "edition_date": "2026-07-17"
   },
+  "54eaa118875bfef6": {
+    "id": "pb-durable-checkpointed-retries",
+    "kind": "source-backed",
+    "title": "Checkpoint model and tool calls so a late failure doesn't replay the whole run",
+    "area": "Reliability",
+    "problem": "When a long multi-step agent run fails near the end, a naive retry re-executes every completed model and tool call from the start, wasting compute and latency and risking double-effects from non-idempotent tools.",
+    "apply": "Wrap agent model/tool calls as durable workflow activities (e.g. via Diagrid Catalyst or an equivalent Dapr-based durable-execution layer) so an interrupted run resumes from the exact point of failure instead of replaying completed steps. Before adopting, check how it handles non-idempotent tools and what per-call storage/latency overhead it adds.",
+    "result": "Interrupted runs resume without repeating completed work, and cryptographically signed workflow history makes deleted or reordered steps detectable when state reloads.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/diagrid-catalyst-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "54eaa118875bfef6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Diagrid's own 'up to 10x' performance claim is not independently assessable (InfoQ notes the comparison basis is unspecified), so this card omits it and describes only the checkpoint/verification mechanism."
+    },
+    "edition_date": "2026-08-28"
+  },
   "56ef11c9d3f8e424": {
     "id": "pb-memghost-stealth-memory-injection",
     "kind": "source-backed",
@@ -1272,6 +1348,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "86c9015dd55dff65": {
+    "id": "pb-auto-mode-not-a-sandbox",
+    "kind": "source-backed",
+    "title": "Don't rely on your coding agent's built-in safety classifier as your only sandbox",
+    "area": "Safety",
+    "problem": "A classifier meant to block dangerous commands from a compromised agent can itself become the failure point: a researcher reached local code execution against Claude Code's Auto Mode with an 80% success rate, and the same classifier then blocked Claude's own cleanup command once it detected the compromise.",
+    "apply": "Run autonomous/auto-mode coding agents inside an isolated container, VM, or OS-level sandbox with restricted network access and no access to SSH keys, cloud credentials, or your home directory. Treat the agent's built-in safety classifier as one layer, not the security boundary.",
+    "result": "Simon Willison reports that a compromise stays contained to the sandbox instead of reaching real credentials or the host machine, even if the classifier is bypassed or ends up blocking the agent's own recovery attempt.",
+    "effort": "medium",
+    "source": "simon_willison",
+    "source_url": "https://simonwillison.net/2026/Aug/27/breaking-claude-code-opus-5-auto-mode/",
+    "source_sid": "86c9015dd55dff65",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The 80% success rate and attack chain are from Johann Rehberger's research as relayed by Simon Willison, not independently reproduced here."
+    },
+    "edition_date": "2026-08-28"
+  },
   "89a606f362d88b4e": {
     "id": "pb-skills-regression-tax",
     "kind": "source-backed",
@@ -1290,6 +1385,25 @@
       "note": "The paper decomposes skill-driven agent performance into gains and regressions and measures each directly."
     },
     "edition_date": "2026-07-28"
+  },
+  "8c698247d726e3de": {
+    "id": "pb-llm-gateway-runtime-controls",
+    "kind": "source-backed",
+    "title": "Put a runtime gateway in front of every model call so a stuck retry loop can't blow your budget overnight",
+    "area": "Cost & latency",
+    "problem": "An agent stuck in a retry loop can rack up thousands of LLM calls and a four-figure bill by morning, and a provider outage takes every agent using it down at once.",
+    "apply": "Route every agent's model calls through a runtime gateway (e.g. LangSmith's LLM Gateway) that enforces time-bound spend caps and rate limits at the org/workspace/key/user level, configure automatic fallback to a backup provider on outage, and turn on PII/secret redaction before requests leave your network — all without touching each agent's code.",
+    "result": "LangChain reports that a request exceeding its configured cap gets rejected with a 402 before it hits your model bill, and a provider outage reroutes to a fallback automatically instead of taking every dependent agent down with it.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/langsmith-llm-gateway-runtime-controls-for-production-agents",
+    "source_sid": "8c698247d726e3de",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain describes the gateway's spend-cap, fallback, and redaction behavior; the four-figure runaway-bill scenario is their own framing example, not a measured incident."
+    },
+    "edition_date": "2026-08-28"
   },
   "8db233accb157cb2": {
     "id": "pb-check-dependency-vulnerabilities-before-agent-installs",
@@ -1404,6 +1518,25 @@
       "note": "Vendor (AWS) walkthrough of AgentCore Memory's metadata-filtering design and its stated retrieval-precision and multi-tenant benefits."
     },
     "edition_date": "2026-07-03"
+  },
+  "92884e6fce9aba7c": {
+    "id": "pb-rubric-middleware-self-correct",
+    "kind": "source-backed",
+    "title": "Add a grader sub-agent that checks output against a rubric before you ship it",
+    "area": "Evals",
+    "problem": "Agent output that's close to correct still ships wrong when nothing checks it against the actual success criteria before it reaches the user.",
+    "apply": "Attach a RubricMiddleware to your agent with a grader model, a review system prompt, and any verification tools (e.g. a test runner), then pass a rubric checklist on each invocation. On failure, the grader's per-criterion feedback is injected back into the conversation and the agent retries, up to a capped number of iterations.",
+    "result": "LangChain reports that in their own example, a generated function which crashed on unhashable types was diagnosed by the grader and fixed on the very next iteration — targeted feedback instead of a blind retry.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/introducing-rubrics-for-deepagents",
+    "source_sid": "92884e6fce9aba7c",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's own worked example shows one failure caught and fixed in the next iteration; no aggregate pass-rate benchmark is given."
+    },
+    "edition_date": "2026-08-28"
   },
   "9352c956aa90126f": {
     "id": "pb-mcp-defense-in-depth",
@@ -2031,6 +2164,25 @@
       "note": "EnterpriseRAG benchmark paper on LLM instruction adherence under non-ideal enterprise retrieval."
     },
     "edition_date": "2026-08-14"
+  },
+  "e99b5b88b814670b": {
+    "id": "pb-langsmith-engine-issue-detection",
+    "kind": "source-backed",
+    "title": "Let a trace-mining agent group your production failures before you go hunting for them",
+    "area": "Reliability",
+    "problem": "Production agents generate millions of traces, and manually scanning them for failure patterns and root causes doesn't scale.",
+    "apply": "Point a trace-mining agent (e.g. LangSmith Engine) at your production trace store; it groups related failures across runs, produces evidence-backed diagnoses, drafts prompt/code fixes as ready-to-review PRs, and can keep watching a fixed issue for regressions afterward.",
+    "result": "LangChain reports the latest version scores over 2x better at identifying and grouping issues on its internal IssueBench and 25% better at writing correct fixes on the public Terminal-Bench, after scanning 60M+ production traces and surfacing 20,000+ issues.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/new-in-langsmith-engine-2x-better-issue-detection",
+    "source_sid": "e99b5b88b814670b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The 2x, 25%, and trace/issue-count figures are LangChain's own reported benchmark results, not independently verified."
+    },
+    "edition_date": "2026-08-28"
   },
   "ea758b7fe7cc27d3": {
     "id": "pb-github-token-egress-proxy",
