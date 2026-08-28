@@ -1,9 +1,8 @@
 {
   "slug": "deepseek-pro",
-  "generated_at": "2026-08-28T15:12:15Z",
+  "generated_at": "2026-08-28T20:12:39Z",
   "covers_last_updated": "2026-08-27T22:50:25+00:00",
   "covers_member_sids": [
-    "da64c11813b9a5aa",
     "ed9cd2f2dd0a8223",
     "1f245454c88a0663",
     "1dd3032e2d3a1979",
@@ -41,7 +40,6 @@
     "aa6de9df205ba694",
     "2fc5227c815a0910",
     "75832756ab7980a4",
-    "f3a1f48b02967a8c",
     "a9c8b35dcb9918d4",
     "4f2d09b57d0c456e",
     "04346032a7611ffe",
@@ -88,20 +86,22 @@
     "c6aff42bd1dcab96",
     "c4fce5c84f5c9fe2",
     "148d281878cc48b2",
-    "86c9015dd55dff65"
+    "86c9015dd55dff65",
+    "f3a1f48b02967a8c"
   ],
-  "tldr": "A week of price-hike warnings culminated in DeepSeek's confirmed Aug 13 launch of V4 Pro at sharply higher prices, alongside Harness, an open-source Claude Code rival launched the same week. Harness then drew broad developer pickup through Aug 17 and matured with a post-beta update integrating Claude Code and Codex as sub-agents by Aug 21, while V4-Flash-Vision-Exp shipped Aug 21 as DeepSeek's first multimodal model.",
-  "whats_new": "QiAnXin disclosed a critical, still-unpatched remote-code-execution flaw in the open-source Harness wrapper on Aug 25 — a day later, analysis argued V4 Pro's real-world safety now hinges on that flaw more than the model's own guardrails, the thread's first safety-critical framing since launch.",
-  "why_it_matters": "Harness ships as a free, open-source Claude Code alternative that matured fast (multimodal update, sub-agent integration with Claude Code and Codex), but QiAnXin's disclosed RCE flaw is still unpatched — treating it as production-ready plugin infrastructure is premature. V4 Pro's list price also remains well above its pre-hike level despite the weekend-surcharge rollback.",
+  "tldr": "A week of price-hike warnings ended with DeepSeek confirming V4 Pro on Aug 13 at sharply higher API prices and open-sourcing Harness, an MIT-licensed Claude Code rival, the same day. Harness drew broad developer pickup, added Claude Code and Codex as sub-agents by Aug 21, and V4-Flash-Vision-Exp shipped as DeepSeek's first multimodal model — then the Aug 23 weekend-surcharge rollback left cumulative peak prices still up 355%.",
+  "whats_new": "No patch or DeepSeek response has surfaced in the two days since QiAnXin disclosed a critical RCE flaw in Harness on Aug 25 — an Aug 26 analysis already pins V4 Pro's practical safety on that wrapper, not the model's guardrails.",
+  "why_it_matters": "Harness is now agent infrastructure — a plugin layer that schedules Claude Code and Codex as sub-agents — carrying a disclosed, unpatched RCE with no vendor response in the thread. V4 Pro's base price also stays well above pre-hike levels; the weekend rollback trimmed the surcharge, not the hike.",
   "status": {
-    "state": "QiAnXin's disclosed RCE flaw in Harness is still unpatched; price hike still stands",
+    "state": "Unpatched RCE in Harness · price hike stands",
     "tone": "alert",
     "changed": "2026-08-26",
-    "detail": "V4 Pro launched Aug 13 at sharply higher prices; DeepSeek ended the weekend surcharge Aug 23, but cumulative peak prices remain up 355%. Harness open-sourced alongside V4 Pro's launch and matured fast through Aug 21, but QiAnXin's Aug 25 disclosure of a critical RCE flaw — and the Aug 26 analysis tying V4 Pro's practical safety to it — is the thread's newest and most consequential turn.",
+    "reenable": "no patch, CVE, or DeepSeek response yet",
+    "detail": "V4 Pro shipped Aug 13 at sharply higher prices and DeepSeek ended the weekend surcharge Aug 23, but cumulative peak prices remain up 355%. The open thread is security: QiAnXin's Aug 25 RCE disclosure in Harness and the Aug 26 analysis tying V4 Pro's practical safety to it, with no follow-up since.",
     "track": [
       {
         "label": "price signals + hands-on",
-        "detail": "Aug 7-10",
+        "detail": "Aug 8–11",
         "tone": "rising",
         "weight": 8
       },
@@ -113,7 +113,7 @@
       },
       {
         "label": "quiet build → confirmed",
-        "detail": "Aug 12-13",
+        "detail": "Aug 12–13",
         "tone": "rising",
         "weight": 5
       },
@@ -125,19 +125,19 @@
       },
       {
         "label": "harness open-sourced at launch",
-        "detail": "Aug 13-15",
+        "detail": "Aug 13–15",
         "tone": "rising",
         "weight": 6
       },
       {
         "label": "harness wide developer pickup",
-        "detail": "Aug 13-17",
+        "detail": "Aug 13–17",
         "tone": "rising",
         "weight": 10
       },
       {
         "label": "hike quantified: 14x cheapest model",
-        "detail": "Aug 17-18",
+        "detail": "Aug 17–18",
         "tone": "rising",
         "weight": 5
       },
@@ -149,13 +149,13 @@
       },
       {
         "label": "harness matures: sub-agents, post-beta update",
-        "detail": "Aug 20-24",
+        "detail": "Aug 20–24",
         "tone": "rising",
         "weight": 8
       },
       {
         "label": "V4-Flash-Vision-Exp vs Opus 4.8",
-        "detail": "Aug 21-22",
+        "detail": "Aug 21–22",
         "tone": "rising",
         "weight": 7
       },
@@ -172,8 +172,8 @@
         "weight": 6
       },
       {
-        "label": "V4 Pro safety tied to Harness flaw",
-        "detail": "Aug 26",
+        "label": "safety tied to the flaw, still unpatched",
+        "detail": "Aug 26 → now",
         "tone": "alert",
         "weight": 4
       }
@@ -255,9 +255,8 @@
       "kicker": "PRICE SIGNALS",
       "tone": "rising",
       "headline": "Price-hike reports build for over a week, and a hands-on already finds cracks in the \"cheaper\" pitch",
-      "summary": "Regional coverage flags a coming price increase for days before V4 Pro's launch makes it real. The-decoder.com's Aug 12 check still finds DeepSeek beating MAI Code on price; the-New-Stack's Aug 10 hands-on finds the \"better and cheaper\" pitch holds only partly; finance.biggo.com clocks V4-Flash's own price at $72, 33x cheaper than Kimi K3.",
+      "summary": "Regional coverage flags a coming price increase for days before V4 Pro's launch makes it real. The New Stack's Aug 10 hands-on finds the \"better and cheaper\" pitch holds only partly; the-decoder.com still has DeepSeek beating Microsoft's MAI Code on price; finance.biggo.com clocks V4-Flash at $72, 33x cheaper than Kimi K3.",
       "sids": [
-        "da64c11813b9a5aa",
         "ed9cd2f2dd0a8223",
         "1dd3032e2d3a1979",
         "634f0d2ee393af3f",
@@ -308,7 +307,7 @@
       "kicker": "CONFIRMED",
       "tone": "rising",
       "headline": "A quiet OpenRouter build becomes DeepSeek's officially confirmed V4 Pro release, at sharply higher prices",
-      "summary": "Simon Willison spots the refreshed Pro model listed API-only with no announcement page; a day later, Lufkin Daily News, Reuters, The Information, and Global Times confirm it as a deliberate release at sharply higher user prices, with The Information framing it as a direct challenge to Kimi K3. Yahoo Finance Singapore separately confirms the raised API pricing for V4 models the same day.",
+      "summary": "Simon Willison spots the refreshed Pro model listed API-only with no announcement page; a day later Lufkin Daily News, Reuters, The Information, and Global Times confirm it as a deliberate release, with Nikkei Asia reporting sharply higher user prices and Yahoo Finance Singapore the raised V4 API rates.",
       "sids": [
         "af87c1f98b4ce7bd",
         "680ab3046ae2fb84",
@@ -405,10 +404,10 @@
       ]
     },
     {
-      "kicker": "SAFETY QUESTION",
+      "kicker": "NOW",
       "tone": "alert",
-      "headline": "QiAnXin discloses the Harness RCE flaw the next day's analysis ties to V4 Pro's safety",
-      "summary": "TahawulTech's thin report of a second multimodal model on Aug 24 is followed the next day by QiAnXin's disclosure of a critical, still-unpatched RCE flaw in Harness — the primary source behind the Aug 26 analysis tying V4 Pro's practical safety to that flaw. A same-day retrospective on open-source pioneers closes the window.",
+      "headline": "Harness carries a disclosed, unpatched RCE — and V4 Pro's safety is now argued to ride on it",
+      "summary": "QiAnXin discloses a critical, still-unpatched remote-code-execution flaw in Harness on Aug 25, the primary source behind the Aug 26 analysis tying V4 Pro's practical safety to the wrapper. Nothing has answered it since: no patch, CVE, or DeepSeek statement appears in the thread's remaining coverage.",
       "sids": [
         "ea703774b6cf7cf1",
         "6de9eb34d6e8ab9f",
@@ -418,15 +417,14 @@
     }
   ],
   "open_questions": [
-    "Is the Aug 24 \"new multimodal model\" a distinct release from V4-Flash-Vision-Exp, or delayed/duplicate coverage of the same Aug 21 launch — what's the model's actual name and spec?",
-    "Has QiAnXin's disclosed Harness RCE flaw been assigned a CVE or fixed in a specific version, and does DeepSeek dispute that V4 Pro's safety depends on it?",
+    "Has QiAnXin's Harness RCE flaw been assigned a CVE or fixed in a named version, and does DeepSeek dispute that V4 Pro's safety depends on it?",
+    "Is the Aug 24 \"new multimodal model\" a distinct release from V4-Flash-Vision-Exp, or delayed coverage of the same Aug 21 launch — what is its actual name and spec?",
+    "Now that Harness schedules Claude Code and Codex as sub-agents, does that change the RCE flaw's blast radius versus running Harness standalone?",
     "Does V4 Pro's claimed \"agent gains\" reclaim the benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
-    "Forbes prices V4 Pro at 14x DeepSeek's cheapest model — is that still cheaper than Qwen 3.8 Max per token, or has DeepSeek lost its price edge to Alibaba?",
-    "Now that Harness integrates Claude Code and Codex as sub-agents, does that scheduling-layer design change the RCE flaw's blast radius versus running Harness standalone?"
+    "Forbes prices V4 Pro at 14x DeepSeek's cheapest model — is that still cheaper than Qwen 3.8 Max per token, or has DeepSeek lost its price edge to Alibaba?"
   ],
-  "take_for_builders": "Don't run Harness's plugin ecosystem — including its Claude Code/Codex sub-agent integration — against production credentials or untrusted input until DeepSeek or an independent researcher confirms QiAnXin's disclosed RCE flaw is fixed. Re-price any DeepSeek deployment plan against the post-Aug-13 rates, not the pre-hike numbers — the weekend-surcharge rollback didn't reverse the base increase.",
+  "take_for_builders": "Keep Harness and its Claude Code/Codex sub-agent integration off production credentials and untrusted input until a fixed version or CVE is published — QiAnXin's disclosure is 2 days old with no patch in sight. Re-price any DeepSeek plan against post-Aug-13 rates, not pre-hike numbers.",
   "day_captions": {
-    "da64c11813b9a5aa": "Semafor's follow-up keeps the price-hike warning building.",
     "634f0d2ee393af3f": "Mashable's report keeps the price-hike signal alive three days on, still without an official DeepSeek statement.",
     "edbf16b4b2f40dda": "A CITIC Securities analyst note confirms DeepSeek's planned price increase and tells investors to keep watching the sector.",
     "472c3b6cf61dc0c3": "Asia Tech Review describes DeepSeek entering a higher-price, higher-ambition phase, still before any official launch.",
@@ -482,7 +480,7 @@
     "abf746d5e4bd26e3": "A fourth outlet corroborates the same weekend-surcharge rollback a day later, with no new pricing details.",
     "ea703774b6cf7cf1": "TahawulTech.com reports DeepSeek shipping another multimodal model on Aug 24 — a single, thin report with no model name or benchmark yet, days after V4-Flash-Vision-Exp.",
     "36b9c59d3a4ff7aa": "A day-later how-to guide walks through V4-Flash-Vision-Exp's image-input feature — tutorial pickup, not a new capability or benchmark claim.",
-    "c6aff42bd1dcab96": "A day-after analysis argues DeepSeek V4 Pro's practical safety now depends on the still-unpatched Harness wrapper rather than the model's own guardrails — the first piece to connect the RCE disclosure directly to model-safety framing.",
+    "c6aff42bd1dcab96": "A day-after analysis argues V4 Pro's practical safety now depends on the still-unpatched Harness wrapper rather than the model's own guardrails — the last DeepSeek item in the thread, and still unanswered.",
     "c4fce5c84f5c9fe2": "AI Business covers Qwen 3.8 Flash-Next's pricing and its caveats — another Qwen note from the shared search cluster, not a DeepSeek development.",
     "148d281878cc48b2": "A hands-on report finds Qwen 3.8 matching Claude-Opus-tier output on a gaming GPU — another Qwen capability story riding the shared cluster, not a DeepSeek development.",
     "b166bbd14fdb2d7c": "Wccftech reports a study finding Kimi K3's reasoning patterns closely resemble Claude Opus's — a Kimi K3 distillation story, not a DeepSeek development.",

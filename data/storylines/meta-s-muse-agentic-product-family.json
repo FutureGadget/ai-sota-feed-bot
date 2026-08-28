@@ -1,0 +1,136 @@
+{
+ "slug": "meta-s-muse-agentic-product-family",
+ "label": "Meta's Muse agentic product family",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
+ "first_seen": "2026-08-09T12:48:04+00:00",
+ "last_updated": "2026-08-14T05:05:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-08-28T20:13:49.294525+00:00",
+ "sources": [
+  "hackernews_ai",
+  "infoq_ai_ml",
+  "search_agent_engineering_news"
+ ],
+ "days": [
+  {
+   "date": "2026-08-09",
+   "items": [
+    {
+     "title": "Meta Launches Muse Code, Its First AI Coding Agent to Take on Claude and Codex - Memeburn",
+     "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE9qMDYtbG9BZzRiaVdmMTZNR0ZPMzFMdVh0MkR3Y0N3bkNnS0xwYlVwUVpCUmstb3JLZGtDTEVzSnlQZlRpeThnbk9UQmpIQkxHQlVzTDhPeTRyN0xMRlBDcG1qanNEU2lvbDBHRDNfMVlrMVdwcmFQSERIUQ?oc=5",
+     "source": "search_agent_engineering_news",
+     "type": "news",
+     "summary_1line": "Meta Launches Muse Code, Its First AI Coding Agent to Take on Claude and Codex Memeburn",
+     "why_it_matters": "Matches feed focus: agent, codex.",
+     "sid": "31ab186f51e5e6dc",
+     "published": "2026-08-09T12:48:04+00:00",
+     "editor_note": "Establishes the competitive frame — Meta targeting Claude Code and Codex, not general chat."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-10",
+   "items": [
+    {
+     "title": "Meta releases a 30B agent model that fits in ~17GB",
+     "url": "https://huggingface.co/meta-models",
+     "source": "hackernews_ai",
+     "type": "release",
+     "summary_1line": "Meta releases a 30B agent model that fits in ~17GB",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "a61dbc8a3d17f5c2",
+     "published": "2026-08-10T10:28:56+00:00",
+     "editor_note": "First hard sizing number, and the first evidence of a self-hostable Muse tier."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-14",
+   "items": [
+    {
+     "title": "Meta Open-Sources Muse Glimmer: A 30B Local Agentic Model Optimised for On-Device Execution",
+     "url": "https://www.infoq.com/news/2026/08/meta-muse-glimmer/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Meta AI Research has introduced Muse Glimmer, a 30-billion-parameter open-weight model under the Apache 2.0 license, designed for local workflows. It enables autonomous agents and complex task execution on consumer GP...",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "683e96e306332d1e",
+     "published": "2026-08-14T05:05:00+00:00",
+     "editor_note": "Names the model and confirms the Apache 2.0 license — the detail that makes it evaluable in production."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Meta entered the coding-agent market on Aug 9 with Muse Code, pitched directly against Claude Code and Codex. A day later a 30B Meta agent model appeared on Hugging Face at roughly 17GB, the first sign that Muse was a product family with a local tier rather than a single hosted agent.",
+  "stale": false,
+  "whats_new": "Meta open-sourced Muse Glimmer on Aug 14 — a 30B agentic model under Apache 2.0, sized to run autonomous agents and multi-step task execution on a consumer GPU.",
+  "why_it_matters": "An Apache 2.0 30B agent model that fits in ~17GB is the first Muse tier you can run in your own VPC or on a workstation — the option that matters where hosted coding-agent spend or code-egress rules rule out Claude Code and Codex.",
+  "take_for_builders": "Pull the weights and run your own tool-calling and SWE eval before treating Glimmer as a drop-in for a hosted coding agent — no independent benchmark against Claude Code or Codex has surfaced in this thread yet.",
+  "status": {
+   "state": "Shipping · open weights",
+   "tone": "launch",
+   "changed": "2026-08-14",
+   "detail": "Muse is now two tiers: a hosted coding agent (Muse Code) and an Apache 2.0 local model (Muse Glimmer), with no published head-to-head numbers for either.",
+   "track": [
+    {
+     "label": "hosted agent only",
+     "detail": "Aug 9",
+     "tone": "launch",
+     "weight": 30
+    },
+    {
+     "label": "open weights added",
+     "detail": "Aug 10 → now",
+     "tone": "now",
+     "weight": 70
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Muse Code puts Meta in the coding-agent race against Claude Code and Codex",
+    "summary": "Meta's first AI coding agent, positioned head-on against the two incumbents platform teams already pay for.",
+    "sids": [
+     "31ab186f51e5e6dc"
+    ]
+   },
+   {
+    "kicker": "THE TURN",
+    "tone": "turn",
+    "headline": "A 30B Meta agent model shows up on Hugging Face at ~17GB",
+    "summary": "The size is the signal: small enough for one consumer GPU, which makes Muse a family with a self-hosted tier rather than a hosted-only product.",
+    "sids": [
+     "a61dbc8a3d17f5c2"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Muse Glimmer lands under Apache 2.0 for local agent execution",
+    "summary": "Meta AI Research names the open-weight tier and licenses it permissively for autonomous agents on consumer GPUs.",
+    "sids": [
+     "683e96e306332d1e"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Is the ~17GB Hugging Face listing the same checkpoint as Muse Glimmer, or a separate quantized build?",
+   "How does Glimmer score on agentic tool-calling and SWE benchmarks against Claude Code and Codex?",
+   "What context window and tool-calling schema does Glimmer expose to existing agent harnesses?",
+   "Does Muse Code run on the Glimmer weights, or on a separate hosted-only model?",
+   "What are Muse Code's pricing and code-retention terms for commercial use?"
+  ],
+  "provenance": {
+   "683e96e306332d1e": {
+    "verified": 2,
+    "status_update": true
+   }
+  },
+  "generated_at": "2026-08-28T20:11:03+00:00"
+ }
+}

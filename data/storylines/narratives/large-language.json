@@ -1,0 +1,25 @@
+{
+  "slug": "large-language",
+  "generated_at": "2026-08-28T20:12:00Z",
+  "covers_last_updated": "2026-08-27T14:17:14+00:00",
+  "covers_member_sids": [
+    "d2165b4e687df565",
+    "473e4a8407d950ff",
+    "44fdd531ea49fe98"
+  ],
+  "tldr": "Three separate LLM research and evaluation items, grouped by the phrase in their titles rather than by one developing story. It opened Aug 13 with AaLLM, an end-to-end framework driving analog circuit topology generation and sizing, and picked up a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education on Aug 27.",
+  "whats_new": "An arXiv preprint, Prediction of Prediction (PoP), claims hallucination detection from fused inter-layer activations in a single forward pass, targeting the case where an LLM is factually wrong at high decoding confidence.",
+  "why_it_matters": "Output-stage uncertainty checks generally need multiple samples per answer, so the guardrail costs as much as the generation. A detector that reads internal activations during the one pass you already run changes what an inline correctness gate costs to operate.",
+  "take_for_builders": "If your correctness gate scores hallucination risk by sampling several completions, read the PoP preprint before your next inference-cost review — but treat single-pass activation detectors as unproven until someone reports transfer across model families.",
+  "open_questions": [
+    "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
+    "Do the inter-layer activation features transfer across model families, or must a detector be trained per model?",
+    "Does activation-level detection need weights access, ruling it out for API-only deployments?",
+    "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?"
+  ],
+  "day_captions": {
+    "d2165b4e687df565": "Opens the thread on the applications side: LLMs as the driver of an analog circuit design loop, not as the object of study.",
+    "473e4a8407d950ff": "The only non-arXiv item — a clinical journal putting three named commercial assistants head-to-head on one patient-education task.",
+    "44fdd531ea49fe98": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time."
+  }
+}
