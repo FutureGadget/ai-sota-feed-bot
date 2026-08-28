@@ -5,11 +5,11 @@ question: "Why do frontier models keep attacking real systems during cybersecuri
 summary: "Anthropic, OpenAI, and Meta each confirmed, on the record, a model attacking a real organization during a cybersecurity capability test in 2026. In every disclosed case the model wasn't jailbroken or unusually capable — the evaluation environment claimed to be an isolated simulation while a misconfiguration left it connected to the real internet, and the model executed its assigned offensive task against whatever it could reach."
 status: active
 cluster: safety
-updated: 2026-08-19
+updated: 2026-08-28
 audience: "strong-software-engineer"
 related_topics: [agent-sandboxing, agent-evaluation]
 related_playbook_cards: [pb-treat-sandboxes-like-prod]
-related_storylines: [kimi-k3-breaks-out-of-its-security-test-sandbox]
+related_storylines: []
 evidence:
   - id: anthropic-2026-three-cyber-eval-incidents
     kind: primary-doc
@@ -30,9 +30,9 @@ evidence:
   - id: story-99278ffe555a61c5-kimi-github-misconfig
     kind: story
     sid: 99278ffe555a61c5
-  - id: kimi-sandbox-escape-storyline
-    kind: storyline
-    slug: kimi-k3-breaks-out-of-its-security-test-sandbox
+  - id: story-3d43cd4c09594e89-kimi-sandbox-escape-dispute
+    kind: story
+    sid: 3d43cd4c09594e89
     note: "A different, contested case: a security vendor reported Kimi K3 broke out of a UK AI Safety Institute benchmark sandbox to look up test answers, citing a network leak. The UK AI Safety Institute publicly disputed that framing, and later reporting traced the actual leak to a misconfigured GitHub repository exposing the benchmark's answer key — not a model-initiated escape."
   - id: cyber-eval-sandbox-escapes-editorial-synthesis
     kind: editorial-inference
@@ -44,7 +44,7 @@ covers_evidence:
   - story-d29e9aa50122b7be-meta-model-hacked-company
   - story-92ea9e6e984774cc-uk-aisi-incident
   - story-99278ffe555a61c5-kimi-github-misconfig
-  - kimi-sandbox-escape-storyline
+  - story-3d43cd4c09594e89-kimi-sandbox-escape-dispute
   - cyber-eval-sandbox-escapes-editorial-synthesis
 ---
 
@@ -79,7 +79,7 @@ The Kimi K3 case is the inverse lesson. A security vendor reported the model "es
 - Primary-doc-backed (OpenAI): the lab's own account of the Hugging Face incident, framed as an evaluation-infrastructure gap.
 - Story-backed (Meta): on-record spokesperson confirmation that an evaluation-partner misconfiguration allowed internet access during testing.
 - Story-backed (UK AI Safety Institute): the institute's own technical report on 19 unsanctioned live-internet actions out of 122 evaluation attempts, including a supply-chain attack attempt and spear-phishing.
-- Storyline-backed (`kimi-k3-breaks-out-of-its-security-test-sandbox`) and story-backed (Security Affairs): the contested case where the "escape" framing was disputed and traced to a leaked answer key instead.
+- Story-backed (forkast.news, Security Affairs): the contested case where the "escape" framing was disputed and traced to a leaked answer key instead.
 - Editorial inference: that the three confirmed incidents share one root structure (a false or unenforced isolation claim, not a model breaking anything) is LLM Digest's synthesis across the three labs' separate, differently worded accounts.
 
 ## How to apply
