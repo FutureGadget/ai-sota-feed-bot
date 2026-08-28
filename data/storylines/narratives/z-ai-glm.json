@@ -1,23 +1,38 @@
 {
   "slug": "z-ai-glm",
-  "generated_at": "2026-08-28T10:30:00Z",
-  "covers_last_updated": "2026-08-28T07:29:13+00:00",
+  "generated_at": "2026-08-28T15:12:15Z",
+  "covers_last_updated": "2026-08-28T11:42:10+00:00",
   "covers_member_sids": [
     "e8c330662717fd1a",
     "c8a4adf0a06edc29",
     "c7a11a1e7f3eaad4",
     "a9c204e117f936d5",
+    "05d40e9a614e0aad",
+    "5bebd783d4b4b151",
     "135778ccf99d98eb",
-    "50a675f74133978a"
+    "bc33de06305fc366",
+    "3cf619be55a479d4",
+    "708063be727cbd74",
+    "bc0b2cd93677aa22",
+    "50a675f74133978a",
+    "18b8bf131447c27f"
   ],
-  "tldr": "Z.ai CEO Jie Tang laid out GLM 5.3's post-training scaling-law approach in mid-August, then the company delayed the release over cybersecurity risks days later without naming a new ship date. A mysterious \"Ox Alpha\" model then started showing up in benchmarks rivaling DeepSeek, with no confirmed maker.",
-  "whats_new": "Z.ai confirmed Ox Alpha is its own model — a new GLM-series build — and open-sourced its weights on Aug 27 as GLM-5.3-Flash, quietly shipping the delayed release under a different name.",
-  "why_it_matters": "Platform engineers who already benchmarked or deployed the unbranded \"Ox Alpha\" weights should re-map those results to GLM-5.3-Flash and re-check its license and support status now that it has an official identity, rather than treating it as an unverified leak.",
+  "tldr": "Z.ai delayed GLM 5.3 over cybersecurity risks in late August, while a mysterious \"Ox Alpha\" model started showing up in benchmarks rivaling DeepSeek with no confirmed maker. Z.ai then confirmed Ox Alpha was its own model and open-sourced it as GLM-5.3-Flash, a 320B-A18B natively multimodal MoE with a 1M-token context.",
+  "whats_new": "Ox Alpha turned out to run on 100%-domestic Chinese chips, not just carry a new name — a reveal that sent Z.ai-linked shares up 8% even as the company frames the chip choice as cost optimization, not a forced workaround, and a same-week follow-up ships a lower-serving-cost multimodal build.",
+  "why_it_matters": "GLM-5.3-Flash is open-sourced with a 1M-token context and lower serving costs, but the cheaper pricing may be tied to the domestic-chip inference path — confirm that before comparing its economics to a Western-chip deployment.",
   "status": {
-    "state": "Shipped · as Ox Alpha / GLM-5.3-Flash",
+    "state": "Open-sourced · running on domestic chips",
     "tone": "resolved",
-    "changed": "2026-08-27",
-    "detail": "The delayed GLM 5.3 shipped anyway under the unbranded \"Ox Alpha\" name; Z.ai has now confirmed it and released the weights as GLM-5.3-Flash, still without disclosing the cybersecurity risk that caused the delay."
+    "changed": "2026-08-28",
+    "detail": "Ox Alpha shipped as the open-source GLM-5.3-Flash on Aug 27, and Aug 28 coverage confirmed it runs on domestic Chinese chips — the detail behind the stock surge and the model's now-public identity.",
+    "track": [
+      { "label": "scaling law + hands-on", "detail": "Aug 20", "tone": "launch", "weight": 15 },
+      { "label": "delayed over cybersecurity risk", "detail": "Aug 22", "tone": "turn", "weight": 10 },
+      { "label": "Ox Alpha confirmed as Z.ai's own", "detail": "Aug 26", "tone": "turn", "weight": 15 },
+      { "label": "open-sourced as GLM-5.3-Flash", "detail": "Aug 26-27", "tone": "rising", "weight": 20 },
+      { "label": "domestic-chip reveal + stock surge", "detail": "Aug 27", "tone": "rising", "weight": 25 },
+      { "label": "multimodal follow-up, lower costs", "detail": "Aug 28", "tone": "now", "weight": 15 }
+    ]
   },
   "beats": [
     {
@@ -47,28 +62,45 @@
     {
       "kicker": "OPEN-SOURCED",
       "tone": "resolved",
-      "headline": "Ox Alpha ships as GLM-5.3-Flash, now open-source",
-      "sids": ["135778ccf99d98eb"]
+      "headline": "Ox Alpha ships as GLM-5.3-Flash, a 320B-A18B multimodal MoE with 1M-token context",
+      "summary": "The delayed release lands under a different name: a natively multimodal MoE model, open-sourced the same day Z.ai confirms it built Ox Alpha.",
+      "sids": ["05d40e9a614e0aad", "135778ccf99d98eb"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "Ox Alpha's real story: domestic Chinese chips, not just a new name",
+      "summary": "Coverage reveals the model runs on 100% domestic chip support, a Chinese-language deep dive prices it near 1/40 of Opus 4.8, and shares in Z.ai-linked names jump 8% on the news — while a same-day analysis argues the chip choice is optimization, not necessity, and Silicon Valley picks up the story.",
+      "sids": ["5bebd783d4b4b151", "bc33de06305fc366", "3cf619be55a479d4", "708063be727cbd74"]
     },
     {
       "kicker": "NOW",
-      "tone": "neutral",
-      "headline": "Explainer rounds up what's known about Z.ai and Ox Alpha",
-      "sids": ["50a675f74133978a"]
+      "tone": "now",
+      "headline": "A lower-cost multimodal follow-up ships as recaps confirm the chip detail",
+      "summary": "A follow-up highlights GLM-5.3-Flash's multimodal capability at lower serving costs specifically, one recap rounds up the full Ox Alpha story, and a second outlet confirms the domestic-chip build directly.",
+      "sids": ["bc0b2cd93677aa22", "50a675f74133978a", "18b8bf131447c27f"]
     }
   ],
   "open_questions": [
     "What specific cybersecurity risk triggered the original delay, and has Z.ai disclosed it?",
     "Does GLM-5.3-Flash carry the full post-training scaling-law approach Jie Tang described, or is it a scoped-down variant?",
-    "Will Z.ai release a non-Flash GLM 5.3, or does Ox Alpha/GLM-5.3-Flash replace those plans?"
+    "Is the domestic-chip inference path required to hit the announced lower serving costs, or is it one deployment option among others?",
+    "Does running on Chinese chips carry any export-control or licensing exposure for teams outside China adopting GLM-5.3-Flash?"
   ],
-  "take_for_builders": "Re-run any evaluation you did against the unbranded \"Ox Alpha\" weights using the now-official GLM-5.3-Flash release, and check its license before adopting it as a DeepSeek alternative — Z.ai still hasn't disclosed the security issue that delayed it.",
+  "take_for_builders": "Re-run any evaluation you did against the unbranded \"Ox Alpha\" weights using the now-official GLM-5.3-Flash release, and confirm whether its lower serving costs assume the domestic-chip inference path before comparing it to a Western-chip deployment.",
   "day_captions": {
     "e8c330662717fd1a": "CEO Jie Tang explains GLM 5.3's post-training scaling-law philosophy in an AINews interview.",
     "c8a4adf0a06edc29": "An independent hands-on review covers GLM 5's features and pricing, the same day as the CEO interview.",
     "c7a11a1e7f3eaad4": "BetaNews reports Z.ai delayed the GLM 5.3 release over cybersecurity risks.",
     "a9c204e117f936d5": "Bloomberg reports Z.ai confirmed the unattributed \"Ox Alpha\" model, which had been benchmarked rivaling DeepSeek, is its own upcoming GLM-series release.",
+    "05d40e9a614e0aad": "MarkTechPost details the GLM-5.3-Flash release: a 320B-A18B natively multimodal MoE with a 1M-token context.",
     "135778ccf99d98eb": "Z.ai identifies Ox Alpha as GLM-5.3-Flash and open-sources the weights.",
-    "50a675f74133978a": "A recap piece rounds up everything known about Z.ai and the Ox Alpha reveal."
+    "5bebd783d4b4b151": "A Chinese-language deep dive on the \"Niu Lai\" (Ox) build's computing-power economics: 100% domestic chip support priced near 1/40 of Opus 4.8.",
+    "bc33de06305fc366": "Z.ai-linked shares surge 8% after the domestic-chip model release goes public.",
+    "3cf619be55a479d4": "A same-day analysis argues the domestic-chip choice is about cost optimization, not a forced workaround.",
+    "708063be727cbd74": "Coverage frames the Ox Alpha reveal as a Silicon Valley talking point, not just a regional story.",
+    "bc0b2cd93677aa22": "A follow-up highlights GLM-5.3-Flash's multimodal capability and its lower serving costs specifically.",
+    "50a675f74133978a": "A recap piece rounds up everything known about Z.ai and the Ox Alpha reveal, folding in the domestic-chip detail.",
+    "18b8bf131447c27f": "A second outlet confirms Ox Alpha's domestic-chip build directly, closing the loop the recap opened."
   }
 }
