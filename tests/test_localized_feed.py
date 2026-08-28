@@ -515,12 +515,18 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertEqual(status["status"], "current")
 
     def test_economy_mode_limits_to_10_and_translates_all_fields(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        now = datetime.now(timezone.utc)
-        days_in_month = 31 if now.month in (1, 3, 5, 7, 8, 10, 12) else 30
-        # More than +0.15 over pace -> economy.
-        chars_used = int((now.day / days_in_month + 0.20) * 1_000_000)
-        chars_used = min(chars_used, 970_000)  # stay below the 2% pause floor
+        # Pin the billing clock early enough in the month that economy mode is
+        # mathematically reachable without crossing the 2% pause floor. A test
+        # based on the real date becomes impossible during the month's last days.
+        fixed_now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)
+
+        class FixedDatetime(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return fixed_now if tz is None else fixed_now.astimezone(tz)
+
+        current_month = localized._current_month(fixed_now)
+        chars_used = 600_000  # > Pacific day 10/31 + 0.15, with 40% remaining
         self._write_budget(current_month, chars_used=chars_used, monthly_cap=1_000_000)
         # No existing snapshot, so the conserve-cadence skip never applies; economy
         # must still translate this run (first run has nothing to preserve).
@@ -532,7 +538,8 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
                 stats["chars_sent"] = stats.get("chars_sent", 0) + sum(len(t) for t in texts)
             return [f"번역-{t}" for t in texts]
 
-        with patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
+        with patch.object(localized, "datetime", FixedDatetime), \
+             patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
              patch("google_translate.translate_texts", side_effect=fake_translate):
             self._run_main(["--locale", "ko", "--label", "brief", "--limit", "20"])
 
