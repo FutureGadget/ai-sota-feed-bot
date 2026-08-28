@@ -1,21 +1,23 @@
 {
   "slug": "z-ai-glm",
-  "generated_at": "2026-08-22T20:06:56Z",
-  "covers_last_updated": "2026-08-22T12:21:47+00:00",
+  "generated_at": "2026-08-28T10:30:00Z",
+  "covers_last_updated": "2026-08-28T07:29:13+00:00",
   "covers_member_sids": [
     "e8c330662717fd1a",
     "c8a4adf0a06edc29",
-    "c7a11a1e7f3eaad4"
+    "c7a11a1e7f3eaad4",
+    "a9c204e117f936d5",
+    "135778ccf99d98eb",
+    "50a675f74133978a"
   ],
-  "tldr": "Z.ai CEO Jie Tang laid out GLM 5.3's post-training scaling-law approach the same day an independent hands-on review covered GLM 5's features and pricing. Two days later, the company confirmed the follow-up release wasn't shipping on schedule.",
-  "whats_new": "Z.ai delayed the GLM 5.3 release over cybersecurity risks, per BetaNews's Aug 22 report.",
-  "why_it_matters": "Platform engineers evaluating GLM 5.3 as an open-weight option should expect a slipped release date and treat any leaked or early build with extra scrutiny until Z.ai discloses what triggered the review.",
+  "tldr": "Z.ai CEO Jie Tang laid out GLM 5.3's post-training scaling-law approach in mid-August, then the company delayed the release over cybersecurity risks days later without naming a new ship date. A mysterious \"Ox Alpha\" model then started showing up in benchmarks rivaling DeepSeek, with no confirmed maker.",
+  "whats_new": "Z.ai confirmed Ox Alpha is its own model — a new GLM-series build — and open-sourced its weights on Aug 27 as GLM-5.3-Flash, quietly shipping the delayed release under a different name.",
+  "why_it_matters": "Platform engineers who already benchmarked or deployed the unbranded \"Ox Alpha\" weights should re-map those results to GLM-5.3-Flash and re-check its license and support status now that it has an official identity, rather than treating it as an unverified leak.",
   "status": {
-    "state": "Delayed · cybersecurity review",
-    "tone": "alert",
-    "changed": "2026-08-22",
-    "reenable": "no revised ship date reported",
-    "detail": "GLM 5.3's release is on hold pending a security review; Z.ai has not disclosed the specific risk or a new ship date."
+    "state": "Shipped · as Ox Alpha / GLM-5.3-Flash",
+    "tone": "resolved",
+    "changed": "2026-08-27",
+    "detail": "The delayed GLM 5.3 shipped anyway under the unbranded \"Ox Alpha\" name; Z.ai has now confirmed it and released the weights as GLM-5.3-Flash, still without disclosing the cybersecurity risk that caused the delay."
   },
   "beats": [
     {
@@ -35,16 +37,38 @@
       "tone": "turn",
       "headline": "GLM 5.3 release delayed over cybersecurity risks",
       "sids": ["c7a11a1e7f3eaad4"]
+    },
+    {
+      "kicker": "THE REVEAL",
+      "tone": "turn",
+      "headline": "Z.ai confirms the mysterious \"Ox Alpha\" stealth model is its own, weights coming",
+      "sids": ["a9c204e117f936d5"]
+    },
+    {
+      "kicker": "OPEN-SOURCED",
+      "tone": "resolved",
+      "headline": "Ox Alpha ships as GLM-5.3-Flash, now open-source",
+      "sids": ["135778ccf99d98eb"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "neutral",
+      "headline": "Explainer rounds up what's known about Z.ai and Ox Alpha",
+      "sids": ["50a675f74133978a"]
     }
   ],
   "open_questions": [
-    "What specific cybersecurity risk triggered the delay, and has Z.ai disclosed it?",
-    "Does GLM 5.3 ship with the post-training scaling-law approach CEO Jie Tang described, or does the security review change the release scope?"
+    "What specific cybersecurity risk triggered the original delay, and has Z.ai disclosed it?",
+    "Does GLM-5.3-Flash carry the full post-training scaling-law approach Jie Tang described, or is it a scoped-down variant?",
+    "Will Z.ai release a non-Flash GLM 5.3, or does Ox Alpha/GLM-5.3-Flash replace those plans?"
   ],
-  "take_for_builders": "Hold off pinning a GLM 5.3 version until Z.ai names a new release date, and track its disclosures for the specific cybersecurity risk before evaluating it as a coding backend.",
+  "take_for_builders": "Re-run any evaluation you did against the unbranded \"Ox Alpha\" weights using the now-official GLM-5.3-Flash release, and check its license before adopting it as a DeepSeek alternative — Z.ai still hasn't disclosed the security issue that delayed it.",
   "day_captions": {
     "e8c330662717fd1a": "CEO Jie Tang explains GLM 5.3's post-training scaling-law philosophy in an AINews interview.",
     "c8a4adf0a06edc29": "An independent hands-on review covers GLM 5's features and pricing, the same day as the CEO interview.",
-    "c7a11a1e7f3eaad4": "BetaNews reports Z.ai delayed the GLM 5.3 release over cybersecurity risks."
+    "c7a11a1e7f3eaad4": "BetaNews reports Z.ai delayed the GLM 5.3 release over cybersecurity risks.",
+    "a9c204e117f936d5": "Bloomberg reports Z.ai confirmed the unattributed \"Ox Alpha\" model, which had been benchmarked rivaling DeepSeek, is its own upcoming GLM-series release.",
+    "135778ccf99d98eb": "Z.ai identifies Ox Alpha as GLM-5.3-Flash and open-sources the weights.",
+    "50a675f74133978a": "A recap piece rounds up everything known about Z.ai and the Ox Alpha reveal."
   }
 }
