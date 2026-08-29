@@ -2,13 +2,17 @@
 enabled: true
 preset: balanced
 
-# Global cap on items scored after the per-slot freshness window. Note the
-# prefilter ranks by freshness+reliability with a *slot-scaled* decay
+# Global cap on items scored after the per-slot freshness window. Source
+# coverage below reserves each configured source's Stage C capacity before the
+# remaining space is filled by freshness+reliability. Note the prefilter ranks
+# with a *slot-scaled* decay
 # (freshness_hours/3), so sources in short-window slots (vendor/cloud, 96h)
 # decay ~2.5x faster than frontier (240h) and can be crowded out of the pool by
 # older frontier posts. 140 (was 120) keeps fresh short-window posts (e.g.
 # google_cloud spec posts) from falling just below the line.
 candidate_pool_cap: 140
+candidate_pool_coverage:
+  enabled: true
 llm_budget: 8
 max_items: 24
 # Merge strategy: fixed slot floors + dynamic headroom fill

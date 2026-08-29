@@ -457,13 +457,9 @@ def _extract_published_from_html(html_text: str) -> str | None:
         raw = (m.group(1) or "").strip()
         if not raw:
             continue
-        try:
-            dt = dt_parser.parse(raw)
-            if dt.tzinfo is None:
-                dt = dt.replace(tzinfo=timezone.utc)
-            return dt.astimezone(timezone.utc).isoformat()
-        except Exception:
-            continue
+        normalized = _normalize_published(raw)
+        if normalized:
+            return normalized
     return None
 
 
@@ -558,6 +554,11 @@ def _normalize_published(raw: str) -> str | None:
         dt = dt_parser.parse(raw)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
+        # Date-only metadata has no trustworthy time of day. Anchor it at the
+        # midpoint of the publication day so a fresh article is not treated as
+        # stale for up to 24 hours by downstream freshness scoring.
+        if re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw.strip()):
+            dt = dt.replace(hour=12, minute=0, second=0, microsecond=0)
         return dt.astimezone(timezone.utc).isoformat()
     except Exception:
         return None

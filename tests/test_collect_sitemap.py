@@ -22,6 +22,19 @@ class FakeResponse:
 
 
 class SitemapCollectionTest(unittest.TestCase):
+    def test_date_only_publication_metadata_uses_neutral_midday_anchor(self) -> None:
+        page = """
+        <html>
+          <head>
+            <meta name="date" content="2026-08-26">
+          </head>
+        </html>
+        """
+        with patch.object(collect.urllib.request, "urlopen", return_value=FakeResponse(page)):
+            result = collect._fetch_page_meta("https://example.com/blog/date-only")
+
+        self.assertEqual(result["published"], "2026-08-26T12:00:00+00:00")
+
     def test_fetch_page_meta_handles_attribute_order_and_quotes(self) -> None:
         page = """
         <html>
@@ -159,7 +172,7 @@ class SitemapCollectionTest(unittest.TestCase):
             items[0]["summary"],
             "Anthropic explains the rollout, controls, and availability.",
         )
-        self.assertEqual(items[0]["published"], "2026-06-12T00:00:00+00:00")
+        self.assertEqual(items[0]["published"], "2026-06-12T12:00:00+00:00")
         cache_row = saved_cache["https://example.com/blog/fable-mythos-access"]
         self.assertEqual(cache_row["title"], items[0]["title"])
         self.assertEqual(cache_row["description"], items[0]["summary"])
