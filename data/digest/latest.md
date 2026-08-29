@@ -5,125 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Just a rumour of a bug is enough to find a security exploit these days
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Aug/28/just-a-rumour-of-a-bug/
-- Score: 3.205 | Reliability: 1.0
+- Score: 3.168 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Quantifying infrastructure noise in agentic coding evals
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/infrastructure-noise
-- Score: 2.742 | Reliability: 1.0
+- Score: 2.704 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 3. Demystifying evals for AI agents
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
-- Score: 2.742 | Reliability: 1.0
+- Score: 2.704 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 4. Introducing advanced tool use on the Claude Developer Platform
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/advanced-tool-use
-- Score: 2.614 | Reliability: 1.0
+- Score: 2.578 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. Making Claude Code more secure and autonomous with sandboxing
 - Type: news | Source: anthropic_engineering
 - URL: https://www.anthropic.com/engineering/claude-code-sandboxing
-- Score: 2.614 | Reliability: 1.0
+- Score: 2.578 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 6. claude-code v2.1.251
+## 6. [AINews] OpenAI shuts off Cursor
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-openai-shuts-off-cursor
+- Score: 2.566 | Reliability: 1.0
+- Why it matters: 
+
+## 7. LaneGate – Git-native worktree orchestrator for AI agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/sudheerdvn/lanegate
+- Score: 2.529 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 8. claude-code v2.1.251
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.251
-- Score: 2.541 | Reliability: 1.0
+- Score: 2.491 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 7. Ask HN: What BOYK AI client are you using?
-- Type: news | Source: hackernews_ai
-- URL: https://news.ycombinator.com/item?id=49486912
-- Score: 2.524 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 8. Tencent unveils AI model it says outperforms Z.ai, Moonshot
+## 9. Qwen 3.8 Flash Reduces Costs to One-Third of DeepSeek-V4-Flash
 - Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiiAFBVV95cUxQN3JZTVI0akE0dVk4NmtyN0ZjQlVGcFdZWGY4U1Zsa3VZMXVaNkJudGNoVDZaRzhyMEoxbkNQVlhkaVdJVXo3TkhRblJxVVRCRGNzYWFjaDk5MEVMNWF5dlhZWENqOU41Vnh1TE9IYnZwYm1MczJqZlV5Zk13aHNodlFLSTVwUFRz?oc=5
-- Score: 2.393 | Reliability: 1.0
+- URL: https://news.google.com/rss/articles/CBMimAFBVV95cUxQeE50b2tjajhZd0N6a0lvX3VuVU4xckJWMXRBTkJZOWotMVdSMXVaWThGOTVxMHlBNzA3NkxEekFwaTVyeW1GU3pERHZQa0pObHdSNTdVNHQ1V0s0NTEweDJ1UUFfdHJDWG5ER0xnV1dEM0J3c093RUZXUldpNzJSNXZxc0tRQkFNaGI4MlNLSkU3VXpXdHlfOA?oc=5
+- Score: 2.445 | Reliability: 1.0
 - Why it matters: 
 
-## 9. PACE: A Unified Condense-and-Extract Paradigm for Fast VLM Inference
-- Type: paper | Source: arxiv_cs_ai
-- URL: http://arxiv.org/abs/2608.27206v1
-- Score: 2.374 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
+## 10. FreeToken Unlocks Frontier MoE Inference on Consumer Hardware via Dynamic Co-Execution
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/08/freetoken-local-inference/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.426 | Reliability: 1.0
+- Why it matters: 
 
-## 10. BTS-AgentBench: A Deterministic, Replayable Pipeline from Read-Only Telemetry Logs to Agent Benchmarks
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2608.27334v1
-- Score: 2.36 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 11. Breaking Claude Code Opus 5 Auto Mode
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Aug/27/breaking-claude-code-opus-5-auto-mode/
+- Score: 2.413 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, claude code.
 
-## 11. codex 0.151.0-alpha.12
+## 12. codex 0.151.0-alpha.12
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.151.0-alpha.12
-- Score: 2.35 | Reliability: 1.0
+- Score: 2.301 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 12. claude-agent-sdk-python v0.2.148
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.148
-- Score: 2.2 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 13. Automated researchers can reliably mitigate alignment failures
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures
-- Score: 2.182 | Reliability: 1.0
-- Why it matters: 
+## 13. August 2026: LangChain Newsletter — Managed Deep Agents, LLM Gateway, and More
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/august-2026-langchain-newsletter
+- Score: 2.212 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
 ## 14. [AINews] OpenAI to reach AGI bar by end-2026
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-openai-to-reach-agi-bar-by
-- Score: 2.179 | Reliability: 1.0
+- Score: 2.154 | Reliability: 1.0
 - Why it matters: 
 
-## 15. Our decision on Cursor following its acquisition by SpaceX
+## 15. claude-agent-sdk-python v0.2.148
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.148
+- Score: 2.153 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 16. Automated researchers can reliably mitigate alignment failures
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures
+- Score: 2.109 | Reliability: 1.0
+- Why it matters: 
+
+## 17. Our decision on Cursor following its acquisition by SpaceX
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/our-decision-on-cursor-following-its-acquisition-by-spacex
-- Score: 2.124 | Reliability: 1.0
+- Score: 2.095 | Reliability: 1.0
 - Why it matters: 
 
-## 16. Diffusion Policies for Short-Horizon Planning in Robot Crowd Navigation
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2608.27158v1
-- Score: 2.095 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
+## 18. Evaluating OpenWiki with WikiBench
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/evaluating-openwiki-with-wikibench
+- Score: 2.087 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
-## 17. Meta Expands Its Custom Silicon Strategy From Compute Into Networking
+## 19. Meta Expands Its Custom Silicon Strategy From Compute Into Networking
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/08/meta-hccl/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.074 | Reliability: 1.0
+- Score: 2.05 | Reliability: 1.0
 - Why it matters: 
 
-## 18. Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models
-- Type: paper | Source: arxiv_llm_reliability
-- URL: http://arxiv.org/abs/2608.27165v1
-- Score: 2.074 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
-
-## 19. Supporting Thailand’s next generation of AI startups
+## 20. Supporting Thailand’s next generation of AI startups
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/supporting-next-generation-ai-startups-thailand
-- Score: 2.055 | Reliability: 1.0
+- Score: 2.027 | Reliability: 1.0
 - Why it matters: 
 
-## 20. Beyond answers: New Genie One features to turn insights into action
+## 21. Piloting the world's first double-blind AI evaluations
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/piloting-the-worlds-first-double-blind-ai-evaluations/
+- Score: 1.971 | Reliability: 1.0
+- Why it matters: Matches feed focus: evaluation.
+
+## 22. langgraph-sdk==0.4.4
+- Type: release | Source: langgraph_releases
+- URL: https://github.com/langchain-ai/langgraph/releases/tag/sdk%3D%3D0.4.4
+- Score: 1.811 | Reliability: 1.0
+- Why it matters: 
+
+## 23. Beyond answers: New Genie One features to turn insights into action
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/beyond-answers-new-genie-one-features-turn-insights-action
-- Score: 1.681 | Reliability: 1.0
+- Score: 1.651 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Batch write and discover records in Amazon SageMaker Feature Store
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/batch-write-and-discover-records-in-amazon-sagemaker-feature-store/
-- Score: 1.573 | Reliability: 1.0
+## 24. The Open ASR Leaderboard Adds Its First Global South Language
+- Type: research | Source: huggingface_blog
+- URL: https://huggingface.co/blog/open-asr-leaderboard-global-south
+- Score: 1.517 | Reliability: 1.0
 - Why it matters:
