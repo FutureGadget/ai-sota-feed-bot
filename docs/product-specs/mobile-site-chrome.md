@@ -85,6 +85,31 @@ signal. The Editor's Desk trigger rolls those visible `New` pills up into a comp
 so mobile readers can tell there is something worth opening without inspecting
 the drawer.
 
+### Model Radar discovery on the live feed
+
+`/models` remains a global destination in Editor's Desk. The live feed also
+provides a responsive companion preview because the desktop right rail has no
+natural mobile equivalent:
+
+- At widths below 1200px, show an inline **Model Release Radar** snapshot
+  after the fourth actual story in a live feed result. On a shorter result,
+  append it after the final story.
+- The snapshot shows the top three distinct base models, their organization,
+  one ranked capability metric, price when known, open-weights status, visible
+  source attribution, and a link to the full Radar. Every model row links to
+  its detail page with a 44px minimum touch target.
+- Search results and Saved view omit the snapshot. If the static models payload
+  is empty or unavailable, omit it without reserving space or replacing the
+  feed's last-good fallback.
+- At 1200px and above, retain the five-row sticky right rail. Do not render an
+  additional visible inline copy.
+- Do not use a horizontal carousel, a persistent bottom control, or a `New`
+  signal based only on data refresh cadence.
+
+Placement is by **story rank**, never DOM-child position, so the first-visit
+prompt, catch-up card, and Editor's Desk modules cannot move the Radar below
+the finish line.
+
 ### Page actions
 
 Page utilities must not compete with global navigation or contextual pickers.
