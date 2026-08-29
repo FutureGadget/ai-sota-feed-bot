@@ -38,7 +38,9 @@ Stage A: prefilter (ranking.stage_a_prefilter)
     (prefilter_reasons.off_topic)
   - per-slot freshness window
   - source health floor
-  - cap to candidate_pool_cap (140)
+  - reserve up to each configured source's `max_per_source` candidates
+    (`candidate_pool_coverage`)
+  - fill the remaining pool by prefilter score up to `candidate_pool_cap` (140)
       |
       v
 Stage B: slot assignment (ranking.assign_slots)
@@ -93,7 +95,13 @@ Final feed list (data/processed/latest.json)
 File: `config/ranking.yaml` (over `config/presets/<preset>.yaml`)
 
 - `preset`: base preset to layer under local overrides
-- `candidate_pool_cap`: max items after prefilter stage (140)
+- `candidate_pool_cap`: normal max items after prefilter stage (140); source
+  coverage reserves can make the pool larger only when their configured reserve
+  cannot fit inside this value
+- `candidate_pool_coverage.enabled`: preserve configured source representation
+  before the global cap (true in production)
+- `candidate_pool_coverage.per_source`: optional fixed reserve per source;
+  omitted means each slot's `max_per_source`
 - `llm_budget`: max LLM calls for the labeling stage (8; inert while LLM disabled)
 - `max_items`: final feed target size before downstream constraints (24)
 - `slot_merge_strategy`: `floor_then_dynamic`
@@ -130,12 +138,15 @@ which gate a source dies at.
 3. **Per-slot freshness window** (`freshness_hours`) — items older than the
    window are dropped (`prefilter_reasons.freshness_window`). Low-volume
    sources can be perpetually stale against a short window.
-4. **Candidate pool cap** (`candidate_pool_cap`, 140) — global top-N by
-   `freshness + reliability`, where the freshness decay is **slot-scaled**
+4. **Candidate pool cap** (`candidate_pool_cap`, 140) — reserve each configured
+   source's Stage C capacity first, then fill the remaining pool by global
+   `freshness + reliability` score. The freshness decay is **slot-scaled**
    (`freshness_hours/3`). Sources in short-window slots (vendor/cloud, 96h)
    decay ~2.5× faster than frontier (240h), so fresher short-window posts can
    be crowded out of the pool by older long-window posts
-   (`prefilter_reasons.pool_cap`). This is what hid the Google Cloud OKF post.
+   (`prefilter_reasons.pool_cap`). `pool_coverage_reserved` reports the
+   reserved count. This prevents an individual source from disappearing before
+   its source and topical scoring signals are applied.
 5. **Slot caps** (`max_items`, `max_per_source`) — the slot may already be full
    of higher-scored items (`reject_slot_cap` / `reject_source_cap`).
 6. **Time decay** (`time_decay`) — after normal relevance/source/topic scoring,

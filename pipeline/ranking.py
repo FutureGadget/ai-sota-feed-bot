@@ -200,14 +200,16 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
         out.append(item)
 
     out.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
-    if len(out) > cap:
-        reasons["pool_cap"] += len(out) - cap
-        out = out[:cap]
+    eligible_count = len(out)
+    out, coverage_reserved = _apply_candidate_pool_coverage(out, cfg, cap)
+    if eligible_count > len(out):
+        reasons["pool_cap"] += eligible_count - len(out)
 
     diag = {
         "prefilter_in": len(items),
         "prefilter_out": len(out),
         "prefilter_reasons": dict(reasons),
+        "pool_coverage_reserved": coverage_reserved,
     }
     return out, diag
 
@@ -222,6 +224,66 @@ def assign_slots(candidates: list[dict[str, Any]], cfg: dict[str, Any]) -> dict[
     for slot, arr in slots.items():
         arr.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
     return slots
+
+
+def _candidate_identity(item: dict[str, Any]) -> str:
+    if item.get("id"):
+        return str(item["id"])
+    url = str(item.get("url") or "").split("?", 1)[0].strip().lower()
+    return f"{item.get('source', '')}::{url}"
+
+
+def _apply_candidate_pool_coverage(
+    ranked: list[dict[str, Any]],
+    cfg: dict[str, Any],
+    cap: int,
+) -> tuple[list[dict[str, Any]], int]:
+    """Keep each configured source represented before filling the global pool.
+
+    Stage A is intentionally cheap, but a pure global freshness cap can starve
+    a source before Stage C applies source/topic quality signals. Reserve up to
+    each slot's ``max_per_source`` candidates, then fill the remaining capacity
+    by the normal prefilter score. The reserve is allowed to exceed ``cap`` only
+    when the configured source-coverage floor itself is larger than the cap.
+    """
+    coverage_cfg = cfg.get("candidate_pool_coverage", {}) or {}
+    if coverage_cfg.get("enabled", True) is False:
+        return ranked[:cap], 0
+
+    reserved: list[dict[str, Any]] = []
+    reserved_keys: set[str] = set()
+    fixed_limit = coverage_cfg.get("per_source")
+
+    for _slot, slot_cfg in (cfg.get("slots", {}) or {}).items():
+        sources = slot_cfg.get("sources", []) or []
+        if fixed_limit is None:
+            limit = int(slot_cfg.get("max_per_source", 0))
+        else:
+            limit = int(fixed_limit)
+        if limit <= 0:
+            continue
+
+        for source in sources:
+            source_count = 0
+            for item in ranked:
+                if item.get("source") != source:
+                    continue
+                key = _candidate_identity(item)
+                if key in reserved_keys:
+                    continue
+                reserved.append(item)
+                reserved_keys.add(key)
+                source_count += 1
+                if source_count >= limit:
+                    break
+
+    if not reserved:
+        return ranked[:cap], 0
+
+    remaining = [item for item in ranked if _candidate_identity(item) not in reserved_keys]
+    kept = reserved + remaining[: max(0, cap - len(reserved))]
+    kept.sort(key=lambda x: x.get("prefilter_score", 0), reverse=True)
+    return kept, len(reserved)
 
 
 def compute_llm_score(lb: dict[str, Any]) -> float:

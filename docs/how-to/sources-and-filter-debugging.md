@@ -134,6 +134,8 @@ Interpretation:
 - `llm_used`: actual LLM calls consumed by ranking budget
 - `slots=...`: selected count per slot
 - `slot_priority=...`: dynamic slot rerank weights applied
+- `pool_coverage_reserved`: candidates reserved for configured source
+  representation before the global candidate cap
 
 ### Diagnostics file
 `data/diagnostics/YYYY-MM-DD_ranking.json` includes:
@@ -157,7 +159,8 @@ Interpretation:
   add a loose single word to the phrase list.
 - freshness window too short for that slot
 - source health floor
-- candidate pool cap reached (`candidate_pool_cap`)
+- candidate pool cap reached (`candidate_pool_cap`); source coverage should
+  still leave each configured source's Stage C capacity represented
 
 3. **Slot competition**
 - slot `max_items` too low
