@@ -305,22 +305,22 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         )
 
     # 내일 takes no particle; explicit dates take 에 (8월 1일에 vs 내일).
-    # Model Release Radar sidebar (feed page teaser linking to /models).
-    # These tests cover: the wrapper markup and its zero-shift hidden default,
-    # the wide-viewport rail vs. stacked-card breakpoint math (the article
-    # column must never shrink), and the render/attribution logic itself
-    # (extracted and run under node, same pattern as the /ko/ tests above).
+    # Model Release Radar companion (feed teaser linking to /models).
+    # These tests cover: the hidden desktop rail, its wide-viewport layout,
+    # and the mobile inline snapshot. The mobile version must be anchored to
+    # story rank rather than the rendered-card index: catch-up, onboarding,
+    # and editorial modules are allowed to move without burying the Radar.
 
     def test_model_radar_rail_wraps_list_and_starts_hidden(self) -> None:
         self.assertIn('<div class="feed-layout">', self.html)
         self.assertIn(
             '<aside id="modelRadarRail" class="model-radar-rail" '
-            'aria-label="Model Release Radar" hidden></aside>',
+            'aria-label="Model Release Radar" data-model-radar-placement="desktop_rail" hidden></aside>',
             self.html,
         )
-        # The rail is a DOM sibling *after* #list, so removing it on failure
-        # never disturbs the feed-seed region above it - and stacked layouts
-        # render it below the articles for free, which is what we want.
+        # The desktop rail remains a DOM sibling after #list. On narrow
+        # viewports it is visually hidden in favor of the inline snapshot,
+        # which is only emitted after the models payload has loaded.
         list_open = self.html.index('<section id="list"')
         rail = self.html.index('id="modelRadarRail"')
         self.assertLess(list_open, rail)
@@ -339,21 +339,45 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("main { max-width:1200px; }", self.html)
         self.assertIn(".feed-column { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }", self.html)
 
-    def test_model_radar_rail_collapses_to_one_row_below_the_rail_breakpoint(self) -> None:
-        # The feed is the product on a phone. A five-row radar block anywhere
-        # in the flow competes with it, so narrow viewports keep only the
-        # leading model plus the CTA; the full list returns with the >=1200px
-        # rail, where it costs the article column nothing.
+    def test_model_radar_uses_an_inline_three_model_snapshot_below_the_rail_breakpoint(self) -> None:
+        # The old stacked rail followed the entire feed and exposed only one
+        # model. Mobile instead gets an inline, three-model snapshot while the
+        # desktop rail is removed from the visual and accessibility tree.
         self.assertIn("@media (max-width:1199.98px) {", self.html)
-        self.assertIn(".model-radar-rail .mr-rail-row + .mr-rail-row { display:none; }", self.html)
-        self.assertIn(".model-radar-rail .mr-rail-lede { display:none; }", self.html)
+        self.assertIn(".model-radar-rail { display:none !important; }", self.html)
+        self.assertIn(".model-radar-inline { display:block; }", self.html)
+        self.assertIn("function mrSurfaceHtml(data, limit)", self.html)
+        self.assertIn("mrSurfaceHtml(data, 3)", self.html)
 
-    def test_model_radar_rail_keeps_source_credit_when_collapsed(self) -> None:
-        # A score is still on screen in the collapsed state, so the source
-        # credit line must NOT be among what the media query hides.
+    def test_model_radar_mobile_snapshot_keeps_source_credit(self) -> None:
+        # Scores remain visible in the mobile snapshot, so the mandatory
+        # source credit must never be hidden with the desktop-only detail.
         block = self.html.split("@media (max-width:1199.98px) {", 1)[1].split("\n    }", 1)[0]
         self.assertNotIn(".mr-rail-sources", block)
-        self.assertNotIn(".mr-rail-cta", block)
+        self.assertIn(".model-radar-inline .mr-rail-lede { display:none; }", block)
+
+    def test_feed_inserts_anchor_the_mobile_radar_after_fourth_story(self) -> None:
+        interleave = _extract_js_function(self.html, "interleaveFeedCards")
+        script = f"""
+          {interleave}
+          const full = interleaveFeedCards(
+            ['story-1', 'story-2', 'story-3', 'story-4', 'story-5', 'story-6'],
+            [
+              {{ after: 3, html: 'onboarding' }},
+              {{ after: 4, html: 'model-radar' }},
+              {{ after: 6, html: 'editor-desk' }},
+            ],
+          );
+          const short = interleaveFeedCards(
+            ['story-1', 'story-2'],
+            [{{ after: 4, html: 'model-radar' }}],
+          );
+          console.log(JSON.stringify({{ full, short }}));
+        """
+        self.assertEqual(
+            _run_node(script),
+            '{"full":["story-1","story-2","story-3","onboarding","story-4","model-radar","story-5","story-6","editor-desk"],"short":["story-1","story-2","model-radar"]}',
+        )
 
     def test_model_radar_rail_row_splits_org_off_the_metric_line(self) -> None:
         # One run-on meta line ("anthropic - 63.1 AA intelligence index -
@@ -387,11 +411,17 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("main { max-width:1280px; }", self.html)
         self.assertIn(".model-radar-rail { flex:0 0 280px; width:280px; }", self.html)
 
+    def test_model_radar_rail_clears_the_fixed_site_bar_when_sticky(self) -> None:
+        self.assertIn(
+            "position:sticky; top:calc(4rem + env(safe-area-inset-top, 0px));",
+            self.html,
+        )
+
     def test_model_radar_rail_cta_links_to_models_page(self) -> None:
         self.assertIn(
             # Short enough to hold one line in the 200px rail; the heading
             # above it already says what the radar is.
-            'href="/models">Full radar &rarr;',
+            'href="/models" data-model-radar-target="full">Full radar &rarr;',
             self.html,
         )
 
@@ -416,7 +446,27 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         )
         # Any failure removes the element outright rather than leaving an
         # error state or empty skeleton behind.
-        self.assertIn(".catch(function () { rail.remove(); });", self.html)
+        self.assertIn(
+            ".catch(function () {\n          modelRadarInlineHtml = '';\n          rail.remove();\n        });",
+            self.html,
+        )
+
+    def test_model_radar_does_not_replace_the_feed_failure_fallback(self) -> None:
+        # The Radar is an enhancement. When /api/feed fails, the crawler seed
+        # remains the reader's last good brief; a late models response must not
+        # rerender #list from its empty runtime cache.
+        self.assertIn(
+            "if (feedCache.items.length && typeof renderFeedList === 'function') renderFeedList();",
+            self.html,
+        )
+
+    def test_model_radar_records_visible_mobile_impressions_and_link_destinations(self) -> None:
+        self.assertIn('data-model-radar-placement="mobile_inline"', self.html)
+        self.assertIn('data-model-radar-target="detail"', self.html)
+        self.assertIn('data-model-radar-target="full"', self.html)
+        self.assertIn("posthogCapture('model_radar_open'", self.html)
+        self.assertIn("posthogCapture('model_radar_impression'", self.html)
+        self.assertIn("new IntersectionObserver", self.html)
 
     # The sidebar's helpers are all "mr"-prefixed (mrEsc, mrSafeUrl, ...) so
     # they never collide with the main feed script's own esc/safeUrl earlier
@@ -425,9 +475,35 @@ class LiveFeedSurfaceTest(unittest.TestCase):
     def _extract_model_radar_functions(self) -> str:
         names = [
             "mrEsc", "mrSafeUrl", "mrDisplayName", "mrFmtPrice", "mrCapabilityField", "mrCollapseVariants",
-            "mrSourceLabel", "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrRender",
+            "mrSourceLabel", "mrSourcesLine", "mrDetailUrl", "mrRowHtml", "mrSurfaceHtml", "mrRender",
         ]
         return "\n".join(_extract_js_function(self.html, name) for name in names)
+
+    def test_model_radar_mobile_snapshot_renders_three_ranked_models(self) -> None:
+        functions = self._extract_model_radar_functions()
+        script = f"""
+          {functions}
+          const html = mrSurfaceHtml({{
+            sources: {{ lmarena: {{}}, artificial_analysis: {{}} }},
+            models: [
+              {{ name: 'model-a', organization: 'lab-a', arena_elo_coding: 1503, open_weights: false, price_blended_per_1m: 3 }},
+              {{ name: 'model-b', organization: 'lab-b', arena_elo_coding: 1502, open_weights: true, price_blended_per_1m: null }},
+              {{ name: 'model-c', organization: 'lab-c', arena_elo_coding: 1501, open_weights: false, price_blended_per_1m: null }},
+              {{ name: 'model-d', organization: 'lab-d', arena_elo_coding: 1500, open_weights: false, price_blended_per_1m: null }},
+            ],
+          }}, 3);
+          console.log(JSON.stringify({{
+            rowCount: (html.match(/mr-rail-row/g) || []).length,
+            hasThirdModel: html.includes('model-c'),
+            omitsFourthModel: !html.includes('model-d'),
+            keepsAttribution: html.includes('LMArena') && html.includes('Artificial Analysis'),
+            hasFullRadarLink: html.includes('href="/models"'),
+          }}));
+        """
+        self.assertEqual(
+            _run_node(script),
+            '{"rowCount":3,"hasThirdModel":true,"omitsFourthModel":true,"keepsAttribution":true,"hasFullRadarLink":true}',
+        )
 
     def test_model_radar_rail_render_shows_top_models_and_omits_null_price(self) -> None:
         functions = self._extract_model_radar_functions()
@@ -647,8 +723,8 @@ class LiveFeedSurfaceTest(unittest.TestCase):
           }};
           mrRender(rail, data);
           console.log(JSON.stringify({{
-            linksToUrlSlug: rail.innerHTML.includes('<a class="mr-rail-name" href="/models/claude-opus-5">'),
-            fallsBackToSlugWhenUrlSlugAbsent: rail.innerHTML.includes('<a class="mr-rail-name" href="/models/legacyslug">'),
+            linksToUrlSlug: rail.innerHTML.includes('<a class="mr-rail-link" href="/models/claude-opus-5" data-model-radar-target="detail" data-model-radar-model="claude-opus-5">'),
+            fallsBackToSlugWhenUrlSlugAbsent: rail.innerHTML.includes('<a class="mr-rail-link" href="/models/legacyslug" data-model-radar-target="detail" data-model-radar-model="legacyslug">'),
           }}));
         """
         result = json.loads(_run_node(script))
@@ -656,6 +732,13 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             result,
             {"linksToUrlSlug": True, "fallsBackToSlugWhenUrlSlugAbsent": True},
         )
+
+    def test_model_radar_rows_are_full_touch_targets(self) -> None:
+        self.assertIn(
+            ".mr-rail-link { display:block; min-height:44px; color:inherit; text-decoration:none; }",
+            self.html,
+        )
+        self.assertIn('<a class="mr-rail-link" href="\' + mrDetailUrl(m)', self.html)
 
     def test_korean_feed_paused_notice_resume_particle(self) -> None:
         esc = _extract_js_function(self.ko_html, "esc")
