@@ -1123,12 +1123,14 @@
        flex item alongside the feed and Model Release Radar on wide screens. */
     .feed-column { display:grid; gap:.75rem; min-width:0; }
     .fresh-updates:empty { display:none; }
-    /* Stacked layout (below the rail breakpoint): follow the feed in DOM
-       order rather than jumping above it. The radar is a companion to the
-       brief, not a lede - hoisting it pushed every article down the page. */
+    /* The desktop rail remains outside the reading column. Narrow viewports
+       use .model-radar-inline, rendered after a semantic story rank inside
+       #list, so the companion is discoverable without becoming the lede. */
     .model-radar-rail { margin:1.2rem 0 0; padding:.9rem 0;
       border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
     .model-radar-rail[hidden] { display:none !important; }
+    .model-radar-inline { display:none; margin:0; padding:.9rem 0;
+      border-bottom:1px solid var(--border); }
     .mr-rail-kicker { margin:0 0 .3rem; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); }
     .mr-rail-heading { margin:0 0 .35rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
@@ -1136,9 +1138,9 @@
     .mr-rail-lede { margin:0 0 .8rem; font-size:.78rem; line-height:1.5; color:var(--muted); }
     .mr-rail-list { list-style:none; margin:0 0 .8rem; padding:0; border-top:1px solid var(--border); }
     .mr-rail-row { padding:.5rem 0; border-bottom:1px solid var(--border); }
-    .mr-rail-name { display:block; font-size:.85rem; font-weight:650; line-height:1.3;
-      color:inherit; text-decoration:none; }
-    .mr-rail-name:hover, .mr-rail-name:focus-visible { color:var(--accent); text-decoration:underline; }
+    .mr-rail-link { display:block; min-height:44px; color:inherit; text-decoration:none; }
+    .mr-rail-name { display:block; font-size:.85rem; font-weight:650; line-height:1.3; }
+    .mr-rail-link:hover .mr-rail-name, .mr-rail-link:focus-visible .mr-rail-name { color:var(--accent); text-decoration:underline; }
     .mr-rail-org { display:block; margin-top:.15rem; font-size:.75rem; line-height:1.35;
       color:var(--muted); }
     .mr-rail-meta { display:block; margin-top:.1rem; font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -1154,16 +1156,16 @@
     .mr-rail-cta { display:inline-block; font-family:ui-monospace,"SFMono-Regular",monospace;
       font-size:.75rem; font-weight:700; letter-spacing:.02em; color:var(--accent); }
     .mr-rail-cta:hover { text-decoration:underline; }
-    /* Narrow viewports: the feed is the product, so the radar collapses to a
-       compact entry point instead of a five-row block. Only the leading model
-       stays - enough to say why the link is worth following - and the source
-       credit line stays with it, since a score is still on screen. The full
-       list returns with the rail at >=1200px, where it costs the feed nothing. */
+    /* Narrow viewports: the right rail is invisible rather than merely moved
+       after the finish line. Its three-row inline counterpart is interleaved
+       after the fourth story by renderFeedList(), preserving the feed as the
+       opening path while making the model-picking surface findable. */
     @media (max-width:1199.98px) {
-      .model-radar-rail .mr-rail-lede { display:none; }
-      .model-radar-rail .mr-rail-row + .mr-rail-row { display:none; }
-      .model-radar-rail .mr-rail-list { margin-bottom:.6rem; }
-      .model-radar-rail .mr-rail-heading { font-size:1.05rem; }
+      .model-radar-rail { display:none !important; }
+      .model-radar-inline { display:block; }
+      .model-radar-inline .mr-rail-lede { display:none; }
+      .model-radar-inline .mr-rail-list { margin-bottom:.6rem; }
+      .model-radar-inline .mr-rail-heading { font-size:1.05rem; }
     }
     #list { gap:0; margin-top:1.05rem; }
     .feed-column:has(.fresh-updates:not(:empty)) #list { margin-top:0; }
@@ -1339,8 +1341,9 @@
       main { max-width:1200px; }
       .feed-layout { flex-direction:row; align-items:flex-start; gap:1.25rem; }
       .feed-column { flex:1 1 auto; min-width:0; max-width:calc(980px - 2.7rem); }
+      .model-radar-inline { display:none !important; }
       .model-radar-rail { order:0; flex:0 0 200px; width:200px; margin:0; padding:0;
-        border-top:0; border-bottom:0; position:sticky; top:1rem; }
+        border-top:0; border-bottom:0; position:sticky; top:calc(4rem + env(safe-area-inset-top, 0px)); }
     }
     /* Wider screens: give the rail real room instead of leaving it cramped
        at 200px while the page margins go unused. The article column is
@@ -1560,7 +1563,7 @@
     <!-- Model Release Radar teaser: optional right rail / stacked card, see
          the deferred fetch script near the end of body. Starts hidden so a
          slow or failed models fetch never shifts layout or shows a trace. -->
-    <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" hidden></aside>
+    <aside id="modelRadarRail" class="model-radar-rail" aria-label="Model Release Radar" data-model-radar-placement="desktop_rail" hidden></aside>
     </div>
 
     <footer class="sitefooter" role="contentinfo">
@@ -3481,6 +3484,12 @@
 
     // Last fetched feed payload; search re-renders from here without refetching.
     let feedCache = { items: [], runs: [], freshAdded: 0, runId: null, totalItems: 0, hasMore: false, labelCounts: null };
+    // Filled by the deferred static models fetch. It is deliberately markup,
+    // rather than a DOM node, because #list is safely rebuilt for every feed
+    // filter and refresh. The desktop rail keeps its own stable DOM node.
+    let modelRadarInlineHtml = '';
+    let modelRadarInlineImpressionRecorded = false;
+    let modelRadarInlineObserver = null;
     // Render bookkeeping. lastRenderedListHtml mirrors what we last wrote to
     // #list so identical re-renders (decoration pass, retried runs) skip the
     // DOM write; lastGoodListHtml holds the newest markup that contained real
@@ -3534,6 +3543,53 @@
           <button type="button" data-toggle-hidden="1" aria-pressed="${showHiddenState ? 'true' : 'false'}">${showHiddenState ? 'Hide them again' : 'Show hidden'}</button>
           ${showHiddenState ? `<button type="button" data-clear-hidden="1">Restore all</button>` : ''}
         </div>`;
+    }
+
+    // Feed companions must follow story rank, never the number of rendered
+    // blocks. Otherwise a catch-up card, first-visit prompt, or editorial note
+    // can silently move the Radar below the finish line. Insertions beyond a
+    // short feed append after its final story, which keeps the companion
+    // available without manufacturing an empty placeholder.
+    function interleaveFeedCards(storyCards, inserts) {
+      const count = storyCards.length;
+      const ordered = (inserts || [])
+        .map((insert, index) => ({
+          after: Math.max(0, Math.min(count, Number(insert?.after) || 0)),
+          html: insert?.html || '',
+          index,
+        }))
+        .filter((insert) => insert.html)
+        .sort((a, b) => a.after - b.after || a.index - b.index);
+      const cards = [];
+      let next = 0;
+
+      for (let storyIndex = 0; storyIndex <= count; storyIndex++) {
+        while (next < ordered.length && ordered[next].after <= storyIndex) {
+          cards.push(ordered[next].html);
+          next += 1;
+        }
+        if (storyIndex < count) cards.push(storyCards[storyIndex]);
+      }
+      return cards;
+    }
+
+    function observeMobileModelRadarImpression() {
+      if (modelRadarInlineImpressionRecorded || !('IntersectionObserver' in window)) return;
+      const inline = document.querySelector('.model-radar-inline');
+      if (!inline) return;
+      modelRadarInlineObserver?.disconnect();
+      modelRadarInlineObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting || entry.intersectionRatio < 0.5) return;
+        modelRadarInlineImpressionRecorded = true;
+        modelRadarInlineObserver?.disconnect();
+        modelRadarInlineObserver = null;
+        posthogCapture('model_radar_impression', {
+          placement: 'mobile_inline',
+          model_count: inline.querySelectorAll('.mr-rail-row').length,
+        });
+      }, { threshold: 0.5 });
+      modelRadarInlineObserver.observe(inline);
     }
 
     function renderFeedList() {
@@ -3606,27 +3662,35 @@
           }${somethingToClear ? ` <button type="button" data-clear-filters="1">Clear filters</button>` : ''}</div>`;
         }
       } else {
-        const cards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
-        if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
+        const storyCards = visible.map((it, i) => cardHtml(it, { rank: i + 1, runId }));
         if (!q) {
-          // Onboarding (first visit) or subscribe nudge (returning visits) goes
-          // after the 3rd story; catch-up stays pinned on top.
+          // Promos and editorial companion surfaces use story ranks, not the
+          // rendered-card index. That keeps the Radar directly after story 4
+          // even when the first-visit prompt follows story 3.
+          const feedInserts = [];
           const promo = onboardingHtml() || subscribeNudgeHtml();
-          if (promo) cards.splice(Math.min(3, cards.length), 0, promo);
-          const editorInserts = editorDeskInserts(visible);
-          let editorOffset = 0;
-          for (const insert of editorInserts) {
-            cards.splice(Math.min(insert.after + editorOffset, cards.length), 0, insert.html);
-            editorOffset += 1;
+          if (promo) feedInserts.push({ after: 3, html: promo });
+          if (modelRadarInlineHtml && viewState === 'feed') {
+            feedInserts.push({ after: 4, html: modelRadarInlineHtml });
           }
+          const editorInserts = editorDeskInserts(visible);
+          for (const insert of editorInserts) {
+            feedInserts.push(insert);
+          }
+          const cards = interleaveFeedCards(storyCards, feedInserts);
+          if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
           cards.unshift(catchupHtml(items));
           // Finish line for the Brief default — make the "finishable" promise
           // visible. Only on the Brief lens (not the firehose/topic views).
           if (activeSection() === 'brief') {
             cards.push(hasMore ? truncatedMarkerHtml(totalItems, items.length) : endMarkerHtml());
           }
+          html = cards.join('');
+        } else {
+          const cards = storyCards;
+          if (hiddenInView > 0) cards.unshift(hiddenBarHtml(hiddenInView));
+          html = cards.join('');
         }
-        html = cards.join('');
       }
 
       // Skip identical rewrites (the post-fetch decoration pass rebuilds the
@@ -3640,6 +3704,7 @@
         const activeTab = document.querySelector('#sections button[aria-pressed="true"]')
           || document.getElementById('savedTab');
         restoreListFocus(list, focusSnapshot, activeTab);
+        observeMobileModelRadarImpression();
       }
     }
 
@@ -4112,6 +4177,17 @@
       if (a.dataset.subscribePlacement === 'nudge') markSubscribeNudgeDone();
     });
 
+    document.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-model-radar-target]');
+      if (!a) return;
+      const surface = a.closest('[data-model-radar-placement]');
+      posthogCapture('model_radar_open', {
+        placement: surface?.dataset.modelRadarPlacement || null,
+        target: a.dataset.modelRadarTarget || null,
+        model_slug: a.dataset.modelRadarModel || null,
+      });
+    });
+
     initThemeToggle();
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initAboutDialog);
@@ -4287,11 +4363,10 @@
       return 'Coding Elo from ' + parts.join(' and ') + '.';
     }
 
-    // The model's own name is the row's link target - every row is a
-    // keyboard-accessible link to its /models/<url_slug> detail page,
-    // matching /models' own row-links-to-detail-page restructure. Falls
-    // back to base_slug/slug for an older cached artifact predating
-    // url_slug, never a dead href.
+    // Every model row is a keyboard-accessible link to its
+    // /models/<url_slug> detail page, matching /models' own
+    // row-links-to-detail-page restructure. Falls back to base_slug/slug for
+    // an older cached artifact predating url_slug, never a dead href.
     function mrDetailUrl(m) {
       var slug = m && (m.url_slug || m.base_slug || m.slug);
       return slug ? '/models/' + encodeURIComponent(slug) : '/models';
@@ -4305,6 +4380,7 @@
       var capDisplay = capIsIndex ? (Math.round(capValue * 10) / 10) : Math.round(capValue);
       var capLabel = capIsIndex ? 'AA intelligence index' : 'coding Elo';
       var price = mrFmtPrice(m.price_blended_per_1m);
+      var modelSlug = m && (m.url_slug || m.base_slug || m.slug) || '';
       var badge = m.open_weights === true ? ' <span class="mr-rail-badge">Open weights</span>' : '';
       var variants = m.variantCount > 1 ? ' <span class="mr-rail-variant">+' + mrEsc(String(m.variantCount - 1)) + '</span>' : '';
       // Two short lines beat one run-on: at 200px the single meta line
@@ -4319,17 +4395,21 @@
       var metric = capDisplay + ' ' + shortLabel + (shortPrice ? ' &middot; ' + mrEsc(shortPrice) : '');
       return (
         '<li class="mr-rail-row">' +
-          '<a class="mr-rail-name" href="' + mrDetailUrl(m) + '">' + mrEsc(mrDisplayName(m)) + badge + variants + '</a>' +
-          (org ? '<span class="mr-rail-org">' + org + '</span>' : '') +
-          '<span class="mr-rail-meta" title="' + mrEsc(capDisplay + ' ' + capLabel +
-            (price ? ' \u00b7 ' + price : '')) + '">' + metric + '</span>' +
+          '<a class="mr-rail-link" href="' + mrDetailUrl(m) + '" data-model-radar-target="detail" data-model-radar-model="' + mrEsc(modelSlug) + '">' +
+            '<span class="mr-rail-name">' + mrEsc(mrDisplayName(m)) + badge + variants + '</span>' +
+            (org ? '<span class="mr-rail-org">' + org + '</span>' : '') +
+            '<span class="mr-rail-meta" title="' + mrEsc(capDisplay + ' ' + capLabel +
+              (price ? ' \u00b7 ' + price : '')) + '">' + metric + '</span>' +
+          '</a>' +
         '</li>'
       );
     }
 
-    // limit defaults to 5 (a teaser, not a second table) so this stays a
-    // pure, self-contained function - no dependency on an outer-scope constant.
-    function mrRender(rail, data, limit) {
+    // The two responsive placements share one payload and ranking policy. This
+    // pure renderer returns inner markup so the desktop rail can use five rows
+    // while the mobile feed snapshot uses three without duplicating the model
+    // choice, attribution, or safety logic.
+    function mrSurfaceHtml(data, limit) {
       var models = Array.isArray(data && data.models) ? data.models : [];
       var capField = mrCapabilityField(models);
       var distinct = mrCollapseVariants(models, capField);
@@ -4338,18 +4418,27 @@
         .sort(function (a, b) { return b[capField] - a[capField]; })
         .slice(0, limit || 5);
       var rows = ranked.map(function (m) { return mrRowHtml(m, capField); }).join('');
-      if (!rows) return false;
+      if (!rows) return '';
 
       var hasPrice = ranked.some(function (m) { return m.price_blended_per_1m !== null && m.price_blended_per_1m !== undefined; });
       var capLabelForLede = capField === 'aa_intelligence_index' ? 'the Artificial Analysis intelligence index' : 'community-voted Elo';
 
-      rail.innerHTML =
+      return (
         '<p class="mr-rail-kicker">Model Release Radar</p>' +
         '<h2 class="mr-rail-heading">Which model to route to</h2>' +
         '<p class="mr-rail-lede">Top coding models ranked by ' + capLabelForLede + ' - one row per model, reasoning-effort variants collapsed.</p>' +
         '<ol class="mr-rail-list">' + rows + '</ol>' +
         '<p class="mr-rail-sources">' + mrSourcesLine(data.sources, capField, hasPrice) + '</p>' +
-        '<a class="mr-rail-cta" href="/models">Full radar &rarr;</a>';
+        '<a class="mr-rail-cta" href="/models" data-model-radar-target="full">Full radar &rarr;</a>'
+      );
+    }
+
+    // limit defaults to 5 for the desktop rail. A standalone function keeps
+    // the testable data-to-markup contract separate from the rail's DOM state.
+    function mrRender(rail, data, limit) {
+      var markup = mrSurfaceHtml(data, limit);
+      if (!markup) return false;
+      rail.innerHTML = markup;
       rail.hidden = false;
       return true;
     }
@@ -4374,9 +4463,25 @@
           return res.json();
         })
         .then(function (data) {
-          if (!mrRender(rail, data)) rail.remove();
+          var mobileMarkup = mrSurfaceHtml(data, 3);
+          if (!mobileMarkup || !mrRender(rail, data)) {
+            modelRadarInlineHtml = '';
+            rail.remove();
+            return;
+          }
+          modelRadarInlineHtml =
+            '<aside class="model-radar-inline" aria-label="Model Release Radar" data-model-radar-placement="mobile_inline">' +
+            mobileMarkup +
+            '</aside>';
+          // The static models payload arrives after the first feed render. A
+          // content-only rerender places the snapshot below story 4 without a
+          // feed refetch or an empty placeholder.
+          if (feedCache.items.length && typeof renderFeedList === 'function') renderFeedList();
         })
-        .catch(function () { rail.remove(); });
+        .catch(function () {
+          modelRadarInlineHtml = '';
+          rail.remove();
+        });
     }
 
     function mrSchedule() {
