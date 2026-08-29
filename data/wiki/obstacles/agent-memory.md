@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8]
-updated: 2026-08-25
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e]
+updated: 2026-08-29
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e]
 ---
 
 ## TL;DR
@@ -311,8 +311,37 @@ the interface itself — not just the store — limits what later steps can
 retrieve (cross-ref [grounding](/topic/grounding) for the retrieval-quality
 side of the same gap).
 
+A **recursive self-improvement** approach targets the same long-horizon
+failure "The Right 300 Tokens" and PRO-LONG above address from a training
+angle rather than a retrieval or code-search one: Recuris pairs a working
+memory (tracks task progress, guides skill selection) with an experiential
+memory (stores reusable skills), and a meta-agent that makes localized,
+validation-gated edits to the skill store after each failure — a bounded
+loop where accumulated experience reshapes the agent's own behavior instead
+of only its context. Across 37 model-benchmark pairs it improves 35, gains
+widen to +32.2 points on the longest-horizon tasks tested, and long-horizon
+failures drop by up to 80%, evidence that skill-memory evolution keeps
+paying off precisely where compaction and retrieval both get harder — the
+longer the run.
+
+The **zero-LLM-retrieval, local-first pattern** (Sibyl, PMB above) gets
+another concrete instance with a full benchmark breakdown: Awareness Local
+stores memories as git-compatible Markdown, indexes them with SQLite FTS5
+plus optional local embeddings, and retrieves via hybrid BM25-plus-vector
+reciprocal rank fusion with no LLM in the loop — reporting 96.0% recall@5
+on LongMemEval (ICLR 2025), in the same recall range Sibyl reported on the
+same benchmark, evidence that the hybrid-retrieval-no-LLM recipe is
+converging into a repeatable pattern rather than one team's result.
+
 ## What's new
-OpenWiki's self-correcting memory layer stores evidence-backed claims
+Recuris pairs working memory with an experiential skill store and a
+meta-agent that edits the skill store after each failure, improving 35 of
+37 model-benchmark pairs and cutting long-horizon failures up to 80% —
+direct evidence that skill-memory evolution, not just compaction or
+retrieval, keeps paying off as tasks get longer (see State of the art
+above).
+
+Prior update: OpenWiki's self-correcting memory layer stores evidence-backed claims
 instead of raw facts, using that evidence to detect stale knowledge as a
 codebase evolves and correct or drop it rather than retrieving whatever was
 written last — a write-time integrity defense pointed specifically at

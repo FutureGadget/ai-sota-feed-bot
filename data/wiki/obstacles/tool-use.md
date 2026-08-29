@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851]
-updated: 2026-08-27
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870]
+updated: 2026-08-29
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870]
 ---
 
 ## TL;DR
@@ -76,7 +76,14 @@ of connectors, putting every tool schema in the prompt both burns context
 budget and degrades which tool the model picks, so harnesses are moving to
 *search* the tool catalog instead of listing it — OpenAI's Codex now uses
 [MCP](/topic/mcp) tool search by default, turning tool discovery into a
-retrieval step rather than a context dump.
+retrieval step rather than a context dump. Anthropic's own Tool Search Tool
+puts a hard number on the same move: marking tools `defer_loading: true` and
+searching them (regex or BM25) instead of loading every definition upfront
+cuts a 50-plus-MCP-tool prompt from roughly 72K tokens to about 500 tokens
+at rest, loading only ~3K tokens per query, and lifts task accuracy on a
+tool-heavy benchmark from 49% to 74% on Opus 4 and 79.5% to 88.1% on Opus
+4.5 — evidence that on-demand discovery is a correctness fix, not only a
+context-budget one.
 
 A fourth axis is **tool definition quality itself**, now a named discipline
 rather than an afterthought: a field guide catalogs concrete anti-patterns —
@@ -220,8 +227,37 @@ targets, differently: instead of turning harness rollouts into RL training
 data to fine-tune a model, StarHarness never touches the model and searches
 the harness configuration — including its tool and MCP surface — directly.
 
+A fifteenth axis is **routing tool results away from the model's context
+entirely**: Anthropic's Programmatic Tool Calling has Claude orchestrate
+tools through Python code run in a sandbox rather than a sequential
+round-trip per call, so intermediate results are processed by the executing
+code instead of being read back into Claude's own context — cutting token
+use from 43,588 to 27,297 (37%) on a complex research task while lifting
+accuracy on the GAIA benchmark from 46.5% to 51.2%. A companion feature
+narrows a different gap: `input_examples` on a tool definition shows Claude
+concrete parameter conventions (date formats, ID shapes, correlated fields)
+that JSON Schema alone can't express, lifting internal accuracy on
+complex-parameter tasks from 72% to 90%. Together they push this page's
+"selection at scale" and "definition quality" axes past *which* tool gets
+picked toward *how cheaply and correctly* its result gets used.
+
+Separately, OpenAI's Codex added its own version of the fourth axis'
+selection-friction fix: a configurable grace period for discovering tools
+from optional MCP servers, plus a hook letting extensions inspect or
+replace an MCP tool's result before it reaches the model — a client-side
+filtering point on the same tool-call path Anthropic's programmatic
+calling reroutes through sandboxed code.
+
 ## What's new
-Lovable is exposing published apps as MCP-powered "capabilities" agents can
+Anthropic shipped three tool-use features with hard before/after numbers:
+Tool Search Tool cuts a 50-plus-tool prompt from ~72K to ~500 resting
+tokens and lifts task accuracy 25-49 points depending on model; Programmatic
+Tool Calling routes results through sandboxed code instead of context,
+cutting tokens 37% and lifting GAIA accuracy from 46.5% to 51.2%; and
+`input_examples` lifts complex-parameter accuracy from 72% to 90% (see
+State of the art above).
+
+Prior update: Lovable is exposing published apps as MCP-powered "capabilities" agents can
 call directly, bypassing the human UI, through a connector gateway that
 keeps credentials server-side and scoped to short-lived, per-user keys.
 Separately, StarHarness treats the whole harness — not just its tool
