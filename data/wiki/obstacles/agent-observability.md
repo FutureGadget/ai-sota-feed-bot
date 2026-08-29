@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade]
-updated: 2026-08-20
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f]
+updated: 2026-08-29
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f]
 ---
 
 ## TL;DR
@@ -160,8 +160,26 @@ system (see [multi-agent](/topic/multi-agent)): the span schema this page
 tracks records messages and tool calls, and that is the wrong unit when the
 coordination happens below the message layer.
 
+The **trace format is also gaining a visual payload**, not just structured
+spans: Amazon OpenSearch Service's MCP Apps return an interactive
+visualization alongside every tool call's text response, rendered inline in
+the IDE conversation instead of a separate dashboard. A local MCP server
+authenticates with AWS credentials, forwards the agent's query to the same
+OpenSearch/Prometheus data sources that power existing dashboards, and
+returns both a text summary and a rendered widget — letting one
+conversation move from alert triage to log clustering to trace waterfalls
+to service-dependency maps without the engineer leaving the chat to open a
+separate observability tool. It's [MCP](/topic/mcp) carrying the
+observability payload itself, not just the query that produces it.
+
 ## What's new
-Latent-channel monitoring marks the first real limit on this page's
+Amazon OpenSearch Service's MCP Apps return interactive visualizations
+(trace waterfalls, service maps, log clusters) inline in an agent
+conversation instead of a text summary alone, letting an investigation move
+from alert to root cause in one thread instead of switching to a separate
+dashboard (see State of the art above).
+
+Prior update: Latent-channel monitoring marks the first real limit on this page's
 trace-first stance: agents can coordinate through hidden states invisible in
 the public transcript, so message-and-tool-call spans are not a complete
 record of a multi-agent run. VLA's answer is to link each private latent
