@@ -1,4 +1,4 @@
-# Current System State (as of 2026-07-21 KST)
+# Current System State (as of 2026-08-30 KST)
 
 This file is a snapshot of the **currently deployed behavior** so we can resume quickly in future sessions.
 
@@ -38,14 +38,13 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 Daily companions:
 - `feed-ops-summary` (12:30 UTC): ops health snapshot
 - `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
-- GitHub workflow execution: repository-scoped Docker runner on the owner's
-  Apple-silicon Mac (`infra/actions-runner/`), selected by
-  `[self-hosted, Linux, ARM64, llm-digest]`. The full-publish workflow defaults
-  there but offers a manual `github-hosted` fallback and a no-push `dry_run`
-  mode. Docker Desktop and the Mac must be awake for self-hosted jobs; GitHub
-  queues work while it is offline. The runner uses a small named volume for
-  credentials and one dedicated host directory for its workspace; it has no
-  host Docker socket.
+- GitHub workflow execution: all six workflows use GitHub-hosted standard
+  `ubuntu-latest` runners. The repository is public, so standard hosted runner
+  usage is free and unlimited. Each job runs on a fresh x64 VM; publishing no
+  longer depends on the owner's Mac or Docker Desktop. The full-publish
+  workflow retains a no-push `dry_run` mode. The former self-hosted runner is
+  retained only as documented rollback infrastructure under
+  `infra/actions-runner/`.
 - Daily/weekly recaps: agent routines (`.agents/skills/daily-summary`,
   `.agents/skills/weekly-summary`) write `data/daily|weekly/<key>.json`;
   committing is publishing. The repository-owned daily scheduler definition is

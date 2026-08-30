@@ -3,14 +3,6 @@ name: AI Feed Full Publish
 on:
   workflow_dispatch:
     inputs:
-      runner:
-        description: Runner used for this dispatch
-        required: true
-        default: self-hosted
-        type: choice
-        options:
-          - self-hosted
-          - github-hosted
       dry_run:
         description: Run the complete pipeline without committing or pushing
         required: true
@@ -26,7 +18,7 @@ permissions:
 
 jobs:
   publish:
-    runs-on: ${{ fromJSON(inputs.runner == 'github-hosted' && '["ubuntu-latest"]' || '["self-hosted","Linux","ARM64","llm-digest"]') }}
+    runs-on: ubuntu-latest
     steps:
       - name: Reject publishing from a non-main ref
         if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
@@ -60,8 +52,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Install CJK fonts on GitHub-hosted runner
-        if: inputs.runner == 'github-hosted'
+      - name: Install CJK fonts
         run: |
           sudo apt-get update
           sudo apt-get install -y fonts-nanum

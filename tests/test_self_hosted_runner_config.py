@@ -4,38 +4,37 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = (
+    "feed-full-publish.yml",
     "email-digest.yml",
     "feedback-sync.yml",
     "feed-ops-summary.yml",
     "i18n-translate.yml",
+    "models-refresh.yml",
 )
 
 
-class SelfHostedRunnerConfigTest(unittest.TestCase):
-    def test_scheduled_workflows_use_the_dedicated_runner(self):
+class HostedRunnerConfigTest(unittest.TestCase):
+    def test_workflows_use_github_hosted_standard_runners(self):
         for filename in WORKFLOWS:
             with self.subTest(workflow=filename):
                 workflow = (ROOT / ".github" / "workflows" / filename).read_text()
-                self.assertIn(
-                    "runs-on: [self-hosted, Linux, ARM64, llm-digest]", workflow
-                )
-                self.assertNotIn("runs-on: ubuntu-latest", workflow)
+                self.assertIn("runs-on: ubuntu-latest", workflow)
+                self.assertNotIn("self-hosted", workflow)
 
-    def test_full_publish_can_select_either_runner_without_publishing(self):
+    def test_full_publish_preserves_dry_run_and_hosted_prerequisites(self):
         workflow = (
             ROOT / ".github" / "workflows" / "feed-full-publish.yml"
         ).read_text()
-        self.assertIn("runner:", workflow)
         self.assertIn("dry_run:", workflow)
         self.assertIn("ubuntu-latest", workflow)
-        self.assertIn('["self-hosted","Linux","ARM64","llm-digest"]', workflow)
+        self.assertNotIn("runner:", workflow)
         self.assertIn("actions/setup-node@v4", workflow)
         self.assertIn('node-version: "24"', workflow)
         self.assertIn(
             'git config --global --replace-all safe.directory "$GITHUB_WORKSPACE"',
             workflow,
         )
-        self.assertIn("if: inputs.runner == 'github-hosted'", workflow)
+        self.assertNotIn("inputs.runner", workflow)
         self.assertIn("sudo apt-get install -y fonts-nanum", workflow)
         self.assertIn("github.ref != 'refs/heads/main'", workflow)
         self.assertIn("Publishing is only allowed from main", workflow)

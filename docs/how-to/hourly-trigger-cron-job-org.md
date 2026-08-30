@@ -68,9 +68,9 @@ PAT scoped to *only this repo* with the minimum permission.
      ```json
      {"ref":"main"}
      ```
-     Omitting `inputs` intentionally uses the workflow defaults: the dedicated
-     self-hosted runner with publishing enabled. For a manual smoke test, use
-     the Actions UI and select `dry_run`; do not add that input to the
+     Omitting `inputs` intentionally uses the workflow defaults: the
+     GitHub-hosted standard runner with publishing enabled. For a manual smoke
+     test, use the Actions UI and select `dry_run`; do not add that input to the
      production cron-job.org request.
    - **Treat as success:** HTTP status `200-299`. A successful dispatch returns
      **`204 No Content`** with an empty body.

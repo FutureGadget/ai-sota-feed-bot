@@ -1,8 +1,10 @@
-# Docker self-hosted Actions runner
+# Legacy Docker self-hosted Actions runner
 
-This repository-scoped Linux ARM64 runner keeps the scheduled publishing jobs
-off GitHub-hosted compute. It is intended for an Apple-silicon Mac running
-Docker Desktop.
+The repository no longer uses this runner for normal GitHub Actions execution.
+All six workflows use GitHub-hosted standard `ubuntu-latest` runners because
+the repository is public. This directory is retained as a rollback reference
+only. Do not reactivate this runner for the public repository unless the
+security implications and operational need are reviewed again.
 
 The container runs as an unprivileged user, drops Linux capabilities, enables
 `no-new-privileges`, and does not mount the host Docker socket. Its only host
@@ -58,15 +60,11 @@ The `restart: unless-stopped` policy brings the runner back when Docker starts.
 If the Mac sleeps or Docker is stopped, GitHub queues jobs until the runner is
 online again.
 
-`feed-full-publish.yml` uses this runner by default. A manual dispatch may
-select `github-hosted` as an emergency fallback; that path installs the Nanum
-fonts during the job. Select `dry_run` to exercise the complete collection,
-ranking, rendering, and localization path without committing or pushing the
-generated artifacts. The workflow installs Node 24 explicitly on both runner
-types and registers the exact checkout path as Git's `safe.directory`, so the
-persistent bind-mounted workspace does not depend on stale ownership or a
-machine-wide wildcard exception. A non-dry publish is rejected unless the
-workflow was dispatched from `main`.
+The workflow no longer selects this runner. The hosted path installs the Nanum
+fonts during the job and installs Node 24 explicitly. Select `dry_run` to
+exercise the complete collection, ranking, rendering, and localization path
+without committing or pushing generated artifacts. A non-dry publish is
+rejected unless the workflow was dispatched from `main`.
 
 ## Updating
 

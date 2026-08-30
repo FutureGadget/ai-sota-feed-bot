@@ -75,7 +75,7 @@ vanity leaderboard):
 
 ```text
 .github/workflows/models-refresh.yml       (every 6h via cron-job.org ticker,
-                                            same self-hosted runner labels)
+                                            GitHub-hosted ubuntu-latest)
   pipeline/collect_models.py           ->   data/models/latest.json
                                             (+ dated history for score deltas)
   pipeline/model_sentiment.py          ->   data/models/sentiment.json

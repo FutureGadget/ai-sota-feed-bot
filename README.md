@@ -264,8 +264,10 @@ python pipeline/source_alerts.py
 - `feed-ops-summary` (daily): operational health snapshot
 - `feedback-sync` (daily): reader feedback + CTR sync from PostHog and source
   auto-tune apply (no-op if secrets are missing)
-- These scheduled workflows run on the repository-scoped Docker runner labeled
-  `llm-digest`, not GitHub-hosted compute. Setup and operations:
+- These scheduled workflows run on GitHub-hosted standard `ubuntu-latest`
+  runners. The repository is public, so this standard runner usage is free and
+  unlimited; publishing no longer depends on the owner's Mac. The retired
+  self-hosted runner and rollback notes remain in
   `infra/actions-runner/README.md`.
 
 ### Repository secrets (optional)
