@@ -38,7 +38,7 @@ This file is a snapshot of the **currently deployed behavior** so we can resume 
 Daily companions:
 - `feed-ops-summary` (12:30 UTC): ops health snapshot
 - `feedback-sync` (12:45 UTC): PostHog feedback + CTR sync, auto-tune apply
-- GitHub workflow execution: all six workflows use GitHub-hosted standard
+- GitHub workflow execution: all seven workflows use GitHub-hosted standard
   `ubuntu-latest` runners. The repository is public, so standard hosted runner
   usage is free and unlimited. Each job runs on a fresh x64 VM; publishing no
   longer depends on the owner's Mac or Docker Desktop. The full-publish

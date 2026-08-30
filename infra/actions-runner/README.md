@@ -1,7 +1,7 @@
 # Legacy Docker self-hosted Actions runner
 
 The repository no longer uses this runner for normal GitHub Actions execution.
-All six workflows use GitHub-hosted standard `ubuntu-latest` runners because
+All seven workflows use GitHub-hosted standard `ubuntu-latest` runners because
 the repository is public. This directory is retained as a rollback reference
 only. Do not reactivate this runner for the public repository unless the
 security implications and operational need are reviewed again.

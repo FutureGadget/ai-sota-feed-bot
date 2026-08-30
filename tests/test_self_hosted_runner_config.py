@@ -4,6 +4,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOWS = (
+    "ci.yml",
     "feed-full-publish.yml",
     "email-digest.yml",
     "feedback-sync.yml",
