@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad]
-updated: 2026-08-26
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca]
+updated: 2026-08-30
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca]
 ---
 
 ## TL;DR
@@ -195,8 +195,50 @@ unresolved risk sits a layer above both phases: if AI executes the
 mitigation, humans lose the feedback loop that builds the "scar tissue"
 distinguishing a senior responder from a junior one.
 
+A large-scale production measurement puts numbers on exactly where that
+handoff currently sits: Anthropic's analysis of roughly 400,000 Claude Code
+sessions splits responsibility along the plan/execute line — people make
+roughly 70% of planning decisions but only 20% of execution decisions — and
+finds expert users trigger about twice the actions (12 vs. 5) and five
+times the output (3,200 vs. 600 words) per prompt that novices do.
+Reliability today is propped up by where humans still hold the pen — on
+planning, not on unattended execution (see [agent
+evaluation](/topic/agent-evaluation) for the same dataset's outcome-tier
+findings).
+
+Anthropic's own foundational framing for the identity/execution/intent
+split above names the default explicitly: start with the simplest solution
+that works (a single well-prompted call), and reach for a workflow or an
+autonomous agent only when the added complexity demonstrably improves
+outcomes — reliability engineering treats agentic autonomy as a cost to
+justify, not a default architecture. A practitioner critique names where
+that cost stops paying off in practice: coding-agent autonomy hits a
+"wall" past a certain task complexity, where longer unattended runs
+compound small misjudgments into a wrong trajectory faster than the model
+corrects for it — an argument for bounding how much unattended autonomy a
+task earns rather than extending it by default.
+
+A companion measurement complicates what a reliability number even means:
+Anthropic found that infrastructure configuration alone — container CPU/RAM
+allocation and how strictly it's enforced — can swing agentic coding scores
+by up to 6 percentage points on Terminal-Bench 2.0, noise large enough to
+erase an apparent reliability gain unless the eval infrastructure is pinned
+and reported alongside the model (see [agent
+evaluation](/topic/agent-evaluation) for the full methodology).
+
 ## What's new
-An Anthropic reliability engineer's own incident-response case study puts a
+A large-scale production measurement (~400,000 Claude Code sessions) puts
+hard numbers on the plan/execute reliability split this page now tracks:
+people retain roughly 70% of planning decisions but only 20% of execution
+decisions, and expert users trigger roughly twice the actions and five
+times the output per prompt that novices do — reliability today rests on
+humans still holding the planning pen, not on unattended execution. A
+companion measurement shows infrastructure configuration alone can swing
+agentic coding scores by up to 6 percentage points, and a practitioner
+critique argues coding-agent autonomy hits a "wall" past a certain task
+complexity (see State of the art above).
+
+Prior update: An Anthropic reliability engineer's own incident-response case study puts a
 concrete boundary on where LLM incident response works: superhuman at
 reading logs and catching non-obvious patterns (a coordinated-fraud signal
 in account-creation metadata, a Rust panic root-caused before humans
@@ -212,13 +254,6 @@ semantic extraction from deterministic code, and validate choices with a
 discriminator model before they reach the database — an MVC-style split
 that keeps the model's fluent-but-uncertain output from leaking into
 storage and downstream logic (see State of the art above).
-
-Prior update: Recursive self-improvement gets a named caveat: agents can already edit
-their own tools and harness, but the loop still needs a system that can
-raise the verifier alongside the agent, since a self-modifying agent can
-also self-modify its own check. Separately, ReWEIGH and AutoResearch both
-push hallucination mitigation toward calibrated, in-generation containment
-rather than post-hoc detection.
 
 Prior update: A practitioner pattern deliberately generates an unconstrained guess instead
 of classifying against a large closed vocabulary, then uses vector-embedding
