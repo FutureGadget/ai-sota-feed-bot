@@ -115,6 +115,32 @@ story list, and only when there is something to say:
 PostHog events (all optional/no-op without PostHog): `whats_new_view`
 (`sections`), `whats_new_click` (`section`), `whats_new_dismiss` (`sections`).
 
+### Layout contract: the strip may never widen the reading column
+
+The strip is a single unwrappable flex row (`flex-wrap:nowrap`, children
+`flex-shrink:0`) that absorbs its own excess width with `overflow-x:auto`. That
+only holds while something upstream gives it a bounded width, so two rules are
+load-bearing and must stay together:
+
+- `.whats-new { min-width:0; max-width:100% }` (`web/nav-updates.js`) — the
+  component never asks for more than its container offers.
+- `.fresh-updates { min-width:0 }` (`web/index.html`) — the wrapper is a **grid
+  item** of `.feed-column`, so it otherwise keeps `min-width:auto` and its
+  min-content width (the whole unwrapped row, ~810px with six chips) becomes
+  the floor for the auto grid track.
+
+Drop either one and the track, `#list`, and every article stretch past the
+viewport, where `main { overflow-x: clip }` hides the overflow instead of
+scrolling it — the feed reads as truncated mid-word with no way to reach the
+rest. Below ~850px (every phone, and tablet split-view) this affects the whole
+feed, not just the strip. Regression coverage:
+`tests/test_live_feed_surface.py::test_fresh_updates_wrapper_cannot_widen_the_feed_grid_track`
+and `::test_fresh_updates_strip_clamps_to_its_container`.
+
+On mobile the strip carries the same right-edge fade mask as `.sections` and
+`.quicknav`, so a chip row that continues past the column edge reads as
+scrollable rather than clipped.
+
 ## How it works
 
 - **`GET /api/updates`** (`api/updates.js`) returns lightweight freshness

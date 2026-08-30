@@ -171,6 +171,27 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("anchor.insertBefore(strip, anchor.firstChild);", updates)
         self.assertNotIn("parent.insertBefore(strip, anchor);", updates)
 
+    def test_fresh_updates_wrapper_cannot_widen_the_feed_grid_track(self) -> None:
+        """The strip is an unwrappable flex row inside a grid item.
+
+        Without an explicit min-width:0 the wrapper keeps a grid item's default
+        min-width:auto, so its min-content width (the whole unwrapped row)
+        floors the auto track and drags #list and every article past the
+        viewport, where main's overflow-x:clip hides them instead of scrolling.
+        """
+        self.assertIn(".feed-column { display:grid;", self.html)
+        self.assertIn(".fresh-updates { min-width:0; }", self.html)
+
+    def test_fresh_updates_strip_clamps_to_its_container(self) -> None:
+        """The injected strip scrolls internally instead of pushing its parent."""
+        updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        rule = re.search(r"\.whats-new\{([^}]*)\}", updates)
+        self.assertIsNotNone(rule, "missing .whats-new rule")
+        decls = rule.group(1)
+        self.assertIn("overflow-x:auto", decls)
+        self.assertIn("min-width:0", decls)
+        self.assertIn("max-width:100%", decls)
+
     def test_korean_feed_shell_uses_localized_snapshot_endpoint(self) -> None:
         html = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")
         self.assertIn('<html lang="ko">', html)

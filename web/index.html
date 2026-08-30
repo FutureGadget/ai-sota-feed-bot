@@ -1122,6 +1122,14 @@
        inside the layout prevents a fresh-updates strip from becoming a third
        flex item alongside the feed and Model Release Radar on wide screens. */
     .feed-column { display:grid; gap:.75rem; min-width:0; }
+    /* min-width:0 is load-bearing, not cosmetic. The strip nav-updates.js
+       renders in here is an unwrappable flex row (label + chips + dismiss)
+       that relies on its own overflow-x:auto to scroll. Without this, the
+       wrapper keeps a grid item's default min-width:auto, so its min-content
+       width (the full unwrapped row, ~490px) becomes the floor for the auto
+       grid track -- widening #list and every article past the viewport, where
+       main's overflow-x:clip hides them instead of scrolling. */
+    .fresh-updates { min-width:0; }
     .fresh-updates:empty { display:none; }
     /* The desktop rail remains outside the reading column. Narrow viewports
        use .model-radar-inline, rendered after a semantic story rank inside
@@ -4218,7 +4226,7 @@
   <!-- "New updates" nav indicators + the feed's "Fresh from the Editor's Desk"
        strip — shared logic in /nav-updates.js; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20260824-promo-owner" defer></script>
+  <script src="/nav-updates.js?v=20260829-strip-width" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the
