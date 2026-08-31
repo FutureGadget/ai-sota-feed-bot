@@ -1,10 +1,13 @@
 {
   "slug": "z-ai-glm",
-  "generated_at": "2026-08-31T15:09:10+00:00",
+  "generated_at": "2026-08-31T20:10:00+00:00",
   "covers_last_updated": "2026-08-31T10:08:21+00:00",
   "covers_member_sids": [
     "fde0e6704e2e8662",
+    "1359156e75b44e45",
+    "842cf30c053df9d2",
     "7216c7465c1c56b5",
+    "d209b402e386f93b",
     "6476118b701d8fd0",
     "e8c330662717fd1a",
     "c8a4adf0a06edc29",
@@ -25,7 +28,7 @@
     "8ac028cd69ad870a",
     "01ff32093001c421"
   ],
-  "tldr": "Zhipu quietly added over 50,000 Chinese AI chips to its inference base in mid-August, then delayed GLM 5.3 over cybersecurity risks while a mysterious \"Ox Alpha\" model began showing up in benchmarks rivaling DeepSeek with no confirmed maker. Z.ai then confirmed Ox Alpha was its own model and open-sourced it as GLM-5.3-Flash, a 320B-A18B natively multimodal MoE with a 1M-token context.",
+  "tldr": "Zhipu released GLM-5.3 in mid-August claiming a 50% coding jump, while quietly building out a 50,000+ Chinese chip inference base — then delayed the model over cybersecurity risks as a mysterious \"Ox Alpha\" model surfaced in benchmarks rivaling DeepSeek with no confirmed maker. Z.ai then confirmed Ox Alpha was its own model and open-sourced it as GLM-5.3-Flash, a 320B-A18B natively multimodal MoE with a 1M-token context.",
   "whats_new": "An Aug 31 retrospective says GLM-5.3-Flash's domestic-chip build ran unnoticed for weeks before the reveal, while separate Aug 30 coverage puts GLM-5.3's cyber-test score nearing Anthropic's models.",
   "why_it_matters": "GLM-5.3-Flash is open-sourced with a 1M-token context and lower serving costs, but the cheaper pricing may be tied to the domestic-chip inference path — confirm that before comparing its economics to a Western-chip deployment.",
   "status": {
@@ -38,7 +41,13 @@
         "label": "50K+ Chinese chips added",
         "detail": "Aug 12",
         "tone": "rising",
-        "weight": 7
+        "weight": 6
+      },
+      {
+        "label": "GLM-5.3 launches, coding jumps 50%",
+        "detail": "Aug 14",
+        "tone": "launch",
+        "weight": 8
       },
       {
         "label": "early cyber/coding claims",
@@ -49,32 +58,32 @@
       {
         "label": "scaling law + hands-on",
         "detail": "Aug 20",
-        "tone": "launch",
-        "weight": 10
+        "tone": "rising",
+        "weight": 9
       },
       {
         "label": "delayed over cybersecurity risk",
         "detail": "Aug 22",
         "tone": "turn",
-        "weight": 9
+        "weight": 8
       },
       {
         "label": "Ox Alpha confirmed as Z.ai's own",
         "detail": "Aug 26",
         "tone": "turn",
-        "weight": 13
+        "weight": 12
       },
       {
         "label": "open-sourced as GLM-5.3-Flash",
         "detail": "Aug 26-27",
         "tone": "rising",
-        "weight": 22
+        "weight": 20
       },
       {
         "label": "domestic-chip reveal + stock surge",
         "detail": "Aug 27",
         "tone": "rising",
-        "weight": 18
+        "weight": 16
       },
       {
         "label": "multimodal follow-up, lower costs",
@@ -97,7 +106,16 @@
     "fde0e6704e2e8662": {
       "surfaced_by": "scout"
     },
+    "1359156e75b44e45": {
+      "surfaced_by": "scout"
+    },
+    "842cf30c053df9d2": {
+      "surfaced_by": "scout"
+    },
     "7216c7465c1c56b5": {
+      "surfaced_by": "scout"
+    },
+    "d209b402e386f93b": {
       "surfaced_by": "scout"
     },
     "6476118b701d8fd0": {
@@ -122,12 +140,23 @@
       ]
     },
     {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Zhipu releases GLM-5.3, claiming a 50% coding jump and the strongest open-weights coding model",
+      "summary": "Two outlets cover the initial GLM-5.3 release the same day, including a promise that open-source weights would follow within two weeks.",
+      "sids": [
+        "1359156e75b44e45",
+        "842cf30c053df9d2"
+      ]
+    },
+    {
       "kicker": "CYBER CLAIMS",
       "tone": "rising",
       "headline": "Early coverage claims GLM-5.3 already rivals US models on cyber tests, then flags a Cursor bug",
-      "summary": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks; a day later Z.ai's own results add coding-test gains but flag a vulnerability in Cursor — three days before the release itself gets delayed over cybersecurity risk.",
+      "summary": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks and a second outlet reads the same results past the headline number; a day later Z.ai's own results add coding-test gains but flag a vulnerability in Cursor — three days before the release itself gets delayed over cybersecurity risk.",
       "sids": [
         "7216c7465c1c56b5",
+        "d209b402e386f93b",
         "6476118b701d8fd0"
       ]
     },
@@ -214,7 +243,10 @@
   "take_for_builders": "Re-run any evaluation you did against the unbranded \"Ox Alpha\" weights using the now-official GLM-5.3-Flash release, confirm whether its lower serving costs assume the domestic-chip inference path, and check whether the Cursor vulnerability Z.ai flagged Aug 19 affects your own Cursor+GLM-5.3 setup.",
   "day_captions": {
     "fde0e6704e2e8662": "TechNode reports Zhipu's API user base nears 7 million as it quietly adds over 50,000 Chinese AI chips — weeks before that chip choice becomes the Ox Alpha story.",
-    "7216c7465c1c56b5": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks, before the model has a confirmed public release.",
+    "1359156e75b44e45": "Zhipu releases GLM-5.3, claiming a 50% coding-capability jump and promising open-source weights within two weeks.",
+    "842cf30c053df9d2": "the-decoder.com covers the same GLM-5.3 release, with Zhipu billing it as the strongest open-weights coding model.",
+    "7216c7465c1c56b5": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks, before the model has open weights.",
+    "d209b402e386f93b": "AI News reads the GLM-5.3 benchmark results past the headline number, the same day as the cyber-race claim.",
     "6476118b701d8fd0": "Z.ai's own results add coding and cyber-test gains but flag a vulnerability in Cursor — three days before the release gets delayed over cybersecurity risk.",
     "e8c330662717fd1a": "CEO Jie Tang explains GLM 5.3's post-training scaling-law philosophy in an AINews interview.",
     "c8a4adf0a06edc29": "An independent hands-on review covers GLM 5's features and pricing, the same day as the CEO interview.",
