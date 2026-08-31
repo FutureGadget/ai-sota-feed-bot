@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46]
-updated: 2026-08-27
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609]
+updated: 2026-08-31
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609]
 ---
 
 ## TL;DR
@@ -196,14 +196,33 @@ on top of data they already hold: DynamoDB shipped a `SearchVectors` API
 for approximate nearest-neighbor lookups alongside application rows (see
 [vector-kb](/topic/vector-kb) for the full incumbent-datastore trend).
 
+**The gateway pattern is now arriving as a managed platform service, not
+just a self-hosted toolkit**: Cloudflare AI Search runs the full retrieval
+pipeline — crawl, parse, embed, retrieve — as one built-in service exposing
+a single search endpoint over a custom data collection, with a "discover"
+mode that finds and indexes pages without requiring the site to publish a
+sitemap first, and public `/mcp` and `/search` endpoints so an agent or MCP
+client can query it without touching the underlying store. It's the same
+"which store, which query language" consolidation Orbit's self-hosted
+gateway already makes above, this time as a hosted service a platform
+engineer doesn't have to run themselves, trading self-hosting control for
+setup speed.
+
 ## What's new
-Databricks extracts chart figures into structured JSON (via
+Cloudflare AI Search packages the full retrieval pipeline (crawl, parse,
+embed, retrieve) as a managed service with a single search endpoint and
+public `/mcp`/`/search` access, plus a "discover" mode that indexes sites
+without a published sitemap — the gateway-consolidation pattern this page
+already tracks (Orbit), now available as a hosted platform service instead
+of only a self-hosted toolkit (see State of the art above).
+
+Prior update: Databricks extracts chart figures into structured JSON (via
 `ai_parse_document`) instead of relying on captions alone, then indexes the
 JSON-enriched chunks with a lightweight 300M-parameter embedding model. On
 the chart-heavy ViDoRe V3 benchmark it reaches 75.9% answer correctness with
 only the top-3 retrieved images, beating four larger multimodal embedding
 baselines — closing the blind spot pure text/caption retrieval leaves for
-the numbers inside enterprise charts (see State of the art above).
+the numbers inside enterprise charts.
 
 Prior update: Tencent's WeMM-Embedding-9B extends the "retriever keeps
 improving" trend to multimodal grounding, embedding text, images, video, and
