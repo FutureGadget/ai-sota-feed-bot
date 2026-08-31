@@ -1,0 +1,47 @@
+{
+  "slug": "evolution-harness",
+  "generated_at": "2026-08-31T00:15:00+00:00",
+  "covers_last_updated": "2026-08-27T16:12:23+00:00",
+  "covers_member_sids": [
+    "df63102a57f71f08",
+    "7cbe2bc28a10212c",
+    "00e3e8e2193bc83d"
+  ],
+  "tldr": "An essay argued that agent harnesses are gradually being absorbed into model weights, leaving the harness's remaining job to direct human attention rather than the model. Days later, an arXiv paper backed that shift with evidence that harness-design changes alone move coding-agent output quality.",
+  "whats_new": "A new arXiv paper proposes behavior-aware verification so harness-evolution systems can screen candidate harness changes without scoring every one from scratch.",
+  "why_it_matters": "If you're treating your agent's harness (prompts, tool wiring, runtime scaffolding) as a tunable surface, the verification step that checks each candidate change is the bottleneck this work targets — cheaper verification means faster, safer harness iteration.",
+  "beats": [
+    {
+      "kicker": "THE ARGUMENT",
+      "tone": "launch",
+      "headline": "Essay: harnesses are being absorbed into model weights",
+      "summary": "Latent Space piece frames the harness's remaining role as directing human attention, not the model.",
+      "sids": ["df63102a57f71f08"]
+    },
+    {
+      "kicker": "THE EVIDENCE",
+      "tone": "rising",
+      "headline": "Paper ties harness-evolution choices to coding-agent quality",
+      "summary": "First empirical link in this thread between harness design and output quality, not just prompting.",
+      "sids": ["7cbe2bc28a10212c"]
+    },
+    {
+      "kicker": "THE FIX",
+      "tone": "turn",
+      "headline": "Behavior-aware verification cuts the cost of evolving a harness",
+      "summary": "Replaces exhaustive propose-and-verify scoring of every candidate harness change.",
+      "sids": ["00e3e8e2193bc83d"]
+    }
+  ],
+  "open_questions": [
+    "Does behavior-aware verification generalize beyond coding agents to other agent domains?",
+    "How much wall-clock or compute cost does the new verification method actually save versus propose-and-verify baselines?",
+    "Does harness quality keep mattering as more harness logic gets absorbed into model weights, per the opening essay's thesis?"
+  ],
+  "take_for_builders": "If you're iterating on your agent's harness, watch for behavior-aware verification techniques that screen candidate changes without a full re-score — it directly targets the cost bottleneck in harness-evolution loops.",
+  "day_captions": {
+    "df63102a57f71f08": "Framed the trend: harnesses are being absorbed into model weights, shifting their remaining purpose toward directing human attention.",
+    "7cbe2bc28a10212c": "First empirical link in this thread between harness-evolution choices and coding-agent output quality.",
+    "00e3e8e2193bc83d": "Introduced behavior-aware verification to cut the cost of evaluating each harness-evolution candidate."
+  }
+}
