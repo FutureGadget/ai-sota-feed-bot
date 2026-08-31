@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f]
-updated: 2026-08-29
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949]
+updated: 2026-08-31
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949]
 ---
 
 ## TL;DR
@@ -671,15 +671,45 @@ was procedural (a provider could always "peek" at eval questions in
 advance) and makes it structurally impossible instead of merely
 discouraged.
 
+A thirty-third front questions the standard method for evaluating **model
+switching** itself, not the model or the benchmark: static replay evaluation
+swaps a different model's output into a logged trajectory at the switch
+point and assumes the rest of the trajectory is unaffected. Branching-rollout
+tests on live SWE-bench trajectories (~900 rollouts, forking the environment
+at a controlled point and continuing with a different model per fork) show
+that assumption fails hard: post-fork actions diverge from the logged path
+61-94% of the time, replay mispredicts every success-relevant outcome, and
+patch similarity to what actually happened falls to 0.00-0.11. All five
+observed success/failure flips occurred in swap forks and zero occurred
+across 359 same-model control forks, so the divergence is a genuine effect of
+the swap, not sampling noise — and even temperature-0 "determinism" turned
+out to depend on quantization, with FP8 controls diverging on over 90% of
+forks while AWQ stayed near-identical. The fix isn't a different scoring
+rubric but a different evaluation architecture: fork and re-run the
+environment per model instead of splicing one model's output into another's
+logged trajectory, extending this page's "the benchmark's own construction is
+a variable" thread (BTS-AgentBench, the serving-backend and
+container-resourcing fronts above) to how a multi-model comparison itself
+gets built, not just how a single-model run does.
+
 ## What's new
-BTS-AgentBench builds agent-benchmark episodes directly from read-only
+Branching-rollout tests on live SWE-bench trajectories show static
+model-switching evaluation is unreliable: replaying a logged trajectory with
+a swapped model mispredicts nearly every success-relevant outcome (61-94% of
+post-fork actions diverge, patch similarity to reality falls to 0.00-0.11),
+while 359 same-model control forks produced zero of the five observed
+success/failure flips — evidence the field needs to fork-and-re-run per
+model rather than splice outputs into one logged path (see State of the art
+above).
+
+Prior update: BTS-AgentBench builds agent-benchmark episodes directly from read-only
 production telemetry through a deterministic, replayable pipeline (204
 episodes from one industrial system, reproducible via independent rebuilds
 matching all 11 tool-store exports), and Google DeepMind piloted
 double-blind evaluation — running model and evaluator inside Confidential
 Computing so neither can see the other's weights or prompts — making
 benchmark-contamination resistance a cryptographic property instead of a
-trust agreement (see State of the art above).
+trust agreement.
 
 Prior update: Anthropic quantified a source of eval noise this page hadn't measured
 before: container resource configuration alone can swing scores by 6
@@ -708,11 +738,6 @@ hits 98.41% receipt accuracy on frozen evaluations, but that drops to
 simple cases recovers only 7.16% of receipts on complex multi-source
 updates — the judge can keep landing the right label while its stated
 reasons stop tracking why (see State of the art above).
-
-Prior update: "Agentic fitness functions" pairs an AI agent with a versioned rubric to
-judge judgment-heavy architectural properties that deterministic rules can't
-check — widening eval past outcome correctness into architectural
-conformance.
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell
