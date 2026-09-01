@@ -13,6 +13,7 @@ import json
 import os
 import sys
 import unittest
+from calendar import monthrange
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -38,6 +39,17 @@ def _mk_item(i: int, **overrides) -> dict:
     }
     item.update(overrides)
     return item
+
+
+def _fixed_datetime(fixed_now: datetime):
+    """A `datetime` subclass whose `now()` always returns `fixed_now`."""
+
+    class FixedDatetime(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            return fixed_now if tz is None else fixed_now.astimezone(tz)
+
+    return FixedDatetime
 
 
 class TranslationKeyAndHashTest(unittest.TestCase):
@@ -408,6 +420,17 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self._root_patch = patch.object(localized, "ROOT", self.tmp_path)
         self._root_patch.start()
 
+        # The governor runs on Google's Pacific billing clock (_current_month,
+        # select_mode's day-of-month pace), which drifts from UTC for part of
+        # every day and can make a "just over pace" ledger unrepresentable on
+        # the month's last day. Pin the clock mid-month so both are decided by
+        # one known instant instead of the wall clock: 2026-07-10 20:00 UTC is
+        # 2026-07-10 13:00 PDT, Pacific day 10 of a 31-day month.
+        self.now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)
+        self._clock_patch = patch.object(localized, "datetime", _fixed_datetime(self.now))
+        self._clock_patch.start()
+        self.current_month = localized._current_month(self.now)
+
         # monthly_cap is env-driven, not persisted (load_ledger recomputes it every
         # run); pin it so a pre-written budget.json's monthly_cap value is honored.
         self._env_patch = patch.dict(os.environ, {
@@ -417,9 +440,17 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self._env_patch.start()
 
     def tearDown(self) -> None:
+        self._clock_patch.stop()
         self._root_patch.stop()
         self._env_patch.stop()
         self._tmpdir.cleanup()
+
+    def _chars_just_over_pace(self, monthly_cap: int = 1_000_000) -> int:
+        """Spend that puts the ledger just over pro-rata pace (-> conserve), using
+        the same Pacific day-of-month math as select_mode."""
+        local = self.now.astimezone(localized.PACIFIC_TZ)
+        days_in_month = monthrange(local.year, local.month)[1]
+        return int((local.day / days_in_month) * monthly_cap) + 1000
 
     def _run_main(self, argv: list[str]):
         with patch.object(sys, "argv", ["build_localized_feed.py"] + argv):
@@ -431,7 +462,7 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         }), encoding="utf-8")
 
     def _write_existing_snapshot(self, source_run_at: str, items: list[dict] | None = None) -> None:
-        now = datetime.now(timezone.utc)
+        now = self.now
         expires = (datetime.fromisoformat(source_run_at.replace("Z", "+00:00")) + timedelta(hours=24)).isoformat()
         snapshot = {
             "locale": "ko", "surface": "feed", "source_run_at": source_run_at,
@@ -449,13 +480,12 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         ledger = json.loads(self.budget_path.read_text())
         self.assertEqual(ledger["chars_used"], 12345)
         self.assertEqual(ledger["seeded_from"], "console 2026-07-12")
-        self.assertEqual(ledger["month"], datetime.now(timezone.utc).strftime("%Y-%m"))
+        self.assertEqual(ledger["month"], self.current_month)
 
     def test_paused_mode_skips_fetch_and_preserves_previous_snapshot(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        self._write_budget(current_month, chars_used=999_500, monthly_cap=1_000_000)  # 0.05% remaining
+        self._write_budget(self.current_month, chars_used=999_500, monthly_cap=1_000_000)  # 0.05% remaining
         self._write_existing_snapshot(
-            (datetime.now(timezone.utc) - timedelta(hours=1)).isoformat(),
+            (self.now - timedelta(hours=1)).isoformat(),
             items=[{"translation_key": "https://example.com/existing", "title": "기존"}],
         )
         before = self.latest_path.read_text()
@@ -471,18 +501,14 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertEqual(status["mode"], "paused")
         self.assertEqual(status["budget"]["chars_used"], 999_500)
         self.assertEqual(status["budget"]["monthly_cap"], 1_000_000)
-        self.assertEqual(status["budget"]["month"], current_month)
+        self.assertEqual(status["budget"]["month"], self.current_month)
 
     def test_conserve_mode_skips_translate_call_for_young_snapshot(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        # Over pace but not paused: forces conserve/economy depending on day-of-month math.
-        now = datetime.now(timezone.utc)
-        days_in_month = 31 if now.month in (1, 3, 5, 7, 8, 10, 12) else 30
-        # chars_used just above pro-rata pace -> conserve (not +0.15 over -> not economy)
-        chars_used = int((now.day / days_in_month) * 1_000_000) + 1000
-        self._write_budget(current_month, chars_used=chars_used, monthly_cap=1_000_000)
+        # Just above pro-rata pace -> conserve (not +0.15 over -> not economy),
+        # and well clear of the 2% pause floor.
+        self._write_budget(self.current_month, chars_used=self._chars_just_over_pace(), monthly_cap=1_000_000)
         # Existing snapshot is younger than the default 6h conserve window.
-        self._write_existing_snapshot((now - timedelta(hours=1)).isoformat())
+        self._write_existing_snapshot((self.now - timedelta(hours=1)).isoformat())
 
         with patch.object(localized, "_fetch_english_feed") as mock_fetch, \
              patch("google_translate.translate_texts") as mock_translate:
@@ -496,13 +522,9 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertIn("budget", status)
 
     def test_conserve_mode_translates_when_snapshot_old_enough(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        now = datetime.now(timezone.utc)
-        days_in_month = 31 if now.month in (1, 3, 5, 7, 8, 10, 12) else 30
-        chars_used = int((now.day / days_in_month) * 1_000_000) + 1000
-        self._write_budget(current_month, chars_used=chars_used, monthly_cap=1_000_000)
+        self._write_budget(self.current_month, chars_used=self._chars_just_over_pace(), monthly_cap=1_000_000)
         # Existing snapshot is older than the 6h conserve window -> must still refresh.
-        self._write_existing_snapshot((now - timedelta(hours=10)).isoformat())
+        self._write_existing_snapshot((self.now - timedelta(hours=10)).isoformat())
 
         items = [_mk_item(i) for i in range(3)]
         with patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
@@ -515,19 +537,11 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertEqual(status["status"], "current")
 
     def test_economy_mode_limits_to_10_and_translates_all_fields(self) -> None:
-        # Pin the billing clock early enough in the month that economy mode is
-        # mathematically reachable without crossing the 2% pause floor. A test
-        # based on the real date becomes impossible during the month's last days.
-        fixed_now = datetime(2026, 7, 10, 20, 0, tzinfo=timezone.utc)
-
-        class FixedDatetime(datetime):
-            @classmethod
-            def now(cls, tz=None):
-                return fixed_now if tz is None else fixed_now.astimezone(tz)
-
-        current_month = localized._current_month(fixed_now)
+        # The class-wide pinned clock (Pacific day 10 of 31) is early enough in
+        # the month that economy mode is reachable without crossing the 2%
+        # pause floor.
         chars_used = 600_000  # > Pacific day 10/31 + 0.15, with 40% remaining
-        self._write_budget(current_month, chars_used=chars_used, monthly_cap=1_000_000)
+        self._write_budget(self.current_month, chars_used=chars_used, monthly_cap=1_000_000)
         # No existing snapshot, so the conserve-cadence skip never applies; economy
         # must still translate this run (first run has nothing to preserve).
 
@@ -538,8 +552,7 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
                 stats["chars_sent"] = stats.get("chars_sent", 0) + sum(len(t) for t in texts)
             return [f"번역-{t}" for t in texts]
 
-        with patch.object(localized, "datetime", FixedDatetime), \
-             patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
+        with patch.object(localized, "_fetch_english_feed", return_value={"items": items}), \
              patch("google_translate.translate_texts", side_effect=fake_translate):
             self._run_main(["--locale", "ko", "--label", "brief", "--limit", "20"])
 
@@ -562,8 +575,7 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
     def test_snapshot_carries_frozen_render_metadata(self) -> None:
         # source_meta + target_keys let the API serve the frozen snapshot as
         # dated Korean cards when the feed is paused/stale.
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        self._write_budget(current_month, chars_used=0, monthly_cap=1_000_000)
+        self._write_budget(self.current_month, chars_used=0, monthly_cap=1_000_000)
         items = [_mk_item(i, source=f"src_{i}", type="news") for i in range(5)]
 
         def fake_translate(texts, target, source="en", *, api_key=None, stats=None):
@@ -589,9 +601,8 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
             self.assertTrue(str(meta["source"]).startswith("src_"))
 
     def test_quota_exceeded_writes_budget_paused_and_preserves_snapshot(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
-        self._write_budget(current_month, chars_used=100, monthly_cap=1_000_000)  # nowhere near the floor
-        now = datetime.now(timezone.utc)
+        self._write_budget(self.current_month, chars_used=100, monthly_cap=1_000_000)  # nowhere near the floor
+        now = self.now
         self._write_existing_snapshot(
             (now - timedelta(hours=1)).isoformat(),
             items=[{"translation_key": "https://example.com/keep-me", "title": "유지"}],
@@ -615,9 +626,8 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertIsNotNone(status["resumes_at"])
 
     def test_quota_exceeded_monthly_reason_wins_when_partial_spend_crosses_floor(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
         # Comfortably above the 2% floor before this run's attempt...
-        self._write_budget(current_month, chars_used=970_000, monthly_cap=1_000_000)
+        self._write_budget(self.current_month, chars_used=970_000, monthly_cap=1_000_000)
         items = [_mk_item(i) for i in range(3)]
 
         def raise_quota_after_partial_spend(texts, target, source="en", *, api_key=None, stats=None):
@@ -637,9 +647,8 @@ class BuildLocalizedFeedGovernorIntegrationTest(unittest.TestCase):
         self.assertEqual(ledger["chars_used"], 1_010_000)
 
     def test_governor_kill_switch_forces_normal_mode_via_env(self) -> None:
-        current_month = datetime.now(timezone.utc).strftime("%Y-%m")
         # Would be economy/paused under the ladder, but the kill switch bypasses it.
-        self._write_budget(current_month, chars_used=999_000, monthly_cap=1_000_000)
+        self._write_budget(self.current_month, chars_used=999_000, monthly_cap=1_000_000)
         items = [_mk_item(i) for i in range(3)]
 
         def fake_translate(texts, target, source="en", *, api_key=None, stats=None):
