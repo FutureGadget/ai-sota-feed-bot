@@ -1,0 +1,113 @@
+{
+ "slug": "mcp-server",
+ "label": "MCP Server",
+ "item_count": 3,
+ "day_count": 2,
+ "source_count": 3,
+ "first_seen": "2026-08-21T09:55:00+00:00",
+ "last_updated": "2026-08-31T22:47:53+00:00",
+ "generated_at": "2026-09-01T00:09:52.063063+00:00",
+ "sources": [
+  "aws_ml_blog",
+  "hackernews_ai",
+  "infoq_ai_ml"
+ ],
+ "days": [
+  {
+   "date": "2026-08-21",
+   "items": [
+    {
+     "title": "Azure DevOps Remote MCP Server Reaches GA, Without Support for Claude, ChatGPT, or Cursor",
+     "url": "https://www.infoq.com/news/2026/08/azure-devops-remote-mcp-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+     "source": "infoq_ai_ml",
+     "type": "news",
+     "summary_1line": "Microsoft has made the Azure DevOps Remote MCP Server generally available, offering a hosted endpoint into work items, repos, and pipelines with nothing to install. Claude Desktop, Claude Code, ChatGPT, and Cursor can...",
+     "why_it_matters": "Matches feed focus: claude code.",
+     "sid": "857f4a269c2fa11e",
+     "published": "2026-08-21T09:55:00+00:00",
+     "editor_note": "Microsoft ships general availability for the Azure DevOps Remote MCP Server, but leaves out support for the three most widely used agent clients."
+    }
+   ]
+  },
+  {
+   "date": "2026-08-31",
+   "items": [
+    {
+     "title": "Connect Your AI Agent to a Remote MCP Server",
+     "url": "https://quickchat.ai/post/connect-ai-agent-to-mcp-server",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Connect Your AI Agent to a Remote MCP Server",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "94202c615efb6b89",
+     "published": "2026-08-31T08:47:06+00:00",
+     "editor_note": "A general how-to for connecting an AI agent to a remote MCP server lands the same day as AWS's Amazon Quick guide."
+    },
+    {
+     "title": "Connect an AgentCore Runtime hosted MCP server to Amazon Quick",
+     "url": "https://aws.amazon.com/blogs/machine-learning/connect-an-agentcore-runtime-hosted-mcp-server-to-amazon-quick",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "In this post, you will learn how to deploy and host your MCP server in AgentCore Runtime and integrate it with Amazon Quick, along with the prerequisites. With this pattern, you promote reusability and avoid duplicati...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "7a560348d1cc3306",
+     "published": "2026-08-31T22:47:53+00:00",
+     "editor_note": "AWS publishes a walkthrough wiring an AgentCore Runtime-hosted MCP server into Amazon Quick."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Microsoft took its Azure DevOps Remote MCP Server to general availability in mid-August, giving hosted work-item, repo, and pipeline access with nothing to install — but not for Claude, ChatGPT, or Cursor. By month's end, remote-hosted MCP servers had spread beyond Microsoft to AWS.",
+  "stale": false,
+  "whats_new": "AWS published a walkthrough wiring an AgentCore Runtime-hosted MCP server into Amazon Quick, landing the same day as a general \"connect your agent to a remote MCP server\" guide.",
+  "why_it_matters": "Remote-hosted MCP servers are becoming the default deployment pattern over local stdio servers, but client support isn't uniform across vendors — Azure DevOps's GA release explicitly excludes Claude, ChatGPT, and Cursor, so confirm compatibility before standardizing on one vendor's hosted MCP server.",
+  "take_for_builders": "Before standardizing on a vendor-hosted MCP server, confirm which agent clients it actually supports — Azure DevOps's GA release explicitly locks out Claude, ChatGPT, and Cursor.",
+  "status": {
+   "state": "Spreading beyond Microsoft",
+   "tone": "rising",
+   "changed": "2026-08-31",
+   "detail": "AWS and a generic how-to joined Microsoft's earlier Azure DevOps rollout, extending the shift to remotely hosted MCP servers.",
+   "track": [
+    {
+     "label": "Azure DevOps GA, no Claude/ChatGPT/Cursor support",
+     "detail": "Aug 21",
+     "tone": "launch",
+     "weight": 40
+    },
+    {
+     "label": "AWS + generic remote-MCP guides",
+     "detail": "Aug 31",
+     "tone": "now",
+     "weight": 60
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Azure DevOps Remote MCP Server goes GA — without Claude, ChatGPT, or Cursor support",
+    "summary": "Microsoft ships a hosted endpoint into work items, repos, and pipelines with nothing to install, but leaves out the three most widely used agent clients.",
+    "sids": [
+     "857f4a269c2fa11e"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "AWS and a generic guide show remote MCP hosting spreading beyond Microsoft",
+    "summary": "A general how-to for connecting an agent to a remote MCP server appears the same day AWS publishes its own walkthrough wiring an AgentCore-hosted MCP server into Amazon Quick.",
+    "sids": [
+     "94202c615efb6b89",
+     "7a560348d1cc3306"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Will Azure DevOps's Remote MCP Server add support for Claude, ChatGPT, or Cursor, or stay Microsoft-agent-only?",
+   "Do AgentCore-hosted MCP servers interoperate with non-AWS agent clients, or is Amazon Quick similarly narrow?"
+  ],
+  "generated_at": "2026-09-01T00:08:40+00:00"
+ }
+}
