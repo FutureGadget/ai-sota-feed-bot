@@ -1,25 +1,28 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-08-28T20:12:00Z",
-  "covers_last_updated": "2026-08-27T14:17:14+00:00",
+  "generated_at": "2026-09-01T05:10:00Z",
+  "covers_last_updated": "2026-08-31T12:02:04+00:00",
   "covers_member_sids": [
     "d2165b4e687df565",
     "473e4a8407d950ff",
-    "44fdd531ea49fe98"
+    "44fdd531ea49fe98",
+    "7ac516e280c5ca22"
   ],
-  "tldr": "Three separate LLM research and evaluation items, grouped by the phrase in their titles rather than by one developing story. It opened Aug 13 with AaLLM, an end-to-end framework driving analog circuit topology generation and sizing, and picked up a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education on Aug 27.",
-  "whats_new": "An arXiv preprint, Prediction of Prediction (PoP), claims hallucination detection from fused inter-layer activations in a single forward pass, targeting the case where an LLM is factually wrong at high decoding confidence.",
-  "why_it_matters": "Output-stage uncertainty checks generally need multiple samples per answer, so the guardrail costs as much as the generation. A detector that reads internal activations during the one pass you already run changes what an inline correctness gate costs to operate.",
-  "take_for_builders": "If your correctness gate scores hallucination risk by sampling several completions, read the PoP preprint before your next inference-cost review — but treat single-pass activation detectors as unproven until someone reports transfer across model families.",
+  "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
+  "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+  "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+  "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
   "open_questions": [
     "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
-    "Do the inter-layer activation features transfer across model families, or must a detector be trained per model?",
+    "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
     "Does activation-level detection need weights access, ruling it out for API-only deployments?",
-    "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?"
+    "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+    "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
   ],
   "day_captions": {
     "d2165b4e687df565": "Opens the thread on the applications side: LLMs as the driver of an analog circuit design loop, not as the object of study.",
     "473e4a8407d950ff": "The only non-arXiv item — a clinical journal putting three named commercial assistants head-to-head on one patient-education task.",
-    "44fdd531ea49fe98": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time."
+    "44fdd531ea49fe98": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time.",
+    "7ac516e280c5ca22": "Shifts the thread to agent evaluation: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
   }
 }

@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-01T00:09:52.063063+00:00",
+ "generated_at": "2026-09-01T05:04:43.848938+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -51,6 +51,40 @@
       }
      ]
     }
+   }
+  },
+  {
+   "slug": "large-language",
+   "label": "Large Language",
+   "item_count": 4,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-08-13T16:57:07+00:00",
+   "last_updated": "2026-08-31T12:02:04+00:00",
+   "latest_title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+   "days": [
+    "2026-08-13",
+    "2026-08-27",
+    "2026-08-31"
+   ],
+   "member_sids": [
+    "d2165b4e687df565",
+    "473e4a8407d950ff",
+    "44fdd531ea49fe98",
+    "7ac516e280c5ca22"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2608.13472v1",
+    "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
+    "http://arxiv.org/abs/2608.27165v1",
+    "http://arxiv.org/abs/2608.30661v1"
+   ],
+   "editorial": {
+    "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
+    "stale": false,
+    "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+    "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+    "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage."
    }
   },
   {
@@ -206,6 +240,38 @@
       }
      ]
     }
+   }
+  },
+  {
+   "slug": "memory-long-term",
+   "label": "Memory Long-Term",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-08-17T09:14:31+00:00",
+   "last_updated": "2026-08-31T09:41:26+00:00",
+   "latest_title": "UTILMEM: Benchmarking Evidence Utilization in Long-Term Conversational Memory",
+   "days": [
+    "2026-08-17",
+    "2026-08-30",
+    "2026-08-31"
+   ],
+   "member_sids": [
+    "40602cd71e370eb6",
+    "5960e24b491051f2",
+    "92250613f04ac1b9"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2608.16303v1",
+    "http://arxiv.org/abs/2608.29606v1",
+    "http://arxiv.org/abs/2608.30508v1"
+   ],
+   "editorial": {
+    "tldr": "Three separate long-term-memory research papers grouped by a shared title phrase rather than one developing story. It opened Aug 17 with FTA-Mem's fact-time-affect anchored memory for low-density emotional-support dialogue, then Agent Zero Memory's Aug 30 case for provenance-aware memory instead of one fixed structure.",
+    "stale": false,
+    "whats_new": "A new arXiv benchmark, UTILMEM, argues existing long-term-memory evals measure only pointwise factual recall and proposes scoring how well an agent actually uses the evidence it retrieves.",
+    "why_it_matters": "If you eval your agent's memory system on recall alone, UTILMEM's framing is a reminder that retrieving the right fact and correctly using it in the reply are different failure modes worth separate checks.",
+    "take_for_builders": "Before trusting a recall-only memory eval, check whether it also scores evidence utilization — UTILMEM's task design is a starting point for adding that check to your own harness."
    }
   },
   {
@@ -619,37 +685,6 @@
    }
   },
   {
-   "slug": "large-language",
-   "label": "Large Language",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 2,
-   "first_seen": "2026-08-13T16:57:07+00:00",
-   "last_updated": "2026-08-27T14:17:14+00:00",
-   "latest_title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
-   "days": [
-    "2026-08-13",
-    "2026-08-27"
-   ],
-   "member_sids": [
-    "d2165b4e687df565",
-    "473e4a8407d950ff",
-    "44fdd531ea49fe98"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2608.13472v1",
-    "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
-    "http://arxiv.org/abs/2608.27165v1"
-   ],
-   "editorial": {
-    "tldr": "Three separate LLM research and evaluation items, grouped by the phrase in their titles rather than by one developing story. It opened Aug 13 with AaLLM, an end-to-end framework driving analog circuit topology generation and sizing, and picked up a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education on Aug 27.",
-    "stale": false,
-    "whats_new": "An arXiv preprint, Prediction of Prediction (PoP), claims hallucination detection from fused inter-layer activations in a single forward pass, targeting the case where an LLM is factually wrong at high decoding confidence.",
-    "why_it_matters": "Output-stage uncertainty checks generally need multiple samples per answer, so the guardrail costs as much as the generation. A detector that reads internal activations during the one pass you already run changes what an inline correctness gate costs to operate.",
-    "take_for_builders": "If your correctness gate scores hallucination risk by sampling several completions, read the PoP preprint before your next inference-cost review — but treat single-pass activation detectors as unproven until someone reports transfer across model families."
-   }
-  },
-  {
    "slug": "speculative-decoding",
    "label": "Speculative Decoding",
    "item_count": 3,
@@ -794,38 +829,6 @@
       }
      ]
     }
-   }
-  },
-  {
-   "slug": "intelligence-qwen",
-   "label": "Artificial Intelligence",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-08-13T11:28:00+00:00",
-   "last_updated": "2026-08-18T22:47:02+00:00",
-   "latest_title": "GLM-5.3 Scores 60 on Artificial Analysis Intelligence Index, Matching Kimi K3 - Unite.AI",
-   "days": [
-    "2026-08-13",
-    "2026-08-17",
-    "2026-08-18"
-   ],
-   "member_sids": [
-    "3eba94a41de1a0d5",
-    "4fdeab7a66fc6733",
-    "0aa56990d912e415"
-   ],
-   "member_urls": [
-    "https://www.infoq.com/news/2026/08/AI-disrupts-engineering-progress/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-    "https://simonwillison.net/2026/Aug/17/qwen-38-27b-scores-52",
-    "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZUQtS0JtV3lLMVVPbE4xRHYtNlVTWFJudmMzWWNJeG1FLVFKM1ZVZDItTTEtSUZiYUVMeXNLRTFjdk5vUjR3LXNRT2VoYUNpNTFZbURfemV4cU9va1lJNXFwdXhxY0hmMW9DNU9DSlRQRlZJb0JwTGZRRVFzR1Z4R3pnNUhLZHBuQWJya0tUMHpxeWxKZ29EeFpQck05aHM?oc=5"
-   ],
-   "editorial": {
-    "tldr": "Chinese open-weight labs are now racing on the Artificial Analysis Intelligence Index rather than parameter count alone. Qwen's 3.8 27B build posted a score within a point of much larger flagships in mid-August, only for a rival to leapfrog it a day later.",
-    "stale": false,
-    "whats_new": "GLM-5.3 scored 60 on the Artificial Analysis Intelligence Index on Aug 18, matching Kimi K3 and beating Qwen 3.8 27B's Aug 17 score of 52 by 8 points in barely a day.",
-    "why_it_matters": "A leaderboard that swings 8+ points in 24 hours means a benchmark score you cited last week may already be stale, so pin the exact model build and eval date before using one to justify a model choice.",
-    "take_for_builders": "Pin the exact model build and benchmark date before citing an Artificial Analysis Intelligence Index score for Qwen, GLM, or Kimi -- scores moved 8+ points in a single day this month -- and re-run your own eval rather than trusting a cached leaderboard number."
    }
   }
  ]
