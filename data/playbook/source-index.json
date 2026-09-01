@@ -303,6 +303,25 @@
     },
     "edition_date": "2026-07-21"
   },
+  "1f2ada50b5710870": {
+    "id": "pb-mcp-tool-result-filter-hook",
+    "kind": "source-backed",
+    "title": "Filter MCP tool results in an extension hook before they reach the model, not after",
+    "area": "Tool use",
+    "problem": "An MCP tool can return output your agent shouldn't feed the model as-is — a leaked secret, or a payload large enough to blow the context budget — and by default that raw result goes straight into the conversation.",
+    "apply": "Use Codex's new extension hook that lets an extension inspect or replace an MCP tool's result before it reaches the model, and use it to redact sensitive fields or truncate/summarize oversized payloads at the boundary instead of downstream in the prompt.",
+    "result": "Tool output your agent shouldn't see raw — secrets, oversized payloads — gets filtered at the source instead of relying on the model to ignore or truncate it itself.",
+    "effort": "medium",
+    "source": "openai_codex_releases",
+    "source_url": "https://github.com/openai/codex/releases/tag/rust-v0.151.0",
+    "source_sid": "1f2ada50b5710870",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The release note only describes the hook's existence; the redaction/truncation use case is an editorial inference, not a measured or vendor-claimed result."
+    },
+    "edition_date": "2026-09-01"
+  },
   "20a176e41161c528": {
     "id": "pb-salience-normalization-rag-defense",
     "kind": "source-backed",
@@ -930,6 +949,25 @@
     },
     "edition_date": "2026-07-14"
   },
+  "5b17581a4141c149": {
+    "id": "pb-nvidia-mps-gpu-partition-cost",
+    "kind": "source-backed",
+    "title": "Partition GPUs with NVIDIA MPS to run multiple model instances per card instead of one",
+    "area": "Cost & latency",
+    "problem": "A model-serving workload that only uses 15-20% of a GPU's compute per request still occupies the whole GPU when served one request at a time, wasting most of the card's capacity.",
+    "apply": "Enable NVIDIA CUDA MPS on your inference GPUs, set CUDA_MPS_ACTIVE_THREAD_PERCENTAGE to split each card into partitions (e.g. 4 instances at 25% SM each), map one model instance per partition, and combine it with dynamic batching. AWS notes the technique is model-agnostic for any encoder-decoder model served through Triton on NVIDIA GPUs, and works best when per-request GPU utilization is low and latency requirements rule out batching delays.",
+    "result": "AWS reports cutting infrastructure from 16 GPU instances to 4 for an ASR workload — a 75% cost reduction — while holding latency SLAs (mean under 650ms, p99 under 1,000ms) and reaching 92.1 requests/sec per GPU.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/reduce-asr-inference-costs-by-75-with-nvidia-mps-on-amazon-ec2/",
+    "source_sid": "5b17581a4141c149",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The GPU-count reduction, cost figure, and throughput/latency numbers are AWS's own reported deployment results."
+    },
+    "edition_date": "2026-09-01"
+  },
   "5ba78b757300e8cc": {
     "id": "pb-memory-dosing-by-model-tier",
     "kind": "source-backed",
@@ -1005,6 +1043,25 @@
       "note": "LangChain reports the per-check cost reduction from the scheduler redesign directly."
     },
     "edition_date": "2026-08-11"
+  },
+  "6c790a16de0afd2b": {
+    "id": "pb-evals-start-small-multi-grader",
+    "kind": "source-backed",
+    "title": "Start agent evals at 20-50 tasks pulled from real failures, not a from-scratch test suite",
+    "area": "Evals",
+    "problem": "Waiting to build a comprehensive eval suite before starting means agent regressions ship undetected for months, and a single grading method misses either objective correctness or subjective quality.",
+    "apply": "Convert 20-50 already-known production failures and manually-verified behaviors into your first eval tasks, written unambiguously enough that two domain experts grade them the same way; run each in an isolated, clean-state environment; and combine deterministic graders (unit tests, state checks) with an LLM-rubric grader for subjective dimensions, rereading real transcripts periodically to confirm the grader still measures what you think it does.",
+    "result": "Anthropic reports frontier models went from 40% to over 80% pass rate on SWE-bench Verified within a year of consistent eval-driven iteration, and that teams with evals adopt new models in days instead of weeks; tracking Pass^k (all k trials succeed) alongside Pass@k surfaces reliability gaps a single pass-rate number hides — a 75% per-trial success rate is only about 42% Pass^3.",
+    "effort": "medium",
+    "source": "anthropic_engineering",
+    "source_url": "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents",
+    "source_sid": "6c790a16de0afd2b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The SWE-bench Verified trend and Pass^k math are Anthropic's own cited figures."
+    },
+    "edition_date": "2026-09-01"
   },
   "6d8abedbe0ad0261": {
     "id": "pb-deep-agents-production-scale",
@@ -1728,6 +1785,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "a9acbff7bd542e61": {
+    "id": "pb-automated-alignment-researcher-loop",
+    "kind": "source-backed",
+    "title": "Use an agent-driven propose-train-test loop, with a monitoring agent, to close safety gaps faster than manual research",
+    "area": "Safety",
+    "problem": "Manually researching and patching a model's alignment failures (deception, sycophancy, and similar) is slow, and each new checkpoint reopens the same work.",
+    "apply": "Set an agent loose on one alignment-failure category at a time with an iterative search-propose-train-test loop (literature search, propose a fix, train, evaluate), and add a separate monitoring agent that reviews every proposed method before it runs, to block capability degradation or fixes that just distill the target benchmark directly.",
+    "result": "Anthropic reports the approach closed 26-96% of the safety gap across 10 alignment-failure categories without degrading capabilities, generalized to withheld benchmarks and models up to 4.7x larger, and on a frontier checkpoint closed 65% of the safety gap in 60 hours — about 15,000x more efficient than Anthropic's production alignment procedure.",
+    "effort": "high",
+    "source": "anthropic_research",
+    "source_url": "https://www.anthropic.com/research/automated-researchers-mitigate-alignment-failures",
+    "source_sid": "a9acbff7bd542e61",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The safety-gap-closed percentages and efficiency multiplier are Anthropic's own measured benchmark results."
+    },
+    "edition_date": "2026-09-01"
+  },
   "ae62231a583b07f0": {
     "id": "pb-octomind-external-plan-manager",
     "kind": "source-backed",
@@ -1918,6 +1994,25 @@
     },
     "edition_date": "2026-08-07"
   },
+  "c3fd02d287ae43f9": {
+    "id": "pb-cloud-agent-sandbox-gateway",
+    "kind": "source-backed",
+    "title": "Move coding agents off developer laptops into isolated cloud sandboxes with a permission gateway",
+    "area": "Orchestration",
+    "problem": "Coding agents running on developer laptops are resource-constrained, tied to one device, exposed to whatever credentials sit on that machine, and hard to monitor or run unattended in parallel.",
+    "apply": "Run each agent task in a short-lived micro-VM sandbox (e.g. Firecracker), route every tool call through a central gateway that enforces scoped permissions and logs all activity, and define tasks as YAML playbooks that combine agent-driven steps with deterministic code plus explicit validation and safety rules — triggerable from Slack, GitHub, cron, or CLI.",
+    "result": "DoorDash reports its Flux platform ran 130,000 engineering tasks and 25,000+ automated code reviews in a month across 300+ playbooks and 10,000+ weekly invocations, with a 95th-percentile end-to-end sandbox startup (VM boot, repo clone, tool install) under five seconds.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/08/doordash-flux-cloud-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "c3fd02d287ae43f9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "The task/review/playbook/invocation counts and sandbox-startup figure are DoorDash's own reported production numbers, relayed by InfoQ."
+    },
+    "edition_date": "2026-09-01"
+  },
   "c42746ce976fd829": {
     "id": "pb-byzantine-tolerant-rag-defense",
     "kind": "source-backed",
@@ -1974,6 +2069,44 @@
       "note": "Four failure modes quantified with bias-penalized scoring on a degradation-built gold set; raw accuracy understates the reliability gap."
     },
     "edition_date": "2026-06-26"
+  },
+  "c765441e9673d957": {
+    "id": "pb-claude-code-sandbox-permissions",
+    "kind": "source-backed",
+    "title": "Turn on Claude Code's OS-level sandbox instead of trusting permission prompts alone",
+    "area": "Safety",
+    "problem": "Permission prompts alone slow you down without stopping a subprocess a compromised or injected agent spawns from touching files or network destinations outside the current task.",
+    "apply": "Run `/sandbox` in Claude Code, then configure the filesystem allowlist and the network proxy's domain allowlist for your project — dual-layer isolation via Linux bubblewrap/macOS Seatbelt for the filesystem and a proxied Unix domain socket for network egress, both of which also cover spawned subprocesses and scripts, not just Claude's own tool calls.",
+    "result": "Anthropic reports sandboxing safely cuts permission prompts by 84% in internal usage, letting the agent run more autonomously while filesystem and network isolation still contain a compromised or injected process.",
+    "effort": "low",
+    "source": "anthropic_engineering",
+    "source_url": "https://www.anthropic.com/engineering/claude-code-sandboxing",
+    "source_sid": "c765441e9673d957",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The 84% permission-prompt reduction is Anthropic's own reported internal usage figure."
+    },
+    "edition_date": "2026-09-01"
+  },
+  "c78d84ac1a7e3d92": {
+    "id": "pb-eval-resource-floor-ceiling",
+    "kind": "source-backed",
+    "title": "Give your agentic coding evals a resource floor and ceiling, not one pinned limit",
+    "area": "Evals",
+    "problem": "Pinning a single container resource limit in an agentic coding eval conflates infrastructure failures with real model capability — Anthropic found configuration alone can swing scores past typical leaderboard gaps.",
+    "apply": "Specify two resource parameters per eval container instead of one: a guaranteed floor allocation and a separate, more generous hard-kill ceiling (e.g. 3x the floor), so a legitimate resource spike doesn't get killed and misread as a model failure.",
+    "result": "Anthropic reports infrastructure error rates fell from 5.8% under strict 1x enforcement to 2.1% with 3x headroom, while success scores stayed within noise (p = 0.40) — versus a 6-point swing on Terminal-Bench 2.0 (p < 0.01) between the most- and least-resourced configs.",
+    "effort": "low",
+    "source": "anthropic_engineering",
+    "source_url": "https://www.anthropic.com/engineering/infrastructure-noise",
+    "source_sid": "c78d84ac1a7e3d92",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic's own Terminal-Bench 2.0 and SWE-bench experiments measured infrastructure error rates and score variance across resource configurations."
+    },
+    "edition_date": "2026-09-01"
   },
   "c8dc1df614610019": {
     "id": "pb-anchor-review-agent-to-diff-not-repo",
@@ -2088,6 +2221,25 @@
       "note": "The source measured NDCG@10 on NanoBEIR and index size on a fixed passage set."
     },
     "edition_date": "2026-08-21"
+  },
+  "da31200faa97b5f9": {
+    "id": "pb-cross-model-kv-cache-reuse",
+    "kind": "source-backed",
+    "title": "Reuse another model's KV cache instead of recomputing prefill from scratch",
+    "area": "Cost & latency",
+    "problem": "Serving pipelines that pass the same context through multiple models (e.g. a small model then a larger one) redo the full prefill computation for each model even when an earlier model already processed that exact context.",
+    "apply": "Adopt a cross-model KV-cache translation layer that converts one model's cached key-value states into a form a different model can consume, instead of assuming cache reuse only works within a single model's own architecture.",
+    "result": "Researchers report prefill cost cut by up to 67% at 4K context length across model families (Qwen2.5-1.5B to Gemma-2-2B), and in a heterogeneous handoff (Llama3.1-70B to Qwen2.5-7B) latency dropped from 899ms to 138ms with accuracy close to native (44.0% vs. 45.7%).",
+    "effort": "high",
+    "source": "arxiv_cs_lg",
+    "source_url": "http://arxiv.org/abs/2608.30963v1",
+    "source_sid": "da31200faa97b5f9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Prefill-cost and latency figures are the paper's own benchmark results across within-family, cross-family, and heterogeneous model pairs."
+    },
+    "edition_date": "2026-09-01"
   },
   "dc1acd837d32b604": {
     "id": "pb-defend-agent-memory-against-forged-reasoning",
