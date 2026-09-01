@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43]
-updated: 2026-08-28
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283]
+updated: 2026-09-01
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283]
 ---
 
 ## TL;DR
@@ -222,6 +222,37 @@ defense in depth rather than trusting any one of them:
   adds fine-grained security controls for what an agent's MCP-connected
   tools can do, joining the identity-provider-managed MCP connector auth
   this page already tracks.
+- **A first-party survey names containment as three different architectures,
+  not one policy**: Anthropic's own account of containing Claude across its
+  own products maps a distinct sandbox shape to each deployment's blast
+  radius. claude.ai runs code in gVisor containers with per-session,
+  non-persistent filesystems — minimal capability but also minimal
+  isolation cost, since the threats are infrastructure-level (multi-tenant
+  separation, internal service auth) rather than a single hijacked session.
+  Claude Code, which needs real filesystem/shell/network access, gets the
+  OS-level sandbox this page already tracks (bubblewrap/Seatbelt cutting
+  permission prompts 84%) plus an auto-mode classifier Anthropic reports
+  catches roughly 83% of overeager actions before they execute — but a
+  controlled red-team exercise found *direct* prompt injection (attacker
+  instructions asking Claude to exfiltrate AWS credentials) still succeeded
+  24 of 25 times, and only environmental controls — egress blocking,
+  filesystem boundaries — stopped it, not the model-layer classifier.
+  Claude Cowork runs inside a full sealed VM (Apple Virtualization on macOS,
+  HCS on Windows) with credentials held in the host keychain rather than the
+  guest, and a red team still found a bypass: a malicious workspace file
+  with an attacker-controlled API key could exfiltrate through
+  `api.anthropic.com` itself, since that domain was already on the egress
+  allowlist — closed by adding a man-in-the-middle proxy *inside* the VM
+  that validates only the session's own provisioned tokens, not just the
+  destination domain. Two engineering lessons cut across all three: path
+  validation has to happen *after* symlink resolution, not before (an
+  earlier Claude Code bug parsed project config, and therefore attacker
+  content, before the user's trust prompt ran), and Anthropic's own
+  post-incident read is that its custom proxies and allowlist code were the
+  weakest link in every deployment — battle-tested hypervisors and syscall
+  filters held up better than anything built in-house, an argument for
+  buying the isolation primitive (see Cordium, Tarit, and the managed
+  platforms elsewhere on this page) over rolling your own.
 
 Least privilege plus human approval on the few actions that really matter
 remains the most durable control across all of these layers.
@@ -235,26 +266,28 @@ above are pure friction; read as a product primitive, the same boundary is
 what makes running someone else's generated code shippable at all.
 
 ## What's new
-Claude Code shipped a first-party sandboxing feature (OS-level filesystem +
+Anthropic's own survey of containing Claude across claude.ai, Claude Code,
+and Claude Cowork maps a different sandbox architecture to each product's
+blast radius (gVisor containers, OS-level bubblewrap/Seatbelt plus an
+auto-mode classifier, and a sealed VM respectively) and reports a red team
+still got direct prompt injection through Claude Code's model-layer defenses
+24 of 25 times — only environmental controls stopped it — while a Cowork
+red team exfiltrated data through an already-allowlisted domain until a
+proxy inside the VM started validating session tokens, not just the
+destination (see State of the art above).
+
+Prior update: Claude Code shipped a first-party sandboxing feature (OS-level filesystem +
 network isolation via bubblewrap/Seatbelt, open source) that cuts permission
 prompts by 84% in Anthropic's internal testing. Two local-dev tools joined
 the same install-instead-of-build tier this page tracks: Grith, a
 kernel-level syscall supervisor with no LLM in its enforcement path, and
-Sandy, a sandbox paired with monitoring and policy controls (see State of
-the art above).
+Sandy, a sandbox paired with monitoring and policy controls.
 
 Prior update: Roblox's own account of scaling autonomous development names the same
 "whole-SDLC security engineering" pattern Anthropic already documented —
 security sandboxes stacked with code-review-derived institutional knowledge
 and velocity-based metrics — a second named company applying the pattern
 rather than a new control (see State of the art above).
-
-Prior update: AWS open-sourced Dogwood, extending the Cedar policy language so
-authorization rules can reason about an agent's sequence of prior tool
-calls, and Cloudflare's WriteGuard adds fine-grained security controls
-specifically for MCP servers — both widening authorization from a per-call
-scope decision toward session- and transport-level policy (see State of the
-art above).
 
 ## Trade-offs
 A boundary asserted only in a task's stated constraints, not enforced by the
