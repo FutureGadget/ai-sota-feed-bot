@@ -8174,6 +8174,22 @@
   "type": "news",
   "url": "https://deepmind.google/blog/intelligent-transcription-with-gemini-3-5-transcribe"
  },
+ "73781738f89c0aec": {
+  "first_seen": "2026-09-01T05:04:41.374382+00:00",
+  "id": "4529132c01206919",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-08-31T17:44:54+00:00",
+  "sid": "73781738f89c0aec",
+  "source": "arxiv_cs_cl",
+  "summary": "BioMedRAG introduced retrieval-augmented generation with a learned chunk scorer for biomedical information extraction. However, it relies on fixed-size chunking which can fragment semantic evidence. We propose a configurable semantic chunking framework that addresses this limitation by combining entity-preserving windows, trigger-centered chunking, proposition-first extraction, tiered trigger prioritization, and hierarchical relation resolution. The framework integrates with BioMedRAG by replacing only the chunk construction stage while preserving the embedding model, learned chunk scorer, generator, and evaluation protocol. We evaluate the framework on biomedical relation extraction benchmarks (GM-CIHT, DDI, ChemProt) and adverse event classification (ADE). On GM-CIHT, the full hybrid configuration achieves 82.6% F1, improving over the fixed-size baseline (74.2% F1) by 8.4 points under our experimental setup. Cross-dataset analysis shows that semantic chunking improves extraction datasets with explicit relation cues, such as GM-CIHT and DDI, while fixed chunking remains competitive or stronger for dense biochemical extraction and binary classification settings such as ChemProt and ADE. By externalizing chunking logic into configuration files, the framework provides an interpretable and adaptable alternative to rigid fixed-size chunking for biomedical RAG pipelines.",
+  "summary_1line": "BioMedRAG introduced retrieval-augmented generation with a learned chunk scorer for biomedical information extraction. However, it relies on fixed-size chunking which can fragment semantic evidence. We propose a confi...",
+  "title": "Configurable Semantic Chunking for Biomedical Information Extraction in Retrieval-Augmented Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.31139v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "7385be406a8ed3f4": {
   "first_seen": "2026-08-06T01:02:01.157792+00:00",
   "id": "530c5cdc7804336c",
@@ -9753,6 +9769,23 @@
   "title": "A milestone in expanding access to AI",
   "type": "news",
   "url": "https://openai.com/index/expanding-access-to-ai-with-chatgpt-ads"
+ },
+ "8a8b7100027de272": {
+  "first_seen": "2026-09-01T05:04:41.374382+00:00",
+  "id": "500e339436939120",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-08-31T16:51:50+00:00",
+  "sid": "8a8b7100027de272",
+  "source": "arxiv_cs_ai",
+  "summary": "Outcome-based reinforcement learning provides verified feedback for language-model agents, but assigns trajectory-level advantage uniformly to all decisions, yielding coarse credit over long-horizon interactions. On-policy self-distillation offers finer supervision by re-evaluating sampled behavior with privileged information (PI) available only during training. However, fine-grained supervision is not necessarily fine-grained credit: PI-induced likelihood changes describe how additional information alters policy preference, but do not directly determine how an executable action should inherit the verified task outcome. This creates a supervision-credit gap. Privileged signals may be irrelevant to the current interaction state, operate at a token granularity misaligned with executable decisions, and lack the outcome semantics required for reinforcement. We introduce TASPO, which converts privileged supervision into outcome-grounded action credit. TASPO constructs decision-applicable PI from verified successful experience, aggregates PI-induced likelihood shifts at the executable-action level, and converts relative action support into positive, bounded, mean-preserving weights on the original trajectory advantage. Thus, the verified outcome determines the update direction and average scale, while PI only redistributes credit across actions. Across three agentic benchmarks, TASPO improves over GRPO by 10.6\\% and generalizes better to unseen tasks. Further analysis indicates tha",
+  "summary_1line": "Outcome-based reinforcement learning provides verified feedback for language-model agents, but assigns trajectory-level advantage uniformly to all decisions, yielding coarse credit over long-horizon interactions. On-p...",
+  "title": "Reconciling Process Supervision with Outcome-Based Credit in Agentic Policy Optimization",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.31077v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "8a940043da46a71f": {
   "first_seen": "2026-08-15T17:15:28.972243+00:00",
@@ -13101,6 +13134,18 @@
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.233",
   "why_it_matters": "Matches feed focus: agent, claude code."
  },
+ "b5a7eb9797770628": {
+  "first_seen": "2026-09-01T05:04:41.374382+00:00",
+  "id": "3cac70526e99a264",
+  "published": "2026-08-31T17:59:46+00:00",
+  "sid": "b5a7eb9797770628",
+  "source": "arxiv_llm_reliability",
+  "summary": "While WhisperX accelerates speech transcription via intra-audio batching, it isolates audio segments, losing the historical context needed for coherent punctuation and terminology transcription. Conversely, standard Whisper retains context sequentially but suffers from slow inference and hallucination loops. To achieve the best of both worlds, we propose Context-Aware Interleaved Batching. By using VAD-derived segment boundaries, our algorithm stabilizes Whisper's text conditioning, allowing us to safely maintain continuous historical context across batched audio segments. As demonstrated on long-form audio benchmarks, this approach reduces Word Error Rate (WER) and improves proper noun transcription, all while maintaining high-throughput inference speeds.",
+  "summary_1line": "While WhisperX accelerates speech transcription via intra-audio batching, it isolates audio segments, losing the historical context needed for coherent punctuation and terminology transcription. Conversely, standard W...",
+  "title": "Context-Aware Interleaved Batching for WhisperX",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.31170v1"
+ },
  "b5b452d355a57b33": {
   "first_seen": "2026-08-08T01:07:25.671531+00:00",
   "id": "429631a65e0c1799",
@@ -15837,6 +15882,23 @@
   "title": "Claude for Enterprise powers LLNL research",
   "type": "news",
   "url": "https://www.anthropic.com/news/lawrence-livermore-national-laboratory-expands-claude-for-enterprise-to-empower-scientists-and"
+ },
+ "da31200faa97b5f9": {
+  "first_seen": "2026-09-01T05:04:41.374382+00:00",
+  "id": "3fc10d930e7f78b9",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-08-31T15:28:17+00:00",
+  "sid": "da31200faa97b5f9",
+  "source": "arxiv_cs_lg",
+  "summary": "Modern large language model (LLM) serving systems increasingly operate over repeated or shared context, yet each model typically performs its own prefill computation even when another model has already processed the same input. Existing KV-cache reuse mechanisms substantially reduce redundant computation within a single model, but generally assume that the producer and consumer of a cache are identical. We study \\emph{cross-model KV sharing}, which translates the KV state produced by a source model into a representation that can be consumed by a different target model, including models that differ in scale, architecture, attention configuration, tokenizer, and model family. We evaluate the approach in both within-family and cross-family settings. For Qwen2.5-7B $\\rightarrow$ Qwen2.5-1.5B, translated KV states improve LongBench2 accuracy from 27.59\\% to 34.48\\%, a gain of 6.89 percentage points over the native 1.5B baseline, while reducing handoff cost relative to native target prefill. For the cross-family Qwen2.5-1.5B $\\rightarrow$ Gemma-2-2B setting, KV handoff reduces target-side prefill cost by up to 67.05\\% at 4K context length while maintaining decoding perplexity close to native-model baselines. In a more heterogeneous Llama3.1-70B $\\rightarrow$ Qwen2.5-7B setting, cross-family handoff achieves 44.0\\% accuracy compared with 45.7\\% for native Qwen2.5-7B inference, while reducing measured latency from 899ms to 138ms. These results provide initial evidence that KV states ",
+  "summary_1line": "Modern large language model (LLM) serving systems increasingly operate over repeated or shared context, yet each model typically performs its own prefill computation even when another model has already processed the s...",
+  "title": "A Universal Context-Reuse Layer for Cross-Model KV Sharing",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.30963v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "da3afe5a3d3b36f3": {
   "first_seen": "2026-08-24T07:02:07.607429+00:00",
