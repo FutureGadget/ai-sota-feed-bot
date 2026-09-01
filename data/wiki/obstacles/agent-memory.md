@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc]
-updated: 2026-08-30
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9]
+updated: 2026-09-01
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9]
 ---
 
 ## TL;DR
@@ -346,14 +346,43 @@ bugs that only surfaced once nobody was watching the session live —
 evidence that the write-side curation failures this page tracks compound
 specifically in long, unsupervised runs, not just long conversations.
 
+The measurability push above (Agent Memory Leaderboard) now has a benchmark
+that targets *using* retrieved memory, not just recovering it: UTILMEM finds
+that strong scores on conventional factual-recall benchmarks don't reliably
+predict **memory utilization** — reasoning over dense histories, catching
+implicitly relevant memories, synthesizing evidence scattered across
+sessions, and resisting semantically similar distractors — and that even
+when a system successfully retrieves the right evidence, it often still
+fails to integrate it or gets misled by a plausible-looking distractor. It
+sharpens this page's standing "retrieval alone is insufficient" argument
+(see [grounding](/topic/grounding) for the retrieval-quality side) into a
+named, separately-scored capability. A production-shaped answer to the same
+gap arrives from the provenance-and-integrity side: Agent Zero Memory splits
+a user's history into three parallel systems — an episodic timeline, an
+entity-event knowledge graph, and a citation-locked semantic store of
+durable facts — and enforces a **citation lock** that only lets an answer
+cite evidence it actually retrieved, so fabrication is structurally excluded
+and the system abstains instead of guessing when it isn't sure. It's a
+stricter, provenance-first answer to the poisoning and integrity failure
+modes this page already tracks, built into the retrieval contract itself
+rather than checked after the fact.
+
 ## What's new
-Three more local-first coding-agent memory tools shipped in one week
+UTILMEM finds that strong scores on conventional factual-recall memory
+benchmarks don't reliably predict **memory utilization** — reasoning over
+dense histories, catching implicitly relevant memories, and resisting
+distractors — sharpening this page's "retrieval alone is insufficient"
+argument into a named, separately-scored capability. Agent Zero Memory
+answers the integrity side with a **citation lock**: an answer may only cite
+evidence it actually retrieved, structurally excluding fabrication rather
+than checking for it after the fact (see State of the art above).
+
+Prior update: Three more local-first coding-agent memory tools shipped in one week
 (OpenContext, Contextual, Memctl), with Memctl specifically answering this
 page's "Catastrophic Remembering" problem — git-style versioning and
 rollback for `CLAUDE.md`/`AGENTS.md` instead of unbounded, undeduplicated
 growth. A companion postmortem shows the same write-side failure surfacing
-in an autonomous coding agent left unattended for hours (see State of the
-art above).
+in an autonomous coding agent left unattended for hours.
 
 Prior update: Recuris pairs working memory with an experiential skill store and a
 meta-agent that edits the skill store after each failure, improving 35 of
@@ -361,12 +390,6 @@ meta-agent that edits the skill store after each failure, improving 35 of
 direct evidence that skill-memory evolution, not just compaction or
 retrieval, keeps paying off as tasks get longer (see State of the art
 above).
-
-Prior update: OpenWiki's self-correcting memory layer stores evidence-backed claims
-instead of raw facts, using that evidence to detect stale knowledge as a
-codebase evolves and correct or drop it rather than retrieving whatever was
-written last — a write-time integrity defense pointed specifically at
-codebase memory (see State of the art above).
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

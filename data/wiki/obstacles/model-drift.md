@@ -7,9 +7,9 @@ status: active
 solutions: [version-pinning, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 8b71b000ca374d14, 6ffc451084feba44, 498dbb665652c50c, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, 228dddec5b6b8ab4, 1be544292b970eeb, b52989abd31085bd, ba2a3cbea388e94b, e2bff89776f177a1, 2db97c49b795a2d1, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457, d772d2f5565f338a, 74046490d599263e, 4da06896adf9ba0d]
-updated: 2026-08-27
-covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 8b71b000ca374d14, 6ffc451084feba44, 498dbb665652c50c, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, 228dddec5b6b8ab4, 1be544292b970eeb, b52989abd31085bd, ba2a3cbea388e94b, e2bff89776f177a1, 2db97c49b795a2d1, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457, d772d2f5565f338a, 74046490d599263e, 4da06896adf9ba0d]
+evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 8b71b000ca374d14, 6ffc451084feba44, 498dbb665652c50c, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, 228dddec5b6b8ab4, 1be544292b970eeb, b52989abd31085bd, ba2a3cbea388e94b, e2bff89776f177a1, 2db97c49b795a2d1, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457, d772d2f5565f338a, 74046490d599263e, 4da06896adf9ba0d, 85b0ca3c45b5c993]
+updated: 2026-09-01
+covers_evidence: [1f04aad16ad88e88, 473efa3d40555ca9, 860864df5583b9ff, 0971e4ffff50b51c, 435cc52d2f08f897, c69cda5ccda84a51, f133907eceb910d7, b78fb2c666f0c2da, 8db233accb157cb2, b44f974428f9863a, b5e2211dddab87f3, 98fe19349686f702, f038f32830795715, 2eb4a06e737c3d47, ea8bf0e5641cf4c4, f0c081fcc40a7583, cac4c9ead20e55a3, 2832f2f825db2411, fe9e50bf2d5b21fe, fc682cd69e9ef51b, 8b71b000ca374d14, 6ffc451084feba44, 498dbb665652c50c, a19f1341e900df0e, 90726831e1877773, e04ae87f340863b8, 228dddec5b6b8ab4, 1be544292b970eeb, b52989abd31085bd, ba2a3cbea388e94b, e2bff89776f177a1, 2db97c49b795a2d1, b4f997e1a98a7444, f6440bc45449dc28, 2b3857f60a19c4e3, 7fd901719e073499, 3395a2bf7d5df457, d772d2f5565f338a, 74046490d599263e, 4da06896adf9ba0d, 85b0ca3c45b5c993]
 ---
 
 ## TL;DR
@@ -43,8 +43,39 @@ page tracks actually has to be managed (see
 [version pinning](/topic/version-pinning) for the specific migration case
 this evidence also grounds).
 
+**Silent prompt and inference-parameter changes drift quality too, not just
+SDK/CLI code** — Anthropic's own postmortem on a six-week run of Claude Code
+quality complaints (March 4–April 20, 2026) traces it to three separate,
+un-flagged changes on Anthropic's own side, none of which touched a pinned
+model or SDK version: the default reasoning effort quietly dropped from
+`high` to `medium` to cut latency (reverted after user complaints, with
+Opus 4.7 now defaulting to `xhigh`); a prompt-caching bug used the
+`clear_thinking_20251015` header incorrectly and cleared reasoning state on
+*every* turn instead of once, making Claude look "forgetful and repetitive"
+until a v2.1.101 fix — and it stayed hidden because two unrelated changes
+under test at the same time masked the symptom, surfacing only when a newer
+model (Opus 4.7) reviewed the older model's own session logs in
+retrospective Code Review; and a verbosity-limiting system-prompt addition
+("keep text between tool calls to ≤25 words") cost a measured 3% on broader
+evals before being reverted the same week it shipped. The drift arrived
+entirely inside the vendor's own defaults and prompts — nothing a team
+pinning its model or SDK version would have caught. Anthropic's remediation
+doubles as the regression-gate discipline this page already argues for,
+applied to the vendor's own changes: per-model evals and ablation testing
+before a system-prompt or default change ships, soak periods and gradual
+rollouts instead of an instant flip, and expanded internal dogfooding on
+public builds rather than an internal-only build that can drift from what
+users actually run.
+
 ## What's new
-A fifth wave of the Claude Agent SDK's one-line-changelog pattern forwards on
+Anthropic's own postmortem traces a six-week Claude Code quality regression
+to three un-flagged changes on the vendor's side — a reasoning-effort
+default drop, a prompt-caching bug that cleared reasoning state every turn,
+and a verbosity-limiting system prompt that cost 3% on evals — none of which
+a pinned model or SDK version would have caught, since the drift was in
+Anthropic's own defaults and prompts (see State of the art above).
+
+Prior update: A fifth wave of the Claude Agent SDK's one-line-changelog pattern forwards on
 two axes at once: v0.2.144 ("updated bundled Claude CLI," nothing else)
 forwards claude-code v2.1.246, which hides a real permission-check bypass fix
 (malformed dangling `&&`/`||` Bash operators no longer skip the approval
@@ -71,17 +102,6 @@ vLLM, Ollama, and others) under deterministic decoding, the serving backend
 alone accounts for roughly 39% of the score variance a practitioner sees —
 evidence that framework/version identity, not just model version, has to be
 pinned and disclosed to make a benchmark number reproducible.
-
-Prior update: The Claude Agent SDK's one-line-changelog pattern (v0.2.130, v0.2.131 —
-each just "updated bundled Claude CLI") again hid a substantive change
-underneath: the CLI version it forwards, v2.1.221, fixes two permission-check
-bypasses (a zsh `[[ ]]` regex conditional bypass, a Windows PowerShell
-quoted-path bypass) and adds a sandboxed-credential masking mode — the same
-"real change, cosmetic SDK changelog" shape the v2.1.214 case established
-weeks earlier, recurring on a different release. On the competing-vendor
-side, Codex CLI 0.146.1 backported "safer automatic-review defaults for
-cyber-capable models," a guardrail-policy drift delivered as a routine
-bugfix release rather than a version bump a team would think to review.
 
 ## Why it matters for platform engineers
 This is the obstacle that breaks an agent you already shipped, on a day you
