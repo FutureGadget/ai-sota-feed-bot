@@ -1,13 +1,14 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 3,
- "day_count": 2,
- "source_count": 2,
+ "item_count": 4,
+ "day_count": 3,
+ "source_count": 3,
  "first_seen": "2026-08-13T16:57:07+00:00",
- "last_updated": "2026-08-27T14:17:14+00:00",
- "generated_at": "2026-09-01T00:09:52.063063+00:00",
+ "last_updated": "2026-08-31T12:02:04+00:00",
+ "generated_at": "2026-09-01T05:04:43.848938+00:00",
  "sources": [
+  "arxiv_cs_cl",
   "arxiv_llm_reliability",
   "search_cn_open_weight_labs"
  ],
@@ -54,20 +55,37 @@
      "editor_note": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time."
     }
    ]
+  },
+  {
+   "date": "2026-08-31",
+   "items": [
+    {
+     "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+     "url": "http://arxiv.org/abs/2608.30661v1",
+     "source": "arxiv_cs_cl",
+     "type": "paper",
+     "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "7ac516e280c5ca22",
+     "published": "2026-08-31T12:02:04+00:00",
+     "editor_note": "Shifts the thread to agent evaluation: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Three separate LLM research and evaluation items, grouped by the phrase in their titles rather than by one developing story. It opened Aug 13 with AaLLM, an end-to-end framework driving analog circuit topology generation and sizing, and picked up a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education on Aug 27.",
+  "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
   "stale": false,
-  "whats_new": "An arXiv preprint, Prediction of Prediction (PoP), claims hallucination detection from fused inter-layer activations in a single forward pass, targeting the case where an LLM is factually wrong at high decoding confidence.",
-  "why_it_matters": "Output-stage uncertainty checks generally need multiple samples per answer, so the guardrail costs as much as the generation. A detector that reads internal activations during the one pass you already run changes what an inline correctness gate costs to operate.",
-  "take_for_builders": "If your correctness gate scores hallucination risk by sampling several completions, read the PoP preprint before your next inference-cost review — but treat single-pass activation detectors as unproven until someone reports transfer across model families.",
+  "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+  "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+  "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
   "open_questions": [
    "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
-   "Do the inter-layer activation features transfer across model families, or must a detector be trained per model?",
+   "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
    "Does activation-level detection need weights access, ruling it out for API-only deployments?",
-   "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?"
+   "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+   "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
   ],
-  "generated_at": "2026-08-28T20:12:00Z"
+  "generated_at": "2026-09-01T05:10:00Z"
  }
 }
