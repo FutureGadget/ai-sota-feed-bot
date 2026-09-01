@@ -1076,6 +1076,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNVjhRVVA2LTg1Wm0yYkp6UVROZzNQbEJ5R2ZZZ3p4cGFRd2dyLWxNd0I5TjhLUHk5b3hvRGFpU290dUxpeU9wRU5vcUdGczJXeUdfVnFMNEpuUzBtWTc3RjJNbW1GSGpxcklTTlFNckNJMnRuN0JOS2QyWWJrNklIWmU1RW81Zw?oc=5"
  },
+ "0ff74ed0c46f2efe": {
+  "first_seen": "2026-09-01T02:03:16.594392+00:00",
+  "id": "754a4cecb75db1dd",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-08-30T07:29:46+00:00",
+  "sid": "0ff74ed0c46f2efe",
+  "source": "arxiv_cs_ai",
+  "summary": "Long-horizon story-driven video generation requires a production agent to coordinate narrative decomposition, state tracking, shot design, prompt construction, rendering, and revision across interdependent scenes. Existing adaptive video systems primarily refine requests or reusable skills, leaving recurring production failures disconnected from persistent, stage-targeted improvements across stories. We introduce CineForge, a self-evolving video-production agent framework that couples CineForge-Produce for video generation with CineForge-Evolve for cross-story policy evolution. CineForge-Produce organizes each source story into typed narrative, character, spatial, and cinematic states, uses them to coordinate asset and clip generation, and records the process as a canonical production trajectory. CineForge-Evolve applies Case-to-Pattern-to-Policy Evolution (CPPE) to review trajectory evidence, consolidate recurrent findings into bounded stage-local patches, and deploy validated updates through structural replay and confidence-controlled paired evaluation. To measure complete story realization, we introduce CineScope, which combines a 100-script CineScope-Data suite with a human-aligned, multiscale CineScope-Metric spanning causal state, directorial orchestration, pacing and resource allocation, and character arc. Across CineScope-Data and two public benchmarks, the evolved CineForge policy improves CineScope-Metric from 4.024 to 4.380, outperforms three long-video baselines w",
+  "summary_1line": "Long-horizon story-driven video generation requires a production agent to coordinate narrative decomposition, state tracking, shot design, prompt construction, rendering, and revision across interdependent scenes. Exi...",
+  "title": "CineForge: Self-Improving Agents for Long-Horizon Video Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.29621v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "101adad35d4b0a05": {
   "first_seen": "2026-08-08T02:02:11.690088+00:00",
   "id": "5d3ba7f990fd0832",
@@ -6145,6 +6162,23 @@
   "type": "news",
   "url": "https://arstechnica.com/ai/2026/08/anthropics-new-hardware-standard-lets-ai-agents-control-the-physical-world",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "5960e24b491051f2": {
+  "first_seen": "2026-09-01T02:03:16.594392+00:00",
+  "id": "0b85e43c62f53a53",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-08-30T06:55:59+00:00",
+  "sid": "5960e24b491051f2",
+  "source": "arxiv_cs_cl",
+  "summary": "Large language model (LLM) agents need durable, faithful memory of everything a user or organization has said and stored, yet most memory systems commit to a single organizing structure (a fact store, a vector index, or a knowledge graph) and inherit its blind spots. We present Agent Zero Memory, a provenance-aware long-term memory system that distils a user's conversations, files, and connected sources into three parallel memory systems, each capturing a different facet of the same history: an episodic Memory Events timeline that makes when and what changed first-class, an associative entity-event knowledge graph that links people and projects across sessions, and a semantic, curated, citation-locked Hierarchical Documentary Memory (HDM) of durable facts. A retrieval turn runs an intent gate (so self-contained turns add no latency), a source router, and three concurrent agentic searches, one per system, each a tool-using loop over hybrid (embedding + lexical) search under agent-controlled filters; their grounded, cited answers are integrated into one answer with a single confidence. We formalize the reading discipline: every learned item is a provenanced item carrying its origin, timestamp, and evidence pointer, and every answer is read under a citation lock, so it may cite only evidence its reader actually opened; fabrication is structurally excluded and the system abstains rather than guesses. On two public benchmarks the system sets a new state of the art: 95.60% on LongM",
+  "summary_1line": "Large language model (LLM) agents need durable, faithful memory of everything a user or organization has said and stored, yet most memory systems commit to a single organizing structure (a fact store, a vector index,...",
+  "title": "Agent Zero Memory: Provenance-Aware Long-Term Memory for LLM Agents",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.29606v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "5971a4b7feb6a1ab": {
   "first_seen": "2026-08-13T12:02:02.466669+00:00",
@@ -11801,6 +11835,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.149.0-alpha.3",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "a7ea832bc7e9c508": {
+  "first_seen": "2026-09-01T02:03:16.594392+00:00",
+  "id": "1f9bff9c48d85ffc",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-08-31T06:19:04+00:00",
+  "sid": "a7ea832bc7e9c508",
+  "source": "arxiv_llm_reliability",
+  "summary": "Search agents reduce hallucination by grounding answers in retrieved web evidence. Yet reliance on retrieval also creates an attack surface: poisoned corpora with false or malicious documents can cause agents to reproduce misinformation. We show that falsehood is not necessary -- a search agent can be misled by factual evidence for a nearby question, adopting that nearby answer even when it does not answer the current question. We call this failure lazy grounding. We expose lazy grounding using nearby evidence from answer-changing rewrites of benchmark questions. Each document truthfully supports a neighboring rewritten question, but is surfaced for the original question. Across 12 model-benchmark pairs, nearby evidence reduces accuracy by 5.9 points on average and by up to 17.3 points, while inducing nearby-answer adoption in every setting. The effect is stronger when nearby evidence appears later or is more answer-shaped. Our results show that robust search agents must defend against not only misinformation but also the misapplication of factual evidence. The code is publicly available at https://github.com/frankyzha/lazy-grounding.",
+  "summary_1line": "Search agents reduce hallucination by grounding answers in retrieved web evidence. Yet reliance on retrieval also creates an attack surface: poisoned corpora with false or malicious documents can cause agents to repro...",
+  "title": "Lazy Grounding: Attacking Search Agents with Factual Evidence",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.30303v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "a7f2460a60823229": {
   "first_seen": "2026-08-28T18:02:04.043584+00:00",
   "id": "6822ccc3ba5e949c",
@@ -15988,6 +16039,22 @@
   "title": "Platform Engineering Maturity Emerges as a Key Differentiator for Enterprise AI Success",
   "type": "news",
   "url": "https://www.infoq.com/news/2026/08/perforce-maturity-ai-success/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+ },
+ "deb34c2ad4783761": {
+  "first_seen": "2026-09-01T02:03:16.594392+00:00",
+  "id": "a611cf7c7409e4b8",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-08-31T08:37:44+00:00",
+  "sid": "deb34c2ad4783761",
+  "source": "arxiv_cs_lg",
+  "summary": "Click-through rate (CTR) models vary in feature-interaction design, yet their top networks usually remain a single multilayer perceptron shared by all examples. Heterogeneous user, item, and context subgroups therefore update the same parameters; weakly aligned learning signals make the aggregate gradient a compromise among competing directions. We study the competition on Avazu with 4 models and 4 semantic fields. Across all architectures, semantic subgroups show lower Top-NN gradient cosine similarity than random groups matched by sample size and label ratio, with reductions of 0.23-0.37. This competition motivates input-conditioned experts, but directly replacing an established Dense mapping changes its initial function, sharing pattern, and capacity, obscuring the source of gains. We introduce PRIME (Plug-in Residual Input-conditioned Mixture of Experts), a Dense-anchored mixture of low-rank residual experts. PRIME anchors the original prediction and uses zero-residual initialization to match the Dense baseline exactly at training onset. Input-dependent routing weights low-rank experts for example-specific logit corrections; multi-bag aggregation and EMA load biases stabilize conditional estimation. We evaluate PRIME on held-out Avazu and Criteo test sets across 13 CTR architectures and five paired seeds. Median paired AUC gains are +0.0022 and +0.0066, with LogLoss reductions of 0.0011 and 0.0081, respectively. On FiBiNET and DCNv2, PRIME outperforms APG in all ten seed-",
+  "summary_1line": "Click-through rate (CTR) models vary in feature-interaction design, yet their top networks usually remain a single multilayer perceptron shared by all examples. Heterogeneous user, item, and context subgroups therefor...",
+  "title": "PRIME: Mitigating Subgroup Optimization Competition in Shared CTR Top Networks with Plug-in Residual Input-Conditioned Mixture of Expert",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2608.30449v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "deb3d8b18c1a1737": {
   "first_seen": "2026-08-20T21:01:08.176359+00:00",
