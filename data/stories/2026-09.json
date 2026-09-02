@@ -39,6 +39,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBPQjJBN3BGQ1ZmMzJSaEx4bldqYm5odlRlbi1ydDVaNFl6T2tHZzdHZnJvd2Q5c190VTlxbmxjRHBiNGE0UFh6TEhpZHRpdUxyUFhYcUtHNHMyaG5WakhqV1lDdlRacUZoamItYzZxcS1HbjB6ckNn?oc=5"
  },
+ "0b14d37d00fa2210": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "acc8fa2d17441d03",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-09-01T14:48:08+00:00",
+  "sid": "0b14d37d00fa2210",
+  "source": "arxiv_cs_lg",
+  "summary": "Many production systems can assess a configuration only by using it on live requests and observing noisy feedback. Modern agentic systems are a prominent example, with inference-time choices such as model selection, retrieval depth, prompting strategy, and decoding temperature, yet often with no representative validation data. We formalize this setting as Online Hyperparameter Optimization (OHPO) and cast it as an infinitely many-armed bandit over mixed and conditional search spaces. We introduce IMABO, a general framework that combines any bandit policy for choosing among already sampled configurations with any oracle for proposing new ones. We instantiate it with IMOSS, a restart-free anytime policy whose active set grows as $t^β$, and prove an expected cumulative quantile-regret bound of $O(p_ρ^{-1/β} + T^{(1+β)/2})$, where $β\\in(0,1)$ controls active-set growth and $p_ρ$ lower-bounds the probability that a proposed configuration falls in the top-$ρ$ fraction of the search space. We combine IMOSS with three practical oracles: a Tree-structured Parzen Estimator, an incumbent-mutation oracle driven by a per-coordinate bandit, and a pretrained tabular foundation model, all three improving over the uniform random oracle baseline. IMABO obtains the lowest cumulative regret across diverse OHPO settings, from tuning classical machine-learning models to configuring LLM-based agents.",
+  "summary_1line": "Many production systems can assess a configuration only by using it on live requests and observing noisy feedback. Modern agentic systems are a prominent example, with inference-time choices such as model selection, r...",
+  "title": "Bandits in Prod: Hyperparameter Optimization at Inference Time",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.01335v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
+ },
  "0b5495377a7ef642": {
   "first_seen": "2026-09-01T20:02:57.281521+00:00",
   "id": "5615860274822f1d",
@@ -146,6 +163,26 @@
   "url": "https://simonwillison.net/2026/Sep/1/geojson",
   "why_it_matters": "Matches feed focus: claude code."
  },
+ "23cf4e186c350d83": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "96f889a79f394cb2",
+  "matched_topics": [
+   "claude code"
+  ],
+  "published": "2026-09-01T22:33:20+00:00",
+  "release_highlights": [
+   "Fixed Claude Code failing to launch on macOS 12 (Monterey), a regression introduced in 2.1.255",
+   "Fixed remote and scheduled sessions failing with \"user messages must have non-empty content\" after a re-sent permission approval could not be applied"
+  ],
+  "sid": "23cf4e186c350d83",
+  "source": "claude_code_releases",
+  "summary": "What's changed Fixed Claude Code failing to launch on macOS 12 (Monterey), a regression introduced in 2.1.255 Fixed remote and scheduled sessions failing with \"user messages must have non-empty content\" after a re-sent permission approval could not be applied",
+  "summary_1line": "Fixed Claude Code failing to launch on macOS 12 (Monterey), a regression introduced in 2.1.255 · Fixed remote and scheduled sessions failing with \"user messages must have non-empty content\" after a re-sent permission...",
+  "title": "claude-code v2.1.258",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.258",
+  "why_it_matters": "Matches feed focus: claude code."
+ },
  "25726372ca395546": {
   "first_seen": "2026-09-02T03:03:10.024824+00:00",
   "id": "557c4f663e31936f",
@@ -173,6 +210,24 @@
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.153.0-alpha.4",
   "why_it_matters": "Matches feed focus: codex."
+ },
+ "27f54a99fd45b38c": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "c6ec24ee7e71bb39",
+  "matched_topics": [
+   "agent",
+   "harness",
+   "eval"
+  ],
+  "published": "2026-09-01T17:59:13+00:00",
+  "sid": "27f54a99fd45b38c",
+  "source": "arxiv_cs_cl",
+  "summary": "Dynamic agent harnesses let language models change the software that shapes their own execution. This flexibility brings a new reasoning burden: a local plugin change can propagate through dependencies and cleanup. We introduce CordisBench, a 1,200-question benchmark of this lifecycle reasoning. It combines a controlled formal setting with programs executed against Cordis, a runtime that manages component dependencies and cleanup, and asks models to identify affected components, predict state after a specified teardown order, determine which conditions hold under all or some orders, and choose reconfigurations that succeed when executed. Across these tasks, we evaluate three efficiency-oriented models at low reasoning effort with 2, 4, 8, 16, 24, or 32 relevant interactions, using deterministic task-specific scoring. Models usually handle small systems well but grow less reliable as more interactions become relevant, especially when predicting final state and when reasoning across teardown orders. Additional inference effort recovers marked gains for some models. The cost is nontrivial: on our 16-interaction subset, GPT-5.6 Luna uses nearly 3,000 reasoning tokens per question at medium effort. For these controlled instances, that cost is avoidable: an independent finite reference semantics agrees with Cordis execution on every observation and action outcome used for scoring across all 528 executable questions.",
+  "summary_1line": "Dynamic agent harnesses let language models change the software that shapes their own execution. This flexibility brings a new reasoning burden: a local plugin change can propagate through dependencies and cleanup. We...",
+  "title": "CordisBench: Can Language Models Reason About Component Lifecycles in Dynamic Agent Harnesses?",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.01600v1",
+  "why_it_matters": "Matches feed focus: agent, harness, eval."
  },
  "2d71fc86dcad8261": {
   "first_seen": "2026-09-01T12:03:09.739802+00:00",
@@ -357,6 +412,22 @@
   "url": "https://www.infoq.com/news/2026/09/hcp-terraform-ai-driven-coltrol/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "6236b877185d86c6": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "bede353343c942f8",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-02T03:08:30+00:00",
+  "sid": "6236b877185d86c6",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.153.0-alpha.5",
+  "summary_1line": "Release 0.153.0-alpha.5",
+  "title": "codex 0.153.0-alpha.5",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.153.0-alpha.5",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "62e57cdcc499d2c5": {
   "first_seen": "2026-09-01T03:03:01.194354+00:00",
   "id": "96770213661b438a",
@@ -449,6 +520,21 @@
   "url": "https://slashdot.org/poll/3284/how-much-of-your-coding-is-done-by-ai-coding-agents-these-days",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "88e0f237fe655fc2": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "e3cfd4ff98dfe915",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-02T03:39:06+00:00",
+  "sid": "88e0f237fe655fc2",
+  "source": "hackernews_ai",
+  "summary_1line": "Shopify's agent-commerce category filter didn't filter on any of 190 stores",
+  "title": "Shopify's agent-commerce category filter didn't filter on any of 190 stores",
+  "type": "news",
+  "url": "https://shelfglance.com/research/ucp-category-filter",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "89ad7bd69c77fd2f": {
   "first_seen": "2026-09-01T20:02:57.281521+00:00",
   "id": "f873c5dcf736b9e3",
@@ -460,6 +546,35 @@
   "title": "DeepSeek Was Just the Start. New ETF Targets China’s AI Tigers - China AI Tigers LLM ETF (NASDAQ:TGRZ)",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNSmE5SWR5RmkyMnJ5Q0NqRF9KdFBhdDVxbzVfSjFUVUcxZlN5NlRrbTRSRDd6Vm5WcDFOc2xIOWc5U2dMNjFseURXczRVMHFhdHlyZEVLTl84SW9NeTdZeWc3dDFRSnMxMkZYd1pmVC1LeE1RRThpYmwwWVlQMGV1OG83XzBwTTdfeldncmlUYzdyV2VmV0lEVTl4WmRSVDFWSENJRUZtVVY1bm9MQmp2NnA4aWtiR0ZoOEI3QnVaZkVqRjk2U20tc3NvRTZNblctcWRtQXQzQ045QkltNnQ3ZA?oc=5"
+ },
+ "8c8d18e75ed03087": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "f60eb82f572838cc",
+  "published": "2026-09-02T02:57:38+00:00",
+  "sid": "8c8d18e75ed03087",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Z.AI stock analysis: What’s in story for China’s top AI lab? Investing.com",
+  "summary_1line": "Z.AI stock analysis: What’s in story for China’s top AI lab? Investing.com",
+  "title": "Z.AI stock analysis: What’s in story for China’s top AI lab?",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPRnJpNERrcU9jTHYxUG4wdUdrc0FramdaT1FOVmlVY3dQdk9FRUpUTFBIX1N6WWlMdlRHb294eXlMOVJUQ3NJeEtzYXplU2MtbFJ0SHFCLTlJVXNNTVFxTnY2SGRVNGlHTVhETnh3R3pkMXoyNl9TUDBWc3RaVUdHQUhCUDZCTW82aFFSQ1JCVmtjZHZyOGZ5bkFXblRjaGt5cWNXTHVhT3dDbFlpRHRPcmhaUDBSeHFI?oc=5"
+ },
+ "8cef96cf1dd4bc1d": {
+  "first_seen": "2026-09-02T04:03:05.168700+00:00",
+  "id": "2a68b1c8d455ab4a",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-09-01T16:03:54+00:00",
+  "sid": "8cef96cf1dd4bc1d",
+  "source": "arxiv_cs_ai",
+  "summary": "A long-horizon agent's trace outgrows both of its consumers: the human observer monitoring the run, and the agent itself, whose bounded context the trace must be folded back into. We present a live trace model, an append-only event ledger folded incrementally into typed run state and compiled into per-consumer views, and evaluate it for both consumers against deterministic ground truth. For the observer side, evaluated with an LLM reader as proxy, the compiled view answers monitoring questions using approximately 14x and 15x fewer input tokens (by reader) and at 5-7x lower cost than a budget-capped single-call reading of the raw trace, with higher accuracy (0.85-0.87 versus 0.48). Because the questions were co-designed with the view schema, we treat the token and cost reduction, conditional on schema coverage, as the transferable result. For the agent, on 120-link sequential-dependency tasks, mechanisms that maintain the task's running statistic in per-step state succeed where full-context prompting fails (30/30 versus 8/30 under a clean protocol, n=30, labeled descriptive owing to benchmark-system co-development); a prompt-level scratchpad matches the fold's accuracy at lower cost, and a two-arm decomposition attributes the fold's accuracy to its deterministic aggregate and its cost advantage to its compactness. The fold's remaining value over cheaper alternatives is deterministic auditability and serving the observer from the same state. We derive eleven candidate requireme",
+  "summary_1line": "A long-horizon agent's trace outgrows both of its consumers: the human observer monitoring the run, and the agent itself, whose bounded context the trace must be folded back into. We present a live trace model, an app...",
+  "title": "Parsing the Stream: A Live Trace Model for Long-Horizon Agents and Their Observers",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.01466v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "91dad0068ec24e5b": {
   "first_seen": "2026-09-01T16:03:14.951978+00:00",
