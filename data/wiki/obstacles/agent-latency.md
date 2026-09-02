@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507]
-updated: 2026-08-27
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9]
+updated: 2026-09-02
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9]
 ---
 
 ## TL;DR
@@ -239,13 +239,37 @@ offload-instead-of-fit-everything-on-one-GPU instinct OpenLake already
 applies to KV cache, here applied to model weights themselves rather than
 the growing context state.
 
+A separate KV-reuse answer targets a different bottleneck than same-model
+prefix caching: rather than reusing one model's own cache, a cross-model
+KV-sharing layer translates the KV state one model produced into a
+representation a *different* model can consume directly, skipping that
+second model's own prefill pass entirely. Within a model family (Qwen2.5-7B
+handing off to Qwen2.5-1.5B) the transferred cache actually improves
+downstream accuracy — 27.59% to 34.48% on LongBench2 — by carrying over the
+larger model's richer context representation; across families (Qwen2.5-1.5B
+to Gemma-2-2B) it cuts the target model's prefill cost by up to 67.05% at 4K
+context; and in a heterogeneous large-to-small handoff (Llama3.1-70B to
+Qwen2.5-7B) it drops end-to-end latency from 899ms to 138ms for a small
+accuracy trade-off (44.0% vs. 45.7%). It's the same offload-and-reuse
+instinct OpenLake and RaBitQCache apply to a single model's own cache above,
+extended to a multi-model serving pipeline where a cheap model would
+otherwise redo prefill work a bigger model already paid for.
+
 ## What's new
-vLLM v0.28.0 pushes Kimi-K3 optimization stack-wide — Decode Context Parallel
+A cross-model KV-sharing layer translates the KV state one model produced
+into a representation a different model can consume directly, cutting a
+cross-family target model's prefill cost up to 67.05% at 4K context and
+dropping heterogeneous large-to-small latency from 899ms to 138ms — and, in
+the same-family case, actually improving downstream accuracy by carrying
+over the larger model's context representation (see State of the art
+above).
+
+Prior update: vLLM v0.28.0 pushes Kimi-K3 optimization stack-wide — Decode Context Parallel
 support, fused FlashKDA kernels, and combined all-gathers for a 1.5-3x
 kernel-level speedup, plus an adaptive speculative token budget cutting DSpark
 TTFT by roughly 60% — while DeepSeek V4's sparse MLA now covers plain decode,
 MTP, and DSpark speculative decoding end-to-end, not just the routing-kernel
-work v0.26.0 shipped (see State of the art above).
+work v0.26.0 shipped.
 
 Prior update: vLLM-Omni's Distributed Layerwise Offload shards and streams model weights
 across devices to serve a 124 GB model on 64 GB HBM, estimating a path
@@ -256,12 +280,6 @@ chains to draft trees, accepting up to 12.97 tokens per verification round
 (98.6% more than DFlash, 27.9% more than Domino) for up to 9.73x lossless
 speedup — a training-free accuracy lever on the same speculative-decoding
 technique this page already tracks, not a new serving-layer bottleneck.
-
-Prior update: vLLM shipped Decode Context Parallelism (DCP), sharding the KV cache across
-GPUs by sequence dimension for a reported 3x decode-throughput gain on
-long-context agentic workloads over standard tensor parallelism — a new
-parallelism-based answer to the storage-bandwidth bottleneck this page
-already tracks (DualPath, OpenLake, RaBitQCache).
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

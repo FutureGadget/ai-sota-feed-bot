@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7]
-updated: 2026-08-27
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be]
+updated: 2026-09-02
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be]
 ---
 
 ## TL;DR
@@ -293,8 +293,34 @@ isn't concentrating on the frontier model, evidence for the routing and
 reasoning-effort arguments above that most per-task spend doesn't need
 frontier capability.
 
+A second production case study puts an even higher number on the same
+caching lever, plus the discipline that gets there: Anthropic's own
+commerce-agents guide reports 90-99% prompt-cache hit rates in production,
+achieved by keeping a byte-identical prefix across three cache segments —
+global (rarely changes), session (stable for the conversation), and volatile
+(changes every turn) — so only the volatile segment actually breaks the
+cache each turn, with cached tokens reading back 1.5-2x faster than an
+uncached read. The same guide's latency playbook targets three separate
+levers rather than one: fewer turns (pre-loaded context, parallel tool
+calls), faster tools (backend optimization, dispatching a tool call's
+arguments as they stream instead of waiting for the full response before
+acting), and faster tokens (model selection driven by eval sweeps over real
+traffic, not a leaderboard score). It pairs the cost playbook with a
+safety-in-code discipline that keeps spend-relevant actions off the model's
+say-so alone: no financial action executes without staging and human
+approval, writes accept only server-issued IDs rather than a model-typed
+one, and transaction caps enforce a ceiling on the resulting state instead
+of the request.
+
 ## What's new
-Open-weight models overtook proprietary ones on Vercel's AI Gateway for the
+Anthropic's own commerce-agents guide reports 90-99% prompt-cache hit rates
+in production via a byte-identical three-segment cache (global/session/
+volatile), cached tokens reading 1.5-2x faster than uncached ones, alongside
+a code-not-prompt safety discipline: staged approval before any financial
+action, server-issued IDs on writes, and transaction caps enforced on
+resulting state (see State of the art above).
+
+Prior update: Open-weight models overtook proprietary ones on Vercel's AI Gateway for the
 first time — 54% of token volume on one day, a record 62% on another, up
 from 28% on June 24 — with DeepSeek-V4-Flash the single most-used model by
 volume, while the next wave of Chinese releases (Zhipu's GLM-5.3-Flash,
@@ -313,13 +339,6 @@ Routing Box") and a buyer-side business case (Glean's CEO) in the same
 window, both arguing frontier price and open-weight uptake are pushing
 organizations toward routing as infrastructure rather than a one-off
 optimization (see State of the art above).
-
-Prior update: Gartner forecasts inference cost per agentic workflow will rise more than
-fivefold through 2028 — evidence the per-*workflow* cost curve is expected
-to keep climbing even as per-token prices fall, because workflow spend
-scales with the number of steps and tool calls an agent takes, not with the
-price of any single token (see State of the art above for the routing and
-downshift levers that offset it).
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

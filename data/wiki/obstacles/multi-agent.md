@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02]
-updated: 2026-08-30
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22]
+updated: 2026-09-02
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22]
 ---
 
 ## TL;DR
@@ -301,12 +301,33 @@ version of the cross-provider orchestration thread above (Omegacode,
 h5i-python): portability stops being a nice property of one workflow script
 and becomes the thing that decides whether the estate scales together.
 
+Evaluation is catching up to the coordination-structure argument this page
+already makes: SwarmBench is a dedicated benchmark for *dynamic* multi-agent
+orchestration specifically, scoring accuracy, efficiency, cost, and the
+quality of the coordination process itself rather than only the final
+answer — the multi-agent counterpart to [agent
+benchmarks](/topic/agent-benchmarks)' single-agent evaluation gap. Its
+authors report current models vary substantially in orchestration
+capability, not just in outcome, and introduce SwarmExp, an
+experience-extraction-and-replay method that consistently improves
+orchestration performance — evidence that the "coordination is a skill, not
+a byproduct of a bigger model" argument DPBench and Agora already make on
+this page extends to a model's own orchestration ability too, not just the
+topology it's placed in.
+
 ## What's new
-LaneGate joins the isolation-plus-gate tooling this page tracks: it wraps
+SwarmBench introduces a dedicated benchmark for dynamic multi-agent
+orchestration — scoring accuracy, efficiency, cost, and coordination-process
+quality together rather than only the final answer — and finds current
+models vary substantially in orchestration capability; its SwarmExp method
+(experience extraction and replay) consistently improves it, evidence
+coordination is a trainable skill, not just a byproduct of model size (see
+State of the art above).
+
+Prior update: LaneGate joins the isolation-plus-gate tooling this page tracks: it wraps
 `git worktree` directly so each concurrent coding agent gets its own
 isolated worktree, packaging the branch-per-agent pattern this page already
-argues for as a dedicated tool rather than a manual convention (see State
-of the art above).
+argues for as a dedicated tool rather than a manual convention.
 
 Prior update: Anthropic ran controlled experiments on swarms of Claude agents and found
 coordination cuts both ways: a coordinated swarm found 266 vulnerabilities

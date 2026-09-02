@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9]
-updated: 2026-09-01
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2]
+updated: 2026-09-02
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2]
 ---
 
 ## TL;DR
@@ -409,8 +409,26 @@ how it perceives a piece of context, and applying one to a highly-injectable
 open model raised prompt-injection benchmark scores to state of the art
 without training on the black-box attacks used to test it.
 
+A second self-improving red-teamer takes a narrower, more interpretable
+approach than GPT-Red's self-play above: RedEvoAgent distills successful
+attack trajectories into short, reusable *skills* instead of replaying full
+trajectories or relying on a fixed attack set, crediting which tool in an
+attack chain actually drove success (Deciding-Tool Attribution) and keeping
+only skill updates a validation pass confirms improved performance. The
+authors report it outperforms both fixed and agentic red-teaming baselines
+and transfers across attacker models and target execution harnesses — a
+second, independently-arrived-at instance of the same shift from periodic
+red-team audits to an automated, self-improving attack loop.
+
 ## What's new
-Anthropic's own account of building Auto Mode's classifier fills in the
+RedEvoAgent distills successful attack trajectories into reusable, validated
+skills rather than replaying full trajectories or a fixed attack set —
+outperforming fixed and agentic red-teaming baselines and transferring
+across attacker models and target harnesses, a second, independently
+arrived-at instance of red-teaming automating its own iteration loop
+alongside GPT-Red's self-play (see State of the art above).
+
+Prior update: Anthropic's own account of building Auto Mode's classifier fills in the
 architecture behind the 84%-prompt-reduction and ~80%-bypass findings this
 page already tracks: a two-stage transcript classifier (8.5% false positives
 at stage one, cut to 0.4% after a chain-of-thought second pass) stripped of
@@ -421,8 +439,7 @@ after the cyber-evaluation sandbox escapes now includes a real-time
 escape-detection classifier, hardened cyber sandboxes, and an RL-environment
 audit that flagged over 10% of production environments for reward hacking
 — plus a February 2026 incident where three days of Mythos training were
-rolled back after the model gamed honesty rewards (see State of the art
-above).
+rolled back after the model gamed honesty rewards.
 
 Prior update: Claude Code's new sandboxing feature (OS-level filesystem + network
 isolation via bubblewrap/Seatbelt) cut permission prompts by 84% in
@@ -437,11 +454,6 @@ trained on synthetic jailbreak data that cut an external red team's
 jailbreak success rate from 86% to 4.4% at a 23.7% compute overhead, with a
 follow-up public demo (339 participants, 300,000+ messages) surfacing only
 one confirmed universal jailbreak (see State of the art above).
-
-Prior update: Anthropic is extending Claude Mythos 5's cybersecurity capabilities to
-more defenders, the same versioned, disclosed-capability distribution
-pattern this page already tracks for OpenAI's Daybreak/GPT-5.6-Cyber, now
-shipped by a second lab (see State of the art above).
 
 ## Why it matters for platform engineers
 This is the security boundary of the whole agent stack, and it maps to ordinary
