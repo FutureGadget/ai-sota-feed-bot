@@ -1,0 +1,47 @@
+{
+  "slug": "prompt-injection",
+  "generated_at": "2026-09-02T05:10:00+00:00",
+  "covers_last_updated": "2026-09-01T17:40:13+00:00",
+  "covers_member_sids": [
+    "2e8dd0bd140383d9",
+    "2e814e5a70146cc1",
+    "958e200401ba64f9"
+  ],
+  "tldr": "A new academic benchmark targets long-context prompt injection, an area existing benchmarks mostly skip, while a separate paper proposes a compact guardrail model for catching injection and jailbreak attempts.",
+  "whats_new": "An independent builder published a live demo of Semantic Overlays, small trained adapters on a frozen model that change what it perceives in its context as a way to mitigate prompt injection without a separate guardrail model.",
+  "why_it_matters": "Most production guardrails today are bolt-on classifiers; an adapter-based approach that changes the base model's own perception of untrusted context is a different mitigation shape worth evaluating before betting on a guardrail-model architecture.",
+  "beats": [
+    {
+      "kicker": "BENCHMARK GAP",
+      "tone": "launch",
+      "headline": "LongPIBench targets a long-context blind spot in prompt injection benchmarks",
+      "summary": "Existing prompt injection benchmarks focus on short-context inputs, leaving long-context attacks largely untested.",
+      "sids": ["2e8dd0bd140383d9"]
+    },
+    {
+      "kicker": "GUARDRAIL MODEL",
+      "tone": "rising",
+      "headline": "HiveTraceGuard-Pro proposes a compact generative guardrail for injection, jailbreaks, and obfuscation",
+      "summary": "A separate guardrail model aims to catch attempts to override system instructions or bypass safety policy, addressing gaps the authors say existing reports don't fully cover.",
+      "sids": ["2e814e5a70146cc1"]
+    },
+    {
+      "kicker": "ALTERNATIVE APPROACH",
+      "tone": "now",
+      "headline": "Show HN: Semantic Overlays mitigates prompt injection without a separate guardrail model",
+      "summary": "A live demo shows small trained adapters on a frozen model changing how it perceives its context, applied as a mitigation for prompt injection.",
+      "sids": ["958e200401ba64f9"]
+    }
+  ],
+  "open_questions": [
+    "Does LongPIBench's long-context injection benchmark reveal failure rates that short-context benchmarks miss on production models?",
+    "Does HiveTraceGuard-Pro's compact guardrail hold up against obfuscated injection attempts that evade larger safety classifiers?",
+    "Does the Semantic Overlays adapter approach generalize beyond the demoed model, or is it tied to one architecture?"
+  ],
+  "take_for_builders": "If you rely on a bolt-on guardrail classifier for prompt injection, test it against a long-context attack before assuming coverage, and watch whether adapter-based mitigations like Semantic Overlays hold up under independent red-teaming.",
+  "day_captions": {
+    "2e8dd0bd140383d9": "A new benchmark paper targets long-context prompt injection, an area existing benchmarks mostly skip.",
+    "2e814e5a70146cc1": "A separate paper proposes a compact generative guardrail model for prompt injection, jailbreaks, and adversarial obfuscation.",
+    "958e200401ba64f9": "An independent builder demos Semantic Overlays, adapters on a frozen model that change its perception of context to mitigate prompt injection."
+  }
+}
