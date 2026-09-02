@@ -178,6 +178,39 @@
   "url": "https://finance.bots.rxlab.app",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "2e814e5a70146cc1": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "70f4567299b886cd",
+  "matched_topics": [
+   "harness",
+   "evaluation"
+  ],
+  "published": "2026-09-01T10:46:09+00:00",
+  "sid": "2e814e5a70146cc1",
+  "source": "arxiv_cs_ai",
+  "summary": "Production LLMs must handle inputs that attempt to override system instructions, bypass safety policies or elicit harmful responses. A common mitigation is a separate guardrail model. Existing reports, however, provide little evidence on Russian prompt injection or Russian surface obfuscation. We present HiveTraceGuard-Pro, a 0.6B generative guardrail LoRA-tuned from Qwen3-0.6B. It is trained on Russian and English and uses one binary scoring rule (safe/unsafe) for the final target turn. Its training corpus pairs harmful examples, where a counterpart exists, with benign examples from the same domain and applies eight obfuscation transforms to both labels. In one harness, we compare HiveTraceGuard-Pro with thirty-four other guards on nineteen benchmark groups, sixteen of which are public. Its aggregate key is 0.7432, behind 0.7641 and 0.7552 for the two higher-scoring guards. Over the sixteen public groups alone, its key is 0.7153 and four of the thirty-four other suite guards score higher. In a fifteen-model comparison, HiveTraceGuard-Pro has the highest clean Russian robustness combined-F1 (0.88) and Russian prompt-injection recall (0.999). Both results use Russian sets assembled by our team, and at least 27.1% of the prompt-injection set overlaps the training corpus. Its 14.3 ms median latency is the lowest among those fifteen models in that run. Across the suite, FPR is 0.268 and FNR is 0.156. All reported response results use a legacy standalone-reply serialization rather",
+  "summary_1line": "Production LLMs must handle inputs that attempt to override system instructions, bypass safety policies or elicit harmful responses. A common mitigation is a separate guardrail model. Existing reports, however, provid...",
+  "title": "HiveTraceGuard-Pro: A Compact Generative Guardrail for Prompt Injection, Jailbreaks, and Adversarial Obfuscation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.01046v1",
+  "why_it_matters": "Matches feed focus: harness, evaluation."
+ },
+ "330fba64551db8b4": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "06b72deba036706f",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-01T01:00:00+00:00",
+  "sid": "330fba64551db8b4",
+  "source": "openai_blog",
+  "summary": "See how Gilbert + Tobin combines CEO-led commitment, rigorous governance, and human accountability to scale ChatGPT Enterprise and Codex across the firm.",
+  "summary_1line": "See how Gilbert + Tobin combines CEO-led commitment, rigorous governance, and human accountability to scale ChatGPT Enterprise and Codex across the firm.",
+  "title": "How law firm Gilbert + Tobin governs and scales AI with OpenAI",
+  "type": "news",
+  "url": "https://openai.com/index/gilbert-tobin",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "3d4e408ad45e6552": {
   "first_seen": "2026-09-01T02:03:16.594392+00:00",
   "id": "8a04f2e58215ea88",
@@ -372,6 +405,21 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.257",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "80053fd98c6ea662": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "19487fc591a1a0b2",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-02T01:25:28+00:00",
+  "sid": "80053fd98c6ea662",
+  "source": "hackernews_ai",
+  "summary_1line": "How much of your coding is done by AI coding agents these days?",
+  "title": "How much of your coding is done by AI coding agents these days?",
+  "type": "news",
+  "url": "https://slashdot.org/poll/3284/how-much-of-your-coding-is-done-by-ai-coding-agents-these-days",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "89ad7bd69c77fd2f": {
   "first_seen": "2026-09-01T20:02:57.281521+00:00",
@@ -642,6 +690,22 @@
   "type": "news",
   "url": "https://www.latent.space/p/ainews-fals-h3-max-live-breaks-the"
  },
+ "df01cd84d941cf69": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "1f079254b0bca296",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-09-01T12:04:08+00:00",
+  "sid": "df01cd84d941cf69",
+  "source": "arxiv_cs_lg",
+  "summary": "Online adaptation can help edge time-series forecasting under distribution drift, but its measured benefit is sensitive to evaluation choices. We study six public multivariate streams, including building-sensor and smart-meter data, under a leakage-free streaming protocol. We identify two additional sources of comparison bias. First, the warmup budget of the static baseline has a two-sided effect: insufficient warmup undertrains the baseline, whereas excessive warmup can degrade its pre-drift generalization. Across six dataset-backbone settings, the estimated adaptation benefit changes by 3.0 to 18.8 percentage points (pp) over the 1,000-20,000-step warmup range. Second, comparing SGD with momentum (SGD+m) and Adam at a shared default learning rate conflates optimizer quality with rate sensitivity. We select both the warmup budget and each optimizer's online rate using a held-out pre-drift validation slice without accessing test data. Under this validation-only procedure, Adam outperforms SGD+m in 310 of 360 evaluated cells, while 4 Adam cells remain below the static baseline. We further characterize accuracy against adaptation-state memory and A100-measured per-update latency for full, head-only, and calibration-based adaptation. In the evaluated PatchTST frontier settings, several parameter-efficient variants are nondominated on the adaptation-state-memory axis. Smart-meter analyses also show that reported gains depend on meter-selection rules. These findings support a vali",
+  "summary_1line": "Online adaptation can help edge time-series forecasting under distribution drift, but its measured benefit is sensitive to evaluation choices. We study six public multivariate streams, including building-sensor and sm...",
+  "title": "When Does Online Adaptation Pay on the Edge? A Leakage-Free Evaluation of Warmup, Learning-Rate Selection, and Resource Trade-offs for Time-Series Forecasting",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.01126v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "e510097eefc009d3": {
   "first_seen": "2026-09-01T15:03:25.843369+00:00",
   "id": "37e8e6fb7baa04d3",
@@ -684,6 +748,23 @@
   "url": "http://arxiv.org/abs/2609.00935v1",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "eba62b17e6252112": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "9c263e17bdb326e4",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-09-01T09:00:55+00:00",
+  "sid": "eba62b17e6252112",
+  "source": "arxiv_cs_cl",
+  "summary": "Solving problems through repeated attempts is a sequential modeling task: at each step, the solver receives feedback and decides how to revise their solutions. Predicting whether performance improves, plateaus, or regresses across attempts is central to understanding any iterative problem-solving process in both human learners and autonomous agents. Beyond outcomes, modeling what errors persist and how strategies shift across attempts provides deeper insight into the mechanics of sequential learning. Studying these dynamics requires observing many solvers as they attempt, receive feedback, and revise. Programming courses with automated grading provide this setting, as students iteratively submit code to test suites and receive feedback on every attempt. We therefore curate CodeInsight, a large-scale dataset of over 3 million submissions from 3,286 undergraduates across 2 introductory C++ courses in 2 academic years, with test-case-level outcomes, timestamps, and source code. On this dataset, we build a benchmark that evaluates models spanning parametric, sequential, and generative traditions under a shared calibration-and-scoring protocol, including a Recurrent State Space Model (RSSM) adapted to track solver characteristics through discrete latent variables and an LLM-based predictor that generates explicit solutions. The adapted RSSM achieves the strongest predictive accuracy on three of the four courses. The LLM predictor is less accurate but produces full submissions at e",
+  "summary_1line": "Solving problems through repeated attempts is a sequential modeling task: at each step, the solver receives feedback and decides how to revise their solutions. Predicting whether performance improves, plateaus, or reg...",
+  "title": "A Dataset for Modeling Iterative Problem-Solving",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.00940v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "ebe5937303c6cec0": {
   "first_seen": "2026-09-01T15:03:25.843369+00:00",
   "id": "54d5f76d2110d336",
@@ -695,6 +776,18 @@
   "title": "DeepSeek Open-Sources First V4 Vision Model: Benchmark Claims Need Independent Proof",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOcHlXR0RPeTRHSU1aUWR5Q2tnXzlZUnZSUUpEZzBPT0VITHZFbGNUYXo1dGl6ekgxd3N3V0wycGpFWHJ0c25CQ1FHOXpVVUhRbnU5Tl9hVWdySUl4UHNVVnRwcjFWY0o2NVlFNmt0ZEs0S3dydjg0Q25SdmdkY3ZaSXBKYlh2Y2NRMHc1TVJVejZkMHlMcTdJbVBCNEktT2gzY1RhTEh3QndXSTdsclFzdFRmcm0yNHlTV1pacGFxejNQNVg3bmZrVEppZV82Q3FMMVZaVw?oc=5"
+ },
+ "eca968340e434272": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "0b6ff5101f856ee9",
+  "published": "2026-09-01T18:37:00+00:00",
+  "sid": "eca968340e434272",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Z.AI Shares Climb as Cloud Revenue Fuels 400% First-Half Surge finance.biggo.com",
+  "summary_1line": "Z.AI Shares Climb as Cloud Revenue Fuels 400% First-Half Surge finance.biggo.com",
+  "title": "Z.AI Shares Climb as Cloud Revenue Fuels 400% First-Half Surge",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE53NWNDVzRGVFNheGZOT0JVeUlTVkFqb2Vxc1dqOGw3cmgwSU5rcDFjaXdHM3hmU09EM2RUTkRBeXlLMVhqTHRpWnYwZWotVUJjeUQ4T2w3WWpVcmhrbkZBV29meTBDV0trcVU0WlBvQmlfSWpGdlE?oc=5"
  },
  "f0cc25d0c2250a40": {
   "first_seen": "2026-09-01T23:03:13.205981+00:00",
@@ -713,6 +806,22 @@
   "title": "claude-agent-sdk-python v0.2.151",
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.151",
+  "why_it_matters": "Matches feed focus: agent."
+ },
+ "f2050ccb0482507b": {
+  "first_seen": "2026-09-02T02:02:51.270788+00:00",
+  "id": "f59e630ab9c3e52c",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-02T01:30:00+00:00",
+  "sid": "f2050ccb0482507b",
+  "source": "databricks_blog",
+  "summary": "What is AgentOps?AgentOps is the operating discipline for building, deploying and...",
+  "summary_1line": "What is AgentOps?AgentOps is the operating discipline for building, deploying and...",
+  "title": "Announcing the Databricks Big Book of AgentOps",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/announcing-databricks-big-book-agentops",
   "why_it_matters": "Matches feed focus: agent."
  },
  "f2694bfa96c49e91": {
