@@ -69,7 +69,13 @@ Python, since labs keep inventing new effort names. It is conservative: a
 trailing parenthetical or suffix is only ever stripped when it normalizes to
 a token the vocabulary recognizes, so real distinguishing tokens (Gemini's
 "-lite", Qwen's "-max" tier, GPT's "-instant"/"-mini") are left alone and
-that model keeps its own base_slug. These are additive grouping keys only -
+that model keeps its own base_slug. A parenthetical may also carry
+configuration-only clauses alongside the effort clause ("Claude Fable 5.1
+(Adaptive Reasoning, High Effort, Default Fallback)"); those are dropped
+first via `variant_vocabulary.ignorable_qualifiers` (also config-driven) so
+the effort clause still matches - without that step the whole parenthetical
+stays in `base_slug` and every effort level of one model becomes its own row
+on /models. These are additive grouping keys only -
 every row keeps its own full identity and no row is ever dropped from the
 artifact; `web/models.html` and the feed sidebar use base_slug to collapse
 the *presentation* to one row per real model.
@@ -341,7 +347,7 @@ DEFAULT_CONFIG = {
         "proprietary_markers": ["proprietary"],
         "unknown_markers": ["unknown", "unspecified"],
     },
-    "variant_vocabulary": {"tokens": {}, "effort_phrases": []},
+    "variant_vocabulary": {"tokens": {}, "effort_phrases": [], "ignorable_qualifiers": []},
     "organization_aliases": {},
     "acronym_casing": {},
     "axis_metric_options": [],
@@ -516,6 +522,37 @@ def normalize_variant_token(raw: str | None) -> str:
 _PAREN_TAIL_RE = re.compile(r"\(([^()]+)\)\s*$")
 
 
+def _drop_ignorable_qualifiers(paren_text: str, vocab: dict | None) -> str:
+    """Remove configuration-only clauses from a parenthetical's text.
+
+    Artificial Analysis appends deployment-configuration clauses to the same
+    effort parenthetical it has always published: "Claude Fable 5.1 (Adaptive
+    Reasoning, High Effort, Default Fallback)". The three-clause text matches
+    no `effort_phrases` pattern (they are anchored on the effort clause
+    alone), so without this the variant goes unrecognized, the whole
+    parenthetical stays in `base_slug`, and each effort level becomes its own
+    "model" on the /models page.
+
+    Splits on commas and drops any clause matching a pattern in
+    `vocab["ignorable_qualifiers"]` (config-driven - see config/models.yaml),
+    re-joining the rest for the caller's normal matching. Conservative like
+    the rest of this block: a clause is only ever dropped when it matches a
+    configured pattern, so an identity-bearing clause is never guessed away.
+    """
+    patterns = ((vocab or {}).get("ignorable_qualifiers") or [])
+    if not patterns:
+        return paren_text
+    kept = []
+    for clause in paren_text.split(","):
+        clause = clause.strip()
+        if not clause:
+            continue
+        if any(re.match(p, clause, re.IGNORECASE) for p in patterns if p):
+            continue
+        kept.append(clause)
+    return ", ".join(kept)
+
+
 def _split_recognized_variant(name: str | None, vocab: dict | None) -> tuple[str, str | None]:
     """Split `name` into (base_text, variant_label), same matching rules as
     `derive_base_variant` (see its docstring for the two conventions tried),
@@ -534,7 +571,7 @@ def _split_recognized_variant(name: str | None, vocab: dict | None) -> tuple[str
 
     m = _PAREN_TAIL_RE.search(name)
     if m:
-        paren_lower = m.group(1).strip().lower()
+        paren_lower = _drop_ignorable_qualifiers(m.group(1).strip().lower(), vocab)
         variant = None
         for entry in phrases:
             pattern = (entry or {}).get("pattern")
@@ -581,7 +618,10 @@ def derive_base_variant(name: str | None, vocab: dict | None) -> tuple[str, str 
     Tries two conventions, in order, and only ever acts when a match is
     found in the vocabulary - never on a bare word guess:
       1. AA-style trailing parenthetical ("GPT-5.6 Sol (medium)", "Claude
-         Opus 5 (Adaptive Reasoning, High Effort)"). `vocab["effort_phrases"]`
+         Opus 5 (Adaptive Reasoning, High Effort)"). Clauses matching
+         `vocab["ignorable_qualifiers"]` (configuration metadata such as
+         "Default Fallback") are dropped first, then
+         `vocab["effort_phrases"]`
          handles multi-word phrasing a single-token lookup can't parse;
          otherwise the parenthetical's own normalized text is looked up
          directly in `vocab["tokens"]`.

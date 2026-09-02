@@ -58,6 +58,7 @@ VARIANT_VOCAB = {
         {"pattern": r"^adaptive reasoning,\s*(?P<level>[a-z]+)\s*effort$"},
         {"pattern": r"^non-reasoning,\s*[a-z]+\s*effort$", "variant": "non-reasoning"},
     ],
+    "ignorable_qualifiers": [r"^(?:[a-z0-9][a-z0-9.\- ]*\s+)?fallback$"],
 }
 
 # Same shape as the real acronym_casing block in config/models.yaml - see
@@ -124,6 +125,66 @@ def test_derive_base_variant_bare_reasoning_phrase_without_adaptive_prefix():
     assert cm.derive_base_variant("Claude Opus 5 (Adaptive Reasoning, High Effort)", vocab) == (
         "claudeopus5", "high",
     )
+
+
+def test_derive_base_variant_ignores_a_trailing_configuration_clause():
+    # Regression (live 2026-09-01): AA started appending a fallback clause to
+    # the effort parenthetical it has always published. The three-clause text
+    # matched no effort_phrases pattern, so each effort level kept the whole
+    # parenthetical in its base_slug and /models listed five separate
+    # "Claude Fable 5.1" rows instead of one with a "+4 variants" badge.
+    for level, label in (
+        ("High", "high"),
+        ("Low", "low"),
+        ("Max", "max"),
+        ("Medium", "medium"),
+        ("Xhigh", "xhigh"),
+    ):
+        name = f"Claude Fable 5.1 (Adaptive Reasoning, {level} Effort, Default Fallback)"
+        assert cm.derive_base_variant(name, VARIANT_VOCAB) == ("claudefable51", label)
+
+
+def test_derive_base_variant_ignores_a_model_named_fallback_clause():
+    # The clause names the model that answers when the primary is
+    # unavailable - a routing detail, not this row's identity.
+    assert cm.derive_base_variant(
+        "Claude Fable 5 (Adaptive Reasoning, Max Effort, Opus 4.8 Fallback)", VARIANT_VOCAB
+    ) == ("claudefable5", "max")
+
+
+def test_derive_base_variant_configuration_clause_does_not_break_literal_phrases():
+    # "Non-reasoning, X Effort" collapses to non-reasoning regardless of the
+    # effort named alongside it - and regardless of a trailing fallback clause.
+    assert cm.derive_base_variant(
+        "Claude Sonnet 5 (Non-reasoning, High Effort, Default Fallback)", VARIANT_VOCAB
+    ) == ("claudesonnet5", "non-reasoning")
+
+
+def test_derive_base_variant_configuration_clause_alone_is_still_not_a_variant():
+    # Dropping the qualifier leaves nothing to match: no variant is invented,
+    # and the parenthetical stays part of the base rather than being guessed away.
+    base, variant = cm.derive_base_variant("Claude Fable 5.1 (Default Fallback)", VARIANT_VOCAB)
+    assert variant is None
+    assert base == cm.normalize_slug("Claude Fable 5.1 (Default Fallback)")
+
+
+def test_derive_base_variant_never_drops_an_unconfigured_clause():
+    # Only a clause matching a configured pattern is ever dropped - an
+    # identity-bearing clause keeps the whole parenthetical unrecognized.
+    base, variant = cm.derive_base_variant(
+        "Claude Fable 5.1 (Adaptive Reasoning, High Effort, June 2026)", VARIANT_VOCAB
+    )
+    assert variant is None
+    assert base == cm.normalize_slug("Claude Fable 5.1 (Adaptive Reasoning, High Effort, June 2026)")
+
+
+def test_derive_display_name_strips_effort_phrase_with_configuration_clause():
+    assert cm.derive_display_name(
+        "claude-fable-5-1-high",
+        "Claude Fable 5.1 (Adaptive Reasoning, High Effort, Default Fallback)",
+        VARIANT_VOCAB,
+        {},
+    ) == "Claude Fable 5.1"
 
 
 def test_derive_base_variant_never_strips_an_unrecognized_suffix():
@@ -1064,7 +1125,9 @@ def test_load_config_defaults_when_file_missing(tmp_path):
     assert cfg["license_classification"]["proprietary_markers"] == ["proprietary"]
     # Conservative empty defaults: no variant stripping, no org aliasing,
     # until config/models.yaml populates them.
-    assert cfg["variant_vocabulary"] == {"tokens": {}, "effort_phrases": []}
+    assert cfg["variant_vocabulary"] == {
+        "tokens": {}, "effort_phrases": [], "ignorable_qualifiers": [],
+    }
     assert cfg["organization_aliases"] == {}
 
 
@@ -1085,6 +1148,15 @@ def test_load_config_reads_real_variant_and_organization_config():
     )
     assert cfg["acronym_casing"].get("gpt") == "GPT"
     assert cfg["acronym_casing"].get("deepseek") == "DeepSeek"
+    # The live vocabulary must still collapse AA's fallback-qualified effort
+    # parenthetical to one base model - the /models duplicate-rows regression.
+    vocab = cfg["variant_vocabulary"]
+    assert cm.derive_base_variant(
+        "Claude Fable 5.1 (Adaptive Reasoning, High Effort, Default Fallback)", vocab
+    ) == ("claudefable51", "high")
+    assert cm.derive_base_variant(
+        "Claude Fable 5.1 (Adaptive Reasoning, Max Effort, Default Fallback)", vocab
+    ) == ("claudefable51", "max")
 
 
 def test_load_config_trust_env_proxies_is_overridable(tmp_path):

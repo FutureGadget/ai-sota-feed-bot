@@ -347,7 +347,13 @@ collect`; config in `config/models.yaml`.
   (`base_slug`, e.g. `"gpt56sol"`) and that variant's label (e.g.
   `"medium"`, or null when the name carries no recognized variant) - see
   `pipeline/collect_models.py::derive_base_variant` and `config/models.yaml`'s
-  `variant_vocabulary`. Every row keeps its own full identity and is still
+  `variant_vocabulary`. A parenthetical may also carry configuration-only
+  clauses alongside the effort clause ("Claude Fable 5.1 (Adaptive Reasoning,
+  High Effort, Default Fallback)"); those are dropped first via
+  `variant_vocabulary.ignorable_qualifiers` (also config-driven) so the effort
+  clause still matches - otherwise the whole parenthetical stays in
+  `base_slug` and each effort level becomes its own "model" on `/models`.
+  Every row keeps its own full identity and is still
   emitted; `web/models.html` and the feed sidebar use these as grouping keys
   to collapse variant-spam rows to one per real model for presentation only.
   `organization` is normalized through `config/models.yaml`'s
