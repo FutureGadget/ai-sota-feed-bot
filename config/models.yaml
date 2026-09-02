@@ -151,9 +151,31 @@ variant_vocabulary:
     nothinking: non-thinking
     nonreasoning: non-reasoning
     reasoning: reasoning
+  # Regex patterns for comma-separated clauses inside a parenthetical that
+  # describe deployment configuration rather than the model's identity or
+  # its reasoning effort. Matched (case-insensitively, whole-clause) against
+  # each clause BEFORE `effort_phrases`/`tokens` run; a matching clause is
+  # dropped and the remaining clauses are re-joined for matching. Artificial
+  # Analysis started appending a fallback clause to the same effort
+  # parenthetical it has always published - "Claude Fable 5.1 (Adaptive
+  # Reasoning, High Effort, Default Fallback)" - which made the three-clause
+  # text match no `effort_phrases` pattern at all, so every effort level kept
+  # the whole parenthetical in its `base_slug` and the /models page listed
+  # five separate "Claude Fable 5.1" rows instead of one with a
+  # "+4 variants" badge. Kept as narrow as the rest of this block: a clause
+  # is dropped only when it matches a pattern listed here, so an
+  # identity-bearing clause is never guessed away. Extend as AA invents new
+  # configuration clauses; never hardcode one in Python.
+  ignorable_qualifiers:
+    # "Default Fallback", "Opus 4.8 Fallback", bare "Fallback" - which model
+    # answers when the primary is unavailable is a routing detail, never the
+    # identity of the row.
+    - '^(?:[a-z0-9][a-z0-9.\- ]*\s+)?fallback$'
+
   # Regex patterns (matched in order, first hit wins) for multi-word AA
   # parenthetical phrasing a single-token lookup can't parse. `pattern` is
-  # matched against the lowercased parenthetical text. When `variant` is
+  # matched against the lowercased parenthetical text (after
+  # `ignorable_qualifiers` clauses are removed). When `variant` is
   # set, it is used literally; when omitted, the named group `level` is
   # looked up in `tokens` above.
   effort_phrases:
