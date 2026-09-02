@@ -19,6 +19,13 @@ sources:
     # overlap with the category sources before ranking.
     search_query: '(cat:cs.CL OR cat:cs.AI OR cat:cs.LG) AND (abs:hallucination OR abs:factuality OR abs:trustworthy OR abs:"LLM evaluation")'
     max_results: 30
+  - name: arxiv_agent_systems_research
+    type: arxiv_api
+    # Focused recall for practical agent-system research that broad category
+    # streams can miss before it gains a conference label. arXiv URL dedupe
+    # collapses overlap with the category sources.
+    search_query: '(cat:cs.CL OR cat:cs.AI OR cat:cs.LG) AND (abs:"prompt optimization" OR abs:"prompt evolution" OR abs:"agent optimization" OR abs:"agent systems" OR abs:"tool use" OR abs:"tool-use" OR abs:"agent evaluation")'
+    max_results: 40
   - name: paperswithcode_latest
     type: rss
     url: "https://paperswithcode.com/rss/latest"
