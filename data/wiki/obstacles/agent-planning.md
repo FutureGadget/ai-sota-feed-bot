@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c]
-updated: 2026-08-27
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691]
+updated: 2026-09-03
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691]
 ---
 
 ## TL;DR
@@ -254,8 +254,34 @@ verification-as-a-first-class-planning-step idea TDD-Agent and Anthropic's
 Claude Code skills guide already argue for, now shipped as a reusable
 middleware component instead of a bespoke harness or domain-specific skill.
 
+"Loop engineering" is also solidifying as shared vocabulary outside a
+single vendor's blog: GitHub's own podcast devotes an episode to decoding
+the new terms — loops, harnesses, squads, hill climbing — showing the
+vocabulary this page already tracks (AI Engineer World's Fair, LangGraph's
+retrospective) has spread into mainstream developer conversation rather
+than staying research-adjacent. Two new benchmarks give the discipline
+something to measure: LoopArena scores the loop's own guidance — whether it
+trusts a stale progress note, skips verification, or stops before a task is
+safe to submit — separately from the coding agent's raw capability, since a
+single end-to-end pass/fail can't tell which one caused the outcome;
+CordisBench tests whether a model can reason about a dynamic harness's own
+component lifecycle — predicting what breaks and what needs reconfiguring
+after a plugin change propagates through dependencies and cleanup —
+treating the harness's own state as something a model has to model, not
+just execute inside. A lighter-weight entrant argues for a narrower control
+shape on the same theme: Keel pitches itself as "a conductor, not an agent
+loop," an explicit alternative framing to the loop-as-primitive pattern
+this page's harness thread already assumes.
+
 ## What's new
-LangChain's RubricMiddleware packages the "verify, then correct" pattern
+"Loop engineering" gains mainstream vocabulary (GitHub's own podcast
+decodes the term alongside "harnesses" and "squads") and two new
+benchmarks: LoopArena scores a loop's guidance separately from the coding
+agent's raw capability, and CordisBench tests reasoning about a dynamic
+harness's own component lifecycle after a plugin change (see State of the
+art above).
+
+Prior update: LangChain's RubricMiddleware packages the "verify, then correct" pattern
 into a reusable component: a grader sub-agent checks output against a
 rubric checklist, feeds targeted per-criterion feedback back into the
 loop on failure, and the agent revises until it passes or hits a max-
@@ -267,11 +293,6 @@ page's standing harness-over-model thesis. The /wayfinder skill gives
 ambiguous, greenfield planning an explicit "explore before committing"
 move, and TDD-Agent anchors a coding agent's plan to passing tests rather
 than a plausible-looking diff (see State of the art above).
-
-Prior update: Netflix open-sourced an agentic workflow for observational causal inference
-that pairs an actor proposing an analysis with a critic checking it in a
-loop — a domain-specific instance of the bounded worker/critic structure
-this page already tracks (see State of the art above).
 
 ## Why it matters for platform engineers
 Bad planning is what turns a capable model into an unreliable agent: it's the source
