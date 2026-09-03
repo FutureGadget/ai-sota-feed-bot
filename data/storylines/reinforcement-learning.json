@@ -3,47 +3,16 @@
  "label": "Reinforcement Learning",
  "item_count": 3,
  "day_count": 3,
- "source_count": 2,
- "first_seen": "2026-07-29T06:18:16+00:00",
- "last_updated": "2026-08-17T13:24:41+00:00",
- "generated_at": "2026-08-19T00:13:18.629141+00:00",
+ "source_count": 3,
+ "first_seen": "2026-08-17T13:24:41+00:00",
+ "last_updated": "2026-09-02T13:17:10+00:00",
+ "generated_at": "2026-09-03T05:08:38.418896+00:00",
  "sources": [
   "arxiv_cs_cl",
-  "search_cn_open_weight_labs"
+  "arxiv_cs_lg",
+  "arxiv_llm_reliability"
  ],
  "days": [
-  {
-   "date": "2026-07-29",
-   "items": [
-    {
-     "title": "Moonshot AI, kvcache-ai Open Source AgentENV To Scale Agentic Reinforcement Learning - Open Source For You",
-     "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQdHpXay1PcmJQUVlxRURqOGU2QlF6U3J4LW1ZVjJsNHlSWDMtVm9WRWpmZl81TnV3ZVdXZGlDOThQcUF1SUdPOXZOOEE1SjhRVmh2RkJMcldnNzlVSGVWcXhUUzAxLXN2bUtSUFNXWmxiSmd6QkI2bjNvbTlscl81cUxzdUtJeVZMUlVZeGFOMDk4U3MzTlVVaDl0Y2ZpZkszNjBMRXFfekZkbWJaZDVLRUF1RkJjYVlxQ3duOEZOUk8?oc=5",
-     "source": "search_cn_open_weight_labs",
-     "type": "news",
-     "summary_1line": "Moonshot AI, kvcache-ai Open Source AgentENV To Scale Agentic Reinforcement Learning Open Source For You",
-     "why_it_matters": "Matches feed focus: agentic.",
-     "sid": "18944a6428c3ac1a",
-     "published": "2026-07-29T06:18:16+00:00",
-     "editor_note": "Moonshot AI and kvcache-ai open-source AgentENV, an agentic-RL scaling framework — the first shipped release in this batch."
-    }
-   ]
-  },
-  {
-   "date": "2026-08-07",
-   "items": [
-    {
-     "title": "ResidencyRL: Reinforcement Learning in Simulated Clinical Environments",
-     "url": "http://arxiv.org/abs/2608.07418v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "In medical education, physicians convert academic knowledge into clinical expertise through residency: years of training across thousands of encounters, with diverse sources of feedback and progressively greater auton...",
-     "why_it_matters": "Matches feed focus: agent, evaluation.",
-     "sid": "691438acb4bb6cca",
-     "published": "2026-08-07T17:04:41+00:00",
-     "editor_note": "New arXiv paper modeling clinical-residency training as an RL problem — physicians building expertise through staged, feedback-rich patient encounters."
-    }
-   ]
-  },
   {
    "date": "2026-08-17",
    "items": [
@@ -59,48 +28,80 @@
      "editor_note": "New arXiv paper training reasoning models to ask, condition, or abstain instead of guessing when a query is missing a necessary premise, closing a known gap in answer-only RL."
     }
    ]
+  },
+  {
+   "date": "2026-08-30",
+   "items": [
+    {
+     "title": "AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing",
+     "url": "http://arxiv.org/abs/2608.29622v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Retrieval-Augmented Generation (RAG) improves the factuality of large language models (LLMs), yet existing RAG systems often struggle with complex, multi-step reasoning that requires adaptive retrieval and continuous...",
+     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
+     "sid": "00ed99e182fc7224",
+     "published": "2026-08-30T07:31:19+00:00",
+     "editor_note": "New arXiv paper adds a persistent stack memory to RAG agents for adaptive multi-step retrieval and reasoning."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-02",
+   "items": [
+    {
+     "title": "Online Reinforcement Learning in the Met Office Unified Model through Distributed Model-Agent Coupling",
+     "url": "http://arxiv.org/abs/2609.02566v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "Machine-learnt corrections can complement numerical weather prediction only if they adapt to the evolving model state while preserving dynamical consistency and numerical stability. To test this within a global foreca...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "062820e3c4087829",
+     "published": "2026-09-02T13:17:10+00:00",
+     "editor_note": "New arXiv paper couples an online RL agent into the Met Office's operational weather model for live physics corrections."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL items, not a developing story. Recent entries range from Moonshot AI's open-sourced AgentENV framework for scaling agentic RL training to a paper modeling clinical-residency training as an RL problem.",
+  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL papers, not a developing story. Three arXiv papers this window span missing-premise reasoning, RAG agent memory, and live weather-model correction.",
   "stale": false,
-  "whats_new": "A new arXiv paper trains reasoning models to ask, condition on an assumption, or abstain when a query is missing a premise needed for a unique answer — a gap in standard answer-only RL training.",
-  "why_it_matters": "Answer-only RL, the default for most reasoning-model fine-tuning, never teaches a model to flag an underspecified request; that's a real failure mode for agents built to act on ambiguous user or tool input.",
-  "take_for_builders": "RL-fine-tuning a reasoning or tool-calling model? Check whether your reward function penalizes abstaining or asking on underspecified input — answer-only RL trains models to guess rather than flag a missing premise.",
+  "whats_new": "The newest paper couples an online RL agent directly into the Met Office's operational forecast model, correcting physics live while preserving numerical stability — a rare production RL deployment, not just a benchmark result.",
+  "why_it_matters": "The AgenticRAG-R1 stack-memory paper (Aug 30) is the one worth a platform engineer's attention — it targets the same multi-step retrieval-and-reasoning failures RAG-based coding and research agents hit today.",
+  "take_for_builders": "Building a RAG or tool-calling agent? Check whether your reward function penalizes abstaining on missing-premise input, and look at AgenticRAG-R1's stack-memory approach if multi-step retrieval breaks down.",
   "beats": [
    {
-    "kicker": "RELEASE",
-    "tone": "rising",
-    "headline": "Moonshot AI and kvcache-ai open-source AgentENV to scale agentic RL",
-    "summary": "New open-source framework targets scaling agentic reinforcement learning training — a shipped tool, not an academic result like the papers alongside it.",
-    "sids": [
-     "18944a6428c3ac1a"
-    ]
-   },
-   {
     "kicker": "RESEARCH",
     "tone": "neutral",
-    "headline": "ResidencyRL simulates clinical-residency training as an RL problem",
-    "summary": "New arXiv work models how physicians convert academic knowledge into clinical judgment through simulated patient encounters with staged feedback, mirroring real residency training.",
-    "sids": [
-     "691438acb4bb6cca"
-    ]
-   },
-   {
-    "kicker": "RESEARCH",
-    "tone": "neutral",
-    "headline": "New paper trains RL reasoning models to ask, condition, or abstain on missing-premise queries",
+    "headline": "Reasoning models are trained to ask, condition, or abstain on missing-premise queries",
     "summary": "Targets a known failure mode of answer-only RL: forcing a unique answer even when the query omits a premise needed to produce one.",
     "sids": [
      "e9e06df024881a81"
     ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "neutral",
+    "headline": "AgenticRAG-R1 adds stack memory for multi-step retrieval and reasoning",
+    "summary": "New arXiv paper gives RAG agents a persistent stack memory so they can adapt retrieval across multi-step reasoning instead of retrieving once and reasoning statically.",
+    "sids": [
+     "00ed99e182fc7224"
+    ]
+   },
+   {
+    "kicker": "DEPLOYMENT",
+    "tone": "rising",
+    "headline": "Online RL agent corrects live numerical weather forecasts inside the Met Office's operational model",
+    "summary": "Couples a distributed model-agent RL loop into a production forecasting system, adapting to evolving model state while preserving dynamical consistency — a rare production RL deployment outside benchmarks.",
+    "sids": [
+     "062820e3c4087829"
+    ]
    }
   ],
   "open_questions": [
-   "Does AgentENV's scaling approach hold up against existing agentic-RL training frameworks, or is it mainly a Moonshot-internal tool going public?",
-   "Does ResidencyRL's simulated training transfer to real clinical decision-making, or only to the benchmark's synthetic cases?",
-   "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?"
+   "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?",
+   "Does AgenticRAG-R1's stack memory hold up on longer, real-world multi-hop retrieval tasks beyond its evaluation benchmarks?",
+   "Does the Met Office's model-agent coupling stay numerically stable outside the tested forecast windows, or does it need retraining as the base model updates?"
   ],
-  "generated_at": "2026-08-19T00:20:00+00:00"
+  "generated_at": "2026-09-03T05:10:00+00:00"
  }
 }
