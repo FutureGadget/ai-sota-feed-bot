@@ -174,12 +174,13 @@ Source of truth is markdown; `index.json` is the only file served/bundled.
   stories grouped by obstacle area; excluded from deploys).
 
 ## Model Release Radar (`data/models/`)
-Deterministic model-release data joined from LMArena (keyless), Artificial
-Analysis (when `AA_API_KEY` is configured), and DeepSWE / Datacurve
+Deterministic model-release data joined from first-party announcements,
+LMArena (keyless), Artificial Analysis (when `AA_API_KEY` is configured),
+and DeepSWE / Datacurve
 (keyless, scraped - see below). Written by `pipeline/collect_models.py
 collect`; config in `config/models.yaml`.
 - `data/models/latest.json` - `{generated_at, sources: {lmarena,
-  artificial_analysis, deepswe}, models: [...], axis_metric_options: [...]}`.
+  artificial_analysis, first_party, deepswe}, models: [...], axis_metric_options: [...]}`.
   `sources.*` carries `{available, attribution, url, publish_date?}` per
   source (Artificial Analysis and DeepSWE attribution are mandatory wherever
   their data is displayed); `sources.deepswe` additionally carries
@@ -367,7 +368,11 @@ collect`; config in `config/models.yaml`.
   LMArena `license` string); `parameters_*` is null for undisclosed closed
   models (no rumored figures, per the anti-hype contract). `joined_sources`
   lists which source(s) contributed the row (`["lmarena"]`,
-  `["artificial_analysis"]`, or both) so join gaps stay visible.
+  `["artificial_analysis"]`, `["first_party"]`, or a combination) so join
+  gaps stay visible. `first_party` records are derived from configured
+  vendor-owned sitemap pages and provide only `release_date` and
+  `official_url`; benchmark, price, and capability fields remain null until
+  independent sources publish them.
 - `data/models/history/<YYYY-MM-DD>.json` - one dated snapshot of the same
   shape per collector run, for score-delta tracking.
 

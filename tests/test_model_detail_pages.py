@@ -325,6 +325,24 @@ class ModelAttributionTest(unittest.TestCase):
         html = render.model_sources_section(sources, [primary])
         self.assertNotIn("DeepSWE", html)
 
+    def test_first_party_only_model_keeps_its_announcement_provenance(self) -> None:
+        sources = {
+            "first_party": {
+                "available": True,
+                "attribution": "First-party model announcements",
+                "url": "https://research.meta.ai/sitemap.xml",
+            }
+        }
+        primary = _row(
+            official_url="https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            joined_sources=["first_party"],
+        )
+        html = render.model_sources_section(sources, [primary])
+        self.assertIn("First-party model announcements", html)
+        self.assertIn("https://research.meta.ai/sitemap.xml", html)
+        self.assertIn("https://research.meta.ai/blog/introducing-muse-spark-1-3", html)
+        self.assertIn("Read the announcement", html)
+
 
 class ModelPageRenderingTest(unittest.TestCase):
     """Full render_model_pages() coverage - one HTML file per distinct

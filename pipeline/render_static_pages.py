@@ -4999,10 +4999,7 @@ def model_community_section(group: list[dict]) -> str:
 
 
 def model_sources_section(sources: dict, group: list[dict]) -> str:
-    """Artificial Analysis / LMArena / DeepSWE attribution - a licensing
-    obligation (see AGENTS.md), rendered only for the sources this specific
-    model actually shows data from, and reading the attribution text/URL
-    from the artifact's `sources` block rather than hardcoding it."""
+    """Render provenance for the sources that supplied this model's facts."""
     has_aa = any(
         m.get("aa_intelligence_index") is not None
         or m.get("aa_coding_index") is not None
@@ -5011,11 +5008,13 @@ def model_sources_section(sources: dict, group: list[dict]) -> str:
     )
     has_elo = any(m.get("arena_elo_coding") is not None or m.get("arena_elo_overall") is not None for m in group)
     has_deepswe = any(m.get("deepswe_pass_at_1") is not None for m in group)
-    if not has_aa and not has_elo and not has_deepswe:
+    has_first_party = any("first_party" in (m.get("joined_sources") or []) for m in group)
+    if not has_aa and not has_elo and not has_deepswe and not has_first_party:
         return ""
     lmarena = sources.get("lmarena") or {} if isinstance(sources, dict) else {}
     aa = sources.get("artificial_analysis") or {} if isinstance(sources, dict) else {}
     deepswe = sources.get("deepswe") or {} if isinstance(sources, dict) else {}
+    first_party = sources.get("first_party") or {} if isinstance(sources, dict) else {}
     items = []
     if has_elo:
         url = safe_http_url(lmarena.get("url"))
@@ -5033,6 +5032,13 @@ def model_sources_section(sources: dict, group: list[dict]) -> str:
         label = squeeze(deepswe.get("attribution")) or "DeepSWE / Datacurve"
         link = f'<a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a>' if url != "#" else escape(label)
         items.append(f"<li>{link} - the only measured (not per-token-estimated) cost per task in this catalog.</li>")
+    if has_first_party:
+        url = safe_http_url(first_party.get("url"))
+        label = squeeze(first_party.get("attribution")) or "First-party model announcements"
+        link = f'<a href="{escape(url)}" target="_blank" rel="noopener">{escape(label)}</a>' if url != "#" else escape(label)
+        official = next((safe_http_url(m.get("official_url")) for m in group if safe_http_url(m.get("official_url")) != "#"), "#")
+        official_link = f' <a href="{escape(official)}" target="_blank" rel="noopener">Read the announcement.</a>' if official != "#" else ""
+        items.append(f"<li>{link} - launch identity and date from the originating lab.{official_link}</li>")
     return f'<aside class="md-sources"><h2>Sources and attribution</h2><ul>{"".join(items)}</ul></aside>'
 
 

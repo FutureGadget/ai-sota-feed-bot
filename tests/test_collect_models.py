@@ -331,6 +331,95 @@ def test_classify_open_weights_defaults_classification_cfg_when_omitted():
 # merge_lmarena_rows
 # ---------------------------------------------------------------------------
 
+
+def test_build_first_party_index_keeps_verified_release_identity_and_url():
+    idx = cm.build_first_party_index(
+        [
+            {
+                "name": "Muse Spark 1.3",
+                "organization": "meta",
+                "release_date": "2026-09-02",
+                "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            }
+        ]
+    )
+
+    assert list(idx) == ["musespark13"]
+    assert idx["musespark13"] == {
+        "slug": "musespark13",
+        "name": "Muse Spark 1.3",
+        "organization": "meta",
+        "release_date": "2026-09-02",
+        "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+    }
+
+
+def test_join_models_keeps_first_party_only_release_and_prioritizes_its_date():
+    first_party_idx = cm.build_first_party_index(
+        [
+            {
+                "name": "Muse Spark 1.3",
+                "organization": "meta",
+                "release_date": "2026-09-02",
+                "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            }
+        ]
+    )
+
+    merged = cm.join_models({}, {}, aliases={}, first_party_idx=first_party_idx)
+
+    assert merged == [
+        {
+            "slug": "musespark13",
+            "name": "Muse Spark 1.3",
+            "aa_name": None,
+            "benchmarks": {},
+            "organization": "meta",
+            "license": None,
+            "arena_elo_overall": None,
+            "arena_elo_coding": None,
+            "arena_votes": None,
+            "arena_rank_overall": None,
+            "arena_rank_coding": None,
+            "publish_date": None,
+            "release_date": "2026-09-02",
+            "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+            "joined_sources": ["first_party"],
+        }
+    ]
+
+
+def test_extract_first_party_release_uses_official_heading_and_sitemap_date():
+    release = cm.extract_first_party_release(
+        '<html><head><title>Introducing Muse Spark 1.3 | Meta AI Research</title></head>'
+        '<body><h1>Introducing <span>Muse Spark 1.3</span></h1></body></html>',
+        official_url="https://research.meta.ai/blog/introducing-muse-spark-1-3",
+        lastmod="2026-09-02",
+        publisher={
+            "organization": "meta",
+            "title_regex": r"^Introducing (?P<name>.+)$",
+        },
+    )
+
+    assert release == {
+        "name": "Muse Spark 1.3",
+        "organization": "meta",
+        "release_date": "2026-09-02",
+        "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+    }
+
+
+def test_extract_first_party_release_prefers_page_publication_date_to_sitemap_edit_date():
+    release = cm.extract_first_party_release(
+        '<html><head><meta property="article:published_time" content="2026-09-02T00:00:00.000Z"></head>'
+        '<body><h1>Introducing Muse Spark 1.3</h1></body></html>',
+        official_url="https://research.meta.ai/blog/introducing-muse-spark-1-3",
+        lastmod="2026-09-03",
+        publisher={"organization": "meta", "title_regex": r"^Introducing (?P<name>.+)$"},
+    )
+
+    assert release["release_date"] == "2026-09-02"
+
 def test_merge_lmarena_rows_combines_overall_and_coding():
     rows_by_category = {
         "overall": [
@@ -1087,6 +1176,33 @@ def test_build_output_emits_axis_metric_options_verbatim():
         axis_metric_options=options,
     )
     assert output["axis_metric_options"] == options
+
+
+def test_build_output_emits_first_party_only_launch_when_benchmarks_lag():
+    now = datetime(2026, 9, 4, tzinfo=timezone.utc)
+    release = {
+        "name": "Muse Spark 1.3",
+        "organization": "meta",
+        "release_date": "2026-09-02",
+        "official_url": "https://research.meta.ai/blog/introducing-muse-spark-1-3",
+    }
+    output = cm.build_output(
+        lmarena_idx={},
+        aa_idx={},
+        aliases={},
+        recency_days=90,
+        max_models=200,
+        now=now,
+        lmarena_meta={"available": False},
+        aa_meta={"available": False},
+        first_party_idx=cm.build_first_party_index([release]),
+        first_party_meta={"available": True, "attribution": "First-party model announcements"},
+    )
+
+    assert output["sources"]["first_party"]["available"] is True
+    assert output["models"][0]["display_name"] == "Muse Spark 1.3"
+    assert output["models"][0]["official_url"] == release["official_url"]
+    assert output["models"][0]["joined_sources"] == ["first_party"]
 
 
 # ---------------------------------------------------------------------------
