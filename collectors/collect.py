@@ -396,6 +396,240 @@ def collect_from_arxiv_api(source: dict, now: datetime) -> list[dict]:
     return out
 
 
+OPENREVIEW_API_BASE = "https://api2.openreview.net"
+
+
+def _openreview_content_value(value) -> str:
+    """Extract an API v2 content value, which may be wrapped or scalar."""
+    if isinstance(value, dict):
+        value = value.get("value")
+    if value is None:
+        return ""
+    if isinstance(value, list):
+        return ", ".join(str(v) for v in value if v is not None)
+    return str(value).strip()
+
+
+def _openreview_timestamp(value) -> str | None:
+    """Normalize an OpenReview date, accepting API milliseconds or ISO text."""
+    if value is None or value == "":
+        return None
+    try:
+        numeric = isinstance(value, (int, float)) or re.fullmatch(
+            r"\d+(?:\.\d+)?", str(value).strip()
+        )
+        if numeric:
+            epoch = float(value)
+            if epoch > 10_000_000_000:
+                epoch /= 1000.0
+            return datetime.fromtimestamp(epoch, tz=timezone.utc).isoformat()
+        parsed = dt_parser.parse(str(value))
+        if parsed.tzinfo is None:
+            parsed = parsed.replace(tzinfo=timezone.utc)
+        return parsed.astimezone(timezone.utc).isoformat()
+    except (OverflowError, TypeError, ValueError, OSError):
+        return None
+
+
+def _openreview_note_value(note: dict, field: str) -> str:
+    return _openreview_content_value((note.get("content") or {}).get(field))
+
+
+def _openreview_note_timestamp(note: dict, field: str) -> str | None:
+    """Read a timestamp from a top-level or content field."""
+    return _openreview_timestamp(note.get(field) or _openreview_note_value(note, field))
+
+
+def _openreview_replies(note: dict) -> list[dict]:
+    details = note.get("details") or {}
+    replies = details.get("directReplies") or details.get("replies") or []
+    if isinstance(replies, dict):
+        replies = replies.get("notes") or []
+    return [reply for reply in replies if isinstance(reply, dict)]
+
+
+def _openreview_decision(reply: dict) -> str:
+    invitation = str(reply.get("invitation") or "").casefold()
+    content = reply.get("content") or {}
+    decision = _openreview_content_value(content.get("decision"))
+    if decision and ("decision" in invitation or "decision" in content):
+        return decision
+    return ""
+
+
+def _openreview_decision_candidates(note: dict) -> list[tuple[str, dict, str]]:
+    candidates = []
+    for reply in _openreview_replies(note):
+        decision = _openreview_decision(reply)
+        if not decision:
+            continue
+        timestamp = _openreview_timestamp(
+            reply.get("tcdate")
+            or reply.get("tmdate")
+            or reply.get("cdate")
+            or reply.get("mdate")
+        )
+        candidates.append((timestamp or "", reply, decision))
+    return candidates
+
+
+def _openreview_is_withdrawn(note: dict) -> bool:
+    values = (
+        _openreview_note_value(note, "venue"),
+        _openreview_note_value(note, "venueid"),
+        _openreview_note_value(note, "status"),
+    )
+    return any("withdraw" in value.casefold() for value in values)
+
+
+def _openreview_is_accepted(decision: str) -> bool:
+    normalized = re.sub(r"\s+", " ", decision).strip().casefold()
+    return normalized.startswith("accept") and "reject" not in normalized
+
+
+def _openreview_request_notes(params: dict[str, str | int]) -> dict:
+    query = urllib.parse.urlencode(params)
+    url = f"{OPENREVIEW_API_BASE}/notes?{query}"
+    req = urllib.request.Request(url, headers={"User-Agent": "ai-sota-feed-bot/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        payload = json.loads(resp.read().decode("utf-8"))
+    if not isinstance(payload, dict) or not isinstance(payload.get("notes"), list):
+        raise ValueError("openreview_venue: unexpected API response shape")
+    return payload
+
+
+def collect_from_openreview_venue(source: dict, now: datetime) -> list[dict]:
+    """Collect public submissions from an OpenReview API v2 venue."""
+    venue_id = str(source.get("venue_id") or "").strip().strip("/")
+    if not venue_id:
+        raise ValueError("openreview_venue source requires venue_id")
+
+    accepted_only = source.get("accepted_only", True)
+    if isinstance(accepted_only, str):
+        accepted_only = accepted_only.strip().casefold() not in {"0", "false", "no"}
+    accepted_only = bool(accepted_only)
+    max_results = max(1, int(source.get("max_results", 100)))
+    page_size = max(1, min(int(source.get("page_size", 100)), max_results))
+    submission_invitation = f"{venue_id}/-/Submission"
+    offset = 0
+    fetched = 0
+    out = []
+    skipped = {
+        "not_accepted": 0,
+        "withdrawn": 0,
+        "anonymous": 0,
+        "missing_decision": 0,
+        "missing_timestamp": 0,
+        "missing_metadata": 0,
+    }
+
+    while len(out) < max_results:
+        payload = _openreview_request_notes(
+            {
+                "invitation": submission_invitation,
+                "details": "directReplies",
+                "sort": "tmdate:desc",
+                "limit": page_size,
+                "offset": offset,
+                "count": "true",
+            }
+        )
+        notes = payload["notes"]
+        if not notes:
+            break
+        fetched += len(notes)
+
+        for note in notes:
+            title = _openreview_note_value(note, "title")
+            abstract = _openreview_note_value(note, "abstract")
+            forum = str(note.get("forum") or "").strip()
+            if not title or not forum:
+                skipped["anonymous" if not forum else "missing_metadata"] += 1
+                continue
+            if _openreview_is_withdrawn(note):
+                skipped["withdrawn"] += 1
+                continue
+
+            decision_reply = None
+            decision = ""
+            if accepted_only:
+                # OpenReview's documented accepted-paper path is content.venueid
+                # == the venue ID. Public responses may also include a Decision
+                # reply, so use it as a consistency check and timestamp fallback.
+                venue_id_value = _openreview_note_value(note, "venueid")
+                decision_candidates = _openreview_decision_candidates(note)
+                timestamped_decisions = [row for row in decision_candidates if row[0]]
+                if timestamped_decisions:
+                    _, decision_reply, decision = max(
+                        timestamped_decisions, key=lambda row: row[0]
+                    )
+                elif decision_candidates:
+                    _, decision_reply, decision = decision_candidates[-1]
+
+                if venue_id_value:
+                    accepted = venue_id_value.strip().rstrip("/") == venue_id
+                    if decision and not _openreview_is_accepted(decision):
+                        accepted = False
+                elif decision:
+                    accepted = _openreview_is_accepted(decision)
+                else:
+                    accepted = False
+
+                if not accepted:
+                    if venue_id_value or decision:
+                        skipped["not_accepted"] += 1
+                    else:
+                        skipped["missing_decision"] += 1
+                    continue
+
+                published = _openreview_note_timestamp(note, "pdate")
+                if not published and decision_reply:
+                    published = _openreview_timestamp(
+                        decision_reply.get("tcdate")
+                        or decision_reply.get("tmdate")
+                        or decision_reply.get("cdate")
+                        or decision_reply.get("mdate")
+                    )
+            else:
+                published = _openreview_timestamp(
+                    note.get("tcdate")
+                    or note.get("tmdate")
+                    or note.get("cdate")
+                    or note.get("mdate")
+                )
+            if not published:
+                skipped["missing_timestamp"] += 1
+                continue
+
+            out.append(
+                {
+                    "title": title,
+                    "url": "https://openreview.net/forum?id=" + urllib.parse.quote(forum, safe=""),
+                    "summary": re.sub(r"\s+", " ", abstract).strip(),
+                    "published": published,
+                }
+            )
+            if len(out) >= max_results:
+                break
+
+        if len(notes) < page_size:
+            break
+        offset += len(notes)
+        try:
+            total = int(payload.get("count"))
+        except (TypeError, ValueError):
+            total = None
+        if total is not None and offset >= total:
+            break
+
+    skip_bits = " ".join(f"{key}={value}" for key, value in skipped.items() if value)
+    print(
+        f"openreview_venue venue={venue_id} fetched={fetched} accepted={len(out)}"
+        + (f" {skip_bits}" if skip_bits else "")
+    )
+    return out
+
+
 def _load_sitemap_meta_cache() -> dict[str, dict]:
     p = ROOT / "data" / "cache" / "sitemap_meta.json"
     if not p.exists():
@@ -762,7 +996,11 @@ def run():
             or (
                 f"hf://{source.get('org','unknown')}"
                 if src_type == "hf_org_models"
-                else f"arxiv://{source.get('category','unknown')}"
+                else (
+                    f"openreview://{source.get('venue_id','unknown')}"
+                    if src_type == "openreview_venue"
+                    else f"arxiv://{source.get('category','unknown')}"
+                )
             )
         )
 
@@ -806,6 +1044,8 @@ def run():
                 entries = collect_from_rss(source, now)
             elif src_type == "arxiv_api":
                 entries = collect_from_arxiv_api(source, now)
+            elif src_type == "openreview_venue":
+                entries = collect_from_openreview_venue(source, now)
             elif src_type == "sitemap":
                 entries = collect_from_sitemap(source, now)
             elif src_type == "hf_org_models":
