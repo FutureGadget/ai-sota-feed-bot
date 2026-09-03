@@ -25,6 +25,7 @@ transparent / memory positioning.
 |---|---|---|
 | Artificial Analysis Data API | free key, 100 req/day, `api/v2` | release_date, context window, params (open models), open-weights flag, intelligence + coding index, pricing, tokens/sec |
 | LMArena (arena.ai) | HF dataset `lmarena-ai/leaderboard-dataset`, `latest` split, no key | Arena Elo (crowd preference = quantitative sentiment), rank history |
+| First-party model announcements | tightly scoped official sitemaps, no key | launch identity, official announcement URL, and release date before benchmark catalogs catch up |
 | DeepSWE (Datacurve) | HF dataset `datacurve/deep-swe` + published leaderboard | long-horizon SWE-agent scores |
 | FrontierCode 1.1 (Cognition) | published leaderboard (cognition.com/frontiercode) | mergeable-change coding scores |
 | Hacker News | Algolia search API, no key | mention volume, points, top threads per model |
@@ -36,6 +37,10 @@ Constraints that shape the design:
 - **Artificial Analysis attribution is mandatory** on every surface showing
   its data; free-tier redistribution terms must be re-read once before ship,
   and the attribution line lives in the page template, not client JS.
+- **First-party records establish only identity and provenance.** They never
+  supply a score, price, availability, or capability claim. Each publisher is
+  allowlisted by sitemap prefix and a title regex with an explicit model-name
+  capture, so ordinary product and marketing posts cannot enter the catalog.
 - llm-stats.com has an aggregator API but keys are request-access with
   unclear terms - treat as optional convenience, never a dependency; the two
   frontier benchmarks are ingested from their primary sources above.

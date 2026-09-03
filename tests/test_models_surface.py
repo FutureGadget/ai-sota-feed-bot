@@ -84,6 +84,14 @@ class ModelsSurfaceTest(unittest.TestCase):
         self.assertIn("sources.deepswe", self.html)
         self.assertIn("DeepSWE / Datacurve", self.html)
 
+    def test_renders_first_party_launch_provenance(self) -> None:
+        self.assertIn("sources.first_party", self.html)
+        self.assertIn("First-party model announcements", self.html)
+
+    def test_highlights_recent_first_party_launches_awaiting_measurements(self) -> None:
+        self.assertIn("function firstPartyAnnouncements(models)", self.html)
+        self.assertIn("Awaiting independent measurements", self.html)
+
     def test_artificial_analysis_absence_is_disclosed_not_hidden(self) -> None:
         self.assertIn("aa.available", self.html)
         self.assertIn("not yet connected", self.html)

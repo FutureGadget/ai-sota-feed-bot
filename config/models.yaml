@@ -54,6 +54,26 @@ sources:
       - ifbench
       - lcr
 
+  first_party:
+    enabled: true
+    # A launch can be real before an independent benchmark catalog has an
+    # evaluable row. These tightly-scoped official sitemaps publish only
+    # identity, the first-party announcement URL, and its stated date; they
+    # never create estimated scores, price, or availability fields.
+    attribution: "First-party model announcements"
+    url: https://research.meta.ai/sitemap.xml
+    publishers:
+      - id: meta_ai_research
+        organization: meta
+        sitemap_url: https://research.meta.ai/sitemap.xml
+        include_prefixes:
+          - https://research.meta.ai/blog/
+        # Named capture is required. Only explicit launch titles qualify;
+        # adjacent product, safety, and marketing posts are intentionally
+        # ignored rather than guessed into the catalog.
+        title_regex: '^Introducing (?P<name>Muse Spark(?: [0-9]+(?:\.[0-9]+)*)?)$'
+        max_pages: 30
+
   deepswe:
     enabled: true
     # DeepSWE (Datacurve) publishes no documented JSON API - verified

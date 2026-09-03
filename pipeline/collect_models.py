@@ -303,8 +303,10 @@ import re
 import sys
 import time
 from datetime import date, datetime, timezone
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
+from xml.etree import ElementTree
 
 import yaml
 
@@ -336,6 +338,11 @@ DEFAULT_CONFIG = {
             "enabled": True,
             "base_url": "https://deepswe.datacurve.ai/",
             "attribution": "DeepSWE / Datacurve (https://deepswe.datacurve.ai/) - measured cost per task on real agentic coding tasks",
+        },
+        "first_party": {
+            "enabled": True,
+            "attribution": "First-party model announcements",
+            "publishers": [],
         },
     },
     "request_timeout_seconds": 20,
@@ -896,6 +903,135 @@ def merge_lmarena_rows(rows_by_category: dict[str, list[dict]]) -> dict[str, dic
     return idx
 
 
+def build_first_party_index(releases: list[dict]) -> dict[str, dict]:
+    """Index verified vendor launch records by normalized model identity.
+
+    A first-party launch establishes only identity, launch date, and the
+    official announcement URL. It deliberately does not invent a benchmark,
+    price, or availability claim while the independent catalogues catch up.
+    Invalid entries are ignored so one bad publisher row cannot take the
+    whole Radar down.
+    """
+    idx: dict[str, dict] = {}
+    for release in releases or []:
+        if not isinstance(release, dict):
+            continue
+        name = str(release.get("name") or "").strip()
+        organization = str(release.get("organization") or "").strip()
+        release_date = str(release.get("release_date") or "").strip()
+        official_url = str(release.get("official_url") or "").strip()
+        slug = normalize_slug(name)
+        if not slug or not organization or not official_url.startswith(("https://", "http://")):
+            continue
+        try:
+            date.fromisoformat(release_date)
+        except ValueError:
+            continue
+        idx.setdefault(
+            slug,
+            {
+                "slug": slug,
+                "name": name,
+                "organization": organization,
+                "release_date": release_date,
+                "official_url": official_url,
+            },
+        )
+    return idx
+
+
+def apply_first_party_release(row: dict, release: dict | None) -> None:
+    """Overlay the authoritative identity fields from one vendor release."""
+    if release is None:
+        return
+    row["release_date"] = release["release_date"]
+    row["official_url"] = release["official_url"]
+    if not row.get("organization"):
+        row["organization"] = release["organization"]
+    if "first_party" not in row["joined_sources"]:
+        row["joined_sources"].append("first_party")
+
+
+class _PageHeadingParser(HTMLParser):
+    """Extract the small amount of publisher HTML needed for discovery."""
+
+    def __init__(self):
+        super().__init__()
+        self._in_title = False
+        self._h1_depth = 0
+        self._title_parts: list[str] = []
+        self._h1_parts: list[str] = []
+        self.published_date: str | None = None
+
+    def handle_starttag(self, tag: str, attrs) -> None:
+        if tag == "title":
+            self._in_title = True
+        elif tag == "h1":
+            self._h1_depth += 1
+        elif tag == "meta":
+            meta = {str(key).lower(): str(value or "") for key, value in attrs}
+            name = meta.get("property") or meta.get("name") or meta.get("itemprop")
+            if name and name.lower() in {"article:published_time", "datepublished", "publish_date"}:
+                candidate = meta.get("content", "").strip()[:10]
+                try:
+                    date.fromisoformat(candidate)
+                except ValueError:
+                    return
+                self.published_date = candidate
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag == "title":
+            self._in_title = False
+        elif tag == "h1" and self._h1_depth:
+            self._h1_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if self._in_title:
+            self._title_parts.append(data)
+        if self._h1_depth:
+            self._h1_parts.append(data)
+
+    @property
+    def candidates(self) -> list[str]:
+        return [" ".join(" ".join(parts).split()) for parts in (self._h1_parts, self._title_parts)]
+
+
+def extract_first_party_release(
+    page_html: str,
+    *,
+    official_url: str,
+    lastmod: str | None,
+    publisher: dict,
+) -> dict | None:
+    """Turn one configured vendor announcement page into a release record."""
+    organization = str(publisher.get("organization") or "").strip()
+    pattern = str(publisher.get("title_regex") or "").strip()
+    if not organization or not pattern or not official_url.startswith(("https://", "http://")):
+        return None
+    try:
+        title_re = re.compile(pattern)
+    except re.error:
+        return None
+    parser = _PageHeadingParser()
+    parser.feed(page_html or "")
+    release_date = parser.published_date or str(lastmod or "").strip()[:10]
+    try:
+        date.fromisoformat(release_date)
+    except ValueError:
+        return None
+    for candidate in parser.candidates:
+        match = title_re.fullmatch(candidate)
+        name = (match.groupdict().get("name") or "").strip() if match else ""
+        if name:
+            return {
+                "name": name,
+                "organization": organization,
+                "release_date": release_date,
+                "official_url": official_url,
+            }
+    return None
+
+
 def get_path(d: dict, path: tuple[str, ...]):
     cur = d
     for key in path:
@@ -1238,6 +1374,7 @@ def join_models(
     lmarena_idx: dict[str, dict],
     aa_idx: dict[str, dict],
     aliases: dict[str, str],
+    first_party_idx: dict[str, dict] | None = None,
 ) -> list[dict]:
     """Join LMArena and Artificial Analysis indices on normalized slug (or name).
 
@@ -1269,8 +1406,10 @@ def join_models(
     the generic `AA_FIELD_PATHS` copy loop below, since it is not itself an
     AA_FIELD_PATHS entry.
     """
+    first_party_idx = first_party_idx or {}
     merged: list[dict] = []
     used_aa_ids: set[int] = set()
+    used_first_party_ids: set[int] = set()
 
     for slug, arena in lmarena_idx.items():
         aa_key = aliases.get(slug, slug)
@@ -1294,6 +1433,10 @@ def join_models(
                     continue
                 row.setdefault(field, None)
         row["joined_sources"] = joined_sources
+        release = first_party_idx.get(slug)
+        if release is not None:
+            used_first_party_ids.add(id(release))
+        apply_first_party_release(row, release)
         merged.append(row)
 
     emitted_aa_ids: set[int] = set()
@@ -1320,7 +1463,36 @@ def join_models(
             if field in AA_ROW_MERGE_EXCLUDED_FIELDS:
                 continue
             row[field] = aa.get(field)
+        release = first_party_idx.get(row["slug"])
+        if release is not None:
+            used_first_party_ids.add(id(release))
+        apply_first_party_release(row, release)
         merged.append(row)
+
+    emitted_first_party_ids: set[int] = set()
+    for slug, release in first_party_idx.items():
+        if id(release) in used_first_party_ids or id(release) in emitted_first_party_ids:
+            continue
+        emitted_first_party_ids.add(id(release))
+        merged.append(
+            {
+                "slug": release.get("slug") or slug,
+                "name": release.get("name"),
+                "aa_name": None,
+                "benchmarks": {},
+                "organization": release.get("organization"),
+                "license": None,
+                "arena_elo_overall": None,
+                "arena_elo_coding": None,
+                "arena_votes": None,
+                "arena_rank_overall": None,
+                "arena_rank_coding": None,
+                "publish_date": None,
+                "release_date": release.get("release_date"),
+                "official_url": release.get("official_url"),
+                "joined_sources": ["first_party"],
+            }
+        )
 
     return merged
 
@@ -1763,8 +1935,10 @@ def build_output(
     deepswe_meta: dict | None = None,
     deepswe_by_key: dict[tuple, dict] | None = None,
     deepswe_by_model: dict[str, dict] | None = None,
+    first_party_idx: dict[str, dict] | None = None,
+    first_party_meta: dict | None = None,
 ) -> dict:
-    merged = join_models(lmarena_idx, aa_idx, aliases)
+    merged = join_models(lmarena_idx, aa_idx, aliases, first_party_idx)
     selected = select_models(merged, recency_days, max_models, now)
     models = [
         finalize_model(row, classification_cfg, organization_aliases, variant_vocab, acronym_casing)
@@ -1789,6 +1963,7 @@ def build_output(
             "lmarena": lmarena_meta,
             "artificial_analysis": aa_meta,
             "deepswe": deepswe_meta or {},
+            "first_party": first_party_meta or {},
         },
         "models": models,
         # Config-driven Y-axis toggle options for web/models.html's chart -
@@ -1931,6 +2106,55 @@ def fetch_aa_models(cfg: dict) -> list[dict] | None:
     return []
 
 
+def fetch_first_party_releases(cfg: dict) -> list[dict]:
+    """Discover configured vendor launch pages from their official sitemaps.
+
+    Discovery is deliberately narrow: every publisher supplies an exact URL
+    prefix and title regex with a named ``name`` group. That keeps marketing
+    posts and product-news lookalikes out of the model catalog without an LLM
+    or heuristic guess.
+    """
+    src = cfg["sources"].get("first_party") or {}
+    session = _make_session(cfg)
+    timeout = cfg["request_timeout_seconds"]
+    releases: list[dict] = []
+    for publisher in src.get("publishers") or []:
+        if not isinstance(publisher, dict):
+            continue
+        sitemap_url = str(publisher.get("sitemap_url") or "").strip()
+        prefixes = tuple(str(p).strip() for p in publisher.get("include_prefixes") or [] if str(p).strip())
+        if not sitemap_url or not prefixes:
+            continue
+        try:
+            sitemap = _get_with_retry(session, sitemap_url, timeout=timeout)
+            sitemap.raise_for_status()
+            root = ElementTree.fromstring(sitemap.content)
+        except Exception as exc:
+            print(f"models_collect_first_party_sitemap_failed publisher={publisher.get('id') or 'unknown'} detail={type(exc).__name__}")
+            continue
+        pages: list[tuple[str, str | None]] = []
+        for node in root.findall(".//{*}url"):
+            url = (node.findtext("{*}loc") or "").strip()
+            if url.startswith(prefixes):
+                pages.append((url, node.findtext("{*}lastmod")))
+        for official_url, lastmod in pages[: int(publisher.get("max_pages") or 100)]:
+            try:
+                page = _get_with_retry(session, official_url, timeout=timeout)
+                page.raise_for_status()
+            except Exception as exc:
+                print(f"models_collect_first_party_page_failed publisher={publisher.get('id') or 'unknown'} detail={type(exc).__name__}")
+                continue
+            release = extract_first_party_release(
+                page.text,
+                official_url=official_url,
+                lastmod=lastmod,
+                publisher=publisher,
+            )
+            if release is not None:
+                releases.append(release)
+    return releases
+
+
 def fetch_deepswe_html(cfg: dict) -> str | None:
     """Fetch the DeepSWE leaderboard page's raw HTML - one GET request,
     reusing the shared retrying session (see the module docstring's
@@ -2067,6 +2291,21 @@ def cmd_collect(args: argparse.Namespace) -> int:
             if known_unavailable:
                 print(f"models_collect_aa_fields_known_unavailable fields={','.join(sorted(known_unavailable))}")
 
+    first_party_cfg = cfg["sources"].get("first_party") or {}
+    first_party_idx: dict[str, dict] = {}
+    first_party_meta = {
+        "available": False,
+        "attribution": first_party_cfg.get("attribution", ""),
+        "url": first_party_cfg.get("url", ""),
+        "publish_date": None,
+    }
+    if first_party_cfg.get("enabled", True):
+        releases = fetch_first_party_releases(cfg)
+        first_party_idx = build_first_party_index(releases)
+        first_party_meta["available"] = bool(first_party_idx)
+        dates = [row["release_date"] for row in first_party_idx.values()]
+        first_party_meta["publish_date"] = max(dates) if dates else None
+
     deepswe_cfg = cfg["sources"].get("deepswe") or {}
     deepswe_meta = {
         "available": False,
@@ -2113,6 +2352,8 @@ def cmd_collect(args: argparse.Namespace) -> int:
         deepswe_meta=deepswe_meta,
         deepswe_by_key=deepswe_by_key,
         deepswe_by_model=deepswe_by_model,
+        first_party_idx=first_party_idx,
+        first_party_meta=first_party_meta,
     )
 
     if not output["models"]:
@@ -2139,7 +2380,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
     print(
         "models_collect_done "
         f"models={len(output['models'])} joined={joined} aa={str(aa_meta['available']).lower()} "
-        f"deepswe={str(deepswe_meta['available']).lower()} deepswe_rows={len(deepswe_rows)} "
+        f"first_party={str(first_party_meta['available']).lower()} deepswe={str(deepswe_meta['available']).lower()} deepswe_rows={len(deepswe_rows)} "
         f"deepswe_joined={deepswe_joined} deepswe_unjoined={deepswe_unjoined}"
     )
     return 0
