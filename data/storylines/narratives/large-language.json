@@ -1,17 +1,35 @@
 {
   "slug": "large-language",
-  "generated_at": "2026-09-01T05:10:00Z",
+  "generated_at": "2026-09-03T12:00:00Z",
   "covers_last_updated": "2026-08-31T12:02:04+00:00",
   "covers_member_sids": [
-    "d2165b4e687df565",
     "473e4a8407d950ff",
     "44fdd531ea49fe98",
     "7ac516e280c5ca22"
   ],
-  "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
-  "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+  "tldr": "This thread groups three unrelated large-language-model papers that share only a title phrase, not a single developing story. It opened Aug 27 with a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, paired same-day with PoP, a single-pass hallucination detector that reads internal activation patterns instead of sampling outputs.",
+  "whats_new": "A new arXiv benchmark, SwarmBench, tests whether LLMs can act as orchestrators of dynamically-formed agent swarms, a gap existing evals built for single-agent or fixed-topology setups don't cover.",
   "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
-  "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+  "beats": [
+    {
+      "kicker": "APPLICATIONS",
+      "tone": "launch",
+      "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
+      "sids": ["473e4a8407d950ff"]
+    },
+    {
+      "kicker": "RELIABILITY",
+      "tone": "rising",
+      "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
+      "sids": ["44fdd531ea49fe98"]
+    },
+    {
+      "kicker": "AGENT EVAL",
+      "tone": "now",
+      "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
+      "sids": ["7ac516e280c5ca22"]
+    }
+  ],
   "open_questions": [
     "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
     "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
@@ -19,10 +37,10 @@
     "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
     "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
   ],
+  "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
   "day_captions": {
-    "d2165b4e687df565": "Opens the thread on the applications side: LLMs as the driver of an analog circuit design loop, not as the object of study.",
-    "473e4a8407d950ff": "The only non-arXiv item — a clinical journal putting three named commercial assistants head-to-head on one patient-education task.",
-    "44fdd531ea49fe98": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time.",
-    "7ac516e280c5ca22": "Shifts the thread to agent evaluation: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+    "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
+    "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
+    "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
   }
 }

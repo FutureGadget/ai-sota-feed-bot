@@ -1,34 +1,18 @@
 {
  "slug": "large-language",
  "label": "Large Language",
- "item_count": 4,
- "day_count": 3,
+ "item_count": 3,
+ "day_count": 2,
  "source_count": 3,
- "first_seen": "2026-08-13T16:57:07+00:00",
+ "first_seen": "2026-08-27T11:58:46+00:00",
  "last_updated": "2026-08-31T12:02:04+00:00",
- "generated_at": "2026-09-03T15:08:32.956361+00:00",
+ "generated_at": "2026-09-03T20:11:53.837436+00:00",
  "sources": [
   "arxiv_cs_cl",
   "arxiv_llm_reliability",
   "search_cn_open_weight_labs"
  ],
  "days": [
-  {
-   "date": "2026-08-13",
-   "items": [
-    {
-     "title": "AaLLM: An End-to-End Analog Circuit Design Framework from Topology Generation to Sizing Using Large Language Models",
-     "url": "http://arxiv.org/abs/2608.13472v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Analog circuit design is a time-consuming, iterative process in a nonlinear and high-dimensional design space that relies heavily on expert intuition. Among recent developments, LLMs have introduced a promising approa...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "d2165b4e687df565",
-     "published": "2026-08-13T16:57:07+00:00",
-     "editor_note": "Opens the thread on the applications side: LLMs as the driver of an analog circuit design loop, not as the object of study."
-    }
-   ]
-  },
   {
    "date": "2026-08-27",
    "items": [
@@ -41,7 +25,7 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "473e4a8407d950ff",
      "published": "2026-08-27T11:58:46+00:00",
-     "editor_note": "The only non-arXiv item — a clinical journal putting three named commercial assistants head-to-head on one patient-education task."
+     "editor_note": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task."
     },
     {
      "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
@@ -52,7 +36,7 @@
      "why_it_matters": "Matches feed focus: evaluation.",
      "sid": "44fdd531ea49fe98",
      "published": "2026-08-27T14:17:14+00:00",
-     "editor_note": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time."
+     "editor_note": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required."
     }
    ]
   },
@@ -68,17 +52,43 @@
      "why_it_matters": "Matches feed focus: agent, eval.",
      "sid": "7ac516e280c5ca22",
      "published": "2026-08-31T12:02:04+00:00",
-     "editor_note": "Shifts the thread to agent evaluation: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+     "editor_note": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
+  "tldr": "This thread groups three unrelated large-language-model papers that share only a title phrase, not a single developing story. It opened Aug 27 with a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, paired same-day with PoP, a single-pass hallucination detector that reads internal activation patterns instead of sampling outputs.",
   "stale": false,
-  "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+  "whats_new": "A new arXiv benchmark, SwarmBench, tests whether LLMs can act as orchestrators of dynamically-formed agent swarms, a gap existing evals built for single-agent or fixed-topology setups don't cover.",
   "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
   "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+  "beats": [
+   {
+    "kicker": "APPLICATIONS",
+    "tone": "launch",
+    "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
+    "sids": [
+     "473e4a8407d950ff"
+    ]
+   },
+   {
+    "kicker": "RELIABILITY",
+    "tone": "rising",
+    "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
+    "sids": [
+     "44fdd531ea49fe98"
+    ]
+   },
+   {
+    "kicker": "AGENT EVAL",
+    "tone": "now",
+    "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
+    "sids": [
+     "7ac516e280c5ca22"
+    ]
+   }
+  ],
   "open_questions": [
    "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
    "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
@@ -86,6 +96,6 @@
    "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
    "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
   ],
-  "generated_at": "2026-09-01T05:10:00Z"
+  "generated_at": "2026-09-03T12:00:00Z"
  }
 }
