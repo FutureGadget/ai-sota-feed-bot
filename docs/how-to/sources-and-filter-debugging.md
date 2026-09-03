@@ -33,6 +33,24 @@ Example (arXiv API):
   weight: 0.85
 ```
 
+Example (OpenReview accepted venue):
+```yaml
+- name: openreview_iclr_accepted
+  type: openreview_venue
+  venue_id: ICLR.cc/2026/Conference
+  accepted_only: true
+  max_results: 100
+  page_size: 100
+  poll_interval_minutes: 360
+```
+
+`openreview_venue` uses the public API v2 submissions endpoint. With
+`accepted_only: true`, it accepts a note whose `content.venueid` matches the
+configured venue, or a public Decision reply whose value starts with
+`Accept`. It uses the acceptance `pdate` or Decision timestamp as `published`
+and skips records without one, so polling an old conference cannot make its
+papers appear newly fresh. The emitted URL is the stable OpenReview forum URL.
+
 ### Source naming conventions
 - Use stable snake_case names.
 - Source name is used in slot mapping (`config/ranking.yaml`) and diagnostics.
