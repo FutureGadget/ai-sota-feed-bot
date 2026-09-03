@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9]
-updated: 2026-09-01
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411]
+updated: 2026-09-03
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411]
 ---
 
 ## TL;DR
@@ -181,6 +181,26 @@ with no compaction and no measurable accuracy loss versus giving each task
 its own fresh session, direct evidence that "just extend the window" holds
 up across a real multi-task benchmark, not only a synthetic long-context
 probe.
+
+That "just extend the window" argument now has a direct rebuttal from the
+local-first camp: a continuity protocol argues explicitly that 1M-token
+context windows don't solve agent memory, since a longer window is still
+discarded between sessions and still degrades under context rot within a
+single long run — a protocol, not a bigger window, is what closes the gap.
+It's the same tiered-vs-brute-force fault line this page already tracks,
+argued from the side that a longer context is orthogonal to durable memory,
+not a substitute for it.
+
+The local-first, developer-owned roster keeps growing: MemHub adds
+persistent shared memory for coding agents, and Hugging Face's Funes
+project makes the "own your memory, don't rent it" pitch explicit in its
+title — both extending the local-first wave (Memharness, Cortex, Brain2.0,
+Sibyl) already on this page. A companion production-architecture talk backs
+the tiered-store consensus with a concrete stack: Redis for short- and
+long-term memory, summarization to manage token limits, and reranking plus
+semantic caching to fight context rot under latency constraints — the same
+tiered split this page already tracks, this time named down to the specific
+infrastructure a team would actually run.
 
 The MCP-as-transport pattern for memory keeps spreading to narrower,
 developer-facing stores: codebase-memory-mcp exposes a codebase's own
@@ -368,7 +388,13 @@ modes this page already tracks, built into the retrieval contract itself
 rather than checked after the fact.
 
 ## What's new
-UTILMEM finds that strong scores on conventional factual-recall memory
+A continuity protocol directly rebuts the "just extend the window" argument
+this page already tracks: it argues 1M-token context windows don't solve
+agent memory, since a bigger window is still discarded between sessions and
+still degrades under context rot within one long run, and ships a protocol
+instead of a longer window as the fix (see State of the art above).
+
+Prior update: UTILMEM finds that strong scores on conventional factual-recall memory
 benchmarks don't reliably predict **memory utilization** — reasoning over
 dense histories, catching implicitly relevant memories, and resisting
 distractors — sharpening this page's "retrieval alone is insufficient"
@@ -383,13 +409,6 @@ page's "Catastrophic Remembering" problem — git-style versioning and
 rollback for `CLAUDE.md`/`AGENTS.md` instead of unbounded, undeduplicated
 growth. A companion postmortem shows the same write-side failure surfacing
 in an autonomous coding agent left unattended for hours.
-
-Prior update: Recuris pairs working memory with an experiential skill store and a
-meta-agent that edits the skill store after each failure, improving 35 of
-37 model-benchmark pairs and cutting long-horizon failures up to 80% —
-direct evidence that skill-memory evolution, not just compaction or
-retrieval, keeps paying off as tasks get longer (see State of the art
-above).
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing

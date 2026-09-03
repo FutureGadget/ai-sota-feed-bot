@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2]
-updated: 2026-09-02
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1]
+updated: 2026-09-03
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1]
 ---
 
 ## TL;DR
@@ -420,8 +420,21 @@ and transfers across attacker models and target execution harnesses — a
 second, independently-arrived-at instance of the same shift from periodic
 red-team audits to an automated, self-improving attack loop.
 
+The guardrail-model thread also gets a narrower-language entrant:
+HiveTraceGuard-Pro is a 0.6B generative guardrail model LoRA-tuned from
+Qwen3-0.6B for Russian and English prompt-injection and jailbreak
+detection, built specifically to cover a gap the authors say existing
+guardrail evaluations leave open — reporting on Russian-language injection
+and Russian surface obfuscation specifically, rather than assuming
+English-only coverage generalizes.
+
 ## What's new
-RedEvoAgent distills successful attack trajectories into reusable, validated
+HiveTraceGuard-Pro extends the guardrail-model thread to a specific
+non-English attack surface: a 0.6B model LoRA-tuned for Russian and English
+prompt injection, obfuscation, and jailbreak detection (see State of the
+art above).
+
+Prior update: RedEvoAgent distills successful attack trajectories into reusable, validated
 skills rather than replaying full trajectories or a fixed attack set —
 outperforming fixed and agentic red-teaming baselines and transferring
 across attacker models and target harnesses, a second, independently
