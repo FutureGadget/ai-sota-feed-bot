@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-02T20:03:15.834994+00:00",
+  "generated_at": "2026-09-03T00:08:21.624470+00:00",
   "window_days": 21,
-  "storyline_count": 2,
-  "needs_narrative_count": 2,
+  "storyline_count": 12,
+  "needs_narrative_count": 0,
   "storylines": [
     {
       "slug": "gemini-flash",
@@ -22,27 +22,48 @@
       ],
       "via_scout": false,
       "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
+      "needs_narrative": false,
+      "reason": "current",
       "narrative_path": "data/storylines/narratives/gemini-flash.json",
       "prior_narrative": {
         "slug": "gemini-flash",
-        "generated_at": "2026-08-30T00:20:00+00:00",
-        "covers_last_updated": "2026-08-29T12:08:29+00:00",
+        "generated_at": "2026-09-02T20:10:00+00:00",
+        "covers_last_updated": "2026-09-02T16:18:31+00:00",
         "covers_member_sids": [
           "d8531b3bebbaf664",
           "c36b5c9ed42eb2e0",
           "90ba20dc32b53edf",
-          "36646da3894fec98"
+          "36646da3894fec98",
+          "355be2cf6d2d139c"
         ],
-        "tldr": "Google DeepMind's Gemini 3.7 Flash launched positioned as a comeback for GDM's low-cost tier after ceding ground to Chinese flash-tier rivals. Two weeks later DeepMind extended the line with Gemini Omni 1.1 Flash, adding more developer control over the model's behavior.",
-        "whats_new": "A third-party comparison published Aug 29 puts Gemini 3.7 Flash at roughly 5x the price of DeepSeek's V4-Flash and Alibaba's Qwen3.8-Flash-Next.",
-        "why_it_matters": "For cost-sensitive, high-volume routing, a 5x per-token gap versus DeepSeek V4-Flash and Qwen3.8-Flash-Next changes which model wins on total spend, not just latency or quality.",
+        "tldr": "Google DeepMind's Gemini 3.7 Flash launched positioned as a comeback for GDM's low-cost tier after ceding ground to Chinese flash-tier rivals, then gained more developer control with Gemini Omni 1.1 Flash. A late-August comparison then put 3.7 Flash at roughly 5x the price of DeepSeek's V4-Flash and Qwen3.8-Flash-Next.",
+        "whats_new": "DeepMind shipped Gemini 3.8 Flash and a 3.8 Flash Cyber variant on Sep 2, succeeding the 3.7 Flash line days after it was benchmarked at a 5x price premium over Chinese flash-tier rivals.",
+        "why_it_matters": "A new Flash generation resets the baseline right as the 5x price complaint about 3.7 was fresh — engineers routing high-volume traffic should re-benchmark cost per task rather than assume the old gap still holds on 3.8.",
         "status": {
-          "state": "Facing a widening price gap",
-          "tone": "now",
-          "changed": "2026-08-29",
-          "detail": "Gemini 3.7 Flash now carries a reported 5x price premium over comparable Chinese open-weight flash models."
+          "state": "New generation ships amid price-gap scrutiny",
+          "tone": "rising",
+          "changed": "2026-09-02",
+          "detail": "3.8 Flash and a Cyber variant launched Sep 2, days after 3.7 Flash was reported at roughly 5x DeepSeek V4-Flash/Qwen3.8-Flash-Next pricing; whether 3.8 closes that gap is unconfirmed.",
+          "track": [
+            {
+              "label": "launch",
+              "detail": "Aug 13",
+              "tone": "launch",
+              "weight": 25
+            },
+            {
+              "label": "price gap found",
+              "detail": "Aug 29",
+              "tone": "alert",
+              "weight": 35
+            },
+            {
+              "label": "3.8 Flash ships",
+              "detail": "Sep 2 → now",
+              "tone": "now",
+              "weight": 40
+            }
+          ]
         },
         "beats": [
           {
@@ -63,23 +84,33 @@
             ]
           },
           {
-            "kicker": "NOW",
-            "tone": "now",
+            "kicker": "PRICE GAP",
+            "tone": "alert",
             "headline": "Comparison finds Gemini 3.7 Flash costs ~5x more than Chinese flash rivals",
             "sids": [
               "36646da3894fec98"
             ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "DeepMind ships Gemini 3.8 Flash and a 'Cyber' variant, succeeding 3.7 Flash",
+            "summary": "The new generation lands days after 3.7 Flash was benchmarked at roughly 5x the price of DeepSeek V4-Flash and Qwen3.8-Flash-Next.",
+            "sids": [
+              "355be2cf6d2d139c"
+            ]
           }
         ],
         "open_questions": [
-          "Will Google cut Gemini Flash-tier pricing in response to the reported 5x gap?",
-          "Does Gemini Omni 1.1 Flash carry the same price as 3.7 Flash, or a different rate for its added controls?"
+          "Does Gemini 3.8 Flash close the ~5x pricing gap that dogged 3.7 Flash against DeepSeek V4-Flash and Qwen3.8-Flash-Next?",
+          "What capability or safety change does the '3.8 Flash Cyber' variant add relative to standard 3.8 Flash?"
         ],
-        "take_for_builders": "Before defaulting to Gemini 3.7 Flash for high-volume calls, benchmark it against DeepSeek V4-Flash and Qwen3.8-Flash-Next on your own workload — the reported 5x price gap may not survive quality-adjusted cost per task.",
+        "take_for_builders": "Before routing high-volume traffic to Gemini 3.8 Flash, re-run the DeepSeek V4-Flash / Qwen3.8-Flash-Next price comparison — don't assume the 5x gap reported for 3.7 Flash carried over unchanged.",
         "day_captions": {
           "d8531b3bebbaf664": "Latent Space frames the Gemini 3.7 Flash launch as GDM regaining ground in the low-cost tier.",
           "90ba20dc32b53edf": "DeepMind's own announcement of Gemini Omni 1.1 Flash, adding finer developer control.",
-          "36646da3894fec98": "First independent pricing comparison placing Gemini 3.7 Flash roughly 5x above Chinese flash-tier rivals."
+          "36646da3894fec98": "First independent pricing comparison placing Gemini 3.7 Flash roughly 5x above Chinese flash-tier rivals.",
+          "355be2cf6d2d139c": "DeepMind's own announcement superseding 3.7 Flash with 3.8 Flash and a 'Cyber' variant, days after the 5x price-gap comparison."
         }
       },
       "timeline": [
@@ -147,20 +178,16 @@
     },
     {
       "slug": "deepseek-pro",
-      "label": "DeepSeek Pro",
-      "item_count": 56,
+      "label": "Qwen 3.8",
+      "item_count": 51,
       "source_count": 4,
-      "day_count": 19,
-      "first_seen": "2026-08-12T20:45:11+00:00",
+      "day_count": 18,
+      "first_seen": "2026-08-13T02:01:24+00:00",
       "last_updated": "2026-09-02T16:00:00+00:00",
       "latest_title": "Getting started with Mantis, our open-source bug finding-and-fixing harness",
       "member_sids": [
-        "bcc5385107c410e3",
-        "af87c1f98b4ce7bd",
         "680ab3046ae2fb84",
-        "4bdf5e09ff981078",
         "f673bf3b8fad5d61",
-        "6f1248717bd6d433",
         "6a6fbd308cbe8c8c",
         "0efdc726059ad95b",
         "0549d5c4b64e48ee",
@@ -202,7 +229,6 @@
         "9cc8c1f2feb755d8",
         "36b9c59d3a4ff7aa",
         "5121b4fd21cdfd3f",
-        "c6aff42bd1dcab96",
         "c4fce5c84f5c9fe2",
         "148d281878cc48b2",
         "86c9015dd55dff65",
@@ -214,22 +240,16 @@
       ],
       "via_scout": true,
       "has_narrative": true,
-      "needs_narrative": true,
-      "reason": "stale",
+      "needs_narrative": false,
+      "reason": "current",
       "narrative_path": "data/storylines/narratives/deepseek-pro.json",
       "prior_narrative": {
         "slug": "deepseek-pro",
-        "generated_at": "2026-09-02T15:30:00+00:00",
-        "covers_last_updated": "2026-09-02T11:03:39+00:00",
+        "generated_at": "2026-09-03T00:07:10+00:00",
+        "covers_last_updated": "2026-09-02T16:00:00+00:00",
         "covers_member_sids": [
-          "0ef3ba2efa2548fe",
-          "a9e738505dc0feaa",
-          "bcc5385107c410e3",
-          "af87c1f98b4ce7bd",
           "680ab3046ae2fb84",
-          "4bdf5e09ff981078",
           "f673bf3b8fad5d61",
-          "6f1248717bd6d433",
           "6a6fbd308cbe8c8c",
           "0efdc726059ad95b",
           "0549d5c4b64e48ee",
@@ -238,6 +258,7 @@
           "6e9e594f9ee001bb",
           "c50d5a859c1c8209",
           "ca710448976c9676",
+          "668b84f3226fdbba",
           "aa6de9df205ba694",
           "a9c8b35dcb9918d4",
           "4f2d09b57d0c456e",
@@ -267,16 +288,17 @@
           "6b2c0513920d1a3d",
           "abf746d5e4bd26e3",
           "ea703774b6cf7cf1",
+          "9cc8c1f2feb755d8",
           "36b9c59d3a4ff7aa",
           "5121b4fd21cdfd3f",
-          "c6aff42bd1dcab96",
           "c4fce5c84f5c9fe2",
           "148d281878cc48b2",
           "86c9015dd55dff65",
           "bd75c16722c9eeec",
           "62e57cdcc499d2c5",
           "ebe5937303c6cec0",
-          "9db6ac5df4033290"
+          "9db6ac5df4033290",
+          "8a8e02e5f6e7e368"
         ],
         "tldr": "DeepSeek confirmed V4 Pro on Aug 13 at sharply higher prices, alongside an open-sourced Harness agent tool positioned against Claude Code, then revealed a multimodal vision model on Aug 21 aimed at Anthropic's Opus 4.8. A weekend pricing surcharge was rolled back Aug 23, and DeepSeek reported revenue reaching $70M in July, a tenfold jump from 2025.",
         "whats_new": "DeepSeek officially open-sourced V4-Flash-Vision-Exp on Sep 1 — the vision model teased against Opus 4.8 in August — though Tech Times flags its benchmark claims as unverified.",
@@ -289,70 +311,50 @@
           "detail": "DeepSeek officially open-sourced V4-Flash-Vision-Exp on Sep 1, the vision model previewed against Opus 4.8 in late August. Cumulative V4 Pro price hikes still stand up 355% since Aug 13 despite a partial weekend rollback, and revenue reached $70M as of July, a tenfold jump from 2025.",
           "track": [
             {
-              "label": "team formation + price signals",
-              "detail": "Aug 12",
-              "tone": "rising",
-              "weight": 9
-            },
-            {
               "label": "V4 Pro confirmed + Harness co-released",
-              "detail": "Aug 13-15",
+              "detail": "Aug 13-24",
               "tone": "rising",
-              "weight": 16
+              "weight": 22
             },
             {
               "label": "hike quantified + US-China race frame",
               "detail": "Aug 17-20",
               "tone": "rising",
-              "weight": 11
+              "weight": 14
             },
             {
               "label": "vision model revealed vs Opus 4.8",
               "detail": "Aug 21-22",
               "tone": "rising",
-              "weight": 13
+              "weight": 16
             },
             {
               "label": "weekend surcharge rolled back",
               "detail": "Aug 23-24",
               "tone": "turn",
-              "weight": 8
+              "weight": 10
             },
             {
-              "label": "safety-vs-harness framing + revenue disclosed",
+              "label": "revenue disclosed",
               "detail": "Aug 26",
-              "tone": "alert",
+              "tone": "rising",
               "weight": 6
             },
             {
               "label": "vision model open-sourced",
               "detail": "Sep 1",
               "tone": "rising",
-              "weight": 6
+              "weight": 7
             }
           ]
         },
         "beats": [
           {
-            "kicker": "AGENT TEAM",
-            "tone": "rising",
-            "headline": "DeepSeek publicizes a dedicated team building agent tools to rival Claude Code",
-            "summary": "A Pi-founder claim that DeepSeek plus Pi already beats Claude Code opens the day; hours later Bloomberg is first to report DeepSeek forming a team aimed squarely at Anthropic's Claude Code, corroborated same-day by PYMNTS and repeated by briefs.co and TradingView into Aug 13 — hours before that team's tool ships.",
-            "sids": [
-              "0ef3ba2efa2548fe",
-              "a9e738505dc0feaa",
-              "bcc5385107c410e3",
-              "4bdf5e09ff981078",
-              "6f1248717bd6d433"
-            ]
-          },
-          {
             "kicker": "V4 PRO CONFIRMED",
             "tone": "rising",
-            "headline": "A quiet OpenRouter build becomes DeepSeek's officially confirmed V4 Pro release, at sharply higher prices, with an open-source agent tool co-released the same day",
-            "summary": "Simon Willison spots the refreshed Pro model listed API-only with no announcement page; a day later multiple outlets confirm it as a deliberate release with sharply higher user prices. VentureBeat reports DeepSeek also open-sourced Harness, a free agentic coding tool, alongside the pricier API.",
+            "headline": "DeepSeek officially confirms the V4 Pro release at sharply higher prices, with an open-source Harness agent tool co-released the same day",
+            "summary": "Multiple outlets confirm a deliberate Aug 13 release with sharply higher prices, plus an open-sourced Harness agent tool pitched as a free Claude Code rival. TechNode frames Harness against Claude Cowork the next day; an Aug 24 analysis argues its plugin architecture, not V4 Pro, is the bigger shift.",
             "sids": [
-              "af87c1f98b4ce7bd",
               "680ab3046ae2fb84",
               "0549d5c4b64e48ee",
               "c62ddef441701443",
@@ -364,14 +366,16 @@
               "c50d5a859c1c8209",
               "ca710448976c9676",
               "aa6de9df205ba694",
-              "d80df884839f4a4f"
+              "d80df884839f4a4f",
+              "668b84f3226fdbba",
+              "9cc8c1f2feb755d8"
             ]
           },
           {
             "kicker": "TANGENTIAL",
             "tone": "neutral",
             "headline": "A wave of Qwen 3.8 coverage and same-keyword noise rides the shared search cluster",
-            "summary": "Not part of the DeepSeek story: eleven Qwen 3.8 pieces, a Claude/GPT price-gap comparison that doesn't mention DeepSeek, and a Simon Willison post on Claude Code's Auto Mode — all riding the shared search cluster. Flagged for transparency, not narrative continuity.",
+            "summary": "Not part of the DeepSeek story: eleven Qwen 3.8 pieces, a Claude/GPT price-gap comparison that doesn't mention DeepSeek, a Simon Willison post on Claude Code's Auto Mode, and Google Cloud's own 'Mantis' bug-finding harness announcement — all riding the shared search/keyword clusters. Flagged for transparency, not narrative continuity.",
             "sids": [
               "a9c8b35dcb9918d4",
               "4f2d09b57d0c456e",
@@ -384,7 +388,8 @@
               "148d281878cc48b2",
               "86c9015dd55dff65",
               "bd75c16722c9eeec",
-              "9db6ac5df4033290"
+              "9db6ac5df4033290",
+              "8a8e02e5f6e7e368"
             ]
           },
           {
@@ -434,34 +439,18 @@
               "abf746d5e4bd26e3",
               "5121b4fd21cdfd3f"
             ]
-          },
-          {
-            "kicker": "SAFETY FRAMING",
-            "tone": "alert",
-            "headline": "A lone analysis ties V4 Pro's practical safety to its agent harness",
-            "summary": "A single-source Aug 26 analysis argues the model's safety now rests on the harness wrapper rather than V4 Pro's own guardrails — the thread's only DeepSeek-specific security signal so far, with no follow-up corroboration yet.",
-            "sids": [
-              "c6aff42bd1dcab96"
-            ]
           }
         ],
         "open_questions": [
           "Does V4 Pro's claimed \"agent gains\" reclaim the benchmark lead V4-Flash took in July, or does Flash remain the stronger agent option?",
           "Forbes prices V4 Pro at 14x DeepSeek's cheapest model — is that still cheaper than Qwen 3.8 Max per token, or has DeepSeek lost its price edge to Alibaba?",
           "Does the $70M revenue figure reflect post-hike pricing, or mostly pre-Aug-13 rates — how much of the jump is the price hike versus adoption growth?",
-          "Tech Times says V4-Flash-Vision-Exp's benchmark claims against Opus 4.8 lack independent verification — do third-party benchmarks corroborate them?",
-          "The Aug 26 harness-safety analysis names no specific flaw or fix — does a named vulnerability or DeepSeek response surface?"
+          "Tech Times says V4-Flash-Vision-Exp's benchmark claims against Opus 4.8 lack independent verification — do third-party benchmarks corroborate them?"
         ],
-        "take_for_builders": "Re-price DeepSeek plans against post-Aug-13 rates before budgeting, run your own eval on V4-Flash-Vision-Exp before trusting its Opus-4.8 comparison, and hold off running Harness on production credentials until the Aug 26 safety framing names a specific flaw or fix.",
+        "take_for_builders": "Re-price DeepSeek plans against post-Aug-13 rates before budgeting, and run your own eval on V4-Flash-Vision-Exp before trusting its Opus-4.8 comparison.",
         "day_captions": {
-          "0ef3ba2efa2548fe": "Bloomberg is first to report DeepSeek publicizing a dedicated team built to challenge Anthropic's Claude Code.",
-          "a9e738505dc0feaa": "The Edge Malaysia republishes Bloomberg's team-formation report the same day.",
-          "bcc5385107c410e3": "PYMNTS reports the new team specifically targets the agentic coding market.",
-          "af87c1f98b4ce7bd": "Simon Willison spots a new \"V4 Pro 0813\" build listed on OpenRouter, API-only with no DeepSeek announcement page.",
           "680ab3046ae2fb84": "First hands-on note on the new V4 Pro build confirms its multimodal capabilities meet expectations.",
-          "4bdf5e09ff981078": "briefs.co repeats the agent-unit formation story hours before V4 Pro's official confirmation.",
           "f673bf3b8fad5d61": "The Information frames the release as a direct challenge to Moonshot's Kimi K3.",
-          "6f1248717bd6d433": "TradingView closes out the team-formation coverage just as outlets begin confirming the V4 Pro release itself.",
           "6a6fbd308cbe8c8c": "Global Times adds a fourth outlet corroborating the official release and its stronger-agent framing.",
           "0efdc726059ad95b": "Yahoo Finance Singapore separately confirms DeepSeek raised API pricing for its V4 models, corroborating the same-day official price-hike news.",
           "0549d5c4b64e48ee": "DeepSeek confirms the V4 Pro 0813 build is an official release, not a quiet API-only drop.",
@@ -470,6 +459,7 @@
           "6e9e594f9ee001bb": "VentureBeat reports DeepSeek also open-sourced Harness, an agentic coding tool pitched as a free Claude Code rival, alongside the pricier V4-Pro API.",
           "c50d5a859c1c8209": "DeepSeek moves V4 Pro out of preview, citing agent-capability gains without publishing benchmark numbers.",
           "ca710448976c9676": "State broadcaster CGTN repeats the \"enhanced agent capabilities\" launch framing, still with no benchmark figures.",
+          "668b84f3226fdbba": "TechNode frames the Harness open-source release explicitly against Anthropic's Claude Cowork, extending the Aug 13 co-release coverage a day later.",
           "aa6de9df205ba694": "Analytics India Magazine repeats the V4 Pro and open-source Harness launch framing, still with no benchmark figures.",
           "a9c8b35dcb9918d4": "AMD publishes a guide to running Qwen 3.8 27B on Ryzen AI Max hardware — vendor content, not a DeepSeek story.",
           "4f2d09b57d0c456e": "the-decoder.com reports Alibaba's Qwen team releasing Qwen 3.8 under Apache 2.0 — the open-weight release later coverage compares DeepSeek's price hike against.",
@@ -499,42 +489,20 @@
           "6b2c0513920d1a3d": "A second outlet corroborates the same weekend-surcharge rollback the same day.",
           "abf746d5e4bd26e3": "A fourth outlet corroborates the same weekend-surcharge rollback a day later, with no new pricing details.",
           "ea703774b6cf7cf1": "TahawulTech.com reports DeepSeek shipping another multimodal model on Aug 24 — a single, thin report with no model name or benchmark yet, days after V4-Flash-Vision-Exp.",
+          "9cc8c1f2feb755d8": "A deeper Aug 24 analysis argues Harness's plugin architecture, not the V4 Pro model itself, is the bigger shift.",
           "36b9c59d3a4ff7aa": "A day-later how-to guide walks through V4-Flash-Vision-Exp's image-input feature — tutorial pickup, not a new capability or benchmark claim.",
           "5121b4fd21cdfd3f": "The Information reports DeepSeek's revenue reached $70M as of July, a tenfold jump from 2025 — the first hard business figure since the price hike began.",
-          "c6aff42bd1dcab96": "A day-after analysis argues V4 Pro's practical safety now depends on its agent harness, not just the model's own guardrails.",
           "c4fce5c84f5c9fe2": "AI Business covers Qwen 3.8 Flash-Next's pricing and its caveats — another Qwen note from the shared search cluster, not a DeepSeek development.",
           "148d281878cc48b2": "A hands-on report finds Qwen 3.8 matching Claude-Opus-tier output on a gaming GPU — another Qwen capability story riding the shared cluster, not a DeepSeek development.",
           "86c9015dd55dff65": "Simon Willison writes about Claude Code's Auto Mode and prompt-injection defenses — a Claude Code security post with no DeepSeek content, swept in by the shared corpus.",
-          "bd75c16722c9eeec": "A KuCoin-sourced piece puts Qwen 3.8 Flash at one-third of V4-Flash's price — a Qwen pricing note, not a DeepSeek development, and the thread's newest item as of this refresh.",
+          "bd75c16722c9eeec": "A KuCoin-sourced piece puts Qwen 3.8 Flash at one-third of V4-Flash's price — a Qwen pricing note, not a DeepSeek development.",
           "62e57cdcc499d2c5": "Pandaily is first to report DeepSeek officially open-sourcing V4-Flash-Vision-Exp, the vision model previewed against Opus 4.8 in late August.",
           "ebe5937303c6cec0": "Tech Times corroborates the open-source release hours later, cautioning that its benchmark claims still need independent verification.",
-          "9db6ac5df4033290": "TheSequence's Sep 2 newsletter roundup mentions Qwen 3.8 alongside Fable/Mythos 5.1 and GLM-5.3-Flash — no DeepSeek-specific development, riding the same shared search cluster as earlier roundup pickups."
+          "9db6ac5df4033290": "TheSequence's Sep 2 newsletter roundup mentions Qwen 3.8 alongside Fable/Mythos 5.1 and GLM-5.3-Flash — no DeepSeek-specific development, riding the same shared search cluster as earlier roundup pickups.",
+          "8a8e02e5f6e7e368": "Google Cloud's own \"Mantis\" bug-finding harness announcement — unrelated to DeepSeek, swept in by the shared \"harness\" keyword cluster."
         }
       },
       "timeline": [
-        {
-          "date": "2026-08-12",
-          "items": [
-            {
-              "sid": "bcc5385107c410e3",
-              "title": "DeepSeek Targets Agentic Coding Market With New Team - PYMNTS.com",
-              "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQX0Z0OHMtMHI5OV84NExfN1F3TVNISzNDMnlXM3loYnVOWXZheGlmVXZmQ1hHTmFoeGQ4Q1JSX1dqc2xhaWJsSGR2QlFVNUU1QkEtV2JHTzl6Rl9yYUFYM29MU2g4Mi1JMUNaQjJiODI3MDBsb01TcDYwcm1ZYmdGSmllbUFjaFR2ZTBFak43dzRPNGpFbmpLU3VYc20tcVpiRE1XZ180MWdsd0U1c2hj?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "DeepSeek Targets Agentic Coding Market With New Team PYMNTS.com",
-              "published": "2026-08-12T20:45:11+00:00"
-            },
-            {
-              "sid": "af87c1f98b4ce7bd",
-              "title": "DeepSeek V4 Pro 0813 (on OpenRouter)",
-              "url": "https://simonwillison.net/2026/Aug/12/deepseek-v4-pro-0813",
-              "source": "simon_willison",
-              "type": "news",
-              "summary_1line": "DeepSeek V4 Pro 0813 (on OpenRouter) The latest DeepSeek Pro model is now available, via API only. I had to link to OpenRouter because DeepSeek don't have any obvious announcement page for their new model. I haven't b...",
-              "published": "2026-08-12T23:59:23+00:00"
-            }
-          ]
-        },
         {
           "date": "2026-08-13",
           "items": [
@@ -548,15 +516,6 @@
               "published": "2026-08-13T02:01:24+00:00"
             },
             {
-              "sid": "4bdf5e09ff981078",
-              "title": "DeepSeek Launches Agent Unit to Challenge Claude Code - briefs.co",
-              "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOMUJxUE9VdzVNamNmbXVvNzNhb3phbktrQ0dpcTF3Z05PV1ZPeG5xZDVybm53MnpueWc5dFJfc0UxaXlEdGpRb3hMYlhISzFLSFVkUHU0VHdRQ1JzRnloUE1SVThIYmw4Nnd1X0NuaHNuaXNMM1gwY2ZzaDFLd2I2SHl0dlpLUQ?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "DeepSeek Launches Agent Unit to Challenge Claude Code briefs.co",
-              "published": "2026-08-13T02:34:45+00:00"
-            },
-            {
               "sid": "f673bf3b8fad5d61",
               "title": "DeepSeek Releases Flagship V4-Pro Model in Challenge to Kimi K3 - The Information",
               "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOR254U3otV3R4aU1KTnNtTDR6RzlnQ05zWUI5OWRNX2l0Vmt2TUtqam9UNjMyd0lNSnJzZWZKV2hEVzIxWVZ4Z21zT0hIUFBKemMtVkY3b0ZYU1hWaWxHU3hoQ3FMZDdmTm1vdDBrUVNDODBDYlVoZ0c1R0ZFbzI0cGZ5T2xMLVo0OGprZmdmTVN0Tkl5UjFwbm9qQ0g5Z28?oc=5",
@@ -564,15 +523,6 @@
               "type": "release",
               "summary_1line": "DeepSeek Releases Flagship V4-Pro Model in Challenge to Kimi K3 The Information",
               "published": "2026-08-13T03:50:20+00:00"
-            },
-            {
-              "sid": "6f1248717bd6d433",
-              "title": "DeepSeek forms team to challenge Anthropic’s Claude Code with new AI agents - TradingView",
-              "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNMHV4cjVfb0QxWkZ1anJESGRPdnR6REJMSlkwSkwtZHFybmdFMWxjc0I4b0Q2bmE1ZGZkMzVNdEN4MlJmN0JrRUdLNHdHMmU5bG9CYWoyQTVqaFJGdmtwc3ZnQkVEUHBvYUg1ajFaQWZrOFJPWUFwaEdFTVEtdTc5OERtNFpVQ01CRDJuS0U2NnlDcFllYm9hSFBFOHhRcDliVTBwN2ZwRmY5ZEk4VWN4b2hyMGZrNGg0R2ZzZkhodWlMR1M3R1JvQ203cF9ycFJxcWtONElJSQ?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "DeepSeek forms team to challenge Anthropic’s Claude Code with new AI agents TradingView",
-              "published": "2026-08-13T04:03:00+00:00"
             },
             {
               "sid": "6a6fbd308cbe8c8c",
@@ -1009,15 +959,6 @@
               "published": "2026-08-26T06:50:00+00:00"
             },
             {
-              "sid": "c6aff42bd1dcab96",
-              "title": "DeepSeek V4 Pro Safety Depends on the Agent Harness",
-              "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxNNGk5TUJoRVFLQXFHNURIdnBKNGp1RGI4R3JzRGN1aFFtV0lGT3MyVENyY19IV2pzaHg2Tms3OTBTVG43dE9QTHlZZXBMU2RMLWZqTGhLYUJfUU1lbERLbkR0TEEwYXNJNGZHcEp0OWdVNUw4SUZhWDRXY0pZLXA3SjNMZFJuTGQ2M3BuMERqbTBDQndjajB0ZENOTEE?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "DeepSeek V4 Pro Safety Depends on the Agent Harness quasa.io",
-              "published": "2026-08-26T07:00:00+00:00"
-            },
-            {
               "sid": "c4fce5c84f5c9fe2",
               "title": "Qwen 3.8 Flash-Next is Cheap, But There Are Complicating Factors",
               "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNa3Fzel8wMmpCU2t1dzdxVmZxcnVTVFkxWTRxSUNHOGZxU05ZN2JVRXdjR3R5eThDd0ZGSFVFZ0hjUXUtM09WNkJfMDJqQ0ZrcndIZGhEemtueHowYWhXbWF4RkNMbEJKd1k4ckxVNTh3SWhnZEJaS05meVRwZnpCZFJGTDhhcS11aF9VVlRERFZ6OVM5Q2lCcw?oc=5",
@@ -1108,6 +1049,1651 @@
               "type": "news",
               "summary_1line": "AI models have clearly proven their ability to discover and exploit vulnerabilities without much, if any, human assistance. To help defenders gain the advantage with AI, we built the Mantis harness to automate the dis...",
               "published": "2026-09-02T16:00:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-5-1",
+      "label": "Fable 5.1",
+      "item_count": 4,
+      "source_count": 4,
+      "day_count": 2,
+      "first_seen": "2026-09-01T19:12:43+00:00",
+      "last_updated": "2026-09-02T11:03:39+00:00",
+      "latest_title": "The Sequence Learning Loop - Issue 925: Learn About Fable and Mythos 5.1, GLM-5.3-Flash, and Qwen 3.8",
+      "member_sids": [
+        "f85c8e7bdc49608e",
+        "af9cc98f65eb7d79",
+        "c34d5f0d36696d9e",
+        "9db6ac5df4033290"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-5-1.json",
+      "prior_narrative": {
+        "slug": "claude-5-1",
+        "generated_at": "2026-09-02T15:30:00+00:00",
+        "covers_last_updated": "2026-09-02T11:03:39+00:00",
+        "covers_member_sids": [
+          "f85c8e7bdc49608e",
+          "af9cc98f65eb7d79",
+          "c34d5f0d36696d9e",
+          "9db6ac5df4033290"
+        ],
+        "tldr": "Anthropic launched Claude Fable 5.1 on Sep 1, bringing it to Amazon Bedrock and the Claude Platform on AWS with Enterprise Frontier Safeguards for keeping data in a controlled cloud environment.",
+        "whats_new": "AINews' Sep 2 recap confirms the launch pairs a new SOTA model with a 75% cache price cut and 70% more output tokens.",
+        "why_it_matters": "Fable 5.1 is available on Bedrock from day one, so teams already standardized on AWS can adopt it without a separate procurement path — and the pricing change changes the cost math for anyone benchmarking it against the prior generation.",
+        "status": {
+          "state": "Launched · available on AWS Bedrock",
+          "tone": "launch",
+          "changed": "2026-09-01",
+          "detail": "Claude Fable 5.1 shipped Sep 1 with AWS Bedrock availability and Enterprise Frontier Safeguards; Simon Willison's hands-on the same day praises its coding, knowledge-work, and long-running task performance; Sep 2 coverage adds the pricing details.",
+          "track": [
+            {
+              "label": "launch + AWS Bedrock availability",
+              "detail": "Sep 1",
+              "tone": "launch",
+              "weight": 10
+            },
+            {
+              "label": "hands-on review",
+              "detail": "Sep 1",
+              "tone": "rising",
+              "weight": 6
+            },
+            {
+              "label": "pricing details confirmed",
+              "detail": "Sep 2",
+              "tone": "now",
+              "weight": 6
+            }
+          ]
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Claude Fable 5.1 launches on Amazon Bedrock and the Claude Platform on AWS",
+            "summary": "Anthropic's post covers Fable 5.1's improvements and the Enterprise Frontier Safeguards for keeping data in a controlled cloud environment.",
+            "sids": [
+              "f85c8e7bdc49608e"
+            ]
+          },
+          {
+            "kicker": "HANDS-ON",
+            "tone": "rising",
+            "headline": "Simon Willison's hands-on: Fable 5.1 \"sets a new standard for coding, knowledge work, and long-running problem-solving\"",
+            "sids": [
+              "af9cc98f65eb7d79"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Pricing details confirmed: 75% cache price cut, 70% more output tokens",
+            "sids": [
+              "c34d5f0d36696d9e"
+            ]
+          },
+          {
+            "kicker": "ROUNDUP",
+            "tone": "neutral",
+            "headline": "TheSequence's Learning Loop newsletter recaps Fable 5.1 alongside GLM-5.3-Flash and Qwen 3.8",
+            "summary": "A weekly roundup issue, not new reporting — groups Fable 5.1 with other labs' recent releases for a reader catching up.",
+            "sids": [
+              "9db6ac5df4033290"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the 75% cache-price cut and output-token increase apply uniformly across the Bedrock, Claude Platform, and direct-API channels?",
+          "How does Fable 5.1's long-running-task performance hold up on multi-hour agentic workloads beyond Willison's initial hands-on?"
+        ],
+        "take_for_builders": "If you're already on Bedrock, evaluate Fable 5.1 against your current Claude model on both the new pricing and long-running-task performance before migrating production traffic.",
+        "day_captions": {
+          "f85c8e7bdc49608e": "AWS's launch post covers Fable 5.1's improvements and the Enterprise Frontier Safeguards for keeping data in a controlled cloud environment.",
+          "af9cc98f65eb7d79": "Simon Willison's hands-on says Fable 5.1 \"sets a new standard for coding, knowledge work, and long-running problem-solving tasks.\"",
+          "c34d5f0d36696d9e": "AINews' recap confirms the pricing details: a 75% cache price cut and 70% more output tokens alongside the new SOTA model.",
+          "9db6ac5df4033290": "TheSequence's Sep 2 Learning Loop newsletter recaps Fable and Mythos 5.1 alongside GLM-5.3-Flash and Qwen 3.8 — an educational roundup, not a new development."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-09-01",
+          "items": [
+            {
+              "sid": "f85c8e7bdc49608e",
+              "title": "Introducing Claude Fable 5.1 on AWS",
+              "url": "https://aws.amazon.com/blogs/machine-learning/introducing-claude-fable-5-1-on-aws",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "Claude Fable 5.1 is now available on Amazon Bedrock and Claude Platform on AWS. This post covers Claude Fable 5.1's improvements, the Enterprise Frontier Safeguards for keeping your data in a cloud environment you con...",
+              "published": "2026-09-01T19:12:43+00:00"
+            },
+            {
+              "sid": "af9cc98f65eb7d79",
+              "title": "Claude Fable 5.1 made me a really nice animated pelican",
+              "url": "https://simonwillison.net/2026/Sep/1/claude-fable-5-1",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "Today is Claude Fable (and Mythos) 5.1 day . Anthropic say that Fable 5.1 \"sets a new standard for coding, knowledge work, and long-running problem-solving tasks\". Their announcement spends a notable amount of time on...",
+              "published": "2026-09-01T23:57:28+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-02",
+          "items": [
+            {
+              "sid": "c34d5f0d36696d9e",
+              "title": "[AINews] Claude Fable/Mythos 5.1: new SOTA model, 75% cache price cut but 70% more output tokens",
+              "url": "https://www.latent.space/p/ainews-claude-fablemythos-51-new",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Queue the usual rush of model launches...",
+              "published": "2026-09-02T07:46:08+00:00"
+            },
+            {
+              "sid": "9db6ac5df4033290",
+              "title": "The Sequence Learning Loop - Issue 925: Learn About Fable and Mythos 5.1, GLM-5.3-Flash, and Qwen 3.8",
+              "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE15ODlkcDc5RXk4dzQwbUFXd2lveWlxaS15Z19xaEg2MEExcVZyUEtSaVhFTFh1WlV0TzlldWkxbmxtX0hSX0RiYS0ySW13SWtPWThMWGR4eWR4RkRZWkdyekVNWDZxc1pTelNlN1QzSFktX0FMSGZOcG9xUQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "The Sequence Learning Loop - Issue 925: Learn About Fable and Mythos 5.1, GLM-5.3-Flash, and Qwen 3.8 thesequence.substack.com",
+              "published": "2026-09-02T11:03:39+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "claude-price",
+      "label": "Claude Price",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-08-19T00:22:54+00:00",
+      "last_updated": "2026-09-02T07:46:08+00:00",
+      "latest_title": "[AINews] Claude Fable/Mythos 5.1: new SOTA model, 75% cache price cut but 70% more output tokens",
+      "member_sids": [
+        "229f9c3b91ade44e",
+        "cf6ea27395124677",
+        "c34d5f0d36696d9e"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/claude-price.json",
+      "prior_narrative": {
+        "slug": "claude-price",
+        "generated_at": "2026-09-02T10:14:00+00:00",
+        "covers_last_updated": "2026-09-02T07:46:08+00:00",
+        "covers_member_sids": [
+          "229f9c3b91ade44e",
+          "cf6ea27395124677",
+          "c34d5f0d36696d9e"
+        ],
+        "tldr": "Chinese open-weight labs spent August pricing themselves directly against Claude, with an Aug 19 comparison putting a 4x price gap between Claude Opus 5 and GPT-5.6/Qwen 3.8 Max, and Zhipu's GLM-5.3-Flash undercutting Claude and GPT on price by Aug 31.",
+        "whats_new": "Anthropic answered the pricing pressure directly on Sep 2, cutting Claude Fable/Mythos 5.1's cache price 75% while shipping 70% more output tokens.",
+        "why_it_matters": "The price gap competitors were using to win on cost just narrowed sharply — re-run your cost comparisons against the new cache pricing before assuming Claude remains the expensive option in your stack.",
+        "status": {
+          "state": "Claude cuts cache price 75%",
+          "tone": "turn",
+          "changed": "2026-09-02",
+          "detail": "After a month of competitors pricing against Claude on cost, Anthropic's Sep 2 Fable/Mythos 5.1 release pairs a 75% cache price cut with 70% more output tokens.",
+          "track": [
+            {
+              "label": "4x price-gap comparison",
+              "detail": "Aug 19",
+              "tone": "rising",
+              "weight": 8
+            },
+            {
+              "label": "GLM-5.3-Flash undercuts Claude on price",
+              "detail": "Aug 31",
+              "tone": "rising",
+              "weight": 10
+            },
+            {
+              "label": "Claude cuts cache price 75%",
+              "detail": "Sep 2",
+              "tone": "turn",
+              "weight": 14
+            }
+          ]
+        },
+        "beats": [
+          {
+            "kicker": "PRICE GAP",
+            "tone": "rising",
+            "headline": "A 4x price-gap comparison puts Claude Opus 5 well above GPT-5.6 Sol and Qwen 3.8 Max",
+            "sids": [
+              "229f9c3b91ade44e"
+            ]
+          },
+          {
+            "kicker": "UNDERCUT",
+            "tone": "rising",
+            "headline": "Zhipu's GLM-5.3-Flash undercuts Claude and GPT on price, not on hardware",
+            "sids": [
+              "cf6ea27395124677"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "turn",
+            "headline": "Claude Fable/Mythos 5.1 ships a 75% cache price cut and 70% more output tokens",
+            "sids": [
+              "c34d5f0d36696d9e"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the 75% cache-price cut apply to all Claude models and tiers, or only Fable/Mythos 5.1?",
+          "After the cut, how does Claude's effective per-token cost compare to GLM-5.3-Flash's domestic-chip pricing?"
+        ],
+        "take_for_builders": "Re-run your Claude vs. GLM-5.3-Flash/Qwen 3.8 Max cost comparisons using the new 75% cache-price cut before deciding where to route traffic on price alone.",
+        "day_captions": {
+          "229f9c3b91ade44e": "tech-insider.org compares Claude Opus 5, GPT-5.6 Sol, and Qwen 3.8 Max pricing, putting Claude at a 4x gap to the cheaper models.",
+          "cf6ea27395124677": "Startup Fortune reports Zhipu's GLM-5.3-Flash undercutting Claude and GPT on price while running on domestic hardware, not matching their compute footprint.",
+          "c34d5f0d36696d9e": "AINews reports Claude Fable/Mythos 5.1 pairs a new SOTA model with a 75% cache price cut and 70% more output tokens — Anthropic's direct answer to a month of price pressure."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-19",
+          "items": [
+            {
+              "sid": "229f9c3b91ade44e",
+              "title": "Claude Opus 5 vs GPT-5.6 Sol vs Qwen 3.8 Max: 4x Price Gap [2026] - tech-insider.org",
+              "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxOcmFyS0F6cE5MMmhBNTdEaFkxNzhFbnZQM3FXOXJCUTRmT1gxUzJvVW1RbEFObHZ3VkVXdjI2M1kwMHl1N2ZaM2VaTEdFMFNxY0pPem51MU1acGZ5dV9WS3VGUm5ZRkNRZkp6Qk1EbFZ3NExVc040MVFEa1JCcjA3NDIzYmw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Claude Opus 5 vs GPT-5.6 Sol vs Qwen 3.8 Max: 4x Price Gap [2026] tech-insider.org",
+              "published": "2026-08-19T00:22:54+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "cf6ea27395124677",
+              "title": "Zhipu's GLM-5.3-Flash Undercuts Claude and GPT on Price, Not on Hardware",
+              "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNb1g5R2pzNkpRY3VFOFBJeXR1VnBBNmxMbkJUcTNHdzNleUZDR3gzdTd1a0VqdmlURWVsamtnNTZ2dmpWZjZ0UzV2aVkzOXhvTjM4QlJWMmNuQ3FyT3hoR1VTSjBQaWpqRUtzbEhNSmpwdTllYjRRNktWUnVXSy1obDZ1SXlxaHhybzFsTVoyLUNENVFDUHFPVlBBVXZtdw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Zhipu's GLM-5.3-Flash Undercuts Claude and GPT on Price, Not on Hardware Startup Fortune",
+              "published": "2026-08-31T03:05:21+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-02",
+          "items": [
+            {
+              "sid": "c34d5f0d36696d9e",
+              "title": "[AINews] Claude Fable/Mythos 5.1: new SOTA model, 75% cache price cut but 70% more output tokens",
+              "url": "https://www.latent.space/p/ainews-claude-fablemythos-51-new",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Queue the usual rush of model launches...",
+              "published": "2026-09-02T07:46:08+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "prompt-injection",
+      "label": "Prompt Injection",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 2,
+      "first_seen": "2026-08-28T15:00:33+00:00",
+      "last_updated": "2026-09-01T17:40:13+00:00",
+      "latest_title": "Show HN: Semantic Overlays – an NX bit for LLM prompt injection (live demo)",
+      "member_sids": [
+        "2e8dd0bd140383d9",
+        "2e814e5a70146cc1",
+        "958e200401ba64f9"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/prompt-injection.json",
+      "prior_narrative": {
+        "slug": "prompt-injection",
+        "generated_at": "2026-09-02T05:10:00+00:00",
+        "covers_last_updated": "2026-09-01T17:40:13+00:00",
+        "covers_member_sids": [
+          "2e8dd0bd140383d9",
+          "2e814e5a70146cc1",
+          "958e200401ba64f9"
+        ],
+        "tldr": "A new academic benchmark targets long-context prompt injection, an area existing benchmarks mostly skip, while a separate paper proposes a compact guardrail model for catching injection and jailbreak attempts.",
+        "whats_new": "An independent builder published a live demo of Semantic Overlays, small trained adapters on a frozen model that change what it perceives in its context as a way to mitigate prompt injection without a separate guardrail model.",
+        "why_it_matters": "Most production guardrails today are bolt-on classifiers; an adapter-based approach that changes the base model's own perception of untrusted context is a different mitigation shape worth evaluating before betting on a guardrail-model architecture.",
+        "beats": [
+          {
+            "kicker": "BENCHMARK GAP",
+            "tone": "launch",
+            "headline": "LongPIBench targets a long-context blind spot in prompt injection benchmarks",
+            "summary": "Existing prompt injection benchmarks focus on short-context inputs, leaving long-context attacks largely untested.",
+            "sids": [
+              "2e8dd0bd140383d9"
+            ]
+          },
+          {
+            "kicker": "GUARDRAIL MODEL",
+            "tone": "rising",
+            "headline": "HiveTraceGuard-Pro proposes a compact generative guardrail for injection, jailbreaks, and obfuscation",
+            "summary": "A separate guardrail model aims to catch attempts to override system instructions or bypass safety policy, addressing gaps the authors say existing reports don't fully cover.",
+            "sids": [
+              "2e814e5a70146cc1"
+            ]
+          },
+          {
+            "kicker": "ALTERNATIVE APPROACH",
+            "tone": "now",
+            "headline": "Show HN: Semantic Overlays mitigates prompt injection without a separate guardrail model",
+            "summary": "A live demo shows small trained adapters on a frozen model changing how it perceives its context, applied as a mitigation for prompt injection.",
+            "sids": [
+              "958e200401ba64f9"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does LongPIBench's long-context injection benchmark reveal failure rates that short-context benchmarks miss on production models?",
+          "Does HiveTraceGuard-Pro's compact guardrail hold up against obfuscated injection attempts that evade larger safety classifiers?",
+          "Does the Semantic Overlays adapter approach generalize beyond the demoed model, or is it tied to one architecture?"
+        ],
+        "take_for_builders": "If you rely on a bolt-on guardrail classifier for prompt injection, test it against a long-context attack before assuming coverage, and watch whether adapter-based mitigations like Semantic Overlays hold up under independent red-teaming.",
+        "day_captions": {
+          "2e8dd0bd140383d9": "A new benchmark paper targets long-context prompt injection, an area existing benchmarks mostly skip.",
+          "2e814e5a70146cc1": "A separate paper proposes a compact generative guardrail model for prompt injection, jailbreaks, and adversarial obfuscation.",
+          "958e200401ba64f9": "An independent builder demos Semantic Overlays, adapters on a frozen model that change its perception of context to mitigate prompt injection."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-28",
+          "items": [
+            {
+              "sid": "2e8dd0bd140383d9",
+              "title": "LongPIBench: A Long-Context Benchmark for Prompt Injection",
+              "url": "http://arxiv.org/abs/2608.28411v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Prompt injection attacks pose a serious security risk to large language models in real-world applications. However, existing prompt injection benchmarks primarily focus on short-context inputs, leaving the attacks and...",
+              "published": "2026-08-28T15:00:33+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-01",
+          "items": [
+            {
+              "sid": "2e814e5a70146cc1",
+              "title": "HiveTraceGuard-Pro: A Compact Generative Guardrail for Prompt Injection, Jailbreaks, and Adversarial Obfuscation",
+              "url": "http://arxiv.org/abs/2609.01046v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Production LLMs must handle inputs that attempt to override system instructions, bypass safety policies or elicit harmful responses. A common mitigation is a separate guardrail model. Existing reports, however, provid...",
+              "published": "2026-09-01T10:46:09+00:00"
+            },
+            {
+              "sid": "958e200401ba64f9",
+              "title": "Show HN: Semantic Overlays – an NX bit for LLM prompt injection (live demo)",
+              "url": "https://semantic-overlays.vercel.app",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "I've built a new method for steering LLMs called Semantic Overlays, small trained adapters on a frozen model which change how it perceives a piece of its context. The most readily applicable usage is to mitigate promp...",
+              "published": "2026-09-01T17:40:13+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "chinese-labs",
+      "label": "Chinese Labs",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-08-14T21:23:35+00:00",
+      "last_updated": "2026-09-01T11:29:18+00:00",
+      "latest_title": "Chinese Open-Weight Frontier Compresses: Five Labs, Thirty Days, Two Licensing Models",
+      "member_sids": [
+        "ecb8f0dc7a1d654b",
+        "ba7814b918fcdacd",
+        "21f766e059743a2f"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/chinese-labs.json",
+      "prior_narrative": {
+        "slug": "chinese-labs",
+        "generated_at": "2026-09-01T15:10:00+00:00",
+        "covers_last_updated": "2026-09-01T11:29:18+00:00",
+        "covers_member_sids": [
+          "ecb8f0dc7a1d654b",
+          "ba7814b918fcdacd",
+          "21f766e059743a2f"
+        ],
+        "tldr": "Chinese open-weight labs began closing the frontier gap without leaning on distillation from US models, per an August analysis of GLM-5.3's approach. By late August, Zhipu's GLM-5.3-Flash and Alibaba's Qwen3.8-Flash-Next reached the same architecture independently, hinting at shared engineering constraints rather than copying.",
+        "whats_new": "Five Chinese labs shipped frontier-class open-weight models within a 30-day span, narrowing the field to two competing licensing models.",
+        "why_it_matters": "Faster, converging release cycles mean platform engineers evaluating open-weight Chinese models need to re-benchmark monthly, not quarterly, and check which of the two licensing terms each release uses before deploying.",
+        "status": {
+          "state": "Accelerating",
+          "tone": "rising",
+          "changed": "2026-09-01",
+          "detail": "Release cadence among Chinese open-weight labs has compressed to about 30 days, with two licensing models now dominant."
+        },
+        "beats": [
+          {
+            "kicker": "FRAMING",
+            "tone": "launch",
+            "headline": "Chinese labs' frontier catch-up isn't a distillation story",
+            "summary": "August analysis argues GLM-5.3 reflects independent capability gains, not copying US model outputs.",
+            "sids": [
+              "ecb8f0dc7a1d654b"
+            ]
+          },
+          {
+            "kicker": "CONVERGENCE",
+            "tone": "rising",
+            "headline": "Zhipu and Alibaba land on the same architecture independently",
+            "summary": "GLM-5.3-Flash and Qwen3.8-Flash-Next converge on the same design without coordinating.",
+            "sids": [
+              "ba7814b918fcdacd"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Five labs, 30 days, two licensing models",
+            "summary": "Release cadence across the Chinese open-weight field compresses to a monthly rhythm.",
+            "sids": [
+              "21f766e059743a2f"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Which two licensing models are converging across labs, and will a third emerge as more labs enter the field?",
+          "Does the shared GLM-5.3-Flash/Qwen3.8-Flash-Next architecture reflect genuine technical convergence, or shared compute and tooling constraints?"
+        ],
+        "take_for_builders": "Re-benchmark open-weight Chinese model picks monthly rather than quarterly, and confirm which license a given release uses before adopting it — the field no longer has one default license.",
+        "day_captions": {
+          "ecb8f0dc7a1d654b": "First to frame the catch-up as independent capability gains, not distillation.",
+          "ba7814b918fcdacd": "First report of two labs independently landing on the same architecture.",
+          "21f766e059743a2f": "First roundup quantifying the compressed release cadence across five labs."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-14",
+          "items": [
+            {
+              "sid": "ecb8f0dc7a1d654b",
+              "title": "GLM-5.3: How Chinese labs keep stride with the frontier",
+              "url": "https://www.interconnects.ai/p/glm-53-how-chinese-labs-keep-stride",
+              "source": "interconnects",
+              "type": "news",
+              "summary_1line": "Hint: It’s really not a distillation story.",
+              "published": "2026-08-14T21:23:35+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-28",
+          "items": [
+            {
+              "sid": "ba7814b918fcdacd",
+              "title": "GLM-5.3-Flash vs Qwen3.8-Flash-Next: Two Chinese AI Labs Independently Converge on the Same Model Architecture",
+              "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxPMDJmcjZXM2x0R2t1Ym9DRnpOMzdpOGFwZVoyUWtxNzRRd1ZnbFZGdU1TLTFibU83Z0FGU3VhbG1xWkxfV1hJMUxTaF9xc3h5all2T0FTT3MzczR1MFhjM2ZqVG9scC1jRXFCR2dWSF9jSUNuaVJ6ZjJ2T1RmUzlnTzNGNG1yQVpDanBkU1ZJN0ZtQmc4MW5BZ0Njbnl2Nkw2QW5HVnUxVWU2cTZpbURKM0M0RXZROHVkWUJwN2toVFlETW50QXQxekZUMlhPZFBkMEcwYlB6WWIyMjM4MFJIRUloUEzSAeoBQVVfeXFMTTBBeDBFTW1jYnMybmtNQTZMenJudWJFc3ZvalJHLVZTQm5QUHVIRk9McG5KYXlSSUNrQmhzaHV4SVpkRnZBaFR3OG9ZU0otVXBQSFlqMXEwT2NWalZMS2hsaHBMd1NOYlVkTkJVT24yYS1FMEkxU1NWM3JWODl3Nm05THFOeXFLdGhWYTBIUlZLdUk3bng4LWNLc3g0WmI3Rlo4U2JqYzktU0tLS2prdjIzNnI0bm1OVGR0SFNoMkVsM2lvNzRMYnZpSDVjcWdhMWtsRzIxUTdVdS04Zm0tcEJ6SWtxaGVpRlJn?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "GLM-5.3-Flash vs Qwen3.8-Flash-Next: Two Chinese AI Labs Independently Converge on the Same Model Architecture MarkTechPost",
+              "published": "2026-08-28T19:12:21+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-01",
+          "items": [
+            {
+              "sid": "21f766e059743a2f",
+              "title": "Chinese Open-Weight Frontier Compresses: Five Labs, Thirty Days, Two Licensing Models",
+              "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQekUwanNRdzVxeE1adWpaMXdfby1ZWHdfaWVjWVh6SVJ5eHFXN0dZcVpWRFNPQVdKVU9veXc2aFBhNFBLWHRMNGpxWFk2LUZNMHg4WnhjbUlIaWpWeEFKUE9nSTJTVUdEN1ZtWU4wM2d5YWJnaUFoUmVnS0w3S19wTUphU1BMQVY1TjRSOENncWd4VkM4QWM5MlFfZkphVV8zVzladUFtWQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Chinese Open-Weight Frontier Compresses: Five Labs, Thirty Days, Two Licensing Models forkast.news",
+              "published": "2026-09-01T11:29:18+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "z-ai-glm",
+      "label": "Z.ai GLM",
+      "item_count": 4,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-08-20T05:17:12+00:00",
+      "last_updated": "2026-09-01T04:07:16+00:00",
+      "latest_title": "Z.ai runs GLM inference on 100,000 Chinese AI chips, eyes overseas CSPs",
+      "member_sids": [
+        "e8c330662717fd1a",
+        "c8a4adf0a06edc29",
+        "c7a11a1e7f3eaad4",
+        "c4ef4bcb2597219b"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/z-ai-glm.json",
+      "prior_narrative": {
+        "slug": "z-ai-glm",
+        "generated_at": "2026-09-02T05:10:00+00:00",
+        "covers_last_updated": "2026-09-01T04:07:16+00:00",
+        "covers_member_sids": [
+          "e8c330662717fd1a",
+          "c8a4adf0a06edc29",
+          "c7a11a1e7f3eaad4",
+          "c4ef4bcb2597219b"
+        ],
+        "tldr": "Z.ai's CEO framed GLM 5.3 around a new post-training scaling law and an early hands-on review covered its pricing, but the release itself was delayed days later over disclosed cybersecurity risks.",
+        "whats_new": "Z.ai's underlying GLM inference build now spans 100,000 domestic Chinese AI chips, with the company reportedly in talks to bring it to overseas cloud providers.",
+        "why_it_matters": "GLM 5.3's economics are tied to a domestic-chip inference path; teams evaluating it should hold off assuming Western-GPU parity or overseas availability until Z.ai names specific providers.",
+        "status": {
+          "state": "Delayed, now scaling on domestic chips",
+          "tone": "now",
+          "changed": "2026-09-01",
+          "reenable": "no fixed release date or named overseas provider yet",
+          "detail": "GLM 5.3's release slipped past its expected date after a disclosed cybersecurity risk; the inference build behind it has since scaled to 100,000 domestic chips, with Z.ai reportedly courting overseas cloud providers to host it.",
+          "track": [
+            {
+              "label": "scaling-law CEO interview + hands-on review",
+              "detail": "Aug 20",
+              "tone": "launch",
+              "weight": 30
+            },
+            {
+              "label": "release delayed over cybersecurity risk",
+              "detail": "Aug 22",
+              "tone": "turn",
+              "weight": 30
+            },
+            {
+              "label": "100K-chip build, overseas CSP talks",
+              "detail": "Sep 1",
+              "tone": "now",
+              "weight": 40
+            }
+          ]
+        },
+        "provenance": {
+          "c7a11a1e7f3eaad4": {
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "SCALING LAW",
+            "tone": "launch",
+            "headline": "Z.ai's CEO frames GLM 5.3 around a new post-training scaling law, as a hands-on review covers pricing",
+            "summary": "CEO Jie Tang explains GLM 5.3's post-training scaling-law philosophy in an AINews interview, the same day an independent hands-on review covers GLM 5's features and pricing.",
+            "sids": [
+              "e8c330662717fd1a",
+              "c8a4adf0a06edc29"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "turn",
+            "headline": "GLM 5.3 release delayed over disclosed cybersecurity risks",
+            "sids": [
+              "c7a11a1e7f3eaad4"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "GLM inference build reaches 100,000 domestic chips, Z.ai eyes overseas cloud providers",
+            "summary": "digitimes reports the GLM inference build now runs on 100,000 Chinese chips, with Z.ai in talks to bring it to overseas cloud providers.",
+            "sids": [
+              "c4ef4bcb2597219b"
+            ]
+          }
+        ],
+        "open_questions": [
+          "What cybersecurity risk triggered the Aug 22 delay, and has Z.ai confirmed a fix or a firm release date?",
+          "Which overseas cloud providers is Z.ai in talks with, and would hosting there still depend on domestic-chip supply?",
+          "Does the post-training scaling law CEO Jie Tang described apply to the model now running on 100,000 chips, or is that a separate infrastructure track?"
+        ],
+        "take_for_builders": "Hold off deploying GLM 5.3 assuming Western-GPU parity — once Z.ai names its overseas cloud providers, confirm whether that hosting still runs on the same domestic-chip inference path before committing.",
+        "day_captions": {
+          "e8c330662717fd1a": "CEO Jie Tang explains GLM 5.3's post-training scaling-law philosophy in an AINews interview.",
+          "c8a4adf0a06edc29": "An independent hands-on review covers GLM 5's features and pricing, the same day as the CEO interview.",
+          "c7a11a1e7f3eaad4": "BetaNews reports Z.ai delayed the GLM 5.3 release over cybersecurity risks.",
+          "c4ef4bcb2597219b": "digitimes reports the GLM inference build now runs on 100,000 Chinese chips, with Z.ai eyeing overseas cloud service providers next."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-20",
+          "items": [
+            {
+              "sid": "e8c330662717fd1a",
+              "title": "[AINews] Death of Params: Z.ai CEO Jie Tang on GLM 5.3 and the new Post-training Scaling Law",
+              "url": "https://www.latent.space/p/ainews-death-of-params-zai-ceo-jie",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Every lab CEO is on X now",
+              "published": "2026-08-20T05:17:12+00:00"
+            },
+            {
+              "sid": "c8a4adf0a06edc29",
+              "title": "Z.ai Review 2026: I Tested It - GLM 5, Features, and Pricing - Buttondown",
+              "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNUjNCNlpnbVRNVllGalk3ZUdCLU5pdUhFR0ZHaW5sOUVQaWk3MXpTZHE4a29qN05FaTM4Um1aRzhBT0ctaldKWVRLV19TUmJBUlJJbGpsWUZEak41djBrUlliQ1ZRVk5GbW1UT2xqQUVBSi1ZV2Y1eVoyZkpVdVJCM0tRdlNDby1YQzVyZVBBNks?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai Review 2026: I Tested It - GLM 5, Features, and Pricing Buttondown",
+              "published": "2026-08-20T11:57:42+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-22",
+          "items": [
+            {
+              "sid": "c7a11a1e7f3eaad4",
+              "title": "Z.ai delays GLM 5.3 release over cybersecurity risks - BetaNews",
+              "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE1MaWVwNkNrRXI3SW9pdzBwd2lSN0hSODFKNmZIdnlGUlRRNDVudnhkRWF5NmJFTzRqWGFjanJyaVRJODVFOEFOYmc5dVdVS3k1ZVdjVk10QVVmeGpPYWxabmpJbmdVREZKQUE5T01B?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Z.ai delays GLM 5.3 release over cybersecurity risks BetaNews",
+              "published": "2026-08-22T12:21:47+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-01",
+          "items": [
+            {
+              "sid": "c4ef4bcb2597219b",
+              "title": "Z.ai runs GLM inference on 100,000 Chinese AI chips, eyes overseas CSPs",
+              "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPSGtCMjVJelRvWW13dy1RUHJ0di1odEZzc3hGQ3dvQmhodlppVERRXy1uVEZpQWdZMnBkMzFKcU5jcEJ6N1BOM284dVJ4bEhhR1lnMDhaVjNFRWpJWkZfLUpOVEFpeldNb2U0QkI3QWhPOGNzNXBQaWRQdUoxckNZLVBiYW82SURDd3oxVVNzVF9nbF8yT21fRw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai runs GLM inference on 100,000 Chinese AI chips, eyes overseas CSPs digitimes",
+              "published": "2026-09-01T04:07:16+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "mcp-server",
+      "label": "MCP Server",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 2,
+      "first_seen": "2026-08-21T09:55:00+00:00",
+      "last_updated": "2026-08-31T22:47:53+00:00",
+      "latest_title": "Connect an AgentCore Runtime hosted MCP server to Amazon Quick",
+      "member_sids": [
+        "857f4a269c2fa11e",
+        "94202c615efb6b89",
+        "7a560348d1cc3306"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/mcp-server.json",
+      "prior_narrative": {
+        "slug": "mcp-server",
+        "generated_at": "2026-09-01T00:08:40+00:00",
+        "covers_last_updated": "2026-08-31T22:47:53+00:00",
+        "covers_member_sids": [
+          "857f4a269c2fa11e",
+          "94202c615efb6b89",
+          "7a560348d1cc3306"
+        ],
+        "tldr": "Microsoft took its Azure DevOps Remote MCP Server to general availability in mid-August, giving hosted work-item, repo, and pipeline access with nothing to install — but not for Claude, ChatGPT, or Cursor. By month's end, remote-hosted MCP servers had spread beyond Microsoft to AWS.",
+        "whats_new": "AWS published a walkthrough wiring an AgentCore Runtime-hosted MCP server into Amazon Quick, landing the same day as a general \"connect your agent to a remote MCP server\" guide.",
+        "why_it_matters": "Remote-hosted MCP servers are becoming the default deployment pattern over local stdio servers, but client support isn't uniform across vendors — Azure DevOps's GA release explicitly excludes Claude, ChatGPT, and Cursor, so confirm compatibility before standardizing on one vendor's hosted MCP server.",
+        "status": {
+          "state": "Spreading beyond Microsoft",
+          "tone": "rising",
+          "changed": "2026-08-31",
+          "detail": "AWS and a generic how-to joined Microsoft's earlier Azure DevOps rollout, extending the shift to remotely hosted MCP servers.",
+          "track": [
+            {
+              "label": "Azure DevOps GA, no Claude/ChatGPT/Cursor support",
+              "detail": "Aug 21",
+              "tone": "launch",
+              "weight": 40
+            },
+            {
+              "label": "AWS + generic remote-MCP guides",
+              "detail": "Aug 31",
+              "tone": "now",
+              "weight": 60
+            }
+          ]
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Azure DevOps Remote MCP Server goes GA — without Claude, ChatGPT, or Cursor support",
+            "summary": "Microsoft ships a hosted endpoint into work items, repos, and pipelines with nothing to install, but leaves out the three most widely used agent clients.",
+            "sids": [
+              "857f4a269c2fa11e"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "AWS and a generic guide show remote MCP hosting spreading beyond Microsoft",
+            "summary": "A general how-to for connecting an agent to a remote MCP server appears the same day AWS publishes its own walkthrough wiring an AgentCore-hosted MCP server into Amazon Quick.",
+            "sids": [
+              "94202c615efb6b89",
+              "7a560348d1cc3306"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Will Azure DevOps's Remote MCP Server add support for Claude, ChatGPT, or Cursor, or stay Microsoft-agent-only?",
+          "Do AgentCore-hosted MCP servers interoperate with non-AWS agent clients, or is Amazon Quick similarly narrow?"
+        ],
+        "take_for_builders": "Before standardizing on a vendor-hosted MCP server, confirm which agent clients it actually supports — Azure DevOps's GA release explicitly locks out Claude, ChatGPT, and Cursor.",
+        "day_captions": {
+          "857f4a269c2fa11e": "Microsoft ships general availability for the Azure DevOps Remote MCP Server, but leaves out support for the three most widely used agent clients.",
+          "94202c615efb6b89": "A general how-to for connecting an AI agent to a remote MCP server lands the same day as AWS's Amazon Quick guide.",
+          "7a560348d1cc3306": "AWS publishes a walkthrough wiring an AgentCore Runtime-hosted MCP server into Amazon Quick."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-21",
+          "items": [
+            {
+              "sid": "857f4a269c2fa11e",
+              "title": "Azure DevOps Remote MCP Server Reaches GA, Without Support for Claude, ChatGPT, or Cursor",
+              "url": "https://www.infoq.com/news/2026/08/azure-devops-remote-mcp-ga/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
+              "type": "news",
+              "summary_1line": "Microsoft has made the Azure DevOps Remote MCP Server generally available, offering a hosted endpoint into work items, repos, and pipelines with nothing to install. Claude Desktop, Claude Code, ChatGPT, and Cursor can...",
+              "published": "2026-08-21T09:55:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "94202c615efb6b89",
+              "title": "Connect Your AI Agent to a Remote MCP Server",
+              "url": "https://quickchat.ai/post/connect-ai-agent-to-mcp-server",
+              "source": "hackernews_ai",
+              "type": "news",
+              "summary_1line": "Connect Your AI Agent to a Remote MCP Server",
+              "published": "2026-08-31T08:47:06+00:00"
+            },
+            {
+              "sid": "7a560348d1cc3306",
+              "title": "Connect an AgentCore Runtime hosted MCP server to Amazon Quick",
+              "url": "https://aws.amazon.com/blogs/machine-learning/connect-an-agentcore-runtime-hosted-mcp-server-to-amazon-quick",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "In this post, you will learn how to deploy and host your MCP server in AgentCore Runtime and integrate it with Amazon Quick, along with the prerequisites. With this pattern, you promote reusability and avoid duplicati...",
+              "published": "2026-08-31T22:47:53+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "large-language",
+      "label": "Large Language",
+      "item_count": 4,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-08-13T16:57:07+00:00",
+      "last_updated": "2026-08-31T12:02:04+00:00",
+      "latest_title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+      "member_sids": [
+        "d2165b4e687df565",
+        "473e4a8407d950ff",
+        "44fdd531ea49fe98",
+        "7ac516e280c5ca22"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/large-language.json",
+      "prior_narrative": {
+        "slug": "large-language",
+        "generated_at": "2026-09-01T05:10:00Z",
+        "covers_last_updated": "2026-08-31T12:02:04+00:00",
+        "covers_member_sids": [
+          "d2165b4e687df565",
+          "473e4a8407d950ff",
+          "44fdd531ea49fe98",
+          "7ac516e280c5ca22"
+        ],
+        "tldr": "Four unrelated LLM research and evaluation items grouped by a shared title phrase rather than one developing story. It opened Aug 13 with AaLLM's analog-circuit design framework, then a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, and a single-pass hallucination detector (PoP) reading internal activations, both on Aug 27.",
+        "whats_new": "A new arXiv benchmark, SwarmBench, argues existing agent evals are still built for single-agent or fixed multi-agent setups and tests whether LLMs can act as swarm orchestrators over dynamically-formed agent topologies.",
+        "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+        "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+        "open_questions": [
+          "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
+          "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
+          "Does activation-level detection need weights access, ruling it out for API-only deployments?",
+          "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+          "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
+        ],
+        "day_captions": {
+          "d2165b4e687df565": "Opens the thread on the applications side: LLMs as the driver of an analog circuit design loop, not as the object of study.",
+          "473e4a8407d950ff": "The only non-arXiv item — a clinical journal putting three named commercial assistants head-to-head on one patient-education task.",
+          "44fdd531ea49fe98": "Moves the thread from applications to reliability tooling: hallucination scoring read off internal activations at generation time.",
+          "7ac516e280c5ca22": "Shifts the thread to agent evaluation: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-13",
+          "items": [
+            {
+              "sid": "d2165b4e687df565",
+              "title": "AaLLM: An End-to-End Analog Circuit Design Framework from Topology Generation to Sizing Using Large Language Models",
+              "url": "http://arxiv.org/abs/2608.13472v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Analog circuit design is a time-consuming, iterative process in a nonlinear and high-dimensional design space that relies heavily on expert intuition. Among recent developments, LLMs have introduced a promising approa...",
+              "published": "2026-08-13T16:57:07+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-27",
+          "items": [
+            {
+              "sid": "473e4a8407d950ff",
+              "title": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education",
+              "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education Cureus",
+              "published": "2026-08-27T11:58:46+00:00"
+            },
+            {
+              "sid": "44fdd531ea49fe98",
+              "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
+              "url": "http://arxiv.org/abs/2608.27165v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Autoregressive large language models (LLMs) routinely generate factually incorrect outputs with high decoding confidence, limiting their deployment in high-stakes workflows. Existing output-stage uncertainty metrics c...",
+              "published": "2026-08-27T14:17:14+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "7ac516e280c5ca22",
+              "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+              "url": "http://arxiv.org/abs/2608.30661v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
+              "published": "2026-08-31T12:02:04+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "z-ai-alpha",
+      "label": "Z.ai Alpha",
+      "item_count": 23,
+      "source_count": 2,
+      "day_count": 8,
+      "first_seen": "2026-08-14T06:05:00+00:00",
+      "last_updated": "2026-08-31T10:08:21+00:00",
+      "latest_title": "Z.AI's Secret AI Model Ran on Chinese Chips — Nobody Noticed",
+      "member_sids": [
+        "1359156e75b44e45",
+        "842cf30c053df9d2",
+        "7216c7465c1c56b5",
+        "d209b402e386f93b",
+        "6476118b701d8fd0",
+        "a9c204e117f936d5",
+        "05d40e9a614e0aad",
+        "5bebd783d4b4b151",
+        "135778ccf99d98eb",
+        "bc33de06305fc366",
+        "7e30319c44f49483",
+        "54c9419f0373c186",
+        "5f95a73de65c4e0a",
+        "3cf619be55a479d4",
+        "0ba8eefddaf4551a",
+        "708063be727cbd74",
+        "bc0b2cd93677aa22",
+        "50a675f74133978a",
+        "18b8bf131447c27f",
+        "400c854a29b0b02a",
+        "8ac028cd69ad870a",
+        "262d27de3c444a60",
+        "01ff32093001c421"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/z-ai-alpha.json",
+      "prior_narrative": {
+        "slug": "z-ai-alpha",
+        "generated_at": "2026-09-02T10:12:00+00:00",
+        "covers_last_updated": "2026-08-31T10:08:21+00:00",
+        "covers_member_sids": [
+          "1359156e75b44e45",
+          "842cf30c053df9d2",
+          "7216c7465c1c56b5",
+          "d209b402e386f93b",
+          "6476118b701d8fd0",
+          "a9c204e117f936d5",
+          "05d40e9a614e0aad",
+          "5bebd783d4b4b151",
+          "135778ccf99d98eb",
+          "bc33de06305fc366",
+          "7e30319c44f49483",
+          "54c9419f0373c186",
+          "5f95a73de65c4e0a",
+          "3cf619be55a479d4",
+          "0ba8eefddaf4551a",
+          "708063be727cbd74",
+          "bc0b2cd93677aa22",
+          "50a675f74133978a",
+          "18b8bf131447c27f",
+          "400c854a29b0b02a",
+          "8ac028cd69ad870a",
+          "262d27de3c444a60",
+          "01ff32093001c421"
+        ],
+        "tldr": "Zhipu released GLM-5.3 in mid-August with a claimed 50% coding jump, while a mysterious \"Ox Alpha\" model surfaced in benchmarks rivaling DeepSeek with no confirmed maker. Z.ai then confirmed Ox Alpha was its own model and open-sourced it as GLM-5.3-Flash, a 320B-A18B natively multimodal MoE with a 1M-token context that runs on domestic Chinese chips.",
+        "whats_new": "Coverage keeps confirming the real story behind the reveal: GLM-5.3-Flash runs on 100% domestic Chinese chips, matches top models at a fraction of the cost without Nvidia hardware, and a retrospective says that chip build went unnoticed for weeks before the reveal made it public.",
+        "why_it_matters": "GLM-5.3-Flash's lower serving costs are tied to its domestic-chip inference path, not just open weights — evaluate it on that basis, and don't assume Western-GPU pricing or performance parity without your own benchmark run.",
+        "status": {
+          "state": "Open-sourced · running on domestic chips",
+          "tone": "resolved",
+          "changed": "2026-08-28",
+          "detail": "Ox Alpha shipped as the open-source GLM-5.3-Flash on Aug 26-27, corroborated by four outlets, and Aug 27-28 coverage confirmed it runs on domestic Chinese chips at a fraction of the cost of Western models. Aug 30-31 add a cyber-benchmark claim and a retrospective on the build going unnoticed for weeks.",
+          "track": [
+            {
+              "label": "GLM-5.3 launches, coding jumps 50%",
+              "detail": "Aug 14",
+              "tone": "launch",
+              "weight": 8
+            },
+            {
+              "label": "early cyber/coding claims",
+              "detail": "Aug 18-19",
+              "tone": "rising",
+              "weight": 6
+            },
+            {
+              "label": "Ox Alpha confirmed as Z.ai's own",
+              "detail": "Aug 26",
+              "tone": "turn",
+              "weight": 12
+            },
+            {
+              "label": "open-sourced as GLM-5.3-Flash",
+              "detail": "Aug 26-27",
+              "tone": "rising",
+              "weight": 18
+            },
+            {
+              "label": "domestic-chip reveal, low cost, stock surge",
+              "detail": "Aug 27",
+              "tone": "rising",
+              "weight": 20
+            },
+            {
+              "label": "multimodal follow-up, lower costs",
+              "detail": "Aug 28",
+              "tone": "now",
+              "weight": 8
+            },
+            {
+              "label": "cyber-benchmark + unnoticed retrospective",
+              "detail": "Aug 30-31",
+              "tone": "now",
+              "weight": 7
+            }
+          ]
+        },
+        "provenance": {
+          "a9c204e117f936d5": {
+            "surfaced_by": "scout"
+          },
+          "05d40e9a614e0aad": {
+            "surfaced_by": "scout"
+          },
+          "135778ccf99d98eb": {
+            "surfaced_by": "scout"
+          },
+          "bc33de06305fc366": {
+            "surfaced_by": "scout"
+          },
+          "7e30319c44f49483": {
+            "surfaced_by": "scout"
+          },
+          "54c9419f0373c186": {
+            "surfaced_by": "scout",
+            "verified": 4
+          },
+          "5f95a73de65c4e0a": {
+            "surfaced_by": "scout"
+          },
+          "3cf619be55a479d4": {
+            "surfaced_by": "scout"
+          },
+          "0ba8eefddaf4551a": {
+            "surfaced_by": "scout"
+          },
+          "708063be727cbd74": {
+            "surfaced_by": "scout"
+          },
+          "400c854a29b0b02a": {
+            "surfaced_by": "scout"
+          },
+          "262d27de3c444a60": {
+            "surfaced_by": "scout"
+          },
+          "01ff32093001c421": {
+            "surfaced_by": "scout",
+            "status_update": true
+          }
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "Zhipu releases GLM-5.3, claiming a 50% coding jump and the strongest open-weights coding model",
+            "summary": "Two outlets cover the initial GLM-5.3 release the same day, including a promise that open-source weights would follow within two weeks.",
+            "sids": [
+              "1359156e75b44e45",
+              "842cf30c053df9d2"
+            ]
+          },
+          {
+            "kicker": "CYBER CLAIMS",
+            "tone": "rising",
+            "headline": "Early coverage claims GLM-5.3 already rivals US models on cyber tests, then flags a Cursor bug",
+            "summary": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks and a second outlet reads the same results past the headline number; a day later Z.ai's own results add coding-test gains but flag a vulnerability in Cursor.",
+            "sids": [
+              "7216c7465c1c56b5",
+              "d209b402e386f93b",
+              "6476118b701d8fd0"
+            ]
+          },
+          {
+            "kicker": "THE REVEAL",
+            "tone": "turn",
+            "headline": "Z.ai confirms the mysterious \"Ox Alpha\" stealth model is its own, weights coming",
+            "sids": [
+              "a9c204e117f936d5"
+            ]
+          },
+          {
+            "kicker": "OPEN-SOURCED",
+            "tone": "rising",
+            "headline": "Ox Alpha ships as GLM-5.3-Flash, a 320B-A18B multimodal MoE with 1M-token context",
+            "summary": "The delayed release lands under a different name, and four outlets independently pin the identity: Zhipu names Ox Alpha as GLM-5.3-Flash, publishes the weights, and coverage confirms the model is usable today.",
+            "sids": [
+              "05d40e9a614e0aad",
+              "135778ccf99d98eb",
+              "54c9419f0373c186",
+              "0ba8eefddaf4551a"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "rising",
+            "headline": "Ox Alpha's real story: domestic Chinese chips at a fraction of the cost, not just a new name",
+            "summary": "Coverage reveals the model runs on 100% domestic chip support, a Chinese-language deep dive prices it near 1/40 of Opus 4.8, Global Times reports the release is powered by 100,000 domestically made chips, and Z.ai-linked shares jump 8%. A same-day analysis calls the chip choice optimization, not necessity; a follow-up confirms it matches top models without Nvidia hardware.",
+            "sids": [
+              "5bebd783d4b4b151",
+              "bc33de06305fc366",
+              "7e30319c44f49483",
+              "3cf619be55a479d4",
+              "708063be727cbd74",
+              "5f95a73de65c4e0a"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Follow-ups, recaps, and a fresh benchmark claim keep the story spreading",
+            "summary": "A follow-up highlights GLM-5.3-Flash's multimodal capability at lower serving costs, two recaps round up the full Ox Alpha story, a second outlet confirms the domestic-chip build directly, an Aug 30 benchmark claim puts GLM-5.3 nearing Anthropic on cyber tests, and Aug 31 data shows it topping global AI call volume as China led weekly usage for an 18th straight week.",
+            "sids": [
+              "bc0b2cd93677aa22",
+              "50a675f74133978a",
+              "18b8bf131447c27f",
+              "8ac028cd69ad870a",
+              "400c854a29b0b02a",
+              "262d27de3c444a60"
+            ]
+          },
+          {
+            "kicker": "STILL UNNOTICED",
+            "tone": "now",
+            "headline": "A retrospective says the domestic-chip build went unnoticed for weeks before the reveal",
+            "sids": [
+              "01ff32093001c421"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does running on Chinese chips carry any export-control or licensing exposure for teams outside China adopting GLM-5.3-Flash?",
+          "Do the published weights run unmodified on Western GPUs, or does the release assume a domestic-chip runtime?",
+          "What benchmark and methodology backs the Aug 30 claim that GLM-5.3 nears Anthropic on cyber tests?"
+        ],
+        "take_for_builders": "Re-run any evaluation you did against the unbranded \"Ox Alpha\" weights using the now-official GLM-5.3-Flash release, and confirm whether its lower serving costs and no-Nvidia claim hold on your own hardware before assuming cost parity.",
+        "day_captions": {
+          "1359156e75b44e45": "Zhipu releases GLM-5.3, claiming a 50% coding-capability jump and promising open-source weights within two weeks.",
+          "842cf30c053df9d2": "the-decoder.com covers the same GLM-5.3 release, with Zhipu billing it as the strongest open-weights coding model.",
+          "7216c7465c1c56b5": "Cyber Magazine reports GLM-5.3 beating US models on cyber-race benchmarks, before the model has open weights.",
+          "d209b402e386f93b": "AI News reads the GLM-5.3 benchmark results past the headline number, the same day as the cyber-race claim.",
+          "6476118b701d8fd0": "Z.ai's own results add coding and cyber-test gains but flag a vulnerability in Cursor.",
+          "a9c204e117f936d5": "Bloomberg reports Z.ai confirmed the unattributed \"Ox Alpha\" model, which had been benchmarked rivaling DeepSeek, is its own upcoming GLM-series release.",
+          "05d40e9a614e0aad": "MarkTechPost details the GLM-5.3-Flash release: a 320B-A18B natively multimodal MoE with a 1M-token context.",
+          "135778ccf99d98eb": "Z.ai identifies Ox Alpha as GLM-5.3-Flash and open-sources the weights.",
+          "54c9419f0373c186": "TechNode independently confirms the identity and the weights release under Zhipu's name.",
+          "0ba8eefddaf4551a": "CNET shifts the story from identity to availability: Ox Alpha is GLM-5.3-Flash and readers can use it now.",
+          "5bebd783d4b4b151": "A Chinese-language deep dive on the \"Niu Lai\" (Ox) build's computing-power economics: 100% domestic chip support priced near 1/40 of Opus 4.8.",
+          "bc33de06305fc366": "Z.ai-linked shares surge 8% after the domestic-chip model release goes public.",
+          "7e30319c44f49483": "Global Times reports the GLM-5.3-Flash release itself is powered by 100,000 domestically made chips, folding the chip angle directly into the release story.",
+          "3cf619be55a479d4": "A same-day analysis argues the domestic-chip choice is about cost optimization, not a forced workaround.",
+          "708063be727cbd74": "Coverage frames the Ox Alpha reveal as a Silicon Valley talking point, not just a regional story.",
+          "5f95a73de65c4e0a": "the-decoder.com reports GLM-5.3-Flash matches top models at a fraction of the cost and runs without Nvidia hardware.",
+          "bc0b2cd93677aa22": "A follow-up highlights GLM-5.3-Flash's multimodal capability and its lower serving costs specifically.",
+          "50a675f74133978a": "A recap piece rounds up everything known about Z.ai and the Ox Alpha reveal, folding in the domestic-chip detail.",
+          "18b8bf131447c27f": "A second outlet confirms Ox Alpha's domestic-chip build directly, closing the loop the recap opened.",
+          "400c854a29b0b02a": "A benchmark write-up puts GLM-5.3's cyber-test score nearing Anthropic's models, without detailing the test methodology.",
+          "8ac028cd69ad870a": "International Business Times recaps the full arc, framing Ox Alpha as beating OpenAI before Z.ai's identity was revealed — no new facts, but signals wider syndication reach.",
+          "262d27de3c444a60": "Pandaily reports GLM-5.3-Flash topped global AI call volume, with China leading weekly usage for an 18th straight week.",
+          "01ff32093001c421": "A retrospective says the domestic-chip build behind GLM-5.3-Flash went unnoticed for weeks before the Aug 26-28 reveal made it public."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-14",
+          "items": [
+            {
+              "sid": "1359156e75b44e45",
+              "title": "Zhipu AI Releases GLM-5.3: Coding Capability Jumps 50%, Open-Source Weights Coming in Two Weeks - finance.biggo.com",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5kSzl6Snp6UG5tQ3lUU0gtWlhPRm5fVzJJZ0hQNlo0cldzWmk2SHV6enpWZU1COUFCMjNxR0VIcXFuRkpNRUhydjJ4bWVRdHpWS2VBNXpsaU41WU15VlpEMDN1UTdZenVraXpoZGtmdFFZcXhNQ2c?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Zhipu AI Releases GLM-5.3: Coding Capability Jumps 50%, Open-Source Weights Coming in Two Weeks finance.biggo.com",
+              "published": "2026-08-14T06:05:00+00:00"
+            },
+            {
+              "sid": "842cf30c053df9d2",
+              "title": "Zhipu AI releases GLM-5.3, claims it's the strongest open-weights coding model - the-decoder.com",
+              "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNM0JXWjNoMDQ1Zl93ZWRmejA4djlQQzVodHhYb0lCQnJqSGtFbUxTUDQyYnI3NmN6NF9aazJRTkx4YlZ6b2ROVzNPQUpKTTgtVGh2bDU1aUE0RXItRUV0RE1tckNPNjhoUkxhNUs3ejBJNVAtZU1LMDR4cllacVBDZjV3UU96TnFMbkxqaUdTa3pacWhneDVUQmpLd1hsMmFrcGlB?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Zhipu AI releases GLM-5.3, claims it's the strongest open-weights coding model the-decoder.com",
+              "published": "2026-08-14T10:24:31+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-18",
+          "items": [
+            {
+              "sid": "7216c7465c1c56b5",
+              "title": "China Closes in on Cyber Race as GLM-5.3 Beats US Models - Cyber Magazine",
+              "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxONW82TWREQ2JhRzllMGZtQnV5RVZHY0xqQVdWV2VGdW0wZkxEMFVVZ0thZ1BoTlpQTkNOSkN5RUUwclRkaVBXMWN0RVN6Y0J2ZkJaWm11VDhEV2tSMnFHc25ONU9MSnpNM1hiTlFSZU11TVFmYWVucWpzbVREdURTWktYZEt5MkhzUjI5RmEtMWs?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "China Closes in on Cyber Race as GLM-5.3 Beats US Models Cyber Magazine",
+              "published": "2026-08-18T07:34:13+00:00"
+            },
+            {
+              "sid": "d209b402e386f93b",
+              "title": "Reading Zhipu’s GLM-5.3 results past the headline number - AI News",
+              "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQd1FvdG5QWDRCRTNtSG1icmdNWl9BZWRvUzEzaGFLUnl4ZzlvZ1hCekhCRUhUTVhqclRvdEp2enZKTGdmT1NDZjJ5VTJkRlRIMFRBTDN4dkRGYkZzcXQ2dUYyM3l4cWNuOXRXTldwMzY2SThJYlRxMmZwWEJPaDE1UWZfeUFLNFR5ZkJZUg?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Reading Zhipu’s GLM-5.3 results past the headline number AI News",
+              "published": "2026-08-18T10:00:48+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-19",
+          "items": [
+            {
+              "sid": "6476118b701d8fd0",
+              "title": "Z.ai says GLM-5.3 lifts coding and cyber tests, flags Cursor vulnerability - digitimes",
+              "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOT2FRb3R6d0tLWXZ3RUdIQmF5bHY3VktkUnhOdmRiT1VhX1lMUS1tTkdIZnFBU0FncTdSQVVQNVhqQmhLTEpmelZjMGlIR1ozUlJZb014clRvVnl1QkJncGk1anFNVEZRRnl0clI1Wkc4N0NDNmJDdS1xeklRb1E5djVsRmZsX19Oc0JfaEJ4cw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai says GLM-5.3 lifts coding and cyber tests, flags Cursor vulnerability digitimes",
+              "published": "2026-08-19T00:42:25+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-26",
+          "items": [
+            {
+              "sid": "a9c204e117f936d5",
+              "title": "Z.ai confirms Ox Alpha is a new GLM-series model and will release its weights",
+              "url": "https://www.bloomberg.com/news/articles/2026-08-26/china-s-z-ai-made-ox-alpha-stealth-model-that-rivals-deepseek",
+              "source": "hackernews_ai",
+              "type": "release",
+              "summary_1line": "Z.ai confirms Ox Alpha is a new GLM-series model and will release its weights",
+              "published": "2026-08-26T10:04:55+00:00"
+            },
+            {
+              "sid": "05d40e9a614e0aad",
+              "title": "Z.ai Releases GLM-5.3-Flash: A 320B-A18B Natively Multimodal MoE With a 1M-Token Context",
+              "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPRHlLLVdZV0MxamppWTRVc1U0X1lsTzBnQTBxdDd6b1Z3dW42bGZyMHNUM2gwT3F2ZzRkeGp2dnFveUZnUDd3cmE2MDZxSzloT29VZnktOTZlOVRZbS10UmZRZGk0VGFjT1RMVlc4blltUEpnbkZFWlJXa0hrVlA3Qi1XR0l6aUZMR1J2OEZEUUZjcklxejhNQnF5SXI1R3pfaUE5aDA1NmpSVWRZaGtiWm8wVXU1ZFU5QV8wdW92clhScHotUVlN0gHMAUFVX3lxTE43SUtxWWhSYk0wNnE0TjQweWZCTUdKVE1BQXFzRmQ5RF9hQnNBV2RNcDJBQkQ1T0s0UmZPR2FYNk03eE9UZlUtTEM0WnV4ZmlVbHYyUDNhR2h3SzgxX1NGVk1lMG03MXR2VUtleDVGMVJmSWtVUTM1eEZYNGtCUTM3bGJsUEwzZWphTTlKZExuU2hOcGVOa2JmTkU2enI5SkF2Q2EyckJUd2s4eEVNbGhmbjU4cnl4bGEyWXRLS3N5cEtHSDFYYXB2VHRJMA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Z.ai Releases GLM-5.3-Flash: A 320B-A18B Natively Multimodal MoE With a 1M-Token Context MarkTechPost",
+              "published": "2026-08-26T21:33:23+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-27",
+          "items": [
+            {
+              "sid": "5bebd783d4b4b151",
+              "title": "The Computing Power Secret Behind Zhipu AI's \"Niu Lai\" Model: 100% Domestic Chip Support, Priced at Only 1/40 of Opus 4.8",
+              "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBwSThwYk5pUy1ObXBtYk5hT1VwbUZJMWdUR19rUGl1bzJqbFppX2JKRDN2cG5fSENyT1J6MUtQWFpWV0IxZXhpSGhlM1Z0b250MnFJ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "The Computing Power Secret Behind Zhipu AI's \"Niu Lai\" Model: 100% Domestic Chip Support, Priced at Only 1/40 of Opus 4.8 36 Kr",
+              "published": "2026-08-27T01:35:04+00:00"
+            },
+            {
+              "sid": "135778ccf99d98eb",
+              "title": "Z.ai Built Ox Alpha: GLM-5.3-Flash Now Open-Source",
+              "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE16SGoyXzFTZktwbjlRSU5jZWtTaXctLTBtQmE5UExNVE1BdUVNaXc1elc3THRTeGVCSTNBQ3J6UTVQMkJDTUktY1FaX29BaE9mMTE5SHh3OU8tT29DM3VoaU13Ml90WmxyYlBiaWUwenhacmhB?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai Built Ox Alpha: GLM-5.3-Flash Now Open-Source Intelligent Living",
+              "published": "2026-08-27T02:36:53+00:00"
+            },
+            {
+              "sid": "bc33de06305fc366",
+              "title": "Z.ai shares surge 8% after releasing new AI model running only on Chinese chips",
+              "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNOXJYOG11aWZmNUM0QmxZXzloZEdQel9qaTFBbmRzc1VFV0ZiUFNOMHp0VjNFd1BpQU56X3E4YzA2S0tINnd2TEhSc19uM19WSG1NUG9kblZkamRFcURkNE81Ty16c1dmMXVTYW9CSG5tOEpFN1ZyRnFZeTNLdktSRHhRNnhpaEo3RUt5OUVXY9IBlAFBVV95cUxNTHZVd2RGQndFcXFYcTFITlJZcGJvZ0VLeDV0ZnFQX1JGRXBTS2tJOUdZdXh1Q0FrdGtZV3BxMGJvU1E2MDg2MnVpYnFWYzZtNTAyY3NKVTNOd0FGTXZXbkJoY3daVzk2RWY2bVIxRnlFTXpyUUpreVFkTXg4bVZtYmRmVU9GNTVuR3B2NFB5M2hHU1Zq?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai shares surge 8% after releasing new AI model running only on Chinese chips CNBC",
+              "published": "2026-08-27T03:20:00+00:00"
+            },
+            {
+              "sid": "7e30319c44f49483",
+              "title": "Zhipu AI releases GLM-5.3-Flash model, powered by 100,000 domestically made chips",
+              "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1MdlNBdE9pQ0VZMGs5VXJEUERVSkhQNzJZZlI1cVctaUoyTFA4M2VweS01UU1QRHQxUEthNGNBSTd4VlNFVjk4RHN6YjFlbGcyRF8zMGpaMlhiTXB6ckZ0QW53?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Zhipu AI releases GLM-5.3-Flash model, powered by 100,000 domestically made chips Global Times",
+              "published": "2026-08-27T05:03:00+00:00"
+            },
+            {
+              "sid": "54c9419f0373c186",
+              "title": "Zhipu identifies Ox Alpha as GLM-5.3-Flash and releases model weights",
+              "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQUXZ6MmE5azY5LVZoV0xlM21vWFE2czZIMENGV0h1LTNyazRySExMSmxpNklQTE5BWUU4RlBNWVRTTGhCTnFpVlU5TVBxbmx5Q3E5Yk54X0s5OWJsQ09XeFlZSWtVaTJmNE1mejlXRU9MeHlnbXFPTVBPcTVmUU5aYUdqRElWYUx2TjlMc1RlajB0VGw5UFdMTWs2eHhraUZEcjBsWg?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "Zhipu identifies Ox Alpha as GLM-5.3-Flash and releases model weights TechNode",
+              "published": "2026-08-27T07:05:00+00:00"
+            },
+            {
+              "sid": "5f95a73de65c4e0a",
+              "title": "GLM-5.3-Flash matches top models at a fraction of the cost, and runs without Nvidia",
+              "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQSU5JQmdCR3RyWjhVZUN0aWF6MHhUeEJuaHNvblA3bUNDdl82T1ptY1NsTFVjdUFFN2ZUanZMVEpuY1l3U2ZFQm9zOU1vWU1iVWk2Z0ZjbTlBNUwzeVBSdmhnajRzZm1KemhkOW83ZlJmX3o2NzNzSEZfQWc2YnFiNzM0VDhVOGFWbUJXZU44VDhrNW5JT1RuLTdubUJlMWgydEx2S0g0bEx4TWZfeGRtRWNNQ3N3TlBSZVl0V05BQkZpLWlrdlFMMw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "GLM-5.3-Flash matches top models at a fraction of the cost, and runs without Nvidia the-decoder.com",
+              "published": "2026-08-27T10:29:21+00:00"
+            },
+            {
+              "sid": "3cf619be55a479d4",
+              "title": "Z.AI's Use of Chinese Chips for New Model is About Optimization",
+              "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPRl9KNXFkRnVUdjBKOWhuU3l0VWZ5dkVmNHJoek43eDU0OHBUdU9tNkdMUE9sSThXN2p5YjBEMTUteFhNa0RvamJBWWVjLXVVX3VZUEo2QXNKeWcxXzFGWkZhQUZXaEFacnVCX1Q2X2N2TzVlOWY3bUJFbjk2b2daUWtDNHlBNkN5ak9Wd1o2QkxTblQz?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.AI's Use of Chinese Chips for New Model is About Optimization AI Business",
+              "published": "2026-08-27T19:46:33+00:00"
+            },
+            {
+              "sid": "0ba8eefddaf4551a",
+              "title": "The Powerful Stealth AI Model ‘Ox Alpha’ Is Now GLM-5.3-Flash, and You Can Use It",
+              "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQQTVuRFM1dUZuS3dma3M3N2dUQ25HYUNlUjJBeWY5c0Rib3V6MkVjVnpJYXJQeDlWZ0tjVkUxLWppRnNxQkZLRkU2MFhpOWJfVXFWazczTmJoNFZUekhPMGxSTlFibjIyMDUwOGhOeG9VOWNabDZjdWJ0Vm1ITTJMOEFhVElhNzZiWWNCTnZnc2hNeFNvemExYi05Z01uN25UU0ZQdVpEZ253RkJkZXQ3VURfZFhPR2lWamlWTlc4Z192WXp0QXc?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "The Powerful Stealth AI Model ‘Ox Alpha’ Is Now GLM-5.3-Flash, and You Can Use It CNET",
+              "published": "2026-08-27T21:17:10+00:00"
+            },
+            {
+              "sid": "708063be727cbd74",
+              "title": "Silicon Valley Sensation Ox Alpha Unveiled as Chinese AI Model",
+              "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNbHdMWTRZa1FPTW11aGNfeUEyZlVYb0JlWndBRWNIdWw3R0tHOUVKWjE4MWxyRmpNamRKRFlwY3dOVmctckNSVVZvNkNJd0Z1Nk9wVGlhRFRZMmxEM2xMbkFqSW43ZDdhclFibThTbl9CdDBzb3FFQk5EcXlPaU1YVGdiRHdILXAx?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Silicon Valley Sensation Ox Alpha Unveiled as Chinese AI Model 조선일보",
+              "published": "2026-08-27T22:03:37+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-28",
+          "items": [
+            {
+              "sid": "bc0b2cd93677aa22",
+              "title": "Z.ai Unveils Multimodal GLM-5.3-Flash With Lower Serving Costs",
+              "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPVkt3TlJHNHRMdXRfNEczYjNmVk5YWXVVSTNKZzBwSGtsY014SFhFbWVVUUhuMnlpc1Z4aURjZTMyeE5KLUhJU0ZGZTltYkMxeFpwS2R5Q0JaWVcydW9ubWFkNVN3bHBzd1hyYXlkdmtELTV0RlRLM29LemUzZjhmR3B3UEhJb1h1NDRyZUdaWWlLeXV0NkxzeVR1SFFmWFNSdjRCQm5uR0t3RlB4WjZPSHNidTRldw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai Unveils Multimodal GLM-5.3-Flash With Lower Serving Costs marketscreener.com",
+              "published": "2026-08-28T02:23:21+00:00"
+            },
+            {
+              "sid": "50a675f74133978a",
+              "title": "Everything we know about Z.ai, the Chinese company behind the mysterious Ox Alpha model",
+              "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQeF8xa2thZ1NJSC1QWkVPZTRiVFVuS0tpdFdyT3IxRjJabmp4aTh1M1ZCdlRQQzhKWFZCaEYtUGExV3RHcWVieEdHSS04ZHZIUGVXWmMyeVZVcnZQUW5Oclh2aGlLbGYyTW5YYndJRXdIMExsUVZxZG0yVXdvZlNzUFFEemstdGVkd1licGRvTFJhQQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Everything we know about Z.ai, the Chinese company behind the mysterious Ox Alpha model Business Insider",
+              "published": "2026-08-28T07:29:13+00:00"
+            },
+            {
+              "sid": "18b8bf131447c27f",
+              "title": "Z.ai reveals Ox Alpha was GLM-5.3-Flash, built on Chinese chips",
+              "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5OdzZMZnU3amFXTWJjb0YxOGVOdnJQdUdrTEI3Y2wxbVN0NGhyYWVzdGpiWThJTmsyUmJzRGpWMGxxSGR4eDM2TEd2N2JjVVp4ZTdzcEV0M0dFMXR0T1NtdDdIWUFZLWNVV3BXY0ZR?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.ai reveals Ox Alpha was GLM-5.3-Flash, built on Chinese chips qz.com",
+              "published": "2026-08-28T11:42:10+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-30",
+          "items": [
+            {
+              "sid": "400c854a29b0b02a",
+              "title": "China's GLM-5.3 Nears Anthropic on Cyber Test [2026]",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1Qc1BxNFFZRmNJdDhsNTU2dFFuZ3dEeHZISURRUERjRHVhOF9nM2ZGb0p2dmNLdW1yTG1OWllvOVh2OUp1SmdxTjJYVEtod0JGdUx2Z0RUMVY0dnUtTThXbVQwZ1pUeHBqN2Rxek5UaG5nWW9fSkE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "China's GLM-5.3 Nears Anthropic on Cyber Test [2026] tech-insider.org",
+              "published": "2026-08-30T00:22:57+00:00"
+            },
+            {
+              "sid": "8ac028cd69ad870a",
+              "title": "Ox Alpha Emerged as a Powerful OpenAI Rival—Then China's Z.ai Was Revealed as Its Creator",
+              "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPTjJpNGZKRzJHM2tlanV1ZFBTRzZDT09faVV1b2ZpYUtaRmUySVJHM1hvdHc4Q1RYNU05WXNDVFNkelFVdUdsejdWQXozeFBqRW1GdV9hN09xcEtCY2ZLZ1JjOGpNZFFsdzgtZmtCMkxSZktZeGdoSVRDSmo1QllzamdacFJQOUlIZFBIVkVNT0lCanVIYXNFOTEyX0s1NjJPRFlicHhYU0FSdG0yYVZZ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Ox Alpha Emerged as a Powerful OpenAI Rival—Then China's Z.ai Was Revealed as Its Creator International Business Times",
+              "published": "2026-08-30T11:28:15+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "262d27de3c444a60",
+              "title": "Zhipu AI's GLM-5.3-Flash Topped Global AI Calls; China Led Volume for 18th Week",
+              "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE8wZEZhc2NXNENfMlV2ekk5WTdfNW55OGo4NHJDdXZrWWp4VHQzWndaTWZtUkp0MHlsaFhXTFI2QUNDbzQ0T3pBeDFVT3ktTnNkRWxEeVh3dnpQa21vQ3JRSHFZc1p6SUtieHVGTENzd2hIUzJYMlMw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Zhipu AI's GLM-5.3-Flash Topped Global AI Calls; China Led Volume for 18th Week Pandaily",
+              "published": "2026-08-31T08:06:18+00:00"
+            },
+            {
+              "sid": "01ff32093001c421",
+              "title": "Z.AI's Secret AI Model Ran on Chinese Chips — Nobody Noticed",
+              "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9oQjlBQVBDZU5jN0hKeXJLbURIZ0hPZVFGOExydnlZRzNwZ3RxcDhhNHhzQ3lYaHF3ODAtb1RqcW0yYkYwUThoZkxXZ3I4c1p3VjdWOGJpbkJLdTBELVRYTEtsczc4UQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Z.AI's Secret AI Model Ran on Chinese Chips — Nobody Noticed Memeburn",
+              "published": "2026-08-31T10:08:21+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "memory-long-term",
+      "label": "Memory Long-Term",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-08-17T09:14:31+00:00",
+      "last_updated": "2026-08-31T09:41:26+00:00",
+      "latest_title": "UTILMEM: Benchmarking Evidence Utilization in Long-Term Conversational Memory",
+      "member_sids": [
+        "40602cd71e370eb6",
+        "5960e24b491051f2",
+        "92250613f04ac1b9"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/memory-long-term.json",
+      "prior_narrative": {
+        "slug": "memory-long-term",
+        "generated_at": "2026-09-01T05:10:00Z",
+        "covers_last_updated": "2026-08-31T09:41:26+00:00",
+        "covers_member_sids": [
+          "40602cd71e370eb6",
+          "5960e24b491051f2",
+          "92250613f04ac1b9"
+        ],
+        "tldr": "Three separate long-term-memory research papers grouped by a shared title phrase rather than one developing story. It opened Aug 17 with FTA-Mem's fact-time-affect anchored memory for low-density emotional-support dialogue, then Agent Zero Memory's Aug 30 case for provenance-aware memory instead of one fixed structure.",
+        "whats_new": "A new arXiv benchmark, UTILMEM, argues existing long-term-memory evals measure only pointwise factual recall and proposes scoring how well an agent actually uses the evidence it retrieves.",
+        "why_it_matters": "If you eval your agent's memory system on recall alone, UTILMEM's framing is a reminder that retrieving the right fact and correctly using it in the reply are different failure modes worth separate checks.",
+        "take_for_builders": "Before trusting a recall-only memory eval, check whether it also scores evidence utilization — UTILMEM's task design is a starting point for adding that check to your own harness.",
+        "open_questions": [
+          "Does FTA-Mem's fact-time-affect anchoring generalize beyond emotional-support dialogue to task-oriented agents?",
+          "Does Agent Zero Memory's provenance tracking add meaningful latency or storage overhead versus a single fixed structure?",
+          "Does UTILMEM report results for today's popular memory frameworks (vector-store or graph-based), or only research prototypes?"
+        ],
+        "day_captions": {
+          "40602cd71e370eb6": "Opens the thread with a memory architecture purpose-built for low-density emotional-support dialogue, not general-purpose recall.",
+          "5960e24b491051f2": "Argues against committing to one memory structure, proposing provenance tracking across fact stores, vector indexes, and other backends.",
+          "92250613f04ac1b9": "Reframes evaluation itself: scoring whether an agent actually uses retrieved evidence, not just whether it recalls isolated facts."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-17",
+          "items": [
+            {
+              "sid": "40602cd71e370eb6",
+              "title": "FTA-Mem: Fact-Time-Affect Anchored Memory for Low-Density Long-Term Dialogue",
+              "url": "http://arxiv.org/abs/2608.16303v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Long-term emotional-support agents require memory mechanisms for personalized understanding across sessions. However, emotional-support dialogue is often low-density: turns are incomplete, evidence is scattered, and u...",
+              "published": "2026-08-17T09:14:31+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-30",
+          "items": [
+            {
+              "sid": "5960e24b491051f2",
+              "title": "Agent Zero Memory: Provenance-Aware Long-Term Memory for LLM Agents",
+              "url": "http://arxiv.org/abs/2608.29606v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Large language model (LLM) agents need durable, faithful memory of everything a user or organization has said and stored, yet most memory systems commit to a single organizing structure (a fact store, a vector index,...",
+              "published": "2026-08-30T06:55:59+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "92250613f04ac1b9",
+              "title": "UTILMEM: Benchmarking Evidence Utilization in Long-Term Conversational Memory",
+              "url": "http://arxiv.org/abs/2608.30508v1",
+              "source": "arxiv_llm_reliability",
+              "type": "paper",
+              "summary_1line": "Long-term memory is increasingly important for conversational agents, yet existing benchmarks primarily measure memory through pointwise factual recall: whether a system can recover isolated facts or event-level detai...",
+              "published": "2026-08-31T09:41:26+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "evolution-harness",
+      "label": "Evolution Harness",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-08-22T07:30:52+00:00",
+      "last_updated": "2026-08-27T16:12:23+00:00",
+      "latest_title": "Verify Smarter, Evolve Further: Efficient Harness Evolution through Behavior-Aware Verification",
+      "member_sids": [
+        "df63102a57f71f08",
+        "7cbe2bc28a10212c",
+        "00e3e8e2193bc83d"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": false,
+      "reason": "current",
+      "narrative_path": "data/storylines/narratives/evolution-harness.json",
+      "prior_narrative": {
+        "slug": "evolution-harness",
+        "generated_at": "2026-08-31T00:15:00+00:00",
+        "covers_last_updated": "2026-08-27T16:12:23+00:00",
+        "covers_member_sids": [
+          "df63102a57f71f08",
+          "7cbe2bc28a10212c",
+          "00e3e8e2193bc83d"
+        ],
+        "tldr": "An essay argued that agent harnesses are gradually being absorbed into model weights, leaving the harness's remaining job to direct human attention rather than the model. Days later, an arXiv paper backed that shift with evidence that harness-design changes alone move coding-agent output quality.",
+        "whats_new": "A new arXiv paper proposes behavior-aware verification so harness-evolution systems can screen candidate harness changes without scoring every one from scratch.",
+        "why_it_matters": "If you're treating your agent's harness (prompts, tool wiring, runtime scaffolding) as a tunable surface, the verification step that checks each candidate change is the bottleneck this work targets — cheaper verification means faster, safer harness iteration.",
+        "beats": [
+          {
+            "kicker": "THE ARGUMENT",
+            "tone": "launch",
+            "headline": "Essay: harnesses are being absorbed into model weights",
+            "summary": "Latent Space piece frames the harness's remaining role as directing human attention, not the model.",
+            "sids": [
+              "df63102a57f71f08"
+            ]
+          },
+          {
+            "kicker": "THE EVIDENCE",
+            "tone": "rising",
+            "headline": "Paper ties harness-evolution choices to coding-agent quality",
+            "summary": "First empirical link in this thread between harness design and output quality, not just prompting.",
+            "sids": [
+              "7cbe2bc28a10212c"
+            ]
+          },
+          {
+            "kicker": "THE FIX",
+            "tone": "turn",
+            "headline": "Behavior-aware verification cuts the cost of evolving a harness",
+            "summary": "Replaces exhaustive propose-and-verify scoring of every candidate harness change.",
+            "sids": [
+              "00e3e8e2193bc83d"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does behavior-aware verification generalize beyond coding agents to other agent domains?",
+          "How much wall-clock or compute cost does the new verification method actually save versus propose-and-verify baselines?",
+          "Does harness quality keep mattering as more harness logic gets absorbed into model weights, per the opening essay's thesis?"
+        ],
+        "take_for_builders": "If you're iterating on your agent's harness, watch for behavior-aware verification techniques that screen candidate changes without a full re-score — it directly targets the cost bottleneck in harness-evolution loops.",
+        "day_captions": {
+          "df63102a57f71f08": "Framed the trend: harnesses are being absorbed into model weights, shifting their remaining purpose toward directing human attention.",
+          "7cbe2bc28a10212c": "First empirical link in this thread between harness-evolution choices and coding-agent output quality.",
+          "00e3e8e2193bc83d": "Introduced behavior-aware verification to cut the cost of evaluating each harness-evolution candidate."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-08-22",
+          "items": [
+            {
+              "sid": "df63102a57f71f08",
+              "title": "The Evolution of the Agent Harness",
+              "url": "https://www.latent.space/p/attention-interface",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "Models keep absorbing the harness into their weights — soon, it will be a harness for human attention rather than for the model.",
+              "published": "2026-08-22T07:30:52+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-26",
+          "items": [
+            {
+              "sid": "7cbe2bc28a10212c",
+              "title": "Agent Harness Evolution Shapes Coding Agent Quality",
+              "url": "https://arxiv.org/abs/2607.03691",
+              "source": "hackernews_ai",
+              "type": "paper",
+              "summary_1line": "Agent Harness Evolution Shapes Coding Agent Quality",
+              "published": "2026-08-26T18:44:23+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-08-27",
+          "items": [
+            {
+              "sid": "00e3e8e2193bc83d",
+              "title": "Verify Smarter, Evolve Further: Efficient Harness Evolution through Behavior-Aware Verification",
+              "url": "http://arxiv.org/abs/2608.27311v1",
+              "source": "arxiv_cs_ai",
+              "type": "paper",
+              "summary_1line": "Agent harnesses shape how language-model agents use instructions, tools, and runtime components, but adapting these harnesses requires costly verification. Existing propose-and-verify methods typically score every can...",
+              "published": "2026-08-27T16:12:23+00:00"
             }
           ]
         }
