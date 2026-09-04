@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949]
-updated: 2026-08-31
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088]
+updated: 2026-09-04
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088]
 ---
 
 ## TL;DR
@@ -692,8 +692,46 @@ a variable" thread (BTS-AgentBench, the serving-backend and
 container-resourcing fronts above) to how a multi-model comparison itself
 gets built, not just how a single-model run does.
 
+A thirty-fourth front turns "what does this benchmark actually measure"
+into a checkable property rather than an assumption held on faith. BenchMIRT
+applies multidimensional Item Response Theory to individual questions across
+16 benchmarks and 100 models and finds two dominant latent dimensions —
+safety and general reasoning — with some labels landing on the "wrong" one:
+BBQ (built to measure bias) tracks general reasoning more than safety, and
+WMDP's scores correlate negatively with reasoning because refusal, not
+correct completion, is the desired answer. The same analysis finds
+substantial redundancy baked into current suites: keeping only 10% of a
+benchmark's questions preserves nearly the same capability picture as
+running the full set, evidence that benchmark size and measurement value are
+not the same thing. SWE-Gate applies the same construct-validity question to
+coding-agent benchmarks specifically: existing repository-level suites score
+whether a patch passes functional tests and stop there, but a 303-instance
+benchmark that also checks review-derived constraints from real PR feedback
+finds 221 of 644 functionally-passing repairs across four model backends
+fail those constraints — functional-only evaluation overestimates what an
+agent can actually ship, sharpening this page's standing
+"protocol/scaffolding artifacts inflate the score" critique into a specific,
+measured gap for code review. A practitioner essay supplies the methodology
+fix rather than another benchmark: borrowing clinical-trial discipline
+(pre-specified metrics, complete denominators including failures, separated
+development/confirmation sets, fail-closed systems where an unbounded claim
+is structurally impossible) for agent evals, and naming the two failure
+modes that let a score lie without anyone gaming it — a hidden denominator
+("0/3 scenarios completed" vs. "1/8 model requests executed" tell different
+stories) and success manufactured through retries rather than genuine
+capability.
+
 ## What's new
-Branching-rollout tests on live SWE-bench trajectories show static
+BenchMIRT and SWE-Gate both turn "what does this benchmark actually
+measure" into a checked property: BenchMIRT finds current suites reduce to
+two latent dimensions (safety, general reasoning) with 10% of questions
+preserving nearly the full capability picture, while SWE-Gate finds 221 of
+644 functionally-passing code repairs across four models fail
+review-derived constraints functional-only scoring misses. A practitioner
+essay adds the methodology fix — clinical-trial-style denominator
+discipline and fail-closed design (see State of the art above).
+
+Prior update: Branching-rollout tests on live SWE-bench trajectories show static
 model-switching evaluation is unreliable: replaying a logged trajectory with
 a swapped model mispredicts nearly every success-relevant outcome (61-94% of
 post-fork actions diverge, patch similarity to reality falls to 0.00-0.11),
@@ -730,14 +768,6 @@ the same tiered-metric discipline: a 95% offline false-positive reduction
 gated by a recall guardrail, reproducible via versioned prompt/model/dataset
 tracking, with LLM-as-judge triage routing only low-confidence or
 high-impact cases to humans (see State of the art above).
-
-Prior update: "No Judgment Without a Reason" tests whether an evaluator's stated reasoning
-tracks its verdict, not just whether the label is correct: a small model
-hits 98.41% receipt accuracy on frozen evaluations, but that drops to
-54.8-49.2% under meaning-preserving source permutations, and retraining on
-simple cases recovers only 7.16% of receipts on complex multi-source
-updates — the judge can keep landing the right label while its stated
-reasons stop tracking why (see State of the art above).
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

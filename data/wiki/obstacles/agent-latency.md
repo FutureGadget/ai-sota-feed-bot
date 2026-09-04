@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9]
-updated: 2026-09-02
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5]
+updated: 2026-09-04
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5]
 ---
 
 ## TL;DR
@@ -255,8 +255,32 @@ instinct OpenLake and RaBitQCache apply to a single model's own cache above,
 extended to a multi-model serving pipeline where a cheap model would
 otherwise redo prefill work a bigger model already paid for.
 
+**Compressing the prompt itself, not just the KV cache it produces, is a
+distinct lever**: Shopify's gisting trains a small set of learned "gist"
+tokens to reproduce a long system prompt's behavior — a teacher model runs
+with the full prompt while a student model learns the gist tokens by
+minimizing KL divergence between the two outputs — then swaps the compact
+tokens in at serving time instead of the original prompt. Applied to
+Shopify's Sidekick GraphQL agent, gisting cut the system prompt from about
+6,000 tokens to 1,500 (a 4:1 ratio) while holding quality, and moved every
+latency number in the loop: time to first token dropped from 438ms to
+354ms, end-to-end latency from 6.8s to 4.2s, and throughput rose from 20.2
+to 23.4 queries/sec — freeing enough serving capacity to cut the GPU
+allocation for the same load (see [agent cost](/topic/agent-cost) for the
+spend side of the same technique). It's a training-time answer to the
+same "the system prompt gets re-sent every turn" cost this page's serving
+and caching levers already attack from the infrastructure side, this time
+shrinking the prompt itself rather than the KV state or the request
+pattern around it.
+
 ## What's new
-A cross-model KV-sharing layer translates the KV state one model produced
+Shopify's gisting trains learned tokens to reproduce a long system prompt's
+behavior, compressing Sidekick's system prompt 4:1 (6,000 to 1,500 tokens)
+while holding quality — cutting time-to-first-token from 438ms to 354ms,
+end-to-end latency from 6.8s to 4.2s, and lifting throughput from 20.2 to
+23.4 queries/sec (see State of the art above).
+
+Prior update: A cross-model KV-sharing layer translates the KV state one model produced
 into a representation a different model can consume directly, cutting a
 cross-family target model's prefill cost up to 67.05% at 4K context and
 dropping heterogeneous large-to-small latency from 899ms to 138ms — and, in
