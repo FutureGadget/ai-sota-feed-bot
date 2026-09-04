@@ -5,7 +5,7 @@ question: "When should an agent route a call to a cheaper model instead of the f
 summary: "Independent routing systems at LangChain, Databricks, and Glean converge on the same shape — classify each call's complexity cheaply, default to a mid-tier model, escalate to frontier only on a specific signal — and each reports 30-75% cost cuts, but the escalation classifier itself can eat a fifth or more of the savings if you don't budget for it."
 status: active
 cluster: operations
-updated: 2026-08-19
+updated: 2026-09-04
 audience: "strong-software-engineer"
 math_depth: ""
 related_topics: [agent-cost, cost-controls]
@@ -87,4 +87,4 @@ Glean's Waldo model sits earlier in the pipeline: before any frontier call, it d
 - Optimizing for cost without measuring the accuracy delta, and shipping a router that trades away more quality than the use case can tolerate.
 
 ## Related
-See [agent cost](/topic/agent-cost) for the broader problem of runaway agent token spend this concept is one mitigation for, and [cost controls](/topic/cost-controls) for budgeting and per-task attribution techniques that pair with routing rather than replace it.
+See [agent cost](/topic/agent-cost) for the broader problem of runaway agent token spend this concept is one mitigation for, [cost controls](/topic/cost-controls) for budgeting and per-task attribution techniques that pair with routing rather than replace it, and [can you evaluate an agent's model router by replaying logged trajectories?](/foundations/model-switching-replay-gap) for why the accuracy numbers a router reports need live-rollout evidence, not just cost numbers, before you trust them in production.
