@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870]
-updated: 2026-08-29
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024]
+updated: 2026-09-04
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024]
 ---
 
 ## TL;DR
@@ -248,8 +248,28 @@ replace an MCP tool's result before it reaches the model — a client-side
 filtering point on the same tool-call path Anthropic's programmatic
 calling reroutes through sandboxed code.
 
+A sixteenth axis is **the protocol's own client libraries catching up to
+the 2026-07-28 spec**, not just servers and gateways: LangChain's MCP
+support now lives in a dedicated `langchain.mcp` module built on FastMCP,
+and handles the spec's **elicitation** feature — a server pausing mid-call
+to ask the calling agent for more information — as a LangGraph interrupt,
+so a mid-tool-call question fits the same human-in-the-loop pause/resume
+primitive LangGraph already uses elsewhere rather than a bespoke callback.
+The same release caches tool lists instead of re-fetching them per call,
+a client-side instance of the standing "don't re-list every tool schema
+every turn" argument the fourth axis's Tool Search Tool already makes at
+the server/prompt-budget level, now applied to what a framework does on
+the calling side.
+
 ## What's new
-Anthropic shipped three tool-use features with hard before/after numbers:
+LangChain's MCP client support (`langchain.mcp`, built on FastMCP for the
+2026-07-28 spec) handles elicitation — a server asking mid-call for more
+input — as a LangGraph interrupt, and caches tool lists instead of
+re-fetching them per call, extending the standing "don't re-list every
+tool every turn" discipline to the client side (see State of the art
+above).
+
+Prior update: Anthropic shipped three tool-use features with hard before/after numbers:
 Tool Search Tool cuts a 50-plus-tool prompt from ~72K to ~500 resting
 tokens and lifts task accuracy 25-49 points depending on model; Programmatic
 Tool Calling routes results through sandboxed code instead of context,
@@ -277,16 +297,6 @@ that reason over an agent's tool-call *history* rather than one request at a
 time — closing a concrete gap plain per-request authorization has: a
 response-checked rate limit that three concurrent requests can defeat before
 any of them settles.
-
-Prior update: Cloudflare previewed automatic WebMCP support — any site can turn it on from
-a dashboard toggle, no code change — widening the browser actuation surface
-from a Chrome origin trial one team opts into to a one-click switch a site
-operator flips. Separately, the MCP 2026-07-28 statelessness change is
-drawing developer pushback as well as adoption: dropping the session
-handshake in favor of routing on required headers reads to some
-practitioners as the protocol converging back toward a plain API, sharpening
-what MCP's durable value actually is (shared tool description and discovery,
-not the session state it just removed).
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

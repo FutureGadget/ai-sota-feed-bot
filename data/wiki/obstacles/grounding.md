@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609]
-updated: 2026-08-31
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4]
+updated: 2026-09-04
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4]
 ---
 
 ## TL;DR
@@ -208,8 +208,36 @@ gateway already makes above, this time as a hosted service a platform
 engineer doesn't have to run themselves, trading self-hosting control for
 setup speed.
 
+**A fourth grounding attack targets evidence that is factually true but
+answers the wrong question**: Lazy Grounding tests search agents with
+rewritten queries paired with documents that truthfully support the
+rewritten version but still surface for the original one, and finds this
+"nearby but wrong" evidence drags accuracy down 5.9 points on average and up
+to 17.3 points across 12 model-benchmark combinations — a retrieval-quality
+failure distinct from Salience Induction's truth-preserving reordering and
+DSPrompt's embedding-space poisoning above, because nothing in the retrieved
+document is false or adversarially inserted, it just answers a
+plausible-looking neighbor of the actual question. On the defense side,
+SCoNE answers the standing "retrieved documents mix informative and
+irrelevant context, and the model gets distracted" problem with a
+training-free fix: it identifies context-aware FFN neurons by both high
+attribution and high cross-input variability, then selectively strengthens
+just those neurons at inference time — no fine-tuning, no added inference
+latency, and only a small calibration sample — reporting consistent gains
+over baseline RAG methods across multiple knowledge-intensive QA benchmarks
+and two model backbones.
+
 ## What's new
-Cloudflare AI Search packages the full retrieval pipeline (crawl, parse,
+Lazy Grounding shows search agents can be misled by evidence that is
+factually accurate but answers a rewritten neighbor of the actual query,
+cutting accuracy 5.9 points on average (up to 17.3) across 12
+model-benchmark pairs — a distinct failure mode from the truth-preserving
+reordering and embedding-poisoning attacks this page already tracks. SCoNE
+answers the standing retrieval-noise problem with a training-free fix:
+selectively strengthening context-aware FFN neurons at inference time, with
+no fine-tuning or added latency (see State of the art above).
+
+Prior update: Cloudflare AI Search packages the full retrieval pipeline (crawl, parse,
 embed, retrieve) as a managed service with a single search endpoint and
 public `/mcp`/`/search` access, plus a "discover" mode that indexes sites
 without a published sitemap — the gateway-consolidation pattern this page

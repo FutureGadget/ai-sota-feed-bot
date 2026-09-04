@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be]
-updated: 2026-09-02
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942]
+updated: 2026-09-04
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942]
 ---
 
 ## TL;DR
@@ -219,6 +219,30 @@ small judge on them, rather than running a frontier model as the judge,
 is the same cheap-instrumentation-over-model-swap move already established
 for [evaluation](/topic/agent-evaluation).
 
+**Shorter output is not automatically cheaper output**, which sharpens the
+standing "cost is a function of behavior, not request count" argument in
+the TL;DR into a concrete failure mode: GitHub found that when a coding
+agent's output was truncated or summarized to save tokens, the agent would
+sometimes reopen the original output or rerun the command to recover
+information it needed — turning one apparently-cheaper turn into more total
+turns and more total context. Its fix works across the whole task rather
+than any single tool call: selectively compress repetitive build/test logs
+while preserving source code (the highest-value cut), strip unused
+line-number formatting (5% cost reduction on its own), rewrite Task-tool
+prompts to be less verbose (2.9%), and deliver background-work results
+without an extra retrieval call (2.3%) — each change validated with offline
+benchmarks and online A/B tests before shipping, and measured across the
+complete task rather than per tool call, the same task-level accounting
+this page's harness-bug and reasoning-effort levers already argue for. A
+different team attacks the same "compress the recurring, expensive part of
+the prompt" problem from the training side rather than the log-shaping
+side: Shopify's gisting trains learned tokens to reproduce a long system
+prompt's behavior, cutting its Sidekick agent's prompt 4:1 (6,000 to 1,500
+tokens) while holding quality and freeing enough serving capacity to reduce
+the GPU footprint for the same load (see [agent
+latency](/topic/agent-latency) for the latency numbers behind the same
+technique).
+
 **Harness-side cost bugs are their own line item**, distinct from model or
 architecture choice: Claude Code v2.1.216 fixed a slowdown where long-session
 message normalization cost grew *quadratically* with the number of turns,
@@ -313,7 +337,17 @@ one, and transaction caps enforce a ceiling on the resulting state instead
 of the request.
 
 ## What's new
-Anthropic's own commerce-agents guide reports 90-99% prompt-cache hit rates
+GitHub found that truncating or summarizing coding-agent output to save
+tokens can backfire — the agent reopens or reruns the original command to
+recover what it needed, costing more total turns than the uncompressed
+output would have. Its fix (selective log compression, leaner Task-tool
+prompts, no-extra-call background delivery) is validated per complete task,
+not per tool call, and cuts cost 5%/2.9%/2.3% respectively. Separately,
+Shopify's gisting compresses a system prompt 4:1 via learned tokens,
+freeing serving capacity to cut GPU footprint for the same load (see State
+of the art above).
+
+Prior update: Anthropic's own commerce-agents guide reports 90-99% prompt-cache hit rates
 in production via a byte-identical three-segment cache (global/session/
 volatile), cached tokens reading 1.5-2x faster than uncached ones, alongside
 a code-not-prompt safety discipline: staged approval before any financial
