@@ -569,6 +569,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "2e814e5a70146cc1": {
+    "id": "pb-compact-guardrail-model",
+    "kind": "source-backed",
+    "title": "Front a sub-1B guardrail model instead of a bigger LLM for injection filtering",
+    "area": "Safety",
+    "problem": "Running a full-size LLM as a safety classifier for every request adds latency and cost disproportionate to a simple safe/unsafe decision.",
+    "apply": "Deploy a small LoRA-tuned classifier (e.g. a 0.6B model fine-tuned from a base like Qwen3-0.6B) in front of the main model, trained on obfuscated variants of harmful and benign prompts across your target languages, to score each request safe/unsafe before it reaches the primary model.",
+    "result": "HiveTraceGuard-Pro reports a 14.3ms median latency — the lowest of 15 compared guardrail models — while ranking third of 19 on aggregate accuracy across benchmark groups.",
+    "effort": "medium",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2609.01046v1",
+    "source_sid": "2e814e5a70146cc1",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper's authors measured latency and accuracy against 15/19 other guardrail models on published benchmarks."
+    },
+    "edition_date": "2026-09-04"
+  },
   "309c04c4364dddf7": {
     "id": "pb-kv-cache-offload",
     "kind": "source-backed",
@@ -778,6 +797,25 @@
     },
     "edition_date": "2026-08-04"
   },
+  "44eda28a997ed077": {
+    "id": "pb-liberal-tool-inputs",
+    "kind": "source-backed",
+    "title": "Design agent tools to absorb malformed inputs, not reject them",
+    "area": "Tool use",
+    "problem": "Rigid MCP tool parsing turns small LLM formatting quirks into massive waste — one tool expecting a comma-separated string instead of a JSON array caused 535 failures a day, each costing about 12 retries.",
+    "apply": "Trace tool call failures (e.g. gateway/observability logs) ranked by frequency, then redesign the costliest handlers to coerce common malformed inputs — cast arrays to strings, default omitted parameters, absorb unexpected arguments — instead of erroring on anything outside spec.",
+    "result": "Databricks fixed seven such bugs in about an hour of tracing and estimates the fixes reclaim $1.2M a year in wasted tokens and engineering time.",
+    "effort": "low",
+    "source": "databricks_blog",
+    "source_url": "https://www.databricks.com/blog/how-we-eliminated-1-million-year-wasted-ai-agent-spend-one-hour",
+    "source_sid": "44eda28a997ed077",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Databricks measured the failure counts and $1.2M/year cost via Unity Gateway tracing before and after the fix."
+    },
+    "edition_date": "2026-09-04"
+  },
   "45f01235e11c1ae2": {
     "id": "pb-adaptive-stopping-for-eval-budget",
     "kind": "source-backed",
@@ -872,6 +910,25 @@
       "note": "LangChain's own account of their trace-mining and judge fine-tuning workflow; no precise accuracy/cost percentages given."
     },
     "edition_date": "2026-07-10"
+  },
+  "50942b1f895b815c": {
+    "id": "pb-diff-agent-authored-schema-changes",
+    "kind": "source-backed",
+    "title": "Diff functional fields before merging large agent-authored commits",
+    "area": "Reliability",
+    "problem": "A single agent-authored commit mixing unrelated changes can silently corrupt data while leaving its labels untouched — one commit replaced 92.6% of n8n's AI-node type definitions with a no-op placeholder, undetected for months.",
+    "apply": "For any large commit an agent produces — especially one spanning unrelated concerns — run an automated check that compares functional fields (like a node's type) against their identifiers (like its name) before merge, and block the merge on a mismatch.",
+    "result": "Silent corruption that leaves labels intact gets caught by a mechanical check before it reaches production data, instead of surviving unnoticed.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://sevenedge.pl/en/blog/an-ai-agent-erased-n8ns-ai-agent-nodes",
+    "source_sid": "50942b1f895b815c",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The incident and its scale are as reported by the source; the prevention check is the editor's inferred fix, since the article names none."
+    },
+    "edition_date": "2026-09-04"
   },
   "5201cdda51e234b5": {
     "id": "pb-restrict-web-fetch-link-following",
@@ -1956,6 +2013,44 @@
     },
     "edition_date": "2026-07-24"
   },
+  "be2df31b86804088": {
+    "id": "pb-bind-eval-numbers-to-evidence",
+    "kind": "source-backed",
+    "title": "Require every agent-eval metric to cite a specific evidence record",
+    "area": "Evals",
+    "problem": "Agent evaluations quietly lie when the same LLM being tested is also trusted to compute and report its own success numbers.",
+    "apply": "Route only logical pass/fail decisions to the LLM under test — compute every number deterministically in your own harness code. Bind each quantitative claim to an evidence_id + metric_path + displayed_value, and make the harness hard-fail rather than retry-and-hide when a required evidence link is missing.",
+    "result": "Every reported number traces back to a specific measurement instead of the model's own unverified summary.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/cedRiC874/researchops-agent/blob/6457358d74cc07106dfb7a348ac143cdaa87e459/docs/articles/honest-agent-evaluation/article.md",
+    "source_sid": "be2df31b86804088",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative design guidance from the source article; it names no benchmark numbers to cite."
+    },
+    "edition_date": "2026-09-04"
+  },
+  "be54aebcc77405a5": {
+    "id": "pb-gist-token-prompt-compression",
+    "kind": "source-backed",
+    "title": "Compress long system prompts into learned \"gist\" tokens",
+    "area": "Cost & latency",
+    "problem": "A long, static system prompt burns tokens and adds latency on every call to a production agent.",
+    "apply": "Train a small set of learned gist tokens to replace the system prompt: run the model once with the real prompt for teacher logits, once with candidate gist tokens for student logits, and train the gist embeddings to minimize the KL divergence between them, then write the result into the model's embedding matrix and tokenizer.",
+    "result": "Shopify compressed a ~6,000-token system prompt into 1,500 gist tokens (4:1) for its Sidekick GraphQL agent, cutting end-to-end latency from 6.8s to 4.2s and raising throughput from 20.2 to 23.4 queries/sec.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/spotify-gisting-llm-performance/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "be54aebcc77405a5",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Shopify engineering reported the before/after token, latency, and throughput numbers for their production agent."
+    },
+    "edition_date": "2026-09-04"
+  },
   "bf50ec5ce617ac83": {
     "id": "pb-gpu-scheduling-demand-curve",
     "kind": "source-backed",
@@ -2126,6 +2221,25 @@
       "note": "GitHub measured average review cost before and after the diff-anchored prompting change on its own Copilot code review pipeline."
     },
     "edition_date": "2026-07-14"
+  },
+  "cdd1118267ee925c": {
+    "id": "pb-recall-beats-summarize-handoff",
+    "kind": "source-backed",
+    "title": "Retrieve raw memory passages instead of summarizing them at handoff",
+    "area": "Memory",
+    "problem": "Compacting a long agent session into a summary for the next run loses the specific evidence the agent needs to finish the task.",
+    "apply": "Index full session traces — chunk, embed, and store every turn — instead of distilling them into a fact at write time. At handoff, retrieve the original passages with hybrid search (vector + BM25 + a reranker) rather than asking the model to write a compacted summary.",
+    "result": "In Hugging Face's Funes benchmark, retrieval-based recall beat written-summary handoff by 8x on one task and 4x on another, while surfacing evidence the compaction summary had dropped.",
+    "effort": "medium",
+    "source": "huggingface_blog",
+    "source_url": "https://huggingface.co/blog/funes",
+    "source_sid": "cdd1118267ee925c",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The blog reports a measured handoff-vs-recall benchmark comparing compaction, written handoff, and recall on cost."
+    },
+    "edition_date": "2026-09-04"
   },
   "cfe2e766a965b837": {
     "id": "pb-benchmark-citation-grounding-not-just-answer-quality",
