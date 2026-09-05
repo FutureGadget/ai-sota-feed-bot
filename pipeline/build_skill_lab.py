@@ -39,6 +39,11 @@ CONDITION_ORDER = ("no-skill", "minimal-instructions", "full-skill")
 REQUIRED_MEASURE_IDS = {"task-success", "final-quality", "trajectory", "efficiency"}
 RESERVED_SLUGS = {"drafts", "index", "latest", "list"}
 LAB_ARTIFACT_PREFIX = "/lab-artifacts/"
+INERT_ARTIFACT_SUFFIXES = {".json", ".jsonl", ".md", ".txt"}
+ARTIFACT_URL_REQUIREMENT = (
+    f"a {LAB_ARTIFACT_PREFIX} path with an inert extension "
+    "or credential-free HTTPS URL without query or fragment"
+)
 METRIC_FIELDS = {
     "duration_ms",
     "input_tokens",
@@ -133,6 +138,8 @@ def is_safe_public_url(value: Any) -> bool:
         return False
     try:
         parsed = urlsplit(raw)
+        hostname = parsed.hostname
+        _ = parsed.port  # Access validates malformed and out-of-range ports.
     except ValueError:
         return False
     decoded_path = _decoded_url_path(parsed.path)
@@ -150,7 +157,7 @@ def is_safe_public_url(value: Any) -> bool:
         return ".." not in decoded_path.split("/")
     return (
         parsed.scheme == "https"
-        and bool(parsed.netloc)
+        and bool(hostname)
         and parsed.username is None
         and parsed.password is None
     )
@@ -166,7 +173,11 @@ def is_safe_artifact_url(value: Any) -> bool:
         return False
     if raw.startswith("/"):
         decoded_path = _decoded_url_path(parsed.path)
-        return decoded_path is not None and decoded_path.startswith(LAB_ARTIFACT_PREFIX)
+        return (
+            decoded_path is not None
+            and decoded_path.startswith(LAB_ARTIFACT_PREFIX)
+            and Path(decoded_path).suffix.lower() in INERT_ARTIFACT_SUFFIXES
+        )
     return True
 
 
@@ -219,10 +230,7 @@ def _validate_skill(skill: Any, state: str, errors: list[str]) -> str | None:
     for field in ("name", "revision"):
         _require_text(skill, field, prefix, errors)
     if not is_safe_artifact_url(skill.get("source_url")):
-        errors.append(
-            f"{prefix}.source_url must be a {LAB_ARTIFACT_PREFIX} path or "
-            "credential-free HTTPS URL without query or fragment"
-        )
+        errors.append(f"{prefix}.source_url must be {ARTIFACT_URL_REQUIREMENT}")
     digest = str(skill.get("sha256") or "")
     if not SHA256_RE.match(digest):
         errors.append(f"{prefix}.sha256 must be a lowercase SHA-256 digest")
@@ -287,10 +295,7 @@ def _validate_run(run: Any, prefix: str, seen_run_ids: set[str], errors: list[st
                 errors.append(f"{prefix}.metrics.{field} must be a non-negative number")
     _require_text(run, "trajectory_summary", prefix, errors)
     if not is_safe_artifact_url(run.get("artifact_url")):
-        errors.append(
-            f"{prefix}.artifact_url must be a {LAB_ARTIFACT_PREFIX} path or "
-            "credential-free HTTPS URL without query or fragment"
-        )
+        errors.append(f"{prefix}.artifact_url must be {ARTIFACT_URL_REQUIREMENT}")
 
 
 def _validate_conditions(
@@ -336,8 +341,7 @@ def _validate_conditions(
             artifact_url = str(condition.get("instruction_artifact_url") or "").strip()
             if not is_safe_artifact_url(artifact_url):
                 errors.append(
-                    f"{prefix}.instruction_artifact_url must be a {LAB_ARTIFACT_PREFIX} "
-                    "path or credential-free HTTPS URL without query or fragment"
+                    f"{prefix}.instruction_artifact_url must be {ARTIFACT_URL_REQUIREMENT}"
                 )
             digest = str(condition.get("instruction_sha256") or "")
             if not SHA256_RE.match(digest):
@@ -577,6 +581,41 @@ def _validate_same_origin_artifacts(
                 )
 
 
+def referenced_same_origin_artifacts(
+    directory: Path = DEFAULT_LAB_DIR,
+    artifact_root: Path = DEFAULT_ARTIFACT_ROOT,
+) -> list[Path]:
+    """Return only validated, referenced same-origin evidence files."""
+    directory = Path(directory)
+    artifact_root = Path(artifact_root).resolve()
+    selected: set[Path] = set()
+    errors: list[str] = []
+    for source_path in sorted(
+        path
+        for path in directory.glob("*.json")
+        if path.name not in {"index.json", "latest.json"}
+    ):
+        try:
+            record = _read_json(source_path)
+        except SkillLabValidationError as exc:
+            errors.extend(exc.errors)
+            continue
+        record_errors = validate_record(record)
+        errors.extend(f"{source_path.name}: {error}" for error in record_errors)
+        if not isinstance(record, dict) or record_errors:
+            continue
+        _validate_same_origin_artifacts(record, source_path.name, artifact_root, errors)
+        for _field, url, _digest in _artifact_references(record):
+            if not url.startswith("/"):
+                continue
+            decoded_path = _decoded_url_path(urlsplit(url).path)
+            if decoded_path is not None:
+                selected.add((artifact_root / decoded_path.lstrip("/")).resolve())
+    if errors:
+        raise SkillLabValidationError(errors)
+    return sorted(selected, key=str)
+
+
 def build_store(
     directory: Path = DEFAULT_LAB_DIR,
     *,
@@ -617,7 +656,11 @@ def build_store(
         elif lab_id:
             seen_ids[lab_id] = path.name
         edition = record.get("pilot_edition")
-        if isinstance(edition, int) and not isinstance(edition, bool):
+        if (
+            isinstance(edition, int)
+            and not isinstance(edition, bool)
+            and edition in range(0, 4)
+        ):
             if edition in seen_editions:
                 errors.append(
                     f"{path.name}: duplicate pilot_edition {edition} also used by {seen_editions[edition]}"

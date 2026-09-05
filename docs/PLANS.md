@@ -16,3 +16,5 @@
 
 - Add Agent Builder Foundations as the portal's authority layer:
   `docs/exec-plans/active/2026-06-25-agent-builder-foundations.md`
+- Run the three-result Agent Skill Lab pilot inside Playbook:
+  `docs/exec-plans/active/2026-09-04-agent-skill-lab-pilot.md`

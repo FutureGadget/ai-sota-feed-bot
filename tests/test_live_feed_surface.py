@@ -193,11 +193,15 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("if (!genericInsertUsed && upd", inserts)
         self.assertIn(".slice(0, 2)", inserts)
 
-    def test_skill_lab_promotion_is_retired_on_open_or_dismiss(self) -> None:
+    def test_skill_lab_promotion_dismissal_retires_and_open_is_attributed(self) -> None:
         self.assertIn("SKILL_LAB_PROMO_SEEN_PREFIX", self.html)
         self.assertIn("localStorage.setItem(SKILL_LAB_PROMO_SEEN_PREFIX + id, '1')", self.html)
         self.assertIn("markSkillLabPromoSeen(editorDismiss.dataset.skillLabPromo)", self.html)
-        self.assertIn("markSkillLabPromoSeen(editorLink.dataset.editorDeskId)", self.html)
+        self.assertIn("?ref=feed_insert", self.html)
+        self.assertNotIn("posthogCapture('skill_lab_open'", self.html)
+        self.assertIn("window.addEventListener('pageshow'", self.html)
+        self.assertIn("event.persisted", self.html)
+        self.assertIn("isSkillLabPromoSeen(id)", self.html)
 
     def test_skill_lab_feed_impression_is_visibility_based_and_once_per_id(self) -> None:
         self.assertIn("function observeSkillLabFeedPromo()", self.html)

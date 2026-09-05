@@ -2896,7 +2896,7 @@
             id: `skill-lab:${skillLab.id}`,
             title: `Skill Lab ${edition}/${size}: ${skillLab.title || 'new field test'}`,
             copy: shortDeskText(isResult ? skillLab.verdict : skillLab.summary),
-            href: `/playbook/lab/${encodeURIComponent(skillLab.slug)}?ref=feed`,
+            href: `/playbook/lab/${encodeURIComponent(skillLab.slug)}?ref=feed_insert`,
             cta: isResult ? 'See the evidence' : 'Read the protocol',
             kind: 'skill-lab',
             skillLabId: skillLab.id,
@@ -4103,13 +4103,6 @@
 
         const editorLink = e.target.closest('a[data-editor-desk-link]');
         if (editorLink) {
-          if (editorLink.dataset.editorDeskLink === 'skill-lab') {
-            markSkillLabPromoSeen(editorLink.dataset.editorDeskId);
-            posthogCapture('skill_lab_open', {
-              lab_id: editorLink.dataset.editorDeskId || null,
-              placement: 'feed_insert',
-            });
-          }
           posthogCapture('editor_desk_open', {
             kind: editorLink.dataset.editorDeskLink || '',
             href: editorLink.getAttribute('href') || '',
@@ -4335,6 +4328,12 @@
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
+    window.addEventListener('pageshow', (event) => {
+      if (!event.persisted) return;
+      const promo = document.querySelector('[data-skill-lab-promo]');
+      const id = String(promo?.dataset.skillLabPromo || '');
+      if (id && isSkillLabPromoSeen(id) && feedCache.items.length) renderFeedList();
+    });
     // Snapshot the crawler-visible seed before anything rewrites #list: it
     // stays on screen during the fetch (reserving vertical space with real
     // content, no CLS) and is the fallback brief if this first fetch fails.

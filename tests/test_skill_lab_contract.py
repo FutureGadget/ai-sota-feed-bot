@@ -6,6 +6,7 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 from pipeline import build_skill_lab as lab
 
@@ -219,6 +220,8 @@ class SkillLabContractTest(unittest.TestCase):
             "https://example.com/run.json?",
             "https://example.com/run.json#private-note",
             "https://example.com/run.json#",
+            "https://example.com:bad/run.json",
+            "https://example.com:99999/run.json",
             "/lab-artifacts/%252e%252e/private/run.json",
             "/lab-artifacts/run%00.json",
         )
@@ -238,6 +241,18 @@ class SkillLabContractTest(unittest.TestCase):
         errors = lab.validate_record(record)
 
         self.assertTrue(any("/lab-artifacts/" in error for error in errors))
+
+    def test_root_relative_active_content_artifacts_are_rejected(self) -> None:
+        for suffix in ("html", "svg", "js", "xml"):
+            with self.subTest(suffix=suffix):
+                record = published_record()
+                record["method"]["conditions"][0]["runs"][0]["artifact_url"] = (
+                    f"/lab-artifacts/debugging-skill/run.{suffix}"
+                )
+
+                errors = lab.validate_record(record)
+
+                self.assertTrue(any("inert extension" in error for error in errors))
 
     def test_numeric_metrics_reject_booleans_and_negative_values(self) -> None:
         record = published_record()
@@ -395,7 +410,34 @@ class SkillLabContractTest(unittest.TestCase):
 
         self.assertIn('"pipeline/build_skill_lab.py", "--check"', script)
         self.assertIn("check=True", script)
-        self.assertIn('"lab-artifacts"', script)
+        self.assertIn("referenced_same_origin_artifacts", script)
+        self.assertIn("stage_skill_lab_artifacts", script)
+
+    def test_only_referenced_same_origin_artifacts_are_selected_for_deploy(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp) / "lab"
+            artifact_root = Path(tmp) / "web"
+            referenced = artifact_root / "lab-artifacts" / "debugging-skill" / "run.json"
+            unreferenced = artifact_root / "lab-artifacts" / "draft.html"
+            directory.mkdir()
+            referenced.parent.mkdir(parents=True)
+            referenced.write_text('{"status":"complete"}\n', encoding="utf-8")
+            unreferenced.write_text("<script>alert(1)</script>\n", encoding="utf-8")
+            (directory / "protocol.json").write_text(
+                json.dumps(protocol_record()), encoding="utf-8"
+            )
+            result = published_record()
+            result["method"]["conditions"][0]["runs"][0]["artifact_url"] = (
+                "/lab-artifacts/debugging-skill/run.json"
+            )
+            (directory / "debugging-skill.json").write_text(
+                json.dumps(result), encoding="utf-8"
+            )
+
+            lab.build_store(directory, artifact_root=artifact_root)
+            selected = lab.referenced_same_origin_artifacts(directory, artifact_root)
+
+            self.assertEqual(selected, [referenced.resolve()])
 
     def test_invalid_store_leaves_existing_derived_files_unchanged(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -445,6 +487,27 @@ class SkillLabContractTest(unittest.TestCase):
                 lab.build_store(directory, check=True)
 
             self.assertIn("contiguous", str(ctx.exception))
+
+    def test_store_rejects_out_of_range_edition_without_expanding_sequence(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            directory = Path(tmp)
+            record = protocol_record()
+            record["pilot_edition"] = 1_000_000_000
+            (directory / "protocol.json").write_text(
+                json.dumps(record), encoding="utf-8"
+            )
+            real_range = range
+
+            def bounded_range(*args: int) -> range:
+                if len(args) == 1 and args[0] > 4:
+                    raise AssertionError("pilot sequence expansion was not bounded")
+                return real_range(*args)
+
+            with mock.patch.object(lab, "range", side_effect=bounded_range, create=True):
+                with self.assertRaises(lab.SkillLabValidationError) as ctx:
+                    lab.build_store(directory, check=True)
+
+            self.assertIn("pilot_edition", str(ctx.exception))
 
     def test_empty_store_removes_stale_derived_latest(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

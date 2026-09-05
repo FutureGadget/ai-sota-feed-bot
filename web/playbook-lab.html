@@ -137,10 +137,11 @@
     .lab-list { margin:.4rem 0 0; padding-left:1.15rem; }
     .lab-list li { margin:.35rem 0; font-size:.88rem; line-height:1.5; }
     .lab-artifacts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; }
-    .lab-artifacts a { min-height:44px; display:flex; align-items:center; padding:.6rem .75rem;
-      border:1px solid var(--border); text-decoration:none; font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.7rem; overflow-wrap:anywhere; }
-    .lab-artifacts a:hover { border-color:var(--accent); }
+    .lab-artifact { min-width:0; padding:.6rem .75rem; border:1px solid var(--border); }
+    .lab-artifact a { min-height:44px; display:flex; align-items:center; text-decoration:none;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; overflow-wrap:anywhere; }
+    .lab-artifact:hover { border-color:var(--accent); }
+    .lab-artifact code { display:block; color:var(--muted); font-size:.62rem; overflow-wrap:anywhere; }
     .lab-cta { margin:2rem 0 1rem; padding:1.1rem 1.2rem; border-left:3px solid var(--lab-edge);
       background:var(--lab-wash); }
     .lab-cta h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.45rem; }
@@ -214,7 +215,10 @@
 
   <script>
     const LAB_SLUG_RE = /^[a-z0-9][a-z0-9-]{0,79}$/;
+    const LAB_ID_RE = /^lab-[a-z0-9][a-z0-9-]{0,76}$/;
+    const SKILL_LAB_PROMO_SEEN_PREFIX = 'ai_feed_skill_lab_promo_seen_v1:';
     const SKILL_LAB_DETAIL_VIEW_THRESHOLD = 0.7;
+    const LAB_PLACEMENTS = new Set(['feed_insert', 'playbook_home', 'weekly_email']);
     const CONDITION_LABELS = {
       'no-skill': 'No skill',
       'minimal-instructions': 'Minimal instructions',
@@ -296,13 +300,22 @@
     function captureLab(event, lab, extra = {}) {
       try {
         const params = new URLSearchParams(window.location.search);
-        const source = String(params.get('ref') || params.get('utm_source') || '').slice(0, 32);
+        const requestedPlacement = String(params.get('ref') || '').slice(0, 32);
+        const placement = LAB_PLACEMENTS.has(requestedPlacement) ? requestedPlacement : 'direct';
         window.aiFeedPostHog?.capture?.(event, {
           lab_id: String(lab?.id || '').slice(0, 80) || null,
           pilot_edition: Number.isInteger(lab?.pilot_edition) ? lab.pilot_edition : null,
-          source: /^[a-z0-9_-]{1,32}$/.test(source) ? source : null,
+          placement,
           ...extra,
         });
+      } catch {}
+    }
+
+    function markSkillLabPromoSeen(id) {
+      const safeId = String(id || '');
+      if (!LAB_ID_RE.test(safeId)) return;
+      try {
+        localStorage.setItem(SKILL_LAB_PROMO_SEEN_PREFIX + safeId, '1');
       } catch {}
     }
 
@@ -428,12 +441,15 @@
         const label = CONDITION_LABELS[condition.id] || condition.label || 'Condition';
         const instructions = safePublicUrl(condition.instruction_artifact_url);
         if (instructions !== '#') {
-          links.push(`<a href="${instructions}" target="_blank" rel="noopener" data-lab-artifact="instructions" data-lab-condition="${esc(condition.id)}">${esc(label)} instructions →</a>`);
+          const digest = /^[a-f0-9]{64}$/.test(String(condition.instruction_sha256 || ''))
+            ? `<code>sha256:${esc(condition.instruction_sha256)}</code>`
+            : '';
+          links.push(`<div class="lab-artifact"><a href="${instructions}" target="_blank" rel="noopener" data-lab-artifact="instructions" data-lab-condition="${esc(condition.id)}">${esc(label)} instructions →</a>${digest}</div>`);
         }
         for (const run of (condition.runs || [])) {
           const href = safePublicUrl(run.artifact_url);
           if (href === '#') continue;
-          links.push(`<a href="${href}" target="_blank" rel="noopener" data-lab-artifact="run" data-lab-condition="${esc(condition.id)}">${esc(label)} · ${esc(run.id)} →</a>`);
+          links.push(`<div class="lab-artifact"><a href="${href}" target="_blank" rel="noopener" data-lab-artifact="run" data-lab-condition="${esc(condition.id)}">${esc(label)} · ${esc(run.id)} →</a></div>`);
         }
       }
       return links.length ? `<div class="lab-artifacts">${links.join('')}</div>` : '';
@@ -445,18 +461,26 @@
       const harness = environment.harness || {};
       const fixture = environment.repository_fixture || {};
       const budget = environment.budget || {};
+      const task = lab?.method?.task || {};
       const skill = lab?.method?.skill || null;
       const skillSource = safePublicUrl(skill?.source_url);
       const skillRow = skill ? `<dt>Skill</dt><dd>${esc(skill.name || '')} · ${esc(skill.revision || '')}` +
         `${skillSource === '#' ? '' : ` · <a href="${skillSource}" target="_blank" rel="noopener">Pinned source</a>`}` +
         `${skill.sha256 ? `<br><code>sha256:${esc(skill.sha256)}</code>` : ''}</dd>` : '';
+      const testedRow = lab?.state === 'published'
+        ? `<dt>Tested at</dt><dd>${esc(lab.tested_at || '')}</dd>`
+        : '';
       return `<dl class="lab-setup">
-        <dt>Task</dt><dd>${esc(lab?.method?.task?.description || '')}</dd>
+        <dt>Task</dt><dd>${esc(task.description || '')}</dd>
+        <dt>Success criteria</dt><dd>${listHtml(task.success_criteria)}</dd>
+        <dt>Evaluation method</dt><dd>${esc(task.evaluation_method || '')}</dd>
         <dt>Model</dt><dd>${esc(model.name || '')} · ${esc(model.version || '')}</dd>
         <dt>Reasoning effort</dt><dd>${esc(environment.reasoning_effort || '')}</dd>
         <dt>Harness</dt><dd>${esc(harness.name || '')} · ${esc(harness.version || '')}</dd>
         <dt>Fixture</dt><dd>${esc(fixture.name || '')} · ${esc(fixture.revision || '')}</dd>
+        <dt>Permissions</dt><dd>${listHtml(environment.permissions)}</dd>
         ${skillRow}
+        ${testedRow}
         <dt>Repeat policy</dt><dd>${esc(lab?.method?.runs_per_condition || '')} independent runs per condition</dd>
         <dt>Budget</dt><dd>${esc(budget.timeout_seconds || '')} sec, ${esc(budget.max_tokens_per_run || '')} tokens, $${esc(budget.max_cost_usd_per_run || '')} per run</dd>
       </dl>`;
@@ -501,7 +525,8 @@
           `<p>No winner is shown before all ${plannedRunCount} runs pass review.</p>` +
           `<p class="lab-recommendation">${esc(lab.publication_rule || '')}</p></section>`;
       const comparison = state === 'published'
-        ? `<section class="lab-section"><h2>Condition results</h2>${resultsHtml(lab)}${findingsHtml(lab)}${runReceiptsHtml(lab)}</section>`
+        ? `<section class="lab-section"><h2>Exact condition setup</h2>${conditionsHtml(lab)}</section>` +
+          `<section class="lab-section"><h2>Condition results</h2>${resultsHtml(lab)}${findingsHtml(lab)}${runReceiptsHtml(lab)}</section>`
         : `<section class="lab-section"><h2>Three conditions, one task</h2>` +
           `<p class="lab-section-lead">Only the instruction layer changes.</p>${conditionsHtml(lab)}</section>`;
       const artifacts = state === 'published' ? artifactsHtml(lab) : '';
@@ -529,7 +554,8 @@
       document.getElementById('meta').textContent = `Pilot ${edition}/${size} · ${state}`;
       document.getElementById('jsonLink').href = `/api/playbook?lab=${encodeURIComponent(slug)}`;
       document.getElementById('canonical').href = `https://www.llm-digest.com/playbook/lab/${encodeURIComponent(slug)}`;
-      captureLab('skill_lab_detail_view', lab);
+      markSkillLabPromoSeen(lab.id);
+      captureLab('skill_lab_open', lab);
       if (state === 'published') observeOnce(document.getElementById('labVerdict'), 'skill_lab_verdict_view', lab);
       observeOnce(document.getElementById('labFinish'), 'skill_lab_complete', lab);
       root.addEventListener('click', (event) => {

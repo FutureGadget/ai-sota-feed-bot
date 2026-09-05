@@ -56,6 +56,29 @@ class SkillLabSurfaceTest(unittest.TestCase):
         self.assertIn("trajectory_summary", self.html)
         self.assertIn("Run receipts", self.html)
 
+    def test_complete_record_exposes_reproduction_inputs(self) -> None:
+        self.assertIn("Success criteria", self.html)
+        self.assertIn("Evaluation method", self.html)
+        self.assertIn("Permissions", self.html)
+        self.assertIn("Tested at", self.html)
+        self.assertIn("instruction_sha256", self.html)
+        self.assertIn("Exact condition setup", self.html)
+
+    def test_successful_detail_render_retires_promo_and_counts_one_open(self) -> None:
+        self.assertIn(
+            "const SKILL_LAB_PROMO_SEEN_PREFIX = 'ai_feed_skill_lab_promo_seen_v1:';",
+            self.html,
+        )
+        self.assertIn("function markSkillLabPromoSeen(id)", self.html)
+        render = self.html.split("function renderLab(lab)", 1)[1].split(
+            "function renderError", 1
+        )[0]
+        self.assertIn("markSkillLabPromoSeen(lab.id);", render)
+        self.assertIn("captureLab('skill_lab_open', lab);", render)
+        self.assertNotIn("skill_lab_detail_view", self.html)
+        self.assertIn("placement", self.html)
+        self.assertNotIn("source:", self.html)
+
     def test_artifacts_are_allowlisted_and_open_safely(self) -> None:
         self.assertIn("function safePublicUrl", self.html)
         self.assertIn("url.protocol !== 'https:'", self.html)
@@ -63,8 +86,20 @@ class SkillLabSurfaceTest(unittest.TestCase):
         self.assertIn('target="_blank" rel="noopener"', self.html)
         self.assertIn("skill_lab_artifact_open", self.html)
 
+    def test_same_origin_artifacts_receive_sandboxing_headers(self) -> None:
+        policies = {
+            row["source"]: {header["key"]: header["value"] for header in row["headers"]}
+            for row in self.vercel["headers"]
+        }
+        for source in ("/lab-artifacts/(.*)", "/web/lab-artifacts/(.*)"):
+            self.assertEqual(policies[source]["X-Content-Type-Options"], "nosniff")
+            self.assertEqual(
+                policies[source]["Content-Security-Policy"],
+                "sandbox; default-src 'none'",
+            )
+
     def test_measurement_and_finishability_are_explicit(self) -> None:
-        self.assertIn("skill_lab_detail_view", self.html)
+        self.assertIn("skill_lab_open", self.html)
         self.assertIn("skill_lab_verdict_view", self.html)
         self.assertIn("skill_lab_complete", self.html)
         self.assertIn('id="labFinish"', self.html)

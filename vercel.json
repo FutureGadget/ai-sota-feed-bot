@@ -52,6 +52,20 @@
   ],
   "headers": [
     {
+      "source": "/lab-artifacts/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "sandbox; default-src 'none'" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
+      "source": "/web/lab-artifacts/(.*)",
+      "headers": [
+        { "key": "Content-Security-Policy", "value": "sandbox; default-src 'none'" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         { "key": "Cache-Control", "value": "s-maxage=300, stale-while-revalidate=3600" }

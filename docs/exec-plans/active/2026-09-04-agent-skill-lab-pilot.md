@@ -40,7 +40,8 @@ Acceptance:
 - [x] Drafts are ignored and invalid input causes no derived writes.
 - [x] The builder writes deterministic `index.json` and `latest.json`.
 - [x] Same-origin evidence is confined to `/lab-artifacts/`, exists before
-      publication, and matches pinned digests where one is declared.
+      publication, uses inert file types, is staged only when referenced, and
+      matches pinned digests where one is declared.
 
 ### Slice 2: additive API selector
 
@@ -157,7 +158,7 @@ Acceptance:
 
 ## Verification
 
-Verified with 485 Python tests, 67 Node tests, focused publication checks,
+Verified with 491 Python tests, 67 Node tests, focused publication checks,
 Python and JavaScript syntax checks, and `git diff --check`. The pilot adds no
 package dependency. A read-only `npm audit` also found pre-existing vulnerable
 transitive packages in the repository lockfile; remediation is separate from

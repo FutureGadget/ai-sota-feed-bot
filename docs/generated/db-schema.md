@@ -117,9 +117,11 @@ Response fields served from the accumulated ranked pool above:
   counts and medians are derived from the raw runs, not authored into the
   record. Artifact links must be credential-free HTTPS URLs without query or
   fragment components, or same-origin paths under `/lab-artifacts/`. Same-origin
-  files live in `web/lab-artifacts/`, must exist when the store is built, and
-  are staged at the deployment root. Local pinned-skill and instruction files
-  must match their authored SHA-256 digests.
+  files live in `web/lab-artifacts/`, use only `.json`, `.jsonl`, `.md`, or
+  `.txt`, and must exist when the store is built. The deploy stages only files
+  referenced by validated records at the root and mirrored `/web/` paths, both
+  with sandboxing and MIME-sniffing protections. Local pinned-skill and
+  instruction files must match their authored SHA-256 digests.
 - `data/playbook/lab/{index,latest}.json` - deterministic derived views written
   by `pipeline/build_skill_lab.py` only after every root-level Lab record passes
   validation. Each index row carries `content_sha256`, and each derived file is

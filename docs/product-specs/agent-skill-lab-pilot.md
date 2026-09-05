@@ -87,8 +87,11 @@ Artifacts may contain sanitized prompts, tool-call timelines, diffs, test
 output, and scoring receipts. Same-origin evidence lives under
 `web/lab-artifacts/<slug>/` and is served from `/lab-artifacts/<slug>/`.
 External evidence must use credential-free HTTPS. Artifact URLs cannot contain
-query strings or fragments. They must not contain secrets, private repository
-content, subscriber information, or hidden model reasoning.
+query strings or fragments. Same-origin evidence is limited to inert `.json`,
+`.jsonl`, `.md`, and `.txt` files. Only files referenced by a validated record
+are staged, and both public artifact paths receive a sandboxing Content Security
+Policy plus `X-Content-Type-Options: nosniff`. Artifacts must not contain secrets,
+private repository content, subscriber information, or hidden model reasoning.
 
 ## Data contract
 
@@ -136,8 +139,8 @@ binding so a source edit cannot bypass validation through a stale index. IDs,
 slugs, and pilot numbers must be unique, editions must be contiguous from the
 protocol, and same-origin artifact URLs are limited to `/lab-artifacts/`. The
 builder rejects a missing same-origin file and verifies local pinned-skill and
-instruction SHA-256 digests. The Vercel build copies the artifact directory to
-the deployment root.
+instruction SHA-256 digests. The Vercel build stages only referenced inert
+artifacts at the deployment root and mirrored `/web/` path.
 
 ## Web behavior
 
@@ -174,7 +177,10 @@ stories when all of the following are true:
 
 The insert consumes the existing maximum-two Editor's Desk budget. It never
 adds a third promotional block or appears above the first story. Opening or
-dismissing it retires that Lab ID's feed promotion.
+dismissing it retires that Lab ID's feed promotion. A successful detail render
+from Playbook, email, or a direct link writes the same browser-local retirement
+key. A restored feed page reconciles that key on `pageshow` so browser Back
+cannot revive a stale promotion.
 
 ### Email promotion
 
@@ -192,7 +198,8 @@ uses these explicit events:
 
 - `skill_lab_feature_view`: teaser became visible, with Lab ID, edition, and
   placement;
-- `skill_lab_open`: reader opened the detail, with source placement;
+- `skill_lab_open`: a validated detail rendered, with `placement` set to
+  `feed_insert`, `playbook_home`, `weekly_email`, or `direct`;
 - `skill_lab_verdict_view`: result verdict became visible;
 - `skill_lab_artifact_open`: artifact kind and condition only;
 - `skill_lab_complete`: finite end marker became visible;

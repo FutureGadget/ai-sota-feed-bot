@@ -28,7 +28,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 | BL-001 | Agent-managed source pipeline | idea | critical | Source inbox/schema |
 | BL-002 | Metrics-driven optimization agent | idea | critical | Metric access and definitions |
 | BL-003 | Agent experimentation system | idea | high | Exposure logging and sufficient traffic |
-| BL-004 | Agent Skill Lab | pilot-in-progress | high | Approved pilot contract and owner-approved experiment runs |
+| BL-004 | Agent Skill Lab | scheduled | high | Approved pilot contract and owner-approved experiment runs |
 | BL-005 | Harness Field Tests | idea | high | BL-004 methodology and product access |
 | BL-006 | Benchmark Decoder | idea | medium | Editorial rubric and benchmark source policy |
 | BL-007 | Cost efficiency & productivity coverage lens | ready | medium | Wiki-curator routine; CTR/topic-view signals |
@@ -105,7 +105,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 
 ## BL-004 — Agent Skill Lab
 
-- **Status:** pilot-in-progress
+- **Status:** scheduled
 - **Priority:** high
 - **Outcome:** Help engineers building agents understand how a reusable skill or
   instruction set changes agent behavior, not merely the final answer, through

@@ -118,10 +118,11 @@ class PlaybookSurfaceTest(unittest.TestCase):
 
     def test_skill_lab_has_bounded_measurement_and_subscribe_attribution(self) -> None:
         self.assertIn("skill_lab_feature_view", self.html)
-        self.assertIn("skill_lab_open", self.html)
         self.assertIn("skillLabMeetsVisibility(entries, SKILL_LAB_FEATURE_THRESHOLD)", self.html)
         self.assertIn('data-subscribe-placement="skill_lab_teaser"', self.html)
         self.assertIn("/subscribe?ref=skill_lab&lab_id=", self.html)
+        self.assertIn("?ref=playbook_home", self.html)
+        self.assertNotIn("captureSkillLab('skill_lab_open'", self.html)
 
     def test_skill_lab_does_not_add_a_navigation_destination(self) -> None:
         nav = self.html.split('<nav class="site-nav-fallback"', 1)[1].split("</nav>", 1)[0]

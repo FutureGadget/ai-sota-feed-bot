@@ -424,7 +424,7 @@
         slot.replaceChildren();
         return;
       }
-      const detailHref = `/playbook/lab/${encodeURIComponent(slug)}`;
+      const detailHref = `/playbook/lab/${encodeURIComponent(slug)}?ref=playbook_home`;
       const subscribeHref = `/subscribe?ref=skill_lab&lab_id=${encodeURIComponent(String(lab.id || ''))}`;
       const status = state === 'published' ? '60-second verdict' : 'Protocol · no results yet';
       const lead = state === 'published' ? lab.verdict : lab.summary;
@@ -558,14 +558,6 @@
     }
 
     initThemeToggle();
-    document.addEventListener('click', (event) => {
-      const link = event.target.closest('a[data-skill-lab-open]');
-      if (!link) return;
-      captureSkillLab('skill_lab_open', {
-        id: link.dataset.skillLabOpen,
-        pilot_edition: Number(link.dataset.skillLabEdition),
-      }, 'playbook_home');
-    });
     run();
   </script>
 
