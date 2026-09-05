@@ -27,6 +27,7 @@
     { "source": "/storyline/:slug([a-z0-9-]+)", "destination": "/web/storyline/:slug.html" },
     { "source": "/ko/storyline/:slug([a-z0-9-]+)", "destination": "/web/ko/storyline/:slug.html" },
     { "source": "/playbook", "destination": "/web/playbook.html" },
+    { "source": "/playbook/lab/:slug([a-z0-9-]+)", "destination": "/web/playbook-lab.html" },
     { "source": "/playbook/:date(\\d{4}-\\d{2}-\\d{2})", "destination": "/web/playbook.html" },
     { "source": "/playbook/:date", "destination": "/web/playbook.html" },
     { "source": "/ko/playbook", "destination": "/web/ko/playbook.html" },
@@ -89,8 +90,8 @@
       "includeFiles": "data/foundations/index.json"
     },
     "api/playbook.js": {
-      "includeFiles": "data/playbook/{index,latest,source-index}.json data/playbook/*-*-*.json data/i18n/ko/playbook/{index,latest}.json data/i18n/ko/playbook/*-*-*.json",
-      "excludeFiles": "data/playbook/input/**"
+      "includeFiles": "data/playbook/{index,latest,source-index}.json data/playbook/*-*-*.json data/playbook/lab/{index,latest}.json data/playbook/lab/*.json data/i18n/ko/playbook/{index,latest}.json data/i18n/ko/playbook/*-*-*.json",
+      "excludeFiles": "data/playbook/{input/**,lab/drafts/**}"
     },
     "api/updates.js": {
       "includeFiles": "data/{daily/index.json,weekly/index.json,storylines/index.json,wiki/index.json,playbook/index.json,foundations/index.json}"

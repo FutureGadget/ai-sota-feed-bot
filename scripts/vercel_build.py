@@ -14,10 +14,17 @@ PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 
 # web/ subdirectories that must also exist at the deployment root because pages
 # reference them with root-relative, extensioned URLs (see the staging step).
-ROOT_ASSET_DIRS = ("mascot", "universe", "og")
+ROOT_ASSET_DIRS = ("mascot", "universe", "og", "lab-artifacts")
 
 
 def main() -> None:
+    # Lab records are authored source data. Refuse to publish if their validated
+    # index or latest snapshot is missing or stale relative to those sources.
+    subprocess.run(
+        [sys.executable, "pipeline/build_skill_lab.py", "--check"],
+        cwd=ROOT,
+        check=True,
+    )
     # Recompile the agent-engineering wiki from its committed markdown pages so
     # code-only PR previews reflect edited pages. Non-fatal: a broken page falls
     # back to the committed data/wiki/index.json rather than failing the deploy.
@@ -53,6 +60,7 @@ def main() -> None:
     #   mascot/  -> `/mascot/mascot.js`   ES module import (every page shell)
     #   universe/-> `/universe/universe.js` ES module import (/map orbit view)
     #   og/      -> `/og/<name>.png`      per-edition og:image (pipeline/og_cards.py)
+    #   lab-artifacts/ -> `/lab-artifacts/*` pinned Skill Lab evidence
     # Same rule as the brand assets above: a request with a file extension is
     # served only if the file physically exists at that path — the /web/*
     # rewrites never fire for it. The root-asset copy above is non-recursive,
