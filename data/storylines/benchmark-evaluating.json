@@ -1,0 +1,105 @@
+{
+ "slug": "benchmark-evaluating",
+ "label": "Benchmark Evaluating",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-08-19T06:27:05+00:00",
+ "last_updated": "2026-09-04T20:55:15+00:00",
+ "generated_at": "2026-09-05T05:06:07.574550+00:00",
+ "sources": [
+  "arxiv_llm_reliability",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-08-19",
+   "items": [
+    {
+     "title": "OmniHandwritingOCR: A Diagnostic Benchmark for Evaluating Multimodal LLMs in Handwritten OCR Scenarios",
+     "url": "http://arxiv.org/abs/2608.18586v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "Multimodal large language models (MLLMs) are increasingly used as OCR systems in document and knowledge-processing pipelines, but their ability to faithfully read real handwriting remains underexplored. Existing OCR b...",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "112397af63f8e38e",
+     "published": "2026-08-19T06:27:05+00:00",
+     "editor_note": "First of the three: isolates handwriting-OCR failures in multimodal LLMs used in document pipelines."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-03",
+   "items": [
+    {
+     "title": "KC-Bench: A Dynamic Interactive Benchmark for Evaluating Knowledge Conflicts in LLM Agents",
+     "url": "http://arxiv.org/abs/2609.03588v1",
+     "source": "arxiv_llm_reliability",
+     "type": "paper",
+     "summary_1line": "As LLMs increasingly act through tools, they must reconcile user instructions, parametric knowledge, and dynamic environmental observations before taking actions. We introduce KC-Bench, a controlled multi-turn benchma...",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "71d13489a25b073e",
+     "published": "2026-09-03T09:35:14+00:00",
+     "editor_note": "Second: a multi-turn benchmark for agents reconciling instructions, memory, and live tool output."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-04",
+   "items": [
+    {
+     "title": "AWS-bench: Benchmark for evaluating AI coding agents on real-world AWS tasks",
+     "url": "https://github.com/aws-bench/aws-bench",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "AWS-bench: Benchmark for evaluating AI coding agents on real-world AWS tasks",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "2e209b3bcae89889",
+     "published": "2026-09-04T20:55:15+00:00",
+     "editor_note": "Third and newest: an open-source benchmark grading coding agents on real AWS tasks."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Researchers keep shipping narrow, domain-specific benchmarks instead of one general leaderboard. Since Aug 19, that's produced a handwriting-OCR diagnostic for multimodal models and a knowledge-conflict test for tool-using agents.",
+  "stale": false,
+  "whats_new": "AWS-bench landed Sep 4 as an open-source benchmark scoring AI coding agents against real AWS infrastructure tasks, not synthetic coding puzzles.",
+  "why_it_matters": "A general coding leaderboard rank doesn't predict whether an agent can safely operate real cloud infrastructure — pick the benchmark that matches your deployment surface.",
+  "take_for_builders": "If you're picking a coding agent for AWS-specific work, run it against AWS-bench before trusting a general coding leaderboard rank.",
+  "beats": [
+   {
+    "kicker": "OCR EVAL",
+    "tone": "neutral",
+    "headline": "OmniHandwritingOCR probes multimodal LLMs on real handwriting",
+    "summary": "A diagnostic benchmark for handwritten-OCR fidelity in document and knowledge-processing pipelines.",
+    "sids": [
+     "112397af63f8e38e"
+    ]
+   },
+   {
+    "kicker": "AGENT MEMORY",
+    "tone": "neutral",
+    "headline": "KC-Bench tests how agents resolve conflicting instructions and knowledge mid-task",
+    "summary": "A controlled multi-turn benchmark for reconciling user instructions, parametric knowledge, and live tool observations.",
+    "sids": [
+     "71d13489a25b073e"
+    ]
+   },
+   {
+    "kicker": "AWS CODING",
+    "tone": "now",
+    "headline": "AWS-bench scores coding agents on real-world AWS tasks",
+    "summary": "An open-source benchmark built specifically around AWS infrastructure tasks rather than generic coding problems.",
+    "sids": [
+     "2e209b3bcae89889"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does AWS-bench cover multi-service, compound infrastructure tasks or only single-service actions?",
+   "Will model vendors start reporting scores against these narrow benchmarks, or will they stay community-only?"
+  ],
+  "generated_at": "2026-09-05T05:10:00+00:00"
+ }
+}
