@@ -902,6 +902,19 @@
   "url": "https://github.com/0xhsn/proxy-llms",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "46f0053d75399ece": {
+  "first_seen": "2026-09-05T01:03:11.519426+00:00",
+  "id": "8c579e265d324170",
+  "image_url": "https://static.simonwillison.net/static/2026/gpt-6-and-5-6-pelicans-html.webp",
+  "published": "2026-09-04T23:59:05+00:00",
+  "sid": "46f0053d75399ece",
+  "source": "simon_willison",
+  "summary": "I got access to GPT-6 Astra this afternoon, so naturally I used it to generate SVGs of pelicans riding bicycles - at low, medium, high, xhigh and max reasoning levels (Astra doesn't support reasoning=none). Then I rendered those pelicans in a comparison grid with GPT-5.6 Sol, Terra, and Luna, and beyond being fun the result was surprisingly useful. See the grid for full quality images. Here's the transcript that created the GPT-6 Nova pelicans. There are a few interesting things that stand out from this grid. The Astra pelicans are much better . The very best GPT-5.6-Sol pelican (I liked xhigh better than max) is still pretty clearly a bunch of abstract shapes. Every single one of the Astra pelicans, from low to xhigh, looks better than that. The Astra max one is really good. Astra below max still doesn't reliably get the pelican legs on both sides of the frame. In terms of cost, Astra may be around twice the price of Sol ($10/million input, $50/million output, compared to $5/$30 for Sol), but it uses significantly less tokens at each of the levels, making the prices at the different levels closer than they might otherwise be. Astra low produces a better pelican than ANY of the GPT-5.6 Sol models at any level, for 9.55 cents. Spending 10 cents on any other model gets a much worse result. Look at the input token counts: Astra and Luna both used 16 input tokens, Sol and Terra used 26. That's interesting. I wonder if Astra and Luna are more related to each other than OpenAI let ",
+  "summary_1line": "I got access to GPT-6 Astra this afternoon, so naturally I used it to generate SVGs of pelicans riding bicycles - at low, medium, high, xhigh and max reasoning levels (Astra doesn't support reasoning=none). Then I ren...",
+  "title": "The Pelican comparison grid for Astra is pretty interesting",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Sep/4/astra-pelicans"
+ },
  "4899b09fc189a3e4": {
   "first_seen": "2026-09-02T06:03:22.322174+00:00",
   "id": "a9264b91d5684038",
@@ -2669,7 +2682,7 @@
   ],
   "published": "2026-09-03T15:48:43+00:00",
   "sid": "e1d72d2e87970fad",
-  "source": "arxiv_agent_systems_research",
+  "source": "arxiv_cs_lg",
   "summary": "Large Language Models (LLMs) owe much of their success to next-token prediction (NTP), but their autoregressive (AR) structure requires slow, sequential token generation. To overcome this bottleneck, we introduce diffusion-augmented LLMs, a new class of models that defines an AR model distribution while using diffusion to draw multiple tokens in parallel from that distribution. We decouple the parameters of these models into two sets: AR weights, trained using the standard NTP objective, and lightweight diffusion weights, trained to generate multiple tokens simultaneously. The diffusion weights are learned through a simple Diffusion Distillation phase that adds negligible overhead to existing LLM training pipelines. We also introduce $Ψ$-Spec, a family of samplers that enables lossless acceleration and inference-time scaling at a fixed context length. Unlike speculative decoding, our method requires no separate draft model. Unlike diffusion LLMs (d-LLMs), it accelerates generation without sacrificing the quality of the underlying AR model. The resulting models, called Uno, can be trained from scratch or built by augmenting existing open-weight AR LLMs. Uno achieves higher throughput than leading speculative-decoding methods at every evaluated batch size and delivers up to $3\\times$ speedups over the base AR model, including at the largest batch size supported by the device. Notably, our 8B Uno model outperforms the leading open d-LLM, the 26B DiffusionGemma, and the proprieta",
   "summary_1line": "Large Language Models (LLMs) owe much of their success to next-token prediction (NTP), but their autoregressive (AR) structure requires slow, sequential token generation. To overcome this bottleneck, we introduce diff...",
   "title": "Unlocking Lossless Speedups in LLMs via Discrete Diffusion",
