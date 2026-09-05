@@ -28,7 +28,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 | BL-001 | Agent-managed source pipeline | idea | critical | Source inbox/schema |
 | BL-002 | Metrics-driven optimization agent | idea | critical | Metric access and definitions |
 | BL-003 | Agent experimentation system | idea | high | Exposure logging and sufficient traffic |
-| BL-004 | Agent Skill Lab | needs-spec | high | Experiment methodology and artifact format |
+| BL-004 | Agent Skill Lab | pilot-in-progress | high | Approved pilot contract and owner-approved experiment runs |
 | BL-005 | Harness Field Tests | idea | high | BL-004 methodology and product access |
 | BL-006 | Benchmark Decoder | idea | medium | Editorial rubric and benchmark source policy |
 | BL-007 | Cost efficiency & productivity coverage lens | ready | medium | Wiki-curator routine; CTR/topic-view signals |
@@ -105,7 +105,7 @@ the backlog entry. Record meaningful scope or architecture decisions in
 
 ## BL-004 — Agent Skill Lab
 
-- **Status:** needs-spec
+- **Status:** pilot-in-progress
 - **Priority:** high
 - **Outcome:** Help engineers building agents understand how a reusable skill or
   instruction set changes agent behavior, not merely the final answer, through
@@ -135,6 +135,10 @@ the backlog entry. Record meaningful scope or architecture decisions in
   [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills);
   define the common task and metrics; estimate per-edition execution cost; and
   establish baseline retention, subscription, and artifact-click metrics.
+- **Pilot:** The approved three-result contract, edition-zero protocol, web and
+  measurement behavior, stop conditions, and exit decision are defined in
+  `docs/product-specs/agent-skill-lab-pilot.md`. Implementation is tracked in
+  `docs/exec-plans/active/2026-09-04-agent-skill-lab-pilot.md`.
 
 ## BL-005 — Harness Field Tests
 

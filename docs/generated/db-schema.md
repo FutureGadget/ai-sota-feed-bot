@@ -106,6 +106,27 @@ Response fields served from the accumulated ranked pool above:
 - `data/playbook/source-index.json` — deterministic lookup keyed by durable
   story `source_sid`. Contains only validated source-backed cards plus their
   edition id; consumed by static and dynamic daily/weekly recap renderers.
+- `data/playbook/lab/<slug>.json` - validated Agent Skill Lab pilot records.
+  `state: protocol` is allowed only for edition zero and cannot contain runs or
+  a verdict. `state: published` is allowed for result editions 1 through 3 and
+  contains the pinned environment, exactly three comparison conditions, at
+  least three raw runs per condition, artifact references, limitations, a
+  verdict, and a recommendation. Published records pin the reasoning effort and
+  the tested skill's public source, revision, and SHA-256 digest; the minimal
+  and full instruction artifacts also carry distinct digests. Displayed success
+  counts and medians are derived from the raw runs, not authored into the
+  record. Artifact links must be credential-free HTTPS URLs without query or
+  fragment components, or same-origin paths under `/lab-artifacts/`. Same-origin
+  files live in `web/lab-artifacts/`, must exist when the store is built, and
+  are staged at the deployment root. Local pinned-skill and instruction files
+  must match their authored SHA-256 digests.
+- `data/playbook/lab/{index,latest}.json` - deterministic derived views written
+  by `pipeline/build_skill_lab.py` only after every root-level Lab record passes
+  validation. Each index row carries `content_sha256`, and each derived file is
+  replaced atomically. The Vercel build and serving boundaries reject stale
+  source/index pairs. `data/playbook/lab/drafts/` is ignored by the builder and
+  excluded from deployment. Served through `/api/playbook?lab=...`; the full
+  reader surface is `/playbook/lab/<slug>`.
 - `data/i18n/<locale>/<surface>/<id>.json` — pre-translated static-page
   artifacts. Current surfaces are `daily`, `weekly`, `story`, `storyline`,
   `topic`, and `foundations`. Each artifact carries `{locale, source_path,
