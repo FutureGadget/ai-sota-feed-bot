@@ -88,6 +88,46 @@ class PlaybookSurfaceTest(unittest.TestCase):
         )
         self.assertIn("border-color:var(--accent); color:var(--accent); background:transparent;", self.html)
 
+    def test_skill_lab_is_an_optional_playbook_child(self) -> None:
+        self.assertIn('id="skillLabFeature" class="pb-lab-slot" hidden', self.html)
+        self.assertIn("/api/playbook?lab=latest", self.html)
+        self.assertIn("if (!date) loadSkillLabFeature();", self.html)
+        self.assertIn("renderEdition(edition);", self.html)
+        self.assertLess(
+            self.html.index("renderEdition(edition);"),
+            self.html.index("if (!date) loadSkillLabFeature();"),
+        )
+        self.assertIn("slot.hidden = true", self.html)
+
+    def test_skill_lab_teaser_sits_between_hero_and_change_records(self) -> None:
+        render_start = self.html.index("function renderEdition(edition)")
+        render_end = self.html.index("async function loadArchive", render_start)
+        renderer = self.html[render_start:render_end]
+        self.assertLess(renderer.index('class="pb-hero"'), renderer.index('id="skillLabFeature"'))
+        self.assertLess(renderer.index('id="skillLabFeature"'), renderer.index('class="pb-list"'))
+
+    def test_skill_lab_uses_instrument_layout_and_explicit_conditions(self) -> None:
+        self.assertIn(".pb-lab {", self.html)
+        self.assertIn("border-left:3px solid var(--apply-edge)", self.html)
+        self.assertIn(".pb-lab-conditions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr));", self.html)
+        self.assertIn("No skill", self.html)
+        self.assertIn("Minimal instructions", self.html)
+        self.assertIn("Full skill", self.html)
+        self.assertIn("min-height:44px", self.html)
+        self.assertIn(".pb-lab-conditions { grid-template-columns:1fr; }", self.html)
+
+    def test_skill_lab_has_bounded_measurement_and_subscribe_attribution(self) -> None:
+        self.assertIn("skill_lab_feature_view", self.html)
+        self.assertIn("skill_lab_open", self.html)
+        self.assertIn("skillLabMeetsVisibility(entries, SKILL_LAB_FEATURE_THRESHOLD)", self.html)
+        self.assertIn('data-subscribe-placement="skill_lab_teaser"', self.html)
+        self.assertIn("/subscribe?ref=skill_lab&lab_id=", self.html)
+
+    def test_skill_lab_does_not_add_a_navigation_destination(self) -> None:
+        nav = self.html.split('<nav class="site-nav-fallback"', 1)[1].split("</nav>", 1)[0]
+        self.assertNotIn("Skill Lab", nav)
+        self.assertNotIn('/playbook/lab/', nav)
+
 
 if __name__ == "__main__":
     unittest.main()

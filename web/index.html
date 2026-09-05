@@ -891,6 +891,16 @@
       border-color: transparent;
       color: var(--muted);
     }
+    .editor-desk[data-skill-lab-promo] .editor-desk-actions a {
+      min-height: 44px;
+    }
+    .editor-desk[data-skill-lab-promo] .catchup-dismiss {
+      display: inline-grid;
+      place-items: center;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+    }
     .onboard {
       border: 1px solid var(--border);
       background: var(--card);
@@ -2702,8 +2712,14 @@
     // to the site's memory/action surfaces. They never appear before the first
     // few ranked stories and are capped so the feed remains the primary path.
     const EDITOR_DESK_DISMISS_PREFIX = 'ai_feed_editor_desk_dismissed_v1:';
-    let editorDeskData = { playbookSources: {} };
+    let editorDeskData = { playbookSources: {}, skillLab: null };
     let editorDeskPromise = null;
+    let skillLabPromise = null;
+    const SKILL_LAB_PROMO_SEEN_PREFIX = 'ai_feed_skill_lab_promo_seen_v1:';
+    const SKILL_LAB_SLUG_RE = /^[a-z0-9][a-z0-9-]{0,79}$/;
+    const SKILL_LAB_PROMO_VIEW_THRESHOLD = 0.5;
+    const skillLabFeedViews = new Set();
+    const skillLabFeedObservers = new Map();
 
     // Freshness/read-state comes from the shared nav-updates.js script
     // (window.llmDigestUpdates): one /api/updates fetch per page and one
@@ -2729,14 +2745,29 @@
             .then(({ response, data }) => response.ok ? data : {})
             .catch(() => ({})),
         ]).then(([, playbookSources]) => {
-          editorDeskData = {
-            playbookSources: playbookSources && typeof playbookSources === 'object' && !Array.isArray(playbookSources)
-              ? playbookSources
-              : {},
-          };
+          editorDeskData.playbookSources = playbookSources && typeof playbookSources === 'object' && !Array.isArray(playbookSources)
+            ? playbookSources
+            : {};
         });
       }
       return editorDeskPromise;
+    }
+
+    function ensureSkillLabData() {
+      if (!skillLabPromise) {
+        skillLabPromise = fetchJsonWithTimeout(
+          '/api/playbook?lab=latest', { headers: { accept: 'application/json' } }, 8000
+        )
+          .then(({ response, data: skillLab }) => {
+            editorDeskData.skillLab = response.ok && skillLab && typeof skillLab === 'object'
+              ? skillLab
+              : null;
+          })
+          .catch(() => {
+            editorDeskData.skillLab = null;
+          });
+      }
+      return skillLabPromise;
     }
 
     function isEditorDeskDismissed(id) {
@@ -2753,6 +2784,71 @@
       } catch {}
     }
 
+    function isSkillLabPromoSeen(id) {
+      try {
+        return !!id && localStorage.getItem(SKILL_LAB_PROMO_SEEN_PREFIX + id) === '1';
+      } catch {
+        return true;
+      }
+    }
+
+    function markSkillLabPromoSeen(id) {
+      if (!id) return;
+      try {
+        localStorage.setItem(SKILL_LAB_PROMO_SEEN_PREFIX + id, '1');
+      } catch {}
+    }
+
+    function skillLabPromoEligible() {
+      const lab = editorDeskData?.skillLab;
+      if (!lab || !['protocol', 'published'].includes(String(lab.state || ''))) return null;
+      if (activeSection() !== 'brief' || viewState !== 'feed' || searchQueryState.trim()) return null;
+      if (!isOnboardingDone() || !isSubscribeNudgeDone()) return null;
+      const id = String(lab.id || '');
+      const slug = String(lab.slug || '');
+      if (!id || !SKILL_LAB_SLUG_RE.test(slug) || isSkillLabPromoSeen(id)) return null;
+      const today = new Date().toISOString().slice(0, 10);
+      const date = String(lab.date || '');
+      const featuredUntil = String(lab.featured_until || '');
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !/^\d{4}-\d{2}-\d{2}$/.test(featuredUntil)) return null;
+      if (today < date || today > featuredUntil) return null;
+      return lab;
+    }
+
+    function skillLabMeetsVisibility(entries, threshold) {
+      return entries.some((entry) =>
+        entry.isIntersecting && entry.intersectionRatio >= threshold);
+    }
+
+    function observeSkillLabFeedPromo() {
+      const element = document.querySelector('[data-skill-lab-promo]');
+      if (!element) return;
+      const id = String(element.dataset.skillLabPromo || '');
+      if (!id || skillLabFeedViews.has(id)) return;
+      const capture = () => {
+        if (skillLabFeedViews.has(id)) return;
+        skillLabFeedViews.add(id);
+        skillLabFeedObservers.delete(id);
+        posthogCapture('skill_lab_feature_view', {
+          lab_id: id,
+          pilot_edition: Number(element.dataset.skillLabEdition || 0),
+          placement: 'feed_insert',
+        });
+      };
+      skillLabFeedObservers.get(id)?.disconnect();
+      if (!('IntersectionObserver' in window)) {
+        capture();
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (!skillLabMeetsVisibility(entries, SKILL_LAB_PROMO_VIEW_THRESHOLD)) return;
+        observer.disconnect();
+        capture();
+      }, { threshold: SKILL_LAB_PROMO_VIEW_THRESHOLD });
+      skillLabFeedObservers.set(id, observer);
+      observer.observe(element);
+    }
+
     function shortDeskText(v, max = 150) {
       const text = cleanText(v);
       return text.length > max ? `${text.slice(0, max).trimEnd()}…` : text;
@@ -2767,31 +2863,53 @@
       return Object.values(sources).find((card) => normStorylineUrl(card?.source_url) === url) || null;
     }
 
-    function editorDeskCardHtml({ id, title, copy, href, cta, kind }) {
+    function editorDeskCardHtml({ id, title, copy, href, cta, kind, skillLabId = '', skillLabEdition = 0 }) {
       if (isEditorDeskDismissed(id)) return '';
       return `
-        <section class="editor-desk" aria-label="Editor's Desk">
+        <section class="editor-desk" aria-label="Editor's Desk"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}" data-skill-lab-edition="${esc(skillLabEdition)}"` : ''}>
           <div class="editor-desk-head">
             <span class="editor-desk-kicker">Editor's Desk</span>
             <span class="editor-desk-title">${esc(title)}</span>
-            <button type="button" class="catchup-dismiss" data-editor-desk-dismiss="${esc(id)}" aria-label="Dismiss Editor's Desk note" title="Dismiss">×</button>
+            <button type="button" class="catchup-dismiss" data-editor-desk-dismiss="${esc(id)}"${skillLabId ? ` data-skill-lab-promo="${esc(skillLabId)}"` : ''} aria-label="Dismiss Editor's Desk note" title="Dismiss">×</button>
           </div>
           ${copy ? `<p class="editor-desk-copy">${esc(copy)}</p>` : ''}
           <div class="editor-desk-actions">
-            <a href="${esc(href)}" data-editor-desk-link="${esc(kind)}">${esc(cta)}</a>
+            <a href="${esc(href)}" data-editor-desk-link="${esc(kind)}"${skillLabId ? ` data-editor-desk-id="${esc(skillLabId)}"` : ''}>${esc(cta)}</a>
           </div>
         </section>`;
     }
 
     function editorDeskInserts(visible) {
       const inserts = [];
+      let genericInsertUsed = false;
       const followedNotice = storylineNoticeHtml();
       if (followedNotice) inserts.push({ after: 6, html: followedNotice });
+
+      const skillLab = skillLabPromoEligible();
+      if (skillLab && visible.length >= 4) {
+        const edition = Number(skillLab.pilot_edition) || 0;
+        const size = Number(skillLab.pilot_size) || 3;
+        const isResult = skillLab.state === 'published';
+        inserts.push({
+          after: 5,
+          html: editorDeskCardHtml({
+            id: `skill-lab:${skillLab.id}`,
+            title: `Skill Lab ${edition}/${size}: ${skillLab.title || 'new field test'}`,
+            copy: shortDeskText(isResult ? skillLab.verdict : skillLab.summary),
+            href: `/playbook/lab/${encodeURIComponent(skillLab.slug)}?ref=feed`,
+            cta: isResult ? 'See the evidence' : 'Read the protocol',
+            kind: 'skill-lab',
+            skillLabId: skillLab.id,
+            skillLabEdition: edition,
+          }),
+        });
+        genericInsertUsed = true;
+      }
 
       const playbookMatch = visible
         .map((it, i) => ({ it, i, card: playbookCardForItem(it) }))
         .find(({ i, card }) => i >= 3 && card && !isEditorDeskDismissed(`playbook:${card.id || card.source_sid || itemKey(card)}`));
-      if (playbookMatch) {
+      if (!genericInsertUsed && playbookMatch) {
         const card = playbookMatch.card;
         inserts.push({
           after: Math.max(8, playbookMatch.i + 1),
@@ -2804,6 +2922,7 @@
             kind: 'playbook',
           }),
         });
+        genericInsertUsed = true;
       }
 
       // The "New for you" strip at the top of the feed already advertises an
@@ -2811,7 +2930,7 @@
       // feed when the strip isn't carrying that signal.
       const upd = window.llmDigestUpdates;
       const dailyOnStrip = Boolean(upd && upd.stripSections && upd.stripSections.indexOf('daily') >= 0);
-      if (upd && upd.unread('daily') && upd.fresh('daily') && !dailyOnStrip && !isEditorDeskDismissed('daily')) {
+      if (!genericInsertUsed && upd && upd.unread('daily') && upd.fresh('daily') && !dailyOnStrip && !isEditorDeskDismissed('daily')) {
         inserts.push({
           after: 12,
           html: editorDeskCardHtml({
@@ -3708,13 +3827,16 @@
           || document.getElementById('savedTab');
         restoreListFocus(list, focusSnapshot, activeTab);
         observeMobileModelRadarImpression();
+        observeSkillLabFeedPromo();
       }
     }
 
     // True once either decoration source has actual data — guards the
     // pointless second render when both outage-safe loaders resolved empty.
     function decorationsHaveData() {
-      return storylineByUrl.size > 0 || Object.keys(editorDeskData?.playbookSources || {}).length > 0;
+      return storylineByUrl.size > 0
+        || Object.keys(editorDeskData?.playbookSources || {}).length > 0
+        || Boolean(editorDeskData?.skillLab);
     }
 
     async function run() {
@@ -3745,6 +3867,7 @@
       // Decorations ride along but never gate the first paint: kick them off,
       // render as soon as feed data lands, re-render once they arrive.
       const decorationsReady = Promise.all([ensureStorylines(), ensureEditorDeskData()]);
+      const skillLabReady = ensureSkillLabData();
       let { response: res, data } = await fetchJsonWithTimeout(buildFeedUrl());
       if (res.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
         ({ response: res, data } = await fetchJsonWithTimeout('/data/processed/latest.json', { cache: 'no-store' }));
@@ -3834,12 +3957,14 @@
       // Decoration pass, after analytics so it can't interleave with the
       // first-paint render: re-renders in place (renderFeedList skips the
       // DOM write when nothing changed) once storylines/desk data arrive.
-      decorationsReady.then(() => {
-        if (viewState !== 'feed') return;
-        if (!decorationsHaveData()) return;
-        if (!feedCache.items.length) return;
-        renderFeedList();
-      }).catch(() => {});
+      for (const ready of [decorationsReady, skillLabReady]) {
+        ready.then(() => {
+          if (viewState !== 'feed') return;
+          if (!decorationsHaveData()) return;
+          if (!feedCache.items.length) return;
+          renderFeedList();
+        }).catch(() => {});
+      }
     }
 
     // exitSaved: filter interactions leave the saved view and go back to the feed.
@@ -3959,6 +4084,9 @@
         if (editorDismiss) {
           const id = editorDismiss.dataset.editorDeskDismiss || '';
           if (id) dismissEditorDesk(id);
+          if (editorDismiss.dataset.skillLabPromo) {
+            markSkillLabPromoSeen(editorDismiss.dataset.skillLabPromo);
+          }
           posthogCapture('editor_desk_dismiss', { id });
           renderFeedList();
           return;
@@ -3975,6 +4103,13 @@
 
         const editorLink = e.target.closest('a[data-editor-desk-link]');
         if (editorLink) {
+          if (editorLink.dataset.editorDeskLink === 'skill-lab') {
+            markSkillLabPromoSeen(editorLink.dataset.editorDeskId);
+            posthogCapture('skill_lab_open', {
+              lab_id: editorLink.dataset.editorDeskId || null,
+              placement: 'feed_insert',
+            });
+          }
           posthogCapture('editor_desk_open', {
             kind: editorLink.dataset.editorDeskLink || '',
             href: editorLink.getAttribute('href') || '',

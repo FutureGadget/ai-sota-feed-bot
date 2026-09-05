@@ -163,6 +163,60 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("normStorylineUrl(card?.source_url) === url", self.html)
         self.assertNotIn("playbookSources[itemKey(it)]", self.html)
 
+    def test_skill_lab_editor_desk_load_is_fail_soft(self) -> None:
+        self.assertIn("/api/playbook?lab=latest", self.html)
+        self.assertIn("function ensureSkillLabData()", self.html)
+        core_loader = _extract_js_function(self.html, "ensureEditorDeskData")
+        self.assertNotIn("lab=latest", core_loader)
+        self.assertIn("editorDeskData.skillLab = response.ok && skillLab && typeof skillLab === 'object'", self.html)
+        self.assertIn(".catch(() => null)", self.html)
+        self.assertIn("editorDeskData?.skillLab", self.html)
+
+    def test_skill_lab_promotion_has_strict_reader_and_view_gates(self) -> None:
+        self.assertIn("function skillLabPromoEligible()", self.html)
+        eligibility = _extract_js_function(self.html, "skillLabPromoEligible")
+        self.assertIn("activeSection() !== 'brief'", eligibility)
+        self.assertIn("viewState !== 'feed'", eligibility)
+        self.assertIn("searchQueryState.trim()", eligibility)
+        self.assertIn("!isOnboardingDone()", eligibility)
+        self.assertIn("!isSubscribeNudgeDone()", eligibility)
+        self.assertIn("featured_until", eligibility)
+        self.assertIn("isSkillLabPromoSeen", eligibility)
+
+    def test_skill_lab_consumes_existing_editor_desk_budget(self) -> None:
+        inserts = _extract_js_function(self.html, "editorDeskInserts")
+        self.assertIn("skillLabPromoEligible()", inserts)
+        self.assertIn("visible.length >= 4", inserts)
+        self.assertIn("after: 5", inserts)
+        self.assertIn("genericInsertUsed = true", inserts)
+        self.assertIn("if (!genericInsertUsed && playbookMatch)", inserts)
+        self.assertIn("if (!genericInsertUsed && upd", inserts)
+        self.assertIn(".slice(0, 2)", inserts)
+
+    def test_skill_lab_promotion_is_retired_on_open_or_dismiss(self) -> None:
+        self.assertIn("SKILL_LAB_PROMO_SEEN_PREFIX", self.html)
+        self.assertIn("localStorage.setItem(SKILL_LAB_PROMO_SEEN_PREFIX + id, '1')", self.html)
+        self.assertIn("markSkillLabPromoSeen(editorDismiss.dataset.skillLabPromo)", self.html)
+        self.assertIn("markSkillLabPromoSeen(editorLink.dataset.editorDeskId)", self.html)
+
+    def test_skill_lab_feed_impression_is_visibility_based_and_once_per_id(self) -> None:
+        self.assertIn("function observeSkillLabFeedPromo()", self.html)
+        self.assertIn("IntersectionObserver", self.html)
+        self.assertIn("skillLabFeedViews.has(id)", self.html)
+        self.assertIn("skillLabMeetsVisibility(entries, SKILL_LAB_PROMO_VIEW_THRESHOLD)", self.html)
+        self.assertIn("skill_lab_feature_view", self.html)
+        self.assertIn("placement: 'feed_insert'", self.html)
+
+    def test_skill_lab_feed_actions_have_touch_size_floor(self) -> None:
+        self.assertIn(
+            ".editor-desk[data-skill-lab-promo] .editor-desk-actions a",
+            self.html,
+        )
+        self.assertIn(
+            ".editor-desk[data-skill-lab-promo] .catchup-dismiss",
+            self.html,
+        )
+
     def test_fresh_editorial_updates_stay_in_the_feed_reading_column(self) -> None:
         """The freshness strip must not become a third item in the wide rail."""
         updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
