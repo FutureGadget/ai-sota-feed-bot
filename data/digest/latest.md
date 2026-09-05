@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. OpenAI's rogue agents were caught communicating via public wikis
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/
-- Score: 3.002 | Reliability: 1.0
+- Score: 2.982 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. Unlocking Lossless Speedups in LLMs via Discrete Diffusion
 - Type: paper | Source: arxiv_agent_systems_research
 - URL: http://arxiv.org/abs/2609.04010v1
-- Score: 2.817 | Reliability: 1.0
+- Score: 2.801 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 3. Spanner migrations: Automating dual-write with Antigravity CLI for minimal disruption
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/topics/developers-practitioners/using-antigravity-cli-to-streamline-dual-write-database-migration/
-- Score: 2.63 | Reliability: 1.0
+- Score: 2.59 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
-## 4. GitSpawn: Untrusted repos can execute code via AI coding agents
-- Type: news | Source: hackernews_ai
-- URL: https://www.manifold.security/blog/ai-coding-agents-git-hijack
-- Score: 2.621 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 5. Project HydraFusion: Frontier quality via multi-model orchestration
+## 4. Project HydraFusion: Frontier quality via multi-model orchestration
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/
-- Score: 2.478 | Reliability: 1.0
+- Score: 2.463 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 6. SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents
+## 5. SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2609.04167v1
-- Score: 2.451 | Reliability: 1.0
+- Score: 2.437 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 7. The Pelican comparison grid for Astra is pretty interesting
+## 6. The Pelican comparison grid for Astra is pretty interesting
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/4/astra-pelicans/
-- Score: 2.442 | Reliability: 1.0
+- Score: 2.426 | Reliability: 1.0
+- Why it matters: 
+
+## 7. Redefining GIS: Declarative Symbology and Collaborative Workflows in JupyterGIS
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/09/jupyter-gis-extension/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.416 | Reliability: 1.0
 - Why it matters: 
 
 ## 8. Introducing WeatherNext 3, our most advanced and accurate global weather AI model
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-weathernext-3-our-most-advanced-and-accurate-global-weather-ai-model/
-- Score: 1.981 | Reliability: 1.0
+- Score: 1.965 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Daybreak for Frontline Defenders: $1B to protect essential services
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/daybreak-for-frontline-defenders
-- Score: 1.801 | Reliability: 1.0
+- Score: 1.787 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Playco cut manual fixes 50% prototyping games with GPT-6 Astra
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/playco-game-prototyping-with-astra
-- Score: 1.785 | Reliability: 1.0
+- Score: 1.772 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. codex 0.153.3
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.153.3
-- Score: 2.386 | Reliability: 1.0
+- Score: 2.36 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 12. Copilot Code Review Reaches Azure Repos, Billed Per Review with Reporting Two Days Behind
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/copilot-code-review-azure-repos/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.335 | Reliability: 1.0
+- Score: 2.322 | Reliability: 1.0
 - Why it matters: 
 
 ## 13. claude-code v2.1.261
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.261
-- Score: 2.312 | Reliability: 1.0
+- Score: 2.286 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 14. Last Translation Benchmark
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2609.04173v1
-- Score: 2.247 | Reliability: 1.0
+- Score: 2.234 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 15. 9:00 Express by 36Kr: Volkswagen Announces 100,000 Global Layoffs, Moonshot AI Reportedly Plans 2024 Hong Kong IPO, China NBS Reveals National Average 48.2 Weekly Working Hours for Workers
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTE9vX1NUcFZmb2JxOERUS2loZ1FSaUtYQWVMS0ZpTW1RLXBpMWNCRDllVVhNZE5sUVhsZW5GSHNGMktvMlJGMUtTMFN3bFdxenROM0FJ?oc=5
-- Score: 2.236 | Reliability: 1.0
-- Why it matters: 
-
-## 16. Formalizing Fermat's Last Theorem
+## 15. Formalizing Fermat's Last Theorem
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/formalizing-fermats-last-theorem
-- Score: 2.192 | Reliability: 1.0
+- Score: 2.179 | Reliability: 1.0
+- Why it matters: 
+
+## 16. 9:00 Express by 36Kr: Volkswagen Announces 100,000 Global Layoffs, Moonshot AI Reportedly Plans 2024 Hong Kong IPO, China NBS Reveals National Average 48.2 Weekly Working Hours for Workers
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTE9vX1NUcFZmb2JxOERUS2loZ1FSaUtYQWVMS0ZpTW1RLXBpMWNCRDllVVhNZE5sUVhsZW5GSHNGMktvMlJGMUtTMFN3bFdxenROM0FJ?oc=5
+- Score: 2.157 | Reliability: 1.0
 - Why it matters: 
 
 ## 17. [AINews] GPT-6 Astra: OpenAI’s biggest LLM launch of all time
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-gpt-6-astra-openais-biggest
-- Score: 2.136 | Reliability: 1.0
+- Score: 2.125 | Reliability: 1.0
 - Why it matters: 
 
 ## 18. RATL: Learning from Retrieved Residuals for Robust Multivariate Time-Series Forecasting
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2609.03937v1
-- Score: 2.114 | Reliability: 1.0
+- Score: 2.102 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 19. Mini book: Next-Gen Architecture Playbook: Insights and Patterns for the AI Era
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/minibooks/next-gen-architecture-ai-era/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.103 | Reliability: 1.0
-- Why it matters: 
-
-## 20. Scaling Agents in Europe & The Middle East: Lessons from Schneider Electric, Vodafone, and monday.com
+## 19. Scaling Agents in Europe & The Middle East: Lessons from Schneider Electric, Vodafone, and monday.com
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/scaling-agents-in-europe-the-middle-east-lessons-from-schneider-electric-vodafone-and-monday-com
-- Score: 2.089 | Reliability: 1.0
+- Score: 2.081 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 21. v0.29.0rc4: [Bugfix] Avoid sync in TRT-LLM ragged prefill
+## 20. v0.29.0rc4: [Bugfix] Avoid sync in TRT-LLM ragged prefill
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0rc4
-- Score: 2.058 | Reliability: 1.0
+- Score: 2.028 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 22. MCP in LangChain: Stateless Protocol, Elicitation, and More!
+## 21. MCP in LangChain: Stateless Protocol, Elicitation, and More!
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/mcp-in-langchain-stateless-protocol-elicitation-and-more
-- Score: 1.998 | Reliability: 1.0
+- Score: 1.988 | Reliability: 1.0
 - Why it matters: 
 
-## 23. Legora reviewed 41 documents in minutes with GPT-6 Astra
+## 22. Legora reviewed 41 documents in minutes with GPT-6 Astra
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/legora-financial-statement-review-with-astra
-- Score: 1.785 | Reliability: 1.0
+- Score: 1.772 | Reliability: 1.0
 - Why it matters: 
 
-## 24. A guide to the anatomy of effective commerce agents | Claude by Anthropic
+## 23. A guide to the anatomy of effective commerce agents | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/the-anatomy-of-effective-commerce-agents
-- Score: 1.73 | Reliability: 1.0
+- Score: 1.721 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
+
+## 24. Introducing Gemini 3.8 Flash and 3.8 Flash Cyber
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/
+- Score: 1.698 | Reliability: 1.0
+- Why it matters:
