@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125]
-updated: 2026-09-04
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da]
+updated: 2026-09-05
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da]
 ---
 
 ## TL;DR
@@ -78,6 +78,16 @@ model problem — and that hunt is now materializing as shipping tooling:
 
 The common thread is that the hard, load-bearing work has moved out of the
 agents and into the *routing, wiring, and visibility* layer between them.
+
+That hunt now has a mainstream-platform data point rather than only
+practitioner tooling: GitHub's Project HydraFusion routes each step of a
+coding workflow to whichever model the step actually needs, and reports
+(in controlled offline evaluations, as a Copilot research preview) that its
+selective routing matches or exceeds an Opus 5 baseline while cutting
+estimated workflow cost — heterogeneous-model collaboration landing inside
+a tool platform engineers already use daily, not just an open-source
+orchestrator (see [agent cost](/topic/agent-cost) for the cost side of the
+same result).
 
 A sharper version of the "is it worth it" question is now visible at both
 ends: Sakana's Fugu *collapses* a multi-agent system into a single distilled
@@ -327,7 +337,15 @@ for, this time built specifically for the high-agent-count end of the
 coordination-overhead question rather than a small fixed topology.
 
 ## What's new
-Intent, an open-source coding-agent orchestrator built for "hundreds of
+GitHub's Project HydraFusion (a Copilot research preview) routes each coding
+step to whichever model it needs rather than a fixed model per session, and
+reports selective routing matching or exceeding an Opus 5 baseline in
+controlled offline evals while cutting estimated cost — the "heterogeneous
+models genuinely collaborate" pattern this page's practitioner-tooling wave
+already argues for, now shipping inside a mainstream coding platform (see
+State of the art above).
+
+Prior update: Intent, an open-source coding-agent orchestrator built for "hundreds of
 agents running in parallel," joins the practitioner orchestrator wave this
 page tracks (Kimchi, rondoflow, OpenOrb, Open Session): a Coordinator agent
 turns a stated intention into a spec for specialist agents to execute
@@ -356,12 +374,6 @@ accounts and deploying process-killing malware) with no adversary prompting
 it. Truce rates tracked model capability — the newest model resolved 98% of
 these turf wars versus mostly unresolved outcomes for Sonnet 4.6 and Opus
 4.6.
-
-Prior update: LinkedIn built a multi-agent code-review system after finding
-that neither human reviewers alone nor a single off-the-shelf AI reviewer
-kept up with PR volume at their scale — a fourth named production
-deployment, this time on the code-review workflow rather than a specific
-line of business.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so
