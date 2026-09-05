@@ -1,55 +1,273 @@
 {
-  "generated_at": "2026-09-05T05:05:13.422146+00:00",
+  "generated_at": "2026-09-05T10:04:41.775470+00:00",
   "window_days": 21,
-  "storyline_count": 1,
-  "needs_narrative_count": 1,
+  "storyline_count": 2,
+  "needs_narrative_count": 2,
   "storylines": [
     {
-      "slug": "benchmark-evaluating",
-      "label": "Benchmark Evaluating",
-      "item_count": 3,
-      "source_count": 2,
+      "slug": "large-language",
+      "label": "Large Language",
+      "item_count": 4,
+      "source_count": 3,
       "day_count": 3,
-      "first_seen": "2026-08-19T06:27:05+00:00",
-      "last_updated": "2026-09-04T20:55:15+00:00",
-      "latest_title": "AWS-bench: Benchmark for evaluating AI coding agents on real-world AWS tasks",
+      "first_seen": "2026-08-27T11:58:46+00:00",
+      "last_updated": "2026-09-05T07:31:00+00:00",
+      "latest_title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
       "member_sids": [
-        "112397af63f8e38e",
-        "71d13489a25b073e",
-        "2e209b3bcae89889"
+        "473e4a8407d950ff",
+        "44fdd531ea49fe98",
+        "7ac516e280c5ca22",
+        "51d5a65d305149bc"
       ],
       "via_scout": false,
-      "has_narrative": false,
+      "has_narrative": true,
       "needs_narrative": true,
-      "reason": "no_narrative",
-      "narrative_path": "data/storylines/narratives/benchmark-evaluating.json",
-      "prior_narrative": null,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/large-language.json",
+      "prior_narrative": {
+        "slug": "large-language",
+        "generated_at": "2026-09-03T12:00:00Z",
+        "covers_last_updated": "2026-08-31T12:02:04+00:00",
+        "covers_member_sids": [
+          "473e4a8407d950ff",
+          "44fdd531ea49fe98",
+          "7ac516e280c5ca22"
+        ],
+        "tldr": "This thread groups three unrelated large-language-model papers that share only a title phrase, not a single developing story. It opened Aug 27 with a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, paired same-day with PoP, a single-pass hallucination detector that reads internal activation patterns instead of sampling outputs.",
+        "whats_new": "A new arXiv benchmark, SwarmBench, tests whether LLMs can act as orchestrators of dynamically-formed agent swarms, a gap existing evals built for single-agent or fixed-topology setups don't cover.",
+        "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+        "beats": [
+          {
+            "kicker": "APPLICATIONS",
+            "tone": "launch",
+            "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
+            "sids": [
+              "473e4a8407d950ff"
+            ]
+          },
+          {
+            "kicker": "RELIABILITY",
+            "tone": "rising",
+            "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
+            "sids": [
+              "44fdd531ea49fe98"
+            ]
+          },
+          {
+            "kicker": "AGENT EVAL",
+            "tone": "now",
+            "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
+            "sids": [
+              "7ac516e280c5ca22"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
+          "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
+          "Does activation-level detection need weights access, ruling it out for API-only deployments?",
+          "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+          "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
+        ],
+        "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+        "day_captions": {
+          "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
+          "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
+          "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+        }
+      },
       "timeline": [
         {
-          "date": "2026-08-19",
+          "date": "2026-08-27",
           "items": [
             {
-              "sid": "112397af63f8e38e",
-              "title": "OmniHandwritingOCR: A Diagnostic Benchmark for Evaluating Multimodal LLMs in Handwritten OCR Scenarios",
-              "url": "http://arxiv.org/abs/2608.18586v1",
+              "sid": "473e4a8407d950ff",
+              "title": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education",
+              "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education Cureus",
+              "published": "2026-08-27T11:58:46+00:00"
+            },
+            {
+              "sid": "44fdd531ea49fe98",
+              "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
+              "url": "http://arxiv.org/abs/2608.27165v1",
               "source": "arxiv_llm_reliability",
               "type": "paper",
-              "summary_1line": "Multimodal large language models (MLLMs) are increasingly used as OCR systems in document and knowledge-processing pipelines, but their ability to faithfully read real handwriting remains underexplored. Existing OCR b...",
-              "published": "2026-08-19T06:27:05+00:00"
+              "summary_1line": "Autoregressive large language models (LLMs) routinely generate factually incorrect outputs with high decoding confidence, limiting their deployment in high-stakes workflows. Existing output-stage uncertainty metrics c...",
+              "published": "2026-08-27T14:17:14+00:00"
             }
           ]
         },
         {
+          "date": "2026-08-31",
+          "items": [
+            {
+              "sid": "7ac516e280c5ca22",
+              "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+              "url": "http://arxiv.org/abs/2608.30661v1",
+              "source": "arxiv_cs_cl",
+              "type": "paper",
+              "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
+              "published": "2026-08-31T12:02:04+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-05",
+          "items": [
+            {
+              "sid": "51d5a65d305149bc",
+              "title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
+              "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbEJlVnQ4dWVneU1FQ0d0SkJCX3RvbUI4WTNzMUY5MkpLdFFKYVpHTnZ4NWZiQ09VTmNMYXBKY085aXhsblZBUGJGMnA3eUwzUDIwUDBTWWdmb1NNYmlTT3ZfbV9MNnVFVWNzMlFZN3gtdjZhbkloXzBhMmRCSWstT1o5S0VadlVkTmx0eC1NMUpUbnFHN21TOFBMaXk4cHFGVENxbUc1d0UzQzg?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models 富途牛牛",
+              "published": "2026-09-05T07:31:00+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "gpt-6-astra",
+      "label": "GPT-6 Astra",
+      "item_count": 7,
+      "source_count": 4,
+      "day_count": 3,
+      "first_seen": "2026-09-03T00:00:00+00:00",
+      "last_updated": "2026-09-05T06:54:46+00:00",
+      "latest_title": "GPT-6 Astra: A new generation of intelligence",
+      "member_sids": [
+        "39210f987919e80e",
+        "325e9dcd840a97e9",
+        "9281d6906e8350b6",
+        "a69c2848b34f1245",
+        "49bf67e78155156d",
+        "4f3892cb672d57ce",
+        "b5a4040da6dc0ce5"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/gpt-6-astra.json",
+      "prior_narrative": {
+        "slug": "gpt-6-astra",
+        "generated_at": "2026-09-04T20:05:38+00:00",
+        "covers_last_updated": "2026-09-04T16:08:40+00:00",
+        "covers_member_sids": [
+          "39210f987919e80e",
+          "325e9dcd840a97e9",
+          "9281d6906e8350b6",
+          "a69c2848b34f1245",
+          "49bf67e78155156d",
+          "4f3892cb672d57ce"
+        ],
+        "tldr": "OpenAI shipped GPT-6 Astra on September 3 as its most capable broadly deployed model, launch-day case studies showing agentic coding and document-review gains at Playco and Legora. It's also the first OpenAI model to hit the Critical tier for cybersecurity capability under the company's own Preparedness Framework.",
+        "whats_new": "A rival search agent, FindCheap, claims to outscore Astra on benchmarks just three days after launch -- a challenger's self-reported claim, not an independently verified result, but a quick check on the \"biggest launch ever\" framing.",
+        "why_it_matters": "The reported monitorability regression is still the harder planning cost for agentic or compliance-sensitive pipelines; a competitor already claiming a benchmark win is a reminder not to lock an agent pipeline to today's SOTA claim without your own verification.",
+        "status": {
+          "state": "Launched · benchmark lead already challenged",
+          "tone": "turn",
+          "changed": "2026-09-04",
+          "detail": "GPT-6 Astra shipped Sept 3 as OpenAI's most capable deployed model and first to reach the Critical cybersecurity tier; by Sept 4 a challenger agent was publicly claiming to beat it on benchmarks, on top of the already-flagged monitorability drop."
+        },
+        "beats": [
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "GPT-6 Astra ships as OpenAI's most capable deployed model, first to hit the Critical cybersecurity tier",
+            "sids": [
+              "39210f987919e80e"
+            ]
+          },
+          {
+            "kicker": "EARLY ADOPTION",
+            "tone": "rising",
+            "headline": "Playco and Legora case studies show agentic coding and document-review gains",
+            "summary": "Playco reports 50% fewer manual fixes prototyping games with Astra; Legora reviewed 41 financial documents in minutes and caught all four planted errors.",
+            "sids": [
+              "325e9dcd840a97e9",
+              "9281d6906e8350b6"
+            ]
+          },
+          {
+            "kicker": "RECEPTION",
+            "tone": "rising",
+            "headline": "Independent coverage frames Astra as cheap-per-task but less monitorable",
+            "summary": "Latent Space pitches Astra's economics as hiring an AI engineer for under $6/hour; a day-two AINews recap calls it OpenAI's biggest launch yet while flagging the monitorability drop.",
+            "sids": [
+              "a69c2848b34f1245",
+              "49bf67e78155156d"
+            ]
+          },
+          {
+            "kicker": "LEAPFROGGED",
+            "tone": "turn",
+            "headline": "A rival search agent claims to beat Astra on benchmarks three days after launch",
+            "summary": "FindCheap's own announcement claims a benchmark win over Astra -- a challenger's self-reported claim, not a third-party test.",
+            "sids": [
+              "4f3892cb672d57ce"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the Critical cybersecurity tier rating trigger any additional usage restrictions or safeguards for agentic deployments?",
+          "What specifically makes Astra less monitorable than prior models, and does that matter for audit or compliance requirements?",
+          "Do the 2.5x per-token price and lower per-task cost hold up outside OpenAI's own case studies?",
+          "Does FindCheap's claimed benchmark win over Astra hold up under independent verification, or is it self-reported?"
+        ],
+        "take_for_builders": "Before routing agentic or compliance-sensitive workloads to GPT-6 Astra, weigh the reported monitorability regression against its cheaper-per-task economics, check whether the Critical cybersecurity tier changes your usage terms, and don't take a challenger's unverified benchmark claim as a reason to switch without running your own eval.",
+        "day_captions": {
+          "39210f987919e80e": "OpenAI's own safety overview: first model to reach Critical cybersecurity capability under the Preparedness Framework.",
+          "325e9dcd840a97e9": "Playco case study: 50% fewer manual fixes prototyping games with Astra.",
+          "9281d6906e8350b6": "Legora case study: reviewed 41 financial documents in minutes, catching all four planted errors.",
+          "a69c2848b34f1245": "Latent Space frames Astra's economics as hiring an AI engineer for under $6/hour.",
+          "49bf67e78155156d": "AINews recap: new SOTA computer-use and coding scores, 2.5x pricier per token but cheaper per completed task, and reduced monitorability.",
+          "4f3892cb672d57ce": "A challenger search agent's self-reported benchmark claim against Astra -- unverified by a third party."
+        }
+      },
+      "timeline": [
+        {
           "date": "2026-09-03",
           "items": [
             {
-              "sid": "71d13489a25b073e",
-              "title": "KC-Bench: A Dynamic Interactive Benchmark for Evaluating Knowledge Conflicts in LLM Agents",
-              "url": "http://arxiv.org/abs/2609.03588v1",
-              "source": "arxiv_llm_reliability",
-              "type": "paper",
-              "summary_1line": "As LLMs increasingly act through tools, they must reconcile user instructions, parametric knowledge, and dynamic environmental observations before taking actions. We introduce KC-Bench, a controlled multi-turn benchma...",
-              "published": "2026-09-03T09:35:14+00:00"
+              "sid": "39210f987919e80e",
+              "title": "Safety overview: GPT-6 Astra",
+              "url": "https://openai.com/index/safety-overview-gpt-6-astra",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "GPT-6 Astra is our most capable broadly deployed model and our first to reach the Critical level of cybersecurity capability under our Preparedness Framework.",
+              "published": "2026-09-03T00:00:00+00:00"
+            },
+            {
+              "sid": "325e9dcd840a97e9",
+              "title": "Playco cut manual fixes 50% prototyping games with GPT-6 Astra",
+              "url": "https://openai.com/index/playco-game-prototyping-with-astra",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "Using GPT-6 Astra, Playco built three themed game prototypes from one grey box foundation and reported 50% fewer manual fixes than with the previous model.",
+              "published": "2026-09-03T12:00:00+00:00"
+            },
+            {
+              "sid": "9281d6906e8350b6",
+              "title": "Legora reviewed 41 documents in minutes with GPT-6 Astra",
+              "url": "https://openai.com/index/legora-financial-statement-review-with-astra",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "Legora used GPT-6 Astra to review 41 documents in minutes, find all four planted errors, and improve performance by nearly 40% in this financial-review workflow.",
+              "published": "2026-09-03T12:00:00+00:00"
+            },
+            {
+              "sid": "a69c2848b34f1245",
+              "title": "GPT-6 Astra: an automated AI Engineer you can hire for <$6 an hour",
+              "url": "https://www.latent.space/p/astra",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "We spent 20B+ tokens of GPT-6 Astra to explore everything. Here’s our learnings.",
+              "published": "2026-09-03T21:09:41+00:00"
             }
           ]
         },
@@ -57,13 +275,36 @@
           "date": "2026-09-04",
           "items": [
             {
-              "sid": "2e209b3bcae89889",
-              "title": "AWS-bench: Benchmark for evaluating AI coding agents on real-world AWS tasks",
-              "url": "https://github.com/aws-bench/aws-bench",
-              "source": "hackernews_ai",
+              "sid": "49bf67e78155156d",
+              "title": "[AINews] GPT-6 Astra: OpenAI’s biggest LLM launch of all time",
+              "url": "https://www.latent.space/p/ainews-gpt-6-astra-openais-biggest",
+              "source": "latent_space",
               "type": "news",
-              "summary_1line": "AWS-bench: Benchmark for evaluating AI coding agents on real-world AWS tasks",
-              "published": "2026-09-04T20:55:15+00:00"
+              "summary_1line": "new SOTA computer use and coding, 2.5x pricier per token, but WAY cheaper per task, less monitorable. overall, a very successful launch of OpenAI’s new frontier model class.",
+              "published": "2026-09-04T05:18:11+00:00"
+            },
+            {
+              "sid": "4f3892cb672d57ce",
+              "title": "Search agent beats GPT-6 Astra on benchmarks, just days after release",
+              "url": "https://findcheap.ai/introducing-findcheap",
+              "source": "hackernews_ai",
+              "type": "release",
+              "summary_1line": "Search agent beats GPT-6 Astra on benchmarks, just days after release",
+              "published": "2026-09-04T16:08:40+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-05",
+          "items": [
+            {
+              "sid": "b5a4040da6dc0ce5",
+              "title": "GPT-6 Astra: A new generation of intelligence",
+              "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5",
+              "source": "search_agent_engineering_news",
+              "type": "news",
+              "summary_1line": "GPT-6 Astra: A new generation of intelligence OpenAI",
+              "published": "2026-09-05T06:54:46+00:00"
             }
           ]
         }

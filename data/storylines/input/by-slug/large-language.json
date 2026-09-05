@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-09-05T10:04:41.775470+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "large-language",
+    "label": "Large Language",
+    "item_count": 4,
+    "source_count": 3,
+    "day_count": 3,
+    "first_seen": "2026-08-27T11:58:46+00:00",
+    "last_updated": "2026-09-05T07:31:00+00:00",
+    "latest_title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
+    "member_sids": [
+      "473e4a8407d950ff",
+      "44fdd531ea49fe98",
+      "7ac516e280c5ca22",
+      "51d5a65d305149bc"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/large-language.json",
+    "prior_narrative": {
+      "slug": "large-language",
+      "generated_at": "2026-09-03T12:00:00Z",
+      "covers_last_updated": "2026-08-31T12:02:04+00:00",
+      "covers_member_sids": [
+        "473e4a8407d950ff",
+        "44fdd531ea49fe98",
+        "7ac516e280c5ca22"
+      ],
+      "tldr": "This thread groups three unrelated large-language-model papers that share only a title phrase, not a single developing story. It opened Aug 27 with a Cureus comparison of ChatGPT, Claude, and DeepSeek on cardiac imaging patient education, paired same-day with PoP, a single-pass hallucination detector that reads internal activation patterns instead of sampling outputs.",
+      "whats_new": "A new arXiv benchmark, SwarmBench, tests whether LLMs can act as orchestrators of dynamically-formed agent swarms, a gap existing evals built for single-agent or fixed-topology setups don't cover.",
+      "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+      "beats": [
+        {
+          "kicker": "APPLICATIONS",
+          "tone": "launch",
+          "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
+          "sids": [
+            "473e4a8407d950ff"
+          ]
+        },
+        {
+          "kicker": "RELIABILITY",
+          "tone": "rising",
+          "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
+          "sids": [
+            "44fdd531ea49fe98"
+          ]
+        },
+        {
+          "kicker": "AGENT EVAL",
+          "tone": "now",
+          "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
+          "sids": [
+            "7ac516e280c5ca22"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
+        "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
+        "Does activation-level detection need weights access, ruling it out for API-only deployments?",
+        "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+        "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
+      ],
+      "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+      "day_captions": {
+        "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
+        "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
+        "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-08-27",
+        "items": [
+          {
+            "sid": "473e4a8407d950ff",
+            "title": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education",
+            "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education Cureus",
+            "published": "2026-08-27T11:58:46+00:00"
+          },
+          {
+            "sid": "44fdd531ea49fe98",
+            "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
+            "url": "http://arxiv.org/abs/2608.27165v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Autoregressive large language models (LLMs) routinely generate factually incorrect outputs with high decoding confidence, limiting their deployment in high-stakes workflows. Existing output-stage uncertainty metrics c...",
+            "published": "2026-08-27T14:17:14+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-08-31",
+        "items": [
+          {
+            "sid": "7ac516e280c5ca22",
+            "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+            "url": "http://arxiv.org/abs/2608.30661v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
+            "published": "2026-08-31T12:02:04+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "items": [
+          {
+            "sid": "51d5a65d305149bc",
+            "title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbEJlVnQ4dWVneU1FQ0d0SkJCX3RvbUI4WTNzMUY5MkpLdFFKYVpHTnZ4NWZiQ09VTmNMYXBKY085aXhsblZBUGJGMnA3eUwzUDIwUDBTWWdmb1NNYmlTT3ZfbV9MNnVFVWNzMlFZN3gtdjZhbkloXzBhMmRCSWstT1o5S0VadlVkTmx0eC1NMUpUbnFHN21TOFBMaXk4cHFGVENxbUc1d0UzQzg?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models 富途牛牛",
+            "published": "2026-09-05T07:31:00+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
