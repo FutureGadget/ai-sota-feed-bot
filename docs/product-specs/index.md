@@ -7,6 +7,7 @@
 - storylines.md
 - story-permalinks.md
 - playbook.md
+- agent-skill-lab-pilot.md
 - nav-update-indicators.md
 - email-digest.md
 - feed-date-ranges.md

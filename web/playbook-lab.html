@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Skill Lab | LLM Digest</title>
+  <meta name="description" content="Repeated-condition field tests showing how agent skills change task success, trajectories, tool use, recovery, latency, tokens, and cost." />
+  <link id="canonical" rel="canonical" href="https://www.llm-digest.com/playbook/lab/protocol" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Agent Skill Lab" />
+  <meta property="og:description" content="Observable run evidence for agent skills, not prompt reviews." />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260824-review-fixes" />
+  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script>
+    (function () {
+      var t = '';
+      try { t = localStorage.getItem('theme') || ''; } catch {}
+      t = t || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script src="/oat.min.js?v=20260824-selfhost" defer></script>
+  <script defer src="/site-chrome.js?v=20260824-review-fixes"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <style>
+    html { font-size:16px; -webkit-text-size-adjust:100%; text-size-adjust:100%; overflow-x:clip; }
+    :root, html[data-theme="light"] {
+      color-scheme:light;
+      --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
+      --muted:#596576; --fg:#121722; --signal:#176f4a; --warm:#9b6200;
+      --lab-wash:#eef3ff; --lab-edge:#2457d6;
+    }
+    html[data-theme="dark"] {
+      color-scheme:dark;
+      --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
+      --muted:#a8b4c4; --fg:#eff3f8; --signal:#67c99b; --warm:#e0ad4e;
+      --lab-wash:#1b2436; --lab-edge:#7ca0ff;
+    }
+    *, *::before, *::after { box-sizing:border-box; }
+    body { margin:0; line-height:1.5; overflow-x:clip; background:var(--bg); color:var(--fg);
+      font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
+    a { color:var(--accent); }
+    button, select { color:inherit; background:var(--card); border-color:var(--border); }
+    main { width:100%; max-width:980px; margin:1rem auto; padding:0 1.35rem 3rem; overflow-x:clip; }
+    #meta { margin:.35rem 0 0; color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.8rem; letter-spacing:.04em; }
+    .state { margin:2rem 0; padding:2.2rem 1rem; border:1px solid var(--border);
+      text-align:center; color:var(--muted); }
+    .state button { min-height:44px; margin-top:.75rem; padding:.45rem .9rem; border:1px solid var(--accent);
+      color:var(--accent); cursor:pointer; }
+    .lab-hero { margin:2.2rem 0 1.5rem; }
+    .lab-kicker, .lab-label { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .lab-kicker { margin:0 0 .6rem; color:var(--accent); }
+    .lab-title { max-width:50rem; margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(2.6rem,7vw,4.8rem); line-height:.92; letter-spacing:-.045em; }
+    .lab-question { max-width:47rem; margin:1rem 0 0; font-size:1.08rem; line-height:1.58; font-weight:600; }
+    .lab-summary { max-width:47rem; margin:.7rem 0 0; color:var(--muted); font-size:.95rem; line-height:1.62; }
+    .lab-progress { display:flex; gap:.8rem; align-items:center; margin:1.1rem 0 0;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.68rem; color:var(--muted); }
+    .lab-progress-track { display:grid; grid-template-columns:repeat(3,2rem); gap:4px; }
+    .lab-progress-track i { height:6px; border:1px solid var(--border); background:transparent; }
+    .lab-progress-track i.on { border-color:var(--accent); background:var(--accent); }
+    .lab-verdict { margin:1.5rem 0; padding:1rem 1.2rem 1.1rem;
+      border-top:1px solid var(--border); border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border); border-left:3px solid var(--lab-edge);
+      background:var(--lab-wash); }
+    .lab-verdict .lab-label { display:block; margin:0 0 .35rem; color:var(--signal); }
+    .lab-verdict p { max-width:48rem; margin:0; font-size:1.15rem; line-height:1.5; font-weight:600; }
+    .lab-verdict .lab-recommendation { margin:.75rem 0 0; padding-top:.75rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.9rem; font-weight:400; }
+    .lab-section { margin:2rem 0; padding-top:1rem; border-top:1px solid var(--border); }
+    .lab-section > h2 { margin:0 0 .85rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.65rem; line-height:1; letter-spacing:-.02em; }
+    .lab-section-lead { max-width:48rem; margin:-.35rem 0 1rem; color:var(--muted); font-size:.88rem; }
+    .lab-conditions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:1px solid var(--border); }
+    .lab-condition { min-width:0; padding:1rem; border-right:1px solid var(--border); }
+    .lab-condition:last-child { border-right:0; }
+    .lab-condition .lab-label { display:block; color:var(--accent); }
+    .lab-condition h3 { margin:.4rem 0 .55rem; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:1.25rem; line-height:1; }
+    .lab-condition p { margin:0; color:var(--muted); font-size:.84rem; line-height:1.55; }
+    .lab-table-wrap { overflow-x:auto; border:1px solid var(--border); }
+    .lab-table-title { margin:1.1rem 0 .45rem; font-size:.95rem; }
+    .lab-table-title:first-child { margin-top:0; }
+    .lab-results { width:100%; min-width:680px; border-collapse:collapse; }
+    .lab-results th, .lab-results td { padding:.75rem .8rem; border-bottom:1px solid var(--border);
+      text-align:left; vertical-align:top; }
+    .lab-results thead th { color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; }
+    .lab-results tbody th { font-size:.86rem; }
+    .lab-results td { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.75rem; }
+    .lab-results tbody tr:last-child th, .lab-results tbody tr:last-child td { border-bottom:0; }
+    .lab-finding { margin:.8rem 0 0; padding:.75rem 0 0; border-top:1px solid var(--border); }
+    .lab-finding:first-of-type { border-top:0; }
+    .lab-finding h3 { margin:0 0 .3rem; font-size:1rem; }
+    .lab-finding p { margin:0; color:var(--muted); font-size:.88rem; }
+    .lab-run-receipts { margin:1.3rem 0 0; }
+    .lab-run-receipts > h3 { margin:0; font-size:1rem; }
+    .lab-run-receipts > p { margin:.25rem 0 .65rem; color:var(--muted); font-size:.82rem; }
+    .lab-run-group { border-top:1px solid var(--border); }
+    .lab-run-group:last-child { border-bottom:1px solid var(--border); }
+    .lab-run-group summary { min-height:44px; display:flex; align-items:center; justify-content:space-between;
+      gap:.8rem; cursor:pointer; font-size:.86rem; font-weight:700; }
+    .lab-run-group summary span:last-child { color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; font-weight:400; text-transform:uppercase; letter-spacing:.06em; }
+    .lab-run-list { margin:0 0 .85rem; padding:0; list-style:none; display:grid; gap:.65rem; }
+    .lab-run { padding:.8rem; border:1px solid var(--border); background:var(--card); }
+    .lab-run-head { display:flex; align-items:center; justify-content:space-between; gap:.8rem; }
+    .lab-run-head strong { font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.72rem; }
+    .lab-run-status { color:var(--muted); font-size:.76rem; }
+    .lab-run-status.pass { color:var(--signal); font-weight:700; }
+    .lab-run-metrics { display:flex; flex-wrap:wrap; gap:.55rem 1rem; margin:.7rem 0 0; }
+    .lab-run-metrics div { min-width:7rem; }
+    .lab-run-metrics dt { color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.58rem; letter-spacing:.05em; text-transform:uppercase; }
+    .lab-run-metrics dd { margin:.1rem 0 0; font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; }
+    .lab-run-trajectory { margin:.7rem 0 0; padding-top:.65rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.82rem; line-height:1.5; }
+    .lab-run-trajectory .lab-label { display:block; margin-bottom:.2rem; color:var(--fg); }
+    .lab-setup { display:grid; grid-template-columns:minmax(10rem,.65fr) minmax(0,1.35fr); gap:.6rem 1.5rem; }
+    .lab-setup dt { color:var(--muted); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.66rem; letter-spacing:.06em; text-transform:uppercase; }
+    .lab-setup dd { margin:0; font-size:.88rem; }
+    .lab-setup code { font-size:.76rem; overflow-wrap:anywhere; }
+    .lab-list { margin:.4rem 0 0; padding-left:1.15rem; }
+    .lab-list li { margin:.35rem 0; font-size:.88rem; line-height:1.5; }
+    .lab-artifacts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.5rem; }
+    .lab-artifact { min-width:0; padding:.6rem .75rem; border:1px solid var(--border); }
+    .lab-artifact a { min-height:44px; display:flex; align-items:center; text-decoration:none;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; overflow-wrap:anywhere; }
+    .lab-artifact:hover { border-color:var(--accent); }
+    .lab-artifact code { display:block; color:var(--muted); font-size:.62rem; overflow-wrap:anywhere; }
+    .lab-cta { margin:2rem 0 1rem; padding:1.1rem 1.2rem; border-left:3px solid var(--lab-edge);
+      background:var(--lab-wash); }
+    .lab-cta h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.45rem; }
+    .lab-cta p { margin:.4rem 0 .8rem; color:var(--muted); font-size:.88rem; }
+    .lab-cta a { min-height:44px; display:inline-flex; align-items:center; padding:0 .9rem;
+      color:#fff; background:var(--accent); text-decoration:none; font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.72rem; font-weight:700; }
+    .lab-end { display:flex; align-items:center; gap:.8rem; margin:2.2rem 0 .5rem;
+      color:var(--signal); font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; }
+    .lab-end::before, .lab-end::after { content:""; height:1px; flex:1; background:var(--border); }
+    footer { margin-top:2.2rem; padding-top:.9rem; border-top:1px solid var(--border);
+      color:var(--muted); font-size:.82rem; }
+    button:focus-visible, a:focus-visible { outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent);
+      outline-offset:3px; }
+    @media (max-width:620px) {
+      main { padding-left:1rem; padding-right:1rem; }
+      .lab-title { font-size:2.75rem; }
+      .lab-conditions { grid-template-columns:1fr; }
+      .lab-condition { border-right:0; border-bottom:1px solid var(--border); }
+      .lab-condition:last-child { border-bottom:0; }
+      .lab-setup { grid-template-columns:1fr; gap:.15rem; }
+      .lab-setup dd { margin:0 0 .7rem; }
+      .lab-artifacts { grid-template-columns:1fr; }
+    }
+    @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto !important; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="site-chrome" data-site-section="/playbook">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Agent Skill Lab</h1>
+        <p id="meta">Loading the record...</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook" aria-current="page">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models">Model Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a href="/playbook">Back to Playbook</a>
+        <a id="jsonLink" href="/api/playbook?lab=protocol">View record as JSON</a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+    </header>
+
+    <section id="labRecord" aria-busy="true">
+      <div class="state" role="status" aria-live="polite">Loading the Lab record...</div>
+    </section>
+
+    <footer>
+      Agent Skill Lab is a three-result Playbook pilot. It compares observable
+      runs and keeps every conclusion tied to a pinned task and environment.
+    </footer>
+  </main>
+
+  <script>
+    const LAB_SLUG_RE = /^[a-z0-9][a-z0-9-]{0,79}$/;
+    const LAB_ID_RE = /^lab-[a-z0-9][a-z0-9-]{0,76}$/;
+    const SKILL_LAB_PROMO_SEEN_PREFIX = 'ai_feed_skill_lab_promo_seen_v1:';
+    const SKILL_LAB_DETAIL_VIEW_THRESHOLD = 0.7;
+    const LAB_PLACEMENTS = new Set(['feed_insert', 'playbook_home', 'weekly_email']);
+    const CONDITION_LABELS = {
+      'no-skill': 'No skill',
+      'minimal-instructions': 'Minimal instructions',
+      'full-skill': 'Full skill',
+    };
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try { localStorage.setItem('theme', theme); } catch {}
+      const button = document.getElementById('themeToggle');
+      if (!button) return;
+      button.textContent = theme === 'dark' ? '☀️' : '🌙';
+      button.setAttribute('title', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+      button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+
+    function initThemeToggle() {
+      const button = document.getElementById('themeToggle');
+      if (!button) return;
+      applyTheme(document.documentElement.getAttribute('data-theme') || 'light');
+      button.addEventListener('click', () => {
+        const now = document.documentElement.getAttribute('data-theme') || 'light';
+        applyTheme(now === 'dark' ? 'light' : 'dark');
+      });
+    }
+
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (character) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
+
+    function slugFromLocation() {
+      const match = window.location.pathname.match(/\/playbook\/lab\/([a-z0-9][a-z0-9-]{0,79})\/?$/);
+      return match ? match[1] : '';
+    }
+
+    function safePublicUrl(value) {
+      const raw = String(value || '').trim();
+      if (!raw) return '#';
+      try {
+        const url = new URL(raw, window.location.origin);
+        let decodedPath = url.pathname;
+        let pathStable = false;
+        for (let pass = 0; pass < 8; pass += 1) {
+          const nextPath = decodeURIComponent(decodedPath);
+          if (nextPath === decodedPath) {
+            pathStable = true;
+            break;
+          }
+          decodedPath = nextPath;
+        }
+        const unsafePath = !pathStable || decodedPath.includes('\\') || decodedPath.split('/').includes('..') ||
+          Array.from(decodedPath).some((character) => character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127);
+        if (raw.startsWith('/lab-artifacts/') && !raw.startsWith('//') &&
+            url.origin === window.location.origin && !url.search && !url.hash && !unsafePath) {
+          return url.href;
+        }
+        if (raw.startsWith('/') || url.protocol !== 'https:' || !url.hostname ||
+            url.username || url.password || url.search || url.hash) return '#';
+        return url.href;
+      } catch {
+        return '#';
+      }
+    }
+
+    async function fetchWithTimeout(url, options = {}, timeoutMs = 8000) {
+      const controller = new AbortController();
+      const timer = setTimeout(() => controller.abort(), timeoutMs);
+      try {
+        return await fetch(url, { ...options, signal: controller.signal });
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    function skillLabMeetsVisibility(entries, threshold) {
+      return entries.some((entry) =>
+        entry.isIntersecting && entry.intersectionRatio >= threshold);
+    }
+
+    function captureLab(event, lab, extra = {}) {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const requestedPlacement = String(params.get('ref') || '').slice(0, 32);
+        const placement = LAB_PLACEMENTS.has(requestedPlacement) ? requestedPlacement : 'direct';
+        window.aiFeedPostHog?.capture?.(event, {
+          lab_id: String(lab?.id || '').slice(0, 80) || null,
+          pilot_edition: Number.isInteger(lab?.pilot_edition) ? lab.pilot_edition : null,
+          placement,
+          ...extra,
+        });
+      } catch {}
+    }
+
+    function markSkillLabPromoSeen(id) {
+      const safeId = String(id || '');
+      if (!LAB_ID_RE.test(safeId)) return;
+      try {
+        localStorage.setItem(SKILL_LAB_PROMO_SEEN_PREFIX + safeId, '1');
+      } catch {}
+    }
+
+    function median(values) {
+      const sorted = values.filter((value) => Number.isFinite(value)).sort((a, b) => a - b);
+      if (!sorted.length) return null;
+      const middle = Math.floor(sorted.length / 2);
+      return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2;
+    }
+
+    function conditionStats(condition) {
+      const runs = Array.isArray(condition?.runs) ? condition.runs : [];
+      return {
+        passed: runs.filter((run) => run.success === true).length,
+        total: runs.length,
+        quality: median(runs.map((run) => Number(run?.quality_score))),
+        duration: median(runs.map((run) => Number(run?.metrics?.duration_ms))),
+        inputTokens: median(runs.map((run) => Number(run?.metrics?.input_tokens))),
+        outputTokens: median(runs.map((run) => Number(run?.metrics?.output_tokens))),
+        cost: median(runs.map((run) => Number(run?.metrics?.cost_usd))),
+        tools: median(runs.map((run) => Number(run?.metrics?.tool_calls))),
+        interventions: median(runs.map((run) => Number(run?.metrics?.interventions))),
+        recoveries: median(runs.map((run) => Number(run?.metrics?.recovery_events))),
+        unnecessary: median(runs.map((run) => Number(run?.metrics?.unnecessary_actions))),
+      };
+    }
+
+    function fmtNumber(value, digits = 0) {
+      return Number.isFinite(value) ? value.toLocaleString(undefined, { maximumFractionDigits: digits }) : 'Not reported';
+    }
+
+    function fmtDuration(value) {
+      if (!Number.isFinite(value)) return 'Not reported';
+      return value >= 60000 ? `${fmtNumber(value / 60000, 1)} min` : `${fmtNumber(value / 1000, 1)} sec`;
+    }
+
+    function progressHtml(edition, size) {
+      const done = Math.max(0, Math.min(Number(size) || 3, Number(edition) || 0));
+      const segments = [1, 2, 3].map((number) => `<i class="${number <= done ? 'on' : ''}"></i>`).join('');
+      return `<div class="lab-progress"><span>${done}/${Number(size) || 3} results published</span>` +
+        `<span class="lab-progress-track" aria-hidden="true">${segments}</span></div>`;
+    }
+
+    function conditionsHtml(lab) {
+      const conditions = Array.isArray(lab?.method?.conditions) ? lab.method.conditions : [];
+      return `<div class="lab-conditions">${conditions.map((condition) => `
+        <article class="lab-condition">
+          <span class="lab-label">Condition</span>
+          <h3>${esc(CONDITION_LABELS[condition.id] || condition.label || 'Condition')}</h3>
+          <p>${esc(condition.setup || '')}</p>
+        </article>`).join('')}</div>`;
+    }
+
+    function resultsHtml(lab) {
+      const conditions = Array.isArray(lab?.method?.conditions) ? lab.method.conditions : [];
+      const outcomeRows = conditions.map((condition) => {
+        const stats = conditionStats(condition);
+        return `<tr><th scope="row">${esc(CONDITION_LABELS[condition.id] || condition.label || 'Condition')}</th>` +
+          `<td>${stats.passed}/${stats.total}</td><td>${fmtNumber(stats.quality, 1)}/100</td>` +
+          `<td>${fmtDuration(stats.duration)}</td><td>${fmtNumber(stats.inputTokens)}</td>` +
+          `<td>${fmtNumber(stats.outputTokens)}</td><td>$${fmtNumber(stats.cost, 2)}</td></tr>`;
+      }).join('');
+      const trajectoryRows = conditions.map((condition) => {
+        const stats = conditionStats(condition);
+        return `<tr><th scope="row">${esc(CONDITION_LABELS[condition.id] || condition.label || 'Condition')}</th>` +
+          `<td>${fmtNumber(stats.tools, 1)}</td><td>${fmtNumber(stats.interventions, 1)}</td>` +
+          `<td>${fmtNumber(stats.recoveries, 1)}</td><td>${fmtNumber(stats.unnecessary, 1)}</td></tr>`;
+      }).join('');
+      return `<h3 class="lab-table-title">Outcome and efficiency</h3>
+        <div class="lab-table-wrap" tabindex="0" aria-label="Outcome and efficiency results, horizontally scrollable">
+        <table class="lab-results"><thead><tr><th scope="col">Condition</th><th scope="col">Passed</th>
+          <th scope="col">Median quality</th><th scope="col">Median time</th>
+          <th scope="col">Median input tokens</th><th scope="col">Median output tokens</th>
+          <th scope="col">Median cost</th></tr></thead>
+          <tbody>${outcomeRows}</tbody></table></div>
+        <h3 class="lab-table-title">Trajectory counters</h3>
+        <div class="lab-table-wrap" tabindex="0" aria-label="Trajectory counters, horizontally scrollable">
+          <table class="lab-results"><thead><tr><th scope="col">Condition</th>
+            <th scope="col">Median tool calls</th><th scope="col">Median interventions</th>
+            <th scope="col">Median recovery events</th><th scope="col">Median unnecessary actions</th></tr></thead>
+            <tbody>${trajectoryRows}</tbody></table></div>`;
+    }
+
+    function runReceiptsHtml(lab) {
+      const conditions = Array.isArray(lab?.method?.conditions) ? lab.method.conditions : [];
+      const groups = conditions.map((condition) => {
+        const label = CONDITION_LABELS[condition.id] || condition.label || 'Condition';
+        const runs = Array.isArray(condition.runs) ? condition.runs : [];
+        const receipts = runs.map((run) => {
+          const metrics = run?.metrics || {};
+          const passed = run?.success === true;
+          return `<li class="lab-run"><div class="lab-run-head"><strong>${esc(run?.id || 'Run')}</strong>` +
+            `<span class="lab-run-status ${passed ? 'pass' : ''}">${passed ? 'Passed' : 'Did not pass'}</span></div>` +
+            `<dl class="lab-run-metrics">` +
+            `<div><dt>Quality</dt><dd>${fmtNumber(Number(run?.quality_score), 1)}/100</dd></div>` +
+            `<div><dt>Time</dt><dd>${fmtDuration(Number(metrics.duration_ms))}</dd></div>` +
+            `<div><dt>Input tokens</dt><dd>${fmtNumber(Number(metrics.input_tokens))}</dd></div>` +
+            `<div><dt>Output tokens</dt><dd>${fmtNumber(Number(metrics.output_tokens))}</dd></div>` +
+            `<div><dt>Cost</dt><dd>$${fmtNumber(Number(metrics.cost_usd), 2)}</dd></div>` +
+            `<div><dt>Tool calls</dt><dd>${fmtNumber(Number(metrics.tool_calls))}</dd></div>` +
+            `<div><dt>Interventions</dt><dd>${fmtNumber(Number(metrics.interventions))}</dd></div>` +
+            `<div><dt>Recovery events</dt><dd>${fmtNumber(Number(metrics.recovery_events))}</dd></div>` +
+            `<div><dt>Unnecessary actions</dt><dd>${fmtNumber(Number(metrics.unnecessary_actions))}</dd></div>` +
+            `</dl><p class="lab-run-trajectory"><span class="lab-label">Trajectory</span>` +
+            `${esc(run?.trajectory_summary || 'Not reported')}</p></li>`;
+        }).join('');
+        return `<details class="lab-run-group"><summary><span>${esc(label)}</span>` +
+          `<span>${runs.length} runs</span></summary><ol class="lab-run-list">${receipts}</ol></details>`;
+      }).join('');
+      return `<div class="lab-run-receipts"><h3>Run receipts</h3>` +
+        `<p>Open a condition to inspect every run, including failures and recovery notes.</p>${groups}</div>`;
+    }
+
+    function findingsHtml(lab) {
+      const conditions = Array.isArray(lab?.method?.conditions) ? lab.method.conditions : [];
+      return conditions.map((condition) => `<article class="lab-finding"><h3>${esc(CONDITION_LABELS[condition.id] || condition.label)}</h3>` +
+        `<p>${esc(condition.finding || '')}</p></article>`).join('');
+    }
+
+    function artifactsHtml(lab) {
+      const links = [];
+      for (const condition of (lab?.method?.conditions || [])) {
+        const label = CONDITION_LABELS[condition.id] || condition.label || 'Condition';
+        const instructions = safePublicUrl(condition.instruction_artifact_url);
+        if (instructions !== '#') {
+          const digest = /^[a-f0-9]{64}$/.test(String(condition.instruction_sha256 || ''))
+            ? `<code>sha256:${esc(condition.instruction_sha256)}</code>`
+            : '';
+          links.push(`<div class="lab-artifact"><a href="${instructions}" target="_blank" rel="noopener" data-lab-artifact="instructions" data-lab-condition="${esc(condition.id)}">${esc(label)} instructions →</a>${digest}</div>`);
+        }
+        for (const run of (condition.runs || [])) {
+          const href = safePublicUrl(run.artifact_url);
+          if (href === '#') continue;
+          links.push(`<div class="lab-artifact"><a href="${href}" target="_blank" rel="noopener" data-lab-artifact="run" data-lab-condition="${esc(condition.id)}">${esc(label)} · ${esc(run.id)} →</a></div>`);
+        }
+      }
+      return links.length ? `<div class="lab-artifacts">${links.join('')}</div>` : '';
+    }
+
+    function setupHtml(lab) {
+      const environment = lab?.method?.environment || {};
+      const model = environment.model || {};
+      const harness = environment.harness || {};
+      const fixture = environment.repository_fixture || {};
+      const budget = environment.budget || {};
+      const task = lab?.method?.task || {};
+      const skill = lab?.method?.skill || null;
+      const skillSource = safePublicUrl(skill?.source_url);
+      const skillRow = skill ? `<dt>Skill</dt><dd>${esc(skill.name || '')} · ${esc(skill.revision || '')}` +
+        `${skillSource === '#' ? '' : ` · <a href="${skillSource}" target="_blank" rel="noopener">Pinned source</a>`}` +
+        `${skill.sha256 ? `<br><code>sha256:${esc(skill.sha256)}</code>` : ''}</dd>` : '';
+      const testedRow = lab?.state === 'published'
+        ? `<dt>Tested at</dt><dd>${esc(lab.tested_at || '')}</dd>`
+        : '';
+      return `<dl class="lab-setup">
+        <dt>Task</dt><dd>${esc(task.description || '')}</dd>
+        <dt>Success criteria</dt><dd>${listHtml(task.success_criteria)}</dd>
+        <dt>Evaluation method</dt><dd>${esc(task.evaluation_method || '')}</dd>
+        <dt>Model</dt><dd>${esc(model.name || '')} · ${esc(model.version || '')}</dd>
+        <dt>Reasoning effort</dt><dd>${esc(environment.reasoning_effort || '')}</dd>
+        <dt>Harness</dt><dd>${esc(harness.name || '')} · ${esc(harness.version || '')}</dd>
+        <dt>Fixture</dt><dd>${esc(fixture.name || '')} · ${esc(fixture.revision || '')}</dd>
+        <dt>Permissions</dt><dd>${listHtml(environment.permissions)}</dd>
+        ${skillRow}
+        ${testedRow}
+        <dt>Repeat policy</dt><dd>${esc(lab?.method?.runs_per_condition || '')} independent runs per condition</dd>
+        <dt>Budget</dt><dd>${esc(budget.timeout_seconds || '')} sec, ${esc(budget.max_tokens_per_run || '')} tokens, $${esc(budget.max_cost_usd_per_run || '')} per run</dd>
+      </dl>`;
+    }
+
+    function listHtml(items) {
+      return `<ul class="lab-list">${(Array.isArray(items) ? items : []).map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
+    }
+
+    function observeOnce(element, event, lab, threshold = SKILL_LAB_DETAIL_VIEW_THRESHOLD) {
+      if (!element) return;
+      if (!('IntersectionObserver' in window)) {
+        captureLab(event, lab);
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (!skillLabMeetsVisibility(entries, threshold)) return;
+        observer.disconnect();
+        captureLab(event, lab);
+      }, { threshold });
+      observer.observe(element);
+    }
+
+    function renderLab(lab) {
+      const root = document.getElementById('labRecord');
+      const state = String(lab?.state || '');
+      const edition = Number(lab?.pilot_edition);
+      const size = Number(lab?.pilot_size) || 3;
+      const slug = String(lab?.slug || '');
+      const runsPerCondition = Number(lab?.method?.runs_per_condition);
+      const plannedRunCount = 3 * (Number.isInteger(runsPerCondition) && runsPerCondition >= 3
+        ? runsPerCondition
+        : 3);
+      if (!LAB_SLUG_RE.test(slug) || !['protocol', 'published'].includes(state) || !Number.isInteger(edition)) {
+        throw new Error('invalid_lab_record');
+      }
+      const status = state === 'published' ? '60-second verdict' : 'Protocol · no results yet';
+      const verdict = state === 'published'
+        ? `<section id="labVerdict" class="lab-verdict"><span class="lab-label">${status}</span>` +
+          `<p>${esc(lab.verdict || '')}</p><p class="lab-recommendation"><strong>Recommendation:</strong> ${esc(lab.recommendation || '')}</p></section>`
+        : `<section class="lab-verdict"><span class="lab-label">${status}</span>` +
+          `<p>No winner is shown before all ${plannedRunCount} runs pass review.</p>` +
+          `<p class="lab-recommendation">${esc(lab.publication_rule || '')}</p></section>`;
+      const comparison = state === 'published'
+        ? `<section class="lab-section"><h2>Exact condition setup</h2>${conditionsHtml(lab)}</section>` +
+          `<section class="lab-section"><h2>Condition results</h2>${resultsHtml(lab)}${findingsHtml(lab)}${runReceiptsHtml(lab)}</section>`
+        : `<section class="lab-section"><h2>Three conditions, one task</h2>` +
+          `<p class="lab-section-lead">Only the instruction layer changes.</p>${conditionsHtml(lab)}</section>`;
+      const artifacts = state === 'published' ? artifactsHtml(lab) : '';
+      const measures = lab?.method?.measures || [];
+      const subscribeHref = `/subscribe?ref=skill_lab&lab_id=${encodeURIComponent(String(lab.id || ''))}`;
+      root.innerHTML = `
+        <header class="lab-hero">
+          <p class="lab-kicker">Agent Skill Lab · Pilot ${edition}/${size} · ${esc(lab.date || '')}</p>
+          <h2 class="lab-title">${esc(lab.title || 'Agent Skill Lab')}</h2>
+          <p class="lab-question">${esc(lab.question || '')}</p>
+          <p class="lab-summary">${esc(lab.summary || '')}</p>
+          ${progressHtml(edition, size)}
+        </header>
+        ${verdict}
+        ${comparison}
+        <section class="lab-section"><h2>Held constant</h2>${setupHtml(lab)}${listHtml(lab?.method?.held_constant)}</section>
+        <section class="lab-section"><h2>What we measure</h2>${listHtml(measures.map((measure) => `${measure.label}: ${measure.description}`))}</section>
+        ${artifacts ? `<section class="lab-section"><h2>Reproducibility artifacts</h2>${artifacts}</section>` : ''}
+        <section class="lab-section"><h2>Limits on the claim</h2>${listHtml(lab.limitations)}</section>
+        <aside class="lab-cta"><h2>Get the next result</h2><p>One field test per edition, with the failed runs included.</p>
+          <a href="${subscribeHref}" data-subscribe-channel="email" data-subscribe-placement="skill_lab_end">Subscribe for the next result</a></aside>
+        <p id="labFinish" class="lab-end">That's the Lab record</p>`;
+      root.setAttribute('aria-busy', 'false');
+      document.title = `${lab.title || 'Agent Skill Lab'} | LLM Digest`;
+      document.getElementById('meta').textContent = `Pilot ${edition}/${size} · ${state}`;
+      document.getElementById('jsonLink').href = `/api/playbook?lab=${encodeURIComponent(slug)}`;
+      document.getElementById('canonical').href = `https://www.llm-digest.com/playbook/lab/${encodeURIComponent(slug)}`;
+      markSkillLabPromoSeen(lab.id);
+      captureLab('skill_lab_open', lab);
+      if (state === 'published') observeOnce(document.getElementById('labVerdict'), 'skill_lab_verdict_view', lab);
+      observeOnce(document.getElementById('labFinish'), 'skill_lab_complete', lab);
+      root.addEventListener('click', (event) => {
+        const link = event.target.closest('a[data-lab-artifact]');
+        if (!link) return;
+        captureLab('skill_lab_artifact_open', lab, {
+          artifact_kind: link.dataset.labArtifact || null,
+          condition: link.dataset.labCondition || null,
+        });
+      });
+    }
+
+    function renderError(message) {
+      const root = document.getElementById('labRecord');
+      const meta = document.getElementById('meta');
+      root.setAttribute('aria-busy', 'false');
+      meta.textContent = 'Lab record unavailable';
+      root.innerHTML = `<div class="state" role="alert">${esc(message)}<br><button type="button" data-retry-lab>Retry</button></div>`;
+      document.querySelector('[data-retry-lab]')?.addEventListener('click', loadLab);
+    }
+
+    async function loadLab() {
+      const root = document.getElementById('labRecord');
+      const slug = slugFromLocation();
+      if (!LAB_SLUG_RE.test(slug)) {
+        renderError('This Lab record does not exist.');
+        return;
+      }
+      root.setAttribute('aria-busy', 'true');
+      document.getElementById('meta').textContent = 'Loading the record…';
+      try {
+        let response = await fetchWithTimeout(`/api/playbook?lab=${encodeURIComponent(slug)}`, { headers: { accept: 'application/json' } });
+        if (response.status === 404 && /^(127\.0\.0\.1|localhost)$/.test(location.hostname)) {
+          response = await fetchWithTimeout(`/data/playbook/lab/${encodeURIComponent(slug)}.json`, { cache: 'no-store' });
+        }
+        if (response.status === 404) {
+          renderError('This Lab record has not been published.');
+          return;
+        }
+        if (!response.ok) throw new Error('lab_http_' + response.status);
+        renderLab(await response.json());
+      } catch (error) {
+        console.error(error);
+        renderError('Could not load this Lab record. Please try again.');
+      }
+    }
+
+    initThemeToggle();
+    loadLab();
+  </script>
+
+  <script type="module">
+    const isLocalPreview = /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
+    if (!isLocalPreview && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const go = () => import('/mascot/mascot.js').catch(() => {});
+      'requestIdleCallback' in window ? requestIdleCallback(go, { timeout:5000 }) : setTimeout(go, 2500);
+    }
+  </script>
+  <script src="/nav-updates.js?v=20260824-promo-owner" defer></script>
+</body>
+</html>

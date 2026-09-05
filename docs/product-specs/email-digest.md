@@ -120,7 +120,8 @@ successful send.
 ```json
 {
   "daily":      { "last_sent_date": "2026-06-19" },
-  "weekly":     { "last_sent_week": "2026-W24" },
+  "weekly":     { "last_sent_week": "2026-W24",
+                  "sent_skill_lab_ids": ["lab-protocol"] },
   "storylines": { "sent_through": "2026-06-18T11:47:13+00:00",
                   "seen_sids": ["c5cd09a4f478ae3e", "…"] }
 }
@@ -136,8 +137,19 @@ nodes (`updated`) inside the recap's `[start, end]`. The daily send advances the
 shared `storylines` cursor every day, so a cursor-based weekly would be starved
 by Friday; windowing also matches the recap period and lets a thread appear in
 both a daily ("new today") and the Friday roundup ("what happened this week") —
-intended. So the weekly cursor stores only `last_sent_week` (idempotency); there
-is no wiki high-water mark.
+intended. Weekly storyline/wiki selection therefore has no high-water mark;
+`last_sent_week` remains the recap idempotency guard.
+
+The Agent Skill Lab pilot is the one additive weekly cursor. A Lab record can
+be published just after Friday's send, so strict recap-window selection could
+drop it forever. The sender therefore selects the newest unsent Lab record whose
+date is no later than the recap end and whose `featured_until` still covers that
+end. After a successful broadcast, its bounded ID is appended to
+`weekly.sent_skill_lab_ids`. This state is PII-free and capped to the four pilot
+records. Before selection, the sender runs the same read-only full-store check
+as deployment, including the contiguous protocol-first edition sequence,
+source/index digests, derived snapshots, and local artifact availability. Daily
+email, storyline windowing, and wiki windowing are unchanged.
 
 ## Architecture
 

@@ -131,6 +131,9 @@ in `ops_daily_summary.py`'s log line.
     synthesis is the `wiki-curator` routine's job)
   - `build_foundations.py` — compiles Agent Builder Foundations concept pages
     (`data/foundations/concepts/`) into the served `data/foundations/index.json`
+  - `build_skill_lab.py` - validates Agent Skill Lab protocol/result records,
+    binds sources to index rows with SHA-256, and replaces the derived
+    `data/playbook/lab/{index,latest}.json` files after full validation
   - `feedback.py`, `auto_tune.py` — reader feedback loop + source weight tuning
   - `north_star_metric.py` — weekly returning readers rollup (the one metric;
     PostHog `page_view` → `data/metrics/weekly_returning_readers.json`)
@@ -160,7 +163,7 @@ in `ops_daily_summary.py`'s log line.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
   `/storyline/<slug>` is served from the static page below), `playbook.html`,
-  `voices.html`, `subscribe.html`. Shared responsive navigation lives in
+  `playbook-lab.html`, `voices.html`, `subscribe.html`. Shared responsive navigation lives in
   top-level `site-chrome.css` + `site-chrome.js`: semantic fallback links are
   progressively moved into Browse/More dialogs, while date/week/edition
   controls remain visible. Generated pages receive the same chrome through
@@ -178,6 +181,9 @@ in `ops_daily_summary.py`'s log line.
   no-JS snapshot of the top ranked items — hand-edit outside the markers only).
   `web/og/` holds per-edition Open Graph share cards from `pipeline/og_cards.py`
   (Pillow-optional; degrades to the committed/default card where absent).
+  `web/lab-artifacts/` holds reviewed public evidence referenced by Agent Skill
+  Lab result records; the builder proves referenced files exist and Vercel
+  stages the directory at `/lab-artifacts/`.
   Brand assets:
   `favicon.svg` (hand-authored), `og-default.png` + `logo.png` (from
   `scripts/make_og_assets.py`). Also `robots.txt`, `llms.txt`, `llm-guide.txt`.
@@ -292,6 +298,11 @@ in `ops_daily_summary.py`'s log line.
   `source-index.json` (source-backed cards keyed by story sid) + `input/`
   bundles (excluded from deploys). Served at `/playbook`; source-backed cards
   may appear inline in capped daily/weekly recap overlays
+- `data/playbook/lab/` - Agent Skill Lab pilot records plus deterministic
+  `index.json`/`latest.json`. Edition zero is the public protocol; editions 1-3
+  require pinned conditions, repeated raw runs, artifacts, limitations, and a
+  verdict. `drafts/` is neither indexed nor deployed. Served through the
+  Playbook API selector and `/playbook/lab/<slug>`.
 - `data/i18n/<locale>/` — pre-translated static-page artifacts. Current Korean
   slice covers `daily`, `weekly`, `story`, `storyline`, `topic`, and
   `foundations`; fresh artifacts render to `web/<locale>/...`, get `hreflang`
@@ -342,12 +353,14 @@ in `ops_daily_summary.py`'s log line.
 (email digest signup) · `/map` (wiki index; reader-facing name "Agent
 Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
 `/foundations` / `/foundations/<slug>` (evidence-tiered concept explanations) ·
-`/playbook` (actionable agent-builder cards) ·
+`/playbook` (actionable agent-builder cards) · `/playbook/lab/<slug>` (Skill
+Lab protocol and results, nested under Playbook) ·
 `/models` (Model Release Radar: price/capability/community signal per model) ·
 `/voices` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
-`/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`,
+`/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`
+(`?lab=latest|list|<slug>` for the Skill Lab pilot),
 `/api/models`, `/api/client-config`, `/api/updates`
 (lightweight freshness signals powering the nav "new updates" pills and
 the feed's "Fresh from the Editor's Desk" strip),

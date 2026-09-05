@@ -23,6 +23,32 @@
   <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
   <link rel="stylesheet" href="/site-chrome.css?v=20260824-review-fixes" />
+  <script>
+    function sanitizedSubscribePath(rawHref) {
+      try {
+        const url = new URL(String(rawHref || ''), 'https://www.llm-digest.com');
+        const clean = new URLSearchParams();
+        const ref = String(url.searchParams.get('ref') || '').trim();
+        const labId = String(url.searchParams.get('lab_id') || '').trim();
+        if (ref === 'skill_lab') {
+          clean.set('ref', ref);
+          if (/^lab-[a-z0-9][a-z0-9-]{0,76}$/.test(labId)) clean.set('lab_id', labId);
+        }
+        const query = clean.toString();
+        return `${url.pathname}${query ? `?${query}` : ''}`;
+      } catch {
+        return '/subscribe';
+      }
+    }
+
+    (function sanitizeSubscribeLocation() {
+      const safePath = sanitizedSubscribePath(window.location.href);
+      const currentPath = `${window.location.pathname}${window.location.search}`;
+      if (safePath !== currentPath || window.location.hash) {
+        window.history.replaceState(window.history.state, '', safePath);
+      }
+    })();
+  </script>
   <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
@@ -217,6 +243,8 @@
   <script>
     const EMAIL_SUBSCRIBED_KEY = 'ai_feed_email_subscribed_v1';
     const NUDGE_DONE_KEY = 'ai_feed_subscribe_nudge_done_v1';
+    const ALLOWED_SUBSCRIBE_REFS = new Set(['skill_lab']);
+    const LAB_ID_RE = /^lab-[a-z0-9][a-z0-9-]{0,76}$/;
 
     // The email-digest workflow sends on fixed UTC crons (daily brief 23:00 UTC;
     // weekly recap Friday 23:00 UTC — see .github/workflows/email-digest.yml).
@@ -271,6 +299,40 @@
       }
     }
 
+    function subscribeAttribution() {
+      const params = new URLSearchParams(window.location.search);
+      const rawRef = String(params.get('ref') || '').trim();
+      const ref = ALLOWED_SUBSCRIBE_REFS.has(rawRef) ? rawRef : null;
+      const rawLabId = String(params.get('lab_id') || '').trim();
+      const labId = ref === 'skill_lab' && LAB_ID_RE.test(rawLabId) ? rawLabId : null;
+      return { ref, labId };
+    }
+
+    function captureSubscribeSuccess(weeklyOnly) {
+      const attribution = subscribeAttribution();
+      try {
+        window.aiFeedPostHog?.capture?.('subscribe_success', {
+          cadence: weeklyOnly ? 'weekly' : 'both',
+          ref: attribution.ref,
+          lab_id: attribution.labId,
+        });
+      } catch {}
+    }
+
+    function shouldRecordSubscribeSuccess(honeypot) {
+      return !String(honeypot || '').trim();
+    }
+
+    function captureExternalHandoff() {
+      const attribution = subscribeAttribution();
+      try {
+        window.aiFeedPostHog?.capture?.('subscribe_external_handoff', {
+          ref: attribution.ref,
+          lab_id: attribution.labId,
+        });
+      } catch {}
+    }
+
     function markSubscribed() {
       try {
         localStorage.setItem(EMAIL_SUBSCRIBED_KEY, '1');
@@ -316,6 +378,7 @@
       const button = form.querySelector('button[type="submit"]');
       const weeklyOnly = !!(form.elements.cadence && form.elements.cadence.value === 'weekly');
       const email = String(emailInput.value || '').trim();
+      const honeypot = String(form.elements.website.value || '').trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         setMessage('Please enter a valid email address.', 'err');
         emailInput.focus();
@@ -327,10 +390,13 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: String(form.elements.website.value || '') }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot }),
         });
         if (response.ok) {
-          markSubscribed();
+          if (shouldRecordSubscribeSuccess(honeypot)) {
+            markSubscribed();
+            captureSubscribeSuccess(weeklyOnly);
+          }
           emailInput.disabled = true;
           if (form.elements.cadence) Array.from(form.elements.cadence).forEach((radio) => { radio.disabled = true; });
           button.remove();
@@ -362,6 +428,7 @@
         if (externalUrl) {
           surface.innerHTML = `<a class="external-signup" href="${externalUrl}" target="_blank" rel="noopener">Continue to email signup →</a>
             <p class="privacy">Signup and subscription preferences are managed by our email provider.</p>`;
+          surface.querySelector('.external-signup')?.addEventListener('click', captureExternalHandoff);
           return;
         }
         if (config?.digest?.email_subscribe_enabled) {

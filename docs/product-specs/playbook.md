@@ -76,6 +76,13 @@ routine refuses to overwrite an existing one.
   (one edition), `/api/playbook?list=1` (index). `vercel.json` routes
   `/playbook` and bundles `data/playbook/{index,latest}.json` +
   `data/playbook/<date>.json` (the `input/` bundle is excluded from deploys).
+- **Skill Lab pilot:** `/playbook` loads the latest valid Lab record only after
+  its normal edition has rendered. Full protocol and result records live at
+  `/playbook/lab/<slug>` and use `/api/playbook?lab=latest|list|<slug>`. Lab
+  data is validated separately under `data/playbook/lab/`, so it cannot change
+  the normal edition schema or block Playbook rendering. See
+  `agent-skill-lab-pilot.md` for the three-result experiment, promotion, and
+  measurement contract.
 - **Discovery:** linked from the home-page quicknav + `<noscript>` list, and
   carries a "New" nav-update dot driven by `/api/updates` (the `playbook`
   signal: newest edition `date` + `generated_at`, with a 10-day freshness gate
@@ -154,6 +161,9 @@ load-bearing for the rail/coverage index and should be set when clear. See
 Regression coverage: `tests/test_playbook_surface.py`.
 
 ## Status / follow-ups
+- The Agent Skill Lab pilot launched with an edition-zero protocol on
+  2026-09-04. It contains no result or winner. Three result editions require
+  actual repeated runs and reviewed artifacts before publication.
 - Shipped with a hand-authored **starter edition** (`2026-06-21`) whose cards are
   distilled from the agent-engineering wiki and link to the relevant `/topic`
   pages. Live editions are written by the `playbook` agent routine and cite the

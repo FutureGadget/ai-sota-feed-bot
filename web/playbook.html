@@ -46,12 +46,14 @@
       --bg:#f5f7fa; --card:#ffffff; --border:#d7dde7; --accent:#2457d6;
       --muted:#687386; --fg:#121722; --signal:#23875b; --warm:#b6780c;
       --apply-wash:#eef3ff; --apply-edge:#2457d6;
+      --lab-muted:#596576; --lab-signal:#176f4a;
     }
     html[data-theme="dark"] {
       color-scheme: dark;
       --bg:#11151c; --card:#171d26; --border:#313946; --accent:#7ca0ff;
       --muted:#9aa6b6; --fg:#eff3f8; --signal:#54b886; --warm:#e0ad4e;
       --apply-wash:#1b2436; --apply-edge:#7ca0ff;
+      --lab-muted:#a8b4c4; --lab-signal:#67c99b;
     }
     body { margin:0; line-height:1.5; overflow-x:clip; background:var(--bg); color:var(--fg);
       font-family:"Avenir Next","Segoe UI",system-ui,sans-serif; }
@@ -100,6 +102,40 @@
     .pb-covers b { color:var(--accent); font-weight:700; letter-spacing:.12em;
       text-transform:uppercase; margin-right:.7rem; }
     .pb-covers .sep { color:var(--border); margin:0 .35rem; }
+
+    /* Skill Lab is a bounded field note inside Playbook, not a new section. */
+    .pb-lab-slot[hidden] { display:none; }
+    .pb-lab { margin:0 0 2rem; padding:1.15rem 1.25rem 1.25rem;
+      border-top:1px solid var(--border); border-right:1px solid var(--border);
+      border-bottom:1px solid var(--border); border-left:3px solid var(--apply-edge);
+      background:var(--apply-wash); }
+    .pb-lab-kicker { margin:0 0 .45rem; color:var(--accent);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .pb-lab h2 { margin:0; font-family:"Avenir Next Condensed","Arial Narrow",sans-serif;
+      font-size:clamp(1.65rem,3.8vw,2.25rem); line-height:1; letter-spacing:-.025em; }
+    .pb-lab-question { max-width:46rem; margin:.65rem 0 0; font-size:1rem;
+      line-height:1.5; font-weight:600; }
+    .pb-lab-status { display:block; margin:.8rem 0 .2rem; color:var(--lab-signal);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.62rem;
+      font-weight:700; letter-spacing:.11em; text-transform:uppercase; }
+    .pb-lab-lead { max-width:46rem; margin:0; color:var(--lab-muted); font-size:.9rem; line-height:1.55; }
+    .pb-lab-conditions { display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:0; margin:1rem 0 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); }
+    .pb-lab-condition { min-width:0; padding:.75rem .8rem; border-right:1px solid var(--border); }
+    .pb-lab-condition:last-child { border-right:0; }
+    .pb-lab-condition b { display:block; color:var(--fg);
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.66rem;
+      letter-spacing:.06em; text-transform:uppercase; }
+    .pb-lab-condition strong { display:block; margin:.2rem 0; color:var(--lab-signal);
+      font-family:"Avenir Next Condensed","Arial Narrow",sans-serif; font-size:1.15rem; }
+    .pb-lab-condition span { display:block; color:var(--lab-muted); font-size:.76rem; line-height:1.45; }
+    .pb-lab-actions { display:flex; flex-wrap:wrap; gap:.5rem 1rem; margin:1rem 0 0; }
+    .pb-lab-actions a { min-height:44px; display:inline-flex; align-items:center;
+      font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem;
+      font-weight:700; letter-spacing:.04em; text-decoration:none; }
+    .pb-lab-actions a:first-child { padding:0 .85rem; color:#fff; background:var(--accent); }
+    .pb-lab-actions a:last-child { color:var(--accent); }
 
     /* The change records. */
     .pb-list { border-top:1px solid var(--border); margin:1.7rem 0 0; }
@@ -160,6 +196,10 @@
       .pb-headline { font-size:2.7rem; }
       .pb-record { grid-template-columns:1fr; gap:.75rem; padding:1.4rem 0; }
       .pb-rail { flex-direction:row; align-items:center; flex-wrap:wrap; gap:.8rem 1.2rem; }
+      .pb-lab { padding:1rem; }
+      .pb-lab-conditions { grid-template-columns:1fr; }
+      .pb-lab-condition { border-right:0; border-bottom:1px solid var(--border); }
+      .pb-lab-condition:last-child { border-bottom:0; }
       .archive { width:100%; margin-left:0; }
       .archive select { flex:1; }
     }
@@ -208,8 +248,8 @@
       </div>
     </header>
 
-    <section id="edition" aria-live="polite">
-      <div class="state">Loading the Playbook…</div>
+    <section id="edition">
+      <div class="state" role="status" aria-live="polite">Loading the Playbook…</div>
     </section>
 
     <footer>
@@ -316,6 +356,112 @@
       }</p>`;
     }
 
+    const LAB_SLUG_RE = /^[a-z0-9][a-z0-9-]{0,79}$/;
+    const SKILL_LAB_FEATURE_THRESHOLD = 0.35;
+    const LAB_CONDITION_LABELS = {
+      'no-skill': 'No skill',
+      'minimal-instructions': 'Minimal instructions',
+      'full-skill': 'Full skill',
+    };
+    const labFeatureViews = new Set();
+
+    function skillLabMeetsVisibility(entries, threshold) {
+      return entries.some((entry) =>
+        entry.isIntersecting && entry.intersectionRatio >= threshold);
+    }
+
+    function captureSkillLab(event, lab, placement) {
+      try {
+        window.aiFeedPostHog?.capture?.(event, {
+          lab_id: String(lab?.id || '').slice(0, 80) || null,
+          pilot_edition: Number.isInteger(lab?.pilot_edition) ? lab.pilot_edition : null,
+          placement,
+        });
+      } catch {}
+    }
+
+    function observeSkillLabFeature(slot, lab) {
+      const key = String(lab.id || '');
+      if (!key || labFeatureViews.has(key)) return;
+      const capture = () => {
+        if (labFeatureViews.has(key)) return;
+        labFeatureViews.add(key);
+        captureSkillLab('skill_lab_feature_view', lab, 'playbook_home');
+      };
+      if (!('IntersectionObserver' in window)) {
+        capture();
+        return;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (!skillLabMeetsVisibility(entries, SKILL_LAB_FEATURE_THRESHOLD)) return;
+        observer.disconnect();
+        capture();
+      }, { threshold: SKILL_LAB_FEATURE_THRESHOLD });
+      observer.observe(slot);
+    }
+
+    function labConditionHtml(condition, state) {
+      const id = String(condition?.id || '');
+      const label = LAB_CONDITION_LABELS[id] || condition?.label || 'Condition';
+      const runs = Array.isArray(condition?.runs) ? condition.runs : [];
+      const passed = runs.filter((run) => run?.success === true).length;
+      const outcome = state === 'published' ? `${passed}/${runs.length} passed` : 'Protocol condition';
+      const note = state === 'published' ? condition?.finding : condition?.setup;
+      return `<div class="pb-lab-condition"><b>${esc(label)}</b>` +
+        `<strong>${esc(outcome)}</strong><span>${esc(note || '')}</span></div>`;
+    }
+
+    function renderSkillLabFeature(lab) {
+      const slot = document.getElementById('skillLabFeature');
+      if (!slot) return;
+      const slug = String(lab?.slug || '');
+      const edition = Number(lab?.pilot_edition);
+      const state = String(lab?.state || '');
+      const conditions = Array.isArray(lab?.method?.conditions) ? lab.method.conditions : [];
+      if (!LAB_SLUG_RE.test(slug) || !Number.isInteger(edition)
+          || !['protocol', 'published'].includes(state) || conditions.length !== 3) {
+        slot.hidden = true;
+        slot.replaceChildren();
+        return;
+      }
+      const detailHref = `/playbook/lab/${encodeURIComponent(slug)}?ref=playbook_home`;
+      const subscribeHref = `/subscribe?ref=skill_lab&lab_id=${encodeURIComponent(String(lab.id || ''))}`;
+      const status = state === 'published' ? '60-second verdict' : 'Protocol · no results yet';
+      const lead = state === 'published' ? lab.verdict : lab.summary;
+      slot.innerHTML = `<article class="pb-lab" aria-labelledby="skillLabTitle">
+        <p class="pb-lab-kicker">Agent Skill Lab · Pilot ${edition}/${Number(lab.pilot_size) || 3}</p>
+        <h2 id="skillLabTitle">${esc(lab.title || 'Agent Skill Lab')}</h2>
+        <p class="pb-lab-question">${esc(lab.question || '')}</p>
+        <span class="pb-lab-status">${esc(status)}</span>
+        <p class="pb-lab-lead">${esc(lead || '')}</p>
+        <div class="pb-lab-conditions">${conditions.map((condition) => labConditionHtml(condition, state)).join('')}</div>
+        <div class="pb-lab-actions">
+          <a href="${detailHref}" data-skill-lab-open="${esc(String(lab.id || ''))}" data-skill-lab-edition="${edition}">${state === 'published' ? 'Inspect the runs' : 'Read the protocol'} →</a>
+          <a href="${subscribeHref}" data-subscribe-channel="email" data-subscribe-placement="skill_lab_teaser">Get the next result</a>
+        </div>
+      </article>`;
+      slot.hidden = false;
+      observeSkillLabFeature(slot, lab);
+    }
+
+    async function loadSkillLabFeature() {
+      const slot = document.getElementById('skillLabFeature');
+      if (!slot) return;
+      slot.hidden = true;
+      slot.replaceChildren();
+      try {
+        let response = await fetch('/api/playbook?lab=latest', { headers: { accept: 'application/json' } });
+        if (response.status === 404 && isLocal()) {
+          response = await fetch('/data/playbook/lab/latest.json', { cache: 'no-store' });
+        }
+        if (!response.ok) return;
+        renderSkillLabFeature(await response.json());
+      } catch {
+        slot.hidden = true;
+        slot.replaceChildren();
+      }
+    }
+
     function renderEdition(edition) {
       document.title = `${edition.title || "Agent Builder's Playbook"} | LLM Digest`;
       document.getElementById('jsonLink').href = `/api/playbook?date=${encodeURIComponent(edition.date)}`;
@@ -339,6 +485,7 @@
           ${intro.length ? `<div class="pb-intro">${intro.map((p) => `<p>${esc(p)}</p>`).join('')}</div>` : ''}
           ${renderCovers(cards)}
         </section>
+        <section id="skillLabFeature" class="pb-lab-slot" hidden></section>
         ${n
           ? `<div class="pb-list">${cards.map(renderRecord).join('')}</div>
              <p class="pb-end">That's the edition — ${n} change${n === 1 ? '' : 's'}</p>`
@@ -400,8 +547,9 @@
         if (!res.ok) throw new Error('playbook_http_' + res.status);
         const edition = await res.json();
         renderEdition(edition);
-        loadArchive(edition.date);      } catch (err) {
-
+        if (!date) loadSkillLabFeature();
+        loadArchive(edition.date);
+      } catch (err) {
         console.error(err);
         document.getElementById('meta').textContent = 'Playbook unavailable';
         document.getElementById('edition').innerHTML =

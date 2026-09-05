@@ -18,6 +18,11 @@ Reader-facing derivatives (built from the durable story store):
    pipeline/build_storylines.py      -> data/storylines/ (/storylines cross-day threads)
    pipeline/render_static_pages.py   -> web/ static pages + sitemap
 
+Agent Skill Lab editorial pilot:
+   pipeline/build_skill_lab.py       -> data/playbook/lab/ (validated protocol/results)
+                                     -> /api/playbook?lab=...
+                                     -> Playbook, feed promotion, weekly email
+
 Reader feedback loop (daily):
    PostHog events -> pipeline/feedback.py sync-posthog -> data/feedback/events.jsonl
                   -> pipeline/auto_tune.py (CTR + feedback)

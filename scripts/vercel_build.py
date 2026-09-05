@@ -9,6 +9,9 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from pipeline.build_skill_lab import referenced_same_origin_artifacts  # noqa: E402
+
 PUBLIC_DIR = ROOT / "public"
 PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 
@@ -17,7 +20,31 @@ PUBLIC_WEB_DIR = PUBLIC_DIR / "web"
 ROOT_ASSET_DIRS = ("mascot", "universe", "og")
 
 
+def stage_skill_lab_artifacts(sources: list[Path]) -> None:
+    """Stage only evidence referenced by validated Lab records."""
+    source_root = (ROOT / "web" / "lab-artifacts").resolve()
+    targets = (PUBLIC_DIR / "lab-artifacts", PUBLIC_WEB_DIR / "lab-artifacts")
+    for target in targets:
+        if target.exists():
+            shutil.rmtree(target)
+    for source in sources:
+        relative = source.resolve().relative_to(source_root)
+        for target in targets:
+            destination = target / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+    print(f"vercel Lab artifacts staged: {len(sources)} referenced files")
+
+
 def main() -> None:
+    # Lab records are authored source data. Refuse to publish if their validated
+    # index or latest snapshot is missing or stale relative to those sources.
+    subprocess.run(
+        [sys.executable, "pipeline/build_skill_lab.py", "--check"],
+        cwd=ROOT,
+        check=True,
+    )
+    lab_artifacts = referenced_same_origin_artifacts()
     # Recompile the agent-engineering wiki from its committed markdown pages so
     # code-only PR previews reflect edited pages. Non-fatal: a broken page falls
     # back to the committed data/wiki/index.json rather than failing the deploy.
@@ -35,7 +62,12 @@ def main() -> None:
     if PUBLIC_WEB_DIR.exists():
         shutil.rmtree(PUBLIC_WEB_DIR)
     PUBLIC_DIR.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(ROOT / "web", PUBLIC_WEB_DIR)
+    shutil.copytree(
+        ROOT / "web",
+        PUBLIC_WEB_DIR,
+        ignore=shutil.ignore_patterns("lab-artifacts"),
+    )
+    stage_skill_lab_artifacts(lab_artifacts)
     print(f"vercel static output staged: {PUBLIC_WEB_DIR}")
 
     # Pages are served from /web/* via vercel.json rewrites, but the brand and
