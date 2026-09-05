@@ -73,6 +73,31 @@ class SubscribeSurfaceTest(unittest.TestCase):
         self.assertIn('id="themeToggle"', self.html)
         self.assertIn("min-height:50px", self.html)  # comfortable touch targets
 
+    def test_success_event_attributes_skill_lab_without_email(self) -> None:
+        self.assertIn("function subscribeAttribution()", self.html)
+        self.assertIn("function captureSubscribeSuccess(weeklyOnly)", self.html)
+        self.assertIn("'subscribe_success'", self.html)
+        self.assertIn("cadence: weeklyOnly ? 'weekly' : 'both'", self.html)
+        self.assertIn("ref: attribution.ref", self.html)
+        self.assertIn("lab_id: attribution.labId", self.html)
+        self.assertNotIn("'subscribe_success', { email", self.html)
+        self.assertIn("captureSubscribeSuccess(weeklyOnly);", self.html)
+        self.assertIn("function shouldRecordSubscribeSuccess(honeypot)", self.html)
+        self.assertIn("if (shouldRecordSubscribeSuccess(honeypot))", self.html)
+
+    def test_attribution_is_allowlisted_and_bounded(self) -> None:
+        self.assertIn("const ALLOWED_SUBSCRIBE_REFS = new Set(['skill_lab']);", self.html)
+        self.assertIn("/^lab-[a-z0-9][a-z0-9-]{0,76}$/", self.html)
+        self.assertIn("subscribe_external_handoff", self.html)
+
+    def test_attribution_is_sanitized_before_analytics_loads(self) -> None:
+        sanitizer = self.html.index("function sanitizedSubscribePath(rawHref)")
+        analytics = self.html.index('src="/posthog-client.js')
+
+        self.assertLess(sanitizer, analytics)
+        self.assertIn("window.history.replaceState", self.html)
+        self.assertIn("const clean = new URLSearchParams();", self.html)
+
 
 if __name__ == "__main__":
     unittest.main()

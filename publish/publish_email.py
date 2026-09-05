@@ -28,12 +28,13 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import html
 import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.parse import quote
 
@@ -42,9 +43,32 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
+from pipeline.build_skill_lab import (  # noqa: E402
+    build_store as validate_skill_lab_store,
+    validate_record as validate_skill_lab_record,
+)
 from pipeline.story_store import story_sid  # noqa: E402
 
 STATE_PATH = ROOT / "data" / "email" / "state.json"
+SKILL_LAB_DIR = ROOT / "data" / "playbook" / "lab"
+SKILL_LAB_SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,79}$")
+SKILL_LAB_ID_RE = re.compile(r"^lab-[a-z0-9][a-z0-9-]{0,76}$")
+SKILL_LAB_SHA256_RE = re.compile(r"^[a-f0-9]{64}$")
+SKILL_LAB_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+SKILL_LAB_SUMMARY_FIELDS = (
+    "schema_version",
+    "id",
+    "slug",
+    "pilot_edition",
+    "pilot_size",
+    "state",
+    "date",
+    "generated_at",
+    "featured_until",
+    "title",
+    "question",
+    "summary",
+)
 DEFAULTS = {
     "enabled": False,
     "provider": "buttondown",
@@ -526,7 +550,52 @@ def render_daily(cfg: dict, recap: dict, threads: list[dict]) -> tuple[str, str]
     return subject, body
 
 
-def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) -> tuple[str, str]:
+def render_skill_lab_email(cfg: dict, lab: dict | None) -> str:
+    """Render one bounded weekly Skill Lab promotion, or nothing."""
+    if not isinstance(lab, dict):
+        return ""
+    slug = str(lab.get("slug") or "")
+    state = str(lab.get("state") or "")
+    edition = lab.get("pilot_edition")
+    size = lab.get("pilot_size")
+    if not SKILL_LAB_SLUG_RE.match(slug) or state not in {"protocol", "published"}:
+        return ""
+    if not isinstance(edition, int) or not isinstance(size, int):
+        return ""
+    base = cfg["site_base"].rstrip("/")
+    source = quote(str(cfg.get("utm_source") or "email"), safe="")
+    detail_url = (
+        f"{base}/playbook/lab/{slug}?utm_source={source}"
+        f"&utm_medium=email&utm_campaign=skill_lab_{edition}&ref=weekly_email"
+    )
+    status = "60-second verdict" if state == "published" else "Protocol, no results yet"
+    lead = lab.get("verdict") if state == "published" else lab.get("summary")
+    cta = "See the evidence" if state == "published" else "Read the protocol"
+    return (
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+        'style="margin:26px 0 4px;border-top:1px solid #d8dee4;border-bottom:1px solid #d8dee4">'
+        '<tr><td style="padding:14px 12px;border-left:3px solid #2457d6;background:#f6f8fa">'
+        f'<div style="font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#2457d6">'
+        f'Agent Skill Lab · Pilot {edition}/{size}</div>'
+        f'<div style="font-size:17px;font-weight:700;line-height:1.3;color:#111;margin-top:4px">'
+        f'{html.escape(clean(str(lab.get("title") or "Agent Skill Lab"), 120))}</div>'
+        f'<div style="font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#23875b;margin-top:8px">'
+        f'{html.escape(status)}</div>'
+        f'<div style="font-size:13px;line-height:1.5;color:#444;margin-top:3px">'
+        f'{html.escape(clean(str(lead or ""), 240))}</div>'
+        f'<div style="margin-top:10px"><a href="{html.escape(detail_url)}" '
+        f'style="color:#2457d6;font-size:13px;font-weight:700;text-decoration:none">{cta} →</a></div>'
+        '</td></tr></table>'
+    )
+
+
+def render_weekly(
+    cfg: dict,
+    wk: dict,
+    threads: list[dict],
+    wiki: list[dict],
+    skill_lab: dict | None = None,
+) -> tuple[str, str]:
     """Returns (subject, html_body) for the weekly recap."""
     title = wk.get("title") or f"What happened in AI — week {wk.get('week','')}"
     subject = title
@@ -622,6 +691,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
     unsub = unsubscribe_html(cfg)
     pre = clean(highlights[0], 110) if highlights else clean(" ".join(intro[:1]), 110)
     preheader = html.escape(f"{pre} — your weekly catch-up.")
+    skill_lab_html = render_skill_lab_email(cfg, skill_lab)
     body = f"""\
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;mso-hide:all;font-size:1px;line-height:1px;color:#fff">{preheader}{PREHEADER_PAD}</div>
 <div style="max-width:640px;margin:0 auto;padding:24px 18px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#111">
@@ -633,6 +703,7 @@ def render_weekly(cfg: dict, wk: dict, threads: list[dict], wiki: list[dict]) ->
   {cats_section}
   {thread_html}
   {wiki_html}
+  {skill_lab_html}
   <div style="font-size:12px;color:#999;margin-top:22px;line-height:1.6">
     <a href="{html.escape(weekly_page)}" style="color:#1a6dd6">Read the full recap</a> ·
     <a href="{html.escape(feed_url)}" style="color:#1a6dd6">Open the feed</a>{unsub}<br>
@@ -771,15 +842,130 @@ def _latest_weekly() -> dict | None:
         return None
 
 
-def build_weekly(cfg: dict) -> tuple[str, str, dict, int, int]:
+def _skill_lab_date(value: object) -> date | None:
+    raw = str(value or "")
+    if not SKILL_LAB_DATE_RE.match(raw):
+        return None
+    try:
+        return date.fromisoformat(raw)
+    except ValueError:
+        return None
+
+
+def _valid_skill_lab_summary(row: object) -> bool:
+    return (
+        isinstance(row, dict)
+        and row.get("schema_version") == 1
+        and SKILL_LAB_ID_RE.match(str(row.get("id") or "")) is not None
+        and SKILL_LAB_SLUG_RE.match(str(row.get("slug") or "")) is not None
+        and isinstance(row.get("pilot_edition"), int)
+        and not isinstance(row.get("pilot_edition"), bool)
+        and 0 <= row["pilot_edition"] <= 3
+        and row.get("pilot_size") == 3
+        and row.get("state") in {"protocol", "published"}
+        and _skill_lab_date(row.get("date")) is not None
+        and _skill_lab_date(row.get("featured_until")) is not None
+        and SKILL_LAB_SHA256_RE.match(str(row.get("content_sha256") or "")) is not None
+        and row.get("url") == f"/playbook/lab/{row.get('slug')}"
+    )
+
+
+def _sent_skill_lab_ids(state: dict | None) -> set[str]:
+    weekly = state.get("weekly", {}) if isinstance(state, dict) else {}
+    raw_ids = weekly.get("sent_skill_lab_ids", []) if isinstance(weekly, dict) else []
+    if not isinstance(raw_ids, list):
+        return set()
+    return {
+        item
+        for item in raw_ids
+        if isinstance(item, str) and SKILL_LAB_ID_RE.match(item)
+    }
+
+
+def advance_weekly_state(state: dict, week_key: str, skill_lab_id: str = "") -> None:
+    """Advance weekly idempotency and the small, PII-free Lab send cursor."""
+    weekly = state.get("weekly", {})
+    weekly = dict(weekly) if isinstance(weekly, dict) else {}
+    raw_ids = weekly.get("sent_skill_lab_ids", [])
+    sent_ids: list[str] = []
+    if isinstance(raw_ids, list):
+        for item in raw_ids:
+            if (
+                isinstance(item, str)
+                and SKILL_LAB_ID_RE.match(item)
+                and item not in sent_ids
+            ):
+                sent_ids.append(item)
+    if SKILL_LAB_ID_RE.match(skill_lab_id) and skill_lab_id not in sent_ids:
+        sent_ids.append(skill_lab_id)
+    weekly["last_sent_week"] = week_key
+    weekly["sent_skill_lab_ids"] = sent_ids[-4:]
+    state["weekly"] = weekly
+
+
+def skill_lab_in_window(
+    start: str,
+    end: str,
+    sent_ids: set[str] | None = None,
+) -> dict | None:
+    """Return the newest unsent Lab record eligible for this weekly send."""
+    start_date = _skill_lab_date(start)
+    end_date = _skill_lab_date(end)
+    if start_date is None or end_date is None or start_date > end_date:
+        return None
+    try:
+        index = validate_skill_lab_store(SKILL_LAB_DIR, check=True)
+    except Exception:
+        return None
+    if not isinstance(index, list) or len(index) > 4 or not all(
+        _valid_skill_lab_summary(row) for row in index
+    ):
+        return None
+    sent_ids = sent_ids or set()
+    candidates = [
+        row
+        for row in index
+        if _skill_lab_date(row["date"]) <= end_date
+        and _skill_lab_date(row["featured_until"]) >= end_date
+        and row["id"] not in sent_ids
+    ]
+    candidates.sort(
+        key=lambda row: (row["pilot_edition"], row["date"]),
+        reverse=True,
+    )
+    for row in candidates:
+        slug = str(row["slug"])
+        try:
+            source = (SKILL_LAB_DIR / f"{slug}.json").read_bytes()
+            if hashlib.sha256(source).hexdigest() != row["content_sha256"]:
+                return None
+            record = json.loads(source)
+        except Exception:
+            return None
+        if (
+            isinstance(record, dict)
+            and all(record.get(field) == row.get(field) for field in SKILL_LAB_SUMMARY_FIELDS)
+            and not validate_skill_lab_record(record)
+        ):
+            return record
+        return None
+    return None
+
+
+def build_weekly(
+    cfg: dict,
+    state: dict | None = None,
+) -> tuple[str, str, dict, int, int, int, str]:
     wk = _latest_weekly()
     if not wk:
         raise RuntimeError("no weekly recap to render")
     start, end = wk.get("start", ""), wk.get("end", "")
     threads = storylines_in_window(start, end, int(cfg["weekly"]["max_threads"]))
     wiki = wiki_in_window(start, end, int(cfg["weekly"]["max_wiki"]))
-    subject, body = render_weekly(cfg, wk, threads, wiki)
-    return subject, body, wk, len(threads), len(wiki)
+    skill_lab = skill_lab_in_window(start, end, _sent_skill_lab_ids(state))
+    subject, body = render_weekly(cfg, wk, threads, wiki, skill_lab)
+    skill_lab_id = str(skill_lab.get("id") or "") if skill_lab else ""
+    return subject, body, wk, len(threads), len(wiki), int(skill_lab is not None), skill_lab_id
 
 
 def main() -> int:
@@ -795,11 +981,14 @@ def main() -> int:
 
     # Build the email + figure out the idempotency guard for this kind.
     if args.kind == "weekly":
-        subject, body, wk, n_threads, n_wiki = build_weekly(cfg)
+        build_state = {} if args.force else state
+        subject, body, wk, n_threads, n_wiki, n_skill_lab, skill_lab_id = build_weekly(
+            cfg, build_state
+        )
         week_key = wk.get("week", "")
         already_sent = state.get("weekly", {}).get("last_sent_week") == week_key
         guard_reason = "already_sent_week"
-        summary = f"week={week_key} threads={n_threads} wiki={n_wiki}"
+        summary = f"week={week_key} threads={n_threads} wiki={n_wiki} skill_lab={n_skill_lab}"
         broadcast_name = f"Weekly recap — {week_key or today}"
     else:
         built = build_daily(cfg, state)
@@ -841,9 +1030,7 @@ def main() -> int:
     # Advance the cursor only after a successful send, so a failure re-sends
     # rather than silently dropping a period.
     if args.kind == "weekly":
-        # Weekly is window-based (see storylines_in_window); the cursor only
-        # records last_sent_week for the Friday-cron idempotency guard.
-        state["weekly"] = {"last_sent_week": week_key}
+        advance_weekly_state(state, week_key, skill_lab_id)
     else:
         new_seen = set(state.get("storylines", {}).get("seen_sids") or [])
         newest = state.get("storylines", {}).get("sent_through") or ""
