@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b]
-updated: 2026-08-21
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e]
+updated: 2026-09-05
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e]
 ---
 
 ## TL;DR
@@ -227,8 +227,44 @@ scoring F1, precision, and recall together so a defense that blocks
 everything doesn't look artificially strong (see [prompt
 injection](/topic/prompt-injection)).
 
+The long-horizon and subsystem-specific fronts each get a sharper entrant.
+CivBench runs 300+-turn episodes across 76 MCP-exposed tools inside a real
+strategy game (Civilization VI), grading sustained planning and state
+monitoring under partial observability rather than a single bounded task —
+the MCP-tool-mediated environment this page's [MCP](/topic/mcp) coverage
+tracks, used here as the benchmark surface itself. Its pilot run (23
+admissible runs across four model families) is explicit that aggregate
+scores don't yet discriminate models at this scale, but it introduces two
+interface-level metrics the environment makes measurable that a bounded task
+can't: Proactive Monitoring Rate (whether an agent actively queries latent
+strategic state) and RAG@10 (whether a commitment stated in the agent's own
+planning reflections gets executed within ten subsequent turns). Both
+metrics caught concrete failures — agents told to check victory progress
+every 20 turns did so only every 30-75, and missed the check inside the
+20-turn warning window before 7 of 20 detectable defeats — a benchmark
+result that grades whether an agent follows through on its own stated plan,
+not just whether the final answer is right. KC-Bench isolates a narrower
+subsystem: reconciling conflicts between user instructions, an agent's
+parametric knowledge, and what a tool just told it, across 238
+manually-screened multi-turn tasks (from over 1,000 generated candidates)
+combining a user simulator, stateful tools, and human trajectory
+verification. Across nine models (including DeepSeek-V4-Flash, GLM-5.2,
+MiniMax-M3) no model reliably handles factual correction, identity
+consistency, and temporal conflict resolution across every setting, and a
+missed conflict can propagate straight into a tool call — evidence that
+knowledge-conflict handling needs its own diagnostic, distinct from general
+tool-use or hallucination benchmarks.
+
 ## What's new
-An independently authored guardrail benchmark (Show HN) demonstrates its own
+CivBench and KC-Bench extend this page's long-horizon and subsystem-specific
+axes: CivBench's 300+-turn MCP-tool-mediated game environment introduces
+metrics (Proactive Monitoring Rate, RAG@10) that catch agents ignoring their
+own planning reflections and under-monitoring state they were explicitly
+told to check; KC-Bench isolates knowledge-conflict resolution across 238
+tasks and finds no evaluated model handles it reliably across settings (see
+State of the art above).
+
+Prior update: An independently authored guardrail benchmark (Show HN) demonstrates its own
 value by catching a gap in the author's own plugin — continuing this page's
 standing "benchmarks are fragmenting into narrow, task-specific suites"
 trend.
