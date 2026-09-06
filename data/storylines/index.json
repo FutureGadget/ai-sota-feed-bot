@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-06T00:12:16.066721+00:00",
+ "generated_at": "2026-09-06T05:06:27.239293+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -135,52 +135,6 @@
     "whats_new": "A Sept 5 weekend-reading piece pairs Zhipu and MiniMax as two distinct LLM business models, the fourth unrelated item folded into this shared-title-phrase cluster.",
     "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
     "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage."
-   }
-  },
-  {
-   "slug": "gpt-6-astra",
-   "label": "GPT-6 Astra",
-   "item_count": 7,
-   "day_count": 3,
-   "source_count": 4,
-   "first_seen": "2026-09-03T00:00:00+00:00",
-   "last_updated": "2026-09-05T06:54:46+00:00",
-   "latest_title": "GPT-6 Astra: A new generation of intelligence",
-   "days": [
-    "2026-09-03",
-    "2026-09-04",
-    "2026-09-05"
-   ],
-   "member_sids": [
-    "39210f987919e80e",
-    "325e9dcd840a97e9",
-    "9281d6906e8350b6",
-    "a69c2848b34f1245",
-    "49bf67e78155156d",
-    "4f3892cb672d57ce",
-    "b5a4040da6dc0ce5"
-   ],
-   "member_urls": [
-    "https://openai.com/index/safety-overview-gpt-6-astra",
-    "https://openai.com/index/playco-game-prototyping-with-astra",
-    "https://openai.com/index/legora-financial-statement-review-with-astra",
-    "https://www.latent.space/p/astra",
-    "https://www.latent.space/p/ainews-gpt-6-astra-openais-biggest",
-    "https://findcheap.ai/introducing-findcheap",
-    "https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5"
-   ],
-   "editorial": {
-    "tldr": "OpenAI shipped GPT-6 Astra on September 3 as its most capable broadly deployed model, launch-day case studies showing agentic coding and document-review gains at Playco and Legora. It's also the first OpenAI model to hit the Critical tier for cybersecurity capability under the company's own Preparedness Framework.",
-    "stale": false,
-    "whats_new": "A rival search agent, FindCheap, claims to outscore Astra on benchmarks just three days after launch -- a challenger's self-reported claim, not an independently verified result, but a quick check on the \"biggest launch ever\" framing.",
-    "why_it_matters": "The reported monitorability regression is still the harder planning cost for agentic or compliance-sensitive pipelines; a competitor already claiming a benchmark win is a reminder not to lock an agent pipeline to today's SOTA claim without your own verification.",
-    "take_for_builders": "Before routing agentic or compliance-sensitive workloads to GPT-6 Astra, weigh the reported monitorability regression against its cheaper-per-task economics, check whether the Critical cybersecurity tier changes your usage terms, and don't take a challenger's unverified benchmark claim as a reason to switch without running your own eval.",
-    "status": {
-     "state": "Launched · benchmark lead already challenged",
-     "tone": "turn",
-     "changed": "2026-09-04",
-     "detail": "GPT-6 Astra shipped Sept 3 as OpenAI's most capable deployed model and first to reach the Critical cybersecurity tier; by Sept 4 a challenger agent was publicly claiming to beat it on benchmarks, on top of the already-flagged monitorability drop."
-    }
    }
   },
   {
@@ -731,6 +685,38 @@
       }
      ]
     }
+   }
+  },
+  {
+   "slug": "memory-long-term",
+   "label": "Memory Long-Term",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-08-17T09:14:31+00:00",
+   "last_updated": "2026-08-31T09:41:26+00:00",
+   "latest_title": "UTILMEM: Benchmarking Evidence Utilization in Long-Term Conversational Memory",
+   "days": [
+    "2026-08-17",
+    "2026-08-30",
+    "2026-08-31"
+   ],
+   "member_sids": [
+    "40602cd71e370eb6",
+    "5960e24b491051f2",
+    "92250613f04ac1b9"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2608.16303v1",
+    "http://arxiv.org/abs/2608.29606v1",
+    "http://arxiv.org/abs/2608.30508v1"
+   ],
+   "editorial": {
+    "tldr": "Three separate long-term-memory research papers grouped by a shared title phrase rather than one developing story. It opened Aug 17 with FTA-Mem's fact-time-affect anchored memory for low-density emotional-support dialogue, then Agent Zero Memory's Aug 30 case for provenance-aware memory instead of one fixed structure.",
+    "stale": false,
+    "whats_new": "A new arXiv benchmark, UTILMEM, argues existing long-term-memory evals measure only pointwise factual recall and proposes scoring how well an agent actually uses the evidence it retrieves.",
+    "why_it_matters": "If you eval your agent's memory system on recall alone, UTILMEM's framing is a reminder that retrieving the right fact and correctly using it in the reply are different failure modes worth separate checks.",
+    "take_for_builders": "Before trusting a recall-only memory eval, check whether it also scores evidence utilization — UTILMEM's task design is a starting point for adding that check to your own harness."
    }
   }
  ]
