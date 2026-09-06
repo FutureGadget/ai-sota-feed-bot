@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca]
-updated: 2026-08-30
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272]
+updated: 2026-09-06
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272]
 ---
 
 ## TL;DR
@@ -157,6 +157,21 @@ the verifier alongside the agent — an unsolved half of the loop this page's
 HALO and identity/execution/intent framing above doesn't yet cover, since a
 self-modifying agent can also self-modify its own check.
 
+A training-side answer to the same reliability gap targets *how* agent
+policies are trained, not just how their output is checked afterward:
+TASPO addresses a coarse-credit problem in outcome-based agentic RL, where
+a single verified success or failure signal gets applied uniformly to
+every decision in a long trajectory even though some steps mattered more
+than others. It converts privileged supervision collected from verified
+successful runs into per-action credit weights — positive, bounded, and
+mean-preserving — while still letting the verified outcome set the
+update's direction and overall scale, so process guidance refines credit
+assignment without overriding the outcome signal itself. Across three
+agentic benchmarks it improves 10.6% over a GRPO baseline with better
+generalization to unseen tasks, evidence that some of the "confident but
+wrong" failure mode traces back to how the underlying policy was trained,
+not only to what checks run on its output.
+
 LangSmith's Tuned Evaluators supply a user-facing complement to the standing
 "prove it did the work" thread: rather than only an independent LLM judge or
 a trace-mining pipeline, a Perceived Error signal lets a team find agent
@@ -227,7 +242,15 @@ and reported alongside the model (see [agent
 evaluation](/topic/agent-evaluation) for the full methodology).
 
 ## What's new
-A large-scale production measurement (~400,000 Claude Code sessions) puts
+TASPO targets a coarse-credit problem in outcome-based agentic RL training:
+it converts privileged supervision from verified successful runs into
+per-action credit weights while letting the verified outcome set the
+update's direction and scale, improving 10.6% over a GRPO baseline across
+three agentic benchmarks — evidence that some unreliable behavior traces
+back to training, not only to inference-time checks (see State of the art
+above).
+
+Prior update: A large-scale production measurement (~400,000 Claude Code sessions) puts
 hard numbers on the plan/execute reliability split this page now tracks:
 people retain roughly 70% of planning decisions but only 20% of execution
 decisions, and expert users trigger roughly twice the actions and five

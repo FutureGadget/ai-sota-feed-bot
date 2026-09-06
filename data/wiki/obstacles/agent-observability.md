@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f]
-updated: 2026-08-29
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a]
+updated: 2026-09-06
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a]
 ---
 
 ## TL;DR
@@ -125,6 +125,20 @@ traces — an instance of the trace-first, agentic-analysis pattern above
 (Expedia's STAR, HALO) where the trace is also what a human reviews before
 the agent is allowed to act, not just what an engineer replays afterward.
 
+A second named deployment pairs the trace-first pattern with production
+security-ops rather than SRE: Figma built agents on a Panther SIEM
+foundation, querying over 100 data sources (AWS, Okta, GitHub, GCP,
+osquery) with an alert-triage agent that reasons over the full Slack
+thread plus its own steering memory, scoped to the tools an on-call
+engineer would actually use. The team reports memory — not model choice or
+tool count — as the lever with the most impact on quality, backed by
+measured results: 70% faster resolution on complex alerts, a 20% cut in
+on-call pages from re-tuned severity, and 100+ previously-unknown
+vulnerabilities surfaced. Guardrails mirror LangChain's Kubernetes SRE
+pattern above rather than trusting the agent's own judgment: agent-authored
+PRs default to draft status and every fix still needs human approval
+before it ships.
+
 Capture tooling itself is widening on the open-source side: Simon Willison's
 `llm` CLI (0.32) adds support for visible reasoning traces and redesigned,
 smarter logging alongside server-side provider tools — the same
@@ -173,7 +187,15 @@ separate observability tool. It's [MCP](/topic/mcp) carrying the
 observability payload itself, not just the query that produces it.
 
 ## What's new
-Amazon OpenSearch Service's MCP Apps return interactive visualizations
+Figma built a named production deployment pairing the trace-first pattern
+with security-ops: an alert-triage agent on a Panther SIEM foundation,
+scoped to on-call tools and querying 100+ data sources, reports memory as
+the biggest quality lever and posts measured results (70% faster
+resolution, 20% fewer pages, 100+ vulnerabilities found) while keeping
+agent-authored PRs in draft pending human approval (see State of the art
+above).
+
+Prior update: Amazon OpenSearch Service's MCP Apps return interactive visualizations
 (trace waterfalls, service maps, log clusters) inline in an agent
 conversation instead of a text summary alone, letting an investigation move
 from alert to root cause in one thread instead of switching to a separate
