@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Using Blender with coding agents on macOS
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/5/blender-coding-agents-macos/
-- Score: 2.8 | Reliability: 1.0
+- Score: 2.774 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
-## 2. OpenAI's rogue agents were caught communicating via public wikis
+## 2. Introducing GPT-6 Astra for developers
 - Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Sep/4/rogue-agent-wikis/
-- Score: 2.58 | Reliability: 1.0
+- URL: https://simonwillison.net/2026/Sep/5/introducing-gpt-6-astra-for-developers/
+- Score: 2.669 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. Beyond Zero: Google Publishes Successor to BeyondCorp
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/google-beyond-zero/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.486 | Reliability: 1.0
+- Score: 2.464 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. Presentation: A Few Predicted Talks From QConAI 2030
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/ai-predictions-2030/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.343 | Reliability: 1.0
+- Score: 2.322 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 5. Unlocking Lossless Speedups in LLMs via Discrete Diffusion
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2609.04010v1
-- Score: 2.273 | Reliability: 1.0
+- Score: 2.261 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, eval.
 
 ## 6. OpenClaw Power, MacBook Simplicity: Five Days With Grok Bot
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/grok-bot
-- Score: 2.228 | Reliability: 1.0
+- Score: 2.208 | Reliability: 1.0
 - Why it matters: 
 
 ## 7. SWE-Gate: Passing Functional Tests Is Not Enough for Software Engineering Agents
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2609.04167v1
-- Score: 2.194 | Reliability: 1.0
+- Score: 2.183 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 8. Introducing WeatherNext 3, our most advanced and accurate global weather AI model
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-weathernext-3-our-most-advanced-and-accurate-global-weather-ai-model/
-- Score: 1.718 | Reliability: 1.0
+- Score: 1.706 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Daybreak for Frontline Defenders: $1B to protect essential services
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/daybreak-for-frontline-defenders
-- Score: 1.586 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Playco cut manual fixes 50% prototyping games with GPT-6 Astra
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/playco-game-prototyping-with-astra
 - Score: 1.575 | Reliability: 1.0
 - Why it matters: 
+
+## 10. A guide to the anatomy of effective commerce agents | Claude by Anthropic
+- Type: news | Source: claude_blog
+- URL: https://claude.com/blog/the-anatomy-of-effective-commerce-agents
+- Score: 1.566 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval.
 
 ## 11. Z.ai's New GLM-5.3-Flash Model Runs 3.3 Times Faster on a Single Workstation
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMiogFBVV95cUxPbm5PZEZRTnR5MnVPTW1VN3lGbTVEOVFXNjktd1ZwbTZzRlplN1hzTkZoaEZBMTF0TG04eHA1bUFUYVFYaFdFbzZ1MkJxZUQwcGZUTWdDaTVMUllPcFJ1ODI0eFNpQnd3RlROd1ZEaU1YcERhd3hfYUpKMVVTbVpXRDRfMHQxMk1IZkhWNHhOY3U2VmdGMXRXQ1J5blNsS0F1OHc?oc=5
-- Score: 2.174 | Reliability: 1.0
+- Score: 2.128 | Reliability: 1.0
 - Why it matters: 
 
 ## 12. Project HydraFusion: Frontier quality via multi-model orchestration
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/
-- Score: 2.134 | Reliability: 1.0
+- Score: 2.117 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 13. Last Translation Benchmark
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2609.04173v1
-- Score: 2.011 | Reliability: 1.0
+- Score: 2.0 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 14. Formalizing Fermat's Last Theorem
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/formalizing-fermats-last-theorem
-- Score: 1.999 | Reliability: 1.0
+- Score: 1.989 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. Spanner migrations: Automating dual-write with Antigravity CLI for minimal disruption
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/topics/developers-practitioners/using-antigravity-cli-to-streamline-dual-write-database-migration/
-- Score: 1.995 | Reliability: 1.0
+- Score: 1.969 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness.
 
 ## 16. codex 0.153.3
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.153.3
-- Score: 1.974 | Reliability: 1.0
+- Score: 1.955 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 17. claude-code v2.1.261
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.261
-- Score: 1.908 | Reliability: 1.0
+- Score: 1.89 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 18. [AINews] GPT-6 Astra: OpenAI’s biggest LLM launch of all time
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-gpt-6-astra-openais-biggest
-- Score: 1.874 | Reliability: 1.0
+- Score: 1.86 | Reliability: 1.0
 - Why it matters: 
 
 ## 19. Scaling Agents in Europe & The Middle East: Lessons from Schneider Electric, Vodafone, and monday.com
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/scaling-agents-in-europe-the-middle-east-lessons-from-schneider-electric-vodafone-and-monday-com
-- Score: 1.861 | Reliability: 1.0
+- Score: 1.849 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 20. GPT-6 Astra: A new generation of intelligence
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5
-- Score: 1.727 | Reliability: 1.0
+- Score: 1.697 | Reliability: 1.0
 - Why it matters: 
 
-## 21. v0.29.0rc4: [Bugfix] Avoid sync in TRT-LLM ragged prefill
-- Type: release | Source: vllm_releases
-- URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0rc4
-- Score: 1.582 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 21. Playco cut manual fixes 50% prototyping games with GPT-6 Astra
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/playco-game-prototyping-with-astra
+- Score: 1.564 | Reliability: 1.0
+- Why it matters: 
 
 ## 22. Legora reviewed 41 documents in minutes with GPT-6 Astra
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/legora-financial-statement-review-with-astra
-- Score: 1.575 | Reliability: 1.0
+- Score: 1.564 | Reliability: 1.0
 - Why it matters: 
 
-## 23. A guide to the anatomy of effective commerce agents | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/the-anatomy-of-effective-commerce-agents
-- Score: 1.574 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval.
+## 23. v0.29.0rc4: [Bugfix] Avoid sync in TRT-LLM ragged prefill
+- Type: release | Source: vllm_releases
+- URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0rc4
+- Score: 1.561 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 24. Introducing Gemini 3.8 Flash and 3.8 Flash Cyber
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-3-8-flash-and-38-flash-cyber/
-- Score: 1.532 | Reliability: 1.0
+- Score: 1.523 | Reliability: 1.0
 - Why it matters:
