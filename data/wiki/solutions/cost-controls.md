@@ -5,9 +5,9 @@ title: "Cost controls: budgets, metering, and per-task attribution"
 status: active
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db]
-updated: 2026-08-26
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db, 5210d1c245b93480]
+updated: 2026-09-07
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 4235792e910ea51a, 1c2693c60a919d8d, edd85739d7d91365, b4e45006617c01bc, a495552f9c306031, 483f6bab97830d53, 2b7c41257a8bc7e4, 68551dc8cb2a5ed6, 2d5ee61a05111f0a, cfb845e72338fcf2, 31d0f6b1d6dddfa7, 09d0c8e5c7031ff7, 136f83bb402008db, 5210d1c245b93480]
 ---
 
 ## TL;DR
@@ -98,6 +98,19 @@ The load-bearing idea is that you cannot control what you don't meter, so
 per-task metering and budgets are the foundation the architectural savings
 build on.
 
+**Hard caps are moving from single-process to cross-process enforcement**:
+TokenOps wraps every model call to check a shared run budget *before*
+execution, sitting in the execution path rather than watching it after the
+fact like a tracing dashboard. Multiple agent processes read and write one
+SQLite ledger, so a budget can span a distributed, multi-agent workflow
+instead of stopping at one process's own accounting — the same
+runaway-loop protection ai-costguard gives a single process, extended to
+the case where the run itself is spread across agents. Its ten policies go
+beyond a hard stop (throttle, log, mutate the prompt, inject
+cost-reduction instructions), and the project reports cutting wasted agent
+spend by up to 65%, though it does not publish the methodology behind that
+figure or an independent production benchmark.
+
 **Pre-filtering before the agent call is a cost control in its own right**,
 not just a caching or routing knob: a Google Dataflow pattern combines a
 managed streaming-execution service (Apache Beam) with the Agent Development
@@ -117,7 +130,13 @@ and cap" from model calls to the agent's own outbound spending on the
 services it calls.
 
 ## What's new
-Google Cloud becomes the third major vendor to ship a full FinOps-for-agents
+TokenOps enforces a shared cost budget across a distributed multi-agent
+run via a cross-process SQLite ledger checked before every model call —
+extending single-process guardrails like ai-costguard to runs spread
+across agents — and reports (without published methodology) cutting
+wasted agent spend by up to 65% (see State of the art above).
+
+Prior update: Google Cloud becomes the third major vendor to ship a full FinOps-for-agents
 surface: a no-commitment pay-as-you-go tier alongside the existing per-seat
 plan, spend-based Flexible Savings Plans, anomaly detection that names a
 spike's root cause and top offending SKUs, hard project-level spend caps
