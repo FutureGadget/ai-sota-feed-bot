@@ -1,7 +1,7 @@
 {
   "slug": "z-ai-glm",
-  "generated_at": "2026-09-04T15:20:00+00:00",
-  "covers_last_updated": "2026-09-01T04:07:16+00:00",
+  "generated_at": "2026-09-07T20:15:00+00:00",
+  "covers_last_updated": "2026-09-07T00:00:00+00:00",
   "covers_member_sids": [
     "7216c7465c1c56b5",
     "d209b402e386f93b",
@@ -27,22 +27,24 @@
     "8ac028cd69ad870a",
     "262d27de3c444a60",
     "01ff32093001c421",
-    "c4ef4bcb2597219b"
+    "c4ef4bcb2597219b",
+    "26d5710f2f961ebd"
   ],
   "tldr": "GLM-5.3 launched claiming top open-weights coding results, then slipped past its expected release after Z.ai disclosed a cybersecurity risk. Z.ai then revealed the buzzy, unbranded \"Ox Alpha\" model was actually GLM-5.3-Flash — running on 100,000 domestic Chinese chips with no Nvidia hardware, at roughly 1/40 Opus 4.8's price.",
-  "whats_new": "Z.ai's domestic-chip inference build — the same stack behind the since-unmasked \"Ox Alpha\"/GLM-5.3-Flash model — has scaled to 100,000 Chinese AI chips, with the company reportedly courting overseas cloud providers to host it.",
-  "why_it_matters": "GLM-5.3-Flash's headline economics run on a domestic-chip stack outside the Nvidia ecosystem, and its benchmark and pricing claims have already drawn independent pushback once — platform teams should treat sticker price and leaderboard rank as unverified until they run their own evals.",
+  "whats_new": "vLLM shipped HiSparse, a memory-offloading technique built specifically for GLM-5.3's serving profile, so requests keep decoding once their KV cache overflows GPU memory instead of stalling or erroring out.",
+  "why_it_matters": "Teams self-hosting GLM-5.3-Flash outside Nvidia's ecosystem now have a concrete lever for its 1M-token context: KV offloading trades some latency for capacity instead of forcing a GPU-memory upgrade.",
   "status": {
-    "state": "Domestic-chip identity confirmed, scaling for overseas hosting",
+    "state": "Domestic-chip identity confirmed, ecosystem tooling now catching up",
     "tone": "now",
-    "changed": "2026-09-01",
+    "changed": "2026-09-07",
     "reenable": "no fixed release date for the original GLM-5.3 or named overseas provider yet",
-    "detail": "The mystery \"Ox Alpha\" model turned out to be GLM-5.3-Flash, running on 100,000 domestic Chinese chips at a fraction of Western pricing; the original GLM-5.3 release remains delayed and independent verification of the benchmark and cost claims is still pending.",
+    "detail": "The mystery \"Ox Alpha\" model turned out to be GLM-5.3-Flash, running on 100,000 domestic Chinese chips at a fraction of Western pricing; vLLM has now shipped a KV-offloading optimization built for serving it, while independent verification of the benchmark and cost claims is still pending.",
     "track": [
       { "label": "GLM-5.3 launches, claims top coding benchmark", "detail": "Aug 14", "tone": "launch", "weight": 15 },
       { "label": "cybersecurity delay", "detail": "Aug 22", "tone": "turn", "weight": 12 },
-      { "label": "Ox Alpha unmasked as GLM-5.3-Flash, on domestic chips", "detail": "Aug 26–28", "tone": "turn", "weight": 38 },
-      { "label": "100K-chip build, overseas CSP talks", "detail": "Sep 1", "tone": "now", "weight": 35 }
+      { "label": "Ox Alpha unmasked as GLM-5.3-Flash, on domestic chips", "detail": "Aug 26–28", "tone": "turn", "weight": 35 },
+      { "label": "100K-chip build, overseas CSP talks", "detail": "Sep 1", "tone": "now", "weight": 28 },
+      { "label": "vLLM ships GLM-5.3 serving optimization", "detail": "Sep 7", "tone": "now", "weight": 10 }
     ]
   },
   "provenance": {
@@ -114,6 +116,13 @@
       "headline": "GLM inference build reaches 100,000 domestic chips, Z.ai eyes overseas cloud providers",
       "summary": "digitimes reports the GLM inference build now runs on 100,000 Chinese chips, with Z.ai in talks to bring it to overseas cloud providers.",
       "sids": ["c4ef4bcb2597219b"]
+    },
+    {
+      "kicker": "SERVING",
+      "tone": "now",
+      "headline": "vLLM ships a memory-offloading optimization purpose-built for GLM-5.3's inference",
+      "summary": "HiSparse composes with vLLM's Hybrid Memory Allocator and KV offloading so GLM-5.3 requests keep decoding once their KV cache no longer fits in GPU memory.",
+      "sids": ["26d5710f2f961ebd"]
     }
   ],
   "open_questions": [
@@ -123,7 +132,7 @@
     "Is the 100,000-domestic-chip inference build reproducible at scale, or was it a one-time capacity showcase for the Ox Alpha reveal?",
     "Does the post-training scaling law CEO Jie Tang described apply to GLM-5.3-Flash specifically, now that it's confirmed as the Ox Alpha model?"
   ],
-  "take_for_builders": "Before trusting GLM-5.3-Flash's 1/40-of-Opus pricing or cyber-test scores, rerun them against your own eval suite — independent pieces have already contested both the benchmark headline and the domestic-chip framing, and no overseas hosting provider or capacity commitment is confirmed yet.",
+  "take_for_builders": "If you self-host GLM-5.3 on vLLM, turn on HiSparse KV offloading before assuming you need more GPU memory to serve its 1M-token context.",
   "day_captions": {
     "7216c7465c1c56b5": "Frames GLM-5.3's cyber-test results as China closing the gap with US models.",
     "d209b402e386f93b": "First independent pushback: questions whether the headline benchmark number holds up under scrutiny.",
@@ -149,6 +158,7 @@
     "8ac028cd69ad870a": "Recaps Ox Alpha's rise as an OpenAI-tier rival before Z.ai was revealed as its creator.",
     "262d27de3c444a60": "Usage data: GLM-5.3-Flash tops global AI call volume as China leads volume for an 18th straight week.",
     "01ff32093001c421": "Notes the domestic-chip model ran undetected for weeks before the reveal — a monitoring gap for anyone tracking new model releases.",
-    "c4ef4bcb2597219b": "digitimes reports the GLM inference build now runs on 100,000 Chinese chips, with Z.ai eyeing overseas cloud service providers next."
+    "c4ef4bcb2597219b": "digitimes reports the GLM inference build now runs on 100,000 Chinese chips, with Z.ai eyeing overseas cloud service providers next.",
+    "26d5710f2f961ebd": "vLLM adds HiSparse KV-cache offloading tuned for GLM 5.3, letting requests keep decoding under memory pressure."
   }
 }
