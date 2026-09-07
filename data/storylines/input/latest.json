@@ -1,155 +1,69 @@
 {
-  "generated_at": "2026-09-07T05:09:56.023940+00:00",
+  "generated_at": "2026-09-07T10:08:27.265833+00:00",
   "window_days": 21,
   "storyline_count": 1,
   "needs_narrative_count": 1,
   "storylines": [
     {
-      "slug": "large-language",
-      "label": "Large Language",
-      "item_count": 5,
+      "slug": "autonomous-driving",
+      "label": "Autonomous Driving",
+      "item_count": 3,
       "source_count": 3,
-      "day_count": 4,
-      "first_seen": "2026-08-27T11:58:46+00:00",
-      "last_updated": "2026-09-05T07:31:00+00:00",
-      "latest_title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
+      "day_count": 3,
+      "first_seen": "2026-08-20T14:56:15+00:00",
+      "last_updated": "2026-09-07T05:35:59+00:00",
+      "latest_title": "Alibaba’s Qwen releases open-source model for autonomous driving",
       "member_sids": [
-        "473e4a8407d950ff",
-        "44fdd531ea49fe98",
-        "7ac516e280c5ca22",
-        "5fc5b2481c7ef922",
-        "51d5a65d305149bc"
+        "f3efacca87b9bcd5",
+        "20cbddec71e75818",
+        "d567ca36e3b52804"
       ],
       "via_scout": false,
-      "has_narrative": true,
+      "has_narrative": false,
       "needs_narrative": true,
-      "reason": "stale",
-      "narrative_path": "data/storylines/narratives/large-language.json",
-      "prior_narrative": {
-        "slug": "large-language",
-        "generated_at": "2026-09-05T10:05:30+00:00",
-        "covers_last_updated": "2026-09-05T07:31:00+00:00",
-        "covers_member_sids": [
-          "473e4a8407d950ff",
-          "44fdd531ea49fe98",
-          "7ac516e280c5ca22",
-          "51d5a65d305149bc"
-        ],
-        "tldr": "This thread groups four large-language-model items that share only a title phrase, not one developing story. It opened Aug 27 with a clinical comparison of ChatGPT, Claude, and DeepSeek on cardiac-imaging patient education alongside a single-pass hallucination detector, then added SwarmBench's agent-swarm orchestration benchmark on Aug 31.",
-        "whats_new": "A Sept 5 weekend-reading piece pairs Zhipu and MiniMax as two distinct LLM business models, the fourth unrelated item folded into this shared-title-phrase cluster.",
-        "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
-        "beats": [
-          {
-            "kicker": "APPLICATIONS",
-            "tone": "launch",
-            "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
-            "sids": [
-              "473e4a8407d950ff"
-            ]
-          },
-          {
-            "kicker": "RELIABILITY",
-            "tone": "rising",
-            "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
-            "sids": [
-              "44fdd531ea49fe98"
-            ]
-          },
-          {
-            "kicker": "AGENT EVAL",
-            "tone": "rising",
-            "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
-            "sids": [
-              "7ac516e280c5ca22"
-            ]
-          },
-          {
-            "kicker": "VENDOR LANDSCAPE",
-            "tone": "now",
-            "headline": "Weekend roundup contrasts Zhipu and MiniMax as two distinct LLM business models",
-            "sids": [
-              "51d5a65d305149bc"
-            ]
-          }
-        ],
-        "open_questions": [
-          "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
-          "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
-          "Does activation-level detection need weights access, ruling it out for API-only deployments?",
-          "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
-          "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?"
-        ],
-        "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
-        "day_captions": {
-          "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
-          "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
-          "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups.",
-          "51d5a65d305149bc": "Shifts the thread again five days later, from agent evaluation to comparing two Chinese labs' commercial strategies -- the fourth unrelated topic in this title-phrase cluster."
-        }
-      },
+      "reason": "no_narrative",
+      "narrative_path": "data/storylines/narratives/autonomous-driving.json",
+      "prior_narrative": null,
       "timeline": [
         {
-          "date": "2026-08-27",
+          "date": "2026-08-20",
           "items": [
             {
-              "sid": "473e4a8407d950ff",
-              "title": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education",
-              "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
-              "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education Cureus",
-              "published": "2026-08-27T11:58:46+00:00"
-            },
-            {
-              "sid": "44fdd531ea49fe98",
-              "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
-              "url": "http://arxiv.org/abs/2608.27165v1",
+              "sid": "f3efacca87b9bcd5",
+              "title": "Multi-Agent Orchestration with the Common-Sense Reasoning Capabilities of LLMs for Autonomous Driving",
+              "url": "http://arxiv.org/abs/2608.20129v1",
               "source": "arxiv_llm_reliability",
               "type": "paper",
-              "summary_1line": "Autoregressive large language models (LLMs) routinely generate factually incorrect outputs with high decoding confidence, limiting their deployment in high-stakes workflows. Existing output-stage uncertainty metrics c...",
-              "published": "2026-08-27T14:17:14+00:00"
+              "summary_1line": "Autonomous vehicles require robust perception and decision-making capabilities to operate in diverse and unseen scenarios. While reinforcement learning and rule-based methods can provide effective control and safety m...",
+              "published": "2026-08-20T14:56:15+00:00"
             }
           ]
         },
         {
-          "date": "2026-08-31",
+          "date": "2026-09-03",
           "items": [
             {
-              "sid": "7ac516e280c5ca22",
-              "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
-              "url": "http://arxiv.org/abs/2608.30661v1",
-              "source": "arxiv_cs_cl",
+              "sid": "20cbddec71e75818",
+              "title": "Understanding Autonomous Driving Datasets by Describing Differences between Image Subsets in Natural Language",
+              "url": "http://arxiv.org/abs/2609.03677v1",
+              "source": "arxiv_cs_lg",
               "type": "paper",
-              "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
-              "published": "2026-08-31T12:02:04+00:00"
+              "summary_1line": "Understanding the composition of large-scale autonomous driving datasets is essential for safety, robustness, and reliable operation across domains. For example, domain shift between locations could lead to the operat...",
+              "published": "2026-09-03T11:15:23+00:00"
             }
           ]
         },
         {
-          "date": "2026-09-04",
+          "date": "2026-09-07",
           "items": [
             {
-              "sid": "5fc5b2481c7ef922",
-              "title": "Large Language Models for HVAC Operations in Building Energy Systems: A Critical Review of Methods, Applications, and Deployment Readiness",
-              "url": "http://arxiv.org/abs/2609.05314v1",
-              "source": "arxiv_cs_cl",
-              "type": "paper",
-              "summary_1line": "Building automation systems generate rich sensor data yet remain insight-poor because heterogeneous point naming, missing metadata, and fragmented documentation obstruct their operational use. This systematic review a...",
-              "published": "2026-09-04T16:08:05+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-09-05",
-          "items": [
-            {
-              "sid": "51d5a65d305149bc",
-              "title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
-              "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbEJlVnQ4dWVneU1FQ0d0SkJCX3RvbUI4WTNzMUY5MkpLdFFKYVpHTnZ4NWZiQ09VTmNMYXBKY085aXhsblZBUGJGMnA3eUwzUDIwUDBTWWdmb1NNYmlTT3ZfbV9MNnVFVWNzMlFZN3gtdjZhbkloXzBhMmRCSWstT1o5S0VadlVkTmx0eC1NMUpUbnFHN21TOFBMaXk4cHFGVENxbUc1d0UzQzg?oc=5",
+              "sid": "d567ca36e3b52804",
+              "title": "Alibaba’s Qwen releases open-source model for autonomous driving",
+              "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE16UHpfYXBMLXl0eDFCVm5pSUtTa2c0ZGFZQnpPeTUxTTFQMS15dXhkUUFEV25YN2ZsWXBaM1o0aGo1dF95T0gtR3h3R3gtektUT0d0OUZJcUtIMTZKc2hoN3EwajJZOG5Oa2swU1NTYw?oc=5",
               "source": "search_cn_open_weight_labs",
-              "type": "news",
-              "summary_1line": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models 富途牛牛",
-              "published": "2026-09-05T07:31:00+00:00"
+              "type": "release",
+              "summary_1line": "Alibaba’s Qwen releases open-source model for autonomous driving TechNode",
+              "published": "2026-09-07T05:35:59+00:00"
             }
           ]
         }
