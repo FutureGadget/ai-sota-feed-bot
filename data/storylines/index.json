@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-07T10:09:58.150690+00:00",
+ "generated_at": "2026-09-07T15:06:21.966138+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -153,38 +153,6 @@
       }
      ]
     }
-   }
-  },
-  {
-   "slug": "reinforcement-learning",
-   "label": "Reinforcement Learning",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-08-17T13:24:41+00:00",
-   "last_updated": "2026-09-02T13:17:10+00:00",
-   "latest_title": "Online Reinforcement Learning in the Met Office Unified Model through Distributed Model-Agent Coupling",
-   "days": [
-    "2026-08-17",
-    "2026-08-30",
-    "2026-09-02"
-   ],
-   "member_sids": [
-    "e9e06df024881a81",
-    "00ed99e182fc7224",
-    "062820e3c4087829"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2608.16554v1",
-    "http://arxiv.org/abs/2608.29622v1",
-    "http://arxiv.org/abs/2609.02566v1"
-   ],
-   "editorial": {
-    "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL papers, not a developing story. Three arXiv papers this window span missing-premise reasoning, RAG agent memory, and live weather-model correction.",
-    "stale": false,
-    "whats_new": "The newest paper couples an online RL agent directly into the Met Office's operational forecast model, correcting physics live while preserving numerical stability — a rare production RL deployment, not just a benchmark result.",
-    "why_it_matters": "The AgenticRAG-R1 stack-memory paper (Aug 30) is the one worth a platform engineer's attention — it targets the same multi-step retrieval-and-reasoning failures RAG-based coding and research agents hit today.",
-    "take_for_builders": "Building a RAG or tool-calling agent? Check whether your reward function penalizes abstaining on missing-premise input, and look at AgenticRAG-R1's stack-memory approach if multi-step retrieval breaks down."
    }
   },
   {
@@ -642,6 +610,37 @@
     "whats_new": "A new arXiv paper proposes behavior-aware verification so harness-evolution systems can screen candidate harness changes without scoring every one from scratch.",
     "why_it_matters": "If you're treating your agent's harness (prompts, tool wiring, runtime scaffolding) as a tunable surface, the verification step that checks each candidate change is the bottleneck this work targets — cheaper verification means faster, safer harness iteration.",
     "take_for_builders": "If you're iterating on your agent's harness, watch for behavior-aware verification techniques that screen candidate changes without a full re-score — it directly targets the cost bottleneck in harness-evolution loops."
+   }
+  },
+  {
+   "slug": "anomaly-detection",
+   "label": "Anomaly Detection",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 3,
+   "first_seen": "2026-08-24T16:36:17+00:00",
+   "last_updated": "2026-08-25T16:52:32+00:00",
+   "latest_title": "Strictly Causal Streaming Video Anomaly Detection with a Theoretically-Grounded State-Space Core",
+   "days": [
+    "2026-08-24",
+    "2026-08-25"
+   ],
+   "member_sids": [
+    "c1f5f7897cab6194",
+    "c6589f453fe3efd2",
+    "c8fa2c59f3b3c019"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2608.23468v1",
+    "http://arxiv.org/abs/2608.23547v1",
+    "http://arxiv.org/abs/2608.24810v1"
+   ],
+   "editorial": {
+    "tldr": "Three papers published within two days push anomaly detection along separate, unconnected fronts: relational-database structure, industrial-control-system security, and real-time video. None builds on the others — this is a cluster of concurrent research, not one unfolding event.",
+    "stale": false,
+    "whats_new": "The newest paper (Aug 25) proposes a causal, state-space model for streaming video anomaly detection that avoids buffering clips, unlike prior Mamba-style approaches.",
+    "why_it_matters": "If you're building anomaly detection into an agent or observability pipeline, these three papers map to distinct decision points: whether your data is relational (schema-aware methods), whether your training data can be adversarially poisoned (ICS robustness), and whether you need real-time, low-latency video inference (streaming state-space models).",
+    "take_for_builders": "Treat this as three independent leads, not one trend: check RAD if your anomaly signal lives in relational/warehouse data, check the ICS contamination study if your training pipeline ingests third-party or adversarial data, and check the streaming state-space model only if you need real-time video inference without clip buffering."
    }
   }
  ]
