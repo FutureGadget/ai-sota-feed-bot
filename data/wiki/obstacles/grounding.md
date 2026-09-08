@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4]
-updated: 2026-09-04
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1]
+updated: 2026-09-08
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1]
 ---
 
 ## TL;DR
@@ -142,7 +142,17 @@ retrieval method on top of it, is what let a fluent answer become a trusted
 one (see [agent observability](/topic/agent-observability) for the
 trace-and-trust side of the same build).
 
-A second production deployment grounds the same "self-host the retrieval
+A second production deployment grounds the retrieval/latency trade-off in a
+consumer-facing product rather than an enterprise data platform: KDDI, a
+major Japanese telecommunications carrier, built Buffmee, a consumer RAG
+app, on Google's Agent Development Kit specifically to balance high
+generation quality against fast response time across diverse media types —
+the same quality-versus-latency budget this page's [agent
+latency](/topic/agent-latency) companion tracks from the serving side, here
+driving the retrieval-architecture choice itself at consumer scale rather
+than an enterprise-internal one.
+
+A third production deployment grounds the same "self-host the retrieval
 stack" instinct in a sovereignty requirement rather than a data-engineering
 one: OneAdvanced, a UK enterprise software provider, built a
 UK-sovereign AI platform by self-hosting Llama 4 Maverick and Llama Guard 4
@@ -228,7 +238,13 @@ over baseline RAG methods across multiple knowledge-intensive QA benchmarks
 and two model backbones.
 
 ## What's new
-Lazy Grounding shows search agents can be misled by evidence that is
+KDDI, a major Japanese telecom carrier, built Buffmee — a consumer RAG app
+balancing generation quality against response time across multiple media
+types — on Google's Agent Development Kit, a production instance of this
+page's retrieval/latency trade-off argument rather than a benchmark result
+(see State of the art above).
+
+Prior update: Lazy Grounding shows search agents can be misled by evidence that is
 factually accurate but answers a rewritten neighbor of the actual query,
 cutting accuracy 5.9 points on average (up to 17.3) across 12
 model-benchmark pairs — a distinct failure mode from the truth-preserving
