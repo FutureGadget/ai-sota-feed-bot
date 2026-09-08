@@ -79,6 +79,9 @@ class SkillLabSurfaceTest(unittest.TestCase):
         self.assertIn("placement", self.html)
         self.assertNotIn("source:", self.html)
 
+    def test_playbook_header_open_has_bounded_attribution(self) -> None:
+        self.assertIn("'playbook_header'", self.html)
+
     def test_artifacts_are_allowlisted_and_open_safely(self) -> None:
         self.assertIn("function safePublicUrl", self.html)
         self.assertIn("url.protocol !== 'https:'", self.html)

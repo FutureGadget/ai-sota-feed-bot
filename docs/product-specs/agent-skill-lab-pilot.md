@@ -150,6 +150,10 @@ artifacts at the deployment root and mirrored `/web/` path.
 valid Lab record as an optional enhancement. A failed or missing Lab request
 does not delay or alter the Playbook.
 
+The Playbook edition-control row always includes a `Skill Lab` action that
+resolves the latest valid record. This keeps the nested feature discoverable
+without promoting it to a global navigation destination.
+
 The Lab teaser sits after the Playbook hero and before the change records. It
 uses the existing instrument visual language: hairline rules, an accent edge,
 monospace labels, and no card shadow or new navigation pill.
@@ -199,7 +203,8 @@ uses these explicit events:
 - `skill_lab_feature_view`: teaser became visible, with Lab ID, edition, and
   placement;
 - `skill_lab_open`: a validated detail rendered, with `placement` set to
-  `feed_insert`, `playbook_home`, `weekly_email`, or `direct`;
+  `feed_insert`, `playbook_home`, `playbook_header`, `weekly_email`, or
+  `direct`;
 - `skill_lab_verdict_view`: result verdict became visible;
 - `skill_lab_artifact_open`: artifact kind and condition only;
 - `skill_lab_complete`: finite end marker became visible;

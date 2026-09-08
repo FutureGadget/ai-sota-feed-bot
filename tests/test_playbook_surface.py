@@ -129,6 +129,12 @@ class PlaybookSurfaceTest(unittest.TestCase):
         self.assertNotIn("Skill Lab", nav)
         self.assertNotIn('/playbook/lab/', nav)
 
+    def test_skill_lab_has_a_persistent_playbook_header_entry(self) -> None:
+        context = self.html.split('<div class="site-context"', 1)[1].split("</div>", 1)[0]
+        self.assertIn('href="/playbook/lab/latest?ref=playbook_header"', context)
+        self.assertIn('aria-label="Open the latest Agent Skill Lab record"', context)
+        self.assertIn('>Skill Lab</a>', context)
+
 
 if __name__ == "__main__":
     unittest.main()
