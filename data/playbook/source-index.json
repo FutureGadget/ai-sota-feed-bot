@@ -246,6 +246,25 @@
     },
     "edition_date": "2026-08-04"
   },
+  "1b0b8c0b03545ecc": {
+    "id": "pb-cloudflare-optional-oauth-scopes",
+    "kind": "source-backed",
+    "title": "Mark advanced MCP tool permissions as optional scopes instead of bundling them into one all-or-nothing grant",
+    "area": "Safety",
+    "problem": "An agent that needs broad access for its most advanced actions (say, reading inventory, writing prices, and processing refunds) forces every user into an all-or-nothing choice: approve everything, or bounce off the consent screen.",
+    "apply": "Split your OAuth scope request into required and `optional_scopes`, and have your app inspect which scopes a token actually carries at runtime — disabling the affected feature gracefully instead of failing when an optional one is withheld.",
+    "result": "Cloudflare reports its optional-scopes support lets users deselect individual permissions at consent, so an agent runs with a narrower default risk profile while still offering the advanced capabilities as opt-in.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/cloudflare-optional-oauth-scopes/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "1b0b8c0b03545ecc",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Cloudflare's own feature announcement; the benefit is a security-design claim, not a measured incident-rate reduction."
+    },
+    "edition_date": "2026-09-08"
+  },
   "1c2693c60a919d8d": {
     "id": "pb-reuse-multimodal-kv-cache-for-repeated-lookbacks",
     "kind": "source-backed",
@@ -587,6 +606,25 @@
       "note": "The paper's authors measured latency and accuracy against 15/19 other guardrail models on published benchmarks."
     },
     "edition_date": "2026-09-04"
+  },
+  "2ff277e441a4b0da": {
+    "id": "pb-hydrafusion-cascade-routing",
+    "kind": "source-backed",
+    "title": "Route coding tasks through a cheap-model-first cascade instead of always calling your frontier model",
+    "area": "Orchestration",
+    "problem": "Always sending every coding task to your most capable (and most expensive) model wastes spend on tasks a cheaper model could already solve.",
+    "apply": "Classify each incoming task's difficulty, let an efficient model draft first, and only escalate to a stronger model — or add an independent-critique-and-revise pass — when a quality gate flags the draft as insufficient.",
+    "result": "GitHub's HydraFusion cut cost 67% with a 4.9-point quality gain on TerminalBench 2.1 versus always calling the Opus 5 baseline, and 65% cheaper at roughly flat quality on CheckpointBench.",
+    "effort": "high",
+    "source": "github_blog_ai_ml",
+    "source_url": "https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration/",
+    "source_sid": "2ff277e441a4b0da",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "GitHub reports controlled offline evaluation results across three benchmarks (TerminalBench 2.1, DeepSWE, CheckpointBench)."
+    },
+    "edition_date": "2026-09-08"
   },
   "309c04c4364dddf7": {
     "id": "pb-kv-cache-offload",
@@ -1025,6 +1063,25 @@
     },
     "edition_date": "2026-09-01"
   },
+  "5b9d60084bc37024": {
+    "id": "pb-mcp-stateless-no-sticky-sessions",
+    "kind": "source-backed",
+    "title": "Move your MCP server off session pinning to survive redeploys without dropping agent connections",
+    "area": "Reliability",
+    "problem": "Under the old MCP spec, a client opens a session and stays pinned to one server instance, so a redeploy or scale-out kills every live agent session and forces sticky routing plus a shared session store.",
+    "apply": "Adopt the current MCP spec's stateless mode so clients issue independent requests with no server-side session state to pin to, removing the sticky-routing and session-store requirement entirely.",
+    "result": "LangChain's MCP integration reports that a redeploy no longer kills live sessions, because there are none left to kill.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/mcp-in-langchain-stateless-protocol-elicitation-and-more",
+    "source_sid": "5b9d60084bc37024",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's own description of the stateless spec's operational benefit; no separate before/after measurement given."
+    },
+    "edition_date": "2026-09-08"
+  },
   "5ba78b757300e8cc": {
     "id": "pb-memory-dosing-by-model-tier",
     "kind": "source-backed",
@@ -1157,6 +1214,25 @@
       "note": "The source's own recommended guardrails, illustrated with two named real-world incidents and their reported dollar costs."
     },
     "edition_date": "2026-07-17"
+  },
+  "71d13489a25b073e": {
+    "id": "pb-kc-bench-conflict-injection-evals",
+    "kind": "source-backed",
+    "title": "Add conflicting-context probes to your tool-using agent's eval suite before you trust it in production",
+    "area": "Evals",
+    "problem": "A tool-using agent has to reconcile user instructions, its own parametric knowledge, and live tool/environment observations — and when those disagree, a missed conflict can propagate straight into a tool call.",
+    "apply": "Build test cases that deliberately contradict the agent across three angles — a stale fact vs. a fresh tool result, an instruction that conflicts with prior context, and a time-dependent fact from two sources — and check whether the agent flags the conflict instead of silently picking one side.",
+    "result": "KC-Bench tested 9 frontier models (including DeepSeek-V4-Flash, GLM-5.2, and MiniMax-M3) across 238 tasks and found none handled factual correction, identity consistency, and temporal conflict resolution reliably across all settings.",
+    "effort": "medium",
+    "source": "arxiv_llm_reliability",
+    "source_url": "http://arxiv.org/abs/2609.03588v1",
+    "source_sid": "71d13489a25b073e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "KC-Bench's own benchmark evaluation across 9 models and 238 manually-screened tasks."
+    },
+    "edition_date": "2026-09-08"
   },
   "7339a1b37836ee76": {
     "id": "pb-cache-verified-repairs-as-memory",
@@ -1975,6 +2051,25 @@
     },
     "edition_date": "2026-07-31"
   },
+  "ba3ccd9e9d203387": {
+    "id": "pb-gitspawn-sanitize-git-config",
+    "kind": "source-backed",
+    "title": "Sanitize git config on background context-gathering calls before an untrusted repo can run code",
+    "area": "Safety",
+    "problem": "Coding agents run git commands like `git status` in the background to gather context, often before any prompt or sandbox check — and a repo's `.git/config` can name an external program to run during that refresh.",
+    "apply": "Explicitly disable dangerous config keys on every background git call your agent makes, e.g. run `git -c core.fsmonitor=false status` instead of a bare `git status`, so a malicious `fsmonitor` entry in an untrusted repo's config can't execute.",
+    "result": "Manifold Security reports this closes the GitSpawn path where opening a repo shipped as a .zip, shared drive, or USB stick — with its `.git` directory intact — runs an attacker's command with the developer's full privileges, outside any sandbox.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://www.manifold.security/blog/ai-coding-agents-git-hijack",
+    "source_sid": "ba3ccd9e9d203387",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Manifold Security's disclosed vulnerability and its own recommended mitigation; not an independently measured before/after result."
+    },
+    "edition_date": "2026-09-08"
+  },
   "baa0094f7155ee33": {
     "id": "pb-verification-loop-skills",
     "kind": "source-backed",
@@ -2221,6 +2316,25 @@
       "note": "GitHub measured average review cost before and after the diff-anchored prompting change on its own Copilot code review pipeline."
     },
     "edition_date": "2026-07-14"
+  },
+  "cc74131efa65cff2": {
+    "id": "pb-swe-gate-review-constraints",
+    "kind": "source-backed",
+    "title": "Add review-constraint checks to your coding agent's eval, not just pass/fail tests",
+    "area": "Evals",
+    "problem": "A coding agent's patch can pass every functional test and still be unmergeable in a real review.",
+    "apply": "Extract acceptance rules from your own PR review history (style, scope, no-dead-code, no-unrelated-refactor) and run them as a second, separate gate alongside functional tests — don't fold them into the same pass/fail score.",
+    "result": "SWE-Gate found 221 of 644 functionally-passing repairs (about 34%) violated real review constraints, so a functional-only eval overstates how close an agent is to production-ready.",
+    "effort": "medium",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2609.04167v1",
+    "source_sid": "cc74131efa65cff2",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "SWE-Gate's own benchmark run measured the 221/644 non-compliance rate across 75 repositories."
+    },
+    "edition_date": "2026-09-08"
   },
   "cdd1118267ee925c": {
     "id": "pb-recall-beats-summarize-handoff",
@@ -2734,6 +2848,25 @@
       "note": "Paper reports its own benchmark scores for the reference implementation."
     },
     "edition_date": "2026-07-24"
+  },
+  "fbfd060b861c9942": {
+    "id": "pb-github-copilot-cost-tool-output",
+    "kind": "source-backed",
+    "title": "Batch background task results and stop over-compressing tool output to cut agent cost",
+    "area": "Cost & latency",
+    "problem": "Teams chase cost savings by shortening every tool response, but a concise response that omits information the agent needs just forces extra recovery calls — costing more, not less.",
+    "apply": "Deliver finished background task results directly instead of making the agent issue a separate retrieval call for each one, and reserve output compression for predictable noise like build/install/test logs — never for source code or search results.",
+    "result": "GitHub measured a 2.3% cost cut from batching background-task completions (collapsing four calls into two) and a 5.5% cut from selective log compression, with no quality regression across Copilot CLI and code review.",
+    "effort": "low",
+    "source": "github_blog_ai_ml",
+    "source_url": "https://github.blog/ai-and-ml/github-copilot/how-we-make-ai-coding-more-cost-efficient-without-sacrificing-task-quality/",
+    "source_sid": "fbfd060b861c9942",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "GitHub reports measured cost deltas per technique from its own benchmarks and online experiments."
+    },
+    "edition_date": "2026-09-08"
   },
   "fcb5eeae253e1eba": {
     "id": "pb-vllm-decode-context-parallelism",
