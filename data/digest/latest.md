@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. vllm v0.29.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0
-- Score: 2.893 | Reliability: 1.0
+- Score: 2.855 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 2. Introducing ChatGPT Images 2.5
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/8/introducing-chatgpt-images-25/
-- Score: 2.84 | Reliability: 1.0
+- Score: 2.815 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. Meta's Recipe for Building Agents as "Organizational Second Brains"
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/meta-organizational-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.767 | Reliability: 1.0
+- Score: 2.74 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 4. On the Navier–Stokes Millennium Prize Problem
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/8/on-navier-stokes/
-- Score: 2.75 | Reliability: 1.0
+- Score: 2.726 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, codex.
 
-## 5. Connections: managed credentials and per-caller identity for Managed Deep Agents
+## 5. Alignment Research
+- Type: research | Source: anthropic_research
+- URL: https://www.anthropic.com/research/team/alignment
+- Score: 2.535 | Reliability: 1.0
+- Why it matters: 
+
+## 6. Connections: managed credentials and per-caller identity for Managed Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents
-- Score: 2.557 | Reliability: 1.0
+- Score: 2.533 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 6. The BatchNorm Illusion: Diagnosing Normalization Artifacts in Machine Unlearning Evaluation
+## 7. The BatchNorm Illusion: Diagnosing Normalization Artifacts in Machine Unlearning Evaluation
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2609.08901v1
-- Score: 2.507 | Reliability: 1.0
+- Score: 2.498 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
-
-## 7. [AINews] OpenAI reports Navier-Stokes singularity find in 88 hours using Astra-next, roughly 10,000 agents and 130B tokens (>$40M), a contender for second ever Millennium Prize awarded
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/ainews-openai-reports-navier-stokes
-- Score: 2.472 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
 
 ## 8. Paul Christiano joins OpenAI Foundation Board
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/paul-christiano-joins-openai-foundation-board
-- Score: 2.334 | Reliability: 1.0
+- Score: 2.308 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. How GPT-5.6 Sol helps run quantum computing experiments
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/codex-quantum-computing-experiments
-- Score: 2.149 | Reliability: 1.0
+- Score: 2.129 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 10. AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/alphagenome-atlas-a-predictive-map-of-every-possible-dna-letter-change-in-the-human-genome/
-- Score: 2.006 | Reliability: 1.0
+- Score: 1.988 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Flaw in DeepSeek Harness AI Coding Tool Let Agents Disable Their Sandbox
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMilwFBVV95cUxQOXhpZEFsTGtrVldPWUdyeTF4MGxBVDdjc1RlYWkxUERzZkZsdF9fRzlhWU1xNXRrWGtkZ3lnMTVQLTRNTzhndW5COGQ3LWROYVhXUGNBQXhFUUU0Vm10TDhXVlBpSmoyMi1QRG9lbjd0RF8tUmJGTldUc2NjQVk5ZkZNd1UzWEVCRGt4VXR6amZTY1YtNXp3?oc=5
-- Score: 2.458 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness.
-
-## 12. GPT-6 Astra: A new generation of intelligence
+## 11. GPT-6 Astra: A new generation of intelligence
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5
-- Score: 2.44 | Reliability: 1.0
+- Score: 2.464 | Reliability: 1.0
 - Why it matters: 
 
-## 13. ExecCritic: Learn to Test, Test to Improve for Coding Agents
-- Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2609.09133v1
-- Score: 2.389 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, harness, evaluation.
-
-## 14. Google is a Leader in the 2026 Gartner® Magic Quadrant™ for Enterprise AI Assistants
-- Type: news | Source: google_cloud_blog
-- URL: https://cloud.google.com/blog/products/ai-machine-learning/google-is-a-leader-in-2026-gartner-magic-quadrant-for-enterprise-ai-assistants/
-- Score: 2.346 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, evaluation.
-
-## 15. An alignment assessment of recent cybersecurity incidents
-- Type: research | Source: anthropic_research
-- URL: https://www.anthropic.com/research/alignment-assessment-cybersecurity-incidents
-- Score: 2.342 | Reliability: 1.0
-- Why it matters: 
-
-## 16. When will average people feel AI’s impact?
-- Type: news | Source: interconnects
-- URL: https://www.interconnects.ai/p/when-will-average-people-feel-ais
-- Score: 2.332 | Reliability: 1.0
-- Why it matters: 
-
-## 17. ICYMI: What landed for AI builders in August 2026
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-august-2026/
-- Score: 2.321 | Reliability: 1.0
+## 12. [AINews] OpenAI reports Navier-Stokes singularity find in 88 hours using Astra-next, roughly 10,000 agents and 130B tokens (>$40M), a contender for second ever Millennium Prize awarded
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-openai-reports-navier-stokes
+- Score: 2.449 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 18. GPT-6 Astra, Looped Transformers, and Hidden Reasoning
+## 13. China’s DeepSeek Reportedly Bets on 160,000-Plus Huawei Chips to Serve AI Models
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiqAFBVV95cUxOaFlOWVZEcGhqV1ZmeF9xZGhSc05mZGtXWXJ2M3l6UU1YWk9uYzhKWHdiWFlmWDFmSnlfOWt3THhNdmFHU0RoazBUeE1EemVDM0xGUUVaUjlTWTZqU0UzaWRDdEhhWjFNMlhWVjREd1ZCUXc5REN4NDJIRTFoZmoycm8wOGljU1U2U3JBMmJiZlBVQWI5bl9mdDFVRDVMcU5majQ5SXc4LWs?oc=5
+- Score: 2.433 | Reliability: 1.0
+- Why it matters: 
+
+## 14. ExecCritic: Learn to Test, Test to Improve for Coding Agents
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2609.09133v1
+- Score: 2.381 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, evaluation.
+
+## 15. When will average people feel AI’s impact?
+- Type: news | Source: interconnects
+- URL: https://www.interconnects.ai/p/when-will-average-people-feel-ais
+- Score: 2.311 | Reliability: 1.0
+- Why it matters: 
+
+## 16. Google is a Leader in the 2026 Gartner® Magic Quadrant™ for Enterprise AI Assistants
+- Type: news | Source: google_cloud_blog
+- URL: https://cloud.google.com/blog/products/ai-machine-learning/google-is-a-leader-in-2026-gartner-magic-quadrant-for-enterprise-ai-assistants/
+- Score: 2.303 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, evaluation.
+
+## 17. GPT-6 Astra, Looped Transformers, and Hidden Reasoning
 - Type: news | Source: sebastian_raschka
 - URL: https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and
-- Score: 2.318 | Reliability: 1.0
+- Score: 2.296 | Reliability: 1.0
 - Why it matters: 
+
+## 18. ICYMI: What landed for AI builders in August 2026
+- Type: news | Source: aws_ml_blog
+- URL: https://aws.amazon.com/blogs/machine-learning/icymi-what-landed-for-ai-builders-in-august-2026/
+- Score: 2.276 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 19. Presentation: Fixing the AI Infra Scale Problem by Stuffing 1M Sandboxes in a Single Server
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/unikraft-microvm-sandboxes-cloud-scaling/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.271 | Reliability: 1.0
+- Score: 2.25 | Reliability: 1.0
 - Why it matters: 
 
 ## 20. claude-code v2.1.267
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.267
-- Score: 2.268 | Reliability: 1.0
+- Score: 2.241 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
 ## 21. IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series
-- Score: 2.23 | Reliability: 1.0
+- Score: 2.221 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. Closing the Consistency Gap: Self-Evolving Agents That Learn to Stay on Course
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2609.08832v1
-- Score: 2.188 | Reliability: 1.0
+- Score: 2.181 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
 ## 23. codex 0.154.0-alpha.6.1
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.154.0-alpha.6.1
-- Score: 2.178 | Reliability: 1.0
+- Score: 2.154 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 24. The Work Now Within Reach
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/the-work-now-within-reach
-- Score: 1.947 | Reliability: 1.0
+- Score: 1.93 | Reliability: 1.0
 - Why it matters:
