@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794]
-updated: 2026-09-08
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b]
+updated: 2026-09-09
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b]
 ---
 
 ## TL;DR
@@ -64,7 +64,18 @@ the existing Hybrid Memory Allocator and KV offloading as a pressure-driven
 tier that activates once a request's KV state no longer fits in GPU memory,
 letting GLM 5.3 requests keep decoding under memory pressure instead of
 stalling or falling back to a slower path — concurrency stays high precisely
-where the storage-bandwidth bottleneck above would otherwise cap it. The dev-loop side of latency counts
+where the storage-bandwidth bottleneck above would otherwise cap it. That agent-workload-shape argument now has a benchmarked serving-stack
+validation behind it, not just a research characterization: vLLM's own
+account of optimizing for SemiAnalysis's AgentX benchmark — which scores
+serving stacks specifically on agentic traffic rather than chat-shaped
+requests — combines the KV-cache, parallelism, scheduling, and
+prefill/decode-disaggregation levers already on this page into one tuned
+stack, reaching up to 130K tokens per GPU-second and a 14.6x-106x
+serving-cost advantage on the benchmark. It is less a new lever than proof
+the levers this page already tracks compound when tuned together for the
+shape agent traffic actually has.
+
+The dev-loop side of latency counts
 too: local CI (running checks on the developer's machine instead of round-tripping
 to a remote runner) cuts the feedback loop for both human developers and coding
 agents, since round-trip time to a CI runner is on the same wall-clock budget as
@@ -284,7 +295,14 @@ shrinking the prompt itself rather than the KV state or the request
 pattern around it.
 
 ## What's new
-Two serving-layer additions push the day-0 hardware/model-support and
+vLLM's own account of tuning for SemiAnalysis's AgentX benchmark — which
+scores serving stacks on agentic rather than chat-shaped traffic — combines
+this page's KV-cache, parallelism, scheduling, and disaggregation levers
+into one stack reaching up to 130K tokens per GPU-second and a 14.6x-106x
+serving-cost advantage, a benchmarked validation that the levers compound
+rather than a new one (see State of the art above).
+
+Prior update: Two serving-layer additions push the day-0 hardware/model-support and
 storage-bandwidth threads further. vLLM integrates HiSparse, a
 pressure-driven KV memory tier that composes with the Hybrid Memory
 Allocator and offloading so GLM 5.3 requests keep decoding when their KV no

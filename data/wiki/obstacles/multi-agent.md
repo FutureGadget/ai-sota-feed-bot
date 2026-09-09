@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da]
-updated: 2026-09-05
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990]
+updated: 2026-09-09
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990]
 ---
 
 ## TL;DR
@@ -57,7 +57,16 @@ dynamic subagents in Deep Agents drive fan-out and coordination from a
 program, so coverage is *guaranteed* by control flow instead of hoped-for
 from the model emitting one tool call per worker — turning the coordination
 layer into ordinary (testable, deterministic) code around non-deterministic
-agents.
+agents. That same framework now exposes the handoff itself as a named,
+configurable choice rather than a fixed default: Deep Agents' context modes
+let a supervisor either **fork** its own context into a subagent (the
+subagent inherits what the supervisor has seen so far) or start it
+**isolated** (a clean context, told only what the task needs) — the same
+"what does the next agent actually need to see" question this page already
+treats as the dominant coordination variable, now a per-handoff switch
+instead of an all-or-nothing design decision, trading faster/cheaper
+isolated starts against forked continuity when a subagent genuinely needs
+the supervisor's history.
 
 The flip side of caring about communication structure is that the structure
 is also an **attack surface**: the "Linguistic Firewall" work treats routing
@@ -337,7 +346,14 @@ for, this time built specifically for the high-agent-count end of the
 coordination-overhead question rather than a small fixed topology.
 
 ## What's new
-GitHub's Project HydraFusion (a Copilot research preview) routes each coding
+LangChain's Deep Agents now exposes context handoff itself as a configurable
+choice: a supervisor can fork its own context into a subagent or start it
+isolated with only what the task needs — the "what does the next agent need
+to see" question this page already treats as the dominant coordination
+variable, now a per-handoff switch rather than an all-or-nothing default
+(see State of the art above).
+
+Prior update: GitHub's Project HydraFusion (a Copilot research preview) routes each coding
 step to whichever model it needs rather than a fixed model per session, and
 reports selective routing matching or exceeding an Opus 5 baseline in
 controlled offline evals while cutting estimated cost — the "heterogeneous
