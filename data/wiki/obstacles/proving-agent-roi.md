@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f]
-updated: 2026-08-27
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50]
+updated: 2026-09-09
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50]
 ---
 
 ## TL;DR
@@ -53,8 +53,25 @@ detail). It sharpens the cost-per-task argument above from "measure spend
 per task" to a specific finding: on a typical agent workload, most per-task
 spend isn't buying frontier capability the task actually needed.
 
+**A named customer case study puts a number on the outcome side, not just
+spend:** 1Password reports a 21% engineering productivity lift from adopting
+Codex while maintaining its existing security review policies — evidence
+of the "attribute spend to outcome" argument above working from the outcome
+end, though a single vendor-published customer figure is a data point, not
+yet the independent per-task instrumentation the rest of this page argues
+for.
+
 ## What's new
-Google Cloud and Databricks both shipped agent-specific cost governance
+A named customer case study puts one of the first concrete productivity
+percentages behind coding-agent ROI rather than a spend or cost-per-task
+number: 1Password reports Codex lifted engineering productivity 21% while
+its team kept its existing security review policies in place — the
+outcome-side complement to the cost-attribution tooling this page tracks,
+though a vendor-published single-customer figure is not yet the
+independent, per-task instrumentation the rest of this page argues for
+(see State of the art above).
+
+Prior update: Google Cloud and Databricks both shipped agent-specific cost governance
 stacks in the same week: Google Cloud added per-project spend caps,
 spend-spike anomaly detection, and up to 50% off deferred-execution pricing
 for agent workloads, while Databricks' Governance Hub added per-user AI
