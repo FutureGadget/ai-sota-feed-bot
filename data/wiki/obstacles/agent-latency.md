@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b]
-updated: 2026-09-09
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857]
+updated: 2026-09-10
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857]
 ---
 
 ## TL;DR
@@ -294,8 +294,37 @@ and caching levers already attack from the infrastructure side, this time
 shrinking the prompt itself rather than the KV state or the request
 pattern around it.
 
+The KV-cache-reuse lever above assumes the reused text sits at the exact
+start of the prompt; two workloads this page already tracks break that
+assumption outright. A retrieval-augmented agent assembles a different set
+of retrieved chunks for every query, and a multi-agent coordinator reads
+reports other agents wrote — in both cases the reusable text lands in the
+*middle* of a new prompt, at the wrong position, sometimes written by a
+different model checkpoint entirely, so a naive prefix-cache hit either
+misses or silently corrupts the request. KVShareArena is the first
+benchmark to score cache-reuse methods against exactly that non-prefix
+case rather than only exact-prefix reuse, charging each method's compute,
+memory, and per-request latency against how much of the no-cache-to-
+full-recompute gap it actually recovers. Its finding narrows the fix
+considerably: correcting cache positions alone (no recomputation needed)
+suffices until a question needs several retrieved sources at once, at
+which point only methods that pay a cost — partial re-encoding or extra
+training — recover half to two-thirds of the gap, and an unrepaired cache
+can score worse than no cache at all. Cache-compression techniques that
+look harmless on a single prompt fall well behind plain position
+correction once reuse gets non-prefix, a caution for the compression and
+cache-reuse levers already on this page as multi-agent and RAG workloads
+push more of an agent's KV cache away from a clean prefix.
+
 ## What's new
-vLLM's own account of tuning for SemiAnalysis's AgentX benchmark — which
+KVShareArena benchmarks KV-cache reuse specifically for the non-prefix case
+— RAG chunks assembled per query, multi-agent reports written by another
+model checkpoint — and finds cheap position correction alone suffices until
+several sources combine, after which only costlier re-encoding or training
+recovers half to two-thirds of the gap; an unrepaired cache can score worse
+than none (see State of the art above).
+
+Prior update: vLLM's own account of tuning for SemiAnalysis's AgentX benchmark — which
 scores serving stacks on agentic rather than chat-shaped traffic — combines
 this page's KV-cache, parallelism, scheduling, and disaggregation levers
 into one stack reaching up to 130K tokens per GPU-second and a 14.6x-106x

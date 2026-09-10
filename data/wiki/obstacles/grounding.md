@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1]
-updated: 2026-09-08
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b]
+updated: 2026-09-10
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b]
 ---
 
 ## TL;DR
@@ -237,8 +237,30 @@ latency, and only a small calibration sample — reporting consistent gains
 over baseline RAG methods across multiple knowledge-intensive QA benchmarks
 and two model backbones.
 
+A retriever now spends variable effort per query instead of a fixed number
+of search steps, sharpening the standing retrieval/latency trade-off with a
+trained policy rather than a hand-tuned setting. Databricks' Adaptive
+Instructed-Retriever takes enterprise schemas and custom instructions as
+input, then uses reinforcement learning (CISPO) to learn when a single
+parallel search pass is enough and when a question needs sequential,
+multi-hop search — trading trajectory quality against search cost as part
+of the reward rather than fixing the step count up front. Matching Claude
+Sonnet 5 and GPT-5.6 Luna's answer quality at roughly 5.8s average
+end-to-end response time, about half the latency, and dominating
+DeepSeek-V4-Flash, Sonnet 5, and GPT-5.6 Luna's quality-vs-cost curve across
+the whole retrieval-budget range, it turns "how hard should I search" from
+a fixed knob into a per-query decision the same way this page's compaction
+and reasoning-effort peers already turn cost into one.
+
 ## What's new
-KDDI, a major Japanese telecom carrier, built Buffmee — a consumer RAG app
+Databricks' Adaptive Instructed-Retriever learns, via RL, when a query needs
+one parallel search pass versus sequential multi-hop search, matching
+frontier-model answer quality at roughly half the latency and dominating
+several models' quality-vs-cost curve across the retrieval-budget range —
+a trained, per-query answer to this page's retrieval/latency trade-off
+rather than a fixed step count (see State of the art above).
+
+Prior update: KDDI, a major Japanese telecom carrier, built Buffmee — a consumer RAG app
 balancing generation quality against response time across multiple media
 types — on Google's Agent Development Kit, a production instance of this
 page's retrieval/latency trade-off argument rather than a benchmark result
