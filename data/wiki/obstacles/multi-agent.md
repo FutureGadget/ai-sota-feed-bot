@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990]
-updated: 2026-09-09
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c]
+updated: 2026-09-10
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c]
 ---
 
 ## TL;DR
@@ -345,8 +345,29 @@ routing-and-handoff-layer thesis this page's durable lesson already argues
 for, this time built specifically for the high-agent-count end of the
 coordination-overhead question rather than a small fixed topology.
 
+The "what does the next agent need to see" question above gets a
+system-level answer rather than a per-handoff API: kernel-managed shared
+memory moves personalization context out of individual agents entirely,
+into an agent-system kernel that governs what gets written, retrieved, and
+injected — including privacy enforcement and prompt-injection screening on
+the way in — instead of leaving each agent to decide what to share.
+Evaluated on 1,800 trials across three assistant models (GPT-4o,
+Llama-3.1:8B, Qwen-2.5:7B), kernel-managed retrieval beats an unmanaged
+external memory backend on identical storage by 2.4-4.0 points on a 5-point
+personalization scale (p < 10⁻¹⁸ on every comparison) and matches
+full-context concatenation's quality on two of three models while using
+15-61% lower end-to-end latency and fewer tokens per call — evidence that
+*who governs* shared memory, not just *where* it's stored, determines
+whether context learned by one agent actually reaches another.
+
 ## What's new
-LangChain's Deep Agents now exposes context handoff itself as a configurable
+Kernel-managed shared memory answers this page's "what does the next agent
+need to see" question at the system level: an agent-system kernel, not
+individual agents, governs cross-agent memory writes and retrieval,
+matching full-context concatenation's quality on two of three tested models
+at 15-61% lower latency (see State of the art above).
+
+Prior update: LangChain's Deep Agents now exposes context handoff itself as a configurable
 choice: a supervisor can fork its own context into a subagent or start it
 isolated with only what the task needs — the "what does the next agent need
 to see" question this page already treats as the dominant coordination
