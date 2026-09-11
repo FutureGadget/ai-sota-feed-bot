@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Session Traces and Cost Controls Help Diagnose AI Agent Failures
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/observability-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 3.102 | Reliability: 1.0
+- Score: 3.072 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. How Credit Genie keeps codebase docs fresh with OpenWiki
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-credit-genie-uses-openwiki-to-keep-codebase-knowledge-fresh-searchable-and-automated
-- Score: 2.92 | Reliability: 1.0
+- Score: 2.894 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 3. vllm v0.29.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0
-- Score: 2.902 | Reliability: 1.0
+- Score: 2.865 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 4. RetroThinker: Enabling Retrospective Thinking in Speech LLMs
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2609.11864v1
-- Score: 2.722 | Reliability: 1.0
+- Score: 2.705 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 5. Native is now the future of mobile at Shopify
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/10/shopify-react-native/
-- Score: 2.721 | Reliability: 1.0
+- Score: 2.696 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 6. OpenAI Releases GPT-6 Astra for Coding and Computer Use
 - Type: release | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/openai-gpt6-astra/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.641 | Reliability: 1.0
+- Score: 2.617 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex.
 
 ## 7. Domain-Specific Hallucination Detection in Large Language Models
 - Type: paper | Source: arxiv_llm_reliability
 - URL: http://arxiv.org/abs/2609.11878v1
-- Score: 2.585 | Reliability: 1.0
+- Score: 2.569 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 8. How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials
-- Score: 2.453 | Reliability: 1.0
+- Score: 2.427 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 9. Now everyone can put data to work
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/put-data-to-work
-- Score: 2.152 | Reliability: 1.0
+- Score: 2.131 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 10. Introducing ChatGPT for Financial Services
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-chatgpt-financial-services
-- Score: 2.119 | Reliability: 1.0
+- Score: 2.1 | Reliability: 1.0
 - Why it matters: 
 
 ## 11. Measuring AI capabilities in intelligence targeting and conventional weapons
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities
-- Score: 2.498 | Reliability: 1.0
+- Score: 2.483 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 12. GPT-6 Astra: A new generation of intelligence
+## 12. codex rust-v0.155.0-alpha.3.9
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.3.9
+- Score: 2.453 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 13. GPT-6 Astra: A new generation of intelligence
 - Type: news | Source: search_agent_engineering_news
 - URL: https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5
-- Score: 2.457 | Reliability: 1.0
+- Score: 2.453 | Reliability: 1.0
 - Why it matters: 
 
-## 13. claude-code v2.1.268
+## 14. China AI developer Z.AI launches $5 billion Hong Kong share, convertible bond sales, term sheet shows
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMi0AFBVV95cUxPbHdhM2RYWkhIdGYxdFJBLVFQSzRDZWRNeUxsaUU1Tldjd3R0WlZaRXY1Szlmd0Z0dU5SVTdiT0pibjJXSWU2NU50MjY4S08tcTZETF9iVUoyc0s0eFlZM3YtWXhtdm5yaW45S2N2WDV4aDNwN0N2bEpjTlBvQl9NdUc1dGE0aFN0VkJHd2VKMGk1em1qYVVMcjNGRG9xVXlrS2F2TGt1MXVaOWpIZDZaOGhWMm5POGNRWUh0QlA1eVNLaFhyTGdDcDIwa2Z1cFJa?oc=5
+- Score: 2.438 | Reliability: 1.0
+- Why it matters: 
+
+## 15. claude-code v2.1.268
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.268
-- Score: 2.448 | Reliability: 1.0
+- Score: 2.425 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 14. AM Markets Need to Know: Diesel tops $6, DeepSeek pressures chips, and more (SPX:)
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMirgFBVV95cUxOc1hFMGRkTHBna1B2Um1BQ2VqeUhLNnRFWng4c3R6WTlRTFJodEk5dW1tR1E3T3ZIalA2RnJWRG92c25CamwxOHJhRkhXX3Zqc0Vxam5VV3dtR3NQaTdMMUpIYjZzcS03dlRJYU5ldWlsR3lZNllwS2VBeksyZkNLenpwcFdYLVB4eURnVllfR29sSG03bmxvbFRtRTFWSHpKZU5zZnpCWnJYNFRtRVE?oc=5
-- Score: 2.448 | Reliability: 1.0
-- Why it matters: 
-
-## 15. Any Nix package, live in your browser
+## 16. Any Nix package, live in your browser
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/10/trynix/
-- Score: 2.444 | Reliability: 1.0
+- Score: 2.421 | Reliability: 1.0
 - Why it matters: 
-
-## 16. codex 0.155.0-alpha.3.8
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.3.8
-- Score: 2.441 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
 
 ## 17. Mr.LHDR: A Benchmark for Multimodal Real-World Long-Horizon Deep Research Agents
 - Type: paper | Source: arxiv_agent_systems_research
 - URL: http://arxiv.org/abs/2609.11318v1
-- Score: 2.365 | Reliability: 1.0
+- Score: 2.351 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
 ## 18. AdamX: Cosine similarity meets gradient descent
 - Type: paper | Source: arxiv_cs_lg
 - URL: http://arxiv.org/abs/2609.11867v1
-- Score: 2.301 | Reliability: 1.0
+- Score: 2.287 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 19. GitHub Copilot app for Beginners: Using the diff, terminal, and browser
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-using-the-diff-terminal-and-browser/
-- Score: 2.293 | Reliability: 1.0
+- Score: 2.272 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 20. One resignation turned the embers of AI fear into a wildfire
 - Type: news | Source: interconnects
 - URL: https://www.interconnects.ai/p/one-resignation-turned-the-embers
-- Score: 2.161 | Reliability: 1.0
+- Score: 2.142 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. Expanding AI access and cyber defense for federal, state, local, and tribal governments
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/expanding-ai-access-us-government
-- Score: 2.008 | Reliability: 1.0
+- Score: 1.99 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. Connections: managed credentials and per-caller identity for Managed Deep Agents
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents
-- Score: 1.963 | Reliability: 1.0
+- Score: 1.948 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 23. Reduce LLM latency with prefix-aware routing on Amazon SageMaker Inference
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/reduce-llm-latency-with-prefix-aware-routing-on-amazon-sagemaker-inference/
-- Score: 1.849 | Reliability: 1.0
+- Score: 1.817 | Reliability: 1.0
 - Why it matters: 
 
 ## 24. T. Rowe Price brings more of Claude to its investment process | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/t-rowe-price-brings-more-of-claude-to-its-investment-process
-- Score: 1.826 | Reliability: 1.0
+- Score: 1.811 | Reliability: 1.0
 - Why it matters:
