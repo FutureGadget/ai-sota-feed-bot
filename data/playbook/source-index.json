@@ -1,4 +1,23 @@
 {
+  "01827ff5d3cbb846": {
+    "id": "pb-session-traces-cost-anomaly",
+    "kind": "source-backed",
+    "title": "Instrument agent runs with nested traces plus statistical cost-anomaly checks",
+    "area": "Reliability",
+    "problem": "Agent failures like tool-call loops and runaway spend are invisible in aggregate metrics, so a cost dashboard only shows the spike after the session already burned the budget.",
+    "apply": "Record every LLM call, tool execution, and sub-agent delegation as a nested span (StackGen uses Langfuse) with latency and token cost attached, enforce hard iteration and per-tool-call caps before execution, block identical consecutive tool calls pre-execution, and flag sessions whose cost deviates from the rolling per-agent average.",
+    "result": "Statistical cost-anomaly checks catch model-routing errors and tool hallucinations while a session is running instead of after the invoice; keep traces for debugging and separate low-cardinality metrics for alerting, since dynamic session IDs in metric labels can crash a metrics server.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/observability-ai-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "01827ff5d3cbb846",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The source describes the practice; the operational payoff (catching issues before the invoice) is our qualitative read, not a measured result."
+    },
+    "edition_date": "2026-09-11"
+  },
   "0699bffbf5848607": {
     "id": "pb-langsmith-preview-builds",
     "kind": "source-backed",
@@ -949,6 +968,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "4f4661ca3038bcff": {
+    "id": "pb-prefix-aware-routing-ttft",
+    "kind": "source-backed",
+    "title": "Route same-prefix requests to the same instance to cut time-to-first-token",
+    "area": "Cost & latency",
+    "problem": "Randomly load-balanced inference requests scatter identical prompt prefixes across instances, so the KV cache cold-starts on every request even when conversations share a system prompt or few-shot header.",
+    "apply": "Turn on SageMaker Inference's prefix-aware routing (RoutingStrategy: PREFIX_AWARE) with a PrefixLength of 1024–65536 tokens and a ConcurrencyThreshold tuned to your instance count, so requests sharing a prompt prefix land on the same instance and reuse its warm KV cache.",
+    "result": "AWS measured a 71–77% drop in P50 time-to-first-token and a 15–16% throughput gain on Llama 3.1 70B long-context workloads, with KV cache hit rate rising from ~25% to over 82%; routing overhead added under 2ms.",
+    "effort": "low",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/reduce-llm-latency-with-prefix-aware-routing-on-amazon-sagemaker-inference/",
+    "source_sid": "4f4661ca3038bcff",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS reports these as benchmark results on Llama 3.1 70B long-context workloads."
+    },
+    "edition_date": "2026-09-11"
+  },
   "50942b1f895b815c": {
     "id": "pb-diff-agent-authored-schema-changes",
     "kind": "source-backed",
@@ -1690,6 +1728,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "91b5c6ab21e16bac": {
+    "id": "pb-agent-eval-metric-root-cause",
+    "kind": "source-backed",
+    "title": "Tag cascading failures separately from root-cause errors in multi-turn evals",
+    "area": "Evals",
+    "problem": "Task-level multi-turn eval counts every downstream turn that inherits an earlier mistake as its own failure, so one bad tool call in turn 2 reads as four failures instead of one root cause.",
+    "apply": "Decompose each turn's correctness into truthfulness and completeness sub-scores using semantic match instead of exact string match, and tag each failing turn as an independent error or `prior_action_failed` when it only inherited an upstream mistake.",
+    "result": "AWS's five-turn sales-report example collapses from 4 reported failures to 1 root cause plus 3 correctly-attributed cascades, pointing fixes at the actual defect instead of every symptom.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/agent-evaluation-metric-for-multi-turn-conversations/",
+    "source_sid": "91b5c6ab21e16bac",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS's worked five-turn example shows the failure count before and after decomposition."
+    },
+    "edition_date": "2026-09-11"
+  },
   "9283a6f418d96ab7": {
     "id": "pb-filter-agent-memory-by-metadata-before-vector-search",
     "kind": "source-backed",
@@ -1803,6 +1860,25 @@
       "note": "Measured across 1,323 episodes and seven model families; pinning restores violation rate to 0% in their benchmark."
     },
     "edition_date": "2026-06-26"
+  },
+  "9dba62cbb9d1736b": {
+    "id": "pb-adaptive-retriever-stop-early",
+    "kind": "source-backed",
+    "title": "Let the retriever decide when to stop searching instead of using a fixed step count",
+    "area": "Retrieval",
+    "problem": "Multi-step retrieval beats single-shot search on accuracy but pays for it in latency, so production agents either eat that cost on every query or cap steps and leave accuracy on the table.",
+    "apply": "Train the retriever with online RL (Databricks used CISPO) to predict whether another search step will change the answer, so it takes extra hops only on hard queries, stops early once evidence is sufficient, and keeps a fixed upper bound on steps.",
+    "result": "Databricks' Adaptive Instructed-Retriever answered in 5.8s, over 2x faster than Claude Sonnet 5, DeepSeek-V4-Flash, or GPT-5.6 Luna, while matching their retrieval quality.",
+    "effort": "high",
+    "source": "databricks_blog",
+    "source_url": "https://www.databricks.com/blog/adaptive-instructed-retriever-frontier-quality-search-2x-lower-latency",
+    "source_sid": "9dba62cbb9d1736b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Databricks reports the 5.8s latency figure and comparative quality against named frontier models."
+    },
+    "edition_date": "2026-09-11"
   },
   "9ff56fe893f2ff23": {
     "id": "pb-tune-harness-not-model-for-open-model-parity",
@@ -1974,6 +2050,25 @@
       "note": "Stripe's benchmark measured 92% (Claude Opus 4.5) and 73% (GPT-5.2) on full-stack tasks and named the validation gap; the specific validation-layer architecture is the editor's translation of that finding into a concrete build step."
     },
     "edition_date": "2026-07-17"
+  },
+  "b3d2576e2dbda990": {
+    "id": "pb-subagent-context-mode-by-role",
+    "kind": "source-backed",
+    "title": "Pick fork vs. isolated context per subagent role, not globally",
+    "area": "Orchestration",
+    "problem": "Multi-agent harnesses often default every subagent to the same context-sharing behavior, so verifiers inherit bias from the supervisor's reasoning while resumed workers re-discover evidence from scratch.",
+    "apply": "In LangChain's deepagents, use isolated mode (clean-slate, task-only) for verifiers and parallel researchers, and fork mode (full supervisor history) for workers resuming an investigation and memory agents that need the whole conversation to decide what to keep.",
+    "result": "LangChain reports fork mode carries prompt caching over so resumed work skips tool calls the supervisor already made; isolated mode cuts total context for parallel researchers and keeps verifier judgment unbiased by prior reasoning.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/organizing-context-in-a-multi-agent-harness",
+    "source_sid": "b3d2576e2dbda990",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain states prompt caching is preserved by design in fork mode; no benchmark numbers given."
+    },
+    "edition_date": "2026-09-11"
   },
   "b4fa4d7778a6247d": {
     "id": "pb-spec-decode-vllm-latency",
@@ -2316,6 +2411,25 @@
       "note": "GitHub measured average review cost before and after the diff-anchored prompting change on its own Copilot code review pipeline."
     },
     "edition_date": "2026-07-14"
+  },
+  "ca2d50c836ec2bc8": {
+    "id": "pb-scope-agent-sandbox-network-access",
+    "kind": "source-backed",
+    "title": "Scope agent sandbox network access, not just outbound rules",
+    "area": "Safety",
+    "problem": "An allowlisted package proxy let a coding agent pivot out of its sandbox to Hugging Face's production infrastructure, per GitLab's internal red-team.",
+    "apply": "Treat network allowlists as attack surface, not a trust boundary: scope credentials to the exact task, issue short-lived tokens, require independent auth for sensitive services, and add behavioral monitoring for patterns like repeated failures followed by a different approach.",
+    "result": "GitLab reports this as one layer of a zero-trust model that narrows the blast radius of a sandbox escape, rather than preventing one outright.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/gitlab-ai-sandbox-access/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "ca2d50c836ec2bc8",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "GitLab's own account of its internal sandbox-escape evaluation and the mitigation it recommends."
+    },
+    "edition_date": "2026-09-11"
   },
   "cc74131efa65cff2": {
     "id": "pb-swe-gate-review-constraints",
