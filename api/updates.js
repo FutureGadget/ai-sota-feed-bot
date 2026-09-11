@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { buildEditorialCatalog } from '../lib/editorial-catalog.js';
 
 function readJsonSafe(p, fallback) {
   try {
@@ -98,6 +99,8 @@ export function GET(request) {
   try {
     return Response.json({
       now: new Date().toISOString(),
+      catalog_version: 1,
+      items: buildEditorialCatalog(DATA),
       daily: latestDaily(),
       weekly: latestWeekly(),
       storylines: latestStorylines(),

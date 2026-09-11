@@ -218,7 +218,7 @@
   });
 
   const updateDeskCount = () => {
-    const count = nav.querySelectorAll(".nav-update-dot").length;
+    const count = Array.from(nav.querySelectorAll(".nav-update-dot")).reduce((sum, badge) => sum + (Number(badge.textContent) || 0), 0);
     browseButton.querySelector(".site-desk-count")?.remove();
     browseButton.querySelector(".nav-update-sr")?.remove();
     if (!count) return;
@@ -229,7 +229,7 @@
     browseButton.append(badge);
     const sr = document.createElement("span");
     sr.className = "nav-update-sr";
-    sr.textContent = ` (${count} new ${count === 1 ? "section" : "sections"})`;
+    sr.textContent = ` (${count} new or updated ${count === 1 ? "item" : "items"})`;
     browseButton.append(sr);
   };
   updateDeskCount();

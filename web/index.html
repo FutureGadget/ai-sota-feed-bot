@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260824-review-fixes" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
   <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
   <script>
     (function () {
@@ -38,7 +38,7 @@
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
-  <script defer src="/site-chrome.js?v=20260824-review-fixes"></script>
+  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -1132,13 +1132,7 @@
        inside the layout prevents a fresh-updates strip from becoming a third
        flex item alongside the feed and Model Release Radar on wide screens. */
     .feed-column { display:grid; gap:.75rem; min-width:0; }
-    /* min-width:0 is load-bearing, not cosmetic. The strip nav-updates.js
-       renders in here is an unwrappable flex row (label + chips + dismiss)
-       that relies on its own overflow-x:auto to scroll. Without this, the
-       wrapper keeps a grid item's default min-width:auto, so its min-content
-       width (the full unwrapped row, ~490px) becomes the floor for the auto
-       grid track -- widening #list and every article past the viewport, where
-       main's overflow-x:clip hides them instead of scrolling. */
+    /* Keep the editorial rows inside the reading-column grid at narrow widths. */
     .fresh-updates { min-width:0; }
     .fresh-updates:empty { display:none; }
     /* The desktop rail remains outside the reading column. Narrow viewports
@@ -2928,9 +2922,7 @@
         genericInsertUsed = true;
       }
 
-      // The "New for you" strip at the top of the feed already advertises an
-      // unread daily recap for returning readers — only nudge deeper in the
-      // feed when the strip isn't carrying that signal.
+      // Avoid repeating a daily recap already present in the editorial rows.
       const upd = window.llmDigestUpdates;
       const dailyOnStrip = Boolean(upd && upd.stripSections && upd.stripSections.indexOf('daily') >= 0);
       if (!genericInsertUsed && upd && upd.unread('daily') && upd.fresh('daily') && !dailyOnStrip && !isEditorDeskDismissed('daily')) {
@@ -3540,14 +3532,6 @@
         .sort((a, b) => b.sources - a.sources || a.i - b.i)
         .slice(0, 5);
 
-      // The Fresh strip and catch-up answer the same pre-story question.
-      // Whichever claims the shared slot first owns it for this page load.
-      try {
-        const fu = document.getElementById('freshUpdates');
-        if (fu?.dataset.promoOwner && fu.dataset.promoOwner !== 'catchup') return '';
-        if (fu) fu.dataset.promoOwner = 'catchup';
-      } catch {}
-
       const bullets = picks.map(({ it, sources }) => {
         // Lead with why-it-matters when the pipeline has real signal; the
         // publisher summary is the fallback, not the headline act.
@@ -3579,6 +3563,7 @@
           </div>
           <ul>${bullets}</ul>
           <p class="catchup-more"><a href="/daily">Read the full daily recap →</a></p>
+          <div data-editorial-catchup></div>
         </section>`;
     }
 
@@ -3832,6 +3817,7 @@
         observeMobileModelRadarImpression();
         observeSkillLabFeedPromo();
       }
+      window.llmDigestUpdates?.renderFeed?.();
     }
 
     // True once either decoration source has actual data — guards the
@@ -4355,10 +4341,9 @@
       'requestIdleCallback' in window ? requestIdleCallback(go, { timeout: 5000 }) : setTimeout(go, 2500);
     }
   </script>
-  <!-- "New updates" nav indicators + the feed's "Fresh from the Editor's Desk"
-       strip — shared logic in /nav-updates.js; see
+  <!-- Published-item discovery and opened-version tracking; see
        docs/product-specs/nav-update-indicators.md. -->
-  <script src="/nav-updates.js?v=20260829-strip-width" defer></script>
+  <script src="/nav-updates.js?v=20260910-editorial" defer></script>
 
   <!-- Model Release Radar sidebar teaser: optional, deferred, fails silently
        - same philosophy as nav-updates.js above. Waits for window 'load' (the

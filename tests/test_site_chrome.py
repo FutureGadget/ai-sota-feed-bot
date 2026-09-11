@@ -191,29 +191,24 @@ class SiteChromeContractTest(unittest.TestCase):
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
         # Decorates the semantic nav Editor's Desk adopts.
         self.assertIn("querySelectorAll('.site-nav-fallback a[href]')", js)
-        # Skips the current section before decorating, then marks it seen.
-        self.assertIn("var cur = currentSection();", js)
-        self.assertIn("if (section === cur) return;", js)
-        self.assertLess(
-            js.index("var cur = currentSection();"),
-            js.index("Object.keys(ROUTE).forEach"),
-        )
-        # Every editorial section has a seen marker and a route, foundations
-        # included (it was missing before the shared script existed).
-        for section in ("daily", "weekly", "storylines", "playbook", "map", "foundations"):
-            self.assertIn(f"ai_feed_seen_{section}_v1", js)
+        # Identity and version state replaces lossy section-wide timestamps.
+        self.assertIn("ai_feed_editorial_state_v2", js)
+        self.assertIn("reader.markItemOpened(memory, items(), href)", js)
+        self.assertNotIn("setItem(SEEN[cur]", js)
         self.assertIn("'/foundations': 'foundations'", js)
 
-    def test_feed_strip_is_gated_to_returning_readers(self) -> None:
+    def test_feed_discovery_supports_first_visits_and_session_dismiss(self) -> None:
         js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        # The "Fresh from the Editor's Desk" strip renders only on the feed,
-        # only for sections with an existing seen marker (a reader who has
-        # engaged before), and stays dismissible for the session. Nav pills
-        # share the same seen-marker gate so a first visit lights nothing up.
-        self.assertIn("isFeedPage()", js)
-        self.assertIn("if (!getItem(SEEN[section])) return;", js)
+        self.assertIn("reader.initializeState(memory, items())", js)
         self.assertIn("ai_feed_whats_new_dismissed_v1", js)
-        self.assertIn("whats-new-chip", js)
+        self.assertIn("Latest from the Editor’s Desk", js)
+        self.assertIn("viewAll", js)
+
+    def test_updates_shell_does_not_load_editorial_styles_twice(self) -> None:
+        html = (ROOT / "web" / "updates.html").read_text(encoding="utf-8")
+        js = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
+        self.assertIn('href="/editorial-updates.css?v=20260910"', html)
+        self.assertIn("document.querySelector('link[href^=\"/editorial-updates.css\"]')", js)
 
     def test_dynamic_archive_surfaces_keep_visible_direction_controls(self) -> None:
         for filename in ("daily.html", "weekly.html", "playbook.html"):
