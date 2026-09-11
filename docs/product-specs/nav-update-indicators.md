@@ -1,230 +1,156 @@
-# "New updates" indicators (nav pills + feed strip)
+# Editorial updates: discovery and reader state
 
-One shared freshness signal tells a returning reader which editorial sections —
-**Daily recap**, **Weekly recap**, **Storylines**, **Playbook**, **Knowledge
-map**, and **Foundations** — have something new since they last looked, without
-opening each page to check. It surfaces in two places:
+The feed and Editor's Desk show actual published headlines, dates, short
+source-derived previews, and direct links. Section names alone do not tell a
+reader what changed. This catalog covers future publications automatically.
 
-1. A small **"New" pill** on each section's navigation link (the semantic nav
-   that shared chrome moves into the Editor's Desk dialog; visible pills roll
-   up into a count on the Desk trigger).
-2. A one-line **"Fresh from the Editor's Desk" strip** at the top of the live
-   feed that *names* the unread sections as directly clickable chips — the
-   count on the Desk trigger says "6", the strip says *what*.
+## Reader surfaces
 
-This serves the "memory / catch-up" pillar of the product positioning: the
-reader should be able to tell what they missed while they're already reading,
-not discover it behind a dialog.
+- The live feed shows at most three fresh, unopened editorial items, newest
+  first. These are vertically stacked rows on mobile, never a scrolling chip
+  strip. Hide dismisses editorial previews for this browser session without
+  marking content opened.
+- When Catch me up exists, these rows render inside that card. Otherwise they
+  occupy `#freshUpdates`. Feed rendering calls `llmDigestUpdates.renderFeed()`;
+  the result is independent of which API responds first. Existing catch-up
+  stories, dismissal, filters, and finish-line behavior remain.
+- The Desk has three latest items above its existing navigation and a
+  **View all updates** link. Its canonical section order is unchanged.
+- `/updates` lists the complete published catalog with Latest / Unread and
+  section filters. There is no arbitrary API result cap that could silently
+  omit an unread item. An empty Unread list says the reader is caught up.
+- Daily, Weekly, Storylines, Playbook, Agent Know-How and Foundations section
+  roots have a collapsed Latest area with Latest / Unread controls and a
+  section-filtered link to `/updates`. Detail pages retain their reading layout.
+- Navigation badges count fresh new/updated **items**, including published
+  Skill Lab records under Playbook. The Desk count sums these item counts.
 
-All logic lives in one shared script, **`web/nav-updates.js`**, loaded with
-`defer` by every hand-edited shell and by the generated static pages
-(`pipeline/render_static_pages.py`, `NAV_UPDATES_TAG`). There are no inline
-copies anymore — a regression test (`tests/test_site_chrome.py`) enforces
-this.
+**New** means an item absent from the browser's initial catalog baseline.
+**Updated** means reader-facing content changed from a known or opened version.
+**Unread** includes older baseline items that have not been opened. An opened
+version is labeled **Opened**, not claimed to have been read to completion.
+Editorial recommendation/relevance remains a separate signal from recency.
 
-### Visual treatment (why a pill, not a red dot)
+## Publishing contract and producer coverage
 
-The first version was a bare red dot. Two problems: red reads as
-*alert / error / action-required* (Gmail and iOS notification badges), which
-clashes with the product's calm, anti-hype positioning; and a dot carries no
-**information scent** — it says "something" but not "new what?", so readers
-weren't sure there was anything to *read*.
+`lib/editorial-catalog.js::buildEditorialCatalog(dataDir)` builds the catalog
+at read time from the same deployment's published content. `/api/updates`
+returns it alongside the existing six section signals, preserving compatibility
+with older clients. No additional function, background job, generated manifest,
+agent-authored promo copy, or shared mutable publication ledger is introduced.
 
-The indicator is now a small uppercase **"New" pill** in the site's **accent
-color** (`--accent`, theme-aware) on a faint accent tint with a 1px accent
-border — the same chip styling already used for badges elsewhere on the site.
-It fades/scales in on load (gated behind `prefers-reduced-motion`) so a
-returning eye catches it without a nagging perpetual pulse. This follows the
-established "label pill" pattern for *informational* newness (Linear, Notion,
-Vercel) and reserves red for action-required counts. The accent-text-on-tint
-treatment keeps adequate contrast in both light and dark themes, unlike
-white-on-accent.
+| Surface | Publisher / canonical output | Catalog unit and identity | Update evidence |
+|---|---|---|---|
+| Daily | `daily-summary` → `data/daily/index.json` + dated JSON | `daily:<date>`; `/daily/<date>` | Recap title, intro, highlights, category/article content |
+| Weekly | `weekly-summary` → `data/weekly/index.json` + dated JSON | `weekly:<week>`; `/weekly/<week>` | Recap title, intro, highlights, category/article content |
+| Playbook | `playbook` → `data/playbook/index.json` + dated JSON | `playbook:<date>`; `/playbook/<date>` | Edition intro and source-backed cards |
+| Skill Lab | `build_skill_lab.py` → `data/playbook/lab/index.json` + published records | `playbook:lab:<slug>`; `/playbook/lab/<slug>` | Validated protocol/results; exact source digest must match index |
+| Storylines | External scout/editor routine → `data/storylines/index.json` + served thread JSON | `storylines:<slug>`; `/storyline/<slug>` | Timeline and **overlaid** editorial narrative, including narrative-only edits |
+| Agent Know-How | `wiki-curator` + `build_wiki.py` → `data/wiki/index.json` | `map:<slug>`; `/topic/<slug>` | Compiled page prose, evidence and relationships |
+| Foundations | `foundations-curator` + `build_foundations.py` → `data/foundations/index.json` | `foundations:<slug>`; `/foundations/<slug>` | Compiled concept prose, evidence and relationships |
+| Model Radar | `models-refresh.yml` → model snapshots | Retains existing Radar discovery; no editorial unread badge | Mechanical price/score refreshes are not editorial publications |
+| Voices | Existing practitioner directory | Retains existing Desk destination; no editorial unread badge | No versioned editorial publication contract today |
+| Live feed / email | Existing ranked feed and recap-based delivery | Retain their own arrival and send cursors | Neither advances editorial opened state |
 
-The feed strip uses the same accent-tinted chip language, with a subtle accent
-rule rather than a heavy panel. It lives in the feed's reading column, above
-the ranked cards and separate from the wide-screen model rail, so readers see
-it while continuing the brief rather than treating it as a competing column.
+All indexed editions are read, not just `latest.json`; opening an old edition
+must not hide a newer one. Adding a new item within these producer types needs
+no catalog registration. Adding a new producer type requires a catalog adapter,
+its deployment files, lifecycle coverage and an update to this table.
 
-## Behaviour
+### Scheduled-run compatibility
 
-Each section's indicator appears when the section is **unread** (its latest
-content is newer than what the reader last saw) - and only when the reader has
-**visited that section before** (a seen marker exists). A brand-new reader
-sees no pills anywhere; onboarding happens through content, not alarms. Daily,
-Weekly, and Playbook add a **time-aware freshness gate** on top of read history:
+The feed workflow does not produce all editorial material. Catalog discovery
+is therefore attached to the published deployment, not to `run_full.sh` or one
+cron. Each external routine continues to validate, compile, stage and push its
+existing outputs. Its next publication becomes discoverable with no extra
+skill step or staging path. Existing skill schemas, sidecar ownership, thin
+routine prompts, `harness.yaml` schedules/timezones and `COMMON.md` rebase/retry
+rules remain authoritative.
 
-| Section | Indicator shows when… | Time gate? |
-|---|---|---|
-| Daily recap | latest recap is newer than last seen **and** the recap is current | yes |
-| Weekly recap | latest recap is newer than last seen **and** the recap is current | yes |
-| Storylines | any thread moved since last seen | no — read history only |
-| Playbook | latest edition is newer than last seen **and** the edition is current | yes |
-| Agent Know-How (`/map`) | any wiki page edited since last seen | no — read history only |
-| Foundations | any concept page edited since last seen | no — read history only |
+`vercel.json` explicitly bundles all indexed dated editions, served storyline
+records, compiled wiki/concept indexes, and top-level published Lab records for
+`api/updates.js`. Input directories, raw narratives and Lab drafts are not
+included. The Vercel build continues compiling wiki/concepts and rendering
+pages before serving the API from that same content snapshot. A failed compiler
+retains its existing validated-index fallback behavior. An incomplete source
+record is skipped; a missing/corrupt producer does not hide other producers.
+No feature build writes back into another routine's source files.
 
-### Why dated editions need the time gate
+## Versions and dates
 
-A daily recap or Playbook edition that has not been produced recently is
-**stale**, not fresh — even if you personally never opened the last one. Showing
-a "new!" dot for stale data would be misleading (it implies there's fresh
-catch-up waiting when there isn't). So dated editions only light up when the
-latest artifact actually covers a **recent** period:
+Each item includes `id`, `section`, `section_label`, `href`, `title`, `summary`,
+`kind`, `version`, `published_at`, `updated_at`, `date_precision` and `period`.
+`catalog_version` is 1. `version` is a deterministic hash of reader-facing
+content, excluding rebuild timestamps. Key reordering and clock-only reruns do
+not reset opened state. Multiple substantive edits on the same source date
+produce distinct versions. The hash is a change detector, not an LLM judgment
+about significance; prose corrections can also count as updates.
 
-- **Daily** is fresh when its `date` covers today or yesterday
-  (`age <= 1` day). A recap older than that is considered stale → no dot.
-- **Weekly** is fresh when its `end` date is within the last completed week plus
-  a one-day grace (`age <= 8` days). Older → no dot.
-- **Playbook** is fresh when its edition `date` is within ten days
-  (`age <= 10` days). Older → no dot.
+Display dates use existing source metadata. Dated editions use their authored
+publication time (or explicit `updated_at` when available). Storylines use the
+later of evidence arrival and the overlaid narrative's authored time. Wiki and
+Foundations currently expose calendar dates, so the UI shows an actual date,
+never an invented “2h ago.” Unknown original publication dates stay null.
+Historical items are not stamped with deployment time during rollout.
 
-Storylines, the knowledge map, and Foundations have no fixed cadence — a
-thread can go quiet for a week and then move, and a wiki/concept page is
-"current" until it's edited again — so an indicator there means purely
-"there's something you haven't seen," with no staleness notion.
+Fresh feed promotion and navigation badges preserve cadence gates: Daily today
+or yesterday, Weekly within eight UTC days of period end, Playbook within ten
+UTC days, and Lab within fourteen UTC days. Future-dated periods are excluded.
+Evergreen pages and storylines use content/read history without a fixed expiry.
+The full catalog and Unread filter retain older items even after promotion ages
+out. Ties sort by stable ID.
 
-## The "Fresh from the Editor's Desk" strip (feed only)
+## Browser state and migration
 
-The strip is the answer to "the reader is *on the feed*, where do they
-naturally click into editorial content?" It renders once, directly above the
-story list, and only when there is something to say:
+`ai_feed_editorial_state_v2` contains `{schema: 2, baseline, seen}` maps from
+item ID to version. On first use (including migration from the lossy section
+keys), baseline the existing catalog without raising new-content alarms. Show
+actual latest headlines immediately. Do not pretend section-level history
+proves which items were opened; old items remain available under Unread.
 
-- **Feed page only** (`/`). Section pages keep the nav pills; the strip never
-  follows the reader around the site.
-- **Returning readers only.** A chip appears for a section only when that
-  section is unread + fresh **and already has a "seen" marker** — i.e. the
-  reader has visited it before. A first-time visitor (or a reader who never
-  opens, say, Playbook) is introduced through the semantic Editor's Desk links
-  and contextual in-feed cards; neither pills nor the strip nag about a section
-  the reader hasn't engaged with, so they cannot become permanent alarms.
-- **Self-clearing.** Chips link straight to their section; arriving there
-  records the "seen" marker, so the chip is gone on the next feed visit. When
-  everything is read, the strip doesn't render at all — the caught-up state is
-  *empty*, matching the finishable-feed promise.
-- **Dismissible.** The × hides the strip for the browser session
-  (`sessionStorage`), without marking anything as read.
-- **Day-aware daily label.** The daily chip reads "Today's recap" /
-  "Yesterday's recap" instead of a generic "Daily recap", so the chip itself
-  carries the information scent.
-- **No double-promotion.** When the strip is showing the daily chip, the
-  feed's deeper Editor's Desk "Today's recap is ready" insert is suppressed
-  (`web/index.html` checks `window.llmDigestUpdates.stripSections`).
-- **One "since your last visit" module.** When the feed renders the Catch-me-up
-  card, it claims that slot and the strip stands down (and vice versa if the
-  strip landed first) - at most one pre-story promo module shows per page load.
+Opening a known detail page records only that item's current version. The
+pre-rendered Daily/Weekly roots resolve the actual displayed edition from their
+JSON link, not whatever happens to be latest in the catalog. Dynamic Playbook
+and Lab shells announce `editorial:opened` only after successful rendering and
+leave a DOM marker for a late-loading discovery script. Index visits and API
+failures never acknowledge an entire section. Storage events synchronize tabs;
+blocked/corrupt storage still allows content discovery. Existing knowledge
+universe `ai_feed_topic_reads_v1` logging remains compatible.
 
-PostHog events (all optional/no-op without PostHog): `whats_new_view`
-(`sections`), `whats_new_click` (`section`), `whats_new_dismiss` (`sections`).
+Localized pages do not acknowledge an English content version, because their
+translation can lag the source. The catalog's direct links point to canonical
+English content; translation generation and the localized feed's own update
+signals remain unchanged.
 
-### Layout contract: the strip may never widen the reading column
+## Accessibility, failure and analytics
 
-The strip is a single unwrappable flex row (`flex-wrap:nowrap`, children
-`flex-shrink:0`) that absorbs its own excess width with `overflow-x:auto`. That
-only holds while something upstream gives it a bounded width, so two rules are
-load-bearing and must stay together:
+Rows use semantic links and dates; status is textual, not color-only. Controls
+have 44px targets and visible focus. Lists wrap within the reading column and
+use the site's light/dark variables. No animation is required. Existing
+semantic navigation remains available without JavaScript or a successful API.
+`/updates` provides loading, empty and fetch-failure copy with section navigation.
 
-- `.whats-new { min-width:0; max-width:100% }` (`web/nav-updates.js`) — the
-  component never asks for more than its container offers.
-- `.fresh-updates { min-width:0 }` (`web/index.html`) — the wrapper is a **grid
-  item** of `.feed-column`, so it otherwise keeps `min-width:auto` and its
-  min-content width (the whole unwrapped row, ~810px with six chips) becomes
-  the floor for the auto grid track.
+Optional PostHog events: `editorial_updates_view` (feed item IDs),
+`editorial_update_click` (ID, section, placement, status),
+`editorial_update_open` (ID, section), `editorial_updates_dismiss` (placement).
+These diagnose discovery; weekly returning readers remains the north-star
+metric. Open events do not assert article completion.
 
-Drop either one and the track, `#list`, and every article stretch past the
-viewport, where `main { overflow-x: clip }` hides the overflow instead of
-scrolling it — the feed reads as truncated mid-word with no way to reach the
-rest. Below ~850px (every phone, and tablet split-view) this affects the whole
-feed, not just the strip. Regression coverage:
-`tests/test_live_feed_surface.py::test_fresh_updates_wrapper_cannot_widen_the_feed_grid_track`
-and `::test_fresh_updates_strip_clamps_to_its_container`.
+## Validation and rollback
 
-On mobile the strip carries the same right-edge fade mask as `.sections` and
-`.quicknav`, so a chip row that continues past the column edge reads as
-scrollable rather than clipped.
+- `node tests/test_editorial_catalog.mjs`: every producer, future editions and
+  concepts, narrative-only and same-day changes, idempotent reruns, corrupt
+  source isolation, Lab digest gates, archive identity, baseline migration,
+  opened-version tracking and freshness boundaries.
+- Existing Python chrome/feed tests cover shared loading, navigation order,
+  bounded layout and deterministic catch-up composition; all JS tests remain
+  in the existing CI runner.
+- Browser QA: both API response orders, first/returning visits, actual old and
+  current edition routes, failed dynamic loads, blocked storage, section
+  filters, keyboard navigation, and mobile light/dark layouts.
+- Run the production Vercel build to verify compiled indexes, static paths and
+  asset staging. Keep generated output changes out of code commits.
 
-## How it works
-
-- **`GET /api/updates`** (`api/updates.js`) returns lightweight freshness
-  signals read from the small index files:
-  ```json
-  {
-    "now": "2026-07-01T23:35:45Z",
-    "daily":       { "date": "2026-07-01", "generated_at": "2026-07-01T23:10:00Z" },
-    "weekly":      { "week": "2026-W26", "end": "2026-06-27", "generated_at": "..." },
-    "storylines":  { "generated_at": "...", "last_updated": "2026-07-01T04:46:21Z" },
-    "playbook":    { "date": "2026-06-26", "generated_at": "..." },
-    "map":         { "updated": "2026-07-01" },
-    "foundations": { "updated": "2026-07-01" }
-  }
-  ```
-  The signals are chosen to be **content-based**, so they don't flicker on every
-  rebuild:
-  - daily/weekly use the recap `generated_at` (changes only when a new recap is
-    written);
-  - storylines uses the max thread `last_updated` (moves only when a thread gets
-    new material — **not** the index `generated_at`, which the 5-hourly rebuild
-    bumps every run);
-  - playbook uses the latest edition `generated_at` and gates freshness by its
-    edition `date`;
-  - map uses the max per-node `updated` date (a real page edit — **not** the
-    wiki `index.json` `generated_at`, which every Vercel build regenerates);
-  - foundations uses the max per-concept `updated` date, for the same reason.
-
-- **`web/nav-updates.js`** (shared, deferred) fetches `/api/updates` once,
-  compares each signal against a per-section "seen" marker in `localStorage`,
-  applies the freshness gate for daily/weekly/playbook, skips decorating the
-  current section before marking it seen, decorates matching
-  `.site-nav-fallback` links, and renders the feed strip. Shared site chrome
-  moves that same semantic navigation node into Editor's Desk and rolls
-  visible pills up onto the trigger, so the signal remains visible without
-  duplicating freshness logic.
-
-- **`window.llmDigestUpdates`** exposes the fetch (`promise`), the raw payload
-  (`data`), read-state helpers (`unread(section)`, `fresh(section)`), and
-  `stripSections` — the feed page's Editor's Desk inserts consume these
-  instead of fetching `/api/updates` again or re-implementing "unread".
-
-- **Read tracking:** when the reader is *on* a section page
-  (`/daily[/…]`, `/weekly[/…]`, `/storylines` or `/storyline/<slug>`,
-  `/playbook[/…]`, `/map` or `/topic/<slug>`, `/foundations[/…]`), the script
-  records that section's current signal as the new "seen" marker, so the
-  indicator clears immediately and remains cleared on the next page they visit.
-
-### Storage keys
-
-| Key | Stores |
-|---|---|
-| `ai_feed_seen_daily_v1` | daily `generated_at` last seen |
-| `ai_feed_seen_weekly_v1` | weekly `generated_at` last seen |
-| `ai_feed_seen_storylines_v1` | max thread `last_updated` last seen |
-| `ai_feed_seen_playbook_v1` | playbook `generated_at` last seen |
-| `ai_feed_seen_map_v1` | max wiki node `updated` last seen |
-| `ai_feed_seen_foundations_v1` | max concept `updated` last seen |
-| `ai_feed_whats_new_dismissed_v1` | (sessionStorage) strip hidden this session |
-
-All read/writes are wrapped in try/catch — private-mode / disabled storage just
-means indicators fall back to "always show when unread" and the strip stays
-gated off (no seen markers → no chips).
-
-## Design notes
-
-- **No server-side state.** Like the rest of the site (saved items, follows,
-  pinned topics), "what have I seen" lives entirely in the reader's browser.
-- **Defensive.** If `/api/updates` fails, returns nothing, or the script
-  doesn't load, no indicators render and nothing else on the page is affected
-  (the feed's desk inserts skip their freshness-dependent cards).
-- **Tuning.** The staleness thresholds are the `DAILY_FRESH_MAX_AGE` (1),
-  `WEEKLY_FRESH_MAX_AGE` (8), and `PLAYBOOK_FRESH_MAX_AGE` (10) constants in
-  `web/nav-updates.js`.
-
-## Tests / validation
-
-- `tests/test_site_chrome.py` — shells load the shared script and embed no
-  private fork of it; the script keeps the core invariants (decorates the
-  semantic nav, skips-then-marks the current section, covers all six sections
-  including foundations, gates the strip to returning readers).
-- `node --check` on `api/updates.js` and `web/nav-updates.js`; the handler run
-  against the live data tree returns all six sections.
-- Playwright pass against a local static+API server covering: first visit (no
-  strip or pills), returning reader (strip with day-aware
-  chips), chip click → seen marker → chip cleared, session dismiss, mobile +
-  dark theme rendering, and no strip outside the feed.
+Rollback the feature code/config and shared asset versions together. Legacy
+API fields and section storage keys remain intact. The v2 browser key can be
+ignored by the old client; no canonical content or email cursor needs repair.

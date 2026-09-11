@@ -112,12 +112,14 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn("snapshot.cardIndex", self.html)
         self.assertIn("snapshot.controlSelector", self.html)
 
-    def test_feed_promos_use_a_first_claim_owner(self) -> None:
+    def test_feed_promos_compose_independently_of_response_order(self) -> None:
         updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        self.assertIn("anchor.dataset.promoOwner", updates)
-        self.assertIn("anchor.dataset.promoOwner = 'fresh';", updates)
-        self.assertIn("fu.dataset.promoOwner = 'catchup';", self.html)
-        self.assertNotIn("fu.querySelector('.whats-new')?.remove();", self.html)
+        self.assertIn("[data-editorial-catchup]", updates)
+        self.assertIn("var target = combined || anchor", updates)
+        self.assertIn("<div data-editorial-catchup></div>", self.html)
+        self.assertIn("window.llmDigestUpdates?.renderFeed?.()", self.html)
+        self.assertNotIn("promoOwner", updates)
+        self.assertNotIn("promoOwner", self.html)
 
     def test_list_status_is_announced_from_every_render_path(self) -> None:
         # #list is not a live region any more, so each path that rewrites it
@@ -226,7 +228,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
         self.assertIn('id="freshUpdates" class="fresh-updates"', self.html)
         self.assertIn('class="feed-column"', self.html)
-        self.assertIn("anchor.insertBefore(strip, anchor.firstChild);", updates)
+        self.assertIn("target.appendChild(el);", updates)
         self.assertNotIn("parent.insertBefore(strip, anchor);", updates)
 
     def test_fresh_updates_wrapper_cannot_widen_the_feed_grid_track(self) -> None:
@@ -240,15 +242,11 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         self.assertIn(".feed-column { display:grid;", self.html)
         self.assertIn(".fresh-updates { min-width:0; }", self.html)
 
-    def test_fresh_updates_strip_clamps_to_its_container(self) -> None:
-        """The injected strip scrolls internally instead of pushing its parent."""
-        updates = (ROOT / "web" / "nav-updates.js").read_text(encoding="utf-8")
-        rule = re.search(r"\.whats-new\{([^}]*)\}", updates)
-        self.assertIsNotNone(rule, "missing .whats-new rule")
-        decls = rule.group(1)
-        self.assertIn("overflow-x:auto", decls)
-        self.assertIn("min-width:0", decls)
-        self.assertIn("max-width:100%", decls)
+    def test_editorial_rows_clamp_to_their_container(self) -> None:
+        css = (ROOT / "web" / "editorial-updates.css").read_text(encoding="utf-8")
+        self.assertIn("min-width:0; max-width:100%", css)
+        self.assertIn("overflow-wrap:anywhere", css)
+        self.assertNotIn("overflow-x:auto", css)
 
     def test_korean_feed_shell_uses_localized_snapshot_endpoint(self) -> None:
         html = (ROOT / "web" / "ko" / "index.html").read_text(encoding="utf-8")

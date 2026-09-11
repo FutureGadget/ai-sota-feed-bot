@@ -433,3 +433,15 @@ collect`; config in `config/models.yaml`.
 ## Future (if a real DB is introduced)
 Planned tables would mirror the above: sources, raw_items, canonical_items,
 item_scores, digests, digest_items, feedback_events.
+
+## Editorial discovery response (derived, no new persisted data file)
+
+`GET /api/updates` retains `now`, `daily`, `weekly`, `storylines`, `playbook`,
+`map`, and `foundations`, and adds `catalog_version: 1` and `items[]`.
+Each item has `id`, `section`, `section_label`, `href`, `title`, `summary`,
+`kind` (`article`, `edition`, `lab`), `version` (24-character content hash),
+`published_at` (nullable), `updated_at`, `date_precision` (`day` or `time`),
+and `period` (nullable date). It is derived from existing published artifacts
+by `lib/editorial-catalog.js`; no agent-authored field is newly required.
+See `docs/product-specs/nav-update-indicators.md` for source mappings, cadence,
+migration, inclusion/exclusion rules and browser state.

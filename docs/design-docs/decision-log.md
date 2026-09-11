@@ -1919,3 +1919,24 @@ Purpose: preserve key project decisions so we can recover context quickly after 
 - **Rationale:** First-party announcements are authoritative for the fact and date of a launch, not for comparative capability or pricing claims. The source is therefore deliberately narrow and provenance-only. An exact prefix plus model-name capture is safer and more maintainable than general web scraping or title heuristics, while preserving the deterministic, LLM-disabled pipeline.
 - **Impact:** `pipeline/collect_models.py` fetches and parses configured official announcement pages, `config/models.yaml` adds Meta's public sitemap source, and `data/models/latest.json` now includes `sources.first_party` plus `joined_sources: ["first_party"]` for launch-only models. `/models` and model detail pages disclose that provenance and retain the distinction between a verified launch and independently measured data. Existing benchmark sources, rank selection, and the 6-hour workflow cadence are unchanged.
 - **Rollback:** Set `sources.first_party.enabled: false` to stop discovery without deleting historical artifacts. Reverting the collector/config/UI change removes first-party-only rows on the next successful refresh; no other feed data path depends on this source.
+
+## 2026-09-10 - Derive editorial discovery from every published producer
+
+Decision: extend `/api/updates` with a deterministic item catalog, direct links
+and content versions. Derive it from published indexes and records; retain the
+legacy section signals. Show headlines in the feed/Desk, expose `/updates`, and
+track opened versions per item in the browser.
+
+Rationale: section badges hide what changed, and a section visit acknowledges
+unopened siblings. A second agent-maintained manifest would drift or be omitted
+by independently scheduled publishers. Content fingerprints detect same-day
+edits without treating every pipeline rebuild as new content.
+
+Impact: API bundles include published edition/thread records. Existing skills,
+routine schedules, source schemas and commit paths are unchanged. Model Radar
+and Voices retain their destinations but do not produce editorial unread
+alerts. Existing browser state migrates to a quiet baseline. Catch-up and
+editorial previews compose deterministically instead of racing for a slot.
+
+Rollback: revert code/config and asset versions together; ignore the new v2
+browser key. No source content, routine state or email cursor migration is needed.

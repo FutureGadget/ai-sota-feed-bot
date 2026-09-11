@@ -43,3 +43,13 @@ links.
 
 Product contract:
 `docs/product-specs/mobile-site-chrome.md`.
+
+## Editorial discovery
+
+`web/nav-updates.js` renders item previews in the Desk, feed and section roots.
+`web/editorial-state.js` owns pure opened-version rules; shared row styling is
+in `web/editorial-updates.css`. `/updates` (`web/updates.html`) provides the
+complete Latest/Unread collection. It is linked as a secondary content action,
+not inserted into or reordered within the canonical section navigation.
+Dynamic Playbook/Lab pages report successful edition rendering through
+`editorial:opened`. Contract: `docs/product-specs/nav-update-indicators.md`.

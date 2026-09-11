@@ -54,3 +54,18 @@ Reader feedback loop (daily):
 1. Re-enable budgeted LLM labeling/reranking when cost/reliability justify it
 2. Deepen the feedback loop beyond per-source weights (topic/item-level signals)
 3. Optional DB-backed storage (Postgres + vector index) if git artifacts stop scaling
+
+## Editorial discovery across publishing paths
+
+`lib/editorial-catalog.js` derives item-level metadata and content versions from
+published recap/Playbook indexes and their edition records, served storylines
+(including editorial overlays), compiled wiki/Foundations pages, and validated
+Skill Lab records. `/api/updates` returns this catalog alongside its legacy
+section signals. Its explicit Vercel file bundle is part of the producer
+contract. The browser renders it in the feed, Editor's Desk, section roots and
+`/updates`, and stores opened item versions locally.
+
+No producer writes a second shared manifest. Independently scheduled skill
+publications reach discovery through their existing commits and deployment;
+feed-only, model-refresh and email jobs keep their existing responsibilities.
+See `docs/product-specs/nav-update-indicators.md` for coverage and lifecycle rules.

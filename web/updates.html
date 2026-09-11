@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Latest editorial updates | LLM Digest</title>
+  <meta name="description" content="Catch up on the latest recaps, developing stories, engineering playbooks, and agent know-how.">
+  <link rel="canonical" href="https://www.llm-digest.com/updates">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial">
+  <link rel="stylesheet" href="/editorial-updates.css?v=20260910">
+  <style>
+    :root { --bg:#f5f7fa; --card:#fff; --fg:#121722; --muted:#586477; --border:#d7dde7; --accent:#2457d6; color-scheme:light; }
+    html[data-theme="dark"] { --bg:#11151c; --card:#171d26; --fg:#eff3f8; --muted:#a6b1c2; --border:#313946; --accent:#8aabff; color-scheme:dark; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--fg); font-family:system-ui,sans-serif; }
+    main { max-width:850px; margin:auto; padding:1rem; }
+    a { color:var(--accent); }
+    h1 { font-size:clamp(1.6rem,5vw,2.3rem); margin:.6rem 0; }
+    .muted { color:var(--muted); line-height:1.6; }
+    footer { margin:2rem 0; font-size:.85rem; }
+  </style>
+  <script>
+    try { document.documentElement.dataset.theme = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light'); } catch (e) {}
+  </script>
+  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <script defer src="/nav-updates.js?v=20260910-editorial"></script>
+  <script defer src="/posthog-client.js"></script>
+</head>
+<body>
+<main>
+  <header class="site-chrome" data-site-section="">
+    <div class="site-bar">
+      <a class="site-brand" href="/" aria-label="LLM Digest home">📰 LLM Digest</a>
+      <div class="site-bar-actions">
+        <a class="site-subscribe-action" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+        <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false">Editor's Desk</button>
+      </div>
+    </div>
+    <div class="site-page-heading">
+      <h1>Latest editorial updates</h1>
+      <p class="muted">What changed across the Editor’s Desk. Open a headline to start reading.</p>
+    </div>
+    <nav class="site-nav-fallback" aria-label="Site navigation">
+      <a href="/" data-site-destination="/">Live feed</a>
+      <a href="/daily" data-site-destination="/daily">Daily recap</a>
+      <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+      <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+      <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+      <a href="/map" data-site-destination="/map">Agent Know-How</a>
+      <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+      <a href="/models" data-site-destination="/models">Model Radar</a>
+      <a href="/voices" data-site-destination="/voices">Voices</a>
+      <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+    </nav>
+    <div class="site-actions-fallback" aria-label="Page actions"><button id="themeToggle" type="button" aria-label="Toggle theme">◐</button></div>
+  </header>
+  <section id="editorialUpdates" class="editorial-panel" aria-label="Editorial updates">
+    <p class="muted">Loading updates…</p>
+    <noscript>Choose a section above to browse published content. The updates filter requires JavaScript.</noscript>
+  </section>
+  <p class="muted">Unread means you haven’t opened this version in this browser. Model Radar refreshes and the Voices directory remain available in the Desk.</p>
+  <footer><a href="/">Back to the live feed</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Get the email digest</a></footer>
+</main>
+<script>
+  document.getElementById('themeToggle').addEventListener('click', function () {
+    var theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem('theme', theme); } catch (e) {}
+  });
+</script>
+</body>
+</html>

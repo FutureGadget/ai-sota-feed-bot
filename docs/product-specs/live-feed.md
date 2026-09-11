@@ -84,3 +84,11 @@ me".
   available; production continues to use the API.
 - Controls retain visible focus and 44 px targets. Reduced-motion preferences
   are respected.
+
+## Latest editorial content
+
+The pre-story area shows up to three published editorial headlines with direct
+links and source dates. When Catch me up is present, these rows appear inside
+that card; response order never chooses a competing promo owner. The separate
+`/updates` collection offers Latest/Unread browsing across all publishers.
+See `nav-update-indicators.md` for the producer and opened-version contract.

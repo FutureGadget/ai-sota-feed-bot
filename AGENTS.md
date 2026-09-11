@@ -167,10 +167,13 @@ in `ops_daily_summary.py`'s log line.
   top-level `site-chrome.css` + `site-chrome.js`: semantic fallback links are
   progressively moved into Browse/More dialogs, while date/week/edition
   controls remain visible. Generated pages receive the same chrome through
-  `pipeline/render_static_pages.py`. `nav-updates.js` (shared, deferred) owns
-  the "new updates" freshness signal: nav "New" pills for unread editorial
-  sections plus the feed-only "Fresh from the Editor's Desk" chip strip for
-  returning readers (spec: `docs/product-specs/nav-update-indicators.md`).
+  `pipeline/render_static_pages.py`. `nav-updates.js` (shared, deferred) renders
+  published-item discovery in the
+  feed, Desk, and section roots; `editorial-state.js` tracks opened versions.
+  `updates.html` is the complete Latest/Unread collection. The API derives this
+  catalog through `lib/editorial-catalog.js` from every producer's existing
+  published outputs; no extra skill step or staging path is required.
+  Contract: `docs/product-specs/nav-update-indicators.md`.
   **Generated, do not hand-edit:** `web/daily/`, `web/weekly/`, `web/story/`,
   `web/storyline/`, `web/topic/`, `web/foundations/`, `web/map.html`,
   `web/foundations.html`, `sitemap.xml` (from
@@ -356,14 +359,13 @@ Know-How", knowledge-universe orbit view) · `/topic/<slug>` (wiki node) ·
 `/playbook` (actionable agent-builder cards) · `/playbook/lab/<slug>` (Skill
 Lab protocol and results, nested under Playbook) ·
 `/models` (Model Release Radar: price/capability/community signal per model) ·
-`/voices` · `/s?u=<url>` share redirect ·
+`/voices` · `/updates` · `/s?u=<url>` share redirect ·
 `/rss.xml` · `/sitemap.xml` · `/llms.txt` ·
 APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/storylines`, `/api/topics`, `/api/foundations`, `/api/playbook`
 (`?lab=latest|list|<slug>` for the Skill Lab pilot),
 `/api/models`, `/api/client-config`, `/api/updates`
-(lightweight freshness signals powering the nav "new updates" pills and
-the feed's "Fresh from the Editor's Desk" strip),
+(published editorial catalog plus compatible section freshness signals),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,
 503 when unconfigured).
 

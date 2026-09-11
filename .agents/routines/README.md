@@ -72,3 +72,14 @@ schemas, thresholds, editorial guidance — belongs in the referenced
 `.agents/skills/*/SKILL.md`: a prompt tells the agent which skills to run in
 what order and what it overrides (e.g. a single combined commit), and never
 restates the skill's steps (see AGENTS.md → Working Rules).
+
+## Editorial discovery after publication
+
+The Editor's Desk catalog is derived by `lib/editorial-catalog.js` from the
+published indexes and their canonical records in each deployment. Existing
+routine validation, compile, stage and push steps remain sufficient; there is
+no separate updates manifest to author or commit, and no scheduler change.
+New editions and pages are included automatically. Input bundles, pending
+narrative sidecars and Lab drafts are excluded. See the producer coverage and
+lifecycle contract in `docs/product-specs/nav-update-indicators.md` before
+changing a producer's output format or adding another content type.
