@@ -1,0 +1,236 @@
+{
+  "generated_at": "2026-09-11T05:04:02.879386+00:00",
+  "window_days": 21,
+  "storyline": {
+    "slug": "large-language",
+    "label": "Large Language",
+    "item_count": 10,
+    "source_count": 5,
+    "day_count": 8,
+    "first_seen": "2026-08-24T16:36:17+00:00",
+    "last_updated": "2026-09-10T17:45:36+00:00",
+    "latest_title": "Domain-Specific Hallucination Detection in Large Language Models",
+    "member_sids": [
+      "c1f5f7897cab6194",
+      "c6589f453fe3efd2",
+      "c8fa2c59f3b3c019",
+      "473e4a8407d950ff",
+      "44fdd531ea49fe98",
+      "7ac516e280c5ca22",
+      "c0d8647786942e91",
+      "5fc5b2481c7ef922",
+      "51d5a65d305149bc",
+      "70ffdcd5e3598c72"
+    ],
+    "via_scout": false,
+    "has_narrative": true,
+    "needs_narrative": true,
+    "reason": "stale",
+    "narrative_path": "data/storylines/narratives/large-language.json",
+    "prior_narrative": {
+      "slug": "large-language",
+      "generated_at": "2026-09-07T05:15:00+00:00",
+      "covers_last_updated": "2026-09-05T07:31:00+00:00",
+      "covers_member_sids": [
+        "473e4a8407d950ff",
+        "44fdd531ea49fe98",
+        "7ac516e280c5ca22",
+        "5fc5b2481c7ef922",
+        "51d5a65d305149bc"
+      ],
+      "tldr": "This thread groups five large-language-model items that share only a title phrase, not one developing story. It opened Aug 27 with a clinical comparison of ChatGPT, Claude, and DeepSeek on cardiac-imaging patient education alongside a single-pass hallucination detector, then added SwarmBench's agent-swarm orchestration benchmark on Aug 31.",
+      "whats_new": "A Sept 4 review of LLM deployment readiness for HVAC building-energy systems joined the cluster, alongside the already-covered Sept 5 piece pairing Zhipu and MiniMax as two distinct LLM business models -- both unrelated to the rest of this shared-title-phrase grouping.",
+      "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
+      "beats": [
+        {
+          "kicker": "APPLICATIONS",
+          "tone": "launch",
+          "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
+          "sids": [
+            "473e4a8407d950ff"
+          ]
+        },
+        {
+          "kicker": "RELIABILITY",
+          "tone": "rising",
+          "headline": "Single-pass hallucination detector reads internal activations instead of sampling outputs",
+          "sids": [
+            "44fdd531ea49fe98"
+          ]
+        },
+        {
+          "kicker": "AGENT EVAL",
+          "tone": "rising",
+          "headline": "SwarmBench tests LLMs as orchestrators of dynamically-formed agent swarms",
+          "sids": [
+            "7ac516e280c5ca22"
+          ]
+        },
+        {
+          "kicker": "APPLICATIONS",
+          "tone": "rising",
+          "headline": "Critical review surveys LLM deployment readiness for HVAC building-energy operations",
+          "sids": [
+            "5fc5b2481c7ef922"
+          ]
+        },
+        {
+          "kicker": "VENDOR LANDSCAPE",
+          "tone": "now",
+          "headline": "Weekend roundup contrasts Zhipu and MiniMax as two distinct LLM business models",
+          "sids": [
+            "51d5a65d305149bc"
+          ]
+        }
+      ],
+      "open_questions": [
+        "Does PoP's detection rate hold against sampling-based baselines such as semantic entropy, and at what accuracy cost?",
+        "Do PoP's inter-layer activation features transfer across model families, or must a detector be trained per model?",
+        "Does activation-level detection need weights access, ruling it out for API-only deployments?",
+        "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
+        "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?",
+        "Does the HVAC review cite any production deployment, or is LLM-based building-energy automation still confined to research prototypes?"
+      ],
+      "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
+      "day_captions": {
+        "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
+        "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
+        "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups.",
+        "5fc5b2481c7ef922": "Shifts the thread again to a domain-specific applications review: LLM readiness for building-energy HVAC automation, unrelated to the preceding agent-eval and clinical items.",
+        "51d5a65d305149bc": "Shifts the thread again, from agent evaluation to comparing two Chinese labs' commercial strategies -- the fifth unrelated topic in this title-phrase cluster."
+      }
+    },
+    "timeline": [
+      {
+        "date": "2026-08-24",
+        "items": [
+          {
+            "sid": "c1f5f7897cab6194",
+            "title": "RAD: Rule-Augmented Relational Anomaly Detection",
+            "url": "http://arxiv.org/abs/2608.23468v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Anomaly detection is often applied to data stored in relational databases, yet most existing methods require flattening multiple tables into a single feature matrix. This flattening can obscure entity identity, schema...",
+            "published": "2026-08-24T16:36:17+00:00"
+          },
+          {
+            "sid": "c6589f453fe3efd2",
+            "title": "Robustness of Anomaly Detection Models for Industrial Control Systems under Training-Time Data Contamination",
+            "url": "http://arxiv.org/abs/2608.23547v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Machine-learning-based anomaly detection is increasingly used in industrial control systems (ICS), yet most studies assume that detector training data is trustworthy. In practice, training data may be corrupted throug...",
+            "published": "2026-08-24T17:49:36+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-08-25",
+        "items": [
+          {
+            "sid": "c8fa2c59f3b3c019",
+            "title": "Strictly Causal Streaming Video Anomaly Detection with a Theoretically-Grounded State-Space Core",
+            "url": "http://arxiv.org/abs/2608.24810v1",
+            "source": "arxiv_cs_ai",
+            "type": "paper",
+            "summary_1line": "Recent work has applied Mamba style state space models (SSMs) to video anomaly detection, yet existing approaches still rely on buffering clips or windows internally, lack a theoretical account of how temporal memory...",
+            "published": "2026-08-25T16:52:32+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-08-27",
+        "items": [
+          {
+            "sid": "473e4a8407d950ff",
+            "title": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education",
+            "url": "https://news.google.com/rss/articles/CBMihAJBVV95cUxNS1c0QWJqUGhjMkczWUF6S0FCTk0zUm9vZUhOcFVWQURzRXpYQVNKTTB4STF1cWZtckdNVE5CLTdiaVE0UFVZMFkyMXpEb0hHajdzRDVBQzFIU3A1S1daeHh4YjBCWXhuNzFnWkxCZnhyd1huQjBRSVVjT0xmY0kyQjlRMXFfZjAwME9RVWhVaUppVzlScXA1S3ZfNHBxV284Y3VkQTYwOEo2MkJ0WE5laFlkQk9wNjc4V1RDeHM4bXQ2aVYxVlJWQzRwSm15MnlGT2hWaHBwRlQ4M2d2SUZHYUV3blJqSjNvTDRtYnFaODQ2Nmx5NGVIVEs1djN3ZUpvMjZzSA?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Three Large Language Models (LLMs), One Heart: A Comparative Evaluation of ChatGPT, Claude, and DeepSeek in Cardiac Imaging Patient Education Cureus",
+            "published": "2026-08-27T11:58:46+00:00"
+          },
+          {
+            "sid": "44fdd531ea49fe98",
+            "title": "Prediction of Prediction (PoP): Inter-Layer Activation Fusion for Single-Pass Hallucination Detection in Large Language Models",
+            "url": "http://arxiv.org/abs/2608.27165v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Autoregressive large language models (LLMs) routinely generate factually incorrect outputs with high decoding confidence, limiting their deployment in high-stakes workflows. Existing output-stage uncertainty metrics c...",
+            "published": "2026-08-27T14:17:14+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-08-31",
+        "items": [
+          {
+            "sid": "7ac516e280c5ca22",
+            "title": "SwarmBench: Can Large Language Models Act as Agent Swarm Orchestrators?",
+            "url": "http://arxiv.org/abs/2608.30661v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Large language model-based multi-agent systems are evolving from fixed interaction topologies toward dynamically orchestrated Agent Swarms. However, existing benchmarks are still largely based on single-agent or gener...",
+            "published": "2026-08-31T12:02:04+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-09-03",
+        "items": [
+          {
+            "sid": "c0d8647786942e91",
+            "title": "Beyond Majority Vote: Multi-Perspective Adjudication for Medical Hallucination Detection",
+            "url": "http://arxiv.org/abs/2609.03953v1",
+            "source": "arxiv_llm_reliability",
+            "type": "paper",
+            "summary_1line": "Understanding the frequency of factual errors in chatbot-generated text and evaluating systems that detect these errors is critical for determining chatbot safety. Yet factual-error detection is often treated as a sin...",
+            "published": "2026-09-03T14:54:04+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-09-04",
+        "items": [
+          {
+            "sid": "5fc5b2481c7ef922",
+            "title": "Large Language Models for HVAC Operations in Building Energy Systems: A Critical Review of Methods, Applications, and Deployment Readiness",
+            "url": "http://arxiv.org/abs/2609.05314v1",
+            "source": "arxiv_cs_cl",
+            "type": "paper",
+            "summary_1line": "Building automation systems generate rich sensor data yet remain insight-poor because heterogeneous point naming, missing metadata, and fragmented documentation obstruct their operational use. This systematic review a...",
+            "published": "2026-09-04T16:08:05+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-09-05",
+        "items": [
+          {
+            "sid": "51d5a65d305149bc",
+            "title": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models",
+            "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbEJlVnQ4dWVneU1FQ0d0SkJCX3RvbUI4WTNzMUY5MkpLdFFKYVpHTnZ4NWZiQ09VTmNMYXBKY085aXhsblZBUGJGMnA3eUwzUDIwUDBTWWdmb1NNYmlTT3ZfbV9MNnVFVWNzMlFZN3gtdjZhbkloXzBhMmRCSWstT1o5S0VadlVkTmx0eC1NMUpUbnFHN21TOFBMaXk4cHFGVENxbUc1d0UzQzg?oc=5",
+            "source": "search_cn_open_weight_labs",
+            "type": "news",
+            "summary_1line": "Weekend Reading | Zhipu and MiniMax: Two Distinct Business Models for Large Language Models 富途牛牛",
+            "published": "2026-09-05T07:31:00+00:00"
+          }
+        ]
+      },
+      {
+        "date": "2026-09-10",
+        "items": [
+          {
+            "sid": "70ffdcd5e3598c72",
+            "title": "Domain-Specific Hallucination Detection in Large Language Models",
+            "url": "http://arxiv.org/abs/2609.11878v1",
+            "source": "arxiv_cs_lg",
+            "type": "paper",
+            "summary_1line": "Large language models generate fluent text that can contain unfaithful claims -- a phenomenon known as hallucination. We present a multi-signal detection pipeline combining fine-tuned DeBERTa-v3 classification, Monte...",
+            "published": "2026-09-10T17:45:36+00:00"
+          }
+        ]
+      }
+    ]
+  }
+}
