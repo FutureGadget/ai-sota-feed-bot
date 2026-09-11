@@ -1,23 +1,19 @@
 {
-  "generated_at": "2026-09-11T05:04:02.879386+00:00",
+  "generated_at": "2026-09-11T10:08:28.144755+00:00",
   "window_days": 21,
   "storyline": {
     "slug": "large-language",
     "label": "Large Language",
-    "item_count": 10,
-    "source_count": 5,
-    "day_count": 8,
-    "first_seen": "2026-08-24T16:36:17+00:00",
+    "item_count": 6,
+    "source_count": 3,
+    "day_count": 5,
+    "first_seen": "2026-08-27T11:58:46+00:00",
     "last_updated": "2026-09-10T17:45:36+00:00",
     "latest_title": "Domain-Specific Hallucination Detection in Large Language Models",
     "member_sids": [
-      "c1f5f7897cab6194",
-      "c6589f453fe3efd2",
-      "c8fa2c59f3b3c019",
       "473e4a8407d950ff",
       "44fdd531ea49fe98",
       "7ac516e280c5ca22",
-      "c0d8647786942e91",
       "5fc5b2481c7ef922",
       "51d5a65d305149bc",
       "70ffdcd5e3598c72"
@@ -29,22 +25,37 @@
     "narrative_path": "data/storylines/narratives/large-language.json",
     "prior_narrative": {
       "slug": "large-language",
-      "generated_at": "2026-09-07T05:15:00+00:00",
-      "covers_last_updated": "2026-09-05T07:31:00+00:00",
+      "generated_at": "2026-09-11T05:05:01+00:00",
+      "covers_last_updated": "2026-09-10T17:45:36+00:00",
       "covers_member_sids": [
+        "c1f5f7897cab6194",
+        "c6589f453fe3efd2",
+        "c8fa2c59f3b3c019",
         "473e4a8407d950ff",
         "44fdd531ea49fe98",
         "7ac516e280c5ca22",
+        "c0d8647786942e91",
         "5fc5b2481c7ef922",
-        "51d5a65d305149bc"
+        "51d5a65d305149bc",
+        "70ffdcd5e3598c72"
       ],
-      "tldr": "This thread groups five large-language-model items that share only a title phrase, not one developing story. It opened Aug 27 with a clinical comparison of ChatGPT, Claude, and DeepSeek on cardiac-imaging patient education alongside a single-pass hallucination detector, then added SwarmBench's agent-swarm orchestration benchmark on Aug 31.",
-      "whats_new": "A Sept 4 review of LLM deployment readiness for HVAC building-energy systems joined the cluster, alongside the already-covered Sept 5 piece pairing Zhipu and MiniMax as two distinct LLM business models -- both unrelated to the rest of this shared-title-phrase grouping.",
+      "tldr": "This thread groups ten items that share only the title phrase \"large language models,\" not one developing story. It opened Aug 24-25 with three unrelated anomaly-detection papers (relational databases, industrial control systems, streaming video), then Aug 27-31 added a ChatGPT/Claude/DeepSeek clinical comparison, a hallucination detector, and an agent-swarm benchmark.",
+      "whats_new": "A Sept 10 domain-specific hallucination detector (DeBERTa-v3 + Monte Carlo sampling) joined this shared-title-phrase cluster, alongside a Sept 3 medical-hallucination adjudication paper -- both unrelated to the rest of the grouping.",
       "why_it_matters": "Most agent evals assume a fixed pipeline of roles; if your system spins up or reconfigures sub-agents at runtime, a benchmark built for static topologies won't catch orchestration failures specific to that dynamism.",
       "beats": [
         {
-          "kicker": "APPLICATIONS",
+          "kicker": "ANOMALY DETECTION",
           "tone": "launch",
+          "headline": "Three unrelated anomaly-detection papers open the cluster: relational databases, industrial control systems, and streaming video",
+          "sids": [
+            "c1f5f7897cab6194",
+            "c6589f453fe3efd2",
+            "c8fa2c59f3b3c019"
+          ]
+        },
+        {
+          "kicker": "APPLICATIONS",
+          "tone": "rising",
           "headline": "Three assistants, one clinical task: ChatGPT, Claude, and DeepSeek compared on cardiac imaging patient education",
           "sids": [
             "473e4a8407d950ff"
@@ -67,6 +78,14 @@
           ]
         },
         {
+          "kicker": "RELIABILITY",
+          "tone": "rising",
+          "headline": "Multi-perspective adjudication targets medical hallucination detection, moving past simple majority voting",
+          "sids": [
+            "c0d8647786942e91"
+          ]
+        },
+        {
           "kicker": "APPLICATIONS",
           "tone": "rising",
           "headline": "Critical review surveys LLM deployment readiness for HVAC building-energy operations",
@@ -76,10 +95,18 @@
         },
         {
           "kicker": "VENDOR LANDSCAPE",
-          "tone": "now",
+          "tone": "rising",
           "headline": "Weekend roundup contrasts Zhipu and MiniMax as two distinct LLM business models",
           "sids": [
             "51d5a65d305149bc"
+          ]
+        },
+        {
+          "kicker": "RELIABILITY",
+          "tone": "now",
+          "headline": "Domain-specific hallucination detector pairs fine-tuned DeBERTa-v3 classification with Monte Carlo sampling",
+          "sids": [
+            "70ffdcd5e3598c72"
           ]
         }
       ],
@@ -89,55 +116,23 @@
         "Does activation-level detection need weights access, ruling it out for API-only deployments?",
         "Does the cardiac imaging comparison report per-model error rates, or only qualitative rankings of the three assistants?",
         "Does SwarmBench report results for today's popular agent frameworks, or only for research prototypes?",
-        "Does the HVAC review cite any production deployment, or is LLM-based building-energy automation still confined to research prototypes?"
+        "Does the DeBERTa-v3 domain-specific hallucination detector generalize across domains, or need per-domain fine-tuning?"
       ],
       "take_for_builders": "If you're evaluating a multi-agent system whose agents form or dissolve dynamically, check SwarmBench's task set against your own topology before reusing a single-agent or fixed-topology benchmark to claim coverage.",
       "day_captions": {
+        "c1f5f7897cab6194": "Opens an earlier-dated addition to the cluster: anomaly detection across relational database tables, unrelated to any LLM story here.",
+        "c6589f453fe3efd2": "Same-day addition: anomaly-detection robustness under training-time data contamination in industrial control systems, also unrelated to the LLM items.",
+        "c8fa2c59f3b3c019": "A day later, extends the cluster with streaming video anomaly detection via a state-space model -- the third unrelated anomaly-detection paper opening this thread.",
         "473e4a8407d950ff": "Opens the thread as it now stands: three named commercial assistants (ChatGPT, Claude, DeepSeek) compared head-to-head on one clinical patient-education task.",
         "44fdd531ea49fe98": "Moves same-day from applications to reliability tooling: hallucination scoring read off internal activations at generation time, no output sampling required.",
         "7ac516e280c5ca22": "Shifts the thread to agent evaluation four days later: a benchmark targeting dynamically orchestrated agent swarms rather than fixed-role multi-agent setups.",
+        "c0d8647786942e91": "Adds a second hallucination-detection angle: multi-perspective adjudication for medical hallucinations, moving beyond simple majority voting.",
         "5fc5b2481c7ef922": "Shifts the thread again to a domain-specific applications review: LLM readiness for building-energy HVAC automation, unrelated to the preceding agent-eval and clinical items.",
-        "51d5a65d305149bc": "Shifts the thread again, from agent evaluation to comparing two Chinese labs' commercial strategies -- the fifth unrelated topic in this title-phrase cluster."
+        "51d5a65d305149bc": "Shifts the thread again, from agent evaluation to comparing two Chinese labs' commercial strategies -- another unrelated topic in this title-phrase cluster.",
+        "70ffdcd5e3598c72": "Becomes the newest item: a domain-specific hallucination detector combining fine-tuned DeBERTa-v3 classification with Monte Carlo sampling."
       }
     },
     "timeline": [
-      {
-        "date": "2026-08-24",
-        "items": [
-          {
-            "sid": "c1f5f7897cab6194",
-            "title": "RAD: Rule-Augmented Relational Anomaly Detection",
-            "url": "http://arxiv.org/abs/2608.23468v1",
-            "source": "arxiv_cs_lg",
-            "type": "paper",
-            "summary_1line": "Anomaly detection is often applied to data stored in relational databases, yet most existing methods require flattening multiple tables into a single feature matrix. This flattening can obscure entity identity, schema...",
-            "published": "2026-08-24T16:36:17+00:00"
-          },
-          {
-            "sid": "c6589f453fe3efd2",
-            "title": "Robustness of Anomaly Detection Models for Industrial Control Systems under Training-Time Data Contamination",
-            "url": "http://arxiv.org/abs/2608.23547v1",
-            "source": "arxiv_llm_reliability",
-            "type": "paper",
-            "summary_1line": "Machine-learning-based anomaly detection is increasingly used in industrial control systems (ICS), yet most studies assume that detector training data is trustworthy. In practice, training data may be corrupted throug...",
-            "published": "2026-08-24T17:49:36+00:00"
-          }
-        ]
-      },
-      {
-        "date": "2026-08-25",
-        "items": [
-          {
-            "sid": "c8fa2c59f3b3c019",
-            "title": "Strictly Causal Streaming Video Anomaly Detection with a Theoretically-Grounded State-Space Core",
-            "url": "http://arxiv.org/abs/2608.24810v1",
-            "source": "arxiv_cs_ai",
-            "type": "paper",
-            "summary_1line": "Recent work has applied Mamba style state space models (SSMs) to video anomaly detection, yet existing approaches still rely on buffering clips or windows internally, lack a theoretical account of how temporal memory...",
-            "published": "2026-08-25T16:52:32+00:00"
-          }
-        ]
-      },
       {
         "date": "2026-08-27",
         "items": [
@@ -176,20 +171,6 @@
         ]
       },
       {
-        "date": "2026-09-03",
-        "items": [
-          {
-            "sid": "c0d8647786942e91",
-            "title": "Beyond Majority Vote: Multi-Perspective Adjudication for Medical Hallucination Detection",
-            "url": "http://arxiv.org/abs/2609.03953v1",
-            "source": "arxiv_llm_reliability",
-            "type": "paper",
-            "summary_1line": "Understanding the frequency of factual errors in chatbot-generated text and evaluating systems that detect these errors is critical for determining chatbot safety. Yet factual-error detection is often treated as a sin...",
-            "published": "2026-09-03T14:54:04+00:00"
-          }
-        ]
-      },
-      {
         "date": "2026-09-04",
         "items": [
           {
@@ -224,7 +205,7 @@
             "sid": "70ffdcd5e3598c72",
             "title": "Domain-Specific Hallucination Detection in Large Language Models",
             "url": "http://arxiv.org/abs/2609.11878v1",
-            "source": "arxiv_cs_lg",
+            "source": "arxiv_llm_reliability",
             "type": "paper",
             "summary_1line": "Large language models generate fluent text that can contain unfaithful claims -- a phenomenon known as hallucination. We present a multi-signal detection pipeline combining fine-tuned DeBERTa-v3 classification, Monte...",
             "published": "2026-09-10T17:45:36+00:00"
