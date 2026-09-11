@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a]
-updated: 2026-09-06
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846]
+updated: 2026-09-11
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846]
 ---
 
 ## TL;DR
@@ -186,8 +186,22 @@ to service-dependency maps without the engineer leaving the chat to open a
 separate observability tool. It's [MCP](/topic/mcp) carrying the
 observability payload itself, not just the query that produces it.
 
+**Session traces and cost controls are converging into one diagnostic
+signal** rather than two separate dashboards: industry coverage of agent
+observability practice names spotting tool-call loops and runaway spend as
+the same triage step, since both symptoms show up in the same trace and both
+need enough preserved execution context for post-incident debugging — the
+same cost/observability convergence this page's Claude Apps Gateway coverage
+already tracks, now framed as a general diagnostic pattern rather than one
+vendor's product.
+
 ## What's new
-Figma built a named production deployment pairing the trace-first pattern
+Session traces and cost controls are converging into one agent-failure
+diagnostic: industry coverage frames spotting tool-call loops and runaway
+spend as the same triage step, both read off the same preserved trace (see
+State of the art above).
+
+Prior update: Figma built a named production deployment pairing the trace-first pattern
 with security-ops: an alert-triage agent on a Panther SIEM foundation,
 scoped to on-call tools and querying 100+ data sources, reports memory as
 the biggest quality lever and posts measured results (70% faster

@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68]
-updated: 2026-08-20
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987]
+updated: 2026-09-11
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987]
 ---
 
 ## TL;DR
@@ -144,8 +144,24 @@ workflow file to an estate: the harness choices the Jefferies, Apollo, and
 AgentCore deployments each made independently are exactly the decisions that
 become expensive to unwind.
 
+A thirteenth axis adds the model vendor most directly upstream of the
+harness itself to the SDK-to-platform jump the last several axes track:
+OpenAI's Agents API is a managed service, powered by the Codex harness, for
+building and launching cloud agents with orchestration, long-running
+sessions, and tool use handled by the platform rather than assembled by the
+adopting team. It's the same jump Microsoft's Agent Framework and
+LangChain's Managed Deep Agents already made from the framework side, this
+time from the lab that trains the model the harness runs on — one more
+managed-runtime option an adopter has to weigh against the portability
+argument the twelfth axis makes.
+
 ## What's new
-AWS's enterprise multi-agent series makes vendor lock-in an explicit
+OpenAI's Agents API packages the Codex harness as a managed cloud service —
+orchestration, long-running sessions, and tool use handled by the platform —
+the model vendor's own version of the SDK-to-platform jump this page already
+tracks for Microsoft and LangChain (see State of the art above).
+
+Prior update: AWS's enterprise multi-agent series makes vendor lock-in an explicit
 orchestration design constraint: teams already run several frameworks,
 models, and providers at once, so the patterns that matter are the ones that
 keep an estate composable — the counterweight to the managed-runtime jump
