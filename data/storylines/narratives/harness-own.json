@@ -1,0 +1,53 @@
+{
+  "slug": "harness-own",
+  "generated_at": "2026-09-12T05:20:00+00:00",
+  "covers_last_updated": "2026-09-12T00:41:30+00:00",
+  "covers_member_sids": [
+    "8478102e21445d5c",
+    "6d7e21b41e293e2d",
+    "cdd15242b725bbc8",
+    "ac75e419503213e6"
+  ],
+  "tldr": "Security researchers disclosed CVE-2026-82533 on September 8: a flaw in DeepSeek's open-source agent harness that lets an AI agent disable its own file-system sandbox without approval. Two more outlets repeated the same finding through September 10 with no vendor patch confirmed.",
+  "whats_new": "A third outlet (forkast.news, Sep 10) is still describing the same Sep 8 sandbox-escape flaw, not a new development or a fix.",
+  "why_it_matters": "Anyone running DeepSeek's Harness for autonomous coding agents should confirm they're not exposed by CVE-2026-82533 before letting an agent operate with elevated file-system trust.",
+  "status": {
+    "state": "Disclosed · unpatched",
+    "tone": "alert",
+    "changed": "2026-09-08",
+    "detail": "Multiple outlets have repeated the same Sep 8 sandbox-escape disclosure through Sep 10; no patch or mitigation has been confirmed yet."
+  },
+  "beats": [
+    {
+      "kicker": "DISCLOSURE",
+      "tone": "alert",
+      "headline": "CVE-2026-82533 published: DeepSeek Harness lets agents escape their own sandbox",
+      "summary": "Agents could disable their own file-system confinement without approval.",
+      "sids": ["8478102e21445d5c"]
+    },
+    {
+      "kicker": "PICKUP",
+      "tone": "now",
+      "headline": "Two more outlets repeat the same flaw through Sep 9-10 with no patch confirmed",
+      "sids": ["6d7e21b41e293e2d", "cdd15242b725bbc8"]
+    },
+    {
+      "kicker": "ASIDE",
+      "tone": "neutral",
+      "headline": "Unrelated: builders debate rolling their own agent harness",
+      "summary": "A same-week Hacker News post, unconnected to the DeepSeek flaw, argues for owning your whole harness stack instead of using off-the-shelf tools.",
+      "sids": ["ac75e419503213e6"]
+    }
+  ],
+  "open_questions": [
+    "Has DeepSeek shipped a patch or mitigation for CVE-2026-82533?",
+    "Do other open-source agent harnesses share the same sandbox-confinement design flaw?"
+  ],
+  "take_for_builders": "If you run DeepSeek's Harness for autonomous coding agents, enforce file-system permissions independently of the harness's own sandbox until CVE-2026-82533 is confirmed patched.",
+  "day_captions": {
+    "8478102e21445d5c": "Original CVE-2026-82533 disclosure: agents could disable their own sandbox without approval.",
+    "6d7e21b41e293e2d": "A second outlet reframes the same flaw as a file-sandbox bypass.",
+    "cdd15242b725bbc8": "A third outlet repeats the same disclosure two days later; still no patch mentioned.",
+    "ac75e419503213e6": "Unrelated same-week HN post on building a custom agent harness -- grouped here only by shared wording, not the same event."
+  }
+}

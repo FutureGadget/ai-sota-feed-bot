@@ -1,7 +1,7 @@
 {
   "slug": "gpt-6-astra",
-  "generated_at": "2026-09-10T20:15:00+00:00",
-  "covers_last_updated": "2026-09-10T17:49:00+00:00",
+  "generated_at": "2026-09-12T05:20:00+00:00",
+  "covers_last_updated": "2026-09-14T00:00:00+00:00",
   "covers_member_sids": [
     "39210f987919e80e",
     "039a4975e102cb53",
@@ -14,16 +14,25 @@
     "333ccaae81484d3a",
     "b5a4040da6dc0ce5",
     "4ef1fa7cd0579165",
-    "12cf03d2c3047465"
+    "12cf03d2c3047465",
+    "968c32634dc2a1cb"
   ],
   "tldr": "OpenAI shipped GPT-6 Astra on September 3 for coding, computer use, and long-running agentic tasks. Playco's launch-day case study reported 50% fewer manual fixes prototyping games with it than with the prior model.",
-  "whats_new": "A Sept 9 technical deep dive ties Astra's coding and computer-use gains to recurrent-depth (\"looped transformer\") architecture and hidden chain-of-thought research, and a Sept 10 InfoQ recap confirms general availability across ChatGPT, Codex, and the API.",
-  "why_it_matters": "If Astra's reasoning genuinely runs through a looped-transformer mechanism rather than a longer visible chain of thought, its intermediate steps may be less inspectable -- plan monitoring and evals with that in mind before routing agentic work through it.",
+  "whats_new": "Perplexity says it now trusts Astra to write its communications, change its own software, and monitor its production systems, checking in far less often than it did with earlier models.",
+  "why_it_matters": "Perplexity delegating production monitoring and code changes to Astra is real evidence of trust, but it doesn't resolve whether Astra's reported looped-transformer reasoning is inspectable enough for stricter audit or safety review.",
   "status": {
-    "state": "Live · architecture scrutiny",
+    "state": "Live · adoption growing",
     "tone": "rising",
-    "changed": "2026-09-09",
-    "detail": "A week after launch, coverage has shifted from OpenAI's own case studies to independent technical analysis of how Astra reasons."
+    "changed": "2026-09-14",
+    "detail": "A production customer now delegates system monitoring and code changes to Astra with fewer check-ins, while the audit-ability question raised by its looped-transformer reasoning remains open.",
+    "track": [
+      { "label": "launch", "detail": "Sep 3", "tone": "launch", "weight": 30 },
+      { "label": "architecture scrutiny", "detail": "Sep 9-10", "tone": "rising", "weight": 35 },
+      { "label": "production adoption", "detail": "Sep 14 → now", "tone": "now", "weight": 35 }
+    ]
+  },
+  "provenance": {
+    "968c32634dc2a1cb": { "status_update": true }
   },
   "beats": [
     {
@@ -40,20 +49,29 @@
       "sids": ["4ef1fa7cd0579165"]
     },
     {
-      "kicker": "NOW",
+      "kicker": "AVAILABILITY",
       "tone": "now",
       "headline": "InfoQ confirms general availability across ChatGPT, Codex, and the API",
       "sids": ["12cf03d2c3047465"]
+    },
+    {
+      "kicker": "ADOPTION",
+      "tone": "now",
+      "headline": "Perplexity delegates production monitoring and code changes to Astra",
+      "summary": "Astra writes communications, changes software, and monitors production systems, with Perplexity checking in far less frequently than with earlier models.",
+      "sids": ["968c32634dc2a1cb"]
     }
   ],
   "open_questions": [
     "Does Astra's reported looped-transformer/hidden-reasoning approach reduce how inspectable its intermediate reasoning is for audit or safety review?",
-    "Do Astra's launch-week coding and computer-use gains hold up in independent, third-party benchmarks rather than vendor case studies?"
+    "Do Astra's launch-week coding and computer-use gains hold up in independent, third-party benchmarks rather than vendor case studies?",
+    "Does Perplexity's reduced check-in frequency reflect genuine reliability, or looser production guardrails that haven't yet been tested by a failure?"
   ],
-  "take_for_builders": "Before routing agentic or coding workloads to Astra, check whether its reportedly looped-transformer reasoning gives you enough visibility into intermediate steps for your monitoring or audit needs.",
+  "take_for_builders": "Before cutting human check-ins on production systems the way Perplexity did, verify your own audit and rollback tooling can catch an Astra misstep -- vendor case studies don't cover failure modes.",
   "day_captions": {
     "39210f987919e80e": "OpenAI's own case study: Playco reports 50% fewer manual fixes prototyping games with Astra.",
     "4ef1fa7cd0579165": "Sebastian Raschka's independent technical analysis links Astra to recurrent-depth/looped-transformer and hidden chain-of-thought research.",
-    "12cf03d2c3047465": "InfoQ's recap confirms general availability across ChatGPT, Codex, and the API, a week after launch."
+    "12cf03d2c3047465": "InfoQ's recap confirms general availability across ChatGPT, Codex, and the API, a week after launch.",
+    "968c32634dc2a1cb": "Perplexity's case study: Astra writes communications, changes software, and monitors production with fewer human check-ins."
   }
 }

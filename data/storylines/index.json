@@ -1,20 +1,21 @@
 {
- "generated_at": "2026-09-12T00:06:34.838091+00:00",
+ "generated_at": "2026-09-12T05:11:28.537358+00:00",
  "window_days": 21,
  "storylines": [
   {
    "slug": "gpt-6-astra",
    "label": "GPT-6 Astra",
-   "item_count": 3,
-   "day_count": 3,
+   "item_count": 4,
+   "day_count": 4,
    "source_count": 7,
    "first_seen": "2026-09-03T00:00:00+00:00",
-   "last_updated": "2026-09-10T17:49:00+00:00",
-   "latest_title": "OpenAI Releases GPT-6 Astra for Coding and Computer Use",
+   "last_updated": "2026-09-14T00:00:00+00:00",
+   "latest_title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
    "days": [
     "2026-09-03",
     "2026-09-09",
-    "2026-09-10"
+    "2026-09-10",
+    "2026-09-14"
    ],
    "member_sids": [
     "39210f987919e80e",
@@ -28,7 +29,8 @@
     "333ccaae81484d3a",
     "b5a4040da6dc0ce5",
     "4ef1fa7cd0579165",
-    "12cf03d2c3047465"
+    "12cf03d2c3047465",
+    "968c32634dc2a1cb"
    ],
    "member_urls": [
     "https://openai.com/index/safety-overview-gpt-6-astra",
@@ -42,19 +44,81 @@
     "https://openai.com/index/gpt-6-astra-next-generation-work",
     "https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5",
     "https://magazine.sebastianraschka.com/p/gpt-6-astra-looped-transformers-and",
-    "https://www.infoq.com/news/2026/09/openai-gpt6-astra/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
+    "https://www.infoq.com/news/2026/09/openai-gpt6-astra/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "https://openai.com/index/perplexity-improving-accuracy-with-astra"
    ],
    "editorial": {
     "tldr": "OpenAI shipped GPT-6 Astra on September 3 for coding, computer use, and long-running agentic tasks. Playco's launch-day case study reported 50% fewer manual fixes prototyping games with it than with the prior model.",
     "stale": false,
-    "whats_new": "A Sept 9 technical deep dive ties Astra's coding and computer-use gains to recurrent-depth (\"looped transformer\") architecture and hidden chain-of-thought research, and a Sept 10 InfoQ recap confirms general availability across ChatGPT, Codex, and the API.",
-    "why_it_matters": "If Astra's reasoning genuinely runs through a looped-transformer mechanism rather than a longer visible chain of thought, its intermediate steps may be less inspectable -- plan monitoring and evals with that in mind before routing agentic work through it.",
-    "take_for_builders": "Before routing agentic or coding workloads to Astra, check whether its reportedly looped-transformer reasoning gives you enough visibility into intermediate steps for your monitoring or audit needs.",
+    "whats_new": "Perplexity says it now trusts Astra to write its communications, change its own software, and monitor its production systems, checking in far less often than it did with earlier models.",
+    "why_it_matters": "Perplexity delegating production monitoring and code changes to Astra is real evidence of trust, but it doesn't resolve whether Astra's reported looped-transformer reasoning is inspectable enough for stricter audit or safety review.",
+    "take_for_builders": "Before cutting human check-ins on production systems the way Perplexity did, verify your own audit and rollback tooling can catch an Astra misstep -- vendor case studies don't cover failure modes.",
     "status": {
-     "state": "Live · architecture scrutiny",
+     "state": "Live · adoption growing",
      "tone": "rising",
-     "changed": "2026-09-09",
-     "detail": "A week after launch, coverage has shifted from OpenAI's own case studies to independent technical analysis of how Astra reasons."
+     "changed": "2026-09-14",
+     "detail": "A production customer now delegates system monitoring and code changes to Astra with fewer check-ins, while the audit-ability question raised by its looped-transformer reasoning remains open.",
+     "track": [
+      {
+       "label": "launch",
+       "detail": "Sep 3",
+       "tone": "launch",
+       "weight": 30
+      },
+      {
+       "label": "architecture scrutiny",
+       "detail": "Sep 9-10",
+       "tone": "rising",
+       "weight": 35
+      },
+      {
+       "label": "production adoption",
+       "detail": "Sep 14 → now",
+       "tone": "now",
+       "weight": 35
+      }
+     ]
+    }
+   }
+  },
+  {
+   "slug": "harness-own",
+   "label": "Harness Own",
+   "item_count": 4,
+   "day_count": 4,
+   "source_count": 2,
+   "first_seen": "2026-09-08T20:37:54+00:00",
+   "last_updated": "2026-09-12T00:41:30+00:00",
+   "latest_title": "Building your own agent harness is fun",
+   "days": [
+    "2026-09-08",
+    "2026-09-09",
+    "2026-09-10",
+    "2026-09-12"
+   ],
+   "member_sids": [
+    "8478102e21445d5c",
+    "6d7e21b41e293e2d",
+    "cdd15242b725bbc8",
+    "ac75e419503213e6"
+   ],
+   "member_urls": [
+    "https://news.google.com/rss/articles/CBMijgFBVV95cUxQT1ptSVFXeUQzc1gtNzhzQmpsbGJSdHd1RndnSm0zMWRkcWV5dHNVZk5pWUFzaUZyQzlPZ25GMHhRemY4cVBUUkFhU1JoeUo4Z0RWVlZVNHhnRV9mYWlBNlJXNjZUcC1Dd2dnQ0tmZVMxTkdHMEhhazFuazBQRTlWeUsxWHZwSU0zZE1UZTNn?oc=5",
+    "https://news.google.com/rss/articles/CBMif0FVX3lxTE9lTHJBMWJDT0twcnM3d2oyX3hia0ZfRTZ6MVJ3aDl4RktKSk52VjdVNXZtN3Vrblp0MnB1R1JqN082U3RxZFNJUVNydjEzVnBtUFlHay1GWWZWYjdpT244cVduWWt2OTFBaDlnOV9UV19VMjc4MThJVDh0QkVoV2M?oc=5",
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZmFfYXF6bzR6dVQ4WXlISXE1OFZMclNKTko1UmtQT3R6WnozY3R3WnQzSmo2cnpvdWlyMWVZTUdvWlBOeEMyZWJnY3RrYVR6RlhyZW5Sc181STVPSGlMWXhGd0pNd3U5MUh5X0NKVGRwdmg3WFd4ajhlZUl1ODNfSmtCYXROT3Y3SUtNbGlUUzlodm51RGIyYlRwbGliQ1k?oc=5",
+    "https://news.ycombinator.com/item?id=49667385"
+   ],
+   "editorial": {
+    "tldr": "Security researchers disclosed CVE-2026-82533 on September 8: a flaw in DeepSeek's open-source agent harness that lets an AI agent disable its own file-system sandbox without approval. Two more outlets repeated the same finding through September 10 with no vendor patch confirmed.",
+    "stale": false,
+    "whats_new": "A third outlet (forkast.news, Sep 10) is still describing the same Sep 8 sandbox-escape flaw, not a new development or a fix.",
+    "why_it_matters": "Anyone running DeepSeek's Harness for autonomous coding agents should confirm they're not exposed by CVE-2026-82533 before letting an agent operate with elevated file-system trust.",
+    "take_for_builders": "If you run DeepSeek's Harness for autonomous coding agents, enforce file-system permissions independently of the harness's own sandbox until CVE-2026-82533 is confirmed patched.",
+    "status": {
+     "state": "Disclosed · unpatched",
+     "tone": "alert",
+     "changed": "2026-09-08",
+     "detail": "Multiple outlets have repeated the same Sep 8 sandbox-escape disclosure through Sep 10; no patch or mitigation has been confirmed yet."
     }
    }
   },
