@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272]
-updated: 2026-09-06
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e]
+updated: 2026-09-12
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e]
 ---
 
 ## TL;DR
@@ -241,8 +241,33 @@ erase an apparent reliability gain unless the eval infrastructure is pinned
 and reported alongside the model (see [agent
 evaluation](/topic/agent-evaluation) for the full methodology).
 
+A separate measurement names a different gap from the infrastructure noise
+above: on AppWorld with a ReAct agent (GPT-4.1), the same task run five
+times succeeds on *every* run only 53% of the time even though the
+per-run pass rate averages 77% — a 24-point **consistency gap** between how
+often a task passes on average and how often it passes every time, the
+number that actually matters for unattended production use. A self-evolving
+framework attacks it directly: a Consistency Analyzer flags the specific
+trajectory steps most likely to flip between runs, and a Guideline Generator
+turns that diagnosis into a targeted guideline committed to episodic memory
+and injected into future runs on similar tasks, raising all-five-runs
+success by 16 points on the same task and 13 points on similar unseen tasks
+— evidence that some of what looks like average-case reliability is
+actually per-run variance that memory, not a bigger model, can close (see
+[agent memory](/topic/agent-memory) for the storage side of the same
+mechanism).
+
 ## What's new
-TASPO targets a coarse-credit problem in outcome-based agentic RL training:
+On AppWorld with a ReAct agent (GPT-4.1), the same task run five times
+succeeds on every run only 53% of the time despite a 77% average per-run
+pass rate — a 24-point "consistency gap" distinct from the infra-noise gap
+this page already tracks. A self-evolving framework closes part of it by
+diagnosing which trajectory steps flip between runs and committing a
+targeted guideline to episodic memory, raising all-five-runs success 16
+points on the same task and 13 points on similar tasks (see State of the
+art above).
+
+Prior update: TASPO targets a coarse-credit problem in outcome-based agentic RL training:
 it converts privileged supervision from verified successful runs into
 per-action credit weights while letting the verified outcome set the
 update's direction and scale, improving 10.6% over a GRPO baseline across
