@@ -1,0 +1,57 @@
+{
+  "slug": "deepseek-architecture",
+  "generated_at": "2026-09-12T10:15:00+00:00",
+  "covers_last_updated": "2026-09-12T05:56:05+00:00",
+  "covers_member_sids": [
+    "10c8980f417e7cbe",
+    "271d169f0aac4782",
+    "d1d28ac13afc9a24"
+  ],
+  "tldr": "DeepSeek opened a two-day limited beta for V4.1-Flash on Sep 8, built on a new natively multimodal architecture. Two days later DeepSeek claimed the redesign cuts agentic-task costs by 80%.",
+  "whats_new": "A Sep 12 technical deep dive details the design behind those claims: a 763B-parameter causal encoder-decoder split (8B encoder, 16B decoder) with native vision support.",
+  "why_it_matters": "Splitting encoder (prefill) from decoder (decode) at the architecture level is a structural lever on agentic-workload cost and latency, separate from raw benchmark scores -- the kind of change worth understanding before you trust a vendor's cost-cut claim.",
+  "status": {
+    "state": "Beta · architecture detailed",
+    "tone": "rising",
+    "changed": "2026-09-12",
+    "detail": "A two-day limited beta shipped Sep 8; DeepSeek's 80%-cost-cut claim followed Sep 10, and a Sep 12 technical write-up lays out the causal encoder-decoder design behind it.",
+    "track": [
+      { "label": "beta ships", "detail": "Sep 8", "tone": "launch", "weight": 34 },
+      { "label": "cost-cut claim", "detail": "Sep 10", "tone": "rising", "weight": 33 },
+      { "label": "architecture detailed", "detail": "Sep 12", "tone": "now", "weight": 33 }
+    ]
+  },
+  "beats": [
+    {
+      "kicker": "BETA",
+      "tone": "launch",
+      "headline": "Two-day limited beta ships with a natively multimodal architecture",
+      "summary": "DeepSeek opened a short beta window for V4.1-Flash rather than a full release.",
+      "sids": ["10c8980f417e7cbe"]
+    },
+    {
+      "kicker": "COST CLAIM",
+      "tone": "rising",
+      "headline": "DeepSeek claims the new architecture cuts agentic costs 80%",
+      "summary": "The figure comes from DeepSeek itself, not yet an independent benchmark.",
+      "sids": ["271d169f0aac4782"]
+    },
+    {
+      "kicker": "ARCHITECTURE DETAIL",
+      "tone": "now",
+      "headline": "Technical breakdown: a 763B-parameter causal encoder-decoder split with vision",
+      "summary": "An 8B encoder and 16B decoder disaggregate prefill from decode at the model level.",
+      "sids": ["d1d28ac13afc9a24"]
+    }
+  ],
+  "open_questions": [
+    "Does the 80% agentic-cost reduction hold up under independent benchmarking, or is it DeepSeek's own figure?",
+    "Does the encoder-decoder split require changes to how existing serving stacks (vLLM, SGLang) deploy the model?"
+  ],
+  "take_for_builders": "Before adopting V4.1-Flash for agentic workloads, benchmark its actual cost and latency against your current backend rather than trusting the 80% figure as-is.",
+  "day_captions": {
+    "10c8980f417e7cbe": "A short, two-day beta window signals a fast-iterating, not-yet-stable release.",
+    "271d169f0aac4782": "First cost claim: an unverified 80% cut to agentic task costs.",
+    "d1d28ac13afc9a24": "AINews' technical read: a novel causal encoder-decoder split disaggregating prefill from decode."
+  }
+}

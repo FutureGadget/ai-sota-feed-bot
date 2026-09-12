@@ -1,0 +1,129 @@
+{
+ "slug": "deepseek-architecture",
+ "label": "DeepSeek Architecture",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-09-08T09:26:00+00:00",
+ "last_updated": "2026-09-12T05:56:05+00:00",
+ "generated_at": "2026-09-12T10:09:04.943185+00:00",
+ "sources": [
+  "latent_space",
+  "search_cn_open_weight_labs"
+ ],
+ "days": [
+  {
+   "date": "2026-09-08",
+   "items": [
+    {
+     "title": "DeepSeek Launches Two-Day Limited Beta for V4.1 Flash — New Architecture Natively Integrates Multimodal Capabilities",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5kVVplWG9QcHBrWGpKc2xibTJBbURpUHJkV21GUGZ4SnNCc3MyZm5zMTV6bGRLNHBCRjQxVEkyUkM2bnFnSHk2cGVoSklCWGFtVnVOLWN0ZDIwMW1lMnUwNXdVQ0laUkJOamp3Uk9zQmVRNFNyalE?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek Launches Two-Day Limited Beta for V4.1 Flash — New Architecture Natively Integrates Multimodal Capabilities finance.biggo.com",
+     "sid": "10c8980f417e7cbe",
+     "published": "2026-09-08T09:26:00+00:00",
+     "editor_note": "A short, two-day beta window signals a fast-iterating, not-yet-stable release."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-10",
+   "items": [
+    {
+     "title": "DeepSeek’s New Architecture Slashes Agentic Costs by 80%",
+     "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOd1FreVVzU2Y5SE42ME1FVEFaTTRHWVhMel9ZNU94ODFOTlhZeGFjVGNieEZNbkNBZTFjbWdadWlxc25uNjF5TEVLNTRWdEd2eV96V3BwVTFGM0hHaXRSeEgzaF8tekUxbE1sYTJfejdjZnBLek9hQzZsVHMzYS1EVDNR?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek’s New Architecture Slashes Agentic Costs by 80% forkast.news",
+     "why_it_matters": "Matches feed focus: agentic.",
+     "sid": "271d169f0aac4782",
+     "published": "2026-09-10T09:23:37+00:00",
+     "editor_note": "First cost claim: an unverified 80% cut to agentic task costs."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-12",
+   "items": [
+    {
+     "title": "[AINews] DeepSeek v4.1-Flash: 763B-P8B-D16B novel causal Encoder–Decoder architecture with vision marks the Return of the Whale",
+     "url": "https://www.latent.space/p/ainews-deepseek-v41-flash-763b-p8b",
+     "source": "latent_space",
+     "type": "news",
+     "summary_1line": "We agree with Sebastian: this should have been DeepSeek v5",
+     "sid": "d1d28ac13afc9a24",
+     "published": "2026-09-12T05:56:05+00:00",
+     "editor_note": "AINews' technical read: a novel causal encoder-decoder split disaggregating prefill from decode."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "DeepSeek opened a two-day limited beta for V4.1-Flash on Sep 8, built on a new natively multimodal architecture. Two days later DeepSeek claimed the redesign cuts agentic-task costs by 80%.",
+  "stale": false,
+  "whats_new": "A Sep 12 technical deep dive details the design behind those claims: a 763B-parameter causal encoder-decoder split (8B encoder, 16B decoder) with native vision support.",
+  "why_it_matters": "Splitting encoder (prefill) from decoder (decode) at the architecture level is a structural lever on agentic-workload cost and latency, separate from raw benchmark scores -- the kind of change worth understanding before you trust a vendor's cost-cut claim.",
+  "take_for_builders": "Before adopting V4.1-Flash for agentic workloads, benchmark its actual cost and latency against your current backend rather than trusting the 80% figure as-is.",
+  "status": {
+   "state": "Beta · architecture detailed",
+   "tone": "rising",
+   "changed": "2026-09-12",
+   "detail": "A two-day limited beta shipped Sep 8; DeepSeek's 80%-cost-cut claim followed Sep 10, and a Sep 12 technical write-up lays out the causal encoder-decoder design behind it.",
+   "track": [
+    {
+     "label": "beta ships",
+     "detail": "Sep 8",
+     "tone": "launch",
+     "weight": 34
+    },
+    {
+     "label": "cost-cut claim",
+     "detail": "Sep 10",
+     "tone": "rising",
+     "weight": 33
+    },
+    {
+     "label": "architecture detailed",
+     "detail": "Sep 12",
+     "tone": "now",
+     "weight": 33
+    }
+   ]
+  },
+  "beats": [
+   {
+    "kicker": "BETA",
+    "tone": "launch",
+    "headline": "Two-day limited beta ships with a natively multimodal architecture",
+    "summary": "DeepSeek opened a short beta window for V4.1-Flash rather than a full release.",
+    "sids": [
+     "10c8980f417e7cbe"
+    ]
+   },
+   {
+    "kicker": "COST CLAIM",
+    "tone": "rising",
+    "headline": "DeepSeek claims the new architecture cuts agentic costs 80%",
+    "summary": "The figure comes from DeepSeek itself, not yet an independent benchmark.",
+    "sids": [
+     "271d169f0aac4782"
+    ]
+   },
+   {
+    "kicker": "ARCHITECTURE DETAIL",
+    "tone": "now",
+    "headline": "Technical breakdown: a 763B-parameter causal encoder-decoder split with vision",
+    "summary": "An 8B encoder and 16B decoder disaggregate prefill from decode at the model level.",
+    "sids": [
+     "d1d28ac13afc9a24"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the 80% agentic-cost reduction hold up under independent benchmarking, or is it DeepSeek's own figure?",
+   "Does the encoder-decoder split require changes to how existing serving stacks (vLLM, SGLang) deploy the model?"
+  ],
+  "generated_at": "2026-09-12T10:15:00+00:00"
+ }
+}
