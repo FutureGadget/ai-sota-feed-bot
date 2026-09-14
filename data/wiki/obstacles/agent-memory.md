@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee]
-updated: 2026-09-13
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef]
+updated: 2026-09-14
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef]
 ---
 
 ## TL;DR
@@ -432,8 +432,26 @@ discipline than the automatic-capture stores above, aimed at the same
 "don't act on a stale fact as if it were current" guarantee TEPA's
 revocation targets, applied to project status rather than arbitrary facts.
 
+A production sales agent adds a third write discipline alongside the
+automatic-capture and explicit-consent (SOS) patterns above: **correction
+extraction**. LangChain's own GTM Agent diffs a sales rep's edited draft
+against the agent's original message to pull out structured per-rep style
+observations, writes them to Postgres keyed per rep, and loads that record
+before every future draft for the same rep — with a weekly cron job
+compacting the store so per-rep memory doesn't grow unbounded. Unlike an
+inferred preference or an explicitly saved state, the write is triggered
+by a human's actual correction of the agent's own output.
+
 ## What's new
-COBRA-Skills targets the cost of the skill-evolution loop itself:
+LangChain's own production GTM sales agent adds a named third write
+discipline this page hadn't tracked as a pattern before —
+**correction extraction**: diffing a rep's edited draft against the
+agent's original to pull structured per-rep style observations, storing
+them in Postgres keyed per rep, and reloading that record before every
+future draft, with weekly cron compaction to keep per-rep memory bounded
+(see State of the art above).
+
+Prior update: COBRA-Skills targets the cost of the skill-evolution loop itself:
 contextual-bandit-guided prioritization over a budgeted, evolving candidate
 pool cuts skill-optimization expense 55-58% versus a SkillOpt baseline while
 holding top-tier performance across six benchmarks and three models, using

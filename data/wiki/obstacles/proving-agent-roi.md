@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50]
-updated: 2026-09-09
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef]
+updated: 2026-09-14
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef]
 ---
 
 ## TL;DR
@@ -61,8 +61,27 @@ end, though a single vendor-published customer figure is a data point, not
 yet the independent per-task instrumentation the rest of this page argues
 for.
 
+**A second named customer case study widens the outcome-side metric set
+past a single productivity percentage:** LangChain's own GTM sales agent,
+in production since December 2025, reports a 250% lift in
+lead-to-qualified-opportunity conversion and 40 hours reclaimed per sales
+rep per month (1,320 hours across the team), alongside 50% daily and 86%
+weekly active usage. The same vendor-published-single-customer caveat as
+1Password's 21% figure applies, but conversion lift, hours reclaimed, and
+adoption rate broaden the ROI vocabulary this page tracks beyond a single
+productivity number.
+
 ## What's new
-A named customer case study puts one of the first concrete productivity
+A second named customer case study widens the outcome-side ROI vocabulary
+past a single productivity percentage: LangChain's own GTM sales agent
+reports a 250% lift in lead-to-qualified-opportunity conversion, 40
+hours/month reclaimed per rep (1,320 hours team-wide), and 50%/86%
+daily/weekly active usage — the same vendor-published-single-customer
+caveat as 1Password's 21% figure applies, but the metric set (conversion
+lift, hours reclaimed, adoption rate) is broader than a single
+productivity percentage (see State of the art above).
+
+Prior update: A named customer case study puts one of the first concrete productivity
 percentages behind coding-agent ROI rather than a spend or cost-per-task
 number: 1Password reports Codex lifted engineering productivity 21% while
 its team kept its existing security review policies in place — the
