@@ -5,133 +5,133 @@ Focus: AI Platform Engineering
 ## 1. How Credit Genie keeps codebase docs fresh with OpenWiki
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/how-credit-genie-uses-openwiki-to-keep-codebase-knowledge-fresh-searchable-and-automated
-- Score: 3.041 | Reliability: 1.0
+- Score: 3.024 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 2. commit-rewriter 0.1
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/14/commit-rewriter/
-- Score: 2.989 | Reliability: 1.0
+- Score: 2.973 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 3. shot-scraper 1.12
+## 3. Independent Investigation of Hugging Face Incident Reveals How Agents Collaborated and Behaved
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/09/metr-hugging-face-hack-report/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.853 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. shot-scraper 1.12
 - Type: release | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/13/shot-scraper/
-- Score: 2.635 | Reliability: 1.0
-- Why it matters: 
-
-## 4. New AI fake text generator may be too dangerous to release, say creators (2019)
-- Type: release | Source: hackernews_ai
-- URL: https://www.theguardian.com/technology/2019/feb/14/elon-musk-backed-ai-writes-convincing-news-fiction
-- Score: 2.601 | Reliability: 1.0
+- Score: 2.622 | Reliability: 1.0
 - Why it matters: 
 
 ## 5. GitHub Copilot's Project HydraFusion Promises Frontier Level Performance through Multi-Model Routing
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/github-hydrafusion/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.576 | Reliability: 1.0
+- Score: 2.566 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
-## 6. How We Built LangChain’s Paid Media Agent
+## 6. tencent/Simple-Attention-Sparsification released on Hugging Face
+- Type: release | Source: hf_tencent_hunyuan_releases
+- URL: https://huggingface.co/tencent/Simple-Attention-Sparsification
+- Score: 2.55 | Reliability: 1.0
+- Why it matters: 
+
+## 7. How We Built LangChain’s Paid Media Agent
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/paid-media-agent
-- Score: 2.459 | Reliability: 1.0
+- Score: 2.448 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
-
-## 7. Z.ai Plans $5 Billion Fundraising as Compute Cost Grows
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMilwFBVV95cUxNQV9rLThPZ3paTDNUeHNuWHlWZzJ2ZG9GMFVvOGdUSmROclAtajdhTUFES3hFZ1RQM3JKRktlTTYwYmhKbWh6MW84bXFPM3BPbmx1SkxFLXRYZFEyYkt4VHRDZWRiNUJLLVdIM2c5djZqOE9RLUM1cHU5Z2pXWExNUWxfdUlUWEpQWlZMcERGbFhrVmwzOHhz?oc=5
-- Score: 2.379 | Reliability: 1.0
-- Why it matters: 
 
 ## 8. Perplexity trusts GPT-6 Astra with end-to-end systems
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/perplexity-improving-accuracy-with-astra
-- Score: 2.312 | Reliability: 1.0
+- Score: 2.29 | Reliability: 1.0
 - Why it matters: 
 
-## 9. Cognition helps Devin test its own work with GPT‑6 Astra
+## 9. Introducing the Agents API
+- Type: news | Source: openai_blog
+- URL: https://openai.com/index/introducing-the-agents-api
+- Score: 1.529 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness, codex.
+
+## 10. Cognition helps Devin test its own work with GPT‑6 Astra
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/cognition-devin-testing-with-astra
-- Score: 1.506 | Reliability: 1.0
+- Score: 1.5 | Reliability: 1.0
 - Why it matters: 
 
-## 10. How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials
-- Score: 1.498 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
-
-## 11. Presentation: From Retrieval to Reasoning: Building Production-Ready Agentic AI Systems with Knowledge Graphs
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/presentations/knowledge-graphs-agentic-systems-patterns/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.146 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, harness, eval.
+## 11. Z.AI Raises $5B Amid AI R&D Cost Surge
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiiAFBVV95cUxNSkxtS0E3cENRNm9YWFFqWnNyVjhsSC1OdFJJcHppYXF4NGJEeURNVGhuVU96NW1lQ3psUElUeW50cFYycWVfeUl3dnU1RkFiSWNESDlocjAxODd3WmhjVUFiRlZYLW9HdXp3bFpSUTN5bHpnbVJJYVliN2VmX2d3VnZIWmRhV01u?oc=5
+- Score: 2.385 | Reliability: 1.0
+- Why it matters: 
 
 ## 12. Tasks over Application Manuals: Revealing Gaps in Long-Horizon Procedural Reasoning for Language Models
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2609.13005v1
-- Score: 2.074 | Reliability: 1.0
+- Score: 2.062 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, harness, eval.
 
 ## 13. [AINews] DeepSeek v4.1-Flash: 763B-P8B-D16B novel causal Encoder–Decoder architecture with vision marks the Return of the Whale
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/ainews-deepseek-v41-flash-763b-p8b
-- Score: 1.811 | Reliability: 1.0
+- Score: 1.81 | Reliability: 1.0
 - Why it matters: 
 
 ## 14. The Rise of the Forward Deployed Engineer — and How To Do the Job Right
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/forward-deployed-engineer-best-practices
-- Score: 1.795 | Reliability: 1.0
+- Score: 1.794 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. Measuring AI capabilities in intelligence targeting and conventional weapons
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/intelligence-targeting-conventional-weapons-capabilities
-- Score: 1.75 | Reliability: 1.0
+- Score: 1.743 | Reliability: 1.0
 - Why it matters: Matches feed focus: evaluation.
 
 ## 16. claude-code v2.1.269
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.269
-- Score: 1.723 | Reliability: 1.0
+- Score: 1.712 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
-## 17. Rapidly scaling online storage to serve over 1 billion ChatGPT users
+## 17. How a researcher uses Codex and ChatGPT to search for new antimicrobial molecules
 - Type: news | Source: openai_blog
-- URL: https://openai.com/index/scaling-storage-one-billion-users-part-one
-- Score: 1.462 | Reliability: 1.0
-- Why it matters: 
+- URL: https://openai.com/index/using-codex-chatgpt-to-search-for-new-antimicrobials
+- Score: 1.494 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
 
 ## 18. vllm v0.29.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.29.0
-- Score: 1.438 | Reliability: 1.0
+- Score: 1.428 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, codex.
 
 ## 19. codex 0.155.0-alpha.3.10
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.3.10
-- Score: 1.4 | Reliability: 1.0
+- Score: 1.391 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 20. IBM releases SOTA Granite Time Series PatchTST-FM-r2 model with commercial-friendly license
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/ibm-research/ibm-releases-sota-granite-time-series
-- Score: 1.315 | Reliability: 1.0
+- Score: 1.309 | Reliability: 1.0
 - Why it matters: 
 
 ## 21. T. Rowe Price brings more of Claude to its investment process | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/t-rowe-price-brings-more-of-claude-to-its-investment-process
-- Score: 1.26 | Reliability: 1.0
+- Score: 1.259 | Reliability: 1.0
 - Why it matters: 
 
 ## 22. What 1,000 small business owners taught us about AI | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/what-1-000-small-business-owners-taught-us-about-ai
-- Score: 1.26 | Reliability: 1.0
+- Score: 1.259 | Reliability: 1.0
 - Why it matters: 
 
 ## 23. AlphaGenome Atlas: A predictive map of every possible DNA letter change in the human genome
@@ -143,5 +143,5 @@ Focus: AI Platform Engineering
 ## 24. Monitoring production agent lifecycle with AWS DevOps Agent and AgentCore Evaluations
 - Type: news | Source: aws_ml_blog
 - URL: https://aws.amazon.com/blogs/machine-learning/monitoring-production-agent-lifecycle-with-aws-devops-agent-and-agentcore-evaluations/
-- Score: 0.909 | Reliability: 1.0
+- Score: 0.899 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
