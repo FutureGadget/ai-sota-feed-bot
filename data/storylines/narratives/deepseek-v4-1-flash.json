@@ -1,26 +1,28 @@
 {
   "slug": "deepseek-v4-1-flash",
-  "generated_at": "2026-09-12T10:15:00+00:00",
-  "covers_last_updated": "2026-09-12T05:56:05+00:00",
+  "generated_at": "2026-09-14T05:20:00+00:00",
+  "covers_last_updated": "2026-09-14T01:51:16+00:00",
   "covers_member_sids": [
     "c113849e4fb23b54",
     "3964e6fc7e6673d5",
     "3e6da764d2da3df9",
     "82bd95dd18d293f1",
-    "d1d28ac13afc9a24"
+    "d1d28ac13afc9a24",
+    "7f7e6754ebc2c737"
   ],
   "tldr": "DeepSeek unveiled V4.1-Flash on Sep 10, claiming it beats its own flagship V4-Pro while cutting the memory agents need to run it. By Sep 11 the release was already squeezing rivals on price.",
-  "whats_new": "A Sep 12 AINews technical read calls the architecture leap substantial enough that \"this should have been DeepSeek v5,\" a day after early reports of the release pressuring competitor API pricing.",
-  "why_it_matters": "A same-vendor model that beats your current flagship on quality while using less memory changes the calculus for any team already running DeepSeek in an agent loop.",
-  "take_for_builders": "If you're serving DeepSeek models for agentic workloads, benchmark V4.1-Flash's memory footprint and output quality against your current V4-Pro deployment before your next capacity-planning cycle.",
+  "whats_new": "DeepSeek is now routing all V4-Pro API traffic to V4.1-Flash under the hood, billing it at V4.1-Flash's lower rate rather than V4-Pro's.",
+  "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a different price, without a version bump to signal it.",
+  "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint now: you're getting V4.1-Flash's outputs, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
   "status": {
-    "state": "Shipped · pressuring competitor pricing",
-    "tone": "now",
-    "changed": "2026-09-10",
-    "detail": "V4.1-Flash shipped Sep 10 claiming to beat V4-Pro on quality while cutting agent memory needs; by Sep 11-12 it was already pressuring rival pricing and drawing a v5-caliber technical reception.",
+    "state": "Shipped · V4-Pro traffic silently rerouted",
+    "tone": "turn",
+    "changed": "2026-09-14",
+    "detail": "V4.1-Flash shipped Sep 10 claiming to beat V4-Pro on quality while cutting agent memory needs; by Sep 14 DeepSeek was routing all V4-Pro API calls to V4.1-Flash at Flash rates instead of retiring or renaming the endpoint.",
     "track": [
-      { "label": "unveiled", "detail": "Sep 10", "tone": "launch", "weight": 50 },
-      { "label": "pricing pressure + technical reception", "detail": "Sep 11–12", "tone": "now", "weight": 50 }
+      { "label": "unveiled", "detail": "Sep 10", "tone": "launch", "weight": 35 },
+      { "label": "pricing pressure + technical reception", "detail": "Sep 11–12", "tone": "rising", "weight": 30 },
+      { "label": "V4-Pro traffic silently rerouted", "detail": "Sep 14 → now", "tone": "turn", "weight": 35 }
     ]
   },
   "beats": [
@@ -44,17 +46,26 @@
       "headline": "Early pricing pressure on rivals, then a v5-caliber technical reception",
       "summary": "The release moves competitor pricing within a day, and technical reviewers rate the architecture jump higher than a point release.",
       "sids": ["82bd95dd18d293f1", "d1d28ac13afc9a24"]
+    },
+    {
+      "kicker": "THE TURN",
+      "tone": "turn",
+      "headline": "DeepSeek quietly swaps V4-Pro traffic for V4.1-Flash at Flash pricing",
+      "summary": "Four days after launch, calls to the V4-Pro endpoint are served by V4.1-Flash instead, billed at the cheaper Flash rate.",
+      "sids": ["7f7e6754ebc2c737"]
     }
   ],
   "open_questions": [
     "Does the claimed memory-footprint cut hold up in independent agent-workload benchmarks, not just DeepSeek's own claim?",
-    "Which competitors respond with price cuts of their own, and on what timeline?"
+    "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
+    "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?"
   ],
   "day_captions": {
     "c113849e4fb23b54": "The initial unveiling.",
     "3964e6fc7e6673d5": "First outlet to frame the release around agent memory costs specifically.",
     "3e6da764d2da3df9": "DeepSeek's own outperforms-V4-Pro claim.",
     "82bd95dd18d293f1": "First sign the release is already moving competitor pricing.",
-    "d1d28ac13afc9a24": "AINews' technical deep dive frames the architecture as v5-caliber."
+    "d1d28ac13afc9a24": "AINews' technical deep dive frames the architecture as v5-caliber.",
+    "7f7e6754ebc2c737": "DeepSeek starts serving all V4-Pro API traffic with V4.1-Flash, at Flash's lower price."
   }
 }
