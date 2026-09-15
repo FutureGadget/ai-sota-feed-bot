@@ -721,6 +721,25 @@
     },
     "edition_date": "2026-08-07"
   },
+  "381ed851c46a02e9": {
+    "id": "pb-dual-layer-agent-monitoring",
+    "kind": "source-backed",
+    "title": "Separate quality drift from infrastructure failure with a two-layer monitor",
+    "area": "Reliability",
+    "problem": "A production agent can call every tool without error and still misunderstand the user, and a revoked IAM permission can return an empty response instead of an exception — so quality problems and infrastructure failures look identical from outside.",
+    "apply": "Run an LLM-as-judge layer that asynchronously samples live requests and scores helpfulness, correctness, and goal success without added latency, alongside an autonomous investigator that reads infrastructure logs, builds a resource topology graph, and correlates errors across IAM, model, and runtime to name the specific broken permission or resource.",
+    "result": "AWS reports its airline-reservation case study shows the infrastructure layer isolating a missing bedrock:InvokeModel permission as root cause, keeping it distinct from a quality regression the judge layer would otherwise lump it with.",
+    "effort": "high",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/monitoring-production-agent-lifecycle-with-aws-devops-agent-and-agentcore-evaluations/",
+    "source_sid": "381ed851c46a02e9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS walks through a worked case study; no comparative detection-time or false-positive metrics are reported."
+    },
+    "edition_date": "2026-09-15"
+  },
   "38f362bfcba6a0fa": {
     "id": "pb-self-hosted-control-plane-agent-spend",
     "kind": "source-backed",
@@ -911,6 +930,25 @@
     },
     "edition_date": "2026-07-28"
   },
+  "488d1511cc2dd895": {
+    "id": "pb-track-behavioral-identity-not-agent-name",
+    "kind": "source-backed",
+    "title": "Track an agent's behavioral identity, not its name, across eval and deployment",
+    "area": "Evals",
+    "problem": "Prompt edits, tool-schema changes, model fallbacks, and routing tweaks can drift a deployed agent away from the version that passed evaluation, so the agent in production may no longer be the one that was tested — while still answering to the same name.",
+    "apply": "Bind certification to a specific tracked revision instead of a name: record the context sources, policies, and capabilities each production action actually used, so any run can be replayed to show what governed it, even without deterministic outputs.",
+    "result": "This closes the gap where a config change silently invalidates an eval result, because certification, authorization, and audit all point at the exact behavior that ran rather than just a label.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://www.anuclei.com/blog/you-didnt-deploy-the-agent-you-evaluated",
+    "source_sid": "488d1511cc2dd895",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "The source proposes this as a framework, not a measured before/after result."
+    },
+    "edition_date": "2026-09-15"
+  },
   "499ab97a6a0cb1be": {
     "id": "pb-pod-pool-not-pod-per-agent",
     "kind": "source-backed",
@@ -1062,6 +1100,25 @@
       "note": "Attack success rates and defense-evasion results are measured in the paper's WhisperBench evaluation (108 cases, five risk categories)."
     },
     "edition_date": "2026-07-07"
+  },
+  "5a8e678fa2f5fb55": {
+    "id": "pb-block-lethal-trifecta-exfil",
+    "kind": "source-backed",
+    "title": "Enforce data-exfiltration blocks at the tool layer, not the prompt",
+    "area": "Safety",
+    "problem": "An agent with read access to internal data (Slack, Kubernetes, analytics), live internet access, and write access to a public repo — the 'lethal trifecta' — can leak sensitive internal details into a public commit with no human in the loop to catch it.",
+    "apply": "Add a policy engine that tracks which internal sources an agent has read in a session and blocks, before execution, any tool call that would publish that data to a public destination — combining rule-based checks with LLM classification rather than relying on prompt instructions to hold.",
+    "result": "Archestra reports this closes the exposure the trifecta creates, on the reasoning that prompt instructions are only as reliable as the model's mood.",
+    "effort": "medium",
+    "source": "hackernews_ai",
+    "source_url": "https://archestra.ai/blog/fixing-small-bugs-from-a-slack-thread",
+    "source_sid": "5a8e678fa2f5fb55",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Archestra describes its own policy-engine mitigation; no incident metrics or false-positive rate are given."
+    },
+    "edition_date": "2026-09-15"
   },
   "5adcaaded1a8e3d6": {
     "id": "pb-use-temporary-accounts-for-agent-deploys",
@@ -1557,6 +1614,25 @@
     },
     "edition_date": "2026-07-03"
   },
+  "86abcc6f17fc520e": {
+    "id": "pb-decouple-test-selector-state-store",
+    "kind": "source-backed",
+    "title": "Decouple test-selector state from processing to survive CI's growth curve",
+    "area": "Reliability",
+    "problem": "Anthropic's CI job volume grew 25x in six months as Claude wrote 80% of shipped code, and the singleton listener-plus-selector service behind test impact analysis couldn't scale past that.",
+    "apply": "Split the test-selection service into stateless listener workers that append results to a journal, a separate consumer that rolls journal entries into test history, and a selector that queries that store — instead of one process holding state and picking tests together.",
+    "result": "The old architecture needed a new stopgap patch every 24–70 days as load grew; the decoupled redesign has kept the backlog flat with no recurring strain since.",
+    "effort": "medium",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/agentic-coding-is-straining-ci-heres-how-we-scaled-test-impact-analysis-at-anthropic",
+    "source_sid": "86abcc6f17fc520e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Anthropic reports the patch-lifespan and post-redesign backlog figures from its own CI system."
+    },
+    "edition_date": "2026-09-15"
+  },
   "86b488f1e921fab7": {
     "id": "pb-os-sandbox-default-deny-network",
     "kind": "source-backed",
@@ -1803,6 +1879,25 @@
       "note": "The article states the control cost as 'minimal' qualitatively; no measured before/after attack-rate figure is given."
     },
     "edition_date": "2026-07-31"
+  },
+  "9412f9ee07ba42c4": {
+    "id": "pb-per-caller-credential-resolution",
+    "kind": "source-backed",
+    "title": "Resolve OAuth credentials per caller, not per deployment, in shared agents",
+    "area": "Tool use",
+    "problem": "A single shared API key answers what an agent may do but not who asked, so every action a multi-tenant agent takes lands under one service account regardless of which user triggered it.",
+    "apply": "Split credentials into agent-owned (one static secret shared by every caller) and user-owned (an OAuth grant resolved per caller at runtime via a single connections.get() call), and batch every missing grant into one consent pause before the first model turn instead of prompting mid-run.",
+    "result": "LangChain reports tool actions now carry the actual caller's identity in the same deployment — tickets show the real user's handle and private-repo visibility differs per caller — with no code changes per user.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/connections-managed-credentials-and-per-caller-identity-for-managed-deep-agents",
+    "source_sid": "9412f9ee07ba42c4",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain describes the behavior qualitatively; no quantitative metrics are given."
+    },
+    "edition_date": "2026-09-15"
   },
   "979d921c237f1c0b": {
     "id": "pb-redesign-for-verifiability-before-building-evals",
@@ -2259,6 +2354,25 @@
       "note": "The source measured utilization and priority-weighted value across seven benchmark scenarios on identical hardware."
     },
     "edition_date": "2026-08-21"
+  },
+  "bf9796fab67d335f": {
+    "id": "pb-reuse-attention-scores-across-rag-queries",
+    "kind": "source-backed",
+    "title": "Mine historical attention scores to compress RAG context instead of compressing per query",
+    "area": "Retrieval",
+    "problem": "RAG's longer contexts raise latency, KV-cache memory, and token cost, and most per-query compression methods add enough overhead to offset the savings they create.",
+    "apply": "Build a document-keyed store of importance scores mined from the generator's historical attention traces across repeated document accesses, then generate a budget-specific plain-text view of each retrieved document from that store instead of running a fresh compression pass on every query.",
+    "result": "REVA reports 1.0–5.8 points higher generation quality than existing compression methods, 5.3–15.6x lower compression overhead, and under 40ms of added latency across four benchmarks.",
+    "effort": "high",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2609.11209v1",
+    "source_sid": "bf9796fab67d335f",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper reports these as benchmarked results across four evaluation sets against existing compression methods."
+    },
+    "edition_date": "2026-09-15"
   },
   "c0bd012b2b5ce51e": {
     "id": "pb-treat-sandboxes-like-prod",
