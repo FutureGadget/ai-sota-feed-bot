@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889]
-updated: 2026-09-10
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e]
+updated: 2026-09-15
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e]
 ---
 
 ## TL;DR
@@ -269,8 +269,52 @@ environment, not a generic coding task" thesis this page already argues for
 Rails and security, now applied to cloud-infrastructure operations
 specifically.
 
+The long-horizon front picks up a **multimodal** entrant: Mr.LHDR benchmarks
+deep-research agents on long, irreducible chains of interdependent evidence —
+each question built from a hidden node-relation graph requiring an average of
+12.1 necessary intermediate conclusions at a mean dependency depth of 10.4,
+with at least one non-text element (image, map, PDF, logo, chart, table,
+video frame) that changes the reasoning state. Scoring both the final answer
+and the correctness of intermediate conclusions against annotated
+dependencies, even the strongest evaluated system reaches only 43.1% Overall
+Accuracy and 34.3% Strict Accuracy — evidence that final-answer accuracy
+substantially overestimates complete research success — and removing images
+cuts the dependency-aware checklist score by 12.6 points, the multimodal
+counterpart to this page's mostly-text long-horizon suites (CivBench,
+Emergence World) above.
+
+The security-adjacent domain-narrow list adds a **localization**, not
+detection, benchmark: the Vulnerability Localization Benchmark (VLoc Bench)
+tests whether an agent given only a CWE description and read-only terminal
+access can identify which files in an unfamiliar repository implement a
+named weakness — 500 real vulnerabilities across 290 repositories, six
+package ecosystems, and 147 CWE categories, with matched pre-fix and
+post-fix repository snapshots so the same task also checks whether an agent
+correctly reports a patched repository as clean. Across 27 language models
+and four static-analysis tools, the strongest system reaches only 0.229 File
+F1 and 38.4% of tasks get no correct localization from any evaluated
+system — and localization skill doesn't transfer to remediation-awareness:
+systems that find vulnerable files effectively can still flag unsupported
+locations on the already-patched snapshot. It adds a capability distinct
+from the detect/reproduce/repair axis the tool-agnostic security benchmark
+above already measures (see [prompt injection](/topic/prompt-injection) for
+the attack-surface side of agentic security evaluation).
+
 ## What's new
-AWS-Bench extends the domain-narrow list to cloud infrastructure work:
+The Vulnerability Localization Benchmark (VLoc Bench) tests agentic
+vulnerability *localization* rather than detection or repair — 500
+vulnerabilities across 290 repositories and 147 CWE categories — and finds
+the strongest of 27 evaluated models reaches only 0.229 File F1, with
+localization skill not transferring to correctly clearing an already-patched
+repository (see State of the art above).
+
+Prior update: Mr.LHDR extends the long-horizon axis to multimodal deep research: questions
+built from a hidden node-relation graph averaging 12.1 necessary intermediate
+conclusions at dependency depth 10.4, with the strongest system reaching only
+43.1% Overall Accuracy and losing 12.6 dependency-aware-score points when
+images are removed (see State of the art above).
+
+Prior update: AWS-Bench extends the domain-narrow list to cloud infrastructure work:
 read-only introspection and programmatic-verification mutation tasks against
 real AWS accounts, in curated sets from 9 to 78 tasks, rather than a
 self-contained coding benchmark (see State of the art above).

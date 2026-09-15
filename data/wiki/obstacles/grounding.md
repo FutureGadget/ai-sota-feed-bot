@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b]
-updated: 2026-09-10
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f]
+updated: 2026-09-15
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f]
 ---
 
 ## TL;DR
@@ -252,8 +252,28 @@ the whole retrieval-budget range, it turns "how hard should I search" from
 a fixed knob into a per-query decision the same way this page's compaction
 and reasoning-effort peers already turn cost into one.
 
+**Post-retrieval compression is also getting a reuse-based answer**, distinct
+from the retrieval-architecture and attribution work above: REVA (Reusable
+Evidence View Aggregation) treats RAG compression as a data-mining problem
+rather than a per-query pass — it mines a generator's own historical
+attention traces into a document-keyed, budget-agnostic score store, then
+renders budget-specific plain-text views that preserve document order and
+the standard RAG interface. The authors first show existing compressors have
+unstable gains over simple truncation and can add real inference-time
+latency; REVA improves generation quality by 1.0-5.8 points over those
+baselines while cutting compression overhead 5.3x-15.6x and adding under
+40ms of latency — the same fetch-is-a-cost argument this page already makes
+(the raw-Wikipedia-page token count above), answered by reusing past
+compression work instead of repeating it per query.
+
 ## What's new
-Databricks' Adaptive Instructed-Retriever learns, via RL, when a query needs
+REVA mines a generator's historical attention traces into a reusable,
+document-keyed compression store instead of compressing retrieved context
+fresh per query, improving generation quality 1.0-5.8 points over existing
+compressors while cutting compression overhead 5.3x-15.6x and adding under
+40ms of latency (see State of the art above).
+
+Prior update: Databricks' Adaptive Instructed-Retriever learns, via RL, when a query needs
 one parallel search pass versus sequential multi-hop search, matching
 frontier-model answer quality at roughly half the latency and dominating
 several models' quality-vs-cost curve across the retrieval-budget range —
