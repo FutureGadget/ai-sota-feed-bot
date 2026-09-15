@@ -3714,6 +3714,29 @@
   "type": "news",
   "url": "https://www.interconnects.ai/p/latest-open-artifacts-24-motif-3"
  },
+ "6726c9df5fadbf36": {
+  "first_seen": "2026-09-15T21:03:36.736450+00:00",
+  "id": "e863f4c4458c2f57",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-09-15T20:23:03+00:00",
+  "release_highlights": [
+   "Added x-claude-code-request-class , x-claude-code-agent-type , x-claude-code-prev-tool-durations , x-claude-code-compaction and x-claude-code-context-compact...",
+   "Added a notification when an MCP server disconnects mid-session and automatic reconnection gives up, pointing at /mcp",
+   "Added forking a session started with claude --remote-control or /remote-control from the Claude app; the fork runs as a background session on your computer"
+  ],
+  "sid": "6726c9df5fadbf36",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added x-claude-code-request-class , x-claude-code-agent-type , x-claude-code-prev-tool-durations , x-claude-code-compaction and x-claude-code-context-compacted request headers for LLM gateways; opt in with CLAUDE_CODE_GATEWAY_HINT_HEADERS=1 Added a notification when an MCP server disconnects mid-session and automatic reconnection gives up, pointing at /mcp Added forking a session started with claude --remote-control or /remote-control from the Claude app; the fork runs as a background session on your computer Fixed Bash commands the permission checker cannot fully analyze skipping the prompt under permissions.blockReadsOutsideWorkingDirectories , and a subshell hiding a dangerous rm in bypass mode Fixed skills synced from claude.ai staying available after your organization turns Skills off; they now move to the recoverable trash Fixed allowManagedMcpServersOnly , deniedMcpServers and disableClaudeAiConnectors set via MDM or managed-settings.json being ignored when server-managed settings are also present Fixed 401/403 errors on Bedrock, Vertex and Foundry, and Claude apps gateway 403s, telling you to run /login ; the message now names the credential to refresh or points to your gateway administrator Fixed /login , /upgrade , and /extra-usage discarding earlier thinking from the conversation, which forced a full prompt-cache rewrite on the next request Fixed auto mode stopping for approval when the Artifact tool uploads a file you attached to the chat in a cloud",
+  "summary_1line": "Added x-claude-code-request-class , x-claude-code-agent-type , x-claude-code-prev-tool-durations , x-claude-code-compaction and x-claude-code-context-compact... · Added a notification when an MCP server disconnects mi...",
+  "title": "claude-code v2.1.273",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.273",
+  "why_it_matters": "Matches feed focus: agent, eval, claude code."
+ },
  "67352ef100b6cb9f": {
   "first_seen": "2026-09-15T19:03:34.718933+00:00",
   "id": "0baa246f07c666ba",
@@ -7198,6 +7221,18 @@
   "url": "https://c4.quietgridlabs.com",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "c7fccaf3c76e774a": {
+  "first_seen": "2026-09-15T21:03:36.736450+00:00",
+  "id": "f0b7499c9a7d4d0f",
+  "published": "2026-09-15T00:00:00+00:00",
+  "sid": "c7fccaf3c76e774a",
+  "source": "vllm_blog",
+  "summary": "How Speculators and Mooncake enabled multi-node DSpark training for Kimi K3.",
+  "summary_1line": "How Speculators and Mooncake enabled multi-node DSpark training for Kimi K3.",
+  "title": "How we trained the fastest DSpark for Kimi-K3 using GB300 NVL72",
+  "type": "news",
+  "url": "https://vllm.ai/blog/2026-09-15-kimi-k3-dspark"
+ },
  "c863a0b3099c583c": {
   "first_seen": "2026-09-15T17:03:35.316262+00:00",
   "id": "1d327cc67b3238ba",
@@ -7573,6 +7608,26 @@
   "title": "Moonshot’s massive IPO means Chinese AI companies need to start making big money",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9iaWNGU1V1aEFld2FjTWZtVTZUN3JfU1V3a3lpM29qNmZraWRMazVsLUtXVHF0UWxETHRrcnkydW1qMV9RTkdyUk1ldEU4cEo3RzVMdk5WdDBibjdWOF9LR1BqU2ZPRG5FaXAtY2tjOGFoNU5iYUxj?oc=5"
+ },
+ "d0e22204dfaa8824": {
+  "first_seen": "2026-09-15T21:03:36.736450+00:00",
+  "id": "e65bfaed1bb50417",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-15T20:38:09+00:00",
+  "release_highlights": [
+   "snapshot option for system prompts : Added a snapshot field to SystemPromptPreset and a new SystemPromptCustom typed dict. When snapshot is True, the session...",
+   "Updated bundled Claude CLI to version 2.1.273"
+  ],
+  "sid": "d0e22204dfaa8824",
+  "source": "claude_agent_sdk_python_releases",
+  "summary": "New Features snapshot option for system prompts : Added a snapshot field to SystemPromptPreset and a new SystemPromptCustom typed dict. When snapshot is True, the session keeps the system prompt recorded on its first request, improving prompt-caching behavior across resumed sessions. When False, the prompt is rebuilt on every request, useful for iterating on append text. Requires CLI 2.1.257+ ( #1268 ) Internal/Other Changes Updated bundled Claude CLI to version 2.1.273 PyPI: https://pypi.org/project/claude-agent-sdk/0.2.153/ pip install claude-agent-sdk==0.2.153",
+  "summary_1line": "snapshot option for system prompts : Added a snapshot field to SystemPromptPreset and a new SystemPromptCustom typed dict. When snapshot is True, the session... · Updated bundled Claude CLI to version 2.1.273",
+  "title": "claude-agent-sdk-python v0.2.153",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.153",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "d1a20e5253c90dfb": {
   "first_seen": "2026-09-03T14:03:17.036163+00:00",
@@ -8341,6 +8396,19 @@
   "type": "news",
   "url": "https://www.infoq.com/podcasts/train-developers-ai-routine-work/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "eb64bf46642bd168": {
+  "first_seen": "2026-09-15T21:03:36.736450+00:00",
+  "id": "ed1986bba3891330",
+  "image_url": "https://substackcdn.com/image/fetch/$s_!hNAj!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fb32a5826-6fd5-4608-bc04-4240a5e538df_2560x1440.png",
+  "published": "2026-09-15T20:11:54+00:00",
+  "sid": "eb64bf46642bd168",
+  "source": "latent_space",
+  "summary": "Good Start Labs trained an AI on a railroad game — and one version improved at financial research. The difference was the training design.",
+  "summary_1line": "Good Start Labs trained an AI on a railroad game — and one version improved at financial research. The difference was the training design.",
+  "title": "Can Skills Learned in Games Transfer to Real-World Work?",
+  "type": "news",
+  "url": "https://www.latent.space/p/good-start-labs"
  },
  "eb7b9a0b2463f3a2": {
   "first_seen": "2026-09-02T01:03:10.708092+00:00",
