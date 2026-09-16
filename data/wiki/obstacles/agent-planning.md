@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691]
-updated: 2026-09-03
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f]
+updated: 2026-09-16
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f]
 ---
 
 ## TL;DR
@@ -273,8 +273,24 @@ shape on the same theme: Keel pitches itself as "a conductor, not an agent
 loop," an explicit alternative framing to the loop-as-primitive pattern
 this page's harness thread already assumes.
 
+A new benchmark sharpens exactly how far "long-horizon" planning really
+extends: Tasks over Application Manuals (TAM) tests whether a model can
+follow real-world procedural instructions spanning hundreds of pages of
+interdependent guidelines, rather than the short-horizon, few-step
+retrieval chains most multi-hop-reasoning benchmarks use — a
+distribution-shift edge for planning specifically, alongside the
+reasoning-only long-horizon gaps [agent evaluation](/topic/agent-evaluation)
+already tracks (OmniaBench, CivBench), this time testing whether a plan can
+stay consistent against a manual instead of a task graph.
+
 ## What's new
-"Loop engineering" gains mainstream vocabulary (GitHub's own podcast
+A new benchmark, Tasks over Application Manuals (TAM), tests long-horizon
+procedural reasoning against real manuals spanning hundreds of pages of
+interdependent guidelines — a harder distribution-shift edge than the
+short-horizon multi-hop benchmarks most planning evals use (see State of the
+art above).
+
+Prior update: "Loop engineering" gains mainstream vocabulary (GitHub's own podcast
 decodes the term alongside "harnesses" and "squads") and two new
 benchmarks: LoopArena scores a loop's guidance separately from the coding
 agent's raw capability, and CordisBench tests reasoning about a dynamic
