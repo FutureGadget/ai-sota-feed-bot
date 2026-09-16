@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e]
-updated: 2026-09-12
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8]
+updated: 2026-09-16
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8]
 ---
 
 ## TL;DR
@@ -257,8 +257,43 @@ actually per-run variance that memory, not a bigger model, can close (see
 [agent memory](/topic/agent-memory) for the storage side of the same
 mechanism).
 
+Hallucination mitigation is also advancing on the decoding side, not just
+post-hoc detection: DescaPE identifies a factual-salient layer span inside
+the model via sliding-window MLP ablation and uses that internal signal to
+suppress hallucination-prone generation trajectories before the snowballing
+effect of early factual errors compounds through autoregressive generation —
+the same contain-it-during-generation instinct HALO and ReWEIGH already
+argue for on this page, here targeting plain-text generation rather than
+vision-language decoding. A second pipeline attacks the detection side with
+a quantified number: a multi-signal classifier combining fine-tuned
+DeBERTa-v3, Monte Carlo Dropout uncertainty estimation, and
+temperature-scaled calibration reaches F1=0.915 and AUROC=0.977 on the
+HaluEval benchmark, with MC Dropout inference alone pushing accuracy to
+93.2% — evidence that response-level hallucination detection is reaching a
+precision worth wiring into a production gate, not just reporting as a
+research metric.
+
+The "prove it did the work" thread also gets a practitioner framing for why
+verification, not generation, is now the bottleneck: as AI-generated code
+volume grows, the security weaknesses and familiar bug patterns it
+introduces mean the engineering cost has moved from writing code to
+detecting where AI-generated behavior diverges from stated intent — the
+same tools-for-certainty argument this page already makes, restated as a
+shift in where a team's review effort has to go.
+
 ## What's new
-On AppWorld with a ReAct agent (GPT-4.1), the same task run five times
+Two hallucination-mitigation approaches attack the problem from opposite
+ends: DescaPE suppresses hallucination-prone trajectories during decoding by
+identifying a factual-salient layer span via sliding-window MLP ablation,
+while a separate multi-signal pipeline (fine-tuned DeBERTa-v3, MC Dropout,
+temperature-scaled calibration) detects hallucinations after the fact at
+F1=0.915/AUROC=0.977 on HaluEval. Separately, a practitioner framing argues
+the bottleneck for AI-generated code has moved from generation to
+verification — detecting where agent behavior diverges from intent — as the
+security weaknesses and familiar bugs AI-written code introduces accumulate
+(see State of the art above).
+
+Prior update: On AppWorld with a ReAct agent (GPT-4.1), the same task run five times
 succeeds on every run only 53% of the time despite a 77% average per-run
 pass rate — a 24-point "consistency gap" distinct from the infra-noise gap
 this page already tracks. A self-evolving framework closes part of it by
