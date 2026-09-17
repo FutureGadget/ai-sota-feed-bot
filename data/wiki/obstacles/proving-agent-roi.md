@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, llm-as-judge]
 obstacles: []
 related_storylines: []
-evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef]
-updated: 2026-09-14
-covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef]
+evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef, 3c123bff8ba1a302]
+updated: 2026-09-17
+covers_evidence: [c4fa725d5c123b2d, 00f3793762a13f49, 4a5901ff818ec6d5, 769505c4770ec3dc, 4235792e910ea51a, 19e4caf222bfb0d9, a495552f9c306031, 055894614946248f, c5c5248230951857, 069dd5549b1700c4, 26b283e0296ba33f, 136f83bb402008db, 76b9048de1c5767f, a1b72811dd254b50, 27f2f50d69e9ceef, 3c123bff8ba1a302]
 ---
 
 ## TL;DR
@@ -71,8 +71,31 @@ weekly active usage. The same vendor-published-single-customer caveat as
 adoption rate broaden the ROI vocabulary this page tracks beyond a single
 productivity number.
 
+**A rollout-scale counter-example complicates the outcome-side case studies
+above:** Databricks reports that rolling out a frontier coding model to
+roughly 3,500 engineers raised total coding spend by about 60%, despite the
+model's reputation for token efficiency — because the model "unambiguously"
+helps on complex, long-horizon tasks but "may not materially improve
+medium/low-complexity coding," the bulk of day-to-day work. Databricks'
+response was to add a dedicated budget tier steering the model toward the
+tasks it actually pays off on, rather than blanket-deploying it — the
+practical instance of the cost-per-task attribution this page already
+argues for, arrived at only after an unattributed rollout produced a spend
+spike the case studies above don't surface. The report reached the public
+secondhand (an executive's own social-media post via a newsletter), not a
+company blog, so treat the 60% figure as directional rather than audited.
+
 ## What's new
-A second named customer case study widens the outcome-side ROI vocabulary
+A rollout-scale counter-example complicates this page's outcome-side case
+studies: Databricks reports a ~60% total coding-spend increase after
+deploying a frontier coding model to ~3,500 engineers, because the model
+helps most on complex/long-horizon work but not the medium/low-complexity
+majority of day-to-day tasks — prompting a dedicated budget tier to steer
+the model toward where it pays off, a practical instance of the
+cost-per-task attribution this page argues for (see State of the art
+above).
+
+Prior update: A second named customer case study widens the outcome-side ROI vocabulary
 past a single productivity percentage: LangChain's own GTM sales agent
 reports a 250% lift in lead-to-qualified-opportunity conversion, 40
 hours/month reclaimed per rep (1,320 hours team-wide), and 50%/86%
