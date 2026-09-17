@@ -2440,6 +2440,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.152.0",
   "why_it_matters": "Matches feed focus: agent, codex."
  },
+ "3d918bdf08155ca0": {
+  "first_seen": "2026-09-17T05:03:38.732127+00:00",
+  "id": "d996bb29d075be6c",
+  "matched_topics": [
+   "agentic"
+  ],
+  "published": "2026-09-16T16:55:46+00:00",
+  "sid": "3d918bdf08155ca0",
+  "source": "arxiv_cs_lg",
+  "summary": "Mixture-of-Experts (MoE) language models suffer from large parameter counts, which create a significant memory bottleneck. Expert pruning is the most direct approach for reducing this parameter count, yet existing methods make pruning decisions for each expert independently, and assume experts' contributions are purely additive. In reality, expert usage in MoEs is inherently cooperative. We derive HOPE (Higher-Order Pruning of Experts), a second-order pruning objective which provably minimizes an upper bound on the error resulting from pruning. We show that REAP (a state-of-the-art first-order pruning method) is a special case of HOPE where interaction terms are ignored. Across three frontier MoE models (up to 122B parameters), two distinct calibration sets, and multiple benchmarks (including math, instruction following, coding, and an agentic suite), we demonstrate that HOPE produces better pruning decisions than existing methods, and its advantage is most pronounced at high pruning rates and on challenging agentic workloads. At 50% pruning, HOPE outperforms all baselines and achieves an average rank of 1.58 out of 5 methods (versus 2.42 for the next-best method, REAP), with gains of up to +6.1% on agentic coding. Over all conditions, HOPE again achieves the best average rank and surpasses every other method in the majority of head-to-head comparisons. By preserving cooperative expert structure that first-order methods ignore, HOPE enables aggressive compression with minimal",
+  "summary_1line": "Mixture-of-Experts (MoE) language models suffer from large parameter counts, which create a significant memory bottleneck. Expert pruning is the most direct approach for reducing this parameter count, yet existing met...",
+  "title": "Higher-order pruning of experts in mixture-of-experts language models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.18916v1",
+  "why_it_matters": "Matches feed focus: agentic."
+ },
  "3dac7b2c509fcd37": {
   "first_seen": "2026-09-04T18:03:13.937329+00:00",
   "id": "61bb5dd8aabb5fcc",
@@ -2565,6 +2581,19 @@
   "type": "news",
   "url": "https://claude.com/blog/the-anatomy-of-effective-commerce-agents",
   "why_it_matters": "Matches feed focus: agent, eval."
+ },
+ "40debcac691f7d0f": {
+  "first_seen": "2026-09-17T05:03:38.732127+00:00",
+  "id": "4bf3ee8bfbd00dfa",
+  "image_url": "https://res.infoq.com/news/2026/09/gpt-6-astra-critical-cyber/en/headerimage/generatedHeaderImage-1789311714190.jpg",
+  "published": "2026-09-17T04:59:00+00:00",
+  "sid": "40debcac691f7d0f",
+  "source": "infoq_ai_ml",
+  "summary": "OpenAI has classified GPT-6 Astra at the Critical cybersecurity threshold under its Preparedness Framework, a first. In expert-led testing the model found previously unknown vulnerabilities in a browser and an OS kernel and built working exploits. The same system card reports a substantial decline in chain-of-thought monitorability. By Steef-Jan Wiggers",
+  "summary_1line": "OpenAI has classified GPT-6 Astra at the Critical cybersecurity threshold under its Preparedness Framework, a first. In expert-led testing the model found previously unknown vulnerabilities in a browser and an OS kern...",
+  "title": "GPT-6 Astra Is the First Model OpenAI Classifies as Critical for Cybersecurity",
+  "type": "news",
+  "url": "https://www.infoq.com/news/2026/09/gpt-6-astra-critical-cyber/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering"
  },
  "40f0d79418f0d96a": {
   "first_seen": "2026-09-10T04:02:53.882094+00:00",
@@ -8280,16 +8309,16 @@
  },
  "cb08c3ec4026c81c": {
   "first_seen": "2026-09-17T04:03:32.808094+00:00",
-  "id": "acbf88640cbf0554",
+  "id": "7ce55456786241b2",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-09-17T03:44:04+00:00",
+  "published": "2026-09-17T04:37:58+00:00",
   "sid": "cb08c3ec4026c81c",
   "source": "openai_codex_releases",
   "summary": "Release 0.155.0-alpha.16",
   "summary_1line": "Release 0.155.0-alpha.16",
-  "title": "codex rust-v0.155.0-alpha.16",
+  "title": "codex 0.155.0-alpha.16",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.16",
   "why_it_matters": "Matches feed focus: codex."
@@ -9160,6 +9189,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2609.04010v1",
   "why_it_matters": "Matches feed focus: agentic, eval."
+ },
+ "e20c8668ed3c5802": {
+  "first_seen": "2026-09-17T05:03:38.732127+00:00",
+  "id": "714f0662ab90946f",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-09-16T15:19:05+00:00",
+  "sid": "e20c8668ed3c5802",
+  "source": "arxiv_cs_ai",
+  "summary": "Coding agents are typically evaluated with desired behavior specified through issues or instructions. In practical web development, however, agents may need to infer behavior from working software and implement it in an incomplete application. We introduce ProgramDistill, a benchmark evaluating coding agents on features discovered through interaction with fully functional reference applications. We build ProgramDistill by factorizing applications into features of different granularities, each associated with replayable behaviors executable via its gold patch. Our pipeline, mine-craft-patch, discovers 1,975 replay-verified behaviors across 26 applications and constructs 4,063 tasks without human intervention. Across nine frontier coding agents, GPT-6 Astra and Claude Opus 5 achieve 49.2% and 28.8% success on cumulative workflows in full-application reconstruction. In partial-application reconstruction, success falls from 100% to 64.0% and from 96% to 32% as restoration depth increases from 1 to 8. ProgramDistill thus provides a scalable benchmark with controlled difficulty for evaluating and diagnosing coding agents, and a natural basis for future curriculum-based training.",
+  "summary_1line": "Coding agents are typically evaluated with desired behavior specified through issues or instructions. In practical web development, however, agents may need to infer behavior from working software and implement it in...",
+  "title": "ProgramDistill: From Interactive Web Apps to Verifiable Reference-Guided SWE Tasks",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.18805v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
  },
  "e232d119b255205b": {
   "first_seen": "2026-09-15T16:03:43.801808+00:00",
@@ -10100,8 +10146,8 @@
   "published": "2026-09-17T02:03:48+00:00",
   "sid": "ff931a7d760d232b",
   "source": "search_cn_open_weight_labs",
-  "summary": "Tencent Open-Sources WeKnora With Official DeepSeek Harness Plugin pandaily.com",
-  "summary_1line": "Tencent Open-Sources WeKnora With Official DeepSeek Harness Plugin pandaily.com",
+  "summary": "Tencent Open-Sources WeKnora With Official DeepSeek Harness Plugin Pandaily",
+  "summary_1line": "Tencent Open-Sources WeKnora With Official DeepSeek Harness Plugin Pandaily",
   "title": "Tencent Open-Sources WeKnora With Official DeepSeek Harness Plugin",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1QUkc5YnNGS19SRFFqUjRybUVVY3l4UldSSXdKMXRVU0lLb0NhZl9MSkJ6ZlNrY2lmYzVETE1FaV9MWXJGdVBEaXdBRzBRaGxZMlB0UHhJNXBhRE5JU1A1MUFURDFsZmxQdVVuemVxbHFqbTR1MHYxaklFT3A?oc=5",
