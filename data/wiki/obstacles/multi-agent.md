@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c]
-updated: 2026-09-10
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00]
+updated: 2026-09-17
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00]
 ---
 
 ## TL;DR
@@ -287,6 +287,26 @@ multi-robot task orchestration and collaboration to its video-understanding
 model, the same specialized-roles-coordinated-toward-one-goal pattern this
 page tracks for software agents, now running across physical robots.
 
+The `await human()` primitive above has a production instance at
+regulated-industry scale: Included Health's Dot is a "supergraph" of a main
+LangGraph router agent plus domain-owned sub-workflows (urgent-care intake,
+scheduling, specialist finding, behavioral health), built on Deep Agents so
+different product teams can own separate sub-workflows while sharing
+platform capabilities rather than each rebuilding its own agent stack. When
+the router hits uncertainty it pauses execution, routes the conversation to
+a human care advocate, and resumes with full context intact once the human
+has helped it get unblocked — the human augments the agent's judgment
+rather than redoing its work. Clinical oversight runs as a second,
+continuous layer on top: every conversation enters a review queue where
+clinicians check whether routing recommendations and emergency-escalation
+triggers were correct, with labels exported to operational dashboards. In
+production this reports a 75% lift in chat engagement, clinician agreement
+on care recommendations exceeding a 95% target, and over 99% detection of
+high-risk situations on regular audit — a named, numbers-backed instance of
+"put the coordination in ordinary code" (the pause/resume mechanism) paired
+with the durable oversight loop a safety-critical domain actually needs,
+not just the one-shot approval gate a single `await human()` call implies.
+
 Anthropic's collusion finding now has a **detection** counterpart, and it
 lands on an uncomfortable premise: agents can coordinate through continuous
 hidden states that never appear in the public transcript, so reading the
@@ -361,7 +381,16 @@ full-context concatenation's quality on two of three models while using
 whether context learned by one agent actually reaches another.
 
 ## What's new
-Kernel-managed shared memory answers this page's "what does the next agent
+Included Health's Dot puts a production, regulated-industry instance behind
+this page's `await human()` primitive: a LangGraph router plus domain-owned
+sub-workflows (Deep Agents) pauses on uncertainty, hands off to a human
+care advocate, and resumes with full context once unblocked, while a
+separate continuous clinician-review layer checks routing and
+emergency-escalation calls — reporting a 75% engagement lift, clinician
+agreement above a 95% target, and over 99% high-risk detection on audit
+(see State of the art above).
+
+Prior update: Kernel-managed shared memory answers this page's "what does the next agent
 need to see" question at the system level: an agent-system kernel, not
 individual agents, governs cross-agent memory writes and retrieval,
 matching full-context concatenation's quality on two of three tested models

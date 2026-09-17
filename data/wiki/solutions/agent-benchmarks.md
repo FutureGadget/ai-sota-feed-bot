@@ -5,9 +5,9 @@ title: "Agent benchmarks: fixed tasks that exercise real tool use"
 status: active
 obstacles: [agent-evaluation]
 related_storylines: []
-evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e]
-updated: 2026-09-15
-covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e]
+evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e, 8953d96ac6a84322, 38522ce275c55bf2, 58e167770f5901f7]
+updated: 2026-09-17
+covers_evidence: [432c23c0dd1c00f1, f07b6a3f3f344020, 55809dc9368e7936, 8f76e67ad854a6c0, 64ad8e685ed41a9b, 3abcf8c08cb66506, e214c4d6ded906fa, 4500a2b43ff7ed73, ebc3627096b332c8, 45c05959600cf833, 72d3e39506f8db79, 8957450e5744d59e, a803b4966933291a, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, b1327bdaf1fdb10d, bb53999f247d993c, 33347a0b1de54b78, 76abb26fe81fb012, d8ea565801623af0, 64cfadf91532a8d8, aebd52611d2bd6be, 7a6b5f1921def089, 4c751bb0914d78b0, 13619e816aa57836, 6db5a9df32bfdf66, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, 47fb1c35deeeb68f, ddce7e0a20f47f4f, 51ec32a462a2cfdd, 48e28a799bb4c87a, 59c692b9d0ccdcdf, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, f20da07924cad594, 3d4de4cad355f358, 7e8be5a0a9bb8f5b, 96e818e4eab0da8b, 71d13489a25b073e, 2e209b3bcae89889, dc621be83d95aa16, 444fb602f604192e, 8953d96ac6a84322, 38522ce275c55bf2, 58e167770f5901f7]
 ---
 
 ## TL;DR
@@ -51,6 +51,28 @@ runs touch the network, filesystem, and shifting tool versions, a score only
 means something if the environment is fixed — Proctor packages coding-agent
 benchmarks as signed, isolated bundles so a run can be reproduced (and a
 leaderboard claim audited) rather than taken on faith.
+
+**A production instance names what "trust the benchmark" takes in
+practice**: Elastic built an agent harness that lets an AI agent propose
+Elasticsearch performance optimizations, phased into exploration
+(mining real workloads for opportunities), exploitation (iterating against
+microbenchmarks), and validation (production-workload testing). Trust comes
+from statistical discipline, not a single before/after run: a paired
+stash-flip comparison runs candidate and baseline back to back to cancel
+thermal drift, a two-sided Mann-Whitney U test plus a seeded bootstrap
+confidence interval judges significance with the fork (not the iteration)
+as the statistical unit, and the accept bar is benchmark-and-machine
+specific — the minimum effect size has to clear that pairing's own
+A/A-calibrated noise floor, not a global threshold. Anti-gaming guards run
+alongside the primary benchmark: adversarial guard workloads catch
+regressions the target metric misses (one candidate improved the common
+case while degrading collision-heavy key distributions), an allocation
+check flags wins bought with more than ~15% extra garbage, and the agent
+can add tests but never modify or delete one, closing off the easiest way
+to game a correctness check. Human approval gates the handoffs that matter
+— benchmark registration, opportunity promotion, branch publication — so
+the agent proposes and the statistical machinery plus a human decide,
+rather than either alone.
 
 **Adversarial tool environments**: rather than assuming tools behave, "Beyond
 Function Calling" scores agents when tools time out, error, or return
@@ -182,6 +204,30 @@ page's standing "the harness is part of what you benchmark" finding into a
 challenge to the benchmark's own validity as a measurement instrument, not
 just its reproducibility or noise.
 
+The construct-validity critique gets a **measured** instance rather than
+only an analytical one: ReFigBench scores coding agents on reconstructing
+1,000 real arXiv overview figures as editable PowerPoint slides, running
+the strongest model inside two commercial harnesses under two workflows
+(direct code generation and a specialized PPTX pipeline) for ten
+configurations total. The same model gains from the specialized workflow
+inside one harness and loses inside the other, and harness choice shifts
+scores even under an identical direct prompt — a concrete, numbered
+instance of "score differences reflect the harness, not just the model"
+rather than an argument that they might.
+
+The gaming risk the construct-validity critique implies — that a harness
+itself can be optimized to inflate a released-benchmark score without
+genuine capability gains — gets a named countermeasure: Counterfactual
+Harness Search and Evolution (CHASE) treats harness evolution as a search
+for protocol changes that would destroy most of a claimed gain while
+preserving task semantics, maintaining a validity firewall and a finite
+archive of confirmed counterfactuals so a "cheating harness" that exploits
+a benchmark-wide shortcut gets flagged rather than rewarded. On OfficeQA it
+retains most of a harness's genuine released-benchmark gains while
+substantially reducing the gain that a counterfactual protocol change would
+destroy — a mechanism for the benchmark itself to resist the same harness
+gaming this page's construct-validity critique names as a risk.
+
 The domain-narrow list adds a **code-review** instance alongside ScarfBench's
 Java migrations and GameEngineBench's game-engine runtimes: LangChain's
 ReviewBench scores code-review agents against real PR feedback from trusted
@@ -301,7 +347,25 @@ above already measures (see [prompt injection](/topic/prompt-injection) for
 the attack-surface side of agentic security evaluation).
 
 ## What's new
-The Vulnerability Localization Benchmark (VLoc Bench) tests agentic
+Two entries sharpen this page's construct-validity critique with a
+measured instance and a named countermeasure: ReFigBench finds the same
+model gains from a specialized workflow inside one commercial harness and
+loses inside another, with harness choice shifting scores even under an
+identical prompt, across ten model/harness/workflow configurations
+reconstructing 1,000 arXiv figures as editable slides; CHASE (Counterfactual
+Harness Search and Evolution) answers the resulting gaming risk by searching
+for protocol changes that would destroy most of a harness's claimed gain
+while preserving task semantics, retaining genuine gains on OfficeQA while
+substantially reducing gain that doesn't survive a valid counterfactual.
+Separately, Elastic's production code-optimization harness names what
+"trust the benchmark" costs at that scale: paired stash-flip trials against
+thermal drift, a Mann-Whitney U test plus bootstrap CI with the fork as the
+statistical unit, benchmark-specific noise floors, adversarial guard
+workloads, an allocation check against garbage-bought speed, add-only
+testing, and human approval on registration/promotion/publication (see
+State of the art above).
+
+Prior update: The Vulnerability Localization Benchmark (VLoc Bench) tests agentic
 vulnerability *localization* rather than detection or repair — 500
 vulnerabilities across 290 repositories and 147 CWE categories — and finds
 the strongest of 27 evaluated models reaches only 0.229 File F1, with
