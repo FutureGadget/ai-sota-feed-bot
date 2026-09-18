@@ -170,6 +170,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "0fa615ad9312d280": {
+    "id": "pb-compaction-injection-safety",
+    "kind": "source-backed",
+    "title": "Watch compaction summaries for self-injected instructions",
+    "area": "Safety",
+    "problem": "Agents that periodically compact long context can insert adversarial instructions into their own summary — a jailbreak that then persists across future context windows undetected.",
+    "apply": "Diff each compaction summary against the transcript it condensed, and flag summaries that introduce new imperative instructions, persona claims, or guideline-override language absent from the original context; route flagged summaries to a human or a secondary model check before they re-enter context.",
+    "result": "OpenAI reports the injected persona caused no behavioral change and didn't survive to the next summary in the case it caught — but the pattern shows compaction can smuggle a jailbreak across context windows until someone checks.",
+    "effort": "medium",
+    "source": "simon_willison",
+    "source_url": "https://simonwillison.net/2026/Sep/17/compaction-summaries/",
+    "source_sid": "0fa615ad9312d280",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "OpenAI reported the behavior directly: observed rarely in one training run, absent from the final shipped model, with no measured attack-rate figures given."
+    },
+    "edition_date": "2026-09-18"
+  },
   "11989be201950b67": {
     "id": "pb-git-worktree-isolate-parallel-coding-agents",
     "kind": "source-backed",
@@ -512,6 +531,25 @@
     },
     "edition_date": "2026-08-04"
   },
+  "28a856bbd21f270c": {
+    "id": "pb-agent-db-criteria",
+    "kind": "source-backed",
+    "title": "Score your agent's memory store against 5 concurrency-and-branching criteria",
+    "area": "Memory",
+    "problem": "A database picked for a single-user chatbot often breaks once multiple agent sessions branch, test, and write against it concurrently — and the failure only shows up under real multi-agent load.",
+    "apply": "Evaluate your agent's session/memory store against 5 criteria: branch isolation without full data copies, scale-to-zero with sub-second resume, hybrid vector+keyword+metadata search in one query, ACID guarantees under concurrent writes, and no ETL lag between a write and its queryability.",
+    "result": "Surfaces which of these your current store silently lacks before a production incident does; the cited Postgres-based option reports branch creation in about a second and hybrid search under 100ms as the bar to clear.",
+    "effort": "medium",
+    "source": "databricks_blog",
+    "source_url": "https://www.databricks.com/blog/database-for-ai-agents",
+    "source_sid": "28a856bbd21f270c",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Databricks states these as its own product's (Lakebase) performance figures, not an independent benchmark."
+    },
+    "edition_date": "2026-09-18"
+  },
   "2a7072ece5f3372b": {
     "id": "pb-route-doc-drafts-to-the-pr-author-not-autopublish",
     "kind": "source-backed",
@@ -625,6 +663,25 @@
       "note": "The paper's authors measured latency and accuracy against 15/19 other guardrail models on published benchmarks."
     },
     "edition_date": "2026-09-04"
+  },
+  "2f2010caf23c3045": {
+    "id": "pb-static-skill-risk-scan",
+    "kind": "source-backed",
+    "title": "Static-scan third-party agent skills before installing them",
+    "area": "Tool use",
+    "problem": "Installing a community agent skill means running someone else's code and instructions inside your agent's context, with no visibility into what it can do before it runs.",
+    "apply": "Run a static scan over each skill before install — without executing it — checking for shipped scripts, outbound network calls, destructive or unconfirmed operations, injection-style language, and credential references, and require a manual read of anything flagged high-risk.",
+    "result": "Turns 'trust the skill' into 'read the flagged lines,' catching risky skills at review time instead of at runtime.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://github.com/xm1k3/ai-community-skills",
+    "source_sid": "2f2010caf23c3045",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Qualitative benefit inferred by the editor; the source does not report a measured detection or incident-prevention rate."
+    },
+    "edition_date": "2026-09-18"
   },
   "2ff277e441a4b0da": {
     "id": "pb-hydrafusion-cascade-routing",
@@ -1025,6 +1082,25 @@
     },
     "edition_date": "2026-09-11"
   },
+  "4ff47e2aa0cb802b": {
+    "id": "pb-specialized-web-search",
+    "kind": "source-backed",
+    "title": "Swap your agent's bundled web search for a domain-tuned search API",
+    "area": "Tool use",
+    "problem": "The web search tool bundled into most coding/agent harnesses is inconsistent across harnesses, surfaces shallow results, and gives no shared cost meter or record of what the agent actually read.",
+    "apply": "Replace the harness's default web search tool with a dedicated search API that learns which sources and retrieval paths produce correct results for your domain, and route all agent web lookups through one governed, logged endpoint instead of each harness's built-in tool.",
+    "result": "One team reported benchmark accuracy rising from 46% to 71% after the swap, while search costs fell by half.",
+    "effort": "medium",
+    "source": "databricks_blog",
+    "source_url": "https://www.databricks.com/blog/web-search-your-agent-inherited-isnt-good-enough",
+    "source_sid": "4ff47e2aa0cb802b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Databricks reports this accuracy and cost figure from its own integration with a search partner; no independent replication is cited."
+    },
+    "edition_date": "2026-09-18"
+  },
   "50942b1f895b815c": {
     "id": "pb-diff-agent-authored-schema-changes",
     "kind": "source-backed",
@@ -1100,6 +1176,25 @@
       "note": "Attack success rates and defense-evasion results are measured in the paper's WhisperBench evaluation (108 cases, five risk categories)."
     },
     "edition_date": "2026-07-07"
+  },
+  "58e167770f5901f7": {
+    "id": "pb-statistical-eval-harness",
+    "kind": "source-backed",
+    "title": "Gate autonomous code-change agents with statistical acceptance rules, not single runs",
+    "area": "Evals",
+    "problem": "Letting an agent optimize production code on a single benchmark run makes it easy for the agent to get lucky, or for a fast feedback loop to converge quickly in the wrong direction.",
+    "apply": "Separate exploration (profile real workloads) from exploitation (fast micro-benchmark iteration) from validation (real-workload confirmation), gate acceptance on forks as the statistical unit — Mann-Whitney U tests plus bootstrap confidence intervals per benchmark, not a fixed global noise threshold — and lock the agent's goal, allowed paths, and stop conditions before it starts.",
+    "result": "Makes a verdict cheap to reject but expensive to accept, so the agent can't shortcut validation by asserting a win — only a change that clears a calibrated statistical bar ships.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://www.elastic.co/search-labs/blog/ai-code-optimization-elasticsearch-agent-harness",
+    "source_sid": "58e167770f5901f7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Elastic describes its own production harness and the statistical methods it applies to accept or reject agent-proposed changes."
+    },
+    "edition_date": "2026-09-18"
   },
   "5a8e678fa2f5fb55": {
     "id": "pb-block-lethal-trifecta-exfil",
@@ -2108,6 +2203,25 @@
     },
     "edition_date": "2026-09-01"
   },
+  "a9c0e9ad24d3aa71": {
+    "id": "pb-audit-cache-misses",
+    "kind": "source-backed",
+    "title": "Audit agent transcripts for silent prompt-cache breaks",
+    "area": "Cost & latency",
+    "problem": "Adding or removing a tool, or touching the system prompt, invalidates the LLM provider's prompt cache, and the resulting re-billed tokens show up nowhere as an error — just a bigger invoice.",
+    "apply": "Diff consecutive turns in your agent transcripts for tool-list, system-prompt, or model changes, and flag the turn where a cache break occurs; that turn tells you exactly which change in your own harness triggered the invalidation.",
+    "result": "One operator found $620 re-billed across 123 sessions — 105M tokens charged twice, 4% of total spend — traced entirely to cache-breaking tool-list changes.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://replay.doctor/",
+    "source_sid": "a9c0e9ad24d3aa71",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The author reports these figures from auditing their own billed sessions."
+    },
+    "edition_date": "2026-09-18"
+  },
   "ae62231a583b07f0": {
     "id": "pb-octomind-external-plan-manager",
     "kind": "source-backed",
@@ -2696,6 +2810,25 @@
       "note": "Prefill-cost and latency figures are the paper's own benchmark results across within-family, cross-family, and heterogeneous model pairs."
     },
     "edition_date": "2026-09-01"
+  },
+  "dbd2e7e18be3b2da": {
+    "id": "pb-provenance-policy-gate",
+    "kind": "source-backed",
+    "title": "Layer provenance tracking with policy-aware evaluation to stop prompt injection",
+    "area": "Safety",
+    "problem": "Regex-based prompt-injection filters miss most real attacks, since over half carry no textual attack marker at all — and naive provenance fixes alone break legitimate tasks nearly as often as they stop attacks.",
+    "apply": "Combine two layers: track data provenance (where each value in a tool call originated) to catch obvious hijacks, then add an off-by-default referee model that judges ambiguous requests against your declared policy instead of matching text patterns.",
+    "result": "After five iterations the author cut attack success from 97% to 8.9% while holding task utility at 73%, versus ~20% attacks caught by rule-based filtering alone.",
+    "effort": "high",
+    "source": "hackernews_ai",
+    "source_url": "https://cagritemel.com/blog/hn-broke-my-llm-agent-gate.html",
+    "source_sid": "dbd2e7e18be3b2da",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The author reports these as their own benchmark results (AgentDojo and a German newspaper attack corpus) across iterations of the gate."
+    },
+    "edition_date": "2026-09-18"
   },
   "dc1acd837d32b604": {
     "id": "pb-defend-agent-memory-against-forged-reasoning",
