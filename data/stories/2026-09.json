@@ -6773,7 +6773,7 @@
   ],
   "published": "2026-09-17T17:42:29+00:00",
   "sid": "989be6ca1bd187d7",
-  "source": "arxiv_cs_lg",
+  "source": "arxiv_cs_ai",
   "summary": "Evaluating an AI system requires disaggregated assessment, as performance varies across domains such as benchmark task types or conversation types in deployed agents. Exhaustive testing is expensive, so evaluation rests on a sample of labeled units. We treat the evaluation set as a finite population and seek accurate point and interval estimates of each domain mean. Direct estimators, including prediction-powered inference (PPI), use only a domain's own labels and are imprecise where labels are few. Small area estimation addresses this problem, and we build on it to develop an integrated workflow for estimation and validation. For estimation, we propose prediction-powered smoothing (PP-S), a Bayesian model fit to each domain's prediction-powered estimate, with an extension that borrows strength across a reporting taxonomy (PP-TS). For validation, we derive a new, approximately unbiased design-based cross-validation score for choosing among direct and smoothed estimators. We study a curated benchmark with verifiable grading and deployed agent traffic graded by humans, each with every outcome observed. In both, the proposed estimators improve on the direct estimators in point and interval estimation, with near-nominal coverage. At the same sampling budget, our score selects as well as an independent validation sample does and estimates the selected estimator's error far more accurately.",
   "summary_1line": "Evaluating an AI system requires disaggregated assessment, as performance varies across domains such as benchmark task types or conversation types in deployed agents. Exhaustive testing is expensive, so evaluation res...",
   "title": "Prediction-Powered Smoothing and Validation for Disaggregated AI Evaluation",
@@ -8937,6 +8937,22 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxQaFB5UkdmMW5vcTJRbDJyeEZmaHlyMno4Wk4ydXdTMUNDdVZ5X2U5ZThKNlY0SUdLalR3b0hEa3FqblpvY1JzUkNxREhyUU4xVFV4eEU0a3U2Rl9ScG5Vd3p4ekxuVUx4TTJYbDcxMzRpVHRBam5aOFVPaFNqMldWekxzNlh1Wk9DQlV6Uloxb1ZiWERuNUF1NWh5ZkZZRTFkdXQwdlV1cko5R1FSUEZEcGFsMWU2QXpZeEdBY2JoZTJYQVJvcTBEdkcwZ0xMZ1BkOUstTHQ1UDRpbG9NaDFQTFlaNXBncE1UajRsS0psNzZRZHdM?oc=5"
  },
+ "c87efd876aae4ae7": {
+  "first_seen": "2026-09-18T16:03:11.506363+00:00",
+  "id": "4d8e7ff9b116bb86",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-18T15:25:23+00:00",
+  "sid": "c87efd876aae4ae7",
+  "source": "aws_ml_blog",
+  "summary": "Deploy production-ready Hugging Face models on Amazon SageMaker AI using six open-source agent skills. Point a coding agent at a model and get back a real-time endpoint with the right serving container, autoscaling, Amazon CloudWatch alarms, and a verified teardown path.",
+  "summary_1line": "Deploy production-ready Hugging Face models on Amazon SageMaker AI using six open-source agent skills. Point a coding agent at a model and get back a real-time endpoint with the right serving container, autoscaling, A...",
+  "title": "Deploy Hugging Face models on Amazon SageMaker AI with coding agents",
+  "type": "news",
+  "url": "https://aws.amazon.com/blogs/machine-learning/deploy-hugging-face-models-on-amazon-sagemaker-ai-with-coding-agents",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "c8a981c019159c5b": {
   "first_seen": "2026-09-05T11:03:18.301964+00:00",
   "id": "0abdadfa35c16c66",
@@ -10953,7 +10969,7 @@
   ],
   "published": "2026-09-17T16:09:57+00:00",
   "sid": "fd9660f034d371fa",
-  "source": "arxiv_cs_ai",
+  "source": "arxiv_cs_cl",
   "summary": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi-step trajectory that a re-run rarely repeats. Record-and-replay makes a run reproducible, but existing agent tooling records runs only to trace or score them, not to test a code change against them. We present Chronicle, which records an agent run at its non-deterministic boundaries as immutable envelopes and replays it from the record. Its central operation, cut-point replay, serves a chosen subset of boundaries from the record and executes the complementary subset live with new code, turning a recorded incident into a regression test that runs in continuous integration. On a benchmark of 6 recorded failures with simulated model boundaries, recording adds 23 μs per crossing (0.008% of an assumed 300 ms model call), full replay issues zero model calls and is bit-stable across 20 repetitions, and cut-point tests fail on faulty code and pass on guarded and benign changes for all 6 incidents. In a mutation study of the guarded tools, cut-point tests catch every mutant that lets the recorded unsafe action through, while a baseline that stubs every boundary, using the same assertion, catches none. Chronicle and the benchmark are publicly available at https://github.com/theagentplane/chronicle.",
   "summary_1line": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi...",
   "title": "Chronicle: Cut-Point Replay for Regression Testing of LLM Agents",
