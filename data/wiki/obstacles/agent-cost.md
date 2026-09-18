@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c]
-updated: 2026-09-17
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a]
+updated: 2026-09-18
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a]
 ---
 
 ## TL;DR
@@ -46,6 +46,18 @@ matters because the coordination structure dominates spend — Stanford's DeLM
 reports cutting multi-agent task cost ~50% by dropping the central
 orchestrator; and even evaluation is a cost line item, which is why teams
 fine-tune small judges to cut trace-judging cost ~100×.
+
+**Naive context trimming has failure regimes of its own, not just a fidelity
+cliff at the wrong compression ratio**: "Protocol-Preserving Context Trimming
+for Agentic Workflows" studies agentic systems whose long interaction
+histories — instructions, tool states, intermediate decisions, unresolved
+dependencies — drive up compute cost as they grow unrestricted, and shows
+that trimming this history without preserving the interaction protocol
+itself can break the agent rather than just make it less accurate; its
+budget guardrails are aimed at keeping compaction inside the protocol's
+constraints instead of only inside a token count, complementing ACM's
+linear-cost/fidelity framing above with an account of *how* trimming fails,
+not just how much it saves.
 
 **Training-time trimming is a newer lever alongside inference-time
 compaction**: rather than compress a live context window, one approach
@@ -217,6 +229,14 @@ frontier capability in the first place, sharpening the reasoning-effort-as-
 routing-decision argument above into a measured split rather than a
 qualitative one.
 
+That argument is already shipping as a dedicated product rather than only a
+routing policy over general-purpose models: TypeSafe's Jev, pitched as a
+"System One Model" that only decides, classifies, routes, or scores, reports
+running more than 100x faster and more than 200x cheaper than small frontier
+LLMs on those narrow jobs — the same "most turns don't need frontier
+capability" case NeMo Switchyard makes empirically, packaged as a
+purpose-built model instead of a policy that picks among existing ones.
+
 That per-request routing decision is starting to get automated rather than
 hand-tuned: IMABO frames inference-time choices — model selection,
 retrieval depth, prompting strategy, decoding temperature — as a bandit
@@ -373,55 +393,11 @@ argument NVIDIA's NeMo Switchyard result already makes above, this time
 shipped inside a mainstream coding assistant rather than a benchmark paper.
 
 ## What's new
-A round-level dependency-DAG technique prunes redundant rounds (failed tool
-calls, parallel sub-queries, verification-only steps) out of multi-turn
-agent trajectories before fine-tuning on them, improving downstream
-accuracy up to 1.7pp over vanilla SFT while cutting per-sample inference
-messages ~40% and tokens ~48% — a training-time complement to
-inference-time [context compaction](/topic/context-compaction) (see State
-of the art above).
-
-Prior update: IMABO frames per-request inference-time choices (model selection, retrieval
-depth, prompting strategy, decoding temperature) as a bandit problem rather
-than a hand-written routing table, growing its candidate-configuration set
-over time and evaluated against three oracle variants on both classical ML
-tuning and LLM agent configuration tasks (see State of the art above).
-
-Prior update: GitHub's Project HydraFusion (Copilot research preview) routes coding steps
-across models rather than one fixed model per session, reporting selective
-workflows that match or exceed an Opus 5 baseline in controlled offline
-evals while cutting estimated workflow cost — see State of the art above.
-
-Prior update: GitHub found that truncating or summarizing coding-agent output to save
-tokens can backfire — the agent reopens or reruns the original command to
-recover what it needed, costing more total turns than the uncompressed
-output would have. Its fix (selective log compression, leaner Task-tool
-prompts, no-extra-call background delivery) is validated per complete task,
-not per tool call, and cuts cost 5%/2.9%/2.3% respectively. Separately,
-Shopify's gisting compresses a system prompt 4:1 via learned tokens,
-freeing serving capacity to cut GPU footprint for the same load (see State
-of the art above).
-
-Prior update: Anthropic's own commerce-agents guide reports 90-99% prompt-cache hit rates
-in production via a byte-identical three-segment cache (global/session/
-volatile), cached tokens reading 1.5-2x faster than uncached ones, alongside
-a code-not-prompt safety discipline: staged approval before any financial
-action, server-issued IDs on writes, and transaction caps enforced on
-resulting state (see State of the art above).
-
-Prior update: Open-weight models overtook proprietary ones on Vercel's AI Gateway for the
-first time — 54% of token volume on one day, a record 62% on another, up
-from 28% on June 24 — with DeepSeek-V4-Flash the single most-used model by
-volume, while the next wave of Chinese releases (Zhipu's GLM-5.3-Flash,
-Alibaba's Qwen3.8-Flash-Next) widens the cost gap further still: within
-three points of larger siblings on quality benchmarks at a seventh to a
-twelfth of the cost (see State of the art above).
-
-Prior update: A breakdown of Anthropic's own July spend by model shows the newest,
-most-capable model (Opus 5) capturing only 3.5% of spend versus 28% for the
-prior-generation Opus 4.8, even as Anthropic's annualized revenue grew to
-$65bn — real billing evidence that most agent spend goes to a model that
-already clears the bar, not the frontier one (see State of the art above).
+TypeSafe's Jev, a purpose-built "System One Model" for decide/classify/
+route/score tasks, reports running more than 100x faster and more than 200x
+cheaper than small frontier LLMs on those jobs — a shipped product instance
+of the routing argument this page has been building on (NeMo Switchyard: most
+turns don't need frontier capability; see State of the art above).
 
 ## Why it matters for platform engineers
 This is the obstacle that turns a working demo into an unaffordable product.

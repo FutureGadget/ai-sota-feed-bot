@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024]
-updated: 2026-09-04
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36]
+updated: 2026-09-18
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36]
 ---
 
 ## TL;DR
@@ -123,7 +123,13 @@ routing every capability through the LLM, splitting the work across
 specialized agents, [MCP](/topic/mcp)-based tooling, and a separate
 persistent-memory intelligence layer rather than one model deciding
 everything — narrowing the LLM's role to orchestration and language while
-deterministic and specialized components carry the rest of the task.
+deterministic and specialized components carry the rest of the task. DoorDash
+applied the same MCP-based pattern to a second, purely internal job: a
+multi-agent LLM workflow pulls live experimentation data through MCP to find
+stale feature flags across more than 60,000 flags and 623 repositories, gates
+each cleanup on engineer approval, and runs the removal in isolated
+execution — MCP as the access layer into internal engineering systems, not
+only the customer-facing shopping assistant.
 
 A sixth axis is **hardening the tool call itself against injected content**:
 Claude Code 2.1.210 patched its Agent tool specifically against indirect
@@ -261,42 +267,21 @@ every turn" argument the fourth axis's Tool Search Tool already makes at
 the server/prompt-budget level, now applied to what a framework does on
 the calling side.
 
+A seventeenth axis is **hardening the MCP client's own connection lifecycle
+inside the harness**, distinct from the protocol or server side: Claude Code
+added `CLAUDE_CODE_MCP_STARTUP_WAIT_MS` to bound how long the first
+non-interactive turn waits for MCP servers to finish connecting, and a
+separate release added a notification when an MCP server disconnects
+mid-session — turning two previously silent connection-lifecycle failures (a
+hung startup, a dropped session nobody notices) into operator-visible,
+boundable events.
+
 ## What's new
-LangChain's MCP client support (`langchain.mcp`, built on FastMCP for the
-2026-07-28 spec) handles elicitation — a server asking mid-call for more
-input — as a LangGraph interrupt, and caches tool lists instead of
-re-fetching them per call, extending the standing "don't re-list every
-tool every turn" discipline to the client side (see State of the art
-above).
-
-Prior update: Anthropic shipped three tool-use features with hard before/after numbers:
-Tool Search Tool cuts a 50-plus-tool prompt from ~72K to ~500 resting
-tokens and lifts task accuracy 25-49 points depending on model; Programmatic
-Tool Calling routes results through sandboxed code instead of context,
-cutting tokens 37% and lifting GAIA accuracy from 46.5% to 51.2%; and
-`input_examples` lifts complex-parameter accuracy from 72% to 90% (see
-State of the art above).
-
-Prior update: Lovable is exposing published apps as MCP-powered "capabilities" agents can
-call directly, bypassing the human UI, through a connector gateway that
-keeps credentials server-side and scoped to short-lived, per-user keys.
-Separately, StarHarness treats the whole harness — not just its tool
-interfaces — as a search space, evolving prompt framing, tool interfaces,
-skills, and MCP-backed providers per enterprise environment while leaving
-model weights untouched, for a 20-35 percentage point gain over the default
-harness across three enterprise benchmarks (see State of the art above).
-
-Prior update: Microsoft's Azure DevOps Remote MCP Server reached GA without Claude
-Desktop, Claude Code, ChatGPT, or Cursor support — a reminder that "GA" and
-"works with every major MCP client" are separate milestones. Separately, the
-Claude Agent SDK for Python widened its in-process MCP server support to
-2.x alongside 1.x (see State of the art above).
-
-Prior update: AWS open-sourced Dogwood, a Cedar extension with temporal policy operators
-that reason over an agent's tool-call *history* rather than one request at a
-time — closing a concrete gap plain per-request authorization has: a
-response-checked rate limit that three concurrent requests can defeat before
-any of them settles.
+DoorDash's internal engineering team reused the MCP-based multi-agent pattern
+its customer-facing Ask DoorDash assistant popularized for a different job:
+cleaning up over 60,000 stale feature flags across 623 repositories, pulling
+live experimentation data through MCP and gating each cleanup on engineer
+approval and isolated execution (see State of the art above).
 
 ## Why it matters for platform engineers
 Tool integration is the part of an agent that looks like ordinary distributed

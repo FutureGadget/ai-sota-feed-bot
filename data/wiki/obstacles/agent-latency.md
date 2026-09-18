@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff]
-updated: 2026-09-12
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a]
+updated: 2026-09-18
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a]
 ---
 
 ## TL;DR
@@ -327,72 +327,30 @@ about 25% to over 80%, evidence that fleet-level request placement matters
 as much as the cache-reuse and compression techniques already on this page
 once a service fans a workload out across many instances.
 
+**Aggressive context trimming has a quantified failure cliff, not just a
+token-savings number**: a study evaluating five agentic-workflow trimming
+strategies — recency-based, relevance-based, summarization, protocol-aware,
+and adaptive budget guardrails — finds conventional trimming (recency,
+relevance, summarization) saves about 60% of tokens but drops task success
+to 66.6-77.3% and protocol adherence to 85.5-88.6%; protocol-aware trimming,
+which preserves instructions, tool state, and unresolved dependencies rather
+than trimming blindly, lifts success to 92.2%, and stacking adaptive budget
+guardrails on top reaches 96.0% task success, 96.3% protocol adherence, and
+just 1.0% cascading failure while still saving 56.0% of tokens. The retained
+budget itself is the cliff edge: dropping to 25% or less of context raises
+failure odds 10.92x versus keeping 50% or more (p < 0.001), and protocol-aware
+trimming has 5.24x greater odds of finishing successfully than conventional
+trimming once the budget gets that aggressive — a concrete floor under how
+far the compaction lever this page already tracks (gisting, KV-cache
+compression) can be pushed before latency and cost savings start trading
+away correctness.
+
 ## What's new
-Amazon SageMaker Inference's prefix-aware routing keeps requests that share
-a prompt prefix on the same instance so an earlier request's KV cache stays
-warm for a later one — no cache-content repair needed, just co-location. On
-a Llama 3.1 70B benchmark it cut P50 time-to-first-token by up to 77% and
-raised the KV cache hit rate from about 25% to over 80% (see State of the
-art above).
-
-Prior update: KVShareArena benchmarks KV-cache reuse specifically for the non-prefix case
-— RAG chunks assembled per query, multi-agent reports written by another
-model checkpoint — and finds cheap position correction alone suffices until
-several sources combine, after which only costlier re-encoding or training
-recovers half to two-thirds of the gap; an unrepaired cache can score worse
-than none (see State of the art above).
-
-Prior update: vLLM's own account of tuning for SemiAnalysis's AgentX benchmark — which
-scores serving stacks on agentic rather than chat-shaped traffic — combines
-this page's KV-cache, parallelism, scheduling, and disaggregation levers
-into one stack reaching up to 130K tokens per GPU-second and a 14.6x-106x
-serving-cost advantage, a benchmarked validation that the levers compound
-rather than a new one (see State of the art above).
-
-Prior update: Two serving-layer additions push the day-0 hardware/model-support and
-storage-bandwidth threads further. vLLM integrates HiSparse, a
-pressure-driven KV memory tier that composes with the Hybrid Memory
-Allocator and offloading so GLM 5.3 requests keep decoding when their KV no
-longer fits in GPU memory instead of stalling or erroring — the concurrency
-side of the same storage-bandwidth bottleneck DualPath and RaBitQCache
-already target on this page. Separately, Tenstorrent accelerators joined
-vLLM as an out-of-tree platform plugin, driven by mesh-architecture-specific
-choices (phase-based scheduling, single-process data parallelism on Galaxy,
-on-device sampling with host fallback, async decode overlap) — extending
-the "day-0 support is extending to hardware, not just models" pattern this
-page already tracks (Vera Rubin, Kimi K3) to a third accelerator family (see
-State of the art above).
-
-Prior update: Shopify's gisting trains learned tokens to reproduce a long system prompt's
-behavior, compressing Sidekick's system prompt 4:1 (6,000 to 1,500 tokens)
-while holding quality — cutting time-to-first-token from 438ms to 354ms,
-end-to-end latency from 6.8s to 4.2s, and lifting throughput from 20.2 to
-23.4 queries/sec (see State of the art above).
-
-Prior update: A cross-model KV-sharing layer translates the KV state one model produced
-into a representation a different model can consume directly, cutting a
-cross-family target model's prefill cost up to 67.05% at 4K context and
-dropping heterogeneous large-to-small latency from 899ms to 138ms — and, in
-the same-family case, actually improving downstream accuracy by carrying
-over the larger model's context representation (see State of the art
-above).
-
-Prior update: vLLM v0.28.0 pushes Kimi-K3 optimization stack-wide — Decode Context Parallel
-support, fused FlashKDA kernels, and combined all-gathers for a 1.5-3x
-kernel-level speedup, plus an adaptive speculative token budget cutting DSpark
-TTFT by roughly 60% — while DeepSeek V4's sparse MLA now covers plain decode,
-MTP, and DSpark speculative decoding end-to-end, not just the routing-kernel
-work v0.26.0 shipped.
-
-Prior update: vLLM-Omni's Distributed Layerwise Offload shards and streams model weights
-across devices to serve a 124 GB model on 64 GB HBM, estimating a path
-toward 200B+ parameter models.
-
-Prior update: DARTree extends speculative decoding's correction head from single draft
-chains to draft trees, accepting up to 12.97 tokens per verification round
-(98.6% more than DFlash, 27.9% more than Domino) for up to 9.73x lossless
-speedup — a training-free accuracy lever on the same speculative-decoding
-technique this page already tracks, not a new serving-layer bottleneck.
+A benchmark of five agentic-workflow context-trimming strategies finds a
+hard failure cliff below a 50%-context budget — dropping to 25% or less
+raises failure odds 10.92x — while protocol-aware trimming plus adaptive
+budget guardrails still saves 56.0% of tokens with 96.0% task success and
+just 1.0% cascading failure (see State of the art above).
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f]
-updated: 2026-09-15
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181]
+updated: 2026-09-18
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181]
 ---
 
 ## TL;DR
@@ -266,54 +266,29 @@ baselines while cutting compression overhead 5.3x-15.6x and adding under
 (the raw-Wikipedia-page token count above), answered by reusing past
 compression work instead of repeating it per query.
 
+**Retrieval architecture now has a case-specific answer for enterprise
+troubleshooting**, distinct from the general vector/graph/SQL/gateway split
+above: RAFT proposes a stateful retrieval-augmented framework built
+specifically for troubleshooting agents, arguing that off-the-shelf RAG
+under-serves enterprise support case retrieval by not modeling the
+structure of a historical case the way a human troubleshooter would — the
+same "pick the retrieval architecture for the job" argument this page
+already makes for SQL over embeddings, applied to support-ticket retrieval.
+
+**Knowledge graphs get their own named production-pattern set**, sharpening
+the graph branch of this page's architecture split: an InfoQ presentation
+lays out four patterns for moving agentic RAG past basic vector retrieval
+onto a knowledge-graph foundation — context bundling, decision-provenance
+tracking, and treating code itself as a retrievable tool — putting
+attribution (decision provenance) directly into the graph-based retrieval
+architecture rather than bolting it on as a separate scoring step.
+
 ## What's new
-REVA mines a generator's historical attention traces into a reusable,
-document-keyed compression store instead of compressing retrieved context
-fresh per query, improving generation quality 1.0-5.8 points over existing
-compressors while cutting compression overhead 5.3x-15.6x and adding under
-40ms of latency (see State of the art above).
-
-Prior update: Databricks' Adaptive Instructed-Retriever learns, via RL, when a query needs
-one parallel search pass versus sequential multi-hop search, matching
-frontier-model answer quality at roughly half the latency and dominating
-several models' quality-vs-cost curve across the retrieval-budget range —
-a trained, per-query answer to this page's retrieval/latency trade-off
-rather than a fixed step count (see State of the art above).
-
-Prior update: KDDI, a major Japanese telecom carrier, built Buffmee — a consumer RAG app
-balancing generation quality against response time across multiple media
-types — on Google's Agent Development Kit, a production instance of this
-page's retrieval/latency trade-off argument rather than a benchmark result
-(see State of the art above).
-
-Prior update: Lazy Grounding shows search agents can be misled by evidence that is
-factually accurate but answers a rewritten neighbor of the actual query,
-cutting accuracy 5.9 points on average (up to 17.3) across 12
-model-benchmark pairs — a distinct failure mode from the truth-preserving
-reordering and embedding-poisoning attacks this page already tracks. SCoNE
-answers the standing retrieval-noise problem with a training-free fix:
-selectively strengthening context-aware FFN neurons at inference time, with
-no fine-tuning or added latency (see State of the art above).
-
-Prior update: Cloudflare AI Search packages the full retrieval pipeline (crawl, parse,
-embed, retrieve) as a managed service with a single search endpoint and
-public `/mcp`/`/search` access, plus a "discover" mode that indexes sites
-without a published sitemap — the gateway-consolidation pattern this page
-already tracks (Orbit), now available as a hosted platform service instead
-of only a self-hosted toolkit (see State of the art above).
-
-Prior update: Databricks extracts chart figures into structured JSON (via
-`ai_parse_document`) instead of relying on captions alone, then indexes the
-JSON-enriched chunks with a lightweight 300M-parameter embedding model. On
-the chart-heavy ViDoRe V3 benchmark it reaches 75.9% answer correctness with
-only the top-3 retrieved images, beating four larger multimodal embedding
-baselines — closing the blind spot pure text/caption retrieval leaves for
-the numbers inside enterprise charts.
-
-Prior update: Tencent's WeMM-Embedding-9B extends the "retriever keeps
-improving" trend to multimodal grounding, embedding text, images, video, and
-visual documents into one space and scoring 80.6 on MMEB-v2 (78 datasets) —
-ahead of Qwen3-VL-Embedding's 77.8.
+An InfoQ presentation frames knowledge graphs as their own agentic-RAG
+architecture, naming decision-provenance tracking as one of its production
+patterns — folding attribution directly into the graph-retrieval choice
+rather than treating it as a separate verification layer (see State of the
+art above).
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a

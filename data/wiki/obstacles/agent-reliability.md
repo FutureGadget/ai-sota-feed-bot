@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8]
-updated: 2026-09-16
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c]
+updated: 2026-09-18
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c]
 ---
 
 ## TL;DR
@@ -273,6 +273,15 @@ HaluEval benchmark, with MC Dropout inference alone pushing accuracy to
 precision worth wiring into a production gate, not just reporting as a
 research metric.
 
+Grounded generation is also reaching code output, not just text: Typed
+Domain Grounding embeds a domain-specific language directly inside a
+mainstream typed language, validated against kUML benchmarks, so the host
+language's own type checker — not a second LLM pass — catches invalid
+generated output before it runs. It's the same contain-it-structurally
+instinct HALO's constrained-execution leg and the discriminator-model
+selection pattern above already argue for, here applied to DSL code
+generation specifically.
+
 The "prove it did the work" thread also gets a practitioner framing for why
 verification, not generation, is now the bottleneck: as AI-generated code
 volume grows, the security weaknesses and familiar bug patterns it
@@ -282,68 +291,11 @@ same tools-for-certainty argument this page already makes, restated as a
 shift in where a team's review effort has to go.
 
 ## What's new
-Two hallucination-mitigation approaches attack the problem from opposite
-ends: DescaPE suppresses hallucination-prone trajectories during decoding by
-identifying a factual-salient layer span via sliding-window MLP ablation,
-while a separate multi-signal pipeline (fine-tuned DeBERTa-v3, MC Dropout,
-temperature-scaled calibration) detects hallucinations after the fact at
-F1=0.915/AUROC=0.977 on HaluEval. Separately, a practitioner framing argues
-the bottleneck for AI-generated code has moved from generation to
-verification — detecting where agent behavior diverges from intent — as the
-security weaknesses and familiar bugs AI-written code introduces accumulate
-(see State of the art above).
-
-Prior update: On AppWorld with a ReAct agent (GPT-4.1), the same task run five times
-succeeds on every run only 53% of the time despite a 77% average per-run
-pass rate — a 24-point "consistency gap" distinct from the infra-noise gap
-this page already tracks. A self-evolving framework closes part of it by
-diagnosing which trajectory steps flip between runs and committing a
-targeted guideline to episodic memory, raising all-five-runs success 16
-points on the same task and 13 points on similar tasks (see State of the
-art above).
-
-Prior update: TASPO targets a coarse-credit problem in outcome-based agentic RL training:
-it converts privileged supervision from verified successful runs into
-per-action credit weights while letting the verified outcome set the
-update's direction and scale, improving 10.6% over a GRPO baseline across
-three agentic benchmarks — evidence that some unreliable behavior traces
-back to training, not only to inference-time checks (see State of the art
-above).
-
-Prior update: A large-scale production measurement (~400,000 Claude Code sessions) puts
-hard numbers on the plan/execute reliability split this page now tracks:
-people retain roughly 70% of planning decisions but only 20% of execution
-decisions, and expert users trigger roughly twice the actions and five
-times the output per prompt that novices do — reliability today rests on
-humans still holding the planning pen, not on unattended execution. A
-companion measurement shows infrastructure configuration alone can swing
-agentic coding scores by up to 6 percentage points, and a practitioner
-critique argues coding-agent autonomy hits a "wall" past a certain task
-complexity (see State of the art above).
-
-Prior update: An Anthropic reliability engineer's own incident-response case study puts a
-concrete boundary on where LLM incident response works: superhuman at
-reading logs and catching non-obvious patterns (a coordinated-fraud signal
-in account-creation metadata, a Rust panic root-caused before humans
-finished reading), but unable to reliably distinguish causation from
-correlation on its own — misreading a KV-cache failure as a capacity
-problem for "six, seven" corrections in a row — and prone to postmortems
-that miss contributing factors and tacit institutional knowledge (see State
-of the art above).
-
-Prior update: A practitioner talk names a concrete production pattern for containing
-non-determinism: restrict LLM output to a constrained schema, separate
-semantic extraction from deterministic code, and validate choices with a
-discriminator model before they reach the database — an MVC-style split
-that keeps the model's fluent-but-uncertain output from leaking into
-storage and downstream logic (see State of the art above).
-
-Prior update: A practitioner pattern deliberately generates an unconstrained guess instead
-of classifying against a large closed vocabulary, then uses vector-embedding
-similarity to snap that "hallucination" to the nearest real label — turning
-a failure mode this page usually tracks as a risk into a designed mechanism,
-grounded by the embedding step rather than returned raw (see State of the
-art above).
+Grounded generation is extending to code: Typed Domain Grounding embeds a
+domain-specific language inside a mainstream typed language so the host
+language's own type checker catches invalid generated output before it
+runs, instead of relying on a second LLM pass to detect the mistake (see
+State of the art above).
 
 ## Why it matters for platform engineers
 Reliability spans three layers platform teams have to build separately: an

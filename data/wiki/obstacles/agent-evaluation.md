@@ -7,9 +7,9 @@ status: active
 solutions: [llm-as-judge, agent-benchmarks]
 obstacles: []
 related_storylines: []
-evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088, d2cf19ce4bcb183a, c0d8647786942e91, b17d22b5ef33abf1, 488d1511cc2dd895, 020dc8ad01ae1e0c, 381ed851c46a02e9, e3e0524cc29a68a0, 07f5ec6b1db9b995]
-updated: 2026-09-16
-covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088, d2cf19ce4bcb183a, c0d8647786942e91, b17d22b5ef33abf1, 488d1511cc2dd895, 020dc8ad01ae1e0c, 381ed851c46a02e9, e3e0524cc29a68a0, 07f5ec6b1db9b995]
+evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088, d2cf19ce4bcb183a, c0d8647786942e91, b17d22b5ef33abf1, 488d1511cc2dd895, 020dc8ad01ae1e0c, 381ed851c46a02e9, e3e0524cc29a68a0, 07f5ec6b1db9b995, 934ca800d677c018, fd9660f034d371fa, 38522ce275c55bf2]
+updated: 2026-09-18
+covers_evidence: [b8b632a161a052e9, 12500c0bbe5e4d6f, 4235792e910ea51a, 55809dc9368e7936, f07b6a3f3f344020, c000018ba1f03575, c579e90dd1110817, 27f5cba0a6308a00, 00678eb9b30563c3, 7ef376842f782ecd, 8957450e5744d59e, 979d921c237f1c0b, 2e0b2f76a5b7e197, 274255c89788d5c4, 326b5d51b877e9cf, cf0a37dd32efaf51, 59e3931d5ce8feeb, d2b47e5ca2b10e4d, 5d87a279aac331cb, 20cd66043e9dab55, 1bfbb319ced0695a, 20ef04d4cce6eb8c, d8ea565801623af0, 4a0a79e7203bae64, 37ded4dcb25847bf, ad296ea32f314908, c9f72591463a51bb, e9167e656930e3f1, 05a8c95d74885091, 2fce98e1c0265225, aebd52611d2bd6be, 8d0381b4e9af78ba, fa7774ded73da0cc, f174897519ebc366, 8605a4348aa09d77, 9f3ebb1dd514f218, eb757fd3e52c865e, e837da6c45f502b8, 01e43a80faed3f8b, afa95a0f9b8341ec, 4c751bb0914d78b0, 13619e816aa57836, 99b0480e54f4644d, 6e2d38b552fabec0, d4af12d30d7453c4, 6db5a9df32bfdf66, 16138a16616ddf2d, 35c0257d1b804bbd, 44f0a4a9788e78b0, 1b0f607e0ee0acbd, f2c24922c8684413, 702acd068f3828d1, ddce7e0a20f47f4f, f94c501f001ba6a5, 89a606f362d88b4e, 9f5bc06695260c32, 59cb16803d591ef4, 7c4f61301b375309, 51ec32a462a2cfdd, 265c6a0134aba9b6, c101d5e1e7e169c1, adf13fffe0254841, 8eec27f0fabdee08, 6b6c5df9693868cd, 1923a6eccdfa6038, 135c077a65b61dda, 48e28a799bb4c87a, d24773e74957eeab, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 3d43cd4c09594e89, ae8f3679ade55b8b, 3537322c93db9151, 2db97c49b795a2d1, e66cc71d0943fe40, c99ec862b4e71599, a2351bb6d35107c3, dba85089f97f973f, 3d4de4cad355f358, 6025c4e3bc9c120a, c4b4a85beb63030f, f49b38f16a2b7158, 7e8be5a0a9bb8f5b, 82b0ebe7e40ab231, 9472fcd4cb7a8f4b, fe206f2a71d579f8, a6ebb163a6c3bf17, 30f2948e24a89119, 6c790a16de0afd2b, c78d84ac1a7e3d92, ae8e4d039d14f79b, f0dc85dcc6d3444f, 4e6b8920803e5949, cc74131efa65cff2, ad90e6779ea3045b, be2df31b86804088, d2cf19ce4bcb183a, c0d8647786942e91, b17d22b5ef33abf1, 488d1511cc2dd895, 020dc8ad01ae1e0c, 381ed851c46a02e9, e3e0524cc29a68a0, 07f5ec6b1db9b995, 934ca800d677c018, fd9660f034d371fa, 38522ce275c55bf2]
 ---
 
 ## TL;DR
@@ -352,7 +352,19 @@ analysis argues many agent benchmarks conflate task difficulty with
 protocol/scaffolding artifacts, so a score gain can reflect a better-fitted
 harness rather than a more capable agent — sharpening the standing "the
 harness is part of what you benchmark" thread into a validity critique of
-the benchmark's own construct, not just its numbers.
+the benchmark's own construct, not just its numbers. Bad Genius names the
+mechanism behind that conflation directly: automatic harness optimization
+that repeatedly re-runs the same released benchmark to guide a Proposer
+editing prompts, memory, retrieval, tools, and control flow converges on
+task-specific shortcuts that raise the score without generalizing — the
+harness learns to beat that one benchmark, not to solve the underlying
+problem. Its fix, counterfactual-guided harness evolution, checks each edit
+against counterfactual variants of the same task instead of only the
+benchmark's own held-out score, penalizing changes that only work because
+they match that benchmark's specific phrasing or setup — the same
+held-out-check discipline the Claude Code/Codex memorization case above
+needed to stay honest, applied to harness edits rather than eval-script
+metrics.
 
 A thirteenth front turns the "familiar benchmarks over-state capability"
 critique on its own instruments by pricing the compute a leaderboard treats
@@ -535,7 +547,13 @@ quality into a general agent-capability score (see [agent
 memory](/topic/agent-memory) for the leaderboard detail) — evidence that
 domain-narrow, maintained leaderboards (already established for coding,
 oncall/RCA, and now security and memory) are becoming the default way a
-sub-capability gets evaluated, not a one-off benchmark paper.
+sub-capability gets evaluated, not a one-off benchmark paper. A companion
+open-source framework targets what makes that kind of comparison trustworthy
+in the first place: an Add/Search evaluation harness for agent memory
+standardizes the answer model and scoring pipeline across systems, closing
+off the same failure mode this page's benchmark-scoring-pipeline critique
+documents elsewhere on this page — a team picking a favorable judge or
+pipeline to inflate its own system's ranking.
 
 A twenty-fourth front turns user-flagged feedback into a trainable evaluator
 rather than a rubric someone writes up front: LangSmith's Tuned Evaluators
@@ -692,6 +710,19 @@ a variable" thread (BTS-AgentBench, the serving-backend and
 container-resourcing fronts above) to how a multi-model comparison itself
 gets built, not just how a single-model run does.
 
+A related reproducibility problem targets regression testing directly, not
+model switching: because an LLM agent's failures depend on inference that
+isn't bitwise-reproducible, on tools that read changing state, and on a
+multi-step trajectory, re-running a failing case from scratch often doesn't
+reproduce the same failure at all. Chronicle addresses this with **cut-point
+replay** — resuming a trajectory from a specific point in the run instead of
+from the start — so a regression test can isolate whether a code or prompt
+change caused a failure without needing the whole run to be bitwise
+deterministic. It's the regression-testing counterpart to the
+branching-rollout finding above: both conclude that faithfully replaying part
+of an agent trajectory, not the whole one from scratch, is the right unit for
+reproducible agent testing.
+
 A thirty-fourth front turns "what does this benchmark actually measure"
 into a checkable property rather than an assumption held on faith. BenchMIRT
 applies multidimensional Item Response Theory to individual questions across
@@ -824,98 +855,14 @@ list this page tracks (Rails, AWS-Bench, VLoc Bench, and dozens more) does
 not have to track every new suite by hand.
 
 ## What's new
-Third-party evaluation is getting a formal governance standard rather than
-staying an ad hoc arrangement: the AI Evaluator Forum's AEF-1 baseline sets
-criteria for access, conflicts of interest, funding relationships, recusal,
-and transparency, cosigned by xAI, OpenAI, and Anthropic. Anthropic's own
-commitment is the most concrete — embedded third-party evaluators (such as
-METR) get desks, access badges, and company laptops, with permissions
-comparable to an internal risk-assessment team, positioned like a banking
-regulator inside the company rather than auditing from outside. Separately,
-Benchmark Radar packages benchmark *discovery* itself into a living,
-searchable database spanning LLM, agentic, coding, reasoning, safety, and
-domain-specific suites, combining daily discovery of new benchmark papers
-with retrieval over what already exists (see State of the art above).
-
-Prior update: Grab's LLM-Kit standardizes secret handling, tool discovery, and evaluation
-across 500+ internal agent services, cutting new-agent deploy time from
-roughly two weeks to about an hour — a production-ROI, build-vs-buy instance
-alongside Motorway's and LangChain's pipeline overhauls. Separately, AWS
-pairs Bedrock AgentCore Evaluations with a dedicated AWS DevOps Agent to
-monitor a production multi-agent airline-reservation system, splitting
-continuous quality scoring from autonomous infrastructure investigation
-because multi-agent failures slip past traditional single-agent monitoring
-(see State of the art above).
-
-Prior update: The eval-to-deployment gap gets a named governance answer rather than
-another benchmark: track agents through a single **behavioral identity**
-across a seven-stage trust chain (declare, evaluate, certify, authorize,
-execute, observe, audit), because evaluating an agent well is necessary but
-is not authorization to run it once routine production changes (prompts,
-tool schemas, policies, model fallbacks) can silently diverge it from what
-was tested (see State of the art above).
-
-Prior update: An audit of eight cybersecurity LLM benchmarks across 10 models finds a
-single scoring-pipeline choice — not the underlying task — can swing a
-model's score by more than 80 percentage points and reshuffle model
-rankings; standardizing the pipeline while holding task semantics fixed
-still shifts nine of ten models by at least three ranks on at least one
-benchmark (see State of the art above).
-
-Prior update: A practitioner case for simulation-driven testing (synthetic user personas,
-trajectory entropy, CI/CD-wired evaluation) argues agents stall in demo phase
-because teams skip grading the multi-turn path, not just the final answer.
-Separately, a multi-perspective annotation protocol for hallucination
-detection scores agreement across several independent judgments per response
-instead of a single-annotator label, catching subtle in-text factual errors a
-one-pass grader misses (see State of the art above).
-
-Prior update: BenchMIRT and SWE-Gate both turn "what does this benchmark actually
-measure" into a checked property: BenchMIRT finds current suites reduce to
-two latent dimensions (safety, general reasoning) with 10% of questions
-preserving nearly the full capability picture, while SWE-Gate finds 221 of
-644 functionally-passing code repairs across four models fail
-review-derived constraints functional-only scoring misses. A practitioner
-essay adds the methodology fix — clinical-trial-style denominator
-discipline and fail-closed design (see State of the art above).
-
-Prior update: Branching-rollout tests on live SWE-bench trajectories show static
-model-switching evaluation is unreliable: replaying a logged trajectory with
-a swapped model mispredicts nearly every success-relevant outcome (61-94% of
-post-fork actions diverge, patch similarity to reality falls to 0.00-0.11),
-while 359 same-model control forks produced zero of the five observed
-success/failure flips — evidence the field needs to fork-and-re-run per
-model rather than splice outputs into one logged path (see State of the art
-above).
-
-Prior update: BTS-AgentBench builds agent-benchmark episodes directly from read-only
-production telemetry through a deterministic, replayable pipeline (204
-episodes from one industrial system, reproducible via independent rebuilds
-matching all 11 tool-store exports), and Google DeepMind piloted
-double-blind evaluation — running model and evaluator inside Confidential
-Computing so neither can see the other's weights or prompts — making
-benchmark-contamination resistance a cryptographic property instead of a
-trust agreement.
-
-Prior update: Anthropic quantified a source of eval noise this page hadn't measured
-before: container resource configuration alone can swing scores by 6
-percentage points on Terminal-Bench 2.0, and pinning both the guaranteed
-allocation and the kill threshold (a 3x ceiling multiplier) cut spurious
-infrastructure crashes from 5.8% to 2.1%. A companion practitioner guide
-lays out a reusable eval structure (input/processing/grading, three grader
-types, pass@k vs. pass^k) and a 20-50-task starting point mined from real
-failures (see State of the art above).
-
-Prior update: Anthropic's own analysis of ~400,000 Claude Code sessions defines two
-production success tiers — verified vs. partial — and finds both scale
-sharply with user expertise (15%/77% novice vs. 28-33%/91-92% expert
-verified/partial success), while people retain roughly 70% of planning
-decisions but only 20% of execution decisions. GitHub's own pre-production
-evaluation for secret scanning reports a concrete methodology instance of
-the same tiered-metric discipline: a 95% offline false-positive reduction
-gated by a recall guardrail, reproducible via versioned prompt/model/dataset
-tracking, with LLM-as-judge triage routing only low-confidence or
-high-impact cases to humans (see State of the art above).
+Bad Genius names the mechanism behind benchmark-driven harness overfitting
+directly: repeatedly optimizing a harness (prompts, memory, retrieval,
+tools, control flow) against the same released benchmark converges on
+task-specific shortcuts that raise the score without generalizing, and its
+fix — checking harness edits against counterfactual task variants instead of
+only the benchmark's own held-out score — extends this page's standing
+held-out-check discipline from eval scripts to the harness-optimization loop
+itself (see State of the art above).
 
 ## Why it matters for platform engineers
 Eval is the regression test of the agent stack — without it you cannot tell

@@ -34,7 +34,7 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 
 ### multi-agent
 - [multi-agent](obstacles/multi-agent.md) — Coordinating multiple agents adds more failure than capability
-  → solutions: agent-orchestration, agent-benchmarks
+  → solutions: agent-orchestration, agent-benchmarks, agent-tracing
 
 ### observability
 - [agent-observability](obstacles/agent-observability.md) — You can't see why an agent did what it did
