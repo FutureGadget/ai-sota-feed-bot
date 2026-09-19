@@ -1,0 +1,52 @@
+{
+  "slug": "github-s-project-hydrafusion-multi-model-routing",
+  "generated_at": "2026-09-19T00:20:00+00:00",
+  "covers_last_updated": "2026-09-13T06:06:00+00:00",
+  "covers_member_sids": [
+    "2ff277e441a4b0da",
+    "9b03b99c75e6257e"
+  ],
+  "tldr": "GitHub shipped Project HydraFusion as a Copilot research preview that routes coding requests across models from multiple providers at runtime instead of calling one fixed model. GitHub's own controlled offline evals claimed selective workflows matched or beat an Opus 5 baseline at lower estimated cost.",
+  "whats_new": "InfoQ's independent write-up confirms the same preview and adds detail on the mechanism: HydraFusion dynamically assembles a per-request execution plan across providers rather than routing by a static rule set.",
+  "why_it_matters": "Runtime multi-model orchestration is a concrete lever for cutting coding-agent inference cost without a flat quality trade-off — worth benchmarking against a single-frontier-model baseline before adopting.",
+  "status": {
+    "state": "Research preview",
+    "tone": "launch",
+    "changed": "2026-09-04",
+    "detail": "Available as a GitHub Copilot research preview; no GA date announced."
+  },
+  "provenance": {
+    "2ff277e441a4b0da": {
+      "surfaced_by": "scout"
+    },
+    "9b03b99c75e6257e": {
+      "surfaced_by": "scout"
+    }
+  },
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "GitHub introduces Project HydraFusion as a Copilot research preview",
+      "summary": "GitHub's own controlled offline evals reported selective coding workflows matching or beating an Opus 5 baseline at lower estimated cost.",
+      "sids": ["2ff277e441a4b0da"]
+    },
+    {
+      "kicker": "COVERAGE",
+      "tone": "rising",
+      "headline": "InfoQ details the routing mechanism: a per-request plan across providers",
+      "summary": "Independent coverage frames HydraFusion as dynamically assembling an execution plan from models across providers, rather than a static routing rule.",
+      "sids": ["9b03b99c75e6257e"]
+    }
+  ],
+  "open_questions": [
+    "Will GitHub publish the routing logic and provider mix, or does it stay opaque during the preview?",
+    "Does the reported cost/quality parity hold on real repositories, not just GitHub's controlled offline evals?",
+    "Is there a GA timeline, or could the preview be discontinued like other Copilot experiments?"
+  ],
+  "take_for_builders": "If you're evaluating coding copilots on cost, benchmark HydraFusion's multi-model routing against your current single-model setup on your own repos before assuming GitHub's reported savings transfer.",
+  "day_captions": {
+    "2ff277e441a4b0da": "GitHub's own announcement and benchmark claim for the research preview.",
+    "9b03b99c75e6257e": "First independent coverage, detailing the per-request routing mechanism."
+  }
+}
