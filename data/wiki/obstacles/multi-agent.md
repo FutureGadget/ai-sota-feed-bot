@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9]
-updated: 2026-09-18
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee]
+updated: 2026-09-19
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee]
 ---
 
 ## TL;DR
@@ -148,6 +148,24 @@ directly to give each concurrent coding agent (Claude, Codex, or others)
 its own isolated worktree and orchestrates handoffs between them — the
 branch-per-agent pattern above packaged as a dedicated tool rather than a
 manual convention.
+
+The crash-safe task-assignment primitives above (singular-lite's lease
+records) have a generic, database-native version underneath them: Postgres's
+own `SELECT ... FOR UPDATE SKIP LOCKED` lets multiple orchestrator workers
+poll the same queue concurrently while each row is claimed by exactly one
+worker, giving exactly-once dispatch without a broker or leader election.
+Pairing that with a primary-key-enforced `(execution_id, step_id)` checkpoint
+table (an upsert with `ON CONFLICT DO NOTHING` makes a rerun after a crash a
+no-op) and a lease-plus-sweeper pattern — workers heartbeat a
+`lease_expires` timestamp, and a periodic sweeper resets timed-out
+executions back to enqueued — reproduces an external orchestrator's
+durability guarantees on infrastructure most teams already run, reportedly
+handling tens of thousands of workflow steps per second on a single
+instance for I/O-bound automation pipelines. It's the same "ride
+infrastructure you already run" instinct [agent
+memory](/topic/agent-memory)'s Postgres-based shared-memory coordination
+already tracks, applied to workflow durability and crash recovery instead
+of concurrent writes to shared notes.
 
 A vendor's own orchestration SDK is making the same SDK-to-platform jump
 from the provider side: Microsoft's Agent Framework — the Agent Harness,
@@ -398,11 +416,11 @@ watching the running agent lifecycle itself (see [agent
 tracing](/topic/agent-tracing)).
 
 ## What's new
-DoorDash's multi-agent LLM system adds a platform-engineering data point to
-this page's recurring "does the coordination overhead pay off" question:
-combining live experimentation data over MCP, an engineer-approval step, and
-isolated per-flag agent runs, it retired more than 60,000 stale feature flags
-across 623 repositories (see State of the art above).
+Postgres's own `SELECT ... FOR UPDATE SKIP LOCKED`, primary-key checkpoints,
+and a lease-plus-sweeper heartbeat pattern reproduce an external
+orchestrator's exactly-once dispatch and crash recovery on infrastructure
+most teams already run, reportedly handling tens of thousands of workflow
+steps per second on one instance (see State of the art above).
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so
