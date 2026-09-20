@@ -7236,7 +7236,7 @@
   ],
   "published": "2026-09-17T17:42:29+00:00",
   "sid": "989be6ca1bd187d7",
-  "source": "arxiv_cs_ai",
+  "source": "arxiv_cs_lg",
   "summary": "Evaluating an AI system requires disaggregated assessment, as performance varies across domains such as benchmark task types or conversation types in deployed agents. Exhaustive testing is expensive, so evaluation rests on a sample of labeled units. We treat the evaluation set as a finite population and seek accurate point and interval estimates of each domain mean. Direct estimators, including prediction-powered inference (PPI), use only a domain's own labels and are imprecise where labels are few. Small area estimation addresses this problem, and we build on it to develop an integrated workflow for estimation and validation. For estimation, we propose prediction-powered smoothing (PP-S), a Bayesian model fit to each domain's prediction-powered estimate, with an extension that borrows strength across a reporting taxonomy (PP-TS). For validation, we derive a new, approximately unbiased design-based cross-validation score for choosing among direct and smoothed estimators. We study a curated benchmark with verifiable grading and deployed agent traffic graded by humans, each with every outcome observed. In both, the proposed estimators improve on the direct estimators in point and interval estimation, with near-nominal coverage. At the same sampling budget, our score selects as well as an independent validation sample does and estimates the selected estimator's error far more accurately.",
   "summary_1line": "Evaluating an AI system requires disaggregated assessment, as performance varies across domains such as benchmark task types or conversation types in deployed agents. Exhaustive testing is expensive, so evaluation res...",
   "title": "Prediction-Powered Smoothing and Validation for Disaggregated AI Evaluation",
@@ -8191,6 +8191,24 @@
   "type": "news",
   "url": "https://replay.doctor",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "a9e173503fefd148": {
+  "first_seen": "2026-09-20T23:04:16.298908+00:00",
+  "id": "2f06dacbbdb514eb",
+  "image_url": "https://static.simonwillison.net/static/2026-09-20/IMG_8166.jpeg",
+  "matched_topics": [
+   "agent",
+   "codex"
+  ],
+  "published": "2026-09-20T19:22:19+00:00",
+  "sid": "a9e173503fefd148",
+  "source": "simon_willison",
+  "summary": "Release: llm-keys-ui 0.1 This plugin solves a very specific problem. I've started using Codex Remote to run coding agents on various machines while controlling them from my phone. Sometimes I use those machines to hack on LLM projects, and occasionally that means I need to configure an API key. I don't like pasting API keys into agent sessions, so I wanted a way to get those keys onto a machine without pasting them into the ChatGPT app directly. With this plugin, I can tell Codex to run: uvx --with llm-keys-ui llm keys-ui --all Then have it tell me the URL - including local network or Tailscale device IPs - for an interface to save additional API keys. Then later it can use a command like llm keys get anthropic as part of a shell command when it needs to use a key. Tags: llm , coding-agents , codex",
+  "summary_1line": "Release: llm-keys-ui 0.1 This plugin solves a very specific problem. I've started using Codex Remote to run coding agents on various machines while controlling them from my phone. Sometimes I use those machines to hac...",
+  "title": "llm-keys-ui 0.1",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Sep/20/llm-keys-ui",
+  "why_it_matters": "Matches feed focus: agent, codex."
  },
  "aac5dd8eae1db4c9": {
   "first_seen": "2026-09-19T12:03:34.091133+00:00",
@@ -10637,16 +10655,16 @@
  },
  "de70079a099bb5d4": {
   "first_seen": "2026-09-20T22:03:42.134176+00:00",
-  "id": "f40a2e266c2f1e53",
+  "id": "73866f26e6ad6485",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-09-20T21:57:33+00:00",
+  "published": "2026-09-20T22:58:38+00:00",
   "sid": "de70079a099bb5d4",
   "source": "openai_codex_releases",
   "summary": "Release 0.156.0-alpha.11",
   "summary_1line": "Release 0.156.0-alpha.11",
-  "title": "codex rust-v0.156.0-alpha.11",
+  "title": "codex 0.156.0-alpha.11",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.156.0-alpha.11",
   "why_it_matters": "Matches feed focus: codex."
@@ -11008,6 +11026,21 @@
   "title": "shot-scraper 1.12",
   "type": "release",
   "url": "https://simonwillison.net/2026/Sep/13/shot-scraper"
+ },
+ "e73433c3ca4b5235": {
+  "first_seen": "2026-09-20T23:04:16.298908+00:00",
+  "id": "212eefb2c5a022eb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-20T20:01:25+00:00",
+  "sid": "e73433c3ca4b5235",
+  "source": "hackernews_ai",
+  "summary_1line": "Casbin Gateway: a security gateway for the AI coding agents on your machine",
+  "title": "Casbin Gateway: a security gateway for the AI coding agents on your machine",
+  "type": "news",
+  "url": "https://github.com/apache/casbin-gateway",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "e7c349a8cdffac37": {
   "first_seen": "2026-09-10T08:03:30.714327+00:00",
@@ -11842,7 +11875,7 @@
   ],
   "published": "2026-09-17T16:09:57+00:00",
   "sid": "fd9660f034d371fa",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_cs_ai",
   "summary": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi-step trajectory that a re-run rarely repeats. Record-and-replay makes a run reproducible, but existing agent tooling records runs only to trace or score them, not to test a code change against them. We present Chronicle, which records an agent run at its non-deterministic boundaries as immutable envelopes and replays it from the record. Its central operation, cut-point replay, serves a chosen subset of boundaries from the record and executes the complementary subset live with new code, turning a recorded incident into a regression test that runs in continuous integration. On a benchmark of 6 recorded failures with simulated model boundaries, recording adds 23 μs per crossing (0.008% of an assumed 300 ms model call), full replay issues zero model calls and is bit-stable across 20 repetitions, and cut-point tests fail on faulty code and pass on guarded and benign changes for all 6 incidents. In a mutation study of the guarded tools, cut-point tests catch every mutant that lets the recorded unsafe action through, while a baseline that stubs every boundary, using the same assertion, catches none. Chronicle and the benchmark are publicly available at https://github.com/theagentplane/chronicle.",
   "summary_1line": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi...",
   "title": "Chronicle: Cut-Point Replay for Regression Testing of LLM Agents",
