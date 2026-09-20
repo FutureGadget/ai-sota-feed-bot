@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181]
-updated: 2026-09-18
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9]
+updated: 2026-09-20
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9]
 ---
 
 ## TL;DR
@@ -283,12 +283,30 @@ tracking, and treating code itself as a retrievable tool — putting
 attribution (decision provenance) directly into the graph-based retrieval
 architecture rather than bolting it on as a separate scoring step.
 
+**Evidence recovery for coding agents gets a concrete alternative to
+reranking**, sharpening the "bounded interface" gap CABLE already names
+above: MSS-Complement reframes what a coding agent needs mid-task as *set
+construction, not ranking* — it conditions on the agent's current progress
+and uses three semantic calls to propose a jointly sufficient combination
+of evidence, identify what is still missing, and return 4-8 source units
+within the token budget, instead of re-scoring passages for individual
+relevance and hoping the top-k happens to cover every needed fact. On the
+authors' benchmark this recovers a complete evidence set 73.0% of the time
+at five retrieved items, versus 61.4% for embedding-based reranking —
+evidence that treating retrieval as covering a decision's requirements,
+not resembling the query, closes real recall gaps a stronger reranker alone
+doesn't fix.
+
 ## What's new
-An InfoQ presentation frames knowledge graphs as their own agentic-RAG
+MSS-Complement recasts coding-agent retrieval as recovering a jointly
+sufficient evidence set rather than reranking individually relevant
+passages, beating embedding-based reranking's complete-recovery rate 73.0%
+to 61.4% at five retrieved items (see State of the art above).
+
+Prior update: An InfoQ presentation frames knowledge graphs as their own agentic-RAG
 architecture, naming decision-provenance tracking as one of its production
 patterns — folding attribution directly into the graph-retrieval choice
-rather than treating it as a separate verification layer (see State of the
-art above).
+rather than treating it as a separate verification layer.
 
 ## Why it matters for platform engineers
 Grounding is the trust layer underneath every agent answer that cites a
