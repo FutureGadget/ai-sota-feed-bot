@@ -192,6 +192,139 @@ off_topic:
       - league of legends
       - game librar
 
+# Positive relevance floor (pipeline/ranking.py stage_a_prefilter).
+#
+# The off_topic gate above is a blocklist: it only drops what someone thought to
+# enumerate. That works for a dedicated AI source that occasionally strays, but
+# not for a general-interest blog whose author writes about whatever they like.
+# simon_willison is subscribed as atom/everything/ — the same firehose carries
+# prompt-injection writeups and wildlife photos ("California Sea Lion, Brandt's
+# Cormorant" reached feed rank #5 on 2026-09-20). Nothing in the pipeline asked
+# whether the item was about AI at all: prefilter_score is freshness + source
+# reliability, and simon_willison is both a priority and a preferred source, so
+# the top-band quotas actively promoted the sea lion.
+#
+# This inverts the test for such sources: an item must EARN its way in by
+# carrying at least one AI/ML signal in its title or summary, instead of being
+# dropped only if it trips a blocklist entry.
+#
+# OPT-IN PER SOURCE — never global. A dedicated source's relevance is guaranteed
+# by the source itself, and its items often carry no keyword at all: measured
+# against the full raw corpus (24,366 items), a global floor would drop 92% of
+# openai_codex_releases ("codex 0.156.0-alpha.9"), 57% of vllm_releases and 48%
+# of langgraph_releases. List a source here only when it publishes a genuinely
+# mixed feed.
+#
+# Matching: title + summary with HTML tags stripped (so href URLs and markup
+# can't false-match), whole words only, with an optional trailing "s". Add
+# irregular variants explicitly ("agentic", not just "agent"). Dropped count is
+# emitted as prefilter_reasons["no_topic_signal"].
+relevance_floor:
+  enabled: true
+  sources:
+    - simon_willison
+  keywords:
+    # core AI/ML vocabulary
+    - ai
+    - agi
+    - genai
+    - llm
+    - nlp
+    - machine learning
+    - deep learning
+    - neural
+    - transformer
+    - diffusion
+    - generative
+    - model
+    - language model
+    - foundation model
+    - frontier model
+    - open-weight
+    - open weights
+    - checkpoint
+    - pretraining
+    - fine-tuning
+    - fine-tune
+    - fine-tuned
+    - distillation
+    - reinforcement learning
+    - rlhf
+    - alignment
+    # agents + context engineering
+    - agent
+    - agentic
+    - tool use
+    - tool call
+    - tool calling
+    - function calling
+    - mcp
+    - model context protocol
+    - rag
+    - retrieval
+    - embedding
+    - vector database
+    - prompt
+    - prompting
+    - prompt injection
+    - context window
+    - token
+    - tokenizer
+    - tokenization
+    - vibe coding
+    - vibe coded
+    # serving + evaluation
+    - inference
+    - serving
+    - quantization
+    - quantized
+    - hallucination
+    - eval
+    - evaluation
+    - benchmark
+    - chatbot
+    - copilot
+    - reasoning model
+    - chain of thought
+    # labs, model families, and ecosystem tooling
+    - openai
+    - anthropic
+    - claude
+    - chatgpt
+    - gpt
+    - codex
+    - gemini
+    - deepmind
+    - llama
+    - mistral
+    - qwen
+    - deepseek
+    - grok
+    - kimi
+    - hugging face
+    - huggingface
+    - ollama
+    - openrouter
+    - litellm
+    - vllm
+    - sglang
+    - langchain
+    - langgraph
+    - llamaindex
+    - pytorch
+    - tensorflow
+    - cursor
+    - perplexity
+    - midjourney
+    - stable diffusion
+    - whisper
+    - gpu
+    - cuda
+    - tpu
+    # "pelican riding a bicycle" is Simon Willison's recurring model-comparison
+    # benchmark; the posts are model evaluations that rarely name a lab.
+    - pelican
+
 type_bonus:
   paper: 0.0
   news: 0.0

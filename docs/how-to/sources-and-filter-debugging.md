@@ -170,6 +170,14 @@ Interpretation:
 
 2. **Prefiltered out**
 - title regex exclude (`selection.exclude_title_regex`)
+- positive relevance floor (`profile.relevance_floor`,
+  `prefilter_reasons.no_topic_signal`): the item came from a source listed in
+  `relevance_floor.sources` and its title+summary (HTML stripped) carried no
+  `relevance_floor.keywords` term. If an on-topic item is wrongly dropped, add
+  the missing vocabulary term — the list is meant to grow. Only add a source to
+  `relevance_floor.sources` when it publishes a genuinely mixed feed; a
+  dedicated source's release notes ("codex 0.156.0-alpha.9") carry no keyword
+  and would be wiped out.
 - off-topic relevance gate (`profile.off_topic`, `prefilter_reasons.off_topic`):
   an anchored off-topic phrase matched title+summary and no
   `off_topic.rescue_keywords` term was present. If an on-topic item is wrongly
