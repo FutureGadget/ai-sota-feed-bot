@@ -2128,6 +2128,22 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.2.5",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "2b1afde26d8e8dc7": {
+  "first_seen": "2026-09-20T20:03:38.082266+00:00",
+  "id": "d21bcf3cafffb334",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-20T19:53:01+00:00",
+  "sid": "2b1afde26d8e8dc7",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.156.0-alpha.10",
+  "summary_1line": "Release 0.156.0-alpha.10",
+  "title": "codex rust-v0.156.0-alpha.10",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.156.0-alpha.10",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "2c827cba158d2f26": {
   "first_seen": "2026-09-08T19:03:21.406077+00:00",
   "id": "8262bdc9e55d7bbf",
@@ -11794,7 +11810,7 @@
   ],
   "published": "2026-09-17T16:09:57+00:00",
   "sid": "fd9660f034d371fa",
-  "source": "arxiv_cs_cl",
+  "source": "arxiv_cs_ai",
   "summary": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi-step trajectory that a re-run rarely repeats. Record-and-replay makes a run reproducible, but existing agent tooling records runs only to trace or score them, not to test a code change against them. We present Chronicle, which records an agent run at its non-deterministic boundaries as immutable envelopes and replays it from the record. Its central operation, cut-point replay, serves a chosen subset of boundaries from the record and executes the complementary subset live with new code, turning a recorded incident into a regression test that runs in continuous integration. On a benchmark of 6 recorded failures with simulated model boundaries, recording adds 23 μs per crossing (0.008% of an assumed 300 ms model call), full replay issues zero model calls and is bit-stable across 20 repetitions, and cut-point tests fail on faulty code and pass on guarded and benign changes for all 6 incidents. In a mutation study of the guarded tools, cut-point tests catch every mutant that lets the recorded unsafe action through, while a baseline that stubs every boundary, using the same assertion, catches none. Chronicle and the benchmark are publicly available at https://github.com/theagentplane/chronicle.",
   "summary_1line": "Large language model responses are non-deterministic, so failures in LLM agents are hard to reproduce: a failure depends on inference that is not bitwise reproducible, on tools that read changing state, and on a multi...",
   "title": "Chronicle: Cut-Point Replay for Regression Testing of LLM Agents",
