@@ -114,12 +114,16 @@ in `ops_daily_summary.py`'s log line.
 - `collectors/collect.py` — single ingestion job (RSS/sitemap/arXiv/GitHub
   releases/Hugging Face org listings (`hf_org_models`, first-party model-drop
   signal for open-weight labs), normalization, dedupe, crawl cooldown per source,
-  optional per-source `exclude_title_regex` title blocklist)
+  optional per-source `exclude_title_regex` title blocklist, optional
+  per-source `fetch_content: true` page-body enrichment → `content_excerpt`
+  for feeds that publish only a teaser)
 - `pipeline/` — all processing:
   - `ranking.py` — unified ranking engine (stage A prefilter → slot assignment
     → stage C scoring → global merge → top-band constraints)
   - `build_tier1.py` (fast snapshot) / `build_digest.py` (Tier-0 full build)
   - `enrich.py`, `content_fetch.py` — mechanical enrichment, page excerpts
+    (`build_content_map` is called from the collector for `fetch_content`
+    sources; the excerpt feeds keyword gates only, never display)
   - `llm_label.py`, `llm_rerank.py` — no-op placeholders while LLM disabled
   - `story_store.py`, `build_storylines.py`, `render_static_pages.py` — durable
     stories, threads, static SEO pages (incl. pre-rendered latest `/daily` and

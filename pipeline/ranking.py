@@ -203,7 +203,15 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
             continue
 
         if floor_re is not None and it.get("source", "") in floor_sources:
-            if not floor_re.search(_visible_text(f"{title} {it.get('summary', '')}")):
+            # content_excerpt joins the haystack where the source has
+            # `fetch_content`: this gate is an allowlist, so more text can only
+            # rescue an on-topic item, never drop one. Without it a teaser that
+            # happens to name no AI vocabulary fails the floor even when the
+            # article is entirely about inference.
+            haystack = _visible_text(
+                f"{title} {it.get('summary', '')} {it.get('content_excerpt', '')}"
+            )
+            if not floor_re.search(haystack):
                 reasons["no_topic_signal"] += 1
                 continue
 
