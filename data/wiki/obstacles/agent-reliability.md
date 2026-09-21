@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c]
-updated: 2026-09-18
-covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c]
+evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c, 0a7a12052d2d17b7]
+updated: 2026-09-21
+covers_evidence: [ed7d246a0b0ba7d9, b29eda10951194a9, 6e5085e3c3e072bd, 1505eb481125a099, e2038a0c26803804, e057b58674d089fa, 68e97756211ddc61, 6f5c728ce100a70f, "1825257161299360", a2351bb6d35107c3, 8961949ff68916c0, 6a7b6e5a47f7a500, c4b4a85beb63030f, d5ceccd62fd0a295, c5e28c540d3749ce, d425cfc85457f214, 5cfa494a315266ad, a6ebb163a6c3bf17, c78d84ac1a7e3d92, ffc229d83891918f, 6350db8a250c29ca, 8a8b7100027de272, c47e9befb61fd48e, a0b55030a7b9aaf8, 70ffdcd5e3598c72, bc1ee2913dd597e8, 21608ea83bf7c28c, 0a7a12052d2d17b7]
 ---
 
 ## TL;DR
@@ -290,12 +290,31 @@ detecting where AI-generated behavior diverges from stated intent — the
 same tools-for-certainty argument this page already makes, restated as a
 shift in where a team's review effort has to go.
 
+A production-harness talk names the same identity/execution/intent split
+this page already tracks from a builder's-eye view rather than an
+architecture diagram: OpenAI's Vinoth Govindarajan argues, using real
+incidents like OpenClaw, that production agents fail beyond model
+hallucination, and locates the fix in the harness rather than the model —
+explicit state ownership, serializing concurrent state mutations so two
+in-flight actions can't corrupt shared state, scoping execution authority
+per step, and validating actions at the user-visible edge rather than
+trusting the model's own account of what it did. It sharpens this page's
+"tools for certainty" framing into concrete harness invariants a team can
+audit for, not just a philosophy of where to draw the model/deterministic
+-code boundary.
+
 ## What's new
-Grounded generation is extending to code: Typed Domain Grounding embeds a
-domain-specific language inside a mainstream typed language so the host
-language's own type checker catches invalid generated output before it
-runs, instead of relying on a second LLM pass to detect the mistake (see
-State of the art above).
+A production-harness talk (OpenClaw case studies) names concrete invariants
+for where reliability actually breaks — state ownership, serialized state
+mutations, scoped execution authority, edge validation — sharpening this
+page's identity/execution/intent split into an auditable harness checklist
+(see State of the art above).
+
+Prior update: Grounded generation is extending to code: Typed Domain
+Grounding embeds a domain-specific language inside a mainstream typed
+language so the host language's own type checker catches invalid generated
+output before it runs, instead of relying on a second LLM pass to detect
+the mistake.
 
 ## Why it matters for platform engineers
 Reliability spans three layers platform teams have to build separately: an
