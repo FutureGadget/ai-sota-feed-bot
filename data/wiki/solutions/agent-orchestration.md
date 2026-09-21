@@ -5,9 +5,9 @@ title: "Orchestration patterns: topologies, handoffs, and harnesses"
 status: active
 obstacles: [multi-agent]
 related_storylines: []
-evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987]
-updated: 2026-09-11
-covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987]
+evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987, 7292eba504d2de73]
+updated: 2026-09-20
+covers_evidence: [19e4caf222bfb0d9, e7f12e82187d72de, 64ad8e685ed41a9b, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, f5869c6c9f8fd679, 7f65b3c679e761ab, b63273fd00b53bf8, fc95810347d73a68, b32e9b8471353987, 7292eba504d2de73]
 ---
 
 ## TL;DR
@@ -155,11 +155,28 @@ time from the lab that trains the model the harness runs on — one more
 managed-runtime option an adopter has to weigh against the portability
 argument the twelfth axis makes.
 
+The **runtime substrate** axis above now has a purpose-built, single-project
+answer rather than only a report from teams assembling their own: Enjambre
+packages a SQLite-backed durable queue, DAG task dependencies, and
+lease-based crash recovery (auto-expiring leases, heartbeat-derived
+liveness, dead-letter states) as one open "kernel" for agent swarms, with a
+permission gate and a success-rate/latency/cost router layered on top and
+MCP tools (`enqueue_task`, `claim_task`, `complete_task`) exposing the
+queue to any MCP client. It's early-stage (ten commits, no adoption signal
+yet), but it packages the same durable-execution properties multi-agent's
+Postgres recipe assembles from general infrastructure into a single
+deployable substrate purpose-built for agent orchestration.
+
 ## What's new
-OpenAI's Agents API packages the Codex harness as a managed cloud service —
+Enjambre packages a durable task queue, DAG dependencies, lease-based crash
+recovery, a permission gate, and a cost/latency/success-rate router into
+one SQLite-backed orchestration substrate exposed over MCP — a purpose-built
+answer to this page's runtime-substrate axis (see State of the art above).
+
+Prior update: OpenAI's Agents API packages the Codex harness as a managed cloud service —
 orchestration, long-running sessions, and tool use handled by the platform —
 the model vendor's own version of the SDK-to-platform jump this page already
-tracks for Microsoft and LangChain (see State of the art above).
+tracks for Microsoft and LangChain.
 
 Prior update: AWS's enterprise multi-agent series makes vendor lock-in an explicit
 orchestration design constraint: teams already run several frameworks,
