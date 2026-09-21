@@ -34,9 +34,12 @@ Candidates (TIER0_INPUT=tier1 by default, raw fallback)
 Stage A: prefilter (ranking.stage_a_prefilter)
   - title regex excludes (selection.exclude_title_regex)
   - positive relevance floor (profile.relevance_floor): for the mixed-topic
-    sources listed there, title+summary (HTML stripped) must carry at least one
-    AI/ML keyword (prefilter_reasons.no_topic_signal). Opt-in per source —
-    a dedicated source's terse release notes carry no keyword at all
+    sources listed there, title+summary (HTML and URLs stripped) must carry at
+    least one AI/ML keyword (prefilter_reasons.no_topic_signal). Opt-in per
+    source — a dedicated source's terse release notes carry no keyword at all.
+    `build_tier1.py` applies the same floor (`no_topic_signal=` in its log
+    line), because api/feed.js blends Tier-1 snapshots into the served feed
+    alongside this brief
   - off-topic relevance gate (profile.off_topic): anchored-phrase blocklist
     over title+summary, with a word-boundary platform rescue clause
     (prefilter_reasons.off_topic)

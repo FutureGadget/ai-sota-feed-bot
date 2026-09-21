@@ -22,16 +22,49 @@ RANKING_CFG_FILE = ROOT / "config" / "ranking.yaml"
 PRESETS_DIR = ROOT / "config" / "presets"
 
 _TAG_RE = re.compile(r"<[^>]+>")
+# URLs and bare hostnames, which survive tag-stripping as visible link text.
+# A domain is a name, not prose: "agent.datasette.io" in the body of a Datasette
+# release rescued it as an agent post.
+_URL_RE = re.compile(r"\b(?:[a-z][a-z0-9+.-]*://\S+|(?:[\w-]+\.)+[a-z]{2,}(?:/\S*)?)", re.I)
 
 
 def _visible_text(raw: str) -> str:
-    """Lowercased rendered text of an RSS summary.
+    """Lowercased prose of an RSS summary, with markup and URLs removed.
 
-    Keyword gates must not see markup: an href like ``/tags/wildlife`` or an
-    ``alt`` attribute is not something the reader reads, and matching it turns
-    an unrelated link into a topic signal.
+    Keyword gates must not see markup or addresses: an href like
+    ``/tags/wildlife``, an ``alt`` attribute, or a hostname like
+    ``agent.datasette.io`` is not something the reader reads as prose, and
+    matching it turns an unrelated link into a topic signal.
     """
-    return html.unescape(_TAG_RE.sub(" ", raw or "")).lower()
+    text = html.unescape(_TAG_RE.sub(" ", raw or ""))
+    return _URL_RE.sub(" ", text).lower()
+
+
+def build_relevance_floor(profile: dict[str, Any]) -> tuple[set[str], Any]:
+    """Compile ``config/profile.yaml`` ``relevance_floor`` into (sources, regex).
+
+    Shared by the Tier-0 prefilter and the Tier-1 snapshot so both stages gate
+    on one implementation; ``(set(), None)`` means the floor is off and
+    ``passes_relevance_floor`` then admits everything.
+    """
+    floor_cfg = profile.get("relevance_floor", {}) or {}
+    if not floor_cfg.get("enabled", False):
+        return set(), None
+    srcs = {str(s).strip() for s in (floor_cfg.get("sources", []) or []) if str(s).strip()}
+    kws = [str(k).lower() for k in (floor_cfg.get("keywords", []) or []) if str(k).strip()]
+    if not srcs or not kws:
+        return set(), None
+    # Whole words with an optional plural, so "ai" can't match inside "details"
+    # and "token" still covers "tokens".
+    return srcs, re.compile(r"\b(?:" + "|".join(re.escape(k) for k in kws) + r")s?\b")
+
+
+def passes_relevance_floor(item: dict[str, Any], floor_sources: set[str], floor_re: Any) -> bool:
+    """True unless ``item`` is from a floored source and carries no topic signal."""
+    if floor_re is None or item.get("source", "") not in floor_sources:
+        return True
+    text = _visible_text(f"{item.get('title', '')} {item.get('summary', '')}")
+    return bool(floor_re.search(text))
 
 
 def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
@@ -181,17 +214,7 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
     # mixed-topic source the burden is reversed, and an item must carry an AI
     # signal to stay eligible. Opt-in per source: a dedicated source's terse
     # release notes legitimately carry no keyword at all.
-    floor_cfg = profile.get("relevance_floor", {}) or {}
-    floor_sources: set[str] = set()
-    floor_re = None
-    if floor_cfg.get("enabled", False):
-        srcs = {str(s).strip() for s in (floor_cfg.get("sources", []) or []) if str(s).strip()}
-        kws = [str(k).lower() for k in (floor_cfg.get("keywords", []) or []) if str(k).strip()]
-        if srcs and kws:
-            # Whole words with an optional plural, so "ai" can't match inside
-            # "details" and "token" still covers "tokens".
-            floor_re = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in kws) + r")s?\b")
-            floor_sources = srcs
+    floor_sources, floor_re = build_relevance_floor(profile)
 
     out: list[dict[str, Any]] = []
     reasons = defaultdict(int)
@@ -202,10 +225,9 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
             reasons["hard_exclude"] += 1
             continue
 
-        if floor_re is not None and it.get("source", "") in floor_sources:
-            if not floor_re.search(_visible_text(f"{title} {it.get('summary', '')}")):
-                reasons["no_topic_signal"] += 1
-                continue
+        if not passes_relevance_floor(it, floor_sources, floor_re):
+            reasons["no_topic_signal"] += 1
+            continue
 
         if off_phrases:
             haystack = f"{title} {it.get('summary', '')}".lower()

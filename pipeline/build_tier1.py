@@ -8,12 +8,18 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+import yaml
 from dateutil import parser as dt_parser
 
 try:
     from enrich import enrich_items, record_duplicate, summary_one_line
 except Exception:
     from pipeline.enrich import enrich_items, record_duplicate, summary_one_line
+
+try:
+    from ranking import build_relevance_floor, passes_relevance_floor
+except Exception:
+    from pipeline.ranking import build_relevance_floor, passes_relevance_floor
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -52,6 +58,11 @@ def latest_raw_file() -> Path:
     if not fp.exists():
         raise FileNotFoundError(f"Missing {fp}")
     return fp
+
+
+def load_profile() -> dict[str, Any]:
+    with open(ROOT / "config" / "profile.yaml", "r", encoding="utf-8") as f:
+        return yaml.safe_load(f) or {}
 
 
 def load_source_health() -> dict[str, float]:
@@ -164,8 +175,18 @@ def run() -> None:
     items = enrich_items(items)
     deduped = dedupe(items)
 
+    # Tier-1 feeds the served feed directly (api/feed.js blends recent snapshots
+    # in alongside the Tier-0 brief), so the relevance floor has to apply here
+    # too. Gating only Tier-0 left off-topic items from a mixed-topic source
+    # reaching readers through the blend.
+    floor_sources, floor_re = build_relevance_floor(load_profile())
+    dropped_no_topic = 0
+
     out = []
     for it in deduped:
+        if not passes_relevance_floor(it, floor_sources, floor_re):
+            dropped_no_topic += 1
+            continue
         rel = float(src_health.get(it.get("source", ""), 1.0))
         fresh = freshness_score(it.get("published", ""), decay_hours=72.0)
         quick = fresh + rel
@@ -189,7 +210,10 @@ def run() -> None:
     latest_file.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
 
     run_at_iso, run_rel_path = write_tier1_snapshot(out)
-    print(f"tier1_items={len(out)} file={latest_file} run_at={run_at_iso} run_file={run_rel_path}")
+    print(
+        f"tier1_items={len(out)} no_topic_signal={dropped_no_topic} "
+        f"file={latest_file} run_at={run_at_iso} run_file={run_rel_path}"
+    )
 
 
 if __name__ == "__main__":

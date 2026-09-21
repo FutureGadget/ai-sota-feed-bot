@@ -4,7 +4,11 @@ import unittest
 from datetime import datetime, timezone
 from unittest.mock import patch
 
-from pipeline.ranking import stage_a_prefilter
+from pipeline.ranking import (
+    build_relevance_floor,
+    passes_relevance_floor,
+    stage_a_prefilter,
+)
 
 NOW = datetime(2026, 9, 20, 12, 0, tzinfo=timezone.utc)
 PUBLISHED = "2026-09-20T10:00:00+00:00"
@@ -33,7 +37,7 @@ def _profile(**overrides):
         "relevance_floor": {
             "enabled": True,
             "sources": ["simon_willison"],
-            "keywords": ["ai", "llm", "agent", "token", "prompt", "claude", "pelican"],
+            "keywords": ["ai", "llm", "agent", "model", "token", "prompt", "claude", "pelican"],
         },
     }
     profile.update(overrides)
@@ -137,6 +141,69 @@ class RelevanceFloorTest(unittest.TestCase):
         candidates, _diag = _run(items, profile)
 
         self.assertEqual(len(candidates), 1)
+
+
+class RelevanceFloorUrlTest(unittest.TestCase):
+    """A URL or bare hostname is a name, not prose, and must not rescue an item."""
+
+    def setUp(self) -> None:
+        self.floor_sources, self.floor_re = build_relevance_floor(_profile())
+
+    def _passes(self, title: str, summary: str) -> bool:
+        item = _item("simon_willison", title, summary)
+        return passes_relevance_floor(item, self.floor_sources, self.floor_re)
+
+    def test_hostname_does_not_rescue(self) -> None:
+        """"agent.datasette.io" in a Datasette release body matched \\bagent\\b."""
+        self.assertFalse(
+            self._passes(
+                "datasette-auth-github 1.0",
+                "<p>I run this GitHub login plugin on the agent.datasette.io demo site"
+                " and my sessions were not lasting very long.</p>",
+            )
+        )
+
+    def test_url_in_href_does_not_rescue(self) -> None:
+        self.assertFalse(
+            self._passes(
+                "Kākāpō parrots",
+                '<p>Photos from the trip.</p><p>Tags: <a href="https://x.com/tags/llm">'
+                "wildlife</a></p>",
+            )
+        )
+
+    def test_prose_still_rescues_alongside_a_url(self) -> None:
+        """Stripping URLs must not cost an item whose prose carries the signal."""
+        self.assertTrue(
+            self._passes(
+                "So you want to use OpenRouter?",
+                "<p>Notes on calling a model through the proxy, see https://example.com/x</p>",
+            )
+        )
+
+
+class BuildTier1FloorTest(unittest.TestCase):
+    """Tier-1 feeds the served feed directly, so it must gate too."""
+
+    def test_build_tier1_shares_the_ranking_floor(self) -> None:
+        from pipeline import build_tier1
+
+        floor_sources, floor_re = build_relevance_floor(build_tier1.load_profile())
+        sea_lion = _item(
+            "simon_willison",
+            "California Sea Lion, Brandt's Cormorant",
+            '<p>In Pillar Point Harbor.</p><p>Tags: <a href="/tags/wildlife">wildlife</a></p>',
+        )
+        on_topic = _item(
+            "simon_willison",
+            "Self-generated prompt injections in compaction summaries",
+            "<p>A coding agent summarising its own context window.</p>",
+        )
+        release_note = _item("openai_codex_releases", "codex 0.156.0-alpha.9")
+
+        self.assertFalse(passes_relevance_floor(sea_lion, floor_sources, floor_re))
+        self.assertTrue(passes_relevance_floor(on_topic, floor_sources, floor_re))
+        self.assertTrue(passes_relevance_floor(release_note, floor_sources, floor_re))
 
 
 if __name__ == "__main__":
