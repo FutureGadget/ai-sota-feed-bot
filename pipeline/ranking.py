@@ -21,6 +21,18 @@ ROOT = Path(__file__).resolve().parents[1]
 RANKING_CFG_FILE = ROOT / "config" / "ranking.yaml"
 PRESETS_DIR = ROOT / "config" / "presets"
 
+_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _visible_text(raw: str) -> str:
+    """Lowercased rendered text of an RSS summary.
+
+    Keyword gates must not see markup: an href like ``/tags/wildlife`` or an
+    ``alt`` attribute is not something the reader reads, and matching it turns
+    an unrelated link into a topic signal.
+    """
+    return html.unescape(_TAG_RE.sub(" ", raw or "")).lower()
+
 
 def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
     out = dict(base)
@@ -164,6 +176,23 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
             # as substrings ("rag" inside "storage", "agent" inside text, etc.).
             rescue_re = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in rescue_kw) + r")\b")
 
+    # Positive relevance floor (see config/profile.yaml relevance_floor). The
+    # off_topic blocklist above can only drop what someone enumerated; for a
+    # mixed-topic source the burden is reversed, and an item must carry an AI
+    # signal to stay eligible. Opt-in per source: a dedicated source's terse
+    # release notes legitimately carry no keyword at all.
+    floor_cfg = profile.get("relevance_floor", {}) or {}
+    floor_sources: set[str] = set()
+    floor_re = None
+    if floor_cfg.get("enabled", False):
+        srcs = {str(s).strip() for s in (floor_cfg.get("sources", []) or []) if str(s).strip()}
+        kws = [str(k).lower() for k in (floor_cfg.get("keywords", []) or []) if str(k).strip()]
+        if srcs and kws:
+            # Whole words with an optional plural, so "ai" can't match inside
+            # "details" and "token" still covers "tokens".
+            floor_re = re.compile(r"\b(?:" + "|".join(re.escape(k) for k in kws) + r")s?\b")
+            floor_sources = srcs
+
     out: list[dict[str, Any]] = []
     reasons = defaultdict(int)
 
@@ -172,6 +201,11 @@ def stage_a_prefilter(items: list[dict[str, Any]], cfg: dict[str, Any], profile:
         if any(re.search(pat, title) for pat in exclude_title_regex):
             reasons["hard_exclude"] += 1
             continue
+
+        if floor_re is not None and it.get("source", "") in floor_sources:
+            if not floor_re.search(_visible_text(f"{title} {it.get('summary', '')}")):
+                reasons["no_topic_signal"] += 1
+                continue
 
         if off_phrases:
             haystack = f"{title} {it.get('summary', '')}".lower()
