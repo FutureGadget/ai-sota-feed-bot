@@ -1,0 +1,43 @@
+{
+  "slug": "shared-memory",
+  "generated_at": "2026-09-21T20:08:16Z",
+  "covers_last_updated": "2026-09-21T13:13:09+00:00",
+  "covers_member_sids": [
+    "c95ec4fda28e63d4",
+    "63c719faf3c1678c",
+    "ecbc939e4d2da1ba"
+  ],
+  "tldr": "In early September a startup and an academic paper both proposed giving AI agents persistent, shared memory instead of siloed per-session context. The pitch: context one agent learns should stay usable by every other agent on the same team, not vanish when a session ends.",
+  "whats_new": "Motif open-sourced a shared, versioned memory store for teams of coding agents on Sept 21, following MemHub's commercial persistent-memory product and a kernel-managed-memory research paper earlier in the month.",
+  "why_it_matters": "If cross-agent shared memory catches on, plan for memory-consistency and access-control problems, not just context loss — evaluate write conflicts before adopting a shared store.",
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "MemHub ships persistent shared memory for coding agents",
+      "sids": ["c95ec4fda28e63d4"]
+    },
+    {
+      "kicker": "RESEARCH",
+      "tone": "rising",
+      "headline": "arXiv paper proposes kernel-managed shared memory for multi-agent personalization",
+      "sids": ["63c719faf3c1678c"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Motif open-sources shared memory for teams of coding agents",
+      "sids": ["ecbc939e4d2da1ba"]
+    }
+  ],
+  "open_questions": [
+    "Does Motif or MemHub define a conflict-resolution model for concurrent agent writes to shared memory?",
+    "Does kernel-managed shared memory, the arXiv proposal, ship in any production agent framework, or does it remain research?"
+  ],
+  "take_for_builders": "Before adopting a shared-memory layer for a multi-agent team, test how it handles concurrent writes and stale reads — none of September's three releases publish a consistency model.",
+  "day_captions": {
+    "c95ec4fda28e63d4": "First mover: a commercial product for persistent cross-agent memory.",
+    "63c719faf3c1678c": "Independent research proposes a kernel-level mechanism for the same problem.",
+    "ecbc939e4d2da1ba": "First open-source implementation targeting team-shared agent memory."
+  }
+}

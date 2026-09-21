@@ -1,0 +1,102 @@
+{
+ "slug": "shared-memory",
+ "label": "Shared Memory",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-09-03T01:43:31+00:00",
+ "last_updated": "2026-09-21T13:13:09+00:00",
+ "generated_at": "2026-09-21T20:08:34.005411+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "hackernews_ai"
+ ],
+ "days": [
+  {
+   "date": "2026-09-03",
+   "items": [
+    {
+     "title": "MemHub – Persistent shared memory for AI coding agents",
+     "url": "https://memhub.simplex.lat",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "MemHub – Persistent shared memory for AI coding agents",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "c95ec4fda28e63d4",
+     "published": "2026-09-03T01:43:31+00:00",
+     "editor_note": "First mover: a commercial product for persistent cross-agent memory."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-09",
+   "items": [
+    {
+     "title": "Kernel-Managed Shared Memory for System-Wide Personalization",
+     "url": "http://arxiv.org/abs/2609.10144v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "AI systems become more useful when they can adapt to the people using them, but in multi-agent systems, useful context learned by one agent often remains unavailable to others. We present kernel-managed shared memory,...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "63c719faf3c1678c",
+     "published": "2026-09-09T13:20:47+00:00",
+     "editor_note": "Independent research proposes a kernel-level mechanism for the same problem."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-21",
+   "items": [
+    {
+     "title": "Show HN: Open-source shared memory for teams of AI coding agents",
+     "url": "https://github.com/motif-Labs/motif",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Show HN: Open-source shared memory for teams of AI coding agents",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "ecbc939e4d2da1ba",
+     "published": "2026-09-21T13:13:09+00:00",
+     "editor_note": "First open-source implementation targeting team-shared agent memory."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "In early September a startup and an academic paper both proposed giving AI agents persistent, shared memory instead of siloed per-session context. The pitch: context one agent learns should stay usable by every other agent on the same team, not vanish when a session ends.",
+  "stale": false,
+  "whats_new": "Motif open-sourced a shared, versioned memory store for teams of coding agents on Sept 21, following MemHub's commercial persistent-memory product and a kernel-managed-memory research paper earlier in the month.",
+  "why_it_matters": "If cross-agent shared memory catches on, plan for memory-consistency and access-control problems, not just context loss — evaluate write conflicts before adopting a shared store.",
+  "take_for_builders": "Before adopting a shared-memory layer for a multi-agent team, test how it handles concurrent writes and stale reads — none of September's three releases publish a consistency model.",
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "MemHub ships persistent shared memory for coding agents",
+    "sids": [
+     "c95ec4fda28e63d4"
+    ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "rising",
+    "headline": "arXiv paper proposes kernel-managed shared memory for multi-agent personalization",
+    "sids": [
+     "63c719faf3c1678c"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Motif open-sources shared memory for teams of coding agents",
+    "sids": [
+     "ecbc939e4d2da1ba"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does Motif or MemHub define a conflict-resolution model for concurrent agent writes to shared memory?",
+   "Does kernel-managed shared memory, the arXiv proposal, ship in any production agent framework, or does it remain research?"
+  ],
+  "generated_at": "2026-09-21T20:08:16Z"
+ }
+}
