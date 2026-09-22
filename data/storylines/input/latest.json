@@ -1,128 +1,110 @@
 {
-  "generated_at": "2026-09-22T10:15:52.245660+00:00",
+  "generated_at": "2026-09-22T15:15:19.392159+00:00",
   "window_days": 21,
-  "storyline_count": 1,
-  "needs_narrative_count": 1,
+  "storyline_count": 3,
+  "needs_narrative_count": 3,
   "storylines": [
     {
-      "slug": "muse-meta",
-      "label": "Muse Meta",
-      "item_count": 4,
-      "source_count": 4,
-      "day_count": 4,
-      "first_seen": "2026-09-03T04:38:33+00:00",
-      "last_updated": "2026-09-22T08:10:02+00:00",
-      "latest_title": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst",
+      "slug": "github-s-project-hydrafusion-multi-model-routing",
+      "label": "Frontier Multi-model",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 3,
+      "first_seen": "2026-09-04T16:04:14+00:00",
+      "last_updated": "2026-09-22T12:39:16+00:00",
+      "latest_title": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
       "member_sids": [
-        "1d6b63efae6a0d62",
-        "6bcfa36fc46a3510",
-        "2886f62732cdbcb9",
-        "499cf9f45f197b68"
+        "2ff277e441a4b0da",
+        "9b03b99c75e6257e",
+        "28885e87af4bfe4c"
       ],
-      "via_scout": false,
+      "via_scout": true,
       "has_narrative": true,
       "needs_narrative": true,
       "reason": "stale",
-      "narrative_path": "data/storylines/narratives/muse-meta.json",
+      "narrative_path": "data/storylines/narratives/github-s-project-hydrafusion-multi-model-routing.json",
       "prior_narrative": {
-        "slug": "muse-meta",
-        "generated_at": "2026-09-15T15:09:18+00:00",
-        "covers_last_updated": "2026-09-15T10:16:45+00:00",
+        "slug": "github-s-project-hydrafusion-multi-model-routing",
+        "generated_at": "2026-09-19T00:20:00+00:00",
+        "covers_last_updated": "2026-09-13T06:06:00+00:00",
         "covers_member_sids": [
-          "1d6b63efae6a0d62",
-          "6bcfa36fc46a3510",
-          "2886f62732cdbcb9"
+          "2ff277e441a4b0da",
+          "9b03b99c75e6257e"
         ],
-        "tldr": "Meta's Muse Spark 1.3 model matched GPT-5.6-Sol in September while training at a steep discount, signaling Meta Superintelligence Labs had closed the frontier gap. Meta then shipped Muse as a private AI agent product built on that model line.",
-        "whats_new": "Meta is now promoting Muse through its own official social media accounts to drive adoption of the AI agent.",
-        "why_it_matters": "A fourth well-funded lab now claims a frontier-parity model at a fraction of typical training cost, adding another agent-model option beyond OpenAI/Anthropic/Google worth benchmarking before you standardize on one.",
+        "tldr": "GitHub shipped Project HydraFusion as a Copilot research preview that routes coding requests across models from multiple providers at runtime instead of calling one fixed model. GitHub's own controlled offline evals claimed selective workflows matched or beat an Opus 5 baseline at lower estimated cost.",
+        "whats_new": "InfoQ's independent write-up confirms the same preview and adds detail on the mechanism: HydraFusion dynamically assembles a per-request execution plan across providers rather than routing by a static rule set.",
+        "why_it_matters": "Runtime multi-model orchestration is a concrete lever for cutting coding-agent inference cost without a flat quality trade-off — worth benchmarking against a single-frontier-model baseline before adopting.",
         "status": {
-          "state": "Shipping",
-          "tone": "rising",
-          "changed": "2026-09-15",
-          "detail": "Muse moved from a frontier-parity model benchmark to a live agent product Meta is now marketing directly through its own channels."
+          "state": "Research preview",
+          "tone": "launch",
+          "changed": "2026-09-04",
+          "detail": "Available as a GitHub Copilot research preview; no GA date announced."
+        },
+        "provenance": {
+          "2ff277e441a4b0da": {
+            "surfaced_by": "scout"
+          },
+          "9b03b99c75e6257e": {
+            "surfaced_by": "scout"
+          }
         },
         "beats": [
           {
             "kicker": "LAUNCH",
             "tone": "launch",
-            "headline": "Muse Spark 1.3 matches GPT-5.6-Sol at a steep training discount",
-            "summary": "First independent signal that Meta Superintelligence Labs closed the frontier gap.",
+            "headline": "GitHub introduces Project HydraFusion as a Copilot research preview",
+            "summary": "GitHub's own controlled offline evals reported selective coding workflows matching or beating an Opus 5 baseline at lower estimated cost.",
             "sids": [
-              "1d6b63efae6a0d62"
+              "2ff277e441a4b0da"
             ]
           },
           {
-            "kicker": "AGENT LAUNCH",
+            "kicker": "COVERAGE",
             "tone": "rising",
-            "headline": "Meta launches Muse as a private AI agent",
-            "summary": "Muse ships as a standalone agent product built on the Spark model line.",
+            "headline": "InfoQ details the routing mechanism: a per-request plan across providers",
+            "summary": "Independent coverage frames HydraFusion as dynamically assembling an execution plan from models across providers, rather than a static routing rule.",
             "sids": [
-              "6bcfa36fc46a3510"
-            ]
-          },
-          {
-            "kicker": "NOW",
-            "tone": "now",
-            "headline": "Meta pushes the Muse rollout onto its own social handles",
-            "summary": "A consumer-facing marketing push to drive adoption.",
-            "sids": [
-              "2886f62732cdbcb9"
+              "9b03b99c75e6257e"
             ]
           }
         ],
         "open_questions": [
-          "Is Muse Spark's reported training-cost discount reflected in API/agent pricing, or is it a research-only benchmark claim?",
-          "Does Muse ship with tool-use/agent-harness capabilities comparable to Claude Code, Codex, or Gemini's agent offerings?",
-          "Is Muse being positioned for developer/API access, or is this launch purely consumer-facing?"
+          "Will GitHub publish the routing logic and provider mix, or does it stay opaque during the preview?",
+          "Does the reported cost/quality parity hold on real repositories, not just GitHub's controlled offline evals?",
+          "Is there a GA timeline, or could the preview be discontinued like other Copilot experiments?"
         ],
-        "take_for_builders": "If you're evaluating agent models beyond the big three, benchmark Muse directly rather than trusting Meta's frontier-parity claim — a training-cost discount doesn't guarantee competitive inference pricing or agent-harness maturity.",
+        "take_for_builders": "If you're evaluating coding copilots on cost, benchmark HydraFusion's multi-model routing against your current single-model setup on your own repos before assuming GitHub's reported savings transfer.",
         "day_captions": {
-          "1d6b63efae6a0d62": "First independent signal Meta closed the frontier gap, with a reported >90% training-cost discount.",
-          "6bcfa36fc46a3510": "Meta ships Muse as a standalone private AI agent product.",
-          "2886f62732cdbcb9": "Meta uses its own social accounts to push Muse to users, a consumer-facing launch push."
+          "2ff277e441a4b0da": "GitHub's own announcement and benchmark claim for the research preview.",
+          "9b03b99c75e6257e": "First independent coverage, detailing the per-request routing mechanism."
         }
       },
       "timeline": [
         {
-          "date": "2026-09-03",
+          "date": "2026-09-04",
           "items": [
             {
-              "sid": "1d6b63efae6a0d62",
-              "title": "[AINews] Muse Spark 1.3 matches GPT-5.6-Sol, confirming Meta Superintelligence as the newest Frontier Lab, >90% discount for training",
-              "url": "https://www.latent.space/p/ainews-muse-spark-13-matches-gpt",
-              "source": "latent_space",
+              "sid": "2ff277e441a4b0da",
+              "title": "Project HydraFusion: Frontier quality via multi-model orchestration",
+              "url": "https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration",
+              "source": "github_blog_ai_ml",
               "type": "news",
-              "summary_1line": "an epic comeback story for Meta",
-              "published": "2026-09-03T04:38:33+00:00"
+              "summary_1line": "In controlled offline evaluations, HydraFusion’s selective coding workflows matched or exceeded the evaluated Opus 5 baseline while reducing estimated workflow cost. Now available as a research preview in GitHub Copil...",
+              "published": "2026-09-04T16:04:14+00:00"
             }
           ]
         },
         {
-          "date": "2026-09-09",
+          "date": "2026-09-13",
           "items": [
             {
-              "sid": "6bcfa36fc46a3510",
-              "title": "Meta Launches Private AI Agent Muse as US Accuses DeepSeek and Alibaba of Copying US AI Models",
-              "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQQWN3REsxMDRZZVg5UXhpblBtVkF6NS1zZGRfd2I3dVVMSWpBYWJ6anN2NzBpdFhva0d6OUI2ZE51Um9hUTRERktKREJaX1E5dGRmcjRMQnhKenFOTGlPV3Fkd3k2NlFWN3l2cnV0TUp2a2RYQzBOSl9oMTM2bW5aQVF2LXhRV0U4U2xNLW92TXlWUzJpb2FKbmxUeEZFTXlxTEtxNk5zVkdwYnljRTJOSzM4al9CbUFHVDRadUNudzFEUS12N09r?oc=5",
-              "source": "search_cn_open_weight_labs",
+              "sid": "9b03b99c75e6257e",
+              "title": "GitHub Copilot's Project HydraFusion Promises Frontier Level Performance through Multi-Model Routing",
+              "url": "https://www.infoq.com/news/2026/09/github-hydrafusion/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+              "source": "infoq_ai_ml",
               "type": "news",
-              "summary_1line": "Meta Launches Private AI Agent Muse as US Accuses DeepSeek and Alibaba of Copying US AI Models Brave New Coin",
-              "published": "2026-09-09T07:09:38+00:00"
-            }
-          ]
-        },
-        {
-          "date": "2026-09-15",
-          "items": [
-            {
-              "sid": "2886f62732cdbcb9",
-              "title": "Meta Kicks Muse Off Their Social Handles to Launch New AI Agent",
-              "url": "https://stereogum.com/2510793/meta-kicks-muse-off-their-social-handles-to-launch-new-ai-agent/news",
-              "source": "hackernews_ai",
-              "type": "news",
-              "summary_1line": "Meta Kicks Muse Off Their Social Handles to Launch New AI Agent",
-              "published": "2026-09-15T10:16:45+00:00"
+              "summary_1line": "GitHub's Project HydraFusion is a research preview for GitHub Copilot that enhances coding intelligence through runtime model orchestration. It dynamically assembles execution plans using models from various providers...",
+              "published": "2026-09-13T06:06:00+00:00"
             }
           ]
         },
@@ -130,13 +112,505 @@
           "date": "2026-09-22",
           "items": [
             {
-              "sid": "499cf9f45f197b68",
-              "title": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst",
-              "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxON2sxakdrZVMxLVh0YXVHR0JWeHpzZ0pGdlJPWXJsTHlIMXNzS0EtZm9mZDlpZm1vd3pkeVlCX29hc3FMY2FBME5PZnE1Ym9Kdld1UXFUZUM2RHFNaFdmNUdsQTlfVmR1S1pXYjRxOHJmcEtmSm0yLWc2NzBBbEVDUUdRSmVVd0ZHd09vc2dNakEwYWxiMlMwMkNSMnV4d01yUWhjMDJwV1o3MUFMbkJIVnZ5d1lydlVlYkRGSzZLVENYbTNaUVhJQi1SNlJiSVRLbFFCTm9xVkNhLVVLTWNXUk1vNkpLUQ?oc=5",
-              "source": "search_agent_engineering_news",
+              "sid": "28885e87af4bfe4c",
+              "title": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
+              "url": "https://twitter.com/ArtificialAnlys/status/2098504939781906684",
+              "source": "hackernews_ai",
               "type": "news",
-              "summary_1line": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst TradingView",
-              "published": "2026-09-22T08:10:02+00:00"
+              "summary_1line": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
+              "published": "2026-09-22T12:39:16+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "artificial-intelligence",
+      "label": "Artificial Intelligence",
+      "item_count": 3,
+      "source_count": 2,
+      "day_count": 3,
+      "first_seen": "2026-09-09T06:57:53+00:00",
+      "last_updated": "2026-09-22T12:38:46+00:00",
+      "latest_title": "DeepSeek Will Join UN Security Council Briefing on Artificial Intelligence Risks",
+      "member_sids": [
+        "1e0f60093684d247",
+        "08ffdb24bebd9aa2",
+        "6cc14c2c5b215e21"
+      ],
+      "via_scout": false,
+      "has_narrative": false,
+      "needs_narrative": true,
+      "reason": "no_narrative",
+      "narrative_path": "data/storylines/narratives/artificial-intelligence.json",
+      "prior_narrative": null,
+      "timeline": [
+        {
+          "date": "2026-09-09",
+          "items": [
+            {
+              "sid": "1e0f60093684d247",
+              "title": "Illustration shows Deepseek logo and \"Artificial Intelligence AI\" words",
+              "url": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxORktYVHVhSWNSdmt2endEYlZJZ2FfQldudnEwSEpxMDhKempSQ3BkRFVFaUJTMzJaNGl3bGNBN051dExsOHQ1WmRCMFdPa3NGTXZoQ1J4Rm1MdVg0RDZrNVdOdE05cVY0ZEphYWtnRmNuM2NzZGF1WmhDRTFVTzdnUmkyczBDeDdUd2RRYVJMWjczal9FTXNCaHRIYjJ6SndNaW15XzdWY2FvTEVwdlBmeHh4YWtDMkdTdlAzZHFLZDZ0T1pCZEE0MjZ5cUd2Rkh0MGpsdmJhTGR2d0xCYjF6UTVWdDBxdDd1WkZZUjk4MlB0OHY2S3lN?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Illustration shows Deepseek logo and \"Artificial Intelligence AI\" words The Daily News | Texas' Oldest Newspaper",
+              "published": "2026-09-09T06:57:53+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-21",
+          "items": [
+            {
+              "sid": "08ffdb24bebd9aa2",
+              "title": "Advisory Group on Mathematics and Artificial Intelligence",
+              "url": "https://openai.com/index/advisory-group-on-mathematics-and-ai",
+              "source": "openai_blog",
+              "type": "news",
+              "summary_1line": "OpenAI is working with an independent Advisory Group on Mathematics and Artificial Intelligence to guide the review and communication of emerging AI results.",
+              "published": "2026-09-21T12:00:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-22",
+          "items": [
+            {
+              "sid": "6cc14c2c5b215e21",
+              "title": "DeepSeek Will Join UN Security Council Briefing on Artificial Intelligence Risks",
+              "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFBjck16VV9JZ0hJMmlGWWhmRnZSZ0xSb0pRX3JyY2F6c2tFa25acFl5VlBXd0RQVmFPTW8xNlJGdWxhRXN0aG1IZlpySFN2OERObWdaRFdRVXBSMmR6NWwyam5GSERGdw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Will Join UN Security Council Briefing on Artificial Intelligence Risks Межа. Новини України.",
+              "published": "2026-09-22T12:38:46+00:00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "deepseek-v4-1-flash",
+      "label": "DeepSeek V4.1-Flash",
+      "item_count": 18,
+      "source_count": 2,
+      "day_count": 7,
+      "first_seen": "2026-09-08T09:26:00+00:00",
+      "last_updated": "2026-09-20T02:58:35+00:00",
+      "latest_title": "DeepSeek-V4.1-Flash Ships Causal Encoder–Decoder MoE With 1M Context and Extreme KV Compression",
+      "member_sids": [
+        "10c8980f417e7cbe",
+        "c113849e4fb23b54",
+        "271d169f0aac4782",
+        "3964e6fc7e6673d5",
+        "3e6da764d2da3df9",
+        "b09af1e7b84d5bc6",
+        "9ed712b3a9231c87",
+        "457fb6ff524d5b8a",
+        "5a254df52928f177",
+        "6a7c8171f04a20cb",
+        "7382513381514afd",
+        "82bd95dd18d293f1",
+        "d1d28ac13afc9a24",
+        "4cc7a7bea4b884e3",
+        "7f7e6754ebc2c737",
+        "1bc5bf8717fc17be",
+        "e3fd47e3082f9e2b",
+        "95e33866f411d3ef",
+        "01a617c33f0013bb"
+      ],
+      "via_scout": true,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/deepseek-v4-1-flash.json",
+      "prior_narrative": {
+        "slug": "deepseek-v4-1-flash",
+        "generated_at": "2026-09-22T05:20:00+00:00",
+        "covers_last_updated": "2026-09-20T02:58:35+00:00",
+        "covers_member_sids": [
+          "ebe5937303c6cec0",
+          "10c8980f417e7cbe",
+          "c113849e4fb23b54",
+          "271d169f0aac4782",
+          "3964e6fc7e6673d5",
+          "3e6da764d2da3df9",
+          "b09af1e7b84d5bc6",
+          "9ed712b3a9231c87",
+          "457fb6ff524d5b8a",
+          "5a254df52928f177",
+          "6a7c8171f04a20cb",
+          "7382513381514afd",
+          "82bd95dd18d293f1",
+          "d1d28ac13afc9a24",
+          "4cc7a7bea4b884e3",
+          "7f7e6754ebc2c737",
+          "1bc5bf8717fc17be",
+          "e3fd47e3082f9e2b",
+          "95e33866f411d3ef",
+          "01a617c33f0013bb"
+        ],
+        "tldr": "DeepSeek open-sourced an experimental vision model on Sep 1, then shipped V4.1-Flash on Sep 10 claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
+        "whats_new": "A second outlet's Sep 20 architecture write-up adds concrete numbers behind the causal encoder-decoder design first reported Sep 12: a 1M-token context window delivered via extreme KV-cache compression.",
+        "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change.",
+        "status": {
+          "state": "Shipped · V4-Pro traffic silently rerouted",
+          "tone": "turn",
+          "changed": "2026-09-14",
+          "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
+          "track": [
+            {
+              "label": "vision precursor",
+              "detail": "Sep 1",
+              "tone": "neutral",
+              "weight": 15
+            },
+            {
+              "label": "beta + launch",
+              "detail": "Sep 8–10",
+              "tone": "launch",
+              "weight": 25
+            },
+            {
+              "label": "chip-stock jitters",
+              "detail": "Sep 11–13",
+              "tone": "rising",
+              "weight": 25
+            },
+            {
+              "label": "traffic rerouted + price cuts",
+              "detail": "Sep 14 → now",
+              "tone": "turn",
+              "weight": 30
+            },
+            {
+              "label": "architecture detail confirmed",
+              "detail": "Sep 20",
+              "tone": "rising",
+              "weight": 10
+            }
+          ]
+        },
+        "beats": [
+          {
+            "kicker": "PRECURSOR",
+            "tone": "neutral",
+            "headline": "DeepSeek open-sources an experimental vision model, benchmark claims unverified",
+            "summary": "A native vision preview lands over a week before the full V4.1-Flash release, with the report itself noting DeepSeek's benchmark claims need independent proof.",
+            "sids": [
+              "ebe5937303c6cec0"
+            ]
+          },
+          {
+            "kicker": "BETA",
+            "tone": "rising",
+            "headline": "A two-day limited beta natively integrates multimodal capabilities",
+            "sids": [
+              "10c8980f417e7cbe"
+            ]
+          },
+          {
+            "kicker": "LAUNCH",
+            "tone": "launch",
+            "headline": "DeepSeek unveils V4.1-Flash, claims it beats flagship V4-Pro",
+            "summary": "The new model launches as an upgrade over DeepSeek's own current flagship.",
+            "sids": [
+              "c113849e4fb23b54",
+              "3e6da764d2da3df9"
+            ]
+          },
+          {
+            "kicker": "EFFICIENCY",
+            "tone": "rising",
+            "headline": "Cuts agent memory needs and slashes agentic costs by 80%",
+            "sids": [
+              "3964e6fc7e6673d5",
+              "271d169f0aac4782"
+            ]
+          },
+          {
+            "kicker": "CHIP STOCKS",
+            "tone": "now",
+            "headline": "Efficiency claim rattles Samsung, SK Hynix, and Micron shares",
+            "summary": "Multiple outlets tie the memory-savings claim to a same-day dip in memory-chip stocks.",
+            "sids": [
+              "b09af1e7b84d5bc6",
+              "9ed712b3a9231c87",
+              "457fb6ff524d5b8a",
+              "5a254df52928f177",
+              "7382513381514afd"
+            ]
+          },
+          {
+            "kicker": "MARKET IMPACT",
+            "tone": "now",
+            "headline": "Pricing pressure builds as reviewers call the architecture a bigger leap than a point release",
+            "summary": "A Sep 20 follow-up from a second outlet later adds concrete numbers behind the same causal encoder-decoder design: a 1M-token context window via extreme KV-cache compression.",
+            "sids": [
+              "82bd95dd18d293f1",
+              "d1d28ac13afc9a24",
+              "01a617c33f0013bb"
+            ]
+          },
+          {
+            "kicker": "QUANTIFIED",
+            "tone": "now",
+            "headline": "DeepSeek puts numbers on the memory cut: 75% less HBM, 87.5% less SSD",
+            "sids": [
+              "4cc7a7bea4b884e3"
+            ]
+          },
+          {
+            "kicker": "THE TURN",
+            "tone": "turn",
+            "headline": "DeepSeek quietly swaps V4-Pro traffic for V4.1-Flash at Flash pricing",
+            "summary": "Four days after launch, calls to the V4-Pro endpoint are served by V4.1-Flash instead, billed at the cheaper Flash rate.",
+            "sids": [
+              "7f7e6754ebc2c737"
+            ]
+          },
+          {
+            "kicker": "AFTERMATH",
+            "tone": "now",
+            "headline": "552B-parameter spec surfaces as a community uncensored fine-tune racks up downloads",
+            "sids": [
+              "1bc5bf8717fc17be",
+              "e3fd47e3082f9e2b"
+            ]
+          },
+          {
+            "kicker": "NOW",
+            "tone": "now",
+            "headline": "Cached-input pricing drops again to $0.003 per million tokens",
+            "sids": [
+              "95e33866f411d3ef"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the claimed memory-footprint cut hold up in independent agent-workload benchmarks, not just DeepSeek's own numbers?",
+          "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
+          "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
+          "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?"
+        ],
+        "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
+        "day_captions": {
+          "ebe5937303c6cec0": "The first native vision model, open-sourced as an experimental preview with benchmark claims flagged as unverified.",
+          "10c8980f417e7cbe": "A two-day limited beta previews the new architecture ahead of general release.",
+          "c113849e4fb23b54": "The official unveiling.",
+          "3e6da764d2da3df9": "DeepSeek's own outperforms-V4-Pro claim.",
+          "3964e6fc7e6673d5": "First outlet to frame the release around agent memory costs specifically.",
+          "271d169f0aac4782": "Quantifies the agentic cost cut at 80%.",
+          "b09af1e7b84d5bc6": "Frames the release as smaller-but-faster rather than a pure upgrade.",
+          "9ed712b3a9231c87": "First outlet to tie the efficiency claim to memory-stock investor caution.",
+          "457fb6ff524d5b8a": "Names Samsung and SK Hynix specifically as feeling the volatility.",
+          "5a254df52928f177": "Confirms the Samsung/SK Hynix dip while noting Micron and SanDisk held up.",
+          "7382513381514afd": "A market wrap-up folds the chip pressure into the day's broader trading notes.",
+          "82bd95dd18d293f1": "First sign the release is already moving competitor pricing.",
+          "d1d28ac13afc9a24": "AINews' technical deep dive frames the architecture as v5-caliber.",
+          "4cc7a7bea4b884e3": "Puts exact numbers on the memory cut: 75% less HBM, 87.5% less SSD.",
+          "7f7e6754ebc2c737": "DeepSeek starts serving all V4-Pro API traffic with V4.1-Flash, at Flash's lower price.",
+          "1bc5bf8717fc17be": "Publishes the 552B-parameter MoE spec behind the efficiency claims.",
+          "e3fd47e3082f9e2b": "A community uncensored fine-tune passes 2,254 downloads.",
+          "95e33866f411d3ef": "Cached-input pricing falls again, to $0.003 per million tokens.",
+          "01a617c33f0013bb": "A second outlet restates the causal encoder-decoder design with added specifics: 1M-token context and extreme KV-cache compression."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-09-08",
+          "items": [
+            {
+              "sid": "10c8980f417e7cbe",
+              "title": "DeepSeek Launches Two-Day Limited Beta for V4.1 Flash — New Architecture Natively Integrates Multimodal Capabilities",
+              "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE5kVVplWG9QcHBrWGpKc2xibTJBbURpUHJkV21GUGZ4SnNCc3MyZm5zMTV6bGRLNHBCRjQxVEkyUkM2bnFnSHk2cGVoSklCWGFtVnVOLWN0ZDIwMW1lMnUwNXdVQ0laUkJOamp3Uk9zQmVRNFNyalE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Launches Two-Day Limited Beta for V4.1 Flash — New Architecture Natively Integrates Multimodal Capabilities finance.biggo.com",
+              "published": "2026-09-08T09:26:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-10",
+          "items": [
+            {
+              "sid": "c113849e4fb23b54",
+              "title": "Chinese startup DeepSeek unveils V4.1-Flash model",
+              "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOZjdVR3RObjFUallxd0t3bzRJYnJteUxTTUJRU1g3d1Rzd29Ta1BsaHY2T0d4d09vTC0yZkp0bVY1UGEtakZ2aUVQQXlRdGtocVh3ZGJkaXdfTy1PU3Q5aUNwd19nQ3FKb3A1SWN5U3duZHdIWk1jb1hLLUFaRmdRclFzakM3QzRRdjZ1VWtFOA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "Chinese startup DeepSeek unveils V4.1-Flash model UA.NEWS",
+              "published": "2026-09-10T07:02:42+00:00"
+            },
+            {
+              "sid": "271d169f0aac4782",
+              "title": "DeepSeek’s New Architecture Slashes Agentic Costs by 80%",
+              "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOd1FreVVzU2Y5SE42ME1FVEFaTTRHWVhMel9ZNU94ODFOTlhZeGFjVGNieEZNbkNBZTFjbWdadWlxc25uNjF5TEVLNTRWdEd2eV96V3BwVTFGM0hHaXRSeEgzaF8tekUxbE1sYTJfejdjZnBLek9hQzZsVHMzYS1EVDNR?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek’s New Architecture Slashes Agentic Costs by 80% forkast.news",
+              "published": "2026-09-10T09:23:37+00:00"
+            },
+            {
+              "sid": "3964e6fc7e6673d5",
+              "title": "New Deepseek model V4.1-Flash cuts memory needs for AI agents",
+              "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPNUExMTg0alp0bUtPVUhoSjBjYndBTW1vSFdwOWhFMk0xR2JSWnRKVE5qd1hiVmQ3Y1BTU2EtUV8zRXc5eXFoVGZ5OHZZTEpqT3BMa05VeUstQ0V4TW1JTFIzQTMzR21CaFVGUzlWYzJnZDdkZ2JEQjZEaEpCTG1TeHVpTUluX0tVbnQ3MEVzYw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "New Deepseek model V4.1-Flash cuts memory needs for AI agents the-decoder.com",
+              "published": "2026-09-10T12:44:12+00:00"
+            },
+            {
+              "sid": "3e6da764d2da3df9",
+              "title": "DeepSeek releases V4.1-Flash, says it outperforms flagship V4-Pro",
+              "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNQXFfeTlYOEQwQ1hHVFFuY2RrLVplZ2NxaGJLY1o1UER2R3d1bWNzdWpiRDZpLTVzckZob3FkQjVabTc1OVd4dGZMY19rRkhwczZZdEtHSEpoSWRSdDhKclFRaDdvRzdNc1o2ZEFHZXNpcVEtb0dCakhPcVpnUjRHQktkQmhWRFBHU0JIWWdicmZJSDI0SDR1Mk9HYm1xWC01VE5r?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "release",
+              "summary_1line": "DeepSeek releases V4.1-Flash, says it outperforms flagship V4-Pro siliconangle.com",
+              "published": "2026-09-10T23:45:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-11",
+          "items": [
+            {
+              "sid": "b09af1e7b84d5bc6",
+              "title": "DeepSeek launches smaller but faster AI model",
+              "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNRDRHczRNeDZiXy1HeXIyRXhqM2lUQ04yMHNjZTlVSHJEYkVHcW1hRTFfRUNENkY3a3ZJblprNUlYSHVLNjJYZGc0X2VvS3pnTzFfVTRqejJ0SG1KVGRzY28wVFNiT0VhOUdmSGY5X2owcmZWWndORERaSV91Wl9LOEF6Y0rSAYoBQVVfeXFMTlU0UXlJNjYtZ0FjMGhSWHA5b0hDekZIdncya084T0NiRmk4Q1pwS2szVHUycXdkZGRMd1Q5SW1mU2diMVpIOFk5QXZDYU90U2JpVW4zZWMyVkpXbTVQTFVJbDFPdVhvQmpQZDVzSnRFZVJIUmFNMERORGVHMzYtbHEtU1RoOW1pUl9n?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek launches smaller but faster AI model chinaeconomicreview.com",
+              "published": "2026-09-11T02:51:53+00:00"
+            },
+            {
+              "sid": "9ed712b3a9231c87",
+              "title": "DeepSeek Hands Memory Stock Investors Fresh Reason for Caution",
+              "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXNraGVUR05tcWxCRDcxN0JvZ3p6LUM0M051alpoOHVLV0ZManJGTG92R2R6aUZ6Y1ZmdlQ1Y0VLUnB1NzNfMXlic0pVaW1ieDNmUWRuczE5bW1kaG8wYnZ2OEtIZnhnYUcyNHBQMjNEVk9oWldoX0tma0FKSkNuODVqdnVMVlQ3UzBJdzJNcXZMWlR4SWFBWE1FdmUxT25NbUViNUJfTUFudVcxRkh5dEtKMA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Hands Memory Stock Investors Fresh Reason for Caution Bloomberg.com",
+              "published": "2026-09-11T02:55:00+00:00"
+            },
+            {
+              "sid": "457fb6ff524d5b8a",
+              "title": "DeepSeek efficiency gain sparks new volatility for South Korean chipmakers Samsung, SK Hynix",
+              "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNWDVJWExfQVJmREU3TU12NnZMbkl5RTE0b2pVT29kZXVTaFdfNXJfb1lkcnRoS3ZwbGNFakZYMzVnaW0yUHpMQW5mUzlQSDhXekxLcTRfMktYRVY5Y0JodFo0Q0dKeHMtNk1zYm5IV092UThwbEx3OFY2SmRGMkdIN2xnQUZJeXMwc3NacE9YNGxsRGN1cXVUaFlsenNWOWJRZEdXeDRtT3VTVnEwUGlJM3BhaHhiM2d3NjZZazBQa21RaXJKZVBQOQ?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek efficiency gain sparks new volatility for South Korean chipmakers Samsung, SK Hynix Seeking Alpha",
+              "published": "2026-09-11T06:36:39+00:00"
+            },
+            {
+              "sid": "5a254df52928f177",
+              "title": "SK Hynix, Samsung Shares Dip In Korea After DeepSeek Debuts AI Tech That Uses Less Memory – Micron, SanDisk Hold Up",
+              "url": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQYzk4MzNIdGNsSUFGRnlaZU5JRlpFXzc5OWc0T3BLOXR2SUhkLUxRZlU3b214U25FbmlzXzBXS084RExNZnM4UGhqaEdISkZHTVFHUFhVdmpwTDdFeUpXNXRNeXUyRVFFZEptT2puaTNtczRmQzczZ3lSSDk0LUpFcXRQbFFjVkdJakpxUC16M001NHprbWFVV2NCbHlremhab0V6aTFtb2UweUYyczJ0Rzg3RUlVQnpsb3duc2NPMC1relgyOFlNckRtYktYRlFTTGFoMzNkdkZ1ZFkwN1Z6OGNhSXVWVG1mVFRUZ2dYd3FOa0hZV1BjX1U4TERNdnc2T1E?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "SK Hynix, Samsung Shares Dip In Korea After DeepSeek Debuts AI Tech That Uses Less Memory – Micron, SanDisk Hold Up TradingView",
+              "published": "2026-09-11T07:18:11+00:00"
+            },
+            {
+              "sid": "7382513381514afd",
+              "title": "AM Markets Need to Know: Diesel tops $6, DeepSeek pressures chips, and more (SPX:)",
+              "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOc1hFMGRkTHBna1B2Um1BQ2VqeUhLNnRFWng4c3R6WTlRTFJodEk5dW1tR1E3T3ZIalA2RnJWRG92c25CamwxOHJhRkhXX3Zqc0Vxam5VV3dtR3NQaTdMMUpIYjZzcS03dlRJYU5ldWlsR3lZNllwS2VBeksyZkNLenpwcFdYLVB4eURnVllfR29sSG03bmxvbFRtRTFWSHpKZU5zZnpCWnJYNFRtRVE?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "AM Markets Need to Know: Diesel tops $6, DeepSeek pressures chips, and more (SPX:) Seeking Alpha",
+              "published": "2026-09-11T09:58:58+00:00"
+            },
+            {
+              "sid": "82bd95dd18d293f1",
+              "title": "DeepSeek V4.1-Flash puts pressure on AI pricing",
+              "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE42QjhyQWpzbkcxdmlDbHJOMExyTnlwUVRpYjN1bDZIZktTWk4xN1h0a1Bqdi1taE5ULThVaXVCb3F5cFdTXy1vWHVKaEF0WVBkQlNKc20yNDBOV19KM0x5amVKelpSME5leFlQUmd3?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek V4.1-Flash puts pressure on AI pricing The Rundown AI",
+              "published": "2026-09-11T13:36:40+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-12",
+          "items": [
+            {
+              "sid": "d1d28ac13afc9a24",
+              "title": "[AINews] DeepSeek v4.1-Flash: 763B-P8B-D16B novel causal Encoder–Decoder architecture with vision marks the Return of the Whale",
+              "url": "https://www.latent.space/p/ainews-deepseek-v41-flash-763b-p8b",
+              "source": "latent_space",
+              "type": "news",
+              "summary_1line": "We agree with Sebastian: this should have been DeepSeek v5",
+              "published": "2026-09-12T05:56:05+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-13",
+          "items": [
+            {
+              "sid": "4cc7a7bea4b884e3",
+              "title": "DeepSeek Cut Its KV-Cache HBM Need 75% and SSD Need 87.5%. Micron and Sandisk Investors Should Pay Attention",
+              "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQdTBkcTJTZUV4eFBPTGhURGNqTjRodllXRG02RnBXRklxRUpHMVEtNTJNaEVXYWZGbUpMUHFnY0h2cEM3Yjk5ZFBadFFjQl92M3R4T0tEZnZ6UVJKSnQxVmNqeWIyQ3gwREd6ZnkwYnJ5LUhOWkpiZGZ5WE5zejF6LVc2dzlNTml1Z25vbXE2cWVIb1E?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Cut Its KV-Cache HBM Need 75% and SSD Need 87.5%. Micron and Sandisk Investors Should Pay Attention Yahoo Finance",
+              "published": "2026-09-13T01:16:00+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-14",
+          "items": [
+            {
+              "sid": "7f7e6754ebc2c737",
+              "title": "DeepSeek Routes All V4-Pro API Traffic to V4.1-Flash at Flash Rates",
+              "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE5VY0ExTHVGdTZKVHcteGY3aUVVWGNrSjVkbm5naktuTHZlVWxLVF9TQVlTWk1OcU1xZHhoNk5JQS1UUEtzSWc4ZUZGYUFkN2FucHdnVjVPQUF1NS1zb1dJUERkazI3TGZJem1NUDYtM25uTlJ2am13?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek Routes All V4-Pro API Traffic to V4.1-Flash at Flash Rates Pandaily",
+              "published": "2026-09-14T01:51:16+00:00"
+            },
+            {
+              "sid": "1bc5bf8717fc17be",
+              "title": "DeepSeek-V4.1-Flash Packs 552B Parameters With Efficient MoE Inference",
+              "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNcl92MXQtNS1KWXIzZ1RuMXNQdFUzTTNnbnhRcDlZNXp0Z0JvSG01WFM0UDB4d24tNFo2ZUtHNUJwYm5pZFNmd2wybjVNczRRbnI3SGJVdnJUaHk0bGpabXd0RVJLWFVteDRyVlIxYy1sVjBjMW1XQnlQZTBiZVFWd3Bram5nc3g3Zk83aUJxMGVIOVlDSS04?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek-V4.1-Flash Packs 552B Parameters With Efficient MoE Inference HackerNoon",
+              "published": "2026-09-14T03:01:33+00:00"
+            },
+            {
+              "sid": "e3fd47e3082f9e2b",
+              "title": "DeepSeek V4.1 Flash Uncensored: 2,254 Downloads [2026]",
+              "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE96QzgzWnBvb0ZLemE2OEljRklObzNNMUZsNmJ4NXZuX0ZRRWFUVjBlaUR1cVNuelk3cHNGSUZLMTdFSndjN01oWmVackJkZHo0bzVPWGkzMjVTcmRDcTlnRHROb3ZlSnFzTkJRNU9yZVhkc1hPaDVWNw?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek V4.1 Flash Uncensored: 2,254 Downloads [2026] shattered.io",
+              "published": "2026-09-14T10:25:33+00:00"
+            },
+            {
+              "sid": "95e33866f411d3ef",
+              "title": "DeepSeek V4.1 Flash Prices Cached Input To $0.003 Per Million Tokens",
+              "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOWEQ2MVVIbFlyaXBuRlRodzhmeTkyamlOY29Fcm9OeG1SRHBMdjlJT2VYWHI0M3g0RFM4eGlMZHdXYmd6THBnZWpJVGNVV21NUVZ5QUlSSmhzMEt6OV9Gbmp5MXRCeDFZRWJzT3JuTjVUWGdBUTIzQjBlLUNtUWk4VklxRGoxOFY3VXdDNldHWTVoakV3ODFiNUNfb3pQUTZFUVhWb1p2M0NzUlhhNEUxbWkwWkl1Z2hn?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek V4.1 Flash Prices Cached Input To $0.003 Per Million Tokens Forbes",
+              "published": "2026-09-14T23:00:12+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-20",
+          "items": [
+            {
+              "sid": "01a617c33f0013bb",
+              "title": "DeepSeek-V4.1-Flash Ships Causal Encoder–Decoder MoE With 1M Context and Extreme KV Compression",
+              "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBURmg4a0h5UjhaZnhrNXBOb0Z4ck5PQUtESUFVOGtIVmpld2wtYWRIOU5XWFVPaV9ZVUdRWXJDcTNYSnV1cVZwY3VZYkJabGJRMjVDRFNqQU5oaXhJYkJxb1NtU1drWndGZHM3ejdNaktUbkF5MmpYNA?oc=5",
+              "source": "search_cn_open_weight_labs",
+              "type": "news",
+              "summary_1line": "DeepSeek-V4.1-Flash Ships Causal Encoder–Decoder MoE With 1M Context and Extreme KV Compression Pandaily",
+              "published": "2026-09-20T02:58:35+00:00"
             }
           ]
         }
