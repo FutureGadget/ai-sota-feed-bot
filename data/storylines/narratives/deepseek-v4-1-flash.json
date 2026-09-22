@@ -1,7 +1,7 @@
 {
   "slug": "deepseek-v4-1-flash",
-  "generated_at": "2026-09-18T15:30:00+00:00",
-  "covers_last_updated": "2026-09-14T23:00:12+00:00",
+  "generated_at": "2026-09-22T00:30:00+00:00",
+  "covers_last_updated": "2026-09-20T02:58:35+00:00",
   "covers_member_sids": [
     "62e57cdcc499d2c5",
     "ebe5937303c6cec0",
@@ -22,21 +22,48 @@
     "7f7e6754ebc2c737",
     "1bc5bf8717fc17be",
     "e3fd47e3082f9e2b",
-    "95e33866f411d3ef"
+    "95e33866f411d3ef",
+    "01a617c33f0013bb"
   ],
   "tldr": "DeepSeek open-sourced an experimental vision model on Sep 1, then shipped V4.1-Flash on Sep 10 claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
-  "whats_new": "DeepSeek is routing all V4-Pro API traffic to V4.1-Flash under the hood at Flash's lower rate, which itself dropped again Sep 14 to $0.003 per million cached input tokens.",
+  "whats_new": "A second outlet's Sep 20 architecture write-up adds concrete numbers behind the causal encoder-decoder design first reported Sep 12: a 1M-token context window delivered via extreme KV-cache compression.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change.",
   "status": {
     "state": "Shipped · V4-Pro traffic silently rerouted",
     "tone": "turn",
     "changed": "2026-09-14",
-    "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling.",
+    "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
     "track": [
-      { "label": "vision precursor", "detail": "Sep 1", "tone": "neutral", "weight": 15 },
-      { "label": "beta + launch", "detail": "Sep 8–10", "tone": "launch", "weight": 25 },
-      { "label": "chip-stock jitters", "detail": "Sep 11–13", "tone": "rising", "weight": 25 },
-      { "label": "traffic rerouted + price cuts", "detail": "Sep 14 → now", "tone": "turn", "weight": 35 }
+      {
+        "label": "vision precursor",
+        "detail": "Sep 1",
+        "tone": "neutral",
+        "weight": 15
+      },
+      {
+        "label": "beta + launch",
+        "detail": "Sep 8–10",
+        "tone": "launch",
+        "weight": 25
+      },
+      {
+        "label": "chip-stock jitters",
+        "detail": "Sep 11–13",
+        "tone": "rising",
+        "weight": 25
+      },
+      {
+        "label": "traffic rerouted + price cuts",
+        "detail": "Sep 14 → now",
+        "tone": "turn",
+        "weight": 30
+      },
+      {
+        "label": "architecture detail confirmed",
+        "detail": "Sep 20",
+        "tone": "rising",
+        "weight": 10
+      }
     ]
   },
   "beats": [
@@ -45,71 +72,102 @@
       "tone": "neutral",
       "headline": "DeepSeek open-sources an experimental vision model, V4-Flash-Vision-Exp",
       "summary": "A native vision preview lands over a week before the full V4.1-Flash release; one outlet flags DeepSeek's benchmark claims as needing independent proof.",
-      "sids": ["62e57cdcc499d2c5", "ebe5937303c6cec0"]
+      "sids": [
+        "62e57cdcc499d2c5",
+        "ebe5937303c6cec0"
+      ]
     },
     {
       "kicker": "BETA",
       "tone": "rising",
       "headline": "A two-day limited beta natively integrates multimodal capabilities",
-      "sids": ["10c8980f417e7cbe"]
+      "sids": [
+        "10c8980f417e7cbe"
+      ]
     },
     {
       "kicker": "LAUNCH",
       "tone": "launch",
       "headline": "DeepSeek unveils V4.1-Flash, claims it beats flagship V4-Pro",
       "summary": "The new model launches as an upgrade over DeepSeek's own current flagship.",
-      "sids": ["c113849e4fb23b54", "3e6da764d2da3df9"]
+      "sids": [
+        "c113849e4fb23b54",
+        "3e6da764d2da3df9"
+      ]
     },
     {
       "kicker": "EFFICIENCY",
       "tone": "rising",
       "headline": "Cuts agent memory needs and slashes agentic costs by 80%",
-      "sids": ["3964e6fc7e6673d5", "271d169f0aac4782"]
+      "sids": [
+        "3964e6fc7e6673d5",
+        "271d169f0aac4782"
+      ]
     },
     {
       "kicker": "CHIP STOCKS",
       "tone": "now",
       "headline": "Efficiency claim rattles Samsung, SK Hynix, and Micron shares",
       "summary": "Multiple outlets tie the memory-savings claim to a same-day dip in memory-chip stocks.",
-      "sids": ["b09af1e7b84d5bc6", "9ed712b3a9231c87", "457fb6ff524d5b8a", "5a254df52928f177", "7382513381514afd"]
+      "sids": [
+        "b09af1e7b84d5bc6",
+        "9ed712b3a9231c87",
+        "457fb6ff524d5b8a",
+        "5a254df52928f177",
+        "7382513381514afd"
+      ]
     },
     {
       "kicker": "MARKET IMPACT",
       "tone": "now",
       "headline": "Pricing pressure builds as reviewers call the architecture a bigger leap than a point release",
-      "sids": ["82bd95dd18d293f1", "d1d28ac13afc9a24"]
+      "summary": "A Sep 20 follow-up from a second outlet later adds concrete numbers behind the same causal encoder-decoder design: a 1M-token context window via extreme KV-cache compression.",
+      "sids": [
+        "82bd95dd18d293f1",
+        "d1d28ac13afc9a24",
+        "01a617c33f0013bb"
+      ]
     },
     {
       "kicker": "QUANTIFIED",
       "tone": "now",
       "headline": "DeepSeek puts numbers on the memory cut: 75% less HBM, 87.5% less SSD",
-      "sids": ["4cc7a7bea4b884e3"]
+      "sids": [
+        "4cc7a7bea4b884e3"
+      ]
     },
     {
       "kicker": "THE TURN",
       "tone": "turn",
       "headline": "DeepSeek quietly swaps V4-Pro traffic for V4.1-Flash at Flash pricing",
       "summary": "Four days after launch, calls to the V4-Pro endpoint are served by V4.1-Flash instead, billed at the cheaper Flash rate.",
-      "sids": ["7f7e6754ebc2c737"]
+      "sids": [
+        "7f7e6754ebc2c737"
+      ]
     },
     {
       "kicker": "AFTERMATH",
       "tone": "now",
       "headline": "552B-parameter spec surfaces as a community uncensored fine-tune racks up downloads",
-      "sids": ["1bc5bf8717fc17be", "e3fd47e3082f9e2b"]
+      "sids": [
+        "1bc5bf8717fc17be",
+        "e3fd47e3082f9e2b"
+      ]
     },
     {
       "kicker": "NOW",
       "tone": "now",
       "headline": "Cached-input pricing drops again to $0.003 per million tokens",
-      "sids": ["95e33866f411d3ef"]
+      "sids": [
+        "95e33866f411d3ef"
+      ]
     }
   ],
   "open_questions": [
     "Does the claimed memory-footprint cut hold up in independent agent-workload benchmarks, not just DeepSeek's own numbers?",
     "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
     "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
-    "Was the Sep 1 vision-exp precursor's benchmark claim, which one outlet called unverified, ever independently confirmed?"
+    "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?"
   ],
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
   "day_captions": {
@@ -131,6 +189,7 @@
     "7f7e6754ebc2c737": "DeepSeek starts serving all V4-Pro API traffic with V4.1-Flash, at Flash's lower price.",
     "1bc5bf8717fc17be": "Publishes the 552B-parameter MoE spec behind the efficiency claims.",
     "e3fd47e3082f9e2b": "A community uncensored fine-tune passes 2,254 downloads.",
-    "95e33866f411d3ef": "Cached-input pricing falls again, to $0.003 per million tokens."
+    "95e33866f411d3ef": "Cached-input pricing falls again, to $0.003 per million tokens.",
+    "01a617c33f0013bb": "A second outlet restates the causal encoder-decoder design with added specifics: 1M-token context and extreme KV-cache compression."
   }
 }
