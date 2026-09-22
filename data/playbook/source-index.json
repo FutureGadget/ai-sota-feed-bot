@@ -132,6 +132,25 @@
     },
     "edition_date": "2026-08-11"
   },
+  "0a7a12052d2d17b7": {
+    "id": "pb-harness-own-state-bound-work",
+    "kind": "source-backed",
+    "title": "Give every fact one owner and every tool call a deadline before you ship the harness",
+    "area": "Reliability",
+    "problem": "Production agents fail from harness gaps, not just hallucination: a fact with no durable owner, concurrent writes with no order, a tool call with no timeout, or an action with no receipt each look fine until they aren't.",
+    "apply": "Before shipping, name one owner and replay path for every fact the agent depends on, serialize same-process writes through a queue (and cross-process writes through a lock), give every tool call and stream an explicit deadline and terminal state, scope every approval to actor/session/tools/arguments/lifetime, and require a receipt — not just a transcript — before treating an action as done.",
+    "result": "OpenAI's presenter claims this closes failure modes that hallucination-focused evals miss: the model proposes, the harness commits, and the receipts prove it.",
+    "effort": "high",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/ai-agent-harness/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "0a7a12052d2d17b7",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "OpenAI's presenter states these as harness design principles from production case studies; no aggregate before/after metric is given."
+    },
+    "edition_date": "2026-09-22"
+  },
   "0b16a49a246662a3": {
     "id": "pb-wikibench-wiki-plus-source",
     "kind": "source-backed",
@@ -473,6 +492,25 @@
       "note": "Qualitative takeaway from the paper's stated problem framing; the bundled summary did not include quantified results."
     },
     "edition_date": "2026-08-25"
+  },
+  "2547415be8ec24a2": {
+    "id": "pb-orchestrate-flag-cleanup-approval-gate",
+    "kind": "source-backed",
+    "title": "Gate multi-agent cleanup jobs behind one engineer approval, not per-PR review",
+    "area": "Orchestration",
+    "problem": "Cleaning up stale feature flags by hand costs an engineer 1–2 hours per flag, so most orgs let flag debt pile up across hundreds of repos instead.",
+    "apply": "Split the job into an orchestrator agent that mines Jira, code search, and the experimentation platform (via MCP) into a stale-flag report with a proposed target value, route only that report through one engineer approval, then hand confirmed flags to isolated cleanup agents — one per repo, in separate Git worktrees — to open the removal PR.",
+    "result": "DoorDash turned 45 of 50 flags into usable PRs (90%), 62% merging on the first pass, at an average cost of $4.79 per flag versus 1–2 hours of manual work.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/doordash-feature-flag-cleanup/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "2547415be8ec24a2",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "DoorDash reports the success-rate and per-flag cost figures from its own 50-flag rollout."
+    },
+    "edition_date": "2026-09-22"
   },
   "265c6a0134aba9b6": {
     "id": "pb-reasoning-retention-compaction-arc-agi",
@@ -1329,6 +1367,25 @@
     },
     "edition_date": "2026-08-11"
   },
+  "69854448ea9a16b5": {
+    "id": "pb-gpu-aware-inference-routing",
+    "kind": "source-backed",
+    "title": "Route inference requests by GPU signal, not round robin, to kill P95 latency spikes",
+    "area": "Cost & latency",
+    "problem": "Round-robin load balancing keeps sending requests to pods that are already queued, cache-cold, or memory-saturated, so first-token latency spikes hardest exactly when traffic bursts or hardware is mixed.",
+    "apply": "Put a GPU-aware routing gateway in front of inference pods that scores each one on live signals — KV-cache utilization, queue depth, LoRA adapter residency, prefix-cache hit rate, and in-flight requests — and sends each request to the best-scoring pod instead of the next one in line.",
+    "result": "Amazon reports P95 first-token latency drops of 94–98% on mixed-GPU or bursty workloads, cutting one chatbot's 4.4-second wait to under 800 ms, with throughput matching round robin on uniform, steady traffic.",
+    "effort": "medium",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/introducing-amazon-sagemaker-hyperpod-inference-gateway/",
+    "source_sid": "69854448ea9a16b5",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS reports the P95 latency and throughput deltas from its own benchmark scenarios."
+    },
+    "edition_date": "2026-09-22"
+  },
   "6a2c44f62f58bd05": {
     "id": "pb-hitl-write-gate-plus-tracing",
     "kind": "source-backed",
@@ -1594,6 +1651,25 @@
       "note": "Density and cost-reduction figures are Google's own vendor-reported benchmark for GKE Agent Sandbox."
     },
     "edition_date": "2026-07-31"
+  },
+  "7fc462ef107af5f9": {
+    "id": "pb-retrieve-sufficient-not-just-relevant",
+    "kind": "source-backed",
+    "title": "Retrieve a sufficient evidence set for coding agents, not just the top-relevant passages",
+    "area": "Retrieval",
+    "problem": "Passage-level relevance ranking can fill a coding agent's retrieval budget with near-duplicate variants of one fact, leaving the actual decision unsupported even though every retrieved passage scores well.",
+    "apply": "Replace top-k relevance re-ranking with a set-construction step that jointly proposes evidence, checks it against what the decision still lacks, and returns a small sufficient set (4–8 source units within budget) instead of re-ranking passages that merely resemble the query.",
+    "result": "On SERBench this recovered a complete evidence set 73.0% of the time at five items (80.6% at eight) versus 61.4%/72.4% for embedding-plus-reranking, and on AMA-Bench it matched a 76.2% smaller prompt with 2.08 points higher accuracy than that benchmark's own memory agent.",
+    "effort": "high",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2609.20050v1",
+    "source_sid": "7fc462ef107af5f9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper reports SERBench and AMA-Bench recovery and accuracy figures from its own evaluation."
+    },
+    "edition_date": "2026-09-22"
   },
   "801edb72737f6642": {
     "id": "pb-mcp-gateways-stop-pinning-sessions",
@@ -2222,6 +2298,25 @@
     },
     "edition_date": "2026-09-18"
   },
+  "aac5dd8eae1db4c9": {
+    "id": "pb-mcp-playbooks-procedural-memory",
+    "kind": "source-backed",
+    "title": "Serve procedural memory as searchable playbooks, not a wall of MCP tools",
+    "area": "Memory",
+    "problem": "Exposing thousands of internal tools directly to an agent degrades its performance long before it reaches the useful ones, so large codebases end up under-served by MCP rather than helped by it.",
+    "apply": "Wrap code search behind one MCP tool the agent queries with keywords and regex, store recurring procedures as self-contained playbooks (name, description, instructions) that each cover one task, and give the agent a single 'search for tools and playbooks' entry point instead of registering every tool and playbook directly.",
+    "result": "LinkedIn reports a 20% productivity increase across 8,000 daily users and 600+ playbooks, with zero reliability degradation despite the added code velocity.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/linkedin-context-engineering/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "aac5dd8eae1db4c9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "LinkedIn reports the productivity, usage, and playbook-count figures from its own internal rollout."
+    },
+    "edition_date": "2026-09-22"
+  },
   "ae62231a583b07f0": {
     "id": "pb-octomind-external-plan-manager",
     "kind": "source-backed",
@@ -2354,6 +2449,25 @@
       "note": "Scaling and compatibility benefits are the editor's read of the documented protocol change, not a measured result."
     },
     "edition_date": "2026-07-31"
+  },
+  "b81a99111a5a8671": {
+    "id": "pb-reclaim-idle-agent-memory",
+    "kind": "source-backed",
+    "title": "Release agent session memory eagerly instead of billing the high-water mark",
+    "area": "Cost & latency",
+    "problem": "Long-running agent runtimes typically hold a session's peak memory allocation for its entire lifetime, so one brief spike in context or tool output inflates the bill for the whole session after that memory is no longer needed.",
+    "apply": "Run agent sessions on a runtime that reclaims memory as soon as per-request buffers are released and cached data expires, starting each session on a small resident footprint that grows only as the workload actually touches more memory, instead of holding the peak allocation until the session ends.",
+    "result": "AWS reports P75 cold starts falling from 5.4–30 seconds to about 2 seconds across a 200 MB–2 GB image range on its redesigned AgentCore runtime, with a pricing model that lowers the effective bill for most agents despite a higher per-GB-hour rate.",
+    "effort": "low",
+    "source": "aws_ml_blog",
+    "source_url": "https://aws.amazon.com/blogs/machine-learning/the-new-agentcore-runtime-elastic-optimized-and-consistently-fast-starts/",
+    "source_sid": "b81a99111a5a8671",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "AWS reports the P75 cold-start figures for the old and new runtime from its own benchmarks."
+    },
+    "edition_date": "2026-09-22"
   },
   "ba3ccd9e9d203387": {
     "id": "pb-gitspawn-sanitize-git-config",
@@ -2849,6 +2963,25 @@
     },
     "edition_date": "2026-07-10"
   },
+  "de4f0df0d73f3db9": {
+    "id": "pb-detect-gray-failures-anomaly-model",
+    "kind": "source-backed",
+    "title": "Catch the outage your dashboards can't see: one user segment failing while aggregates look fine",
+    "area": "Reliability",
+    "problem": "A gray failure hits one slice of users — one card type, one region — while every infrastructure dashboard stays green, so nothing pages until support tickets pile up.",
+    "apply": "Feed per-type, per-region error counts into an unsupervised streaming anomaly detector that learns normal patterns from history instead of static thresholds, then enrich, dedupe, and route the resulting alerts straight to an AI-assisted root-cause dashboard.",
+    "result": "Databricks reports a 95% reduction in incident-discovery time at over 90% precision, catching gray failures before they widen into a full-blown outage.",
+    "effort": "medium",
+    "source": "databricks_blog",
+    "source_url": "https://www.databricks.com/blog/radar-catch-gray-failures-anomaly-detection",
+    "source_sid": "de4f0df0d73f3db9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Databricks reports the incident-discovery-time and precision figures for its RADAR system."
+    },
+    "edition_date": "2026-09-22"
+  },
   "e09c6a6a7cf1895e": {
     "id": "pb-validate-skill-names-sdk",
     "kind": "source-backed",
@@ -3247,6 +3380,25 @@
       "note": "The vLLM team publishes the throughput and KV-cache utilization benchmark numbers directly."
     },
     "edition_date": "2026-08-11"
+  },
+  "fd9660f034d371fa": {
+    "id": "pb-cut-point-replay-regression-tests",
+    "kind": "source-backed",
+    "title": "Turn a recorded agent failure into a CI regression test with cut-point replay",
+    "area": "Evals",
+    "problem": "Agent failures are hard to reproduce because they depend on non-bitwise-reproducible inference, tools that read changing state, and a multi-step trajectory, so a bug that broke production can't become a repeatable test.",
+    "apply": "Record agent runs as immutable envelopes at every non-deterministic boundary (each model call, each tool call), then replay a recorded run by selectively re-executing some boundaries live against new code while replaying the rest from the recording — turning one incident into a deterministic CI test instead of re-invoking the model.",
+    "result": "Chronicle logged 23 microseconds of recording overhead per boundary (0.008% on a typical 300ms model call), reproduced full replays bit-stable across 20 repetitions, and caught every mutant that let an unsafe recorded action through where baseline testing caught none.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2609.20625v1",
+    "source_sid": "fd9660f034d371fa",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper reports overhead, replay-stability, and mutation-testing results from its own evaluation."
+    },
+    "edition_date": "2026-09-22"
   },
   "fe206f2a71d579f8": {
     "id": "pb-verify-evaluator-reasoning",
