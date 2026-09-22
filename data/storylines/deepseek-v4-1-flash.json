@@ -1,33 +1,18 @@
 {
  "slug": "deepseek-v4-1-flash",
  "label": "DeepSeek V4.1-Flash",
- "item_count": 19,
- "day_count": 8,
+ "item_count": 18,
+ "day_count": 7,
  "source_count": 2,
- "first_seen": "2026-09-01T13:10:09+00:00",
+ "first_seen": "2026-09-08T09:26:00+00:00",
  "last_updated": "2026-09-20T02:58:35+00:00",
  "via_scout": true,
- "generated_at": "2026-09-22T10:16:29.574260+00:00",
+ "generated_at": "2026-09-22T15:18:43.221516+00:00",
  "sources": [
   "latent_space",
   "search_cn_open_weight_labs"
  ],
  "days": [
-  {
-   "date": "2026-09-01",
-   "items": [
-    {
-     "title": "DeepSeek Open-Sources First V4 Vision Model: Benchmark Claims Need Independent Proof",
-     "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOcHlXR0RPeTRHSU1aUWR5Q2tnXzlZUnZSUUpEZzBPT0VITHZFbGNUYXo1dGl6ekgxd3N3V0wycGpFWHJ0c25CQ1FHOXpVVUhRbnU5Tl9hVWdySUl4UHNVVnRwcjFWY0o2NVlFNmt0ZEs0S3dydjg0Q25SdmdkY3ZaSXBKYlh2Y2NRMHc1TVJVejZkMHlMcTdJbVBCNEktT2gzY1RhTEh3QndXSTdsclFzdFRmcm0yNHlTV1pacGFxejNQNVg3bmZrVEppZV82Q3FMMVZaVw?oc=5",
-     "source": "search_cn_open_weight_labs",
-     "type": "news",
-     "summary_1line": "DeepSeek Open-Sources First V4 Vision Model: Benchmark Claims Need Independent Proof Tech Times",
-     "sid": "ebe5937303c6cec0",
-     "published": "2026-09-01T13:10:09+00:00",
-     "editor_note": "The first native vision model, open-sourced as an experimental preview with benchmark claims flagged as unverified."
-    }
-   ]
-  },
   {
    "date": "2026-09-08",
    "items": [
@@ -247,8 +232,8 @@
   }
  ],
  "editorial": {
-  "tldr": "DeepSeek open-sourced an experimental vision model on Sep 1, then shipped V4.1-Flash on Sep 10 claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
-  "stale": false,
+  "tldr": "DeepSeek shipped V4.1-Flash on Sep 10, claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
+  "stale": true,
   "whats_new": "A second outlet's Sep 20 architecture write-up adds concrete numbers behind the causal encoder-decoder design first reported Sep 12: a 1M-token context window delivered via extreme KV-cache compression.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change.",
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
@@ -256,25 +241,19 @@
    "state": "Shipped · V4-Pro traffic silently rerouted",
    "tone": "turn",
    "changed": "2026-09-14",
-   "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
+   "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
    "track": [
-    {
-     "label": "vision precursor",
-     "detail": "Sep 1",
-     "tone": "neutral",
-     "weight": 15
-    },
     {
      "label": "beta + launch",
      "detail": "Sep 8–10",
      "tone": "launch",
-     "weight": 25
+     "weight": 30
     },
     {
      "label": "chip-stock jitters",
      "detail": "Sep 11–13",
      "tone": "rising",
-     "weight": 25
+     "weight": 30
     },
     {
      "label": "traffic rerouted + price cuts",
@@ -291,15 +270,6 @@
    ]
   },
   "beats": [
-   {
-    "kicker": "PRECURSOR",
-    "tone": "neutral",
-    "headline": "DeepSeek open-sources an experimental vision model, benchmark claims unverified",
-    "summary": "A native vision preview lands over a week before the full V4.1-Flash release, with the report itself noting DeepSeek's benchmark claims need independent proof.",
-    "sids": [
-     "ebe5937303c6cec0"
-    ]
-   },
    {
     "kicker": "BETA",
     "tone": "rising",
@@ -392,6 +362,6 @@
    "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
    "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?"
   ],
-  "generated_at": "2026-09-22T05:20:00+00:00"
+  "generated_at": "2026-09-22T15:17:15Z"
  }
 }

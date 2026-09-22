@@ -1,15 +1,16 @@
 {
  "slug": "github-s-project-hydrafusion-multi-model-routing",
- "label": "GitHub's Project HydraFusion multi-model routing",
- "item_count": 2,
- "day_count": 2,
- "source_count": 2,
+ "label": "Frontier Multi-model",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 3,
  "first_seen": "2026-09-04T16:04:14+00:00",
- "last_updated": "2026-09-13T06:06:00+00:00",
+ "last_updated": "2026-09-22T12:39:16+00:00",
  "via_scout": true,
- "generated_at": "2026-09-22T10:16:29.574260+00:00",
+ "generated_at": "2026-09-22T15:18:43.221516+00:00",
  "sources": [
   "github_blog_ai_ml",
+  "hackernews_ai",
   "infoq_ai_ml"
  ],
  "days": [
@@ -44,19 +45,35 @@
      "editor_note": "First independent coverage, detailing the per-request routing mechanism."
     }
    ]
+  },
+  {
+   "date": "2026-09-22",
+   "items": [
+    {
+     "title": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
+     "url": "https://twitter.com/ArtificialAnlys/status/2098504939781906684",
+     "source": "hackernews_ai",
+     "type": "news",
+     "summary_1line": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "28885e87af4bfe4c",
+     "published": "2026-09-22T12:39:16+00:00",
+     "editor_note": "A rival multi-model coding agent claim surfaces via a single unelaborated tweet, no benchmark attached."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "GitHub shipped Project HydraFusion as a Copilot research preview that routes coding requests across models from multiple providers at runtime instead of calling one fixed model. GitHub's own controlled offline evals claimed selective workflows matched or beat an Opus 5 baseline at lower estimated cost.",
   "stale": false,
-  "whats_new": "InfoQ's independent write-up confirms the same preview and adds detail on the mechanism: HydraFusion dynamically assembles a per-request execution plan across providers rather than routing by a static rule set.",
-  "why_it_matters": "Runtime multi-model orchestration is a concrete lever for cutting coding-agent inference cost without a flat quality trade-off — worth benchmarking against a single-frontier-model baseline before adopting.",
-  "take_for_builders": "If you're evaluating coding copilots on cost, benchmark HydraFusion's multi-model routing against your current single-model setup on your own repos before assuming GitHub's reported savings transfer.",
+  "whats_new": "A rival claim surfaced Sep 22: a single tweet touts \"Devin Fusion\" as the first multi-model coding agent on the Pareto frontier, with no benchmark or write-up attached yet.",
+  "why_it_matters": "Runtime multi-model routing for coding agents is turning into a contested lane, not GitHub's solo experiment — wait for a published benchmark before trusting either \"first\" claim.",
+  "take_for_builders": "If you're evaluating coding copilots on cost, benchmark HydraFusion's multi-model routing against your current single-model setup on your own repos, and treat unbacked \"first on the frontier\" claims like Devin Fusion's as marketing until a benchmark ships.",
   "status": {
    "state": "Research preview",
    "tone": "launch",
    "changed": "2026-09-04",
-   "detail": "Available as a GitHub Copilot research preview; no GA date announced."
+   "detail": "Available as a GitHub Copilot research preview; no GA date announced. A rival vendor is now making competing frontier claims in the same space."
   },
   "beats": [
    {
@@ -76,12 +93,22 @@
     "sids": [
      "9b03b99c75e6257e"
     ]
+   },
+   {
+    "kicker": "RIVAL CLAIM",
+    "tone": "rising",
+    "headline": "\"Devin Fusion\" claims the same multi-model frontier, unverified",
+    "summary": "The claim is a single tweet with no article, benchmark, or vendor write-up behind it.",
+    "sids": [
+     "28885e87af4bfe4c"
+    ]
    }
   ],
   "open_questions": [
    "Will GitHub publish the routing logic and provider mix, or does it stay opaque during the preview?",
    "Does the reported cost/quality parity hold on real repositories, not just GitHub's controlled offline evals?",
-   "Is there a GA timeline, or could the preview be discontinued like other Copilot experiments?"
+   "Is there a GA timeline, or could the preview be discontinued like other Copilot experiments?",
+   "Is \"Devin Fusion\"'s Pareto-frontier claim backed by any published benchmark, or is it marketing copy?"
   ],
   "provenance": {
    "2ff277e441a4b0da": {
@@ -91,6 +118,6 @@
     "surfaced_by": "scout"
    }
   },
-  "generated_at": "2026-09-19T00:20:00+00:00"
+  "generated_at": "2026-09-22T15:17:15Z"
  }
 }
