@@ -1,13 +1,13 @@
 {
  "slug": "deepseek-v4-1-flash",
  "label": "DeepSeek V4.1-Flash",
- "item_count": 19,
- "day_count": 7,
+ "item_count": 20,
+ "day_count": 8,
  "source_count": 2,
  "first_seen": "2026-09-01T02:26:03+00:00",
- "last_updated": "2026-09-14T23:00:12+00:00",
+ "last_updated": "2026-09-20T02:58:35+00:00",
  "via_scout": true,
- "generated_at": "2026-09-21T20:08:34.005411+00:00",
+ "generated_at": "2026-09-22T00:21:07.829675+00:00",
  "sources": [
   "latent_space",
   "search_cn_open_weight_labs"
@@ -239,19 +239,34 @@
      "editor_note": "Cached-input pricing falls again, to $0.003 per million tokens."
     }
    ]
+  },
+  {
+   "date": "2026-09-20",
+   "items": [
+    {
+     "title": "DeepSeek-V4.1-Flash Ships Causal Encoder–Decoder MoE With 1M Context and Extreme KV Compression",
+     "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBURmg4a0h5UjhaZnhrNXBOb0Z4ck5PQUtESUFVOGtIVmpld2wtYWRIOU5XWFVPaV9ZVUdRWXJDcTNYSnV1cVZwY3VZYkJabGJRMjVDRFNqQU5oaXhJYkJxb1NtU1drWndGZHM3ejdNaktUbkF5MmpYNA?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek-V4.1-Flash Ships Causal Encoder–Decoder MoE With 1M Context and Extreme KV Compression Pandaily",
+     "sid": "01a617c33f0013bb",
+     "published": "2026-09-20T02:58:35+00:00",
+     "editor_note": "A second outlet restates the causal encoder-decoder design with added specifics: 1M-token context and extreme KV-cache compression."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "DeepSeek open-sourced an experimental vision model on Sep 1, then shipped V4.1-Flash on Sep 10 claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
   "stale": false,
-  "whats_new": "DeepSeek is routing all V4-Pro API traffic to V4.1-Flash under the hood at Flash's lower rate, which itself dropped again Sep 14 to $0.003 per million cached input tokens.",
+  "whats_new": "A second outlet's Sep 20 architecture write-up adds concrete numbers behind the causal encoder-decoder design first reported Sep 12: a 1M-token context window delivered via extreme KV-cache compression.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change.",
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
   "status": {
    "state": "Shipped · V4-Pro traffic silently rerouted",
    "tone": "turn",
    "changed": "2026-09-14",
-   "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling.",
+   "detail": "A Sep 1 vision precursor led to a Sep 10 launch beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
    "track": [
     {
      "label": "vision precursor",
@@ -275,7 +290,13 @@
      "label": "traffic rerouted + price cuts",
      "detail": "Sep 14 → now",
      "tone": "turn",
-     "weight": 35
+     "weight": 30
+    },
+    {
+     "label": "architecture detail confirmed",
+     "detail": "Sep 20",
+     "tone": "rising",
+     "weight": 10
     }
    ]
   },
@@ -334,9 +355,11 @@
     "kicker": "MARKET IMPACT",
     "tone": "now",
     "headline": "Pricing pressure builds as reviewers call the architecture a bigger leap than a point release",
+    "summary": "A Sep 20 follow-up from a second outlet later adds concrete numbers behind the same causal encoder-decoder design: a 1M-token context window via extreme KV-cache compression.",
     "sids": [
      "82bd95dd18d293f1",
-     "d1d28ac13afc9a24"
+     "d1d28ac13afc9a24",
+     "01a617c33f0013bb"
     ]
    },
    {
@@ -378,8 +401,8 @@
    "Does the claimed memory-footprint cut hold up in independent agent-workload benchmarks, not just DeepSeek's own numbers?",
    "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
    "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
-   "Was the Sep 1 vision-exp precursor's benchmark claim, which one outlet called unverified, ever independently confirmed?"
+   "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?"
   ],
-  "generated_at": "2026-09-18T15:30:00+00:00"
+  "generated_at": "2026-09-22T00:30:00+00:00"
  }
 }
