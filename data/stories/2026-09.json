@@ -44,6 +44,23 @@
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNTVVPNnY0LS1NelY4ck1RbHFtelYza2UtVWZzZFJXS2NWNWVpNDNuUm9MNDRXSUs1RjlOQ2RrdkRBOFZRR0txbENRUmE4RzRFQlNkc3BvTXlrQWlBbEl5YzRhOWU2cnl2Zm9YY05FZ2JFcmd1SmRCSTB2eXBpZmxrcEk1MUtIMzVhNEZHMy01TWZkNi16TWRwZjRndFV4YmRVMmlETF9FLVpEVGJjNFVFWlBoekZ0SlFhY29ZVEhCNlZTZkpWamc?oc=5"
  },
+ "010b63f98f068ab0": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "f8d905605e3a73bb",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-09-22T16:15:06+00:00",
+  "sid": "010b63f98f068ab0",
+  "source": "hackernews_ai",
+  "summary": "Hi HN, I built ai·rete·rag because I kept seeing teams put an LLM in charge of decisions that need to be auditable (lending, fraud, clinical triage), then bolt on \"guardrails\" after the fact. It runs the two in series instead: 1. A pure-Python Rete engine evaluates YAML rules against your facts. The verdict comes only from here. Same facts, same verdict, every time, with salience-based conflict resolution. 2. RAG retrieves passages from your own policy documents, and an LLM writes a plain-English explanation of the decision that was already made, citing those passages. It can't change the verdict. A few things that went further than I expected: - Rules are a graph, not flat lists: nested all/any/not, and rules can assert facts that other rules consume (forward chaining). The decision trace shows the causal chain. - Audit mode records every rule evaluated, including the ones that didn't fire, condition by condition, with a snapshot of the rule set for replay. - Rules can steer retrieval (a fired rule narrows which documents get searched), and retrieved text can be turned into facts for the engine. - Non-technical authors can build rules in a visual editor, or paste a policy document and get LLM-drafted rules with citations. Drafts are never saved without review. YAML is still there for engineers. The landing page has a live demo with no signup (8 demo domains: loan, fraud, clinical, insurance, legal, ops, e-commerce, blockchain). There's also an MCP server, so Claude and other",
+  "summary_1line": "Hi HN, I built ai·rete·rag because I kept seeing teams put an LLM in charge of decisions that need to be auditable (lending, fraud, clinical triage), then bolt on \"guardrails\" after the fact. It runs the two in series...",
+  "title": "Show HN: AI·rete·RAG – a Rete rule engine decides, RAG explains why",
+  "type": "news",
+  "url": "https://ai-rete-rag.com",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "012242336f7588da": {
   "first_seen": "2026-09-22T00:02:43.856572+00:00",
   "id": "7aab9fbfe432d8ef",
@@ -1913,6 +1930,28 @@
   "type": "news",
   "url": "https://github.com/metedata/Remarc",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "23966244d47d35ba": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "dcf8cc5f84650f27",
+  "matched_topics": [
+   "agent",
+   "claude code"
+  ],
+  "published": "2026-09-22T16:38:14+00:00",
+  "release_highlights": [
+   "Added Claude Opus 5.5 ( claude-opus-5-5 ), now the default Opus model — 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads",
+   "Added mouse support to more lists in fullscreen mode: the wheel scrolls the /skills list, and a skill's state options in /plugin can be clicked",
+   "Added CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH to change the 2,048-character cap on MCP tool descriptions and server instructions for every MCP server in the s..."
+  ],
+  "sid": "23966244d47d35ba",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added Claude Opus 5.5 ( claude-opus-5-5 ), now the default Opus model — 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads Added mouse support to more lists in fullscreen mode: the wheel scrolls the /skills list, and a skill's state options in /plugin can be clicked Added CLAUDE_CODE_MAX_MCP_DESCRIPTION_LENGTH to change the 2,048-character cap on MCP tool descriptions and server instructions for every MCP server in the session Added hook output sizes and the number of oversized outputs saved to a file to the hook_execution_complete OpenTelemetry event Fixed writes through a symlinked path being judged by their in-tree spelling: the prompt names where the write lands, and acceptEdits , allow rules and auto mode no longer approve one landing outside Fixed auto mode retrying an action over and over when a safety check declined to review it; the action is now denied once, noting that retrying won't help Fixed auto mode denying actions over and over without pause when a safety check gave no answer; retries now back off, and the turn stops with a message after ten in a row Fixed Write calls failing validation when a model sends path , file_text , file_content or a stray description instead of file_path and content Fixed Ctrl+C or Ctrl+D pressed twice in most dialogs ( /model , /effort , /config , /status , /usage , /plugin , /sandbox , /permissions , /artifacts , /mobile , /login , /upgrade , /usage-credits , /install-github-app , /setup-bedrock , /setup-vertex ",
+  "summary_1line": "Added Claude Opus 5.5 ( claude-opus-5-5 ), now the default Opus model — 1M context, $4/$20 per Mtok with $0.20/Mtok cache reads · Added mouse support to more lists in fullscreen mode: the wheel scrolls the /skills lis...",
+  "title": "claude-code v2.1.280",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.280",
+  "why_it_matters": "Matches feed focus: agent, claude code."
  },
  "23aa2e590ca2c10f": {
   "first_seen": "2026-09-11T01:03:23.452217+00:00",
@@ -4010,8 +4049,8 @@
   "published": "2026-09-22T08:10:02+00:00",
   "sid": "499cf9f45f197b68",
   "source": "search_agent_engineering_news",
-  "summary": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst tradingview.com",
-  "summary_1line": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst tradingview.com",
+  "summary": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst TradingView",
+  "summary_1line": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst TradingView",
   "title": "Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi5gFBVV95cUxON2sxakdrZVMxLVh0YXVHR0JWeHpzZ0pGdlJPWXJsTHlIMXNzS0EtZm9mZDlpZm1vd3pkeVlCX29hc3FMY2FBME5PZnE1Ym9Kdld1UXFUZUM2RHFNaFdmNUdsQTlfVmR1S1pXYjRxOHJmcEtmSm0yLWc2NzBBbEVDUUdRSmVVd0ZHd09vc2dNakEwYWxiMlMwMkNSMnV4d01yUWhjMDJwV1o3MUFMbkJIVnZ5d1lydlVlYkRGSzZLVENYbTNaUVhJQi1SNlJiSVRLbFFCTm9xVkNhLVVLTWNXUk1vNkpLUQ?oc=5"
@@ -4733,6 +4772,22 @@
   "title": "Morgan Stanley Private Briefing: MiniMax and Zhipu AI See Surge in ARR; Model Competition to Enter a Tiered Elimination Phase",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNRUI3dnNiclkwdndDNzhybDhUNW10b01qaE1XbzhEOWE4QUNXVTMwVE5HVUo2M1dqMng2UHNWa1NUcVJQV3Y3clF0Q2w5XzY0Mzh2VDdJMjFBdFFVWGppdTRiUVFaSnBSQ3p3MVlKX0dmREMwV1Z1Z044NDJZdmtVaGlIeVJvdWowOUlyMHhENUxrRTZDZ2FndTF6bXJRbTlOT2dyMnN3?oc=5"
+ },
+ "56206bd410d3c39c": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "ed344a1bd7b06a3a",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-22T16:35:01+00:00",
+  "sid": "56206bd410d3c39c",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.157.0-alpha.9",
+  "summary_1line": "Release 0.157.0-alpha.9",
+  "title": "codex rust-v0.157.0-alpha.9",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.157.0-alpha.9",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "565854d66aa5fd61": {
   "first_seen": "2026-09-16T02:03:33.570829+00:00",
@@ -5882,6 +5937,18 @@
   "type": "news",
   "url": "https://tuneloop.io/blog/coding-agent-benchmarks",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "6f103e1368f86379": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "549e1d0ba86c91c6",
+  "published": "2026-09-22T15:54:16+00:00",
+  "sid": "6f103e1368f86379",
+  "source": "simon_willison",
+  "summary": "Release: llm-typesafe 0.1a0 I built this new plugin for LLM to add support for TypeSafe AI's new Jev model . Install it like this: llm install llm-typesafe Then set an API key ( get one here , the waitlist seems to move pretty fast): llm keys set typesafe # Paste key And now you can ask yes/no \"noul\" questions like this: llm -m jev 'Please refund my last payment.' \\ -s 'Does this message explicitly request a refund?' Output: {\"type\": \"noul\", \"noul\": 0.99} Or choice questions like this: cat message.txt | llm -m jev \\ -s ' Which team should handle this message? If billing and technical issues both occur, choose billing. ' \\ -o answer_type choice \\ -o criteria ' { \"billing\":\"Charges, invoices, payments, or refunds\", \"technical\":\"Problems installing or using the product\", \"other\":\"Neither category fits\" } ' Or scoring questions like this: cat report.txt | llm -m jev \\ -s ' How reproducible is the problem described in this report? ' \\ -o answer_type score \\ -o criteria ' [ \"No reproduction instructions\", \"Some instructions, but important steps are missing\", \"Complete steps with expected and actual results\" ] ' See the README for more details. Tags: projects , llm , jev",
+  "summary_1line": "Release: llm-typesafe 0.1a0 I built this new plugin for LLM to add support for TypeSafe AI's new Jev model . Install it like this: llm install llm-typesafe Then set an API key ( get one here , the waitlist seems to mo...",
+  "title": "llm-typesafe 0.1a0",
+  "type": "release",
+  "url": "https://simonwillison.net/2026/Sep/22/llm-typesafe"
  },
  "6f59eae26a450dc1": {
   "first_seen": "2026-09-04T18:03:13.937329+00:00",
@@ -7180,6 +7247,23 @@
   "title": "OpenClaw Power, MacBook Simplicity: Five Days With Grok Bot",
   "type": "news",
   "url": "https://www.latent.space/p/grok-bot"
+ },
+ "8a5ec485806b5d05": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "3cc87316e558ddc1",
+  "image_url": "https://cdn.prod.website-files.com/65c81e88c254bb0f97633a71/6ab1a034236823f9762668b2_The%20Reliability%20Layer%20for%20Healthcare%20AI-%20Common%20LangSmith%20Use%20Cases.png",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-09-22T17:03:11+00:00",
+  "sid": "8a5ec485806b5d05",
+  "source": "langchain_blog",
+  "summary": "See how LangSmith helps healthcare AI teams turn clinical review into reusable evaluators, datasets, and release gates for safer AI in production.",
+  "summary_1line": "See how LangSmith helps healthcare AI teams turn clinical review into reusable evaluators, datasets, and release gates for safer AI in production.",
+  "title": "The Reliability Layer for Healthcare AI: Common LangSmith Use Cases",
+  "type": "news",
+  "url": "https://www.langchain.com/blog/reliability-healthcare-ai-langsmith-use-cases",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "8a8e02e5f6e7e368": {
   "first_seen": "2026-09-02T17:03:45.895167+00:00",
@@ -8590,6 +8674,22 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2609.13082v1",
   "why_it_matters": "Matches feed focus: agentic, evaluation."
+ },
+ "9ff272590ebd1651": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "e862c673397cf1bb",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-22T16:00:00+00:00",
+  "sid": "9ff272590ebd1651",
+  "source": "databricks_blog",
+  "summary": "AI coworkers and coding agents are spreading fast across organizations, and each...",
+  "summary_1line": "AI coworkers and coding agents are spreading fast across organizations, and each...",
+  "title": "The Genie One MCP is now Generally Available",
+  "type": "news",
+  "url": "https://www.databricks.com/blog/genie-one-mcp-now-generally-available",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "a00923bf4ddda715": {
   "first_seen": "2026-09-19T06:03:42.286849+00:00",
@@ -11227,6 +11327,22 @@
   "type": "news",
   "url": "https://www.databricks.com/blog/enabling-secure-productive-work-personal-devices"
  },
+ "d0b6c6a0472c6a7e": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "6ad8d9bbfbbfe647",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-22T16:29:56+00:00",
+  "sid": "d0b6c6a0472c6a7e",
+  "source": "search_cn_open_weight_labs",
+  "summary": "How Z.ai's Coding Agent Uploaded User Data Without Consent Cyber Magazine",
+  "summary_1line": "How Z.ai's Coding Agent Uploaded User Data Without Consent Cyber Magazine",
+  "title": "How Z.ai's Coding Agent Uploaded User Data Without Consent",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPQzRDQWVLZEpJc1dtY054aWV5dVVVTkRzVzI2NF9VOVZwZnlMbUlqSmF5bXVqNHh0T0t4N2RsWmgyQmxpOWlPTnlyNjYtMDZKU2tsdXRRSVRaV19XQUc4UjA3cnFlT0t0S3hJX1Y2WER3aHlqV25NeENKVldDWDVFa0xQTDFDVmc2eFNpR0tNN1Exdw?oc=5",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "d0e22204dfaa8824": {
   "first_seen": "2026-09-15T21:03:36.736450+00:00",
   "id": "e65bfaed1bb50417",
@@ -12359,6 +12475,21 @@
   "type": "news",
   "url": "https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-using-the-diff-terminal-and-browser",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "e9f63aa1f7aaa02f": {
+  "first_seen": "2026-09-22T17:03:14.428083+00:00",
+  "id": "fcc87cb23e9d0fc4",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-09-22T00:00:00+00:00",
+  "sid": "e9f63aa1f7aaa02f",
+  "source": "huggingface_blog",
+  "summary_1line": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+  "title": "How UK AISI and EvalEval Are Making Benchmark Results Reproducible",
+  "type": "research",
+  "url": "https://huggingface.co/blog/evaleval-aisi",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "eb1a32b679f0247f": {
   "first_seen": "2026-09-14T11:03:20.436947+00:00",
