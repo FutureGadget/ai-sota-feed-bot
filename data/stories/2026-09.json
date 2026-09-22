@@ -2551,6 +2551,22 @@
   "type": "news",
   "url": "https://openai.com/index/expanding-openai-academy-with-new-learning-paths"
  },
+ "2fe4588241293ee7": {
+  "first_seen": "2026-09-22T05:03:33.390252+00:00",
+  "id": "90c81a14e01de208",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-21T16:19:33+00:00",
+  "sid": "2fe4588241293ee7",
+  "source": "arxiv_cs_ai",
+  "summary": "Medical agents increasingly combine general reasoning models with specialized clinical tools, yet their capabilities remain largely fixed by what clinicians and engineers design before deployment. Recursive self-improvement (RSI) offers a different paradigm in which agents learn from their own failures and autonomously expand their capabilities, but directly applying RSI to medicine introduces fundamental safety challenges. We introduce MedRSI, the first recursive self-improvement framework for medicine, which continuously transforms diagnostic failures into new clinical capabilities through tool composition and task-specific model training. Inspired by clinical practice, MedRSI introduces two mechanisms for clinically aligned self-evolution. Clinical-cost-aware failure prioritization directs improvement toward errors according to their potential clinical consequences rather than frequency alone. Fast discovery with slow registration separates rapid capability invention from conservative adoption, allowing new tools to enter the persistent agent only after demonstrating sustained benefit across subsequent patient cohorts. Across public glaucoma and heart disease benchmarks and two private clinical tasks, MedRSI progressively develops segmentation, measurement, prediction, multimodal reasoning, and generative capabilities, surpasses manually engineered medical agents, and autonomously discovers solutions to clinical problems not anticipated by its original designers. Our resul",
+  "summary_1line": "Medical agents increasingly combine general reasoning models with specialized clinical tools, yet their capabilities remain largely fixed by what clinicians and engineers design before deployment. Recursive self-impro...",
+  "title": "MedRSI: Recursive Self-Improvement for Medical Agents via Clinically Aligned Self-Evolution",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.24838v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "2ff277e441a4b0da": {
   "first_seen": "2026-09-04T17:03:33.227750+00:00",
   "id": "c6ee8f381b8e16d9",
@@ -3404,8 +3420,8 @@
   "published": "2026-09-20T08:46:47+00:00",
   "sid": "413e4ee860ab5e96",
   "source": "hf_qwen_releases",
-  "summary": "New model weights from Qwen on Hugging Face. Likes: 37, downloads: 4604.",
-  "summary_1line": "New model weights from Qwen on Hugging Face. Likes: 37, downloads: 4604.",
+  "summary": "New model weights from Qwen on Hugging Face. Likes: 38, downloads: 4604.",
+  "summary_1line": "New model weights from Qwen on Hugging Face. Likes: 38, downloads: 4604.",
   "title": "Qwen/Qwen-Image-2.1-PE-I2I released on Hugging Face",
   "type": "release",
   "url": "https://huggingface.co/Qwen/Qwen-Image-2.1-PE-I2I"
@@ -4604,6 +4620,22 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.274",
   "why_it_matters": "Matches feed focus: agent, claude code."
+ },
+ "57d7d1c56047c4ba": {
+  "first_seen": "2026-09-22T05:03:33.390252+00:00",
+  "id": "15bace5df428bf64",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-09-21T14:21:50+00:00",
+  "sid": "57d7d1c56047c4ba",
+  "source": "arxiv_cs_lg",
+  "summary": "On-policy self-distillation fine-tuning (SDFT) learns new skills from demonstrations while reducing forgetting, but it always distils toward the full demonstration-conditioned teacher. This fixes teacher influence at the full-teacher endpoint, providing no control over how much demonstration information should be transferred at each prediction state. We introduce Information-Proximal SDFT (iSDFT), which instead treats the teacher as a budgeted source of information. At each token, iSDFT selects the distribution closest to the current student that satisfies a prescribed teacher-information constraint, yielding a closed-form exponential target with a locally determined tilt. To control cumulative drift, we further anchor the student to its frozen base policy. Across four heterogeneous LLM backbones and two specialisation tasks, iSDFT improves vanilla SDFT in 7 of 8 model-task settings and matches it in the remaining one. It also provides tighter retention on the original SDFT benchmark suite, with 73% of evaluations remaining within 0.5 points of the base model versus 52% for the strongest baseline, while achieving the largest mean improvement on all ten additional mathematics, coding, and competition-mathematics benchmarks. These results show that controlling how much and when teacher information is introduced improves specialisation while preserving broader capability.",
+  "summary_1line": "On-policy self-distillation fine-tuning (SDFT) learns new skills from demonstrations while reducing forgetting, but it always distils toward the full demonstration-conditioned teacher. This fixes teacher influence at...",
+  "title": "iSDFT: Information-Proximal Self-Distillation for Continual Learning in LLMs",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.24646v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "58682a58d931125b": {
   "first_seen": "2026-09-20T13:02:34.971081+00:00",
@@ -8123,6 +8155,23 @@
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.155.0-alpha.2.1",
   "why_it_matters": "Matches feed focus: codex."
  },
+ "9d7aeb4189c56be6": {
+  "first_seen": "2026-09-22T05:03:33.390252+00:00",
+  "id": "f50c790c5e73d790",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-09-21T17:54:35+00:00",
+  "sid": "9d7aeb4189c56be6",
+  "source": "arxiv_cs_cl",
+  "summary": "Agents today often take real-world actions that depend on long-term memory and context recall over time. However, most current memory benchmarks are built for a conversational question-answer format, where the question itself signals that some fact must be retrieved, and often which one. Moreover, benchmarks rarely require anything beyond accuracy from submissions, allowing memory systems to make unreasonable cost/time tradeoffs to achieve higher scores. We present DolphinBench, a benchmark that evaluates memory directly through an agent's task completion. DolphinBench includes three knowledge-work personas with roughly 500k tokens of user messages per persona and evaluates agents on tasks that depend on information from that history. We verify all 200 tasks per persona by running an agent with and without the relevant history, requiring success with it and failure without it. Finally, we require all evaluations to report total cost and latency alongside accuracy, which enables us to evaluate agent memory systems holistically. No existing memory benchmark combines all three. The dataset and evaluation code are available at https://dolphinbench.ai.",
+  "summary_1line": "Agents today often take real-world actions that depend on long-term memory and context recall over time. However, most current memory benchmarks are built for a conversational question-answer format, where the questio...",
+  "title": "DolphinBench: Mapping the Pareto Frontier of Agent Memory",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.24971v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
+ },
  "9d924217316d3e22": {
   "first_seen": "2026-09-16T10:03:28.002182+00:00",
   "id": "cef8398639503b25",
@@ -8196,6 +8245,22 @@
   "type": "news",
   "url": "https://www.langchain.com/blog/building-a-harness-with-jev",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "9e711ac7148c15b3": {
+  "first_seen": "2026-09-22T05:03:33.390252+00:00",
+  "id": "1df686afc9744a67",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-22T04:47:58+00:00",
+  "sid": "9e711ac7148c15b3",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.157.0-alpha.6",
+  "summary_1line": "Release 0.157.0-alpha.6",
+  "title": "codex rust-v0.157.0-alpha.6",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.157.0-alpha.6",
+  "why_it_matters": "Matches feed focus: codex."
  },
  "9e8a561b4d331663": {
   "first_seen": "2026-09-05T16:03:03.237935+00:00",
@@ -10338,6 +10403,18 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2609.19983v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "c7d9c6329c72350c": {
+  "first_seen": "2026-09-22T05:03:33.390252+00:00",
+  "id": "1af8d15983424a95",
+  "published": "2026-09-22T04:41:48+00:00",
+  "sid": "c7d9c6329c72350c",
+  "source": "search_cn_open_weight_labs",
+  "summary": "Yan Wentao Officially Joins DeepSeek: Latest Career Update eu.36kr.com",
+  "summary_1line": "Yan Wentao Officially Joins DeepSeek: Latest Career Update eu.36kr.com",
+  "title": "Yan Wentao Officially Joins DeepSeek: Latest Career Update",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFBfVllJLXVKMXBWYzU4TXhOVDZ5UUdrRVZqTmVBS2IyekJmWG1VYjNVQkFsWjVkOE1fRzByQkFsMHpaZ24xUlczdGYtM0xOVEY5Tnh3?oc=5"
  },
  "c7fccaf3c76e774a": {
   "first_seen": "2026-09-15T21:03:36.736450+00:00",
