@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a]
-updated: 2026-09-18
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5]
+updated: 2026-09-22
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5]
 ---
 
 ## TL;DR
@@ -345,12 +345,30 @@ far the compaction lever this page already tracks (gisting, KV-cache
 compression) can be pushed before latency and cost savings start trading
 away correctness.
 
+The day-0-support pattern this page tracks continues with vLLM v0.30.0,
+which folds in DeepSeek-V4.1-Flash support with its entire KV cache stored
+in MXFP8 and a FlashMLA speedup on SM100 hardware, alongside a "Fast Start"
+path that trims cold-start time on the same release — the routine,
+compounding kind of serving-layer gain this page already tracks rather
+than a single named breakthrough. A companion vLLM write-up puts a
+concrete throughput number behind the same disaggregation levers already
+tracked here: prefill/decode-disaggregated serving of Qwen3.8-2.4T reaches
+5,000 tokens/sec aggregate throughput and 180 tokens/sec per-user
+interactivity on GB300 NVL72 hardware, with the methodology published so
+other teams can reproduce the result on their own serving stack.
+
 ## What's new
-A benchmark of five agentic-workflow context-trimming strategies finds a
+vLLM v0.30.0 adds DeepSeek-V4.1-Flash support with an MXFP8-resident KV
+cache and FlashMLA speedups on SM100, and a companion vLLM report reaches
+5K tokens/sec aggregate throughput and 180 tok/sec/user interactivity
+serving Qwen3.8-2.4T via prefill/decode disaggregation on GB300 NVL72 (see
+State of the art above).
+
+Prior update: A benchmark of five agentic-workflow context-trimming strategies finds a
 hard failure cliff below a 50%-context budget — dropping to 25% or less
 raises failure odds 10.92x — while protocol-aware trimming plus adaptive
 budget guardrails still saves 56.0% of tokens with 96.0% task success and
-just 1.0% cascading failure (see State of the art above).
+just 1.0% cascading failure.
 
 ## Why it matters for platform engineers
 Latency is where the agent's architecture meets the user's patience and the

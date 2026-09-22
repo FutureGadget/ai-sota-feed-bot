@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73]
-updated: 2026-09-20
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102]
+updated: 2026-09-22
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102]
 ---
 
 ## TL;DR
@@ -431,18 +431,39 @@ adoption signal yet), but it is the same durable-execution thesis this page
 already tracks, shipped as one deployable unit instead of infrastructure a
 team assembles itself.
 
+Google's own orchestration entrant joins the open-source wave from the
+platform-vendor side rather than a single-developer repo: **AX** is an
+open-sourced, Kubernetes-style orchestrator for autonomous AI agent
+workloads, treating each agent as a stateful actor on a dedicated runtime
+(Agent Substrate) rather than a stateless request handler — bringing the
+resource-scheduling and lifecycle-management vocabulary this page already
+tracks for crash-safe dispatch (Postgres leases, Enjambre) to a
+general-purpose agent runtime a platform team could adopt wholesale instead
+of assembling.
+
+The **coordination-as-attack-surface** thread above (Linguistic Firewall,
+Anthropic's swarm collusion/sabotage findings) picks up a dedicated
+authorization answer rather than a detection or containment one: SwarmAuth
+proposes OAuth 2.1 for AI agent swarms, scoping and granting credentials
+per agent identity in a multi-agent system instead of sharing one broad
+credential across the mesh — the identity-and-authorization primitive this
+page's governance-layer pattern (distinct credentials per agent role)
+already argues for, built specifically for swarm-scale deployments rather
+than a single agent.
+
 ## What's new
-Enjambre packages durable task queues, DAG dependencies, and lease-based
+Google open-sourced AX, a Kubernetes-style orchestrator that runs each
+agent as a stateful actor on a dedicated runtime, and SwarmAuth proposes
+OAuth 2.1 scoped per-agent credentials for swarms — two new
+infrastructure primitives for the coordination and authorization axes this
+page already tracks (see State of the art above; cross-ref [agent
+memory](/topic/agent-memory) for MACE's shared-memory co-evolution answer
+to the same multi-agent coordination problem).
+
+Prior update: Enjambre packages durable task queues, DAG dependencies, and lease-based
 crash recovery into one SQLite-backed kernel for agent swarms, adding a
 permission gate and a cost/latency/success-rate router on top of the
-crash-safe dispatch pattern this page already tracks (see State of the art
-above).
-
-Prior update: Postgres's own `SELECT ... FOR UPDATE SKIP LOCKED`, primary-key checkpoints,
-and a lease-plus-sweeper heartbeat pattern reproduce an external
-orchestrator's exactly-once dispatch and crash recovery on infrastructure
-most teams already run, reportedly handling tens of thousands of workflow
-steps per second on one instance.
+crash-safe dispatch pattern this page already tracks.
 
 ## Why it matters for platform engineers
 Every extra agent is extra tokens, extra latency, and extra failure surface, so

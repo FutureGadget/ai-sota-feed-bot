@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9]
-updated: 2026-09-20
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0]
+updated: 2026-09-22
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0]
 ---
 
 ## TL;DR
@@ -297,11 +297,29 @@ evidence that treating retrieval as covering a decision's requirements,
 not resembling the query, closes real recall gaps a stronger reranker alone
 doesn't fix.
 
+**Attribution is also being engineered at the decision layer, not only the
+retrieval layer**: a deterministic rule engine (built on the Rete
+algorithm) makes the decision in domains where an LLM in charge is
+unauditable by default — lending, fraud, clinical triage — while a RAG
+layer alongside it explains *why*, surfacing the rules and evidence that
+fired rather than an unfalsifiable model narrative. It sharpens this page's
+standing "answer versus prove it" distinction into an architecture split:
+the decision and its justification come from two different systems, so the
+explanation can't drift from what actually happened the way an LLM's
+own post-hoc rationale can (cross-ref [agent
+reliability](/topic/agent-reliability) for the tools-for-certainty framing
+of the same decision/explanation split).
+
 ## What's new
-MSS-Complement recasts coding-agent retrieval as recovering a jointly
+A deterministic rule engine paired with a RAG explanation layer splits
+decision-making from justification for auditable domains (lending, fraud,
+clinical triage) — the decision comes from rules, not a model's own
+account of itself (see State of the art above).
+
+Prior update: MSS-Complement recasts coding-agent retrieval as recovering a jointly
 sufficient evidence set rather than reranking individually relevant
 passages, beating embedding-based reranking's complete-recovery rate 73.0%
-to 61.4% at five retrieved items (see State of the art above).
+to 61.4% at five retrieved items.
 
 Prior update: An InfoQ presentation frames knowledge graphs as their own agentic-RAG
 architecture, naming decision-provenance tracking as one of its production

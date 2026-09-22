@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372]
-updated: 2026-09-03
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3]
+updated: 2026-09-22
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3]
 ---
 
 ## TL;DR
@@ -194,11 +194,26 @@ items, repos, and pipelines, but shipped without Claude Desktop, Claude
 Code, ChatGPT, or Cursor support at launch — a reminder that "GA" and
 "works with every major MCP client" are still two separate milestones.
 
+Production adoption keeps widening even as the protocol's own maturation
+draws pushback. Databricks' Genie MCP server reached general availability,
+another named vendor putting a core product surface behind the protocol
+rather than a bespoke API for AI coworkers and coding agents to query. At
+the same time, the statelessness debate this page already tracks has a
+sharper public voice: commentary responding to "MCP was always a bad
+idea?" argues the critique misses MCP's actual value today, sharpening
+rather than resolving the standing tension between "MCP is converging back
+toward a plain API" and "the shared tool-description and discovery layer
+is the durable win" already argued on this page.
+
 ## What's new
-Claude Code's new `managedMcpServers` setting lets an organization push MCP
+Databricks' Genie MCP server reached general availability while public
+commentary kept sharpening the "is MCP still adding value" debate this
+page already tracks — production adoption and protocol skepticism
+widening in parallel (see State of the art above).
+
+Prior update: Claude Code's `managedMcpServers` setting lets an organization push MCP
 servers to every user, extending connector governance from "who may
-connect" (identity-provider auth) to "which servers exist at all" (see
-State of the art above).
+connect" (identity-provider auth) to "which servers exist at all".
 
 Prior update: The Claude Agent SDK for Python widened its in-process MCP server support to
 2.x alongside 1.x, and Microsoft's Azure DevOps Remote MCP Server reached GA
