@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef, 934ca800d677c018, 0fa615ad9312d280, 17de01e9c2b4e169, aac5dd8eae1db4c9, d2871d486c61275a, 9463df6fcb6ce102]
-updated: 2026-09-21
-covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef, 934ca800d677c018, 0fa615ad9312d280, 17de01e9c2b4e169, aac5dd8eae1db4c9, d2871d486c61275a, 9463df6fcb6ce102]
+evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef, 934ca800d677c018, 0fa615ad9312d280, 17de01e9c2b4e169, aac5dd8eae1db4c9, d2871d486c61275a, 9463df6fcb6ce102, 9d7aeb4189c56be6, eddc39b344540bb2, e1b58c64b7362aaf, 8b5a295c0aceadba, ecbc939e4d2da1ba, 12bde3451d8234ff]
+updated: 2026-09-22
+covers_evidence: [2c8ff757b828dee7, 9022c498f1c24442, b3b803dc3d3ab1b8, 5c5003b8c444211d, 623de2bad771dca8, f472926ede32221b, f6cf006fbdea0d5a, eb5267262e7d31c8, cc131dd2666136ca, fbb59a181d9a71e6, 0657f60e37a5d3d2, ce180fd0b3a2065e, a44d7493026627ec, a803b4966933291a, ca2de3ecb9f0eb55, c7a2ede639a1a707, ee624f89c3319a44, 23f07233dca1a9dc, a026d7598baf3bcf, 495bc8d2b48db179, 8688a4c832b1b52a, f42a28fa00ccf0ea, 246a4c93052ef3c1, a100d2bc462a761c, 56ef11c9d3f8e424, b07c69459b16cc11, dc1acd837d32b604, 8561672eafb892cc, 1609e44adca88f23, 27401e60c46c5950, fae52c3b17c1c504, 7b8e28ef4195d912, d5702ff0cbee7342, 6e834d3516003b88, d7f7f1bf25c4ce76, 7339a1b37836ee76, ffff9fe41413e4ac, 6025c4e3bc9c120a, 34c069f2bffc49df, 5ba78b757300e8cc, 474ba1f9a89fdca5, 40602cd71e370eb6, 5a50cd46503b235d, 34691d4d3bab21f8, afd8d930f6a32d8c, 5f608b2d21b1899e, b87db2b7c0188c42, 839b8e795fbb51a0, ed614d89952e3d29, 6d2d70e4ee226dfc, 5960e24b491051f2, 92250613f04ac1b9, c95ec4fda28e63d4, cdd1118267ee925c, bfa81ecf238132fd, d520b85be68f5411, 44a795850e3c5a06, a629cf55b03e5c2d, 000d39be8c5e3832, db4dbac05b8debee, 27f2f50d69e9ceef, 934ca800d677c018, 0fa615ad9312d280, 17de01e9c2b4e169, aac5dd8eae1db4c9, d2871d486c61275a, 9463df6fcb6ce102, 9d7aeb4189c56be6, eddc39b344540bb2, e1b58c64b7362aaf, 8b5a295c0aceadba, ecbc939e4d2da1ba, 12bde3451d8234ff]
 ---
 
 ## TL;DR
@@ -486,16 +486,46 @@ work — the enterprise-knowledge-as-memory pattern this page already tracks
 (LinkedIn's Contextual Agent Playbooks, Elastic's Atlas), this time shipped
 as a standalone agent product rather than an internal platform layer.
 
-## What's new
-MACE frames shared multi-agent memory as a co-evolution problem: functional
-memory units scored and organized from task outcomes, not just written and
-read, averaging 81.11% across eight benchmarks against ten baselines (see
-State of the art above).
+The measurability push above (Agent Memory Leaderboard, the failure-modes
+and UTILMEM benchmarks) picks up a dedicated frontier-mapping benchmark
+rather than a single-number leaderboard entry: DolphinBench scores agent
+memory systems specifically on real-world, action-dependent long-term
+recall — the kind an agent needs to take a correct later action, not the
+conversational-QA recall most memory benchmarks were built for — and maps
+the resulting Pareto frontier of accuracy against cost/latency rather than
+picking one winner. A companion architecture answers the *how* question
+the benchmark measures: AutoViewMem self-configures orthogonal views over
+conversational history — instead of a single fixed index, it maintains
+several complementary projections of the same stored memory and picks
+which view to query per request, the same "recall depends on which
+interface you query, not just what's stored" argument CABLE already makes
+on this page. A companion practitioner signal reinforces the same push
+from outside the benchmark literature: "Beyond Context Windows" argues
+evaluating long-term memory has to look past context-window size entirely,
+the same framing this page's tiered-store and brute-force-context threads
+above already contest from the architecture side.
 
-Prior update: LinkedIn's tiered-memory reference architecture now has a named
-product behind it: Contextual Agent Playbooks and Tools serve procedural
-memory and code search over MCP specifically to overcome agent limitations
-in large codebases.
+The local-first coding-agent memory wave keeps widening with three more
+grassroots entrants in the same short window: Memanto.ai and an
+open-source shared-memory project for teams of AI coding agents both
+target the same cross-agent, cross-session recall gap as Sibyl and
+Awareness Local above, while Captain Memo bundles memory alongside skills
+and capabilities into one local package any coding agent can use — the
+same "own it, don't rent it" instinct as the rest of the local-first
+roster, this time packaging memory and skills together rather than memory
+alone.
+
+## What's new
+DolphinBench maps the Pareto frontier of agent memory on action-dependent
+long-term recall rather than conversational QA, and AutoViewMem answers
+the same measurement with a self-configuring, multi-view retrieval
+architecture instead of one fixed index (see State of the art above).
+
+Prior update: MACE frames shared multi-agent memory as a co-evolution problem: functional
+memory units scored and organized from task outcomes, not just written and
+read, averaging 81.11% across eight benchmarks against ten baselines
+(cross-ref [multi-agent](/topic/multi-agent) for the coordination side of
+the same shared-memory problem).
 
 ## Why it matters for platform engineers
 Memory is where agent cost, latency, and reliability collide: stuffing
