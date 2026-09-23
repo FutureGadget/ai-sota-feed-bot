@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. SF October 14th: A Birds of a Feather Session on Agentic Engineering
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/23/bof-agentic-engineering/
-- Score: 3.014 | Reliability: 1.0
+- Score: 2.988 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
 ## 2. Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna/
-- Score: 2.895 | Reliability: 1.0
+- Score: 2.871 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, codex, claude code.
 
 ## 3. vllm v0.30.0
 - Type: release | Source: vllm_releases
 - URL: https://github.com/vllm-project/vllm/releases/tag/v0.30.0
-- Score: 2.895 | Reliability: 1.0
+- Score: 2.861 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval.
 
-## 4. Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/09/google-ax-orchestrator/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.781 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 4. Recursive self-improvement of AI research agents
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2609.26457v1
+- Score: 2.824 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation.
 
 ## 5. Flash-dLLM: IO-Aware KV Caching and Parallel Decoding for Fast, Memory-Efficient Diffusion LLMs
 - Type: paper | Source: arxiv_cs_cl
 - URL: http://arxiv.org/abs/2609.26796v1
-- Score: 2.762 | Reliability: 1.0
+- Score: 2.797 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 6. codex 0.156.1
-- Type: release | Source: openai_codex_releases
-- URL: https://github.com/openai/codex/releases/tag/rust-v0.156.1
-- Score: 2.591 | Reliability: 1.0
-- Why it matters: Matches feed focus: codex.
+## 6. Grow the Harness, Not the Context: From Strategy-Free Scaffolds to Reusable Specialist Agents
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2609.26760v1
+- Score: 2.77 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, harness.
 
-## 7. DeepSeek published a new paper disclosing Agent training, with Liang Wenfeng as the named author.
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTE9NUEhVTkVqMmpOTVZnUE02MHRmNDJQc0M3Y1otcjZ0dlRtRzhncVF1WEw2SzhrSjNCQzl1WkJ6bGRoZzFyZHNPSkZrX0MxcDNtRU5J?oc=5
-- Score: 2.58 | Reliability: 1.0
+## 7. Google Open-Sources AX a Kubernetes Style Orchestrator for Autonomous AI Agents
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/09/google-ax-orchestrator/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.759 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 8. Better prompt caching for GPT-6
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/better-prompt-caching-for-gpt-6
-- Score: 2.424 | Reliability: 1.0
+- Score: 2.397 | Reliability: 1.0
 - Why it matters: 
 
 ## 9. Introducing GPT-6 Sol and Luna
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/introducing-gpt-6-sol-and-luna
-- Score: 2.351 | Reliability: 1.0
+- Score: 2.326 | Reliability: 1.0
 - Why it matters: 
 
 ## 10. Parallel cut research time and cost in half with GPT‑6 Astra
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/parallel-cuts-time-and-cost-with-astra
-- Score: 2.251 | Reliability: 1.0
+- Score: 2.228 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 11. claude-agent-sdk-python v0.2.158
+## 11. codex 0.156.1
+- Type: release | Source: openai_codex_releases
+- URL: https://github.com/openai/codex/releases/tag/rust-v0.156.1
+- Score: 2.561 | Reliability: 1.0
+- Why it matters: Matches feed focus: codex.
+
+## 12. claude-agent-sdk-python v0.2.158
 - Type: release | Source: claude_agent_sdk_python_releases
 - URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.158
-- Score: 2.577 | Reliability: 1.0
+- Score: 2.548 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. Show HN: Visually orchestrate Claude Code AI agents
-- Type: news | Source: hackernews_ai
-- URL: https://github.com/rondoflow/rondoflow
-- Score: 2.488 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, claude code.
+## 13. [AINews] Claude Opus 5.5, the new default model for AINews — and everybody cuts prices 40-50%
+- Type: news | Source: latent_space
+- URL: https://www.latent.space/p/ainews-claude-opus-55-the-new-default
+- Score: 2.525 | Reliability: 1.0
+- Why it matters: 
 
-## 13. What Is Jev? A Guide to TypeSafe AI’s System One Model
+## 14. DeepSeek published a new paper disclosing Agent training, with Liang Wenfeng as the named author.
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMiU0FVX3lxTE9NUEhVTkVqMmpOTVZnUE02MHRmNDJQc0M3Y1otcjZ0dlRtRzhncVF1WEw2SzhrSjNCQzl1WkJ6bGRoZzFyZHNPSkZrX0MxcDNtRU5J?oc=5
+- Score: 2.499 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 15. What Is Jev? A Guide to TypeSafe AI’s System One Model
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/building-a-harness-with-jev
-- Score: 2.476 | Reliability: 1.0
+- Score: 2.455 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 14. Can Jev Be a Better Agent Evaluator?
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/jev-agent-evals-langsmith
-- Score: 2.426 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, evaluation.
-
-## 15. How UK AISI and EvalEval Are Making Benchmark Results Reproducible
+## 16. How UK AISI and EvalEval Are Making Benchmark Results Reproducible
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/evaleval-aisi
-- Score: 2.396 | Reliability: 1.0
+- Score: 2.434 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
-## 16. GitLab Duo Expands Self-Hosted AI Options Through Microsoft Foundry
+## 17. The Reliability Layer for Healthcare AI: Common LangSmith Use Cases
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/reliability-healthcare-ai-langsmith-use-cases
+- Score: 2.278 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
+
+## 18. GitLab Duo Expands Self-Hosted AI Options Through Microsoft Foundry
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/gitlab-microsoft-foundry/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.28 | Reliability: 1.0
+- Score: 2.263 | Reliability: 1.0
 - Why it matters: 
 
-## 17. 🔬 An Oscar, Two Asteroids, and the Algorithm in Your sklearn: John Platt on AI for Science
-- Type: news | Source: latent_space
-- URL: https://www.latent.space/p/john-platt
-- Score: 2.197 | Reliability: 1.0
-- Why it matters: 
-
-## 18. AI Evals: Everything You Need to Know
+## 19. AI Evals: Everything You Need to Know
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/blog/posts/evals-faq/
-- Score: 2.194 | Reliability: 1.0
+- Score: 2.187 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation, codex.
 
-## 19. claude-code v2.1.280
+## 20. claude-code v2.1.280
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.280
-- Score: 2.18 | Reliability: 1.0
+- Score: 2.156 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, claude code.
 
-## 20. llama_index v0.14.25
+## 21. llama_index v0.14.25
 - Type: release | Source: llamaindex_releases
 - URL: https://github.com/run-llama/llama_index/releases/tag/v0.14.25
-- Score: 2.104 | Reliability: 1.0
+- Score: 2.084 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 21. What a task costs on Opus 5.5 | Claude by Anthropic
+## 22. What a task costs on Opus 5.5 | Claude by Anthropic
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/what-a-task-costs-on-opus-5-5
-- Score: 2.014 | Reliability: 1.0
+- Score: 1.996 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 22. Priorities and principles for effective third party assessments
+## 23. Priorities and principles for effective third party assessments
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/priorities-principles-third-party-assessments
-- Score: 1.893 | Reliability: 1.0
+- Score: 1.876 | Reliability: 1.0
 - Why it matters: 
 
-## 23. The Genie One MCP is now Generally Available
-- Type: news | Source: databricks_blog
-- URL: https://www.databricks.com/blog/genie-one-mcp-now-generally-available
-- Score: 1.827 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 24. Extending public sector intelligence with Agentforce and AWS
-- Type: news | Source: aws_ml_blog
-- URL: https://aws.amazon.com/blogs/machine-learning/extending-public-sector-intelligence-with-agentforce-and-aws/
-- Score: 1.736 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 24. Meta Muse Could Be A Bigger Threat To OpenAI, Anthropic Than Expected, Says Top Tech Analyst
+- Type: news | Source: search_agent_engineering_news
+- URL: https://news.google.com/rss/articles/CBMi5gFBVV95cUxON2sxakdrZVMxLVh0YXVHR0JWeHpzZ0pGdlJPWXJsTHlIMXNzS0EtZm9mZDlpZm1vd3pkeVlCX29hc3FMY2FBME5PZnE1Ym9Kdld1UXFUZUM2RHFNaFdmNUdsQTlfVmR1S1pXYjRxOHJmcEtmSm0yLWc2NzBBbEVDUUdRSmVVd0ZHd09vc2dNakEwYWxiMlMwMkNSMnV4d01yUWhjMDJwV1o3MUFMbkJIVnZ5d1lydlVlYkRGSzZLVENYbTNaUVhJQi1SNlJiSVRLbFFCTm9xVkNhLVVLTWNXUk1vNkpLUQ?oc=5
+- Score: 1.642 | Reliability: 1.0
+- Why it matters:
