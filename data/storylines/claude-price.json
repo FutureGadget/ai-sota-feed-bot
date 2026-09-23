@@ -3,31 +3,17 @@
  "label": "Claude Price",
  "item_count": 3,
  "day_count": 3,
- "source_count": 3,
- "first_seen": "2026-08-31T03:05:21+00:00",
- "last_updated": "2026-09-10T00:00:00+00:00",
- "generated_at": "2026-09-20T15:07:40.642656+00:00",
+ "source_count": 4,
+ "first_seen": "2026-09-02T07:46:08+00:00",
+ "last_updated": "2026-09-22T18:00:00+00:00",
+ "generated_at": "2026-09-23T00:19:14.163491+00:00",
  "sources": [
   "claude_blog",
   "latent_space",
-  "search_cn_open_weight_labs"
+  "openai_blog",
+  "simon_willison"
  ],
  "days": [
-  {
-   "date": "2026-08-31",
-   "items": [
-    {
-     "title": "Zhipu's GLM-5.3-Flash Undercuts Claude and GPT on Price, Not on Hardware",
-     "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxNb1g5R2pzNkpRY3VFOFBJeXR1VnBBNmxMbkJUcTNHdzNleUZDR3gzdTd1a0VqdmlURWVsamtnNTZ2dmpWZjZ0UzV2aVkzOXhvTjM4QlJWMmNuQ3FyT3hoR1VTSjBQaWpqRUtzbEhNSmpwdTllYjRRNktWUnVXSy1obDZ1SXlxaHhybzFsTVoyLUNENVFDUHFPVlBBVXZtdw?oc=5",
-     "source": "search_cn_open_weight_labs",
-     "type": "news",
-     "summary_1line": "Zhipu's GLM-5.3-Flash Undercuts Claude and GPT on Price, Not on Hardware Startup Fortune",
-     "sid": "cf6ea27395124677",
-     "published": "2026-08-31T03:05:21+00:00",
-     "editor_note": "Startup Fortune reports Zhipu's GLM-5.3-Flash undercutting Claude and GPT on price while running on domestic hardware."
-    }
-   ]
-  },
   {
    "date": "2026-09-02",
    "items": [
@@ -57,31 +43,63 @@
      "editor_note": "Anthropic's own case study: T. Rowe Price uses Claude across investment research and internal tools -- adoption, not a pricing move."
     }
    ]
+  },
+  {
+   "date": "2026-09-22",
+   "items": [
+    {
+     "title": "Claude Opus 5.5, GPT-6 Sol, GPT-6 Luna, and a new price war",
+     "url": "https://simonwillison.net/2026/Sep/22/opus-and-sol-and-luna",
+     "source": "simon_willison",
+     "type": "news",
+     "summary_1line": "Yesterday was Grok 4.7 ( pelicans ) and MiMo v2.6 Flash/Pro ( more pelicans ). Today Anthropic released Claude Opus 5.5 , and around an hour later OpenAI released GPT-6 Sol and GPT-6 Luna . It's going to take a while...",
+     "why_it_matters": "Matches feed focus: agentic, codex, claude code.",
+     "sid": "73461b3e97af0d93",
+     "published": "2026-09-22T18:00:00+00:00",
+     "sources": [
+      "openai_blog",
+      "simon_willison"
+     ],
+     "editor_note": "Simon Willison's same-day roundup: Claude Opus 5.5 ships, then GPT-6 Sol and GPT-6 Luna about an hour later, framed as a new price war."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Zhipu's GLM-5.3-Flash undercut Claude and GPT on price using domestic chips rather than a cheaper hardware footprint, reported Aug 31. Anthropic answered on Sept 2, cutting Claude Fable/Mythos 5.1's cache price 75% while shipping 70% more output tokens.",
+  "tldr": "Zhipu's GLM-5.3-Flash undercut Claude and GPT on price using domestic chips in late August, and Anthropic answered Sep 2 with a 75% cache-price cut and 70% more output tokens on Fable/Mythos 5.1. T. Rowe Price then publicized broad Claude adoption across its investment process on Sep 10.",
   "stale": false,
-  "whats_new": "The newest item in this thread isn't a further price move: T. Rowe Price says it is now using Claude across its investment process, from fundamental research to internal tools -- a customer-adoption signal, not a pricing one.",
-  "why_it_matters": "A regulated-industry customer publicizing broad Claude use is a real integration data point for teams weighing build-vs-buy in compliance-sensitive workflows -- more informative than another price-comparison chart.",
-  "take_for_builders": "Re-run Claude vs. GLM-5.3-Flash cost comparisons against the new 75% cache-price cut, and treat T. Rowe Price's broad adoption as a data point on vendor risk in compliance-sensitive workflows, not a pricing signal.",
+  "whats_new": "Anthropic shipped Claude Opus 5.5 on Sep 22, and about an hour later OpenAI answered with GPT-6 Sol and GPT-6 Luna -- Simon Willison frames the same-day releases as a new price war, not just a capability race.",
+  "why_it_matters": "Same-day flagship launches from both labs mean whichever pricing and rate limits you pinned evals to last week may already be stale -- check current price sheets before trusting last month's cost comparisons.",
+  "take_for_builders": "Re-price your Claude vs. GPT cost model now that Opus 5.5 and Sol/Luna are both live -- don't assume last month's per-token numbers still hold, and re-check T. Rowe Price's case study only as a vendor-risk data point, not a pricing signal.",
   "status": {
-   "state": "Price cut holds; adoption continues",
-   "tone": "resolved",
-   "changed": "2026-09-02",
-   "detail": "Anthropic's Sept 2 cache-price cut stands unchallenged; the latest news in this window is customer adoption (T. Rowe Price), not a new price move."
+   "state": "Escalating · dueling Sep 22 flagship launches",
+   "tone": "now",
+   "changed": "2026-09-22",
+   "detail": "Anthropic's Sep 2 cache-price cut held through T. Rowe Price's Sep 10 adoption case study; on Sep 22 Anthropic shipped Claude Opus 5.5 and OpenAI answered within about an hour with GPT-6 Sol and GPT-6 Luna, which Simon Willison frames as a new price war rather than a one-off release.",
+   "track": [
+    {
+     "label": "cache price cut",
+     "detail": "Sep 2",
+     "tone": "turn",
+     "weight": 30
+    },
+    {
+     "label": "adoption",
+     "detail": "Sep 10",
+     "tone": "now",
+     "weight": 25
+    },
+    {
+     "label": "dueling launches",
+     "detail": "Sep 22 → now",
+     "tone": "now",
+     "weight": 45
+    }
+   ]
   },
   "beats": [
    {
-    "kicker": "UNDERCUT",
-    "tone": "rising",
-    "headline": "Zhipu's GLM-5.3-Flash undercuts Claude and GPT on price, not on hardware",
-    "sids": [
-     "cf6ea27395124677"
-    ]
-   },
-   {
-    "kicker": "THE TURN",
+    "kicker": "PRICE CUT",
     "tone": "turn",
     "headline": "Claude Fable/Mythos 5.1 ships a 75% cache price cut and 70% more output tokens",
     "sids": [
@@ -96,12 +114,22 @@
     "sids": [
      "cede8adbfd2bfc0f"
     ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Anthropic ships Claude Opus 5.5; OpenAI answers within the hour with GPT-6 Sol and Luna",
+    "summary": "Same-day flagship releases from both labs, framed as a new price war rather than a one-off launch.",
+    "sids": [
+     "73461b3e97af0d93"
+    ]
    }
   ],
   "open_questions": [
-   "After the 75% cache-price cut, how does Claude's effective per-token cost compare to GLM-5.3-Flash's domestic-chip pricing?",
+   "Do Claude Opus 5.5's and GPT-6 Sol/Luna's posted prices actually beat GLM-5.3-Flash's domestic-chip pricing, or just each other?",
+   "Are GPT-6 Sol and GPT-6 Luna two distinct price/capability tiers, or two names for closely related releases?",
    "Is T. Rowe Price's adoption driven by pricing, capability, or compliance advantages -- and are other regulated-industry customers making the same call?"
   ],
-  "generated_at": "2026-09-10T20:15:00+00:00"
+  "generated_at": "2026-09-23T00:20:00Z"
  }
 }

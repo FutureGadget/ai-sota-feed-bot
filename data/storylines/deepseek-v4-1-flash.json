@@ -1,13 +1,13 @@
 {
  "slug": "deepseek-v4-1-flash",
  "label": "DeepSeek V4.1-Flash",
- "item_count": 18,
- "day_count": 7,
+ "item_count": 19,
+ "day_count": 8,
  "source_count": 2,
  "first_seen": "2026-09-08T09:26:00+00:00",
- "last_updated": "2026-09-20T02:58:35+00:00",
+ "last_updated": "2026-09-22T18:54:01+00:00",
  "via_scout": true,
- "generated_at": "2026-09-22T15:18:43.221516+00:00",
+ "generated_at": "2026-09-23T00:19:14.163491+00:00",
  "sources": [
   "latent_space",
   "search_cn_open_weight_labs"
@@ -229,43 +229,64 @@
      "editor_note": "A second outlet restates the causal encoder-decoder design with added specifics: 1M-token context and extreme KV-cache compression."
     }
    ]
+  },
+  {
+   "date": "2026-09-22",
+   "items": [
+    {
+     "title": "ZenMux Launches DeepSeek V4.1 Flash for High-Throughput Reasoning",
+     "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPQ0NoQzQtUGFmV0xMdTRMQTBLWTJ2OG02NEdicUVnajJpeXI1bEVTV0hSMWdTSHlJOV9lSm1wNk5ZZ0lCWUhaTm5CTFZYTXNSWHhaYWtDMUdzcm9mOTJJV2lxbEQwWFNROXJ3Q2FER1d6bGlYQ3paSkJhbkc2VUx4bmlvb1V4YkdrV0dPVlN3ajlMVkJPeExKU3pyNUw2YkdIRzBsdHZxOGUxUXpvZGJackVMWVJIT2Nf?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "ZenMux Launches DeepSeek V4.1 Flash for High-Throughput Reasoning USA Today",
+     "sid": "88c84b7dce9138f2",
+     "published": "2026-09-22T18:54:01+00:00",
+     "editor_note": "ZenMux launches DeepSeek V4.1-Flash for high-throughput reasoning, the first third-party host to pick it up."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "DeepSeek shipped V4.1-Flash on Sep 10, claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
-  "stale": true,
-  "whats_new": "A second outlet's Sep 20 architecture write-up adds concrete numbers behind the causal encoder-decoder design first reported Sep 12: a 1M-token context window delivered via extreme KV-cache compression.",
-  "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change.",
-  "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted.",
+  "stale": false,
+  "whats_new": "Third-party host ZenMux added DeepSeek V4.1-Flash for high-throughput reasoning on Sep 22, the first sign the model is spreading to inference platforms beyond DeepSeek's own API.",
+  "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change -- and now a third-party host serves the same model, so routing choices need re-checking too.",
+  "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted. If you route through ZenMux or another third-party host, verify it serves the same weights before trusting cross-provider evals.",
   "status": {
-   "state": "Shipped · V4-Pro traffic silently rerouted",
+   "state": "Shipped · V4-Pro traffic silently rerouted, now on third-party hosts too",
    "tone": "turn",
    "changed": "2026-09-14",
-   "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture.",
+   "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture, and by Sep 22 third-party host ZenMux was serving the model too.",
    "track": [
     {
      "label": "beta + launch",
      "detail": "Sep 8–10",
      "tone": "launch",
-     "weight": 30
+     "weight": 25
     },
     {
      "label": "chip-stock jitters",
      "detail": "Sep 11–13",
      "tone": "rising",
-     "weight": 30
+     "weight": 25
     },
     {
      "label": "traffic rerouted + price cuts",
      "detail": "Sep 14 → now",
      "tone": "turn",
-     "weight": 30
+     "weight": 25
     },
     {
      "label": "architecture detail confirmed",
      "detail": "Sep 20",
      "tone": "rising",
      "weight": 10
+    },
+    {
+     "label": "third-party hosting",
+     "detail": "Sep 22 → now",
+     "tone": "now",
+     "weight": 15
     }
    ]
   },
@@ -354,14 +375,24 @@
     "sids": [
      "95e33866f411d3ef"
     ]
+   },
+   {
+    "kicker": "THIRD-PARTY HOSTING",
+    "tone": "now",
+    "headline": "ZenMux adds V4.1-Flash for high-throughput reasoning",
+    "summary": "First sign the model is spreading to inference platforms beyond DeepSeek's own API.",
+    "sids": [
+     "88c84b7dce9138f2"
+    ]
    }
   ],
   "open_questions": [
    "Does the claimed memory-footprint cut hold up in independent agent-workload benchmarks, not just DeepSeek's own numbers?",
    "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
    "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
-   "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?"
+   "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?",
+   "Does ZenMux serve the identical weights and config as DeepSeek's own endpoint, or a re-quantized variant with different behavior?"
   ],
-  "generated_at": "2026-09-22T15:17:15Z"
+  "generated_at": "2026-09-23T00:20:00Z"
  }
 }
