@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671]
-updated: 2026-09-19
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86]
+updated: 2026-09-23
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86]
 ---
 
 ## TL;DR
@@ -366,6 +366,33 @@ single token — the same reason a falling per-token price, frontier or
 open-weight, doesn't guarantee a falling bill once workflows get more
 agentic, not just cheaper per call.
 
+**The frontier price war's newest round is GPT-6's own launch lineup.**
+OpenAI shipped Sol and Luna, two GPT-6-family models pitched explicitly as
+different capability/cost balances for everyday work rather than a single
+frontier tier, alongside a prompt-caching overhaul for GPT-6 itself — higher
+cache hit rates, a caching dashboard with hit-rate diagnostics, and explicit
+cache breakpoints that give a team direct control over what stays cached
+instead of relying on an opaque default. A named customer case study puts a
+number on what that combination buys in production: Parallel's research
+agents cut both research time and API cost in half on the same labor-market
+synthesis task after moving to GPT-6 Astra, versus the prior model
+generation — the same "downshift the model, keep the task" lever this page's
+Haiku, Nemotron, and Grok cases already demonstrate, this time from the model
+vendor's own launch-day case study.
+
+**Anthropic's own task-cost breakdown makes the "cost is a function of
+behavior" argument in the TL;DR literally computable.** Opus 5.5 lists at
+$4/$20 per million input/output tokens on the API (roughly 20% below Opus 5),
+with cache reads at $0.20/Mtok (about 60% cheaper than before) — and
+Anthropic's own worked numbers show how much a single lever moves the bill:
+the same 2.8M-token session costs $11.20 with no caching versus $1.62 at a
+90% cache-hit rate, a high-effort turn adds roughly $0.40 in extra thinking
+tokens but can avoid a similarly expensive retry loop, and a $0.25 compaction
+pass pays for itself within about ten subsequent turns by cutting each one's
+cache-read cost. It is a concrete, vendor-published instance of this page's
+standing argument that the deliverable is a cost model a team can reason
+about turn by turn, not a single per-token sticker price.
+
 **Real billing data shows where that spend actually lands, and it isn't the
 frontier model.** A breakdown of Anthropic's own July spend by model (the
 Ramp AI Index, built from 70,000 companies' credit-card billing data) shows
@@ -406,7 +433,15 @@ argument NVIDIA's NeMo Switchyard result already makes above, this time
 shipped inside a mainstream coding assistant rather than a benchmark paper.
 
 ## What's new
-Amazon Bedrock AgentCore's updated runtime moves billing from holding a
+OpenAI launched GPT-6 Sol and Luna as tiered capability/cost options and
+overhauled GPT-6 prompt caching with a hit-rate dashboard and explicit
+breakpoints; a launch-day case study reports Parallel halving both research
+time and cost on GPT-6 Astra. Separately, Anthropic's own worked Opus 5.5
+cost breakdown quantifies the caching, effort-level, and compaction levers
+this page already tracks: $11.20 vs. $1.62 for the same 2.8M-token session at
+0% vs. 90% cache hit rate (see State of the art above).
+
+Prior update: Amazon Bedrock AgentCore's updated runtime moves billing from holding a
 whole container image in memory to metering on-demand memory use, and cuts
 cold-start latency variance from a 5.4-to-30-second range to a consistent
 ~2 seconds regardless of image size (see State of the art above).

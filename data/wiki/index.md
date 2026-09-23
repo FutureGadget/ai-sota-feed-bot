@@ -48,6 +48,10 @@ live under `obstacles/` and `solutions/`. Schema: `config/wiki_schema.md`.
 - [agent-reliability](obstacles/agent-reliability.md) — Agents give fluent, confident-looking output even when it's wrong
   → solutions: agent-sandboxing
 
+### scalability
+- [scalability](obstacles/scalability.md) — Agent infrastructure buckles under concurrency, not just load
+  → solutions: agent-sandboxing
+
 ### security
 - [prompt-injection](obstacles/prompt-injection.md) — Untrusted input and tools can hijack an agent
   → solutions: agent-sandboxing
