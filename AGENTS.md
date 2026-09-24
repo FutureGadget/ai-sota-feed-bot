@@ -219,7 +219,9 @@ in `ops_daily_summary.py`'s log line.
   - `models.yaml` - Model Release Radar source config: LMArena/Artificial
     Analysis endpoints, join alias map, license classification, recency/
     max-models policy
-- `scripts/` — `git_commit_runtime.sh` (data-only commits),
+- `scripts/` — `check_bundle_size.py` (enforces Vercel function bundle budgets,
+  requirements.txt hygiene, and .vercelignore completeness; runs in CI),
+  `git_commit_runtime.sh` (data-only commits),
   `git_commit_code.sh` (code/docs commits), `llm_bridge.mjs`, `oauth_login.sh`
   (legacy), `compare_v1_v2.py`, `make_og_assets.py` (regenerates the social
   card + logo PNGs; run only when the brand/tagline changes)

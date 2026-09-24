@@ -26,6 +26,9 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install -r requirements.txt pyarrow==18.1.0
 
+      - name: Check deployment bundle size and dependencies
+        run: python scripts/check_bundle_size.py
+
       - name: Run Python tests
         run: python -m unittest discover -s tests -p 'test_*.py'
 
