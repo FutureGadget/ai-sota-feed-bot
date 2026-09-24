@@ -1,21 +1,31 @@
 {
   "slug": "gemini-3-8",
-  "generated_at": "2026-09-24T00:14:40Z",
-  "covers_last_updated": "2026-09-23T17:12:27+00:00",
+  "generated_at": "2026-09-24T20:15:00Z",
+  "covers_last_updated": "2026-09-24T15:00:00+00:00",
   "covers_member_sids": [
     "6aae488b1bb65e59",
+    "9da1736b8159c9ab",
     "721de6922a1a6b9f",
-    "942f5e3b838f3db1"
+    "942f5e3b838f3db1",
+    "f97f900c55aaa2d8",
+    "321a943a4dd13ce0",
+    "6add3dd62456569f"
   ],
-  "tldr": "Google DeepMind launched Gemini 3.8 Live with an Extended Thinking mode on September 15, adding real-time reasoning to the 3.8 line's voice and video agent capabilities.",
-  "whats_new": "DeepMind shipped two new Gemini 3.8 text-to-speech models, gemini-3.8-flash-tts and gemini-3.8-flash-lite-tts, with a library of over 2,000 voices, and Simon Willison had a playground for trying them live the same day.",
-  "why_it_matters": "A Flash-tier TTS pair with a low-latency lite variant gives agent builders a cheaper voice layer to pair with 3.8's reasoning modes without leaving the Gemini API.",
+  "tldr": "Google DeepMind launched Gemini 3.8 Live with an Extended Thinking mode on September 15, adding real-time reasoning to the 3.8 line's voice and video agent capabilities. It followed up on September 23 with two new Flash-tier text-to-speech models carrying a 2,000+ voice library.",
+  "whats_new": "Gemini 3.8 Live with Live Avatar reached general availability in Gemini Enterprise on September 24, a week after the Live and Extended Thinking launch.",
+  "why_it_matters": "GA status on Live Avatar plus the Flash-tier TTS pair lets agent builders wire reasoning, speech, and an avatar front-end into one voice agent on Gemini without stitching in a separate TTS or avatar vendor.",
+  "status": {
+    "state": "Live with Live Avatar: GA",
+    "tone": "now",
+    "changed": "2026-09-24",
+    "detail": "Live with Live Avatar exited preview into general availability in Gemini Enterprise; the TTS model pair has been in general release since Sep 23."
+  },
   "beats": [
     {
       "kicker": "LAUNCH",
       "tone": "launch",
       "headline": "Gemini 3.8 Live ships with an Extended Thinking mode",
-      "sids": ["6aae488b1bb65e59"]
+      "sids": ["6aae488b1bb65e59", "9da1736b8159c9ab"]
     },
     {
       "kicker": "NEW CAPABILITY",
@@ -26,18 +36,28 @@
     {
       "kicker": "COMMUNITY",
       "tone": "rising",
-      "headline": "Simon Willison ships a playground for the new TTS voices",
-      "sids": ["942f5e3b838f3db1"]
+      "headline": "Developers build a TTS playground and a voice-direction guide",
+      "sids": ["942f5e3b838f3db1", "f97f900c55aaa2d8"]
+    },
+    {
+      "kicker": "GENERAL AVAILABILITY",
+      "tone": "now",
+      "headline": "Live with Live Avatar goes GA in Gemini Enterprise",
+      "sids": ["321a943a4dd13ce0"]
     }
   ],
   "open_questions": [
     "Do the new TTS models support streaming synthesis for real-time voice agents, or batch-only output?",
-    "How does gemini-3.8-flash-lite-tts's latency and per-character cost compare to competing low-latency TTS APIs?"
+    "How does gemini-3.8-flash-lite-tts's latency and per-character cost compare to competing low-latency TTS APIs?",
+    "Is Live Avatar available outside the Gemini Enterprise tier, or gated behind that tier's pricing?"
   ],
-  "take_for_builders": "Building a voice agent on Gemini: try gemini-3.8-flash-lite-tts on latency-sensitive paths and the full flash-tts for voice variety, and use Willison's playground to audition voices before wiring up the API.",
+  "take_for_builders": "Building a voice agent on Gemini: try gemini-3.8-flash-lite-tts on latency-sensitive paths, use Willison's playground or philschmid's guide to audition voices, and check whether your Gemini Enterprise tier already includes GA Live Avatar before evaluating a third-party avatar vendor.",
   "day_captions": {
     "6aae488b1bb65e59": "DeepMind's own announcement of Live and Extended Thinking, the capability this thread tracks.",
+    "9da1736b8159c9ab": "Independent same-day comparison of Gemini Live against OpenAI's GPT-Live family.",
     "721de6922a1a6b9f": "DeepMind ships two new TTS models with a 2,000+ voice library.",
-    "942f5e3b838f3db1": "Independent playground for auditioning the new TTS voices, live the same day."
+    "942f5e3b838f3db1": "Independent playground for auditioning the new TTS voices, live the same day.",
+    "f97f900c55aaa2d8": "Third-party walkthrough of voice replication and per-line delivery direction in the new TTS models.",
+    "321a943a4dd13ce0": "Live with Live Avatar exits preview, reaching general availability in Gemini Enterprise."
   }
 }
