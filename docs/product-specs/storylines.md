@@ -78,7 +78,13 @@ one-click `List-Unsubscribe` header, all served by `GET|POST /api/subscribe?c=&s
 skipped. The first run only initializes the cursor. Browser state
 `ai_feed_storyline_email_follows_v1` remembers email follows so the page shows
 a confirmation instead of the form. Events: `follow_email_view`,
-`follow_email_success`.
+`follow_email_success`. The form sits under a hairline beneath the Follow
+button with a monospace "Email alert · this story only" kicker, so it reads as
+part of the Follow control rather than a second signup.
+
+The page-end CTA stays a digest signup and says so ("Catch the next turn in
+the daily brief"): per-story alerts belong to the Follow control, and the
+digest copy must not promise a per-thread email it does not send.
 
 Limits: followers are read one contact at a time (about 1.2 s each at
 Resend's default rate limit), which suits hundreds of followers, not tens of

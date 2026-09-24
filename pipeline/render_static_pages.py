@@ -295,10 +295,16 @@ PAGE_CSS = """\
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -484,7 +490,9 @@ STORYLINE_ARC_CSS = """\
     .sl-follow-hint { grid-column:1 / -1; margin:0.15rem 0 0; font-size:0.78rem; color:var(--muted); }
     .sl-follow-email { grid-column:1 / -1; margin:0.35rem 0 0; }
     .sl-follow-email .subscribe-inline { margin:0; }
-    .sl-follow-email.follow-email-done { font-size:0.82rem; color:var(--muted); }
+    .sl-follow-email { max-width:32rem; padding-top:0.85rem; border-top:1px solid var(--border); }
+    .sl-follow-email.follow-email-done { font-family:ui-monospace,"SFMono-Regular",monospace;
+      font-size:0.7rem; letter-spacing:0.04em; color:var(--muted); }
     .sl-command { margin:1.4rem 0 0; }
     .sl-status { position:relative; padding:0.78rem 0.9rem 0.78rem 1.1rem; margin:0;
       border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
@@ -1632,7 +1640,7 @@ DAILY_RECAP_CSS = """\
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--signal);
       letter-spacing:.06em; text-transform:uppercase; }
     .finish-line::before, .finish-line::after { content:""; height:1px; flex:1; background:var(--border); }
-    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+    .subscribe-cta { border:0; border-left:3px solid var(--accent); border-radius:0;
       background:var(--brief-wash); color:var(--brief-ink); }
     @media (max-width:560px) {
       main { padding-left:1rem; padding-right:1rem; }
@@ -1982,7 +1990,7 @@ WEEKLY_RECAP_CSS = """\
       font-family:ui-monospace,"SFMono-Regular",monospace; font-size:.7rem; color:var(--accent);
       letter-spacing:.06em; text-transform:uppercase; }
     .weekly-close::before, .weekly-close::after { content: ""; height: 1px; flex: 1; background: var(--border); }
-    .subscribe-cta { border:0; border-left:2px solid var(--accent); border-radius:0;
+    .subscribe-cta { border:0; border-left:3px solid var(--accent); border-radius:0;
       background:var(--week-wash); color:var(--week-ink); }
 
     .art-toggle-btn { display: none; }
@@ -3204,8 +3212,8 @@ def render_storyline_body(sl: dict, story_sids: set[str]) -> str:
     parts.append(
         subscribe_cta_html(
             "storyline_end",
-            "Follow the next turn by email.",
-            "Get the daily brief and weekly recap when this thread moves.",
+            "Catch the next turn in the daily brief.",
+            "The daily brief and weekly recap flag threads that moved, including this one.",
         )
     )
     parts.append(f'<p class="sl-note">{escape(SL_FOOTER_NOTE)}</p>')

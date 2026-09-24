@@ -115,6 +115,8 @@
       font-weight:700; cursor:pointer; text-decoration:none; white-space:nowrap; }
     button[type="submit"]:hover, .external-signup:hover {
       background:color-mix(in srgb,var(--accent) 85%,#000); }
+    /* The dark accent is light; white text on it fails contrast. */
+    html[data-theme="dark"] button[type="submit"], html[data-theme="dark"] .external-signup { color:var(--bg); }
     button[disabled] { opacity:.6; cursor:default; }
     .external-signup { display:inline-flex; align-items:center; }
     .pref { margin:.95rem 0 0; padding:0; border:0; min-width:0; }
