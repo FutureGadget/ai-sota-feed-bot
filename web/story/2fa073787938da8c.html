@@ -26,9 +26,10 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
-  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -104,10 +105,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -284,7 +291,7 @@
       <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://blogs.nvidia.com/blog/ugm-indosat-nvidia-ai-technology-center" target="_blank" rel="noopener">Universitas Gadjah Mada, Indosat and NVIDIA Open Indonesia’s First University AI Center to Develop Local AI Talent</a></h2></div><p class="story-origin"><strong>blogs.nvidia.com</strong>Aug 14, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Indonesia is taking charge of its AI future. This week, the Ministry of Communication and Digital Affairs (Komdigi), Indosat Ooredoo Hutchison (Indosat or IOH), NVIDIA and Universitas Gadjah Mada (UGM) launched the UG...</p></div><img class="story-img" src="https://blogs.nvidia.com/wp-content/uploads/2026/08/Launching-Ceremony-2-1-scaled.jpeg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://blogs.nvidia.com/blog/ugm-indosat-nvidia-ai-technology-center" target="_blank" rel="noopener" data-track="story-source">Read the original at blogs.nvidia.com →</a><a href="/?item=https%3A%2F%2Fblogs.nvidia.com%2Fblog%2Fugm-indosat-nvidia-ai-technology-center&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-08-14">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/82ad502034b0ed95" data-track="story-related">DeepSeek expands into data center construction with new hiring push- Yicai - Investing.com Nigeria</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 12, 2026</span></div></article><article><h3><a href="/story/568bbc1c691409ae" data-track="story-related">DeepSeek is developing massive AI data center in inner Mongolia - The Japan Times</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 1, 2026</span></div></article><article><h3><a href="/story/9a3b727c72462d7d" data-track="story-related">AI Startup DeepSeek Is Building A Massive Data Center - Finimize</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Jul 31, 2026</span></div></article><article><h3><a href="/story/3357049e1dde3927" data-track="story-related">Meet the Gen Z AI whiz at the center of a hedge fund meltdown - AOL.com</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Jul 30, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Indonesia is taking charge of its AI future. This week, the Ministry of Communication and Digital Affairs (Komdigi), Indosat Ooredoo Hutchison (Indosat or IOH), NVIDIA and Universitas Gadjah Mada (UGM) launched the UG...</p></div><img class="story-img" src="https://blogs.nvidia.com/wp-content/uploads/2026/08/Launching-Ceremony-2-1-scaled.jpeg" alt="" loading="lazy" onerror="this.remove()" /></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://blogs.nvidia.com/blog/ugm-indosat-nvidia-ai-technology-center" target="_blank" rel="noopener" data-track="story-source">Read the original at blogs.nvidia.com →</a><a href="/?item=https%3A%2F%2Fblogs.nvidia.com%2Fblog%2Fugm-indosat-nvidia-ai-technology-center&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-08-14">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/82ad502034b0ed95" data-track="story-related">DeepSeek expands into data center construction with new hiring push- Yicai - Investing.com Nigeria</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 12, 2026</span></div></article><article><h3><a href="/story/568bbc1c691409ae" data-track="story-related">DeepSeek is developing massive AI data center in inner Mongolia - The Japan Times</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Aug 1, 2026</span></div></article><article><h3><a href="/story/9a3b727c72462d7d" data-track="story-related">AI Startup DeepSeek Is Building A Massive Data Center - Finimize</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Jul 31, 2026</span></div></article><article><h3><a href="/story/3357049e1dde3927" data-track="story-related">Meet the Gen Z AI whiz at the center of a hedge fund meltdown - AOL.com</a></h3><div class="art-meta"><span class="badge">search_cn_open_weight_labs</span><span class="badge">Jul 30, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end" data-subscribe-inline>Get the email digest →</a></aside>
     </section>
 
     <footer>

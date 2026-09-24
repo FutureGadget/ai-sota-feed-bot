@@ -27,9 +27,10 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
-  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -105,10 +106,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -285,7 +292,7 @@
       <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://onedev.io/blogs/ai-teammates" target="_blank" rel="noopener">OneDev AI: Coding Agents as Teammates in Issues, Pull Requests, and CI</a></h2></div><p class="story-origin"><strong>onedev.io</strong>Jul 12, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <p class="story-framing">A brief from <strong>onedev.io</strong>, published Jul 12, 2026. Open the original below for the full text.</p><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">agent</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://onedev.io/blogs/ai-teammates" target="_blank" rel="noopener" data-track="story-source">Read the original at onedev.io →</a><a href="/?item=https%3A%2F%2Fonedev.io%2Fblogs%2Fai-teammates&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-12">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/386efa0aefcfd527" data-track="story-related">Presentation: AI Works, Pull Requests Don’t: How AI Is Breaking the SDLC and What To Do About It</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 26, 2026</span></div></article><article><h3><a href="/story/2b0cc93ba8a0f9b8" data-track="story-related">Show HN: TaskPeace – a task queue my AI coding agents pull work from over MCP</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jul 3, 2026</span></div></article><article><h3><a href="/story/27ea561bcfe184e2" data-track="story-related">Show HN: Git Issues – versioned task management for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 22, 2026</span></div></article><article><h3><a href="/story/c879b7f01732bf72" data-track="story-related">ReproRepo: Scaling Reproducibility Audits with GitHub Repository Issues</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 16, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <p class="story-framing">A brief from <strong>onedev.io</strong>, published Jul 12, 2026. Open the original below for the full text.</p><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">agent</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://onedev.io/blogs/ai-teammates" target="_blank" rel="noopener" data-track="story-source">Read the original at onedev.io →</a><a href="/?item=https%3A%2F%2Fonedev.io%2Fblogs%2Fai-teammates&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-07-12">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/386efa0aefcfd527" data-track="story-related">Presentation: AI Works, Pull Requests Don’t: How AI Is Breaking the SDLC and What To Do About It</a></h3><div class="art-meta"><span class="badge">infoq_ai_ml</span><span class="badge">Jun 26, 2026</span></div></article><article><h3><a href="/story/2b0cc93ba8a0f9b8" data-track="story-related">Show HN: TaskPeace – a task queue my AI coding agents pull work from over MCP</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jul 3, 2026</span></div></article><article><h3><a href="/story/27ea561bcfe184e2" data-track="story-related">Show HN: Git Issues – versioned task management for AI agents</a></h3><div class="art-meta"><span class="badge">hackernews_ai</span><span class="badge">Jun 22, 2026</span></div></article><article><h3><a href="/story/c879b7f01732bf72" data-track="story-related">ReproRepo: Scaling Reproducibility Audits with GitHub Repository Issues</a></h3><div class="art-meta"><span class="badge">arxiv_cs_cl</span><span class="badge">Jun 16, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end" data-subscribe-inline>Get the email digest →</a></aside>
     </section>
 
     <footer>

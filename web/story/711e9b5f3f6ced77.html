@@ -26,9 +26,10 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
-  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -104,10 +105,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -284,7 +291,7 @@
       <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://news.google.com/rss/articles/CBMi_wJBVV95cUxQXzIzX0Y0OGJ3bUdTU2JLVGNyQlk3TzNWZG5yVU1Rd1ZkTkltb1JNQmxIUmtxbGpPel9rM01ObGJDQ1V6ZjRjZU9mT19aMDJ1RTkyNEFpZXVXZ3ZhalNCTVBRYWE1Z29FUWpWYXUxVERHY0Nub3FMRUtXUlo1Tl81UENPbkNUT19MalJ6SzlqNEdybHNfTlV3blpfcFdZMVRWVGdwZjV2c3N4eUZ3b2FXZTFKUGFpSDVfOXRWbUV5ZEFYc2ZGQjdKQ3c3aTdrRGFzQ1NEMDY4a3ZuTlJ1cTVZOFpLemMwTHphalVLN0hMNlRUMXNqcUt5WjVXQ0FFVmxTU18xdUVhZ3JvX2JScHRSYjZiaU1GWmhPalBZS2o1RWdjUUhkaWQ4S2RKdmdsdmY5RXFiNHUwbTVuOUh4czFKYmxDQ3NaN1plWUhJaFdWTjd2X3lOSFF0NGhZYmJ2eVA5WTRsdldYM3F1TVpxa0w5R0ttSmVCaFR5WHJtbkZiSQ?oc=5" target="_blank" rel="noopener">Xcode 26.3 brings OpenAI Codex and Anthropic Claude agent for smarter, agentic coding - msn.com</a></h2></div><p class="story-origin"><strong>news.google.com</strong>Apr 27, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Xcode 26.3 brings OpenAI Codex and Anthropic Claude agent for smarter, agentic coding msn.com</p></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://news.google.com/rss/articles/CBMi_wJBVV95cUxQXzIzX0Y0OGJ3bUdTU2JLVGNyQlk3TzNWZG5yVU1Rd1ZkTkltb1JNQmxIUmtxbGpPel9rM01ObGJDQ1V6ZjRjZU9mT19aMDJ1RTkyNEFpZXVXZ3ZhalNCTVBRYWE1Z29FUWpWYXUxVERHY0Nub3FMRUtXUlo1Tl81UENPbkNUT19MalJ6SzlqNEdybHNfTlV3blpfcFdZMVRWVGdwZjV2c3N4eUZ3b2FXZTFKUGFpSDVfOXRWbUV5ZEFYc2ZGQjdKQ3c3aTdrRGFzQ1NEMDY4a3ZuTlJ1cTVZOFpLemMwTHphalVLN0hMNlRUMXNqcUt5WjVXQ0FFVmxTU18xdUVhZ3JvX2JScHRSYjZiaU1GWmhPalBZS2o1RWdjUUhkaWQ4S2RKdmdsdmY5RXFiNHUwbTVuOUh4czFKYmxDQ3NaN1plWUhJaFdWTjd2X3lOSFF0NGhZYmJ2eVA5WTRsdldYM3F1TVpxa0w5R0ttSmVCaFR5WHJtbkZiSQ?oc=5" target="_blank" rel="noopener" data-track="story-source">Read the original at news.google.com →</a><a href="/?item=https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMi_wJBVV95cUxQXzIzX0Y0OGJ3bUdTU2JLVGNyQlk3TzNWZG5yVU1Rd1ZkTkltb1JNQmxIUmtxbGpPel9rM01ObGJDQ1V6ZjRjZU9mT19aMDJ1RTkyNEFpZXVXZ3ZhalNCTVBRYWE1Z29FUWpWYXUxVERHY0Nub3FMRUtXUlo1Tl81UENPbkNUT19MalJ6SzlqNEdybHNfTlV3blpfcFdZMVRWVGdwZjV2c3N4eUZ3b2FXZTFKUGFpSDVfOXRWbUV5ZEFYc2ZGQjdKQ3c3aTdrRGFzQ1NEMDY4a3ZuTlJ1cTVZOFpLemMwTHphalVLN0hMNlRUMXNqcUt5WjVXQ0FFVmxTU18xdUVhZ3JvX2JScHRSYjZiaU1GWmhPalBZS2o1RWdjUUhkaWQ4S2RKdmdsdmY5RXFiNHUwbTVuOUh4czFKYmxDQ3NaN1plWUhJaFdWTjd2X3lOSFF0NGhZYmJ2eVA5WTRsdldYM3F1TVpxa0w5R0ttSmVCaFR5WHJtbkZiSQ%3Foc%3D5&amp;utm_source=story">Open in live feed</a></div></div><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Xcode 26.3 brings OpenAI Codex and Anthropic Claude agent for smarter, agentic coding msn.com</p></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://news.google.com/rss/articles/CBMi_wJBVV95cUxQXzIzX0Y0OGJ3bUdTU2JLVGNyQlk3TzNWZG5yVU1Rd1ZkTkltb1JNQmxIUmtxbGpPel9rM01ObGJDQ1V6ZjRjZU9mT19aMDJ1RTkyNEFpZXVXZ3ZhalNCTVBRYWE1Z29FUWpWYXUxVERHY0Nub3FMRUtXUlo1Tl81UENPbkNUT19MalJ6SzlqNEdybHNfTlV3blpfcFdZMVRWVGdwZjV2c3N4eUZ3b2FXZTFKUGFpSDVfOXRWbUV5ZEFYc2ZGQjdKQ3c3aTdrRGFzQ1NEMDY4a3ZuTlJ1cTVZOFpLemMwTHphalVLN0hMNlRUMXNqcUt5WjVXQ0FFVmxTU18xdUVhZ3JvX2JScHRSYjZiaU1GWmhPalBZS2o1RWdjUUhkaWQ4S2RKdmdsdmY5RXFiNHUwbTVuOUh4czFKYmxDQ3NaN1plWUhJaFdWTjd2X3lOSFF0NGhZYmJ2eVA5WTRsdldYM3F1TVpxa0w5R0ttSmVCaFR5WHJtbkZiSQ?oc=5" target="_blank" rel="noopener" data-track="story-source">Read the original at news.google.com →</a><a href="/?item=https%3A%2F%2Fnews.google.com%2Frss%2Farticles%2FCBMi_wJBVV95cUxQXzIzX0Y0OGJ3bUdTU2JLVGNyQlk3TzNWZG5yVU1Rd1ZkTkltb1JNQmxIUmtxbGpPel9rM01ObGJDQ1V6ZjRjZU9mT19aMDJ1RTkyNEFpZXVXZ3ZhalNCTVBRYWE1Z29FUWpWYXUxVERHY0Nub3FMRUtXUlo1Tl81UENPbkNUT19MalJ6SzlqNEdybHNfTlV3blpfcFdZMVRWVGdwZjV2c3N4eUZ3b2FXZTFKUGFpSDVfOXRWbUV5ZEFYc2ZGQjdKQ3c3aTdrRGFzQ1NEMDY4a3ZuTlJ1cTVZOFpLemMwTHphalVLN0hMNlRUMXNqcUt5WjVXQ0FFVmxTU18xdUVhZ3JvX2JScHRSYjZiaU1GWmhPalBZS2o1RWdjUUhkaWQ4S2RKdmdsdmY5RXFiNHUwbTVuOUh4czFKYmxDQ3NaN1plWUhJaFdWTjd2X3lOSFF0NGhZYmJ2eVA5WTRsdldYM3F1TVpxa0w5R0ttSmVCaFR5WHJtbkZiSQ%3Foc%3D5&amp;utm_source=story">Open in live feed</a></div></div><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end" data-subscribe-inline>Get the email digest →</a></aside>
     </section>
 
     <footer>

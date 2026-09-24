@@ -26,9 +26,10 @@
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
-  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
-  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <script>
     (function () {
@@ -104,10 +105,16 @@
       background: color-mix(in srgb, var(--accent) 14%, var(--card)); white-space: nowrap; }
     .art-summary { margin: 0.1rem 0 0; font-size: 0.95rem; }
     /* .archive styled in header menu styles above */
+    /* Finish-point email CTA: the square, accent-ruled wash of the /subscribe
+       panel (no rounded card). Daily/weekly pages tint it with their own wash. */
     .subscribe-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-      gap: 0.75rem; margin: 1.5rem 0 0; padding: 0.9rem 1rem; border: 1px solid var(--border);
-      border-radius: 10px; background: var(--card); }
+      gap: 0.75rem; margin: 1.75rem 0 0; padding: 1.1rem 1.2rem; border: 0;
+      border-left: 3px solid var(--accent); border-radius: 0;
+      background: var(--brief-wash, var(--sl-wash, color-mix(in srgb, var(--accent) 9%, var(--bg)))); }
     .subscribe-cta p { margin: 0; }
+    .subscribe-cta p strong { font-family: "Avenir Next Condensed", "Arial Narrow", sans-serif;
+      font-size: 1.3rem; line-height: 1.15; letter-spacing: -0.01em; }
+    .subscribe-cta p .muted { font-size: 0.93rem; }
     .subscribe-cta a { white-space: nowrap; text-decoration: none; font-weight: 600; }
     footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }
     .story-title a { text-decoration: none; color: inherit; }
@@ -284,7 +291,7 @@
       <section class="story-hero"><div class="story-hero-copy"><p class="story-kicker">Source brief</p><h2 class="recap-title story-title"><a href="https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.15" target="_blank" rel="noopener">codex 0.143.0-alpha.15</a></h2></div><p class="story-origin"><strong>github.com</strong>Jun 24, 2026<br>original source linked</p></section>
       <!-- range is included in the custom hero -->
       
-      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Release 0.143.0-alpha.15</p></div></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">codex</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.15" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fopenai%2Fcodex%2Freleases%2Ftag%2Frust-v0.143.0-alpha.15&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-24">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a824b374515632cc" data-track="story-related">codex 0.143.0-alpha.14</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/0465912446e6f780" data-track="story-related">codex 0.143.0-alpha.13</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/c6c3c6208273d577" data-track="story-related">codex rust-v0.143.0-alpha.12</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/7c630279b58e372f" data-track="story-related">codex 0.143.0-alpha.11</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end">Get the email digest →</a></aside>
+      <div class="story-lead"><div><p class="tldr-label">In brief</p><p class="story-summary">Release 0.143.0-alpha.15</p></div></div><div class="story-topics"><span class="tldr-label">Feed lens</span><div class="chips"><span class="badge">codex</span></div></div><div class="story-source-gate"><p class="tldr-label">Continue reading</p><div class="story-actions"><a class="primary" href="https://github.com/openai/codex/releases/tag/rust-v0.143.0-alpha.15" target="_blank" rel="noopener" data-track="story-source">Read the original at github.com →</a><a href="/?item=https%3A%2F%2Fgithub.com%2Fopenai%2Fcodex%2Freleases%2Ftag%2Frust-v0.143.0-alpha.15&amp;utm_source=story">Open in live feed</a><a href="/daily/2026-06-24">Read that day’s brief</a></div></div><section class="cat story-related"><h2>Earlier in this thread <span class="count">4 items</span></h2><div class="articles"><article><h3><a href="/story/a824b374515632cc" data-track="story-related">codex 0.143.0-alpha.14</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/0465912446e6f780" data-track="story-related">codex 0.143.0-alpha.13</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/c6c3c6208273d577" data-track="story-related">codex rust-v0.143.0-alpha.12</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article><article><h3><a href="/story/7c630279b58e372f" data-track="story-related">codex 0.143.0-alpha.11</a></h3><div class="art-meta"><span class="badge">openai_codex_releases</span><span class="badge">Jun 24, 2026</span></div></article></div></section><aside class="subscribe-cta" aria-label="Email subscription"><p><strong>Want the important AI updates without checking back?</strong><br><span class="muted">Get the finishable daily brief and weekly recap by email.</span></p><a href="/subscribe" role="button" data-subscribe-channel="email" data-subscribe-placement="story_end" data-subscribe-inline>Get the email digest →</a></aside>
     </section>
 
     <footer>
