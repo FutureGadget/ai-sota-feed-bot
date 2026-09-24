@@ -1,0 +1,82 @@
+{
+  "slug": "zhipu-s-zcode-data-privacy-controversy",
+  "generated_at": "2026-09-24T10:20:00+00:00",
+  "covers_last_updated": "2026-09-22T15:20:48+00:00",
+  "covers_member_sids": [
+    "7da22629412c38d3",
+    "76544039edbef2e2",
+    "1f8eaf6e41b40ac8",
+    "f40404eed5bbc569",
+    "9bd964c3b3d84251",
+    "bc07011f68927d93",
+    "b78b1b87b59ecae9"
+  ],
+  "tldr": "A Sep 19 report accused Zhipu's ZCode coding agent of silently packaging a developer's full code history and uploading it to the cloud, with encryption keys held server-side. Zhipu responded within two days by open-sourcing ZCode and commissioning a third-party audit it says confirms the cloud copy was wiped.",
+  "whats_new": "Despite the open-source release and wipe audit, developers are still reporting ZCode uploading their code — one case shows it packaging 42,411 files and attempting 564 uploads, two days after the audit and the same day Z.ai disabled the coding-assistant features over a related security issue.",
+  "why_it_matters": "Treat the open-source release and third-party audit as unresolved, not clearance: teams running ZCode or evaluating Chinese coding-agent harnesses should verify egress/network behavior directly before trusting it with a private repo.",
+  "status": {
+    "state": "Unresolved · vendor disputes ongoing complaints",
+    "tone": "alert",
+    "changed": "2026-09-22",
+    "detail": "Zhipu's open-source release and third-party audit haven't stopped fresh reports of ZCode uploading code, including a 42,411-file/564-attempt case two days after the audit.",
+    "track": [
+      { "label": "accused", "detail": "Sep 19", "tone": "alert", "weight": 20 },
+      { "label": "open-sourced + audited", "detail": "Sep 21", "tone": "turn", "weight": 35 },
+      { "label": "features disabled", "detail": "Sep 21", "tone": "alert", "weight": 15 },
+      { "label": "complaints continue", "detail": "Sep 22 → now", "tone": "now", "weight": 30 }
+    ]
+  },
+  "provenance": {
+    "7da22629412c38d3": { "surfaced_by": "scout" },
+    "76544039edbef2e2": { "surfaced_by": "scout" },
+    "1f8eaf6e41b40ac8": { "surfaced_by": "scout" },
+    "f40404eed5bbc569": { "surfaced_by": "scout" },
+    "9bd964c3b3d84251": { "surfaced_by": "scout" },
+    "bc07011f68927d93": { "surfaced_by": "scout", "status_update": true },
+    "b78b1b87b59ecae9": { "surfaced_by": "scout" }
+  },
+  "beats": [
+    {
+      "kicker": "ACCUSATION",
+      "tone": "alert",
+      "headline": "ZCode accused of silently uploading a developer's full code history to the cloud",
+      "summary": "Encryption keys for the uploaded data are held server-side, not by the developer.",
+      "sids": ["7da22629412c38d3"]
+    },
+    {
+      "kicker": "RESPONSE",
+      "tone": "turn",
+      "headline": "Zhipu open-sources ZCode and commissions a third-party wipe audit",
+      "summary": "The repo goes public, and Zhipu says an independent audit confirms the cloud copy of uploaded data was wiped.",
+      "sids": ["76544039edbef2e2", "1f8eaf6e41b40ac8", "f40404eed5bbc569"]
+    },
+    {
+      "kicker": "SECURITY LAPSE",
+      "tone": "alert",
+      "headline": "Z.ai disables the AI coding-assistant features after a separate security issue",
+      "sids": ["9bd964c3b3d84251"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Developers report ZCode is still phoning home despite the audit",
+      "summary": "One documented case packaged 42,411 files across 564 upload attempts.",
+      "sids": ["bc07011f68927d93", "b78b1b87b59ecae9"]
+    }
+  ],
+  "open_questions": [
+    "Is the 42,411-file upload attempt a leftover of the same vulnerability the audit was meant to fix, or a new bug?",
+    "Does Zhipu's no-retention MaaS plan, announced alongside the open-source release, stop server-side code retention or only the client upload path?",
+    "What was the specific security issue that led Z.ai to disable the coding-assistant features, and is it distinct from the data-upload complaints?"
+  ],
+  "take_for_builders": "Don't treat Zhipu's third-party wipe audit as clearance — sandbox ZCode or monitor its network calls directly before trusting it with a private repo, given upload complaints persisted after the audit.",
+  "day_captions": {
+    "7da22629412c38d3": "The initial accusation: ZCode silently packages and uploads a developer's full code history with server-held encryption keys.",
+    "76544039edbef2e2": "ZCode's harness repo goes public on GitHub, surfacing on Hacker News the same day as Zhipu's response.",
+    "1f8eaf6e41b40ac8": "Zhipu open-sources ZCode and commits to no-retention controls for its MaaS offering.",
+    "f40404eed5bbc569": "Zhipu points to a third-party audit it says confirms the cloud copy of uploaded data was wiped.",
+    "9bd964c3b3d84251": "Z.ai disables the AI coding-assistant features over a separate security issue, the same day as the audit claim.",
+    "bc07011f68927d93": "Developers report ZCode is still sending code data to the cloud despite the audit.",
+    "b78b1b87b59ecae9": "A concrete case: one developer's ZCode session packaged 42,411 files and attempted 564 uploads."
+  }
+}
