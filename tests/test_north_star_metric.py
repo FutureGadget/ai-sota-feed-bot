@@ -89,3 +89,35 @@ if __name__ == "__main__":
     import pytest
 
     raise SystemExit(pytest.main([__file__, "-v"]))
+
+
+def test_email_reader_sets_keep_only_email_attributed_rows():
+    rows = [
+        ("2026-06-15", "alice", 1),
+        ("2026-06-15", "bob", 0),
+        ("2026-06-15", "carol", "false"),
+        ("2026-06-22", "alice", True),
+    ]
+    assert nsm.weekly_email_reader_sets(rows) == {
+        "2026-06-15": {"alice"},
+        "2026-06-22": {"alice"},
+    }
+
+
+def test_compute_weeks_adds_email_counts_without_changing_headline():
+    sets = {
+        "2026-06-08": {"alice", "bob"},
+        "2026-06-15": {"alice", "bob", "carol"},
+    }
+    email_sets = {"2026-06-15": {"alice", "carol"}}
+    plain = nsm.compute_weeks(sets)[0]
+    row = nsm.compute_weeks(sets, email_sets)[0]
+    assert {k: row[k] for k in plain} == plain
+    assert row["email_readers"] == 2
+    assert row["email_returning_readers"] == 1
+
+
+def test_compute_weeks_without_email_sets_keeps_legacy_shape():
+    sets = {"2026-06-08": {"alice"}, "2026-06-15": {"alice"}}
+    row = nsm.compute_weeks(sets)[0]
+    assert "email_readers" not in row

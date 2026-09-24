@@ -44,6 +44,27 @@ surfaces all emit the same event when PostHog is enabled.
 
 The current (in-progress) week is never scored — only completed weeks.
 
+### Email attribution (diagnostic, added 2026-09-24)
+
+Email links carry the subscriber's pseudonymous reader id (`rid=`, a Resend
+contact property; see `docs/product-specs/email-digest.md`), which
+`web/posthog-client.js` adopts as the browser's id before PostHog loads. A
+subscriber who reads from a mail app's in-app browser is therefore one
+`distinct_id` across weeks instead of a "new reader" per click — before this,
+the channel built for retention was structurally counted as acquisition.
+
+Each synced week also records:
+
+- **email_readers** — readers with at least one pageview in week `W` that
+  landed from a digest link (`utm_source = 'email'`).
+- **email_returning_readers** — returning readers in `W` who are also email
+  readers in `W`.
+
+These sit next to the headline numbers and never change them. Weeks synced
+before 2026-09-24 show `-` in `summary`; the next sync backfills them within
+the 16-week lookback, but only visits after the change carry `rid`, so expect
+the email-returning count to climb as subscribers click through.
+
 ## How to read it
 
 - **Data:** `data/metrics/weekly_returning_readers.json` — durable history,

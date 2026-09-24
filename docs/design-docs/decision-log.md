@@ -1955,3 +1955,31 @@ editorial previews compose deterministically instead of racing for a slot.
 
 Rollback: revert code/config and asset versions together; ignore the new v2
 browser key. No source content, routine state or email cursor migration is needed.
+
+## 2026-09-24 - Carry a subscriber reader id on every email link
+
+Decision: store a pseudonymous `reader_id` as a Resend contact property (the
+signup browser's anonymous id, or a minted one), template it into every
+tracked email link as `rid=`, and have `web/posthog-client.js` adopt a valid
+`rid` as the browser's PostHog id before init, then strip it from the URL.
+`north_star_metric.py` records `email_readers` / `email_returning_readers`
+next to the headline numbers.
+
+Rationale: weekly returning readers has sat at 2-9 for months while weekly
+readers grew. Email clicks often open in a mail app's in-app browser with a
+fresh anonymous id, so the one retention channel counted every subscriber
+visit as a new reader — the metric could not see whether email works. A
+per-contact token is the only way to stitch a broadcast (one body for all
+recipients); a random id carries no PII, unlike the address itself.
+
+Impact: every Resend broadcast link gains `&rid=...`. Signup payloads gain an
+optional `reader_id`; a 422 retries once without properties so attribution
+can never cost a signup. The send creates the `reader_id` property if absent
+and falls back to untagged links on any provider error. Existing contacts
+need a one-off `publish/backfill_reader_ids.py`. Forwarded emails share the
+sender's id — an accepted, small overcount.
+
+Rollback: set `reader_id_links: false` in `config/email.yaml` (links go back
+to `utm_source` only); the client ignores URLs without `rid`. The contact
+property can stay in Resend harmlessly.
+

@@ -33,7 +33,10 @@ const context = vm.createContext({
   localStorage: { setItem: (...args) => stored.push(args) },
   window: {
     location: { search: '?ref=skill_lab&lab_id=lab-debugging-skill' },
-    aiFeedPostHog: { capture: (...args) => captured.push(args) },
+    aiFeedPostHog: {
+      capture: (...args) => captured.push(args),
+      getAnonUserId: () => 'anon_0b3c9a3e-5d1f-4c1e-9a55-2f1f0c7d9e11',
+    },
   },
 });
 vm.runInContext("const ALLOWED_SUBSCRIBE_REFS = new Set(['skill_lab']);", context);
@@ -44,6 +47,7 @@ vm.runInContext(extractFunction('sanitizedSubscribePath'), context);
 vm.runInContext(extractFunction('subscribeAttribution'), context);
 vm.runInContext(extractFunction('captureSubscribeSuccess'), context);
 vm.runInContext(extractFunction('shouldRecordSubscribeSuccess'), context);
+vm.runInContext(extractFunction('currentReaderId'), context);
 vm.runInContext(extractFunction('markSubscribed'), context);
 vm.runInContext(extractFunction('setMessage'), context);
 vm.runInContext(extractFunction('submitForm'), context);
@@ -127,6 +131,7 @@ test('honeypot 200 keeps neutral success UI without recording a conversion', asy
   await context.submitForm(form);
 
   assert.equal(submittedBody.hp, 'bot.example');
+  assert.equal(submittedBody.reader_id, 'anon_0b3c9a3e-5d1f-4c1e-9a55-2f1f0c7d9e11');
   assert.equal(captured.length, 0);
   assert.equal(stored.length, 0);
   assert.equal(button.removed, true);

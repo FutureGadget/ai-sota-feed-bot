@@ -227,3 +227,63 @@ class WeeklySkillLabEmailTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReaderIdLinkTest(unittest.TestCase):
+    cfg = {"provider": "resend", "site_base": "https://www.llm-digest.com", "utm_source": "email"}
+
+    def test_tags_every_tracked_site_link_once(self) -> None:
+        body = (
+            '<a href="https://www.llm-digest.com/story/abc?utm_source=email">s</a>'
+            '<a href="https://www.llm-digest.com/?item=x&amp;fb=useful&amp;utm_source=email">f</a>'
+            '<a href="{{{RESEND_UNSUBSCRIBE_URL}}}">u</a>'
+            '<a href="https://example.com/original?utm_source=email">o</a>'
+            '<img src="https://www.llm-digest.com/logo.png">'
+        )
+        tagged = email.tag_reader_links(self.cfg, body)
+        token = "&amp;rid={{{contact.reader_id|none}}}"
+        self.assertIn(f'/story/abc?utm_source=email{token}"', tagged)
+        self.assertIn(f'fb=useful&amp;utm_source=email{token}"', tagged)
+        self.assertIn('href="{{{RESEND_UNSUBSCRIBE_URL}}}"', tagged)
+        self.assertIn('href="https://example.com/original?utm_source=email"', tagged)
+        self.assertEqual(tagged.count("rid="), 2)
+        self.assertEqual(email.tag_reader_links(self.cfg, tagged), tagged)
+
+    def test_rendered_daily_links_all_carry_the_token_in_html_and_text(self) -> None:
+        recap = {
+            "date": "2026-06-24",
+            "intro": ["Lead."],
+            "categories": [{"name": "C", "articles": [
+                {"title": "T", "summary": "S", "source": "claude_blog", "url": "https://example.com/a"},
+            ]}],
+        }
+        _subject, body = email.render_daily(self.cfg, recap, [])
+        tagged = email.tag_reader_links(self.cfg, body)
+        site_links = [h for h in __import__("re").findall(r'href="([^"]+)"', tagged) if h.startswith("https://www.llm-digest.com/")]
+        self.assertTrue(site_links)
+        for href in site_links:
+            self.assertIn("rid={{{contact.reader_id|none}}}", href)
+        self.assertIn("&rid={{{contact.reader_id|none}}}", email.html_to_text(tagged))
+
+    def test_send_skips_tagging_when_the_property_cannot_be_ensured(self) -> None:
+        with mock.patch.object(email.requests, "get", side_effect=RuntimeError("offline")):
+            self.assertFalse(email.ensure_reader_id_property("key"))
+
+    def test_existing_property_is_not_recreated(self) -> None:
+        listed = mock.Mock(status_code=200)
+        listed.json.return_value = {"data": [{"key": "reader_id"}]}
+        with mock.patch.object(email.requests, "get", return_value=listed), \
+                mock.patch.object(email.requests, "post") as post:
+            self.assertTrue(email.ensure_reader_id_property("key"))
+        post.assert_not_called()
+
+    def test_missing_property_is_created_with_the_rejected_fallback(self) -> None:
+        listed = mock.Mock(status_code=200)
+        listed.json.return_value = {"data": []}
+        with mock.patch.object(email.requests, "get", return_value=listed), \
+                mock.patch.object(email.requests, "post", return_value=mock.Mock(status_code=201)) as post:
+            self.assertTrue(email.ensure_reader_id_property("key"))
+        self.assertEqual(
+            post.call_args.kwargs["json"],
+            {"key": "reader_id", "type": "string", "fallback_value": "none"},
+        )

@@ -13,17 +13,41 @@
     return prefix + '_' + Math.random().toString(36).slice(2) + '_' + Date.now();
   }
 
-  function getAnonUserId() {
-    var key = 'ai_feed_anon_user_id';
+  var ANON_ID_KEY = 'ai_feed_anon_user_id';
+  // Same shape as randomId('anon') with crypto.randomUUID — the only format a
+  // `?rid=` from an email link may carry (see api/subscribe.js).
+  var READER_ID_RE = /^anon_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+  var sessionAnonId = null;
+
+  // Email links carry `rid=<subscriber reader id>` so a click from a mail app's
+  // in-app browser counts as the same reader instead of a new one. Adopt it as
+  // this browser's id, then strip it so a copied/shared URL doesn't carry it.
+  function adoptEmailReaderId() {
     try {
-      var v = localStorage.getItem(key);
+      var url = new URL(window.location.href);
+      if (!url.searchParams.has('rid')) return;
+      var rid = String(url.searchParams.get('rid') || '').trim().toLowerCase();
+      url.searchParams.delete('rid');
+      window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+      if (!READER_ID_RE.test(rid)) return;
+      sessionAnonId = rid;
+      try {
+        localStorage.setItem(ANON_ID_KEY, rid);
+      } catch (e) {}
+    } catch (e) {}
+  }
+
+  function getAnonUserId() {
+    try {
+      var v = localStorage.getItem(ANON_ID_KEY);
       if (!v) {
-        v = randomId('anon');
-        localStorage.setItem(key, v);
+        v = sessionAnonId || randomId('anon');
+        localStorage.setItem(ANON_ID_KEY, v);
       }
       return v;
     } catch (e) {
-      return randomId('anon');
+      if (!sessionAnonId) sessionAnonId = randomId('anon');
+      return sessionAnonId;
     }
   }
 
@@ -199,6 +223,8 @@
       console.debug('posthog_init_failed', e);
     }
   }
+
+  adoptEmailReaderId();
 
   window.aiFeedPostHog = {
     capture: capture,
