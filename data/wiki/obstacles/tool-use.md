@@ -7,9 +7,9 @@ status: active
 solutions: [mcp]
 obstacles: []
 related_storylines: []
-evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36]
-updated: 2026-09-18
-covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36]
+evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36, c03fce750657d23d]
+updated: 2026-09-24
+covers_evidence: [6d71486170022687, 8bad13df6e63105d, 0652695d185d0b1f, 5b5273180a38e7c0, 4f7d4f99793e131d, ebc3627096b332c8, d0a3b1456466205e, d6f47c6e7ea5d37c, cf37950940d3d2b5, 2e309060a5831bee, 3c227e4c9b2cd2eb, d4d5677e2459e3ab, 3f88ef2405b8fae7, 916521ba0baad7c0, 7a982846f4848d96, eec5c9b0fcd373da, 2e3ad0e505f55b80, b734d716b0d66f96, 9352c956aa90126f, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, 410ca031ddd240de, 857f4a269c2fa11e, a6959f9ba4dbb368, 738f130d6895192c, 3f6e2f7e73eca851, eafa6e2f9f229d66, 1f2ada50b5710870, 5b9d60084bc37024, 2547415be8ec24a2, 5744b97e5a176886, 6726c9df5fadbf36, c03fce750657d23d]
 ---
 
 ## TL;DR
@@ -276,8 +276,22 @@ mid-session — turning two previously silent connection-lifecycle failures (a
 hung startup, a dropped session nobody notices) into operator-visible,
 boundable events.
 
+An eighteenth axis is **governing the API program itself as code, with MCP
+as one of the protocols it emits**: Morgan Stanley uses Architecture as Code
+(the CALM framework) to model its API estate, then generates MCP and
+Agent-to-Agent (A2A) integration surfaces from that same architecture
+description rather than hand-writing each server — treating agent-callable
+tooling as a byproduct of API governance already in place, not a separate
+integration project layered on top of it (see [MCP](/topic/mcp)).
+
 ## What's new
-DoorDash's internal engineering team reused the MCP-based multi-agent pattern
+Morgan Stanley models its API program with Architecture as Code (the CALM
+framework) and generates MCP and Agent-to-Agent integration surfaces
+directly from that architecture description, folding agent-callable tooling
+into existing API governance rather than building it as a separate project
+(see State of the art above).
+
+Prior update: DoorDash's internal engineering team reused the MCP-based multi-agent pattern
 its customer-facing Ask DoorDash assistant popularized for a different job:
 cleaning up over 60,000 stale feature flags across 623 repositories, pulling
 live experimentation data through MCP and gating each cleanup on engineer

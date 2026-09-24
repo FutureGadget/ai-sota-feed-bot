@@ -5,9 +5,9 @@ title: "Tracing and trace analysis for agent runs"
 status: active
 obstacles: [agent-observability]
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f]
-updated: 2026-08-26
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f, b60131f089d99489]
+updated: 2026-09-24
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, b71a53d3b8d39831, 34b461bf5b9be5ff, dcbc4c8f98ebc760, f1059e8e95c865e9, f07f7955a1ecbd39, f49b38f16a2b7158, dadedf10efb45ade, 0ada5d894838d46e, ec596dac47b8163f, b60131f089d99489]
 ---
 
 ## TL;DR
@@ -99,6 +99,13 @@ result, not an AI-generated chart), which keeps the visualization
 trustworthy as a verification step rather than another layer of model
 output to double-check.
 
+The **capture UI** itself is now getting the same trace-first treatment as
+the storage and analysis layers above: LangSmith's Trajectories reads a
+full agent session as one chat-style thread — user turns, tool calls,
+sub-agent handoffs — instead of the tree of nested spans a generic trace
+viewer shows, trading completeness of the span tree for a faster
+top-to-bottom read of what a long-running session actually did.
+
 A different limit shows up once the agents being traced talk to *each other*:
 work on Verifiable Latent Alignments argues that agents can coordinate through
 continuous hidden states that never surface in the transcript, so a
@@ -109,7 +116,12 @@ underneath the span rather than a richer span (see
 [agent observability](/topic/agent-observability)).
 
 ## What's new
-Amazon OpenSearch Service's MCP Apps return an interactive visualization
+LangSmith shipped **Trajectories**, rendering a full agent session as one
+chat-style thread — user turns, tool calls, sub-agent handoffs — instead of
+a tree of nested spans, aimed at making a long-running session fast to scan
+without expanding every span by hand (see State of the art above).
+
+Prior update: Amazon OpenSearch Service's MCP Apps return an interactive visualization
 inline alongside an agent's text response over a locally-run MCP server,
 moving alert-to-trace verification (log clustering, distributed traces, RED
 metrics, service topology) into the same IDE chat thread instead of a

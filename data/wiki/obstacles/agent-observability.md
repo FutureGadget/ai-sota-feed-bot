@@ -7,9 +7,9 @@ status: active
 solutions: [agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846]
-updated: 2026-09-11
-covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846]
+evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846, b60131f089d99489]
+updated: 2026-09-24
+covers_evidence: [5d7159ca706a44c0, 8d1dc5b79d8b1372, 345d694a3d9a314f, 274255c89788d5c4, c9f72591463a51bb, 863330601bd5d524, 34b461bf5b9be5ff, 38f362bfcba6a0fa, dcbc4c8f98ebc760, d0a4ccb3646c79ad, bda1da8f5bc3b679, 363d53a23c23f150, 135c077a65b61dda, 6a2c44f62f58bd05, 0c557d74dd5dcc14, 19b2c00e70a40ab1, f07f7955a1ecbd39, 0ada5d894838d46e, dadedf10efb45ade, ec596dac47b8163f, ac7780096954b97a, 01827ff5d3cbb846, b60131f089d99489]
 ---
 
 ## TL;DR
@@ -195,8 +195,22 @@ same cost/observability convergence this page's Claude Apps Gateway coverage
 already tracks, now framed as a general diagnostic pattern rather than one
 vendor's product.
 
+The trace **viewer** itself is now catching up to the trace-first thesis this
+page tracks: LangSmith's Trajectories renders a full agent session as one
+chat-style thread — user turns, tool calls, and sub-agent handoffs read top
+to bottom — instead of the tree of nested spans a generic OpenTelemetry
+viewer shows, trading completeness of the span tree for the specific job
+this page keeps naming as the bottleneck: an engineer scanning a
+long-running session fast enough to spot where it went wrong.
+
 ## What's new
-Session traces and cost controls are converging into one agent-failure
+LangSmith shipped **Trajectories**, a chat-style read of an entire agent
+session — user turns, tool calls, and sub-agent handoffs in one scrollable
+thread — instead of the tree of nested spans a generic trace viewer shows,
+aimed at making a long-running session fast to scan without expanding every
+span by hand (see State of the art above).
+
+Prior update: Session traces and cost controls are converging into one agent-failure
 diagnostic: industry coverage frames spotting tool-call loops and runaway
 spend as the same triage step, both read off the same preserved trace (see
 State of the art above).
@@ -228,12 +242,6 @@ storage defaults are opposite between its two supported SDKs (off by
 default in one, on by default in the other), so the same platform feature
 can silently retain or silently drop personal data depending on which
 harness a team already chose.
-
-Prior update: LangSmith's Bring Your Own Cloud option reached general availability on
-AWS — managed observability, evaluation, and deployment with the workload
-kept inside the customer's own VPC, meeting the self-hosted control-plane
-pattern this page already tracks (AWS's Claude Apps Gateway) from the
-vendor side rather than the customer-built side.
 
 ## Why it matters for platform engineers
 You cannot operate what you cannot explain. Without trajectory-level traces, a
