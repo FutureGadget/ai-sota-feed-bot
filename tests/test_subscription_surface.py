@@ -86,6 +86,28 @@ class SubscriptionSurfaceTest(unittest.TestCase):
         )
         self.assertIn('data-subscribe-placement="storyline_end"', storyline_html)
 
+    def test_finish_point_ctas_opt_into_inline_signup(self) -> None:
+        cta = render.subscribe_cta_html("story_end", "Title", "Detail")
+        self.assertIn('href="/subscribe"', cta)  # no-JS fallback stays a link
+        self.assertIn("data-subscribe-inline", cta)
+        self.assertIn('data-subscribe-placement="story_end"', cta)
+        source = (ROOT / "pipeline" / "render_static_pages.py").read_text(encoding="utf-8")
+        self.assertIn('<script defer src="/subscribe-inline.js?v={SITE_CHROME_ASSET_VERSION}"></script>', source)
+
+        feed = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+        self.assertIn('data-subscribe-placement="feed_finish" data-subscribe-inline', feed)
+        self.assertIn('<script defer src="/subscribe-inline.js?v=', feed)
+
+    def test_inline_signup_script_reuses_the_subscribe_contract(self) -> None:
+        script = (ROOT / "web" / "subscribe-inline.js").read_text(encoding="utf-8")
+        self.assertIn('fetch("/api/subscribe"', script)
+        self.assertIn("reader_id: readerId()", script)
+        self.assertIn("ai_feed_email_subscribed_v1", script)
+        self.assertIn("email_subscribe_enabled", script)
+        self.assertIn("email_signup_url", script)
+        self.assertIn('"subscribe_form_view"', script)
+        self.assertIn('"subscribe_success"', script)
+
     def test_sitemap_includes_subscribe(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(render, "WEB_DIR", Path(tmp)):

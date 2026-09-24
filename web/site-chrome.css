@@ -636,3 +636,87 @@
     transition: none !important;
   }
 }
+
+/* Inline email signup at finish points (web/subscribe-inline.js). Replaces the
+   /subscribe link in place; wraps onto its own line inside the CTA. */
+/* Page styles give these CTAs display:flex/inline-flex, which would override
+   the `hidden` attribute subscribe-inline.js sets. */
+.subscribe-cta[hidden],
+a[data-subscribe-inline][hidden] {
+  display: none !important;
+}
+
+.subscribe-inline {
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 30rem;
+  margin: 0.6rem auto 0;
+  text-align: left;
+}
+
+.subscribe-cta .subscribe-inline {
+  margin: 0;
+  max-width: 34rem;
+}
+
+.subscribe-inline-label,
+.subscribe-inline-hp {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.subscribe-inline-row {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.subscribe-inline-row input[type="email"] {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 16px; /* keeps iOS Safari from zooming on focus */
+}
+
+.subscribe-inline-row button {
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.subscribe-inline-row button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.subscribe-inline-note,
+.subscribe-inline-msg {
+  margin: 0.4rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.subscribe-inline-msg[data-state="ok"] {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.subscribe-inline-msg[data-state="err"] {
+  color: #c2410c;
+}

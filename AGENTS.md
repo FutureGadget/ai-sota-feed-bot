@@ -170,7 +170,11 @@ in `ops_daily_summary.py`'s log line.
   `pipeline/render_static_pages.py`. `nav-updates.js` (shared, deferred) renders
   published-item discovery in the
   feed, Desk, and section roots; `editorial-state.js` tracks opened versions.
-  `updates.html` is the complete Latest/Unread collection. The API derives this
+  `updates.html` is the complete Latest/Unread collection.
+  `subscribe-inline.js` (shared, deferred; loaded by `index.html` and the
+  static page template) turns finish-point `a[data-subscribe-inline]` CTAs into
+  an in-place email form when in-page signup is enabled
+  (`docs/product-specs/email-digest.md`). The API derives this
   catalog through `lib/editorial-catalog.js` from every producer's existing
   published outputs; no extra skill step or staging path is required.
   Contract: `docs/product-specs/nav-update-indicators.md`.

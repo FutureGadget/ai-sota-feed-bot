@@ -227,6 +227,31 @@ email, storyline windowing, and wiki windowing are unchanged.
   untagged links on any provider error (`email_reader_links=on|off`). Toggle:
   `config/email.yaml → reader_id_links`.
 
+## Inline signup at finish points (2026-09-24)
+
+The finish-point CTAs — the feed's "You're all caught up" marker
+(`feed_finish`) and the ends of story, daily, weekly and storyline pages
+(`story_end`, `daily_end`, `weekly_end`, `storyline_end`) — carry
+`data-subscribe-inline`. `web/subscribe-inline.js` (loaded by `web/index.html`
+and the static page template) swaps each one for an in-place email form, so the
+ask lands where the reader just got value, without a second page load.
+
+- **Progressive enhancement.** The CTA stays a plain `/subscribe` link unless
+  `/api/client-config` reports `digest.email_subscribe_enabled` and no external
+  `digest.email_signup_url`; any failure keeps the link.
+- **Same contract as `/subscribe`.** Posts `{ email, weekly_only: false, hp,
+  reader_id }` to `/api/subscribe`; a filled honeypot gets the neutral success
+  UI without counting; success sets `ai_feed_email_subscribed_v1` and the
+  nudge-done key. "weekly only" links to `/subscribe` for the cadence choice.
+- **Already subscribed.** When this browser is marked subscribed, the CTA is
+  hidden instead of asking again.
+- **Measurement.** `subscribe_form_view` fires once per placement when the form
+  is half in view; `subscribe_success` carries `placement` and
+  `surface: "inline"`, so conversion per finish point is
+  `subscribe_success / subscribe_form_view`.
+- The feed re-renders its finish marker on filter changes; a
+  `MutationObserver` enhances CTAs as they appear.
+
 ## Subscribe page design (redesigned 2026-06-21)
 
 `/subscribe` (`web/subscribe.html`) belongs to the "AI operations instrument"

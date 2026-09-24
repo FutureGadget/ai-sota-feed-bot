@@ -25,7 +25,7 @@
   <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
   <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
   <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
-  <link rel="stylesheet" href="/site-chrome.css?v=20260910-editorial" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
   <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
@@ -38,7 +38,8 @@
     })();
   </script>
   <script src="/oat.min.js?v=20260824-selfhost" defer></script>
-  <script defer src="/site-chrome.js?v=20260910-editorial"></script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/subscribe-inline.js?v=20260924-inline-subscribe"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
   <style>
     html {
@@ -1227,7 +1228,7 @@
     .catchup, .onboard { border:0; border-left:2px solid var(--accent); border-radius:0;
       background:var(--feed-wash); color:var(--feed-ink); }
     .catchup { margin-bottom:.8rem; padding:.75rem .9rem; }
-    .end-marker { display:flex; align-items:center; justify-content:center; gap:.8rem;
+    .end-marker { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.8rem;
       margin:2rem 0 .5rem; padding:1.2rem 0; border-top:1px solid var(--border);
       border-bottom:1px solid var(--border); opacity:1; }
     .end-marker::before { content:""; width:2rem; height:5px; background:var(--signal); }
@@ -3627,7 +3628,7 @@
         <div class="end-marker">
           <div class="end-marker-title">✓ You're all caught up</div>
           <div class="end-marker-sub">${esc(sub)}</div>
-          <a class="end-marker-cta" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="feed_finish">Get the next brief by email</a>
+          <a class="end-marker-cta" href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="feed_finish" data-subscribe-inline>Get the next brief by email</a>
         </div>`;
     }
 
