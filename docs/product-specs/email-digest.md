@@ -216,6 +216,16 @@ email, storyline windowing, and wiki windowing are unchanged.
 - **Attribution.** Every email link carries `?utm_source=email` (or routes
   through `/s?u=`) so clicks attribute into the existing PostHog / CTR →
   `auto_tune` loop. Otherwise we go blind on the best channel.
+- **Reader identity (2026-09-24, Resend only).** Every tracked on-site link
+  also carries `rid={{{contact.reader_id|none}}}`, a per-contact Resend
+  property. `api/subscribe.js` sets it at signup to the signup browser's
+  anonymous id (or mints one); `publish/backfill_reader_ids.py` backfills
+  older contacts once. `web/posthog-client.js` adopts a valid `rid` as the
+  browser's reader id and strips it from the URL, so a subscriber reading from
+  a mail app's in-app browser stays one reader across weeks instead of a new
+  one per click. The send ensures the property exists first and falls back to
+  untagged links on any provider error (`email_reader_links=on|off`). Toggle:
+  `config/email.yaml → reader_id_links`.
 
 ## Subscribe page design (redesigned 2026-06-21)
 

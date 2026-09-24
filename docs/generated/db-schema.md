@@ -408,7 +408,9 @@ collect`; config in `config/models.yaml`.
 ## North star metric
 - `data/metrics/weekly_returning_readers.json` — `{generated_at, weeks: [...]}`,
   one row per completed ISO week (`week_start`, `total_readers`,
-  `returning_readers`, `new_readers`, `returning_rate`), merged forward by
+  `returning_readers`, `new_readers`, `returning_rate`, plus diagnostic
+  `email_readers` / `email_returning_readers` on weeks synced since
+  2026-09-24), merged forward by
   `pipeline/north_star_metric.py sync` from PostHog pageview events
   (`$pageview` and legacy `page_view`). See
   `docs/status/north-star-metric.md`.

@@ -200,6 +200,54 @@ def feedback_url(cfg: dict, url: str, signal: str) -> str:
     return f"{base}/?item={quote(url, safe='')}&fb={signal}&utm_source={cfg['utm_source']}"
 
 
+# Per-subscriber reader id (Resend contact property). Email clicks often open in
+# a mail app's in-app browser with a fresh anonymous id, so without this every
+# email visit looks like a new reader. `api/subscribe.js` stores the signup
+# browser's anonymous id as the contact's `reader_id`; broadcasts template it
+# into every on-site link as `rid=`, and `web/posthog-client.js` adopts it (then
+# strips it from the URL). The fallback is a sentinel the client rejects.
+READER_ID_PROPERTY = "reader_id"
+READER_ID_FALLBACK = "none"
+READER_ID_TOKEN = "{{{contact.%s|%s}}}" % (READER_ID_PROPERTY, READER_ID_FALLBACK)
+
+
+def tag_reader_links(cfg: dict, body: str) -> str:
+    """Append ``rid=<per-contact token>`` to every on-site link that already
+    carries ``utm_source`` (i.e. every tracked link we render). Idempotent."""
+    base = re.escape(cfg["site_base"].rstrip("/"))
+
+    def repl(m: re.Match) -> str:
+        href = m.group(1)
+        if re.search(r"[?&](?:amp;)?rid=", href):
+            return m.group(0)
+        return f'href="{href}&amp;rid={READER_ID_TOKEN}"'
+
+    return re.sub(rf'href="({base}/[^"]*[?&](?:amp;)?utm_source=[^"]*)"', repl, body)
+
+
+def ensure_reader_id_property(api_key: str) -> bool:
+    """Make sure the Resend ``reader_id`` contact property exists so the
+    broadcast's ``{{{contact.reader_id|none}}}`` token resolves. Returns False
+    (send untagged links) on any failure — never blocks the send."""
+    headers = {"Authorization": f"Bearer {api_key}"}
+    try:
+        r = requests.get("https://api.resend.com/contact-properties", headers=headers, timeout=30)
+        r.raise_for_status()
+        if any((p or {}).get("key") == READER_ID_PROPERTY for p in r.json().get("data") or []):
+            return True
+        r = requests.post(
+            "https://api.resend.com/contact-properties",
+            headers=headers,
+            json={"key": READER_ID_PROPERTY, "type": "string", "fallback_value": READER_ID_FALLBACK},
+            timeout=30,
+        )
+        r.raise_for_status()
+        return True
+    except Exception as e:  # noqa: BLE001 — optional attribution, never fatal
+        print(f"email_reader_id_property_unavailable=true error={type(e).__name__}")
+        return False
+
+
 def feedback_row(cfg: dict, url: str) -> str:
     """Compact 👍 / 👎 line under a daily item."""
     if not url:
@@ -1020,6 +1068,15 @@ def main() -> int:
         # Secrets-gated no-op, like PostHog when unconfigured.
         print("email_send_skipped=true reason=disabled_or_no_api_key")
         return 0
+
+    reader_links = (
+        (cfg.get("provider") or "").lower() == "resend"
+        and bool(cfg.get("reader_id_links", True))
+        and ensure_reader_id_property(api_key)
+    )
+    if reader_links:
+        body = tag_reader_links(cfg, body)
+    print(f"email_reader_links={'on' if reader_links else 'off'}")
 
     if not send_broadcast(cfg, api_key, subject, body, broadcast_name, kind=args.kind):
         # Nothing was sent (e.g. empty recipient segment). Leave the cursor

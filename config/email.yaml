@@ -27,6 +27,12 @@ provider: resend
 from_name: "LLM Digest"
 site_base: "https://www.llm-digest.com"
 utm_source: "email"   # appended to every link for CTR attribution (PostHog loop)
+# resend only: also append rid={{{contact.reader_id|none}}} to every tracked
+# link so email clicks keep the subscriber's reader identity (north-star metric).
+# The send ensures the `reader_id` contact property exists first and falls back
+# to untagged links on any provider error. Backfill existing contacts once with
+# `python3 publish/backfill_reader_ids.py`.
+reader_id_links: true
 
 daily:
   max_items: 12       # finishable cap

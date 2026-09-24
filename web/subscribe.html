@@ -49,7 +49,7 @@
       }
     })();
   </script>
-  <script defer src="/posthog-client.js?v=20260713-single-pageview"></script>
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
   <script>
     (function () {
       var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -333,6 +333,10 @@
       } catch {}
     }
 
+    function currentReaderId() {
+      try { return window.aiFeedPostHog?.getAnonUserId?.() || ''; } catch { return ''; }
+    }
+
     function markSubscribed() {
       try {
         localStorage.setItem(EMAIL_SUBSCRIBED_KEY, '1');
@@ -390,7 +394,7 @@
         const response = await fetch('/api/subscribe', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot }),
+          body: JSON.stringify({ email, weekly_only: weeklyOnly, hp: honeypot, reader_id: currentReaderId() }),
         });
         if (response.ok) {
           if (shouldRecordSubscribeSuccess(honeypot)) {

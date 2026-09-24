@@ -13,6 +13,14 @@ during week W-1. Pageviews are the standard posthog-js `$pageview`. The query
 also matches the legacy custom `page_view` (dual-emitted until 2026-07-13, then
 removed) so weeks recorded before the removal still count with no gap.
 `returning_rate = returning / total_readers` for week W.
+
+Email attribution (secondary, diagnostic only): an *email reader* is a reader
+with at least one pageview in week W that landed from a digest link
+(`utm_source = 'email'`). Email links also carry the subscriber's reader id
+(`rid=`, adopted by web/posthog-client.js), so a subscriber reading from a mail
+app's in-app browser stays one reader across weeks. `email_readers` and
+`email_returning_readers` (returning readers who were email readers in W) are
+recorded next to the headline numbers; they never change them.
 The in-progress (current) week is never scored — only completed weeks.
 
 data/metrics/weekly_returning_readers.json holds the durable history, one
@@ -91,11 +99,26 @@ def weekly_reader_sets(rows: list[tuple[str, str]]) -> dict[str, set[str]]:
     return by_week
 
 
-def compute_weeks(reader_sets: dict[str, set[str]]) -> list[dict]:
+def weekly_email_reader_sets(rows: list[tuple[str, str, object]]) -> dict[str, set[str]]:
+    """Per-week sets of readers with an email-attributed pageview, from
+    (week_start_iso, distinct_id, via_email) triples."""
+    by_week: dict[str, set[str]] = {}
+    for week_start, distinct_id, via_email in rows:
+        if not week_start or not distinct_id or not via_email or str(via_email).lower() in ("0", "false"):
+            continue
+        by_week.setdefault(str(week_start), set()).add(str(distinct_id))
+    return by_week
+
+
+def compute_weeks(
+    reader_sets: dict[str, set[str]],
+    email_sets: dict[str, set[str]] | None = None,
+) -> list[dict]:
     """Turn per-week reader sets into returning-reader rows.
 
     A week needs the prior week's set to classify readers, so the earliest
-    week in `reader_sets` is dropped (no baseline to compare against).
+    week in `reader_sets` is dropped (no baseline to compare against). With
+    `email_sets`, each row also carries the email-attribution counts.
     """
     ordered = sorted(reader_sets)
     out = []
@@ -105,13 +128,18 @@ def compute_weeks(reader_sets: dict[str, set[str]]) -> list[dict]:
         prev_readers = reader_sets[prev_week]
         returning = readers & prev_readers
         total = len(readers)
-        out.append({
+        row = {
             "week_start": week,
             "total_readers": total,
             "returning_readers": len(returning),
             "new_readers": total - len(returning),
             "returning_rate": round(len(returning) / total, 4) if total else 0.0,
-        })
+        }
+        if email_sets is not None:
+            email_readers = email_sets.get(week, set()) & readers
+            row["email_readers"] = len(email_readers)
+            row["email_returning_readers"] = len(email_readers & returning)
+        out.append(row)
     return out
 
 
@@ -127,7 +155,8 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
     since = monday_of(utc_now()) - timedelta(weeks=WEEKS_LOOKBACK)
     hogql = (
-        "SELECT toStartOfWeek(timestamp, 1) AS week_start, distinct_id FROM events "
+        "SELECT toStartOfWeek(timestamp, 1) AS week_start, distinct_id, "
+        "max(properties.utm_source = 'email') AS via_email FROM events "
         # `$pageview` is the standard posthog-js pageview and the only pageview
         # the web client emits today. `page_view` is the legacy custom event
         # (removed 2026-07-13); keep it in the filter so weeks captured before
@@ -146,10 +175,12 @@ def cmd_sync(args: argparse.Namespace) -> int:
     resp.raise_for_status()
     results = resp.json().get("results") or []
 
-    reader_sets = weekly_reader_sets([(week_start, distinct_id) for week_start, distinct_id in results])
+    rows = [(r[0], r[1], r[2] if len(r) > 2 else 0) for r in results]
+    reader_sets = weekly_reader_sets([(week_start, distinct_id) for week_start, distinct_id, _ in rows])
+    email_sets = weekly_email_reader_sets(rows)
     current_week = monday_of(utc_now()).strftime("%Y-%m-%d")
     reader_sets = {w: ids for w, ids in reader_sets.items() if w[:10] < current_week}
-    computed = {row["week_start"][:10]: row for row in compute_weeks(reader_sets)}
+    computed = {row["week_start"][:10]: row for row in compute_weeks(reader_sets, email_sets)}
 
     history = load_history()
     history.update(computed)
@@ -176,18 +207,23 @@ def cmd_summary(args: argparse.Namespace) -> int:
     if args.weeks:
         weeks = weeks[-args.weeks:]
 
-    print(f"{'week_start':<12} {'total':>7} {'returning':>10} {'new':>7} {'rate':>7}")
+    print(f"{'week_start':<12} {'total':>7} {'returning':>10} {'new':>7} {'rate':>7} {'email':>6} {'email_ret':>10}")
     for row in weeks:
+        # Email columns only exist for weeks synced after attribution shipped.
+        email = row.get("email_readers", "-")
+        email_ret = row.get("email_returning_readers", "-")
         print(
             f"{row['week_start']:<12} {row['total_readers']:>7} {row['returning_readers']:>10} "
-            f"{row['new_readers']:>7} {row['returning_rate']:>7.2%}"
+            f"{row['new_readers']:>7} {row['returning_rate']:>7.2%} {email:>6} {email_ret:>10}"
         )
 
     latest = weeks[-1]
     print(
         "north_star "
         f"week={latest['week_start']} returning_readers={latest['returning_readers']} "
-        f"total_readers={latest['total_readers']} returning_rate={latest['returning_rate']}"
+        f"total_readers={latest['total_readers']} returning_rate={latest['returning_rate']} "
+        f"email_readers={latest.get('email_readers')} "
+        f"email_returning_readers={latest.get('email_returning_readers')}"
     )
     return 0
 

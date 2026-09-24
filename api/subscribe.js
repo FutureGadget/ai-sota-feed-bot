@@ -15,6 +15,28 @@
 // the client hides the form.
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// Pseudonymous reader id stored on the contact as the `reader_id` property.
+// Broadcasts template it into every link as `rid=` so email clicks keep the
+// subscriber's identity (publish/publish_email.py::tag_reader_links). The
+// signup browser's own anonymous id is reused when valid, so its history and
+// its future email clicks count as one reader; otherwise a fresh one is minted.
+const READER_ID_RE = /^anon_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+export function readerIdFor(candidate) {
+  const value = String(candidate || '').trim().toLowerCase();
+  return READER_ID_RE.test(value) ? value : `anon_${crypto.randomUUID()}`;
+}
+
+function createContact(apiKey, payload) {
+  return fetch('https://api.resend.com/contacts', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+}
 
 export async function POST(request) {
 
@@ -42,7 +64,7 @@ export async function POST(request) {
     return Response.json({ error: 'invalid_email' }, { status: 400 });
   }
 
-  const payload = { email, unsubscribed: false };
+  const payload = { email, unsubscribed: false, properties: { reader_id: readerIdFor(body.reader_id) } };
   // Per-digest selection. Daily and weekly are separate Resend Topics so a reader
   // can take "weekly only — less email": opted into the weekly topic, opted OUT
   // of the daily one (Resend then suppresses the daily broadcast for them, and
@@ -68,14 +90,14 @@ export async function POST(request) {
   if (segmentId) payload.segments = [{ id: segmentId }];
 
   try {
-    const r = await fetch('https://api.resend.com/contacts', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+    let r = await createContact(apiKey, payload);
+    // A 422 can mean "already a contact" or a rejected custom property (e.g. the
+    // `reader_id` property isn't defined yet). Retry once without properties so
+    // attribution can never cost a signup; a duplicate stays a 409/422.
+    if (r.status === 422) {
+      const { properties, ...withoutProperties } = payload;
+      r = await createContact(apiKey, withoutProperties);
+    }
 
     // 2xx = added; 409/422 typically means the contact already exists — treat a
     // re-subscribe as success (idempotent) rather than surfacing an error.
