@@ -329,17 +329,15 @@
     // product decision this restructure implements). The DEFAULT must stay
     // aa_intelligence_index descending - never reorder this array. Each
     // option also names which `frontier` metric governs the "on frontier"
-    // badge/filter while that ordering is active - since 2026-08-17 that is
-    // always 'deepswe_pass_at_1' (the only frontier metric left: a metric
-    // only gets a frontier at all when its cost is a MEASURED per-task
-    // figure, and DeepSWE is the only source of one - see
-    // config/models.yaml's frontier_metrics and the 2026-08-17 decision log
-    // entry). Ordering itself is unchanged - price and the AA indices still
-    // rank the list exactly as they always have.
+    // badge/filter while that ordering is active: 'aa_intelligence_index'
+    // for intelligence and price sorts, and 'aa_coding_index' for coding sort
+    // (fresh token efficiency frontier), alongside 'deepswe_pass_at_1'
+    // (measured task-cost frontier). Ordering itself is unchanged - price and the
+    // AA indices still rank the list exactly as they always have.
     const SORT_OPTIONS = [
-      { key: 'aa_intelligence_index', dir: 'desc', label: 'Intelligence index', frontierMetric: 'deepswe_pass_at_1' },
-      { key: 'aa_coding_index', dir: 'desc', label: 'Coding index', frontierMetric: 'deepswe_pass_at_1' },
-      { key: 'price_blended_per_1m', dir: 'asc', label: 'Price, low to high', frontierMetric: 'deepswe_pass_at_1' },
+      { key: 'aa_intelligence_index', dir: 'desc', label: 'Intelligence index', frontierMetric: 'aa_intelligence_index' },
+      { key: 'aa_coding_index', dir: 'desc', label: 'Coding index', frontierMetric: 'aa_coding_index' },
+      { key: 'price_blended_per_1m', dir: 'asc', label: 'Price, low to high', frontierMetric: 'aa_intelligence_index' },
     ];
 
     // Automatic fallback ordering for a deployment where Artificial
@@ -463,8 +461,15 @@
     // ---- ranked list rows ----
     function renderRow(m, rank, activeSort) {
       const isFrontier = isOnFrontier(m, activeSort.frontierMetric);
+      const frontierEntry = (m.frontier && m.frontier[activeSort.frontierMetric]) || null;
+      let frontierTitle = 'On the price/capability frontier';
+      if (frontierEntry && frontierEntry.cost_basis === 'per_token_price_proxy') {
+        frontierTitle = 'On the price/capability frontier (token price proxy)';
+      } else if (frontierEntry && frontierEntry.cost_basis === 'measured_per_task') {
+        frontierTitle = 'On the price/capability frontier (measured per-task cost)';
+      }
       const frontierTag = isFrontier
-        ? '<span class="mr-frontier-tag" title="On the price/capability frontier">Frontier</span>' : '';
+        ? `<span class="mr-frontier-tag" title="${esc(frontierTitle)}">Frontier</span>` : '';
       const variantCount = m.variantCount > 1
         ? `<span class="mr-variant-badge" title="${esc(m.variantCount - 1)} other reasoning-effort variant${m.variantCount - 1 === 1 ? '' : 's'} of this model collapsed into this row">+${esc(m.variantCount - 1)} variant${m.variantCount - 1 === 1 ? '' : 's'}</span>`
         : '';
@@ -479,22 +484,24 @@
       // measured result, never a placeholder pair of dashes crowding every
       // other row that DeepSWE hasn't covered (23 of ~154 tracked models
       // today, see the 2026-08-17 decision log entry).
-      // When the row carries a Frontier badge, show the numbers of the
+      // When the model qualifies on the DeepSWE frontier, show the numbers of the
       // variant that ACTUALLY qualified, not the collapse representative's.
       // The representative is chosen by intelligence index, which for
       // GPT-5.6 Sol is the dominated `max` run at $8.39/task while the
       // frontier is reached at $3.47 - quoting the representative made this
       // page contradict the model's own detail page by 2.4x on cost.
-      const frontierEntry = (m.frontier && m.frontier[activeSort.frontierMetric]) || null;
-      const useQualifying = isFrontier && frontierEntry
-        && frontierEntry.qualifying_metric_value !== null && frontierEntry.qualifying_metric_value !== undefined;
-      const passAt1 = useQualifying ? frontierEntry.qualifying_metric_value : m.deepswe_pass_at_1;
-      const costPerTask = useQualifying ? frontierEntry.qualifying_cost : m.deepswe_cost_per_task_usd;
+      // Crucially, DeepSWE stats only read from deepswe_pass_at_1, never
+      // from activeSort.frontierMetric which may track token-price frontier.
+      const deepsweEntry = (m.frontier && m.frontier['deepswe_pass_at_1']) || null;
+      const deepsweQualifies = deepsweEntry && deepsweEntry.on_frontier === true
+        && deepsweEntry.qualifying_metric_value !== null && deepsweEntry.qualifying_metric_value !== undefined;
+      const passAt1 = deepsweQualifies ? deepsweEntry.qualifying_metric_value : m.deepswe_pass_at_1;
+      const costPerTask = deepsweQualifies ? deepsweEntry.qualifying_cost : m.deepswe_cost_per_task_usd;
       // The effort qualifier rides with the VALUE, not the label: folded into
       // the label it made "DEEPSWE PASS@1 (XHIGH EFFORT)" wrap to three lines
       // on a phone and shoved the neighbouring stats into each other.
-      const qualifyingEffort = useQualifying && frontierEntry.qualifying_variant
-        ? `<span class="mr-stat-qualifier">${esc(frontierEntry.qualifying_variant)}</span>` : '';
+      const qualifyingEffort = deepsweQualifies && deepsweEntry.qualifying_variant
+        ? `<span class="mr-stat-qualifier">${esc(deepsweEntry.qualifying_variant)}</span>` : '';
       const deepsweStats = (passAt1 !== null && passAt1 !== undefined)
         ? `<span class="mr-stat"><span class="mr-stat-label">DeepSWE pass@1</span><span class="mr-stat-value">${fmtPct(passAt1)}${qualifyingEffort}</span></span>
            <span class="mr-stat"><span class="mr-stat-label">Cost/task</span><span class="mr-stat-value">${fmtTaskCost(costPerTask)}</span></span>`

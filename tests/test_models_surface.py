@@ -600,6 +600,54 @@ class ModelsRankedListBehaviorTest(unittest.TestCase):
             {"hasUndisclosed": True, "hasWeightsUnknown": True, "noZeroIntelligence": True},
         )
 
+    def test_render_row_dual_frontier_does_not_cross_contaminate_deepswe_stats(self) -> None:
+        m = self._model(
+            "claudeopus55", url_slug="claude-opus-5-5", display_name="Claude Opus 5.5",
+            organization="anthropic", aa_intelligence_index=57.6, price_blended_per_1m=8.0,
+            deepswe_pass_at_1=None, deepswe_cost_per_task_usd=None,
+            frontier={
+                "aa_intelligence_index": {
+                    "on_frontier": True,
+                    "qualifying_variant": "max",
+                    "qualifying_metric_value": 57.6,
+                    "qualifying_cost": 8.0,
+                    "cost_basis": "per_token_price_proxy",
+                }
+            },
+        )
+        activeSort = {"key": "aa_intelligence_index", "dir": "desc", "frontierMetric": "aa_intelligence_index"}
+        result = self._run(f"""
+          const html = renderRow({json.dumps(m)}, 1, {json.dumps(activeSort)});
+          console.log(JSON.stringify({{
+            hasFrontierTag: html.includes('mr-frontier-tag'),
+            frontierTitle: html.includes('title="On the price/capability frontier (token price proxy)"'),
+            hasDeepSweStats: html.includes('DeepSWE pass@1'),
+            noFabricatedPercent: !html.includes('5760.0%'),
+          }}));
+        """)
+        self.assertEqual(
+            result,
+            {
+                "hasFrontierTag": True,
+                "frontierTitle": True,
+                "hasDeepSweStats": False,
+                "noFabricatedPercent": True,
+            },
+        )
+
+    def test_sort_options_frontier_metric_mapping(self) -> None:
+        result = self._run("""
+          console.log(JSON.stringify(SORT_OPTIONS.map(o => ({ key: o.key, frontierMetric: o.frontierMetric }))));
+        """)
+        self.assertEqual(
+            result,
+            [
+                {"key": "aa_intelligence_index", "frontierMetric": "aa_intelligence_index"},
+                {"key": "aa_coding_index", "frontierMetric": "aa_coding_index"},
+                {"key": "price_blended_per_1m", "frontierMetric": "aa_intelligence_index"},
+            ],
+        )
+
 
 @unittest.skipUnless(HAS_NODE, "node is required to execute the display-name presentation logic")
 class ModelsDisplayNamePresentationTest(unittest.TestCase):

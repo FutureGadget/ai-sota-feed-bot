@@ -2202,16 +2202,16 @@ def test_build_output_deepswe_sources_defaults_to_empty_dict_without_config():
 
 
 # ---------------------------------------------------------------------------
-# The real config/models.yaml frontier_metrics contract (WORK ITEM 2,
-# 2026-08-17): a frontier may only be claimed where the cost is a MEASURED
-# per-task figure - every per_token_price_proxy entry is gone, and
-# deepswe_pass_at_1/measured_per_task is the sole survivor.
+# The real config/models.yaml frontier_metrics contract: dual-frontier strategy
+# supporting both token-efficiency frontier (Artificial Analysis intelligence/
+# coding indices paired with blended price per 1M) for real-time model releases,
+# and measured task-cost frontier (DeepSWE pass@1 paired with measured cost/task).
 # ---------------------------------------------------------------------------
 
-def test_real_config_frontier_metrics_has_no_per_token_price_proxy_entries():
+def test_real_config_frontier_metrics_supports_dual_frontier():
     cfg = cm.load_config()
     bases = {entry.get("cost_basis") for entry in cfg["frontier_metrics"]}
-    assert "per_token_price_proxy" not in bases
+    assert bases == {"per_token_price_proxy", "measured_per_task"}
 
 
 def test_real_config_frontier_metrics_deepswe_pass_at_1_is_measured_per_task():
@@ -2224,13 +2224,15 @@ def test_real_config_frontier_metrics_deepswe_pass_at_1_is_measured_per_task():
     assert entry["source"] == "top"
 
 
-def test_real_config_frontier_metrics_no_longer_lists_aa_metrics():
-    # AA-scored metrics still display everywhere they always have (the
-    # ranked list, the scores table) - they just no longer claim a frontier,
-    # since their cost pairing was never a measured per-task figure.
+def test_real_config_frontier_metrics_lists_aa_and_deepswe_metrics():
     cfg = cm.load_config()
     keys = {entry["key"] for entry in cfg["frontier_metrics"]}
-    assert keys == {"deepswe_pass_at_1"}
+    assert keys == {"aa_intelligence_index", "aa_coding_index", "deepswe_pass_at_1"}
+    entries = {entry["key"]: entry for entry in cfg["frontier_metrics"]}
+    for aa_key in ("aa_intelligence_index", "aa_coding_index"):
+        assert entries[aa_key]["cost_basis"] == "per_token_price_proxy"
+        assert entries[aa_key]["cost_field"] == "price_blended_per_1m"
+        assert entries[aa_key]["source"] == "top"
 
 
 def test_real_config_deepswe_source_is_present_and_config_driven():

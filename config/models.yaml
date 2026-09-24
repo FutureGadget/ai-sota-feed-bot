@@ -291,38 +291,28 @@ axis_metric_options:
     scale: fraction
 
 # Server-side Pareto frontier metric/cost pairing (docs/design-docs/decision-log.md,
-# 2026-08-16 - WORK ITEM 2, Model Release Radar URL slugs + frontier; revised
-# 2026-08-17 to require a MEASURED per-task cost). Each entry names ONE
-# capability metric and the cost field it is fairly paired against for
-# frontier computation (`pipeline/collect_models.py`'s compute_frontier) -
-# never a free-floating price the frontier compares a benchmark score
-# against without saying so. `source` mirrors axis_metric_options: "top"
-# reads the metric directly off a model row, "benchmarks" reads it from that
-# row's `benchmarks` dict. `cost_field` names the model field paired as this
-# metric's cost axis. `cost_basis` documents what KIND of cost that is - and
-# is now the gate on whether a metric may claim a frontier at all: a raw
-# per-1M-token price is NOT a fair X axis for an agentic benchmark score,
-# because the cost of running a task depends on how many tokens and steps a
-# model actually spends, not just its per-token rate (proof from live
-# DeepSWE data, 2026-08-16: claude-opus-5 costs $11.84/task at "max" effort
-# and $3.29/task at "medium", yet both price identically at $10/1M tokens -
-# a per-token axis cannot see that difference at all). Every prior entry
-# here paired a benchmark against `price_blended_per_1m` under
-# `cost_basis: "per_token_price_proxy"`; all of those entries are REMOVED,
-# not just relabeled - a benchmark with no measured per-task cost source no
-# longer gets a frontier claim, even though its score still displays
-# everywhere it always has (the ranked list still ranks by AA intelligence
-# index, the scores table still shows every AA benchmark - see
-# pipeline/render_static_pages.py's model_scores_section). Only DeepSWE
-# publishes a real measured mean_cost_usd per task
-# (pipeline/collect_models.py's DeepSWE ingest), so it is the only entry
-# below, under `cost_basis: "measured_per_task"`. This keeps the cost_basis
-# machinery itself unchanged and config-driven: a future benchmark that
-# gains a genuine per-task cost source lights up here the same way, with a
-# config + data change, never a code change. Deliberately independent of
-# axis_metric_options: this list is what the frontier computes over,
-# axis_metric_options is what the chart offers.
+# 2026-08-16 - WORK ITEM 2, Model Release Radar URL slugs + frontier; updated
+# 2026-09-24 to support both the token efficiency frontier and the measured
+# agent task-cost frontier). Each entry names ONE capability metric and the cost
+# field it is fairly paired against for frontier computation
+# (`pipeline/collect_models.py`'s compute_frontier).
+#
+# Two distinct frontiers serve two distinct reader jobs:
+# 1. Token efficiency frontier (per_token_price_proxy): pairs Artificial
+#    Analysis intelligence and coding indices against price_blended_per_1m.
+#    Updated immediately upon new model release (e.g. Claude Opus 5.5).
+# 2. Agent task-cost frontier (measured_per_task): pairs DeepSWE pass@1
+#    against deepswe_cost_per_task_usd. Measures true end-to-end task cost
+#    for autonomous coding agent workloads where token consumption varies.
 frontier_metrics:
+  - key: aa_intelligence_index
+    source: top
+    cost_field: price_blended_per_1m
+    cost_basis: per_token_price_proxy
+  - key: aa_coding_index
+    source: top
+    cost_field: price_blended_per_1m
+    cost_basis: per_token_price_proxy
   - key: deepswe_pass_at_1
     source: top
     cost_field: deepswe_cost_per_task_usd
