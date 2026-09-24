@@ -254,3 +254,7 @@ sources:
     # architecture). Lowest-volume source in the slot (2 posts as of 2026-09) and
     # unproven, so it carries no source_bias lift; see the 2026-09-20 ADR.
     url: "https://archerhume.com/rss.xml"
+    # Feed carries a one-line conversational teaser, never the article. Without
+    # the page body the keyword gates see no AI vocabulary at all — "I probed
+    # Jev with 10,000 API calls" floors a post about transformer architecture.
+    fetch_content: true

@@ -291,8 +291,43 @@ def save_cache_file(path: Path, cache: dict[str, Any]) -> None:
     path.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+_TAG_RE = re.compile(r"<[^>]+>")
+
+
+def _visible_text(raw: str) -> str:
+    """Lowercased rendered text: markup is not something the reader reads."""
+    return html.unescape(_TAG_RE.sub(" ", str(raw or ""))).lower()
+
+
+def _token_present(token: str, teaser: str, excerpt: str) -> bool:
+    """Whether a keyword appears in an item's teaser or its page excerpt.
+
+    The teaser keeps the historical substring match so no existing item's
+    score moves. The excerpt is matched whole-word: over 1200 characters of
+    body prose a substring match turns "decoder" into "code" and "management"
+    into "agent" (the same failure the relevance_floor gate was fixed for).
+    """
+    if token in teaser:
+        return True
+    if not excerpt:
+        return False
+    return re.search(rf"(?<!\w){re.escape(token)}(?!\w)", excerpt) is not None
+
+
 def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     t = (item.get("title", "") + " " + item.get("summary", "")).lower()
+    # Page body for sources with `fetch_content` (collectors/collect.py). While
+    # the LLM is disabled these token counts are the only quality signal, and a
+    # one-line teaser floors every score no matter what the article says.
+    #
+    # Two deliberate asymmetries keep this from moving anything it shouldn't:
+    # the excerpt feeds only the positive counts (novelty and hype stay on
+    # title+summary — "new" appears in almost any 1200-char body, and a
+    # penalty sourced from a passing mention is a false positive), and it is
+    # matched whole-word where title+summary keep their substring match, so
+    # "decoder" in the body is not evidence of "code". An item without an
+    # excerpt scores exactly as it did before.
+    excerpt = _visible_text(item.get("content_excerpt", ""))
     platform_tokens = [
         "agent",
         "coding agent",
@@ -309,8 +344,8 @@ def heuristic_label(item: dict[str, Any]) -> dict[str, Any]:
     evidence_tokens = ["benchmark", "code", "github", "documentation", "dataset", "ablation", "reproduc"]
     hype_tokens = ["revolutionary", "game changing", "breakthrough", "unprecedented"]
 
-    p = sum(1 for k in platform_tokens if k in t)
-    e = sum(1 for k in evidence_tokens if k in t)
+    p = sum(1 for k in platform_tokens if _token_present(k, t, excerpt))
+    e = sum(1 for k in evidence_tokens if _token_present(k, t, excerpt))
     h = sum(1 for k in hype_tokens if k in t)
 
     typ = (item.get("type") or "news").lower()

@@ -172,6 +172,36 @@ which gate a source dies at.
    moves; no-op when the whole band is research). The daily email renders
    position 1 as a hero, so a niche paper leading is especially costly.
 
+### Content-thin feeds (`fetch_content`)
+
+Several of these gates score an item's **rendered text** — `relevance_floor`
+(gate 1's opt-in allowlist) and the `heuristic_label` token counts that produce
+`llm_score` while the LLM is disabled. A feed that publishes a one-line teaser
+gives them almost nothing to read: archerhume's "I probed Jev with 10,000 API
+calls" names no AI vocabulary at all, so a post about transformer serving
+architecture floored at `llm_score` 2.0 and would have failed `relevance_floor`
+outright.
+
+Setting `fetch_content: true` on a source in `config/sources.yaml` makes the
+collector fetch each item's page and store up to 4000 characters of body text
+as `content_excerpt`. Opt-in per source, never global — it is a network fetch
+per item, and a feed that already carries full content gains nothing.
+
+Two asymmetries keep the excerpt from moving anything it shouldn't:
+
+- **Positive signals only.** It raises `fit_agentic_platform` and
+  `evidence_quality`, and can rescue an item at `relevance_floor` (an
+  allowlist). It is deliberately *not* fed to `off_topic` or `topical_bias`'s
+  negative keywords, nor to `hype_risk` or `novelty` — a penalty sourced from a
+  passing mention in the body is a false positive, and "new" appears in almost
+  any 1200 characters of prose.
+- **Whole-word matching.** Title and summary keep their historical substring
+  match; the excerpt is matched whole-word, so "decoder" in the body is not
+  evidence of "code". Same failure `relevance_floor` was fixed for.
+
+An item with no `content_excerpt` scores exactly as it did before the feature
+existed, so enabling it for one source cannot move another's ranking.
+
 When adding a *new slot*, also add a `dynamic_slot_rerank.base_bias.<slot>`
 entry — a missing entry defaults to `0.0`, which is a higher priority than most
 existing slots and will over-expose the source.

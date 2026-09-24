@@ -12,7 +12,16 @@ available to each function.
   RSS entries may also carry optional `publisher_name` and `publisher_domain`
   values copied from the entry's `<source>` element. These are external display
   strings, not verified identity claims, and renderers must escape them.
+  Items from a source configured with `fetch_content: true` also carry
+  `content_excerpt`: up to 4000 characters of the article's rendered body text,
+  fetched at collection time. It exists for the keyword gates (see
+  `docs/ranking-v2-flow.md`), never for display — reader-facing summaries still
+  come from the feed's own `summary`. Absent wherever the fetch failed or the
+  source is not opted in.
 - `data/cache/sitemap_meta.json` — sitemap crawl metadata cache
+- `data/llm/content_cache.json` — page-body fetch cache keyed by canonical url
+  (5000 chars per url), written by `pipeline/content_fetch.py`. Local only:
+  gitignored, so a fresh runner refetches. Not committed and not deployed.
 
 ## Ranked snapshots
 - `data/tier1/latest.json` — fast quick-score snapshot (no LLM)

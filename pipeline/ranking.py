@@ -63,7 +63,13 @@ def passes_relevance_floor(item: dict[str, Any], floor_sources: set[str], floor_
     """True unless ``item`` is from a floored source and carries no topic signal."""
     if floor_re is None or item.get("source", "") not in floor_sources:
         return True
-    text = _visible_text(f"{item.get('title', '')} {item.get('summary', '')}")
+    # content_excerpt joins the haystack where the source has `fetch_content`:
+    # this gate is an allowlist, so more text can only rescue an on-topic item,
+    # never drop one. Without it a teaser that happens to name no AI vocabulary
+    # fails the floor even when the article is entirely about inference.
+    text = _visible_text(
+        f"{item.get('title', '')} {item.get('summary', '')} {item.get('content_excerpt', '')}"
+    )
     return bool(floor_re.search(text))
 
 

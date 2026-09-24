@@ -28,6 +28,21 @@ try:
 except Exception:
     telemetry = None
 
+# Optional page-body enrichment (pipeline/content_fetch.py). Same contract as
+# telemetry above: collection must still run if it cannot be imported.
+try:
+    from content_fetch import build_content_map
+except Exception:
+    build_content_map = None
+
+# Characters of page body kept per item for sources with `fetch_content: true`.
+# Sized for keyword gates, not for reading. Measured on the archerhume Jev
+# post, a long-form essay: 1200 and 2000 chars reach only the nav and table of
+# contents (1 platform token), 3000 is where body prose starts and the count
+# stabilises. 4000 clears that knee with headroom without exceeding the 5000
+# chars content_fetch caches per URL.
+CONTENT_EXCERPT_CHARS = 4000
+
 
 def load_sources():
     with open(ROOT / "config" / "sources.yaml", "r", encoding="utf-8") as f:
@@ -974,6 +989,61 @@ def collect_from_sitemap(source: dict, now: datetime) -> list[dict]:
     return out
 
 
+def attach_content_excerpts(items: list[dict], sources: list[dict]) -> int:
+    """Fetch page body text for sources configured with `fetch_content: true`.
+
+    The keyword gates downstream (`llm_label.heuristic_label`, and
+    `relevance_floor` for a source opted into it) score an item's rendered text.
+    For a feed that publishes a one-line teaser, that text carries none of the
+    vocabulary the article is actually about, so the item floors at the default
+    label score no matter how on-mission it is.
+
+    Opt-in per source, never global: this is a network fetch per item, and a
+    dedicated source whose feed already carries full content gains nothing from
+    it. Non-fatal by construction — `build_content_map` swallows per-URL
+    failures, caches on disk, and stops at its time budget, so a slow or
+    unreachable page costs the excerpt and nothing else.
+    """
+    if build_content_map is None:
+        return 0
+
+    wanted = {
+        str(s.get("name", "")).strip()
+        for s in (sources or [])
+        if s.get("fetch_content", False)
+    }
+    if not wanted:
+        return 0
+
+    targets = [it for it in items if it.get("source", "") in wanted]
+    if not targets:
+        return 0
+
+    budget = int(os.getenv("COLLECT_CONTENT_TIME_BUDGET", "45"))
+    try:
+        content = build_content_map(
+            targets,
+            top_n=len(targets),
+            excerpt_chars=CONTENT_EXCERPT_CHARS,
+            time_budget_seconds=budget,
+        )
+    except Exception as e:
+        print(f"content_fetch_failed error={e}")
+        return 0
+
+    attached = 0
+    for it in targets:
+        text = content.get((it.get("url", "") or "").split("#")[0].strip(), "")
+        if text:
+            it["content_excerpt"] = text
+            attached += 1
+    print(
+        f"content_excerpts_attached={attached} candidates={len(targets)} "
+        f"sources={len(wanted)}"
+    )
+    return attached
+
+
 def run():
     now = datetime.now(timezone.utc)
     day = now.strftime("%Y-%m-%d")
@@ -981,13 +1051,14 @@ def run():
     out_dir = ROOT / "data" / "raw" / day
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    sources = load_sources()
     all_items = []
     source_stats = []
     circuit = load_circuit_state()
     last_success = load_last_success_ts_by_source()
     bypass_cooldown = str(os.getenv("COLLECT_BYPASS_COOLDOWN", "0")).strip() in {"1", "true", "yes"}
 
-    for source in load_sources():
+    for source in sources:
         src_name = source["name"]
         src_type = source.get("type", "rss")
         src_url = (
@@ -1102,6 +1173,8 @@ def run():
                     "error": str(e),
                 }
             )
+
+    attach_content_excerpts(all_items, sources)
 
     path = out_dir / "items.json"
     wrote_new = True
