@@ -2390,3 +2390,154 @@ def test_frontier_leaves_qualifying_fields_null_when_behind():
     assert entry["on_frontier"] is False
     assert entry["qualifying_variant"] is None
     assert entry["qualifying_cost"] is None
+
+
+# ---------------------------------------------------------------------------
+# Sanitization, NaN handling, and Parquet fetching
+# ---------------------------------------------------------------------------
+
+def test_sanitize_row_val_converts_nan_and_inf_to_none():
+    import math
+    assert cm.sanitize_row_val(float("nan")) is None
+    assert cm.sanitize_row_val(float("inf")) is None
+    assert cm.sanitize_row_val(float("-inf")) is None
+    assert cm.sanitize_row_val(math.nan) is None
+    assert cm.sanitize_row_val(123.45) == 123.45
+    assert cm.sanitize_row_val("hello") == "hello"
+    assert cm.sanitize_row_val(42) == 42
+    assert cm.sanitize_row_val(None) is None
+
+
+def test_sanitize_row_cleans_dict_values():
+    row = {
+        "model_name": "test-model",
+        "rating": float("nan"),
+        "variance": float("inf"),
+        "vote_count": 100.0,
+        "category": "overall",
+    }
+    cleaned = cm.sanitize_row(row)
+    assert cleaned["model_name"] == "test-model"
+    assert cleaned["rating"] is None
+    assert cleaned["variance"] is None
+    assert cleaned["vote_count"] == 100.0
+    assert cleaned["category"] == "overall"
+
+
+def test_int_or_none_handles_nan_and_types():
+    assert cm.int_or_none(None) is None
+    assert cm.int_or_none(True) is None
+    assert cm.int_or_none(False) is None
+    assert cm.int_or_none(float("nan")) is None
+    assert cm.int_or_none(float("inf")) is None
+    assert cm.int_or_none(42) == 42
+    assert cm.int_or_none(42.0) == 42
+    assert cm.int_or_none("42") == 42
+    assert cm.int_or_none("invalid") is None
+
+
+def test_round_or_none_handles_nan_and_types():
+    assert cm.round_or_none(None, 2) is None
+    assert cm.round_or_none(True, 2) is None
+    assert cm.round_or_none(float("nan"), 2) is None
+    assert cm.round_or_none(float("inf"), 2) is None
+    assert cm.round_or_none(123.456, 2) == 123.46
+
+
+def test_fetch_lmarena_rows_parquet_mock(monkeypatch):
+    import io
+    import pytest
+    pa = pytest.importorskip("pyarrow")
+    import pyarrow.parquet as pq
+
+    schema = pa.schema([
+        ("model_name", pa.string()),
+        ("organization", pa.string()),
+        ("license", pa.string()),
+        ("rating", pa.float64()),
+        ("rating_lower", pa.float64()),
+        ("rating_upper", pa.float64()),
+        ("variance", pa.float64()),
+        ("vote_count", pa.float64()),
+        ("rank", pa.float64()),
+        ("category", pa.string()),
+        ("leaderboard_publish_date", pa.string()),
+    ])
+    data = [
+        ["m1", "m2", "m3"],
+        ["org1", "org2", "org3"],
+        ["MIT", "Proprietary", "Apache"],
+        [1500.0, float("nan"), 1450.0],
+        [1490.0, 1480.0, 1440.0],
+        [1510.0, 1520.0, 1460.0],
+        [10.0, float("inf"), 12.0],
+        [100.0, 200.0, 300.0],
+        [1.0, 2.0, 1.0],
+        ["overall", "overall", "coding"],
+        ["2026-09-20", "2026-09-20", "2026-09-20"],
+    ]
+    table = pa.Table.from_arrays([pa.array(col) for col in data], schema=schema)
+    buf = io.BytesIO()
+    pq.write_table(table, buf)
+    parquet_bytes = buf.getvalue()
+
+    class FakeResponse:
+        content = parquet_bytes
+        def raise_for_status(self):
+            pass
+
+    monkeypatch.setattr(cm, "_get_with_retry", lambda session, url, **kwargs: FakeResponse())
+
+    cfg = {
+        "sources": {
+            "lmarena": {
+                "dataset": "test/dataset",
+                "config": "text",
+                "split": "latest",
+                "parquet_url": "https://fake.url/test.parquet",
+            }
+        },
+        "request_timeout_seconds": 5,
+        "trust_env_proxies": False,
+    }
+
+    result = cm.fetch_lmarena_rows(cfg, ["overall", "coding"])
+    assert len(result["overall"]) == 2
+    assert len(result["coding"]) == 1
+    assert result["overall"][0]["rating"] == 1500.0
+    assert result["overall"][1]["rating"] is None
+    assert result["overall"][1]["variance"] is None
+    assert result["coding"][0]["model_name"] == "m3"
+
+
+def test_fetch_lmarena_rows_fallback_on_parquet_error(monkeypatch):
+    def fake_get(session, url, **kwargs):
+        raise ConnectionError("Parquet download failed")
+
+    monkeypatch.setattr(cm, "_get_with_retry", fake_get)
+
+    called_categories = []
+    def fake_category(cfg, cat):
+        called_categories.append(cat)
+        return [{"model_name": f"fallback-{cat}", "category": cat}]
+
+    monkeypatch.setattr(cm, "fetch_lmarena_category", fake_category)
+
+    cfg = {
+        "sources": {
+            "lmarena": {
+                "dataset": "test/dataset",
+                "config": "text",
+                "split": "latest",
+                "parquet_url": "https://fake.url/test.parquet",
+            }
+        },
+        "request_timeout_seconds": 5,
+        "trust_env_proxies": False,
+    }
+
+    result = cm.fetch_lmarena_rows(cfg, ["overall", "coding"])
+    assert called_categories == ["overall", "coding"]
+    assert result["overall"][0]["model_name"] == "fallback-overall"
+    assert result["coding"][0]["model_name"] == "fallback-coding"
+

@@ -298,6 +298,7 @@ stays meaningful for fields that are genuinely supposed to be there.
 
 import argparse
 import json
+import math
 import os
 import re
 import sys
@@ -323,6 +324,7 @@ DEFAULT_CONFIG = {
             "config": "text",
             "split": "latest",
             "base_url": "https://datasets-server.huggingface.co",
+            "parquet_url": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset/resolve/main/text/latest-00000-of-00001.parquet",
             "categories": ["overall", "coding"],
             "page_size": 100,
             "attribution": "LMArena (arena.ai) - community-voted model preference",
@@ -792,13 +794,46 @@ def zero_price_to_null(value):
         return value
 
 
-def round_or_none(value, digits: int):
-    if value is None:
+def sanitize_row_val(v):
+    """Sanitize scalar values extracted from Parquet/Arrow or API responses.
+
+    Converts NaN and Inf to None so that integer casts and JSON serialization
+    do not fail or emit non-standard JSON tokens.
+    """
+    if isinstance(v, float) and (math.isnan(v) or math.isinf(v)):
+        return None
+    return v
+
+
+def sanitize_row(row: dict) -> dict:
+    """Return a shallow copy of row with NaN/Inf values replaced by None."""
+    return {k: sanitize_row_val(v) for k, v in row.items()}
+
+
+def int_or_none(value):
+    """Convert value to int, returning None for missing, bool, or non-finite float."""
+    if value is None or isinstance(value, bool):
         return None
     try:
-        return round(float(value), digits)
+        f = float(value)
+        if math.isnan(f) or math.isinf(f):
+            return None
+        return int(f)
     except (TypeError, ValueError):
         return None
+
+
+def round_or_none(value, digits: int):
+    if value is None or isinstance(value, bool):
+        return None
+    try:
+        f = float(value)
+        if math.isnan(f) or math.isinf(f):
+            return None
+        return round(f, digits)
+    except (TypeError, ValueError):
+        return None
+
 
 
 def blended_price(price_input, price_output):
@@ -1569,9 +1604,9 @@ def finalize_model(
         "price_blended_per_1m": round_or_none(blended, 4),
         "arena_elo_overall": round_or_none(row.get("arena_elo_overall"), 2),
         "arena_elo_coding": round_or_none(row.get("arena_elo_coding"), 2),
-        "arena_votes": int(row["arena_votes"]) if isinstance(row.get("arena_votes"), (int, float)) else None,
-        "arena_rank_overall": int(row["arena_rank_overall"]) if isinstance(row.get("arena_rank_overall"), (int, float)) else None,
-        "arena_rank_coding": int(row["arena_rank_coding"]) if isinstance(row.get("arena_rank_coding"), (int, float)) else None,
+        "arena_votes": int_or_none(row.get("arena_votes")),
+        "arena_rank_overall": int_or_none(row.get("arena_rank_overall")),
+        "arena_rank_coding": int_or_none(row.get("arena_rank_coding")),
         "aa_intelligence_index": round_or_none(row.get("aa_intelligence_index"), 2),
         "aa_coding_index": round_or_none(row.get("aa_coding_index"), 2),
         "median_output_tokens_per_second": round_or_none(row.get("median_output_tokens_per_second"), 1),
@@ -2037,6 +2072,67 @@ def _get_with_retry(session, url: str, *, timeout: float, headers: dict | None =
     return response
 
 
+def fetch_lmarena_rows(cfg: dict, categories: list[str]) -> dict[str, list[dict]]:
+    """Fetch LMArena rows for the specified categories.
+
+    Prefers downloading the static Parquet file directly from Hugging Face CDN
+    in a single request (~1-2s, bypassing the datasets-server /filter indexing
+    bottleneck). Slices rows by category in memory and sanitizes NaN values.
+    If pyarrow is absent or the parquet fetch fails, falls back to paginated
+    HTTP calls via fetch_lmarena_category.
+    """
+    rows_by_category: dict[str, list[dict]] = {cat: [] for cat in categories}
+    src = cfg["sources"]["lmarena"]
+    parquet_url = src.get("parquet_url")
+    if not parquet_url:
+        dataset = src.get("dataset", "lmarena-ai/leaderboard-dataset")
+        config_name = src.get("config", "text")
+        split = src.get("split", "latest")
+        parquet_url = f"https://huggingface.co/datasets/{dataset}/resolve/main/{config_name}/{split}-00000-of-00001.parquet"
+
+    session = _make_session(cfg)
+    timeout = cfg["request_timeout_seconds"]
+
+    # Primary path: direct Parquet download via HF CDN
+    try:
+        import io
+        import pyarrow.parquet as pq
+
+        resp = _get_with_retry(session, parquet_url, timeout=timeout)
+        resp.raise_for_status()
+        table = pq.read_table(io.BytesIO(resp.content))
+
+        cat_col = table["category"].to_pylist()
+        cat_set = set(categories)
+        indices_by_cat: dict[str, list[int]] = {c: [] for c in categories}
+        for idx, c in enumerate(cat_col):
+            if c in cat_set:
+                indices_by_cat[c].append(idx)
+
+        for cat in categories:
+            indices = indices_by_cat.get(cat, [])
+            if indices:
+                cat_table = table.take(indices)
+                rows_by_category[cat] = [sanitize_row(r) for r in cat_table.to_pylist()]
+
+        if any(rows_by_category.values()):
+            return rows_by_category
+        print("models_collect_lmarena_parquet_empty reason=no_rows_for_categories")
+    except ImportError:
+        print("models_collect_lmarena_parquet_skipped reason=pyarrow_not_installed")
+    except Exception as exc:
+        print(f"models_collect_lmarena_parquet_failed detail={type(exc).__name__}")
+
+    # Fallback path: datasets-server /filter endpoint
+    for category in categories:
+        try:
+            rows_by_category[category] = fetch_lmarena_category(cfg, category)
+        except Exception as exc:
+            print(f"models_collect_lmarena_fallback_failed category={category} detail={type(exc).__name__}")
+            rows_by_category[category] = []
+    return rows_by_category
+
+
 def fetch_lmarena_category(cfg: dict, category: str) -> list[dict]:
     session = _make_session(cfg)
 
@@ -2061,7 +2157,7 @@ def fetch_lmarena_category(cfg: dict, category: str) -> list[dict]:
         resp = _get_with_retry(session, url, timeout=timeout)
         resp.raise_for_status()
         payload = resp.json()
-        page_rows = [r.get("row", {}) for r in payload.get("rows", [])]
+        page_rows = [sanitize_row(r.get("row", {})) for r in payload.get("rows", [])]
         rows.extend(page_rows)
         total = payload.get("num_rows_total")
         offset += page_size
@@ -2256,9 +2352,7 @@ def cmd_collect(args: argparse.Namespace) -> int:
         # it, leave the previously committed artifact in place, and exit 0 so
         # the site keeps serving last-good data and the workflow stays green.
         try:
-            rows_by_category = {}
-            for category in lmarena_cfg.get("categories", []):
-                rows_by_category[category] = fetch_lmarena_category(cfg, category)
+            rows_by_category = fetch_lmarena_rows(cfg, lmarena_cfg.get("categories", []))
         except Exception as exc:
             print(f"models_collect_partial reason=lmarena_fetch_failed detail={type(exc).__name__}")
             rows_by_category = {}

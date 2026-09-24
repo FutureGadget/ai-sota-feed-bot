@@ -10,8 +10,9 @@ sources:
     config: text
     split: latest
     base_url: https://datasets-server.huggingface.co
-    # Categories to pull via the /filter endpoint. Each becomes a separate
-    # paginated fetch; results are merged into one row per (model, category).
+    # Direct static parquet URL from HF CDN (bypasses flaky datasets-server /filter indexing).
+    parquet_url: https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset/resolve/main/text/latest-00000-of-00001.parquet
+    # Categories to pull. Each becomes a separate slice; results are merged into one row per (model, category).
     categories:
       - overall
       - coding
