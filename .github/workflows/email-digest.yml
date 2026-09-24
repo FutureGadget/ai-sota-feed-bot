@@ -70,6 +70,22 @@ jobs:
           if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi
           .venv/bin/python publish/publish_email.py --kind "$KIND" $DRY
 
+      # Storyline follow alerts ride the daily run. A failure here must not
+      # block committing the digest cursor above, and the follow cursor only
+      # advances after a successful send.
+      - name: Send storyline follow alerts
+        if: ${{ github.event.inputs.kind != 'weekly' }}
+        continue-on-error: true
+        env:
+          EMAIL_API_KEY: ${{ secrets.EMAIL_API_KEY }}
+          EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+          EMAIL_SEGMENT_ID_FOLLOWERS: ${{ secrets.EMAIL_SEGMENT_ID_FOLLOWERS }}
+          DRY_RUN: ${{ github.event.inputs.dry_run }}
+        run: |
+          DRY=""
+          if [ "$DRY_RUN" = "true" ]; then DRY="--dry-run"; fi
+          .venv/bin/python publish/publish_follows.py $DRY
+
       - name: Commit send cursor
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |

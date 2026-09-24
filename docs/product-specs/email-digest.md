@@ -227,6 +227,14 @@ email, storyline windowing, and wiki windowing are unchanged.
   untagged links on any provider error (`email_reader_links=on|off`). Toggle:
   `config/email.yaml → reader_id_links`.
 
+## Storyline follow alerts (2026-09-24)
+
+Per-story emails for readers who followed a storyline by email — see
+`docs/product-specs/storylines.md` ("Follow by email") for the full contract.
+They run after the daily digest (`publish/publish_follows.py`, `config/email.yaml
+→ follows.enabled`), use batch transactional sends rather than broadcasts
+(per-follower content), and keep their own cursor `follows.sent_through`.
+
 ## Inline signup at finish points (2026-09-24)
 
 The finish-point CTAs — the feed's "You're all caught up" marker

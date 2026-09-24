@@ -34,6 +34,12 @@ utm_source: "email"   # appended to every link for CTR attribution (PostHog loop
 # `python3 publish/backfill_reader_ids.py`.
 reader_id_links: true
 
+# Storyline follow alerts (publish/publish_follows.py, resend only): readers who
+# follow a story by email (lib/follow.js via /api/subscribe) get one personal email when stories
+# they follow move. Runs after the daily digest in email-digest.yml.
+follows:
+  enabled: true
+
 daily:
   max_items: 12       # finishable cap
   max_threads: 3      # "Continuing threads" storyline deltas in the daily brief

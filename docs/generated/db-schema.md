@@ -428,7 +428,9 @@ collect`; config in `config/models.yaml`.
   (idempotency guards), and `storylines.{sent_through,seen_sids}` — the
   high-water marks the **daily** brief uses to mail only storyline deltas with no
   repeats. The **weekly** recap is window-based (`[start,end]` of the recap),
-  so it needs no storyline/wiki high-water mark.
+  so it needs no storyline/wiki high-water mark. `follows.sent_through` is
+  the storyline `last_updated` high-water mark for storyline follow alerts
+  (`publish/publish_follows.py`); the follower list itself lives in Resend.
 - `data/diagnostics/<date>_ranking.json` — per-day ranking diagnostics
 - `data/analysis/` — one-off analysis artifacts
 
