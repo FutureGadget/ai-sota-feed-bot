@@ -259,6 +259,15 @@ ask lands where the reader just got value, without a second page load.
   `subscribe_success / subscribe_form_view`.
 - The feed re-renders its finish marker on filter changes; a
   `MutationObserver` enhances CTAs as they appear.
+- **Visual treatment (instrument family).** The form borrows the `/subscribe`
+  panel rather than inventing a new component: square field and button joined
+  edge to edge, 46 px targets, accent spent once (the button), monospace
+  utility fine print ("Daily + weekly · unsubscribe anytime · Weekly only →"),
+  a visible focus ring, and dark ink on the button in dark mode (white on the
+  light dark-theme accent fails contrast). Static-page CTAs are square
+  accent-ruled washes with the form on its own line under the heading; the
+  feed's finish line adds a monospace kicker ("The next brief, by email")
+  because it has no heading of its own. Styles live in `web/site-chrome.css`.
 
 ## Subscribe page design (redesigned 2026-06-21)
 

@@ -637,26 +637,43 @@
   }
 }
 
-/* Inline email signup at finish points (web/subscribe-inline.js). Replaces the
-   /subscribe link in place; wraps onto its own line inside the CTA. */
+/* Inline email signup at finish points + storyline follow-by-email
+   (web/subscribe-inline.js). The same instrument treatment as the /subscribe
+   panel: square field and button, 46px targets, monospace utility labels,
+   accent used once (the action). */
+.subscribe-inline {
+  --inline-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --inline-err: #b42318;
+  flex: 1 1 100%;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0.7rem 0 0;
+  text-align: left;
+}
+
+html[data-theme="dark"] .subscribe-inline {
+  --inline-err: #ff9b8a;
+}
+
+/* Inside a finish-point panel the form always takes its own line under the
+   heading; only the field row and fine print are width-capped. */
+.subscribe-cta .subscribe-inline {
+  flex-basis: 100%;
+  max-width: none;
+  margin: 0.2rem 0 0;
+}
+
+.subscribe-cta .subscribe-inline-row,
+.subscribe-cta .subscribe-inline-note,
+.subscribe-cta .subscribe-inline-msg {
+  max-width: 34rem;
+}
+
 /* Page styles give these CTAs display:flex/inline-flex, which would override
    the `hidden` attribute subscribe-inline.js sets. */
 .subscribe-cta[hidden],
 a[data-subscribe-inline][hidden] {
   display: none !important;
-}
-
-.subscribe-inline {
-  flex: 1 1 100%;
-  width: 100%;
-  max-width: 30rem;
-  margin: 0.6rem auto 0;
-  text-align: left;
-}
-
-.subscribe-cta .subscribe-inline {
-  margin: 0;
-  max-width: 34rem;
 }
 
 .subscribe-inline-label,
@@ -669,35 +686,71 @@ a[data-subscribe-inline][hidden] {
   white-space: nowrap;
 }
 
+.subscribe-inline-kicker {
+  margin: 0 0 0.45rem;
+  font-family: var(--inline-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 .subscribe-inline-row {
   display: flex;
-  gap: 0.45rem;
+  gap: 0;
 }
 
 .subscribe-inline-row input[type="email"] {
   flex: 1 1 auto;
   min-width: 0;
+  min-height: 46px;
   margin: 0;
-  padding: 0.5rem 0.65rem;
+  padding: 0.6rem 0.8rem;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg);
+  border-right: 0;
+  border-radius: 0;
+  background: var(--card, var(--bg));
   color: var(--fg);
   font: inherit;
   font-size: 16px; /* keeps iOS Safari from zooming on focus */
+  box-shadow: none;
+}
+
+.subscribe-inline-row input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 26%, transparent);
 }
 
 .subscribe-inline-row button {
   flex: 0 0 auto;
+  min-height: 46px;
   margin: 0;
-  padding: 0.5rem 0.9rem;
+  padding: 0.6rem 1.15rem;
   border: 1px solid var(--accent);
-  border-radius: 8px;
+  border-radius: 0;
   background: var(--accent);
   color: #fff;
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.12s ease;
+}
+
+/* The dark accent is light; white text on it fails contrast. */
+html[data-theme="dark"] .subscribe-inline-row button {
+  color: var(--bg);
+}
+
+.subscribe-inline-row button:hover {
+  background: color-mix(in srgb, var(--accent) 86%, #000);
+}
+
+.subscribe-inline-row button:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
+  outline-offset: 2px;
 }
 
 .subscribe-inline-row button:disabled {
@@ -705,18 +758,57 @@ a[data-subscribe-inline][hidden] {
   cursor: default;
 }
 
-.subscribe-inline-note,
-.subscribe-inline-msg {
-  margin: 0.4rem 0 0;
+.subscribe-inline-note {
+  margin: 0.5rem 0 0;
+  font-family: var(--inline-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
   color: var(--muted);
-  font-size: 0.82rem;
+}
+
+.subscribe-inline-note a {
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.subscribe-inline-note a:hover {
+  text-decoration: underline;
+}
+
+.subscribe-inline-msg {
+  margin: 0.55rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 .subscribe-inline-msg[data-state="ok"] {
-  color: var(--fg);
+  color: var(--accent);
   font-weight: 600;
 }
 
 .subscribe-inline-msg[data-state="err"] {
-  color: #c2410c;
+  color: var(--inline-err);
+}
+
+@media (max-width: 480px) {
+  .subscribe-inline-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .subscribe-inline-row input[type="email"] {
+    border-right: 1px solid var(--border);
+  }
+
+  .subscribe-inline-row button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subscribe-inline-row button {
+    transition: none;
+  }
 }

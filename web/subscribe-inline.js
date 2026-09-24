@@ -126,7 +126,7 @@
     button.disabled = false;
   };
 
-  const buildForm = (placement) => {
+  const buildForm = (placement, kicker = "") => {
     formSeq += 1;
     const id = `subscribeInlineEmail${formSeq}`;
     const form = document.createElement("form");
@@ -134,14 +134,15 @@
     form.noValidate = true;
     form.dataset.subscribePlacement = placement;
     form.innerHTML = `
+      ${kicker ? `<p class="subscribe-inline-kicker">${kicker}</p>` : ""}
       <label class="subscribe-inline-label" for="${id}">Email address</label>
       <div class="subscribe-inline-row">
         <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
         <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">Subscribe</button>
       </div>
-      <p class="subscribe-inline-note">Daily brief + weekly recap. Unsubscribe anytime ·
-        <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="${placement}_options">weekly only</a></p>
+      <p class="subscribe-inline-note">Daily + weekly · unsubscribe anytime ·
+        <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="${placement}_options">Weekly only →</a></p>
       <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -165,7 +166,9 @@
       if (!link.isConnected) return;
       const raw = String(link.dataset.subscribePlacement || "");
       const placement = /^[a-z0-9_-]{1,40}$/.test(raw) ? raw : "inline";
-      const form = buildForm(placement);
+      // Static-page CTAs carry their own heading; the feed's finish line
+      // needs a label so the field isn't anonymous.
+      const form = buildForm(placement, link.closest(".subscribe-cta") ? "" : "The next brief, by email");
       link.insertAdjacentElement("afterend", form);
       link.hidden = true;
       observeView(form, placement);
@@ -244,14 +247,14 @@
     form.className = "subscribe-inline follow-email";
     form.noValidate = true;
     form.innerHTML = `
-      <label class="subscribe-inline-label" for="${id}">Email address</label>
-      <p class="subscribe-inline-note follow-email-lead">Get an email when this story moves.</p>
+      <p class="subscribe-inline-kicker">Email alert · this story only</p>
+      <label class="subscribe-inline-label" for="${id}">Email address for alerts about this story</label>
       <div class="subscribe-inline-row">
         <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
         <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit">Email me</button>
       </div>
-      <p class="subscribe-inline-note">Only this story, only when it gets new coverage. Unfollow from any email.</p>
+      <p class="subscribe-inline-note">Sent only when it gets new coverage · unfollow from any alert</p>
       <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
     form.addEventListener("submit", (event) => {
       event.preventDefault();

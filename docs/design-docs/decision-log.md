@@ -2040,3 +2040,26 @@ Rollback: set `follows.enabled: false` in `config/email.yaml` (no sends) and
 drop the `data-follow-email` slot from `storyline_hero` (no new follows). The
 Resend property and segment can stay.
 
+## 2026-09-24 - Align the inline signup and follow forms with the instrument family
+
+Decision: restyle the finish-point signup and storyline follow forms after the
+`/subscribe` panel: square joined field/button, 46 px targets, monospace
+utility fine print and kickers, accent focus ring, dark ink on the accent
+button in dark mode (also fixed on `/subscribe`). The base `.subscribe-cta`
+becomes a square accent-ruled wash (3 px rule everywhere), with the form on
+its own line. The storyline page-end CTA copy changes from "Follow the next
+turn by email" to "Catch the next turn in the daily brief".
+
+Rationale: the first cut used rounded 8 px controls, a 10 px rounded card on
+story pages, sub-44 px targets and sans fine print — all against the
+documented instrument system — and white-on-`#7ca0ff` failed contrast in dark
+mode. The old storyline CTA promised a per-thread email for what is a digest
+signup, which the transparent/anti-hype positioning does not allow once real
+per-story alerts exist.
+
+Impact: CSS/markup and copy only; form behavior, events and API contracts are
+unchanged. Generated pages pick it up on the next render.
+
+Rollback: revert the `web/site-chrome.css` inline block, the `.subscribe-cta`
+rules in `render_static_pages.py`, and the copy string.
+
