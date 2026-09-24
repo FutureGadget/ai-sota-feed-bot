@@ -1983,3 +1983,24 @@ Rollback: set `reader_id_links: false` in `config/email.yaml` (links go back
 to `utm_source` only); the client ignores URLs without `rid`. The contact
 property can stay in Resend harmlessly.
 
+## 2026-09-24 - Inline email signup at finish points
+
+Decision: turn the finish-point subscribe CTAs (feed "caught up" marker; story,
+daily, weekly and storyline page ends) into an in-place email form via a shared
+`web/subscribe-inline.js`, instead of a link to `/subscribe`.
+
+Rationale: the retention loop depends on email, and every CTA cost a second
+page load before the reader saw an email field. The finish line is where the
+reader has just received value; story permalinks are where most one-visit
+readers land. Removing a step at that moment is the cheapest conversion lift.
+
+Impact: CTAs keep `href="/subscribe"` as the no-JS / disabled fallback and gain
+`data-subscribe-inline`. New events `subscribe_form_view` (impression) and
+`subscribe_success` with `surface: "inline"` make per-placement conversion
+measurable. Browsers already marked subscribed no longer see the ask. The
+static page template and site-chrome asset version change, so generated pages
+pick this up on the next render (Vercel build or pipeline run).
+
+Rollback: drop the `data-subscribe-inline` attribute (or the script tag); the
+CTAs revert to plain links.
+
