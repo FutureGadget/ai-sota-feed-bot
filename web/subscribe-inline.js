@@ -57,11 +57,11 @@
   // The CTA's container: the static-page aside, or the link itself in the feed.
   const ctaContainer = (link) => link.closest(".subscribe-cta") || link;
 
-  const observeView = (form, placement) => {
+  const observeView = (form, placement, event = "subscribe_form_view", props = { placement, surface: "inline" }) => {
     const record = () => {
-      if (viewed.has(placement)) return;
-      viewed.add(placement);
-      capture("subscribe_form_view", { placement, surface: "inline" });
+      if (viewed.has(`${event}:${placement}`)) return;
+      viewed.add(`${event}:${placement}`);
+      capture(event, props);
     };
     if (!("IntersectionObserver" in window)) {
       record();
@@ -172,8 +172,124 @@
     });
   };
 
+  // Storyline follow-by-email (lib/follow.js via /api/subscribe). Once a reader follows a story
+  // in this browser, offer to email them when it moves — the Follow click is
+  // the moment of intent. Stories already followed by email show a confirmation.
+  const FOLLOWS_KEY = "ai_feed_storyline_follows_v1";
+  const EMAIL_FOLLOWS_KEY = "ai_feed_storyline_email_follows_v1";
+  const SLUG_RE = /^[a-z0-9][a-z0-9-]{0,99}$/;
+
+  const readJson = (key) => {
+    try {
+      return JSON.parse(localStorage.getItem(key) || "{}") || {};
+    } catch {
+      return {};
+    }
+  };
+
+  const markEmailFollow = (slug) => {
+    try {
+      const follows = readJson(EMAIL_FOLLOWS_KEY);
+      follows[slug] = new Date().toISOString();
+      localStorage.setItem(EMAIL_FOLLOWS_KEY, JSON.stringify(follows));
+    } catch {}
+  };
+
+  const submitFollow = async (form, slug) => {
+    const input = form.elements.email;
+    const button = form.querySelector("button[type=submit]");
+    const email = String(input.value || "").trim();
+    const honeypot = String(form.elements.website?.value || "").trim();
+    if (!EMAIL_RE.test(email)) {
+      setMessage(form, "Please enter a valid email address.", "err");
+      input.focus();
+      return;
+    }
+    button.disabled = true;
+    setMessage(form, "Saving…", "");
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "follow", email, slug, hp: honeypot, reader_id: readerId() }),
+      });
+      if (response.ok) {
+        if (!honeypot) {
+          markEmailFollow(slug);
+          capture("follow_email_success", { slug });
+        }
+        input.disabled = true;
+        button.remove();
+        form.querySelectorAll(".subscribe-inline-note").forEach((note) => note.remove());
+        setMessage(form, "✓ We’ll email you when this story moves.", "ok");
+        return;
+      }
+      setMessage(
+        form,
+        response.status === 400
+          ? "Please enter a valid email address."
+          : "Email follows are temporarily unavailable. Please try again shortly.",
+        "err",
+      );
+    } catch {
+      setMessage(form, "Network error. Check your connection and try again.", "err");
+    }
+    button.disabled = false;
+  };
+
+  const buildFollowForm = (slug) => {
+    formSeq += 1;
+    const id = `followEmail${formSeq}`;
+    const form = document.createElement("form");
+    form.className = "subscribe-inline follow-email";
+    form.noValidate = true;
+    form.innerHTML = `
+      <label class="subscribe-inline-label" for="${id}">Email address</label>
+      <p class="subscribe-inline-note follow-email-lead">Get an email when this story moves.</p>
+      <div class="subscribe-inline-row">
+        <input id="${id}" type="email" name="email" required placeholder="you@example.com" autocomplete="email" inputmode="email" />
+        <input type="text" name="website" class="subscribe-inline-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit">Email me</button>
+      </div>
+      <p class="subscribe-inline-note">Only this story, only when it gets new coverage. Unfollow from any email.</p>
+      <p class="subscribe-inline-msg" role="status" aria-live="polite" hidden></p>`;
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      submitFollow(form, slug);
+    });
+    return form;
+  };
+
+  const enhanceFollowEmail = async () => {
+    const slot = document.querySelector("[data-follow-email]");
+    const slug = String(slot?.dataset.followEmail || "");
+    if (!slot || !SLUG_RE.test(slug)) return;
+    if (!inlineEnabled(await loadConfig())) return;
+    let form = null;
+    const paint = () => {
+      const followed = !!readJson(FOLLOWS_KEY)[slug];
+      const emailed = !!readJson(EMAIL_FOLLOWS_KEY)[slug];
+      if (emailed && !form) {
+        slot.textContent = "✓ You’ll get an email when this story moves.";
+        slot.classList.add("follow-email-done");
+        slot.hidden = !followed;
+        return;
+      }
+      if (followed && !form) {
+        form = buildFollowForm(slug);
+        slot.replaceChildren(form);
+        observeView(form, slug, "follow_email_view", { slug });
+      }
+      slot.hidden = !followed;
+    };
+    paint();
+    // The storyline page's own Follow script toggles the browser follow first.
+    document.getElementById("followBtn")?.addEventListener("click", () => setTimeout(paint, 0));
+  };
+
   const start = () => {
     enhance();
+    enhanceFollowEmail();
     // The feed renders its finish marker client-side and re-renders on every
     // filter change, so enhance CTAs as they appear.
     if ("MutationObserver" in window && document.body) {

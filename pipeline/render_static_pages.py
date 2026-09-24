@@ -482,6 +482,9 @@ STORYLINE_ARC_CSS = """\
     .sl-hero #followBtn:hover { background:color-mix(in srgb,var(--accent) 8%,var(--card)); }
     .sl-hero #followBtn[aria-pressed="true"] { background:var(--sl-wash); }
     .sl-follow-hint { grid-column:1 / -1; margin:0.15rem 0 0; font-size:0.78rem; color:var(--muted); }
+    .sl-follow-email { grid-column:1 / -1; margin:0.35rem 0 0; }
+    .sl-follow-email .subscribe-inline { margin:0; }
+    .sl-follow-email.follow-email-done { font-size:0.82rem; color:var(--muted); }
     .sl-command { margin:1.4rem 0 0; }
     .sl-status { position:relative; padding:0.78rem 0.9rem 0.78rem 1.1rem; margin:0;
       border:0; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
@@ -642,6 +645,7 @@ STORYLINE_ARC_CSS = """\
       .sl-hero .recap-title { font-size:3rem; width:100%; }
       .sl-hero #followBtn { width:100%; justify-content:center; }
       .sl-follow-hint { grid-column:1; }
+      .sl-follow-email { grid-column:1; }
       .sl-delta-grid { grid-template-columns:1fr; }
       .sl-latest { padding:1.35rem 0 1.45rem; }
       .sl-latest p:last-child { font-size:1.04rem; }
@@ -3127,6 +3131,9 @@ def storyline_hero(sl: dict) -> str:
         'aria-pressed="false" aria-describedby="followHint">+ Follow this story</button>'
         '<p id="followHint" class="sl-follow-hint" aria-live="polite">'
         'Follow in this browser to see new updates on your Live feed.</p>'
+        # Follow-by-email slot, filled by web/subscribe-inline.js once the
+        # reader follows (and only when in-page email signup is enabled).
+        f'<div class="sl-follow-email" data-follow-email="{escape(slug)}" hidden></div>'
         "</div>"
     )
 

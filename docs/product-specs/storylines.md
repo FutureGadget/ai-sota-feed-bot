@@ -48,10 +48,41 @@ history. Avoid repeating the same launch/current-state facts in status,
 
 ## Follow behavior
 
-Following is explicitly browser-local; it is not email or push notification.
-The control must explain that updated followed storylines appear on the Live
-feed. `/storylines` provides an All/Following filter. The storage contract
-remains `ai_feed_storyline_follows_v1`.
+The Follow button itself is browser-local: the control must explain that
+updated followed storylines appear on the Live feed. `/storylines` provides an
+All/Following filter. The storage contract remains
+`ai_feed_storyline_follows_v1`.
+
+### Follow by email (2026-09-24)
+
+Once a reader follows on a static `/storyline/<slug>` page, an inline form
+offers "Get an email when this story moves" (`web/subscribe-inline.js`, only
+when in-page email signup is enabled). It posts `{ email, slug, hp,
+reader_id }` to `/api/subscribe` with `action: "follow"` (`lib/follow.js`), which:
+
+- stores the slug in the Resend contact property `followed_storylines`
+  (comma-separated, newest 25 kept) and adds the contact to the
+  **"Storyline followers"** segment (created on first use, or
+  `EMAIL_SEGMENT_ID_FOLLOWERS`);
+- creates a new contact in that segment only — following a story never
+  subscribes anyone to the daily/weekly digest.
+
+`publish/publish_follows.py` runs after the daily digest in
+`email-digest.yml`. It picks storylines whose `last_updated` passed
+`data/email/state.json → follows.sent_through`, and sends each follower one
+batch transactional email covering only the followed stories that moved (the
+editor's `whats_new` when current, else the latest title). Every email carries
+a signed per-story unfollow link, a "stop all story emails" link and a
+one-click `List-Unsubscribe` header, all served by `GET|POST /api/subscribe?c=&s=&t=`
+(HMAC keyed by `EMAIL_API_KEY`). Contacts that unsubscribed globally are
+skipped. The first run only initializes the cursor. Browser state
+`ai_feed_storyline_email_follows_v1` remembers email follows so the page shows
+a confirmation instead of the form. Events: `follow_email_view`,
+`follow_email_success`.
+
+Limits: followers are read one contact at a time (about 1.2 s each at
+Resend's default rate limit), which suits hundreds of followers, not tens of
+thousands; the dynamic `/storylines` list keeps the browser-only Follow.
 
 ## Accessibility and responsive behavior
 

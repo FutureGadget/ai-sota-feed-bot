@@ -14,19 +14,12 @@
 // validation guard abuse. With no EMAIL_API_KEY the endpoint returns 503 and
 // the client hides the form.
 
+import { follow, page, unfollow } from '../lib/follow.js';
+import { readerIdFor } from '../lib/reader-id.js';
+
+export { readerIdFor };
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-// Pseudonymous reader id stored on the contact as the `reader_id` property.
-// Broadcasts template it into every link as `rid=` so email clicks keep the
-// subscriber's identity (publish/publish_email.py::tag_reader_links). The
-// signup browser's own anonymous id is reused when valid, so its history and
-// its future email clicks count as one reader; otherwise a fresh one is minted.
-const READER_ID_RE = /^anon_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
-export function readerIdFor(candidate) {
-  const value = String(candidate || '').trim().toLowerCase();
-  return READER_ID_RE.test(value) ? value : `anon_${crypto.randomUUID()}`;
-}
-
 function createContact(apiKey, payload) {
   return fetch('https://api.resend.com/contacts', {
     method: 'POST',
@@ -38,9 +31,23 @@ function createContact(apiKey, payload) {
   });
 }
 
+// GET /api/subscribe?c=&s=&t= is a signed storyline unfollow link
+// (lib/follow.js); plain GETs have nothing to serve.
+export async function GET(request) {
+  const apiKey = String(process.env.EMAIL_API_KEY || '').trim();
+  if (!apiKey) return page('Unavailable', 'Story follow emails are not configured.', 503);
+  return unfollow(new URL(request.url), apiKey);
+}
+
 export async function POST(request) {
 
   const apiKey = String(process.env.EMAIL_API_KEY || '').trim();
+  const url = new URL(request.url);
+  // One-click unsubscribe (RFC 8058) posts to the List-Unsubscribe URL.
+  if (url.searchParams.has('t')) {
+    if (!apiKey) return page('Unavailable', 'Story follow emails are not configured.', 503);
+    return unfollow(url, apiKey);
+  }
   if (!apiKey) {
     return Response.json({ error: 'not_configured' }, { status: 503 });
   }
@@ -52,6 +59,7 @@ export async function POST(request) {
     body = {};
   }
   body = body || {};
+  if (body.action === 'follow') return follow(body, apiKey);
 
   // Honeypot: a real user leaves this empty; bots fill every field. Report
   // success without touching the provider so the bot learns nothing.

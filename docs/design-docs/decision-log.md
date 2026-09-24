@@ -2004,3 +2004,39 @@ pick this up on the next render (Vercel build or pipeline run).
 Rollback: drop the `data-subscribe-inline` attribute (or the script tag); the
 CTAs revert to plain links.
 
+## 2026-09-24 - Storyline Follow can email the reader when the story moves
+
+Decision: after a reader follows a storyline, offer "email me when this story
+moves". `lib/follow.js` (served through `/api/subscribe`) keeps follows in the Resend contact property
+`followed_storylines` plus one "Storyline followers" segment;
+`publish/publish_follows.py` runs after the daily digest and sends each
+follower one batch transactional email covering only the followed stories that
+moved since `follows.sent_through`. Unfollow links are HMAC-signed with
+`EMAIL_API_KEY`.
+
+Rationale: storylines are the product's memory moat, but Follow was
+browser-only, so it paid off only for readers who came back unprompted — the
+exact behavior weekly returning readers says is missing. A follow is the
+strongest intent signal the site collects; turning it into a return trigger
+reuses the storyline delta signal and the Resend account we already run.
+
+Alternatives rejected: one Resend segment or topic per storyline (one
+broadcast each; plan limits on segment/topic counts are undocumented and
+storylines churn daily), and storing follows in the repo (would put
+subscriber PII in git).
+
+Impact: no new serverless function — the project is at Vercel Hobby's
+12-function cap, so `/api/subscribe` dispatches follows (`action: "follow"`)
+and signed unfollow links (`?c=&s=&t=`) to `lib/follow.js`. New workflow step
+(`continue-on-error`, so it can never block the digest cursor commit), new
+cursor key `follows.sent_through`, config `follows.enabled`. A follow creates
+a contact outside the digest segment; digest subscribers are unaffected.
+Following has no double opt-in, matching the existing signup. Follower lookup
+costs one API call per follower per day; revisit if followers reach the
+thousands. Rotating `EMAIL_API_KEY` invalidates old unfollow links (the
+one-click header and newer emails still work).
+
+Rollback: set `follows.enabled: false` in `config/email.yaml` (no sends) and
+drop the `data-follow-email` slot from `storyline_hero` (no new follows). The
+Resend property and segment can stay.
+

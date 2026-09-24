@@ -39,7 +39,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feed-full-publish.yml` | cron-job.org external ticker (every 2h) | `run_full.sh` — the production pipeline |
 | `feed-ops-summary.yml` | daily 12:30 UTC | `skills/ops-daily-summary/` health snapshot |
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
-| `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4 |
+| `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4. Daily runs then send storyline follow alerts (`publish/publish_follows.py`, non-blocking step) |
 | `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`) into `data/models/latest.json` for the Model Release Radar (`/models`) |
 | `ci.yml` | pushes to `main` and pull requests | Python and JavaScript regression suites on a clean hosted runner |
 
@@ -154,11 +154,17 @@ in `ops_daily_summary.py`'s log line.
 - `publish/` — `publish_email.py` (daily email brief via Buttondown/Resend broadcast;
   daily renders the curated `/daily` recap `data/daily/latest.json`, weekly the
   `/weekly` recap; secrets-gated no-op; reads/advances the
-  `data/email/state.json` cursor — daily guard keys off the recap's `date`)
+  `data/email/state.json` cursor — daily guard keys off the recap's `date`),
+  `publish_follows.py` (storyline follow alerts: one personal email per
+  follower when followed storylines move; runs after the daily digest;
+  cursor `follows.sent_through`), `backfill_reader_ids.py` (one-off
+  `reader_id` backfill for existing Resend contacts)
 - `api/` — Vercel serverless functions: `feed.js`, `rss.js`, `share.js` (`/s`),
   `daily.js`, `weekly.js`, `storylines.js`, `topics.js`, `foundations.js`,
   `client-config.js`,
-  `subscribe.js` (POST → Resend contacts for the email digest; reads no `data/`).
+  `subscribe.js` (POST → Resend contacts for the email digest; reads no `data/`;
+  also serves storyline follow-by-email and signed unfollow links via
+  `lib/follow.js` — the project sits at Vercel Hobby's 12-function cap).
   The rest read committed `data/` files bundled via `vercel.json` `includeFiles`.
 - `web/` — static site. Hand-edited shells: `index.html`, `daily.html`,
   `weekly.html`, `storyline.html` (now only the `/storylines` *index*; individual
@@ -373,7 +379,8 @@ APIs: `/api/feed`, `/api/rss`, `/api/share`, `/api/daily`, `/api/weekly`,
 `/api/models`, `/api/client-config`, `/api/updates`
 (published editorial catalog plus compatible section freshness signals),
 `/api/subscribe` (POST email → Resend global contacts; needs only EMAIL_API_KEY,
-503 when unconfigured).
+503 when unconfigured; `action: "follow"` follows a storyline by email, and
+`?c=&s=&t=` GET/POST is a signed storyline unfollow link).
 
 ## Gotchas (cache these, they cost tokens to rediscover)
 - **LLM is disabled** (`config/llm.yaml → enabled: false`). The pipeline runs

@@ -108,6 +108,14 @@ class SubscriptionSurfaceTest(unittest.TestCase):
         self.assertIn('"subscribe_form_view"', script)
         self.assertIn('"subscribe_success"', script)
 
+    def test_storyline_hero_carries_the_follow_email_slot(self) -> None:
+        hero = render.storyline_hero({"slug": "gemini-3-8", "label": "Gemini 3.8", "last_updated": "x"})
+        self.assertIn('data-follow-email="gemini-3-8" hidden', hero)
+        script = (ROOT / "web" / "subscribe-inline.js").read_text(encoding="utf-8")
+        self.assertIn('action: "follow"', script)
+        self.assertIn("ai_feed_storyline_follows_v1", script)
+        self.assertIn('"follow_email_success"', script)
+
     def test_sitemap_includes_subscribe(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             with patch.object(render, "WEB_DIR", Path(tmp)):
