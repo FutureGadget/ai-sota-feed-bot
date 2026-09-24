@@ -35,7 +35,7 @@ jobs:
       - name: Create venv and install dependencies
         run: |
           python -m venv .venv
-          .venv/bin/pip install -r requirements.txt
+          .venv/bin/pip install -r requirements.txt pyarrow==18.1.0
 
       - name: Configure git user
         run: |
@@ -53,6 +53,9 @@ jobs:
 
       - name: Print model radar summary
         run: .venv/bin/python pipeline/collect_models.py summary --limit 25
+
+      - name: Generate static model radar payloads
+        run: .venv/bin/python -c "from pipeline.render_static_pages import load_models_artifact, write_models_static_json; write_models_static_json(load_models_artifact())"
 
       - name: Commit refreshed model radar data
         run: |
