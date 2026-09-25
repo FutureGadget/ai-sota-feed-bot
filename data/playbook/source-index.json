@@ -284,6 +284,25 @@
     },
     "edition_date": "2026-07-24"
   },
+  "177722e66de44f8a": {
+    "id": "pb-grow-harness-not-context",
+    "kind": "source-backed",
+    "title": "Turn repeated task-control decisions into reusable code, not repeated context",
+    "area": "Orchestration",
+    "problem": "Agents handling streams of related tasks re-derive the same routing and control decisions inside every task's context, burning tokens and calls on decisions the agent already made before.",
+    "apply": "Convert recurring control-flow decisions into a failure-guided, growing harness: log execution traces per function, repair the harness code (not the prompt) when a trace fails, and gate updates behind a success-first check so a repair can't roll back a prior fix.",
+    "result": "In the paper's WebArena-Verified/BrowseComp-Plus tests, this cut LLM calls 76–92% and inference cost 74–99% versus a standard tool-calling agent, while holding 44.7–45.3% success across model sizes where tool-calling collapsed to 6.7% at the 4B scale.",
+    "effort": "high",
+    "source": "arxiv_cs_ai",
+    "source_url": "http://arxiv.org/abs/2609.26760v1",
+    "source_sid": "177722e66de44f8a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "The paper reports call-count, cost, and success-rate deltas from its own WebArena-Verified/BrowseComp-Plus evaluation."
+    },
+    "edition_date": "2026-09-25"
+  },
   "1923a6eccdfa6038": {
     "id": "pb-align-evals-calibrate",
     "kind": "source-backed",
@@ -397,6 +416,25 @@
       "note": "The release note only describes the hook's existence; the redaction/truncation use case is an editorial inference, not a measured or vendor-claimed result."
     },
     "edition_date": "2026-09-01"
+  },
+  "200b2d2e1357f4e9": {
+    "id": "pb-audit-debug-flags-permission-bypass",
+    "kind": "source-backed",
+    "title": "Strip debug config keys that can flip permissions before you ship an agent client",
+    "area": "Safety",
+    "problem": "A single undocumented debug preference key in Meta's Muse desktop client let an unprivileged local process redirect the assistant's voice-dictation traffic and inherit its OS permissions, with no admin prompt required.",
+    "apply": "Audit every debug/diagnostic config key your agent client ships with in production for whether an unprivileged local process can write it, and strip or lock behind a build-time flag anything that can redirect network endpoints or expand permissions.",
+    "result": "As reported, Meta's fix — stripping the debug preference from production builds — closes the exact path an attacker used to intercept credentials and audio and inject hidden instructions through the trusted agent.",
+    "effort": "low",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/meta-muse-zeroday/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "200b2d2e1357f4e9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Based on security researcher Patrick Wardle's disclosure, as reported; Meta treated it as a configuration defect rather than filing a CVE."
+    },
+    "edition_date": "2026-09-25"
   },
   "20a176e41161c528": {
     "id": "pb-salience-normalization-rag-defense",
@@ -568,6 +606,25 @@
       "note": "The ablation study measured the correctness delta directly and bounded it via equivalence testing."
     },
     "edition_date": "2026-08-04"
+  },
+  "27dad38353ccb73a": {
+    "id": "pb-automate-agent-red-teaming",
+    "kind": "source-backed",
+    "title": "Wire automated red-teaming into agent CI, not just spot-checks",
+    "area": "Evals",
+    "problem": "Agent regressions and adversarial failure modes usually surface in production because testing stays manual and ad hoc between releases.",
+    "apply": "Add an automated red-teaming and regression-test pass to your agent's CI pipeline so adversarial and edge-case prompts run on every change, following LangSmith Engine's red-teaming plus automated-testing pattern.",
+    "result": "LangChain claims failure modes get caught before a release ships instead of after users trigger them.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/langsmith-engine-v2-redteam",
+    "source_sid": "27dad38353ccb73a",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain's own product announcement; no independent measurement of detection rate is available."
+    },
+    "edition_date": "2026-09-25"
   },
   "28a856bbd21f270c": {
     "id": "pb-agent-db-criteria",
@@ -891,6 +948,25 @@
       "note": "one2n's own evaluation framework and reproducible test stack for AI SRE agents."
     },
     "edition_date": "2026-08-14"
+  },
+  "3d1eacfa6636ae86": {
+    "id": "pb-claude-code-task-cost-drivers",
+    "kind": "source-backed",
+    "title": "Audit turns, cache lifetime, and effort level — not just the token price — to control task cost",
+    "area": "Cost & latency",
+    "problem": "The same per-token price produces very different per-task bills, because turn count, cache reads, output-token volume, and effort level each multiply the effective cost independently of the sticker price.",
+    "apply": "Compact long sessions at natural breaks instead of letting them idle past the cache lifetime, keep effort at Medium unless a task is complex enough to justify High's added thinking tokens, and route lookup subagents to Sonnet/Haiku instead of the main model.",
+    "result": "Anthropic's own breakdown: cache reads run $0.20/Mtok (60% cheaper than Opus 5), a typical 60K-output-token task costs $1.20, High effort adds ~$0.40 in thinking tokens per task, and a $0.25 compaction saves $0.025 on every turn after it.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/what-a-task-costs-on-opus-5-5",
+    "source_sid": "3d1eacfa6636ae86",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Figures are Anthropic's own cost breakdown for Claude Code on Opus 5.5."
+    },
+    "edition_date": "2026-09-25"
   },
   "3d246e12f4bcb95e": {
     "id": "pb-local-agent-firewall",
@@ -2127,6 +2203,25 @@
     },
     "edition_date": "2026-06-26"
   },
+  "9d7aeb4189c56be6": {
+    "id": "pb-benchmark-memory-cost-latency-not-just-accuracy",
+    "kind": "source-backed",
+    "title": "Score agent memory on cost and latency, not just recall accuracy",
+    "area": "Memory",
+    "problem": "Most agent memory benchmarks are conversational QA where the question itself hints at which fact to retrieve, and they report only accuracy — hiding the cost/latency tradeoffs a memory system makes to hit that score.",
+    "apply": "Evaluate your agent's memory system the way DolphinBench does: task-completion tests built from real usage history rather than QA-shaped prompts, with cost and latency reported alongside accuracy, and tasks that fail without the relevant history to confirm the memory access actually mattered.",
+    "result": "A memory upgrade that looks better on accuracy alone stops passing silently if it doubles cost or latency to get there.",
+    "effort": "medium",
+    "source": "arxiv_cs_cl",
+    "source_url": "http://arxiv.org/abs/2609.24971v1",
+    "source_sid": "9d7aeb4189c56be6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "DolphinBench's abstract describes the benchmark design; it does not publish comparative accuracy/cost numbers to cite."
+    },
+    "edition_date": "2026-09-25"
+  },
   "9dba62cbb9d1736b": {
     "id": "pb-adaptive-retriever-stop-early",
     "kind": "source-backed",
@@ -2450,6 +2545,25 @@
     },
     "edition_date": "2026-07-31"
   },
+  "b78b1b87b59ecae9": {
+    "id": "pb-cap-outbound-workspace-uploads",
+    "kind": "source-backed",
+    "title": "Cap and log any code path that lets your agent harness bundle-upload local files",
+    "area": "Safety",
+    "problem": "A coding agent's harness reportedly packaged 42,411 files from one developer's machine and attempted 564 uploads to the vendor's cloud, without the kind of explicit consent a bulk export should require.",
+    "apply": "Put an explicit allowlist, a size/rate cap, and an audit log on any code path in your agent harness that can bundle and transmit local files — treat 'upload the workspace' as a privileged action, not a background default.",
+    "result": "As reported, a runaway or unauthorized bulk upload gets blocked and logged locally before it leaves the machine, instead of surfacing only after developers notice their own files leaving without a support ticket.",
+    "effort": "low",
+    "source": "search_cn_open_weight_labs",
+    "source_url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPX1NNNWdaR3N6ZUtXSHZCaV9pbTVQMUtpM0Q1MUd3NElPN01ManNGYjBsQUhZU2twTmtOUGZFZVNIeG9uaEQxV09ja1BaU3NteEQ4MnJPdUw0VVFXNmNuV2txazRjWjZrY0F4QkhJdEdqTGtldGFWQXc2eTk4YUNFTQ?oc=5",
+    "source_sid": "b78b1b87b59ecae9",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "File and attempt counts are as reported; treat them as an as-reported claim, not an independently verified audit."
+    },
+    "edition_date": "2026-09-25"
+  },
   "b81a99111a5a8671": {
     "id": "pb-reclaim-idle-agent-memory",
     "kind": "source-backed",
@@ -2506,6 +2620,25 @@
       "note": "Anthropic describes the mechanism and PR-integrated deployment mode but reports no quantified before/after metric."
     },
     "edition_date": "2026-07-28"
+  },
+  "bcc1e2348fdb98fb": {
+    "id": "pb-codebase-knowledge-graph-context",
+    "kind": "source-backed",
+    "title": "Give coding agents a codebase knowledge graph instead of flat file search",
+    "area": "Retrieval",
+    "problem": "Coding assistants that treat a repo as a pool of text struggle with multi-file reasoning and deep dependencies, burning context window on token-heavy searches that still miss structural relationships.",
+    "apply": "Parse the repo into a queryable knowledge graph (Graphify uses tree-sitter AST extraction plus community detection) covering files, symbols, and cross-file call/import edges, expose it to the agent over MCP, and have it traverse the graph for context instead of grepping.",
+    "result": "Graphify's own benchmarks show a LOCOMO recall@10 of 0.497 (45.3% QA accuracy, 76% on its 50-question subset) and lifted ERPNext key-fact coverage from 70.8% to 82.0% versus flat retrieval — though reviewers note plain grep can still feel faster on mid-sized repos.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/graphify-codebase-exploration/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "bcc1e2348fdb98fb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Numbers are Graphify's own reported benchmark results."
+    },
+    "edition_date": "2026-09-25"
   },
   "bd313e7fdc9f5123": {
     "id": "pb-codify-security-in-claude-md",
@@ -3285,6 +3418,25 @@
       "note": "Anthropic documents the failure patterns (coordination breakdown, collusion, sabotage) and names mechanism design as an open problem; the approval-gate/logging mitigation is the editor's inference from those findings, not Anthropic's stated fix."
     },
     "edition_date": "2026-08-14"
+  },
+  "f9027d80e820682e": {
+    "id": "pb-prompt-caching-breakpoints-gpt6",
+    "kind": "source-backed",
+    "title": "Set explicit cache breakpoints instead of hoping the prefix matches",
+    "area": "Cost & latency",
+    "problem": "Prompt caching often underperforms silently: without control over where the cache boundary falls, a small prompt change anywhere upstream can knock a request out of cache.",
+    "apply": "Use GPT-6's caching diagnostics to see where requests are missing cache, and place explicit breakpoints so static content (system prompt, tool schemas, few-shot examples) stays ahead of the boundary and variable content stays after it.",
+    "result": "OpenAI reports the changes raise cache hit rates and lower both latency and cost, though the exact size of the improvement depends on your own prompt shape.",
+    "effort": "low",
+    "source": "openai_blog",
+    "source_url": "https://openai.com/index/better-prompt-caching-for-gpt-6",
+    "source_sid": "f9027d80e820682e",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "OpenAI's own announcement claims the improvement; no third-party or quantified figure is available to confirm the size of the effect."
+    },
+    "edition_date": "2026-09-25"
   },
   "f94c501f001ba6a5": {
     "id": "pb-multiturn-regression-evals",
