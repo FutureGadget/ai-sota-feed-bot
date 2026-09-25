@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1, 39210f987919e80e, f2694bfa96c49e91, c8a981c019159c5b, 415f8f1af13b2f4b, 40debcac691f7d0f, 8ae9c1754d54b75b, 0fa615ad9312d280, 3825970cf0b7ce81, 551015797b6713a9, 9d2afc28dbc1325d, e73433c3ca4b5235]
-updated: 2026-09-21
-covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1, 39210f987919e80e, f2694bfa96c49e91, c8a981c019159c5b, 415f8f1af13b2f4b, 40debcac691f7d0f, 8ae9c1754d54b75b, 0fa615ad9312d280, 3825970cf0b7ce81, 551015797b6713a9, 9d2afc28dbc1325d, e73433c3ca4b5235]
+evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1, 39210f987919e80e, f2694bfa96c49e91, c8a981c019159c5b, 415f8f1af13b2f4b, 40debcac691f7d0f, 8ae9c1754d54b75b, 0fa615ad9312d280, 3825970cf0b7ce81, 551015797b6713a9, 9d2afc28dbc1325d, e73433c3ca4b5235, 200b2d2e1357f4e9]
+updated: 2026-09-25
+covers_evidence: [2f58221195cbccdf, 6b3ed4b86d0301bf, 2f585fd257ad02a4, dd1dcc3f564a3ddd, 9ef99508d91d13ed, 810e8370a6841be6, 0ef52ef7cd8a9e75, f26c96cfcb192832, 9c19b2212d6264ac, 655ca293c796f3fd, 61a5c70b3cae54c5, fdd9745edc3aad4e, aaef033dfabe2831, f9a1870648a6375a, 5201cdda51e234b5, f8df3e0d3cc81402, 8eafdf1e65e79a0b, 192b5c5f06f75b71, d925d8c91f460a44, 25a79f33334f2b0e, 68562210b323388b, dc6dd2ecfc18702f, f2fd2516f26ac231, 06ec100322939d03, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, e66cc71d0943fe40, 38e1d864014e2bd1, 5d3aff0aba5d0b8a, 081601c279be28d3, 29b0e61ec6cd1ed3, 3d4de4cad355f358, 06fc32b918c312b2, e3560887ce822a61, 410ca031ddd240de, f034ee1587ce0876, bb6ac706c8cdd78f, c765441e9673d957, 86c9015dd55dff65, d5f9dbd62b3ecc11, 8ed1599eb95bc766, 2e8dd0bd140383d9, 958e200401ba64f9, 104986103cb850f2, 2e814e5a70146cc1, 39210f987919e80e, f2694bfa96c49e91, c8a981c019159c5b, 415f8f1af13b2f4b, 40debcac691f7d0f, 8ae9c1754d54b75b, 0fa615ad9312d280, 3825970cf0b7ce81, 551015797b6713a9, 9d2afc28dbc1325d, e73433c3ca4b5235, 200b2d2e1357f4e9]
 ---
 
 ## TL;DR
@@ -571,8 +571,35 @@ localhost by default, scoping enforcement to a single machine rather than a
 managed cloud boundary, though it supports networked deployment with
 authentication.
 
+The **agent-as-identity, access-amplification** argument gets a named
+consumer-client incident rather than an enterprise or eval-harness one:
+security researcher Patrick Wardle found an unpatched zero-day in Meta's
+Muse desktop client for macOS, rooted in an undocumented debug preference
+(`endo_voyager_dictation_endpoint`) that unprivileged local software could
+modify without any OS authorization prompt, redirecting the client's
+voice-dictation traffic to an attacker-controlled server. Because
+activating dictation sent raw microphone audio *and* the victim's valid
+Muse auth token to whatever endpoint the setting pointed at, the attacker
+could then run prompt injection against the hijacked session to trigger
+unauthorized background tasks — document exfiltration, message-history
+theft — without building separate infostealer malware. Meta's fix removed
+the internal debugging preference from production builds. It is a concrete
+instance of this page's standing thesis in miniature: the vulnerability
+was not in the model, it was in a configuration surface that let an
+attacker redirect the channel a legitimate credential travels over, and
+injection did the rest once that channel was compromised.
+
 ## What's new
-A named framework (DPACT: Delegation, Policy, Auditability, Context, Time)
+A named zero-day sharpens the agent-permission-amplification argument with a
+concrete consumer incident: an undocumented debug preference in Meta's Muse
+desktop client let an unprivileged local process redirect voice-dictation
+traffic — including the raw audio and the victim's live auth token — to an
+attacker's server, which then used prompt injection against the hijacked
+session to trigger background exfiltration, turning the client's own
+permissions into the attack tool rather than requiring separate infostealer
+malware (see State of the art above).
+
+Prior update: A named framework (DPACT: Delegation, Policy, Auditability, Context, Time)
 argues agent authorization needs bounded, delegated authority in place of
 simple token-based access, extending this page's standing agent-as-identity
 argument with a named blueprint rather than one vendor's implementation

@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f]
-updated: 2026-09-16
-covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f]
+evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f, 44bb531f443ceb51]
+updated: 2026-09-25
+covers_evidence: [1e062311eafafa88, 13b90f2d9195e871, d82e3daa1fb038a6, 28627c9767ffadd1, 49d83537b1abacda, 9776829397d5307a, 9ae3d20f85fa904c, 9bf2f6419fda7872, 2566c8933f2e65d1, 7e29fd14ca16f2a8, cf0a37dd32efaf51, 6d061c8f299a97ab, bfeae69131afd34f, 5a5b80258f0f8836, a98baa78edc4ea0a, 2c589c3624db6218, 0a08c765f6fbc28a, 4b81c55e5bad6a95, 8cdcaad96641fb63, 3f02e86b937e7a01, f7adfc455ef66ca9, 1e95bee9c26709cb, baa0094f7155ee33, 7a3738f365102451, 4e90420c69645ce5, 265c6a0134aba9b6, eb155c2e5dad2bae, 8a940043da46a71f, 90332d757391eac8, cf6f7f1ecca5ceaa, 9a7583fc09aea8e9, 503c543dadac240a, 33eb894710bfa6ef, 92884e6fce9aba7c, a4a0601f1f87b20e, c989986c344e129f, 27f54a99fd45b38c, 31358a263041f691, a2fec596dc68701f, 44bb531f443ceb51]
 ---
 
 ## TL;DR
@@ -283,8 +283,29 @@ reasoning-only long-horizon gaps [agent evaluation](/topic/agent-evaluation)
 already tracks (OmniaBench, CivBench), this time testing whether a plan can
 stay consistent against a manual instead of a task graph.
 
+Planning also gets a **generalization-over-memorization** result outside
+software: coding agents (Claude Opus 5, Codex GPT-5.6 Sol, GPT-6 Astra)
+tasked with synthesizing a reusable program for task and motion planning —
+interacting with a simulator during a fixed synthesis budget, then freezing
+the program and testing it on unseen instances — substantially outperform
+hand-engineered planners, 56-95% mean success versus 47%, across 980
+programs tested on 98,000 episodes in 28 environments. As object counts
+grow the agents' programs hold their success-rate edge while using an order
+of magnitude less computation per instance, evidence that letting an agent
+write and calibrate the plan-as-code rather than re-plan from scratch each
+episode generalizes better and cheaper than a purpose-built planner, the
+same "structure the loop, don't just scale the reasoner" thesis this page
+already argues applied to a domain (task and motion planning) outside
+coding and tool use.
+
 ## What's new
-A new benchmark, Tasks over Application Manuals (TAM), tests long-horizon
+Coding agents synthesizing reusable task-and-motion-planning programs
+(56-95% success vs. 47% for hand-engineered planners, an order of magnitude
+less compute per instance as object counts grow) extend this page's
+structure-over-scale thesis to a physical-planning domain outside coding and
+tool use (see State of the art above).
+
+Prior update: A new benchmark, Tasks over Application Manuals (TAM), tests long-horizon
 procedural reasoning against real manuals spanning hundreds of pages of
 interdependent guidelines — a harder distribution-shift edge than the
 short-horizon multi-hop benchmarks most planning evals use (see State of the

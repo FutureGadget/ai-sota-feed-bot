@@ -7,9 +7,9 @@ status: active
 solutions: [agent-orchestration, agent-benchmarks, agent-tracing]
 obstacles: []
 related_storylines: []
-evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102]
-updated: 2026-09-22
-covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102]
+evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102, 3e2ba655384ad263]
+updated: 2026-09-25
+covers_evidence: [64ad8e685ed41a9b, 19e4caf222bfb0d9, e7f12e82187d72de, f961ee6418699914, 884659da8630c702, 296564a4c4e09d02, ba5ccf9069d7bcf3, 184459768c3c7f3a, 687049f045800948, f27164f724f79fa3, e42bb42a72fb81a4, 8875da5519a24b6e, 11989be201950b67, 21835f1d1d66cb1d, d1a43a5f27d69d48, 8e0e2c22560bbc7b, a07007d77a70dc10, d02ebf5c5a48e6af, 4d5ebc5e9dfb5949, 012864be2b78cf49, e6a4bc0259ec51da, 675fc28b9b02c667, 8fb08df9d34b4a09, e7d4985e67a7a709, f5869c6c9f8fd679, b714943cd397084b, 7f65b3c679e761ab, 3e6b22895e62d801, b1f71fce6d0aa52b, c8c2521853f8de9e, f87e14ef06b6e708, 0ada5d894838d46e, fc95810347d73a68, 1ed24debfc2b958d, 0b15399105eca482, 4b510cf3587ed730, 9192364e45f2dc82, cccbcebaf3a6bf02, 7ac516e280c5ca22, 77a9df3e7c144125, 2ff277e441a4b0da, b3d2576e2dbda990, 63c719faf3c1678c, 2d050fdc6b13bc00, 2547415be8ec24a2, 381ed851c46a02e9, a1b76774e7222dee, 7292eba504d2de73, 0c87e9548be43d83, 0eda69d97282c3b4, 9463df6fcb6ce102, 3e2ba655384ad263]
 ---
 
 ## TL;DR
@@ -357,6 +357,23 @@ coordination-plus-oversight shape the governance-layer pattern above
 describes, applied to internal platform upkeep instead of a line-of-business
 workflow.
 
+A sixth named deployment answers the "when does role specialization pay
+off" question on an internal security workflow: Databricks replaced its
+security-review automation, which had plateaued at handling only
+predictable requests, with seven specialized agents (intake, risk
+assessment, requirements, review agents for browser extensions and
+vendors, validation, workflow, learning) coordinated across an intake app,
+a reasoning layer that routes to different model sizes by task complexity
+(Haiku for lightweight work, Sonnet for most, Opus for complex reasoning),
+serverless orchestration, and a governed data layer — applying automation
+to well-understood cases while routing novel or high-risk decisions to
+people. Eligible routine requests now clear in minutes instead of days, and
+reviewers spend their time on the genuinely novel or ambiguous cases
+instead of triaging routine ones alongside them — the same
+role-specialization-over-one-broad-agent thesis LinkedIn's code-review
+system above demonstrates, this time on an internal governance workflow
+rather than a customer-facing or coding one.
+
 The **vendor-lock-in** axis is now being written up as its own design
 constraint rather than a procurement footnote: AWS's enterprise multi-agent
 series argues that teams running many agentic systems live in a
@@ -452,7 +469,14 @@ already argues for, built specifically for swarm-scale deployments rather
 than a single agent.
 
 ## What's new
-Google open-sourced AX, a Kubernetes-style orchestrator that runs each
+Databricks replaced its plateaued security-review automation with seven
+role-specialized agents (intake, risk, requirements, review, validation,
+workflow, learning) routed across model sizes by task complexity — a sixth
+named production deployment for this page's "does role specialization pay
+off" thesis, this time on internal governance rather than a customer-facing
+or coding workflow (see State of the art above).
+
+Prior update: Google open-sourced AX, a Kubernetes-style orchestrator that runs each
 agent as a stateful actor on a dedicated runtime, and SwarmAuth proposes
 OAuth 2.1 scoped per-agent credentials for swarms — two new
 infrastructure primitives for the coordination and authorization axes this
