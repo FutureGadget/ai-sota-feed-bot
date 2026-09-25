@@ -1,7 +1,38 @@
 {
- "generated_at": "2026-09-25T10:08:01.590588+00:00",
+ "generated_at": "2026-09-25T20:10:17.551091+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "reinforcement-learning",
+   "label": "Reinforcement Learning",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 3,
+   "first_seen": "2026-09-22T16:27:46+00:00",
+   "last_updated": "2026-09-25T16:29:50+00:00",
+   "latest_title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
+   "days": [
+    "2026-09-22",
+    "2026-09-25"
+   ],
+   "member_sids": [
+    "e24d8bc5a3c1ce39",
+    "8c09c3a2477816c8",
+    "95f314d9972fcd38"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2609.26667v1",
+    "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
+    "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput"
+   ],
+   "editorial": {
+    "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
+    "stale": false,
+    "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
+    "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
+    "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch."
+   }
+  },
   {
    "slug": "gemini-3-8",
    "label": "Gemini 3.8",
@@ -159,12 +190,12 @@
    "label": "GPT-6 Astra",
    "item_count": 9,
    "day_count": 8,
-   "source_count": 6,
-   "first_seen": "2026-09-04T16:08:40+00:00",
+   "source_count": 5,
+   "first_seen": "2026-09-05T23:27:48+00:00",
    "last_updated": "2026-09-23T12:00:00+00:00",
    "latest_title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
    "days": [
-    "2026-09-04",
+    "2026-09-05",
     "2026-09-09",
     "2026-09-10",
     "2026-09-12",
@@ -174,7 +205,6 @@
     "2026-09-23"
    ],
    "member_sids": [
-    "4f3892cb672d57ce",
     "2c8c6b516993cfbd",
     "333ccaae81484d3a",
     "b5a4040da6dc0ce5",
@@ -187,7 +217,6 @@
     "52b80abd4e046c04"
    ],
    "member_urls": [
-    "https://findcheap.ai/introducing-findcheap",
     "https://simonwillison.net/2026/Sep/5/introducing-gpt-6-astra-for-developers",
     "https://openai.com/index/gpt-6-astra-next-generation-work",
     "https://news.google.com/rss/articles/CBMiTkFVX3lxTE11QUxBUVJLdC1jSmtJbmcxQzg4Qm9yUlNPS3JEMEVBanIyY1FRT2k2R0hBTlNnX2VqcWpTSDJUMDV0TjBJN1VGamlrZzVPZw?oc=5",
@@ -200,9 +229,9 @@
     "https://openai.com/index/harvey-from-context-to-confidence-with-astra"
    ],
    "editorial": {
-    "tldr": "OpenAI shipped GPT-6 Astra on September 3 for coding, computer use, and long-running agentic tasks, and independent analysis tied its gains to looped-transformer, hidden-reasoning research. On September 17, OpenAI's own Preparedness Framework rated Astra Critical for cybersecurity after expert testers found real 0-day vulnerabilities in a browser and an OS kernel.",
+    "tldr": "OpenAI shipped GPT-6 Astra on September 5 for coding, computer use, and long-running agentic tasks, and independent analysis tied its gains to looped-transformer, hidden-reasoning research. On September 17, OpenAI's own Preparedness Framework rated Astra Critical for cybersecurity after expert testers found real 0-day vulnerabilities in a browser and an OS kernel.",
     "stale": false,
-    "whats_new": "Harvey became the third customer case study OpenAI has published since the Critical classification, using Astra to turn legal case context into stronger drafts -- a week later, still no visible new access restrictions or usage limits.",
+    "whats_new": "Harvey became the third customer case study OpenAI has published since the Critical classification, using Astra to turn legal case context into stronger drafts -- still no visible new access restrictions or usage limits since.",
     "why_it_matters": "A model good enough to find real 0-days in a browser and a kernel is also good enough to weaponize them, so expect OpenAI to tighten access, logging, or usage terms around Astra's offensive-security capability rather than treating a growing run of adoption case studies as the full picture.",
     "take_for_builders": "If you're using Astra for offensive-security testing or automated vulnerability discovery, expect OpenAI to add usage restrictions or heavier logging now that it's rated Critical -- three vendor case studies since the rating haven't triggered a visible change yet, but check your API terms before the next audit cycle, not after.",
     "status": {
@@ -213,7 +242,7 @@
      "track": [
       {
        "label": "launch",
-       "detail": "Sep 3-9",
+       "detail": "Sep 5-9",
        "tone": "launch",
        "weight": 16
       },
@@ -521,45 +550,6 @@
     "whats_new": "The newest paper (Sep 22) applies RSI to AI research agents automating their own R&D -- training efficiency and inference optimization -- rather than a fixed task domain.",
     "why_it_matters": "If an agent framework can retrain on its own output, your eval suite needs to catch capability drift in the feedback loop itself, not just score the model's latest checkpoint.",
     "take_for_builders": "Before trusting a framework's self-improvement claim, ask what concrete signal it retrains on and how that signal is audited independently of the system generating it."
-   }
-  },
-  {
-   "slug": "github-s-project-hydrafusion-multi-model-routing",
-   "label": "Frontier Multi-model",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-09-04T16:04:14+00:00",
-   "last_updated": "2026-09-22T12:39:16+00:00",
-   "via_scout": true,
-   "latest_title": "Devin Fusion: the first multi-model coding agent on the Pareto frontier",
-   "days": [
-    "2026-09-04",
-    "2026-09-13",
-    "2026-09-22"
-   ],
-   "member_sids": [
-    "2ff277e441a4b0da",
-    "9b03b99c75e6257e",
-    "28885e87af4bfe4c"
-   ],
-   "member_urls": [
-    "https://github.blog/ai-and-ml/github-copilot/project-hydrafusion-frontier-quality-via-multi-model-orchestration",
-    "https://www.infoq.com/news/2026/09/github-hydrafusion/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
-    "https://twitter.com/ArtificialAnlys/status/2098504939781906684"
-   ],
-   "editorial": {
-    "tldr": "GitHub shipped Project HydraFusion as a Copilot research preview that routes coding requests across models from multiple providers at runtime instead of calling one fixed model. GitHub's own controlled offline evals claimed selective workflows matched or beat an Opus 5 baseline at lower estimated cost.",
-    "stale": false,
-    "whats_new": "A rival claim surfaced Sep 22: a single tweet touts \"Devin Fusion\" as the first multi-model coding agent on the Pareto frontier, with no benchmark or write-up attached yet.",
-    "why_it_matters": "Runtime multi-model routing for coding agents is turning into a contested lane, not GitHub's solo experiment — wait for a published benchmark before trusting either \"first\" claim.",
-    "take_for_builders": "If you're evaluating coding copilots on cost, benchmark HydraFusion's multi-model routing against your current single-model setup on your own repos, and treat unbacked \"first on the frontier\" claims like Devin Fusion's as marketing until a benchmark ships.",
-    "status": {
-     "state": "Research preview",
-     "tone": "launch",
-     "changed": "2026-09-04",
-     "detail": "Available as a GitHub Copilot research preview; no GA date announced. A rival vendor is now making competing frontier claims in the same space."
-    }
    }
   },
   {

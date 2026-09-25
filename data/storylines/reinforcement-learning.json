@@ -2,106 +2,100 @@
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
  "item_count": 3,
- "day_count": 3,
+ "day_count": 2,
  "source_count": 3,
- "first_seen": "2026-08-17T13:24:41+00:00",
- "last_updated": "2026-09-02T13:17:10+00:00",
- "generated_at": "2026-09-07T10:09:58.150690+00:00",
+ "first_seen": "2026-09-22T16:27:46+00:00",
+ "last_updated": "2026-09-25T16:29:50+00:00",
+ "generated_at": "2026-09-25T20:10:17.551091+00:00",
  "sources": [
-  "arxiv_cs_cl",
   "arxiv_cs_lg",
-  "arxiv_llm_reliability"
+  "aws_ml_blog",
+  "google_cloud_blog"
  ],
  "days": [
   {
-   "date": "2026-08-17",
+   "date": "2026-09-22",
    "items": [
     {
-     "title": "Ask, Condition or Abstain: Reinforcement Learning for Missing-Premise Reasoning",
-     "url": "http://arxiv.org/abs/2608.16554v1",
-     "source": "arxiv_cs_cl",
-     "type": "paper",
-     "summary_1line": "Answer-only reinforcement learning (RL) trains reasoning models to solve fully specified problems, but many realistic queries omit a premise needed for a unique answer. In this setting, the useful response is not alwa...",
-     "why_it_matters": "Matches feed focus: evaluation.",
-     "sid": "e9e06df024881a81",
-     "published": "2026-08-17T13:24:41+00:00",
-     "editor_note": "New arXiv paper training reasoning models to ask, condition, or abstain instead of guessing when a query is missing a necessary premise, closing a known gap in answer-only RL."
-    }
-   ]
-  },
-  {
-   "date": "2026-08-30",
-   "items": [
-    {
-     "title": "AgenticRag-R1: Agentic Reinforcement Learning with Stack Memory for Multi-Step Reasoning, Retrieval and Memorizing",
-     "url": "http://arxiv.org/abs/2608.29622v1",
-     "source": "arxiv_llm_reliability",
-     "type": "paper",
-     "summary_1line": "Retrieval-Augmented Generation (RAG) improves the factuality of large language models (LLMs), yet existing RAG systems often struggle with complex, multi-step reasoning that requires adaptive retrieval and continuous...",
-     "why_it_matters": "Matches feed focus: agentic, harness, eval.",
-     "sid": "00ed99e182fc7224",
-     "published": "2026-08-30T07:31:19+00:00",
-     "editor_note": "New arXiv paper adds a persistent stack memory to RAG agents for adaptive multi-step retrieval and reasoning."
-    }
-   ]
-  },
-  {
-   "date": "2026-09-02",
-   "items": [
-    {
-     "title": "Online Reinforcement Learning in the Met Office Unified Model through Distributed Model-Agent Coupling",
-     "url": "http://arxiv.org/abs/2609.02566v1",
+     "title": "MAGIC: Mixed-Granularity Agent Graphs via Incremental Construction with Dense-Reward Reinforcement Learning",
+     "url": "http://arxiv.org/abs/2609.26667v1",
      "source": "arxiv_cs_lg",
      "type": "paper",
-     "summary_1line": "Machine-learnt corrections can complement numerical weather prediction only if they adapt to the evolving model state while preserving dynamical consistency and numerical stability. To test this within a global foreca...",
-     "why_it_matters": "Matches feed focus: agent, eval.",
-     "sid": "062820e3c4087829",
-     "published": "2026-09-02T13:17:10+00:00",
-     "editor_note": "New arXiv paper couples an online RL agent into the Met Office's operational weather model for live physics corrections."
+     "summary_1line": "Collaboration topology shapes both the performance and execution cost of LLM-based multi-agent systems. Because tasks differ in complexity and required capabilities, recent approaches generate task-specific collaborat...",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "e24d8bc5a3c1ce39",
+     "published": "2026-09-22T16:27:46+00:00",
+     "editor_note": "New arXiv paper incrementally constructing task-specific multi-agent collaboration graphs with dense-reward RL, rather than reusing a fixed team topology."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-25",
+   "items": [
+    {
+     "title": "Best practices guide for customizing Gemini models via Reinforcement Learning (RL)",
+     "url": "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
+     "source": "google_cloud_blog",
+     "type": "news",
+     "summary_1line": "Reinforcement learning (RL) has been a keystone of modern LLM post-training, but it demands large training clusters and access to model internals that external customers can't have with proprietary models like Gemini....",
+     "why_it_matters": "Matches feed focus: agent, evaluation.",
+     "sid": "8c09c3a2477816c8",
+     "published": "2026-09-25T16:00:00+00:00",
+     "editor_note": "Google Cloud's best-practices guide for customizing Gemini models via RL without cluster-scale compute or model-internals access."
+    },
+    {
+     "title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
+     "url": "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput",
+     "source": "aws_ml_blog",
+     "type": "news",
+     "summary_1line": "Learn how to scale Mixture-of-Experts (MoE) reinforcement learning on Amazon EKS using Elastic Fabric Adapter (EFA) and DeepEP. This post presents an architecture that combines Amazon EKS, EFA, and Amazon S3 and incre...",
+     "sid": "95f314d9972fcd38",
+     "published": "2026-09-25T16:29:50+00:00",
+     "editor_note": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput."
     }
    ]
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL papers, not a developing story. Three arXiv papers this window span missing-premise reasoning, RAG agent memory, and live weather-model correction.",
+  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
   "stale": false,
-  "whats_new": "The newest paper couples an online RL agent directly into the Met Office's operational forecast model, correcting physics live while preserving numerical stability — a rare production RL deployment, not just a benchmark result.",
-  "why_it_matters": "The AgenticRAG-R1 stack-memory paper (Aug 30) is the one worth a platform engineer's attention — it targets the same multi-step retrieval-and-reasoning failures RAG-based coding and research agents hit today.",
-  "take_for_builders": "Building a RAG or tool-calling agent? Check whether your reward function penalizes abstaining on missing-premise input, and look at AgenticRAG-R1's stack-memory approach if multi-step retrieval breaks down.",
+  "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
+  "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
+  "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch.",
   "beats": [
    {
     "kicker": "RESEARCH",
     "tone": "neutral",
-    "headline": "Reasoning models are trained to ask, condition, or abstain on missing-premise queries",
-    "summary": "Targets a known failure mode of answer-only RL: forcing a unique answer even when the query omits a premise needed to produce one.",
+    "headline": "MAGIC learns task-specific multi-agent collaboration graphs with dense-reward RL",
+    "summary": "Targets the cost/performance tradeoff of fixed agent-team topologies by constructing task-specific collaboration structure incrementally instead of reusing one fixed graph.",
     "sids": [
-     "e9e06df024881a81"
+     "e24d8bc5a3c1ce39"
     ]
    },
    {
-    "kicker": "RESEARCH",
+    "kicker": "GUIDE",
     "tone": "neutral",
-    "headline": "AgenticRAG-R1 adds stack memory for multi-step retrieval and reasoning",
-    "summary": "New arXiv paper gives RAG agents a persistent stack memory so they can adapt retrieval across multi-step reasoning instead of retrieving once and reasoning statically.",
+    "headline": "Google Cloud publishes a best-practices guide for customizing Gemini via RL",
+    "summary": "Addresses the gap external customers face when they lack cluster-scale compute or model-internals access for proprietary models like Gemini.",
     "sids": [
-     "00ed99e182fc7224"
+     "8c09c3a2477816c8"
     ]
    },
    {
-    "kicker": "DEPLOYMENT",
-    "tone": "rising",
-    "headline": "Online RL agent corrects live numerical weather forecasts inside the Met Office's operational model",
-    "summary": "Couples a distributed model-agent RL loop into a production forecasting system, adapting to evolving model state while preserving dynamical consistency — a rare production RL deployment outside benchmarks.",
+    "kicker": "INFRASTRUCTURE",
+    "tone": "neutral",
+    "headline": "AWS cuts MoE RL training overhead for 40% more throughput on EKS",
+    "summary": "A reference architecture combining Amazon EKS, EFA, and S3 to scale mixture-of-experts reinforcement-learning training.",
     "sids": [
-     "062820e3c4087829"
+     "95f314d9972fcd38"
     ]
    }
   ],
   "open_questions": [
-   "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?",
-   "Does AgenticRAG-R1's stack memory hold up on longer, real-world multi-hop retrieval tasks beyond its evaluation benchmarks?",
-   "Does the Met Office's model-agent coupling stay numerically stable outside the tested forecast windows, or does it need retraining as the base model updates?"
+   "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
+   "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
+   "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?"
   ],
-  "generated_at": "2026-09-03T05:10:00+00:00"
+  "generated_at": "2026-09-25T20:15:00+00:00"
  }
 }

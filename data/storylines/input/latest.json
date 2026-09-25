@@ -1,20 +1,131 @@
 {
-  "generated_at": "2026-09-25T10:06:53.205523+00:00",
+  "generated_at": "2026-09-25T20:08:09.283536+00:00",
   "window_days": 21,
-  "storyline_count": 1,
-  "needs_narrative_count": 1,
+  "storyline_count": 2,
+  "needs_narrative_count": 2,
   "storylines": [
+    {
+      "slug": "reinforcement-learning",
+      "label": "Reinforcement Learning",
+      "item_count": 3,
+      "source_count": 3,
+      "day_count": 2,
+      "first_seen": "2026-09-22T16:27:46+00:00",
+      "last_updated": "2026-09-25T16:29:50+00:00",
+      "latest_title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
+      "member_sids": [
+        "e24d8bc5a3c1ce39",
+        "8c09c3a2477816c8",
+        "95f314d9972fcd38"
+      ],
+      "via_scout": false,
+      "has_narrative": true,
+      "needs_narrative": true,
+      "reason": "stale",
+      "narrative_path": "data/storylines/narratives/reinforcement-learning.json",
+      "prior_narrative": {
+        "slug": "reinforcement-learning",
+        "generated_at": "2026-09-03T05:10:00+00:00",
+        "covers_last_updated": "2026-09-02T13:17:10+00:00",
+        "covers_member_sids": [
+          "e9e06df024881a81",
+          "00ed99e182fc7224",
+          "062820e3c4087829"
+        ],
+        "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL papers, not a developing story. Three arXiv papers this window span missing-premise reasoning, RAG agent memory, and live weather-model correction.",
+        "whats_new": "The newest paper couples an online RL agent directly into the Met Office's operational forecast model, correcting physics live while preserving numerical stability — a rare production RL deployment, not just a benchmark result.",
+        "why_it_matters": "The AgenticRAG-R1 stack-memory paper (Aug 30) is the one worth a platform engineer's attention — it targets the same multi-step retrieval-and-reasoning failures RAG-based coding and research agents hit today.",
+        "beats": [
+          {
+            "kicker": "RESEARCH",
+            "tone": "neutral",
+            "headline": "Reasoning models are trained to ask, condition, or abstain on missing-premise queries",
+            "summary": "Targets a known failure mode of answer-only RL: forcing a unique answer even when the query omits a premise needed to produce one.",
+            "sids": [
+              "e9e06df024881a81"
+            ]
+          },
+          {
+            "kicker": "RESEARCH",
+            "tone": "neutral",
+            "headline": "AgenticRAG-R1 adds stack memory for multi-step retrieval and reasoning",
+            "summary": "New arXiv paper gives RAG agents a persistent stack memory so they can adapt retrieval across multi-step reasoning instead of retrieving once and reasoning statically.",
+            "sids": [
+              "00ed99e182fc7224"
+            ]
+          },
+          {
+            "kicker": "DEPLOYMENT",
+            "tone": "rising",
+            "headline": "Online RL agent corrects live numerical weather forecasts inside the Met Office's operational model",
+            "summary": "Couples a distributed model-agent RL loop into a production forecasting system, adapting to evolving model state while preserving dynamical consistency — a rare production RL deployment outside benchmarks.",
+            "sids": [
+              "062820e3c4087829"
+            ]
+          }
+        ],
+        "open_questions": [
+          "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?",
+          "Does AgenticRAG-R1's stack memory hold up on longer, real-world multi-hop retrieval tasks beyond its evaluation benchmarks?",
+          "Does the Met Office's model-agent coupling stay numerically stable outside the tested forecast windows, or does it need retraining as the base model updates?"
+        ],
+        "take_for_builders": "Building a RAG or tool-calling agent? Check whether your reward function penalizes abstaining on missing-premise input, and look at AgenticRAG-R1's stack-memory approach if multi-step retrieval breaks down.",
+        "day_captions": {
+          "e9e06df024881a81": "New arXiv paper training reasoning models to ask, condition, or abstain instead of guessing when a query is missing a necessary premise, closing a known gap in answer-only RL.",
+          "00ed99e182fc7224": "New arXiv paper adds a persistent stack memory to RAG agents for adaptive multi-step retrieval and reasoning.",
+          "062820e3c4087829": "New arXiv paper couples an online RL agent into the Met Office's operational weather model for live physics corrections."
+        }
+      },
+      "timeline": [
+        {
+          "date": "2026-09-22",
+          "items": [
+            {
+              "sid": "e24d8bc5a3c1ce39",
+              "title": "MAGIC: Mixed-Granularity Agent Graphs via Incremental Construction with Dense-Reward Reinforcement Learning",
+              "url": "http://arxiv.org/abs/2609.26667v1",
+              "source": "arxiv_cs_lg",
+              "type": "paper",
+              "summary_1line": "Collaboration topology shapes both the performance and execution cost of LLM-based multi-agent systems. Because tasks differ in complexity and required capabilities, recent approaches generate task-specific collaborat...",
+              "published": "2026-09-22T16:27:46+00:00"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-25",
+          "items": [
+            {
+              "sid": "8c09c3a2477816c8",
+              "title": "Best practices guide for customizing Gemini models via Reinforcement Learning (RL)",
+              "url": "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
+              "source": "google_cloud_blog",
+              "type": "news",
+              "summary_1line": "Reinforcement learning (RL) has been a keystone of modern LLM post-training, but it demands large training clusters and access to model internals that external customers can't have with proprietary models like Gemini....",
+              "published": "2026-09-25T16:00:00+00:00"
+            },
+            {
+              "sid": "95f314d9972fcd38",
+              "title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
+              "url": "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput",
+              "source": "aws_ml_blog",
+              "type": "news",
+              "summary_1line": "Learn how to scale Mixture-of-Experts (MoE) reinforcement learning on Amazon EKS using Elastic Fabric Adapter (EFA) and DeepEP. This post presents an architecture that combines Amazon EKS, EFA, and Amazon S3 and incre...",
+              "published": "2026-09-25T16:29:50+00:00"
+            }
+          ]
+        }
+      ]
+    },
     {
       "slug": "gpt-6-astra",
       "label": "GPT-6 Astra",
       "item_count": 9,
-      "source_count": 6,
+      "source_count": 5,
       "day_count": 8,
-      "first_seen": "2026-09-04T16:08:40+00:00",
+      "first_seen": "2026-09-05T23:27:48+00:00",
       "last_updated": "2026-09-23T12:00:00+00:00",
       "latest_title": "Harvey turns legal context into stronger drafts with GPT-6 Astra",
       "member_sids": [
-        "4f3892cb672d57ce",
         "2c8c6b516993cfbd",
         "333ccaae81484d3a",
         "b5a4040da6dc0ce5",
@@ -33,10 +144,9 @@
       "narrative_path": "data/storylines/narratives/gpt-6-astra.json",
       "prior_narrative": {
         "slug": "gpt-6-astra",
-        "generated_at": "2026-09-25T00:09:16Z",
+        "generated_at": "2026-09-25T10:15:00Z",
         "covers_last_updated": "2026-09-23T12:00:00+00:00",
         "covers_member_sids": [
-          "49bf67e78155156d",
           "4f3892cb672d57ce",
           "2c8c6b516993cfbd",
           "333ccaae81484d3a",
@@ -105,7 +215,7 @@
             "headline": "GPT-6 Astra ships for coding, computer use, and agentic tasks",
             "summary": "A rival search agent beat Astra's benchmark scores just days after release, and OpenAI's own launch post positioning Astra for business work followed Sep 9.",
             "sids": [
-              "49bf67e78155156d",
+              "4f3892cb672d57ce",
               "333ccaae81484d3a"
             ]
           },
@@ -171,7 +281,7 @@
         ],
         "take_for_builders": "If you're using Astra for offensive-security testing or automated vulnerability discovery, expect OpenAI to add usage restrictions or heavier logging now that it's rated Critical -- three vendor case studies since the rating haven't triggered a visible change yet, but check your API terms before the next audit cycle, not after.",
         "day_captions": {
-          "49bf67e78155156d": "A competing search agent beat Astra's benchmark scores within days of release, an early signal before OpenAI's own launch post.",
+          "4f3892cb672d57ce": "A competing search agent beat Astra's benchmark scores within days of release, an early signal before OpenAI's own launch post.",
           "333ccaae81484d3a": "OpenAI's own launch post, positioning Astra for business work with advanced reasoning, computer use, and design judgment.",
           "4ef1fa7cd0579165": "Sebastian Raschka's independent technical analysis links Astra to recurrent-depth/looped-transformer and hidden chain-of-thought research.",
           "12cf03d2c3047465": "InfoQ's recap confirms general availability across ChatGPT, Codex, and the API, a week after launch.",
@@ -184,20 +294,16 @@
       },
       "timeline": [
         {
-          "date": "2026-09-04",
+          "date": "2026-09-05",
           "items": [
             {
-              "sid": "4f3892cb672d57ce",
-              "title": "Search agent beats GPT-6 Astra on benchmarks, just days after release",
-              "url": "https://findcheap.ai/introducing-findcheap",
-              "source": "hackernews_ai",
-              "type": "release",
-              "summary_1line": "Search agent beats GPT-6 Astra on benchmarks, just days after release",
-              "published": "2026-09-04T16:08:40+00:00",
-              "sources": [
-                "hackernews_ai",
-                "simon_willison"
-              ]
+              "sid": "2c8c6b516993cfbd",
+              "title": "Introducing GPT-6 Astra for developers",
+              "url": "https://simonwillison.net/2026/Sep/5/introducing-gpt-6-astra-for-developers",
+              "source": "simon_willison",
+              "type": "news",
+              "summary_1line": "Introducing GPT-6 Astra for developers Blink and you'll miss it, but there's a familiar creature at 1m59s : Across the board, Astra has more attention to detail, better understanding of the user's prompt, and can buil...",
+              "published": "2026-09-05T23:27:48+00:00"
             }
           ]
         },

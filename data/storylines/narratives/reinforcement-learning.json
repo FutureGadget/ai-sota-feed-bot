@@ -1,47 +1,47 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-09-03T05:10:00+00:00",
-  "covers_last_updated": "2026-09-02T13:17:10+00:00",
+  "generated_at": "2026-09-25T20:15:00+00:00",
+  "covers_last_updated": "2026-09-25T16:29:50+00:00",
   "covers_member_sids": [
-    "e9e06df024881a81",
-    "00ed99e182fc7224",
-    "062820e3c4087829"
+    "e24d8bc5a3c1ce39",
+    "8c09c3a2477816c8",
+    "95f314d9972fcd38"
   ],
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL papers, not a developing story. Three arXiv papers this window span missing-premise reasoning, RAG agent memory, and live weather-model correction.",
-  "whats_new": "The newest paper couples an online RL agent directly into the Met Office's operational forecast model, correcting physics live while preserving numerical stability — a rare production RL deployment, not just a benchmark result.",
-  "why_it_matters": "The AgenticRAG-R1 stack-memory paper (Aug 30) is the one worth a platform engineer's attention — it targets the same multi-step retrieval-and-reasoning failures RAG-based coding and research agents hit today.",
+  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
+  "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
+  "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
   "beats": [
     {
       "kicker": "RESEARCH",
       "tone": "neutral",
-      "headline": "Reasoning models are trained to ask, condition, or abstain on missing-premise queries",
-      "summary": "Targets a known failure mode of answer-only RL: forcing a unique answer even when the query omits a premise needed to produce one.",
-      "sids": ["e9e06df024881a81"]
+      "headline": "MAGIC learns task-specific multi-agent collaboration graphs with dense-reward RL",
+      "summary": "Targets the cost/performance tradeoff of fixed agent-team topologies by constructing task-specific collaboration structure incrementally instead of reusing one fixed graph.",
+      "sids": ["e24d8bc5a3c1ce39"]
     },
     {
-      "kicker": "RESEARCH",
+      "kicker": "GUIDE",
       "tone": "neutral",
-      "headline": "AgenticRAG-R1 adds stack memory for multi-step retrieval and reasoning",
-      "summary": "New arXiv paper gives RAG agents a persistent stack memory so they can adapt retrieval across multi-step reasoning instead of retrieving once and reasoning statically.",
-      "sids": ["00ed99e182fc7224"]
+      "headline": "Google Cloud publishes a best-practices guide for customizing Gemini via RL",
+      "summary": "Addresses the gap external customers face when they lack cluster-scale compute or model-internals access for proprietary models like Gemini.",
+      "sids": ["8c09c3a2477816c8"]
     },
     {
-      "kicker": "DEPLOYMENT",
-      "tone": "rising",
-      "headline": "Online RL agent corrects live numerical weather forecasts inside the Met Office's operational model",
-      "summary": "Couples a distributed model-agent RL loop into a production forecasting system, adapting to evolving model state while preserving dynamical consistency — a rare production RL deployment outside benchmarks.",
-      "sids": ["062820e3c4087829"]
+      "kicker": "INFRASTRUCTURE",
+      "tone": "neutral",
+      "headline": "AWS cuts MoE RL training overhead for 40% more throughput on EKS",
+      "summary": "A reference architecture combining Amazon EKS, EFA, and S3 to scale mixture-of-experts reinforcement-learning training.",
+      "sids": ["95f314d9972fcd38"]
     }
   ],
   "open_questions": [
-    "Does the ask/condition/abstain method generalize beyond its evaluated missing-premise benchmarks to real-world ambiguous tool-calling prompts?",
-    "Does AgenticRAG-R1's stack memory hold up on longer, real-world multi-hop retrieval tasks beyond its evaluation benchmarks?",
-    "Does the Met Office's model-agent coupling stay numerically stable outside the tested forecast windows, or does it need retraining as the base model updates?"
+    "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
+    "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
+    "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?"
   ],
-  "take_for_builders": "Building a RAG or tool-calling agent? Check whether your reward function penalizes abstaining on missing-premise input, and look at AgenticRAG-R1's stack-memory approach if multi-step retrieval breaks down.",
+  "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch.",
   "day_captions": {
-    "e9e06df024881a81": "New arXiv paper training reasoning models to ask, condition, or abstain instead of guessing when a query is missing a necessary premise, closing a known gap in answer-only RL.",
-    "00ed99e182fc7224": "New arXiv paper adds a persistent stack memory to RAG agents for adaptive multi-step retrieval and reasoning.",
-    "062820e3c4087829": "New arXiv paper couples an online RL agent into the Met Office's operational weather model for live physics corrections."
+    "e24d8bc5a3c1ce39": "New arXiv paper incrementally constructing task-specific multi-agent collaboration graphs with dense-reward RL, rather than reusing a fixed team topology.",
+    "8c09c3a2477816c8": "Google Cloud's best-practices guide for customizing Gemini models via RL without cluster-scale compute or model-internals access.",
+    "95f314d9972fcd38": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput."
   }
 }
