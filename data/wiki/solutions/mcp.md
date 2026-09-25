@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d]
-updated: 2026-09-24
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4]
+updated: 2026-09-25
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4]
 ---
 
 ## TL;DR
@@ -213,8 +213,29 @@ rather than resolving the standing tension between "MCP is converging back
 toward a plain API" and "the shared tool-description and discovery layer
 is the durable win" already argued on this page.
 
+A fourth payload type joins tools, knowledge/state, and work distribution:
+**execution primitives for an autonomous security pipeline**. GitHub's
+Security Lab Taskflow Agent runs an LLM-driven fuzzing pipeline for C/C++
+projects behind a clean split — "the LLM agent owns the decisions, and the
+MCP tools own the execution" — where MCP tools run AFL with progressively
+longer time budgets, compile harnesses, and store crashes, while the model
+reads coverage reports and decides whether to add seeds, edit a harness,
+enrich a dictionary, or skip a plateaued path. Structure-aware fuzzing adds
+four complementary mechanisms (pre-built format dictionaries, source-level
+dictionary extraction, dynamic AFL-dictionary enrichment, corpus-splice
+recombination) that give the agent enough signal to reason about input
+formats rather than fuzz blind. It is a concrete instance of MCP's tool
+layer as a pure execution boundary — the model never runs AFL itself, it
+only decides what AFL should try next.
+
 ## What's new
-Morgan Stanley generates its MCP and Agent-to-Agent integration surfaces
+GitHub's Security Lab Taskflow Agent uses MCP tools as pure execution
+primitives (run AFL, compile harnesses, store crashes) behind an LLM
+agent's coverage-guided decisions, adding autonomous security-fuzzing
+pipelines to MCP's growing set of non-tool-call payload types (see State
+of the art above).
+
+Prior update: Morgan Stanley generates its MCP and Agent-to-Agent integration surfaces
 directly from an Architecture-as-Code model of its API program (the CALM
 framework), rather than hand-writing servers — MCP adoption arriving
 through existing API governance instead of a separate integration effort
