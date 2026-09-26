@@ -1,7 +1,7 @@
 {
   "slug": "deepseek-v4-1-flash",
-  "generated_at": "2026-09-26T00:15:00Z",
-  "covers_last_updated": "2026-09-22T18:54:01+00:00",
+  "generated_at": "2026-09-26T10:20:00Z",
+  "covers_last_updated": "2026-09-25T12:10:41+00:00",
   "covers_member_sids": [
     "10c8980f417e7cbe",
     "c113849e4fb23b54",
@@ -23,16 +23,17 @@
     "95e33866f411d3ef",
     "94c7e66f5dacc673",
     "01a617c33f0013bb",
-    "88c84b7dce9138f2"
+    "88c84b7dce9138f2",
+    "8a60defe95a4d885"
   ],
   "tldr": "DeepSeek shipped V4.1-Flash on Sep 10, claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
-  "whats_new": "Third-party host ZenMux added DeepSeek V4.1-Flash for high-throughput reasoning on Sep 22, the first sign the model is spreading to inference platforms beyond DeepSeek's own API.",
+  "whats_new": "A Sep 25 tech-insider.org comparison puts a 4.4x gap between V4.1-Flash, V4-Pro, and V4-Flash -- the fourth benchmark write-up in this series since launch, still with no independent verification of DeepSeek's own efficiency numbers.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change -- and now a third-party host serves the same model, so routing choices need re-checking too.",
   "status": {
     "state": "Shipped · V4-Pro traffic silently rerouted, now on third-party hosts too",
     "tone": "turn",
     "changed": "2026-09-14",
-    "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a price that kept falling. A Sep 20 follow-up added the 1M-context/KV-compression specifics behind the architecture, and by Sep 22 third-party host ZenMux was serving the model too.",
+    "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a falling price. Sep 20 added architecture specifics, Sep 22 brought third-party hosting via ZenMux, and Sep 25 added a 4.4x benchmark-gap claim.",
     "track": [
       {
         "label": "beta + launch",
@@ -59,7 +60,7 @@
         "weight": 10
       },
       {
-        "label": "third-party hosting",
+        "label": "third-party hosting + ongoing benchmarks",
         "detail": "Sep 22 → now",
         "tone": "now",
         "weight": 15
@@ -111,12 +112,13 @@
       "kicker": "MARKET IMPACT",
       "tone": "now",
       "headline": "Pricing pressure builds as reviewers call the architecture a bigger leap than a point release",
-      "summary": "A Sep 17 benchmark puts the coding gap at 11 points over Qwen3-Coder and Devstral, and a Sep 20 follow-up from a second outlet adds concrete numbers behind the causal encoder-decoder design: a 1M-token context window via extreme KV-cache compression.",
+      "summary": "A Sep 17 benchmark puts the coding gap at 11 points over Qwen3-Coder and Devstral, a Sep 20 follow-up from a second outlet adds concrete numbers behind the causal encoder-decoder design (a 1M-token context window via extreme KV-cache compression), and a Sep 25 write-up puts a 4.4x gap between V4.1-Flash, V4-Pro, and V4-Flash.",
       "sids": [
         "82bd95dd18d293f1",
         "d1d28ac13afc9a24",
         "94c7e66f5dacc673",
-        "01a617c33f0013bb"
+        "01a617c33f0013bb",
+        "8a60defe95a4d885"
       ]
     },
     {
@@ -191,6 +193,7 @@
     "e3fd47e3082f9e2b": "A community uncensored fine-tune passes 2,254 downloads.",
     "95e33866f411d3ef": "Cached-input pricing falls again, to $0.003 per million tokens.",
     "01a617c33f0013bb": "A second outlet restates the causal encoder-decoder design with added specifics: 1M-token context and extreme KV-cache compression.",
-    "88c84b7dce9138f2": "ZenMux launches DeepSeek V4.1-Flash for high-throughput reasoning, the first third-party host to pick it up."
+    "88c84b7dce9138f2": "ZenMux launches DeepSeek V4.1-Flash for high-throughput reasoning, the first third-party host to pick it up.",
+    "8a60defe95a4d885": "A fourth benchmark write-up in the series puts the V4.1-Flash/V4-Pro/V4-Flash gap at 4.4x, still without independent verification of DeepSeek's own efficiency numbers."
   }
 }
