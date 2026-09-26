@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d]
-updated: 2026-09-09
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d]
+updated: 2026-09-26
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d]
 ---
 
 ## TL;DR
@@ -54,6 +54,13 @@ defense in depth rather than trusting any one of them:
 - **Identity-based sandbox platforms** are shipping as concrete primitives:
   Cordium is a self-hosted Kubernetes sandbox where infrastructure secrets
   never enter the agent's reach.
+- **Laptop-to-cloud sandbox parity as a managed product**: Docker Cloud
+  Sandboxes give AI coding agents a hosted execution environment built on
+  hardware-enforced microVM isolation, with a unified CLI for moving the
+  same sandboxed workload between a developer's laptop and Docker-managed
+  cloud infrastructure — a third managed-platform entrant alongside Cordium
+  and Modal, aimed at environment consistency rather than a new isolation
+  primitive.
 - **Harness-level secret hiding**: Claude Code's `sandbox.credentials`
   setting blocks sandboxed commands from reading credential files and secret
   environment variables, closing part of the "the box still holds tokens" gap
@@ -297,7 +304,13 @@ above are pure friction; read as a product primitive, the same boundary is
 what makes running someone else's generated code shippable at all.
 
 ## What's new
-CVE-2026-82533 (CVSS 9.4) found DeepSeek's Harness coding tool trusting a
+Docker Cloud Sandboxes joined the managed-platform tier as a third
+laptop-to-cloud entrant, giving AI coding agents a hosted execution
+environment built on hardware-enforced microVM isolation with a unified CLI
+for moving the same workload between a developer's laptop and the cloud
+(see State of the art above).
+
+Prior update: CVE-2026-82533 (CVSS 9.4) found DeepSeek's Harness coding tool trusting a
 spoofable client-supplied Host header to decide whether a caller was already
 inside the trusted loopback boundary, letting an unauthenticated remote
 request disable file-write restrictions and approval prompts with no API
@@ -313,34 +326,6 @@ on the sandbox's network allowlist — the container isolation held, but the
 allowlisted host didn't, sharpening this page's "sandboxes don't solve
 credential authorization" argument into an egress-specific instance (see
 State of the art above).
-
-Prior update: A systems-foundation paper proposes a unified reference architecture for
-"agentic skills" themselves — the modular, portable procedural knowledge
-this page and [agent memory](/topic/agent-memory) already reference (see
-State of the art above).
-
-Prior update: Anthropic's own survey of containing Claude across claude.ai, Claude Code,
-and Claude Cowork maps a different sandbox architecture to each product's
-blast radius (gVisor containers, OS-level bubblewrap/Seatbelt plus an
-auto-mode classifier, and a sealed VM respectively) and reports a red team
-still got direct prompt injection through Claude Code's model-layer defenses
-24 of 25 times — only environmental controls stopped it — while a Cowork
-red team exfiltrated data through an already-allowlisted domain until a
-proxy inside the VM started validating session tokens, not just the
-destination (see State of the art above).
-
-Prior update: Claude Code shipped a first-party sandboxing feature (OS-level filesystem +
-network isolation via bubblewrap/Seatbelt, open source) that cuts permission
-prompts by 84% in Anthropic's internal testing. Two local-dev tools joined
-the same install-instead-of-build tier this page tracks: Grith, a
-kernel-level syscall supervisor with no LLM in its enforcement path, and
-Sandy, a sandbox paired with monitoring and policy controls.
-
-Prior update: Roblox's own account of scaling autonomous development names the same
-"whole-SDLC security engineering" pattern Anthropic already documented —
-security sandboxes stacked with code-review-derived institutional knowledge
-and velocity-based metrics — a second named company applying the pattern
-rather than a new control (see State of the art above).
 
 ## Trade-offs
 A boundary asserted only in a task's stated constraints, not enforced by the
