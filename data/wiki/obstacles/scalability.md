@@ -7,9 +7,9 @@ status: active
 solutions: [agent-sandboxing]
 obstacles: []
 related_storylines: []
-evidence: [485666e1560ba32b, 6a60d1242802c6f9]
-updated: 2026-09-23
-covers_evidence: [485666e1560ba32b, 6a60d1242802c6f9]
+evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2]
+updated: 2026-09-26
+covers_evidence: [485666e1560ba32b, 6a60d1242802c6f9, 14ca1514017a2ee2]
 ---
 
 ## TL;DR
@@ -52,8 +52,23 @@ the same benefit further: fixed-size pages let variable-length sequences
 share memory without reshaping the cache, which is what makes admission
 control practical under concurrent load in the first place.
 
+MCP's own protocol evolution shows the same "remove the coordinator" pattern
+a third time, at the application layer rather than the sandbox or serving
+layer: the specification's stateless rewrite removes protocol-level sessions
+and sticky-session requirements for remote servers, letting requests route
+independently and scale horizontally instead of pinning each session to one
+coordinating server — the same fix Modal applied to sandbox scheduling and
+vLLM's paged cache applies to serving, now landing in the tool-calling
+protocol itself (see [MCP](/topic/mcp) for the full protocol change).
+
 ## What's new
-Modal published the engineering account of rebuilding its sandbox scheduler
+The MCP specification's stateless rewrite removes protocol-level sessions
+and sticky-session requirements for remote servers, extending this page's
+"remove the coordinator, don't scale it" pattern from sandbox scheduling and
+inference serving to the tool-calling protocol itself (see State of the art
+above).
+
+Prior update: Modal published the engineering account of rebuilding its sandbox scheduler
 around per-worker autonomy instead of central coordination, reaching 1
 million concurrent sandboxes and sub-second cold starts; vLLM's vllm-metal
 brought the same paged, concurrency-aware serving design to Apple Silicon the

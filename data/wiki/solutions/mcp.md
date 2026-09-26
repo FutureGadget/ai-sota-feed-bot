@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4]
-updated: 2026-09-25
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2]
+updated: 2026-09-26
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2]
 ---
 
 ## TL;DR
@@ -88,6 +88,16 @@ clients and servers interoperate, not another connector. AWS's AgentCore
 Gateway already supports the new spec, giving platform teams a concrete
 reference implementation for what adopting it looks like in a managed
 gateway rather than a bespoke client patch.
+
+That statelessness change is already paying off in production
+infrastructure terms, not just protocol design: AWS describes how removing
+protocol-level sessions, sticky-session requirements, and session storage
+lets a remote MCP server route each request independently and scale
+horizontally like any other stateless service, pushing retries,
+observability, and idempotency to the layers that already handle them for
+other APIs instead of keeping them as MCP-specific concerns (see
+[scalability](/topic/scalability) for the same "remove the coordinator"
+pattern showing up in sandbox scheduling).
 
 Production security guidance is maturing alongside the spec: an InfoQ field
 guide lays out **defense-in-depth for MCP in production** across four
@@ -229,7 +239,13 @@ layer as a pure execution boundary — the model never runs AFL itself, it
 only decides what AFL should try next.
 
 ## What's new
-GitHub's Security Lab Taskflow Agent uses MCP tools as pure execution
+AWS detailed how the MCP spec's stateless rewrite plays out in production:
+removing protocol-level sessions and sticky-session requirements lets a
+remote MCP server route each request independently and scale horizontally,
+pushing retries, observability, and idempotency onto layers that already
+handle them for other APIs (see State of the art above).
+
+Prior update: GitHub's Security Lab Taskflow Agent uses MCP tools as pure execution
 primitives (run AFL, compile harnesses, store crashes) behind an LLM
 agent's coverage-guided decisions, adding autonomous security-fuzzing
 pipelines to MCP's growing set of non-tool-call payload types (see State
@@ -245,16 +261,6 @@ Prior update: Databricks' Genie MCP server reached general availability while pu
 commentary kept sharpening the "is MCP still adding value" debate this
 page already tracks — production adoption and protocol skepticism
 widening in parallel (see State of the art above).
-
-Prior update: Claude Code's `managedMcpServers` setting lets an organization push MCP
-servers to every user, extending connector governance from "who may
-connect" (identity-provider auth) to "which servers exist at all".
-
-Prior update: The Claude Agent SDK for Python widened its in-process MCP server support to
-2.x alongside 1.x, and Microsoft's Azure DevOps Remote MCP Server reached GA
-without Claude Desktop, Claude Code, ChatGPT, or Cursor support at launch —
-two data points that protocol-version and client-interop maturity aren't
-moving in lockstep (see State of the art above).
 
 ## Trade-offs
 A shared protocol buys interoperability and reuse, but every connector you expose
