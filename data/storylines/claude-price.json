@@ -1,12 +1,12 @@
 {
  "slug": "claude-price",
- "label": "5.5 Claude",
- "item_count": 4,
- "day_count": 2,
+ "label": "Opus 5.5",
+ "item_count": 5,
+ "day_count": 4,
  "source_count": 5,
- "first_seen": "2026-09-22T00:00:00+00:00",
- "last_updated": "2026-09-23T06:41:41+00:00",
- "generated_at": "2026-09-26T00:11:08.645184+00:00",
+ "first_seen": "2026-09-22T17:28:01+00:00",
+ "last_updated": "2026-09-25T12:00:00+00:00",
+ "generated_at": "2026-09-26T05:11:32.905268+00:00",
  "sources": [
   "aws_ml_blog",
   "claude_blog",
@@ -18,17 +18,6 @@
   {
    "date": "2026-09-22",
    "items": [
-    {
-     "title": "What a task costs on Opus 5.5 | Claude by Anthropic",
-     "url": "https://claude.com/blog/what-a-task-costs-on-opus-5-5",
-     "source": "claude_blog",
-     "type": "news",
-     "summary_1line": "The same token price can cost very different amounts per task. Learn what Claude Code tasks cost on Opus 5.5 and which settings change the bill.",
-     "why_it_matters": "Matches feed focus: claude code.",
-     "sid": "3d1eacfa6636ae86",
-     "published": "2026-09-22T00:00:00+00:00",
-     "editor_note": "Anthropic's own guide: what a Claude Code task actually costs on Opus 5.5, and which settings move the bill."
-    },
     {
      "title": "Claude Opus 5.5 is now available on AWS",
      "url": "https://aws.amazon.com/blogs/machine-learning/claude-opus-5-5-is-now-available-on-aws",
@@ -71,19 +60,50 @@
      "editor_note": "AINews confirms the launch triggered board-wide 40-50% price cuts, not just a two-lab skirmish."
     }
    ]
+  },
+  {
+   "date": "2026-09-24",
+   "items": [
+    {
+     "title": "Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind. | Claude by Anthropic",
+     "url": "https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context",
+     "source": "claude_blog",
+     "type": "news",
+     "summary_1line": "Our latest Opus model is priced and trained to optimize costs for how developers code now.",
+     "sid": "a26eb8af87253d8b",
+     "published": "2026-09-24T00:00:00+00:00",
+     "editor_note": "Anthropic's own rationale for Opus 5.5: priced and trained around longer, higher-context coding sessions, not just a capability bump."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-25",
+   "items": [
+    {
+     "title": "What a task costs on Opus 5.5 / claude.dev Blog",
+     "url": "https://claude.com/blog/what-a-task-costs-on-opus-5-5",
+     "source": "claude_blog",
+     "type": "news",
+     "summary_1line": "The same token price can cost very different amounts per task. Learn what Claude Code tasks cost on Opus 5.5 and which settings change the bill.",
+     "why_it_matters": "Matches feed focus: claude code.",
+     "sid": "3d1eacfa6636ae86",
+     "published": "2026-09-25T12:00:00+00:00",
+     "editor_note": "Anthropic's own guide: what a Claude Code task actually costs on Opus 5.5, and which settings move the bill."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "Anthropic answered Zhipu's GLM-5.3-Flash price undercut with a 75% cache-price cut on Fable/Mythos 5.1 in early September. On Sep 22 Anthropic shipped Claude Opus 5.5 and OpenAI answered within about an hour with GPT-6 Sol and GPT-6 Luna, turning the pricing skirmish into a same-day flagship race.",
   "stale": false,
-  "whats_new": "By Sep 23, AINews reported the Opus 5.5 launch triggered board-wide 40-50% price cuts across labs, while Opus 5.5 also reached AWS Bedrock with new per-task cost guidance.",
-  "why_it_matters": "Whatever Claude-vs-GPT cost model you pinned evals to last week is now stale -- Opus 5.5's AWS availability and the wider 40-50% price cuts change per-token math across both labs.",
-  "take_for_builders": "Re-run your Claude vs. GPT cost model against Opus 5.5's AWS Bedrock pricing and the newly-cut competitor rates -- don't assume last week's per-token numbers still hold.",
+  "whats_new": "On Sep 24-25 Anthropic doubled down on its own rollout, framing Opus 5.5 as built for longer, higher-context coding sessions and publishing per-task cost guidance for Claude Code.",
+  "why_it_matters": "Opus 5.5's AWS Bedrock availability, the 40-50% board-wide price cuts, and Anthropic's own per-task cost breakdown all change the per-token math you pinned evals to last week -- and the longer-context framing suggests session length, not just token price, is now part of the cost model.",
+  "take_for_builders": "Re-run your Claude vs. GPT cost model against Opus 5.5's AWS Bedrock pricing and the newly-cut competitor rates, and check Anthropic's per-task cost guidance against your own Claude Code session lengths before assuming last week's per-token numbers still hold.",
   "status": {
    "state": "Price war · multi-lab cuts",
    "tone": "now",
    "changed": "2026-09-23",
-   "detail": "Opus 5.5 and GPT-6 Sol/Luna's same-day launch escalated into board-wide 40-50% price cuts by Sep 23, with Opus 5.5 now live on AWS Bedrock.",
+   "detail": "Opus 5.5 and GPT-6 Sol/Luna's same-day launch escalated into board-wide 40-50% price cuts by Sep 23; Anthropic has since published AWS availability, longer-context coding rationale, and per-task cost guidance for Opus 5.5.",
    "track": [
     {
      "label": "cache price cut",
@@ -95,13 +115,19 @@
      "label": "dueling launches",
      "detail": "Sep 22",
      "tone": "turn",
-     "weight": 35
+     "weight": 30
     },
     {
      "label": "price cuts spread",
-     "detail": "Sep 23 → now",
+     "detail": "Sep 23",
      "tone": "now",
-     "weight": 45
+     "weight": 30
+    },
+    {
+     "label": "rollout details",
+     "detail": "Sep 24-25 → now",
+     "tone": "now",
+     "weight": 20
     }
    ]
   },
@@ -118,10 +144,11 @@
    {
     "kicker": "ROLLOUT",
     "tone": "rising",
-    "headline": "Opus 5.5 lands on AWS Bedrock with per-task cost guidance",
-    "summary": "Anthropic also published what a Claude Code task actually costs on Opus 5.5 and which settings move the bill.",
+    "headline": "Opus 5.5 lands on AWS Bedrock, then Anthropic details its longer-context coding design and per-task costs",
+    "summary": "Anthropic followed the launch with AWS availability, a design rationale built around longer coding sessions, and a guide to what a Claude Code task actually costs and which settings move the bill.",
     "sids": [
      "7322241f50811c86",
+     "a26eb8af87253d8b",
      "3d1eacfa6636ae86"
     ]
    },
@@ -138,6 +165,6 @@
    "Do Claude Opus 5.5's and GPT-6 Sol/Luna's posted prices actually beat GLM-5.3-Flash's domestic-chip pricing, or just each other?",
    "Which labs specifically matched the 40-50% cut, and does actual per-task cost (per AWS's guidance) net out cheaper despite Opus 5.5's higher list price?"
   ],
-  "generated_at": "2026-09-23T10:30:00+00:00"
+  "generated_at": "2026-09-26T05:20:00+00:00"
  }
 }
