@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. claude-code v2.1.283
 - Type: release | Source: claude_code_releases
 - URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.283
-- Score: 3.068 | Reliability: 1.0
+- Score: 3.039 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, eval, claude code.
 
 ## 2. From Agent Authorization to AI Production Evaluation: QCon AI New York 2026
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/qcon-ai-newyork-2026-sessions/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.993 | Reliability: 1.0
+- Score: 2.966 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 3. Quoting John Gruber
+## 3. Coding Agents for Generalized Task and Motion Planning Problems
+- Type: paper | Source: arxiv_cs_ai
+- URL: http://arxiv.org/abs/2609.30233v1
+- Score: 2.733 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, evaluation, codex.
+
+## 4. Quoting John Gruber
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/25/john-gruber/
-- Score: 2.616 | Reliability: 1.0
+- Score: 2.591 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
 
-## 4. Proaction boosts sales 60% and saves 75+ hours with Codex
+## 5. Proaction boosts sales 60% and saves 75+ hours with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/proaction
-- Score: 2.598 | Reliability: 1.0
+- Score: 2.573 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 5. Note on 24th September 2026
-- Type: news | Source: simon_willison
-- URL: https://simonwillison.net/2026/Sep/24/harder/
-- Score: 2.546 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 6. claude-agent-sdk-python v0.2.160
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.160
-- Score: 2.507 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 7. Building Production Agents with Jev and LangGraph
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
-- Score: 2.455 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 8. codex rust-v0.157.1
+## 6. codex 0.157.1
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.157.1
-- Score: 2.429 | Reliability: 1.0
+- Score: 2.544 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 9. Introducing Gemini 3.8 Live with Live Avatar
-- Type: news | Source: google_deepmind_blog
-- URL: https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/
-- Score: 2.09 | Reliability: 1.0
-- Why it matters: 
-
-## 10. Introducing MentalHealthBench
-- Type: news | Source: openai_blog
-- URL: https://openai.com/index/introducing-mentalhealthbench
-- Score: 1.887 | Reliability: 1.0
-- Why it matters: Matches feed focus: eval.
-
-## 11. LangSmith Custom Apps: Build custom interfaces around your agent data
-- Type: news | Source: langchain_blog
-- URL: https://www.langchain.com/blog/langsmith-custom-apps
-- Score: 2.429 | Reliability: 1.0
+## 7. Note on 24th September 2026
+- Type: news | Source: simon_willison
+- URL: https://simonwillison.net/2026/Sep/24/harder/
+- Score: 2.524 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 12. Home Made CobbleDB Replaces DynamoDB at Perplexity to Cut Query Latency 5x and Reduce Cloud Storage
-- Type: news | Source: infoq_ai_ml
-- URL: https://www.infoq.com/news/2026/09/cobbledb-perplexity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.392 | Reliability: 1.0
+## 8. claude-agent-sdk-python v0.2.160
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.160
+- Score: 2.484 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 9. What a task costs on Opus 5.5 / claude.dev Blog
+- Type: news | Source: claude_blog
+- URL: https://claude.com/blog/what-a-task-costs-on-opus-5-5
+- Score: 2.349 | Reliability: 1.0
+- Why it matters: Matches feed focus: claude code.
+
+## 10. Introducing Gemini 3.8 Live with Live Avatar
+- Type: news | Source: google_deepmind_blog
+- URL: https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/
+- Score: 2.076 | Reliability: 1.0
 - Why it matters: 
 
-## 13. Best practices guide for customizing Gemini models via Reinforcement Learning (RL)
+## 11. Building Production Agents with Jev and LangGraph
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
+- Score: 2.431 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 12. LangSmith Custom Apps: Build custom interfaces around your agent data
+- Type: news | Source: langchain_blog
+- URL: https://www.langchain.com/blog/langsmith-custom-apps
+- Score: 2.406 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 13. Home Made CobbleDB Replaces DynamoDB at Perplexity to Cut Query Latency 5x and Reduce Cloud Storage
+- Type: news | Source: infoq_ai_ml
+- URL: https://www.infoq.com/news/2026/09/cobbledb-perplexity/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
+- Score: 2.369 | Reliability: 1.0
+- Why it matters: 
+
+## 14. Best practices guide for customizing Gemini models via Reinforcement Learning (RL)
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models/
-- Score: 2.389 | Reliability: 1.0
+- Score: 2.349 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
-
-## 14. GHOST-Q: Towards Studying Grounding Hallucinations Overlooked Under Same-score TradeOffs in Quantized VLMS
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2609.29999v1
-- Score: 2.313 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
 
 ## 15. OpenRouter: from Seed to Stripe — with OpenRouter’s Alex Atallah & AMP’s Anjney Midha
 - Type: news | Source: latent_space
 - URL: https://www.latent.space/p/openrouter
-- Score: 2.308 | Reliability: 1.0
+- Score: 2.285 | Reliability: 1.0
 - Why it matters: 
 
 ## 16. GitHub Copilot app for Beginners: How to build custom workflows with canvases
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-build-custom-workflows-with-canvases/
-- Score: 2.294 | Reliability: 1.0
+- Score: 2.272 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 17. Claude gives us N=4 super Yang-Mills to nine loops
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/yes-claude-can-do-nine-loops
-- Score: 2.229 | Reliability: 1.0
+- Score: 2.234 | Reliability: 1.0
 - Why it matters: 
 
-## 18. DeepSeek Reveals How AI Agents Exploit Their Sandboxes
-- Type: news | Source: search_cn_open_weight_labs
-- URL: https://news.google.com/rss/articles/CBMihwFBVV95cUxPYW9DMngydk5EU0YyZ0ZBT01YUU83bWl3bFhBYy1fYzRqNHpGS1lTM0VPN1BZZmVQVjRaZDNEYmpudlg2cnp0MlJsQ3F1cFdTdmplVU1oYjZWSGtDajh6YzZkSVltZDFfbnF5TDhDRUZPWGt3OWhHMDFlVGluSnZzWExTcE5yTUk?oc=5
-- Score: 2.066 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
+## 18. An Empirical Study of VLM Pipelines for Long-Document QA
+- Type: paper | Source: arxiv_cs_cl
+- URL: http://arxiv.org/abs/2609.29933v1
+- Score: 2.177 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
 
 ## 19. Agents can now set up your website’s security with Turnstile Spin
 - Type: news | Source: cloudflare_blog
 - URL: https://blog.cloudflare.com/turnstile-spin/
-- Score: 2.034 | Reliability: 1.0
+- Score: 2.0 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 20. Accelerating vision-language models with LFM2.5-VL-DSpark
+## 20. DeepSeek V4.1 Flash vs V4 Pro vs V4-Flash: 4.4x Gap [2026]
+- Type: news | Source: search_cn_open_weight_labs
+- URL: https://news.google.com/rss/articles/CBMifEFVX3lxTE9ybnBqbUJsSEJOWDhzQzRHQ3dldVZYa3BCNFZDOEJsNjdYcVgtR0FmVGJMbUxnbG5PUnU2aXlqdDEwVllqZjlOV3cyWXJwS0pRRS1fS21iblg4X2VMd0swY0s2Um5JY0RrSzJyRWRzbG5NbjBDUnBPN1lwZ3E?oc=5
+- Score: 1.914 | Reliability: 1.0
+- Why it matters: 
+
+## 21. Accelerating vision-language models with LFM2.5-VL-DSpark
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark
-- Score: 1.802 | Reliability: 1.0
+- Score: 1.81 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Advancing Private AI Compute with secure, server-side memory
+## 22. Advancing Private AI Compute with secure, server-side memory
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
-- Score: 1.765 | Reliability: 1.0
+- Score: 1.757 | Reliability: 1.0
 - Why it matters: 
 
-## 22. From Data to Dialogue: How S&P Global Energy Made Its Structured Data Estate Conversational with Databricks Genie Agents and MCP
+## 23. From Data to Dialogue: How S&P Global Energy Made Its Structured Data Estate Conversational with Databricks Genie Agents and MCP
 - Type: news | Source: databricks_blog
 - URL: https://www.databricks.com/blog/data-dialogue-how-sp-global-energy-made-its-structured-data-estate-conversational-databricks
-- Score: 1.758 | Reliability: 1.0
+- Score: 1.727 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 23. Gemini 3.8 text-to-speech says hello
+## 24. Gemini 3.8 text-to-speech says hello
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/say-hello-to-gemini-38-text-to-speech/
-- Score: 1.678 | Reliability: 1.0
-- Why it matters: 
-
-## 24. Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind. | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context
-- Score: 1.66 | Reliability: 1.0
+- Score: 1.672 | Reliability: 1.0
 - Why it matters:
