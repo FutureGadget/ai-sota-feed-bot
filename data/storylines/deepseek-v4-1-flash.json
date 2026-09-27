@@ -1,13 +1,13 @@
 {
  "slug": "deepseek-v4-1-flash",
  "label": "DeepSeek V4.1-Flash",
- "item_count": 21,
- "day_count": 10,
+ "item_count": 22,
+ "day_count": 11,
  "source_count": 2,
  "first_seen": "2026-09-08T09:26:00+00:00",
- "last_updated": "2026-09-25T12:10:41+00:00",
+ "last_updated": "2026-09-27T05:47:25+00:00",
  "via_scout": true,
- "generated_at": "2026-09-27T05:09:17.094390+00:00",
+ "generated_at": "2026-09-27T10:12:23.528634+00:00",
  "sources": [
   "latent_space",
   "search_cn_open_weight_labs"
@@ -274,49 +274,64 @@
      "editor_note": "A fourth benchmark write-up in the series puts the V4.1-Flash/V4-Pro/V4-Flash gap at 4.4x, still without independent verification of DeepSeek's own efficiency numbers."
     }
    ]
+  },
+  {
+   "date": "2026-09-27",
+   "items": [
+    {
+     "title": "DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5",
+     "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFB1UlY1OW8tT1ZmbXZQR3hjQmZRcnExM1dIS0NWMm8xS3Q0R1dmU2JUeGIxcW1LdzM4ZmIyc1ZidU9jbVZzR2NPenhXLUNiVURIVmNla3lYUkRCVFF5NmdHQXpPWTIta3pTZ1VIdjYzUXNvb21BT3c?oc=5",
+     "source": "search_cn_open_weight_labs",
+     "type": "news",
+     "summary_1line": "DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5 shattered.io",
+     "sid": "4ce1e97ce10c119a",
+     "published": "2026-09-27T05:47:25+00:00",
+     "editor_note": "A fifth benchmark write-up claims the model beats Anthropic's Opus 5 at 70% lower cost, still without independent verification."
+    }
+   ]
   }
  ],
  "editorial": {
   "tldr": "DeepSeek shipped V4.1-Flash on Sep 10, claiming it beats flagship V4-Pro while cutting the memory agents need to run it. The efficiency claim rattled Samsung, SK Hynix, and Micron shares within a day, and DeepSeek quantified it Sep 13 as a 75% HBM and 87.5% SSD cut.",
   "stale": false,
-  "whats_new": "A Sep 25 tech-insider.org comparison puts a 4.4x gap between V4.1-Flash, V4-Pro, and V4-Flash -- the fourth benchmark write-up in this series since launch, still with no independent verification of DeepSeek's own efficiency numbers.",
+  "whats_new": "A Sep 27 shattered.io write-up claims V4.1-Flash beats Anthropic's Opus 5 at 70% lower cost -- the fifth benchmark comparison in this series since launch, now aimed at a Western flagship instead of DeepSeek's own prior models, still with no independent verification.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change -- and now a third-party host serves the same model, so routing choices need re-checking too.",
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted. If you route through ZenMux or another third-party host, verify it serves the same weights before trusting cross-provider evals.",
   "status": {
    "state": "Shipped · V4-Pro traffic silently rerouted, now on third-party hosts too",
    "tone": "turn",
    "changed": "2026-09-14",
-   "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a falling price. Sep 20 added architecture specifics, Sep 22 brought third-party hosting via ZenMux, and Sep 25 added a 4.4x benchmark-gap claim.",
+   "detail": "V4.1-Flash launched Sep 10 beating V4-Pro on quality while cutting agent memory needs; the efficiency claim rattled memory-chip stocks by Sep 11, and by Sep 14 DeepSeek was routing all V4-Pro traffic to V4.1-Flash at a falling price. Sep 20-27 added architecture specifics, third-party hosting, and a run of benchmark claims culminating in a Sep 27 claim of beating Opus 5 at 70% lower cost.",
    "track": [
     {
      "label": "beta + launch",
      "detail": "Sep 8–10",
      "tone": "launch",
-     "weight": 25
+     "weight": 22
     },
     {
      "label": "chip-stock jitters",
      "detail": "Sep 11–13",
      "tone": "rising",
-     "weight": 25
+     "weight": 22
     },
     {
      "label": "traffic rerouted + price cuts",
      "detail": "Sep 14 → now",
      "tone": "turn",
-     "weight": 25
+     "weight": 22
     },
     {
      "label": "architecture detail confirmed",
      "detail": "Sep 20",
      "tone": "rising",
-     "weight": 10
+     "weight": 9
     },
     {
      "label": "third-party hosting + ongoing benchmarks",
      "detail": "Sep 22 → now",
      "tone": "now",
-     "weight": 15
+     "weight": 25
     }
    ]
   },
@@ -364,14 +379,15 @@
    {
     "kicker": "MARKET IMPACT",
     "tone": "now",
-    "headline": "Pricing pressure builds as reviewers call the architecture a bigger leap than a point release",
-    "summary": "A Sep 17 benchmark puts the coding gap at 11 points over Qwen3-Coder and Devstral, a Sep 20 follow-up from a second outlet adds concrete numbers behind the causal encoder-decoder design (a 1M-token context window via extreme KV-cache compression), and a Sep 25 write-up puts a 4.4x gap between V4.1-Flash, V4-Pro, and V4-Flash.",
+    "headline": "Benchmark series widens from Chinese rivals to a Western flagship",
+    "summary": "A Sep 17 benchmark puts the coding gap at 11 points over Qwen3-Coder and Devstral, a Sep 20 follow-up adds architecture specifics (a 1M-token context window via extreme KV-cache compression), a Sep 25 write-up claims a 4.4x gap over V4-Pro and V4-Flash, and a Sep 27 piece from the same benchmark series claims V4.1-Flash beats Anthropic's Opus 5 at 70% lower cost.",
     "sids": [
      "82bd95dd18d293f1",
      "d1d28ac13afc9a24",
      "94c7e66f5dacc673",
      "01a617c33f0013bb",
-     "8a60defe95a4d885"
+     "8a60defe95a4d885",
+     "4ce1e97ce10c119a"
     ]
    },
    {
@@ -423,8 +439,9 @@
    "Will DeepSeek formally deprecate the V4-Pro endpoint, or keep serving V4.1-Flash under the old name indefinitely?",
    "Do outputs from the V4-Pro endpoint show measurable quality or behavior differences now that V4.1-Flash serves them?",
    "Has the 1M-token context and KV-cache compression figure been independently benchmarked, or does it restate DeepSeek's own claims?",
-   "Does ZenMux serve the identical weights and config as DeepSeek's own endpoint, or a re-quantized variant with different behavior?"
+   "Does ZenMux serve the identical weights and config as DeepSeek's own endpoint, or a re-quantized variant with different behavior?",
+   "Does the claimed edge over Opus 5 hold up under independent benchmarking, given the same content series already ran four unverified DeepSeek-internal comparisons?"
   ],
-  "generated_at": "2026-09-26T10:20:00Z"
+  "generated_at": "2026-09-27T10:10:34Z"
  }
 }
