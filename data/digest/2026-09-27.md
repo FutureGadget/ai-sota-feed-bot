@@ -5,143 +5,143 @@ Focus: AI Platform Engineering
 ## 1. Presentation: Adaptive Recommenders in the Real World: Inference, Evals, and System Design
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/presentations/adaptive-recommendation-systems-architecture/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.845 | Reliability: 1.0
+- Score: 2.821 | Reliability: 1.0
 - Why it matters: Matches feed focus: eval.
 
 ## 2. GKE Pod Snapshots Cut Model Load Times, and Move the Work to Snapshot Lifecycle Management
 - Type: news | Source: infoq_ai_ml
 - URL: https://www.infoq.com/news/2026/09/gke-pod-snapshots-benchmarks/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering
-- Score: 2.793 | Reliability: 1.0
+- Score: 2.767 | Reliability: 1.0
 - Why it matters: 
 
-## 3. Kākāpō Party
+## 3. Show HN: Jev-windows-agent – Windows UI Automation back end for CUA agents
+- Type: news | Source: hackernews_ai
+- URL: https://github.com/VBS2004/jev-windows-agent
+- Score: 2.758 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
+
+## 4. Kākāpō Party
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/26/kakapo-party/
-- Score: 2.757 | Reliability: 1.0
+- Score: 2.732 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
-## 4. Coding Agents for Generalized Task and Motion Planning Problems
+## 5. Coding Agents for Generalized Task and Motion Planning Problems
 - Type: paper | Source: arxiv_cs_ai
 - URL: http://arxiv.org/abs/2609.30233v1
-- Score: 2.287 | Reliability: 1.0
+- Score: 2.267 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation, codex.
 
-## 5. codex 0.159.0-alpha.9
+## 6. codex 0.159.0-alpha.9
 - Type: release | Source: openai_codex_releases
 - URL: https://github.com/openai/codex/releases/tag/rust-v0.159.0-alpha.9
-- Score: 2.264 | Reliability: 1.0
+- Score: 2.239 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
-## 6. DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5
+## 7. DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5
 - Type: news | Source: search_cn_open_weight_labs
 - URL: https://news.google.com/rss/articles/CBMidkFVX3lxTFB1UlY1OW8tT1ZmbXZQR3hjQmZRcnExM1dIS0NWMm8xS3Q0R1dmU2JUeGIxcW1LdzM4ZmIyc1ZidU9jbVZzR2NPenhXLUNiVURIVmNla3lYUkRCVFF5NmdHQXpPWTIta3pTZ1VIdjYzUXNvb21BT3c?oc=5
-- Score: 2.22 | Reliability: 1.0
+- Score: 2.212 | Reliability: 1.0
 - Why it matters: 
-
-## 7. claude-code v2.1.283
-- Type: release | Source: claude_code_releases
-- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.283
-- Score: 2.199 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent, eval, claude code.
 
 ## 8. Proaction boosts sales 60% and saves 75+ hours with Codex
 - Type: news | Source: openai_blog
 - URL: https://openai.com/index/proaction
-- Score: 1.859 | Reliability: 1.0
+- Score: 1.844 | Reliability: 1.0
 - Why it matters: Matches feed focus: codex.
 
 ## 9. What a task costs on Opus 5.5 / claude.dev Blog
 - Type: news | Source: claude_blog
 - URL: https://claude.com/blog/what-a-task-costs-on-opus-5-5
-- Score: 1.729 | Reliability: 1.0
+- Score: 1.716 | Reliability: 1.0
 - Why it matters: Matches feed focus: claude code.
 
 ## 10. Introducing Gemini 3.8 Live with Live Avatar
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/
-- Score: 1.61 | Reliability: 1.0
+- Score: 1.599 | Reliability: 1.0
 - Why it matters: 
 
-## 11. Quoting John Gruber
+## 11. claude-code v2.1.283
+- Type: release | Source: claude_code_releases
+- URL: https://github.com/anthropics/claude-code/releases/tag/v2.1.283
+- Score: 2.179 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent, eval, claude code.
+
+## 12. Quoting John Gruber
 - Type: news | Source: simon_willison
 - URL: https://simonwillison.net/2026/Sep/25/john-gruber/
-- Score: 2.002 | Reliability: 1.0
+- Score: 1.987 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic.
-
-## 12. GHOST-Q: Towards Studying Grounding Hallucinations Overlooked Under Same-score TradeOffs in Quantized VLMS
-- Type: paper | Source: arxiv_cs_lg
-- URL: http://arxiv.org/abs/2609.29999v1
-- Score: 1.943 | Reliability: 1.0
-- Why it matters: Matches feed focus: evaluation.
 
 ## 13. Building Production Agents with Jev and LangGraph
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/building-prod-with-jev-and-langgraph
-- Score: 1.87 | Reliability: 1.0
+- Score: 1.856 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
 ## 14. Claude computes a nine-loop amplitude in N=4 super-Yang-Mills
 - Type: research | Source: anthropic_research
 - URL: https://www.anthropic.com/research/yes-claude-can-do-nine-loops
-- Score: 1.858 | Reliability: 1.0
+- Score: 1.841 | Reliability: 1.0
 - Why it matters: 
 
 ## 15. LangSmith Custom Apps: Build custom interfaces around your agent data
 - Type: news | Source: langchain_blog
 - URL: https://www.langchain.com/blog/langsmith-custom-apps
-- Score: 1.855 | Reliability: 1.0
+- Score: 1.841 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 16. An Empirical Study of VLM Pipelines for Long-Document QA
+## 16. To Trust or Not to Trust: Retrieval-Augmented Fact Checking in Speech
 - Type: paper | Source: arxiv_cs_cl
-- URL: http://arxiv.org/abs/2609.29933v1
-- Score: 1.825 | Reliability: 1.0
-- Why it matters: Matches feed focus: agentic, eval.
+- URL: http://arxiv.org/abs/2609.30227v1
+- Score: 1.8 | Reliability: 1.0
+- Why it matters: Matches feed focus: eval.
 
-## 17. claude-agent-sdk-python v0.2.160
-- Type: release | Source: claude_agent_sdk_python_releases
-- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.160
-- Score: 1.785 | Reliability: 1.0
-- Why it matters: Matches feed focus: agent.
-
-## 18. AI Evals: Everything You Need to Know
+## 17. AI Evals: Everything You Need to Know
 - Type: news | Source: hamel_husain
 - URL: https://hamel.dev/blog/posts/evals-faq/
-- Score: 1.779 | Reliability: 1.0
+- Score: 1.775 | Reliability: 1.0
 - Why it matters: Matches feed focus: agentic, evaluation, codex.
+
+## 18. claude-agent-sdk-python v0.2.160
+- Type: release | Source: claude_agent_sdk_python_releases
+- URL: https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.160
+- Score: 1.77 | Reliability: 1.0
+- Why it matters: Matches feed focus: agent.
 
 ## 19. GitHub Copilot app for Beginners: How to build custom workflows with canvases
 - Type: news | Source: github_blog_ai_ml
 - URL: https://github.blog/ai-and-ml/github-copilot/github-copilot-app-for-beginners-how-to-build-custom-workflows-with-canvases/
-- Score: 1.762 | Reliability: 1.0
+- Score: 1.749 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent.
 
-## 20. Accelerating vision-language models with LFM2.5-VL-DSpark
+## 20. KernelOPT: Dispatch-Aware Agentic Search for GPU Kernel Optimization
+- Type: paper | Source: arxiv_cs_lg
+- URL: http://arxiv.org/abs/2609.30059v1
+- Score: 1.696 | Reliability: 1.0
+- Why it matters: Matches feed focus: agentic, eval.
+
+## 21. Accelerating vision-language models with LFM2.5-VL-DSpark
 - Type: research | Source: huggingface_blog
 - URL: https://huggingface.co/blog/LiquidAI/lfm2-5-vl-dspark
-- Score: 1.513 | Reliability: 1.0
+- Score: 1.498 | Reliability: 1.0
 - Why it matters: 
 
-## 21. Advancing Private AI Compute with secure, server-side memory
+## 22. Advancing Private AI Compute with secure, server-side memory
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/advancing-private-ai-compute-with-secure-server-side-memory/
-- Score: 1.449 | Reliability: 1.0
+- Score: 1.441 | Reliability: 1.0
 - Why it matters: 
 
-## 22. Best practices guide for customizing Gemini models via Reinforcement Learning (RL)
+## 23. Best practices guide for customizing Gemini models via Reinforcement Learning (RL)
 - Type: news | Source: google_cloud_blog
 - URL: https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models/
-- Score: 1.449 | Reliability: 1.0
+- Score: 1.432 | Reliability: 1.0
 - Why it matters: Matches feed focus: agent, evaluation.
 
-## 23. Gemini 3.8 text-to-speech says hello
+## 24. Gemini 3.8 text-to-speech says hello
 - Type: news | Source: google_deepmind_blog
 - URL: https://deepmind.google/blog/say-hello-to-gemini-38-text-to-speech/
-- Score: 1.385 | Reliability: 1.0
-- Why it matters: 
-
-## 24. Coding sessions are longer and use more context. Claude Opus 5.5 is built with that in mind. | Claude by Anthropic
-- Type: news | Source: claude_blog
-- URL: https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context
-- Score: 1.354 | Reliability: 1.0
+- Score: 1.378 | Reliability: 1.0
 - Why it matters:
