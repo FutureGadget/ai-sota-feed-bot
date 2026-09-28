@@ -7969,16 +7969,16 @@
  },
  "7747e7c05ffb24a4": {
   "first_seen": "2026-09-28T01:04:05.633180+00:00",
-  "id": "0bc31474373e6ad9",
+  "id": "bbe3559688b031c8",
   "matched_topics": [
    "codex"
   ],
-  "published": "2026-09-28T00:53:13+00:00",
+  "published": "2026-09-28T01:58:14+00:00",
   "sid": "7747e7c05ffb24a4",
   "source": "openai_codex_releases",
   "summary": "Release 0.158.0-alpha.15.4",
   "summary_1line": "Release 0.158.0-alpha.15.4",
-  "title": "codex rust-v0.158.0-alpha.15.4",
+  "title": "codex 0.158.0-alpha.15.4",
   "type": "release",
   "url": "https://github.com/openai/codex/releases/tag/rust-v0.158.0-alpha.15.4",
   "why_it_matters": "Matches feed focus: codex."
@@ -9963,6 +9963,22 @@
   "title": "Perplexity trusts GPT-6 Astra with end-to-end systems",
   "type": "news",
   "url": "https://openai.com/index/perplexity-improving-accuracy-with-astra"
+ },
+ "96c760843077cce5": {
+  "first_seen": "2026-09-28T02:04:27.962690+00:00",
+  "id": "ca87272e994bb0e2",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-09-25T13:25:56+00:00",
+  "sid": "96c760843077cce5",
+  "source": "arxiv_cs_ai",
+  "summary": "Novel view synthesis (NVS) models can produce realistic new views of the same scene from different viewpoints. However, these generated views are not always geometrically consistent with one another. Multi-view (MV) consistency has shown promise as a tool for evaluating these NVS models. Its potential for multimedia forensics, however, remains largely unexplored, particularly for localizing geometric inconsistencies across wide-baseline image pairs. To enable research in this direction, we introduce DeformView, a wide-baseline MV dataset with pixel-level annotations of geometric inconsistencies. Using DeformView, we evaluate state-of-the-art MV consistency-scoring methods and show that approaches developed for NVS evaluation transfer poorly to the forensic task of geometric inconsistency localization. To address this limitation, we propose DEFECt3R, a lightweight learning-based classifier that uses cross-view feature relationships to localize geometric inconsistencies at the pixel level. By learning from explicit supervision, including hard negatives from geometrically consistent yet deformed views, DEFECt3R improves localization performance and substantially reduces false positives compared to existing consistency-scoring methods. Ablation experiments further show that both feature representations and correspondence quality contribute to localization performance. Overall, our findings demonstrate that MV geometric consistency is a promising yet underexplored signal for multi",
+  "summary_1line": "Novel view synthesis (NVS) models can produce realistic new views of the same scene from different viewpoints. However, these generated views are not always geometrically consistent with one another. Multi-view (MV) c...",
+  "title": "Geometric Inconsistency Localization in Multi-View Image Sets",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.31247v1",
+  "why_it_matters": "Matches feed focus: evaluation."
  },
  "96e818e4eab0da8b": {
   "first_seen": "2026-09-03T02:03:24.042591+00:00",
@@ -12160,6 +12176,18 @@
   "title": "[AINews] Meta Connect 2026: Muse glasses, voice, video, and Charm",
   "type": "news",
   "url": "https://www.latent.space/p/ainews-meta-connect-2026-muse-glasses"
+ },
+ "b537c49839ba4602": {
+  "first_seen": "2026-09-28T02:04:27.962690+00:00",
+  "id": "e58b32bf4437b4f0",
+  "published": "2026-09-28T00:40:54+00:00",
+  "sid": "b537c49839ba4602",
+  "source": "search_cn_open_weight_labs",
+  "summary": "DeepSeek on gold price Moomoo",
+  "summary_1line": "DeepSeek on gold price Moomoo",
+  "title": "DeepSeek on gold price",
+  "type": "news",
+  "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQLWdhbE5UNmZKQzRlMGFzQTU1UEFFZG1QZWVoQnJHMXIyLWc3VTQ1RmV0SnlSNzNZNWFUYWRNdTlBeWxjMnkyQVd3ZWtudXhNbU1SVTJEOVdYMTJIeFl2SWFaXzFIUHR0ak1fLTJUVGNDRlpNSUhYbFNwWnZhWUY3VnR3?oc=5"
  },
  "b5500bc6503561c6": {
   "first_seen": "2026-09-03T09:03:06.737885+00:00",
@@ -14940,6 +14968,22 @@
   "url": "http://arxiv.org/abs/2609.26667v1",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "e3839cdd8765147e": {
+  "first_seen": "2026-09-28T02:04:27.962690+00:00",
+  "id": "533e66777a91ed1b",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-09-25T14:14:48+00:00",
+  "sid": "e3839cdd8765147e",
+  "source": "arxiv_cs_lg",
+  "summary": "Tabular in-context learners such as TabPFN, Mitra, or ConTextTab rely on alternating row and column attention over 2D sequences of latent embeddings. These attention patterns differ markedly from the one-dimensional case in language models: row attention involves longer sequences while column attention operates on much shorter ones, and the strided memory layout of tabular data makes producing contiguous tensors costly. Moreover, the hidden dimensions used in current models are small compared to recent language models. Yet efficient attention has been studied mostly for one-dimensional sequences, leaving the two-dimensional tabular setting unexplored. To this end, we create a reproducible benchmarking setup and study the unique characteristics of tabular attention across several backends -- Torch SDPA (efficient and cuDNN), FlashAttention-2/3/4, and the inference-only backends vLLM and SageAttention -- measuring forward and backward throughput across realistic tabular shapes on three GPU generations (A100, H100, B200). We find that the optimal backend choice differs between column and row attention and varies across hardware as well as model specifics: While the FlashAttention implementations tailored for each GPU generation perform overall best, they are at times outperformed by CuDNN in the case of column attention at longer sequences with cross-over points depending on the head dimension. Among inference-only backends, SageAttention performs well for row attention and larg",
+  "summary_1line": "Tabular in-context learners such as TabPFN, Mitra, or ConTextTab rely on alternating row and column attention over 2D sequences of latent embeddings. These attention patterns differ markedly from the one-dimensional c...",
+  "title": "Benchmarking Attention for Tabular Foundation Models",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.31306v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "e38acd1a56d6bb20": {
   "first_seen": "2026-09-25T19:03:50.981448+00:00",
   "id": "04e4314498408cc3",
@@ -16062,6 +16106,18 @@
   "type": "release",
   "url": "https://github.com/anthropics/claude-agent-sdk-python/releases/tag/v0.2.158",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "f60e0a4876d67987": {
+  "first_seen": "2026-09-28T02:04:27.962690+00:00",
+  "id": "e204fc0b4e10ad49",
+  "published": "2026-09-27T18:41:44+00:00",
+  "sid": "f60e0a4876d67987",
+  "source": "simon_willison",
+  "summary": "Tool: Bluesky reply bot checker Automated reply bots on Twitter are a scourge - as someone with a decent number of followers I attract a swarm of these, such that anything I post there attracts dozens of mindless automated replies. They've started manifesting on Bluesky as well. Unlike Twitter, Bluesky still has a freely available and useful API. The lack of such a thing doesn't slow down the bots, but it does make investigating them a lot more frustrating. So I had Opus 5.5 vibe code this tool , which examines any Bluesky profile for evidence of a likely reply bot. It looks for signals like replies posted within seconds of other posts from the same account, or accounts that never post their own content (or images or links) but instead consistently reply to messages from other, higher-follower users. It also looks for question marks, because I'm extra infuriated by reply bots that I no tie me to waste my time answering a question that no human ever posed. Tags: twitter , bluesky , vibe-coding , ai-misuse",
+  "summary_1line": "Tool: Bluesky reply bot checker Automated reply bots on Twitter are a scourge - as someone with a decent number of followers I attract a swarm of these, such that anything I post there attracts dozens of mindless auto...",
+  "title": "Bluesky reply bot checker",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Sep/27/bluesky-bot-check"
  },
  "f6729f8a7a0d3b26": {
   "first_seen": "2026-09-03T03:03:29.214049+00:00",
