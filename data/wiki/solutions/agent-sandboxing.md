@@ -5,9 +5,9 @@ title: "Sandboxing, scoped credentials, and guardrails"
 status: active
 obstacles: [prompt-injection]
 related_storylines: []
-evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d]
-updated: 2026-09-26
-covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d]
+evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d, b7d482ff6a323e55]
+updated: 2026-09-28
+covers_evidence: [2f585fd257ad02a4, 6b3ed4b86d0301bf, b2c537fce6444ae6, dd1dcc3f564a3ddd, b36dcebbf2119ee1, 4c55eebe122eae12, 9ef99508d91d13ed, 810e8370a6841be6, 68a519e26dde7563, ed140b4e4c38f7b0, ca0cc4b843525e7d, 8a98677361367a46, 655ca293c796f3fd, 4dca27f5d11655f3, 0d10a691ebcb0e61, f9a1870648a6375a, 7a882200fe85650f, 9052589c403a3302, f7912534a54859ea, 817b928716b9e158, f8df3e0d3cc81402, ea758b7fe7cc27d3, 764c073dd4e1fc67, 44423c0a85b4d691, bd313e7fdc9f5123, 9354ab633172994d, 75e06503c7167854, ada26f890a94c3e6, e75e48fe5615bbac, 228dddec5b6b8ab4, 910e4aea068561ce, a8df06815305203c, c0bd012b2b5ce51e, c99ec862b4e71599, 7c4f61301b375309, 92ea9e6e984774cc, bbcb8c7b31f8ea3b, 73171b91b9c52400, 2917dbafeb1d3638, 39a38a3eed7c4ace, 2d67d91e54fb9eb8, 38e1d864014e2bd1, f7dc95732d84964c, aca7847db12030b3, f1859c5bfd11aefc, e3560887ce822a61, 410ca031ddd240de, ba303e4295845e9c, c765441e9673d957, a2c038fcf0da7a87, 5ef7fad9f77bbe43, 64af1d1a2fd48283, 0b83037fcfc39fe6, ca2d50c836ec2bc8, 8478102e21445d5c, 2454ea8187e26bdb, 6d7e21b41e293e2d, 41ae8bd6da89fe2d, b7d482ff6a323e55]
 ---
 
 ## TL;DR
@@ -138,6 +138,15 @@ defense in depth rather than trusting any one of them:
   swaps in the real credential on the way out — a concrete instance of the
   authorization-over-isolation principle above, scoped to one specific,
   commonly-needed tool integration.
+- **Credentials API for managed agents**: Google's Gemini Managed Agents
+  generalize that substitution into a first-party primitive. A secret is
+  stored once (write-only, encrypted at rest) as one of three types —
+  `bearer_token`, `oauth2` with automatic refresh, or `environment_variable`
+  — and referenced by ID from a remote MCP tool, a network-allowlist domain,
+  or a sandbox env var. The container sees only a placeholder
+  (`__GEMINI_CRED_<id>__`); the egress proxy swaps in the real value only for
+  requests to that credential's `trusted_domains`, so a dependency reading
+  `os.environ` leaks nothing.
 - **Sandbox scheduling at fleet scale**: Modal's scheduler now launches up to
   1 million concurrent sandboxes per workspace within seconds, evidence that
   execution isolation is becoming a fleet-scale scheduling problem — not just
@@ -304,7 +313,13 @@ above are pure friction; read as a product primitive, the same boundary is
 what makes running someone else's generated code shippable at all.
 
 ## What's new
-Docker Cloud Sandboxes joined the managed-platform tier as a third
+Google's Credentials API for Gemini Managed Agents made egress-proxy secret
+injection a platform primitive: write-only stored secrets (bearer token,
+OAuth2 with auto-refresh, env var) are referenced by ID, the sandbox holds
+only a placeholder, and the proxy injects the real value only for a
+credential's trusted domains (see State of the art above).
+
+Prior update: Docker Cloud Sandboxes joined the managed-platform tier as a third
 laptop-to-cloud entrant, giving AI coding agents a hosted execution
 environment built on hardware-enforced microVM isolation with a unified CLI
 for moving the same workload between a developer's laptop and the cloud

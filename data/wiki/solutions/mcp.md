@@ -5,9 +5,9 @@ title: "Model Context Protocol: a standard interface for agent tools"
 status: active
 obstacles: [tool-use]
 related_storylines: []
-evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2]
-updated: 2026-09-26
-covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2]
+evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2, 15939a0632edddf1]
+updated: 2026-09-28
+covers_evidence: [b2c537fce6444ae6, 8bad13df6e63105d, 6d71486170022687, 3c7fd2cd97de321f, 4f7d4f99793e131d, ff1510e381d9b329, 10de279350c1ecc9, f672838de330e86f, 9370d60ff069b1f4, cf37950940d3d2b5, 802363aee5105ca5, ca2de3ecb9f0eb55, 2b0cc93ba8a0f9b8, 3c227e4c9b2cd2eb, 2e309060a5831bee, 49c783dfceab27fd, 2ae1f6b53f88576c, 916521ba0baad7c0, b734d716b0d66f96, 9352c956aa90126f, e19273caeeed853d, 89bc6f5296e6a019, ea850b1a9c912609, 793d1e28a9d4d499, 4daf9a3fc6b23a4c, cfcd5af1b5266bac, 801edb72737f6642, e3560887ce822a61, 857f4a269c2fa11e, a6959f9ba4dbb368, 0e371a11c328c372, 9ff272590ebd1651, 76fec386ed6440f3, c03fce750657d23d, 2690558920b683f4, 14ca1514017a2ee2, 15939a0632edddf1]
 ---
 
 ## TL;DR
@@ -33,6 +33,10 @@ WebMCP support that any site turns on from a dashboard toggle, no code
 change required, letting an in-browser agent interact with an unmodified
 page — the origin-trial pattern moving from "a team opts in" to "an operator
 flips a switch."
+Cloudflare's Kitesurf, its Workers-based agent browser, now supports WebMCP
+too, so an agent can call exposed site tools (Cloudflare Radar's `navigate-to`,
+`set-location`) instead of simulating clicks, and reports passing 730,000+
+Web Platform subtests, about 500,000 more than at its August launch.
 
 MCP is also becoming the assumed plug for **hosted runtimes** — Azure
 Functions' agents runtime gives every agent MCP server access (alongside
@@ -239,7 +243,11 @@ layer as a pure execution boundary — the model never runs AFL itself, it
 only decides what AFL should try next.
 
 ## What's new
-AWS detailed how the MCP spec's stateless rewrite plays out in production:
+Cloudflare's Kitesurf agent browser added WebMCP support, letting agents call
+site-exposed functions rather than click through pages, alongside 730,000+
+passing Web Platform subtests (see State of the art above).
+
+Prior update: AWS detailed how the MCP spec's stateless rewrite plays out in production:
 removing protocol-level sessions and sticky-session requirements lets a
 remote MCP server route each request independently and scale horizontally,
 pushing retries, observability, and idempotency onto layers that already
