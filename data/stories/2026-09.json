@@ -4741,6 +4741,21 @@
   "url": "https://github.com/kosmrljt/dev-sandbox",
   "why_it_matters": "Matches feed focus: agent."
  },
+ "447da620d723578e": {
+  "first_seen": "2026-09-28T05:03:54.088089+00:00",
+  "id": "6db496bbecfa5964",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-28T04:46:27+00:00",
+  "sid": "447da620d723578e",
+  "source": "hackernews_ai",
+  "summary_1line": "Flowlight – open-source network visibility for AI agents on macOS",
+  "title": "Flowlight – open-source network visibility for AI agents on macOS",
+  "type": "news",
+  "url": "https://flowlight.xinbetween.com",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "448701fe99745f64": {
   "first_seen": "2026-09-09T03:03:33.913727+00:00",
   "id": "0cd2842af9e809b0",
@@ -6202,6 +6217,22 @@
   "type": "news",
   "url": "https://www.paperinstruments.com/blog/introducing-paper-office",
   "why_it_matters": "Matches feed focus: agent."
+ },
+ "5a081433dfe20a90": {
+  "first_seen": "2026-09-28T05:03:54.088089+00:00",
+  "id": "8fc8975a616062d1",
+  "matched_topics": [
+   "eval"
+  ],
+  "published": "2026-09-25T17:54:01+00:00",
+  "sid": "5a081433dfe20a90",
+  "source": "arxiv_cs_lg",
+  "summary": "Low-rank adapters (LoRA) make it cheap to fine-tune a large language model once per task, but combining several independently trained adapters into one model remains difficult: merging the updates in weight space causes interference, retraining on all task data is expensive, and routing between separate adapters gives up the goal of a single combined model. We trace the difficulty to two choices that every composition method makes implicitly. A LoRA update admits infinitely many equivalent factorizations; the choice among them is invisible while an adapter serves alone, but it determines what a learned interaction between adapters can see. A coupling between an old skill and a new one can likewise point in either direction, and the direction decides whether the old skills keep computing what they computed before. We introduce READ (Read-only Expansion of Adapter Deltas), which fixes both choices: each adapter is rewritten into a balanced canonical form that preserves its update exactly, and the coupling grows in one direction only, so a new skill can read the input subspaces of old skills but cannot write into their output subspaces. The only trainable object at each append is the new skill's row of the coupling matrix, and the composed update folds into the base weights with no inference cost, routing, or task-specific rules. We evaluate READ across four benchmark suites and two model families, adding skills one at a time. Across several families, READ improves every suite a",
+  "summary_1line": "Low-rank adapters (LoRA) make it cheap to fine-tune a large language model once per task, but combining several independently trained adapters into one model remains difficult: merging the updates in weight space caus...",
+  "title": "New LoRA Skills Should Read but Never Write",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.31600v1",
+  "why_it_matters": "Matches feed focus: eval."
  },
  "5a254df52928f177": {
   "first_seen": "2026-09-11T08:02:58.032750+00:00",
@@ -7896,6 +7927,23 @@
   "title": "Foundries vs Navigators: Lowering the Cost of Science",
   "type": "news",
   "url": "https://www.latent.space/p/foundries-vs-navigators-lowering"
+ },
+ "75eaa5cf3891c1d2": {
+  "first_seen": "2026-09-28T05:03:54.088089+00:00",
+  "id": "353c86f7229c00b8",
+  "matched_topics": [
+   "agentic",
+   "eval"
+  ],
+  "published": "2026-09-25T17:33:41+00:00",
+  "sid": "75eaa5cf3891c1d2",
+  "source": "arxiv_cs_ai",
+  "summary": "AI tutoring could markedly improve learning outcomes for students in developing regions such as Vietnam, yet the two obvious paths both fall short. Cloud assistants such as ChatGPT route sensitive student data to foreign servers---violating data-sovereignty laws such as Vietnam's Decree 53---and, pre-trained on Western-centric corpora, are not organized around the national textbook curriculum, so their knowledge of local content is unsystematic and frequently hallucinated. Self-hosting an open model keeps data on-premise but hits a two-fold wall: post-training quantization (AWQ, GPTQ) tames the static weight footprint, yet the dynamic KV cache and prefill latency of long tutoring contexts still cause out-of-memory failures and slow responses on consumer GPUs, while the model keeps hallucinating on region-specific material. We present DeepEdu-v1, an AI-tutoring system for Vietnamese education built on SCALE (Self-improving Context-Aware Learning Engine), a framework with two innovations. First, a long-context inference engine amortizes token selection from per-sub-chunk to per-cluster granularity; on long-context retrieval it issues x7.7 fewer retrieval calls than a state-of-the-art selective-attention baseline, cutting prefill latency (TTFT) by roughly 35% while matching or improving task accuracy. Second, a self-improving agentic layer continuously curates a verified playbook from past interactions instead of fine-tuning, a design intended to progressively reduce reliance on",
+  "summary_1line": "AI tutoring could markedly improve learning outcomes for students in developing regions such as Vietnam, yet the two obvious paths both fall short. Cloud assistants such as ChatGPT route sensitive student data to fore...",
+  "title": "DeepEdu-v1: Efficient and Scalable Agentic LLMs for Vietnamese Education",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.31568v1",
+  "why_it_matters": "Matches feed focus: agentic, eval."
  },
  "764c7120849caa94": {
   "first_seen": "2026-09-03T05:03:10.026694+00:00",
@@ -10786,7 +10834,7 @@
   "published": "2026-09-27T23:54:15+00:00",
   "sid": "a068c50324a9ff73",
   "source": "simon_willison",
-  "summary": "On Friday I gave the closing keynote at the WeAreDevelopers World Congress North America in San Jose. I tied together the key trends from the past year into a chronological exploration of everything that happened in 2026. The video is on YouTube ; here are my annotated slides and notes to accompany the talk. # I'm going to give a lightning tour of everything that has happened so far in 2026. The year isn't over yet! # For me, 2026 started a couple of months earlier in November 2025. # November saw the release of two important models: Claude Opus 4.5 and GPT-5.1. As is usually the case with new models, these were incremental improvements on the models that came before them. But every now and then when a model improves, it crosses an invisible line where something that didn't really work starts working. In this case, the thing that started working was their coding agents. Claude Code had been around since February 2025, Codex was a little younger. These two new models, when paired with their respective coding agent harnesses, improved from \"often make mistakes\" to \"reliable enough to use on a day-to-day basis\". # For a couple of years now I've been evaluating new models by asking them to \"Generate an SVG of a pelican riding a bicycle\". It's probably the world's stupidest benchmark - there's only so much you can learn from it. But it's still a challenge for models, because drawing pelicans is difficult, drawing bicycles is difficult, and pelicans can't ride bicycles in the first",
+  "summary": "On Friday I gave the closing keynote at the WeAreDevelopers World Congress North America in San Jose. I tied together the key trends from the past year into a chronological exploration of everything that happened in 2026. The video is on YouTube ; here are my annotated slides and notes to accompany the talk. And as an annotated presentation : # I'm going to give a lightning tour of everything that has happened so far in 2026. The year isn't over yet! # For me, 2026 started a couple of months earlier in November 2025. # November saw the release of two important models: Claude Opus 4.5 and GPT-5.1. As is usually the case with new models, these were incremental improvements on the models that came before them. But every now and then when a model improves, it crosses an invisible line where something that didn't really work starts working. In this case, the thing that started working was their coding agents. Claude Code had been around since February 2025, Codex was a little younger. These two new models, when paired with their respective coding agent harnesses, improved from \"often make mistakes\" to \"reliable enough to use on a day-to-day basis\". # For a couple of years now I've been evaluating new models by asking them to \"Generate an SVG of a pelican riding a bicycle\". It's probably the world's stupidest benchmark - there's only so much you can learn from it. But it's still a challenge for models, because drawing pelicans is difficult, drawing bicycles is difficult, and pelica",
   "summary_1line": "On Friday I gave the closing keynote at the WeAreDevelopers World Congress North America in San Jose. I tied together the key trends from the past year into a chronological exploration of everything that happened in 2...",
   "title": "2026 in LLMs (so far)",
   "type": "news",
@@ -12375,6 +12423,22 @@
   "type": "news",
   "url": "https://claude.com/blog/salesforce-in-claude"
  },
+ "b6ce910accbcbcac": {
+  "first_seen": "2026-09-28T05:03:54.088089+00:00",
+  "id": "39959ccb2ae0e857",
+  "matched_topics": [
+   "codex"
+  ],
+  "published": "2026-09-28T04:07:03+00:00",
+  "sid": "b6ce910accbcbcac",
+  "source": "openai_codex_releases",
+  "summary": "Release 0.158.0",
+  "summary_1line": "Release 0.158.0",
+  "title": "codex rust-v0.158.0",
+  "type": "release",
+  "url": "https://github.com/openai/codex/releases/tag/rust-v0.158.0",
+  "why_it_matters": "Matches feed focus: codex."
+ },
  "b755d1fd6f7bd473": {
   "first_seen": "2026-09-26T23:04:01.173368+00:00",
   "id": "8e15fee0c48dde4d",
@@ -13095,6 +13159,22 @@
   "title": "Controversy Over US Government's Use of Chinese AI: An Examination of Qwen's Deployment",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOQThuMXY5OENQdnZBU0VyT2lJMlpwR3VjaEE5akc1X0R6TFlLdEJ6YWpTNzI0MTZBUnlrWVhHZmtkX0NYd3M0c1JxWTAzMDV1U2psT3JEZldkTE5PUXZXeTNEbHJhcDZVZDgzaE9mWmY3b3V5QzZRTjNabm9qN3hQdi1wdjMzX3RLQ3JqWE82UEFSR3JseVNiMXhXclRqZXV2djYyNVdZYUlKVGlCQmNGSUFmRXJuTUtxSjNMQ3RwWmJubjVDaFhHN2NLSkRsbzlEbHNUMldUSdIB3AFBVV95cUxPYkFZejg5YTY2cG1mNWdZZl81T01GT1B1a3VlMUtkelNjN3dWQnlLTEFEQXg4VlhKT2FBMzZuRVNNODlEQ0xRazVzS3pOWXlPMFlYNzlYYmxDSkdsMHRaaHNpRFB6dkNTNW5MVENhSHF0RjBuYjhEbTdkVTk0OVVsUEV5R1dRMFdlNWlMQWpHSlJDc0tYYktwdGlPTElGalNMdjZ3VHdlT1hDZXZxOEVNbEpfUVVza1ZBbWY4aHVXT0dLS1NCRnlXUVRvdXNyeXk4S2tQaUNFQUJhZ3RN?oc=5"
+ },
+ "c22628e02ed9c965": {
+  "first_seen": "2026-09-28T05:03:54.088089+00:00",
+  "id": "e576682f7f3370bc",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-28T04:01:30+00:00",
+  "sid": "c22628e02ed9c965",
+  "source": "simon_willison",
+  "summary": "Bad news on the MX Keys Mini pickup. Usman showed up at your building around 9:15 and waited, messaged a bunch of times, and nobody came down. He left angry at 9:38 and left a negative rating. Worse, my auto-reply told him \"Yep I'm here!\" at 9:27 when you clearly weren't available, which is on me. That's a bad look and it made the no-show worse. I've sent him an apology from your account owning it and offering to try again another day. But the negative rating is real, and I should probably stop the auto-replies from claiming you're home when I can't verify that. Want me to change the pickup replies so they don't promise you're there? — Muse AI Agent , working on behalf of @matt.j.robb Tags: meta , generative-ai , muse-agent , ai , general-agents , llms",
+  "summary_1line": "Bad news on the MX Keys Mini pickup. Usman showed up at your building around 9:15 and waited, messaged a bunch of times, and nobody came down. He left angry at 9:38 and left a negative rating. Worse, my auto-reply tol...",
+  "title": "Quoting Muse AI Agent",
+  "type": "news",
+  "url": "https://simonwillison.net/2026/Sep/28/muse-ai-agent",
+  "why_it_matters": "Matches feed focus: agent."
  },
  "c23be8a58842d191": {
   "first_seen": "2026-09-24T20:03:42.671864+00:00",
