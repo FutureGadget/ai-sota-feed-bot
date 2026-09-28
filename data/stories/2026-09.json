@@ -818,6 +818,18 @@
   "type": "news",
   "url": "https://vllm.ai/blog/2026-09-10-minimax-m3-mi355x"
  },
+ "0adf5bb2a473897d": {
+  "first_seen": "2026-09-28T18:03:51.783818+00:00",
+  "id": "7d15e54be87e48a2",
+  "published": "2026-09-28T07:00:00+00:00",
+  "sid": "0adf5bb2a473897d",
+  "source": "openai_blog",
+  "summary": "OpenAI is expanding the Lenfest AI Collaborative and Fellowship Program with $5 million in funding and up to $5 million in software credits and engineering support.",
+  "summary_1line": "OpenAI is expanding the Lenfest AI Collaborative and Fellowship Program with $5 million in funding and up to $5 million in software credits and engineering support.",
+  "title": "The Lenfest Institute grows landmark program with expanded OpenAI support",
+  "type": "news",
+  "url": "https://openai.com/index/lenfest-ai-collaborative-expansion"
+ },
  "0ae054c45b2febbe": {
   "first_seen": "2026-09-20T19:03:55.265432+00:00",
   "id": "af35ee254a29d7a5",
@@ -11072,6 +11084,24 @@
   "url": "https://www.kdnuggets.com/how-to-build-effective-evals-for-ai-agents",
   "why_it_matters": "Matches feed focus: agent, eval."
  },
+ "a1b6a447aeff091d": {
+  "first_seen": "2026-09-28T18:03:51.783818+00:00",
+  "id": "ea315c33904e8be6",
+  "matched_topics": [
+   "agentic",
+   "harness",
+   "claude code"
+  ],
+  "published": "2026-09-28T16:09:31+00:00",
+  "sid": "a1b6a447aeff091d",
+  "source": "hackernews_ai",
+  "summary": "I've always found it odd there was no deterministic QA tools with zero baseline needed, especially after so long. It's always been either (1) playwright or cypress that require written tests, dependant on the tests YOU write, or (2), asking the LLM to find and test bugs in your code, which has 2 cons, its costly (sometimes), and its non-deterministic. That's why i built assay. Its only dependencies is playwright & chromium, and you point it at any folder with a webpage and it runs tests on its own by driving the webpage itself in a browser and clicking every control. It then flags anywhere the webpage contradicted/disagreed with itself; it doesn't know right from wrong NOR what the webpage is about, but universally, a page disagreeing with itself is almost always a bug. An example of this is on a paint app, if you draw two strokes on a canvas and click undo twice, you expect them both to undo each stroke sequentially; in one of 225 benchmarks, clicking the undo the first time didn't remove the first stroke, and only the 2nd click worked. assay drove that and caught it. As for benchmarks, there are 2 variants that are all reproducible in the repo. The first is 225 generated web pages that were first checked by hand, then had assay run on them. There was a total of 20 bugs across all programs, and assay caught 15 with the right reasoning, and had 0 false failures. The second was a harder one where an LLM planted 5 bugs across 10 working original webpages. assay found 12 of the ",
+  "summary_1line": "I've always found it odd there was no deterministic QA tools with zero baseline needed, especially after so long. It's always been either (1) playwright or cypress that require written tests, dependant on the tests YO...",
+  "title": "Show HN: Assay – a QA CLI that finds bugs with no LLM and no tests written",
+  "type": "news",
+  "url": "https://github.com/awss1i/assay",
+  "why_it_matters": "Matches feed focus: agentic, harness, claude code."
+ },
  "a1b72811dd254b50": {
   "first_seen": "2026-09-08T20:03:27.181085+00:00",
   "id": "868469565bd8cb06",
@@ -12003,8 +12033,8 @@
   "published": "2026-09-28T15:52:06+00:00",
   "sid": "af62638ca498f344",
   "source": "search_cn_open_weight_labs",
-  "summary": "US-China AI Distillation Sparks Data Leak Concerns chosun.com",
-  "summary_1line": "US-China AI Distillation Sparks Data Leak Concerns chosun.com",
+  "summary": "US-China AI Distillation Sparks Data Leak Concerns 조선일보",
+  "summary_1line": "US-China AI Distillation Sparks Data Leak Concerns 조선일보",
   "title": "US-China AI Distillation Sparks Data Leak Concerns",
   "type": "news",
   "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPMV9FU3ZITGg5Q1Z1VEoyTEZKNDRRVzQyMThEdlJOdXZBVHltQms3Sl9nYWtyT3FDOGNHQ2pDSmwwSTZURXBnNjVqTWdkZUk2NzNyWXd6RnBaQ1NVa2tMbHQ1SnI2Y2xKNHlyWGNoLVphR2xpNWdCVWFnX1ZnTHplREx3cXJIZnlH?oc=5"
@@ -14199,6 +14229,29 @@
   "title": "What blog posts influenced your thinking the most?",
   "type": "news",
   "url": "https://simonwillison.net/2026/Sep/14/influences"
+ },
+ "cdf0d63217ad659b": {
+  "first_seen": "2026-09-28T18:03:51.783818+00:00",
+  "id": "df42440c4d4b1a7d",
+  "matched_topics": [
+   "agent",
+   "eval",
+   "claude code"
+  ],
+  "published": "2026-09-28T18:02:03+00:00",
+  "release_highlights": [
+   "Added Claude Sonnet 5.5 ( claude-sonnet-5-5 ), now the default Sonnet model on the Anthropic API — 1M context, $2/$10 per Mtok with $0.20/Mtok cache reads",
+   "Added a \"Yes, but ask again next time\" answer to auto mode's prompt before a read outside the working directories, so you can allow that one read and still b...",
+   "Added dollar amounts to the Claude apps gateway spend limit in /usage and the status line (for example \"$271.40 / $500.00 spent this month\") when the gateway..."
+  ],
+  "sid": "cdf0d63217ad659b",
+  "source": "claude_code_releases",
+  "summary": "What's changed Added Claude Sonnet 5.5 ( claude-sonnet-5-5 ), now the default Sonnet model on the Anthropic API — 1M context, $2/$10 per Mtok with $0.20/Mtok cache reads Added a \"Yes, but ask again next time\" answer to auto mode's prompt before a read outside the working directories, so you can allow that one read and still be asked about later ones Added dollar amounts to the Claude apps gateway spend limit in /usage and the status line (for example \"$271.40 / $500.00 spent this month\") when the gateway runs this version or later; the status line's rate_limits.spend_limit also gains used_usd , limit_usd and period Added effortSlider:decreaseEffort , increaseEffort and toggleUltracode keybinding actions, so the /effort slider's arrow and Tab keys can be rebound in keybindings.json Added /rate-limit-options to /help and the command menu for claude.ai subscribers, so the usage-limit notices that mention it point to a command you can find Added /mcp reconnect all in the interactive terminal to retry every MCP server that failed to connect or needs authentication at once Added Claude apps gateway startup warnings when a managed policy's availableModels is empty, or leaves out the model Claude Code starts on without setting model or enforceAvailableModels Added auth: { google: {} } for Claude apps gateway telemetry.forward_to destinations, so telemetry can be exported straight to Google Cloud's OTLP endpoint using the gateway's Google Cloud credentials Added certificate client aut",
+  "summary_1line": "Added Claude Sonnet 5.5 ( claude-sonnet-5-5 ), now the default Sonnet model on the Anthropic API — 1M context, $2/$10 per Mtok with $0.20/Mtok cache reads · Added a \"Yes, but ask again next time\" answer to auto mode's...",
+  "title": "claude-code v2.1.284",
+  "type": "release",
+  "url": "https://github.com/anthropics/claude-code/releases/tag/v2.1.284",
+  "why_it_matters": "Matches feed focus: agent, eval, claude code."
  },
  "ce1ea82af35f699e": {
   "first_seen": "2026-09-10T18:03:48.573230+00:00",
