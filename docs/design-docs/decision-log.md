@@ -2086,3 +2086,23 @@ unchanged. Generated pages pick it up on the next render.
 Rollback: revert the `web/site-chrome.css` inline block, the `.subscribe-cta`
 rules in `render_static_pages.py`, and the copy string.
 
+
+## 2026-09-29 - Add the claude.dev blog as a frontier_official source
+
+Decision: Add `claude_dev_blog` (`type: rss`, `https://claude.dev/rss.xml`),
+mapped to `frontier_official` with `source_bias: 0.12` (same as
+`anthropic_engineering`).
+
+Rationale: claude.dev is Anthropic's developer blog (evals, context
+engineering, Claude Code internals) and is a separate host from `claude.com`,
+so `claude_blog`'s `https://claude.com/blog/` prefix never matched it. Its RSS
+feed returns clean titles, dates and summaries for all 12 posts, so RSS is
+preferred over the sitemap (which adds a per-page fetch and a
+` / claude.dev Blog` title suffix). `validate_source.py` reports `EXPOSED`:
+3 of 12 items reach the top 24, including the eval-hillclimbing post.
+
+Impact: One new source in `config/sources.yaml`, one slot entry and one
+`source_bias` in `config/ranking.yaml`. Only the newest posts can surface;
+older ones fall to the `frontier_official` freshness window.
+
+Rollback: Remove `claude_dev_blog` from `sources.yaml` and `ranking.yaml`.
