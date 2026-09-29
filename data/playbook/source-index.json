@@ -246,6 +246,25 @@
     },
     "edition_date": "2026-07-31"
   },
+  "14ca1514017a2ee2": {
+    "id": "pb-stateless-mcp-servers",
+    "kind": "source-backed",
+    "title": "Drop sticky sessions from your remote MCP servers",
+    "area": "Orchestration",
+    "problem": "Session-bound MCP servers force sticky routing and session storage, which blocks simple horizontal scaling.",
+    "apply": "Move remote MCP servers to the stateless spec revision: carry needed context in each request and remove session affinity and session-store config from your load balancer.",
+    "result": "AWS claims any instance can serve any request, so scaling and failover need no session-routing layer.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/aws-stateless-mcp/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "14ca1514017a2ee2",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "AWS describes the spec as removing protocol-level sessions and sticky-session requirements."
+    },
+    "edition_date": "2026-09-29"
+  },
   "1609e44adca88f23": {
     "id": "pb-postgres-agent-retrieval",
     "kind": "source-backed",
@@ -1424,6 +1443,25 @@
     },
     "edition_date": "2026-08-25"
   },
+  "5f62e504fe47f345": {
+    "id": "pb-injection-attack-chain",
+    "kind": "source-backed",
+    "title": "Flag injection by tool-call chain, not by email text alone",
+    "area": "Safety",
+    "problem": "Injected instructions in retrieved email look like ordinary text, so content-only filters miss them.",
+    "apply": "Log which untrusted content preceded each tool call and flag sequences where retrieved content triggers a high-impact action such as sending or forwarding mail.",
+    "result": "Injection attempts get caught at the action that would cause harm, even when the text itself looks benign.",
+    "effort": "high",
+    "source": "arxiv_agent_systems_research",
+    "source_url": "http://arxiv.org/abs/2609.30657v1",
+    "source_sid": "5f62e504fe47f345",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Inferred from the paper's attack-chain modeling approach for email agents."
+    },
+    "edition_date": "2026-09-29"
+  },
   "64b99c89eeec2092": {
     "id": "pb-graph-search-db-remediation",
     "kind": "source-backed",
@@ -1594,6 +1632,25 @@
       "note": "Vendor blog describing their own sandboxing product architecture and its isolation guarantee."
     },
     "edition_date": "2026-07-21"
+  },
+  "750aa2720d934059": {
+    "id": "pb-trace-integrity",
+    "kind": "source-backed",
+    "title": "Write agent traces where the agent cannot edit them",
+    "area": "Evals",
+    "problem": "If the agent can modify its own trace, your audits and evals may be scoring a rewritten history.",
+    "apply": "Ship traces to an append-only store outside the agent sandbox, and give the agent no write or delete path to it.",
+    "result": "Trace-based debugging and evals rest on records the agent could not have altered.",
+    "effort": "low",
+    "source": "hackernews_ai",
+    "source_url": "https://perfect-crime.ai/",
+    "source_sid": "750aa2720d934059",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Inferred from the source's claim that agents can tamper with their own traces."
+    },
+    "edition_date": "2026-09-29"
   },
   "764c073dd4e1fc67": {
     "id": "pb-decentralize-sandbox-scheduling",
@@ -2279,6 +2336,25 @@
     },
     "edition_date": "2026-08-04"
   },
+  "a26eb8af87253d8b": {
+    "id": "pb-long-session-cost-check",
+    "kind": "source-backed",
+    "title": "Re-price your coding agent for long, high-context sessions",
+    "area": "Cost & latency",
+    "problem": "Long coding sessions re-send large contexts, so per-token price comparisons hide the real session cost.",
+    "apply": "Replay a representative long session against the new Opus and your current model, and compare total cost per completed task, not per-token price.",
+    "result": "You pick the model on cost per finished task for your actual session length.",
+    "effort": "low",
+    "source": "claude_blog",
+    "source_url": "https://claude.com/blog/claude-opus-5-5-built-for-coding-sessions-that-use-more-context",
+    "source_sid": "a26eb8af87253d8b",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Inferred from Anthropic pricing the model for longer, higher-context coding sessions."
+    },
+    "edition_date": "2026-09-29"
+  },
   "a44d7493026627ec": {
     "id": "pb-close-the-trace-to-memory-loop",
     "kind": "source-backed",
@@ -2488,6 +2564,25 @@
     },
     "edition_date": "2026-08-25"
   },
+  "b60131f089d99489": {
+    "id": "pb-readable-trajectories",
+    "kind": "source-backed",
+    "title": "Review long agent runs as conversation-style trajectories",
+    "area": "Reliability",
+    "problem": "Raw span-level traces make it slow to find where a long-running agent went wrong.",
+    "apply": "Render each session as an ordered conversation of model turns and tool calls, and review failures from that view before digging into spans.",
+    "result": "LangChain claims a read-through of the trajectory replaces a span-tree hunt when root-causing a bad long-running session.",
+    "effort": "low",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/langsmith-trajectories-tracing",
+    "source_sid": "b60131f089d99489",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "LangChain claims trajectories speed up debugging for long-running agents."
+    },
+    "edition_date": "2026-09-29"
+  },
   "b6de7c8426214289": {
     "id": "pb-runtime-diagnose-bug-repro-tests",
     "kind": "source-backed",
@@ -2563,6 +2658,25 @@
       "note": "File and attempt counts are as reported; treat them as an as-reported claim, not an independently verified audit."
     },
     "edition_date": "2026-09-25"
+  },
+  "b7d482ff6a323e55": {
+    "id": "pb-inject-credentials-at-egress",
+    "kind": "source-backed",
+    "title": "Inject secrets at the egress proxy, not into the sandbox",
+    "area": "Safety",
+    "problem": "A secret placed in the agent sandbox can be read, logged, or exfiltrated by a prompt-injected agent.",
+    "apply": "Store each credential once in a secrets service, give the agent only an ID reference, and have an egress proxy add the real value to outbound requests.",
+    "result": "Google claims the agent can call authenticated APIs without ever holding the raw secret, which shrinks what a compromised run can leak.",
+    "effort": "medium",
+    "source": "philschmid",
+    "source_url": "https://www.philschmid.de/managed-agents-credentials",
+    "source_sid": "b7d482ff6a323e55",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-claimed",
+      "note": "Google states the Credentials API keeps secrets out of the agent sandbox."
+    },
+    "edition_date": "2026-09-29"
   },
   "b81a99111a5a8671": {
     "id": "pb-reclaim-idle-agent-memory",
