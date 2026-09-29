@@ -457,14 +457,10 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         )
 
     def test_model_radar_rail_row_splits_org_off_the_metric_line(self) -> None:
-        # One run-on meta line ("anthropic - 63.1 AA intelligence index -
-        # $10/1M blended") wrapped to three ragged lines in the 200px rail.
-        # Org gets its own line, the metric label is shortened (the credit
-        # line below spells it out), and the " blended" qualifier moves to the
-        # tooltip - the visible line has to hold one row at 200px.
+        # Keep organization separate and the input price basis visible on narrow rails.
         self.assertIn('<span class="mr-rail-org">', self.html)
         self.assertIn("var shortLabel = capIsIndex ? 'AA index'", self.html)
-        self.assertIn("price.replace(/ blended$/, '')", self.html)
+        self.assertIn("'/1M input'", self.html)
 
     def test_model_radar_rail_badge_is_separated_from_the_model_name(self) -> None:
         # Rendered as "Kimi K3Open weights" before - the badge was concatenated
@@ -563,17 +559,17 @@ class LiveFeedSurfaceTest(unittest.TestCase):
           const html = mrSurfaceHtml({{
             sources: {{ lmarena: {{}}, artificial_analysis: {{}} }},
             models: [
-              {{ name: 'model-a', organization: 'lab-a', arena_elo_coding: 1503, open_weights: false, price_blended_per_1m: 3 }},
-              {{ name: 'model-b', organization: 'lab-b', arena_elo_coding: 1502, open_weights: true, price_blended_per_1m: null }},
-              {{ name: 'model-c', organization: 'lab-c', arena_elo_coding: 1501, open_weights: false, price_blended_per_1m: null }},
-              {{ name: 'model-d', organization: 'lab-d', arena_elo_coding: 1500, open_weights: false, price_blended_per_1m: null }},
+              {{ name: 'model-a', organization: 'lab-a', arena_elo_coding: 1503, open_weights: false, price_input_per_1m: 3 }},
+              {{ name: 'model-b', organization: 'lab-b', arena_elo_coding: 1502, open_weights: true, price_input_per_1m: null }},
+              {{ name: 'model-c', organization: 'lab-c', arena_elo_coding: 1501, open_weights: false, price_input_per_1m: null }},
+              {{ name: 'model-d', organization: 'lab-d', arena_elo_coding: 1500, open_weights: false, price_input_per_1m: null }},
             ],
           }}, 3);
           console.log(JSON.stringify({{
             rowCount: (html.match(/mr-rail-row/g) || []).length,
             hasThirdModel: html.includes('model-c'),
             omitsFourthModel: !html.includes('model-d'),
-            keepsAttribution: html.includes('LMArena') && html.includes('Artificial Analysis'),
+            keepsAttribution: html.includes('LMArena') && html.includes('OpenRouter'),
             hasFullRadarLink: html.includes('href="/models"'),
           }}));
         """
@@ -594,9 +590,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             }},
             models: [
               {{ name: 'model-a', organization: 'labA', arena_elo_coding: 1500.4,
-                 open_weights: true, price_blended_per_1m: null }},
+                 open_weights: true, price_input_per_1m: null }},
               {{ name: 'model-b', organization: 'labB', arena_elo_coding: null,
-                 open_weights: false, price_blended_per_1m: null }}
+                 open_weights: false, price_input_per_1m: null }}
             ]
           }};
           const ok = mrRender(rail, data);
@@ -623,7 +619,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             },
         )
 
-    def test_model_radar_rail_render_credits_artificial_analysis_when_price_shown(self) -> None:
+    def test_model_radar_rail_render_credits_openrouter_when_price_shown(self) -> None:
         functions = self._extract_model_radar_functions()
         script = f"""
           {functions}
@@ -635,13 +631,13 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             }},
             models: [
               {{ name: 'model-a', organization: 'labA', arena_elo_coding: 1500,
-                 open_weights: false, price_blended_per_1m: 3.5 }}
+                 open_weights: false, price_input_per_1m: 3.5 }}
             ]
           }};
           mrRender(rail, data);
           console.log(JSON.stringify({{
-            hasPrice: rail.innerHTML.includes('\\$3.50/1M blended'),
-            creditsBothSources: rail.innerHTML.includes('LMArena') && rail.innerHTML.includes('Artificial Analysis'),
+            hasPrice: rail.innerHTML.includes('\\$3.50/1M input'),
+            creditsBothSources: rail.innerHTML.includes('LMArena') && rail.innerHTML.includes('OpenRouter'),
           }}));
         """
         self.assertEqual(
@@ -667,7 +663,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         functions = self._extract_model_radar_functions()
         models = ",".join(
             f'{{ name: "model-{i}", organization: "lab", arena_elo_coding: {1500 - i}, '
-            f'open_weights: false, price_blended_per_1m: null }}'
+            f'open_weights: false, price_input_per_1m: null }}'
             for i in range(8)
         )
         script = f"""
@@ -694,9 +690,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             }},
             models: [
               {{ name: 'high-elo-low-index', slug: 'a', base_slug: 'a', organization: 'labA',
-                 arena_elo_coding: 1600, aa_intelligence_index: 40, open_weights: false, price_blended_per_1m: null }},
+                 arena_elo_coding: 1600, aa_intelligence_index: 40, open_weights: false, price_input_per_1m: null }},
               {{ name: 'low-elo-high-index', slug: 'b', base_slug: 'b', organization: 'labB',
-                 arena_elo_coding: 1400, aa_intelligence_index: 90, open_weights: false, price_blended_per_1m: null }}
+                 arena_elo_coding: 1400, aa_intelligence_index: 90, open_weights: false, price_input_per_1m: null }}
             ]
           }};
           mrRender(rail, data);
@@ -720,7 +716,7 @@ class LiveFeedSurfaceTest(unittest.TestCase):
         functions = self._extract_model_radar_functions()
         anthropic_variants = ",".join(
             f'{{ name: "claude-opus-5-{suffix}", slug: "opus5{suffix}", base_slug: "claudeopus5", '
-            f'organization: "anthropic", arena_elo_coding: {1600 - i}, open_weights: false, price_blended_per_1m: null }}'
+            f'organization: "anthropic", arena_elo_coding: {1600 - i}, open_weights: false, price_input_per_1m: null }}'
             for i, suffix in enumerate(["max", "high", "medium", "low", "xhigh"])
         )
         script = f"""
@@ -729,9 +725,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
           const models = [
             {anthropic_variants},
             {{ name: 'kimi-k3', slug: 'kimik3', base_slug: 'kimik3', organization: 'moonshot',
-               arena_elo_coding: 1550, open_weights: true, price_blended_per_1m: null }},
+               arena_elo_coding: 1550, open_weights: true, price_input_per_1m: null }},
             {{ name: 'glm-5.2', slug: 'glm52', base_slug: 'glm52', organization: 'zai',
-               arena_elo_coding: 1540, open_weights: true, price_blended_per_1m: null }}
+               arena_elo_coding: 1540, open_weights: true, price_input_per_1m: null }}
           ];
           mrRender(rail, {{ models }});
           const rowCount = (rail.innerHTML.match(/mr-rail-row/g) || []).length;
@@ -761,9 +757,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             sources: {{ lmarena: {{}}, artificial_analysis: {{}} }},
             models: [
               {{ name: 'gpt-5.6-sol-xhigh', display_name: 'GPT-5.6 Sol', slug: 'a',
-                 organization: 'openai', arena_elo_coding: 1500, price_blended_per_1m: null }},
+                 organization: 'openai', arena_elo_coding: 1500, price_input_per_1m: null }},
               {{ name: 'claude-opus-5-max-adaptive', slug: 'b',
-                 organization: 'anthropic', arena_elo_coding: 1490, price_blended_per_1m: null }}
+                 organization: 'anthropic', arena_elo_coding: 1490, price_input_per_1m: null }}
             ]
           }};
           mrRender(rail, data);
@@ -793,9 +789,9 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             models: [
               {{ name: 'claude-opus-5-high', display_name: 'Claude Opus 5', slug: 'claudeopus5high',
                  base_slug: 'claudeopus5', url_slug: 'claude-opus-5', organization: 'anthropic',
-                 arena_elo_coding: 1500, price_blended_per_1m: null }},
+                 arena_elo_coding: 1500, price_input_per_1m: null }},
               {{ name: 'legacy-model', slug: 'legacyslug', organization: 'acme',
-                 arena_elo_coding: 1490, price_blended_per_1m: null }}
+                 arena_elo_coding: 1490, price_input_per_1m: null }}
             ]
           }};
           mrRender(rail, data);

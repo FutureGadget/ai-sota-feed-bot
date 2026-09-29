@@ -228,6 +228,8 @@
       </div>
     </header>
 
+    <p class="mr-release-callout"><a href="/models/compare"><strong>Compare cost and intelligence →</strong></a><br>Explore the Pareto frontier with input, output, cache-read and cache-write prices.</p>
+
     <section id="radar" aria-live="polite">
       <div class="state">Loading the model radar…</div>
     </section>
@@ -337,7 +339,7 @@
     const SORT_OPTIONS = [
       { key: 'aa_intelligence_index', dir: 'desc', label: 'Intelligence index', frontierMetric: 'aa_intelligence_index' },
       { key: 'aa_coding_index', dir: 'desc', label: 'Coding index', frontierMetric: 'aa_coding_index' },
-      { key: 'price_blended_per_1m', dir: 'asc', label: 'Price, low to high', frontierMetric: 'aa_intelligence_index' },
+      { key: 'price_blended_per_1m', dir: 'asc', label: 'Blended price, low to high', frontierMetric: 'aa_intelligence_index' },
     ];
 
     // Automatic fallback ordering for a deployment where Artificial
@@ -516,7 +518,7 @@
             </span>
             <span class="mr-row-stats">
               <span class="mr-stat"><span class="mr-stat-label">Intelligence</span><span class="mr-stat-value">${fmtNum(m.aa_intelligence_index, 1)}</span></span>
-              <span class="mr-stat"><span class="mr-stat-label">Price /1M</span><span class="mr-stat-value">${fmtPrice(m.price_blended_per_1m)}</span></span>
+              <span class="mr-stat"><span class="mr-stat-label">Input /1M</span><span class="mr-stat-value">${fmtPrice(m.price_input_per_1m)}</span></span>
               ${deepsweStats}
               ${weightsBadge}
             </span>
@@ -532,10 +534,10 @@
 
     function firstPartyAnnouncements(models) {
       return models
-        .filter((m) => m && (m.joined_sources || []).includes('first_party')
+        .filter((m) => m && (m.joined_sources || []).some((source) => source === 'first_party' || source === 'openrouter')
           && (m.aa_intelligence_index === null || m.aa_intelligence_index === undefined)
           && (m.aa_coding_index === null || m.aa_coding_index === undefined))
-        .sort((a, b) => String(b.release_date || '').localeCompare(String(a.release_date || '')))
+        .sort((a, b) => String(b.catalog_added_at || b.release_date || '').localeCompare(String(a.catalog_added_at || a.release_date || '')))
         .slice(0, 3);
     }
 
@@ -546,7 +548,7 @@
         `<a href="${detailUrl(m)}" data-model-radar-target="announcement">${esc(displayName(m))}</a>`
       ).join(', ');
       return `<aside class="mr-release-callout"><strong>Awaiting independent measurements</strong>
-        <p>Officially announced: ${links}. Benchmark, price, and capability data will appear when independent sources publish them.</p></aside>`;
+        <p>Recently listed: ${links}. Prices appear when a provider offer is available; scores follow independent evaluation.</p></aside>`;
     }
 
     function renderSources(sources) {
@@ -554,6 +556,7 @@
       const aa = sources.artificial_analysis || {};
       const deepswe = sources.deepswe || {};
       const firstParty = sources.first_party || {};
+      const pricing = sources.openrouter || {};
       const item = (s, fallbackName) => {
         const url = safeUrl(s.url);
         const label = s.attribution || fallbackName;
@@ -564,7 +567,8 @@
         <h2>Sources and attribution</h2>
         <ul>
           <li>${item(lmarena, 'LMArena')} - Elo rankings are crowd preference votes, not a benchmark score.</li>
-          <li>${item(aa, 'Artificial Analysis')}${aa.available ? '' : ' <span class="mr-source-status">- not yet connected on this deployment; intelligence index and price show "undisclosed" until it is.</span>'}</li>
+          <li>${item(aa, 'Artificial Analysis')}${aa.available ? '' : ' <span class="mr-source-status">- not yet connected on this deployment; intelligence scores are unavailable.</span>'}</li>
+          <li>${item(pricing, 'OpenRouter')} - provider endpoint prices. Input rates are shown above; blended ordering uses 3 input tokens to 1 output token.</li>
           <li>${item(deepswe, 'DeepSWE / Datacurve')}${deepswe.available ? ' - the only measured (not per-token-estimated) cost per task in this catalog.' : ' <span class="mr-source-status">- not available on this deployment.</span>'}</li>
           <li>${item(firstParty, 'First-party model announcements')} - launch identity, date, and official links only; capability and price remain independent-source data.</li>
         </ul>`;
@@ -627,7 +631,7 @@
               only when independent sources have published them.</p>
             ${aaAvailable ? '' : `<div class="mr-note"><strong>Artificial Analysis intelligence index is not connected on this deployment.</strong>
               The list below ranks by community-voted coding Elo (LMArena) instead. Intelligence index, coding
-              index, and price ordering all appear on their own once Artificial Analysis is connected - nothing
+              index, and capability ordering appear once Artificial Analysis is connected - nothing
               here is estimated.</div>`}
             ${renderFirstPartyAnnouncements(models)}
           </section>

@@ -189,10 +189,7 @@ class ModelCostBasisTest(unittest.TestCase):
         self.assertTrue(render.cost_basis_label(""))
 
     def test_scores_section_never_shows_a_cost_column_for_aa_scores(self) -> None:
-        # 2026-08-17: the per-token-price-proxy frontier is gone entirely -
-        # an AA score (even one carrying a stale/hand-built frontier entry,
-        # as this fixture does) must never render alongside a cost figure,
-        # since that would imply a comparability that no longer exists.
+        # AA scores link to scenario estimates without presenting them as measured task costs.
         primary = _row(
             aa_coding_index=76.5,
             frontier={
@@ -203,7 +200,8 @@ class ModelCostBasisTest(unittest.TestCase):
             },
         )
         html = render.model_scores_section(primary)
-        self.assertIn("no measured per-task cost, so no frontier claim is made", html)
+        self.assertIn("these estimates are not measured task costs", html)
+        self.assertIn('href="/models/compare"', html)
         self.assertNotIn("Cost proxy", html)
         self.assertNotIn("$8.00/1M", html)
 

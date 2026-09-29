@@ -243,6 +243,7 @@ python pipeline/source_alerts.py
 - Git hygiene guide: `docs/status/git-hygiene.md`
 - Source onboarding + filtering debug guide: `docs/how-to/sources-and-filter-debugging.md`
 - PostHog setup + dashboard runbook: `docs/how-to/posthog-setup-and-dashboard.md`
+- Model prices and Pareto comparison: [contract and operations](docs/product-specs/model-radar-comparison.md)
 - Confirmed product idea one-pagers: `docs/ideas/`
 - Doc images (UI audit screenshots, diagrams): `docs/assets/<topic>/`
 

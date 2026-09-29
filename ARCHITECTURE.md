@@ -69,3 +69,13 @@ No producer writes a second shared manifest. Independently scheduled skill
 publications reach discovery through their existing commits and deployment;
 feed-only, model-refresh and email jobs keep their existing responsibilities.
 See `docs/product-specs/nav-update-indicators.md` for coverage and lifecycle rules.
+
+## Model Radar pricing
+
+`model-prices-refresh.yml` refreshes OpenRouter catalog and provider endpoint JSON
+every 15 minutes into `data/models/pricing.json`. The six-hour benchmark job
+continues to write `data/models/latest.json` independently. Static rendering joins
+the two, replaces served token prices, and recomputes token-price frontiers.
+`/models/compare` estimates spend from user-selected token/cache volumes against
+AA intelligence or coding scores. No new API function is added. See the
+[pricing and comparison contract](docs/product-specs/model-radar-comparison.md).
