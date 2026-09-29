@@ -7,9 +7,9 @@ status: active
 solutions: [cost-controls, context-compaction, agent-orchestration]
 obstacles: []
 related_storylines: []
-evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b]
-updated: 2026-09-26
-covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b]
+evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b, aae8bc1ed323e6eb, 09e1fe5d7a6f40d9]
+updated: 2026-09-29
+covers_evidence: [450d5ccfb1602dc2, 00f3793762a13f49, e0a1d0978e9e8c3b, 1c98fc492e1df243, 19e4caf222bfb0d9, 4235792e910ea51a, c32171008fef614c, 1c2693c60a919d8d, c4fa725d5c123b2d, edd85739d7d91365, b4e45006617c01bc, 7b1828a20dc37818, 5bd881e763537559, 9ff56fe893f2ff23, d950eaa58be54c93, c8dc1df614610019, 4a0a79e7203bae64, c74bb13bcd038d10, 68e97756211ddc61, 4f6620afcff4153a, 1e95bee9c26709cb, 44423c0a85b4d691, b3d901fa5502f189, fae52c3b17c1c504, 483f6bab97830d53, 309c04c4364dddf7, 7f18e7dd55749326, 053f960947801f33, d9ba824f19c5d4d4, bef171cfa1a2b219, 22188ce2d79de3bb, 682443ee05b543bd, fcb5eeae253e1eba, 26b283e0296ba33f, 67eb8445f6de26d6, c26d5834adc52fbd, 530f8771d0d2a226, b6461cff58b0d468, 2d5ee61a05111f0a, 5a94dd163bfbe84d, afd300f326ca249d, cd7265fbc46b3ca2, 5f95a73de65c4e0a, bb8327f0dd55b3b1, 5b17581a4141c149, 0577669e18ed3998, 31d0f6b1d6dddfa7, 40944f4dff2445be, fbfd060b861c9942, 2ff277e441a4b0da, 0b14d37d00fa2210, 1a4323f628b5253c, 487ee06b84c7fedd, a3b54d5a91acaa5a, b81a99111a5a8671, f9027d80e820682e, 73461b3e97af0d93, 3fcefd9c665fb2c2, 3d1eacfa6636ae86, a26eb8af87253d8b, aae8bc1ed323e6eb, 09e1fe5d7a6f40d9]
 ---
 
 ## TL;DR
@@ -440,8 +440,22 @@ cost — a concrete instance of the "most turns don't need frontier capability"
 argument NVIDIA's NeMo Switchyard result already makes above, this time
 shipped inside a mainstream coding assistant rather than a benchmark paper.
 
+Model-tier choice is a cost lever on top of caching and effort. Claude Sonnet 5.5
+lists at $2 input / $10 output per million tokens, half of Opus 5.5's $4 / $20,
+with an identical $0.20 cache-read rate. Its per-token price matches Sonnet 5,
+but Anthropic reports it needs far fewer tokens per task, so the bill for the
+same work falls by up to 30%. Anthropic's routing rule: Sonnet 5.5 for
+well-specified tasks with a way to check the result, Opus 5.5 for long-horizon
+work. Raising Sonnet to `xhigh` or `max` effort spends the tokens the
+cheaper tier was meant to save.
+
 ## What's new
-Anthropic frames Opus 5.5's pricing and training explicitly around longer,
+Claude Sonnet 5.5 (also on Bedrock) keeps Sonnet 5's per-token price while using
+fewer tokens per task, for up to 30% lower cost on most work. Its default effort
+is `high` on the API but `medium` in Claude Code, so the same model can bill
+differently by surface (see State of the art above).
+
+Prior update: Anthropic frames Opus 5.5's pricing and training explicitly around longer,
 more context-heavy coding sessions rather than a general capability bump —
 the demand-side rationale behind the caching and effort-level cost levers
 this page already quantifies (see State of the art above).

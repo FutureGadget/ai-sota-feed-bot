@@ -7,9 +7,9 @@ status: active
 solutions: [vector-kb, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0]
-updated: 2026-09-22
-covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0]
+evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0, afa8c33f8eb7996a]
+updated: 2026-09-29
+covers_evidence: [95730baaa42549c2, 1609e44adca88f23, c74bb13bcd038d10, cfe2e766a965b837, 12c546b2fc140ca1, 980d749ecfc6165f, ace88b2c5ecc23e1, 20a176e41161c528, 46be0149e39dc713, 5ca9aca0e46db978, 355c8cf2c3a4e36a, 5f80558cf12e2ddc, aec50bce133680e8, d9524ab76177d5be, 7b2b4d44ea281840, 5a50cd46503b235d, a6a23d3dd800c218, 24ddbe91a622a3cd, 149a211377f80efa, a74f114f24afad46, 55636c14f8cd3609, a7ea832bc7e9c508, 4be01fb545d6c7c4, 8a20aa410b6035c1, 9dba62cbb9d1736b, bf9796fab67d335f, 3c1614530c348a79, 2e72a2e5dfbc9181, 7fc462ef107af5f9, 010b63f98f068ab0, afa8c33f8eb7996a]
 ---
 
 ## TL;DR
@@ -310,8 +310,21 @@ own post-hoc rationale can (cross-ref [agent
 reliability](/topic/agent-reliability) for the tools-for-certainty framing
 of the same decision/explanation split).
 
+Multi-tool agents add a failure that pooled faithfulness scores miss:
+cross-source conflation, where a claim is true in the evidence but attributed
+to the wrong source. ProvenanceGuard, a post-generation verifier for
+MCP agents, reads the captured tool trace with source IDs and never pools the
+evidence. It decomposes the answer into claims, routes each to its likeliest
+source, checks support, compares that source with the one the answer names,
+then emits per-claim verdicts and an allow/block decision, all without
+retraining the agent.
+
 ## What's new
-A deterministic rule engine paired with a RAG explanation layer splits
+ProvenanceGuard checks source attribution per claim across MCP tool outputs,
+catching answers that cite the account record for a fact that lives in the
+policy document (see State of the art above).
+
+Prior update: A deterministic rule engine paired with a RAG explanation layer splits
 decision-making from justification for auditable domains (lending, fraud,
 clinical triage) — the decision comes from rules, not a model's own
 account of itself (see State of the art above).
