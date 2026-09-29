@@ -1,0 +1,51 @@
+{
+  "slug": "benchmarking-inference",
+  "generated_at": "2026-09-29T05:30:00+00:00",
+  "covers_last_updated": "2026-09-28T09:09:42+00:00",
+  "covers_member_sids": [
+    "8b3a4550ce0344d8",
+    "485a8d96b72d9981",
+    "8424df2cc3f5d4ac"
+  ],
+  "tldr": "On Sep 8 AWS published GPU-instance benchmarks for small LLM inference on SageMaker AI, comparing G5, G6, G6e and G7 on throughput, latency and cost per token. Sep 24 brought NVIDIA's SWE-Serve, which benchmarks agentic engineering for production inference serving.",
+  "whats_new": "AgentPerfBench (arXiv, Sep 28) proposes a benchmark suite for inference performance of agentic LLMs, arguing that serving engines like vLLM and SGLang are tuned against workloads that don't represent agents.",
+  "why_it_matters": "Serving-engine and hardware choices are made against benchmark workloads, so instance sizing and scheduler tuning based on chat-style traffic may not hold for agent traffic.",
+  "status": {
+    "state": "Developing",
+    "tone": "rising",
+    "changed": "2026-09-28",
+    "detail": "Three benchmarking efforts in three weeks, moving from instance-level GPU comparisons toward agent-specific serving workloads."
+  },
+  "beats": [
+    {
+      "kicker": "BASELINE",
+      "tone": "launch",
+      "headline": "AWS benchmarks Qwen3-Coder-30B and Nemotron-3-Nano-30B across G5, G6, G6e and G7",
+      "summary": "Instance-level comparison of throughput, latency and cost per token for small MoE models.",
+      "sids": ["8b3a4550ce0344d8"]
+    },
+    {
+      "kicker": "SERVING",
+      "tone": "rising",
+      "headline": "NVIDIA publishes SWE-Serve for agentic engineering on production inference serving",
+      "sids": ["485a8d96b72d9981"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "AgentPerfBench targets inference performance of agentic LLMs on vLLM and SGLang-style engines",
+      "summary": "Argues serving optimizations are benchmark-driven, so representative agent workloads matter.",
+      "sids": ["8424df2cc3f5d4ac"]
+    }
+  ],
+  "open_questions": [
+    "Do AgentPerfBench results show different engine or hardware rankings than chat-style benchmarks?",
+    "Will AWS repeat its G7 vs G5/G6 comparison with an agentic workload?"
+  ],
+  "take_for_builders": "Before sizing GPU instances from chat-workload benchmarks, replay your own agent traces (long prefixes, many tool-call turns) through vLLM or SGLang and compare cost per token.",
+  "day_captions": {
+    "8b3a4550ce0344d8": "Instance-level baseline: throughput, latency and cost-per-token for two 30B MoE models across four GPU generations.",
+    "485a8d96b72d9981": "Shifts the benchmark target from raw instance speed to agentic engineering workloads on production serving.",
+    "8424df2cc3f5d4ac": "Academic benchmark suite specifically for agentic-LLM inference performance in serving engines."
+  }
+}

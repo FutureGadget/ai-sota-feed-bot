@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29T00:03:24.103088+00:00",
+ "generated_at": "2026-09-29T05:03:49.872343+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -81,6 +81,44 @@
        "weight": 22
       }
      ]
+    }
+   }
+  },
+  {
+   "slug": "benchmarking-inference",
+   "label": "Benchmarking Inference",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-09-08T16:21:57+00:00",
+   "last_updated": "2026-09-28T09:09:42+00:00",
+   "latest_title": "AgentPerfBench: A Benchmarking and Evaluation Suite for Inference Performance of Agentic LLMs",
+   "days": [
+    "2026-09-08",
+    "2026-09-24",
+    "2026-09-28"
+   ],
+   "member_sids": [
+    "8b3a4550ce0344d8",
+    "485a8d96b72d9981",
+    "8424df2cc3f5d4ac"
+   ],
+   "member_urls": [
+    "https://aws.amazon.com/blogs/machine-learning/benchmarking-small-llm-inference-on-sagemaker-ai-g7-vs-g5-and-g6",
+    "https://research.nvidia.com/benchmarks/swe-serve",
+    "http://arxiv.org/abs/2609.34683v1"
+   ],
+   "editorial": {
+    "tldr": "On Sep 8 AWS published GPU-instance benchmarks for small LLM inference on SageMaker AI, comparing G5, G6, G6e and G7 on throughput, latency and cost per token. Sep 24 brought NVIDIA's SWE-Serve, which benchmarks agentic engineering for production inference serving.",
+    "stale": false,
+    "whats_new": "AgentPerfBench (arXiv, Sep 28) proposes a benchmark suite for inference performance of agentic LLMs, arguing that serving engines like vLLM and SGLang are tuned against workloads that don't represent agents.",
+    "why_it_matters": "Serving-engine and hardware choices are made against benchmark workloads, so instance sizing and scheduler tuning based on chat-style traffic may not hold for agent traffic.",
+    "take_for_builders": "Before sizing GPU instances from chat-workload benchmarks, replay your own agent traces (long prefixes, many tool-call turns) through vLLM or SGLang and compare cost per token.",
+    "status": {
+     "state": "Developing",
+     "tone": "rising",
+     "changed": "2026-09-28",
+     "detail": "Three benchmarking efforts in three weeks, moving from instance-level GPU comparisons toward agent-specific serving workloads."
     }
    }
   },
@@ -625,40 +663,6 @@
       }
      ]
     }
-   }
-  },
-  {
-   "slug": "recursive-self-improvement",
-   "label": "Recursive Self-Improvement",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 4,
-   "first_seen": "2026-09-08T03:14:54+00:00",
-   "last_updated": "2026-09-22T14:12:13+00:00",
-   "latest_title": "Recursive self-improvement of AI research agents",
-   "days": [
-    "2026-09-08",
-    "2026-09-21",
-    "2026-09-22"
-   ],
-   "member_sids": [
-    "0539709864fedfb9",
-    "2fe4588241293ee7",
-    "b4d580fbb1f27781",
-    "f330de6f12df20ba"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2609.08183v1",
-    "http://arxiv.org/abs/2609.24838v1",
-    "http://arxiv.org/abs/2609.26457v1",
-    "https://arxiv.org/abs/2609.26457"
-   ],
-   "editorial": {
-    "tldr": "Three papers in two weeks each propose a concrete recursive self-improvement (RSI) mechanism: a system that observes its own performance and converts that evidence into its next round of training. The pattern started with a general agentic post-training framework, then moved into domain-specific self-evolution loops for medical agents and AI research agents.",
-    "stale": false,
-    "whats_new": "The newest paper (Sep 22) applies RSI to AI research agents automating their own R&D -- training efficiency and inference optimization -- rather than a fixed task domain.",
-    "why_it_matters": "If an agent framework can retrain on its own output, your eval suite needs to catch capability drift in the feedback loop itself, not just score the model's latest checkpoint.",
-    "take_for_builders": "Before trusting a framework's self-improvement claim, ask what concrete signal it retrains on and how that signal is audited independently of the system generating it."
    }
   },
   {
