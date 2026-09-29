@@ -541,7 +541,7 @@ class ModelsRankedListBehaviorTest(unittest.TestCase):
     def test_render_row_links_to_the_detail_page_and_includes_required_fields(self) -> None:
         m = self._model(
             "claudeopus5high", url_slug="claude-opus-5", display_name="Claude Opus 5",
-            organization="anthropic", aa_intelligence_index=63.1, price_blended_per_1m=10.0,
+            organization="anthropic", aa_intelligence_index=63.1, price_input_per_1m=5.0, price_blended_per_1m=10.0,
             open_weights=False, variantCount=3,
             frontier={"aa_intelligence_index": {"on_frontier": True}},
         )
@@ -554,7 +554,7 @@ class ModelsRankedListBehaviorTest(unittest.TestCase):
             hasName: html.includes('Claude Opus 5'),
             hasOrg: html.includes('anthropic'),
             hasIntelligence: html.includes('63.1'),
-            hasPrice: html.includes('$10.00/1M') || html.includes('$10/1M'),
+            hasPrice: html.includes('$5.00/1M') && html.includes('Input /1M'),
             hasFrontierTag: html.includes('mr-frontier-tag'),
             hasVariantBadge: html.includes('+2 variant'),
             hasClosedBadge: html.includes('mr-badge-closed'),

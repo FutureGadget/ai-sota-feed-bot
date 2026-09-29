@@ -4384,22 +4384,9 @@ VARIANT_LABEL_TEXT = {
 # `frontier_metrics` writes. This label is the ONLY place that caveat is
 # spelled out; a new cost basis only needs an entry added here, never prose
 # changed elsewhere - the page corrects itself automatically.
-# "per_token_price_proxy" is kept for historical/rollback safety (an older
-# cached artifact, or a config rollback, could still emit it) even though no
-# `frontier_metrics` entry uses it as of 2026-08-17 - see config/models.yaml.
-# "measured_per_task" is what every LIVE frontier entry uses today
-# (DeepSWE's real per-task dollar cost).
 COST_BASIS_LABELS = {
-    "per_token_price_proxy": (
-        "a per-1M-token price standing in for cost per task, not a measured "
-        "per-task cost - two models priced the same per token can still cost "
-        "very different amounts to run the same agentic task"
-    ),
-    "measured_per_task": (
-        "a measured cost to run this exact task, not an estimate from a "
-        "per-token price - two models priced identically per token can still "
-        "cost very different amounts to complete the same agentic task"
-    ),
+    "per_token_price_proxy": "blended per-1M-token price, 3:1 input/output; not a measured per-task cost",
+    "measured_per_task": "measured USD per task",
 }
 
 
@@ -4590,7 +4577,7 @@ def model_frontier_section(primary: dict, primary_by_slug: dict[str, dict]) -> s
     items = []
     for key in sorted(frontier.keys(), key=lambda k: (k not in INDEX_METRIC_LABELS, k)):
         entry = frontier[key]
-        label = benchmark_label(key)
+        label = benchmark_label(key) + " (" + cost_basis_label(entry.get("cost_basis")) + ")"
         on = bool(entry.get("on_frontier"))
         if on:
             items.append(
@@ -4889,14 +4876,7 @@ def model_deepswe_cost_table(primary: dict) -> str:
 
 
 def model_scores_section(primary: dict) -> str:
-    """Two clearly separated tables (2026-08-17): DeepSWE's measured
-    cost-per-task result - the only score on this page paired with a real
-    per-task cost - and every Artificial Analysis score, which carries NO
-    cost column at all now that the per-token-price-proxy frontier is gone.
-    A $ figure next to an AA score would imply a comparability that no
-    longer exists on this page, so none is shown; each metric is still
-    formatted on its own scale (index vs. fraction, see fmt_index_value/
-    fmt_fraction_pct) so the two never get silently mixed."""
+    """Separate measured DeepSWE task costs from AA capability scores."""
     aa_rows: list[tuple[str, str]] = []
     for key in ("aa_intelligence_index", "aa_coding_index"):
         value = primary.get(key)
@@ -4912,8 +4892,9 @@ def model_scores_section(primary: dict) -> str:
             for label, value in aa_rows
         )
         aa_html = (
-            '<p class="md-cost-caveat">Artificial Analysis scores below have no measured '
-            "per-task cost, so no frontier claim is made for them here.</p>"
+            '<p class="md-cost-caveat">Artificial Analysis scores describe capability. '
+            '<a href="/models/compare">Compare them against estimated token spend</a> '
+            'with your cache mix; these estimates are not measured task costs.</p>'
             '<div class="mr-table-wrap"><table class="mr-table">'
             '<thead><tr><th scope="col">Benchmark</th><th scope="col">Score</th></tr></thead>'
             f"<tbody>{aa_body}</tbody></table></div>"
@@ -4927,7 +4908,7 @@ def model_scores_section(primary: dict) -> str:
         '<div class="md-prose">'
         '<h3 class="md-subhead">Measured cost per task (DeepSWE)</h3>'
         f"{model_deepswe_cost_table(primary)}"
-        '<h3 class="md-subhead">Artificial Analysis scores (no matched cost)</h3>'
+        '<h3 class="md-subhead">Artificial Analysis scores</h3>'
         f"{aa_html}"
         "</div></section>"
     )
@@ -4979,7 +4960,7 @@ def model_variants_section(group: list[dict], primary: dict) -> str:
         f'<div class="md-prose"><p>This page covers {n} reasoning-effort variants of the same model.</p>'
         '<div class="mr-table-wrap"><table class="mr-table">'
         '<thead><tr><th scope="col">Variant</th><th scope="col">AA coding index</th>'
-        '<th scope="col">AA intelligence index</th><th scope="col">Price /1M</th></tr></thead>'
+        '<th scope="col">AA intelligence index</th><th scope="col">Blended /1M (3:1 input/output)</th></tr></thead>'
         f'<tbody>{"".join(rows)}</tbody></table></div></div></section>'
     )
 
@@ -5058,6 +5039,35 @@ def model_sources_section(sources: dict, group: list[dict]) -> str:
     return f'<aside class="md-sources"><h2>Sources and attribution</h2><ul>{"".join(items)}</ul></aside>'
 
 
+def model_pricing_section(primary: dict) -> str:
+    offer = primary.get("pricing")
+    if not offer:
+        body = "<p>No matched provider pricing is available yet.</p>"
+    else:
+        rates = offer["rates"]
+        fields = [("Input", "input"), ("Output", "output"), ("Cache read", "cache_read"),
+                  (f"Cache write ({offer.get('write_ttl') or 'default'})", "cache_write"),
+                  ("Cache write (1 hour)", "cache_write_1h")]
+        cells = []
+        for label, key in fields:
+            value = rates.get(key)
+            text = "Unknown" if value is None else f"${value:,.6f}".rstrip("0").rstrip(".")
+            if key.startswith("cache_write") and value is not None and offer["write_basis"] != "replacement":
+                text = "Unverified basis"
+            cells.append(f'<tr><th scope="row">{escape(label)}</th><td>{escape(text)}</td></tr>')
+        stale = " Last successful snapshot is over 24 hours old; excluded from estimates." if offer.get("stale") else ""
+        tiers = " Long-context tiers apply; use the comparison page for a prompt length estimate." if offer.get("tiers") else ""
+        body = (
+            f'<p>USD per million tokens via <a href="{escape(safe_http_url(offer["source_url"]))}">OpenRouter</a>, '
+            f'{escape(offer["provider"])} ({escape(offer["tag"])}). Checked {escape(offer["checked_at"][:16].replace("T", " "))} UTC.{stale}</p>'
+            '<table class="mr-table"><thead><tr><th scope="col">Token type</th><th scope="col">USD /1M</th></tr></thead>'
+            f'<tbody>{"".join(cells)}</tbody></table>'
+            f'<p>Cache-write rates with a verified basis replace the ordinary input charge. Unknown rates are never treated as zero.{tiers}</p>'
+        )
+    return ('<section class="md-section md-pricing"><div class="md-rail">Token prices</div>'
+            f'<div class="md-prose">{body}<p><a href="/models/compare">Compare cost and intelligence →</a></p></div></section>')
+
+
 def model_body(
     group: list[dict],
     primary: dict,
@@ -5065,6 +5075,7 @@ def model_body(
     sources: dict,
 ) -> str:
     parts = [
+        model_pricing_section(primary),
         model_frontier_section(primary, primary_by_slug),
         model_chart_section(primary),
         model_scores_section(primary),
@@ -5164,7 +5175,9 @@ def load_models_artifact() -> dict:
         return {"generated_at": None, "sources": {}, "models": []}
     data.setdefault("sources", {})
     data.setdefault("models", [])
-    return data
+    from collect_models import load_config
+    from model_pricing import apply_pricing, read_prices
+    return apply_pricing(data, read_prices(MODELS_DIR / "pricing.json"), load_config())
 
 
 # Rows kept in models-top.json for the feed rail. Generous enough that
@@ -5176,7 +5189,7 @@ MODELS_TOP_SLICE = 40
 MODELS_TOP_FIELDS = (
     "url_slug", "base_slug", "slug", "name", "display_name", "organization",
     "open_weights", "variant_label", "aa_intelligence_index", "aa_coding_index",
-    "arena_elo_coding", "price_blended_per_1m",
+    "arena_elo_coding", "price_input_per_1m", "price_blended_per_1m",
 )
 
 
@@ -5998,6 +6011,7 @@ def write_sitemap(
         ]
     if models:
         entries.append((f"{base_url}/models", today, "daily"))
+        entries.append((f"{base_url}/models/compare", today, "daily"))
         entries += [
             (f"{base_url}/models/{slug}", lastmod, "weekly") for slug, lastmod in models
         ]

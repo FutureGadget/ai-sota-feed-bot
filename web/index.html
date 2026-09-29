@@ -4404,7 +4404,7 @@
     function mrFmtPrice(v) {
       var n = Number(v);
       if (v === null || v === undefined || !isFinite(n)) return '';
-      return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M blended';
+      return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M input';
     }
 
     // Picks which capability field ranks the rail: the objective AA
@@ -4455,8 +4455,7 @@
     }
 
     // Credit only the sources whose data is actually on screen: LMArena for
-    // Elo always, Artificial Analysis too once a price renders or the rail
-    // is ranked by the AA intelligence index itself.
+    // Elo, Artificial Analysis for intelligence, OpenRouter for token prices.
     // Source credit stays mandatory, but the LINK TEXT should be the source's
     // name, not its whole attribution sentence: config carries
     // "Artificial Analysis (https://artificialanalysis.ai/) - independent
@@ -4487,12 +4486,10 @@
       var aaLink = aaUrl
         ? '<a href="' + aaUrl + '" target="_blank" rel="noopener" title="' + mrEsc(aaFull) + '">' + mrEsc(aaLabel) + '</a>'
         : mrEsc(aaLabel);
-      if (capField === 'aa_intelligence_index') {
-        return 'AA intelligence index from ' + aaLink + '.';
-      }
-      var parts = [lmLink];
-      if (showPrice) parts.push(aaLink);
-      return 'Coding Elo from ' + parts.join(' and ') + '.';
+      var credit = capField === 'aa_intelligence_index'
+        ? 'AA intelligence index from ' + aaLink + '.' : 'Coding Elo from ' + lmLink + '.';
+      if (showPrice) credit += ' Prices: <a href="https://openrouter.ai/docs/guides/overview/models">OpenRouter</a>.';
+      return credit;
     }
 
     // Every model row is a keyboard-accessible link to its
@@ -4511,7 +4508,7 @@
       var capIsIndex = capField === 'aa_intelligence_index';
       var capDisplay = capIsIndex ? (Math.round(capValue * 10) / 10) : Math.round(capValue);
       var capLabel = capIsIndex ? 'AA intelligence index' : 'coding Elo';
-      var price = mrFmtPrice(m.price_blended_per_1m);
+      var price = mrFmtPrice(m.price_input_per_1m);
       var modelSlug = m && (m.url_slug || m.base_slug || m.slug) || '';
       var badge = m.open_weights === true ? ' <span class="mr-rail-badge">Open weights</span>' : '';
       var variants = m.variantCount > 1 ? ' <span class="mr-rail-variant">+' + mrEsc(String(m.variantCount - 1)) + '</span>' : '';
@@ -4520,10 +4517,8 @@
       // three ragged lines. The metric label is shortened here because the
       // credit line below the list already names it in full.
       var shortLabel = capIsIndex ? 'AA index' : 'coding Elo';
-      // Drop the " blended" qualifier in the teaser: at the 200px rail width
-      // it pushed most rows onto a second line, and /models' own table header
-      // reads just "Price /1M" too. The basis stays discoverable in the title.
-      var shortPrice = price.replace(/ blended$/, '');
+      // Keep the input qualifier visible so this cannot read as a blended rate.
+      var shortPrice = price;
       var metric = capDisplay + ' ' + shortLabel + (shortPrice ? ' &middot; ' + mrEsc(shortPrice) : '');
       return (
         '<li class="mr-rail-row">' +
@@ -4552,7 +4547,7 @@
       var rows = ranked.map(function (m) { return mrRowHtml(m, capField); }).join('');
       if (!rows) return '';
 
-      var hasPrice = ranked.some(function (m) { return m.price_blended_per_1m !== null && m.price_blended_per_1m !== undefined; });
+      var hasPrice = ranked.some(function (m) { return m.price_input_per_1m !== null && m.price_input_per_1m !== undefined; });
       var capLabelForLede = capField === 'aa_intelligence_index' ? 'the Artificial Analysis intelligence index' : 'community-voted Elo';
 
       return (

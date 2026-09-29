@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compare models | LLM Digest</title>
+  <meta name="description" content="Compare model intelligence against estimated token spend. Explore cache-read and cache-write prices and the Pareto frontier." />
+  <link rel="canonical" href="https://www.llm-digest.com/models/compare" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LLM Digest" />
+  <meta property="og:title" content="Compare model cost and intelligence" />
+  <meta property="og:description" content="Compare intelligence and estimated token spend, including cache reads and writes." />
+  <meta property="og:url" content="https://www.llm-digest.com/models/compare" />
+  <meta property="og:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://www.llm-digest.com/og-default.png" />
+  <meta name="twitter:title" content="Compare model cost and intelligence" />
+  <meta name="twitter:description" content="Compare intelligence and estimated token spend, including cache reads and writes." />
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.llm-digest.com/"}, {"@type": "ListItem", "position": 2, "name": "Model Release Radar", "item": "https://www.llm-digest.com/models"}]}</script>
+  <link rel="alternate" type="application/rss+xml" title="LLM Digest feed" href="/rss.xml" />
+  <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#11151c" media="(prefers-color-scheme: dark)" />
+  <link rel="stylesheet" href="/oat.min.css?v=20260824-selfhost" />
+  <link rel="stylesheet" href="/site-chrome.css?v=20260924-inline-subscribe" />
+  <script defer src="/posthog-client.js?v=20260924-email-reader-id"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  <script defer src="/site-chrome.js?v=20260924-inline-subscribe"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+  <link rel="stylesheet" href="/model-comparison.css" />
+</head>
+<body><main>
+    <header class="site-chrome" data-site-section="/models">
+      <div class="site-bar">
+        <a class="site-brand" href="/" aria-label="LLM Digest home"><span aria-hidden="true">📰</span><span>LLM Digest</span></a>
+        <div class="site-bar-actions">
+          <a class="site-subscribe-action" href="/subscribe" aria-label="Subscribe to the email digest" data-subscribe-channel="email" data-subscribe-placement="header">Subscribe</a>
+          <button type="button" data-site-browse-open aria-haspopup="dialog" aria-expanded="false" aria-label="Open Editor's Desk">Editor's Desk</button>
+        </div>
+      </div>
+      <div class="site-page-heading">
+        <h1>Model Radar</h1>
+        <p id="meta">Cost and intelligence, under the same assumptions.</p>
+      </div>
+      <nav class="site-nav-fallback" aria-label="LLM Digest">
+        <a href="/" data-site-destination="/">Live feed</a>
+        <a href="/daily" data-site-destination="/daily">Daily recap</a>
+        <a href="/weekly" data-site-destination="/weekly">Weekly recap</a>
+        <a href="/storylines" data-site-destination="/storylines">Storylines</a>
+        <a href="/playbook" data-site-destination="/playbook">Playbook</a>
+        <a href="/map" data-site-destination="/map">Agent Know-How</a>
+        <a href="/foundations" data-site-destination="/foundations">Foundations</a>
+        <a href="/models" data-site-destination="/models" aria-current="page">Model Radar</a>
+        <a href="/voices" data-site-destination="/voices">Voices</a>
+        <a href="/subscribe" data-site-destination="/subscribe">Email digest</a>
+      </nav>
+      <div class="site-actions-fallback" aria-label="Page actions">
+        <a id="jsonLink" href="/models-data.json">View as JSON</a>
+        <button id="themeToggle" type="button" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+      </div>
+    </header>
+    <p class="kicker">Model Release Radar / Compare</p>
+    <h2>Intelligence for your token budget.</h2>
+    <p class="intro">The frontier marks models that no other tracked model beats on both cost and score. Set your token mix to see how caching changes the comparison. <a href="/models">Back to the model list</a></p>
+    <form id="scenario" class="controls" aria-label="Cost assumptions">
+      <label>Capability<select id="metric"><option value="aa_intelligence_index">AA intelligence index</option><option value="aa_coding_index">AA coding index</option></select></label>
+      <label>Workload<select id="preset"><option value="cold">Uncached</option><option value="warm" selected>Cache-heavy</option><option value="custom">Custom mix</option></select></label>
+      <label>Input tokens<input id="inputTokens" type="number" min="1" max="1000000000" step="1" value="1000000" required></label>
+      <label>Output tokens<input id="outputTokens" type="number" min="0" max="1000000000" step="1" value="250000" required></label>
+      <label>Cache reads (% of input)<input id="readPercent" type="number" min="0" max="100" step="1" value="90" required></label>
+      <label>Cache writes (% of input)<input id="writePercent" type="number" min="0" max="100" step="1" value="10" required></label>
+      <label>Write duration<select id="writeDuration"><option value="default">Default (5m / 30m)</option><option value="1h">1 hour</option></select></label>
+      <label>Prompt tokens per request<input id="promptTokens" type="number" min="1" max="10000000" step="1" value="32000" required><small>Determines the context price tier.</small></label>
+    </form>
+    <p id="assumptions">Loading model prices…</p>
+    <p id="validation" role="alert" hidden></p>
+    <section aria-labelledby="chartTitle">
+      <div class="chart-heading"><h3 id="chartTitle">Cost vs. intelligence</h3><p class="legend"><b>● Frontier</b> · ● Other models · Lower cost is left; higher score is up</p></div>
+      <div id="chart"></div>
+      <p id="coverage" aria-live="polite"></p>
+      <div id="selection" aria-live="polite">Select a point or model to inspect its prices.</div>
+    </section>
+    <div class="table-control"><label>Find a model<input id="search" type="search" placeholder="Search model or provider"></label><button id="frontierOnly" type="button" aria-pressed="false">Frontier only</button></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Model prices and estimates"><table><caption>Prices in USD per million tokens. Estimates use the workload above.</caption><thead><tr><th scope="col">Model / provider</th><th scope="col">Score</th><th scope="col">Est. USD</th><th scope="col">Input</th><th scope="col">Output</th><th scope="col">Cache read</th><th scope="col">Cache write</th><th scope="col">Write 1h</th></tr></thead><tbody id="prices"></tbody></table></div>
+    <p id="freshness"></p>
+    <section class="notes" aria-labelledby="methodTitle"><h3 id="methodTitle">What this comparison means</h3><ul>
+      <li>Estimated spend = uncached input × input rate + cache reads × read rate + cache writes × write rate + output × output rate. Read and write shares are token-weighted and cannot overlap. Write rates replace the ordinary input charge.</li>
+      <li>These are fixed-token estimates, not measured coding-task costs. Models consume different numbers of tokens. <a href="/models">Model detail pages</a> keep measured DeepSWE task costs separate.</li>
+      <li>Prices come from one named OpenRouter provider endpoint per model. The originating provider is preferred where available; otherwise we use a standard endpoint with a disclosed provider. Flex, priority, regional offers, taxes and credit-purchase fees are outside this comparison. Benchmark scores may come from a different serving configuration.</li>
+      <li>Missing prices are unknown, never zero. A model is excluded only when this scenario needs an unknown rate, unverified write basis, unsupported context length or stale price. Google cache-write storage semantics are not yet verified.</li>
+      <li>Capability scores are from <a href="https://artificialanalysis.ai/">Artificial Analysis</a>. Each point names the highest-scoring measured effort for that metric. New releases stay unscored until benchmark data arrives.</li>
+    </ul></section>
+    <footer><a href="/models-data.json">Inspect the data</a> · <a href="https://openrouter.ai/docs/guides/overview/models">OpenRouter model API</a> · <a href="/models">Model Radar</a></footer>
+    <noscript>This comparison needs JavaScript. <a href="/models-data.json">download the data</a>.</noscript>
+</main><script type="module" src="/model-comparison.mjs"></script></body></html>

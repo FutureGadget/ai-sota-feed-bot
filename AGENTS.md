@@ -41,6 +41,7 @@ snapshots, commits `data/` + `web/`, and pushes when `AUTO_PUSH_RUNTIME=1`).
 | `feedback-sync.yml` | daily 12:45 UTC | PostHog → `feedback.py sync-posthog`, `auto_tune.py sync-ctr` + `apply`, `north_star_metric.py sync` + `summary` (the one metric — see below) |
 | `email-digest.yml` | cron-job.org (daily 23:00 UTC + weekly Fri 23:00 UTC → 08:00 KST) | `publish/publish_email.py` — finishable daily brief to the subscriber list, rendered from the **curated `/daily` recap** (`data/daily/latest.json`), NOT the raw feed (secrets-gated; the newsletter provider owns the list). Runs on its OWN schedule after the recap agent routines, NOT the hourly pipeline. Weekly recap is exec-plan v2.2 Phase 4. Daily runs then send storyline follow alerts (`publish/publish_follows.py`, non-blocking step) |
 | `models-refresh.yml` | GitHub `schedule:` every 6h (02/08/14/20 UTC) | `pipeline/collect_models.py collect` - joins LMArena (keyless) + Artificial Analysis (secrets-gated, no-ops without `AA_API_KEY`) into `data/models/latest.json` for the Model Release Radar (`/models`) |
+| `model-prices-refresh.yml` | GitHub schedule every 15 minutes | `pipeline/model_pricing.py` - OpenRouter catalog and provider offers into `data/models/pricing.json`; static rendering joins benchmark and pricing snapshots for `/models` and `/models/compare` |
 | `ci.yml` | pushes to `main` and pull requests | Python and JavaScript regression suites on a clean hosted runner |
 
 Both `feed-full-publish.yml` and `email-digest.yml` have **no GitHub `schedule:`
@@ -52,7 +53,7 @@ GitHub `schedule:` instead. Overlapping manual dispatches are
 safe (lock dir + `concurrency` group + Tier-0 no-delta skip for the feed;
 cursor-based idempotency guard for email; `concurrency` group for models).
 
-All seven GitHub workflows use GitHub-hosted standard `ubuntu-latest` runners.
+All eight GitHub workflows use GitHub-hosted standard `ubuntu-latest` runners.
 Because this repository is public, standard hosted runner usage is free and
 unlimited. Each job runs on a fresh x64 VM, so scheduled publishing no longer
 depends on the owner's Mac or Docker Desktop. The full-publish workflow keeps a
@@ -338,6 +339,7 @@ in `ops_daily_summary.py`'s log line.
   Use `docs/how-to/add-pretranslated-pages.md`; product contract:
   `docs/product-specs/multilingual-pretranslated-pages.md`; live-feed contract:
   `docs/product-specs/localized-live-feed.md`.
+- `data/models/pricing.json` - independent OpenRouter pricing snapshot with provider offers, cache rates, context tiers and check times. Contract: `docs/product-specs/model-radar-comparison.md`.
 - `data/models/` - Model Release Radar: `latest.json` (LMArena + optional
   Artificial Analysis join: model rows with price/capability/open-weights
   fields, `sources.*` availability + mandatory Artificial Analysis

@@ -1,0 +1,169 @@
+import copy
+import sys
+import unittest
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "pipeline"))
+import model_pricing as pricing
+import collect_models
+import render_static_pages as render
+
+NOW = datetime(2026, 9, 29, 12, tzinfo=timezone.utc)
+MODEL_ID = "anthropic/claude-sonnet-5.5"
+ENDPOINT = {
+    "provider_name": "Anthropic", "tag": "anthropic", "status": 0,
+    "context_length": 1000000, "max_completion_tokens": 128000,
+    "pricing": {"prompt": "0.000002", "completion": "0.00001", "input_cache_read": "0.0000002",
+                "input_cache_write": "0.0000025", "input_cache_write_1h": "0.000004"},
+}
+CATALOG_ROW = {"id": MODEL_ID, "name": "Anthropic: Claude Sonnet 5.5",
+               "created": NOW.timestamp(), "architecture": {"output_modalities": ["text"]},
+               "pricing": ENDPOINT["pricing"]}
+
+
+def snapshot():
+    return {"version": 1, "catalog_checked_at": NOW.isoformat(), "models": {
+        MODEL_ID: {"id": MODEL_ID, "name": CATALOG_ROW["name"], "created": NOW.timestamp(),
+                   "source_url": "https://openrouter.ai/api/v1/models/" + MODEL_ID + "/endpoints",
+                   "checked_at": NOW.isoformat(),
+                   "offers": [pricing.normalize_offer(ENDPOINT, "anthropic", NOW.isoformat())]}}}
+
+
+class PricingTest(unittest.TestCase):
+    def test_sonnet_units_and_all_cache_durations(self):
+        offer = pricing.normalize_offer(ENDPOINT, "anthropic", NOW.isoformat())
+        self.assertEqual(offer["rates"], {"input": 2, "output": 10, "cache_read": .2, "cache_write": 2.5, "cache_write_1h": 4})
+        self.assertEqual(offer["write_basis"], "replacement")
+
+    def test_zero_is_preserved_and_invalid_or_missing_is_unknown(self):
+        self.assertEqual(pricing.rates({"prompt": "0", "completion": "NaN", "input_cache_read": -1, "input_cache_write": True}),
+                         {"input": 0, "output": None, "cache_read": None, "cache_write": None, "cache_write_1h": None})
+
+    def test_google_storage_value_is_never_a_verified_total_write_rate(self):
+        offer = pricing.normalize_offer(ENDPOINT, "google", NOW.isoformat())
+        self.assertEqual(offer["write_basis"], "unverified")
+        self.assertIsNone(offer["write_ttl"])
+
+    def test_context_tiers_keep_usd_per_million_without_reapplying_discount(self):
+        endpoint = copy.deepcopy(ENDPOINT)
+        endpoint["pricing"].update(discount=.5, overrides=[{"min_prompt_tokens": 272000, "prompt": "0.000004", "completion": "0.000015"}])
+        offer = pricing.normalize_offer(endpoint, "openai", NOW.isoformat())
+        self.assertEqual(offer["rates"]["input"], 2)
+        self.assertEqual(offer["tiers"][0]["rates"]["input"], 4)
+        self.assertEqual(offer["tiers"][0]["rates"]["output"], 15)
+
+    def test_original_provider_precedes_cheapest_host_and_excludes_special_service(self):
+        direct = pricing.normalize_offer(ENDPOINT, "anthropic", NOW.isoformat())
+        other = {**direct, "tag": "host/fp8", "rates": {**direct["rates"], "input": .01}}
+        flex = {**other, "tag": "anthropic/flex"}
+        self.assertEqual(pricing.select_offer([flex, other, direct], ["anthropic"]), direct)
+        self.assertIsNone(pricing.select_offer([flex, {**direct, "tag": "anthropic/us"}], ["anthropic"]))
+        self.assertEqual(pricing.select_offer([other], []), other)
+
+    def test_endpoint_refresh_and_failure_preserve_last_good_atomically(self):
+        cfg = {"base_url": "https://example.test/models"}
+        def fetch(url):
+            return {"data": [CATALOG_ROW]} if url == cfg["base_url"] else {"data": {"id": MODEL_ID, "endpoints": [ENDPOINT]}}
+        first = pricing.refresh({}, cfg, NOW, fetch)
+        self.assertEqual(first["models"][MODEL_ID]["offers"][0]["rates"]["input"], 2)
+        def failed_endpoint(url):
+            if url == cfg["base_url"]:
+                return {"data": [CATALOG_ROW]}
+            raise OSError("offline")
+        second = pricing.refresh(first, cfg, NOW + timedelta(hours=5), failed_endpoint)
+        self.assertEqual(second["models"][MODEL_ID]["offers"], first["models"][MODEL_ID]["offers"])
+        self.assertEqual(second["models"][MODEL_ID]["checked_at"], NOW.isoformat())
+        self.assertEqual(second["models"][MODEL_ID]["error"], "OSError")
+        self.assertIsNone(first["models"][MODEL_ID]["error"])
+
+    def test_invalid_catalog_preserves_prior_catalog_timestamp(self):
+        old = snapshot()
+        result = pricing.refresh(old, {"base_url": "https://example.test"}, NOW + timedelta(hours=1), lambda url: {"data": []})
+        self.assertEqual(result["models"], old["models"])
+        self.assertEqual(result["catalog_checked_at"], NOW.isoformat())
+        self.assertEqual(result["error"], "ValueError")
+
+    def test_changed_catalog_price_refreshes_endpoint_before_ttl(self):
+        cfg = {"base_url": "https://example.test/models"}
+        calls = []
+        def fetch(url):
+            calls.append(url)
+            return {"data": [CATALOG_ROW]} if url == cfg["base_url"] else {"data": {"id": MODEL_ID, "endpoints": [ENDPOINT]}}
+        first = pricing.refresh({}, cfg, NOW, fetch)
+        calls.clear()
+        pricing.refresh(first, cfg, NOW + timedelta(minutes=15), fetch)
+        self.assertEqual(calls, [cfg["base_url"]])
+        changed = copy.deepcopy(CATALOG_ROW)
+        changed["pricing"]["prompt"] = "0.000003"
+        calls.clear()
+        def fetch_changed(url):
+            if url == cfg["base_url"]:
+                calls.append(url)
+                return {"data": [changed]}
+            return fetch(url)
+        pricing.refresh(first, cfg, NOW + timedelta(minutes=15), fetch_changed)
+        self.assertEqual(len(calls), 2)
+
+    def test_bounded_refresh_does_not_lose_changes_waiting_for_next_batch(self):
+        cfg = {"base_url": "https://example.test/models", "max_endpoints_per_run": 1}
+        second = {**CATALOG_ROW, "id": "anthropic/second", "created": NOW.timestamp() - 60}
+        def fetch(url):
+            if url == cfg["base_url"]:
+                return {"data": [CATALOG_ROW, second]}
+            return {"data": {"id": url.removeprefix(cfg["base_url"] + "/").removesuffix("/endpoints"), "endpoints": [ENDPOINT]}}
+        first = pricing.refresh({}, cfg, NOW, fetch)
+        self.assertNotIn("offers", first["models"]["anthropic/second"])
+        second_run = pricing.refresh(first, cfg, NOW + timedelta(minutes=15), fetch)
+        self.assertEqual(second_run["models"]["anthropic/second"]["offers"][0]["rates"]["input"], 2)
+
+    def test_wrong_endpoint_identity_never_overwrites_the_prior_offer(self):
+        old = snapshot()
+        def fetch(url):
+            return {"data": [CATALOG_ROW]} if url == "https://example.test" else {"data": {"id": "another/model", "endpoints": [ENDPOINT]}}
+        result = pricing.refresh(old, {"base_url": "https://example.test"}, NOW + timedelta(hours=5), fetch)
+        self.assertEqual(result["models"][MODEL_ID]["offers"], old["models"][MODEL_ID]["offers"])
+        self.assertEqual(result["models"][MODEL_ID]["error"], "ValueError")
+
+    def test_identity_matching_does_not_strip_versions_or_cross_organizations(self):
+        cfg = collect_models.load_config()
+        rows = [{"url_slug": "claude-sonnet-5-5", "organization": "anthropic", "aa_intelligence_index": 56},
+                {"url_slug": "claude-sonnet-5", "organization": "anthropic"},
+                {"url_slug": "claude-sonnet-5-5", "organization": "another-lab"}]
+        result = pricing.apply_pricing({"models": rows}, snapshot(), cfg, NOW)
+        self.assertEqual(result["models"][0]["price_input_per_1m"], 2)
+        self.assertEqual(result["models"][0]["price_blended_per_1m"], 4)
+        self.assertIsNone(result["models"][1]["pricing"])
+        self.assertIsNone(result["models"][2]["pricing"])
+        self.assertNotIn("pricing", rows[0])
+
+    def test_no_openrouter_price_cannot_fall_back_to_benchmark_price(self):
+        result = pricing.apply_pricing({"models": [{"url_slug": "x", "price_input_per_1m": 2, "price_blended_per_1m": 4}]}, {}, collect_models.load_config(), NOW)
+        self.assertIsNone(result["models"][0]["price_input_per_1m"])
+        self.assertIsNone(result["models"][0]["price_blended_per_1m"])
+
+    def test_new_model_is_discovered_without_inventing_score_or_release_date(self):
+        result = pricing.apply_pricing({"models": []}, snapshot(), collect_models.load_config(), NOW)
+        self.assertEqual(len(result["models"]), 1)
+        model = result["models"][0]
+        self.assertEqual(model["url_slug"], "claude-sonnet-5-5")
+        self.assertIsNone(model.get("aa_intelligence_index"))
+        self.assertIsNone(model.get("release_date"))
+        self.assertFalse(model["frontier"])
+
+    def test_static_detail_renders_source_and_cache_rates(self):
+        model = pricing.apply_pricing({"models": []}, snapshot(), collect_models.load_config(), NOW)["models"][0]
+        html = render.model_pricing_section(model)
+        for text in ["USD per million", "Anthropic", "Cache read", "Cache write (5 minutes)", "Cache write (1 hour)", "$0.2", "$2.5", "$4", "/models/compare"]:
+            self.assertIn(text, html)
+
+    def test_stale_prices_remain_auditable_but_leave_token_frontier(self):
+        result = pricing.apply_pricing({"models": []}, snapshot(), collect_models.load_config(), NOW + timedelta(days=2))
+        model = result["models"][0]
+        self.assertTrue(model["pricing"]["stale"])
+        self.assertEqual(model["pricing"]["rates"]["input"], 2)
+        self.assertIsNone(model["price_blended_per_1m"])
+
+
+if __name__ == "__main__":
+    unittest.main()

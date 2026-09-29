@@ -1,5 +1,9 @@
 # Model Release Radar (`/models`)
 
+Current pricing and comparison findings:
+[September 29, 2026 investigation](model-radar-cache-pricing-investigation.md).
+The investigation distinguishes shipped behavior from the original proposal below.
+
 ## Problem Statement
 
 Readers who build and operate AI systems make a recurring decision the feed
