@@ -6278,12 +6278,12 @@
       "id": "tencent/hy4-preview",
       "name": "Tencent: Hy4 preview",
       "created": 1787897375.0,
-      "fingerprint": "61722f406b63a8aed3f0e8880cbf092f7e06a1d3c15bac02d21304386871706d",
+      "fingerprint": "39984198246d38643489754706ca4f6aeb9e97a2e02e3ec5f6504056e8dd2bd8",
       "offers": [
         {
-          "provider": "Novita",
-          "tag": "novita/fp8",
-          "name": "Novita | tencent/hy4-preview-20260827",
+          "provider": "DeepInfra",
+          "tag": "deepinfra/fp8",
+          "name": "DeepInfra | tencent/hy4-preview-20260827",
           "rates": {
             "input": 0.834,
             "output": 2.501,
@@ -6296,8 +6296,8 @@
           "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
-          "context_length": 1000000.0,
-          "max_output_tokens": 64000.0,
+          "context_length": 1048576.0,
+          "max_output_tokens": 131072.0,
           "supported_parameters": [
             "reasoning",
             "include_reasoning",
@@ -6307,15 +6307,18 @@
             "stop",
             "frequency_penalty",
             "presence_penalty",
-            "seed",
-            "top_k",
             "repetition_penalty",
+            "top_k",
+            "seed",
+            "min_p",
+            "logit_bias",
+            "response_format",
             "structured_outputs",
             "tools",
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "SiliconFlow",
@@ -6349,13 +6352,13 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-30T14:11:49.038587+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/tencent/hy4-preview/endpoints",
-      "catalog_fingerprint": "61722f406b63a8aed3f0e8880cbf092f7e06a1d3c15bac02d21304386871706d"
+      "catalog_fingerprint": "39984198246d38643489754706ca4f6aeb9e97a2e02e3ec5f6504056e8dd2bd8"
     },
     "inclusionai/ling-3.0-flash-fin": {
       "id": "inclusionai/ling-3.0-flash-fin",
@@ -9496,7 +9499,7 @@
       "id": "qwen/qwen3.8-27b",
       "name": "Qwen: Qwen3.8 27B",
       "created": 1786722910.0,
-      "fingerprint": "3c44cca749ad3212ee154d56f63dcd0807624819597d142f3cd4dd93db47b7ae",
+      "fingerprint": "f9d3b5f38cd6e04d801431313226058823201fb0f4594ea0b9d946bd454b7659",
       "offers": [
         {
           "provider": "Reka",
@@ -9535,7 +9538,7 @@
             "presence_penalty",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Wafer",
@@ -9577,7 +9580,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DekaLLM",
@@ -9616,7 +9619,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Darkbloom",
@@ -9656,7 +9659,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Phala",
@@ -9695,7 +9698,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -9735,7 +9738,45 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "Ionstream",
+          "tag": "ionstream/fp8",
+          "name": "Ionstream | qwen/qwen3.8-27b-20260814",
+          "rates": {
+            "input": 0.198,
+            "output": 2.55,
+            "cache_read": 0.085,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "fp8",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 262144.0,
+          "max_output_tokens": 65536.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "stop",
+            "seed",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "reasoning_effort"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mancer 2",
@@ -9778,7 +9819,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AkashML",
@@ -9818,45 +9859,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
-        },
-        {
-          "provider": "Ionstream",
-          "tag": "ionstream/fp8",
-          "name": "Ionstream | qwen/qwen3.8-27b-20260814",
-          "rates": {
-            "input": 0.224,
-            "output": 2.55,
-            "cache_read": 0.085,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "quantization": "fp8",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 262144.0,
-          "max_output_tokens": 65536.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "max_tokens",
-            "temperature",
-            "top_p",
-            "frequency_penalty",
-            "presence_penalty",
-            "stop",
-            "seed",
-            "response_format",
-            "structured_outputs",
-            "tools",
-            "tool_choice",
-            "logprobs",
-            "top_logprobs",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Parasail",
@@ -9897,7 +9900,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Chutes",
@@ -9935,7 +9938,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "CoreWeave",
@@ -9975,7 +9978,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -10014,7 +10017,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -10052,7 +10055,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Cloudflare",
@@ -10094,7 +10097,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Venice",
@@ -10130,13 +10133,13 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-30T14:11:49.038587+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.8-27b/endpoints",
-      "catalog_fingerprint": "3c44cca749ad3212ee154d56f63dcd0807624819597d142f3cd4dd93db47b7ae"
+      "catalog_fingerprint": "f9d3b5f38cd6e04d801431313226058823201fb0f4594ea0b9d946bd454b7659"
     },
     "google/gemini-3.7-flash": {
       "id": "google/gemini-3.7-flash",
@@ -17092,7 +17095,7 @@
       "id": "tencent/hy3",
       "name": "Tencent: Hy3",
       "created": 1783344048.0,
-      "fingerprint": "7dff2212164fcb04166a9b4097a7c93d75a371dbaea8f1dd62750063b8817b4f",
+      "fingerprint": "b51661d71c588391b4b5dc9648445291726db191443c2f0109464cae59469e8a",
       "offers": [
         {
           "provider": "DeepInfra",
@@ -17132,7 +17135,7 @@
             "response_format",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -17169,7 +17172,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "GMICloud",
@@ -17201,7 +17204,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Phala",
@@ -17239,7 +17242,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -17278,13 +17281,13 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-30T01:40:52.134911+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/tencent/hy3/endpoints",
-      "catalog_fingerprint": "7dff2212164fcb04166a9b4097a7c93d75a371dbaea8f1dd62750063b8817b4f"
+      "catalog_fingerprint": "b51661d71c588391b4b5dc9648445291726db191443c2f0109464cae59469e8a"
     },
     "poolside/laguna-xs-2.1": {
       "id": "poolside/laguna-xs-2.1",
@@ -17933,52 +17936,16 @@
       "id": "z-ai/glm-5.2",
       "name": "Z.ai: GLM 5.2",
       "created": 1781631930.0,
-      "fingerprint": "793bfc2622a0b0cd98fb7f3dcf7471f9a1922ed165612949fb56d320f0584883",
+      "fingerprint": "2394dc95c1116f1e9f4a004e0a6d2aa80f04590c4dbaf9602e0e773785809e05",
       "offers": [
-        {
-          "provider": "Baidu",
-          "tag": "baidu/fp8",
-          "name": "Baidu | z-ai/glm-5.2-20260616",
-          "rates": {
-            "input": 0.1568,
-            "output": 0.4928,
-            "cache_read": 0.02912,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "quantization": "fp8",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 1048576.0,
-          "max_output_tokens": 131072.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "temperature",
-            "top_p",
-            "max_tokens",
-            "frequency_penalty",
-            "presence_penalty",
-            "repetition_penalty",
-            "stop",
-            "response_format",
-            "structured_outputs",
-            "tools",
-            "tool_choice",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
-        },
         {
           "provider": "Relace",
           "tag": "relace",
           "name": "Relace | z-ai/glm-5.2-20260616",
           "rates": {
-            "input": 0.158,
+            "input": 0.135,
             "output": 4.0,
-            "cache_read": 0.158,
+            "cache_read": 0.135,
             "cache_write": null,
             "cache_write_1h": null
           },
@@ -18006,14 +17973,125 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "Baidu",
+          "tag": "baidu/fp8",
+          "name": "Baidu | z-ai/glm-5.2-20260616",
+          "rates": {
+            "input": 0.1456,
+            "output": 0.4576,
+            "cache_read": 0.02704,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "fp8",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 1048576.0,
+          "max_output_tokens": 131072.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "max_tokens",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "stop",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "Baidu",
+          "tag": "baidu/fast",
+          "name": "Baidu | z-ai/glm-5.2-20260616",
+          "rates": {
+            "input": 0.29925,
+            "output": 1.04804,
+            "cache_read": 0.07448,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "fp4",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 1048576.0,
+          "max_output_tokens": 131072.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "max_tokens",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "stop",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "Decart",
+          "tag": "decart/mxfp4",
+          "name": "Decart | z-ai/glm-5.2-20260616",
+          "rates": {
+            "input": 0.39,
+            "output": 2.4,
+            "cache_read": 0.15,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "mxfp4",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 1048576.0,
+          "max_output_tokens": 943718.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "min_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "stop",
+            "seed",
+            "max_tokens",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice",
+            "reasoning_effort"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Wafer",
           "tag": "wafer",
           "name": "Wafer | z-ai/glm-5.2-20260616",
           "rates": {
-            "input": 0.41,
+            "input": 0.52,
             "output": 3.99,
             "cache_read": 0.26,
             "cache_write": null,
@@ -18048,46 +18126,42 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
-          "provider": "Decart",
-          "tag": "decart/mxfp4",
-          "name": "Decart | z-ai/glm-5.2-20260616",
+          "provider": "StreamLake",
+          "tag": "streamlake/fp8",
+          "name": "StreamLake | z-ai/glm-5.2-20260616",
           "rates": {
-            "input": 0.42,
-            "output": 2.4,
-            "cache_read": 0.15,
+            "input": 0.56,
+            "output": 1.76,
+            "cache_read": 0.104,
             "cache_write": null,
             "cache_write_1h": null
           },
           "write_basis": "unverified",
           "write_ttl": null,
-          "quantization": "mxfp4",
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
-          "context_length": 1048576.0,
-          "max_output_tokens": 943718.0,
+          "context_length": 1024000.0,
+          "max_output_tokens": 128000.0,
           "supported_parameters": [
             "reasoning",
             "include_reasoning",
-            "temperature",
-            "top_p",
-            "top_k",
-            "min_p",
-            "frequency_penalty",
-            "presence_penalty",
-            "repetition_penalty",
-            "stop",
-            "seed",
-            "max_tokens",
+            "tool_choice",
+            "tools",
             "response_format",
             "structured_outputs",
-            "tools",
-            "tool_choice",
+            "logprobs",
+            "top_logprobs",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "stop",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -18127,42 +18201,7 @@
             "logit_bias",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
-        },
-        {
-          "provider": "StreamLake",
-          "tag": "streamlake/fp8",
-          "name": "StreamLake | z-ai/glm-5.2-20260616",
-          "rates": {
-            "input": 0.6426,
-            "output": 2.0196,
-            "cache_read": 0.11934,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "quantization": "fp8",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 1024000.0,
-          "max_output_tokens": 128000.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "tool_choice",
-            "tools",
-            "response_format",
-            "structured_outputs",
-            "logprobs",
-            "top_logprobs",
-            "max_tokens",
-            "temperature",
-            "top_p",
-            "stop",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -18199,7 +18238,7 @@
             "response_format",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DigitalOcean",
@@ -18233,7 +18272,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "SiliconFlow",
@@ -18265,7 +18304,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Inceptron",
@@ -18305,7 +18344,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "CoreWeave",
@@ -18345,7 +18384,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -18384,7 +18423,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -18423,7 +18462,7 @@
             "stop",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Cloudflare",
@@ -18465,7 +18504,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Phala",
@@ -18504,43 +18543,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
-        },
-        {
-          "provider": "Baidu",
-          "tag": "baidu/fast",
-          "name": "Baidu | z-ai/glm-5.2-20260616",
-          "rates": {
-            "input": 1.3995,
-            "output": 4.90136,
-            "cache_read": 0.34832,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "quantization": "fp4",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 1048576.0,
-          "max_output_tokens": 131072.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "temperature",
-            "top_p",
-            "max_tokens",
-            "frequency_penalty",
-            "presence_penalty",
-            "repetition_penalty",
-            "stop",
-            "response_format",
-            "structured_outputs",
-            "tools",
-            "tool_choice",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mistral",
@@ -18578,46 +18581,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
-        },
-        {
-          "provider": "Reka",
-          "tag": "reka",
-          "name": "Reka | z-ai/glm-5.2-20260616",
-          "rates": {
-            "input": 1.4,
-            "output": 4.4,
-            "cache_read": 0.2,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "quantization": "unknown",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 1048576.0,
-          "max_output_tokens": 943718.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "response_format",
-            "structured_outputs",
-            "tools",
-            "logprobs",
-            "top_logprobs",
-            "tool_choice",
-            "temperature",
-            "top_p",
-            "top_k",
-            "max_tokens",
-            "stop",
-            "seed",
-            "frequency_penalty",
-            "presence_penalty",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "BaseTen",
@@ -18652,7 +18616,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Together",
@@ -18691,7 +18655,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "BaseTen",
@@ -18726,7 +18690,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Venice",
@@ -18762,7 +18726,7 @@
             "tools",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "GMICloud",
@@ -18797,7 +18761,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Parasail",
@@ -18838,7 +18802,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Friendli",
@@ -18877,7 +18841,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Z.AI",
@@ -18909,7 +18873,7 @@
             "response_format",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mistral",
@@ -18947,7 +18911,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "BaseTen",
@@ -18982,7 +18946,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "BaseTen",
@@ -19017,7 +18981,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Decart",
@@ -19053,7 +19017,7 @@
             "top_logprobs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -19092,13 +19056,13 @@
             "stop",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-30T14:11:49.038587+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-30T14:11:49.038587+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/z-ai/glm-5.2/endpoints",
-      "catalog_fingerprint": "793bfc2622a0b0cd98fb7f3dcf7471f9a1922ed165612949fb56d320f0584883"
+      "catalog_fingerprint": "2394dc95c1116f1e9f4a004e0a6d2aa80f04590c4dbaf9602e0e773785809e05"
     },
     "moonshotai/kimi-k2.7-code": {
       "id": "moonshotai/kimi-k2.7-code",
@@ -26815,6 +26779,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 256000.0,
@@ -26848,10 +26813,10 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.6-plus/endpoints",
       "catalog_fingerprint": "7f74a4e9234a2e1f85c3c22365ccfbe113931fc3e4ca99b6544ab30e5117944d"
@@ -26875,6 +26840,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 202752.0,
@@ -26890,10 +26856,10 @@
             "response_format",
             "top_k"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/z-ai/glm-5v-turbo/endpoints",
       "catalog_fingerprint": "14e1f6ccf82c8d67d026888195af5210323da352eb1ffe3579f00fceb427fdfd"
@@ -26917,6 +26883,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -26931,10 +26898,10 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/arcee-ai/trinity-large-thinking/endpoints",
       "catalog_fingerprint": "06cc3d5a885cea3cb91f2594bd8dbfd2324d0710852baeb6b001ec312d28539a"
@@ -26958,6 +26925,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -26986,7 +26954,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27001,6 +26969,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27029,7 +26998,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27044,6 +27013,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27072,7 +27042,7 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27087,6 +27057,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27115,10 +27086,10 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/x-ai/grok-4.20-multi-agent/endpoints",
       "catalog_fingerprint": "bceccf108586e5988dfbbb66ff19e2a0bfee7530ddc1e37a42a56a1f48f32a52"
@@ -27142,6 +27113,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27171,7 +27143,7 @@
             "tool_choice",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27186,6 +27158,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27215,7 +27188,7 @@
             "tool_choice",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27230,6 +27203,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27259,7 +27233,7 @@
             "tool_choice",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "xAI",
@@ -27274,6 +27248,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 200000.0,
@@ -27303,10 +27278,10 @@
             "tool_choice",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/x-ai/grok-4.20/endpoints",
       "catalog_fingerprint": "bceccf108586e5988dfbbb66ff19e2a0bfee7530ddc1e37a42a56a1f48f32a52"
@@ -27330,6 +27305,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1048576.0,
@@ -27341,10 +27317,10 @@
             "seed",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/google/lyria-3-pro-preview/endpoints",
       "catalog_fingerprint": "df5f71f00c5630f22641cea8382316ffa8d437c6f9a4667472901274fe02fe5b"
@@ -27368,6 +27344,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1048576.0,
@@ -27379,10 +27356,10 @@
             "seed",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/google/lyria-3-clip-preview/endpoints",
       "catalog_fingerprint": "df5f71f00c5630f22641cea8382316ffa8d437c6f9a4667472901274fe02fe5b"
@@ -27406,6 +27383,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 16384.0,
@@ -27425,10 +27403,10 @@
             "logprobs",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/rekaai/reka-edge/endpoints",
       "catalog_fingerprint": "83b99c8c8524fb4fdb92466da72d65118ce46a1c822a7a4e10db3fb1053aee96"
@@ -27452,6 +27430,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 196608.0,
@@ -27467,7 +27446,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -27482,6 +27461,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 204800.0,
@@ -27502,7 +27482,7 @@
             "tool_choice",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -27517,6 +27497,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 196608.0,
@@ -27539,7 +27520,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Minimax",
@@ -27554,6 +27535,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 204800.0,
@@ -27568,43 +27550,7 @@
             "tool_choice",
             "tools"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
-        },
-        {
-          "provider": "DeepInfra",
-          "tag": "deepinfra/turbo",
-          "name": "DeepInfra | minimax/minimax-m2.7-20260318",
-          "rates": {
-            "input": 0.38,
-            "output": 1.7,
-            "cache_read": 0.07,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "unverified",
-          "write_ttl": null,
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 196608.0,
-          "max_output_tokens": 131072.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "max_tokens",
-            "temperature",
-            "top_p",
-            "stop",
-            "frequency_penalty",
-            "presence_penalty",
-            "repetition_penalty",
-            "top_k",
-            "seed",
-            "min_p",
-            "tools",
-            "tool_choice",
-            "logit_bias"
-          ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Groq",
@@ -27619,6 +27565,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 196608.0,
@@ -27634,7 +27581,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "SambaNova",
@@ -27649,6 +27596,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 196608.0,
@@ -27664,7 +27612,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Minimax",
@@ -27679,6 +27627,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 204800.0,
@@ -27693,10 +27642,10 @@
             "tool_choice",
             "tools"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/minimax/minimax-m2.7/endpoints",
       "catalog_fingerprint": "3b044be627c63286de177de7bad2ee12f1ed8cab39c29155c76cb428a62924f3"
@@ -27707,36 +27656,6 @@
       "created": 1773748187.0,
       "fingerprint": "c65b974a93c5c214fb3d5f5018d13a6422b997a977469929af61cee62ac4d974",
       "offers": [
-        {
-          "provider": "OpenAI",
-          "tag": "openai/flex",
-          "name": "OpenAI | openai/gpt-5.4-nano-20260317",
-          "rates": {
-            "input": 0.1,
-            "output": 0.625,
-            "cache_read": 0.01,
-            "cache_write": null,
-            "cache_write_1h": null
-          },
-          "write_basis": "replacement",
-          "write_ttl": "30 minutes",
-          "tiers": [],
-          "request_usd": 0,
-          "context_length": 400000.0,
-          "max_output_tokens": 128000.0,
-          "supported_parameters": [
-            "reasoning",
-            "include_reasoning",
-            "seed",
-            "max_tokens",
-            "response_format",
-            "structured_outputs",
-            "tools",
-            "tool_choice",
-            "reasoning_effort"
-          ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
-        },
         {
           "provider": "Azure",
           "tag": "azure",
@@ -27749,7 +27668,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27765,7 +27685,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -27779,7 +27699,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27795,7 +27716,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -27809,7 +27730,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27825,10 +27747,10 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/openai/gpt-5.4-nano/endpoints",
       "catalog_fingerprint": "c65b974a93c5c214fb3d5f5018d13a6422b997a977469929af61cee62ac4d974"
@@ -27851,7 +27773,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27867,7 +27790,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -27881,7 +27804,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27897,7 +27821,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -27911,7 +27835,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27927,7 +27852,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -27941,7 +27866,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27957,7 +27883,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -27971,7 +27897,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 400000.0,
@@ -27987,10 +27914,10 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/openai/gpt-5.4-mini/endpoints",
       "catalog_fingerprint": "08b1e170f02b5b3ed79ccbdb205c2d4c8cf2b9917298240c216b4e3b3846b3ad"
@@ -28014,6 +27941,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28034,7 +27962,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mistral",
@@ -28049,6 +27977,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28069,7 +27998,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mistral",
@@ -28084,6 +28013,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28104,7 +28034,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Mistral",
@@ -28119,6 +28049,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28139,10 +28070,10 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/mistralai/mistral-small-2603/endpoints",
       "catalog_fingerprint": "4a57540754c0efc2975909d90ce3acc6b38733601b14deea9829c097d21329f8"
@@ -28166,6 +28097,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 202752.0,
@@ -28181,10 +28113,10 @@
             "response_format",
             "top_k"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/z-ai/glm-5-turbo/endpoints",
       "catalog_fingerprint": "14e1f6ccf82c8d67d026888195af5210323da352eb1ffe3579f00fceb427fdfd"
@@ -28195,6 +28127,44 @@
       "created": 1773245239.0,
       "fingerprint": "38f3a5ce3293d2c3af7ec71c1a6ea80d55c4dd0951717e362c124d34dff3c4b1",
       "offers": [
+        {
+          "provider": "DekaLLM",
+          "tag": "dekallm/fp8",
+          "name": "DekaLLM | nvidia/nemotron-3-super-120b-a12b-20230311",
+          "rates": {
+            "input": 0.08,
+            "output": 0.45,
+            "cache_read": null,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "fp8",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 262144.0,
+          "max_output_tokens": 235929.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "frequency_penalty",
+            "logit_bias",
+            "max_tokens",
+            "presence_penalty",
+            "seed",
+            "stop",
+            "temperature",
+            "top_p",
+            "response_format",
+            "tools",
+            "logprobs",
+            "top_logprobs",
+            "structured_outputs",
+            "reasoning_effort"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
         {
           "provider": "DeepInfra",
           "tag": "deepinfra/bf16",
@@ -28208,6 +28178,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "bf16",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28231,10 +28202,10 @@
             "response_format",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/nvidia/nemotron-3-super-120b-a12b/endpoints",
       "catalog_fingerprint": "38f3a5ce3293d2c3af7ec71c1a6ea80d55c4dd0951717e362c124d34dff3c4b1"
@@ -28258,6 +28229,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [
             {
               "min_prompt_tokens": 128000.0,
@@ -28287,10 +28259,10 @@
             "stop",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/bytedance-seed/seed-2.0-lite/endpoints",
       "catalog_fingerprint": "e6a8f7e33eb90c104fdbb502244b1a6069f3de438cccdb6585a90d81c5220f2f"
@@ -28314,6 +28286,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp4",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28335,7 +28308,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "SiliconFlow",
@@ -28350,6 +28323,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28369,7 +28343,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -28384,6 +28358,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "bf16",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28407,7 +28382,7 @@
             "tool_choice",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Venice",
@@ -28422,6 +28397,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 256000.0,
@@ -28443,7 +28419,45 @@
             "logprobs",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "Parasail",
+          "tag": "parasail/bf16",
+          "name": "Parasail | qwen/qwen3.5-9b-20260310",
+          "rates": {
+            "input": 0.1,
+            "output": 0.25,
+            "cache_read": null,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "bf16",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 262144.0,
+          "max_output_tokens": 235929.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "max_tokens",
+            "temperature",
+            "top_p",
+            "frequency_penalty",
+            "presence_penalty",
+            "repetition_penalty",
+            "seed",
+            "stop",
+            "top_k",
+            "logit_bias",
+            "response_format",
+            "structured_outputs",
+            "logprobs",
+            "top_logprobs"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Together",
@@ -28458,6 +28472,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -28480,10 +28495,10 @@
             "structured_outputs",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-9b/endpoints",
       "catalog_fingerprint": "f9eb95f87b4329c95a7074d89ae5b61f50cd6c5341de69b88ecc54e378d27be3"
@@ -28506,7 +28521,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28533,7 +28549,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -28547,7 +28563,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28574,7 +28591,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -28588,7 +28605,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28615,10 +28633,10 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/openai/gpt-5.4-pro/endpoints",
       "catalog_fingerprint": "f20e777cf852397954e0d47c0fd1a97e0b000dd90ca292d94b29a03c356c92c5"
@@ -28641,7 +28659,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28668,7 +28687,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -28682,7 +28701,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28709,7 +28729,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -28723,7 +28743,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28750,7 +28771,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -28764,7 +28785,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28791,7 +28813,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Azure",
@@ -28805,7 +28827,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28832,7 +28855,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Amazon Bedrock",
@@ -28846,7 +28869,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28870,7 +28894,7 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "OpenAI",
@@ -28884,7 +28908,8 @@
             "cache_write_1h": null
           },
           "write_basis": "replacement",
-          "write_ttl": "30 minutes",
+          "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [
             {
               "min_prompt_tokens": 272000.0,
@@ -28911,10 +28936,10 @@
             "tool_choice",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/openai/gpt-5.4/endpoints",
       "catalog_fingerprint": "941205b17ebfb92d2bdfae933268ebf99fc57954927bf743f1eae7eb694f16dc"
@@ -28938,6 +28963,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 128000.0,
@@ -28954,10 +28980,10 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/inception/mercury-2/endpoints",
       "catalog_fingerprint": "7d4cae8633083c64461556ab08ffa511d972e303d9c168920bd6a0f72f7b6e18"
@@ -28981,6 +29007,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1048576.0,
@@ -28998,7 +29025,7 @@
             "tools",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Google AI Studio",
@@ -29013,6 +29040,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1048576.0,
@@ -29030,7 +29058,7 @@
             "tools",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Google AI Studio",
@@ -29045,6 +29073,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1048576.0,
@@ -29062,10 +29091,10 @@
             "tools",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/google/gemini-3.1-flash-lite-preview/endpoints",
       "catalog_fingerprint": "926547583b4f28fefef63d129cb2b55b2158b758bcb6e6a5283046ff87683487"
@@ -29089,6 +29118,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [
             {
               "min_prompt_tokens": 128000.0,
@@ -29118,10 +29148,10 @@
             "stop",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/bytedance-seed/seed-2.0-mini/endpoints",
       "catalog_fingerprint": "9d60aace96a4da09627fdacdcdc80a29d00aca5c38cbb149c5a3667559134a42"
@@ -29145,6 +29175,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 65536.0,
@@ -29160,10 +29191,10 @@
             "structured_outputs",
             "reasoning_effort"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/google/gemini-3.1-flash-image-preview/endpoints",
       "catalog_fingerprint": "d7c9977de3258f9d4cdcdecfc02417a9f914dc51ac62d7a90fac20693c2ef54f"
@@ -29187,6 +29218,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp4",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29210,7 +29242,7 @@
             "response_format",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -29225,6 +29257,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29246,7 +29279,7 @@
             "logit_bias",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Parasail",
@@ -29261,6 +29294,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29285,7 +29319,7 @@
             "logprobs",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -29300,6 +29334,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29322,7 +29357,7 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -29337,6 +29372,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29359,7 +29395,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "SiliconFlow",
@@ -29374,6 +29410,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29391,7 +29428,7 @@
             "response_format",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Venice",
@@ -29406,6 +29443,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 256000.0,
@@ -29427,10 +29465,10 @@
             "tools",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-35b-a3b/endpoints",
       "catalog_fingerprint": "e08b1e009926d29e3ac60074878fbbb847f287f0de3e11f0d25aeb2105a60a7e"
@@ -29454,6 +29492,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29476,7 +29515,42 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
+        },
+        {
+          "provider": "SiliconFlow",
+          "tag": "siliconflow/fp8",
+          "name": "SiliconFlow | qwen/qwen3.5-27b-20260224",
+          "rates": {
+            "input": 0.25,
+            "output": 2.0,
+            "cache_read": null,
+            "cache_write": null,
+            "cache_write_1h": null
+          },
+          "write_basis": "unverified",
+          "write_ttl": null,
+          "quantization": "fp8",
+          "tiers": [],
+          "request_usd": 0,
+          "context_length": 262144.0,
+          "max_output_tokens": 235929.0,
+          "supported_parameters": [
+            "reasoning",
+            "include_reasoning",
+            "temperature",
+            "top_p",
+            "top_k",
+            "frequency_penalty",
+            "repetition_penalty",
+            "presence_penalty",
+            "max_tokens",
+            "response_format",
+            "structured_outputs",
+            "tools",
+            "tool_choice"
+          ],
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -29491,6 +29565,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29514,7 +29589,7 @@
             "logit_bias",
             "response_format"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -29529,6 +29604,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29551,7 +29627,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Phala",
@@ -29560,12 +29636,13 @@
           "rates": {
             "input": 0.3,
             "output": 2.4,
-            "cache_read": 0.15,
+            "cache_read": 0.03,
             "cache_write": null,
             "cache_write_1h": null
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29588,7 +29665,7 @@
             "top_logprobs",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -29603,6 +29680,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "bf16",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29625,10 +29703,10 @@
             "logprobs",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-27b/endpoints",
       "catalog_fingerprint": "efaae425c0e482c8fffe3331b55a91f852287bb840fd0d45ae23022cc3d21dba"
@@ -29652,6 +29730,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29669,7 +29748,7 @@
             "response_format",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -29684,6 +29763,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29706,7 +29786,7 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "DeepInfra",
@@ -29721,6 +29801,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp4",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29742,7 +29823,7 @@
             "tool_choice",
             "logit_bias"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "AtlasCloud",
@@ -29757,6 +29838,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "fp8",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29779,7 +29861,7 @@
             "tools",
             "tool_choice"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Novita",
@@ -29794,6 +29876,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "bf16",
           "tiers": [],
           "request_usd": 0,
           "context_length": 262144.0,
@@ -29816,10 +29899,10 @@
             "logprobs",
             "top_logprobs"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-122b-a10b/endpoints",
       "catalog_fingerprint": "151989860d7f020efed1670e1ab734e89f379746f4973abee15a5a4ea75d28c2"
@@ -29843,6 +29926,7 @@
           },
           "write_basis": "unverified",
           "write_ttl": null,
+          "quantization": "unknown",
           "tiers": [],
           "request_usd": 0,
           "context_length": 1000000.0,
@@ -29863,10 +29947,10 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-29T12:21:30.234250+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-29T12:21:30.234250+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3.5-flash-02-23/endpoints",
       "catalog_fingerprint": "5d34d14ef51112f01fc0559c76226cbe74d7ca798138bfc63496afdc5c96039e"
@@ -42509,7 +42593,7 @@
       "id": "qwen/qwen3-30b-a3b",
       "name": "Qwen: Qwen3 30B A3B",
       "created": 1745878604.0,
-      "fingerprint": "21de47a3f5d226ed181e30a174657c97bf3395edc31c5274b31cd6d7c6f144de",
+      "fingerprint": "af4abae8f821ac76457f8c9cc09176a20cb2e4af7566e98c538145399d450b6a",
       "offers": [
         {
           "provider": "DeepInfra",
@@ -42548,7 +42632,7 @@
             "logit_bias",
             "structured_outputs"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         },
         {
           "provider": "Alibaba",
@@ -42583,13 +42667,13 @@
             "frequency_penalty",
             "stop"
           ],
-          "checked_at": "2026-09-30T01:40:52.134911+00:00"
+          "checked_at": "2026-09-30T19:29:36.160180+00:00"
         }
       ],
-      "checked_at": "2026-09-30T01:40:52.134911+00:00",
+      "checked_at": "2026-09-30T19:29:36.160180+00:00",
       "error": null,
       "source_url": "https://openrouter.ai/api/v1/models/qwen/qwen3-30b-a3b/endpoints",
-      "catalog_fingerprint": "21de47a3f5d226ed181e30a174657c97bf3395edc31c5274b31cd6d7c6f144de"
+      "catalog_fingerprint": "af4abae8f821ac76457f8c9cc09176a20cb2e4af7566e98c538145399d450b6a"
     },
     "qwen/qwen3-8b": {
       "id": "qwen/qwen3-8b",
@@ -48123,7 +48207,7 @@
       "catalog_fingerprint": "4612ee9981d22aa5fe01a4e667c0b7acfe629934d8efb237f49d5f97e7e5284b"
     }
   },
-  "attempted_at": "2026-09-30T14:11:49.038587+00:00",
+  "attempted_at": "2026-09-30T19:29:36.160180+00:00",
   "error": null,
-  "catalog_checked_at": "2026-09-30T14:11:49.038587+00:00"
+  "catalog_checked_at": "2026-09-30T19:29:36.160180+00:00"
 }
