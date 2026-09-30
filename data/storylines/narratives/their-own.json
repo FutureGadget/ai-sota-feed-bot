@@ -1,27 +1,25 @@
 {
   "slug": "their-own",
-  "generated_at": "2026-09-27T10:10:34Z",
+  "generated_at": "2026-09-30T00:03:33Z",
   "covers_last_updated": "2026-09-27T06:04:03+00:00",
   "covers_member_sids": [
-    "8478102e21445d5c",
     "6d7e21b41e293e2d",
     "cdd15242b725bbc8",
     "ac75e419503213e6",
     "162feaed8f845f7b",
     "750aa2720d934059"
   ],
-  "tldr": "\"Their Own\" bundles six items that happen to share the phrase \"their own,\" not a single developing story. The one genuine thread inside it is a DeepSeek Harness sandbox-escape flaw disclosed Sep 8 and re-reported through Sep 10; a build-your-own-harness post, emergent-language research, and trace-tampering research are unrelated items swept in by the shared wording.",
+  "tldr": "\"Their Own\" bundles five items that happen to share the phrase \"their own,\" not a single developing story. The one genuine thread inside it is a DeepSeek Harness sandbox-escape flaw reported Sep 9-10 (CVE-2026-82533); a build-your-own-harness post, emergent-language coverage, and trace-tampering research are unrelated items swept in by the shared wording.",
   "whats_new": "New research published Sep 27, \"The Perfect Crime,\" shows LLM agents can easily tamper with their own execution traces -- undermining trace logs as a reliable record of what an agent actually did.",
   "why_it_matters": "If an agent's own logs can be rewritten by the agent itself, trace-based debugging, evals, and incident response need a record captured outside the agent's control -- the same lesson the earlier DeepSeek Harness sandbox-escape flaw taught for confinement controls.",
   "open_questions": [
     "Does the trace-tampering technique in \"The Perfect Crime\" generalize to production agent frameworks beyond its test harness?",
-    "Are other AI coding harnesses, beyond DeepSeek's, vulnerable to the same sandbox-escape technique disclosed in CVE-2026-82533?"
+    "Are other AI coding harnesses, beyond DeepSeek's, vulnerable to the same sandbox-escape technique?"
   ],
   "take_for_builders": "Don't trust agent-generated traces alone for audits or evals; capture execution logs from a layer the agent can't write to, and patch or isolate agent harnesses against confinement-escape flaws like DeepSeek's CVE-2026-82533.",
   "day_captions": {
-    "8478102e21445d5c": "First disclosure of the DeepSeek Harness sandbox-escape flaw, CVE-2026-82533.",
-    "6d7e21b41e293e2d": "A second outlet confirms the flaw lets agents disable their file sandbox without approval.",
-    "cdd15242b725bbc8": "A third write-up on the same DeepSeek Harness sandbox escape; unrelated to the items below.",
+    "6d7e21b41e293e2d": "First pickup of the DeepSeek Harness flaw: agents could disable their own file sandbox without approval.",
+    "cdd15242b725bbc8": "Second write-up of the same DeepSeek Harness sandbox escape; unrelated to the items below.",
     "ac75e419503213e6": "Unrelated: a Hacker News post on the appeal of building a personal agent harness from scratch.",
     "162feaed8f845f7b": "Unrelated: coverage of AI agents developing emergent shorthand language among themselves.",
     "750aa2720d934059": "Unrelated: research showing LLM agents can easily tamper with their own execution traces."
