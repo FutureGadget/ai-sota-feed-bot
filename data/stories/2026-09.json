@@ -572,6 +572,22 @@
   "type": "news",
   "url": "https://openai.com/index/helping-small-businesses-put-ai-to-work"
  },
+ "061e260b228f101f": {
+  "first_seen": "2026-10-01T05:03:49.387879+00:00",
+  "id": "32a152a1b319c4ce",
+  "matched_topics": [
+   "evaluation"
+  ],
+  "published": "2026-09-30T17:48:21+00:00",
+  "sid": "061e260b228f101f",
+  "source": "arxiv_cs_lg",
+  "summary": "Physics-constrained generative models aim to generate physical fields that match a target distribution and satisfy prescribed constraints. However, enforcing these constraints often increases sampling costs through iterative corrections or training costs through residual optimization and trajectory unrolling. To address this issue, we introduce \\textbf{P}reconditioned \\textbf{M}anifold \\textbf{o}ne-\\textbf{s}tep \\textbf{F}low \\textbf{M}atching (\\textbf{PMosFM}), a preconditioned manifold matching framework for one-step physics-constrained generation. By encoding constraints in a manifold decoder, PMosFM learns transport in intrinsic coordinates without separate residual losses or terminal residual unrolling. A geometric preconditioner rescales coordinates using the decoder-induced metric, while a regularized covariance transform approximately whitens the interpolation-state inputs. A finite-interval objective couples velocity supervision with consistency between decoded endpoints in physical space. We show that exact parameterization removes residual-induced Gauss--Newton curvature, that geometric and covariance effects separate in a local conditioning bound, and that physical flow-map error bounds endpoint distributional error. Controlled ablations examine conditioning, and experiments evaluate optimizer-update time and memory footprint. At inference, PMosFM uses one neural transport evaluation followed by physical decoding. Experiments across benchmarks show lower training ",
+  "summary_1line": "Physics-constrained generative models aim to generate physical fields that match a target distribution and satisfy prescribed constraints. However, enforcing these constraints often increases sampling costs through it...",
+  "title": "PMosFM: Preconditioned Manifold Matching for One-Step Physics-Constrained Generation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.40287v1",
+  "why_it_matters": "Matches feed focus: evaluation."
+ },
  "062820e3c4087829": {
   "first_seen": "2026-09-03T02:03:24.042591+00:00",
   "id": "08830f8d747eed70",
@@ -6940,6 +6956,22 @@
   "type": "news",
   "url": "https://vllm.ai/blog/2026-09-18-pynvvideocodec"
  },
+ "5528355daf2c9299": {
+  "first_seen": "2026-10-01T05:03:49.387879+00:00",
+  "id": "05cda052c5fbe626",
+  "matched_topics": [
+   "agent"
+  ],
+  "published": "2026-09-30T17:26:57+00:00",
+  "sid": "5528355daf2c9299",
+  "source": "arxiv_llm_reliability",
+  "summary": "Training LLM agents with reinforcement learning (RL) is bottlenecked by environments, which must provide verifiable rewards, support long-horizon interaction, and scale cheaply. Existing approaches rely on costly human-curated data or on LLM-generated environments that risk hallucinations and benchmark contamination. We show that LLMs can instead be trained into capable search agents using synthetic environments generated entirely by rules, whose generation requires no LLM and has zero marginal cost. We build PhantomEnvironments, multi-turn RL environments from fictional worlds, where agents must search a corpus of templated articles to answer multi-hop questions. Despite sharing no facts with the real world, these strikingly simple environments yield agents that transfer to real-world multi-hop search benchmarks, often outperforming real-world training data on newer benchmarks. Trained agents generalize to unseen fictional universes, and Qwen models learn to scale their search budget roughly linearly with question difficulty, suggesting emergent search scaling from environment interaction alone. Ablating environment complexity reveals that hop count drives transfer more than constraints or comparisons: even the simplest rule-generated environments are a surprisingly effective, free resource for training generalizable LLM agents.",
+  "summary_1line": "Training LLM agents with reinforcement learning (RL) is bottlenecked by environments, which must provide verifiable rewards, support long-horizon interaction, and scale cheaply. Existing approaches rely on costly huma...",
+  "title": "PhantomEnvironments: Training LLM Agents in Fictional Worlds",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.40221v1",
+  "why_it_matters": "Matches feed focus: agent."
+ },
  "554c805f759e3044": {
   "first_seen": "2026-09-28T21:03:53.686342+00:00",
   "id": "d34b8779d83e72e2",
@@ -8045,6 +8077,23 @@
   "type": "paper",
   "url": "http://arxiv.org/abs/2609.17175v1",
   "why_it_matters": "Matches feed focus: eval."
+ },
+ "63fd780f7d87a731": {
+  "first_seen": "2026-10-01T05:03:49.387879+00:00",
+  "id": "352653882271ad42",
+  "matched_topics": [
+   "agent",
+   "evaluation"
+  ],
+  "published": "2026-09-30T16:36:04+00:00",
+  "sid": "63fd780f7d87a731",
+  "source": "arxiv_agent_systems_research",
+  "summary": "Large language models (LLMs) are increasingly deployed as automated judges for AI-generated content, yet a single judge is unreliable and even a panel of judges leaves a hard residue: when judges disagree, majority voting discards the conflict instead of resolving it. We present JuryFlow, a disagreement-guided, human-in-the-loop multi-agent evaluation framework that treats inter-judge disagreement not as noise to be averaged away, but as a precise, claim-level signal indicating where an evaluation is uncertain. JuryFlow decomposes each candidate response into atomic claims, has a panel of heterogeneous judges assign per-claim verdicts, and builds a disagreement graph whose nodes are scored by verdict entropy and whose edges encode structural similarity between claims. A human acts as a structural guide, selecting which disagreement to resolve through a single, minimal intervention rather than re-labeling the response, after which the focal claim is re-evaluated, the correction propagates along graph edges and to historically similar cases, and is crystallized into reusable rubric entries that all judges inherit, making the evaluator progressively self-refining. To enable large-scale, reproducible benchmarking without human studies, we evaluate JuryFlow in an automatic configuration in which focal selection is made by entropy ranking. On MT-Bench and LLMBar, JuryFlow improves agreement with gold labels over single-judge and majority-vote panel baselines, and ablations isolate ",
+  "summary_1line": "Large language models (LLMs) are increasingly deployed as automated judges for AI-generated content, yet a single judge is unreliable and even a panel of judges leaves a hard residue: when judges disagree, majority vo...",
+  "title": "JuryFlow: Disagreement-Guided Human-in-the-Loop Multi-Agent Evaluation",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.40103v1",
+  "why_it_matters": "Matches feed focus: agent, evaluation."
  },
  "63fdf6c3305b420f": {
   "first_seen": "2026-09-03T20:03:01.153552+00:00",
