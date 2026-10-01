@@ -296,6 +296,19 @@
       return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M';
     }
 
+    // A stale offer (unverified upstream) is nulled in price_input_per_1m so it
+    // stays out of the frontier, but its last-known rate is still real data:
+    // show it, flagged, rather than "undisclosed". Only a row with no matched
+    // offer at all falls through to "undisclosed".
+    function priceCell(m) {
+      if (m.price_input_per_1m !== null && m.price_input_per_1m !== undefined) return fmtPrice(m.price_input_per_1m);
+      const offer = m.pricing;
+      const last = offer && offer.stale && offer.rates ? offer.rates.input : null;
+      if (last === null || last === undefined || !Number.isFinite(Number(last))) return fmtPrice(null);
+      const checked = offer.checked_at ? String(offer.checked_at).slice(0, 10) : 'earlier';
+      return `${fmtPrice(last)}<span class="mr-stat-qualifier" title="Last checked ${esc(checked)}; no longer verified against the upstream catalog, so excluded from the frontier">stale</span>`;
+    }
+
     function fmtNum(v, digits) {
       if (v === null || v === undefined) return '<span class="mr-undisclosed">-</span>';
       const n = Number(v);
@@ -518,7 +531,7 @@
             </span>
             <span class="mr-row-stats">
               <span class="mr-stat"><span class="mr-stat-label">Intelligence</span><span class="mr-stat-value">${fmtNum(m.aa_intelligence_index, 1)}</span></span>
-              <span class="mr-stat"><span class="mr-stat-label">Input /1M</span><span class="mr-stat-value">${fmtPrice(m.price_input_per_1m)}</span></span>
+              <span class="mr-stat"><span class="mr-stat-label">Input /1M</span><span class="mr-stat-value">${priceCell(m)}</span></span>
               ${deepsweStats}
               ${weightsBadge}
             </span>

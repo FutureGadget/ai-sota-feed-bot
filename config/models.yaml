@@ -6,9 +6,12 @@ sources:
   openrouter:
     enabled: true
     base_url: https://openrouter.ai/api/v1/models
-    max_endpoints_per_run: 32
+    max_endpoints_per_run: 64
     endpoint_refresh_seconds: 14400
     stale_after_seconds: 86400
+    # Hard backstop: an offer older than this is stale even if the catalog says
+    # its price is unchanged (the fingerprint covers headline pricing only).
+    max_offer_age_seconds: 604800
     exclude_models: [typesafe/jev-router]
     organization_aliases:
       qwen: alibaba

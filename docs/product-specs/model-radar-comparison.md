@@ -27,10 +27,25 @@ authentication. No LLM or HTML pricing parser is involved.
 
 A catalog failure or severe coverage regression retains the last successful
 catalog. An endpoint failure retains its entire last successful offer set and
-original check time. Successful endpoints advance independently. Prices older
-than 24 hours remain visible with their check time but are excluded from
-estimates. Benchmark collection failures cannot overwrite the separate pricing
+original check time. Successful endpoints advance independently. Prices are
+eventually consistent with OpenRouter, not on a wall-clock deadline: within 24
+hours of the endpoint check an offer is fresh; beyond that it stays fresh while
+the latest successful catalog check (at most 24 hours old) shows the model's
+price fingerprint unchanged since the offer was fetched. It becomes stale when
+upstream changed and the endpoint was not refetched, when the catalog itself
+has not been checked for 24 hours (upstream or pipeline trouble), or at the hard
+`max_offer_age_seconds` backstop (7 days; the fingerprint covers headline
+pricing, not every endpoint). Stale prices remain visible with their check time
+but are excluded from estimates and the frontier. Benchmark collection failures cannot overwrite the separate pricing
 snapshot. A missing pricing snapshot yields unknown prices, never AA fallback.
+
+The bounded endpoint batch (`max_endpoints_per_run`) refreshes changed catalog
+prices first, then models the radar actually shows (rows of
+`data/models/latest.json` that join to a catalog id), oldest check first, then
+the rest of the catalog, so the periodic re-poll reaches displayed models first. In the ranked list a stale
+price shows its last-known input rate with a "stale" qualifier instead of
+"undisclosed"; only a row with no matched offer reads "undisclosed". Stale rows
+still stay out of the token frontier.
 
 ## Data contract
 

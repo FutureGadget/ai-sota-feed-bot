@@ -390,6 +390,23 @@ class ModelsRankedListBehaviorTest(unittest.TestCase):
         """)
         self.assertEqual(result, "asc")
 
+    # ---- price cell ----
+
+    def test_price_cell_shows_last_known_stale_price_not_undisclosed(self) -> None:
+        stale = self._model("a", price_input_per_1m=None,
+                            pricing={"stale": True, "checked_at": "2026-09-29T18:44:03+00:00", "rates": {"input": 4.0}})
+        fresh = self._model("b", price_input_per_1m=2.0)
+        none = self._model("c", price_input_per_1m=None, pricing=None)
+        result = self._run(f"""
+          console.log(JSON.stringify([{json.dumps(stale)}, {json.dumps(fresh)}, {json.dumps(none)}].map(priceCell)));
+        """)
+        self.assertIn("$4.00/1M", result[0])
+        self.assertIn("stale", result[0])
+        self.assertIn("2026-09-29", result[0])
+        self.assertNotIn("undisclosed", result[0])
+        self.assertEqual(result[1], "$2.00/1M")
+        self.assertIn("undisclosed", result[2])
+
     # ---- frontier ----
 
     def test_is_on_frontier_reads_the_active_metrics_aggregated_flag(self) -> None:
