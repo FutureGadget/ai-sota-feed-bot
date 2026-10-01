@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T00:04:49.148497+00:00",
+ "generated_at": "2026-10-01T05:03:30.930161+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -34,6 +34,44 @@
     "whats_new": "LangChain published a Sep 30 guide to Jev showing where its fast, structured decisions fit in the agent loop and how to wire it into LangChain.",
     "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
     "take_for_builders": "If a general-purpose LLM call in your agent pipeline is only doing classify, route, or score, benchmark Jev against it — the claimed cost and latency gap is large enough to justify a quick swap-in test."
+   }
+  },
+  {
+   "slug": "multi-agent-systems",
+   "label": "Multi-Agent Systems",
+   "item_count": 3,
+   "day_count": 3,
+   "source_count": 2,
+   "first_seen": "2026-09-18T09:25:06+00:00",
+   "last_updated": "2026-09-30T14:09:57+00:00",
+   "latest_title": "Safety of Latent Communication in Multi-Agent Systems",
+   "days": [
+    "2026-09-18",
+    "2026-09-29",
+    "2026-09-30"
+   ],
+   "member_sids": [
+    "9463df6fcb6ce102",
+    "c9bd4843a93b6790",
+    "9b401e98b8571b23"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2609.21533v1",
+    "http://arxiv.org/abs/2609.37953v1",
+    "http://arxiv.org/abs/2609.39788v1"
+   ],
+   "editorial": {
+    "tldr": "Three arXiv papers in two weeks treat multi-agent systems as a shared-state problem. MACE (Sep 18) stores collaboration traces in an adaptive memory graph; a Sep 29 paper ties task regions to agent responsibility, handoffs, and memory access.",
+    "stale": false,
+    "whats_new": "A Sep 30 paper examines safety of latent communication, where agents exchange internal representations instead of text to cut token and latency cost.",
+    "why_it_matters": "Memory, handoffs, and inter-agent channels are where multi-agent systems break in production; these papers propose mechanisms, not production results.",
+    "take_for_builders": "Keep inter-agent messages as inspectable text in anything audited; treat latent communication as research until a safety evaluation replicates.",
+    "status": {
+     "state": "Research · developing",
+     "tone": "rising",
+     "changed": "2026-09-30",
+     "detail": "Three papers, all single-paper claims with no independent replication yet."
+    }
    }
   },
   {
@@ -603,45 +641,6 @@
       }
      ]
     }
-   }
-  },
-  {
-   "slug": "alibaba-s-qwen-image-2-1-open-weight-launch",
-   "label": "Alibaba's Qwen-Image-2.1 open-weight launch",
-   "item_count": 6,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-09-20T08:46:47+00:00",
-   "last_updated": "2026-09-23T15:34:36+00:00",
-   "via_scout": true,
-   "latest_title": "Alibaba claims new Qwen Image 2.1 AI model beats Google Nano Banana 2.0 with minuscule 7B parameter model — benchmarks show open-weight contender is competitive with OpenAI and Meta image models",
-   "days": [
-    "2026-09-20",
-    "2026-09-21",
-    "2026-09-23"
-   ],
-   "member_sids": [
-    "413e4ee860ab5e96",
-    "79257ac10557c61a",
-    "165979a57f65727e",
-    "ffab4d41a4d2a3c3",
-    "e1a0ccfb1183ddbd",
-    "e5382ce0a0c8d845"
-   ],
-   "member_urls": [
-    "https://huggingface.co/Qwen/Qwen-Image-2.1-PE-I2I",
-    "https://news.google.com/rss/articles/CBMi1wFBVV95cUxPcW83SUN6S3dlZ19qVVgwZ3h0bmpwemJRRmZ0RFhsT3hkbEhUQ3JWOVFWSWpSU0NEYTNHTlp1RWZyVE00dFJSUjJ3UFMxTjhZWUU3RWRZOV9iSjZVUUVxc1ROd25UWkJqZmFOSDdwWlFLQ2gxV0UxeWNxbU8xRFY2NUZtYXc3NnVBU1NYcWJTcUVxdW8wYjk2aVMyc1k1QnQwUllPc0xTTkxQczdHeGNCSlNtOTRsSHR6VW81RWZXVXFaa3BrajRZdGp2ejR6VExKcTduRmRaTQ?oc=5",
-    "https://news.google.com/rss/articles/CBMid0FVX3lxTE9tMTNiN25IZWdGQzRCcGlXSHdXblBKSF9Fb2pTX0pOS21weEotMGVsM0UyaVVYWFVZMmNyRE1SV3FqUEc2YUNUVEdQcUxvWWtrWFozamhLSFo2TjZ4bFUzUGl1bzR6REpaWTZrbnBjd1hGSjlPdEtJ?oc=5",
-    "https://news.google.com/rss/articles/CBMigwFBVV95cUxNU0JXUndVd2hCcXdycTc4XzhSWHpJOUtaN1NRWjQxWTJkY2J2UUJzRWdzWFNiLVJHRE1tN0d0YmFUdmdGekhfQmFhNWhHLWozOW42eW1FRlV5Ty1mWG9iNzlJcWd0VUM2OFJJalh0czYwLThiXzJMcTBjUEx5dGstenlwONIBiAFBVV95cUxPVl9MN2plOFZTMk1kSF9OZXY5XzNHSkVWb2Q3T2VIbTNScjltNEZCakNXTzlKQ0lCamVYVjNDdVFwYlVFLTB5SWJFNGZkY2wwNUNCaW5GMDhoM1NZM0tjWUFLWFBiamhhWG9XMTZnM0tSNUFpZ0E0WmlFT0NBU0hvcWpfX290ejVz?oc=5",
-    "https://news.google.com/rss/articles/CBMiekFVX3lxTE1OX0pYdXpNOURpRGJ1cV9VblZMaDlra2N4VllDNHE0LWlKUUhuRVRqM3FqZkFNR1dUbWZ1aEVrVDRFeHd1U1hQM3BmYWs3LTlGSm9RRWRtTkk2cWNnNHBoRGlqcHliRVJGRkQ5bDZ4X2lCTkpIbHIxT253?oc=5",
-    "https://news.google.com/rss/articles/CBMi9gJBVV95cUxQYmZsbFl0SWdUX2Ytb1NjZ2tHV3NYSmZEb1pzUkozSUktWFhwSzAwUlY2a0c2VGVSY2dtNVJvYTFHV1FNOGpzYTVjTjRpS085SU9qQlk4UzRWdnYxX2Q3Ul9jMU54bVROOG9KLVZobW5xeWZNUVVHa1BMUkxTVTBubUtqSHF6Xzdrek5Mamtjd2xFelVNYUpjY1NtWUtyM0hubC12QTZrYmVuTnZidHM2cTYwSE1hMVZaZkhDYWYwNUhPTXJDa25EelZYSjNBX1JhYWRteERZSU9wR1htQ3RZWGIydVl2SnVlLWpKZ2M2V21SY1RVUDBfMm91dTZqRVRLemJLZzNTZDE3eVp5MVJvSzdObDNud0NHbXNva1lyTUhsY2k1X3Y0OVlhSHBWelZsbFpqOGRUd2FDeTNMalhwUjVBR2NRVHJGSG41WDdQUV9hRzVuRlJaclpvNEZnancwMGhnZlQyVy14X1lMcGJVOFpBeW5OUQ?oc=5"
-   ],
-   "editorial": {
-    "tldr": "Alibaba's Qwen team released Qwen-Image-2.1 on Sep 20, a 7B-parameter open-weight image generation and editing model the company claims beats larger closed models. The model card landed on Hugging Face the same day, independently confirming the launch alongside the Chinese-outlet coverage.",
-    "stale": false,
-    "whats_new": "A Sep 23 benchmark write-up says Qwen-Image-2.1 also beats Google's Nano Banana 2.0 and is competitive with OpenAI and Meta image models.",
-    "why_it_matters": "A 7B open-weight image model now claiming parity with Nano Banana 2.0, OpenAI, and Meta's closed offerings raises the bar for self-hosted image pipelines -- verify the benchmark methodology before swapping it in.",
-    "take_for_builders": "Before adopting Qwen-Image-2.1 for a self-hosted image pipeline, run it against your own eval set rather than trusting the beats-closed-models or beats-Nano-Banana framing, and check whether the added transparency support changes your integration path."
    }
   }
  ]

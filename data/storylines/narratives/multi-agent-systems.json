@@ -1,0 +1,47 @@
+{
+  "slug": "multi-agent-systems",
+  "generated_at": "2026-10-01T05:10:00+00:00",
+  "covers_last_updated": "2026-09-30T14:09:57+00:00",
+  "covers_member_sids": ["9463df6fcb6ce102", "c9bd4843a93b6790", "9b401e98b8571b23"],
+  "tldr": "Three arXiv papers in two weeks treat multi-agent systems as a shared-state problem. MACE (Sep 18) stores collaboration traces in an adaptive memory graph; a Sep 29 paper ties task regions to agent responsibility, handoffs, and memory access.",
+  "whats_new": "A Sep 30 paper examines safety of latent communication, where agents exchange internal representations instead of text to cut token and latency cost.",
+  "why_it_matters": "Memory, handoffs, and inter-agent channels are where multi-agent systems break in production; these papers propose mechanisms, not production results.",
+  "status": {
+    "state": "Research · developing",
+    "tone": "rising",
+    "changed": "2026-09-30",
+    "detail": "Three papers, all single-paper claims with no independent replication yet."
+  },
+  "beats": [
+    {
+      "kicker": "MEMORY",
+      "tone": "launch",
+      "headline": "MACE reuses collaboration traces through adaptive memory graphs",
+      "summary": "Preserves each action's prerequisites so agents can reuse plan, verify, and repair procedures.",
+      "sids": ["9463df6fcb6ce102"]
+    },
+    {
+      "kicker": "STRUCTURE",
+      "tone": "rising",
+      "headline": "Topological coherence couples workflow, responsibility, and memory access",
+      "summary": "Task regions define tool scope; cross-region dependencies become handoffs.",
+      "sids": ["c9bd4843a93b6790"]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Latent communication trades text overhead for a new safety surface",
+      "sids": ["9b401e98b8571b23"]
+    }
+  ],
+  "open_questions": [
+    "Does any of these approaches ship in an open-source agent framework?",
+    "Do latent channels get an independent safety evaluation beyond the proposing paper?"
+  ],
+  "take_for_builders": "Keep inter-agent messages as inspectable text in anything audited; treat latent communication as research until a safety evaluation replicates.",
+  "day_captions": {
+    "9463df6fcb6ce102": "Memory-graph approach to reusing multi-agent collaboration traces.",
+    "c9bd4843a93b6790": "Frames handoffs and memory access as properties of workflow structure.",
+    "9b401e98b8571b23": "Raises safety concerns for agents that communicate in representation space."
+  }
+}

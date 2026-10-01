@@ -1,0 +1,110 @@
+{
+ "slug": "multi-agent-systems",
+ "label": "Multi-Agent Systems",
+ "item_count": 3,
+ "day_count": 3,
+ "source_count": 2,
+ "first_seen": "2026-09-18T09:25:06+00:00",
+ "last_updated": "2026-09-30T14:09:57+00:00",
+ "generated_at": "2026-10-01T05:03:30.930161+00:00",
+ "sources": [
+  "arxiv_agent_systems_research",
+  "arxiv_cs_lg"
+ ],
+ "days": [
+  {
+   "date": "2026-09-18",
+   "items": [
+    {
+     "title": "MACE: Memory-Agent Co-Evolution with Adaptive Memory Graphs for Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2609.21533v1",
+     "source": "arxiv_cs_lg",
+     "type": "paper",
+     "summary_1line": "LLM-based multi-agent systems generate collaboration traces that record how agents plan tasks, verify intermediate results, and repair failures. Reusing these procedures requires preserving an action's prerequisites a...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "9463df6fcb6ce102",
+     "published": "2026-09-18T09:25:06+00:00",
+     "editor_note": "Memory-graph approach to reusing multi-agent collaboration traces."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-29",
+   "items": [
+    {
+     "title": "Topological Coherence for Self-evolving Multi-agent Systems",
+     "url": "http://arxiv.org/abs/2609.37953v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Complex tasks inherently couple workflow structure, agent responsibility, collaboration, and memory access: task regions delimit responsibility and tool scope, cross-region dependencies give rise to handoffs, and owne...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "c9bd4843a93b6790",
+     "published": "2026-09-29T16:27:14+00:00",
+     "editor_note": "Frames handoffs and memory access as properties of workflow structure."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-30",
+   "items": [
+    {
+     "title": "Safety of Latent Communication in Multi-Agent Systems",
+     "url": "http://arxiv.org/abs/2609.39788v1",
+     "source": "arxiv_agent_systems_research",
+     "type": "paper",
+     "summary_1line": "Latent communication enables multi-agent systems to exchange information directly in internal representation space, reducing the token, computation, and latency overhead of text-based communication. To this end, light...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "9b401e98b8571b23",
+     "published": "2026-09-30T14:09:57+00:00",
+     "editor_note": "Raises safety concerns for agents that communicate in representation space."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Three arXiv papers in two weeks treat multi-agent systems as a shared-state problem. MACE (Sep 18) stores collaboration traces in an adaptive memory graph; a Sep 29 paper ties task regions to agent responsibility, handoffs, and memory access.",
+  "stale": false,
+  "whats_new": "A Sep 30 paper examines safety of latent communication, where agents exchange internal representations instead of text to cut token and latency cost.",
+  "why_it_matters": "Memory, handoffs, and inter-agent channels are where multi-agent systems break in production; these papers propose mechanisms, not production results.",
+  "take_for_builders": "Keep inter-agent messages as inspectable text in anything audited; treat latent communication as research until a safety evaluation replicates.",
+  "status": {
+   "state": "Research · developing",
+   "tone": "rising",
+   "changed": "2026-09-30",
+   "detail": "Three papers, all single-paper claims with no independent replication yet."
+  },
+  "beats": [
+   {
+    "kicker": "MEMORY",
+    "tone": "launch",
+    "headline": "MACE reuses collaboration traces through adaptive memory graphs",
+    "summary": "Preserves each action's prerequisites so agents can reuse plan, verify, and repair procedures.",
+    "sids": [
+     "9463df6fcb6ce102"
+    ]
+   },
+   {
+    "kicker": "STRUCTURE",
+    "tone": "rising",
+    "headline": "Topological coherence couples workflow, responsibility, and memory access",
+    "summary": "Task regions define tool scope; cross-region dependencies become handoffs.",
+    "sids": [
+     "c9bd4843a93b6790"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "Latent communication trades text overhead for a new safety surface",
+    "sids": [
+     "9b401e98b8571b23"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does any of these approaches ship in an open-source agent framework?",
+   "Do latent channels get an independent safety evaluation beyond the proposing paper?"
+  ],
+  "generated_at": "2026-10-01T05:10:00+00:00"
+ }
+}
