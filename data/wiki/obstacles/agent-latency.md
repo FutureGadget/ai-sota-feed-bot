@@ -7,9 +7,9 @@ status: active
 solutions: [speculative-decoding, context-compaction]
 obstacles: []
 related_storylines: []
-evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5]
-updated: 2026-09-22
-covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5]
+evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5, b37c7cb1295646d6, 0588c8c0813b65e1]
+updated: 2026-10-01
+covers_evidence: [0ca61ed96ddd38e5, e313a171aa375adf, 537f21de13e2a85a, c66b542cadbb4592, 6cc910fb018354bf, e2f43565cf7c0d8e, dca39fe0489bebd0, 0933879c19d86a9c, bbc9b11398e5a4c1, c0c3ec4a6aba7980, d3e345ae085932a6, 7b0c24a5e0c92a10, c841afae435d6473, 07f37058d3d7c72b, 3ce97f6a8c6c0f29, 76c7b104c7dfd8b4, d08095949d6300c2, 3f7129b93f7a9b75, 66c593bb8d830d85, 94813f8b6bc86093, 90414bf337cae373, 73489cffeb776e1f, 309c04c4364dddf7, b811cc97eff4aae9, aba45d95421e53e0, 5ed10ede4abacd52, 64c163bb191bab4e, deec56a13e2b9b57, fcb5eeae253e1eba, 80e7ec208d50f270, a0661b7f263e39ff, 99ece13e787f3487, c6927bdb3ec146a9, aad81dd5a952ad5d, ec2a07215adc6507, da31200faa97b5f9, be54aebcc77405a5, be33ba45a7db1738, d30ab09b3c362794, 9bd5188163ee117b, 38a96835bd201857, 4f4661ca3038bcff, a3b54d5a91acaa5a, 3762ff1d2e307774, c30b19170c960cb5, b37c7cb1295646d6, 0588c8c0813b65e1]
 ---
 
 ## TL;DR
@@ -357,8 +357,24 @@ tracked here: prefill/decode-disaggregated serving of Qwen3.8-2.4T reaches
 interactivity on GB300 NVL72 hardware, with the methodology published so
 other teams can reproduce the result on their own serving stack.
 
+Cold start is the other latency term, and snapshots are the current answer:
+GKE Pod snapshots checkpoint CPU and GPU memory through gVisor to Cloud
+Storage, and Google reports up to 89% lower startup latency, with a 70B model
+loading in 37 seconds and an 8B model in 15. GKE Agent Sandbox uses them to
+suspend idle agents instead of holding warm pools. The catch is invalidation:
+a snapshot matches only on the Pod spec hash, machine series, CPU architecture,
+gVisor version, and GPU driver version, and any mismatch falls back to a normal
+slow start. A separate arXiv study characterizes high-bandwidth flash as extra
+accelerator memory for retaining agentic KV state, noting its write-endurance
+limits complicate use.
+
 ## What's new
-vLLM v0.30.0 adds DeepSeek-V4.1-Flash support with an MXFP8-resident KV
+Google's GKE Pod snapshot benchmarks (up to 89% lower startup latency; 70B
+model loaded in 37 seconds) put numbers on snapshot/restore as a cold-start fix,
+with spec-hash and driver-version matching as the operational caveat (see State
+of the art above).
+
+Prior update: vLLM v0.30.0 adds DeepSeek-V4.1-Flash support with an MXFP8-resident KV
 cache and FlashMLA speedups on SM100, and a companion vLLM report reaches
 5K tokens/sec aggregate throughput and 180 tok/sec/user interactivity
 serving Qwen3.8-2.4T via prefill/decode disaggregation on GB300 NVL72 (see
