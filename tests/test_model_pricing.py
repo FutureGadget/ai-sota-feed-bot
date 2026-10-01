@@ -157,6 +157,36 @@ class PricingTest(unittest.TestCase):
         for text in ["USD per million", "Anthropic", "Cache read", "Cache write (5 minutes)", "Cache write (1 hour)", "$0.2", "$2.5", "$4", "/models/compare"]:
             self.assertIn(text, html)
 
+    def test_displayed_models_refresh_ahead_of_unseen_catalog_models(self):
+        cfg = {"base_url": "https://example.test/models", "max_endpoints_per_run": 1}
+        other = {**CATALOG_ROW, "id": "anthropic/other", "created": NOW.timestamp() + 60}
+        def fetch(url):
+            if url == cfg["base_url"]:
+                return {"data": [CATALOG_ROW, other]}
+            return {"data": {"id": url.removeprefix(cfg["base_url"] + "/").removesuffix("/endpoints"), "endpoints": [ENDPOINT]}}
+        both = pricing.refresh({}, {**cfg, "max_endpoints_per_run": 2}, NOW, fetch)
+        later = NOW + timedelta(hours=5)
+        # `other` is newer and equally old, so only priority can put MODEL_ID first.
+        result = pricing.refresh(both, cfg, later, fetch, priority={MODEL_ID})
+        self.assertEqual(result["models"][MODEL_ID]["checked_at"], later.isoformat())
+        self.assertEqual(result["models"]["anthropic/other"]["checked_at"], NOW.isoformat())
+
+    def test_radar_model_ids_join_only_models_the_radar_shows(self):
+        cfg = collect_models.load_config()["sources"]["openrouter"]
+        rows = [{"url_slug": "claude-sonnet-5-5", "organization": "anthropic"}]
+        catalog = {"models": {**snapshot()["models"], "anthropic/unseen": {"name": "Anthropic: Unseen"}}}
+        self.assertEqual(set(pricing.match_models(rows, catalog["models"], cfg)), {MODEL_ID})
+
+    def test_top_model_keeps_its_frontier_place_while_its_offer_is_fresh(self):
+        cfg = collect_models.load_config()
+        rows = [{"url_slug": "claude-sonnet-5-5", "organization": "anthropic", "aa_intelligence_index": 56},
+                {"url_slug": "cheap", "organization": "other", "aa_intelligence_index": 40,
+                 "price_blended_per_1m": 1}]
+        fresh = pricing.apply_pricing({"models": rows}, snapshot(), cfg, NOW)["models"]
+        self.assertTrue(fresh[0]["frontier"]["aa_intelligence_index"]["on_frontier"])
+        stale = pricing.apply_pricing({"models": rows}, snapshot(), cfg, NOW + timedelta(days=2))["models"]
+        self.assertFalse(stale[0]["frontier"])
+
     def test_stale_prices_remain_auditable_but_leave_token_frontier(self):
         result = pricing.apply_pricing({"models": []}, snapshot(), collect_models.load_config(), NOW + timedelta(days=2))
         model = result["models"][0]

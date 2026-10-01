@@ -32,6 +32,16 @@ than 24 hours remain visible with their check time but are excluded from
 estimates. Benchmark collection failures cannot overwrite the separate pricing
 snapshot. A missing pricing snapshot yields unknown prices, never AA fallback.
 
+The bounded endpoint batch (`max_endpoints_per_run`) refreshes changed catalog
+prices first, then models the radar actually shows (rows of
+`data/models/latest.json` that join to a catalog id), oldest check first, then
+the rest of the catalog. A displayed price therefore cannot age past the 24-hour
+limit while the batch works through unseen models. In the ranked list a stale
+price shows its last-known input rate with a "stale" qualifier instead of
+"undisclosed"; only a row with no matched offer reads "undisclosed". Stale rows
+still stay out of the token frontier, so the frontier tag depends on this
+refresh keeping displayed prices fresh.
+
 ## Data contract
 
 `pricing.json` version 1 stores `catalog_checked_at`, `attempted_at`, `error`,

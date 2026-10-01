@@ -104,8 +104,13 @@ def select_offer(offers, preferred_tags):
     return min(standard, key=rank)
 
 
-def refresh(previous, cfg, now, fetch_json, limit=None):
-    """Validate first, then replace each successful endpoint independently."""
+def refresh(previous, cfg, now, fetch_json, limit=None, priority=()):
+    """Validate first, then replace each successful endpoint independently.
+
+    `priority` ids (models the radar displays) refresh ahead of the rest of the
+    catalog, so a displayed price cannot age past `stale_after_seconds` while
+    the bounded batch works through models nobody sees.
+    """
     checked = now.isoformat()
     result = copy.deepcopy(previous) if previous else {"version": 1, "models": {}}
     result.update(attempted_at=checked, error=None)
@@ -141,7 +146,7 @@ def refresh(previous, cfg, now, fetch_json, limit=None):
         age = now.timestamp() - timestamp(old.get("checked_at"))
         changed = old.get("fingerprint") != fingerprint or bool(old.get("error"))
         if changed or age >= cfg.get("endpoint_refresh_seconds", 14400):
-            due.append((not changed, timestamp(old.get("checked_at")), -(item["created"] or 0), model_id))
+            due.append((not changed, model_id not in priority, timestamp(old.get("checked_at")), -(item["created"] or 0), model_id))
 
     due.sort()
     targets = [entry[-1] for entry in due[:limit or cfg.get("max_endpoints_per_run", 32)]]
@@ -167,6 +172,30 @@ def refresh(previous, cfg, now, fetch_json, limit=None):
     return result
 
 
+def match_models(rows, entries, source_cfg):
+    """Catalog id per row, joined on exact names within an organization.
+
+    Ambiguous or missing matches are None; never guessed.
+    """
+    org_aliases = source_cfg.get("organization_aliases", {})
+    aliases = source_cfg.get("model_aliases", {})
+    index = {}
+    for model_id, item in entries.items():
+        author, name = model_id.split("/", 1)
+        org = org_aliases.get(author, author)
+        for key in {identity(name), identity(item["name"].split(": ")[-1])}:
+            index.setdefault((org, key), set()).add(model_id)
+    matched = []
+    for row in rows:
+        explicit = aliases.get(row.get("url_slug"))
+        matches = {explicit} if explicit in entries else set()
+        if row.get("url_slug") not in aliases:
+            for field in ("url_slug", "display_name"):
+                matches.update(index.get((row.get("organization"), identity(row.get(field))), set()))
+        matched.append(next(iter(matches)) if len(matches) == 1 else None)
+    return matched
+
+
 def apply_pricing(artifact, catalog, cfg, now=None):
     """Join on exact names within an organization; ambiguity stays unpriced."""
     now = now or datetime.now(timezone.utc)
@@ -175,24 +204,11 @@ def apply_pricing(artifact, catalog, cfg, now=None):
     source_cfg = cfg.get("sources", {}).get("openrouter", {})
     if not source_cfg.get("enabled", True):
         catalog = {}
-    org_aliases = source_cfg.get("organization_aliases", {})
     preferred = source_cfg.get("preferred_endpoints", {})
-    aliases = source_cfg.get("model_aliases", {})
     entries = catalog.get("models", {})
-    index = {}
-    for model_id, item in entries.items():
-        author, name = model_id.split("/", 1)
-        org = org_aliases.get(author, author)
-        for key in {identity(name), identity(item["name"].split(": ")[-1])}:
-            index.setdefault((org, key), set()).add(model_id)
+    org_aliases = source_cfg.get("organization_aliases", {})
     joined = set()
-    for row in rows:
-        explicit = aliases.get(row.get("url_slug"))
-        matches = {explicit} if explicit in entries else set()
-        if row.get("url_slug") not in aliases:
-            for field in ("url_slug", "display_name"):
-                matches.update(index.get((row.get("organization"), identity(row.get(field))), set()))
-        model_id = next(iter(matches)) if len(matches) == 1 else None
+    for row, model_id in zip(rows, match_models(rows, entries, source_cfg)):
         row["pricing_model_id"] = model_id
         if model_id:
             joined.add(model_id)
@@ -249,6 +265,15 @@ def apply_pricing(artifact, catalog, cfg, now=None):
     return result
 
 
+def radar_model_ids(catalog, cfg):
+    """Catalog ids the radar shows: rows of data/models/latest.json that join."""
+    try:
+        rows = json.loads((PRICE_PATH.parent / "latest.json").read_text()).get("models", [])
+    except (OSError, ValueError, AttributeError):
+        return set()
+    return {mid for mid in match_models(rows, catalog.get("models", {}), cfg) if mid}
+
+
 def main():
     import requests
     from collect_models import load_config
@@ -267,7 +292,9 @@ def main():
             return response.json()
         except requests.RequestException as exc:
             raise OSError(type(exc).__name__) from exc
-    result = refresh(read_prices(), cfg, datetime.now(timezone.utc), fetch_json, args.max_endpoints)
+    previous = read_prices()
+    result = refresh(previous, cfg, datetime.now(timezone.utc), fetch_json, args.max_endpoints,
+                     radar_model_ids(previous, cfg))
     PRICE_PATH.parent.mkdir(parents=True, exist_ok=True)
     temporary = PRICE_PATH.with_suffix(".tmp")
     temporary.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
