@@ -1,0 +1,51 @@
+{
+  "slug": "harness-evolution",
+  "generated_at": "2026-10-01T15:03:54+00:00",
+  "covers_last_updated": "2026-09-30T17:00:38+00:00",
+  "covers_member_sids": [
+    "38522ce275c55bf2",
+    "50fe4e3ccee5061b",
+    "f8f8651e579c3c68"
+  ],
+  "tldr": "On Sep 16 an arXiv paper warned that automatic harness optimization, which tunes prompts, memory, retrieval, tools, and control code against a released benchmark, can overfit that benchmark. Two more papers on Sep 30 treat harness evolution as a lever to be scaled and made lifelong.",
+  "whats_new": "Two Sep 30 arXiv papers extend automatic harness evolution to robot-agent interfaces and to lifelong learning from research, after a Sep 16 paper flagged benchmark overfitting as its core evaluation risk.",
+  "why_it_matters": "If your agent harness (tools, memory, retrieval, control flow) is tuned automatically against a public benchmark, its score measures the tuning loop as much as the agent; hold out private evals before trusting gains.",
+  "status": {
+    "state": "Research · early",
+    "tone": "rising",
+    "changed": "2026-09-30",
+    "detail": "Three arXiv papers in two weeks, no shipped product or independent replication yet."
+  },
+  "beats": [
+    {
+      "kicker": "CAVEAT",
+      "tone": "turn",
+      "headline": "Bad Genius paper: harness optimization on a released benchmark risks shortcut learning",
+      "summary": "Automatic harness optimization repeatedly reuses a released benchmark to guide a Proposer that edits prompts, memory, retrieval, tools, and control code.",
+      "sids": [
+        "38522ce275c55bf2"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "Harness evolution scales to a robot-agent interface and toward lifelong improvement",
+      "summary": "One paper studies what makes automatic harness evolution work for a coding agent driving a browser-based 3D robot interface; the other evolves the harness continually from research.",
+      "sids": [
+        "50fe4e3ccee5061b",
+        "f8f8651e579c3c68"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Do the Sep 30 harness-evolution methods hold up on a held-out benchmark, given the Sep 16 overfitting warning?",
+    "Does automatic harness evolution transfer from the robot-interface setting to ordinary coding or tool-use agents?",
+    "Does any open-source agent framework adopt automatic harness evolution as a built-in step?"
+  ],
+  "take_for_builders": "If you tune prompts, tools, or memory automatically, keep a private eval set the optimizer never sees and re-score after each harness change; treat these papers as method references, not drop-in tooling.",
+  "day_captions": {
+    "38522ce275c55bf2": "Names benchmark reuse during automatic harness optimization as the evaluation risk.",
+    "50fe4e3ccee5061b": "Applies automatic harness evolution to a coding agent used as a robot policy via screenshots and a virtual gripper.",
+    "f8f8651e579c3c68": "Proposes evolving the agent harness continually, drawing on published research."
+  }
+}

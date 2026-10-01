@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-01T10:03:31.883084+00:00",
+ "generated_at": "2026-10-01T15:03:55.097786+00:00",
  "window_days": 21,
  "storylines": [
   {
@@ -37,6 +37,43 @@
     "whats_new": "InfoQ reported Oct 1 that Jev returns typed probabilities instead of text, the first independent description of its output format.",
     "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
     "take_for_builders": "If a general-purpose LLM call in your agent pipeline is only doing classify, route, or score, benchmark Jev against it — the claimed cost and latency gap is large enough to justify a quick swap-in test."
+   }
+  },
+  {
+   "slug": "harness-evolution",
+   "label": "Harness Evolution",
+   "item_count": 3,
+   "day_count": 2,
+   "source_count": 3,
+   "first_seen": "2026-09-16T09:21:33+00:00",
+   "last_updated": "2026-09-30T17:00:38+00:00",
+   "latest_title": "Learning from Research: Toward Lifelong Agent Harness Evolution",
+   "days": [
+    "2026-09-16",
+    "2026-09-30"
+   ],
+   "member_sids": [
+    "38522ce275c55bf2",
+    "50fe4e3ccee5061b",
+    "f8f8651e579c3c68"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2609.18366v1",
+    "http://arxiv.org/abs/2609.39304v1",
+    "http://arxiv.org/abs/2609.40169v1"
+   ],
+   "editorial": {
+    "tldr": "On Sep 16 an arXiv paper warned that automatic harness optimization, which tunes prompts, memory, retrieval, tools, and control code against a released benchmark, can overfit that benchmark. Two more papers on Sep 30 treat harness evolution as a lever to be scaled and made lifelong.",
+    "stale": false,
+    "whats_new": "Two Sep 30 arXiv papers extend automatic harness evolution to robot-agent interfaces and to lifelong learning from research, after a Sep 16 paper flagged benchmark overfitting as its core evaluation risk.",
+    "why_it_matters": "If your agent harness (tools, memory, retrieval, control flow) is tuned automatically against a public benchmark, its score measures the tuning loop as much as the agent; hold out private evals before trusting gains.",
+    "take_for_builders": "If you tune prompts, tools, or memory automatically, keep a private eval set the optimizer never sees and re-score after each harness change; treat these papers as method references, not drop-in tooling.",
+    "status": {
+     "state": "Research · early",
+     "tone": "rising",
+     "changed": "2026-09-30",
+     "detail": "Three arXiv papers in two weeks, no shipped product or independent replication yet."
+    }
    }
   },
   {
@@ -359,11 +396,11 @@
   },
   {
    "slug": "deepseek-v4-1-flash",
-   "label": "Deepseek V4.1-Flash",
-   "item_count": 19,
+   "label": "DeepSeek V4.1-Flash",
+   "item_count": 18,
    "day_count": 10,
    "source_count": 2,
-   "first_seen": "2026-09-10T12:44:12+00:00",
+   "first_seen": "2026-09-10T23:45:00+00:00",
    "last_updated": "2026-09-27T05:47:25+00:00",
    "via_scout": true,
    "latest_title": "DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5",
@@ -380,7 +417,6 @@
     "2026-09-27"
    ],
    "member_sids": [
-    "3964e6fc7e6673d5",
     "3e6da764d2da3df9",
     "b09af1e7b84d5bc6",
     "9ed712b3a9231c87",
@@ -402,7 +438,6 @@
     "4ce1e97ce10c119a"
    ],
    "member_urls": [
-    "https://news.google.com/rss/articles/CBMijwFBVV95cUxPNUExMTg0alp0bUtPVUhoSjBjYndBTW1vSFdwOWhFMk0xR2JSWnRKVE5qd1hiVmQ3Y1BTU2EtUV8zRXc5eXFoVGZ5OHZZTEpqT3BMa05VeUstQ0V4TW1JTFIzQTMzR21CaFVGUzlWYzJnZDdkZ2JEQjZEaEpCTG1TeHVpTUluX0tVbnQ3MEVzYw?oc=5",
     "https://news.google.com/rss/articles/CBMiowFBVV95cUxNQXFfeTlYOEQwQ1hHVFFuY2RrLVplZ2NxaGJLY1o1UER2R3d1bWNzdWpiRDZpLTVzckZob3FkQjVabTc1OVd4dGZMY19rRkhwczZZdEtHSEpoSWRSdDhKclFRaDdvRzdNc1o2ZEFHZXNpcVEtb0dCakhPcVpnUjRHQktkQmhWRFBHU0JIWWdicmZJSDI0SDR1Mk9HYm1xWC01VE5r?oc=5",
     "https://news.google.com/rss/articles/CBMihAFBVV95cUxNRDRHczRNeDZiXy1HeXIyRXhqM2lUQ04yMHNjZTlVSHJEYkVHcW1hRTFfRUNENkY3a3ZJblprNUlYSHVLNjJYZGc0X2VvS3pnTzFfVTRqejJ0SG1KVGRzY28wVFNiT0VhOUdmSGY5X2owcmZWWndORERaSV91Wl9LOEF6Y0rSAYoBQVVfeXFMTlU0UXlJNjYtZ0FjMGhSWHA5b0hDekZIdncya084T0NiRmk4Q1pwS2szVHUycXdkZGRMd1Q5SW1mU2diMVpIOFk5QXZDYU90U2JpVW4zZWMyVkpXbTVQTFVJbDFPdVhvQmpQZDVzSnRFZVJIUmFNMERORGVHMzYtbHEtU1RoOW1pUl9n?oc=5",
     "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXNraGVUR05tcWxCRDcxN0JvZ3p6LUM0M051alpoOHVLV0ZManJGTG92R2R6aUZ6Y1ZmdlQ1Y0VLUnB1NzNfMXlic0pVaW1ieDNmUWRuczE5bW1kaG8wYnZ2OEtIZnhnYUcyNHBQMjNEVk9oWldoX0tma0FKSkNuODVqdnVMVlQ3UzBJdzJNcXZMWlR4SWFBWE1FdmUxT25NbUViNUJfTUFudVcxRkh5dEtKMA?oc=5",
@@ -581,64 +616,6 @@
      "tone": "now",
      "changed": "2026-09-24",
      "detail": "Live with Live Avatar exited preview into general availability in Gemini Enterprise; the TTS model pair has been in general release since Sep 23."
-    }
-   }
-  },
-  {
-   "slug": "muse-meta",
-   "label": "Meta Muse",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-09-15T10:16:45+00:00",
-   "last_updated": "2026-09-24T08:12:59+00:00",
-   "latest_title": "[AINews] Meta Connect 2026: Muse glasses, voice, video, and Charm",
-   "days": [
-    "2026-09-15",
-    "2026-09-22",
-    "2026-09-24"
-   ],
-   "member_sids": [
-    "2886f62732cdbcb9",
-    "499cf9f45f197b68",
-    "b50ee818f2970d6d"
-   ],
-   "member_urls": [
-    "https://stereogum.com/2510793/meta-kicks-muse-off-their-social-handles-to-launch-new-ai-agent/news",
-    "https://news.google.com/rss/articles/CBMi5gFBVV95cUxON2sxakdrZVMxLVh0YXVHR0JWeHpzZ0pGdlJPWXJsTHlIMXNzS0EtZm9mZDlpZm1vd3pkeVlCX29hc3FMY2FBME5PZnE1Ym9Kdld1UXFUZUM2RHFNaFdmNUdsQTlfVmR1S1pXYjRxOHJmcEtmSm0yLWc2NzBBbEVDUUdRSmVVd0ZHd09vc2dNakEwYWxiMlMwMkNSMnV4d01yUWhjMDJwV1o3MUFMbkJIVnZ5d1lydlVlYkRGSzZLVENYbTNaUVhJQi1SNlJiSVRLbFFCTm9xVkNhLVVLTWNXUk1vNkpLUQ?oc=5",
-    "https://www.latent.space/p/ainews-meta-connect-2026-muse-glasses"
-   ],
-   "editorial": {
-    "tldr": "Meta pushed its Muse AI agent through its own social handles in mid-September after an early-September launch. A tech analyst then called it underestimated competition for OpenAI and Anthropic.",
-    "stale": false,
-    "whats_new": "Meta's Connect 2026 keynote folded Muse into a hardware lineup — glasses, voice, and video products branded \"Charm\" — moving it beyond a standalone software agent.",
-    "why_it_matters": "Meta is pairing its agent stack with owned hardware distribution, a different go-to-market than API-first competitors; agent builders should watch whether that hardware lineup opens developer access or stays consumer-only.",
-    "take_for_builders": "Track whether Meta opens developer/API access to Muse's agent stack, not just the consumer hardware — that's what determines whether it becomes a real alternative to Claude/GPT/Gemini for agent builders.",
-    "status": {
-     "state": "Expanding · hardware reveal",
-     "tone": "rising",
-     "changed": "2026-09-24",
-     "detail": "Muse moved from a single agent product to a Meta Connect glasses/voice/video lineup, keeping the earlier competitive-threat framing intact.",
-     "track": [
-      {
-       "label": "social push",
-       "detail": "Sep 15",
-       "tone": "rising",
-       "weight": 25
-      },
-      {
-       "label": "analyst threat call",
-       "detail": "Sep 22",
-       "tone": "rising",
-       "weight": 25
-      },
-      {
-       "label": "Connect 2026 hardware reveal",
-       "detail": "Sep 24 → now",
-       "tone": "now",
-       "weight": 30
-      }
-     ]
     }
    }
   }
