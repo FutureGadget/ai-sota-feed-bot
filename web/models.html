@@ -296,7 +296,7 @@
       return '$' + (n < 10 ? n.toFixed(2) : n.toFixed(2).replace(/\.00$/, '')) + '/1M';
     }
 
-    // A stale offer (unchecked for >24h) is nulled in price_input_per_1m so it
+    // A stale offer (unverified upstream) is nulled in price_input_per_1m so it
     // stays out of the frontier, but its last-known rate is still real data:
     // show it, flagged, rather than "undisclosed". Only a row with no matched
     // offer at all falls through to "undisclosed".
@@ -306,7 +306,7 @@
       const last = offer && offer.stale && offer.rates ? offer.rates.input : null;
       if (last === null || last === undefined || !Number.isFinite(Number(last))) return fmtPrice(null);
       const checked = offer.checked_at ? String(offer.checked_at).slice(0, 10) : 'earlier';
-      return `${fmtPrice(last)}<span class="mr-stat-qualifier" title="Last checked ${esc(checked)}; older than 24 hours, so excluded from the frontier">stale</span>`;
+      return `${fmtPrice(last)}<span class="mr-stat-qualifier" title="Last checked ${esc(checked)}; no longer verified against the upstream catalog, so excluded from the frontier">stale</span>`;
     }
 
     function fmtNum(v, digits) {

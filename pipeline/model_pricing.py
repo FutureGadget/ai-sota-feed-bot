@@ -240,9 +240,21 @@ def apply_pricing(artifact, catalog, cfg, now=None):
         for field in ("price_input_per_1m", "price_output_per_1m", "price_blended_per_1m"):
             row[field] = None
         if offer:
-            stale = now.timestamp() - timestamp(offer.get("checked_at")) > source_cfg.get("stale_after_seconds", 86400)
+            age = now.timestamp() - timestamp(offer.get("checked_at"))
+            # Eventually consistent: past `stale_after_seconds` an offer stays valid
+            # while the latest successful catalog check shows its price fingerprint
+            # unchanged. Stale only when upstream changed and we have not refetched,
+            # the catalog itself has not been checked recently (upstream or pipeline
+            # trouble), or the offer passes the hard `max_offer_age_seconds` backstop
+            # (the fingerprint covers headline pricing, not every endpoint).
+            window = source_cfg.get("stale_after_seconds", 86400)
+            unchanged = (item.get("fingerprint") is not None
+                         and item.get("fingerprint") == item.get("catalog_fingerprint")
+                         and now.timestamp() - timestamp(catalog.get("catalog_checked_at")) <= window)
+            stale = age > source_cfg.get("max_offer_age_seconds", 604800) or (age > window and not unchanged)
             row["pricing"] = {**offer, "model_id": model_id, "source_url": item["source_url"],
-                              "stale": stale, "refresh_error": item.get("error")}
+                              "stale": stale, "verified_unchanged": unchanged,
+                              "refresh_error": item.get("error")}
             if not stale:
                 p = offer["rates"]
                 row.update(price_input_per_1m=p["input"], price_output_per_1m=p["output"],
