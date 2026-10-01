@@ -1,12 +1,12 @@
 {
  "slug": "jev-system",
  "label": "Jev System",
- "item_count": 3,
- "day_count": 2,
+ "item_count": 4,
+ "day_count": 3,
  "source_count": 3,
  "first_seen": "2026-09-16T11:09:53+00:00",
- "last_updated": "2026-09-21T23:09:20+00:00",
- "generated_at": "2026-09-30T15:04:32.218695+00:00",
+ "last_updated": "2026-09-30T19:32:43+00:00",
+ "generated_at": "2026-10-01T00:04:49.148497+00:00",
  "sources": [
   "langchain_blog",
   "latent_space",
@@ -39,10 +39,6 @@
      "summary_1line": "The definitive Jev podcast with its lead creator.",
      "sid": "7409d5ffee8a2c05",
      "published": "2026-09-21T22:13:49+00:00",
-     "sources": [
-      "langchain_blog",
-      "latent_space"
-     ],
      "editor_note": "CEO Diogo Almeida frames the design goal as production reliability over benchmark intelligence."
     },
     {
@@ -57,12 +53,28 @@
      "editor_note": "Simon Willison's independent take, preferring the \"decision models\" name over TypeSafe's own \"System One\" branding."
     }
    ]
+  },
+  {
+   "date": "2026-09-30",
+   "items": [
+    {
+     "title": "What Is Jev? A Guide to TypeSafe AI’s System One Model",
+     "url": "https://www.langchain.com/blog/building-a-harness-with-jev",
+     "source": "langchain_blog",
+     "type": "news",
+     "summary_1line": "What is Jev? Learn how TypeSafe AI’s System One model makes fast, structured decisions, where it fits in the agent loop, and how to use Jev with LangChain",
+     "why_it_matters": "Matches feed focus: agent.",
+     "sid": "9e45c053dcabfa34",
+     "published": "2026-09-30T19:32:43+00:00",
+     "editor_note": "LangChain's guide on where Jev fits in the agent loop and how to use it with LangChain."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "TypeSafe AI introduced Jev on Sep 16 as a new model category it calls \"System One\": small models built only to decide, classify, route, and score, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs for that narrow job. It is explicitly not a general chat or reasoning model.",
+  "tldr": "TypeSafe AI introduced Jev on Sep 16 as a \"System One\" model that only decides, classifies, routes, and scores, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs. CEO Diogo Almeida framed it as built for production reliability, and Simon Willison argued \"decision models\" is the better name.",
   "stale": false,
-  "whats_new": "The naming debate landed on \"decision models\" as the clearer term over TypeSafe's own \"System One\" branding, after CEO Diogo Almeida framed the Sep 20 launch podcast around production reliability rather than general intelligence.",
+  "whats_new": "LangChain published a Sep 30 guide to Jev showing where its fast, structured decisions fit in the agent loop and how to wire it into LangChain.",
   "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
   "take_for_builders": "If a general-purpose LLM call in your agent pipeline is only doing classify, route, or score, benchmark Jev against it — the claimed cost and latency gap is large enough to justify a quick swap-in test.",
   "beats": [
@@ -86,17 +98,27 @@
    },
    {
     "kicker": "COVERAGE",
-    "tone": "now",
+    "tone": "rising",
     "headline": "Independent take prefers \"decision models\" over TypeSafe's \"System One\" label",
     "sids": [
      "012242336f7588da"
+    ]
+   },
+   {
+    "kicker": "NOW",
+    "tone": "now",
+    "headline": "LangChain documents Jev's place in the agent loop",
+    "summary": "A first-party integration guide moves Jev from announcement to wiring instructions.",
+    "sids": [
+     "9e45c053dcabfa34"
     ]
    }
   ],
   "open_questions": [
    "Do Jev's speed/cost claims hold up against a real agent pipeline's classify/route/score calls, not just TypeSafe's own benchmarks?",
-   "Will other labs ship a comparable decision-model category, or does this stay a single-vendor niche?"
+   "Will other labs ship a comparable decision-model category, or does this stay a single-vendor niche?",
+   "Do independent benchmarks from outside TypeSafe and LangChain confirm the claimed 100x speed and 200x cost gap?"
   ],
-  "generated_at": "2026-09-23T05:35:00+00:00"
+  "generated_at": "2026-10-01T00:10:00+00:00"
  }
 }
