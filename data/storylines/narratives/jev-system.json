@@ -1,15 +1,16 @@
 {
   "slug": "jev-system",
-  "generated_at": "2026-10-01T00:10:00+00:00",
-  "covers_last_updated": "2026-09-30T19:32:43+00:00",
+  "generated_at": "2026-10-01T10:03:17+00:00",
+  "covers_last_updated": "2026-10-01T06:47:00+00:00",
   "covers_member_sids": [
+    "012242336f7588da",
     "487ee06b84c7fedd",
+    "536d169b0757fd6c",
     "7409d5ffee8a2c05",
-    "9e45c053dcabfa34",
-    "012242336f7588da"
+    "9e45c053dcabfa34"
   ],
-  "tldr": "TypeSafe AI introduced Jev on Sep 16 as a \"System One\" model that only decides, classifies, routes, and scores, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs. CEO Diogo Almeida framed it as built for production reliability, and Simon Willison argued \"decision models\" is the better name.",
-  "whats_new": "LangChain published a Sep 30 guide to Jev showing where its fast, structured decisions fit in the agent loop and how to wire it into LangChain.",
+  "tldr": "TypeSafe AI introduced Jev on Sep 16 as a \"System One\" model that only decides, classifies, routes, and scores, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs. CEO Diogo Almeida pitched it as built for production reliability, and Simon Willison argued \"decision models\" is the better name.",
+  "whats_new": "InfoQ reported Oct 1 that Jev returns typed probabilities instead of text, the first independent description of its output format.",
   "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
   "beats": [
     {
@@ -39,25 +40,35 @@
       ]
     },
     {
-      "kicker": "NOW",
-      "tone": "now",
+      "kicker": "INTEGRATION",
+      "tone": "rising",
       "headline": "LangChain documents Jev's place in the agent loop",
       "summary": "A first-party integration guide moves Jev from announcement to wiring instructions.",
       "sids": [
         "9e45c053dcabfa34"
+      ]
+    },
+    {
+      "kicker": "NOW",
+      "tone": "now",
+      "headline": "InfoQ: Jev returns typed probabilities, not text",
+      "summary": "Output is a structured decision with typed probabilities, which is what makes it droppable into classify/route/score steps.",
+      "sids": [
+        "536d169b0757fd6c"
       ]
     }
   ],
   "open_questions": [
     "Do Jev's speed/cost claims hold up against a real agent pipeline's classify/route/score calls, not just TypeSafe's own benchmarks?",
     "Will other labs ship a comparable decision-model category, or does this stay a single-vendor niche?",
-    "Do independent benchmarks from outside TypeSafe and LangChain confirm the claimed 100x speed and 200x cost gap?"
+    "Do typed probabilities from Jev stay calibrated on a team's own routing labels, not just TypeSafe's evaluation sets?"
   ],
   "take_for_builders": "If a general-purpose LLM call in your agent pipeline is only doing classify, route, or score, benchmark Jev against it — the claimed cost and latency gap is large enough to justify a quick swap-in test.",
   "day_captions": {
     "487ee06b84c7fedd": "TypeSafe AI's launch announcement: a decide/classify/route/score-only model, not a general chat model.",
     "7409d5ffee8a2c05": "CEO Diogo Almeida frames the design goal as production reliability over benchmark intelligence.",
     "012242336f7588da": "Simon Willison's independent take, preferring the \"decision models\" name over TypeSafe's own \"System One\" branding.",
-    "9e45c053dcabfa34": "LangChain's guide on where Jev fits in the agent loop and how to use it with LangChain."
+    "9e45c053dcabfa34": "LangChain's guide on where Jev fits in the agent loop and how to use it with LangChain.",
+    "536d169b0757fd6c": "InfoQ's report on Jev's typed-probability output and TypeSafe's founding team."
   }
 }
