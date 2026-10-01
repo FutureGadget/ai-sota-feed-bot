@@ -1,7 +1,41 @@
 {
- "generated_at": "2026-09-30T20:03:40.669326+00:00",
+ "generated_at": "2026-10-01T00:04:49.148497+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "jev-system",
+   "label": "Jev System",
+   "item_count": 4,
+   "day_count": 3,
+   "source_count": 3,
+   "first_seen": "2026-09-16T11:09:53+00:00",
+   "last_updated": "2026-09-30T19:32:43+00:00",
+   "latest_title": "What Is Jev? A Guide to TypeSafe AI’s System One Model",
+   "days": [
+    "2026-09-16",
+    "2026-09-21",
+    "2026-09-30"
+   ],
+   "member_sids": [
+    "487ee06b84c7fedd",
+    "7409d5ffee8a2c05",
+    "012242336f7588da",
+    "9e45c053dcabfa34"
+   ],
+   "member_urls": [
+    "https://www.latent.space/p/ainews-jev-a-system-one-model-that",
+    "https://www.latent.space/p/jev",
+    "https://simonwillison.net/2026/Sep/21/jev",
+    "https://www.langchain.com/blog/building-a-harness-with-jev"
+   ],
+   "editorial": {
+    "tldr": "TypeSafe AI introduced Jev on Sep 16 as a \"System One\" model that only decides, classifies, routes, and scores, claiming over 100x the speed and 200x the cost efficiency of small frontier LLMs. CEO Diogo Almeida framed it as built for production reliability, and Simon Willison argued \"decision models\" is the better name.",
+    "stale": false,
+    "whats_new": "LangChain published a Sep 30 guide to Jev showing where its fast, structured decisions fit in the agent loop and how to wire it into LangChain.",
+    "why_it_matters": "A purpose-built model that's 100x faster and 200x cheaper than a small frontier LLM is a strong fit for the classify/route/score steps buried inside most agent pipelines — the exact spots teams currently overpay a general-purpose LLM to handle.",
+    "take_for_builders": "If a general-purpose LLM call in your agent pipeline is only doing classify, route, or score, benchmark Jev against it — the claimed cost and latency gap is large enough to justify a quick swap-in test."
+   }
+  },
   {
    "slug": "openai-devday-2026",
    "label": "OpenAI DevDay 2026",
@@ -608,79 +642,6 @@
     "whats_new": "A Sep 23 benchmark write-up says Qwen-Image-2.1 also beats Google's Nano Banana 2.0 and is competitive with OpenAI and Meta image models.",
     "why_it_matters": "A 7B open-weight image model now claiming parity with Nano Banana 2.0, OpenAI, and Meta's closed offerings raises the bar for self-hosted image pipelines -- verify the benchmark methodology before swapping it in.",
     "take_for_builders": "Before adopting Qwen-Image-2.1 for a self-hosted image pipeline, run it against your own eval set rather than trusting the beats-closed-models or beats-Nano-Banana framing, and check whether the added transparency support changes your integration path."
-   }
-  },
-  {
-   "slug": "zhipu-s-zcode-data-privacy-controversy",
-   "label": "Zhipu's ZCode data-privacy controversy",
-   "item_count": 7,
-   "day_count": 3,
-   "source_count": 2,
-   "first_seen": "2026-09-19T10:05:00+00:00",
-   "last_updated": "2026-09-22T15:20:48+00:00",
-   "via_scout": true,
-   "latest_title": "Z.ai's ZCode packed 42,411 of one developer's files and tried 564 times to upload them",
-   "days": [
-    "2026-09-19",
-    "2026-09-21",
-    "2026-09-22"
-   ],
-   "member_sids": [
-    "7da22629412c38d3",
-    "76544039edbef2e2",
-    "1f8eaf6e41b40ac8",
-    "f40404eed5bbc569",
-    "9bd964c3b3d84251",
-    "bc07011f68927d93",
-    "b78b1b87b59ecae9"
-   ],
-   "member_urls": [
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTFBQWW44Y1ljeUFHYlU5bHBOSjZxc1h1by1tNGcyaEVtcDVtZkJrbTJNeGQ1SVF4X3Z5UkdSUWFhUi1EN3NnVHlCbS16T2NzSzJFbHozNHBRSXRLMEdMRDdNc2lQSEVHZzVNRDJCRkNmMUNGYTB4ZUE?oc=5",
-    "https://github.com/zai-org/ZCode",
-    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxQNGk2QV9hZ0l2VlZKUmh0a1NYall3a18xVlIwS1pJNm1GZ1FoTFNvanJmeWZIZXBvaHpmb3VwbENqcmZJbXRQcnZrMU8xNm5XMEI1eFJwaDV5dVVyTER5OXRicTQ4ZkhzOTFLN1ZvSW1iRDNmREdfekg5TnBjVXEwQ3VFX3hKZjVKSGlWTUVXekJyRGlzdFF2OGJMUy0tTEN6MEZCOElsTVhrSEdCeW11OEsyWjVBZkNv?oc=5",
-    "https://news.google.com/rss/articles/CBMidkFVX3lxTFBEM2JxLXhWM3Y4NVBxUWlLMmk2UzIxeW8xckFDMFhMYno5NmlXaHNtUEI2aTRrR1FyZmlEMFJkSmtCTEtZOU5jQ3V0dTBxYmQyVXZEZnlxT0o3aXlSWUZDOWhWdGRrdXRkSWh1aVhKTHJhbDFhZXc?oc=5",
-    "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQcHc4M01RVW9NdkZ2ZUZfOEZ2dnVEbVhwUHdHVV84ZGpjbVNIOVl3LXJCZlJYMDItMC1kcHdEa3hfSWRIdDR1UDB6QUZ4WFdUMUNMa2I2Zm1sb0NySXh4YkdXd2tEemlMVTFMTGFnS2tWT2FmaXdQNjdCWGVIVFdyX2QzRHNBSGo0V2NOS1hwaDgzMG9qa1gzQmRLaGUtRHZxOFR3M1czRGtLdUFCVHRnWTdGdWRuNmdtMDBmRWcyaVVSYUYxTnhVNGhjVnQzUjIxbXBTRjczOVU?oc=5",
-    "https://news.google.com/rss/articles/CBMickFVX3lxTFBsd3ctWXQ4VF85aG1SUEhUWlRhdUlMdXpnbDRQQmpvZVJKeFZ1d1doTl9EY0lab2toR0Z5OWdzckdWd0hEdk9Gdy1EakRjaUVHRFF1RUVpM2diOEdweWsxWUdLcTIzWTM0c3JXV3B4RC1rQdIBd0FVX3lxTE1RLXh0RzhIUTF1a1RWd1BWOGdhalVuY2w0MEZFV2tOeWlYNGpxbzVxRnk2Y0hpVFdTV3g0REpyRU4xcjBuMkhaR21zRC0tTWJObjc3SHNkT19qanFFT0ZCRnNLNUpqekhRSTlUZmRlVURpMnFYaENJ?oc=5",
-    "https://news.google.com/rss/articles/CBMigAFBVV95cUxPX1NNNWdaR3N6ZUtXSHZCaV9pbTVQMUtpM0Q1MUd3NElPN01ManNGYjBsQUhZU2twTmtOUGZFZVNIeG9uaEQxV09ja1BaU3NteEQ4MnJPdUw0VVFXNmNuV2txazRjWjZrY0F4QkhJdEdqTGtldGFWQXc2eTk4YUNFTQ?oc=5"
-   ],
-   "editorial": {
-    "tldr": "A Sep 19 report accused Zhipu's ZCode coding agent of silently packaging a developer's full code history and uploading it to the cloud, with encryption keys held server-side. Zhipu responded within two days by open-sourcing ZCode and commissioning a third-party audit it says confirms the cloud copy was wiped.",
-    "stale": false,
-    "whats_new": "Despite the open-source release and wipe audit, developers are still reporting ZCode uploading their code — one case shows it packaging 42,411 files and attempting 564 uploads, two days after the audit and the same day Z.ai disabled the coding-assistant features over a related security issue.",
-    "why_it_matters": "Treat the open-source release and third-party audit as unresolved, not clearance: teams running ZCode or evaluating Chinese coding-agent harnesses should verify egress/network behavior directly before trusting it with a private repo.",
-    "take_for_builders": "Don't treat Zhipu's third-party wipe audit as clearance — sandbox ZCode or monitor its network calls directly before trusting it with a private repo, given upload complaints persisted after the audit.",
-    "status": {
-     "state": "Unresolved · vendor disputes ongoing complaints",
-     "tone": "alert",
-     "changed": "2026-09-22",
-     "detail": "Zhipu's open-source release and third-party audit haven't stopped fresh reports of ZCode uploading code, including a 42,411-file/564-attempt case two days after the audit.",
-     "track": [
-      {
-       "label": "accused",
-       "detail": "Sep 19",
-       "tone": "alert",
-       "weight": 20
-      },
-      {
-       "label": "open-sourced + audited",
-       "detail": "Sep 21",
-       "tone": "turn",
-       "weight": 35
-      },
-      {
-       "label": "features disabled",
-       "detail": "Sep 21",
-       "tone": "alert",
-       "weight": 15
-      },
-      {
-       "label": "complaints continue",
-       "detail": "Sep 22 → now",
-       "tone": "now",
-       "weight": 30
-      }
-     ]
-    }
    }
   }
  ]
