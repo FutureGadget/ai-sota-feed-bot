@@ -2828,6 +2828,23 @@
   "type": "release",
   "url": "https://github.com/vllm-project/vllm/releases/tag/proto-v0.2.0"
  },
+ "23f8518428cc120d": {
+  "first_seen": "2026-10-01T01:04:00.590610+00:00",
+  "id": "651248802218f9bb",
+  "matched_topics": [
+   "agent",
+   "eval"
+  ],
+  "published": "2026-09-30T07:26:36+00:00",
+  "sid": "23f8518428cc120d",
+  "source": "arxiv_cs_ai",
+  "summary": "Persistent spatial memory enables embodied agents to navigate familiar environments across repeated visits. However, targets may move while unobserved, including during navigation, making remembered locations unreliable by the time an agent arrives. Despite advances in memory retrieval and state prediction, accounting for continued hidden world evolution and revising beliefs under limited visibility remain challenging. We study Evolving-World Navigation, where agents infer target locations from intermittent observations, predict their states at inspection time, and revise beliefs using visual evidence. We propose EvolvingNav, which constructs a time-indexed belief from timestamped 3D object histories through a structured persistence-relocation model. The belief distinguishes persistence at the last observed location from relocation to alternative locations and retains probability mass outside the known candidate set. An event-driven filter propagates the current belief as time elapses, forecasts target occupancy at candidate inspection times, and incorporates new RGB-D evidence. Negative observations downweight location hypotheses according to calibrated, visibility-conditioned detection probabilities, while evidence tracking prevents repeated use of the same observations. A frozen, zero-shot vision-language controller uses the updated belief to choose actions and replan. We further introduce EvoWorld-Bench, a benchmark grounded in human activity traces, comprising 54 scenes ",
+  "summary_1line": "Persistent spatial memory enables embodied agents to navigate familiar environments across repeated visits. However, targets may move while unobserved, including during navigation, making remembered locations unreliab...",
+  "title": "Beyond the Remembered World: Predictive 4D Belief for Persistent Navigation in Evolving Worlds",
+  "type": "paper",
+  "url": "http://arxiv.org/abs/2609.39166v1",
+  "why_it_matters": "Matches feed focus: agent, eval."
+ },
  "241e30f3f83490ed": {
   "first_seen": "2026-09-25T18:03:55.062886+00:00",
   "id": "cead7b8ef2c53404",
@@ -4455,7 +4472,7 @@
   "published": "2026-09-30T07:00:00+00:00",
   "sid": "38f39e05799f77e0",
   "source": "hamel_husain",
-  "summary": "Anthropic released new eval tooling for Claude Code . Their claude-api plugin now includes a new build_eval and hill-climb command that helps you build evals, check the graders, and improve your application against them. I usually don’t review eval tools. Software changes so often that a review has a short shelf life. But a first-party tool from Anthropic is likely to influence how people approach evals, so I wanted to try it. Isaac Flath and I livestreamed ourselves using it on conversation traces from an apartment leasing assistant. Here’s what we found: The bad 1. It pushes you to create an eval before looking at data Claude started by suggesting several potential failures, then asked us to pick one straight away to turn into an eval. It gave us the below menu of options, with call-transfer rules as the recommended choice. We hadn’t yet reviewed the conversations ourselves, so it was hard to know if this was a real failure or worth prioritizing. Despite this, we went ahead with the recommended choice, because we figured that’s what typical users would do. I believe you should be looking at data first to inform your understanding and prioritize which evals to write. An agent can help you find issues, but you still should do error analysis to decide which failures deserve attention before proceeding. 2. It asks you to validate judgments without enough context Next, Claude created Markdown files for looking at data associated with the call-transfer failure. In the screenshot ",
+  "summary": "Anthropic released new eval tooling for Claude Code . Their claude-api plugin now includes a new build_eval and hill-climb command that helps you build evals, check the graders, and improve your application against them. I usually don’t review eval tools because software changes so often that reviews have a short shelf life. But a first-party tool from Anthropic is likely to influence how people approach evals, so I wanted to try it and share what I found. Isaac Flath and I livestreamed ourselves using it on conversation traces from an apartment leasing assistant. Here’s what we found: The bad 1. It pushes you to create an eval before looking at data Claude started by suggesting several potential failures, then asked us to pick one straight away to turn into an eval. It gave us the below menu of options, with call-transfer rules as the recommended choice. We hadn’t yet reviewed the conversations ourselves, so it was hard to know if this was a real failure or worth prioritizing. Despite this, we went ahead with the recommended choice, because we figured that’s what typical users would do. I believe you should be looking at data first to inform your understanding and prioritize which evals to write. An agent can help you find issues, but you still should do error analysis to decide which failures deserve attention before proceeding. 2. It asks you to validate judgments without enough context Next, Claude created Markdown files for looking at data associated with the call-transf",
   "summary_1line": "Anthropic released new eval tooling for Claude Code . Their claude-api plugin now includes a new build_eval and hill-climb command that helps you build evals, check the graders, and improve your application against th...",
   "title": "Claude’s new auto eval tool",
   "type": "news",
