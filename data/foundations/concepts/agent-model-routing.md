@@ -2,10 +2,10 @@
 slug: agent-model-routing
 title: "When should an agent route a call to a cheaper model instead of the frontier model?"
 question: "When should an agent route a call to a cheaper model instead of the frontier model?"
-summary: "Independent routing systems at LangChain, Databricks, and Glean converge on the same shape — classify each call's complexity cheaply, default to a mid-tier model, escalate to frontier only on a specific signal — and each reports 30-75% cost cuts, but the escalation classifier itself can eat a fifth or more of the savings if you don't budget for it."
+summary: "Independent routing systems at LangChain, Databricks, and Glean converge on the same shape — classify each call's complexity cheaply, default to a mid-tier model, escalate to frontier only on a specific signal — and each reports 30-75% cost cuts, and a live A/B test of LangChain's Open SWE router found a 64% lower median thread cost with no measurable drop in merged PRs — but the escalation classifier itself can eat a fifth or more of the savings if you don't budget for it."
 status: active
 cluster: operations
-updated: 2026-09-04
+updated: 2026-10-02
 audience: "strong-software-engineer"
 math_depth: ""
 related_topics: [agent-cost, cost-controls]
@@ -22,6 +22,14 @@ evidence:
     title: "Smart Routing in Unity AI Gateway"
     url: "https://www.databricks.com/blog/smart-routing-unity-ai-gateway-match-frontier-quality-30-lower-cost-task"
     note: "Unity AI Gateway's Smart Routing classifies task complexity once at session start with a small, fast extractor model, not a frontier model, then defaults to a medium-sized model and escalates only when the derived task/language labels call for frontier-level capability. Databricks reports 35% cost savings on internal benchmarking, 56% on public benchmarks, and matching Opus 5 quality at under half the cost."
+  - id: langchain-2026-open-swe-model-router
+    kind: production-field-report
+    title: "How to Build a Model Router in the Harness"
+    url: "https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness"
+    note: "LangChain's A/B test of a router built into Open SWE's harness as middleware: one classifier decision per thread, assigning it to a fast, balanced, or performance model tier. Across 973 threads (Sep 16-22), the median routed thread cost $0.94 versus $2.61 for control (64% less); mean cost fell 42% and p90 fell 37%. 29.2% of routed threads ended in a merged PR versus 27.3% for control (p = 0.49), and PR open rates were flat (38.9% vs 39.6%, p = 0.82). 56% of routed threads went to the balanced tier, 34% to fast, 10% to performance. A fast-only control was stopped after one day because of user complaints about output quality. Caveats from the post: one routing decision per thread (mid-thread topic changes are not handled), quality partly measured from sparse user feedback, and the criteria are tied to Open SWE's task mix. A later version swaps the structured-output classifier for the Jev decision model, which the post says classifies almost 50x faster."
+  - id: story-378de5b0a4ef1ffb-langchain-model-router
+    kind: story
+    sid: 378de5b0a4ef1ffb
   - id: story-b6461cff58b0d468-glean-model-routing
     kind: story
     sid: b6461cff58b0d468
@@ -39,6 +47,8 @@ evidence:
 covers_evidence:
   - langchain-2026-switchyard-agent-routing-benchmark
   - databricks-2026-unity-ai-gateway-smart-routing
+  - langchain-2026-open-swe-model-router
+  - story-378de5b0a4ef1ffb-langchain-model-router
   - story-b6461cff58b0d468-glean-model-routing
   - story-c26d5834adc52fbd-gartner-inference-cost-forecast
   - agent-model-routing-editorial-synthesis
@@ -66,7 +76,10 @@ Databricks' Smart Routing runs classification once, at session start, rather tha
 
 Glean's Waldo model sits earlier in the pipeline: before any frontier call, it decomposes the incoming query and decides which tools and steps the task actually needs, which is what produces the reported 50% latency cut and 25% token cut independent of which model eventually handles each step.
 
+A fourth, per-thread variant has live outcome data. LangChain's Open SWE router makes one classifier decision when a thread starts and sends it to a fast, balanced, or performance tier. In a 973-thread A/B test, median thread cost fell 64% ($0.94 vs $2.61) while merged-PR rate was statistically indistinguishable from control (29.2% vs 27.3%, p = 0.49). Its builders chose the three tiers from the cost-versus-intelligence Pareto frontier and wrote the routing criteria from traces of their own task mix, so the criteria do not transfer to other agents unchanged.
+
 ## Evidence
+- Production-field-report-backed (LangChain Open SWE): a 973-thread live A/B test with cost and merged-PR outcomes, plus the authors' stated limits (one decision per thread, sparse feedback).
 - Benchmark-result-backed (LangChain): a controlled 145-task benchmark of NeMo Switchyard's escalation routing, with exact cost, accuracy, and spend-distribution numbers.
 - Primary-doc-backed (Databricks): the vendor's own account of Unity AI Gateway's session-start classification mechanism and reported cost savings.
 - Story-backed (Glean, via Latent Space interview): CEO Arvind Jain's account of Waldo's decomposition-based pre-filtering and Glean's per-task cost comparison.
@@ -76,6 +89,8 @@ Glean's Waldo model sits earlier in the pipeline: before any frontier call, it d
 ## How to apply
 - **Route per call, not per task type.** A single "coding agent" task mixes trivial file reads with genuinely hard planning steps; routing by task category misses that most of the cost concentrates in a small share of calls within any task.
 - **Budget the classifier or judge's own inference cost.** LangChain's judge model consumed 21.2% of routed spend — a naive routing implementation can silently reintroduce much of the savings you're chasing if the escalation signal itself isn't cheap.
+- **Measure the router with a live A/B on an outcome, not only cost.** LangChain compared merged-PR rate between routed and control threads; a cost-only readout would not have shown whether quality held.
+- **Derive routing criteria and tiers from your own traces.** Open SWE's criteria came from its own task mix and tiers from the cost-intelligence frontier; copying another team's thresholds skips that step.
 - **Pick an escalation signal you can compute cheaply and repeatedly**: consecutive judge failures (LangChain), task-complexity labels derived once at session start (Databricks), or a decomposition pre-filter before any frontier call (Glean) — not a static allowlist of task types.
 - **Decide the accuracy tradeoff explicitly before shipping.** LangChain's benchmark traded 6 points of accuracy (86.0% to 80.0%) for a 74% cost cut; that trade is acceptable for some workloads and not others, and it should be a deliberate choice, not a side effect.
 - **Treat routing as infrastructure that has to keep working as usage grows**, not a one-time tuning pass — Gartner's forecast of a fivefold rise in per-workflow inference cost by 2028 is the reason all three vendors here shipped routing as a standing product feature rather than a manual cost-cutting exercise.
@@ -84,6 +99,7 @@ Glean's Waldo model sits earlier in the pipeline: before any frontier call, it d
 - Treating model routing as a one-time model swap (send everything to a cheaper model) instead of a per-call decision with a real escalation path back to frontier capability.
 - Ignoring the classifier or judge model's own inference cost, which can consume a fifth or more of total routed spend and quietly erode the savings the router was built to capture.
 - Routing on a static rule (task category, user tier, time of day) instead of a live complexity or confidence signal, missing that cost concentrates in a small share of genuinely hard calls regardless of task type.
+- Routing once per thread and assuming the first classification holds: Open SWE's router does not handle topic changes mid-thread.
 - Optimizing for cost without measuring the accuracy delta, and shipping a router that trades away more quality than the use case can tolerate.
 
 ## Related

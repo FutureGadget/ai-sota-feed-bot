@@ -5,7 +5,7 @@ question: "What should an agent eval actually measure?"
 summary: "An agent eval only earns its keep if it grades the trajectory (not just the final text), separates cheap deterministic graders from expensive model-based ones, and gets audited as hard as the agent — Anthropic's own eval-building guidance reports a coding benchmark score jumping from 42% to 95% after fixing bugs in the eval itself, not the agent."
 status: active
 cluster: evaluation
-updated: 2026-09-02
+updated: 2026-10-02
 audience: "strong-software-engineer"
 related_topics: [agent-evaluation, agent-benchmarks]
 related_playbook_cards: []
@@ -16,6 +16,14 @@ evidence:
     title: "Demystifying evals for AI agents"
     url: "https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents"
     note: "Anthropic's own guide to building agent evals. Defines an eval as an input plus grading logic, and names three grader types — code-based (fast, cheap, objective), model-based (flexible, handles nuance, non-deterministic and expensive), and human (highest quality, slowest, most expensive). Gives an eight-step program for starting an eval: begin with 20-50 tasks pulled from real failures rather than hundreds of synthetic ones, convert existing manual checks into test cases, write unambiguous tasks with reference solutions, balance positive and negative cases, build stable isolated test environments, prefer deterministic graders over brittle step-by-step checking, read transcripts regularly to verify the grader is being fair, and watch for eval saturation once scores plateau. Introduces pass@k (probability at least one of k attempts succeeds) and pass^k (probability all k attempts succeed) as the two metrics needed once agent behavior is non-deterministic across runs. Gives agent-type-specific grading guidance: coding agents get unit tests plus separate transcript grading; conversational agents combine state verification with LLM rubrics for tone; research agents need groundedness, coverage, and source-quality checks; computer-use agents need both interface-state checks (DOM, screenshots) and backend state checks. Reports that Opus 4.5's measured score on CORE-Bench rose from 42% to 95% after the Anthropic team fixed grading bugs, ambiguous task specifications, and stochastic tasks in the eval itself — the agent's underlying capability had not changed."
+  - id: arxiv-2610-01618-agents-are-systems
+    kind: benchmark-result
+    title: "Agents Are Systems, Not Models: Rethinking Agentic Evaluation"
+    url: "http://arxiv.org/abs/2610.01618v1"
+    note: "Studies a coding agent on four scientific tasks that require locating and operating specialist models, across more than 18,000 trajectories, varying task information, reasoning approach, self-verification, time budget, and backbone model. Reports that 54% of outcome variance came from run-to-run variability within identical configurations; that task information had the largest effect, larger than time budget or model size; that extra time only helped given enough information or a capable model; and that verification tools changed agent behavior substantially while verification prompts had minimal effect. Recommends evaluating agents as configurable systems and implementing desired behaviors through tools and dedicated components rather than prompting alone."
+  - id: story-068e3817b6d56fbd-agents-are-systems
+    kind: story
+    sid: "068e3817b6d56fbd"
   - id: story-6c790a16de0afd2b-demystifying-agent-evals
     kind: story
     sid: "6c790a16de0afd2b"
@@ -25,6 +33,8 @@ evidence:
     note: "A low eval score is a claim about two things at once — the agent's behavior and the eval's own correctness — and builders default to debugging the first without ever checking the second. Treating the eval itself as a piece of software that needs its own bug-fixing pass, before trusting what it reports about the agent, is the practical takeaway underneath Anthropic's specific grading guidance."
 covers_evidence:
   - anthropic-2026-demystifying-agent-evals
+  - arxiv-2610-01618-agents-are-systems
+  - story-068e3817b6d56fbd-agents-are-systems
   - story-6c790a16de0afd2b-demystifying-agent-evals
   - agent-eval-design-editorial-synthesis
 ---
@@ -48,11 +58,14 @@ Test environments need to be stable and isolated — a flaky sandbox or shared e
 
 Grading strategy differs by agent type because the artifact worth checking differs: a coding agent's output has a checkable ground truth (does the code pass the unit tests), so unit tests grade the outcome while a separate pass grades the transcript for process quality (did it take reasonable steps, not just reach a lucky final state). A conversational agent has no single checkable output, so state verification (did the right backend action happen) pairs with an LLM rubric for qualities like tone that only a model-based grader can assess. A research agent's output requires checking groundedness (is the claim actually supported by what was retrieved), coverage (did it miss an obvious source), and source quality — three different checks, not one score. A computer-use agent needs both what the interface shows (DOM state, screenshots) and what actually happened underneath (backend state), because an agent can produce a screen that looks correct while the underlying action failed or vice versa.
 
+An agent's configuration is part of what the eval measures. A study of more than 18,000 coding-agent trajectories on four scientific tasks found that 54% of outcome variance came from run-to-run noise within identical configurations, and that the task information given to the agent moved results more than time budget or model size. The same study found that adding a verification tool changed behavior substantially while adding a verification instruction to the prompt barely did. So an eval needs repeated runs per configuration, and a score is a statement about the whole agent system (tools, context, budget, model), not the model alone.
+
 Finally, eval saturation is a signal to watch for on its own: once scores plateau near the ceiling, the eval has stopped discriminating between a good and a great agent, and continuing to optimize against it risks tuning to the eval's specific blind spots rather than to real capability — the same dynamic covered in [does a high benchmark score predict production reliability?](/foundations/benchmark-production-reliability-gap) for benchmarks generally.
 
 ## Evidence
 - Primary-doc-backed: Anthropic's own eval-engineering guidance lays out the three grader types, the eight-step program for starting an eval, the pass@k/pass^k distinction, and per-agent-type grading guidance, all as practices the team uses to build agent evals internally.
 - Primary-doc-backed: the same guidance reports a concrete before/after measurement — Opus 4.5 on CORE-Bench moved from 42% to 95% purely from fixing grading bugs, ambiguous specs, and stochastic tasks in the eval, with no change to the agent — direct evidence that eval quality can dominate the measured score.
+- Benchmark-result-backed: an 18,000-trajectory study of coding agents on scientific tasks reports that run-to-run variance dominated outcomes (54%), that task information outweighed time budget and model size, and that verification tools changed behavior where verification prompts did not.
 - Editorial inference: the practical discipline of auditing the eval before trusting a low score is LLM Digest's synthesis of what Anthropic's guidance implies for how a team should react to a bad result.
 
 ## How to apply
@@ -61,6 +74,8 @@ Finally, eval saturation is a signal to watch for on its own: once scores platea
 - **Report both pass@k and pass^k when k attempts are available.** They answer different production questions (can it ever solve this vs. can you trust it every time) and collapsing them into one aggregate number hides which one you actually have.
 - **Match grader type to how often and how urgently the check needs to run.** Use code-based graders for anything you can express deterministically and want on every commit; reserve model-based graders for qualities (tone, groundedness, nuance) a static check can't express; keep human grading for periodic calibration of the automated graders, not as the primary loop.
 - **Grade the trajectory, not only the final output, for agentic tasks.** A coding agent's unit-test pass and its process quality are different signals — a lucky pass through a bad process is a risk the outcome-only score won't show you.
+- **Run each configuration several times and report the spread.** If run-to-run noise is on the order the 18,000-trajectory study found (54% of variance), a single run per config cannot separate a real improvement from luck.
+- **Evaluate the agent as a system, and change behavior with tools rather than prompt lines.** Vary task information, budget, and tooling as explicit eval dimensions; when you need a behavior such as self-verification, test a tool or dedicated component, since a verification prompt showed little effect in that study.
 - **Watch for saturation.** If scores plateau near ceiling, stop optimizing against that eval version and either raise its difficulty or treat further gains on it with skepticism.
 
 ## Failure modes
@@ -69,6 +84,8 @@ Finally, eval saturation is a signal to watch for on its own: once scores platea
 - Requiring an exact intermediate-step match instead of grading trajectory soundness and outcome separately, penalizing an agent that reached a correct result through a different valid path.
 - Building an eval only from tasks the agent should succeed at, with no negative cases, so overconfident or unwarranted-refusal behavior never gets caught.
 - Running evals against a flaky or shared test environment, introducing score noise indistinguishable from a real regression.
+- Comparing two agent configurations from one run each, so run-to-run variance is read as a real difference.
+- Attributing a score change to the model when the task information, budget, or tooling also changed.
 - Continuing to optimize against a saturated eval, tuning to that eval's specific blind spots instead of real capability.
 
 ## Related
