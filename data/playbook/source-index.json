@@ -18,6 +18,25 @@
     },
     "edition_date": "2026-09-11"
   },
+  "068e3817b6d56fbd": {
+    "id": "pb-eval-agent-config",
+    "kind": "source-backed",
+    "title": "Evaluate the agent configuration, not just the model",
+    "area": "Evals",
+    "problem": "Single success-rate numbers hide that cost, consistency and robustness shift with the agent's configuration.",
+    "apply": "Treat prompts, tools and harness settings as variables in your eval matrix, and report cost, consistency and robustness for each configuration alongside success rate.",
+    "result": "You can see which configuration change moved the metric before shipping it.",
+    "effort": "medium",
+    "source": "arxiv_agent_systems_research",
+    "source_url": "http://arxiv.org/abs/2610.01618v1",
+    "source_sid": "068e3817b6d56fbd",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from the paper's argument that agents are configurable systems, not fixed models."
+    },
+    "edition_date": "2026-10-02"
+  },
   "0699bffbf5848607": {
     "id": "pb-langsmith-preview-builds",
     "kind": "source-backed",
@@ -892,6 +911,25 @@
     },
     "edition_date": "2026-08-07"
   },
+  "378de5b0a4ef1ffb": {
+    "id": "pb-route-models-in-harness",
+    "kind": "source-backed",
+    "title": "Route each coding task to the cheapest model that can handle it",
+    "area": "Cost & latency",
+    "problem": "Sending every agent step to your top model inflates cost on tasks a cheaper model handles fine.",
+    "apply": "Add a model router inside the agent harness that picks the model per task, as Open SWE does, and compare router output against your single-model baseline on your own task set before switching traffic.",
+    "result": "LangChain reports a 64% cut in median cost per coding task with no measurable quality drop.",
+    "effort": "medium",
+    "source": "langchain_blog",
+    "source_url": "https://www.langchain.com/blog/how-to-build-a-model-router-in-the-harness",
+    "source_sid": "378de5b0a4ef1ffb",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "LangChain reports a 64% median cost reduction on Open SWE coding tasks with no measurable quality drop."
+    },
+    "edition_date": "2026-10-02"
+  },
   "381ed851c46a02e9": {
     "id": "pb-dual-layer-agent-monitoring",
     "kind": "source-backed",
@@ -1442,6 +1480,25 @@
       "note": "Direct description of the new consent model's security benefit; no measured incident-reduction figure was in the bundled summary."
     },
     "edition_date": "2026-08-25"
+  },
+  "5f38f7da2d8e299d": {
+    "id": "pb-eval-hillclimb-guard",
+    "kind": "source-backed",
+    "title": "Hillclimb against evals only after you have checked the graders",
+    "area": "Evals",
+    "problem": "Optimizing prompts against an unvalidated eval rewards graders' blind spots, not real quality.",
+    "apply": "Build the eval, verify each grader against hand-labeled cases first, then iterate on the app. The claude-api skill's build-eval and hillclimb commands automate this loop.",
+    "result": "Score gains you see are more likely to reflect real improvement rather than overfit grading.",
+    "effort": "medium",
+    "source": "claude_dev_blog",
+    "source_url": "https://claude.dev/blog/automating-eval-design-and-hillclimbing/",
+    "source_sid": "5f38f7da2d8e299d",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from Anthropic's published principles for designing evals and hillclimbing without fooling yourself."
+    },
+    "edition_date": "2026-10-02"
   },
   "5f62e504fe47f345": {
     "id": "pb-injection-attack-chain",
@@ -2412,6 +2469,25 @@
     },
     "edition_date": "2026-08-11"
   },
+  "a69bd0ab88575726": {
+    "id": "pb-portable-agent-permissions",
+    "kind": "source-backed",
+    "title": "Package agent permissions as an OCI artifact alongside the agent",
+    "area": "Safety",
+    "problem": "Agent access rules live in ad-hoc configs, so they drift between laptop, CI and cloud.",
+    "apply": "Describe filesystem, network and tool access in a Docker Sandbox Kit spec and ship it with the agent image, so every environment enforces the same declared permissions.",
+    "result": "The same agent runs with identical, reviewable access boundaries wherever it is deployed.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/10/docker-sandbox-ai-agent/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "a69bd0ab88575726",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from Docker's announcement donating the Sandbox Kit Specification to the CNCF."
+    },
+    "edition_date": "2026-10-02"
+  },
   "a96fc20a139c014c": {
     "id": "pb-train-local-proxy-model-for-per-row-llm-calls",
     "kind": "source-backed",
@@ -2525,6 +2601,25 @@
       "note": "Stripe's benchmark measured 92% (Claude Opus 4.5) and 73% (GPT-5.2) on full-stack tasks and named the validation gap; the specific validation-layer architecture is the editor's translation of that finding into a concrete build step."
     },
     "edition_date": "2026-07-17"
+  },
+  "b37c7cb1295646d6": {
+    "id": "pb-snapshot-gpu-pods",
+    "kind": "source-backed",
+    "title": "Snapshot GPU pods to cut model cold-start time",
+    "area": "Cost & latency",
+    "problem": "Autoscaled inference pods spend minutes loading large model weights before serving a request.",
+    "apply": "On GKE, enable Pod Snapshots so CPU and GPU memory is checkpointed to Cloud Storage and restored on scale-up, and budget for managing snapshot lifecycle.",
+    "result": "Google's benchmarks report up to 89% lower startup latency, with a 70B model loading in 37 seconds.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/news/2026/09/gke-pod-snapshots-benchmarks/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "b37c7cb1295646d6",
+    "topic_url": null,
+    "evidence": {
+      "kind": "source-measured",
+      "note": "Google's published GKE Pod Snapshot benchmarks report up to 89% lower startup latency and a 37-second 70B load."
+    },
+    "edition_date": "2026-10-02"
   },
   "b3d2576e2dbda990": {
     "id": "pb-subagent-context-mode-by-role",
@@ -3019,6 +3114,25 @@
       "note": "GitLab's own account of its internal sandbox-escape evaluation and the mitigation it recommends."
     },
     "edition_date": "2026-09-11"
+  },
+  "cbc6244d5b72f1aa": {
+    "id": "pb-context-as-code",
+    "kind": "source-backed",
+    "title": "Version, test and ship agent context like code",
+    "area": "Memory",
+    "problem": "Prompts, rules and context files change by hand with no tests, review or rollback.",
+    "apply": "Keep context in a repo, add evals that run in CI on every change, and distribute it through a package manager with observability on what the agent actually loaded.",
+    "result": "Context regressions are caught in CI and are traceable to a specific commit.",
+    "effort": "medium",
+    "source": "infoq_ai_ml",
+    "source_url": "https://www.infoq.com/presentations/context-as-code-devops-agents/?utm_campaign=infoq_content&utm_source=infoq&utm_medium=feed&utm_term=AI%2C+ML+%26+Data+Engineering",
+    "source_sid": "cbc6244d5b72f1aa",
+    "topic_url": null,
+    "evidence": {
+      "kind": "editorial-inference",
+      "note": "Editorial inference from Patrick Debois's talk on treating context with testing, CI/CD and package management."
+    },
+    "edition_date": "2026-10-02"
   },
   "cc74131efa65cff2": {
     "id": "pb-swe-gate-review-constraints",
