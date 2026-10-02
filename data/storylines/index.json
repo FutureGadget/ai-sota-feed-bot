@@ -1,7 +1,41 @@
 {
- "generated_at": "2026-10-02T00:03:56.090537+00:00",
+ "generated_at": "2026-10-02T05:04:18.155761+00:00",
  "window_days": 21,
  "storylines": [
+  {
+   "slug": "reinforcement-learning",
+   "label": "Reinforcement Learning",
+   "item_count": 4,
+   "day_count": 3,
+   "source_count": 4,
+   "first_seen": "2026-09-22T16:27:46+00:00",
+   "last_updated": "2026-10-01T17:14:32+00:00",
+   "latest_title": "Homomorphic Advantage Operator: Stabilizing Reinforcement Learning Under Fully Homomorphic Encryption Constraints",
+   "days": [
+    "2026-09-22",
+    "2026-09-25",
+    "2026-10-01"
+   ],
+   "member_sids": [
+    "e24d8bc5a3c1ce39",
+    "8c09c3a2477816c8",
+    "95f314d9972fcd38",
+    "c805ac88165186b6"
+   ],
+   "member_urls": [
+    "http://arxiv.org/abs/2609.26667v1",
+    "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
+    "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput",
+    "http://arxiv.org/abs/2610.02074v1"
+   ],
+   "editorial": {
+    "tldr": "Reinforcement Learning is a loose grouping of unrelated RL developments, not a developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
+    "stale": false,
+    "whats_new": "An Oct 1 arXiv paper proposes a Homomorphic Advantage Operator to stabilize RL training under fully homomorphic encryption, aimed at cloud deployments with confidential data.",
+    "why_it_matters": "Teams running RL post-training at scale now have AWS and Google reference architectures; teams with confidential data have a research direction, not yet a production recipe, for training under encryption.",
+    "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. For encrypted-data RL, treat the Oct 1 paper as research to watch, not something to deploy."
+   }
+  },
   {
    "slug": "jev-system",
    "label": "Jev System",
@@ -112,6 +146,36 @@
      "changed": "2026-09-30",
      "detail": "Three papers, all single-paper claims with no independent replication yet."
     }
+   }
+  },
+  {
+   "slug": "claude-s-build-eval-and-hill-climb-tooling",
+   "label": "Claude's build-eval and hill-climb tooling",
+   "item_count": 2,
+   "day_count": 2,
+   "source_count": 2,
+   "first_seen": "2026-09-28T12:00:00+00:00",
+   "last_updated": "2026-09-30T07:00:00+00:00",
+   "via_scout": true,
+   "latest_title": "Claude’s new auto eval tool",
+   "days": [
+    "2026-09-28",
+    "2026-09-30"
+   ],
+   "member_sids": [
+    "5f38f7da2d8e299d",
+    "38f39e05799f77e0"
+   ],
+   "member_urls": [
+    "https://claude.dev/blog/automating-eval-design-and-hillclimbing",
+    "https://hamel.dev/blog/posts/claude-auto-evals"
+   ],
+   "editorial": {
+    "tldr": "Anthropic added build-eval and hillclimb commands to its claude-api plugin on Sep 28, alongside a post on designing evals without fooling yourself. Hamel Husain reviewed the tooling two days later.",
+    "stale": false,
+    "whats_new": "Hamel Husain reviewed the new build_eval and hill-climb commands on Sep 30, calling a first-party Anthropic eval tool likely to shape how teams build evals.",
+    "why_it_matters": "A first-party eval workflow in the Claude Code plugin sets a default for how many teams will build graders and iterate prompts, so its grader checks and overfitting guardrails are worth auditing before you adopt them.",
+    "take_for_builders": "Run build_eval on one existing agent task and compare its graders against your hand-written ones before replacing them; hold out a case set that hillclimb never sees."
    }
   },
   {
@@ -362,10 +426,10 @@
   {
    "slug": "deepseek-v4-1-flash",
    "label": "DeepSeek V4.1-Flash",
-   "item_count": 17,
+   "item_count": 15,
    "day_count": 9,
    "source_count": 2,
-   "first_seen": "2026-09-11T02:51:53+00:00",
+   "first_seen": "2026-09-11T06:36:39+00:00",
    "last_updated": "2026-09-27T05:47:25+00:00",
    "via_scout": true,
    "latest_title": "DeepSeek V4.1-Flash Pricing: 70% Cheaper, Beats Opus 5",
@@ -381,8 +445,6 @@
     "2026-09-27"
    ],
    "member_sids": [
-    "b09af1e7b84d5bc6",
-    "9ed712b3a9231c87",
     "457fb6ff524d5b8a",
     "5a254df52928f177",
     "6a7c8171f04a20cb",
@@ -401,8 +463,6 @@
     "4ce1e97ce10c119a"
    ],
    "member_urls": [
-    "https://news.google.com/rss/articles/CBMihAFBVV95cUxNRDRHczRNeDZiXy1HeXIyRXhqM2lUQ04yMHNjZTlVSHJEYkVHcW1hRTFfRUNENkY3a3ZJblprNUlYSHVLNjJYZGc0X2VvS3pnTzFfVTRqejJ0SG1KVGRzY28wVFNiT0VhOUdmSGY5X2owcmZWWndORERaSV91Wl9LOEF6Y0rSAYoBQVVfeXFMTlU0UXlJNjYtZ0FjMGhSWHA5b0hDekZIdncya084T0NiRmk4Q1pwS2szVHUycXdkZGRMd1Q5SW1mU2diMVpIOFk5QXZDYU90U2JpVW4zZWMyVkpXbTVQTFVJbDFPdVhvQmpQZDVzSnRFZVJIUmFNMERORGVHMzYtbHEtU1RoOW1pUl9n?oc=5",
-    "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXNraGVUR05tcWxCRDcxN0JvZ3p6LUM0M051alpoOHVLV0ZManJGTG92R2R6aUZ6Y1ZmdlQ1Y0VLUnB1NzNfMXlic0pVaW1ieDNmUWRuczE5bW1kaG8wYnZ2OEtIZnhnYUcyNHBQMjNEVk9oWldoX0tma0FKSkNuODVqdnVMVlQ3UzBJdzJNcXZMWlR4SWFBWE1FdmUxT25NbUViNUJfTUFudVcxRkh5dEtKMA?oc=5",
     "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNWDVJWExfQVJmREU3TU12NnZMbkl5RTE0b2pVT29kZXVTaFdfNXJfb1lkcnRoS3ZwbGNFakZYMzVnaW0yUHpMQW5mUzlQSDhXekxLcTRfMktYRVY5Y0JodFo0Q0dKeHMtNk1zYm5IV092UThwbEx3OFY2SmRGMkdIN2xnQUZJeXMwc3NacE9YNGxsRGN1cXVUaFlsenNWOWJRZEdXeDRtT3VTVnEwUGlJM3BhaHhiM2d3NjZZazBQa21RaXJKZVBQOQ?oc=5",
     "https://news.google.com/rss/articles/CBMiggJBVV95cUxQYzk4MzNIdGNsSUFGRnlaZU5JRlpFXzc5OWc0T3BLOXR2SUhkLUxRZlU3b214U25FbmlzXzBXS084RExNZnM4UGhqaEdISkZHTVFHUFhVdmpwTDdFeUpXNXRNeXUyRVFFZEptT2puaTNtczRmQzczZ3lSSDk0LUpFcXRQbFFjVkdJakpxUC16M001NHprbWFVV2NCbHlremhab0V6aTFtb2UweUYyczJ0Rzg3RUlVQnpsb3duc2NPMC1relgyOFlNckRtYktYRlFTTGFoMzNkdkZ1ZFkwN1Z6OGNhSXVWVG1mVFRUZ2dYd3FOa0hZV1BjX1U4TERNdnc2T1E?oc=5",
     "https://news.google.com/rss/articles/CBMilgFBVV95cUxOVldMTVRqN203VVQ2NDFFOE5aQWpCMWRxSThoRWZxRGxuYjR6OWNuZUtUY3ctYVNrVUw2bGQ0TFg4VmRpTUVTM2d5aVBpaFZlUFRnYS1feHNuNFlXbDJXYVY1Z01mMmliRGNXOW1aVUgxUTlYNVZoYjVjVnhycS1mQWg4azN5ZTdzajdsU2RTaGZQQTJNSGc?oc=5",
@@ -464,37 +524,6 @@
       }
      ]
     }
-   }
-  },
-  {
-   "slug": "reinforcement-learning",
-   "label": "Reinforcement Learning",
-   "item_count": 3,
-   "day_count": 2,
-   "source_count": 3,
-   "first_seen": "2026-09-22T16:27:46+00:00",
-   "last_updated": "2026-09-25T16:29:50+00:00",
-   "latest_title": "Scaling MoE reinforcement learning on Amazon EKS with EFA and DeepEP with 40% more throughput",
-   "days": [
-    "2026-09-22",
-    "2026-09-25"
-   ],
-   "member_sids": [
-    "e24d8bc5a3c1ce39",
-    "8c09c3a2477816c8",
-    "95f314d9972fcd38"
-   ],
-   "member_urls": [
-    "http://arxiv.org/abs/2609.26667v1",
-    "https://cloud.google.com/blog/topics/developers-practitioners/best-practices-guide-for-customizing-gemini-models",
-    "https://aws.amazon.com/blogs/machine-learning/scaling-moe-reinforcement-learning-on-amazon-eks-with-efa-and-deepep-with-40-more-throughput"
-   ],
-   "editorial": {
-    "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
-    "stale": false,
-    "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
-    "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
-    "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch."
    }
   },
   {
@@ -578,64 +607,6 @@
      "tone": "now",
      "changed": "2026-09-24",
      "detail": "Live with Live Avatar exited preview into general availability in Gemini Enterprise; the TTS model pair has been in general release since Sep 23."
-    }
-   }
-  },
-  {
-   "slug": "meta-muse",
-   "label": "Meta Muse",
-   "item_count": 3,
-   "day_count": 3,
-   "source_count": 3,
-   "first_seen": "2026-09-15T10:16:45+00:00",
-   "last_updated": "2026-09-24T08:12:59+00:00",
-   "latest_title": "[AINews] Meta Connect 2026: Muse glasses, voice, video, and Charm",
-   "days": [
-    "2026-09-15",
-    "2026-09-22",
-    "2026-09-24"
-   ],
-   "member_sids": [
-    "2886f62732cdbcb9",
-    "499cf9f45f197b68",
-    "b50ee818f2970d6d"
-   ],
-   "member_urls": [
-    "https://stereogum.com/2510793/meta-kicks-muse-off-their-social-handles-to-launch-new-ai-agent/news",
-    "https://news.google.com/rss/articles/CBMi5gFBVV95cUxON2sxakdrZVMxLVh0YXVHR0JWeHpzZ0pGdlJPWXJsTHlIMXNzS0EtZm9mZDlpZm1vd3pkeVlCX29hc3FMY2FBME5PZnE1Ym9Kdld1UXFUZUM2RHFNaFdmNUdsQTlfVmR1S1pXYjRxOHJmcEtmSm0yLWc2NzBBbEVDUUdRSmVVd0ZHd09vc2dNakEwYWxiMlMwMkNSMnV4d01yUWhjMDJwV1o3MUFMbkJIVnZ5d1lydlVlYkRGSzZLVENYbTNaUVhJQi1SNlJiSVRLbFFCTm9xVkNhLVVLTWNXUk1vNkpLUQ?oc=5",
-    "https://www.latent.space/p/ainews-meta-connect-2026-muse-glasses"
-   ],
-   "editorial": {
-    "tldr": "Meta moved its Muse AI agent off its old social handles on Sep 15 to launch it as a standalone product. A Sep 22 analyst take argued Muse is a bigger threat to OpenAI and Anthropic than expected.",
-    "stale": false,
-    "whats_new": "Meta Connect 2026 on Sep 24 widened Muse beyond the agent into glasses, voice, video and a feature called Charm, per Latent Space's AINews roundup.",
-    "why_it_matters": "Muse is now a multi-surface Meta product line rather than a single agent, but the coverage here is launch framing and analyst opinion with no pricing, API access, or benchmarks to evaluate.",
-    "take_for_builders": "Nothing here is testable yet: keep Muse off your evaluation roadmap until Meta publishes API access, pricing, or benchmarks.",
-    "status": {
-     "state": "Expanding · specs undisclosed",
-     "tone": "rising",
-     "changed": "2026-09-24",
-     "detail": "Muse went from a standalone agent launch to a Connect-stage product family; the sources so far carry no pricing, availability, or benchmark detail.",
-     "track": [
-      {
-       "label": "agent launch",
-       "detail": "Sep 15",
-       "tone": "launch",
-       "weight": 30
-      },
-      {
-       "label": "analyst framing",
-       "detail": "Sep 22",
-       "tone": "neutral",
-       "weight": 30
-      },
-      {
-       "label": "Connect expansion",
-       "detail": "Sep 24 → now",
-       "tone": "now",
-       "weight": 40
-      }
-     ]
     }
    }
   }

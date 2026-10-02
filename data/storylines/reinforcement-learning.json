@@ -1,13 +1,14 @@
 {
  "slug": "reinforcement-learning",
  "label": "Reinforcement Learning",
- "item_count": 3,
- "day_count": 2,
- "source_count": 3,
+ "item_count": 4,
+ "day_count": 3,
+ "source_count": 4,
  "first_seen": "2026-09-22T16:27:46+00:00",
- "last_updated": "2026-09-25T16:29:50+00:00",
- "generated_at": "2026-10-02T00:03:56.090537+00:00",
+ "last_updated": "2026-10-01T17:14:32+00:00",
+ "generated_at": "2026-10-02T05:04:18.155761+00:00",
  "sources": [
+  "arxiv_cs_ai",
   "arxiv_cs_lg",
   "aws_ml_blog",
   "google_cloud_blog"
@@ -54,14 +55,30 @@
      "editor_note": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput."
     }
    ]
+  },
+  {
+   "date": "2026-10-01",
+   "items": [
+    {
+     "title": "Homomorphic Advantage Operator: Stabilizing Reinforcement Learning Under Fully Homomorphic Encryption Constraints",
+     "url": "http://arxiv.org/abs/2610.02074v1",
+     "source": "arxiv_cs_ai",
+     "type": "paper",
+     "summary_1line": "Privacy-preserving machine learning presents significant deployment challenges on the cloud for intelligent systems with confidential data. Fully Homomorphic Encryption (FHE) offers a compelling solution for secure co...",
+     "why_it_matters": "Matches feed focus: agent, eval.",
+     "sid": "c805ac88165186b6",
+     "published": "2026-10-01T17:14:32+00:00",
+     "editor_note": "Arxiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints."
+    }
+   ]
   }
  ],
  "editorial": {
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
+  "tldr": "Reinforcement Learning is a loose grouping of unrelated RL developments, not a developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
   "stale": false,
-  "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
-  "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
-  "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch.",
+  "whats_new": "An Oct 1 arXiv paper proposes a Homomorphic Advantage Operator to stabilize RL training under fully homomorphic encryption, aimed at cloud deployments with confidential data.",
+  "why_it_matters": "Teams running RL post-training at scale now have AWS and Google reference architectures; teams with confidential data have a research direction, not yet a production recipe, for training under encryption.",
+  "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. For encrypted-data RL, treat the Oct 1 paper as research to watch, not something to deploy.",
   "beats": [
    {
     "kicker": "RESEARCH",
@@ -89,13 +106,23 @@
     "sids": [
      "95f314d9972fcd38"
     ]
+   },
+   {
+    "kicker": "RESEARCH",
+    "tone": "neutral",
+    "headline": "Homomorphic Advantage Operator targets RL stability under fully homomorphic encryption",
+    "summary": "Aimed at cloud deployments where training data must stay encrypted.",
+    "sids": [
+     "c805ac88165186b6"
+    ]
    }
   ],
   "open_questions": [
    "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
    "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
-   "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?"
+   "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?",
+   "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?"
   ],
-  "generated_at": "2026-09-25T20:15:00+00:00"
+  "generated_at": "2026-10-02T05:04:13+00:00"
  }
 }
