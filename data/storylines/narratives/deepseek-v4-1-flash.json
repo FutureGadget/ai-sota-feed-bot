@@ -1,6 +1,6 @@
 {
   "slug": "deepseek-v4-1-flash",
-  "generated_at": "2026-10-02T10:03:18+00:00",
+  "generated_at": "2026-10-02T15:03:56Z",
   "covers_last_updated": "2026-09-27T05:47:25+00:00",
   "covers_member_sids": [
     "01a617c33f0013bb",
@@ -8,7 +8,6 @@
     "4cc7a7bea4b884e3",
     "4ce1e97ce10c119a",
     "7f7e6754ebc2c737",
-    "82bd95dd18d293f1",
     "88c84b7dce9138f2",
     "8a60defe95a4d885",
     "94c7e66f5dacc673",
@@ -16,18 +15,18 @@
     "d1d28ac13afc9a24",
     "e3fd47e3082f9e2b"
   ],
-  "tldr": "DeepSeek launched V4.1-Flash around Sep 10-11 as a smaller, faster model, and Sep 12 analysis called its encoder-decoder design a v5-caliber step. On Sep 13 DeepSeek quantified the efficiency claim as a 75% HBM and 87.5% SSD cut.",
+  "tldr": "DeepSeek's V4.1-Flash arrived as a smaller, faster model, and a Sep 12 analysis called its encoder-decoder design a v5-caliber step. On Sep 13 DeepSeek quantified the efficiency claim as a 75% HBM and 87.5% SSD cut.",
   "whats_new": "A Sep 27 shattered.io write-up claims V4.1-Flash beats Anthropic's Opus 5 at 70% lower cost -- the fifth benchmark comparison in this series since launch, now aimed at a Western flagship instead of DeepSeek's own prior models, still with no independent verification.",
   "why_it_matters": "Anyone calling the V4-Pro endpoint is now served different weights than they pinned, at a price that keeps falling, without a version bump to signal either change -- and now a third-party host serves the same model, so routing choices need re-checking too.",
   "status": {
     "state": "Shipped · V4-Pro traffic silently rerouted, now on third-party hosts too",
     "tone": "turn",
     "changed": "2026-09-14",
-    "detail": "V4.1-Flash launched Sep 10-11 as a smaller, faster model, and by Sep 14 DeepSeek was routing all V4-Pro traffic to it at a falling price. Sep 17-27 added benchmark write-ups, architecture specifics, third-party hosting, and a Sep 27 claim of beating Opus 5 at 70% lower cost.",
+    "detail": "V4.1-Flash launched in mid-September as a smaller, faster model, and by Sep 14 DeepSeek was routing all V4-Pro traffic to it at a falling price. Sep 17-27 added benchmark write-ups, architecture specifics, third-party hosting, and a Sep 27 claim of beating Opus 5 at 70% lower cost.",
     "track": [
       {
         "label": "launch",
-        "detail": "Sep 10-11",
+        "detail": "Sep 12",
         "tone": "launch",
         "weight": 30
       },
@@ -55,10 +54,9 @@
     {
       "kicker": "LAUNCH",
       "tone": "launch",
-      "headline": "DeepSeek launches smaller, faster V4.1-Flash and puts pressure on AI pricing",
-      "summary": "A Sep 12 deep dive describes a causal encoder-decoder architecture and says it should have been DeepSeek v5.",
+      "headline": "AINews deep dive: V4.1-Flash's causal encoder-decoder architecture \"should have been DeepSeek v5\"",
+      "summary": "DeepSeek's smaller, faster V4.1-Flash arrives; the Sep 12 analysis is the first technical read.",
       "sids": [
-        "82bd95dd18d293f1",
         "d1d28ac13afc9a24"
       ]
     },
@@ -142,7 +140,6 @@
   ],
   "take_for_builders": "Re-run your eval suite against the V4-Pro endpoint: you're getting V4.1-Flash's outputs at a still-falling price, and any prompt or behavior tuned to V4-Pro specifically may have silently drifted. If you route through ZenMux or another third-party host, verify it serves the same weights before trusting cross-provider evals.",
   "day_captions": {
-    "82bd95dd18d293f1": "First sign the release is already moving competitor pricing.",
     "d1d28ac13afc9a24": "AINews' technical deep dive frames the architecture as v5-caliber.",
     "94c7e66f5dacc673": "Independent benchmark puts V4-Pro 11 points ahead of Qwen3-Coder and Devstral on coding tasks.",
     "4cc7a7bea4b884e3": "Puts exact numbers on the memory cut: 75% less HBM, 87.5% less SSD.",
