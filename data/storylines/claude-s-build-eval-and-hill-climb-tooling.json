@@ -1,0 +1,89 @@
+{
+ "slug": "claude-s-build-eval-and-hill-climb-tooling",
+ "label": "Claude's build-eval and hill-climb tooling",
+ "item_count": 2,
+ "day_count": 2,
+ "source_count": 2,
+ "first_seen": "2026-09-28T12:00:00+00:00",
+ "last_updated": "2026-09-30T07:00:00+00:00",
+ "via_scout": true,
+ "generated_at": "2026-10-02T05:04:18.155761+00:00",
+ "sources": [
+  "claude_dev_blog",
+  "hamel_husain"
+ ],
+ "days": [
+  {
+   "date": "2026-09-28",
+   "items": [
+    {
+     "title": "Automating eval design and hillclimbing with Claude",
+     "url": "https://claude.dev/blog/automating-eval-design-and-hillclimbing",
+     "source": "claude_dev_blog",
+     "type": "news",
+     "summary_1line": "Principles for designing evals and hillclimbing against them without fooling yourself, and how the claude-api skill's build-eval and hillclimb commands put them to work.",
+     "why_it_matters": "Matches feed focus: eval.",
+     "sid": "5f38f7da2d8e299d",
+     "published": "2026-09-28T12:00:00+00:00",
+     "editor_note": "Anthropic's own design principles and command walkthrough for eval building and hillclimbing."
+    }
+   ]
+  },
+  {
+   "date": "2026-09-30",
+   "items": [
+    {
+     "title": "Claude’s new auto eval tool",
+     "url": "https://hamel.dev/blog/posts/claude-auto-evals",
+     "source": "hamel_husain",
+     "type": "news",
+     "summary_1line": "Anthropic released new eval tooling for Claude Code . Their claude-api plugin now includes a new build_eval and hill-climb command that helps you build evals, check the graders, and improve your application against th...",
+     "why_it_matters": "Matches feed focus: agent, eval, claude code.",
+     "sid": "38f39e05799f77e0",
+     "published": "2026-09-30T07:00:00+00:00",
+     "editor_note": "Independent practitioner review of the same commands, with a grader-check focus."
+    }
+   ]
+  }
+ ],
+ "editorial": {
+  "tldr": "Anthropic added build-eval and hillclimb commands to its claude-api plugin on Sep 28, alongside a post on designing evals without fooling yourself. Hamel Husain reviewed the tooling two days later.",
+  "stale": false,
+  "whats_new": "Hamel Husain reviewed the new build_eval and hill-climb commands on Sep 30, calling a first-party Anthropic eval tool likely to shape how teams build evals.",
+  "why_it_matters": "A first-party eval workflow in the Claude Code plugin sets a default for how many teams will build graders and iterate prompts, so its grader checks and overfitting guardrails are worth auditing before you adopt them.",
+  "take_for_builders": "Run build_eval on one existing agent task and compare its graders against your hand-written ones before replacing them; hold out a case set that hillclimb never sees.",
+  "beats": [
+   {
+    "kicker": "LAUNCH",
+    "tone": "launch",
+    "headline": "Anthropic adds build-eval and hillclimb commands to the claude-api plugin",
+    "summary": "The post pairs the commands with principles for hillclimbing against evals without overfitting to them.",
+    "sids": [
+     "5f38f7da2d8e299d"
+    ]
+   },
+   {
+    "kicker": "REACTION",
+    "tone": "now",
+    "headline": "Hamel Husain reviews the tool: build evals, check graders, improve against them",
+    "summary": "He normally skips eval-tool reviews because they age fast, but expects a first-party tool to influence practice.",
+    "sids": [
+     "38f39e05799f77e0"
+    ]
+   }
+  ],
+  "open_questions": [
+   "Does the grader check in build_eval catch graders that score the wrong behavior, in independent use?",
+   "Do hillclimb gains hold up on held-out cases rather than the eval set it optimized against?"
+  ],
+  "provenance": {
+   "5f38f7da2d8e299d": {
+    "surfaced_by": "scout"
+   },
+   "38f39e05799f77e0": {
+    "surfaced_by": "scout"
+   }
+  },
+  "generated_at": "2026-10-02T05:04:13+00:00"
+ }
+}

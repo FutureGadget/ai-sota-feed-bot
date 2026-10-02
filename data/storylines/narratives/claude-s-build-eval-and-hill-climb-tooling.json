@@ -1,0 +1,49 @@
+{
+  "slug": "claude-s-build-eval-and-hill-climb-tooling",
+  "generated_at": "2026-10-02T05:04:13+00:00",
+  "covers_last_updated": "2026-09-30T07:00:00+00:00",
+  "covers_member_sids": [
+    "5f38f7da2d8e299d",
+    "38f39e05799f77e0"
+  ],
+  "tldr": "Anthropic added build-eval and hillclimb commands to its claude-api plugin on Sep 28, alongside a post on designing evals without fooling yourself. Hamel Husain reviewed the tooling two days later.",
+  "whats_new": "Hamel Husain reviewed the new build_eval and hill-climb commands on Sep 30, calling a first-party Anthropic eval tool likely to shape how teams build evals.",
+  "why_it_matters": "A first-party eval workflow in the Claude Code plugin sets a default for how many teams will build graders and iterate prompts, so its grader checks and overfitting guardrails are worth auditing before you adopt them.",
+  "beats": [
+    {
+      "kicker": "LAUNCH",
+      "tone": "launch",
+      "headline": "Anthropic adds build-eval and hillclimb commands to the claude-api plugin",
+      "summary": "The post pairs the commands with principles for hillclimbing against evals without overfitting to them.",
+      "sids": [
+        "5f38f7da2d8e299d"
+      ]
+    },
+    {
+      "kicker": "REACTION",
+      "tone": "now",
+      "headline": "Hamel Husain reviews the tool: build evals, check graders, improve against them",
+      "summary": "He normally skips eval-tool reviews because they age fast, but expects a first-party tool to influence practice.",
+      "sids": [
+        "38f39e05799f77e0"
+      ]
+    }
+  ],
+  "open_questions": [
+    "Does the grader check in build_eval catch graders that score the wrong behavior, in independent use?",
+    "Do hillclimb gains hold up on held-out cases rather than the eval set it optimized against?"
+  ],
+  "take_for_builders": "Run build_eval on one existing agent task and compare its graders against your hand-written ones before replacing them; hold out a case set that hillclimb never sees.",
+  "provenance": {
+    "5f38f7da2d8e299d": {
+      "surfaced_by": "scout"
+    },
+    "38f39e05799f77e0": {
+      "surfaced_by": "scout"
+    }
+  },
+  "day_captions": {
+    "5f38f7da2d8e299d": "Anthropic's own design principles and command walkthrough for eval building and hillclimbing.",
+    "38f39e05799f77e0": "Independent practitioner review of the same commands, with a grader-check focus."
+  }
+}

@@ -1,47 +1,65 @@
 {
   "slug": "reinforcement-learning",
-  "generated_at": "2026-09-25T20:15:00+00:00",
-  "covers_last_updated": "2026-09-25T16:29:50+00:00",
+  "generated_at": "2026-10-02T05:04:13+00:00",
+  "covers_last_updated": "2026-10-01T17:14:32+00:00",
   "covers_member_sids": [
     "e24d8bc5a3c1ce39",
     "8c09c3a2477816c8",
-    "95f314d9972fcd38"
+    "95f314d9972fcd38",
+    "c805ac88165186b6"
   ],
-  "tldr": "Reinforcement Learning is a loose weekly grouping of unrelated RL developments, not a developing story. This window pairs a new multi-agent training paper with two production-scaling guides from Google Cloud and AWS.",
-  "whats_new": "AWS published a concrete recipe for scaling MoE reinforcement-learning training on Amazon EKS with EFA and DeepEP, cutting training overhead for 40% more throughput -- a reference architecture, not just a benchmark claim.",
-  "why_it_matters": "Running large MoE RL training jobs makes the AWS EKS/EFA/DeepEP pattern and Google's Gemini RL customization guide directly usable infrastructure references, not just research talking points.",
+  "tldr": "Reinforcement Learning is a loose grouping of unrelated RL developments, not a developing story. Since Sep 22 it has collected a multi-agent training paper, Google Cloud and AWS production-scaling guides, and a privacy-constrained RL paper.",
+  "whats_new": "An Oct 1 arXiv paper proposes a Homomorphic Advantage Operator to stabilize RL training under fully homomorphic encryption, aimed at cloud deployments with confidential data.",
+  "why_it_matters": "Teams running RL post-training at scale now have AWS and Google reference architectures; teams with confidential data have a research direction, not yet a production recipe, for training under encryption.",
   "beats": [
     {
       "kicker": "RESEARCH",
       "tone": "neutral",
       "headline": "MAGIC learns task-specific multi-agent collaboration graphs with dense-reward RL",
       "summary": "Targets the cost/performance tradeoff of fixed agent-team topologies by constructing task-specific collaboration structure incrementally instead of reusing one fixed graph.",
-      "sids": ["e24d8bc5a3c1ce39"]
+      "sids": [
+        "e24d8bc5a3c1ce39"
+      ]
     },
     {
       "kicker": "GUIDE",
       "tone": "neutral",
       "headline": "Google Cloud publishes a best-practices guide for customizing Gemini via RL",
       "summary": "Addresses the gap external customers face when they lack cluster-scale compute or model-internals access for proprietary models like Gemini.",
-      "sids": ["8c09c3a2477816c8"]
+      "sids": [
+        "8c09c3a2477816c8"
+      ]
     },
     {
       "kicker": "INFRASTRUCTURE",
       "tone": "neutral",
       "headline": "AWS cuts MoE RL training overhead for 40% more throughput on EKS",
       "summary": "A reference architecture combining Amazon EKS, EFA, and S3 to scale mixture-of-experts reinforcement-learning training.",
-      "sids": ["95f314d9972fcd38"]
+      "sids": [
+        "95f314d9972fcd38"
+      ]
+    },
+    {
+      "kicker": "RESEARCH",
+      "tone": "neutral",
+      "headline": "Homomorphic Advantage Operator targets RL stability under fully homomorphic encryption",
+      "summary": "Aimed at cloud deployments where training data must stay encrypted.",
+      "sids": [
+        "c805ac88165186b6"
+      ]
     }
   ],
   "open_questions": [
     "Does MAGIC's learned collaboration topology hold up on agent teams larger than its evaluated benchmarks?",
     "Does Google's Gemini RL customization guide extend to models outside the Gemini family, or is it Gemini-specific tooling?",
-    "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?"
+    "Does the AWS EKS/EFA/DeepEP throughput gain hold for MoE models smaller or larger than the benchmarked configuration?",
+    "Does the Homomorphic Advantage Operator stay stable at realistic model sizes, or only on the small benchmarks in the paper?"
   ],
-  "take_for_builders": "Training or fine-tuning an MoE model with RL at scale? Check the AWS EKS/EFA/DeepEP reference architecture and Google's Gemini RL customization guide before building your own pipeline from scratch.",
+  "take_for_builders": "Scaling MoE RL training? Start from the AWS EKS/EFA/DeepEP and Google Gemini RL guides. For encrypted-data RL, treat the Oct 1 paper as research to watch, not something to deploy.",
   "day_captions": {
     "e24d8bc5a3c1ce39": "New arXiv paper incrementally constructing task-specific multi-agent collaboration graphs with dense-reward RL, rather than reusing a fixed team topology.",
     "8c09c3a2477816c8": "Google Cloud's best-practices guide for customizing Gemini models via RL without cluster-scale compute or model-internals access.",
-    "95f314d9972fcd38": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput."
+    "95f314d9972fcd38": "AWS reference architecture scaling MoE reinforcement learning on EKS with EFA and DeepEP for 40% more training throughput.",
+    "c805ac88165186b6": "Arxiv paper on stabilizing RL advantage estimates under fully homomorphic encryption constraints."
   }
 }
