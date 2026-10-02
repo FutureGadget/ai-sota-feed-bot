@@ -645,6 +645,34 @@ class LiveFeedSurfaceTest(unittest.TestCase):
             '{"hasPrice":true,"creditsBothSources":true}',
         )
 
+    def test_shortcuts_dialog_and_keyboard_navigation(self) -> None:
+        self.assertIn('id="shortcutsToggle"', self.html)
+        self.assertIn('id="shortcutsDialog"', self.html)
+        self.assertIn('id="shortcutsClose"', self.html)
+        self.assertIn("function initShortcutsDialog()", self.html)
+        self.assertIn("function initKeyboardNavigation()", self.html)
+        self.assertIn("function selectCard(card", self.html)
+        self.assertIn("function moveCardSelection(delta)", self.html)
+        self.assertIn("#list > article.card-selected", self.html)
+        self.assertIn("restoreCardSelection()", self.html)
+
+    def test_search_scope_transparency_and_recovery_actions(self) -> None:
+        self.assertIn('data-search-action="all"', self.html)
+        self.assertIn('data-search-action="30d"', self.html)
+        self.assertIn('data-search-action="clear"', self.html)
+        self.assertIn("data-search-action", self.html)
+        self.assertIn("empty-search-actions", self.html)
+
+    def test_saved_view_markdown_copy_and_undo(self) -> None:
+        self.assertIn('data-copy-saved="1"', self.html)
+        self.assertIn("function buildSavedMarkdown(items)", self.html)
+        self.assertIn("function copySavedMarkdown()", self.html)
+        self.assertIn("Story removed from saved", self.html)
+
+    def test_swipe_edge_guard_avoids_browser_gesture_conflict(self) -> None:
+        self.assertIn("touchX < 24 || touchX > window.innerWidth - 24", self.html)
+
+
     def test_model_radar_rail_render_returns_false_and_stays_hidden_when_no_ranked_models(self) -> None:
         functions = self._extract_model_radar_functions()
         script = f"""

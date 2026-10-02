@@ -120,21 +120,6 @@
       font-size: 0.86rem;
       color: var(--muted);
     }
-    .quicknav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem 1rem;
-      margin-top: 0.5rem;
-      font-size: 0.88rem;
-    }
-    .quicknav a {
-      text-decoration: none;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-    .quicknav a:hover {
-      text-decoration: underline;
-    }
     .controls-bar {
       display: flex;
       align-items: center;
@@ -753,6 +738,8 @@
     .saved-tools {
       display: flex;
       justify-content: flex-end;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
     .saved-tools button {
       font-size: 0.86rem;
@@ -984,6 +971,12 @@
       border-color: var(--accent);
       color: var(--accent);
     }
+    .empty-search-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
     /* "You're caught up" end-marker: closes the Brief view so the finishable
        promise has a visible finish line. */
     .end-marker {
@@ -1078,11 +1071,6 @@
       font-size:1.7rem; letter-spacing:-.025em; }
     .topbar-actions button, .topbar-actions select {
       border-radius:3px; background:transparent; min-height:40px; }
-    .quicknav { margin-top:.8rem; padding:.65rem 0; border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border); font-family:ui-monospace,"SFMono-Regular",monospace;
-      font-size:.75rem; gap:.5rem 1.25rem; }
-    .quicknav a { color:var(--muted); }
-    .quicknav a:hover { color:var(--accent); text-decoration:none; }
     .feed-hero { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(15rem,.65fr);
       gap:1.5rem 2.5rem; align-items:end; margin:2rem 0 1.45rem; }
     .feed-kicker { display:none; margin:0 0 .35rem; font-family:ui-monospace,"SFMono-Regular",monospace;
@@ -1188,6 +1176,10 @@
     /* Mobile cards are transparent over the page, so the sliding card must
        repaint with the page background to cover the hide hint. */
     #list > article.swiping { background:var(--bg); }
+    #list > article.card-selected {
+      background: var(--feed-wash, color-mix(in srgb, var(--accent) 7%, transparent));
+      box-shadow: inset 3px 0 0 var(--accent);
+    }
     #list > article:first-of-type { border-top:1px solid var(--border); }
     #list > article.big-story { border-left:0; }
     #list > article.big-story::after { content:"multi-source"; position:absolute; right:0; top:1.12rem;
@@ -1277,36 +1269,6 @@
         padding-bottom: 0.25rem;
         -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
         mask-image: linear-gradient(to right, black 85%, transparent 100%);
-      }
-      .quicknav {
-        display: flex;
-        width: calc(100% + 2rem);
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        gap: 0.6rem;
-        padding: 0.65rem 1rem;
-        margin-left: -1rem;
-        margin-right: -1rem;
-        scrollbar-width: none;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        mask-image: linear-gradient(to right, black 85%, transparent 100%);
-      }
-      .quicknav::-webkit-scrollbar {
-        display: none;
-      }
-      .quicknav a {
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        min-height: 44px;
-        padding: 0.25rem 0.6rem;
-        background: var(--card);
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        font-size: 0.75rem;
       }
       #list > article { padding-left:1.75rem; }
       .rank-no { width:1.2rem; font-size:1.35rem; }
@@ -1450,6 +1412,41 @@
       font-size: 0.9rem;
       line-height: 1.6;
     }
+    .shortcuts-list {
+      display: grid;
+      gap: 0.35rem;
+      margin: 0.85rem 0 0.4rem;
+    }
+    .shortcut-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
+    .shortcut-row:last-child {
+      border-bottom: 0;
+    }
+    .shortcut-row kbd {
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.78rem;
+      padding: 0.15rem 0.45rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: color-mix(in srgb, var(--accent) 8%, var(--card));
+      box-shadow: 0 1px 0 var(--border);
+      color: var(--fg);
+    }
+    .shortcut-keys {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: ui-monospace, "SFMono-Regular", monospace;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
   </style>
 </head>
 <body>
@@ -1580,7 +1577,7 @@
     </div>
 
     <footer class="sitefooter" role="contentinfo">
-      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
+      <button type="button" id="aboutToggle" aria-haspopup="dialog" aria-expanded="false">About</button> · <button type="button" id="shortcutsToggle" aria-haspopup="dialog" aria-expanded="false">Shortcuts</button> · <a href="/daily">Daily recap</a> · <a href="/weekly">Weekly recap</a> · <a href="/storylines">Storylines</a> · <a href="/models">Model Radar</a> · <a href="/rss.xml">RSS</a> · <a href="/subscribe" data-subscribe-channel="email" data-subscribe-placement="footer">Email digest</a> · <a href="/api/feed">JSON feed</a>
     </footer>
   </main>
 
@@ -1627,6 +1624,29 @@
         document.documentElement.classList.remove('site-dialog-open');
         window.scrollTo(0, aboutScrollY);
         aboutToggle.focus();
+      });
+    }
+
+    function initShortcutsDialog() {
+      const dialog = document.getElementById('shortcutsDialog');
+      const toggle = document.getElementById('shortcutsToggle');
+      if (!dialog || !toggle || typeof dialog.showModal !== 'function') return;
+      const closeBtn = document.getElementById('shortcutsClose');
+      let scrollY = 0;
+      toggle.addEventListener('click', () => {
+        scrollY = window.scrollY;
+        toggle.setAttribute('aria-expanded', 'true');
+        document.documentElement.classList.add('site-dialog-open');
+        dialog.showModal();
+        if (closeBtn) closeBtn.focus();
+      });
+      if (closeBtn) closeBtn.addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+      dialog.addEventListener('close', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        document.documentElement.classList.remove('site-dialog-open');
+        window.scrollTo(0, scrollY);
+        toggle.focus();
       });
     }
 
@@ -1903,17 +1923,23 @@
         snack.setAttribute('role', 'status');
         document.body.appendChild(snack);
       }
-      snack.innerHTML = '<span class="undo-snack-msg"></span><button type="button" data-undo="1">Undo</button>';
+      const undoBtn = onUndo ? '<button type="button" data-undo="1">Undo</button>' : '';
+      snack.innerHTML = `<span class="undo-snack-msg"></span>${undoBtn}`;
       snack.querySelector('.undo-snack-msg').textContent = message;
       const dismiss = () => snack.classList.remove('show');
-      snack.querySelector('button[data-undo]').onclick = () => {
-        clearTimeout(undoSnackTimer);
-        dismiss();
-        try { onUndo(); } catch {}
-      };
+      if (onUndo) {
+        const btn = snack.querySelector('button[data-undo]');
+        if (btn) {
+          btn.onclick = () => {
+            clearTimeout(undoSnackTimer);
+            dismiss();
+            try { onUndo(); } catch {}
+          };
+        }
+      }
       requestAnimationFrame(() => snack.classList.add('show'));
       clearTimeout(undoSnackTimer);
-      undoSnackTimer = setTimeout(dismiss, 6000);
+      undoSnackTimer = setTimeout(dismiss, onUndo ? 6000 : 3000);
     }
 
     // Hide a story and offer an undo. When the reader isn't actively managing
@@ -1999,7 +2025,11 @@
         if (!t || t.classList.contains('card-hidden') || e.target.closest('a, button, input')) {
           card = null; dragging = false; return;
         }
-        card = t; startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+        const touchX = e.touches[0].clientX;
+        if (touchX < 24 || touchX > window.innerWidth - 24) {
+          card = null; dragging = false; return;
+        }
+        card = t; startX = touchX; startY = e.touches[0].clientY;
         dx = 0; dragging = true; decided = false; horizontal = false;
       }, { passive: true });
 
@@ -2038,6 +2068,140 @@
       };
       list.addEventListener('touchend', end);
       list.addEventListener('touchcancel', end);
+    }
+
+    let selectedItemKey = null;
+
+    function getVisibleCards() {
+      const list = document.getElementById('list');
+      if (!list) return [];
+      return Array.from(list.querySelectorAll('#list > article[data-item-key]'))
+        .filter((c) => !c.classList.contains('card-hidden') && !c.classList.contains('card-removing'));
+    }
+
+    function selectCard(card, { scroll = true } = {}) {
+      const list = document.getElementById('list');
+      if (list) {
+        list.querySelectorAll('article.card-selected').forEach((c) => c.classList.remove('card-selected'));
+      }
+      if (!card) {
+        selectedItemKey = null;
+        return;
+      }
+      card.classList.add('card-selected');
+      selectedItemKey = card.dataset.itemKey || null;
+      if (scroll) {
+        card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
+    }
+
+    function moveCardSelection(delta) {
+      const cards = getVisibleCards();
+      if (!cards.length) return;
+      const currentIndex = cards.findIndex((c) => c.dataset.itemKey === selectedItemKey);
+      let targetIndex;
+      if (currentIndex === -1) {
+        targetIndex = delta > 0 ? 0 : cards.length - 1;
+      } else {
+        targetIndex = Math.max(0, Math.min(cards.length - 1, currentIndex + delta));
+      }
+      selectCard(cards[targetIndex]);
+    }
+
+    function restoreCardSelection() {
+      if (!selectedItemKey) return;
+      const list = document.getElementById('list');
+      const card = list?.querySelector(`article[data-item-key="${CSS.escape(selectedItemKey)}"]`);
+      if (card && !card.classList.contains('card-hidden') && !card.classList.contains('card-removing')) {
+        card.classList.add('card-selected');
+      } else {
+        selectedItemKey = null;
+      }
+    }
+
+    function initKeyboardNavigation() {
+      window.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+        const target = e.target;
+        const isEditable = target && (
+          target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.tagName === 'SELECT' ||
+          target.isContentEditable
+        );
+
+        if (e.key === 'Escape') {
+          const shortcutsDialog = document.getElementById('shortcutsDialog');
+          if (shortcutsDialog?.open) {
+            shortcutsDialog.close();
+            return;
+          }
+          const aboutDialog = document.getElementById('aboutDialog');
+          if (aboutDialog?.open) {
+            aboutDialog.close();
+            return;
+          }
+          if (selectedItemKey) {
+            selectCard(null);
+            return;
+          }
+        }
+
+        if (isEditable) return;
+        if (document.querySelector('dialog[open]')) return;
+
+        if (e.key === 'j' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          moveCardSelection(1);
+        } else if (e.key === 'k' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          moveCardSelection(-1);
+        } else if (e.key === 'o' || e.key === 'Enter') {
+          if (!selectedItemKey) return;
+          const cards = getVisibleCards();
+          const current = cards.find((c) => c.dataset.itemKey === selectedItemKey);
+          const link = current?.querySelector('a[data-track="item-link"]');
+          if (link) {
+            e.preventDefault();
+            link.click();
+          }
+        } else if (e.key === 's') {
+          if (!selectedItemKey) return;
+          const cards = getVisibleCards();
+          const current = cards.find((c) => c.dataset.itemKey === selectedItemKey);
+          const saveBtn = current?.querySelector('button[data-save-id]');
+          if (saveBtn) {
+            e.preventDefault();
+            saveBtn.click();
+          }
+        } else if (e.key === 'x' || e.key === 'h') {
+          if (!selectedItemKey) return;
+          const cards = getVisibleCards();
+          const currentIdx = cards.findIndex((c) => c.dataset.itemKey === selectedItemKey);
+          if (currentIdx !== -1) {
+            const current = cards[currentIdx];
+            const hideBtn = current?.querySelector('button[data-hide-id]');
+            if (hideBtn) {
+              e.preventDefault();
+              const nextCard = cards[currentIdx + 1] || cards[currentIdx - 1] || null;
+              hideBtn.click();
+              if (nextCard) selectCard(nextCard, { scroll: false });
+            }
+          }
+        } else if (e.key === '/') {
+          e.preventDefault();
+          setSearchVisible(true, { focus: true });
+          const box = document.getElementById('searchBox');
+          if (box) {
+            box.focus();
+            box.select();
+          }
+        } else if (e.key === '?') {
+          e.preventDefault();
+          document.getElementById('shortcutsToggle')?.click();
+        }
+      });
     }
 
     // One-tap reader feedback (spec: docs/product-specs/feedback-loop.md).
@@ -3289,7 +3453,7 @@
         if (control.hasAttribute(name)) return `[${name}]`;
       }
       if (control.matches('a[data-track="item-link"]')) return 'a[data-track="item-link"]';
-      for (const name of ['data-export-saved', 'data-clear-filters', 'data-toggle-hidden', 'data-clear-hidden']) {
+      for (const name of ['data-export-saved', 'data-copy-saved', 'data-clear-filters', 'data-toggle-hidden', 'data-clear-hidden', 'data-search-action']) {
         if (control.hasAttribute(name)) return `[${name}]`;
       }
       return control.id ? `#${CSS.escape(control.id)}` : '';
@@ -3393,11 +3557,13 @@
           ? `<div class="state">No saved items match “${esc(q)}”.</div>`
           : `<div class="state">Nothing saved yet — tap ☆ on any story to keep it here.</div>`;
         restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
+        restoreCardSelection();
         return;
       }
-      const tools = `<div class="saved-tools"><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
+      const tools = `<div class="saved-tools"><button type="button" data-copy-saved="1" title="Copy saved stories as Markdown to clipboard">📋 Copy Markdown</button><button type="button" data-export-saved="1" title="Download your saved stories as a Markdown file">⬇ Export as Markdown</button></div>`;
       list.innerHTML = tools + saved.map((it) => cardHtml(it, { hideable: false })).join('');
       restoreListFocus(list, focusSnapshot, document.getElementById('savedTab'));
+      restoreCardSelection();
     }
 
     // First-visit onboarding: one-time topic picker that feeds the existing
@@ -3570,21 +3736,26 @@
         </section>`;
     }
 
-    // Saved items live only in localStorage; Markdown export is the escape
-    // hatch so a cleared browser doesn't mean a lost reading list.
-    function exportSavedMarkdown() {
-      const all = Object.values(savedItemsState)
-        .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
-      if (!all.length) return;
+    function buildSavedMarkdown(items) {
       const lines = ['# Saved stories — AI Feed (llm-digest.com)', ''];
-      for (const it of all) {
+      for (const it of items) {
         const title = String(it.title || 'Untitled').replace(/[\[\]]/g, '');
         const date = fmtCompactDate(it.published || it.saved_at);
         lines.push(`- [${title}](${it.url || ''})${it.source ? ` — ${sourceDisplayName(it.source)}` : ''}${date ? `, ${date}` : ''}`);
         const summary = cleanText(it.summary_1line);
         if (summary) lines.push(`  ${summary}`);
       }
-      const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/markdown' });
+      return lines.join('\n') + '\n';
+    }
+
+    // Saved items live only in localStorage; Markdown export is the escape
+    // hatch so a cleared browser doesn't mean a lost reading list.
+    function exportSavedMarkdown() {
+      const all = Object.values(savedItemsState)
+        .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
+      if (!all.length) return;
+      const md = buildSavedMarkdown(all);
+      const blob = new Blob([md], { type: 'text/markdown' });
       const a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = `ai-feed-saved-${toDateInput(new Date())}.md`;
@@ -3593,6 +3764,40 @@
       a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 5000);
       posthogCapture('saved_export', { count: all.length });
+    }
+
+    function fallbackCopyText(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showUndoSnack('Copied saved stories to clipboard');
+      } catch {
+        alert('Could not copy to clipboard.');
+      }
+      ta.remove();
+    }
+
+    function copySavedMarkdown() {
+      const all = Object.values(savedItemsState)
+        .sort((a, b) => String(b.saved_at || '').localeCompare(String(a.saved_at || '')));
+      if (!all.length) return;
+      const md = buildSavedMarkdown(all);
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(md).then(() => {
+          showUndoSnack('Copied saved stories to clipboard');
+        }).catch(() => {
+          fallbackCopyText(md);
+        });
+      } else {
+        fallbackCopyText(md);
+      }
+      posthogCapture('saved_copy', { count: all.length });
     }
 
     // Last fetched feed payload; search re-renders from here without refetching.
@@ -3756,7 +3961,24 @@
           html = hiddenBarHtml(hiddenInView)
             + `<div class="state">You've hidden everything in this range. Tap “Show hidden” above to bring stories back.</div>`;
         } else if (q) {
-          html = `<div class="state">No items match “${esc(q)}”. Try a different search.</div>`;
+          const currentTab = activeSection();
+          const tabName = currentTab === 'brief'
+            ? 'Brief'
+            : (currentTab === '' ? 'All stories' : (currentTab ? (currentTab.charAt(0).toUpperCase() + currentTab.slice(1)) : 'selected topics'));
+          const hasSectionFilter = currentTab !== '';
+          const hasNarrowRange = presetDaysState !== '30' && presetDaysState !== 'all';
+          const scopeParts = [tabName];
+          if (rangeNote) scopeParts.push(rangeNote.trim());
+          const scopeLabel = scopeParts.filter(Boolean).join(', ');
+          const actions = [];
+          if (hasSectionFilter) {
+            actions.push('<button type="button" data-search-action="all">Search all sections</button>');
+          }
+          if (hasNarrowRange) {
+            actions.push('<button type="button" data-search-action="30d">Search last 30 days</button>');
+          }
+          actions.push('<button type="button" data-search-action="clear">Clear search</button>');
+          html = `<div class="state">No items match “${esc(q)}” in ${esc(scopeLabel)}.<div class="empty-search-actions">${actions.join(' ')}</div></div>`;
         } else {
           // Name what's actually filtering: topic selections read differently
           // from an empty date window, and each gets its own next step. The
@@ -3817,8 +4039,12 @@
         const activeTab = document.querySelector('#sections button[aria-pressed="true"]')
           || document.getElementById('savedTab');
         restoreListFocus(list, focusSnapshot, activeTab);
+        restoreCardSelection();
         observeMobileModelRadarImpression();
         observeSkillLabFeedPromo();
+      } else {
+        list.classList.remove('feed-updating');
+        restoreCardSelection();
       }
       window.llmDigestUpdates?.renderFeed?.();
     }
@@ -3844,6 +4070,8 @@
         return;
       }
       runInFlight = true;
+      const list = document.getElementById('list');
+      if (list) list.classList.add('feed-updating');
       try {
         await runInner();
       } finally {
@@ -3962,6 +4190,10 @@
     // exitSaved: filter interactions leave the saved view and go back to the feed.
     function refreshFeed({ exitSaved = false } = {}) {
       if (exitSaved) viewState = 'feed';
+      const list = document.getElementById('list');
+      if (list && viewState === 'feed') {
+        list.classList.add('feed-updating');
+      }
       run().catch(err => {
         console.error(err);
         if (viewState !== 'feed') return;
@@ -3993,8 +4225,35 @@
       if (!list) return;
 
       list.addEventListener('click', (e) => {
+        if (e.target.closest('button[data-copy-saved]')) {
+          copySavedMarkdown();
+          return;
+        }
+
         if (e.target.closest('button[data-export-saved]')) {
           exportSavedMarkdown();
+          return;
+        }
+
+        const searchActionBtn = e.target.closest('button[data-search-action]');
+        if (searchActionBtn) {
+          const action = searchActionBtn.dataset.searchAction;
+          if (action === 'all') {
+            setSelectedLabels([]);
+            syncSectionTabs();
+            refreshFeed();
+          } else if (action === '30d') {
+            setDateRangeDays(30);
+            refreshFeed();
+          } else if (action === 'clear') {
+            searchQueryState = '';
+            const box = document.getElementById('searchBox');
+            if (box) box.value = '';
+            setSearchVisible(false);
+            syncUrlFromFilters();
+            if (viewState === 'saved') renderSavedView();
+            else renderFeedList();
+          }
           return;
         }
 
@@ -4141,10 +4400,21 @@
 
         const saveBtn = e.target.closest('button[data-save-id]');
         if (saveBtn) {
-          const nowSaved = toggleSaved(saveBtn.dataset.saveId || '');
+          const key = saveBtn.dataset.saveId || '';
           if (viewState === 'saved') {
+            const previousSnapshot = savedItemsState[key];
+            toggleSaved(key);
             renderSavedView();
+            if (previousSnapshot) {
+              showUndoSnack('Story removed from saved', () => {
+                savedItemsState[key] = previousSnapshot;
+                persistSavedItems();
+                renderSavedView();
+                updateSavedTab();
+              });
+            }
           } else {
+            const nowSaved = toggleSaved(key);
             saveBtn.textContent = nowSaved ? '★' : '☆';
             saveBtn.setAttribute('aria-pressed', nowSaved ? 'true' : 'false');
             const label = nowSaved ? 'Remove from saved' : 'Save for later';
@@ -4182,6 +4452,11 @@
           return;
         }
 
+        const clickedCard = e.target.closest('#list > article[data-item-key]');
+        if (clickedCard) {
+          selectCard(clickedCard, { scroll: false });
+        }
+
         const a = e.target.closest('a[data-track="item-link"]');
         if (!a) return;
 
@@ -4204,6 +4479,21 @@
     function initFilters() {
       const searchEl = document.getElementById('searchBox');
       let searchDebounce = null;
+      searchEl?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          if (searchEl.value.trim()) {
+            searchEl.value = '';
+            searchQueryState = '';
+            syncUrlFromFilters();
+            if (viewState === 'saved') renderSavedView();
+            else renderFeedList();
+          } else {
+            setSearchVisible(false);
+            document.getElementById('searchToggle')?.focus();
+          }
+        }
+      });
       searchEl?.addEventListener('input', () => {
         searchQueryState = searchEl.value;
         clearTimeout(searchDebounce);
@@ -4313,10 +4603,15 @@
 
     initThemeToggle();
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initAboutDialog);
+      document.addEventListener('DOMContentLoaded', () => {
+        initAboutDialog();
+        initShortcutsDialog();
+      });
     } else {
       initAboutDialog();
+      initShortcutsDialog();
     }
+    initKeyboardNavigation();
     readFiltersFromUrl();
     initFilters();
     initClickTracking();
@@ -4626,6 +4921,25 @@
       <p>One shared, transparent ranking for everyone. No personalized filter bubble, no engagement-optimized infinite scroll: the brief is built to end.</p>
       <p>Privacy: pages use anonymous PostHog analytics and your preferences (saved stories, pinned topics, read history) stay in your browser only. There are no accounts.</p>
       <p>Feedback or source suggestions: <a href="https://github.com/FutureGadget/ai-sota-feed-bot/issues" target="_blank" rel="noopener">GitHub issues</a>.</p>
+    </div>
+  </dialog>
+
+  <dialog id="shortcutsDialog" class="about-dialog shortcuts-dialog" aria-labelledby="shortcutsTitle">
+    <div class="about-panel">
+      <div class="about-head">
+        <h2 id="shortcutsTitle">Keyboard shortcuts</h2>
+        <button type="button" id="shortcutsClose" class="about-close" aria-label="Close shortcuts dialog">Close</button>
+      </div>
+      <div class="shortcuts-list" role="table" aria-label="Keyboard shortcuts">
+        <div class="shortcut-row"><span>Next story</span><span class="shortcut-keys"><kbd>j</kbd> or <kbd>↓</kbd></span></div>
+        <div class="shortcut-row"><span>Previous story</span><span class="shortcut-keys"><kbd>k</kbd> or <kbd>↑</kbd></span></div>
+        <div class="shortcut-row"><span>Open story link</span><span class="shortcut-keys"><kbd>o</kbd> or <kbd>Enter</kbd></span></div>
+        <div class="shortcut-row"><span>Save or unsave story</span><span class="shortcut-keys"><kbd>s</kbd></span></div>
+        <div class="shortcut-row"><span>Hide story from feed</span><span class="shortcut-keys"><kbd>x</kbd> or <kbd>h</kbd></span></div>
+        <div class="shortcut-row"><span>Search stories</span><span class="shortcut-keys"><kbd>/</kbd></span></div>
+        <div class="shortcut-row"><span>Close modal or clear selection</span><span class="shortcut-keys"><kbd>Esc</kbd></span></div>
+        <div class="shortcut-row"><span>Show keyboard shortcuts</span><span class="shortcut-keys"><kbd>?</kbd></span></div>
+      </div>
     </div>
   </dialog>
 </body>
